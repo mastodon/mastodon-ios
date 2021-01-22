@@ -1,0 +1,10 @@
+strings:
+  inputs: Mastodon/Resources/en.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift5
+      output: Mastodon/Generated/Strings.swift
+xcassets:
+  inputs: Mastodon/Resources/Assets.xcassets
+  outputs:
+    templateName: swift5
+    output: Mastodon/Generated/Assets.swift
