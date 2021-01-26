@@ -9,9 +9,13 @@ import Combine
 import Foundation
 
 public extension Mastodon.API.App {
-    internal static let appEndpointURL = Mastodon.API.endpointURL.appendingPathComponent("apps")
     
-    struct OAuth2Credentials: Codable {
+    static func appEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("apps")
+    }
+    
+    struct Application: Codable {
+
         public let id: String
 
         public let name: String
@@ -33,28 +37,33 @@ public extension Mastodon.API.App {
         }
     }
     
-    struct registerAppQuery {
-        public let client_name: String
-        public let redirect_uris: String
-        public let scopes: String
-        public let website: String
+    struct CreateAnAppQuery {
+        public let clientName: String
+        public let redirectURIs: String
+        public let scopes: String?
+        public let website: String?
         
-        public init(client_name: String, redirect_uris: String, scopes: String, website: String) {
-            self.client_name = client_name
-            self.redirect_uris = redirect_uris
+        public init(clientName: String, redirectURIs: String, scopes: String?, website: String?) {
+            self.clientName = clientName
+            self.redirectURIs = redirectURIs
             self.scopes = scopes
             self.website = website
         }
         
         var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
-            items.append(URLQueryItem(name: "client_name", value: client_name))
-            items.append(URLQueryItem(name: "redirect_uris", value: redirect_uris))
-            items.append(URLQueryItem(name: "scopes", value: scopes))
+            items.append(URLQueryItem(name: "client_name", value: clientName))
+            items.append(URLQueryItem(name: "redirect_uris", value: redirectURIs))
+            scopes.flatMap {
+                items.append(URLQueryItem(name: "scopes", value: $0))
+            }
+            website.flatMap {
+                items.append(URLQueryItem(name: "website", value: $0))
+            }
+            
             guard !items.isEmpty else { return nil }
             return items
         }
     }
+    
 }
-
-extension Mastodon.API.App.OAuth2Credentials: Equatable {}
