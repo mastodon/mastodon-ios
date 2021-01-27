@@ -5,20 +5,38 @@
 //  Created by xiaojian sun on 2021/1/25.
 //
 
-import Combine
 import Foundation
+import Combine
 
-public extension Mastodon.API.App {
+extension Mastodon.API.App {
 
     static func appEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("apps")
+    }
+    
+    public static func create(
+        session: URLSession,
+        domain: String,
+        query: CreateQuery
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.API.App.Application>, Error>  {
+        let request = Mastodon.API.request(
+            url: appEndpointURL(domain: domain),
+            query: query,
+            authorization: nil
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Application.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
     }
 
 }
 
 extension Mastodon.API.App {
     
-    struct Application: Codable {
+    public struct Application: Codable {
 
         public let id: String
 
@@ -41,32 +59,33 @@ extension Mastodon.API.App {
         }
     }
     
-    struct CreateAnAppQuery {
+    public struct CreateQuery: Codable, PostQuery {
         public let clientName: String
         public let redirectURIs: String
         public let scopes: String?
         public let website: String?
         
-        public init(clientName: String, redirectURIs: String, scopes: String?, website: String?) {
+        enum CodingKeys: String, CodingKey {
+            case clientName = "client_name"
+            case redirectURIs = "redirect_uris"
+            case scopes
+            case website
+        }
+        
+        public init(
+            clientName: String,
+            redirectURIs: String = "urn:ietf:wg:oauth:2.0:oob",
+            scopes: String? = "read write follow push",
+            website: String?
+        ) {
             self.clientName = clientName
             self.redirectURIs = redirectURIs
             self.scopes = scopes
             self.website = website
         }
         
-        var queryItems: [URLQueryItem]? {
-            var items: [URLQueryItem] = []
-            items.append(URLQueryItem(name: "client_name", value: clientName))
-            items.append(URLQueryItem(name: "redirect_uris", value: redirectURIs))
-            scopes.flatMap {
-                items.append(URLQueryItem(name: "scopes", value: $0))
-            }
-            website.flatMap {
-                items.append(URLQueryItem(name: "website", value: $0))
-            }
-            
-            guard !items.isEmpty else { return nil }
-            return items
+        var body: Data? {
+            return try? Mastodon.API.encoder.encode(self)
         }
     }
     

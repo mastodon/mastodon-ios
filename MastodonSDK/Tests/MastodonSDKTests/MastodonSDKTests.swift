@@ -1,14 +1,62 @@
 import XCTest
+import Combine
 @testable import MastodonSDK
 
 final class MastodonSDKTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-    }
+    
+    var disposeBag = Set<AnyCancellable>()
+    
+    let domain = "mstdn.jp"
+    let session = URLSession(configuration: .ephemeral)
+    
+    func testCreateAnAnpplication() throws {
+        let theExpectation = expectation(description: "Create An Application")
+        
+        let query = Mastodon.API.App.CreateQuery(
+            clientName: "XCTest",
+            website: nil
+        )
+        Mastodon.API.App.create(session: session, domain: domain, query: query)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
+                case .finished:
+                    break
+                }
+            } receiveValue: { response in
+                XCTAssertEqual(response.value.name, "XCTest")
+                XCTAssertEqual(response.value.website, nil)
+                XCTAssertEqual(response.value.redirectURI, "urn:ietf:wg:oauth:2.0:oob")
+                theExpectation.fulfill()
+            }
+            .store(in: &disposeBag)
 
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+        wait(for: [theExpectation], timeout: 10.0)
+    }
+    
+    func testPublicTimeline() throws {
+        let theExpectation = expectation(description: "Create An Application")
+        
+        let query = Mastodon.API.Timeline.PublicTimelineQuery()
+        Mastodon.API.Timeline.public(session: session, domain: domain, query: query)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
+                case .finished:
+                    break
+                }
+            } receiveValue: { response in
+                XCTAssert(!response.value.isEmpty)
+                theExpectation.fulfill()
+            }
+            .store(in: &disposeBag)
+
+        wait(for: [theExpectation], timeout: 10.0)
+        
+    }
+    
 }

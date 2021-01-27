@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "5119353D-C795-4264-89FD-8376D9B144F8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MastodonSDK",
+        "identifier" : "MastodonSDKTests",
+        "name" : "MastodonSDKTests"
+      }
+    }
+  ],
+  "version" : 1
+}
