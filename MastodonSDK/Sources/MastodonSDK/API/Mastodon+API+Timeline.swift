@@ -14,7 +14,7 @@ extension Mastodon.API.Timeline {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("timelines/public")
     }
     
-    public static func create(
+    public static func `public`(
         session: URLSession,
         domain: String,
         query: PublicTimelineQuery
@@ -45,7 +45,15 @@ extension Mastodon.API.Timeline {
         public let minID: Mastodon.Entity.Toot.ID?
         public let limit: Int?
     
-        public init(local: Bool?, remote: Bool?, onlyMedia: Bool?, maxID: Mastodon.Entity.Toot.ID?, sinceID: Mastodon.Entity.Toot.ID?, minID: Mastodon.Entity.Toot.ID?, limit: Int?) {
+        public init(
+            local: Bool? = nil,
+            remote: Bool? = nil,
+            onlyMedia: Bool? = nil,
+            maxID: Mastodon.Entity.Toot.ID? = nil,
+            sinceID: Mastodon.Entity.Toot.ID? = nil,
+            minID: Mastodon.Entity.Toot.ID? = nil,
+            limit: Int? = nil
+        ) {
             self.local = local
             self.remote = remote
             self.onlyMedia = onlyMedia

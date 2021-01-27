@@ -14,7 +14,7 @@ extension Mastodon.Entity {
 
         public let id: ID
 
-        public let username: Date
+        public let username: String
         public let acct: String
         public let displayName: String?
         public let avatar: String?

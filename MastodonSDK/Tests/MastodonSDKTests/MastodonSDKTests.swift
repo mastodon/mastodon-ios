@@ -36,4 +36,27 @@ final class MastodonSDKTests: XCTestCase {
         wait(for: [theExpectation], timeout: 10.0)
     }
     
+    func testPublicTimeline() throws {
+        let theExpectation = expectation(description: "Create An Application")
+        
+        let query = Mastodon.API.Timeline.PublicTimelineQuery()
+        Mastodon.API.Timeline.public(session: session, domain: domain, query: query)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
+                case .finished:
+                    break
+                }
+            } receiveValue: { response in
+                XCTAssert(!response.value.isEmpty)
+                theExpectation.fulfill()
+            }
+            .store(in: &disposeBag)
+
+        wait(for: [theExpectation], timeout: 10.0)
+        
+    }
+    
 }
