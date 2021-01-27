@@ -9,10 +9,14 @@ import Combine
 import Foundation
 
 public extension Mastodon.API.App {
-    
+
     static func appEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("apps")
     }
+
+}
+
+extension Mastodon.API.App {
     
     struct Application: Codable {
 

@@ -12,7 +12,6 @@
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		7A9135D4559750AF07CA9BE4 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602D783BEC22881EBAD84419 /* Pods_Mastodon.framework */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
-		DB3D100025BAA6DA00EAA174 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3D0FFF25BAA6DA00EAA174 /* ViewController.swift */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB3D102425BAA7B400EAA174 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3D102225BAA7B400EAA174 /* Assets.swift */; };
 		DB3D102525BAA7B400EAA174 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3D102325BAA7B400EAA174 /* Strings.swift */; };
@@ -23,6 +22,29 @@
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
+		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
+		DB89B9FE25C10FD0008580ED /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */; };
+		DB89BA0025C10FD0008580ED /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = DB89B9F025C10FD0008580ED /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
+		DB89BA0425C10FD0008580ED /* CoreDataStack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DB89BA1225C1105C008580ED /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA1125C1105C008580ED /* CoreDataStack.swift */; };
+		DB89BA1B25C1107F008580ED /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA1825C1107F008580ED /* Collection.swift */; };
+		DB89BA1C25C1107F008580ED /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA1925C1107F008580ED /* NSManagedObjectContext.swift */; };
+		DB89BA1D25C1107F008580ED /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA1A25C1107F008580ED /* URL.swift */; };
+		DB89BA2725C110B4008580ED /* Toots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA2625C110B4008580ED /* Toots.swift */; };
+		DB89BA3725C1145C008580ED /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA3525C1145C008580ED /* CoreData.xcdatamodeld */; };
+		DB89BA4325C1165F008580ED /* NetworkUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA4125C1165F008580ED /* NetworkUpdatable.swift */; };
+		DB89BA4425C1165F008580ED /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89BA4225C1165F008580ED /* Managed.swift */; };
+		DB8AF52525C131D1002E6C99 /* MastodonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF52425C131D1002E6C99 /* MastodonUser.swift */; };
+		DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF52B25C13561002E6C99 /* ViewStateStore.swift */; };
+		DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF52C25C13561002E6C99 /* DocumentStore.swift */; };
+		DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF52D25C13561002E6C99 /* AppContext.swift */; };
+		DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54225C13647002E6C99 /* SceneCoordinator.swift */; };
+		DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54325C13647002E6C99 /* NeedsDependency.swift */; };
+		DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */; };
+		DB8AF55725C137A8002E6C99 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55625C137A8002E6C99 /* HomeViewController.swift */; };
+		DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55C25C138B7002E6C99 /* UIViewController.swift */; };
+		DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +62,42 @@
 			remoteGlobalIDString = DB427DD125BAA00100D1B89D;
 			remoteInfo = Mastodon;
 		};
+		DB89B9F825C10FD0008580ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB89B9ED25C10FD0008580ED;
+			remoteInfo = CoreDataStack;
+		};
+		DB89B9FA25C10FD0008580ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB427DD125BAA00100D1B89D;
+			remoteInfo = Mastodon;
+		};
+		DB89BA0125C10FD0008580ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB89B9ED25C10FD0008580ED;
+			remoteInfo = CoreDataStack;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DB89BA0825C10FD0008580ED /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DB89BA0425C10FD0008580ED /* CoreDataStack.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -52,7 +109,6 @@
 		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
-		DB3D0FFF25BAA6DA00EAA174 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB3D102225BAA7B400EAA174 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DB3D102325BAA7B400EAA174 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -69,6 +125,31 @@
 		DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB89B9F025C10FD0008580ED /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
+		DB89B9F125C10FD0008580ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB89B9F625C10FD0008580ED /* CoreDataStackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreDataStackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackTests.swift; sourceTree = "<group>"; };
+		DB89B9FF25C10FD0008580ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB89BA1025C10FF5008580ED /* Mastodon.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mastodon.entitlements; sourceTree = "<group>"; };
+		DB89BA1125C1105C008580ED /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		DB89BA1825C1107F008580ED /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		DB89BA1925C1107F008580ED /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		DB89BA1A25C1107F008580ED /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		DB89BA2625C110B4008580ED /* Toots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toots.swift; sourceTree = "<group>"; };
+		DB89BA3625C1145C008580ED /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		DB89BA4125C1165F008580ED /* NetworkUpdatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUpdatable.swift; sourceTree = "<group>"; };
+		DB89BA4225C1165F008580ED /* Managed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
+		DB8AF52425C131D1002E6C99 /* MastodonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUser.swift; sourceTree = "<group>"; };
+		DB8AF52B25C13561002E6C99 /* ViewStateStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewStateStore.swift; sourceTree = "<group>"; };
+		DB8AF52C25C13561002E6C99 /* DocumentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
+		DB8AF52D25C13561002E6C99 /* AppContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		DB8AF54225C13647002E6C99 /* SceneCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		DB8AF54325C13647002E6C99 /* NeedsDependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedsDependency.swift; sourceTree = "<group>"; };
+		DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		DB8AF55625C137A8002E6C99 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		DB8AF55C25C138B7002E6C99 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineIndex.swift; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				7A9135D4559750AF07CA9BE4 /* Pods_Mastodon.framework in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
@@ -96,6 +178,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				3533495136D843E85211E3E2 /* Pods_Mastodon_MastodonUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB89B9EB25C10FD0008580ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB89B9F325C10FD0008580ED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +258,8 @@
 				DB427DD425BAA00100D1B89D /* Mastodon */,
 				DB427DEB25BAA00100D1B89D /* MastodonTests */,
 				DB427DF625BAA00100D1B89D /* MastodonUITests */,
+				DB89B9EF25C10FD0008580ED /* CoreDataStack */,
+				DB89B9FC25C10FD0008580ED /* CoreDataStackTests */,
 				DB427DD325BAA00100D1B89D /* Products */,
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				4E8E8B18DB8471A676012CF9 /* Frameworks */,
@@ -173,6 +272,8 @@
 				DB427DD225BAA00100D1B89D /* Mastodon.app */,
 				DB427DE825BAA00100D1B89D /* MastodonTests.xctest */,
 				DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */,
+				DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */,
+				DB89B9F625C10FD0008580ED /* CoreDataStackTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,8 +281,12 @@
 		DB427DD425BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXGroup;
 			children = (
+				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
-				DB3D0FFF25BAA6DA00EAA174 /* ViewController.swift */,
+				DB8AF52A25C13561002E6C99 /* State */,
+				DB8AF56225C138BC002E6C99 /* Extension */,
+				DB8AF55525C1379F002E6C99 /* Scene */,
+				DB8AF54125C13647002E6C99 /* Coordinator */,
 				DB3D101B25BAA79200EAA174 /* Generated */,
 				DB3D0FF825BAA6B200EAA174 /* Resources */,
 				DB3D0FF725BAA68500EAA174 /* Supporting Files */,
@@ -207,7 +312,114 @@
 			path = MastodonUITests;
 			sourceTree = "<group>";
 		};
+		DB89B9EF25C10FD0008580ED /* CoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				DB89B9F125C10FD0008580ED /* Info.plist */,
+				DB89B9F025C10FD0008580ED /* CoreDataStack.h */,
+				DB89BA1125C1105C008580ED /* CoreDataStack.swift */,
+				DB89BA3525C1145C008580ED /* CoreData.xcdatamodeld */,
+				DB89BA4025C1165F008580ED /* Protocol */,
+				DB89BA1725C1107F008580ED /* Extension */,
+				DB89BA2C25C110B7008580ED /* Entity */,
+			);
+			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
+		DB89B9FC25C10FD0008580ED /* CoreDataStackTests */ = {
+			isa = PBXGroup;
+			children = (
+				DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */,
+				DB89B9FF25C10FD0008580ED /* Info.plist */,
+			);
+			path = CoreDataStackTests;
+			sourceTree = "<group>";
+		};
+		DB89BA1725C1107F008580ED /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DB89BA1825C1107F008580ED /* Collection.swift */,
+				DB89BA1925C1107F008580ED /* NSManagedObjectContext.swift */,
+				DB89BA1A25C1107F008580ED /* URL.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		DB89BA2C25C110B7008580ED /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				DB89BA2625C110B4008580ED /* Toots.swift */,
+				DB8AF52425C131D1002E6C99 /* MastodonUser.swift */,
+				DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		DB89BA4025C1165F008580ED /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				DB89BA4125C1165F008580ED /* NetworkUpdatable.swift */,
+				DB89BA4225C1165F008580ED /* Managed.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		DB8AF52A25C13561002E6C99 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				DB8AF52B25C13561002E6C99 /* ViewStateStore.swift */,
+				DB8AF52C25C13561002E6C99 /* DocumentStore.swift */,
+				DB8AF52D25C13561002E6C99 /* AppContext.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		DB8AF54125C13647002E6C99 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				DB8AF54225C13647002E6C99 /* SceneCoordinator.swift */,
+				DB8AF54325C13647002E6C99 /* NeedsDependency.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		DB8AF54E25C13703002E6C99 /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		DB8AF55525C1379F002E6C99 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				DB8AF54E25C13703002E6C99 /* MainTab */,
+				DB8AF55625C137A8002E6C99 /* HomeViewController.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		DB8AF56225C138BC002E6C99 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DB89B9E925C10FD0008580ED /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB89BA0025C10FD0008580ED /* CoreDataStack.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		DB427DD125BAA00100D1B89D /* Mastodon */ = {
@@ -220,10 +432,12 @@
 				DB427DD025BAA00100D1B89D /* Resources */,
 				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
 				DB3D100425BAA71500EAA174 /* ShellScript */,
+				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DB89BA0225C10FD0008580ED /* PBXTargetDependency */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
@@ -273,6 +487,43 @@
 			productReference = DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DB89B9ED25C10FD0008580ED /* CoreDataStack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB89BA0525C10FD0008580ED /* Build configuration list for PBXNativeTarget "CoreDataStack" */;
+			buildPhases = (
+				DB89B9E925C10FD0008580ED /* Headers */,
+				DB89B9EA25C10FD0008580ED /* Sources */,
+				DB89B9EB25C10FD0008580ED /* Frameworks */,
+				DB89B9EC25C10FD0008580ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoreDataStack;
+			productName = CoreDataStack;
+			productReference = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DB89B9F525C10FD0008580ED /* CoreDataStackTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB89BA0925C10FD0008580ED /* Build configuration list for PBXNativeTarget "CoreDataStackTests" */;
+			buildPhases = (
+				DB89B9F225C10FD0008580ED /* Sources */,
+				DB89B9F325C10FD0008580ED /* Frameworks */,
+				DB89B9F425C10FD0008580ED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB89B9F925C10FD0008580ED /* PBXTargetDependency */,
+				DB89B9FB25C10FD0008580ED /* PBXTargetDependency */,
+			);
+			name = CoreDataStackTests;
+			productName = CoreDataStackTests;
+			productReference = DB89B9F625C10FD0008580ED /* CoreDataStackTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -290,6 +541,14 @@
 						TestTargetID = DB427DD125BAA00100D1B89D;
 					};
 					DB427DF225BAA00100D1B89D = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = DB427DD125BAA00100D1B89D;
+					};
+					DB89B9ED25C10FD0008580ED = {
+						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
+					};
+					DB89B9F525C10FD0008580ED = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = DB427DD125BAA00100D1B89D;
 					};
@@ -314,6 +573,8 @@
 				DB427DD125BAA00100D1B89D /* Mastodon */,
 				DB427DE725BAA00100D1B89D /* MastodonTests */,
 				DB427DF225BAA00100D1B89D /* MastodonUITests */,
+				DB89B9ED25C10FD0008580ED /* CoreDataStack */,
+				DB89B9F525C10FD0008580ED /* CoreDataStackTests */,
 			);
 		};
 /* End PBXProject section */
@@ -338,6 +599,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DB427DF125BAA00100D1B89D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB89B9EC25C10FD0008580ED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB89B9F425C10FD0008580ED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -471,8 +746,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB3D100025BAA6DA00EAA174 /* ViewController.swift in Sources */,
+				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
+				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
+				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
+				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
+				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
+				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
+				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
+				DB8AF55725C137A8002E6C99 /* HomeViewController.swift in Sources */,
 				DB3D102525BAA7B400EAA174 /* Strings.swift in Sources */,
 				DB3D102425BAA7B400EAA174 /* Assets.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
@@ -495,6 +777,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB89B9EA25C10FD0008580ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB89BA1225C1105C008580ED /* CoreDataStack.swift in Sources */,
+				DB89BA1C25C1107F008580ED /* NSManagedObjectContext.swift in Sources */,
+				DB89BA3725C1145C008580ED /* CoreData.xcdatamodeld in Sources */,
+				DB8AF52525C131D1002E6C99 /* MastodonUser.swift in Sources */,
+				DB89BA1B25C1107F008580ED /* Collection.swift in Sources */,
+				DB89BA2725C110B4008580ED /* Toots.swift in Sources */,
+				DB89BA4425C1165F008580ED /* Managed.swift in Sources */,
+				DB89BA4325C1165F008580ED /* NetworkUpdatable.swift in Sources */,
+				DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */,
+				DB89BA1D25C1107F008580ED /* URL.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB89B9F225C10FD0008580ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB89B9FE25C10FD0008580ED /* CoreDataStackTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -507,6 +814,21 @@
 			isa = PBXTargetDependency;
 			target = DB427DD125BAA00100D1B89D /* Mastodon */;
 			targetProxy = DB427DF425BAA00100D1B89D /* PBXContainerItemProxy */;
+		};
+		DB89B9F925C10FD0008580ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB89B9ED25C10FD0008580ED /* CoreDataStack */;
+			targetProxy = DB89B9F825C10FD0008580ED /* PBXContainerItemProxy */;
+		};
+		DB89B9FB25C10FD0008580ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB427DD125BAA00100D1B89D /* Mastodon */;
+			targetProxy = DB89B9FA25C10FD0008580ED /* PBXContainerItemProxy */;
+		};
+		DB89BA0225C10FD0008580ED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB89B9ED25C10FD0008580ED /* CoreDataStack */;
+			targetProxy = DB89BA0125C10FD0008580ED /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -589,7 +911,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -644,7 +966,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -660,6 +982,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LFDZ96332;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -681,6 +1004,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LFDZ96332;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -700,7 +1024,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LFDZ96332;
@@ -722,7 +1045,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LFDZ96332;
@@ -780,6 +1102,103 @@
 			};
 			name = Release;
 		};
+		DB89BA0625C10FD0008580ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7LFDZ96332;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CoreDataStack/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStack;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DB89BA0725C10FD0008580ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 7LFDZ96332;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = CoreDataStack/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStack;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		DB89BA0A25C10FD0008580ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LFDZ96332;
+				INFOPLIST_FILE = CoreDataStackTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStackTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
+			};
+			name = Debug;
+		};
+		DB89BA0B25C10FD0008580ED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LFDZ96332;
+				INFOPLIST_FILE = CoreDataStackTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.CoreDataStackTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mastodon.app/Mastodon";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -819,6 +1238,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DB89BA0525C10FD0008580ED /* Build configuration list for PBXNativeTarget "CoreDataStack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB89BA0625C10FD0008580ED /* Debug */,
+				DB89BA0725C10FD0008580ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DB89BA0925C10FD0008580ED /* Build configuration list for PBXNativeTarget "CoreDataStackTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB89BA0A25C10FD0008580ED /* Debug */,
+				DB89BA0B25C10FD0008580ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -843,6 +1280,19 @@
 			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		DB89BA3525C1145C008580ED /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DB89BA3625C1145C008580ED /* CoreData.xcdatamodel */,
+			);
+			currentVersion = DB89BA3625C1145C008580ED /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DB427DCA25BAA00100D1B89D /* Project object */;
 }

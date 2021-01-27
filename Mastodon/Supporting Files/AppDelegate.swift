@@ -10,7 +10,7 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let appContext = AppContext()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -34,3 +34,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        #if DEBUG
+        return .all
+        #else
+        return UIDevice.current.userInterfaceIdiom == .pad ? .all : .portrait
+        #endif
+    }
+}
+
+
+extension AppContext {
+    static var shared: AppContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.appContext
+    }
+}
