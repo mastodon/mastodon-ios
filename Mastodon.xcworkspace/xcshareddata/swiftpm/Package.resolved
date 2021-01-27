@@ -18,6 +18,33 @@
           "revision": "3e8edbeb75227f8542aa87f90240cf0424d6362f",
           "version": "4.1.0"
         }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "8da5c5a4e6c5084c296b9f39dc54f00be146e0fa",
+          "version": "1.14.2"
+        }
+      },
+      {
+        "package": "swift-nio-zlib-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "state": {
+          "branch": null,
+          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
+          "version": "5.0.0"
+        }
       }
     ]
   },
