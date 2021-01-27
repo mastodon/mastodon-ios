@@ -18,7 +18,7 @@ extension Mastodon.Entity {
         public let content: String
         public let account: User
         
-        public let language: String
+        public let language: String?
         public let visibility: String
         
         enum CodingKeys: String, CodingKey {

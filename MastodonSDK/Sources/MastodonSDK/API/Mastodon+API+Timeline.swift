@@ -91,9 +91,3 @@ extension Mastodon.API.Timeline {
         }
     }
 }
-
-extension Bool {
-    var queryItemValue: String {
-        return self ? "true" : "false"
-    }
-}
