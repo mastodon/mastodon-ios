@@ -5,14 +5,22 @@
 //  Created by xiaojian sun on 2021/1/25.
 //
 
-import Combine
 import Foundation
+import Combine
 
-public extension Mastodon.API.App {
+extension Mastodon.API.App {
 
     static func appEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("apps")
     }
+    
+    public static func create(
+        session: URLSession,
+        query: CreateQuery
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.API.App.Application>, Error>  {
+        fatalError()
+    }
+    
 
 }
 
@@ -41,13 +49,18 @@ extension Mastodon.API.App {
         }
     }
     
-    struct CreateAnAppQuery {
+    struct CreateQuery {
         public let clientName: String
         public let redirectURIs: String
         public let scopes: String?
         public let website: String?
         
-        public init(clientName: String, redirectURIs: String, scopes: String?, website: String?) {
+        public init(
+            clientName: String,
+            redirectURIs: String = "urn:ietf:wg:oauth:2.0:oob",
+            scopes: String? = "read write follow push",
+            website: String?
+        ) {
             self.clientName = clientName
             self.redirectURIs = redirectURIs
             self.scopes = scopes

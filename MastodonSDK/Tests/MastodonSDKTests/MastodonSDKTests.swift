@@ -1,14 +1,33 @@
 import XCTest
+import Combine
 @testable import MastodonSDK
 
 final class MastodonSDKTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-    }
+    
+    var disposeBag = Set<AnyCancellable>()
+    
+    let domain = "mstdn.jp"
+    let session = URLSession(configuration: .ephemeral)
+    
+    func testCreateAnAnpplication() throws {
+        let theExpectation = expectation(description: "Create An Application")
+        
+        let query = Mastodon.API.App.CreateQuery(
+            clientName: "XCTest",
+            website: nil
+        )
+        Mastodon.API.App.create(session: session, query: query)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                
+            } receiveValue: { response in
+                theExpectation.fulfill()
+            }
+            .store(in: &disposeBag)
 
-    static var allTests = [
-        ("testExample", testExample),
-    ]
+        wait(for: [theExpectation], timeout: 10.0)
+    }
+    
+    
+    
 }

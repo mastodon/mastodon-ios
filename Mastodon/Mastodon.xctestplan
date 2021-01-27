@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "63D68260-F74D-4CA6-ADBC-B1263DD6BE55",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Mastodon.xcodeproj",
+        "identifier" : "DB427DE725BAA00100D1B89D",
+        "name" : "MastodonTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Mastodon.xcodeproj",
+        "identifier" : "DB427DF225BAA00100D1B89D",
+        "name" : "MastodonUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
