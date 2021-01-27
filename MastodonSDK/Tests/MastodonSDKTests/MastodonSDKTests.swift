@@ -16,18 +16,24 @@ final class MastodonSDKTests: XCTestCase {
             clientName: "XCTest",
             website: nil
         )
-        Mastodon.API.App.create(session: session, query: query)
+        Mastodon.API.App.create(session: session, domain: domain, query: query)
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                
+                switch completion {
+                case .failure(let error):
+                    XCTFail(error.localizedDescription)
+                case .finished:
+                    break
+                }
             } receiveValue: { response in
+                XCTAssertEqual(response.value.name, "XCTest")
+                XCTAssertEqual(response.value.website, nil)
+                XCTAssertEqual(response.value.redirectURI, "urn:ietf:wg:oauth:2.0:oob")
                 theExpectation.fulfill()
             }
             .store(in: &disposeBag)
 
         wait(for: [theExpectation], timeout: 10.0)
     }
-    
-    
     
 }
