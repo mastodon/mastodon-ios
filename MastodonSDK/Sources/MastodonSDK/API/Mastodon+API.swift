@@ -11,7 +11,23 @@ import enum NIOHTTP1.HTTPResponseStatus
 extension Mastodon.API {
         
     static let timeoutInterval: TimeInterval = 10
-    static let httpHeaderDateFormatter = ISO8601DateFormatter()
+    
+    static let httpHeaderDateFormatter: ISO8601DateFormatter = {
+        var formatter = ISO8601DateFormatter()
+        formatter.formatOptions.insert(.withFractionalSeconds)
+        return formatter
+    }()
+    static let fractionalSecondsPreciseISO8601Formatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions.insert(.withFractionalSeconds)
+        return formatter
+    }()
+    static let fullDatePreciseISO8601Formatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        return formatter
+    }()
+    
     static let encoder: JSONEncoder = {
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -23,9 +39,11 @@ extension Mastodon.API {
             let container = try decoder.singleValueContainer()
             let string = try container.decode(String.self)
             
-            let formatter = ISO8601DateFormatter()
-            formatter.formatOptions.insert(.withFractionalSeconds)
-            if let date = formatter.date(from: string) {
+            
+            if let date = fractionalSecondsPreciseISO8601Formatter.date(from: string) {
+                return date
+            }
+            if let date = fullDatePreciseISO8601Formatter.date(from: string) {
                 return date
             }
             
@@ -112,11 +130,11 @@ extension Mastodon.API {
             }
             
             let httpResponseStatus = HTTPResponseStatus(statusCode: httpURLResponse.statusCode)
-            if let errorResponse = try? Mastodon.API.decoder.decode(Mastodon.Response.ErrorResponse.self, from: data) {
-                throw Mastodon.API.Error(httpResponseStatus: httpResponseStatus, errorResponse: errorResponse)
+            if let error = try? Mastodon.API.decoder.decode(Mastodon.Entity.Error.self, from: data) {
+                throw Mastodon.API.Error(httpResponseStatus: httpResponseStatus, error: error)
             }
             
-            throw Mastodon.API.Error(httpResponseStatus: httpResponseStatus, mastodonAPIError: nil)
+            throw Mastodon.API.Error(httpResponseStatus: httpResponseStatus, mastodonError: nil)
         }
     }
     

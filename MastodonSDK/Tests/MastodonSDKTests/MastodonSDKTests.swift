@@ -6,10 +6,23 @@ final class MastodonSDKTests: XCTestCase {
     
     var disposeBag = Set<AnyCancellable>()
     
-    let domain = "mstdn.jp"
+    let mstdnDomain = "mstdn.jp"
+    let pawooDomain = "pawoo.net"
     let session = URLSession(configuration: .ephemeral)
+
+}
+
+extension MastodonSDKTests {
     
-    func testCreateAnAnpplication() throws {
+    func testCreateAnAnpplication_mstdn() throws {
+        try _testCreateAnAnpplication(domain: pawooDomain)
+    }
+    
+    func testCreateAnAnpplication_pawoo() throws {
+        try _testCreateAnAnpplication(domain: pawooDomain)
+    }
+    
+    func _testCreateAnAnpplication(domain: String) throws {
         let theExpectation = expectation(description: "Create An Application")
         
         let query = Mastodon.API.App.CreateQuery(
@@ -35,9 +48,20 @@ final class MastodonSDKTests: XCTestCase {
 
         wait(for: [theExpectation], timeout: 10.0)
     }
+}
+
+extension MastodonSDKTests {
     
-    func testPublicTimeline() throws {
-        let theExpectation = expectation(description: "Create An Application")
+    func testPublicTimeline_mstdn() throws {
+        try _testPublicTimeline(domain: mstdnDomain)
+    }
+    
+    func testPublicTimeline_pawoo() throws {
+        try _testPublicTimeline(domain: pawooDomain)
+    }
+    
+    private func _testPublicTimeline(domain: String) throws {
+        let theExpectation = expectation(description: "Fetch Public Timeline")
         
         let query = Mastodon.API.Timeline.PublicTimelineQuery()
         Mastodon.API.Timeline.public(session: session, domain: domain, query: query)
@@ -56,7 +80,6 @@ final class MastodonSDKTests: XCTestCase {
             .store(in: &disposeBag)
 
         wait(for: [theExpectation], timeout: 10.0)
-        
     }
     
 }

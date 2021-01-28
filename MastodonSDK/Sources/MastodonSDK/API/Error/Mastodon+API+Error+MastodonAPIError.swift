@@ -8,11 +8,11 @@
 import Foundation
 
 extension Mastodon.API.Error {
-    public enum MastodonAPIError: Swift.Error {
-        case generic(errorResponse: Mastodon.Response.ErrorResponse)
+    public enum MastodonError: Swift.Error {
+        case generic(error: Mastodon.Entity.Error)
         
-        init(errorResponse: Mastodon.Response.ErrorResponse) {
-            self = .generic(errorResponse: errorResponse)
+        init(error: Mastodon.Entity.Error) {
+            self = .generic(error: error)
         }
     }
 }
