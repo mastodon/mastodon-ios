@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-final class HomeTimelineIndex: NSManagedObject {
+final public class HomeTimelineIndex: NSManagedObject {
     
     public typealias ID = String
     @NSManaged public private(set) var identifier: ID
@@ -18,7 +18,7 @@ final class HomeTimelineIndex: NSManagedObject {
     @NSManaged public private(set) var createdAt: Date
     
     // many-to-one relationship
-    @NSManaged public private(set) var toots: Toots
+    @NSManaged public private(set) var toot: Toot
     
 }
 
@@ -28,16 +28,16 @@ extension HomeTimelineIndex {
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property,
-        toots: Toots
+        toot: Toot
     ) -> HomeTimelineIndex {
         let index: HomeTimelineIndex = context.insertObject()
         
         index.identifier = property.identifier
         index.domain = property.domain
-        index.userIdentifier = toots.author.identifier
-        index.createdAt = toots.createdAt
+        index.userIdentifier = toot.author.identifier
+        index.createdAt = toot.createdAt
         
-        index.toots = toots
+        index.toot = toot
         
         return index
     }

@@ -21,6 +21,7 @@ class AppContext: ObservableObject {
     let managedObjectContext: NSManagedObjectContext
     let backgroundManagedObjectContext: NSManagedObjectContext
     
+    let apiService: APIService
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
@@ -34,6 +35,10 @@ class AppContext: ObservableObject {
         coreDataStack = _coreDataStack
         managedObjectContext = _managedObjectContext
         backgroundManagedObjectContext = _backgroundManagedObjectContext
+        
+        let _apiService = APIService(backgroundManagedObjectContext: _backgroundManagedObjectContext)
+        apiService = _apiService
+        
         
         documentStore = DocumentStore()
         documentStoreSubscription = documentStore.objectWillChange

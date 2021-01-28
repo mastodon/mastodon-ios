@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="HomeTimelineIndex" representedClassName=".HomeTimelineIndex" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="userIdentifier" attributeType="String"/>
-        <relationship name="toots" maxCount="1" deletionRule="Nullify" destinationEntity="Toots" inverseName="homeTimelineIndex" inverseEntity="Toots"/>
+        <relationship name="toots" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndex" inverseEntity="Toot"/>
     </entity>
     <entity name="MastodonUser" representedClassName=".MastodonUser" syncable="YES">
         <attribute name="acct" attributeType="String"/>
         <attribute name="avatar" optional="YES" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="displayName" optional="YES" attributeType="String"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="username" attributeType="String"/>
-        <relationship name="toots" toMany="YES" deletionRule="Nullify" destinationEntity="Toots" inverseName="author" inverseEntity="Toots"/>
+        <relationship name="toots" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="author" inverseEntity="Toot"/>
     </entity>
-    <entity name="Toots" representedClassName=".Toots" syncable="YES">
+    <entity name="Toot" representedClassName=".Toot" syncable="YES">
         <attribute name="content" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
@@ -29,8 +31,8 @@
         <relationship name="homeTimelineIndex" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toots" inverseEntity="HomeTimelineIndex"/>
     </entity>
     <elements>
-        <element name="Toots" positionX="-248.4609375" positionY="17.3203125" width="128" height="163"/>
-        <element name="MastodonUser" positionX="9.34375" positionY="71.8828125" width="128" height="178"/>
-        <element name="HomeTimelineIndex" positionX="-108" positionY="135" width="128" height="118"/>
+        <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="179"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="164"/>
     </elements>
 </model>

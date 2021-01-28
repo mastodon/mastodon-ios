@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-final class MastodonUser: NSManagedObject {
+final public class MastodonUser: NSManagedObject {
     
     public typealias ID = String
     @NSManaged public private(set) var identifier: ID
@@ -22,7 +22,7 @@ final class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
-    @NSManaged public private(set) var toots: Set<Toots>?
+    @NSManaged public private(set) var toots: Set<Toot>?
 
 }
 
@@ -70,7 +70,6 @@ extension MastodonUser {
             acct: String,
             username: String,
             displayName: String?,
-            content: String,
             createdAt: Date,
             networkDate: Date
         ) {

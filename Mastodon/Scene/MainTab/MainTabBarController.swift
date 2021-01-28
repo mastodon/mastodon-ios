@@ -19,17 +19,19 @@ class MainTabBarController: UITabBarController {
         
     enum Tab: Int, CaseIterable {
         case home
-        
+        case publicTimeline
         
         var title: String {
             switch self {
             case .home:     return "Home"
+            case .publicTimeline : return "public"
             }
         }
         
         var image: UIImage {
             switch self {
             case .home:     return UIImage(systemName: "house")!
+            case .publicTimeline: return UIImage(systemName: "flame")!
             }
         }
         
@@ -38,6 +40,12 @@ class MainTabBarController: UITabBarController {
             switch self {
             case .home:
                 let _viewController = HomeViewController()
+                _viewController.context = context
+                _viewController.coordinator = coordinator
+                viewController = _viewController
+            case .publicTimeline:
+                let _viewController = PublicTimelineViewController()
+                _viewController.viewModel = PublicTimelineViewModel(context: context)
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController
