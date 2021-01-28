@@ -12,23 +12,23 @@ extension Mastodon.API {
     public struct Error: Swift.Error {
         
         public var httpResponseStatus: HTTPResponseStatus
-        public var mastodonAPIError: MastodonAPIError?
+        public var mastodonError: MastodonError?
         
         init(
             httpResponseStatus: HTTPResponseStatus,
-            mastodonAPIError: Mastodon.API.Error.MastodonAPIError?
+            mastodonError: Mastodon.API.Error.MastodonError?
         ) {
             self.httpResponseStatus = httpResponseStatus
-            self.mastodonAPIError = mastodonAPIError
+            self.mastodonError = mastodonError
         }
         
         init(
             httpResponseStatus: HTTPResponseStatus,
-            errorResponse: Mastodon.Response.ErrorResponse
+            error: Mastodon.Entity.Error
         ) {
             self.init(
                 httpResponseStatus: httpResponseStatus,
-                mastodonAPIError: MastodonAPIError(errorResponse: errorResponse)
+                mastodonError: MastodonError(error: error)
             )
         }
         

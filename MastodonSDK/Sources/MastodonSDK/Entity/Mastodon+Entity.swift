@@ -8,3 +8,14 @@
 import Foundation
 
 extension Mastodon.Entity { }
+
+// MARK: - Entity Document Template
+/// Entity Name
+///
+/// - Since: 0.1.0
+/// - Version: x.x.x
+/// # Last Update
+///   yyyy/MM/dd
+/// # Reference
+///  [Title](link)
+

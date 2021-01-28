@@ -18,7 +18,7 @@ extension Mastodon.API.App {
         session: URLSession,
         domain: String,
         query: CreateQuery
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.API.App.Application>, Error>  {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error>  {
         let request = Mastodon.API.request(
             url: appEndpointURL(domain: domain),
             query: query,
@@ -26,7 +26,7 @@ extension Mastodon.API.App {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Application.self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Application.self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
@@ -35,29 +35,6 @@ extension Mastodon.API.App {
 }
 
 extension Mastodon.API.App {
-    
-    public struct Application: Codable {
-
-        public let id: String
-
-        public let name: String
-        public let website: String?
-        public let redirectURI: String
-        public let clientID: String
-        public let clientSecret: String
-        public let vapidKey: String
-        
-        enum CodingKeys: String, CodingKey {
-            case id
-          
-            case name
-            case website
-            case redirectURI = "redirect_uri"
-            case clientID = "client_id"
-            case clientSecret = "client_secret"
-            case vapidKey = "vapid_key"
-        }
-    }
     
     public struct CreateQuery: Codable, PostQuery {
         public let clientName: String
