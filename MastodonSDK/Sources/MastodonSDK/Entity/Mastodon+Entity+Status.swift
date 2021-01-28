@@ -31,9 +31,10 @@ extension Mastodon.Entity {
         public let account: Account
         public let content: String
         
-        public let visibility: String?
+        public let visibility: Visibility?
         public let sensitive: Bool?
         public let spoilerText: String?
+        public let mediaAttachments: [Attachment]
         public let application: Application?
         
         // Rendering
@@ -73,6 +74,7 @@ extension Mastodon.Entity {
             case visibility
             case sensitive
             case spoilerText = "spoiler_text"
+            case mediaAttachments = "media_attachments"
             case application
             
             case mentions
