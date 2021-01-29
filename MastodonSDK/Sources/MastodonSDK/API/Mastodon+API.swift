@@ -53,8 +53,14 @@ extension Mastodon.API {
         return decoder
     }()
     
+    static func oauthEndpointURL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/oauth/")!
+    }
     static func endpointURL(domain: String) -> URL {
         return URL(string: "https://" + domain + "/api/v1/")!
+    }
+    static func endpointV2URL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/api/v2/")!
     }
     
 }
@@ -67,13 +73,15 @@ extension Mastodon.API {
 
 extension Mastodon.API {
     
-    static func request(
+    static func get(
         url: URL,
-        query: GetQuery,
+        query: GetQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
         var components = URLComponents(string: url.absoluteString)!
-        components.queryItems = query.queryItems
+        if let query = query {
+            components.queryItems = query.queryItems
+        }
         
         let requestURL = components.url!
         var request = URLRequest(
@@ -91,9 +99,9 @@ extension Mastodon.API {
         return request
     }
     
-    static func request(
+    static func post(
         url: URL,
-        query: PostQuery,
+        query: PostQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
         let components = URLComponents(string: url.absoluteString)!
@@ -104,7 +112,9 @@ extension Mastodon.API {
             timeoutInterval: Mastodon.API.timeoutInterval
         )
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query.body
+        if let query = query {
+            request.httpBody = query.body
+        }
         if let authorization = authorization {
             request.setValue(
                 "Bearer \(authorization.accessToken)",

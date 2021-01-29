@@ -19,7 +19,7 @@ extension Mastodon.API.Timeline {
         domain: String,
         query: PublicTimelineQuery
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error>  {
-        let request = Mastodon.API.request(
+        let request = Mastodon.API.get(
             url: publicTimelineEndpointURL(domain: domain),
             query: query,
             authorization: nil
@@ -65,27 +65,13 @@ extension Mastodon.API.Timeline {
         
         var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
-            local.flatMap {
-                items.append(URLQueryItem(name: "local", value: $0.queryItemValue))
-            }
-            remote.flatMap {
-                items.append(URLQueryItem(name: "remote", value: $0.queryItemValue))
-            }
-            onlyMedia.flatMap {
-                items.append(URLQueryItem(name: "only_media", value: $0.queryItemValue))
-            }
-            maxID.flatMap {
-                items.append(URLQueryItem(name: "max_id", value: $0))
-            }
-            sinceID.flatMap {
-                items.append(URLQueryItem(name: "since_id", value: $0))
-            }
-            minID.flatMap {
-                items.append(URLQueryItem(name: "min_id", value: $0))
-            }
-            limit.flatMap {
-                items.append(URLQueryItem(name: "limit", value: String($0)))
-            }
+            local.flatMap { items.append(URLQueryItem(name: "local", value: $0.queryItemValue)) }
+            remote.flatMap { items.append(URLQueryItem(name: "remote", value: $0.queryItemValue)) }
+            onlyMedia.flatMap { items.append(URLQueryItem(name: "only_media", value: $0.queryItemValue)) }
+            maxID.flatMap { items.append(URLQueryItem(name: "max_id", value: $0)) }
+            sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+            minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
+            limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
             guard !items.isEmpty else { return nil }
             return items
         }

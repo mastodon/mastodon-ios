@@ -11,6 +11,12 @@
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		7A9135D4559750AF07CA9BE4 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 602D783BEC22881EBAD84419 /* Pods_Mastodon.framework */; };
+		DB01409625C40B6700F9F3CF /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB01409525C40B6700F9F3CF /* AuthenticationViewController.swift */; };
+		DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */; };
+		DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */; };
+		DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */; };
+		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
+		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB3D102425BAA7B400EAA174 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3D102225BAA7B400EAA174 /* Assets.swift */; };
@@ -108,6 +114,11 @@
 		A1B4523A7981F1044DE89C21 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB01409525C40B6700F9F3CF /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewController.swift; sourceTree = "<group>"; };
+		DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift; sourceTree = "<group>"; };
+		DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewModel.swift; sourceTree = "<group>"; };
+		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB3D102225BAA7B400EAA174 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -160,6 +171,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				7A9135D4559750AF07CA9BE4 /* Pods_Mastodon.framework in Frameworks */,
@@ -222,6 +234,25 @@
 				CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DB01409B25C40BB600F9F3CF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				DB0140A625C40C0900F9F3CF /* PinBased */,
+				DB01409525C40B6700F9F3CF /* AuthenticationViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		DB0140A625C40C0900F9F3CF /* PinBased */ = {
+			isa = PBXGroup;
+			children = (
+				DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */,
+				DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */,
+				DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */,
+			);
+			path = PinBased;
 			sourceTree = "<group>";
 		};
 		DB3D0FF725BAA68500EAA174 /* Supporting Files */ = {
@@ -400,6 +431,7 @@
 			children = (
 				DB8AF54E25C13703002E6C99 /* MainTab */,
 				DB8AF55625C137A8002E6C99 /* HomeViewController.swift */,
+				DB01409B25C40BB600F9F3CF /* Authentication */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -407,6 +439,7 @@
 		DB8AF56225C138BC002E6C99 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 			);
 			path = Extension;
@@ -447,6 +480,7 @@
 			packageProductDependencies = (
 				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
 				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
+				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -569,6 +603,7 @@
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
 				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -753,15 +788,20 @@
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
+				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
+				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
+				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				DB8AF55725C137A8002E6C99 /* HomeViewController.swift in Sources */,
 				DB3D102525BAA7B400EAA174 /* Strings.swift in Sources */,
+				DB01409625C40B6700F9F3CF /* AuthenticationViewController.swift in Sources */,
 				DB3D102425BAA7B400EAA174 /* Assets.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
+				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1263,6 +1303,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MainasuK/CommonOSLog";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
@@ -1277,6 +1325,11 @@
 		5D526FE125BE9AC400460CB9 /* MastodonSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDK;
+		};
+		DB0140BC25C40D7500F9F3CF /* CommonOSLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
+			productName = CommonOSLog;
 		};
 		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
