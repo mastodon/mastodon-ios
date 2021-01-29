@@ -21,7 +21,7 @@ extension Mastodon.Entity {
         
         public let id: ID
         public let phrase: String
-        public let context: [Context?]
+        public let context: [Context]
         public let expiresAt: Date
         public let irreversible: Bool
         public let wholeWord: Bool
@@ -38,10 +38,32 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Filter {
-    public enum Context: String, Codable {
+    public enum Context: RawRepresentable, Codable {
         case home
         case notifications
         case `public`
         case thread
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "home":                self = .home
+            case "notifications":       self = .notifications
+            case "public":              self = .`public`
+            case "thread":              self = .thread
+            default:                    self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .home:                     return "home"
+            case .notifications:            return "notifications"
+            case .public:                   return "public"
+            case .thread:                   return "thread"
+            case ._other(let value):        return value
+            }
+        }
     }
 }

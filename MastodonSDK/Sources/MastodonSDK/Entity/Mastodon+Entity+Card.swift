@@ -21,7 +21,7 @@ extension Mastodon.Entity {
         public let url: String
         public let title: String
         public let description: String
-        public let type: Type?
+        public let type: Type
         
         public let authorName: String?
         public let authorURL: String?
@@ -54,10 +54,32 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Card {
-    public enum `Type`: String, Codable {
+    public enum `Type`: RawRepresentable, Codable {
         case link
         case photo
         case video
         case rich
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "link":        self = .link
+            case "photo":       self = .photo
+            case "video":       self = .video
+            case "rich":        self = .rich
+            default:            self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .link:                 return "link"
+            case .photo:                return "photo"
+            case .video:                return "video"
+            case .rich:                 return "rich"
+            case ._other(let value):    return value
+            }
+        }
     }
 }

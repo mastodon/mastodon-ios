@@ -21,6 +21,7 @@ extension Mastodon.Entity {
         
         public let id: ID
         public let title: String
+        
         public let repliesPolicy: ReplyPolicy?
         
         enum CodingKeys: String, CodingKey {
@@ -32,9 +33,29 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity {
-    public enum ReplyPolicy: String, Codable {
+    public enum ReplyPolicy: RawRepresentable, Codable {
         case followed
         case list
         case none
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "followed":        self = .followed
+            case "list":            self = .list
+            case "none":            self = .none
+            default:                self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .followed:                 return "followed"
+            case .list:                     return "list"
+            case .none:                     return "none"
+            case ._other(let value):        return value
+            }
+        }
     }
 }

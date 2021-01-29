@@ -21,7 +21,7 @@ extension Mastodon.Entity {
         public typealias ID = String
         
         public let id: ID
-        public let type: Type?
+        public let type: Type
         public let url: String
         public let previewURL: String
         
@@ -47,12 +47,36 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Attachment {
-    public enum `Type`: String, Codable {
+    public enum `Type`: RawRepresentable, Codable {
         case unknown
         case image
         case gifv
         case video
         case audio
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "unknown":     self = .unknown
+            case "image":       self = .image
+            case "gifv":        self = .gifv
+            case "video":       self = .video
+            case "audio":       self = .audio
+            default:            self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .unknown:              return "unknown"
+            case .image:                return "image"
+            case .gifv:                 return "gifv"
+            case .video:                return "video"
+            case .audio:                return "audio"
+            case ._other(let value):    return value
+            }
+        }
     }
 }
 

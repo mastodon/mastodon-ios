@@ -7,7 +7,9 @@
 
 import Foundation
 
-extension Mastodon.Entity { }
+extension Mastodon.Entity {
+    public enum V2 { }
+}
 
 // MARK: - Entity Document Template
 /// Entity Name
