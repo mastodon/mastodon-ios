@@ -1,8 +1,10 @@
 PODS:
+  - ActiveLabel (1.1.0)
   - DateToolsSwift (5.0.0)
   - SwiftGen (6.4.0)
 
 DEPENDENCIES:
+  - ActiveLabel (from `https://github.com/ReticentJohn/ActiveLabel.swift.git`, branch `master`)
   - DateToolsSwift (~> 5.0.0)
   - SwiftGen (~> 6.4.0)
 
@@ -11,10 +13,21 @@ SPEC REPOS:
     - DateToolsSwift
     - SwiftGen
 
+EXTERNAL SOURCES:
+  ActiveLabel:
+    :branch: master
+    :git: https://github.com/ReticentJohn/ActiveLabel.swift.git
+
+CHECKOUT OPTIONS:
+  ActiveLabel:
+    :commit: 01dd31cbbd1b3fec33b0c024b011e6b932794eff
+    :git: https://github.com/ReticentJohn/ActiveLabel.swift.git
+
 SPEC CHECKSUMS:
+  ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
 
-PODFILE CHECKSUM: 5a58ccfd113912468e008313e1c91ed51b7cba20
+PODFILE CHECKSUM: 7fd5233d3180e2f7f67c96a28abbc20c6eddac93
 
 COCOAPODS: 1.10.1

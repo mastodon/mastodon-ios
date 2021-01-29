@@ -7,6 +7,7 @@
 
 import UIKit
 import AVKit
+import ActiveLabel
 
 final class TimelinePostView: UIView {
     
@@ -41,6 +42,7 @@ final class TimelinePostView: UIView {
     
     let mainContainerStackView = UIStackView()
     
+    let activeTextLabel = ActiveLabel(style: .default)
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -107,6 +109,15 @@ extension TimelinePostView {
         usernameLabel.setContentCompressionResistancePriority(.defaultHigh - 1, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        
+        // main container: [text | image / video | quote | geo]
+        tweetContainerStackView.addArrangedSubview(mainContainerStackView)
+        mainContainerStackView.axis = .vertical
+        mainContainerStackView.spacing = 8
+        activeTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        mainContainerStackView.addArrangedSubview(activeTextLabel)
+
+        activeTextLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
 
     }
     

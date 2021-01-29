@@ -10,6 +10,7 @@
     <entity name="MastodonUser" representedClassName=".MastodonUser" syncable="YES">
         <attribute name="acct" attributeType="String"/>
         <attribute name="avatar" optional="YES" attributeType="String"/>
+        <attribute name="avatarStatic" optional="YES" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="displayName" optional="YES" attributeType="String"/>
         <attribute name="domain" attributeType="String"/>
@@ -32,7 +33,7 @@
     </entity>
     <elements>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="104"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="179"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="194"/>
         <element name="Toot" positionX="0" positionY="0" width="128" height="164"/>
     </elements>
 </model>

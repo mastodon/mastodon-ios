@@ -18,6 +18,9 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var acct: String
     @NSManaged public private(set) var username: String
     @NSManaged public private(set) var displayName: String?
+    @NSManaged public private(set) var avatar: String
+    @NSManaged public private(set) var avatarStatic: String
+    
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
@@ -42,6 +45,8 @@ extension MastodonUser {
         user.acct = property.acct
         user.username = property.username
         user.displayName = property.displayName
+        user.avatar = property.avatar
+        user.avatarStatic = property.avatarStatic
         
         user.createdAt = property.createdAt
         user.updatedAt = property.networkDate
@@ -60,6 +65,8 @@ extension MastodonUser {
         public let acct: String
         public let username: String
         public let displayName: String?
+        public let avatar: String
+        public let avatarStatic: String
         
         public let createdAt: Date
         public let networkDate: Date
@@ -70,6 +77,8 @@ extension MastodonUser {
             acct: String,
             username: String,
             displayName: String?,
+            avatar:String,
+            avatarStatic:String,
             createdAt: Date,
             networkDate: Date
         ) {
@@ -81,6 +90,8 @@ extension MastodonUser {
             self.displayName = displayName.flatMap { displayName in
                 return displayName.isEmpty ? nil : displayName
             }
+            self.avatar = avatar
+            self.avatarStatic = avatarStatic
             self.createdAt = createdAt
             self.networkDate = networkDate
         }

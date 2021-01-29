@@ -47,7 +47,8 @@ extension TimelineSection {
     ) {
         cell.timelinePostView.nameLabel.text = toot.author.displayName
         cell.timelinePostView.usernameLabel.text =  toot.author.username
-        
+        cell.timelinePostView.avatarImageView.af.setImage(withURL: URL(string: toot.author.avatar)!)
+        cell.timelinePostView.activeTextLabel.config(content: toot.content)
     }
 }
 

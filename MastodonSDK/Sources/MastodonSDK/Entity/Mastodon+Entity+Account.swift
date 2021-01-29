@@ -34,9 +34,9 @@ extension Mastodon.Entity {
         public let displayName: String
         public let note: String
         public let avatar: String
-        public let avatarStatic: String?
+        public let avatarStatic: String
         public let header: String
-        public let headerStatic: String?
+        public let headerStatic: String
         public let locked: Bool
         public let emojis: [Emoji]?
         public let discoverable: Bool?
