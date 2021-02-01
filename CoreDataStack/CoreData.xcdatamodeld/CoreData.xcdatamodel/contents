@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Emoji" representedClassName=".Emoji" syncable="YES">
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="shortcode" attributeType="String"/>
+        <attribute name="staticURL" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <attribute name="visibleInPicker" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="emojis" inverseEntity="Toot"/>
+    </entity>
+    <entity name="History" representedClassName=".History" syncable="YES">
+        <attribute name="accounts" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="day" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="identifier" optional="YES" attributeType="String"/>
+        <attribute name="uses" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="HomeTimelineIndex" representedClassName=".HomeTimelineIndex" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="userIdentifier" attributeType="String"/>
-        <relationship name="toots" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndex" inverseEntity="Toot"/>
+        <relationship name="toots" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndexes" inverseEntity="Toot"/>
     </entity>
     <entity name="MastodonUser" representedClassName=".MastodonUser" syncable="YES">
         <attribute name="acct" attributeType="String"/>
@@ -20,20 +34,60 @@
         <attribute name="username" attributeType="String"/>
         <relationship name="toots" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="author" inverseEntity="Toot"/>
     </entity>
+    <entity name="Mention" representedClassName=".Mention" syncable="YES">
+        <attribute name="acct" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <attribute name="username" attributeType="String"/>
+        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="mentions" inverseEntity="Toot"/>
+    </entity>
+    <entity name="Tag" representedClassName=".Tag" syncable="YES">
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <relationship name="history" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="History"/>
+        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="tags" inverseEntity="Toot"/>
+    </entity>
     <entity name="Toot" representedClassName=".Toot" syncable="YES">
+        <attribute name="bookmarked" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="content" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
+        <attribute name="favourited" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="favouritesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
+        <attribute name="inReplyToAccountID" optional="YES" attributeType="String"/>
+        <attribute name="inReplyToID" optional="YES" attributeType="String"/>
+        <attribute name="language" optional="YES" attributeType="String"/>
+        <attribute name="muted" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="pinned" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="reblogged" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="reblogsCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="repliesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sensitive" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="spoilerText" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="uri" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <attribute name="visibility" optional="YES" attributeType="String"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="toots" inverseEntity="MastodonUser"/>
-        <relationship name="homeTimelineIndex" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toots" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="emojis" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Emoji" inverseName="toot" inverseEntity="Emoji"/>
+        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toots" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
+        <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblog" inverseEntity="Toot"/>
+        <relationship name="tags" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="toot" inverseEntity="Tag"/>
     </entity>
     <elements>
+        <element name="Emoji" positionX="45" positionY="135" width="128" height="119"/>
+        <element name="History" positionX="27" positionY="126" width="128" height="89"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="104"/>
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="194"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="164"/>
+        <element name="Mention" positionX="9" positionY="108" width="128" height="119"/>
+        <element name="Tag" positionX="18" positionY="117" width="128" height="104"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="479"/>
     </elements>
 </model>
