@@ -13,31 +13,58 @@ final class TimelinePostView: UIView {
     
     static let avatarImageViewSize = CGSize(width: 44, height: 44)
     
-    let avatarImageView = UIImageView()
+    let avatarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = avatarImageViewSize.width/2
+        imageView.layer.cornerCurve = .continuous
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+    
+    let visibilityImageView: UIImageView = {
+        let imageView = UIImageView(image: Asset.TootTimeline.global.image.withRenderingMode(.alwaysTemplate))
+        imageView.tintColor = Asset.Colors.tootGray.color
+        return imageView
+    }()
+    
+    let lockImageView: UIImageView = {
+        let imageview = UIImageView(image: Asset.TootTimeline.textlock.image.withRenderingMode(.alwaysTemplate))
+        imageview.tintColor = Asset.Colors.tootGray.color
+        imageview.isHidden = true
+        return imageview
+    }()
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
-        label.textColor = .label
+        label.font = UIFont(name: "Roboto-Medium", size: 14)
+        label.textColor = Asset.Colors.tootWhite.color
+        
         label.text = "Alice"
         return label
     }()
     
     let usernameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
-        label.textColor = .secondaryLabel
+        label.textColor = Asset.Colors.tootGray.color
+        label.font = UIFont(name: "Roboto-Regular", size: 14)
         label.text = "@alice"
         return label
     }()
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredMonospacedFont(withTextStyle: .callout)
+        label.font = UIFont(name: "Roboto-Regular", size: 14)
         label.textAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .left : .right
-        label.textColor = .secondaryLabel
+        label.textColor = Asset.Colors.tootGray.color
         label.text = "1d"
         return label
+    }()
+    
+    let actionToolbarContainer: ActionToolbarContainer = {
+        let actionToolbarContainer = ActionToolbarContainer()
+        actionToolbarContainer.configure(for: .inline)
+        return actionToolbarContainer
     }()
     
     let mainContainerStackView = UIStackView()
@@ -59,7 +86,7 @@ final class TimelinePostView: UIView {
 extension TimelinePostView {
     
     func _init() {
-        // container: [retweet | post]
+        // container: [retoot | post]
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical
         containerStackView.spacing = 8
@@ -73,7 +100,7 @@ extension TimelinePostView {
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
         ])
         
-        // post container: [user avatar | tweet container]
+        // post container: [user avatar | toot container]
         let postContainerStackView = UIStackView()
         containerStackView.addArrangedSubview(postContainerStackView)
         postContainerStackView.axis = .horizontal
@@ -88,36 +115,47 @@ extension TimelinePostView {
             avatarImageView.heightAnchor.constraint(equalToConstant: TimelinePostView.avatarImageViewSize.height).priority(.required - 1),
         ])
 
-        // tweet container: [user meta container | main container | action toolbar]
-        let tweetContainerStackView = UIStackView()
-        postContainerStackView.addArrangedSubview(tweetContainerStackView)
-        tweetContainerStackView.axis = .vertical
-        tweetContainerStackView.spacing = 2
+        // toot container: [user meta container | main container | action toolbar]
+        let tootContainerStackView = UIStackView()
+        postContainerStackView.addArrangedSubview(tootContainerStackView)
+        tootContainerStackView.axis = .vertical
+        tootContainerStackView.spacing = 2
         
-        // user meta container: [name | lock | username | date | menu]
+        // user meta container: [name | lock | username | visiablity | date ]
         let userMetaContainerStackView = UIStackView()
-        tweetContainerStackView.addArrangedSubview(userMetaContainerStackView)
+        tootContainerStackView.addArrangedSubview(userMetaContainerStackView)
         userMetaContainerStackView.axis = .horizontal
         userMetaContainerStackView.alignment = .center
         userMetaContainerStackView.spacing = 6
         userMetaContainerStackView.addArrangedSubview(nameLabel)
+        userMetaContainerStackView.addArrangedSubview(lockImageView)
         userMetaContainerStackView.addArrangedSubview(usernameLabel)
+        userMetaContainerStackView.addArrangedSubview(visibilityImageView)
         userMetaContainerStackView.addArrangedSubview(dateLabel)
         nameLabel.setContentHuggingPriority(.defaultHigh + 10, for: .horizontal)
         nameLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-        usernameLabel.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+        lockImageView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        lockImageView.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        usernameLabel.setContentHuggingPriority(.defaultHigh - 3, for: .horizontal)
         usernameLabel.setContentCompressionResistancePriority(.defaultHigh - 1, for: .horizontal)
-        dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        visibilityImageView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         
         // main container: [text | image / video | quote | geo]
-        tweetContainerStackView.addArrangedSubview(mainContainerStackView)
+        tootContainerStackView.addArrangedSubview(mainContainerStackView)
         mainContainerStackView.axis = .vertical
         mainContainerStackView.spacing = 8
         activeTextLabel.translatesAutoresizingMaskIntoConstraints = false
         mainContainerStackView.addArrangedSubview(activeTextLabel)
 
         activeTextLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+        
+        // action toolbar
+        actionToolbarContainer.translatesAutoresizingMaskIntoConstraints = false
+        tootContainerStackView.addArrangedSubview(actionToolbarContainer)
+        actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
     }
     

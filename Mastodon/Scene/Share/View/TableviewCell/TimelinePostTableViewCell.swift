@@ -17,8 +17,8 @@ protocol TimelinePostTableViewCellDelegate: class {
 
 final class TimelinePostTableViewCell: UITableViewCell {
     
-    static let verticalMargin: CGFloat = 16         // without retweet indicator
-    static let verticalMarginAlt: CGFloat = 8       // with retweet indicator
+    static let verticalMargin: CGFloat = 16         // without retoot indicator
+    static let verticalMarginAlt: CGFloat = 8       // with retoot indicator
     
     weak var delegate: TimelinePostTableViewCellDelegate?
     
@@ -50,6 +50,8 @@ final class TimelinePostTableViewCell: UITableViewCell {
 extension TimelinePostTableViewCell {
     
     private func _init() {
+        self.backgroundColor = Asset.Colors.tootDark.color
+        self.selectionStyle = .none
         timelinePostView.translatesAutoresizingMaskIntoConstraints = false
         timelinePostViewTopLayoutConstraint = timelinePostView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TimelinePostTableViewCell.verticalMargin)
         contentView.addSubview(timelinePostView)

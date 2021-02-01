@@ -27,7 +27,7 @@ class PublicTimelineViewModel: NSObject {
     // output
     var diffableDataSource: UITableViewDiffableDataSource<TimelineSection, Item>?
 
-    let tweetIDs = CurrentValueSubject<[String], Never>([])
+    let tootIDs = CurrentValueSubject<[String], Never>([])
     let items = CurrentValueSubject<[Item], Never>([])
     var cellFrameCache = NSCache<NSNumber, NSValue>()
     
@@ -67,7 +67,7 @@ class PublicTimelineViewModel: NSObject {
             }
             .store(in: &disposeBag)
         
-        tweetIDs
+        tootIDs
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
                 guard let self = self else { return }

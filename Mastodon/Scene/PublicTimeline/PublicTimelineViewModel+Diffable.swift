@@ -36,7 +36,7 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
-        let indexes = tweetIDs.value
+        let indexes = tootIDs.value
         let toots = fetchedResultsController.fetchedObjects ?? []
         guard toots.count == indexes.count else { return }
         

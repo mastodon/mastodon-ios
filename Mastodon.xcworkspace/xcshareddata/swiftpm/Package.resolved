@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "ActiveLabel",
+        "repositoryURL": "https://github.com/TwidereProject/ActiveLabel.swift",
+        "state": {
+          "branch": null,
+          "revision": "3d8115c992c44358eabbb21ffc4616f4d56028b1",
+          "version": "3.0.0"
+        }
+      },
+      {
         "package": "Alamofire",
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {

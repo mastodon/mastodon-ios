@@ -10,6 +10,11 @@
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D152A8C25C295CC009AA50C /* TimelinePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* TimelinePostView.swift */; };
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
+		2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* ActiveLabel */; };
+		2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF6A25C817D2004A627A /* MastodonContent.swift */; };
+		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
+		2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */; };
+		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
 		2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46976325C2A71500CF4AA9 /* UIIamge.swift */; };
 		2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */; };
@@ -26,7 +31,6 @@
 		2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0725C7E9A8004F19B8 /* Tag.swift */; };
 		2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0D25C7E9C9004F19B8 /* History.swift */; };
 		2D927F1425C7EDD9004F19B8 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F1325C7EDD9004F19B8 /* Emoji.swift */; };
-		2D9BB87B25C3FEF200678AB6 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9BB87A25C3FEF200678AB6 /* String.swift */; };
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
 		3533495136D843E85211E3E2 /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B4523A7981F1044DE89C21 /* Pods_Mastodon_MastodonUITests.framework */; };
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
@@ -124,6 +128,10 @@
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* TimelinePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelinePostView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		2D42FF6A25C817D2004A627A /* MastodonContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonContent.swift; sourceTree = "<group>"; };
+		2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionToolBarContainer.swift; sourceTree = "<group>"; };
+		2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitTestExpandedButton.swift; sourceTree = "<group>"; };
+		2D42FF8E25C8228A004A627A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
 		2D46976325C2A71500CF4AA9 /* UIIamge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIamge.swift; sourceTree = "<group>"; };
 		2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+Timeline.swift"; sourceTree = "<group>"; };
@@ -139,7 +147,6 @@
 		2D927F0725C7E9A8004F19B8 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		2D927F0D25C7E9C9004F19B8 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
-		2D9BB87A25C3FEF200678AB6 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2DF123A625C3B0210020F248 /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +209,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
+				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				7A9135D4559750AF07CA9BE4 /* Pods_Mastodon.framework in Frameworks */,
@@ -264,6 +272,22 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
+		2D42FF7C25C82207004A627A /* ToolBar */ = {
+			isa = PBXGroup;
+			children = (
+				2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */,
+			);
+			path = ToolBar;
+			sourceTree = "<group>";
+		};
+		2D42FF8325C82245004A627A /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
 		2D61335525C1886800CAE157 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +345,8 @@
 		2D7631A525C1532D00929FB9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2D42FF8325C82245004A627A /* Button */,
+				2D42FF7C25C82207004A627A /* ToolBar */,
 				2D152A8A25C295B8009AA50C /* Content */,
 				2D7631A625C1533800929FB9 /* TableviewCell */,
 			);
@@ -549,7 +575,8 @@
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
 				2D46976325C2A71500CF4AA9 /* UIIamge.swift */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
-				2D9BB87A25C3FEF200678AB6 /* String.swift */,
+				2D42FF6A25C817D2004A627A /* MastodonContent.swift */,
+				2D42FF8E25C8228A004A627A /* UIButton.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -590,6 +617,7 @@
 				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
 				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
 				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
+				2D42FF6025C8177C004A627A /* ActiveLabel */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -714,6 +742,7 @@
 			packageReferences = (
 				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
+				2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -898,8 +927,9 @@
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
-				2D9BB87B25C3FEF200678AB6 /* String.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* TimelinePostView.swift in Sources */,
+				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
+				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
@@ -907,6 +937,7 @@
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
 				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
+				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				2D76319F25C1521200929FB9 /* TimelineSection.swift in Sources */,
@@ -914,6 +945,7 @@
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
+				2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				DB8AF55725C137A8002E6C99 /* HomeViewController.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
@@ -1431,6 +1463,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireNetworkActivityIndicator";
@@ -1450,6 +1490,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D42FF6025C8177C004A627A /* ActiveLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */;
+			productName = ActiveLabel;
+		};
 		2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;

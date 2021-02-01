@@ -9,7 +9,7 @@ target 'Mastodon' do
    # misc
   pod 'SwiftGen', '~> 6.4.0'
   pod 'DateToolsSwift', '~> 5.0.0'
-  pod 'ActiveLabel', git: 'https://github.com/ReticentJohn/ActiveLabel.swift.git', branch: 'master'
+  pod 'Kanna', '~> 5.2.2'
   target 'MastodonTests' do
     inherit! :search_paths
     # Pods for testing

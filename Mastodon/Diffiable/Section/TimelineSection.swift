@@ -45,10 +45,19 @@ extension TimelineSection {
         cell: TimelinePostTableViewCell,
         toot: Toot
     ) {
+        // set name username avatar
         cell.timelinePostView.nameLabel.text = toot.author.displayName
-        cell.timelinePostView.usernameLabel.text =  toot.author.username
-        cell.timelinePostView.avatarImageView.af.setImage(withURL: URL(string: toot.author.avatar)!)
+        cell.timelinePostView.usernameLabel.text = "@" + toot.author.username
+        cell.timelinePostView.avatarImageView.af.setImage(
+            withURL: URL(string: toot.author.avatar)!,
+            placeholderImage: UIImage.placeholder(color: .systemFill),
+            imageTransition: .crossDissolve(0.2)
+        )
+        // set text
         cell.timelinePostView.activeTextLabel.config(content: toot.content)
+        // set date
+        let createdAt = toot.createdAt
+        cell.timelinePostView.dateLabel.text = createdAt.shortTimeAgoSinceNow
     }
 }
 

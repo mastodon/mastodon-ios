@@ -42,7 +42,7 @@ extension PublicTimelineViewController {
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = Asset.Colors.tootDark.color
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -71,7 +71,7 @@ extension PublicTimelineViewController {
                 }
             } receiveValue: { response in
                 let tootsIDs = response.value.map { $0.id }
-                self.viewModel.tweetIDs.value = tootsIDs
+                self.viewModel.tootIDs.value = tootsIDs
             }
             .store(in: &viewModel.disposeBag)
     }

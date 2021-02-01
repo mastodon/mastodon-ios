@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 import ActiveLabel
-
+import os.log
 
 extension ActiveLabel {
     
@@ -24,7 +24,7 @@ extension ActiveLabel {
         case .default:
 //            urlMaximumLength = 30
             font = .preferredFont(forTextStyle: .body)
-            textColor = UIColor.label.withAlphaComponent(0.8)
+            textColor = .white
         case .timelineHeaderView:
             font = .preferredFont(forTextStyle: .footnote)
             textColor = .secondaryLabel
@@ -40,9 +40,18 @@ extension ActiveLabel {
 }
 
 extension ActiveLabel {
-    func config(content:String) {
-        let html = content.replacingOccurrences(of: "</p><p>", with: "<br /><br />").replacingOccurrences(of: "<p>", with: "").replacingOccurrences(of: "</p>", with: "")
-        text = html.toPlainText()
+    func config(content: String) {
+        if let parseResult = try? TootContent.parse(toot: content) {
+            activeEntities.removeAll()
+            numberOfLines = 0
+            font = UIFont(name: "SFProText-Regular", size: 16)
+            textColor = .white
+            URLColor = .systemRed
+            mentionColor = .systemGreen
+            hashtagColor = .systemBlue
+            text = parseResult.trimmed
+            activeEntities = parseResult.activeEntities
+        }
     }
 }
 

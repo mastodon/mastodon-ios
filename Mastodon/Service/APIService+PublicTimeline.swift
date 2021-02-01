@@ -16,10 +16,6 @@ extension APIService {
     
     static let publicTimelineRequestWindowInSec: TimeInterval = 15 * 60
     
-    // incoming tweet - retweet relationship could be:
-    // A1. incoming tweet NOT in local timeline, retweet NOT  in local (never see tweet and retweet)
-    // A2. incoming tweet NOT in local timeline, retweet      in local (never see tweet but saw retweet before)
-    // A3. incoming tweet     in local timeline, retweet MUST in local (saw tweet before)
     func publicTimeline(
         count: Int = 20,
         domain: String
