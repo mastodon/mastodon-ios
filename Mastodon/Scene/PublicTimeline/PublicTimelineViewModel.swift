@@ -5,28 +5,39 @@
 //  Created by sxiaojian on 2021/1/27.
 //
 
-import os.log
-import UIKit
-import GameplayKit
+import AlamofireImage
 import Combine
 import CoreData
 import CoreDataStack
+import GameplayKit
 import MastodonSDK
-import AlamofireImage
-
+import os.log
+import UIKit
 
 class PublicTimelineViewModel: NSObject {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
     let context: AppContext
     let fetchedResultsController: NSFetchedResultsController<Toot>
+    let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     weak var tableView: UITableView?
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<TimelineSection, Item>?
 
+    lazy var stateMachine: GKStateMachine = {
+        let stateMachine = GKStateMachine(states: [
+            State.Initial(viewModel: self),
+            State.Loading(viewModel: self),
+            State.Fail(viewModel: self),
+            State.Idle(viewModel: self),
+            State.LoadingMore(viewModel: self),
+        ])
+        stateMachine.enter(State.Initial.self)
+        return stateMachine
+    }()
+    
     let tootIDs = CurrentValueSubject<[String], Never>([])
     let items = CurrentValueSubject<[Item], Never>([])
     var cellFrameCache = NSCache<NSNumber, NSValue>()
@@ -49,7 +60,7 @@ class PublicTimelineViewModel: NSObject {
         }()
         super.init()
         
-        self.fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self
         
         items
             .receive(on: DispatchQueue.main)
@@ -57,7 +68,7 @@ class PublicTimelineViewModel: NSObject {
             .sink { [weak self] items in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
-                os_log("%{public}s[%{public}ld], %{public}s: items did change", ((#file as NSString).lastPathComponent), #line, #function)
+                os_log("%{public}s[%{public}ld], %{public}s: items did change", (#file as NSString).lastPathComponent, #line, #function)
 
                 var snapshot = NSDiffableDataSourceSnapshot<TimelineSection, Item>()
                 snapshot.appendSections([.main])
@@ -82,14 +93,16 @@ class PublicTimelineViewModel: NSObject {
     }
     
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
-    
 }
 
 extension PublicTimelineViewModel {
-    
     func fetchLatest() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
+        return context.apiService.publicTimeline(count: 20, domain: "mstdn.jp")
+    }
+    
+    func loadMore() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
         return context.apiService.publicTimeline(count: 20, domain: "mstdn.jp")
     }
 }

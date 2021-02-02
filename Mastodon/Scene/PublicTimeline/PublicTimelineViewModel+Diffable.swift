@@ -5,10 +5,10 @@
 //  Created by sxiaojian on 2021/1/27.
 //
 
-import os.log
-import UIKit
 import CoreData
 import CoreDataStack
+import os.log
+import UIKit
 
 extension PublicTimelineViewModel {
     func setupDiffableDataSource(
@@ -20,26 +20,27 @@ extension PublicTimelineViewModel {
             .autoconnect()
             .share()
             .eraseToAnyPublisher()
-        
+
         diffableDataSource = TimelineSection.tableViewDiffableDataSource(
             for: tableView,
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
-            timelinePostTableViewCellDelegate: timelinePostTableViewCellDelegate)
+            timelinePostTableViewCellDelegate: timelinePostTableViewCellDelegate
+        )
         items.value = []
     }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
+
 extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
+        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
+
         let indexes = tootIDs.value
         let toots = fetchedResultsController.fetchedObjects ?? []
-        guard toots.count == indexes.count else { return }
-        
+
         let items: [Item] = toots
             .compactMap { toot -> (Int, Toot)? in
                 guard toot.deletedAt == nil else { return nil }
@@ -49,5 +50,4 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
             .map { Item.toot(objectID: $0.1.objectID) }
         self.items.value = items
     }
-    
 }
