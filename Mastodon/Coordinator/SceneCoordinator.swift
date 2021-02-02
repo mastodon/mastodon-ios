@@ -37,7 +37,7 @@ extension SceneCoordinator {
     }
     
     enum Scene {
-        
+        case authentication(viewModel: AuthenticationViewModel)
     }
 }
 
@@ -108,8 +108,12 @@ private extension SceneCoordinator {
     func get(scene: Scene) -> UIViewController? {
         let viewController: UIViewController?
         
-        // TODO:
-        viewController = nil
+        switch scene {
+        case .authentication(let viewModel):
+            let _viewController = AuthenticationViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        }
         
         setupDependency(for: viewController as? NeedsDependency)
 

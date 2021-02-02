@@ -24,6 +24,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.coordinator = sceneCoordinator
         
         sceneCoordinator.setup()
+
+        #if DEBUG
+        DispatchQueue.main.async {
+            let authenticationViewModel = AuthenticationViewModel()
+            sceneCoordinator.present(scene: .authentication(viewModel: authenticationViewModel), from: nil, transition: .modal(animated: false, completion: nil))            
+        }
+        #endif
         
         window.makeKeyAndVisible()
     }
