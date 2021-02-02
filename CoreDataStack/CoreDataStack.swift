@@ -38,7 +38,7 @@ public final class CoreDataStack {
     }()
 
     static func persistentContainer() -> NSPersistentContainer {
-        let bundles = [Bundle(for: Toots.self)]
+        let bundles = [Bundle(for: Toot.self)]
         guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: bundles) else {
             fatalError("cannot locate bundles")
         }

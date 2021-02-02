@@ -21,6 +21,6 @@ extension HomeViewController {
         
         title = "Home"
         view.backgroundColor = .systemBackground
+
     }
-    
 }
