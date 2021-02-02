@@ -47,9 +47,13 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var deletedAt: Date?
     
     // one-to-many relationship
+    @NSManaged public private(set) var reblogFrom: Set<Toot>?
+    
+    // one-to-many relationship
     @NSManaged public private(set) var mentions: Set<Mention>?
     // one-to-many relationship
     @NSManaged public private(set) var emojis: Set<Emoji>?
+    
     // one-to-many relationship
     @NSManaged public private(set) var tags: Set<Tag>?
     

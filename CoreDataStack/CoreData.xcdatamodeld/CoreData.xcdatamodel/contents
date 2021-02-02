@@ -88,7 +88,8 @@
         <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedToot" inverseEntity="MastodonUser"/>
-        <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblog" inverseEntity="Toot"/>
+        <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblogFrom" inverseEntity="Toot"/>
+        <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblog" inverseEntity="Toot"/>
         <relationship name="rebloggedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="toot" inverseEntity="Tag"/>
     </entity>
@@ -99,6 +100,6 @@
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="269"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="479"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="494"/>
     </elements>
 </model>

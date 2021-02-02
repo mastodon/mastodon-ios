@@ -16,6 +16,9 @@ public final class Tag: NSManagedObject {
     @NSManaged public private(set) var name: String
     @NSManaged public private(set) var url: String
     
+    // many-to-many relationship
+    @NSManaged public private(set) var toot: Toot
+    
     // one-to-many relationship
     @NSManaged public private(set) var histories: Set<History>?
 }
