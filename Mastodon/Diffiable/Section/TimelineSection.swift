@@ -33,7 +33,7 @@ extension TimelineSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    TimelineSection.configure(cell: cell, toot: toot)
+                    TimelineSection.configure(cell: cell,timestampUpdatePublisher: timestampUpdatePublisher, toot: toot)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
@@ -43,6 +43,7 @@ extension TimelineSection {
 
     static func configure(
         cell: TimelinePostTableViewCell,
+        timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot
     ) {
         // set name username avatar
@@ -56,8 +57,12 @@ extension TimelineSection {
         // set text
         cell.timelinePostView.activeTextLabel.config(content: toot.content)
         // set date
-        let createdAt = toot.createdAt
-        cell.timelinePostView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+        let createdAt = (toot.reblog ?? toot).createdAt
+        timestampUpdatePublisher
+            .sink { _ in
+                cell.timelinePostView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+            }
+            .store(in: &cell.disposeBag)
     }
 }
 

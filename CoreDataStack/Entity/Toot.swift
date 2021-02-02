@@ -22,32 +22,39 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var sensitive: Bool
     @NSManaged public private(set) var spoilerText: String?
     
-    // rendering
-    //one to many
-    @NSManaged public private(set) var mentions: Set<Mention>?
-    //one to many
-    @NSManaged public private(set) var emojis: Set<Emoji>?
-    //one to many
-    @NSManaged public private(set) var tags: [Tag]?
     // Informational
-    @NSManaged public private(set) var reblogsCount: Int
-    @NSManaged public private(set) var favouritesCount: Int
-    @NSManaged public private(set) var repliesCount: Int
+    @NSManaged public private(set) var reblogsCount: NSNumber
+    @NSManaged public private(set) var favouritesCount: NSNumber
+    @NSManaged public private(set) var repliesCount: NSNumber?
     
     @NSManaged public private(set) var url: String?
     @NSManaged public private(set) var inReplyToID: Toot.ID?
     @NSManaged public private(set) var inReplyToAccountID: MastodonUser.ID?
-    @NSManaged public private(set) var reblog: Toot?
-    @NSManaged public private(set) var language: String? //  (ISO 639 Part @NSManaged public private(set) varletter language code)
+    
+    @NSManaged public private(set) var language: String? //  (ISO 639 Part 1 two-letter language code)
     @NSManaged public private(set) var text: String?
     
-    @NSManaged public private(set) var favourited: Bool
-    @NSManaged public private(set) var reblogged: Bool
-    @NSManaged public private(set) var muted: Bool
-    @NSManaged public private(set) var bookmarked: Bool
-    @NSManaged public private(set) var pinned: Bool
+    // many-to-one relastionship
+    @NSManaged public private(set) var favouritedBy: MastodonUser?
+    @NSManaged public private(set) var rebloggedBy: MastodonUser?
+    @NSManaged public private(set) var mutedBy: MastodonUser?
+    @NSManaged public private(set) var bookmarkedBy: MastodonUser?
+    
+    // one-to-one relastionship
+    @NSManaged public private(set) var pinnedBy: MastodonUser?
+    
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
+    
+    // one-to-many relationship
+    @NSManaged public private(set) var mentions: Set<Mention>?
+    // one-to-many relationship
+    @NSManaged public private(set) var emojis: Set<Emoji>?
+    // one-to-many relationship
+    @NSManaged public private(set) var tags: Set<Tag>?
+    
+    // many-to-one relastionship
+    @NSManaged public private(set) var reblog: Toot?
     
     // many-to-one relationship
     @NSManaged public private(set) var author: MastodonUser
@@ -85,6 +92,9 @@ public extension Toot {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: emojis)
         }
         
+        if let tags = property.tags {
+            toot.mutableSetValue(forKey: #keyPath(Toot.tags)).addObjects(from: tags)
+        }
 
         toot.reblogsCount = property.reblogsCount
         toot.favouritesCount = property.favouritesCount
@@ -97,11 +107,23 @@ public extension Toot {
         toot.language = property.language
         toot.text = property.text
         
-        toot.favourited = property.favourited
-        toot.reblogged = property.reblogged
-        toot.muted = property.muted
-        toot.bookmarked = property.bookmarked
-        toot.pinned = property.pinned
+        if let favouritedBy = property.favouritedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).add(favouritedBy)
+        }
+        if let rebloggedBy = property.rebloggedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).add(rebloggedBy)
+        }
+        if let mutedBy = property.mutedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).add(mutedBy)
+        }
+        if let bookmarkedBy = property.bookmarkedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
+        }
+        if let pinnedBy = property.pinnedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy))
+        }
+
+        
         toot.updatedAt = property.updatedAt
         toot.deletedAt = property.deletedAt
         toot.author = property.author
@@ -125,20 +147,21 @@ public extension Toot {
             spoilerText: String?,
             mentions: [Mention]?,
             emojis: [Emoji]?,
-            reblogsCount: Int,
-            favouritesCount: Int,
-            repliesCount: Int,
+            tags: [Tag]?,
+            reblogsCount: NSNumber,
+            favouritesCount: NSNumber,
+            repliesCount: NSNumber?,
             url: String?,
             inReplyToID: Toot.ID?,
             inReplyToAccountID: MastodonUser.ID?,
             reblog: Toot?,
             language: String?,
             text: String?,
-            favourited: Bool,
-            reblogged: Bool,
-            muted: Bool,
-            bookmarked: Bool,
-            pinned: Bool,
+            favouritedBy: MastodonUser?,
+            rebloggedBy: MastodonUser?,
+            mutedBy: MastodonUser?,
+            bookmarkedBy: MastodonUser?,
+            pinnedBy: MastodonUser?,
             updatedAt: Date,
             deletedAt: Date?,
             author: MastodonUser,
@@ -155,6 +178,7 @@ public extension Toot {
             self.spoilerText = spoilerText
             self.mentions = mentions
             self.emojis = emojis
+            self.tags = tags
             self.reblogsCount = reblogsCount
             self.favouritesCount = favouritesCount
             self.repliesCount = repliesCount
@@ -164,11 +188,11 @@ public extension Toot {
             self.reblog = reblog
             self.language = language
             self.text = text
-            self.favourited = favourited
-            self.reblogged = reblogged
-            self.muted = muted
-            self.bookmarked = bookmarked
-            self.pinned = pinned
+            self.favouritedBy = favouritedBy
+            self.rebloggedBy = rebloggedBy
+            self.mutedBy = mutedBy
+            self.bookmarkedBy = bookmarkedBy
+            self.pinnedBy = pinnedBy
             self.updatedAt = updatedAt
             self.deletedAt = deletedAt
             self.author = author
@@ -189,22 +213,24 @@ public extension Toot {
         
         public let mentions: [Mention]?
         public let emojis: [Emoji]?
-        public let reblogsCount: Int
-        public let favouritesCount: Int
-        public let repliesCount: Int
+        public let tags: [Tag]?
+        public let reblogsCount: NSNumber
+        public let favouritesCount: NSNumber
+        public let repliesCount: NSNumber?
         
         public let url: String?
         public let inReplyToID: Toot.ID?
         public let inReplyToAccountID: MastodonUser.ID?
         public let reblog: Toot?
-        public let language: String? //  (ISO 639 Part @NSManaged public private(set) varletter language public let
+        public let language: String? //  (ISO 639 Part @1 two-letter language code)
         public let text: String?
         
-        public let favourited: Bool
-        public let reblogged: Bool
-        public let muted: Bool
-        public let bookmarked: Bool
-        public let pinned: Bool
+        public let favouritedBy: MastodonUser?
+        public let rebloggedBy: MastodonUser?
+        public let mutedBy: MastodonUser?
+        public let bookmarkedBy: MastodonUser?
+        public let pinnedBy: MastodonUser?
+        
         public let updatedAt: Date
         public let deletedAt: Date?
         

@@ -41,8 +41,10 @@ extension PublicTimelineViewController {
         super.viewDidLoad()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
         tableView.backgroundColor = Asset.Colors.tootDark.color
+        view.addSubview(tableView)
+        view.backgroundColor = Asset.Colors.tootDark.color
+
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

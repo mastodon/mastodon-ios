@@ -31,7 +31,14 @@ extension APIService.Persist {
                     Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url))
                 })
                 let emojis = $0.emojis?.compactMap({ (emoji) -> Emoji in
-                    Emoji.insert(into: managedObjectContext, property: Emoji.Property(shortcode: emoji.shortcode, url: emoji.url, staticURL: emoji.staticURL, visibleInPicker: emoji.visibleInPicker))
+                    Emoji.insert(into: managedObjectContext, property: Emoji.Property(shortcode: emoji.shortcode, url: emoji.url, staticURL: emoji.staticURL, visibleInPicker: emoji.visibleInPicker, category: emoji.category))
+                })
+                
+                let tags = $0.tags?.compactMap({ (tag) -> Tag in
+                    let histories = tag.history?.compactMap({ (history) -> History in
+                        History.insert(into: managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
+                    })
+                    return Tag.insert(into: managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
                 })
                 let tootProperty = Toot.Property(
                     domain: domain,
@@ -44,20 +51,21 @@ extension APIService.Persist {
                     spoilerText: $0.spoilerText,
                     mentions: metions,
                     emojis: emojis,
-                    reblogsCount: $0.reblogsCount,
-                    favouritesCount: $0.favouritesCount,
-                    repliesCount: $0.repliesCount ?? 0,
+                    tags: tags,
+                    reblogsCount: NSNumber(value: $0.reblogsCount),
+                    favouritesCount: NSNumber(value: $0.favouritesCount),
+                    repliesCount: ($0.repliesCount != nil) ? NSNumber(value: $0.repliesCount!) : nil,
                     url: $0.uri,
                     inReplyToID: $0.inReplyToID,
                     inReplyToAccountID: $0.inReplyToAccountID,
-                    reblog: nil,   //TODO 需要递归调用
+                    reblog: nil,   //TODO need fix
                     language: $0.language,
                     text: $0.text,
-                    favourited: $0.favourited ?? false,
-                    reblogged: $0.reblogged ?? false,
-                    muted: $0.muted ?? false,
-                    bookmarked: $0.bookmarked ?? false,
-                    pinned: $0.pinned ?? false,
+                    favouritedBy: ($0.favourited ?? false) ? author : nil,
+                    rebloggedBy: ($0.reblogged ?? false) ? author : nil,
+                    mutedBy: ($0.muted ?? false) ? author : nil,
+                    bookmarkedBy: ($0.bookmarked ?? false) ? author : nil,
+                    pinnedBy: ($0.pinned ?? false) ? author : nil,
                     updatedAt: response.networkDate,
                     deletedAt: nil,
                     author: author,

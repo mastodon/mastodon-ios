@@ -5,29 +5,35 @@
 //  Created by sxiaojian on 2021/2/1.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
-final public class Mention: NSManagedObject {
-    
-    public typealias ID = String
+public final class Mention: NSManagedObject {
+    public typealias ID = UUID
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var id: String
+    @NSManaged public private(set) var createAt: Date
+
     @NSManaged public private(set) var username: String
     @NSManaged public private(set) var acct: String
     @NSManaged public private(set) var url: String
-    @NSManaged public private(set) var toot: Toot?
+
+    // many-to-one relationship
+    @NSManaged public private(set) var toot: Toot
 }
 
-extension Mention {
+public extension Mention {
+    override func awakeFromInsert() {
+        super.awakeFromInsert()
+        identifier = UUID()
+    }
+
     @discardableResult
-    public static func insert(
+    static func insert(
         into context: NSManagedObjectContext,
-        property:Property
+        property: Property
     ) -> Mention {
-        let mention :Mention = context.insertObject()
-        
-        mention.identifier = UUID().uuidString
+        let mention: Mention = context.insertObject()
         mention.id = property.id
         mention.username = property.username
         mention.acct = property.acct
@@ -36,13 +42,13 @@ extension Mention {
     }
 }
 
-extension Mention {
-    public struct Property {
+public extension Mention {
+    struct Property {
         public let id: String
         public let username: String
         public let acct: String
         public let url: String
-        
+
         public init(id: String, username: String, acct: String, url: String) {
             self.id = id
             self.username = username
@@ -54,6 +60,6 @@ extension Mention {
 
 extension Mention: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \Mention.id, ascending: false)]
+        return [NSSortDescriptor(keyPath: \Mention.createAt, ascending: false)]
     }
 }
