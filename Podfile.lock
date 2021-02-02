@@ -1,20 +1,24 @@
 PODS:
   - DateToolsSwift (5.0.0)
+  - Kanna (5.2.4)
   - SwiftGen (6.4.0)
 
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
+  - Kanna (~> 5.2.2)
   - SwiftGen (~> 6.4.0)
 
 SPEC REPOS:
   trunk:
     - DateToolsSwift
+    - Kanna
     - SwiftGen
 
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
+  Kanna: b9d00d7c11428308c7f95e1f1f84b8205f567a8f
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
 
-PODFILE CHECKSUM: 5a58ccfd113912468e008313e1c91ed51b7cba20
+PODFILE CHECKSUM: 8b24099ae9ac02698d464cc508af9550352c85cb
 
 COCOAPODS: 1.10.1
