@@ -93,7 +93,7 @@ public extension Toot {
         }
 
         if let emojis = property.emojis {
-            toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: emojis)
+            toot.mutableSetValue(forKey: #keyPath(Toot.emojis)).addObjects(from: emojis)
         }
         
         if let tags = property.tags {
@@ -123,10 +123,11 @@ public extension Toot {
         if let bookmarkedBy = property.bookmarkedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
         }
-        if let pinnedBy = property.pinnedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy))
-        }
-
+        
+        // TODO: not implement yet
+        // if let pinnedBy = property.pinnedBy {
+        //     toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy))
+        // }
         
         toot.updatedAt = property.updatedAt
         toot.deletedAt = property.deletedAt

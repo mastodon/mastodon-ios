@@ -72,6 +72,18 @@ extension APIService.Persist {
                     homeTimelineIndexes: nil)
                 Toot.insert(into: managedObjectContext, property: tootProperty, author: author)
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveOutput: { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                #if DEBUG
+                debugPrint(error)
+                #endif
+                assertionFailure(error.localizedDescription)
+            }
+        })
+        .eraseToAnyPublisher()
     }
 }
