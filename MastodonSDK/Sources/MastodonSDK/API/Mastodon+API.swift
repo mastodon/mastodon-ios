@@ -37,17 +37,33 @@ extension Mastodon.API {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.custom { decoder throws -> Date in
             let container = try decoder.singleValueContainer()
-            let string = try container.decode(String.self)
             
-            
-            if let date = fractionalSecondsPreciseISO8601Formatter.date(from: string) {
-                return date
+            var logInfo = ""
+            do {
+                let string = try container.decode(String.self)
+                logInfo += string
+                
+                if let date = fractionalSecondsPreciseISO8601Formatter.date(from: string) {
+                    return date
+                }
+                if let date = fullDatePreciseISO8601Formatter.date(from: string) {
+                    return date
+                }
+            } catch {
+                // do nothing
             }
-            if let date = fullDatePreciseISO8601Formatter.date(from: string) {
-                return date
+            
+            var numberValue = ""
+            do {
+                let number = try container.decode(Double.self)
+                logInfo += "\(number)"
+                
+                return Date(timeIntervalSince1970: number)
+            } catch {
+                // do nothing
             }
             
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid date: \(string)")
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "[Decoder] Invalid date: \(logInfo)")
         }
         
         return decoder
@@ -66,6 +82,7 @@ extension Mastodon.API {
 }
 
 extension Mastodon.API {
+    public enum Account { }
     public enum App { }
     public enum OAuth { }
     public enum Timeline { }

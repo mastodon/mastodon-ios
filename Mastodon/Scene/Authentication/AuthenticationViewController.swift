@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import MastodonSDK
 
 final class AuthenticationViewController: UIViewController, NeedsDependency {
     
@@ -17,6 +18,7 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: AuthenticationViewModel!
+    var mastodonPinBasedAuthenticationViewController: UIViewController?
     
     let domainTextField: UITextField = {
         let textField = UITextField()
@@ -75,6 +77,18 @@ extension AuthenticationViewController {
  
     @objc private func signInBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let domain = viewModel.domain.value else {
+            // TODO: alert error
+            return
+        }
+        viewModel.signInAction.send(domain)
     }
     
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension AuthenticationViewController: UIAdaptivePresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .fullScreen
+    }
 }

@@ -26,7 +26,7 @@ extension APIService {
             domain: domain,
             query: Mastodon.API.Timeline.PublicTimelineQuery()
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>,Error> in
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> in
             return APIService.Persist.persistTimeline(
                 domain: domain,
                 managedObjectContext: self.backgroundManagedObjectContext,
@@ -46,4 +46,5 @@ extension APIService {
         }
         .eraseToAnyPublisher()
     }
+    
 }

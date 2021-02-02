@@ -21,5 +21,12 @@ extension Mastodon.Entity {
         public let tokenType: String
         public let scope: String
         public let createdAt: Date
+        
+        enum CodingKeys: String, CodingKey {
+            case accessToken = "access_token"
+            case tokenType = "token_type"
+            case scope
+            case createdAt = "created_at"
+        }
     }
 }

@@ -27,7 +27,14 @@ final class MastodonPinBasedAuthenticationViewModelNavigationDelegateShim: NSObj
 extension MastodonPinBasedAuthenticationViewModelNavigationDelegateShim: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        // TODO:
+        guard let url = webView.url,
+              let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let codeQueryItem = components.queryItems?.first(where: { $0.name == "code" }),
+              let code = codeQueryItem.value else {
+            return
+        }
+        
+        viewModel?.pinCodePublisher.send(code)
     }
     
 }

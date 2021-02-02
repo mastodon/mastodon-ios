@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         #if DEBUG
         DispatchQueue.main.async {
-            let authenticationViewModel = AuthenticationViewModel()
+            let authenticationViewModel = AuthenticationViewModel(context: appContext, coordinator: sceneCoordinator)
             sceneCoordinator.present(scene: .authentication(viewModel: authenticationViewModel), from: nil, transition: .modal(animated: false, completion: nil))            
         }
         #endif
