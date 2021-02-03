@@ -18,7 +18,6 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: AuthenticationViewModel!
-    var mastodonPinBasedAuthenticationViewController: UIViewController?
     
     let domainTextField: UITextField = {
         let textField = UITextField()
@@ -30,7 +29,7 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var signInBarButtonItem = UIBarButtonItem(title: "Sign In", style: .plain, target: self, action: #selector(AuthenticationViewController.signInBarButtonItemPressed(_:)))
-    
+    let activityIndicatorBarButtonItem = UIBarButtonItem.activityIndicatorBarButtonItem
 }
 
 extension AuthenticationViewController {
@@ -59,9 +58,58 @@ extension AuthenticationViewController {
             .assign(to: \.value, on: viewModel.input)
             .store(in: &disposeBag)
         
+        viewModel.isAuthenticating
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAuthenticating in
+                guard let self = self else { return }
+                self.navigationItem.rightBarButtonItem = isAuthenticating ? self.activityIndicatorBarButtonItem : self.signInBarButtonItem
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.authenticated
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] domain, user in
+                guard let self = self else { return }
+                // reset view hierarchy only if needs
+                if self.viewModel.viewHierarchyShouldReset {
+                    self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
+                        .receive(on: DispatchQueue.main)
+                        .sink { [weak self] result in
+                            guard let self = self else { return }
+                            switch result {
+                            case .failure(let error):
+                                assertionFailure(error.localizedDescription)
+                            case .success(let isActived):
+                                assert(isActived)
+                                self.coordinator.setup()
+                            }
+                        }
+                        .store(in: &self.disposeBag)
+                } else {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+            .store(in: &disposeBag)
+        
         viewModel.isSignInButtonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: signInBarButtonItem)
+            .store(in: &disposeBag)
+        
+        viewModel.error
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                let alertController = UIAlertController(error, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.coordinator.present(
+                    scene: .alertController(alertController: alertController),
+                    from: nil,
+                    transition: .alertController(animated: true, completion: nil)
+                )
+            }
             .store(in: &disposeBag)
     }
     
@@ -81,7 +129,51 @@ extension AuthenticationViewController {
             // TODO: alert error
             return
         }
-        viewModel.signInAction.send(domain)
+        guard !viewModel.isAuthenticating.value else { return }
+        viewModel.isAuthenticating.value = true
+        context.apiService.createApplication(domain: domain)
+            .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
+                let application = response.value
+                guard let clientID = application.clientID,
+                      let clientSecret = application.clientSecret else {
+                    throw APIService.APIError.explicit(.badResponse)
+                }
+                let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: clientID)
+                let url = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
+                return AuthenticationViewModel.AuthenticateInfo(
+                    domain: domain,
+                    clientID: clientID,
+                    clientSecret: clientSecret,
+                    url: url
+                )
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                // trigger state update
+                self.viewModel.isAuthenticating.value = false
+                
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign in fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    self.viewModel.error.value = error
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] info in
+                guard let self = self else { return }
+                let mastodonPinBasedAuthenticationViewModel = MastodonPinBasedAuthenticationViewModel(authenticateURL: info.url)
+                self.viewModel.authenticate(
+                    info: info,
+                    pinCodePublisher: mastodonPinBasedAuthenticationViewModel.pinCodePublisher
+                )
+                self.viewModel.mastodonPinBasedAuthenticationViewController = self.coordinator.present(
+                    scene: .mastodonPinBasedAuthentication(viewModel: mastodonPinBasedAuthenticationViewModel),
+                    from: nil,
+                    transition: .modal(animated: true, completion: nil)
+                )
+            }
+            .store(in: &disposeBag)
     }
     
 }

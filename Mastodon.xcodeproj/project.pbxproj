@@ -54,6 +54,13 @@
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
+		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
+		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
+		DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */; };
+		DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */; };
+		DB45FAED25CA7A9A005A8AC7 /* MastodonAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAEC25CA7A9A005A8AC7 /* MastodonAuthentication.swift */; };
+		DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */; };
+		DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DB89B9FE25C10FD0008580ED /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */; };
 		DB89BA0025C10FD0008580ED /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = DB89B9F025C10FD0008580ED /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -193,6 +200,13 @@
 		DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
+		DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+MastodonUser.swift"; sourceTree = "<group>"; };
+		DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUser.swift; sourceTree = "<group>"; };
+		DB45FAEC25CA7A9A005A8AC7 /* MastodonAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthentication.swift; sourceTree = "<group>"; };
+		DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+MastodonAuthentication.swift"; sourceTree = "<group>"; };
+		DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB89B9F025C10FD0008580ED /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
 		DB89B9F125C10FD0008580ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -322,13 +336,8 @@
 		2D61335525C1886800CAE157 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				2D61335D25C1894B00CAE157 /* APIService.swift */,
-				DB98337E25C9452D00AD9700 /* APIService+APIError.swift */,
-				DB98336A25C9420100AD9700 /* APIService+App.swift */,
-				DB98337025C9443200AD9700 /* APIService+Authentication.swift */,
-				DB98339B25C96DE600AD9700 /* APIService+Account.swift */,
-				2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */,
-				2D61335625C1887F00CAE157 /* Persist */,
+				DB45FB0425CA87B4005A8AC7 /* APIService */,
+				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -522,6 +531,30 @@
 			path = MastodonUITests;
 			sourceTree = "<group>";
 		};
+		DB45FB0425CA87B4005A8AC7 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				2D61335625C1887F00CAE157 /* Persist */,
+				DB45FB0925CA87BC005A8AC7 /* CoreData */,
+				2D61335D25C1894B00CAE157 /* APIService.swift */,
+				DB98337E25C9452D00AD9700 /* APIService+APIError.swift */,
+				DB98336A25C9420100AD9700 /* APIService+App.swift */,
+				DB98337025C9443200AD9700 /* APIService+Authentication.swift */,
+				DB98339B25C96DE600AD9700 /* APIService+Account.swift */,
+				2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		DB45FB0925CA87BC005A8AC7 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */,
+				DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		DB89B9EF25C10FD0008580ED /* CoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +599,7 @@
 				2D927F0725C7E9A8004F19B8 /* Tag.swift */,
 				2D927F0D25C7E9C9004F19B8 /* History.swift */,
 				2D927F1325C7EDD9004F19B8 /* Emoji.swift */,
+				DB45FAEC25CA7A9A005A8AC7 /* MastodonAuthentication.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -621,13 +655,16 @@
 		DB8AF56225C138BC002E6C99 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
 				2D46976325C2A71500CF4AA9 /* UIIamge.swift */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
 				2D42FF6A25C817D2004A627A /* MastodonContent.swift */,
+				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
+				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -998,10 +1035,12 @@
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
+				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* TimelinePostView.swift in Sources */,
 				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */,
+				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
@@ -1014,14 +1053,17 @@
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
+				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				DB98334725C8056600AD9700 /* AuthenticationViewModel.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				2D76319F25C1521200929FB9 /* TimelineSection.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
+				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
+				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
@@ -1034,6 +1076,7 @@
 				DB01409625C40B6700F9F3CF /* AuthenticationViewController.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
+				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1069,6 +1112,7 @@
 				DB89BA4425C1165F008580ED /* Managed.swift in Sources */,
 				DB89BA4325C1165F008580ED /* NetworkUpdatable.swift in Sources */,
 				DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */,
+				DB45FAED25CA7A9A005A8AC7 /* MastodonAuthentication.swift in Sources */,
 				2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */,
 				DB89BA1D25C1107F008580ED /* URL.swift in Sources */,
 				2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */,

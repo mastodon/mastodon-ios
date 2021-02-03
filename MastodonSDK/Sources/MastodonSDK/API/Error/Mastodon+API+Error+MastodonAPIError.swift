@@ -16,3 +16,22 @@ extension Mastodon.API.Error {
         }
     }
 }
+
+// MARK: - LocalizedError
+extension Mastodon.API.Error.MastodonError: LocalizedError {
+    
+    public var errorDescription: String? {
+        switch self {
+        case .generic(let error):
+            return error.error
+        }
+    }
+    
+    public var failureReason: String? {
+        switch self {
+        case .generic(let error):
+            return error.errorDescription
+        }
+    }
+    
+}

@@ -11,7 +11,7 @@ import Combine
 extension Mastodon.API.Account {
     
     static func verifyCredentialsEndpointURL(domain: String) -> URL {
-        return Mastodon.API.endpointURL(domain: domain)
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/verify_credentials") 
     }
     
     public static func verifyCredentials(

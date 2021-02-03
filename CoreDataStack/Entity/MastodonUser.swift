@@ -8,12 +8,14 @@
 import CoreData
 import Foundation
 
-public final class MastodonUser: NSManagedObject {
+final public class MastodonUser: NSManagedObject {
+    
     public typealias ID = String
+    
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var domain: String
     
-    @NSManaged public private(set) var id: String
+    @NSManaged public private(set) var id: ID
     @NSManaged public private(set) var acct: String
     @NSManaged public private(set) var username: String
     @NSManaged public private(set) var displayName: String
@@ -25,6 +27,7 @@ public final class MastodonUser: NSManagedObject {
     
     // one-to-one relationship
     @NSManaged public private(set) var pinnedToot: Toot?
+    @NSManaged public private(set) var mastodonAuthentication: MastodonAuthentication?
     
     // one-to-many relationship
     @NSManaged public private(set) var toots: Set<Toot>?
@@ -36,11 +39,13 @@ public final class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var bookmarked: Set<Toot>?
     
     @NSManaged public private(set) var retweets: Set<Toot>?
+    
 }
 
-public extension MastodonUser {
+extension MastodonUser {
+    
     @discardableResult
-    static func insert(
+    public static func insert(
         into context: NSManagedObjectContext,
         property: Property
     ) -> MastodonUser {
@@ -61,6 +66,38 @@ public extension MastodonUser {
 
         return user
     }
+    
+    
+    public func update(acct: String) {
+        if self.acct != acct {
+            self.acct = acct
+        }
+    }
+    public func update(username: String) {
+        if self.username != username {
+            self.username = username
+        }
+    }
+    public func update(displayName: String) {
+        if self.displayName != displayName {
+            self.displayName = displayName
+        }
+    }
+    public func update(avatar: String) {
+        if self.avatar != avatar {
+            self.avatar = avatar
+        }
+    }
+    public func update(avatarStatic: String?) {
+        if self.avatarStatic != avatarStatic {
+            self.avatarStatic = avatarStatic
+        }
+    }
+    
+    public func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
+    }
+    
 }
 
 public extension MastodonUser {
@@ -107,4 +144,45 @@ extension MastodonUser: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
         return [NSSortDescriptor(keyPath: \MastodonUser.createdAt, ascending: false)]
     }
+}
+
+extension MastodonUser {
+    
+    static func predicate(domain: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonUser.domain), domain)
+    }
+    
+    static func predicate(id: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonUser.id), id)
+    }
+    
+    public static func predicate(domain: String, id: String) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            MastodonUser.predicate(domain: domain),
+            MastodonUser.predicate(id: id)
+        ])
+    }
+    
+    static func predicate(ids: [String]) -> NSPredicate {
+        return NSPredicate(format: "%K IN %@", #keyPath(MastodonUser.id), ids)
+    }
+    
+    public static func predicate(domain: String, ids: [String]) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            MastodonUser.predicate(domain: domain),
+            MastodonUser.predicate(ids: ids)
+        ])
+    }
+    
+    static func predicate(username: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonUser.username), username)
+    }
+    
+    public static func predicate(domain: String, username: String) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            MastodonUser.predicate(domain: domain),
+            MastodonUser.predicate(username: username)
+        ])
+    }
+    
 }
