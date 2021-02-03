@@ -24,6 +24,7 @@ final class PublicTimelineViewController: UIViewController, NeedsDependency, Tim
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TimelinePostTableViewCell.self, forCellReuseIdentifier: String(describing: TimelinePostTableViewCell.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         return tableView
@@ -77,21 +78,16 @@ extension PublicTimelineViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchLatest()
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log("%{public}s[%{public}ld], %{public}s: fetch user timeline latest response error: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
-                let tootsIDs = response.value.map { $0.id }
-                self.viewModel.tootIDs.value = tootsIDs
-            }
-            .store(in: &viewModel.disposeBag)
+        viewModel.stateMachine.enter(PublicTimelineViewModel.State.Loading.self)
     }
+}
+
+// MARK: - UIScrollViewDelegate
+extension PublicTimelineViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollViewDidScroll(scrollView)
+    }
+
 }
 
 // MARK: - Selector
@@ -129,4 +125,12 @@ extension PublicTimelineViewController: UITableViewDelegate {
         let frame = cell.frame
         viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
     }
+}
+// MARK: - LoadMoreConfigurableTableViewContainer
+extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
+    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
+    typealias LoadingState = PublicTimelineViewModel.State.LoadingMore
+    
+    var loadMoreConfigurableTableView: UITableView { return tableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
 }

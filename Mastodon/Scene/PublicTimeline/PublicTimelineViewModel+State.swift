@@ -121,10 +121,16 @@ extension PublicTimelineViewModel.State {
                         break
                     }
                 } receiveValue: { response in
-                    viewModel.isFetchingLatestTimeline.value = false
-                    let tootsIDs = response.value.map { $0.id }
-                    viewModel.tootIDs.value = tootsIDs
                     stateMachine.enter(Idle.self)
+                    var oldTootsIDs = viewModel.tootIDs.value
+                    for toot in response.value {
+                        if !oldTootsIDs.contains(toot.id) {
+                            oldTootsIDs.append(toot.id)
+                        }
+                    }
+                    
+                    viewModel.tootIDs.value = oldTootsIDs
+                    
                 }
                 .store(in: &viewModel.disposeBag)
         }

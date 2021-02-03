@@ -73,7 +73,14 @@ class PublicTimelineViewModel: NSObject {
                 var snapshot = NSDiffableDataSourceSnapshot<TimelineSection, Item>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(items)
-                
+                if let currentState = self.stateMachine.currentState {
+                    switch currentState {
+                    case is State.Idle, is State.LoadingMore, is State.Fail:
+                        snapshot.appendItems([.bottomLoader], toSection: .main)
+                    default:
+                        break
+                    }
+                }
                 diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
             }
             .store(in: &disposeBag)

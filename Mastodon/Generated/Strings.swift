@@ -10,6 +10,15 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+
+  internal enum Common {
+    internal enum Controls {
+      internal enum Timeline {
+        /// Load More
+        internal static let loadMore = L10n.tr("Localizable", "Common.Controls.Timeline.LoadMore")
+      }
+    }
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
