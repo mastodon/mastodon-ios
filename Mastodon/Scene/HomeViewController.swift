@@ -14,7 +14,6 @@ final class HomeViewController: UIViewController, NeedsDependency {
     
 }
 
-
 extension HomeViewController {
     
     override func viewDidLoad() {

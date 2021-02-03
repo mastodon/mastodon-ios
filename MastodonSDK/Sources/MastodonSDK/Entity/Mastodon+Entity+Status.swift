@@ -9,7 +9,6 @@ import Foundation
 
 extension Mastodon.Entity {
     
-    // FIXME: prefer `Status`. `Toot` will be deprecated
     public typealias Toot = Status
     
     /// Status
@@ -31,9 +30,10 @@ extension Mastodon.Entity {
         public let account: Account
         public let content: String
         
-        public let visibility: String?
+        public let visibility: Visibility?
         public let sensitive: Bool?
         public let spoilerText: String?
+        public let mediaAttachments: [Attachment]
         public let application: Application?
         
         // Rendering
@@ -73,6 +73,7 @@ extension Mastodon.Entity {
             case visibility
             case sensitive
             case spoilerText = "spoiler_text"
+            case mediaAttachments = "media_attachments"
             case application
             
             case mentions
@@ -103,10 +104,32 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Status {
-    public enum Visibility: String, Codable {
+    public enum Visibility: RawRepresentable, Codable {
         case `public`
         case unlisted
         case `private`
         case direct
+        
+        case _other(String)
+        
+        public init?(rawValue: String) {
+            switch rawValue {
+            case "public":                      self = .public
+            case "unlisted":                    self = .unlisted
+            case "private":                     self = .private
+            case "direct":                      self = .direct
+            default:                            self = ._other(rawValue)
+            }
+        }
+        
+        public var rawValue: String {
+            switch self {
+            case .public:                       return "public"
+            case .unlisted:                     return "unlisted"
+            case .private:                      return "private"
+            case .direct:                       return "direct"
+            case ._other(let value):            return value
+            }
+        }
     }
 }

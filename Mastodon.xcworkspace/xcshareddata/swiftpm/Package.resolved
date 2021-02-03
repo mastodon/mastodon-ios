@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "CommonOSLog",
+        "repositoryURL": "https://github.com/MainasuK/CommonOSLog",
+        "state": {
+          "branch": null,
+          "revision": "c121624a30698e9886efe38aebb36ff51c01b6c2",
+          "version": "0.1.1"
+        }
+      },
+      {
         "package": "swift-nio",
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {

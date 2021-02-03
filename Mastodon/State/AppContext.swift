@@ -22,6 +22,7 @@ class AppContext: ObservableObject {
     let backgroundManagedObjectContext: NSManagedObjectContext
     
     let apiService: APIService
+    let authenticationService: AuthenticationService
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
@@ -39,6 +40,11 @@ class AppContext: ObservableObject {
         let _apiService = APIService(backgroundManagedObjectContext: _backgroundManagedObjectContext)
         apiService = _apiService
         
+        authenticationService = AuthenticationService(
+            managedObjectContext: _managedObjectContext,
+            backgroundManagedObjectContext: _backgroundManagedObjectContext,
+            apiService: _apiService
+        )
         
         documentStore = DocumentStore()
         documentStoreSubscription = documentStore.objectWillChange

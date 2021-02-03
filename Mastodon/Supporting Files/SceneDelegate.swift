@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreDataStack
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -24,6 +25,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.coordinator = sceneCoordinator
         
         sceneCoordinator.setup()
+
+        do {
+            let request = MastodonAuthentication.sortedFetchRequest
+            if try appContext.managedObjectContext.fetch(request).isEmpty {
+                DispatchQueue.main.async {
+                    let authenticationViewModel = AuthenticationViewModel(
+                        context: appContext,
+                        coordinator: sceneCoordinator,
+                        isAuthenticationExist: false
+                    )
+                    sceneCoordinator.present(
+                        scene: .authentication(viewModel: authenticationViewModel),
+                        from: nil,
+                        transition: .modal(animated: false, completion: nil)
+                    )
+                }
+            }
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
         
         window.makeKeyAndVisible()
     }

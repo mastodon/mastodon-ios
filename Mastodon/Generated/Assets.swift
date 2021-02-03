@@ -23,10 +23,10 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
   internal enum Colors {
+    internal static let tootDark = ColorAsset(name: "Colors/Toot.Dark")
+    internal static let tootGray = ColorAsset(name: "Colors/Toot.Gray")
+    internal static let tootWhite = ColorAsset(name: "Colors/Toot.White")
     internal static let likeOrange = ColorAsset(name: "Colors/like.orange")
-    internal static let tootDark = ColorAsset(name: "Colors/toot.dark")
-    internal static let tootGray = ColorAsset(name: "Colors/toot.gray")
-    internal static let tootWhite = ColorAsset(name: "Colors/toot.white")
   }
   internal enum ToolBar {
     internal static let bookmark = ImageAsset(name: "ToolBar/bookmark")
@@ -37,10 +37,10 @@ internal enum Asset {
     internal static let star = ImageAsset(name: "ToolBar/star")
   }
   internal enum TootTimeline {
+    internal static let global = ImageAsset(name: "TootTimeline/Global")
+    internal static let textlock = ImageAsset(name: "TootTimeline/Textlock")
     internal static let email = ImageAsset(name: "TootTimeline/email")
-    internal static let global = ImageAsset(name: "TootTimeline/global")
     internal static let lock = ImageAsset(name: "TootTimeline/lock")
-    internal static let textlock = ImageAsset(name: "TootTimeline/textlock")
     internal static let unlock = ImageAsset(name: "TootTimeline/unlock")
   }
 }

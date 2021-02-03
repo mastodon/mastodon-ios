@@ -32,7 +32,7 @@ extension Mastodon.Entity {
         public let statistics: Statistics?
         
         public let thumbnail: String?
-        public let contactAccount: User?
+        public let contactAccount: Account?
 
         enum CodingKeys: String, CodingKey {
             case uri

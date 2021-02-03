@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController {
         var title: String {
             switch self {
             case .home:     return "Home"
-            case .publicTimeline : return "public"
+            case .publicTimeline : return "Public"
             }
         }
         
@@ -88,6 +88,26 @@ extension MainTabBarController {
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()
         tabBar.standardAppearance = tabBarAppearance
+        
+        context.apiService.error
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self, let coordinator = self.coordinator else { return }
+                switch error {
+                case .implicit:
+                    break
+                case .explicit:
+                    let alertController = UIAlertController(error, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    coordinator.present(
+                        scene: .alertController(alertController: alertController),
+                        from: nil,
+                        transition: .alertController(animated: true, completion: nil)
+                    )
+                }
+            }
+            .store(in: &disposeBag)
                 
         #if DEBUG
         // selectedIndex = 1

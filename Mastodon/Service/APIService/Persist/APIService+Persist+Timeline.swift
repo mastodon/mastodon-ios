@@ -23,8 +23,8 @@ extension APIService.Persist {
         persistType: PersistTimelineType
     ) -> AnyPublisher<Result<Void, Error>, Never> {
         return managedObjectContext.performChanges {
-            let toot = response.value
-            let _ = toot.map {
+            let toots = response.value
+            let _ = toots.map {
                 let userProperty = MastodonUser.Property(id: $0.account.id, domain: domain, acct: $0.account.acct, username: $0.account.username, displayName: $0.account.displayName,avatar: $0.account.avatar,avatarStatic: $0.account.avatarStatic, createdAt: $0.createdAt, networkDate: $0.createdAt)
                 let author = MastodonUser.insert(into: managedObjectContext, property: userProperty)
                 let metions = $0.mentions?.compactMap({ (mention) -> Mention in
@@ -46,7 +46,7 @@ extension APIService.Persist {
                     uri: $0.uri,
                     createdAt: $0.createdAt,
                     content: $0.content,
-                    visibility: $0.visibility,
+                    visibility: $0.visibility?.rawValue,
                     sensitive: $0.sensitive ?? false,
                     spoilerText: $0.spoilerText,
                     mentions: metions,
@@ -72,6 +72,18 @@ extension APIService.Persist {
                     homeTimelineIndexes: nil)
                 Toot.insert(into: managedObjectContext, property: tootProperty, author: author)
             }
-        }.eraseToAnyPublisher()
+        }
+        .handleEvents(receiveOutput: { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                #if DEBUG
+                debugPrint(error)
+                #endif
+                assertionFailure(error.localizedDescription)
+            }
+        })
+        .eraseToAnyPublisher()
     }
 }

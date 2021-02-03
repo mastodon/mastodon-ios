@@ -5,59 +5,20 @@ import Combine
 final class MastodonSDKTests: XCTestCase {
     
     var disposeBag = Set<AnyCancellable>()
-    
-    let mstdnDomain = "mstdn.jp"
-    let pawooDomain = "pawoo.net"
+
     let session = URLSession(configuration: .ephemeral)
+    var domain: String { MastodonSDKTests.environmentVariable(key: "domain") }
+    
+    static func environmentVariable(key: String) -> String {
+        return ProcessInfo.processInfo.environment[key]!
+    }
 
 }
 
 extension MastodonSDKTests {
     
-    func testCreateAnAnpplication_mstdn() throws {
-        try _testCreateAnAnpplication(domain: pawooDomain)
-    }
-    
-    func testCreateAnAnpplication_pawoo() throws {
-        try _testCreateAnAnpplication(domain: pawooDomain)
-    }
-    
-    func _testCreateAnAnpplication(domain: String) throws {
-        let theExpectation = expectation(description: "Create An Application")
-        
-        let query = Mastodon.API.App.CreateQuery(
-            clientName: "XCTest",
-            website: nil
-        )
-        Mastodon.API.App.create(session: session, domain: domain, query: query)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    XCTFail(error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
-                XCTAssertEqual(response.value.name, "XCTest")
-                XCTAssertEqual(response.value.website, nil)
-                XCTAssertEqual(response.value.redirectURI, "urn:ietf:wg:oauth:2.0:oob")
-                theExpectation.fulfill()
-            }
-            .store(in: &disposeBag)
-
-        wait(for: [theExpectation], timeout: 10.0)
-    }
-}
-
-extension MastodonSDKTests {
-    
-    func testPublicTimeline_mstdn() throws {
-        try _testPublicTimeline(domain: mstdnDomain)
-    }
-    
-    func testPublicTimeline_pawoo() throws {
-        try _testPublicTimeline(domain: pawooDomain)
+    func testPublicTimeline() throws {
+        try _testPublicTimeline(domain: domain)
     }
     
     private func _testPublicTimeline(domain: String) throws {

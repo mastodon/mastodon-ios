@@ -37,7 +37,10 @@ extension SceneCoordinator {
     }
     
     enum Scene {
+        case authentication(viewModel: AuthenticationViewModel)
+        case mastodonPinBasedAuthentication(viewModel: MastodonPinBasedAuthenticationViewModel)
         
+        case alertController(alertController: UIAlertController)
     }
 }
 
@@ -108,8 +111,25 @@ private extension SceneCoordinator {
     func get(scene: Scene) -> UIViewController? {
         let viewController: UIViewController?
         
-        // TODO:
-        viewController = nil
+        switch scene {
+        case .authentication(let viewModel):
+            let _viewController = AuthenticationViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonPinBasedAuthentication(let viewModel):
+            let _viewController = MastodonPinBasedAuthenticationViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .alertController(let alertController):
+            if let popoverPresentationController = alertController.popoverPresentationController {
+                assert(
+                    popoverPresentationController.sourceView != nil ||
+                    popoverPresentationController.sourceRect != .zero ||
+                    popoverPresentationController.barButtonItem != nil
+                )
+            }
+            viewController = alertController
+        }
         
         setupDependency(for: viewController as? NeedsDependency)
 

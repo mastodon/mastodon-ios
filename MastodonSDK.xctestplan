@@ -2,9 +2,26 @@
   "configurations" : [
     {
       "id" : "5119353D-C795-4264-89FD-8376D9B144F8",
-      "name" : "Configuration 1",
+      "name" : "mstdn.jp",
       "options" : {
-
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "mstdn.jp"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "C5184AF3-B83B-4A7E-949C-6B1AA3ABE7D1",
+      "name" : "pawoo.net",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "pawoo.net"
+          }
+        ]
       }
     }
   ],
@@ -13,6 +30,10 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "MastodonSDKTests\/testCreateAnAnpplication()",
+        "MastodonSDKTests\/testVerifyAppCredentials()"
+      ],
       "target" : {
         "containerPath" : "container:MastodonSDK",
         "identifier" : "MastodonSDKTests",
