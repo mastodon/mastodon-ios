@@ -13,6 +13,9 @@ extension Mastodon.API.Timeline {
     static func publicTimelineEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("timelines/public")
     }
+    static func homeTimelineEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("timelines/home")
+    }
     
     public static func `public`(
         session: URLSession,
@@ -32,9 +35,29 @@ extension Mastodon.API.Timeline {
             .eraseToAnyPublisher()
     }
     
+    public static func home(
+        session: URLSession,
+        domain: String,
+        query: HomeTimelineQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error>  {
+        let request = Mastodon.API.get(
+            url: homeTimelineEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Toot].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
 }
 
 extension Mastodon.API.Timeline {
+    
     public struct PublicTimelineQuery: Codable, GetQuery {
         
         public let local: Bool?
@@ -76,4 +99,38 @@ extension Mastodon.API.Timeline {
             return items
         }
     }
+    
+    public struct HomeTimelineQuery: Codable, GetQuery {
+        public let maxID: Mastodon.Entity.Toot.ID?
+        public let sinceID: Mastodon.Entity.Toot.ID?
+        public let minID: Mastodon.Entity.Toot.ID?
+        public let limit: Int?
+        public let local: Bool?
+    
+        public init(
+            maxID: Mastodon.Entity.Toot.ID? = nil,
+            sinceID: Mastodon.Entity.Toot.ID? = nil,
+            minID: Mastodon.Entity.Toot.ID? = nil,
+            limit: Int? = nil,
+            local: Bool? = nil
+        ) {
+            self.maxID = maxID
+            self.sinceID = sinceID
+            self.minID = minID
+            self.limit = limit
+            self.local = local
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            maxID.flatMap { items.append(URLQueryItem(name: "max_id", value: $0)) }
+            sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+            minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
+            limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+            local.flatMap { items.append(URLQueryItem(name: "local", value: $0.queryItemValue)) }
+            guard !items.isEmpty else { return nil }
+            return items
+        }
+    }
+    
 }

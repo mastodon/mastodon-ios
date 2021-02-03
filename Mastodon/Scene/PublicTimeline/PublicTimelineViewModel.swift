@@ -90,6 +90,6 @@ class PublicTimelineViewModel: NSObject {
 extension PublicTimelineViewModel {
     
     func fetchLatest() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
-        return context.apiService.publicTimeline(count: 20, domain: "mstdn.jp")
+        return context.apiService.publicTimeline(domain: "mstdn.jp")
     }
 }

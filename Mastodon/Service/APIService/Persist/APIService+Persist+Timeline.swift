@@ -14,7 +14,8 @@ import MastodonSDK
 
 extension APIService.Persist {
     enum PersistTimelineType {
-        case publicHomeTimeline
+        case publicTimeline
+        case homeTimeline
     }
     static func persistTimeline(
         domain: String,
