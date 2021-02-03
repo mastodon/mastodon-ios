@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="vapidKey" optional="YES" attributeType="String"/>
         <attribute name="website" optional="YES" attributeType="String"/>
@@ -116,13 +117,14 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="toot" inverseEntity="Tag"/>
     </entity>
     <elements>
+        <element name="Application" positionX="160" positionY="192" width="128" height="104"/>
         <element name="Emoji" positionX="45" positionY="135" width="128" height="149"/>
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="284"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
         <element name="Toot" positionX="0" positionY="0" width="128" height="494"/>
-        <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
     </elements>
 </model>

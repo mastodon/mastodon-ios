@@ -89,9 +89,8 @@ public extension Toot {
         toot.sensitive = property.sensitive
         toot.spoilerText = property.spoilerText
         
-        if let application = property.application {
-            toot.mutableSetValue(forKey: #keyPath(Toot.application)).add(application)
-        }
+        toot.application = property.application
+
         if let mentions = property.mentions {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
         }
@@ -139,6 +138,28 @@ public extension Toot {
         
         return toot
     }
+    func update(reblogsCount: NSNumber) {
+        if self.reblogsCount.intValue != reblogsCount.intValue {
+            self.reblogsCount = reblogsCount
+        }
+    }
+    func update(favouritesCount: NSNumber) {
+        if self.favouritesCount.intValue != favouritesCount.intValue {
+            self.favouritesCount = favouritesCount
+        }
+    }
+    func update(repliesCount: NSNumber?) {
+        guard let count = repliesCount else {
+            return
+        }
+        if self.repliesCount?.intValue != count.intValue {
+            self.repliesCount = repliesCount
+        }
+    }
+    func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
+    }
+
 }
 
 public extension Toot {
