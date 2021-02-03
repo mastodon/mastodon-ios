@@ -21,6 +21,7 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var visibility: String?
     @NSManaged public private(set) var sensitive: Bool
     @NSManaged public private(set) var spoilerText: String?
+    @NSManaged public private(set) var application: Application?
     
     // Informational
     @NSManaged public private(set) var reblogsCount: NSNumber
@@ -88,6 +89,9 @@ public extension Toot {
         toot.sensitive = property.sensitive
         toot.spoilerText = property.spoilerText
         
+        if let application = property.application {
+            toot.mutableSetValue(forKey: #keyPath(Toot.application)).add(application)
+        }
         if let mentions = property.mentions {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
         }
@@ -123,11 +127,9 @@ public extension Toot {
         if let bookmarkedBy = property.bookmarkedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
         }
-        
-        // TODO: not implement yet
-        // if let pinnedBy = property.pinnedBy {
-        //     toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy))
-        // }
+        if let pinnedBy = property.pinnedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy)).add(pinnedBy)
+        }
         
         toot.updatedAt = property.updatedAt
         toot.deletedAt = property.deletedAt
@@ -150,6 +152,7 @@ public extension Toot {
             visibility: String?,
             sensitive: Bool,
             spoilerText: String?,
+            application: Application?,
             mentions: [Mention]?,
             emojis: [Emoji]?,
             tags: [Tag]?,
@@ -181,6 +184,7 @@ public extension Toot {
             self.visibility = visibility
             self.sensitive = sensitive
             self.spoilerText = spoilerText
+            self.application = application
             self.mentions = mentions
             self.emojis = emojis
             self.tags = tags
@@ -215,6 +219,7 @@ public extension Toot {
         public let visibility: String?
         public let sensitive: Bool
         public let spoilerText: String?
+        public let application: Application?
         
         public let mentions: [Mention]?
         public let emojis: [Emoji]?

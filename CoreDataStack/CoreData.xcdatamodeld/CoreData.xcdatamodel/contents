@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D64" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Application" representedClassName=".Application" syncable="YES">
+        <attribute name="name" attributeType="String"/>
+        <attribute name="vapidKey" optional="YES" attributeType="String"/>
+        <attribute name="website" optional="YES" attributeType="String"/>
+        <relationship name="toots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="application" inverseEntity="Toot"/>
+    </entity>
     <entity name="Emoji" representedClassName=".Emoji" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
@@ -95,6 +101,7 @@
         <attribute name="uri" attributeType="String"/>
         <attribute name="url" attributeType="String"/>
         <attribute name="visibility" optional="YES" attributeType="String"/>
+        <relationship name="application" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="toots" inverseEntity="Application"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="toots" inverseEntity="MastodonUser"/>
         <relationship name="bookmarked" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
         <relationship name="emojis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Emoji" inverseName="toot" inverseEntity="Emoji"/>
