@@ -9,7 +9,6 @@ import Foundation
 
 extension Mastodon.Entity {
     
-    // FIXME: prefer `Status`. `Toot` will be deprecated
     public typealias Toot = Status
     
     /// Status

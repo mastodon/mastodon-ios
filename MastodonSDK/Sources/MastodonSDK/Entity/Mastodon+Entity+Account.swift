@@ -9,9 +9,6 @@ import Foundation
 
 extension Mastodon.Entity {
     
-    // FIXME: prefer `Account`. `User` will be deprecated
-    public typealias User = Account
-    
     /// Account
     ///
     /// - Since: 0.1.0
@@ -48,7 +45,7 @@ extension Mastodon.Entity {
         public let followersCount: Int
         public let followingCount: Int
         
-        public let moved: User?
+        public let moved: Account?
         public let fields: [Field]?
         public let bot: Bool?
         public let source: Source?
