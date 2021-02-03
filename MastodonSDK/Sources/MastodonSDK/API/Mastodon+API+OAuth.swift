@@ -115,14 +115,6 @@ extension Mastodon.API.OAuth {
             self.scope = scope
         }
         
-        enum CodingKeys: String, CodingKey {
-            case forceLogin = "force_login"
-            case responseType = "response_type"
-            case clientID
-            case redirectURI = "redirect_uri"
-            case scope
-        }
-        
         var queryItems: [URLQueryItem]? {
             var items: [URLQueryItem] = []
             forceLogin.flatMap { items.append(URLQueryItem(name: "force_login", value: $0)) }
