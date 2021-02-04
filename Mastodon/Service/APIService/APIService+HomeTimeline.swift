@@ -1,8 +1,8 @@
 //
-//  APIService+PublicTimeline.swift
+//  APIService+HomeTimeline.swift
 //  Mastodon
 //
-//  Created by sxiaojian on 2021/1/28.
+//  Created by MainasuK Cirno on 2021/2/3.
 //
 
 import Foundation
@@ -15,28 +15,29 @@ import MastodonSDK
 
 extension APIService {
     
-    static let publicTimelineRequestWindowInSec: TimeInterval = 15 * 60
-    
-    func publicTimeline(
+    func homeTimeline(
         domain: String,
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
-        limit: Int = 100
+        limit: Int = 100,
+        local: Bool? = nil,
+        authorizationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
-        let query = Mastodon.API.Timeline.PublicTimelineQuery(
-            local: nil,
-            remote: nil,
-            onlyMedia: nil,
+        let authorization = authorizationBox.userAuthorization
+        let requestMastodonUserID = authorizationBox.userID
+        let query = Mastodon.API.Timeline.HomeTimelineQuery(
             maxID: maxID,
             sinceID: sinceID,
             minID: nil,     // prefer sinceID
-            limit: limit
+            limit: limit,
+            local: local
         )
-
-        return Mastodon.API.Timeline.public(
+        
+        return Mastodon.API.Timeline.home(
             session: session,
             domain: domain,
-            query: query
+            query: query,
+            authorization: authorization
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> in
             return APIService.Persist.persistTimeline(
@@ -44,8 +45,8 @@ extension APIService {
                 domain: domain,
                 query: query,
                 response: response,
-                persistType: .public,
-                requestMastodonUserID: nil,
+                persistType: .home,
+                requestMastodonUserID: requestMastodonUserID,
                 log: OSLog.api
             )
             .setFailureType(to: Error.self)

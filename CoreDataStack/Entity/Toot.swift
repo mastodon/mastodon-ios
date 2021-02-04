@@ -10,6 +10,7 @@ import Foundation
 
 public final class Toot: NSManagedObject {
     public typealias ID = String
+    
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var domain: String
     
@@ -36,6 +37,8 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var text: String?
     
     // many-to-one relastionship
+    @NSManaged public private(set) var author: MastodonUser
+    @NSManaged public private(set) var reblog: Toot?
     @NSManaged public private(set) var favouritedBy: MastodonUser?
     @NSManaged public private(set) var rebloggedBy: MastodonUser?
     @NSManaged public private(set) var mutedBy: MastodonUser?
@@ -43,29 +46,16 @@ public final class Toot: NSManagedObject {
     
     // one-to-one relastionship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
+        
+    // one-to-many relationship
+    @NSManaged public private(set) var reblogFrom: Set<Toot>?
+    @NSManaged public private(set) var mentions: Set<Mention>?
+    @NSManaged public private(set) var emojis: Set<Emoji>?
+    @NSManaged public private(set) var tags: Set<Tag>?
+    @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
-    
-    // one-to-many relationship
-    @NSManaged public private(set) var reblogFrom: Set<Toot>?
-    
-    // one-to-many relationship
-    @NSManaged public private(set) var mentions: Set<Mention>?
-    // one-to-many relationship
-    @NSManaged public private(set) var emojis: Set<Emoji>?
-    
-    // one-to-many relationship
-    @NSManaged public private(set) var tags: Set<Tag>?
-    
-    // many-to-one relastionship
-    @NSManaged public private(set) var reblog: Toot?
-    
-    // many-to-one relationship
-    @NSManaged public private(set) var author: MastodonUser
-    
-    // one-to-many relationship
-    @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
 }
 
 public extension Toot {
@@ -73,7 +63,17 @@ public extension Toot {
     static func insert(
         into context: NSManagedObjectContext,
         property: Property,
-        author: MastodonUser
+        author: MastodonUser,
+        reblog: Toot?,
+        application: Application?,
+        mentions: [Mention]?,
+        emojis: [Emoji]?,
+        tags: [Tag]?,
+        favouritedBy: MastodonUser?,
+        rebloggedBy: MastodonUser?,
+        mutedBy: MastodonUser?,
+        bookmarkedBy: MastodonUser?,
+        pinnedBy: MastodonUser?
     ) -> Toot {
         let toot: Toot = context.insertObject()
         
@@ -88,20 +88,7 @@ public extension Toot {
         toot.visibility = property.visibility
         toot.sensitive = property.sensitive
         toot.spoilerText = property.spoilerText
-        
-        toot.application = property.application
-
-        if let mentions = property.mentions {
-            toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
-        }
-
-        if let emojis = property.emojis {
-            toot.mutableSetValue(forKey: #keyPath(Toot.emojis)).addObjects(from: emojis)
-        }
-        
-        if let tags = property.tags {
-            toot.mutableSetValue(forKey: #keyPath(Toot.tags)).addObjects(from: tags)
-        }
+        toot.application = application
 
         toot.reblogsCount = property.reblogsCount
         toot.favouritesCount = property.favouritesCount
@@ -110,31 +97,39 @@ public extension Toot {
         toot.url = property.url
         toot.inReplyToID = property.inReplyToID
         toot.inReplyToAccountID = property.inReplyToAccountID
-        toot.reblog = property.reblog
+        
         toot.language = property.language
         toot.text = property.text
         
-        if let favouritedBy = property.favouritedBy {
+        toot.author = author
+        toot.reblog = reblog
+        
+        if let mentions = mentions {
+            toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
+        }
+        if let emojis = emojis {
+            toot.mutableSetValue(forKey: #keyPath(Toot.emojis)).addObjects(from: emojis)
+        }
+        if let tags = tags {
+            toot.mutableSetValue(forKey: #keyPath(Toot.tags)).addObjects(from: tags)
+        }
+        if let favouritedBy = favouritedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).add(favouritedBy)
         }
-        if let rebloggedBy = property.rebloggedBy {
+        if let rebloggedBy = rebloggedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).add(rebloggedBy)
         }
-        if let mutedBy = property.mutedBy {
+        if let mutedBy = mutedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).add(mutedBy)
         }
-        if let bookmarkedBy = property.bookmarkedBy {
+        if let bookmarkedBy = bookmarkedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
         }
-        if let pinnedBy = property.pinnedBy {
+        if let pinnedBy = pinnedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy)).add(pinnedBy)
         }
         
-        toot.updatedAt = property.updatedAt
-        toot.deletedAt = property.deletedAt
-        toot.author = property.author
-        toot.content = property.content
-        toot.homeTimelineIndexes = property.homeTimelineIndexes
+        toot.updatedAt = property.networkDate
         
         return toot
     }
@@ -164,70 +159,6 @@ public extension Toot {
 
 public extension Toot {
     struct Property {
-        public init(
-            domain: String,
-            id: String,
-            uri: String,
-            createdAt: Date,
-            content: String,
-            visibility: String?,
-            sensitive: Bool,
-            spoilerText: String?,
-            application: Application?,
-            mentions: [Mention]?,
-            emojis: [Emoji]?,
-            tags: [Tag]?,
-            reblogsCount: NSNumber,
-            favouritesCount: NSNumber,
-            repliesCount: NSNumber?,
-            url: String?,
-            inReplyToID: Toot.ID?,
-            inReplyToAccountID: MastodonUser.ID?,
-            reblog: Toot?,
-            language: String?,
-            text: String?,
-            favouritedBy: MastodonUser?,
-            rebloggedBy: MastodonUser?,
-            mutedBy: MastodonUser?,
-            bookmarkedBy: MastodonUser?,
-            pinnedBy: MastodonUser?,
-            updatedAt: Date,
-            deletedAt: Date?,
-            author: MastodonUser,
-            homeTimelineIndexes: Set<HomeTimelineIndex>?)
-        {
-            self.identifier = id + "@" + domain
-            self.domain = domain
-            self.id = id
-            self.uri = uri
-            self.createdAt = createdAt
-            self.content = content
-            self.visibility = visibility
-            self.sensitive = sensitive
-            self.spoilerText = spoilerText
-            self.application = application
-            self.mentions = mentions
-            self.emojis = emojis
-            self.tags = tags
-            self.reblogsCount = reblogsCount
-            self.favouritesCount = favouritesCount
-            self.repliesCount = repliesCount
-            self.url = url
-            self.inReplyToID = inReplyToID
-            self.inReplyToAccountID = inReplyToAccountID
-            self.reblog = reblog
-            self.language = language
-            self.text = text
-            self.favouritedBy = favouritedBy
-            self.rebloggedBy = rebloggedBy
-            self.mutedBy = mutedBy
-            self.bookmarkedBy = bookmarkedBy
-            self.pinnedBy = pinnedBy
-            self.updatedAt = updatedAt
-            self.deletedAt = deletedAt
-            self.author = author
-            self.homeTimelineIndexes = homeTimelineIndexes
-        }
         
         public let identifier: ID
         public let domain: String
@@ -240,11 +171,7 @@ public extension Toot {
         public let visibility: String?
         public let sensitive: Bool
         public let spoilerText: String?
-        public let application: Application?
         
-        public let mentions: [Mention]?
-        public let emojis: [Emoji]?
-        public let tags: [Tag]?
         public let reblogsCount: NSNumber
         public let favouritesCount: NSNumber
         public let repliesCount: NSNumber?
@@ -252,22 +179,50 @@ public extension Toot {
         public let url: String?
         public let inReplyToID: Toot.ID?
         public let inReplyToAccountID: MastodonUser.ID?
-        public let reblog: Toot?
         public let language: String? //  (ISO 639 Part @1 two-letter language code)
         public let text: String?
+                
+        public let networkDate: Date
         
-        public let favouritedBy: MastodonUser?
-        public let rebloggedBy: MastodonUser?
-        public let mutedBy: MastodonUser?
-        public let bookmarkedBy: MastodonUser?
-        public let pinnedBy: MastodonUser?
+        public init(
+            domain: String,
+            id: String,
+            uri: String,
+            createdAt: Date,
+            content: String,
+            visibility: String?,
+            sensitive: Bool,
+            spoilerText: String?,
+            reblogsCount: NSNumber,
+            favouritesCount: NSNumber,
+            repliesCount: NSNumber?,
+            url: String?,
+            inReplyToID: Toot.ID?,
+            inReplyToAccountID: MastodonUser.ID?,
+            language: String?,
+            text: String?,
+            networkDate: Date
+        ) {
+            self.identifier = id + "@" + domain
+            self.domain = domain
+            self.id = id
+            self.uri = uri
+            self.createdAt = createdAt
+            self.content = content
+            self.visibility = visibility
+            self.sensitive = sensitive
+            self.spoilerText = spoilerText
+            self.reblogsCount = reblogsCount
+            self.favouritesCount = favouritesCount
+            self.repliesCount = repliesCount
+            self.url = url
+            self.inReplyToID = inReplyToID
+            self.inReplyToAccountID = inReplyToAccountID
+            self.language = language
+            self.text = text
+            self.networkDate = networkDate
+        }
         
-        public let updatedAt: Date
-        public let deletedAt: Date?
-        
-        public let author: MastodonUser
-        
-        public let homeTimelineIndexes: Set<HomeTimelineIndex>?
     }
 }
 
@@ -277,20 +232,39 @@ extension Toot: Managed {
     }
 }
 
-public extension Toot {
-    static func predicate(idStr: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Toot.id), idStr)
+extension Toot {
+    
+    static func predicate(domain: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Toot.domain), domain)
     }
     
-    static func predicate(idStrs: [String]) -> NSPredicate {
-        return NSPredicate(format: "%K IN %@", #keyPath(Toot.id), idStrs)
+    static func predicate(id: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Toot.id), id)
     }
     
-    static func notDeleted() -> NSPredicate {
+    public static func predicate(domain: String, id: String) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            predicate(domain: domain),
+            predicate(id: id)
+        ])
+    }
+    
+    static func predicate(ids: [String]) -> NSPredicate {
+        return NSPredicate(format: "%K IN %@", #keyPath(Toot.id), ids)
+    }
+    
+    public static func predicate(domain: String, ids: [String]) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            predicate(domain: domain),
+            predicate(ids: ids)
+        ])
+    }
+    
+    public static func notDeleted() -> NSPredicate {
         return NSPredicate(format: "%K == nil", #keyPath(Toot.deletedAt))
     }
     
-    static func deleted() -> NSPredicate {
+    public static func deleted() -> NSPredicate {
         return NSPredicate(format: "%K != nil", #keyPath(Toot.deletedAt))
     }
 }

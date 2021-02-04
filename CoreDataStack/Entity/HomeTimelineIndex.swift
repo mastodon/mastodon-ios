@@ -13,9 +13,13 @@ final public class HomeTimelineIndex: NSManagedObject {
     public typealias ID = String
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var domain: String
-    @NSManaged public private(set) var userIdentifier: String
+    @NSManaged public private(set) var userID: String
+    
+    @NSManaged public private(set) var hasMore: Bool    // default NO
     
     @NSManaged public private(set) var createdAt: Date
+    @NSManaged public private(set) var deletedAt: Date?
+
     
     // many-to-one relationship
     @NSManaged public private(set) var toot: Toot
@@ -34,12 +38,23 @@ extension HomeTimelineIndex {
         
         index.identifier = property.identifier
         index.domain = property.domain
-        index.userIdentifier = toot.author.identifier
+        index.userID = toot.author.id
         index.createdAt = toot.createdAt
         
         index.toot = toot
         
         return index
+    }
+    
+    public func update(hasMore: Bool) {
+        if self.hasMore != hasMore {
+            self.hasMore = hasMore
+        }
+    }
+    
+    // internal method for Toot call
+    func softDelete() {
+        deletedAt = Date()
     }
     
 }

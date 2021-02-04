@@ -29,6 +29,7 @@ extension PublicTimelineViewModel {
             timelinePostTableViewCellDelegate: timelinePostTableViewCellDelegate
         )
         items.value = []
+        stateMachine.enter(PublicTimelineViewModel.State.Loading.self)
     }
 }
 

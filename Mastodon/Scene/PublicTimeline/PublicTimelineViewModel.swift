@@ -46,7 +46,7 @@ class PublicTimelineViewModel: NSObject {
         self.context = context
         self.fetchedResultsController = {
             let fetchRequest = Toot.sortedFetchRequest
-            fetchRequest.predicate = Toot.predicate(idStrs: [])
+            fetchRequest.predicate = Toot.predicate(domain: "", ids: [])
             fetchRequest.returnsObjectsAsFaults = false
             fetchRequest.fetchBatchSize = 20
             let controller = NSFetchedResultsController(
@@ -89,7 +89,8 @@ class PublicTimelineViewModel: NSObject {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
                 guard let self = self else { return }
-                self.fetchedResultsController.fetchRequest.predicate = Toot.predicate(idStrs: ids)
+                let domain = self.context.authenticationService.activeMastodonAuthenticationBox.value?.domain ?? ""
+                self.fetchedResultsController.fetchRequest.predicate = Toot.predicate(domain: domain, ids: ids)
                 do {
                     try self.fetchedResultsController.performFetch()
                 } catch {
@@ -105,11 +106,8 @@ class PublicTimelineViewModel: NSObject {
 }
 
 extension PublicTimelineViewModel {
-    func fetchLatest() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
-        return context.apiService.publicTimeline(count: 20, domain: "mstdn.jp")
-    }
     
     func loadMore() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
-        return context.apiService.publicTimeline(count: 20, domain: "mstdn.jp")
+        return context.apiService.publicTimeline(domain: "mstdn.jp")
     }
 }

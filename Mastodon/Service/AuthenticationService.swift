@@ -62,6 +62,7 @@ class AuthenticationService: NSObject {
             .map { authentication -> AuthenticationService.MastodonAuthenticationBox? in
                 guard let authentication = authentication else { return nil }
                 return AuthenticationService.MastodonAuthenticationBox(
+                    domain: authentication.domain,
                     userID: authentication.userID,
                     appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
                     userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
@@ -82,6 +83,7 @@ class AuthenticationService: NSObject {
 
 extension AuthenticationService {
     struct MastodonAuthenticationBox {
+        let domain: String
         let userID: MastodonUser.ID
         let appAuthorization: Mastodon.API.OAuth.Authorization
         let userAuthorization: Mastodon.API.OAuth.Authorization

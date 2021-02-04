@@ -51,8 +51,12 @@ extension PublicTimelineViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                stateMachine.enter(Fail.self)
+                return
+            }
 
-            viewModel.fetchLatest()
+            viewModel.context.apiService.publicTimeline(domain: activeMastodonAuthenticationBox.domain)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in
                     switch completion {
@@ -82,6 +86,14 @@ extension PublicTimelineViewModel.State {
                 return false
             }
         }
+        
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+            guard let viewModel = viewModel else { return }
+
+            // trigger items update
+            viewModel.items.value = viewModel.items.value
+        }
     }
     
     class Idle: PublicTimelineViewModel.State {
@@ -110,29 +122,36 @@ extension PublicTimelineViewModel.State {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-        
-            viewModel.loadMore()
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        stateMachine.enter(Fail.self)
-                        os_log("%{public}s[%{public}ld], %{public}s: load more fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                    case .finished:
-                        break
-                    }
-                } receiveValue: { response in
-                    stateMachine.enter(Idle.self)
-                    var oldTootsIDs = viewModel.tootIDs.value
-                    for toot in response.value {
-                        if !oldTootsIDs.contains(toot.id) {
-                            oldTootsIDs.append(toot.id)
-                        }
-                    }
-                    
-                    viewModel.tootIDs.value = oldTootsIDs
-                    
+            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                stateMachine.enter(Fail.self)
+                return
+            }
+            let maxID = viewModel.tootIDs.value.last
+            viewModel.context.apiService.publicTimeline(
+                domain: activeMastodonAuthenticationBox.domain,
+                maxID: maxID
+            )
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    stateMachine.enter(Fail.self)
+                    os_log("%{public}s[%{public}ld], %{public}s: load more fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                case .finished:
+                    break
                 }
-                .store(in: &viewModel.disposeBag)
+            } receiveValue: { response in
+                stateMachine.enter(Idle.self)
+                var oldTootsIDs = viewModel.tootIDs.value
+                for toot in response.value {
+                    if !oldTootsIDs.contains(toot.id) {
+                        oldTootsIDs.append(toot.id)
+                    }
+                }
+                
+                viewModel.tootIDs.value = oldTootsIDs
+                
+            }
+            .store(in: &viewModel.disposeBag)
         }
     }
 }

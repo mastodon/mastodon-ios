@@ -3,7 +3,6 @@
 //  CoreDataStack
 //
 //  Created by Cirno MainasuK on 2020-8-10.
-//  Copyright © 2020 Dimension. All rights reserved.
 //
 
 import os
