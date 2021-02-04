@@ -1634,7 +1634,7 @@
 			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				minimumVersion = 4.0.0;
 			};
 		};
 		2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */ = {
