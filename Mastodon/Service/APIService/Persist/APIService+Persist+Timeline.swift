@@ -28,6 +28,9 @@ extension APIService.Persist {
             let _ = toots.map {
                 let userProperty = MastodonUser.Property(id: $0.account.id, domain: domain, acct: $0.account.acct, username: $0.account.username, displayName: $0.account.displayName,avatar: $0.account.avatar,avatarStatic: $0.account.avatarStatic, createdAt: $0.createdAt, networkDate: $0.createdAt)
                 let author = MastodonUser.insert(into: managedObjectContext, property: userProperty)
+                let application = $0.application.flatMap { app -> Application? in
+                    Application.insert(into: managedObjectContext, property: Application.Property(name: app.name, website: app.website, vapidKey: app.vapidKey))
+                }
                 let metions = $0.mentions?.compactMap({ (mention) -> Mention in
                     Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url))
                 })
@@ -50,6 +53,7 @@ extension APIService.Persist {
                     visibility: $0.visibility?.rawValue,
                     sensitive: $0.sensitive ?? false,
                     spoilerText: $0.spoilerText,
+                    application: application,
                     mentions: metions,
                     emojis: emojis,
                     tags: tags,

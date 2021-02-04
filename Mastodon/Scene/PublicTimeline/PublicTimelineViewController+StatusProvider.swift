@@ -38,6 +38,8 @@ extension PublicTimelineViewController {
                     let toot = managedObjectContext.object(with: objectID) as? Toot
                     promise(.success(toot))
                 }
+            default:
+                promise(.success(nil))
             }
         }
     }
