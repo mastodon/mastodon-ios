@@ -20,9 +20,15 @@ class PublicTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let fetchedResultsController: NSFetchedResultsController<Toot>
-    let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
-    weak var tableView: UITableView?
     
+    let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
+    
+    // middle loader
+    let loadMiddleSateMachineList = CurrentValueSubject<[String: GKStateMachine], Never>([:])
+    
+    weak var tableView: UITableView?
+    //
+    var tootIDsWhichHasGap = [String]()
     // output
     var diffableDataSource: UITableViewDiffableDataSource<TimelineSection, Item>?
 
@@ -102,12 +108,5 @@ class PublicTimelineViewModel: NSObject {
     
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-    }
-}
-
-extension PublicTimelineViewModel {
-    
-    func loadMore() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
-        return context.apiService.publicTimeline(domain: "mstdn.jp")
     }
 }

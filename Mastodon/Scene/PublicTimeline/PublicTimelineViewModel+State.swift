@@ -69,8 +69,20 @@ extension PublicTimelineViewModel.State {
                     }
                 } receiveValue: { response in
                     viewModel.isFetchingLatestTimeline.value = false
-                    let tootsIDs = response.value.map { $0.id }
-                    viewModel.tootIDs.value = tootsIDs
+                    var newTootsIDs = response.value.compactMap { $0.id }
+                    let oldTootsIDs = viewModel.tootIDs.value
+                    var hasGap = true
+                    for tootID in oldTootsIDs {
+                        if !newTootsIDs.contains(tootID) {
+                            newTootsIDs.append(tootID)
+                        } else {
+                            hasGap = false
+                        }
+                    }
+                    if hasGap {
+                        oldTootsIDs.first.flatMap { viewModel.tootIDsWhichHasGap.append($0) }
+                    }
+                    viewModel.tootIDs.value = newTootsIDs
                     stateMachine.enter(Idle.self)
                 }
                 .store(in: &viewModel.disposeBag)
@@ -149,7 +161,6 @@ extension PublicTimelineViewModel.State {
                 }
                 
                 viewModel.tootIDs.value = oldTootsIDs
-                
             }
             .store(in: &viewModel.disposeBag)
         }
