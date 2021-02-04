@@ -23,6 +23,8 @@ extension Item: Equatable {
         switch (lhs, rhs) {
         case (.toot(let objectIDLeft), .toot(let objectIDRight)):
             return objectIDLeft == objectIDRight
+        case (.bottomLoader, .bottomLoader):
+            return true
         default:
             return false
         }

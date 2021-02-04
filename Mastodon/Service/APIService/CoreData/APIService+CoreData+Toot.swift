@@ -48,7 +48,7 @@ extension APIService.CoreData {
         } else {
             
             let (mastodonUser, isMastodonUserCreated) = createOrMergeMastodonUser(into: managedObjectContext, for: requestMastodonUser,in: domain, entity: entity.account, networkDate: networkDate, log: log)
-            let application = entity.application.flatMap { (app) -> Application? in
+            let application = entity.application.flatMap { app -> Application? in
                 Application.insert(into: managedObjectContext, property: Application.Property(name: app.name, website: app.website, vapidKey: app.vapidKey))
             }
             
@@ -122,8 +122,8 @@ extension APIService.CoreData {
         // merge user
         mergeMastodonUser(for: requestMastodonUser, old: toot.author, in: domain, entity: entity.account, networkDate: networkDate)
         // merge indirect reblog & quote
-        if let reblog = entity.reblog {
-            mergeToot(for: requestMastodonUser, old: toot.reblog!,in: domain, entity: reblog, networkDate: networkDate)
+        if let reblog = toot.reblog, let reblogEntity = entity.reblog {
+            mergeToot(for: requestMastodonUser, old: reblog,in: domain, entity: reblogEntity, networkDate: networkDate)
         }
     }
     

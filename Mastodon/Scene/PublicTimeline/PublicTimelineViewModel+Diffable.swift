@@ -40,7 +40,7 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
 
         let indexes = tootIDs.value
         let toots = fetchedResultsController.fetchedObjects ?? []
-
+        guard toots.count == indexes.count else { return }
         let items: [Item] = toots
             .compactMap { toot -> (Int, Toot)? in
                 guard toot.deletedAt == nil else { return nil }
