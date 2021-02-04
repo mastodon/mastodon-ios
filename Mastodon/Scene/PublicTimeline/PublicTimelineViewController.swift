@@ -5,40 +5,55 @@
 //  Created by sxiaojian on 2021/1/27.
 //
 
-import os.log
-import UIKit
 import AVKit
 import Combine
 import CoreDataStack
 import GameplayKit
+import os.log
+import UIKit
 
 final class PublicTimelineViewController: UIViewController, NeedsDependency, TimelinePostTableViewCellDelegate {
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: PublicTimelineViewModel!
     
-
+    let refreshControl = UIRefreshControl()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TimelinePostTableViewCell.self, forCellReuseIdentifier: String(describing: TimelinePostTableViewCell.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         return tableView
     }()
     
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
-    
 }
 
 extension PublicTimelineViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(PublicTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
+        // bind refresh control
+        viewModel.isFetchingLatestTimeline
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isFetching in
+                guard let self = self else { return }
+                if !isFetching {
+                    UIView.animate(withDuration: 0.5) { [weak self] in
+                        guard let self = self else { return }
+                        self.refreshControl.endRefreshing()
+                    }
+                }
+            }
+            .store(in: &disposeBag)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = Asset.Colors.tootDark.color
@@ -60,29 +75,35 @@ extension PublicTimelineViewController {
             timelinePostTableViewCellDelegate: self
         )
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.fetchLatest()
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log("%{public}s[%{public}ld], %{public}s: fetch user timeline latest response error: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
-                let tootsIDs = response.value.map { $0.id }
-                self.viewModel.tootIDs.value = tootsIDs
-            }
-            .store(in: &viewModel.disposeBag)
+        viewModel.stateMachine.enter(PublicTimelineViewModel.State.Loading.self)
     }
-    
+}
+
+// MARK: - UIScrollViewDelegate
+extension PublicTimelineViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollViewDidScroll(scrollView)
+    }
+
+}
+
+// MARK: - Selector
+
+extension PublicTimelineViewController {
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        guard viewModel.stateMachine.enter(PublicTimelineViewModel.State.Loading.self) else {
+            sender.endRefreshing()
+            return
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate
+
 extension PublicTimelineViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return 100 }
@@ -94,12 +115,9 @@ extension PublicTimelineViewController: UITableViewDelegate {
         return ceil(frame.height)
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         
@@ -107,4 +125,12 @@ extension PublicTimelineViewController: UITableViewDelegate {
         let frame = cell.frame
         viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
     }
+}
+// MARK: - LoadMoreConfigurableTableViewContainer
+extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
+    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
+    typealias LoadingState = PublicTimelineViewModel.State.LoadingMore
+    
+    var loadMoreConfigurableTableView: UITableView { return tableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
 }

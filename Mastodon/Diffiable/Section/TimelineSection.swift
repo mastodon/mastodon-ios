@@ -37,6 +37,10 @@ extension TimelineSection {
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
+            case .bottomLoader:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                cell.activityIndicatorView.startAnimating()
+                return cell
             }
         }
     }

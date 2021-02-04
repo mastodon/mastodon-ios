@@ -16,11 +16,14 @@
 		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
 		2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */; };
 		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
+		2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
 		2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46976325C2A71500CF4AA9 /* UIIamge.swift */; };
 		2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */; };
 		2D61335E25C1894B00CAE157 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335D25C1894B00CAE157 /* APIService.swift */; };
 		2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */; };
+		2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */; };
+		2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */; };
 		2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */; };
 		2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */; };
 		2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */; };
@@ -32,6 +35,9 @@
 		2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0725C7E9A8004F19B8 /* Tag.swift */; };
 		2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0D25C7E9C9004F19B8 /* History.swift */; };
 		2D927F1425C7EDD9004F19B8 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F1325C7EDD9004F19B8 /* Emoji.swift */; };
+		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
+		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
+		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
 		3533495136D843E85211E3E2 /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1B4523A7981F1044DE89C21 /* Pods_Mastodon_MastodonUITests.framework */; };
 		45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
@@ -153,10 +159,13 @@
 		2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionToolBarContainer.swift; sourceTree = "<group>"; };
 		2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitTestExpandedButton.swift; sourceTree = "<group>"; };
 		2D42FF8E25C8228A004A627A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
 		2D46976325C2A71500CF4AA9 /* UIIamge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIamge.swift; sourceTree = "<group>"; };
 		2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+Timeline.swift"; sourceTree = "<group>"; };
 		2D61335D25C1894B00CAE157 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
+		2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Toot.swift"; sourceTree = "<group>"; };
 		2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewController.swift; sourceTree = "<group>"; };
 		2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewModel.swift; sourceTree = "<group>"; };
 		2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
@@ -168,6 +177,10 @@
 		2D927F0725C7E9A8004F19B8 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		2D927F0D25C7E9C9004F19B8 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
+		2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLoaderTableViewCell.swift; sourceTree = "<group>"; };
+		2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderTableViewCell.swift; sourceTree = "<group>"; };
+		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
+		2DA7D05625CA693F00804E11 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		2DF123A625C3B0210020F248 /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
 		3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,6 +363,14 @@
 			path = Persist;
 			sourceTree = "<group>";
 		};
+		2D69CFF225CA9E2200C3A1B2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		2D76316325C14BAC00929FB9 /* PublicTimeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +378,7 @@
 				2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */,
 				2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */,
 				2D76318225C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift */,
+				2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */,
 			);
 			path = PublicTimeline;
 			sourceTree = "<group>";
@@ -403,6 +425,8 @@
 				602D783BEC22881EBAD84419 /* Pods_Mastodon.framework */,
 				A1B4523A7981F1044DE89C21 /* Pods_Mastodon_MastodonUITests.framework */,
 				2D7631A725C1535600929FB9 /* TimelinePostTableViewCell.swift */,
+				2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */,
+				2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */,
 			);
 			path = TableviewCell;
 			sourceTree = "<group>";
@@ -500,6 +524,7 @@
 			children = (
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
+				2D69CFF225CA9E2200C3A1B2 /* Protocol */,
 				2D76319C25C151DE00929FB9 /* Diffiable */,
 				DB8AF52A25C13561002E6C99 /* State */,
 				2D61335525C1886800CAE157 /* Service */,
@@ -549,6 +574,7 @@
 		DB45FB0925CA87BC005A8AC7 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */,
 				DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */,
 				DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */,
 			);
@@ -600,6 +626,7 @@
 				2D927F0D25C7E9C9004F19B8 /* History.swift */,
 				2D927F1325C7EDD9004F19B8 /* Emoji.swift */,
 				DB45FAEC25CA7A9A005A8AC7 /* MastodonAuthentication.swift */,
+				2DA7D05625CA693F00804E11 /* Application.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -673,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */,
+				2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1041,12 +1069,15 @@
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */,
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
+				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
+				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
+				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
 				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
@@ -1069,10 +1100,12 @@
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
 				2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
+				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				DB8AF55725C137A8002E6C99 /* HomeViewController.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
 				2D7631A825C1535600929FB9 /* TimelinePostTableViewCell.swift in Sources */,
 				2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */,
+				2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */,
 				DB01409625C40B6700F9F3CF /* AuthenticationViewController.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
@@ -1100,6 +1133,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DA7D05725CA693F00804E11 /* Application.swift in Sources */,
 				2D927F1425C7EDD9004F19B8 /* Emoji.swift in Sources */,
 				DB89BA1225C1105C008580ED /* CoreDataStack.swift in Sources */,
 				DB89BA1C25C1107F008580ED /* NSManagedObjectContext.swift in Sources */,

@@ -21,6 +21,7 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var visibility: String?
     @NSManaged public private(set) var sensitive: Bool
     @NSManaged public private(set) var spoilerText: String?
+    @NSManaged public private(set) var application: Application?
     
     // Informational
     @NSManaged public private(set) var reblogsCount: NSNumber
@@ -88,6 +89,8 @@ public extension Toot {
         toot.sensitive = property.sensitive
         toot.spoilerText = property.spoilerText
         
+        toot.application = property.application
+
         if let mentions = property.mentions {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
         }
@@ -123,11 +126,9 @@ public extension Toot {
         if let bookmarkedBy = property.bookmarkedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
         }
-        
-        // TODO: not implement yet
-        // if let pinnedBy = property.pinnedBy {
-        //     toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy))
-        // }
+        if let pinnedBy = property.pinnedBy {
+            toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy)).add(pinnedBy)
+        }
         
         toot.updatedAt = property.updatedAt
         toot.deletedAt = property.deletedAt
@@ -137,6 +138,28 @@ public extension Toot {
         
         return toot
     }
+    func update(reblogsCount: NSNumber) {
+        if self.reblogsCount.intValue != reblogsCount.intValue {
+            self.reblogsCount = reblogsCount
+        }
+    }
+    func update(favouritesCount: NSNumber) {
+        if self.favouritesCount.intValue != favouritesCount.intValue {
+            self.favouritesCount = favouritesCount
+        }
+    }
+    func update(repliesCount: NSNumber?) {
+        guard let count = repliesCount else {
+            return
+        }
+        if self.repliesCount?.intValue != count.intValue {
+            self.repliesCount = repliesCount
+        }
+    }
+    func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
+    }
+
 }
 
 public extension Toot {
@@ -150,6 +173,7 @@ public extension Toot {
             visibility: String?,
             sensitive: Bool,
             spoilerText: String?,
+            application: Application?,
             mentions: [Mention]?,
             emojis: [Emoji]?,
             tags: [Tag]?,
@@ -181,6 +205,7 @@ public extension Toot {
             self.visibility = visibility
             self.sensitive = sensitive
             self.spoilerText = spoilerText
+            self.application = application
             self.mentions = mentions
             self.emojis = emojis
             self.tags = tags
@@ -215,6 +240,7 @@ public extension Toot {
         public let visibility: String?
         public let sensitive: Bool
         public let spoilerText: String?
+        public let application: Application?
         
         public let mentions: [Mention]?
         public let emojis: [Emoji]?
