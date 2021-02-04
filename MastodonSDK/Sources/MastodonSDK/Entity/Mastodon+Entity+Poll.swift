@@ -13,7 +13,7 @@ extension Mastodon.Entity {
     /// - Since: 2.8.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/1/28
+    ///   2021/2/4
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/poll/)
     public struct Poll: Codable {
@@ -51,7 +51,7 @@ extension Mastodon.Entity.Poll {
         public let title: String
         /// nil if results are not published yet
         public let votesCount: Int?
-        public let emojis: [Mastodon.Entity.Emoji]
+        public let emojis: [Mastodon.Entity.Emoji]?
         
         enum CodingKeys: String, CodingKey {
             case title

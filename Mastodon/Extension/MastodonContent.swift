@@ -24,7 +24,8 @@ enum TootContent {
             switch entity.type {
             case .url:
                 guard let href = entity.href else { continue }
-                activeEntities.append(ActiveEntity(range: range, type: .url(original: href, trimmed: entity.hrefEllipsis ?? href)))
+                let text = String(entity.text)
+                activeEntities.append(ActiveEntity(range: range, type: .url(text, trimmed: entity.hrefEllipsis ?? text, url: href)))
             case .hashtag:
                 var userInfo: [AnyHashable: Any] = [:]
                 entity.href.flatMap { href in
@@ -54,23 +55,36 @@ enum TootContent {
             document: toot,
             original: text,
             trimmed: trimmed,
-            activeEntities: activeEntities
+            activeEntities: validate(text: trimmed, activeEntities: activeEntities) ? activeEntities : []
         )
     }
     
     static func trimEntity(toot: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
-        guard case let .url(original, trimmed, _) = activeEntity.type else { return }
+        guard case let .url(text, trimmed, _, _) = activeEntity.type else { return }
         guard let index = activeEntities.firstIndex(where: { $0.range == activeEntity.range }) else { return }
         guard let range = Range(activeEntity.range, in: toot) else { return }
         toot.replaceSubrange(range, with: trimmed)
         
-        let offset = trimmed.count - original.count
+        let offset = trimmed.count - text.count
         activeEntity.range.length += offset
         
         let moveActiveEntities = Array(activeEntities[index...].dropFirst())
         for moveActiveEntity in moveActiveEntities {
             moveActiveEntity.range.location += offset
         }
+    }
+    
+    private static func validate(text: String, activeEntities: [ActiveEntity]) -> Bool {
+        for activeEntity in activeEntities {
+            let count = text.utf16.count
+            let endIndex = activeEntity.range.location + activeEntity.range.length
+            guard endIndex <= count else {
+                assertionFailure("Please file issue")
+                return false
+            }
+        }
+        
+        return true
     }
         
 }
