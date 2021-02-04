@@ -13,25 +13,26 @@ import MastodonSDK
 
 extension APIService.CoreData {
     
-    static func createOrMergeTweet(
+    static func createOrMergeToot(
         into managedObjectContext: NSManagedObjectContext,
-        for requestMastodonUser: MastodonUser,
+        for requestMastodonUser: MastodonUser?,
         entity: Mastodon.Entity.Toot,
         domain: String,
         networkDate: Date,
         log: OSLog
-    ) -> (Toot: Toot, isTweetCreated: Bool, isMastodonUserCreated: Bool) {
+    ) -> (Toot: Toot, isTootCreated: Bool, isMastodonUserCreated: Bool) {
 
         // build tree
         let reblog = entity.reblog.flatMap { entity -> Toot in
-            let (toot, _, _) = createOrMergeTweet(into: managedObjectContext, for: requestMastodonUser, entity: entity,domain: domain, networkDate: networkDate, log: log)
+            let (toot, _, _) = createOrMergeToot(into: managedObjectContext, for: requestMastodonUser, entity: entity, domain: domain, networkDate: networkDate, log: log)
             return toot
         }
         
         // fetch old Toot
-        let oldTweet: Toot? = {
+        let oldToot: Toot? = {
             let request = Toot.sortedFetchRequest
-            request.predicate = Toot.predicate(idStr: entity.id)
+            request.predicate = Toot.predicate(domain: domain, id: entity.id)
+            request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             do {
                 return try managedObjectContext.fetch(request).first
@@ -41,64 +42,47 @@ extension APIService.CoreData {
             }
         }()
 
-        if let oldTweet = oldTweet {
+        if let oldToot = oldToot {
             // merge old Toot
-            APIService.CoreData.mergeToot(for: requestMastodonUser, old: oldTweet,in: domain, entity: entity, networkDate: networkDate)
-            return (oldTweet, false, false)
+            APIService.CoreData.mergeToot(for: requestMastodonUser, old: oldToot,in: domain, entity: entity, networkDate: networkDate)
+            return (oldToot, false, false)
         } else {
-            
             let (mastodonUser, isMastodonUserCreated) = createOrMergeMastodonUser(into: managedObjectContext, for: requestMastodonUser,in: domain, entity: entity.account, networkDate: networkDate, log: log)
             let application = entity.application.flatMap { app -> Application? in
                 Application.insert(into: managedObjectContext, property: Application.Property(name: app.name, website: app.website, vapidKey: app.vapidKey))
             }
-            
-            let metions = entity.mentions?.compactMap({ (mention) -> Mention in
+            let metions = entity.mentions?.compactMap { mention -> Mention in
                 Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url))
-            })
-            let emojis = entity.emojis?.compactMap({ (emoji) -> Emoji in
+            }
+            let emojis = entity.emojis?.compactMap { emoji -> Emoji in
                 Emoji.insert(into: managedObjectContext, property: Emoji.Property(shortcode: emoji.shortcode, url: emoji.url, staticURL: emoji.staticURL, visibleInPicker: emoji.visibleInPicker, category: emoji.category))
-            })
-            let tags = entity.tags?.compactMap({ (tag) -> Tag in
+            }
+            let tags = entity.tags?.compactMap { tag -> Tag in
                 let histories = tag.history?.compactMap({ (history) -> History in
                     History.insert(into: managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
                 })
                 return Tag.insert(into: managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
-            })
-            let tootProperty = Toot.Property(
-                domain: domain,
-                id: entity.id,
-                uri: entity.uri,
-                createdAt: entity.createdAt,
-                content: entity.content,
-                visibility: entity.visibility?.rawValue,
-                sensitive: entity.sensitive ?? false,
-                spoilerText: entity.spoilerText,
+            }
+            let tootProperty = Toot.Property(entity: entity, domain: domain, networkDate: networkDate)
+            let toot = Toot.insert(
+                into: managedObjectContext,
+                property: tootProperty,
+                author: mastodonUser,
+                reblog: reblog,
                 application: application,
                 mentions: metions,
                 emojis: emojis,
                 tags: tags,
-                reblogsCount: NSNumber(value: entity.reblogsCount),
-                favouritesCount: NSNumber(value: entity.favouritesCount),
-                repliesCount: (entity.repliesCount != nil) ? NSNumber(value: entity.repliesCount!) : nil,
-                url: entity.uri,
-                inReplyToID: entity.inReplyToID,
-                inReplyToAccountID: entity.inReplyToAccountID,
-                reblog: reblog,
-                language: entity.language,
-                text: entity.text,
-                favouritedBy: (entity.favourited ?? false) ? mastodonUser : nil,
-                rebloggedBy: (entity.reblogged ?? false) ? mastodonUser : nil,
-                mutedBy: (entity.muted ?? false) ? mastodonUser : nil,
-                bookmarkedBy: (entity.bookmarked ?? false) ? mastodonUser : nil,
-                pinnedBy: (entity.pinned ?? false) ? mastodonUser : nil,
-                updatedAt: networkDate,
-                deletedAt: nil,
-                author: requestMastodonUser,
-                homeTimelineIndexes: nil)
-            let toot = Toot.insert(into: managedObjectContext, property: tootProperty, author: mastodonUser)
+                favouritedBy: requestMastodonUser,
+                rebloggedBy: requestMastodonUser,
+                mutedBy: requestMastodonUser,
+                bookmarkedBy: requestMastodonUser,
+                pinnedBy: requestMastodonUser
+            )
             return (toot, true, isMastodonUserCreated)
         }
     }
+    
     static func mergeToot(for requestMastodonUser: MastodonUser?, old toot: Toot,in domain: String, entity: Mastodon.Entity.Toot, networkDate: Date) {
         guard networkDate > toot.updatedAt else { return }
 
@@ -114,8 +98,7 @@ extension APIService.CoreData {
         if entity.reblogsCount != toot.reblogsCount.intValue {
             toot.update(reblogsCount:NSNumber(value: entity.reblogsCount))
         }
-
-
+        
         // set updateAt
         toot.didUpdate(at: networkDate)
 

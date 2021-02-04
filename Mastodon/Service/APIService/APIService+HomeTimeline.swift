@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import CoreData
 import CoreDataStack
+import CommonOSLog
 import DateToolsSwift
 import MastodonSDK
 
@@ -19,15 +20,17 @@ extension APIService {
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
         limit: Int = 100,
+        local: Bool? = nil,
         authorizationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
         let authorization = authorizationBox.userAuthorization
+        let requestMastodonUserID = authorizationBox.userID
         let query = Mastodon.API.Timeline.HomeTimelineQuery(
             maxID: maxID,
             sinceID: sinceID,
             minID: nil,     // prefer sinceID
             limit: limit,
-            local: nil      // TODO:
+            local: local
         )
         
         return Mastodon.API.Timeline.home(
@@ -38,10 +41,13 @@ extension APIService {
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> in
             return APIService.Persist.persistTimeline(
-                domain: domain,
                 managedObjectContext: self.backgroundManagedObjectContext,
+                domain: domain,
+                query: query,
                 response: response,
-                persistType: .homeTimeline
+                persistType: .home,
+                requestMastodonUserID: requestMastodonUserID,
+                log: OSLog.api
             )
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Toot]> in

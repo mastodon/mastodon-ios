@@ -27,9 +27,11 @@
     </entity>
     <entity name="HomeTimelineIndex" representedClassName=".HomeTimelineIndex" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
+        <attribute name="hasMore" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="identifier" attributeType="String"/>
-        <attribute name="userIdentifier" attributeType="String"/>
+        <attribute name="userID" attributeType="String"/>
         <relationship name="toots" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndexes" inverseEntity="Toot"/>
     </entity>
     <entity name="MastodonAuthentication" representedClassName=".MastodonAuthentication" syncable="YES">
@@ -120,7 +122,7 @@
         <element name="Application" positionX="160" positionY="192" width="128" height="104"/>
         <element name="Emoji" positionX="45" positionY="135" width="128" height="149"/>
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
-        <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="284"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>

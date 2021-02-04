@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import CoreData
 import CoreDataStack
+import CommonOSLog
 import DateToolsSwift
 import MastodonSDK
 
@@ -39,10 +40,13 @@ extension APIService {
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> in
             return APIService.Persist.persistTimeline(
-                domain: domain,
                 managedObjectContext: self.backgroundManagedObjectContext,
+                domain: domain,
+                query: query,
                 response: response,
-                persistType: Persist.PersistTimelineType.publicTimeline
+                persistType: .public,
+                requestMastodonUserID: nil,
+                log: OSLog.api
             )
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Toot]> in

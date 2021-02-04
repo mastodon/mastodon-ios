@@ -76,10 +76,6 @@ extension PublicTimelineViewController {
         )
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.stateMachine.enter(PublicTimelineViewModel.State.Loading.self)
-    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -87,11 +83,9 @@ extension PublicTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
     }
-
 }
 
 // MARK: - Selector
-
 extension PublicTimelineViewController {
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
         guard viewModel.stateMachine.enter(PublicTimelineViewModel.State.Loading.self) else {
@@ -102,7 +96,6 @@ extension PublicTimelineViewController {
 }
 
 // MARK: - UITableViewDelegate
-
 extension PublicTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }

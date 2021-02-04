@@ -56,9 +56,16 @@ extension Mastodon.API.Timeline {
     
 }
 
+public protocol TimelineQueryType {
+    var maxID: Mastodon.Entity.Toot.ID? { get }
+    var sinceID: Mastodon.Entity.Toot.ID? { get }
+}
+
 extension Mastodon.API.Timeline {
     
-    public struct PublicTimelineQuery: Codable, GetQuery {
+    public typealias TimelineQuery = TimelineQueryType
+    
+    public struct PublicTimelineQuery: Codable, TimelineQuery, GetQuery {
         
         public let local: Bool?
         public let remote: Bool?
@@ -100,7 +107,7 @@ extension Mastodon.API.Timeline {
         }
     }
     
-    public struct HomeTimelineQuery: Codable, GetQuery {
+    public struct HomeTimelineQuery: Codable, TimelineQuery, GetQuery {
         public let maxID: Mastodon.Entity.Toot.ID?
         public let sinceID: Mastodon.Entity.Toot.ID?
         public let minID: Mastodon.Entity.Toot.ID?

@@ -49,6 +49,7 @@
 		DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */; };
 		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
+		DB084B5725CBC56C00F898ED /* Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Toot.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
@@ -195,6 +196,7 @@
 		DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift; sourceTree = "<group>"; };
 		DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
+		DB084B5625CBC56C00F898ED /* Toot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toot.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,6 +465,15 @@
 			path = PinBased;
 			sourceTree = "<group>";
 		};
+		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
+				DB084B5625CBC56C00F898ED /* Toot.swift */,
+			);
+			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
 		DB3D0FF725BAA68500EAA174 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,8 +564,8 @@
 		DB45FB0425CA87B4005A8AC7 /* APIService */ = {
 			isa = PBXGroup;
 			children = (
-				2D61335625C1887F00CAE157 /* Persist */,
 				DB45FB0925CA87BC005A8AC7 /* CoreData */,
+				2D61335625C1887F00CAE157 /* Persist */,
 				2D61335D25C1894B00CAE157 /* APIService.swift */,
 				DB98337E25C9452D00AD9700 /* APIService+APIError.swift */,
 				DB98336A25C9420100AD9700 /* APIService+App.swift */,
@@ -677,7 +688,7 @@
 		DB8AF56225C138BC002E6C99 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
+				DB084B5125CBC56300F898ED /* CoreDataStack */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
@@ -1084,6 +1095,7 @@
 				DB98334725C8056600AD9700 /* AuthenticationViewModel.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				2D76319F25C1521200929FB9 /* TimelineSection.swift in Sources */,
+				DB084B5725CBC56C00F898ED /* Toot.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
