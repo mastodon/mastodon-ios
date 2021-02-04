@@ -101,7 +101,7 @@
 		DB98338725C945ED00AD9700 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338525C945ED00AD9700 /* Strings.swift */; };
 		DB98338825C945ED00AD9700 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338625C945ED00AD9700 /* Assets.swift */; };
 		DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98339B25C96DE600AD9700 /* APIService+Account.swift */; };
-		DBD4ED1125CC0FEB0041B741 /* HomeTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD4ED1025CC0FEB0041B741 /* HomeTimelineViewModel.swift */; };
+		DBD4ED1125CC0FEB0041B741 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD4ED1025CC0FEB0041B741 /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -260,7 +260,7 @@
 		DB98338525C945ED00AD9700 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		DB98338625C945ED00AD9700 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DB98339B25C96DE600AD9700 /* APIService+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Account.swift"; sourceTree = "<group>"; };
-		DBD4ED1025CC0FEB0041B741 /* HomeTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewModel.swift; sourceTree = "<group>"; };
+		DBD4ED1025CC0FEB0041B741 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -745,7 +745,7 @@
 			isa = PBXGroup;
 			children = (
 				DB8AF55625C137A8002E6C99 /* HomeViewController.swift */,
-				DBD4ED1025CC0FEB0041B741 /* HomeTimelineViewModel.swift */,
+				DBD4ED1025CC0FEB0041B741 /* HomeViewModel.swift */,
 			);
 			path = HomeTimeline;
 			sourceTree = "<group>";
@@ -1130,7 +1130,7 @@
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				2D76319F25C1521200929FB9 /* TimelineSection.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Toot.swift in Sources */,
-				DBD4ED1125CC0FEB0041B741 /* HomeTimelineViewModel.swift in Sources */,
+				DBD4ED1125CC0FEB0041B741 /* HomeViewModel.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,

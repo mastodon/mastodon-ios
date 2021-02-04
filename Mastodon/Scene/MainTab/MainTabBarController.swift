@@ -40,6 +40,7 @@ class MainTabBarController: UITabBarController {
             switch self {
             case .home:
                 let _viewController = HomeViewController()
+                _viewController.viewModel = HomeViewModel(context: context)
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController

@@ -24,3 +24,9 @@ extension MastodonUser.Property {
         )
     }
 }
+
+extension MastodonUser {
+    public func avatarImageURL() -> URL? {
+        return URL(string: avatar)
+    }
+}
