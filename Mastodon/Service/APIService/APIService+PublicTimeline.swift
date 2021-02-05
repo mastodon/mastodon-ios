@@ -29,7 +29,7 @@ extension APIService {
             onlyMedia: nil,
             maxID: maxID,
             sinceID: sinceID,
-            minID: nil,     // prefer sinceID
+            minID: minID,     // prefer sinceID
             limit: limit
         )
 

@@ -52,10 +52,9 @@ extension PublicTimelineViewModel.LoadMiddleState {
                 stateMachine.enter(Fail.self)
                 return
             }
-            let maxID = upperTimelineTootID
             viewModel.context.apiService.publicTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
-                maxID: maxID
+                minID: upperTimelineTootID
             )
             .receive(on: DispatchQueue.main)
             .sink { completion in
