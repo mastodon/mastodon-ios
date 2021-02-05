@@ -16,7 +16,7 @@ extension APIService.CoreData {
     static func createOrMergeToot(
         into managedObjectContext: NSManagedObjectContext,
         for requestMastodonUser: MastodonUser?,
-        entity: Mastodon.Entity.Toot,
+        entity: Mastodon.Entity.Status,
         domain: String,
         networkDate: Date,
         log: OSLog
@@ -83,7 +83,7 @@ extension APIService.CoreData {
         }
     }
     
-    static func mergeToot(for requestMastodonUser: MastodonUser?, old toot: Toot,in domain: String, entity: Mastodon.Entity.Toot, networkDate: Date) {
+    static func mergeToot(for requestMastodonUser: MastodonUser?, old toot: Toot,in domain: String, entity: Mastodon.Entity.Status, networkDate: Date) {
         guard networkDate > toot.updatedAt else { return }
 
         // merge

@@ -27,6 +27,8 @@ final class AuthenticationViewModel {
     let domain = CurrentValueSubject<String?, Never>(nil)
     let isDomainValid = CurrentValueSubject<Bool, Never>(false)
     let isAuthenticating = CurrentValueSubject<Bool, Never>(false)
+    let isRegistering = CurrentValueSubject<Bool, Never>(false)
+    let isIdle = CurrentValueSubject<Bool, Never>(true)
     let authenticated = PassthroughSubject<(domain: String, account: Mastodon.Entity.Account), Never>()
     let error = CurrentValueSubject<Error?, Never>(nil)
     
@@ -58,6 +60,14 @@ final class AuthenticationViewModel {
             }
             .assign(to: \.value, on: domain)
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            isAuthenticating.eraseToAnyPublisher(),
+            isRegistering.eraseToAnyPublisher()
+        )
+        .map { !$0 && !$1 }
+        .assign(to: \.value, on: self.isIdle)
+        .store(in: &disposeBag)
         
         domain
             .map { $0 != nil }

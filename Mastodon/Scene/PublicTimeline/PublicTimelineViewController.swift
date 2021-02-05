@@ -27,7 +27,7 @@ final class PublicTimelineViewController: UIViewController, NeedsDependency, Tim
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
-        tableView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        tableView.backgroundColor = .clear
         return tableView
     }()
     

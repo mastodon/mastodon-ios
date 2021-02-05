@@ -104,10 +104,3 @@ class PublicTimelineViewModel: NSObject {
         os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
 }
-
-extension PublicTimelineViewModel {
-    
-    func loadMore() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
-        return context.apiService.publicTimeline(domain: "mstdn.jp")
-    }
-}

@@ -59,7 +59,13 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
         return button
     }()
     
-    let activityIndicatorView: UIActivityIndicatorView = {
+    let signInActivityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.hidesWhenStopped = true
+        return activityIndicatorView
+    }()
+    
+    let signUpActivityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
         activityIndicatorView.hidesWhenStopped = true
         return activityIndicatorView
@@ -99,11 +105,11 @@ extension AuthenticationViewController {
             signInButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
         
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(activityIndicatorView)
+        signInActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(signInActivityIndicatorView)
         NSLayoutConstraint.activate([
-            activityIndicatorView.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor),
-            activityIndicatorView.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor),
+            signInActivityIndicatorView.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor),
+            signInActivityIndicatorView.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor),
         ])
         
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +119,13 @@ extension AuthenticationViewController {
             signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
             signUpButton.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             signUpButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
+        ])
+        
+        signUpActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(signUpActivityIndicatorView)
+        NSLayoutConstraint.activate([
+            signUpActivityIndicatorView.centerXAnchor.constraint(equalTo: signUpButton.centerXAnchor),
+            signUpActivityIndicatorView.centerYAnchor.constraint(equalTo: signUpButton.centerYAnchor),
         ])
         
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: domainTextField)
@@ -127,12 +140,29 @@ extension AuthenticationViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
-                isAuthenticating ? self.activityIndicatorView.startAnimating() : self.activityIndicatorView.stopAnimating()
+                isAuthenticating ? self.signInActivityIndicatorView.startAnimating() : self.signInActivityIndicatorView.stopAnimating()
                 self.signInButton.setTitle(isAuthenticating ? "" : "Sign in", for: .normal)
-                self.signInButton.isEnabled = !isAuthenticating
-                self.signUpButton.isEnabled = !isAuthenticating
             }
             .store(in: &disposeBag)
+        
+        viewModel.isRegistering
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isRegistering in
+                guard let self = self else { return }
+                isRegistering ? self.signUpActivityIndicatorView.startAnimating() : self.signUpActivityIndicatorView.stopAnimating()
+                self.signUpButton.setTitle(isRegistering ? "" : "Sign up", for: .normal)
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.isIdle
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isIdle in
+                guard let self = self else { return }
+                self.signInButton.isEnabled = isIdle
+                self.signUpButton.isEnabled = isIdle
+            }
+            .store(in: &disposeBag)
+        
         
         viewModel.authenticated
             .receive(on: DispatchQueue.main)
@@ -196,7 +226,7 @@ extension AuthenticationViewController {
             domainTextField.shake()
             return
         }
-        guard !viewModel.isAuthenticating.value else { return }
+        guard viewModel.isIdle.value else { return }
         viewModel.isAuthenticating.value = true
         context.apiService.createApplication(domain: domain)
             .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
@@ -241,8 +271,8 @@ extension AuthenticationViewController {
             domainTextField.shake()
             return
         }
-        guard !viewModel.isAuthenticating.value else { return }
-
+        guard viewModel.isIdle.value else { return }
+        viewModel.isRegistering.value = true
         context.apiService.instance(domain: domain)
             .compactMap { [weak self] response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error>? in
                 guard let self = self else { return nil }
@@ -265,16 +295,20 @@ extension AuthenticationViewController {
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.viewModel.isRegistering.value = false
+                
                 switch completion {
                 case .failure(let error):
-                    break
+                    self.viewModel.error.send(error)
                 case .finished:
                     break
                 }
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
-                print(response)
+                let mastodonRegisterViewModel = MastodonRegisterViewModel(domain: domain, applicationToken: response.value)
+                self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: self, transition: .show)
             }
             .store(in: &disposeBag)
     }

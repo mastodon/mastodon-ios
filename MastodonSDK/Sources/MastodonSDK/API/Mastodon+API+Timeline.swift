@@ -21,7 +21,7 @@ extension Mastodon.API.Timeline {
         session: URLSession,
         domain: String,
         query: PublicTimelineQuery
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error>  {
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
         let request = Mastodon.API.get(
             url: publicTimelineEndpointURL(domain: domain),
             query: query,
@@ -29,7 +29,7 @@ extension Mastodon.API.Timeline {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Toot].self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
@@ -40,7 +40,7 @@ extension Mastodon.API.Timeline {
         domain: String,
         query: HomeTimelineQuery,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error>  {
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
         let request = Mastodon.API.get(
             url: homeTimelineEndpointURL(domain: domain),
             query: query,
@@ -48,7 +48,7 @@ extension Mastodon.API.Timeline {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Toot].self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
@@ -57,8 +57,8 @@ extension Mastodon.API.Timeline {
 }
 
 public protocol TimelineQueryType {
-    var maxID: Mastodon.Entity.Toot.ID? { get }
-    var sinceID: Mastodon.Entity.Toot.ID? { get }
+    var maxID: Mastodon.Entity.Status.ID? { get }
+    var sinceID: Mastodon.Entity.Status.ID? { get }
 }
 
 extension Mastodon.API.Timeline {
@@ -70,18 +70,18 @@ extension Mastodon.API.Timeline {
         public let local: Bool?
         public let remote: Bool?
         public let onlyMedia: Bool?
-        public let maxID: Mastodon.Entity.Toot.ID?
-        public let sinceID: Mastodon.Entity.Toot.ID?
-        public let minID: Mastodon.Entity.Toot.ID?
+        public let maxID: Mastodon.Entity.Status.ID?
+        public let sinceID: Mastodon.Entity.Status.ID?
+        public let minID: Mastodon.Entity.Status.ID?
         public let limit: Int?
     
         public init(
             local: Bool? = nil,
             remote: Bool? = nil,
             onlyMedia: Bool? = nil,
-            maxID: Mastodon.Entity.Toot.ID? = nil,
-            sinceID: Mastodon.Entity.Toot.ID? = nil,
-            minID: Mastodon.Entity.Toot.ID? = nil,
+            maxID: Mastodon.Entity.Status.ID? = nil,
+            sinceID: Mastodon.Entity.Status.ID? = nil,
+            minID: Mastodon.Entity.Status.ID? = nil,
             limit: Int? = nil
         ) {
             self.local = local
@@ -108,16 +108,16 @@ extension Mastodon.API.Timeline {
     }
     
     public struct HomeTimelineQuery: Codable, TimelineQuery, GetQuery {
-        public let maxID: Mastodon.Entity.Toot.ID?
-        public let sinceID: Mastodon.Entity.Toot.ID?
-        public let minID: Mastodon.Entity.Toot.ID?
+        public let maxID: Mastodon.Entity.Status.ID?
+        public let sinceID: Mastodon.Entity.Status.ID?
+        public let minID: Mastodon.Entity.Status.ID?
         public let limit: Int?
         public let local: Bool?
     
         public init(
-            maxID: Mastodon.Entity.Toot.ID? = nil,
-            sinceID: Mastodon.Entity.Toot.ID? = nil,
-            minID: Mastodon.Entity.Toot.ID? = nil,
+            maxID: Mastodon.Entity.Status.ID? = nil,
+            sinceID: Mastodon.Entity.Status.ID? = nil,
+            minID: Mastodon.Entity.Status.ID? = nil,
             limit: Int? = nil,
             local: Bool? = nil
         ) {
