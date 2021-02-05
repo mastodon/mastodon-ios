@@ -70,6 +70,7 @@ extension PublicTimelineViewController {
         ])
         
         viewModel.tableView = tableView
+        viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             for: tableView,
@@ -122,6 +123,14 @@ extension PublicTimelineViewController: UITableViewDelegate {
         viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
     }
 }
+
+// MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
+extension PublicTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
+    func navigationBar() -> UINavigationBar? {
+        return navigationController?.navigationBar
+    }
+}
+
 // MARK: - LoadMoreConfigurableTableViewContainer
 extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell

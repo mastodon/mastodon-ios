@@ -68,7 +68,6 @@ extension PublicTimelineViewModel.State {
                         break
                     }
                 } receiveValue: { response in
-                    viewModel.isFetchingLatestTimeline.value = false
                     let resposeTootIDs = response.value.compactMap { $0.id }
                     var newTootsIDs = resposeTootIDs
                     let oldTootsIDs = viewModel.tootIDs.value
