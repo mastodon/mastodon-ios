@@ -54,7 +54,7 @@ extension PublicTimelineViewModel.LoadMiddleState {
             }
             viewModel.context.apiService.publicTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
-                minID: upperTimelineTootID
+                maxID: upperTimelineTootID
             )
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -70,8 +70,8 @@ extension PublicTimelineViewModel.LoadMiddleState {
                 let addedToots = toots.filter { !viewModel.tootIDs.value.contains($0.id) }
                 
                 guard let gapIndex = viewModel.tootIDs.value.firstIndex(of: self.upperTimelineTootID) else { return }
-                let upToots = Array(viewModel.tootIDs.value[0...(gapIndex-1)])
-                let downToots = Array(viewModel.tootIDs.value[gapIndex...viewModel.tootIDs.value.count-1])
+                let upToots = Array(viewModel.tootIDs.value[...gapIndex])
+                let downToots = Array(viewModel.tootIDs.value[(gapIndex + 1)...])
                 
                 // construct newTootIDs
                 var newTootIDs = upToots
@@ -82,9 +82,9 @@ extension PublicTimelineViewModel.LoadMiddleState {
                     viewModel.tootIDsWhichHasGap.remove(at: index)
                 }
                 // add new gap from viewmodel if need
-                let intersection = toots.filter { upToots.contains($0.id) }
+                let intersection = toots.filter { downToots.contains($0.id) }
                 if intersection.isEmpty {
-                    toots.first.flatMap { viewModel.tootIDsWhichHasGap.append($0.id) }
+                    addedToots.last.flatMap { viewModel.tootIDsWhichHasGap.append($0.id) }
                 }
                 
                 viewModel.tootIDs.value = newTootIDs

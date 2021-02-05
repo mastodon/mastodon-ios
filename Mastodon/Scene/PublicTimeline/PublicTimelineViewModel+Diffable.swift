@@ -15,7 +15,7 @@ extension PublicTimelineViewModel {
         for tableView: UITableView,
         dependency: NeedsDependency,
         timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate,
-        timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
+        timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -52,10 +52,10 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
             .sorted { $0.0 < $1.0 }
         var items = [Item]()
         for tuple in indexTootTuples {
+            items.append(Item.toot(objectID: tuple.1.objectID))
             if tootIDsWhichHasGap.contains(tuple.1.id) {
                 items.append(Item.middleLoader(tootID: tuple.1.id))
             }
-            items.append(Item.toot(objectID: tuple.1.objectID))
         }
 
         self.items.value = items

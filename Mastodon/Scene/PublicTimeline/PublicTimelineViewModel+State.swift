@@ -69,7 +69,8 @@ extension PublicTimelineViewModel.State {
                     }
                 } receiveValue: { response in
                     viewModel.isFetchingLatestTimeline.value = false
-                    var newTootsIDs = response.value.compactMap { $0.id }
+                    let resposeTootIDs = response.value.compactMap { $0.id }
+                    var newTootsIDs = resposeTootIDs
                     let oldTootsIDs = viewModel.tootIDs.value
                     var hasGap = true
                     for tootID in oldTootsIDs {
@@ -79,8 +80,8 @@ extension PublicTimelineViewModel.State {
                             hasGap = false
                         }
                     }
-                    if hasGap {
-                        oldTootsIDs.first.flatMap { viewModel.tootIDsWhichHasGap.append($0) }
+                    if hasGap && oldTootsIDs.count > 0 {
+                        resposeTootIDs.last.flatMap { viewModel.tootIDsWhichHasGap.append($0) }
                     }
                     viewModel.tootIDs.value = newTootsIDs
                     stateMachine.enter(Idle.self)
