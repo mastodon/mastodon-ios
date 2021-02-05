@@ -13,7 +13,7 @@ extension Mastodon.Entity {
     /// - Since: 1.1.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/1/28
+    ///   2021/2/5
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/instance/)
     public struct Instance: Codable {
@@ -28,7 +28,7 @@ extension Mastodon.Entity {
         public let registrations: Bool?
         public let approvalRequired: Bool?
         public let invitesEnabled: Bool?
-        public let urls: [InstanceURL]?
+        public let urls: InstanceURL?
         public let statistics: Statistics?
         
         public let thumbnail: String?

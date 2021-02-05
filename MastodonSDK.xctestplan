@@ -32,6 +32,7 @@
     {
       "skippedTests" : [
         "MastodonSDKTests\/testCreateAnAnpplication()",
+        "MastodonSDKTests\/testHomeTimeline()",
         "MastodonSDKTests\/testVerifyAppCredentials()"
       ],
       "target" : {
