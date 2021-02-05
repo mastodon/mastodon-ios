@@ -7,6 +7,7 @@
 
 import AVKit
 import Combine
+import CoreData
 import CoreDataStack
 import GameplayKit
 import os.log
@@ -24,6 +25,7 @@ final class PublicTimelineViewController: UIViewController, NeedsDependency, Tim
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(TimelinePostTableViewCell.self, forCellReuseIdentifier: String(describing: TimelinePostTableViewCell.self))
+        tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
@@ -68,11 +70,13 @@ extension PublicTimelineViewController {
         ])
         
         viewModel.tableView = tableView
+        viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
-            timelinePostTableViewCellDelegate: self
+            timelinePostTableViewCellDelegate: self,
+            timelineMiddleLoaderTableViewCellDelegate: self
         )
     }
 
@@ -119,6 +123,14 @@ extension PublicTimelineViewController: UITableViewDelegate {
         viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
     }
 }
+
+// MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
+extension PublicTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
+    func navigationBar() -> UINavigationBar? {
+        return navigationController?.navigationBar
+    }
+}
+
 // MARK: - LoadMoreConfigurableTableViewContainer
 extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
@@ -126,4 +138,67 @@ extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
     
     var loadMoreConfigurableTableView: UITableView { return tableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
+}
+
+// MARK: - TimelineMiddleLoaderTableViewCellDelegate
+extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
+    
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String) {
+        viewModel.loadMiddleSateMachineList
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ids in
+                guard let _ = self else { return }
+                if let stateMachine = ids[upperTimelineTootID] {
+                    guard let state = stateMachine.currentState else {
+                        assertionFailure()
+                        return
+                    }
+
+                    // make success state same as loading due to snapshot updating delay
+                    let isLoading = state is PublicTimelineViewModel.LoadMiddleState.Loading || state is PublicTimelineViewModel.LoadMiddleState.Success
+                    cell.loadMoreButton.isHidden = isLoading
+                    if isLoading {
+                        cell.activityIndicatorView.startAnimating()
+                    } else {
+                        cell.activityIndicatorView.stopAnimating()
+                    }
+                } else {
+                    cell.loadMoreButton.isHidden = false
+                    cell.activityIndicatorView.stopAnimating()
+                }
+            }
+            .store(in: &cell.disposeBag)
+        
+        var dict = viewModel.loadMiddleSateMachineList.value
+        if let _ = dict[upperTimelineTootID] {
+            // do nothing
+        } else {
+            let stateMachine = GKStateMachine(states: [
+                PublicTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
+                PublicTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
+                PublicTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
+                PublicTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
+            ])
+            stateMachine.enter(PublicTimelineViewModel.LoadMiddleState.Initial.self)
+            dict[upperTimelineTootID] = stateMachine
+            viewModel.loadMiddleSateMachineList.value = dict
+        }
+    }
+    
+    func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+
+        switch item {
+        case .middleLoader(let upper):
+            guard let stateMachine = viewModel.loadMiddleSateMachineList.value[upper] else {
+                assertionFailure()
+                return
+            }
+            stateMachine.enter(PublicTimelineViewModel.LoadMiddleState.Loading.self)
+        default:
+            assertionFailure()
+        }
+    }
 }
