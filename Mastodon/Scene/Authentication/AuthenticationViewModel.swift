@@ -68,12 +68,53 @@ final class AuthenticationViewModel {
 }
 
 extension AuthenticationViewModel {
+    enum AuthenticationError: Error, LocalizedError {
+        case badCredentials
+        case registrationClosed
+        
+        var errorDescription: String? {
+            switch self {
+            case .badCredentials:               return "Bad Credentials"
+            case .registrationClosed:           return "Registration Closed"
+            }
+        }
+        
+        var failureReason: String? {
+            switch self {
+            case .badCredentials:               return "Credentials invalid."
+            case .registrationClosed:           return "Server disallow registration."
+            }
+        }
+        
+        var helpAnchor: String? {
+            switch self {
+            case .badCredentials:               return "Please try again."
+            case .registrationClosed:           return "Please try another domain."
+            }
+        }
+    }
+}
+
+extension AuthenticationViewModel {
     
     struct AuthenticateInfo {
         let domain: String
         let clientID: String
         let clientSecret: String
-        let url: URL
+        let authorizeURL: URL
+        
+        init?(domain: String, application: Mastodon.Entity.Application) {
+            self.domain = domain
+            guard let clientID = application.clientID,
+                let clientSecret = application.clientSecret else { return nil }
+            self.clientID = clientID
+            self.clientSecret = clientSecret
+            self.authorizeURL = {
+                let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: clientID)
+                let url = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
+                return url
+            }()
+        }
     }
     
     func authenticate(info: AuthenticateInfo, pinCodePublisher: PassthroughSubject<String, Never>) {
@@ -144,7 +185,7 @@ extension AuthenticationViewModel {
             mastodonUserRequest.predicate = MastodonUser.predicate(domain: info.domain, id: account.id)
             mastodonUserRequest.fetchLimit = 1
             guard let mastodonUser = try? managedObjectContext.fetch(mastodonUserRequest).first else {
-                return Fail(error: APIService.APIError.explicit(.badCredentials)).eraseToAnyPublisher()
+                return Fail(error: AuthenticationError.badCredentials).eraseToAnyPublisher()
             }
             
             let property = MastodonAuthentication.Property(

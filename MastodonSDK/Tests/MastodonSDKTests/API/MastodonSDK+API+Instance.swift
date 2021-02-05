@@ -29,7 +29,7 @@ extension MastodonSDKTests {
                     break
                 }
             } receiveValue: { response in
-                XCTAssertEqual(response.value.uri, domain)
+                XCTAssertNotEqual(response.value.uri, "")
                 print(response.value)
                 theExpectation.fulfill()
             }

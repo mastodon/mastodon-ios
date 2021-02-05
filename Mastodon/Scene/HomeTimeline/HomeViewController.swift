@@ -31,7 +31,11 @@ extension HomeViewController {
         view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.leftBarButtonItem = avatarBarButtonItem
         avatarBarButtonItem.avatarButton.addTarget(self, action: #selector(HomeViewController.avatarBarButtonItemDidPressed(_:)), for: .touchUpInside)
-
+        #if DEBUG
+        avatarBarButtonItem.avatarButton.menu = debugMenu
+        avatarBarButtonItem.avatarButton.showsMenuAsPrimaryAction = true
+        #endif
+        
         Publishers.CombineLatest(
             context.authenticationService.activeMastodonAuthentication.eraseToAnyPublisher(),
             viewModel.viewDidAppear.eraseToAnyPublisher()

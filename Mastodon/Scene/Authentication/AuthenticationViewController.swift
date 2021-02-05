@@ -41,6 +41,7 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Background.secondarySystemBackground.color), for: .normal)
+        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Background.secondarySystemBackground.color.withAlphaComponent(0.8)), for: .disabled)
         button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
         button.setTitle("Sign in", for: .normal)
         button.layer.masksToBounds = true
@@ -53,6 +54,7 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
         button.setTitleColor(Asset.Colors.Button.highlight.color, for: .normal)
+        button.setTitleColor(.systemGray, for: .disabled)
         button.setTitle("Sign up", for: .normal)
         return button
     }()
@@ -126,6 +128,9 @@ extension AuthenticationViewController {
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
                 isAuthenticating ? self.activityIndicatorView.startAnimating() : self.activityIndicatorView.stopAnimating()
+                self.signInButton.setTitle(isAuthenticating ? "" : "Sign in", for: .normal)
+                self.signInButton.isEnabled = !isAuthenticating
+                self.signUpButton.isEnabled = !isAuthenticating
             }
             .store(in: &disposeBag)
         
@@ -171,6 +176,8 @@ extension AuthenticationViewController {
             .store(in: &disposeBag)
         
         signInButton.addTarget(self, action: #selector(AuthenticationViewController.signInButtonPressed(_:)), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(AuthenticationViewController.signUpButtonPressed(_:)), for: .touchUpInside)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -194,18 +201,10 @@ extension AuthenticationViewController {
         context.apiService.createApplication(domain: domain)
             .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
                 let application = response.value
-                guard let clientID = application.clientID,
-                      let clientSecret = application.clientSecret else {
+                guard let info = AuthenticationViewModel.AuthenticateInfo(domain: domain, application: application) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
-                let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: clientID)
-                let url = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
-                return AuthenticationViewModel.AuthenticateInfo(
-                    domain: domain,
-                    clientID: clientID,
-                    clientSecret: clientSecret,
-                    url: url
-                )
+                return info
             }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
@@ -222,7 +221,7 @@ extension AuthenticationViewController {
                 }
             } receiveValue: { [weak self] info in
                 guard let self = self else { return }
-                let mastodonPinBasedAuthenticationViewModel = MastodonPinBasedAuthenticationViewModel(authenticateURL: info.url)
+                let mastodonPinBasedAuthenticationViewModel = MastodonPinBasedAuthenticationViewModel(authenticateURL: info.authorizeURL)
                 self.viewModel.authenticate(
                     info: info,
                     pinCodePublisher: mastodonPinBasedAuthenticationViewModel.pinCodePublisher
@@ -232,6 +231,50 @@ extension AuthenticationViewController {
                     from: nil,
                     transition: .modal(animated: true, completion: nil)
                 )
+            }
+            .store(in: &disposeBag)
+    }
+    
+    @objc private func signUpButtonPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard viewModel.isDomainValid.value, let domain = viewModel.domain.value else {
+            domainTextField.shake()
+            return
+        }
+        guard !viewModel.isAuthenticating.value else { return }
+
+        context.apiService.instance(domain: domain)
+            .compactMap { [weak self] response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error>? in
+                guard let self = self else { return nil }
+                guard response.value.registrations != false else {
+                    return Fail(error: AuthenticationViewModel.AuthenticationError.registrationClosed).eraseToAnyPublisher()
+                }
+                return self.context.apiService.createApplication(domain: domain)
+            }
+            .switchToLatest()
+            .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
+                let application = response.value
+                guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(domain: domain, application: application) else {
+                    throw APIService.APIError.explicit(.badResponse)
+                }
+                return authenticateInfo
+            }
+            .compactMap { [weak self] authenticateInfo -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error>? in
+                guard let self = self else { return nil }
+                return self.context.apiService.applicationAccessToken(domain: domain, clientID: authenticateInfo.clientID, clientSecret: authenticateInfo.clientSecret)
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    break
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                print(response)
             }
             .store(in: &disposeBag)
     }

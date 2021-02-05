@@ -17,7 +17,6 @@ extension APIService {
         enum ErrorReason {
             // application internal error
             case authenticationMissing
-            case badCredentials
             case badRequest
             case badResponse
             case requestThrottle
@@ -42,7 +41,6 @@ extension APIService.APIError: LocalizedError {
     var errorDescription: String? {
         switch errorReason {
         case .authenticationMissing:        return "Fail to Authenticatie"
-        case .badCredentials:               return "Bad Credentials"
         case .badRequest:                   return "Bad Request"
         case .badResponse:                  return "Bad Response"
         case .requestThrottle:              return "Request Throttled"
@@ -61,7 +59,6 @@ extension APIService.APIError: LocalizedError {
     var failureReason: String? {
         switch errorReason {
         case .authenticationMissing:        return "Account credential not found."
-        case .badCredentials:               return "Credentials invalid."
         case .badRequest:                   return "Request invalid."
         case .badResponse:                  return "Response invalid."
         case .requestThrottle:              return "Request too frequency."
@@ -76,7 +73,6 @@ extension APIService.APIError: LocalizedError {
     var helpAnchor: String? {
         switch errorReason {
         case .authenticationMissing:        return "Please request after authenticated."
-        case .badCredentials:               return "Please try again.."
         case .badRequest:                   return "Please try again."
         case .badResponse:                  return "Please try again."
         case .requestThrottle:              return "Please try again later."
