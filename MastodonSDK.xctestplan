@@ -13,6 +13,18 @@
       }
     },
     {
+      "id" : "9DA3EAE9-A502-49E9-BC74-5ED71250F4A8",
+      "name" : "mastodon.social",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "mastodon.social"
+          }
+        ]
+      }
+    },
+    {
       "id" : "C5184AF3-B83B-4A7E-949C-6B1AA3ABE7D1",
       "name" : "pawoo.net",
       "options" : {
@@ -20,6 +32,18 @@
           {
             "key" : "domain",
             "value" : "pawoo.net"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "71C5BF3D-A8CE-468B-B22E-E6DA4AD5AF4E",
+      "name" : "freespeechextremist.com",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "freespeechextremist.com"
           }
         ]
       }
@@ -32,6 +56,7 @@
     {
       "skippedTests" : [
         "MastodonSDKTests\/testCreateAnAnpplication()",
+        "MastodonSDKTests\/testHomeTimeline()",
         "MastodonSDKTests\/testVerifyAppCredentials()"
       ],
       "target" : {

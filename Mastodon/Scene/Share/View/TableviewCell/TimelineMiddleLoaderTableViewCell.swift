@@ -21,7 +21,7 @@ final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
     override func _init() {
         super._init()
         
-        backgroundColor = Asset.Colors.tootDark.color
+        backgroundColor = .clear
         
         let separatorLine = UIView.separatorLine
         separatorLine.translatesAutoresizingMaskIntoConstraints = false

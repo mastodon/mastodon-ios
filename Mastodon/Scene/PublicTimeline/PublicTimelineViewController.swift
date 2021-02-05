@@ -29,6 +29,7 @@ final class PublicTimelineViewController: UIViewController, NeedsDependency, Tim
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -40,6 +41,8 @@ final class PublicTimelineViewController: UIViewController, NeedsDependency, Tim
 extension PublicTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(PublicTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -58,10 +61,7 @@ extension PublicTimelineViewController {
             .store(in: &disposeBag)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = Asset.Colors.tootDark.color
         view.addSubview(tableView)
-        view.backgroundColor = Asset.Colors.tootDark.color
-
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

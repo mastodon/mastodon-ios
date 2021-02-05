@@ -43,4 +43,17 @@ extension APIService {
         .eraseToAnyPublisher()
     }
     
+    func accountRegister(
+        domain: String,
+        query: Mastodon.API.Account.RegisterQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> {
+        return Mastodon.API.Account.register(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        )
+    }
+    
 }

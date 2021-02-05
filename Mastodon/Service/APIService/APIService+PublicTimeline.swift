@@ -22,7 +22,7 @@ extension APIService {
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
         limit: Int = 100
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let query = Mastodon.API.Timeline.PublicTimelineQuery(
             local: nil,
             remote: nil,
@@ -38,7 +38,7 @@ extension APIService {
             domain: domain,
             query: query
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Toot]>, Error> in
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
             return APIService.Persist.persistTimeline(
                 managedObjectContext: self.backgroundManagedObjectContext,
                 domain: domain,
@@ -49,7 +49,7 @@ extension APIService {
                 log: OSLog.api
             )
             .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Toot]> in
+            .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Status]> in
                 switch result {
                 case .success:
                     return response

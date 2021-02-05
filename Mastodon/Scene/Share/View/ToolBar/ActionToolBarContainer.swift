@@ -95,7 +95,7 @@ extension ActionToolbarContainer {
         
         let buttons = [replyButton, retootButton, starButton,bookmartButton, moreButton]
         buttons.forEach { button in
-            button.tintColor = Asset.Colors.tootGray.color
+            button.tintColor = Asset.Colors.Label.secondary.color
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
             button.setTitle("", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
@@ -165,7 +165,7 @@ extension ActionToolbarContainer {
     }
     
     private func isstarButtonHighlightStateDidChange(to isHighlight: Bool) {
-        let tintColor = isHighlight ? Asset.Colors.likeOrange.color : Asset.Colors.tootGray.color
+        let tintColor = isHighlight ? Asset.Colors.systemOrange.color : Asset.Colors.Label.secondary.color
         starButton.tintColor = tintColor
         starButton.setTitleColor(tintColor, for: .normal)
         starButton.setTitleColor(tintColor, for: .highlighted)

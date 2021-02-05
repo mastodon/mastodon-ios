@@ -8,9 +8,7 @@
 import Foundation
 
 extension Mastodon.Entity {
-    
-    public typealias Toot = Status
-    
+        
     /// Status
     ///
     /// - Since: 0.1.0

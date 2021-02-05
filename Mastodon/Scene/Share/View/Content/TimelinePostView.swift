@@ -24,13 +24,13 @@ final class TimelinePostView: UIView {
     
     let visibilityImageView: UIImageView = {
         let imageView = UIImageView(image: Asset.TootTimeline.global.image.withRenderingMode(.alwaysTemplate))
-        imageView.tintColor = Asset.Colors.tootGray.color
+        imageView.tintColor = Asset.Colors.Label.secondary.color
         return imageView
     }()
     
     let lockImageView: UIImageView = {
         let imageview = UIImageView(image: Asset.TootTimeline.textlock.image.withRenderingMode(.alwaysTemplate))
-        imageview.tintColor = Asset.Colors.tootGray.color
+        imageview.tintColor = Asset.Colors.Label.secondary.color
         imageview.isHidden = true
         return imageview
     }()
@@ -38,7 +38,7 @@ final class TimelinePostView: UIView {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "Roboto-Medium", size: 14)
-        label.textColor = Asset.Colors.tootWhite.color
+        label.textColor = Asset.Colors.Label.primary.color
         
         label.text = "Alice"
         return label
@@ -46,7 +46,7 @@ final class TimelinePostView: UIView {
     
     let usernameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.tootGray.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.font = UIFont(name: "Roboto-Regular", size: 14)
         label.text = "@alice"
         return label
@@ -56,7 +56,7 @@ final class TimelinePostView: UIView {
         let label = UILabel()
         label.font = UIFont(name: "Roboto-Regular", size: 14)
         label.textAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .left : .right
-        label.textColor = Asset.Colors.tootGray.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.text = "1d"
         return label
     }()

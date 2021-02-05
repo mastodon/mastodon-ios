@@ -50,7 +50,7 @@ final class TimelinePostTableViewCell: UITableViewCell {
 extension TimelinePostTableViewCell {
     
     private func _init() {
-        self.backgroundColor = Asset.Colors.tootDark.color
+        self.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         self.selectionStyle = .none
         timelinePostView.translatesAutoresizingMaskIntoConstraints = false
         timelinePostViewTopLayoutConstraint = timelinePostView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TimelinePostTableViewCell.verticalMargin)

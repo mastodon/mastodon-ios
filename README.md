@@ -43,13 +43,14 @@ arch -x86_64 pod install
 
 ## Acknowledgements
 
-- [ActiveLabel](https://github.com/optonaut/ActiveLabel.swift)
+- [ActiveLabel](https://github.com/TwidereProject/ActiveLabel.swift)
 - [AlamofireImage](https://github.com/Alamofire/AlamofireImage)
 - [AlamofireNetworkActivityIndicator](https://github.com/Alamofire/AlamofireNetworkActivityIndicator)
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [CommonOSLog](https://github.com/mainasuk/CommonOSLog)
 - [DateToolSwift](https://github.com/MatthewYork/DateTools)
 - [Kanna](https://github.com/tid-kijyun/Kanna)
+- [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [SwiftGen](https://github.com/SwiftGen/SwiftGen)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 

@@ -24,7 +24,7 @@ extension APIService.Persist {
         managedObjectContext: NSManagedObjectContext,
         domain: String,
         query: Mastodon.API.Timeline.TimelineQuery,
-        response: Mastodon.Response.Content<[Mastodon.Entity.Toot]>,
+        response: Mastodon.Response.Content<[Mastodon.Entity.Status]>,
         persistType: PersistTimelineType,
         requestMastodonUserID: MastodonUser.ID?,        // could be nil when response from public endpoint
         log: OSLog
