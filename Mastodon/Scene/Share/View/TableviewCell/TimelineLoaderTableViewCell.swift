@@ -45,7 +45,8 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     
     func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.tootDark.color
+        backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        
         loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(loadMoreButton)
         NSLayoutConstraint.activate([

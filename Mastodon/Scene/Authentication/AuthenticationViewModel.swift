@@ -25,7 +25,7 @@ final class AuthenticationViewModel {
     // output
     let viewHierarchyShouldReset: Bool
     let domain = CurrentValueSubject<String?, Never>(nil)
-    let isSignInButtonEnabled = CurrentValueSubject<Bool, Never>(false)
+    let isDomainValid = CurrentValueSubject<Bool, Never>(false)
     let isAuthenticating = CurrentValueSubject<Bool, Never>(false)
     let authenticated = PassthroughSubject<(domain: String, account: Mastodon.Entity.Account), Never>()
     let error = CurrentValueSubject<Error?, Never>(nil)
@@ -61,7 +61,7 @@ final class AuthenticationViewModel {
         
         domain
             .map { $0 != nil }
-            .assign(to: \.value, on: isSignInButtonEnabled)
+            .assign(to: \.value, on: isDomainValid)
             .store(in: &disposeBag)
     }
     

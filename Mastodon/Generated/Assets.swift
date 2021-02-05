@@ -23,10 +23,19 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
   internal enum Colors {
-    internal static let tootDark = ColorAsset(name: "Colors/Toot.Dark")
-    internal static let tootGray = ColorAsset(name: "Colors/Toot.Gray")
-    internal static let tootWhite = ColorAsset(name: "Colors/Toot.White")
-    internal static let likeOrange = ColorAsset(name: "Colors/like.orange")
+    internal enum Background {
+      internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
+      internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
+      internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
+    }
+    internal enum Button {
+      internal static let highlight = ColorAsset(name: "Colors/Button/highlight")
+    }
+    internal enum Label {
+      internal static let primary = ColorAsset(name: "Colors/Label/primary")
+      internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
+    }
+    internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum ToolBar {
     internal static let bookmark = ImageAsset(name: "ToolBar/bookmark")

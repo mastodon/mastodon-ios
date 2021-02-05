@@ -11,7 +11,7 @@
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D152A8C25C295CC009AA50C /* TimelinePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* TimelinePostView.swift */; };
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
-		2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* ActiveLabel */; };
+		2D42FF6125C8177C004A627A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* SwiftPackageProductDependency */; };
 		2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF6A25C817D2004A627A /* MastodonContent.swift */; };
 		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
 		2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */; };
@@ -21,7 +21,7 @@
 		2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46976325C2A71500CF4AA9 /* UIIamge.swift */; };
 		2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */; };
 		2D61335E25C1894B00CAE157 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335D25C1894B00CAE157 /* APIService.swift */; };
-		2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */; };
+		2D61336925C18A4F00CAE157 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* SwiftPackageProductDependency */; };
 		2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */; };
 		2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */; };
 		2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */; };
@@ -40,17 +40,17 @@
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
 		45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
-		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
+		5D526FE225BE9AC400460CB9 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* SwiftPackageProductDependency */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		DB01409625C40B6700F9F3CF /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB01409525C40B6700F9F3CF /* AuthenticationViewController.swift */; };
 		DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */; };
 		DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */; };
 		DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */; };
-		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
+		DB0140BD25C40D7500F9F3CF /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* SwiftPackageProductDependency */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
 		DB084B5725CBC56C00F898ED /* Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Toot.swift */; };
-		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
+		DB3D0FF325BAA61700EAA174 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* SwiftPackageProductDependency */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
@@ -69,7 +69,7 @@
 		DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
-		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
+		DB5086B825CC0D6400C2C187 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* SwiftPackageProductDependency */; };
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DB89B9FE25C10FD0008580ED /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */; };
@@ -271,13 +271,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
+				DB0140BD25C40D7500F9F3CF /* BuildFile in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
-				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
-				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
-				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
-				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
-				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
+				2D42FF6125C8177C004A627A /* BuildFile in Frameworks */,
+				5D526FE225BE9AC400460CB9 /* BuildFile in Frameworks */,
+				DB5086B825CC0D6400C2C187 /* BuildFile in Frameworks */,
+				2D61336925C18A4F00CAE157 /* BuildFile in Frameworks */,
+				DB3D0FF325BAA61700EAA174 /* BuildFile in Frameworks */,
 				45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -769,11 +769,11 @@
 			buildConfigurationList = DB427DFC25BAA00100D1B89D /* Build configuration list for PBXNativeTarget "Mastodon" */;
 			buildPhases = (
 				7A04933A2AB1D5B758D4F908 /* [CP] Check Pods Manifest.lock */,
+				DB3D100425BAA71500EAA174 /* ShellScript */,
 				DB427DCE25BAA00100D1B89D /* Sources */,
 				DB427DCF25BAA00100D1B89D /* Frameworks */,
 				DB427DD025BAA00100D1B89D /* Resources */,
 				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
-				DB3D100425BAA71500EAA174 /* ShellScript */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -783,12 +783,12 @@
 			);
 			name = Mastodon;
 			packageProductDependencies = (
-				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
-				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
-				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
-				2D42FF6025C8177C004A627A /* ActiveLabel */,
-				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
-				DB5086B725CC0D6400C2C187 /* Kingfisher */,
+				DB3D0FF225BAA61700EAA174 /* SwiftPackageProductDependency */,
+				5D526FE125BE9AC400460CB9 /* SwiftPackageProductDependency */,
+				2D61336825C18A4F00CAE157 /* SwiftPackageProductDependency */,
+				2D42FF6025C8177C004A627A /* SwiftPackageProductDependency */,
+				DB0140BC25C40D7500F9F3CF /* SwiftPackageProductDependency */,
+				DB5086B725CC0D6400C2C187 /* SwiftPackageProductDependency */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -911,11 +911,11 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
-				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
-				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
-				2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */,
-				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
-				DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				DB3D0FF125BAA61700EAA174 /* RemoteSwiftPackageReference */,
+				2D61336725C18A4F00CAE157 /* RemoteSwiftPackageReference */,
+				2D42FF5F25C8177C004A627A /* RemoteSwiftPackageReference */,
+				DB0140BB25C40D7500F9F3CF /* RemoteSwiftPackageReference */,
+				DB5086B625CC0D6400C2C187 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -1665,7 +1665,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */ = {
+		2D42FF5F25C8177C004A627A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
 			requirement = {
@@ -1673,7 +1673,7 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */ = {
+		2D61336725C18A4F00CAE157 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireNetworkActivityIndicator";
 			requirement = {
@@ -1681,7 +1681,7 @@
 				minimumVersion = 3.1.0;
 			};
 		};
-		DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */ = {
+		DB0140BB25C40D7500F9F3CF /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/CommonOSLog";
 			requirement = {
@@ -1689,7 +1689,7 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+		DB3D0FF125BAA61700EAA174 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
@@ -1697,7 +1697,7 @@
 				minimumVersion = 4.1.0;
 			};
 		};
-		DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		DB5086B625CC0D6400C2C187 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -1708,33 +1708,33 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2D42FF6025C8177C004A627A /* ActiveLabel */ = {
+		2D42FF6025C8177C004A627A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */;
+			package = 2D42FF5F25C8177C004A627A /* RemoteSwiftPackageReference */;
 			productName = ActiveLabel;
 		};
-		2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */ = {
+		2D61336825C18A4F00CAE157 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;
+			package = 2D61336725C18A4F00CAE157 /* RemoteSwiftPackageReference */;
 			productName = AlamofireNetworkActivityIndicator;
 		};
-		5D526FE125BE9AC400460CB9 /* MastodonSDK */ = {
+		5D526FE125BE9AC400460CB9 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDK;
 		};
-		DB0140BC25C40D7500F9F3CF /* CommonOSLog */ = {
+		DB0140BC25C40D7500F9F3CF /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
+			package = DB0140BB25C40D7500F9F3CF /* RemoteSwiftPackageReference */;
 			productName = CommonOSLog;
 		};
-		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
+		DB3D0FF225BAA61700EAA174 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DB3D0FF125BAA61700EAA174 /* RemoteSwiftPackageReference */;
 			productName = AlamofireImage;
 		};
-		DB5086B725CC0D6400C2C187 /* Kingfisher */ = {
+		DB5086B725CC0D6400C2C187 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = DB5086B625CC0D6400C2C187 /* RemoteSwiftPackageReference */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */

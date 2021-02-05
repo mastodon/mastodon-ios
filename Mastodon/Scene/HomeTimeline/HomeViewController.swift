@@ -28,7 +28,7 @@ extension HomeViewController {
         super.viewDidLoad()
         
         title = "Home"
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.leftBarButtonItem = avatarBarButtonItem
         avatarBarButtonItem.avatarButton.addTarget(self, action: #selector(HomeViewController.avatarBarButtonItemDidPressed(_:)), for: .touchUpInside)
 

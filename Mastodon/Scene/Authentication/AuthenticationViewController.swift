@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonSDK
+import UITextField_Shake
 
 final class AuthenticationViewController: UIViewController, NeedsDependency {
     
@@ -19,6 +20,14 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
     
     var viewModel: AuthenticationViewModel!
     
+    let domainLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.textColor = Asset.Colors.Label.primary.color
+        label.text = "Domain:"
+        return label
+    }()
+    
     let domainTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "example.com"
@@ -28,8 +37,31 @@ final class AuthenticationViewController: UIViewController, NeedsDependency {
         return textField
     }()
     
-    private(set) lazy var signInBarButtonItem = UIBarButtonItem(title: "Sign In", style: .plain, target: self, action: #selector(AuthenticationViewController.signInBarButtonItemPressed(_:)))
-    let activityIndicatorBarButtonItem = UIBarButtonItem.activityIndicatorBarButtonItem
+    let signInButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
+        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Background.secondarySystemBackground.color), for: .normal)
+        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setTitle("Sign in", for: .normal)
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 8
+        button.layer.cornerCurve = .continuous
+        return button
+    }()
+    
+    let signUpButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
+        button.setTitleColor(Asset.Colors.Button.highlight.color, for: .normal)
+        button.setTitle("Sign up", for: .normal)
+        return button
+    }()
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.hidesWhenStopped = true
+        return activityIndicatorView
+    }()
 }
 
 extension AuthenticationViewController {
@@ -38,16 +70,47 @@ extension AuthenticationViewController {
         super.viewDidLoad()
         
         title = "Authentication"
-        view.backgroundColor = .systemBackground
-        navigationItem.rightBarButtonItem = signInBarButtonItem
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        
+        domainLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(domainLabel)
+        NSLayoutConstraint.activate([
+            domainLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 16),
+            domainLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            domainLabel.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+        ])
         
         domainTextField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(domainTextField)
         NSLayoutConstraint.activate([
-            domainTextField.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 8),
-            domainTextField.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 8),
-            domainTextField.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 8),
-            domainTextField.heightAnchor.constraint(equalToConstant: 44),   // FIXME:
+            domainTextField.topAnchor.constraint(equalTo: domainLabel.bottomAnchor, constant: 8),
+            domainTextField.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            domainTextField.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+        ])
+        
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(signInButton)
+        NSLayoutConstraint.activate([
+            signInButton.topAnchor.constraint(equalTo: domainTextField.bottomAnchor, constant: 20),
+            signInButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            signInButton.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            signInButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
+        ])
+        
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: signInButton.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: signInButton.centerYAnchor),
+        ])
+        
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(signUpButton)
+        NSLayoutConstraint.activate([
+            signUpButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 8),
+            signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            signUpButton.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            signUpButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
         
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: domainTextField)
@@ -62,7 +125,7 @@ extension AuthenticationViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
-                self.navigationItem.rightBarButtonItem = isAuthenticating ? self.activityIndicatorBarButtonItem : self.signInBarButtonItem
+                isAuthenticating ? self.activityIndicatorView.startAnimating() : self.activityIndicatorView.stopAnimating()
             }
             .store(in: &disposeBag)
         
@@ -91,11 +154,6 @@ extension AuthenticationViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.isSignInButtonEnabled
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: signInBarButtonItem)
-            .store(in: &disposeBag)
-        
         viewModel.error
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
@@ -111,6 +169,8 @@ extension AuthenticationViewController {
                 )
             }
             .store(in: &disposeBag)
+        
+        signInButton.addTarget(self, action: #selector(AuthenticationViewController.signInButtonPressed(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,10 +183,10 @@ extension AuthenticationViewController {
 
 extension AuthenticationViewController {
  
-    @objc private func signInBarButtonItemPressed(_ sender: UIBarButtonItem) {
+    @objc private func signInButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        guard let domain = viewModel.domain.value else {
-            // TODO: alert error
+        guard viewModel.isDomainValid.value, let domain = viewModel.domain.value else {
+            domainTextField.shake()
             return
         }
         guard !viewModel.isAuthenticating.value else { return }
