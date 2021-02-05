@@ -11,6 +11,10 @@
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D152A8C25C295CC009AA50C /* TimelinePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* TimelinePostView.swift */; };
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
+		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
+		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
+		2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */; };
+		2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */; };
 		2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* ActiveLabel */; };
 		2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF6A25C817D2004A627A /* MastodonContent.swift */; };
 		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
@@ -164,6 +168,10 @@
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* TimelinePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelinePostView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
+		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
+		2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOffsetAdjustableTimelineViewControllerDelegate.swift; sourceTree = "<group>"; };
 		2D42FF6A25C817D2004A627A /* MastodonContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonContent.swift; sourceTree = "<group>"; };
 		2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionToolBarContainer.swift; sourceTree = "<group>"; };
 		2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitTestExpandedButton.swift; sourceTree = "<group>"; };
@@ -385,6 +393,7 @@
 			children = (
 				DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */,
 				2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */,
+				2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -395,6 +404,7 @@
 				2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */,
 				2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */,
 				2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */,
+				2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */,
 				2D76318225C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift */,
 				2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */,
 			);
@@ -443,6 +453,7 @@
 				2D7631A725C1535600929FB9 /* TimelinePostTableViewCell.swift */,
 				2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */,
 				2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */,
+				2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */,
 			);
 			path = TableviewCell;
 			sourceTree = "<group>";
@@ -729,6 +740,7 @@
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
+				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1147,8 +1159,10 @@
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
+				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
+				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				DB98334725C8056600AD9700 /* AuthenticationViewModel.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				2D76319F25C1521200929FB9 /* TimelineSection.swift in Sources */,
@@ -1160,6 +1174,7 @@
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
+				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
@@ -1177,6 +1192,7 @@
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
 				DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */,
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
+				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

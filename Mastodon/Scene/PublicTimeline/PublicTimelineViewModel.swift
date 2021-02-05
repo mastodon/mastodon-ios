@@ -20,9 +20,18 @@ class PublicTimelineViewModel: NSObject {
     // input
     let context: AppContext
     let fetchedResultsController: NSFetchedResultsController<Toot>
+    
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
+    
+    // middle loader
+    let loadMiddleSateMachineList = CurrentValueSubject<[String: GKStateMachine], Never>([:])
+    
     weak var tableView: UITableView?
     
+    weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
+    
+    //
+    var tootIDsWhichHasGap = [String]()
     // output
     var diffableDataSource: UITableViewDiffableDataSource<TimelineSection, Item>?
 
@@ -68,6 +77,9 @@ class PublicTimelineViewModel: NSObject {
             .sink { [weak self] items in
                 guard let self = self else { return }
                 guard let diffableDataSource = self.diffableDataSource else { return }
+                guard let navigationBar = self.contentOffsetAdjustableTimelineViewControllerDelegate?.navigationBar() else { return }
+                guard let tableView = self.tableView else { return }
+                let oldSnapshot = diffableDataSource.snapshot()
                 os_log("%{public}s[%{public}ld], %{public}s: items did change", (#file as NSString).lastPathComponent, #line, #function)
 
                 var snapshot = NSDiffableDataSourceSnapshot<TimelineSection, Item>()
@@ -81,7 +93,21 @@ class PublicTimelineViewModel: NSObject {
                         break
                     }
                 }
-                diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
+
+                DispatchQueue.main.async {
+
+                    guard let difference = self.calculateReloadSnapshotDifference(navigationBar: navigationBar, tableView: tableView, oldSnapshot: oldSnapshot, newSnapshot: snapshot) else {
+                        diffableDataSource.apply(snapshot)
+                        self.isFetchingLatestTimeline.value = false
+                        return
+                    }
+                    
+                    diffableDataSource.apply(snapshot, animatingDifferences: false) {
+                        tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
+                        tableView.contentOffset.y = tableView.contentOffset.y - difference.offset
+                        self.isFetchingLatestTimeline.value = false
+                    }
+                }
             }
             .store(in: &disposeBag)
         
@@ -102,5 +128,38 @@ class PublicTimelineViewModel: NSObject {
     
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
+    }
+    
+    private struct Difference<T> {
+        let item: T
+        let sourceIndexPath: IndexPath
+        let targetIndexPath: IndexPath
+        let offset: CGFloat
+    }
+    
+    private func calculateReloadSnapshotDifference<T: Hashable>(
+        navigationBar: UINavigationBar,
+        tableView: UITableView,
+        oldSnapshot: NSDiffableDataSourceSnapshot<TimelineSection, T>,
+        newSnapshot: NSDiffableDataSourceSnapshot<TimelineSection, T>
+    ) -> Difference<T>? {
+        guard oldSnapshot.numberOfItems != 0 else { return nil }
+        
+        // old snapshot not empty. set source index path to first item if not match
+        let sourceIndexPath = UIViewController.topVisibleTableViewCellIndexPath(in: tableView, navigationBar: navigationBar) ?? IndexPath(row: 0, section: 0)
+        
+        guard sourceIndexPath.row < oldSnapshot.itemIdentifiers(inSection: .main).count else { return nil }
+        
+        let timelineItem = oldSnapshot.itemIdentifiers(inSection: .main)[sourceIndexPath.row]
+        guard let itemIndex = newSnapshot.itemIdentifiers(inSection: .main).firstIndex(of: timelineItem) else { return nil }
+        let targetIndexPath = IndexPath(row: itemIndex, section: 0)
+        
+        let offset = UIViewController.tableViewCellOriginOffsetToWindowTop(in: tableView, at: sourceIndexPath, navigationBar: navigationBar)
+        return Difference(
+            item: timelineItem,
+            sourceIndexPath: sourceIndexPath,
+            targetIndexPath: targetIndexPath,
+            offset: offset
+        )
     }
 }

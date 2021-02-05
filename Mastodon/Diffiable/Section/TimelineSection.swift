@@ -21,9 +21,10 @@ extension TimelineSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate
+        timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate,
+        timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<TimelineSection, Item> {
-        UITableViewDiffableDataSource(tableView: tableView) { [weak timelinePostTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
+        UITableViewDiffableDataSource(tableView: tableView) { [weak timelinePostTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
             guard let timelinePostTableViewCellDelegate = timelinePostTableViewCellDelegate else { return UITableViewCell() }
 
             switch item {
@@ -33,9 +34,14 @@ extension TimelineSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    TimelineSection.configure(cell: cell,timestampUpdatePublisher: timestampUpdatePublisher, toot: toot)
+                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
+                return cell
+            case .middleLoader(let upperTimelineTootID):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
+                cell.delegate = timelineMiddleLoaderTableViewCellDelegate
+                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineTootID: upperTimelineTootID)
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
