@@ -39,10 +39,10 @@ public final class Toot: NSManagedObject {
     // many-to-one relastionship
     @NSManaged public private(set) var author: MastodonUser
     @NSManaged public private(set) var reblog: Toot?
-    @NSManaged public private(set) var favouritedBy: MastodonUser?
-    @NSManaged public private(set) var rebloggedBy: MastodonUser?
-    @NSManaged public private(set) var mutedBy: MastodonUser?
-    @NSManaged public private(set) var bookmarkedBy: MastodonUser?
+    @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var rebloggedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var mutedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var bookmarkedBy: Set<MastodonUser>?
     
     // one-to-one relastionship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
@@ -104,6 +104,8 @@ public extension Toot {
         toot.author = author
         toot.reblog = reblog
         
+        toot.pinnedBy = pinnedBy
+        
         if let mentions = mentions {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
         }
@@ -124,9 +126,6 @@ public extension Toot {
         }
         if let bookmarkedBy = bookmarkedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
-        }
-        if let pinnedBy = pinnedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy)).add(pinnedBy)
         }
         
         toot.updatedAt = property.networkDate

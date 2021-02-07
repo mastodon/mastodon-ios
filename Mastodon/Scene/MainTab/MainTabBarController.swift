@@ -39,8 +39,7 @@ class MainTabBarController: UITabBarController {
             let viewController: UIViewController
             switch self {
             case .home:
-                let _viewController = HomeViewController()
-                _viewController.viewModel = HomeViewModel(context: context)
+                let _viewController = HomeTimelineViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController

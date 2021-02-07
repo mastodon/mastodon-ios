@@ -28,6 +28,16 @@ extension TimelineSection {
             guard let timelinePostTableViewCellDelegate = timelinePostTableViewCellDelegate else { return UITableViewCell() }
 
             switch item {
+            case .homeTimelineIndex(objectID: let objectID, attribute: _):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelinePostTableViewCell.self), for: indexPath) as! TimelinePostTableViewCell
+
+                // configure cell
+                managedObjectContext.performAndWait {
+                    let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot)
+                }
+                cell.delegate = timelinePostTableViewCellDelegate
+                return cell
             case .toot(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelinePostTableViewCell.self), for: indexPath) as! TimelinePostTableViewCell
 
@@ -38,10 +48,15 @@ extension TimelineSection {
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
-            case .middleLoader(let upperTimelineTootID):
+            case .publicMiddleLoader(let upperTimelineTootID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
                 cell.delegate = timelineMiddleLoaderTableViewCellDelegate
-                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineTootID: upperTimelineTootID)
+                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineTootID: upperTimelineTootID,timelineIndexobjectID: nil)
+                return cell
+            case .homeMiddleLoader(let upperTimelineIndexObjectID):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
+                cell.delegate = timelineMiddleLoaderTableViewCellDelegate
+                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineTootID: nil,timelineIndexobjectID: upperTimelineIndexObjectID)
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell

@@ -38,7 +38,7 @@ extension HomeTimelineIndex {
         
         index.identifier = property.identifier
         index.domain = property.domain
-        index.userID = toot.author.id
+        index.userID = property.userID
         index.createdAt = toot.createdAt
         
         index.toot = toot
@@ -63,10 +63,12 @@ extension HomeTimelineIndex {
     public struct Property {
         public let identifier: String
         public let domain: String
-    
-        public init(domain: String) {
+        public let userID: String
+     
+        public init(domain: String,userID: String) {
             self.identifier = UUID().uuidString + "@" + domain
             self.domain = domain
+            self.userID = userID
         }
     }
 }
@@ -76,4 +78,15 @@ extension HomeTimelineIndex: Managed {
         return [NSSortDescriptor(keyPath: \HomeTimelineIndex.createdAt, ascending: false)]
     }
 }
-
+extension HomeTimelineIndex {
+    
+    public static func predicate(userID: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(HomeTimelineIndex.userID), userID)
+    }
+    
+    
+    public static func notDeleted() -> NSPredicate {
+        return NSPredicate(format: "%K == nil", #keyPath(HomeTimelineIndex.deletedAt))
+    }
+    
+}

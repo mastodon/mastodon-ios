@@ -421,7 +421,8 @@ extension APIService.Persist {
                 let timelineIndex = status.homeTimelineIndexes?
                     .first { $0.userID == requestMastodonUserID }
                 if timelineIndex == nil {
-                    let timelineIndexProperty = HomeTimelineIndex.Property(domain: domain)
+                    let timelineIndexProperty = HomeTimelineIndex.Property(domain: domain,userID: requestMastodonUserID)
+                    
                     let _ = HomeTimelineIndex.insert(
                         into: managedObjectContext,
                         property: timelineIndexProperty,

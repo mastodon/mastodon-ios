@@ -54,7 +54,7 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
         for tuple in indexTootTuples {
             items.append(Item.toot(objectID: tuple.1.objectID))
             if tootIDsWhichHasGap.contains(tuple.1.id) {
-                items.append(Item.middleLoader(tootID: tuple.1.id))
+                items.append(Item.publicMiddleLoader(tootID: tuple.1.id))
             }
         }
 

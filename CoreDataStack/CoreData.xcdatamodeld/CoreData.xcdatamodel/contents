@@ -32,7 +32,7 @@
         <attribute name="hasMore" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="userID" attributeType="String"/>
-        <relationship name="toots" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndexes" inverseEntity="Toot"/>
+        <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndexes" inverseEntity="Toot"/>
     </entity>
     <entity name="MastodonAuthentication" representedClassName=".MastodonAuthentication" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -59,7 +59,7 @@
         <attribute name="identifier" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="username" attributeType="String"/>
-        <relationship name="bookmarked" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="bookmarked" inverseEntity="Toot"/>
+        <relationship name="bookmarked" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="bookmarkedBy" inverseEntity="Toot"/>
         <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="favouritedBy" inverseEntity="Toot"/>
         <relationship name="mastodonAuthentication" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonAuthentication" inverseName="user" inverseEntity="MastodonAuthentication"/>
         <relationship name="muted" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="mutedBy" inverseEntity="Toot"/>
@@ -106,10 +106,10 @@
         <attribute name="visibility" optional="YES" attributeType="String"/>
         <relationship name="application" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="toots" inverseEntity="Application"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="toots" inverseEntity="MastodonUser"/>
-        <relationship name="bookmarked" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
+        <relationship name="bookmarkedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
         <relationship name="emojis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Emoji" inverseName="toot" inverseEntity="Emoji"/>
         <relationship name="favouritedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
-        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toots" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toot" inverseEntity="HomeTimelineIndex"/>
         <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedToot" inverseEntity="MastodonUser"/>
@@ -127,6 +127,6 @@
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="284"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="494"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="509"/>
     </elements>
 </model>
