@@ -12,7 +12,7 @@ import CoreDataStack
 import MastodonSDK
 
 // MARK: - StatusProvider
-extension PublicTimelineViewController {
+extension PublicTimelineViewController: StatusProvider {
     
     func toot() -> Future<Toot?, Never> {
         return Future { promise in promise(.success(nil)) }

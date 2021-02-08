@@ -150,6 +150,17 @@ public extension Toot {
             self.repliesCount = repliesCount
         }
     }
+    func update(liked: Bool, mastodonUser: MastodonUser) {
+        if liked {
+            if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.favouritedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).remove(mastodonUser)
+            }
+        }
+    }
     func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
     }

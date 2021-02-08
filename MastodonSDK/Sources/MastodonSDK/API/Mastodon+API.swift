@@ -87,6 +87,7 @@ extension Mastodon.API {
     public enum Instance { }
     public enum OAuth { }
     public enum Timeline { }
+    public enum Favorites { }
 }
 
 extension Mastodon.API {

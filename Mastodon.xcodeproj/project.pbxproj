@@ -56,6 +56,11 @@
 		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
+		2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75B9A25D0E27500694EC8 /* StatusProviderFacade.swift */; };
+		2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA025D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift */; };
+		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
+		2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */; };
+		2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */; };
 		45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
@@ -222,6 +227,11 @@
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2DA7D05625CA693F00804E11 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		2DF123A625C3B0210020F248 /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
+		2DF75B9A25D0E27500694EC8 /* StatusProviderFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusProviderFacade.swift; sourceTree = "<group>"; };
+		2DF75BA025D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+TimelinePostTableViewCellDelegate.swift"; sourceTree = "<group>"; };
+		2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Favorite.swift"; sourceTree = "<group>"; };
+		2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
+		2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextObjectsDidChange.swift; sourceTree = "<group>"; };
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
 		3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -393,6 +403,8 @@
 			isa = PBXGroup;
 			children = (
 				2D38F1FD25CD481700561493 /* StatusProvider.swift */,
+				2DF75B9A25D0E27500694EC8 /* StatusProviderFacade.swift */,
+				2DF75BA025D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift */,
 			);
 			path = StatusProvider;
 			sourceTree = "<group>";
@@ -519,6 +531,15 @@
 				2D7631B225C159F700929FB9 /* Item.swift */,
 			);
 			path = Item;
+			sourceTree = "<group>";
+		};
+		2DF75BB725D1473400694EC8 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */,
+				2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */,
+			);
+			path = Stack;
 			sourceTree = "<group>";
 		};
 		3FE14AD363ED19AE7FF210A6 /* Frameworks */ = {
@@ -656,6 +677,7 @@
 				DB45FB0925CA87BC005A8AC7 /* CoreData */,
 				2D61335625C1887F00CAE157 /* Persist */,
 				2D61335D25C1894B00CAE157 /* APIService.swift */,
+				2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */,
 				DB98337E25C9452D00AD9700 /* APIService+APIError.swift */,
 				DB98336A25C9420100AD9700 /* APIService+App.swift */,
 				DB98337025C9443200AD9700 /* APIService+Authentication.swift */,
@@ -692,6 +714,7 @@
 				DB89B9F025C10FD0008580ED /* CoreDataStack.h */,
 				DB89BA1125C1105C008580ED /* CoreDataStack.swift */,
 				DB89BA3525C1145C008580ED /* CoreData.xcdatamodeld */,
+				2DF75BB725D1473400694EC8 /* Stack */,
 				DB89BA4025C1165F008580ED /* Protocol */,
 				DB89BA1725C1107F008580ED /* Extension */,
 				DB89BA2C25C110B7008580ED /* Entity */,
@@ -1207,6 +1230,7 @@
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
+				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
 				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
@@ -1216,6 +1240,7 @@
 				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
+				2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
@@ -1243,6 +1268,7 @@
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
 				2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */,
+				2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
@@ -1283,6 +1309,7 @@
 			files = (
 				2DA7D05725CA693F00804E11 /* Application.swift in Sources */,
 				2D927F1425C7EDD9004F19B8 /* Emoji.swift in Sources */,
+				2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */,
 				DB89BA1225C1105C008580ED /* CoreDataStack.swift in Sources */,
 				DB89BA1C25C1107F008580ED /* NSManagedObjectContext.swift in Sources */,
 				2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */,
@@ -1295,6 +1322,7 @@
 				DB89BA4325C1165F008580ED /* NetworkUpdatable.swift in Sources */,
 				DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */,
 				DB45FAED25CA7A9A005A8AC7 /* MastodonAuthentication.swift in Sources */,
+				2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */,
 				2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */,
 				DB89BA1D25C1107F008580ED /* URL.swift in Sources */,
 				2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */,

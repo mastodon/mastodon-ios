@@ -26,8 +26,8 @@ final class ActionToolbarContainer: UIView {
     let bookmartButton  = HitTestExpandedButton()
     let moreButton      = HitTestExpandedButton()
     
-    var isstarButtonHighlight: Bool = false {
-        didSet { isstarButtonHighlightStateDidChange(to: isstarButtonHighlight) }
+    var isStarButtonHighlight: Bool = false {
+        didSet { isStarButtonHighlightStateDidChange(to: isStarButtonHighlight) }
     }
     
     weak var delegate: ActionToolbarContainerDelegate?
@@ -164,7 +164,7 @@ extension ActionToolbarContainer {
         return oldStyle != style
     }
     
-    private func isstarButtonHighlightStateDidChange(to isHighlight: Bool) {
+    private func isStarButtonHighlightStateDidChange(to isHighlight: Bool) {
         let tintColor = isHighlight ? Asset.Colors.systemOrange.color : Asset.Colors.Label.secondary.color
         starButton.tintColor = tintColor
         starButton.setTitleColor(tintColor, for: .normal)

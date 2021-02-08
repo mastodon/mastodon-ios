@@ -73,11 +73,11 @@ extension APIService.CoreData {
                 mentions: metions,
                 emojis: emojis,
                 tags: tags,
-                favouritedBy: requestMastodonUser,
-                rebloggedBy: requestMastodonUser,
-                mutedBy: requestMastodonUser,
-                bookmarkedBy: requestMastodonUser,
-                pinnedBy: requestMastodonUser
+                favouritedBy: (entity.favourited ?? false) ? mastodonUser : nil,
+                rebloggedBy: (entity.reblogged ?? false) ? mastodonUser : nil,
+                mutedBy: (entity.muted ?? false) ? mastodonUser : nil,
+                bookmarkedBy: (entity.bookmarked ?? false) ? mastodonUser : nil,
+                pinnedBy: (entity.pinned ?? false) ? mastodonUser : nil
             )
             return (toot, true, isMastodonUserCreated)
         }

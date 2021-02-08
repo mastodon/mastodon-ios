@@ -34,17 +34,18 @@ extension TimelineSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot)
+                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
             case .toot(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelinePostTableViewCell.self), for: indexPath) as! TimelinePostTableViewCell
-
+                let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
+                let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot)
+                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID:requestUserID)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
@@ -69,7 +70,8 @@ extension TimelineSection {
     static func configure(
         cell: TimelinePostTableViewCell,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        toot: Toot
+        toot: Toot,
+        requestUserID: String
     ) {
         // set name username avatar
         cell.timelinePostView.nameLabel.text = toot.author.displayName
@@ -81,11 +83,39 @@ extension TimelineSection {
         )
         // set text
         cell.timelinePostView.activeTextLabel.config(content: toot.content)
+        
+        // toolbar
+        let isLike = (toot.reblog ?? toot).favouritedBy.flatMap({ $0.contains(where: { $0.id == requestUserID }) }) ?? false
+        let favoriteCountTitle: String = {
+            let count = (toot.reblog ?? toot).favouritesCount.intValue
+            return TimelineSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.timelinePostView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
+        cell.timelinePostView.actionToolbarContainer.isStarButtonHighlight = isLike
         // set date
         let createdAt = (toot.reblog ?? toot).createdAt
         timestampUpdatePublisher
             .sink { _ in
                 cell.timelinePostView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+            }
+            .store(in: &cell.disposeBag)
+        
+        // observe model change
+        ManagedObjectObserver.observe(object: toot.reblog ?? toot)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { change in
+                guard case let .update(object) = change.changeType,
+                      let newToot = object as? Toot else { return }
+                let targetToot = newToot.reblog ?? newToot
+                
+                let isLike = targetToot.favouritedBy.flatMap({ $0.contains(where: { $0.id == requestUserID }) }) ?? false
+                let favoriteCount = targetToot.favouritesCount.intValue
+                let favoriteCountTitle = TimelineSection.formattedNumberTitleForActionButton(favoriteCount)
+                cell.timelinePostView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
+                cell.timelinePostView.actionToolbarContainer.isStarButtonHighlight = isLike
+                os_log("%{public}s[%{public}ld], %{public}s: like count label for tweet %s did update: %ld", ((#file as NSString).lastPathComponent), #line, #function, targetToot.id, favoriteCount )
             }
             .store(in: &cell.disposeBag)
     }

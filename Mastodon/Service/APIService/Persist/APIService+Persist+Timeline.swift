@@ -18,6 +18,7 @@ extension APIService.Persist {
     enum PersistTimelineType {
         case `public`
         case home
+        case likeList
     }
     
     static func persistTimeline(
@@ -92,6 +93,7 @@ extension APIService.Persist {
                 switch persistType {
                 case .public:   return .publicTimeline
                 case .home:     return .homeTimeline
+                case .likeList: return .favoriteTimeline
                 }
             }()
 
