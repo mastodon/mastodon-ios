@@ -43,8 +43,7 @@ extension MastodonSDKTests {
 extension MastodonSDKTests {
     
     func testHomeTimeline() {
-        let domain = ""
-        let accessToken = ""
+        let accessToken = testToken
         guard !domain.isEmpty, !accessToken.isEmpty else { return }
         
         let query = Mastodon.API.Timeline.HomeTimelineQuery()

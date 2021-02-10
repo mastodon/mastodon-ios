@@ -54,13 +54,8 @@
   },
   "testTargets" : [
     {
-      "skippedTests" : [
-        "MastodonSDKTests\/testCreateAnAnpplication()",
-        "MastodonSDKTests\/testHomeTimeline()",
-        "MastodonSDKTests\/testVerifyAppCredentials()"
-      ],
       "target" : {
-        "containerPath" : "container:MastodonSDK",
+        "containerPath" : "container:",
         "identifier" : "MastodonSDKTests",
         "name" : "MastodonSDKTests"
       }

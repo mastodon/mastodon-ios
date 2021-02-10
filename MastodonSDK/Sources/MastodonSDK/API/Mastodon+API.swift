@@ -96,25 +96,7 @@ extension Mastodon.API {
         query: GetQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
-        var components = URLComponents(string: url.absoluteString)!
-        if let query = query {
-            components.queryItems = query.queryItems
-        }
-        
-        let requestURL = components.url!
-        var request = URLRequest(
-            url: requestURL,
-            cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-            timeoutInterval: Mastodon.API.timeoutInterval
-        )
-        if let authorization = authorization {
-            request.setValue(
-                "Bearer \(authorization.accessToken)",
-                forHTTPHeaderField: Mastodon.API.OAuth.authorizationField
-            )
-        }
-        request.httpMethod = "GET"
-        return request
+        return buildRequest(url: url, query: query, authorization: authorization)
     }
     
     static func post(
@@ -122,7 +104,26 @@ extension Mastodon.API {
         query: PostQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
-        let components = URLComponents(string: url.absoluteString)!
+        return buildRequest(url: url, query: query, authorization: authorization)
+    }
+
+    static func patch(
+        url: URL,
+        query: PatchQuery?,
+        authorization: OAuth.Authorization?
+    ) -> URLRequest {
+        return buildRequest(url: url, query: query, authorization: authorization)
+    }
+
+    private static func buildRequest(
+        url: URL,
+        query: RequestQuery?,
+        authorization: OAuth.Authorization?
+    ) -> URLRequest {
+        var components = URLComponents(string: url.absoluteString)!
+        if let requestQuery = query as? GetQuery {
+            components.queryItems = requestQuery.queryItems
+        }
         let requestURL = components.url!
         var request = URLRequest(
             url: requestURL,
@@ -130,17 +131,17 @@ extension Mastodon.API {
             timeoutInterval: Mastodon.API.timeoutInterval
         )
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        if let query = query {
-            request.httpBody = query.body
-        }
+        request.httpBody = query?.body
         if let authorization = authorization {
             request.setValue(
                 "Bearer \(authorization.accessToken)",
                 forHTTPHeaderField: Mastodon.API.OAuth.authorizationField
             )
         }
-        request.httpMethod = "POST"
+
+        request.httpMethod = query?.method.rawValue ?? RequestMethod.GET.rawValue
         return request
+
     }
     
     static func decode<T>(type: T.Type, from data: Data, response: URLResponse) throws -> T where T : Decodable {

@@ -30,6 +30,9 @@ extension Mastodon.API.OAuth {
     static func accessTokenEndpointURL(domain: String) -> URL {
         return Mastodon.API.oauthEndpointURL(domain: domain).appendingPathComponent("token")
     }
+    static func revokeTokenEndpointURL(domain: String) -> URL {
+        return Mastodon.API.oauthEndpointURL(domain: domain).appendingPathComponent("revoke")
+    }
     
     /// Construct user authorize endpoint URL
     ///
@@ -88,12 +91,43 @@ extension Mastodon.API.OAuth {
             }
             .eraseToAnyPublisher()
     }
+
+    /// Revoke User Access Token
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/2/9
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/apps/oauth/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `RevokeTokenQuery`
+    /// - Returns: `AnyPublisher` contains `Token` nested in the response
+    public static func revokeToken(
+        session: URLSession,
+        domain: String,
+        query: RevokeTokenQuery
+    ) -> AnyPublisher<Void, Error> {
+        let request = Mastodon.API.post(
+            url: revokeTokenEndpointURL(domain: domain),
+            query: query,
+            authorization: nil
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                // `RevokeToken` returns an empty response when success, so just check whether the data type is String to avoid
+                _ = try Mastodon.API.decode(type: String.self, from: data, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
     
 }
 
 extension Mastodon.API.OAuth {
     
-    public struct AuthorizeQuery: GetQuery {
+    public struct AuthorizeQuery: Codable, GetQuery {
         
         public let forceLogin: String?
         public let responseType: String
@@ -162,11 +196,18 @@ extension Mastodon.API.OAuth {
             case grantType = "grant_type"
             
         }
-        
-        var body: Data? {
-            return try? Mastodon.API.encoder.encode(self)
+    }
+
+    public struct RevokeTokenQuery: Codable, PostQuery {
+        public let clientID: String
+        public let clientSecret: String
+        public let token: String
+
+        enum CodingKeys: String, CodingKey {
+            case clientID = "client_id"
+            case clientSecret = "client_secret"
+            case token
         }
-        
     }
     
 }
