@@ -16,7 +16,7 @@ protocol RequestQuery {
     var method: RequestMethod { get }
 }
 
-extension RequestQuery where method: Encodable {
+extension RequestQuery where Self: Encodable {
     var body: Data? {
         return try? Mastodon.API.encoder.encode(self)
     }

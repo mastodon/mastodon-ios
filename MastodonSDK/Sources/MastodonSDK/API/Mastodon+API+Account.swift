@@ -171,9 +171,7 @@ extension Mastodon.API.Account {
         public var avatar: String?
         public var header: String?
         public var locked: Bool?
-        public var sourcePrivacy: String?
-        public var sourceSensitive: Bool?
-        public var sourceLanguage: String?
+        public var source: Mastodon.Entity.Source?
         public var fieldsAttributes: [Mastodon.Entity.Field]?
 
         enum CodingKeys: String, CodingKey {
@@ -185,9 +183,7 @@ extension Mastodon.API.Account {
             case avatar
             case header
             case locked
-            case sourcePrivacy = "source[privacy]"
-            case sourceSensitive = "source[sensitive]"
-            case sourceLanguage = "source[language]"
+            case source
             case fieldsAttributes = "fields_attributes"
         }
 
@@ -199,9 +195,7 @@ extension Mastodon.API.Account {
             avatar: Mastodon.Entity.MediaAttachment? = nil,
             header: Mastodon.Entity.MediaAttachment? = nil,
             locked: Bool? = nil,
-            sourcePrivacy: String? = nil,
-            sourceSensitive: Bool? = nil,
-            sourceLanguage: String? = nil,
+            source: Mastodon.Entity.Source? = nil,
             fieldsAttributes: [Mastodon.Entity.Field]? = nil
         ) {
             self.discoverable = discoverable
@@ -211,9 +205,7 @@ extension Mastodon.API.Account {
             self.avatar = avatar?.base64EncondedString
             self.header = header?.base64EncondedString
             self.locked = locked
-            self.sourcePrivacy = sourcePrivacy
-            self.sourceSensitive = sourceSensitive
-            self.sourceLanguage = sourceLanguage
+            self.source = source
             self.fieldsAttributes = fieldsAttributes
         }
     }
