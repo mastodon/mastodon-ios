@@ -79,6 +79,8 @@ extension Mastodon.API {
         return URL(string: "https://" + domain + "/api/v2/")!
     }
     
+    static let joinMastodonEndpointURL = URL(string: "https://api.joinmastodon.org/")!
+    
 }
 
 extension Mastodon.API {
@@ -87,6 +89,7 @@ extension Mastodon.API {
     public enum Instance { }
     public enum OAuth { }
     public enum Timeline { }
+    public enum Server { }
     public enum Favorites { }
 }
 
