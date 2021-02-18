@@ -65,7 +65,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                     let endFetch = CACurrentMediaTime()
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect timelineIndexes cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, endFetch - start)
                     latestTootIDs = timelineIndexes
-                        .prefix(200)        // avoid performance issue
+                        .prefix(APIService.onceRequestTootMaxCount)        // avoid performance issue
                         .compactMap { timelineIndex in
                             timelineIndex.value(forKeyPath: #keyPath(HomeTimelineIndex.toot.id)) as? Toot.ID
                         }

@@ -124,7 +124,7 @@ extension APIService {
 
 extension APIService {
     func likeList(
-        limit: Int = 200,
+        limit: Int = onceRequestTootMaxCount,
         userID: String,
         maxID: String? = nil,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
