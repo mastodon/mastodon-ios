@@ -73,11 +73,11 @@ extension APIService.CoreData {
                 mentions: metions,
                 emojis: emojis,
                 tags: tags,
-                favouritedBy: (entity.favourited ?? false) ? mastodonUser : nil,
-                rebloggedBy: (entity.reblogged ?? false) ? mastodonUser : nil,
-                mutedBy: (entity.muted ?? false) ? mastodonUser : nil,
-                bookmarkedBy: (entity.bookmarked ?? false) ? mastodonUser : nil,
-                pinnedBy: (entity.pinned ?? false) ? mastodonUser : nil
+                favouritedBy: (entity.favourited ?? false) ? requestMastodonUser : nil,
+                rebloggedBy: (entity.reblogged ?? false) ? requestMastodonUser : nil,
+                mutedBy: (entity.muted ?? false) ? requestMastodonUser : nil,
+                bookmarkedBy: (entity.bookmarked ?? false) ? requestMastodonUser : nil,
+                pinnedBy: (entity.pinned ?? false) ? requestMastodonUser : nil
             )
             return (toot, true, isMastodonUserCreated)
         }
@@ -98,6 +98,24 @@ extension APIService.CoreData {
         if entity.reblogsCount != toot.reblogsCount.intValue {
             toot.update(reblogsCount:NSNumber(value: entity.reblogsCount))
         }
+        
+        if let mastodonUser = requestMastodonUser {
+            if let favourited = entity.favourited {
+                toot.update(liked: favourited, mastodonUser: mastodonUser)
+            }
+            if let reblogged = entity.reblogged {
+                toot.update(reblogged: reblogged, mastodonUser: mastodonUser)
+            }
+            if let muted = entity.muted {
+                toot.update(muted: muted, mastodonUser: mastodonUser)
+            }
+            if let bookmarked = entity.bookmarked {
+                toot.update(bookmarked: bookmarked, mastodonUser: mastodonUser)
+            }
+        }
+        
+        
+        
         
         // set updateAt
         toot.didUpdate(at: networkDate)

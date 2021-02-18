@@ -161,6 +161,42 @@ public extension Toot {
             }
         }
     }
+    func update(reblogged: Bool, mastodonUser: MastodonUser) {
+        if reblogged {
+            if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.rebloggedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
+    func update(muted: Bool, mastodonUser: MastodonUser) {
+        if muted {
+            if !(self.mutedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.mutedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
+    func update(bookmarked: Bool, mastodonUser: MastodonUser) {
+        if bookmarked {
+            if !(self.bookmarkedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.bookmarkedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
     func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
     }
