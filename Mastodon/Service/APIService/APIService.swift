@@ -44,6 +44,11 @@ final class APIService {
 }
 
 extension APIService {
+    public static let onceRequestTootMaxCount = 100
+    public static let onceRequestUserMaxCount = 100
+}
+
+extension APIService {
     public enum Persist { }
     public enum CoreData { }
 }

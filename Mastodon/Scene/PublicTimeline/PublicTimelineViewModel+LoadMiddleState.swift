@@ -60,7 +60,7 @@ extension PublicTimelineViewModel.LoadMiddleState {
             .sink { completion in
                 switch completion {
                     case .failure(let error):
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch tweets failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                        os_log("%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                         stateMachine.enter(Fail.self)
                     case .finished:
                         break
@@ -88,7 +88,7 @@ extension PublicTimelineViewModel.LoadMiddleState {
                 }
                 
                 viewModel.tootIDs.value = newTootIDs
-                os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld tweets, %{public}%ld new tweets", (#file as NSString).lastPathComponent, #line, #function, toots.count, addedToots.count)
+                os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld toots, %{public}%ld new toots", (#file as NSString).lastPathComponent, #line, #function, toots.count, addedToots.count)
                 if addedToots.isEmpty {
                     stateMachine.enter(Fail.self)
                 } else {

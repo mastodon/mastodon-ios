@@ -1,5 +1,5 @@
 //
-//  HomeViewController+DebugAction.swift
+//  HomeTimelineViewController+DebugAction.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-2-5.
@@ -9,7 +9,7 @@ import os.log
 import UIKit
 
 #if DEBUG
-extension HomeViewController {
+extension HomeTimelineViewController {
     var debugMenu: UIMenu {
         let menu = UIMenu(
             title: "Debug Tools",
@@ -27,7 +27,7 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController {
+extension HomeTimelineViewController {
     
     @objc private func signOutAction(_ sender: UIAction) {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {

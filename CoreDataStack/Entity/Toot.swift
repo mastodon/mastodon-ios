@@ -39,10 +39,10 @@ public final class Toot: NSManagedObject {
     // many-to-one relastionship
     @NSManaged public private(set) var author: MastodonUser
     @NSManaged public private(set) var reblog: Toot?
-    @NSManaged public private(set) var favouritedBy: MastodonUser?
-    @NSManaged public private(set) var rebloggedBy: MastodonUser?
-    @NSManaged public private(set) var mutedBy: MastodonUser?
-    @NSManaged public private(set) var bookmarkedBy: MastodonUser?
+    @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var rebloggedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var mutedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var bookmarkedBy: Set<MastodonUser>?
     
     // one-to-one relastionship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
@@ -104,6 +104,8 @@ public extension Toot {
         toot.author = author
         toot.reblog = reblog
         
+        toot.pinnedBy = pinnedBy
+        
         if let mentions = mentions {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
         }
@@ -124,9 +126,6 @@ public extension Toot {
         }
         if let bookmarkedBy = bookmarkedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
-        }
-        if let pinnedBy = pinnedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.pinnedBy)).add(pinnedBy)
         }
         
         toot.updatedAt = property.networkDate
@@ -151,6 +150,53 @@ public extension Toot {
             self.repliesCount = repliesCount
         }
     }
+    func update(liked: Bool, mastodonUser: MastodonUser) {
+        if liked {
+            if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.favouritedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    func update(reblogged: Bool, mastodonUser: MastodonUser) {
+        if reblogged {
+            if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.rebloggedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
+    func update(muted: Bool, mastodonUser: MastodonUser) {
+        if muted {
+            if !(self.mutedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.mutedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
+    func update(bookmarked: Bool, mastodonUser: MastodonUser) {
+        if bookmarked {
+            if !(self.bookmarkedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).addObjects(from: [mastodonUser])
+            }
+        } else {
+            if (self.bookmarkedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    
     func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
     }

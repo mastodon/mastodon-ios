@@ -142,8 +142,8 @@ extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
-    
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String) {
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID: NSManagedObjectID?) {
+        guard let upperTimelineTootID = upperTimelineTootID else {return}
         viewModel.loadMiddleSateMachineList
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
@@ -191,7 +191,7 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
 
         switch item {
-        case .middleLoader(let upper):
+        case .publicMiddleLoader(let upper):
             guard let stateMachine = viewModel.loadMiddleSateMachineList.value[upper] else {
                 assertionFailure()
                 return

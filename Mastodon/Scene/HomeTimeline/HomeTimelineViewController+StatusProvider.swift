@@ -1,18 +1,17 @@
 //
-//  PublicTimelineViewController+StatusProvider.swift
+//  HomeTimelineViewController+StatusProvider.swift
 //  Mastodon
 //
-//  Created by sxiaojian on 2021/1/27.
+//  Created by sxiaojian on 2021/2/5.
 //
 
 import os.log
 import UIKit
 import Combine
 import CoreDataStack
-import MastodonSDK
 
 // MARK: - StatusProvider
-extension PublicTimelineViewController: StatusProvider {
+extension HomeTimelineViewController: StatusProvider {
     
     func toot() -> Future<Toot?, Never> {
         return Future { promise in promise(.success(nil)) }
@@ -32,11 +31,11 @@ extension PublicTimelineViewController: StatusProvider {
             }
             
             switch item {
-            case .toot(let objectID):
+            case .homeTimelineIndex(let objectID, _):
                 let managedObjectContext = self.viewModel.fetchedResultsController.managedObjectContext
                 managedObjectContext.perform {
-                    let toot = managedObjectContext.object(with: objectID) as? Toot
-                    promise(.success(toot))
+                    let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
+                    promise(.success(timelineIndex?.toot))
                 }
             default:
                 promise(.success(nil))

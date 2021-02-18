@@ -12,7 +12,7 @@ import Combine
 
 
 protocol TimelinePostTableViewCellDelegate: class {
-    
+    func timelinePostTableViewCell(_ cell: TimelinePostTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
 }
 
 final class TimelinePostTableViewCell: UITableViewCell {
@@ -61,6 +61,26 @@ extension TimelinePostTableViewCell {
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: timelinePostView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: timelinePostView.bottomAnchor),    // use action toolbar margin
         ])
+        
+        timelinePostView.actionToolbarContainer.delegate = self
     }
     
+}
+// MARK: - ActionToolbarContainerDelegate
+extension TimelinePostTableViewCell: ActionToolbarContainerDelegate {
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton) {
+        
+    }
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, retootButtonDidPressed sender: UIButton) {
+        
+    }
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton) {
+        delegate?.timelinePostTableViewCell(self, actionToolbarContainer: actionToolbarContainer, likeButtonDidPressed: sender)
+    }
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, bookmarkButtonDidPressed sender: UIButton) {
+        
+    }
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton) {
+        
+    }
 }

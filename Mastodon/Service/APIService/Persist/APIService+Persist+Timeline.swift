@@ -18,6 +18,7 @@ extension APIService.Persist {
     enum PersistTimelineType {
         case `public`
         case home
+        case likeList
     }
     
     static func persistTimeline(
@@ -92,6 +93,7 @@ extension APIService.Persist {
                 switch persistType {
                 case .public:   return .publicTimeline
                 case .home:     return .homeTimeline
+                case .likeList: return .favoriteTimeline
                 }
             }()
 
@@ -421,7 +423,8 @@ extension APIService.Persist {
                 let timelineIndex = status.homeTimelineIndexes?
                     .first { $0.userID == requestMastodonUserID }
                 if timelineIndex == nil {
-                    let timelineIndexProperty = HomeTimelineIndex.Property(domain: domain)
+                    let timelineIndexProperty = HomeTimelineIndex.Property(domain: domain, userID: requestMastodonUserID)
+                    
                     let _ = HomeTimelineIndex.insert(
                         into: managedObjectContext,
                         property: timelineIndexProperty,
