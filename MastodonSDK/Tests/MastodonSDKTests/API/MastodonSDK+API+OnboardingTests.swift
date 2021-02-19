@@ -40,8 +40,8 @@ extension MastodonSDKTests {
         wait(for: [theExpectation], timeout: 10.0)
     }
     
-    func testCatagories() throws {
-        let theExpectation = expectation(description: "Fetch Server Catagories")
+    func testCategories() throws {
+        let theExpectation = expectation(description: "Fetch Server Categories")
         Mastodon.API.Onboarding.categories(
             session: session
         )
@@ -60,6 +60,10 @@ extension MastodonSDKTests {
         .store(in: &disposeBag)
 
         wait(for: [theExpectation], timeout: 10.0)
+    }
+    
+    func testCategoryKind() {
+        XCTAssertEqual(Mastodon.Entity.Category.Kind.allCases.count, 12) 
     }
     
 

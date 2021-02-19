@@ -44,9 +44,9 @@ extension Mastodon.API.Onboarding {
             .eraseToAnyPublisher()
     }
     
-    /// Fetch server catagories
+    /// Fetch server categories
     ///
-    /// Using this endpoint to fetch booked catagories
+    /// Using this endpoint to fetch booked categories
     ///
     /// - Since: 3.3.0
     /// - Version: 3.3.0
