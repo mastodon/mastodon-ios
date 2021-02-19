@@ -26,4 +26,27 @@ extension MastodonSDKTests {
         )
     }
 
+    func testRevokeToken() throws {
+        _testRevokeTokenFail()
+    }
+
+    func _testRevokeTokenFail() {
+        let theExpectation = expectation(description: "Revoke Instance Infomation")
+        let query = Mastodon.API.OAuth.RevokeTokenQuery(clientID: "StubClientID", clientSecret: "", token: "")
+        Mastodon.API.OAuth.revokeToken(session: session, domain: domain, query: query)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                switch completion {
+                case .failure:
+                    theExpectation.fulfill()
+                case .finished:
+                    XCTFail("Success in a failed test?")
+                }
+            } receiveValue: { response in
+            }
+            .store(in: &disposeBag)
+
+        wait(for: [theExpectation], timeout: 10.0)
+    }
+
 }

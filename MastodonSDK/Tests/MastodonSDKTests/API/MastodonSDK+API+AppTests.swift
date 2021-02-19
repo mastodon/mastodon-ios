@@ -50,7 +50,7 @@ extension MastodonSDKTests {
 extension MastodonSDKTests {
     
     func testVerifyAppCredentials() throws {
-        try _testVerifyAppCredentials(domain: domain, accessToken: "")
+        try _testVerifyAppCredentials(domain: domain, accessToken: testToken)
     }
     
     func _testVerifyAppCredentials(domain: String, accessToken: String) throws {

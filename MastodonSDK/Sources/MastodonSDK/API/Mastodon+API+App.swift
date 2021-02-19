@@ -112,10 +112,6 @@ extension Mastodon.API.App {
             self.scopes = scopes
             self.website = website
         }
-        
-        var body: Data? {
-            return try? Mastodon.API.encoder.encode(self)
-        }
     }
     
 }

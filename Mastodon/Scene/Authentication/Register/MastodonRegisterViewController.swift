@@ -186,6 +186,7 @@ extension MastodonRegisterViewController {
         viewModel.isRegistering.value = true
         
         let query = Mastodon.API.Account.RegisterQuery(
+            reason: nil,
             username: username,
             email: email,
             password: password,
