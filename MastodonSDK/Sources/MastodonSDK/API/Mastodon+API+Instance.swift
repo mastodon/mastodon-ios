@@ -16,7 +16,7 @@ extension Mastodon.API.Instance {
     
     /// Information about the server
     ///
-    /// - Since: 1.0.0
+    /// - Since: 1.1.0
     /// - Version: 3.3.0
     /// # Last Update
     ///   2021/2/5

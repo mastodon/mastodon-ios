@@ -17,6 +17,19 @@ extension Mastodon.API.Timeline {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("timelines/home")
     }
     
+    /// View public timeline statuses
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/2/19
+    /// # Reference
+    ///   [Document](https://https://docs.joinmastodon.org/methods/timelines/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `PublicTimelineQuery` with query parameters
+    /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func `public`(
         session: URLSession,
         domain: String,
@@ -35,6 +48,19 @@ extension Mastodon.API.Timeline {
             .eraseToAnyPublisher()
     }
     
+    /// View statuses from followed users.
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/2/19
+    /// # Reference
+    ///   [Document](https://https://docs.joinmastodon.org/methods/timelines/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `PublicTimelineQuery` with query parameters
+    /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func home(
         session: URLSession,
         domain: String,

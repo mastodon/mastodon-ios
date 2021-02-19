@@ -12,33 +12,36 @@ enum RequestMethod: String {
 }
 
 protocol RequestQuery {
+    // All kinds of queries could have queryItems and body
+    var queryItems: [URLQueryItem]? { get }
     var body: Data? { get }
-    var method: RequestMethod { get }
 }
 
+// An `Encodable` query provides its body by encoding itself
+// A `Get` query only contains queryItems, it should not be `Encodable`
 extension RequestQuery where Self: Encodable {
     var body: Data? {
         return try? Mastodon.API.encoder.encode(self)
     }
 }
 
-protocol GetQuery: RequestQuery {
-    var queryItems: [URLQueryItem]? { get }
-}
+protocol GetQuery: RequestQuery { }
 
 extension GetQuery {
-    var method: RequestMethod { return .GET }
-    var body: Data? { return nil }
+    // By default a `GetQuery` does not has data body
+    var body: Data? { nil }
 }
 
-protocol PostQuery: RequestQuery { }
+protocol PostQuery: RequestQuery & Encodable { }
 
 extension PostQuery {
-    var method: RequestMethod { return .POST }
+    // By default a `GetQuery` does not has query items
+    var queryItems: [URLQueryItem]? { nil }
 }
 
-protocol PatchQuery: RequestQuery { }
+protocol PatchQuery: RequestQuery & Encodable { }
 
 extension PatchQuery {
-    var method: RequestMethod { return .PATCH }
+    // By default a `GetQuery` does not has query items
+    var queryItems: [URLQueryItem]? { nil }
 }

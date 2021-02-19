@@ -96,7 +96,7 @@ extension Mastodon.API {
         query: GetQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
-        return buildRequest(url: url, query: query, authorization: authorization)
+        return buildRequest(url: url, method: .GET, query: query, authorization: authorization)
     }
     
     static func post(
@@ -104,7 +104,7 @@ extension Mastodon.API {
         query: PostQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
-        return buildRequest(url: url, query: query, authorization: authorization)
+        return buildRequest(url: url, method: .POST, query: query, authorization: authorization)
     }
 
     static func patch(
@@ -112,24 +112,24 @@ extension Mastodon.API {
         query: PatchQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
-        return buildRequest(url: url, query: query, authorization: authorization)
+        return buildRequest(url: url, method: .PATCH, query: query, authorization: authorization)
     }
 
     private static func buildRequest(
         url: URL,
+        method: RequestMethod,
         query: RequestQuery?,
         authorization: OAuth.Authorization?
     ) -> URLRequest {
         var components = URLComponents(string: url.absoluteString)!
-        if let requestQuery = query as? GetQuery {
-            components.queryItems = requestQuery.queryItems
-        }
+        components.queryItems = query?.queryItems
         let requestURL = components.url!
         var request = URLRequest(
             url: requestURL,
             cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
             timeoutInterval: Mastodon.API.timeoutInterval
         )
+        request.httpMethod = method.rawValue
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         request.httpBody = query?.body
         if let authorization = authorization {
@@ -138,10 +138,7 @@ extension Mastodon.API {
                 forHTTPHeaderField: Mastodon.API.OAuth.authorizationField
             )
         }
-
-        request.httpMethod = query?.method.rawValue ?? RequestMethod.GET.rawValue
         return request
-
     }
     
     static func decode<T>(type: T.Type, from data: Data, response: URLResponse) throws -> T where T : Decodable {

@@ -38,7 +38,7 @@ extension Mastodon.API.OAuth {
     ///
     /// This method construct a URL for user authorize
     ///
-    /// - Since: 0.1.0
+    /// - Since: 0.0.0
     /// - Version: 3.3.0
     /// # Last Update
     ///   2021/1/29

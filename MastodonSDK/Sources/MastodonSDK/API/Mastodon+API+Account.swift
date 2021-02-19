@@ -22,7 +22,8 @@ extension Mastodon.API.Account {
 
     /// Test to make sure that the user token works.
     ///
-    /// - Version: 3.0.0
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/2/9
     /// # Reference
@@ -30,6 +31,7 @@ extension Mastodon.API.Account {
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - authorization: App token
     /// - Returns: `AnyPublisher` contains `Account` nested in the response
     public static func verifyCredentials(
         session: URLSession,
@@ -51,7 +53,8 @@ extension Mastodon.API.Account {
 
     /// Creates a user and account records.
     ///
-    /// - Version: 3.0.0
+    /// - Since: 2.7.0
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/2/9
     /// # Reference
@@ -59,6 +62,8 @@ extension Mastodon.API.Account {
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `RegisterQuery` with account registration information
+    ///   - authorization: App token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func register(
         session: URLSession,
@@ -81,7 +86,8 @@ extension Mastodon.API.Account {
 
     /// Update the user's display and preferences.
     ///
-    /// - Version: 3.0.0
+    /// - Since: 1.1.1
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/2/9
     /// # Reference
@@ -89,12 +95,13 @@ extension Mastodon.API.Account {
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - query: `CredentialQuery` with update information
+    ///   - query: `CredentialQuery` with update credential information
+    ///   - authorization: `UpdateCredentialQuery` with update information
     /// - Returns: `AnyPublisher` contains updated `Account` nested in the response
     public static func updateCredentials(
         session: URLSession,
         domain: String,
-        query: CredentialQuery,
+        query: UpdateCredentialQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         let request = Mastodon.API.patch(
@@ -112,7 +119,8 @@ extension Mastodon.API.Account {
 
     /// View information about a profile.
     ///
-    /// - Version: 3.0.0
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/2/9
     /// # Reference
@@ -120,12 +128,14 @@ extension Mastodon.API.Account {
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `AccountInfoQuery` with account query information,
+    ///   - authorization: user token
     /// - Returns: `AnyPublisher` contains `Account` nested in the response
     public static func accountInfo(
         session: URLSession,
         domain: String,
         query: AccountInfoQuery,
-        authorization: Mastodon.API.OAuth.Authorization
+        authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         let request = Mastodon.API.get(
             url: accountsEndpointURL(domain: domain),
@@ -162,7 +172,7 @@ extension Mastodon.API.Account {
         }
     }
 
-    public struct CredentialQuery: Codable, PatchQuery {
+    public struct UpdateCredentialQuery: Codable, PatchQuery {
 
         public var discoverable: Bool?
         public var bot: Bool?
@@ -177,7 +187,7 @@ extension Mastodon.API.Account {
         enum CodingKeys: String, CodingKey {
             case discoverable
             case bot
-            case displayName
+            case displayName = "display_name"
             case note
 
             case avatar
