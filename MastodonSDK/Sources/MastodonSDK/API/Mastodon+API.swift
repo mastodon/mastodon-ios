@@ -88,8 +88,8 @@ extension Mastodon.API {
     public enum App { }
     public enum Instance { }
     public enum OAuth { }
+    public enum Onboarding { }
     public enum Timeline { }
-    public enum Server { }
     public enum Favorites { }
 }
 

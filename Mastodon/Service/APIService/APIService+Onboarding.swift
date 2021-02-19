@@ -1,0 +1,26 @@
+//
+//  APIService+Onboarding.swift
+//  Mastodon
+//
+//  Created by MainasuK Cirno on 2021-2-19.
+//
+
+import Foundation
+import Combine
+import MastodonSDK
+
+extension APIService {
+ 
+    func servers(
+        language: String?,
+        category: String?
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error> {
+        let query = Mastodon.API.Onboarding.ServersQuery(language: language, category: category)
+        return Mastodon.API.Onboarding.servers(session: session, query: query)
+    }
+    
+    func categories() -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Category]>, Error> {
+        return Mastodon.API.Onboarding.categories(session: session)
+    }
+    
+}
