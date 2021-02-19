@@ -75,7 +75,6 @@ extension Mastodon.Entity {
                 case .furry:                    return "furry"
                 case .food:                     return "food"
                 case ._other(let value):        return value
-                
                 }
             }
         }
