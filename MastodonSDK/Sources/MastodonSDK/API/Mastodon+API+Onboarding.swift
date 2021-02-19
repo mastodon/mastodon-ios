@@ -46,8 +46,6 @@ extension Mastodon.API.Onboarding {
     ///
     /// Using this endpoint to fetch booked categories
     ///
-    /// - Since: 3.3.0
-    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/2/19
     /// # Reference
