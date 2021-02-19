@@ -47,7 +47,7 @@ extension MastodonSDKTests {
                 XCTAssertEqual(result.value.acct, "")
                 theExpectation1.fulfill()
 
-                var query = Mastodon.API.Account.CredentialQuery()
+                var query = Mastodon.API.Account.UpdateCredentialQuery()
                 query.note = dateString
                 return Mastodon.API.Account.updateCredentials(session: self.session, domain: self.domain, query: query, authorization: authorization)
             })
@@ -68,5 +68,27 @@ extension MastodonSDKTests {
 
 
         wait(for: [theExpectation1, theExpectation2], timeout: 10.0)
+    }
+    
+    func testRetrieveAccountInfo() throws {
+        let theExpectation = expectation(description: "Verify Account Credentials")
+
+        let query = Mastodon.API.Account.AccountInfoQuery(id: "1")
+        Mastodon.API.Account.accountInfo(session: session, domain: domain, query: query, authorization: nil)
+        .receive(on: DispatchQueue.main)
+        .sink { completion in
+            switch completion {
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            case .finished:
+                break
+            }
+        } receiveValue: { response in
+            XCTAssertEqual(response.value.acct, "Gargron")
+            theExpectation.fulfill()
+        }
+        .store(in: &disposeBag)
+
+        wait(for: [theExpectation], timeout: 5.0)
     }
 }

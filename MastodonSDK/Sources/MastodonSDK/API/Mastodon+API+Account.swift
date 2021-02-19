@@ -16,6 +16,10 @@ extension Mastodon.API.Account {
     static func accountsEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts")
     }
+    static func accountsInfoEndpointURL(domain: String, id: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts")
+            .appendingPathComponent(id)
+    }
     static func updateCredentialsEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/update_credentials")
     }
@@ -96,7 +100,7 @@ extension Mastodon.API.Account {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: `CredentialQuery` with update credential information
-    ///   - authorization: `UpdateCredentialQuery` with update information
+    ///   - authorization: user token
     /// - Returns: `AnyPublisher` contains updated `Account` nested in the response
     public static func updateCredentials(
         session: URLSession,
@@ -138,8 +142,8 @@ extension Mastodon.API.Account {
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         let request = Mastodon.API.get(
-            url: accountsEndpointURL(domain: domain),
-            query: query,
+            url: accountsInfoEndpointURL(domain: domain, id: query.id),
+            query: nil,
             authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
@@ -220,14 +224,10 @@ extension Mastodon.API.Account {
         }
     }
 
-    public struct AccountInfoQuery: Codable, GetQuery {
+    public struct AccountInfoQuery: GetQuery {
 
         public let id: String
 
-        var queryItems: [URLQueryItem]? {
-            var items: [URLQueryItem] = []
-            items.append(URLQueryItem(name: "id", value: id))
-            return items
-        }
+        var queryItems: [URLQueryItem]? { nil }
     }
 }
