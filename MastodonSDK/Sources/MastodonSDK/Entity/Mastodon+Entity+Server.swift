@@ -16,7 +16,7 @@ extension Mastodon.Entity {
         public let languages: [String]
         public let region: String
         public let categories: [String]
-        public let proxiedThumbnail: String
+        public let proxiedThumbnail: String?
         public let totalUsers: Int
         public let lastWeekUsers: Int
         public let approvalRequired: Bool
