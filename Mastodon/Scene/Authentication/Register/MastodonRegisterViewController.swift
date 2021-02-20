@@ -425,29 +425,6 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
     }
 
-    func validateTextField(textField: UITextField) -> Bool {
-        var isvalid = false
-        if textField == usernameTextField {
-            isvalid = viewModel.isUsernameValid.value ?? false
-        }
-        if textField == displayNameTextField {
-            isvalid = viewModel.isDisplaynameValid.value ?? false
-        }
-        if textField == emailTextField {
-            isvalid = viewModel.isEmailValid.value ?? false
-        }
-        if textField == passwordTextField {
-            isvalid = viewModel.isPasswordValid.value ?? false
-        }
-        if isvalid {
-            showShadowWithColor(color: Asset.Colors.TextField.successGreen.color, textField: textField)
-        } else {
-            textField.shake()
-            showShadowWithColor(color: Asset.Colors.lightDangerRed.color, textField: textField)
-        }
-        return isvalid
-    }
-
     func validateAllTextField() -> Bool {
         return viewModel.isUsernameValid.value ?? false && viewModel.isDisplaynameValid.value ?? false && viewModel.isEmailValid.value ?? false && viewModel.isPasswordValid.value ?? false
     }
