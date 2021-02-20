@@ -161,14 +161,16 @@ extension Mastodon.API.Account {
     public struct RegisterQuery: Codable, PostQuery {
         public let reason: String?
         public let username: String
+        public let displayname: String
         public let email: String
         public let password: String
         public let agreement: Bool
         public let locale: String
         
-        public init(reason: String? = nil, username: String, email: String, password: String, agreement: Bool, locale: String) {
+        public init(reason: String? = nil, username: String, displayname: String, email: String, password: String, agreement: Bool, locale: String) {
             self.reason = reason
             self.username = username
+            self.displayname = displayname
             self.email = email
             self.password = password
             self.agreement = agreement

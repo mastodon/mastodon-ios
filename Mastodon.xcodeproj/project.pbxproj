@@ -23,6 +23,7 @@
 		2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1F625CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift */; };
 		2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1FD25CD481700561493 /* StatusProvider.swift */; };
 		2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F20725CD491300561493 /* DisposeBagCollectable.swift */; };
+		2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */; };
 		2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* ActiveLabel */; };
 		2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF6A25C817D2004A627A /* MastodonContent.swift */; };
 		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
@@ -196,6 +197,7 @@
 		2D38F1F625CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
 		2D38F1FD25CD481700561493 /* StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusProvider.swift; sourceTree = "<group>"; };
 		2D38F20725CD491300561493 /* DisposeBagCollectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposeBagCollectable.swift; sourceTree = "<group>"; };
+		2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITapGestureRecognizer.swift; sourceTree = "<group>"; };
 		2D42FF6A25C817D2004A627A /* MastodonContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonContent.swift; sourceTree = "<group>"; };
 		2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionToolBarContainer.swift; sourceTree = "<group>"; };
 		2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitTestExpandedButton.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 			children = (
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
+				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
 				2D46976325C2A71500CF4AA9 /* UIIamge.swift */,
@@ -1243,6 +1246,7 @@
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
 				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
+				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
