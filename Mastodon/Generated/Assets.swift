@@ -28,16 +28,32 @@ internal enum Asset {
   internal enum Colors {
     internal enum Background {
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
+      internal static let signUpSystemBackground = ColorAsset(name: "Colors/Background/signUp.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
     }
     internal enum Button {
       internal static let highlight = ColorAsset(name: "Colors/Button/highlight")
     }
+    internal enum Icon {
+      internal static let photo = ColorAsset(name: "Colors/Icon/photo")
+      internal static let plus = ColorAsset(name: "Colors/Icon/plus")
+    }
     internal enum Label {
+      internal static let black = ColorAsset(name: "Colors/Label/black")
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
+    internal static let lightAlertYellow = ColorAsset(name: "Colors/lightAlertYellow")
+    internal static let lightBackground = ColorAsset(name: "Colors/lightBackground")
+    internal static let lightBrandBlue = ColorAsset(name: "Colors/lightBrandBlue")
+    internal static let lightDangerRed = ColorAsset(name: "Colors/lightDangerRed")
+    internal static let lightDarkGray = ColorAsset(name: "Colors/lightDarkGray")
+    internal static let lightDisabled = ColorAsset(name: "Colors/lightDisabled")
+    internal static let lightInactive = ColorAsset(name: "Colors/lightInactive")
+    internal static let lightSecondaryText = ColorAsset(name: "Colors/lightSecondaryText")
+    internal static let lightSuccessGreen = ColorAsset(name: "Colors/lightSuccessGreen")
+    internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum ToolBar {
