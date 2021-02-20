@@ -302,6 +302,15 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
         
+        viewModel.isUsernameValid
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                guard let self = self else { return }
+                self.setTextFieldValidAppearance(self.usernameTextField, isValid: isValid)
+            }
+            .store(in: &disposeBag)
+        
+        
         viewModel.error
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
@@ -317,6 +326,7 @@ extension MastodonRegisterViewController {
                 )
             }
             .store(in: &disposeBag)
+        
         NotificationCenter.default
             .publisher(for: UITextField.textDidChangeNotification, object: passwordTextField)
             .receive(on: DispatchQueue.main)
@@ -347,10 +357,15 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
     }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let valid = validateTextField(textField: textField)
-        if valid {
-            if validateAllTextField() {
-                signUpButton.isEnabled = true
+        switch textField {
+        case usernameTextField:
+            viewModel.username.value = textField.text
+        default:
+            let valid = validateTextField(textField: textField)
+            if valid {
+                if validateAllTextField() {
+                    signUpButton.isEnabled = true
+                }
             }
         }
     }
@@ -361,6 +376,8 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         textField.layer.shadowRadius = 2.0
         textField.layer.shadowOffset = CGSize.zero // Use any CGSize
         textField.layer.shadowColor = color.cgColor
+        textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
+
     }
     func validateUsername() -> Bool {
         if usernameTextField.text?.count ?? 0 > 0 {
@@ -400,9 +417,9 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
     func validateTextField(textField: UITextField) -> Bool {
         signUpButton.isEnabled = false
         var isvalid = false
-        if textField == usernameTextField {
-            isvalid = validateUsername()
-        }
+//        if textField == usernameTextField {
+//            isvalid = validateUsername()
+//        }
         if textField == displayNameTextField {
             isvalid = validateDisplayName()
         }
@@ -423,6 +440,21 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
     func validateAllTextField() -> Bool {
         return validateUsername() && validateDisplayName() && validateEmail() && validatePassword()
     }
+    
+    private func setTextFieldValidAppearance(_ textField: UITextField, isValid: Bool?) {
+        guard let isValid = isValid else {
+            showShadowWithColor(color: .clear, textField: textField)
+            return
+        }
+        
+        if isValid {
+            showShadowWithColor(color: Asset.Colors.TextField.successGreen.color, textField: textField)
+        } else {
+            textField.shake()
+            showShadowWithColor(color: Asset.Colors.lightDangerRed.color, textField: textField)
+        }
+    }
+    
 }
 
 extension MastodonRegisterViewController {

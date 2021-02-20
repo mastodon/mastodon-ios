@@ -11,19 +11,34 @@ import MastodonSDK
 import UIKit
 
 final class MastodonRegisterViewModel {
+    
+    var disposeBag = Set<AnyCancellable>()
+    
     // input
     let domain: String
     let applicationToken: Mastodon.Entity.Token
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
+    let username = CurrentValueSubject<String?, Never>(nil)
     
     // output
     let applicationAuthorization: Mastodon.API.OAuth.Authorization
+    let isUsernameValid = CurrentValueSubject<Bool?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     init(domain: String, applicationToken: Mastodon.Entity.Token) {
         self.domain = domain
         self.applicationToken = applicationToken
         self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken)
+        
+        username
+            .map { username in
+                guard let username = username else {
+                    return nil
+                }
+                return !username.isEmpty
+            }
+            .assign(to: \.value, on: isUsernameValid)
+            .store(in: &disposeBag)
     }
 }
 
