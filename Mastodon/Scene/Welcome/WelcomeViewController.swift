@@ -16,7 +16,7 @@ final class WelcomeViewController: UIViewController {
     
     let sloganLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 34)
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
         label.textColor = Asset.Colors.Label.black.color
         label.text = L10n.Common.Label.slogon
         label.adjustsFontForContentSizeCategory = true
