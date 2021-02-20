@@ -11,7 +11,6 @@ import MastodonSDK
 import UIKit
 
 final class MastodonRegisterViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -19,10 +18,18 @@ final class MastodonRegisterViewModel {
     let applicationToken: Mastodon.Entity.Token
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     let username = CurrentValueSubject<String?, Never>(nil)
+    let displayname = CurrentValueSubject<String?, Never>(nil)
+    let email = CurrentValueSubject<String?, Never>(nil)
+    let password = CurrentValueSubject<String?, Never>(nil)
     
     // output
     let applicationAuthorization: Mastodon.API.OAuth.Authorization
+    
     let isUsernameValid = CurrentValueSubject<Bool?, Never>(nil)
+    let isDisplaynameValid = CurrentValueSubject<Bool?, Never>(nil)
+    let isEmailValid = CurrentValueSubject<Bool?, Never>(nil)
+    let isPasswordValid = CurrentValueSubject<Bool?, Never>(nil)
+    
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     init(domain: String, applicationToken: Mastodon.Entity.Token) {
@@ -39,15 +46,44 @@ final class MastodonRegisterViewModel {
             }
             .assign(to: \.value, on: isUsernameValid)
             .store(in: &disposeBag)
+        displayname
+            .map { displayname in
+                guard let displayname = displayname else {
+                    return nil
+                }
+                return !displayname.isEmpty
+            }
+            .assign(to: \.value, on: isDisplaynameValid)
+            .store(in: &disposeBag)
+        email
+            .map { [weak self] email in
+                guard let self = self else { return nil }
+                guard let email = email else {
+                    return nil
+                }
+                return !email.isEmpty && self.isValidEmail(email)
+            }
+            .assign(to: \.value, on: isEmailValid)
+            .store(in: &disposeBag)
+        password
+            .map { [weak self] password in
+                guard let self = self else { return nil }
+                guard let password = password else {
+                    return nil
+                }
+                let result = self.validatePassword(text: password)
+                return !password.isEmpty && result.0 && result.1 && result.2
+            }
+            .assign(to: \.value, on: isPasswordValid)
+            .store(in: &disposeBag)
     }
 }
 
 extension MastodonRegisterViewModel {
-    
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
     }
     
@@ -81,26 +117,26 @@ extension MastodonRegisterViewModel {
         let start = NSAttributedString(string: "Your password needs at least:\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(start)
         
-        attributeString.append(checkImage(color: eightCharacters ? color : falseColor))
+        attributeString.append(checkmarkImage(color: eightCharacters ? color : falseColor))
         let eightCharactersDescription = NSAttributedString(string: "Eight characters\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(eightCharactersDescription)
         
-        attributeString.append(checkImage(color: oneNumber ? color : falseColor))
+        attributeString.append(checkmarkImage(color: oneNumber ? color : falseColor))
         let oneNumberDescription = NSAttributedString(string: "One number\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(oneNumberDescription)
         
-        attributeString.append(checkImage(color: oneSpecialCharacter ? color : falseColor))
+        attributeString.append(checkmarkImage(color: oneSpecialCharacter ? color : falseColor))
         let oneSpecialCharacterDescription = NSAttributedString(string: "One special character\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(oneSpecialCharacterDescription)
         
         return attributeString
     }
 
-    func checkImage(color: UIColor) -> NSAttributedString {
-        let checkImage = NSTextAttachment()
+    func checkmarkImage(color: UIColor) -> NSAttributedString {
+        let checkmarkImage = NSTextAttachment()
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         let configuration = UIImage.SymbolConfiguration(font: font)
-        checkImage.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)?.withTintColor(color)
-        return NSAttributedString(attachment: checkImage)
+        checkmarkImage.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)?.withTintColor(color)
+        return NSAttributedString(attachment: checkmarkImage)
     }
 }

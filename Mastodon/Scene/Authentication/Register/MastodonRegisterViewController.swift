@@ -34,7 +34,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
     
     let largeTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .largeTitle)
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
         label.textColor = Asset.Colors.Label.black.color
         label.text = "Tell us about you."
         return label
@@ -58,6 +58,16 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         button.layer.cornerRadius = 45
         button.clipsToBounds = true
         return button
+    }()
+    
+    let plusIconBackground: UIImageView = {
+        let icon = UIImageView()
+        let boldFont = UIFont.systemFont(ofSize: 24)
+        let configuration = UIImage.SymbolConfiguration(font: boldFont)
+        let image = UIImage(systemName: "plus.circle", withConfiguration: configuration)
+        icon.image = image
+        icon.tintColor = .white
+        return icon
     }()
     
     let plusIcon: UIImageView = {
@@ -246,6 +256,12 @@ extension MastodonRegisterViewController {
             photoButton.centerXAnchor.constraint(equalTo: photoView.centerXAnchor),
             photoButton.centerYAnchor.constraint(equalTo: photoView.centerYAnchor),
         ])
+        plusIconBackground.translatesAutoresizingMaskIntoConstraints = false
+        photoView.addSubview(plusIconBackground)
+        NSLayoutConstraint.activate([
+            plusIconBackground.trailingAnchor.constraint(equalTo: photoButton.trailingAnchor),
+            plusIconBackground.bottomAnchor.constraint(equalTo: photoButton.bottomAnchor),
+        ])
         plusIcon.translatesAutoresizingMaskIntoConstraints = false
         photoView.addSubview(plusIcon)
         NSLayoutConstraint.activate([
@@ -309,7 +325,40 @@ extension MastodonRegisterViewController {
                 self.setTextFieldValidAppearance(self.usernameTextField, isValid: isValid)
             }
             .store(in: &disposeBag)
+        viewModel.isDisplaynameValid
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                guard let self = self else { return }
+                self.setTextFieldValidAppearance(self.displayNameTextField, isValid: isValid)
+            }
+            .store(in: &disposeBag)
+        viewModel.isEmailValid
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                guard let self = self else { return }
+                self.setTextFieldValidAppearance(self.emailTextField, isValid: isValid)
+            }
+            .store(in: &disposeBag)
+        viewModel.isPasswordValid
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isValid in
+                guard let self = self else { return }
+                self.setTextFieldValidAppearance(self.passwordTextField, isValid: isValid)
+            }
+            .store(in: &disposeBag)
         
+        Publishers.CombineLatest4(
+            viewModel.isUsernameValid,
+            viewModel.isDisplaynameValid,
+            viewModel.isEmailValid,
+            viewModel.isPasswordValid
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isUsernameValid, isDisplaynameValid, isEmailValid, isPasswordValid in
+            guard let self = self else { return }
+            self.signUpButton.isEnabled = isUsernameValid ?? false && isDisplaynameValid ?? false && isEmailValid ?? false && isPasswordValid ?? false
+        }
+        .store(in: &disposeBag)
         
         viewModel.error
             .compactMap { $0 }
@@ -326,16 +375,13 @@ extension MastodonRegisterViewController {
                 )
             }
             .store(in: &disposeBag)
-        
         NotificationCenter.default
             .publisher(for: UITextField.textDidChangeNotification, object: passwordTextField)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 guard let text = self.passwordTextField.text else { return }
-
                 let validations = self.viewModel.validatePassword(text: text)
-
                 self.passwordCheckLabel.attributedText = self.viewModel.attributeStringForPassword(eightCharacters: validations.0, oneNumber: validations.1, oneSpecialCharacter: validations.2)
             }
             .store(in: &disposeBag)
@@ -360,13 +406,13 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         switch textField {
         case usernameTextField:
             viewModel.username.value = textField.text
-        default:
-            let valid = validateTextField(textField: textField)
-            if valid {
-                if validateAllTextField() {
-                    signUpButton.isEnabled = true
-                }
-            }
+        case displayNameTextField:
+            viewModel.displayname.value = textField.text
+        case emailTextField:
+            viewModel.email.value = textField.text
+        case passwordTextField:
+            viewModel.password.value = textField.text
+        default: break
         }
     }
 
@@ -374,60 +420,24 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         // To apply Shadow
         textField.layer.shadowOpacity = 1
         textField.layer.shadowRadius = 2.0
-        textField.layer.shadowOffset = CGSize.zero // Use any CGSize
+        textField.layer.shadowOffset = CGSize.zero
         textField.layer.shadowColor = color.cgColor
         textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
+    }
 
-    }
-    func validateUsername() -> Bool {
-        if usernameTextField.text?.count ?? 0 > 0 {
-            showShadowWithColor(color: Asset.Colors.TextField.successGreen.color, textField: usernameTextField)
-            return true
-        } else {
-            return false
-        }
-    }
-    func validateDisplayName() -> Bool {
-        if displayNameTextField.text?.count ?? 0 > 0 {
-            return true
-        } else {
-            return false
-        }
-    }
-    func validateEmail() -> Bool {
-        guard let email = emailTextField.text else {
-            return false
-        }
-        if !viewModel.isValidEmail(email) {
-            return false
-        }
-        return true
-    }
-    func validatePassword() -> Bool {
-        guard let password = passwordTextField.text else {
-            return false
-        }
-        
-        let result = viewModel.validatePassword(text: password)
-        if !(result.0 && result.1 && result.2) {
-            return false
-        }
-        return true
-    }
     func validateTextField(textField: UITextField) -> Bool {
-        signUpButton.isEnabled = false
         var isvalid = false
-//        if textField == usernameTextField {
-//            isvalid = validateUsername()
-//        }
+        if textField == usernameTextField {
+            isvalid = viewModel.isUsernameValid.value ?? false
+        }
         if textField == displayNameTextField {
-            isvalid = validateDisplayName()
+            isvalid = viewModel.isDisplaynameValid.value ?? false
         }
         if textField == emailTextField {
-            isvalid = validateEmail()
+            isvalid = viewModel.isEmailValid.value ?? false
         }
         if textField == passwordTextField {
-            isvalid = validatePassword()
+            isvalid = viewModel.isPasswordValid.value ?? false
         }
         if isvalid {
             showShadowWithColor(color: Asset.Colors.TextField.successGreen.color, textField: textField)
@@ -437,8 +447,9 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         }
         return isvalid
     }
+
     func validateAllTextField() -> Bool {
-        return validateUsername() && validateDisplayName() && validateEmail() && validatePassword()
+        return viewModel.isUsernameValid.value ?? false && viewModel.isDisplaynameValid.value ?? false && viewModel.isEmailValid.value ?? false && viewModel.isPasswordValid.value ?? false
     }
     
     private func setTextFieldValidAppearance(_ textField: UITextField, isValid: Bool?) {
@@ -454,7 +465,6 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
             showShadowWithColor(color: Asset.Colors.lightDangerRed.color, textField: textField)
         }
     }
-    
 }
 
 extension MastodonRegisterViewController {
@@ -476,10 +486,9 @@ extension MastodonRegisterViewController {
         
         let query = Mastodon.API.Account.RegisterQuery(
             reason: nil,
-            username: usernameTextField.text!,
-            displayname: displayNameTextField.text!,
-            email: emailTextField.text!,
-            password: passwordTextField.text!,
+            username: viewModel.username.value!,
+            email: viewModel.email.value!,
+            password: viewModel.password.value!,
             agreement: true, // TODO:
             locale: "en" // TODO:
         )
