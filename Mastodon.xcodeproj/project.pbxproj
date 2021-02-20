@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */; };
+		0FAA0FE625E0C7700017CCDE /* FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA0FE525E0C7700017CCDE /* FontStyle.swift */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D152A8C25C295CC009AA50C /* TimelinePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* TimelinePostView.swift */; };
@@ -181,6 +183,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		0FAA0FE525E0C7700017CCDE /* FontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStyle.swift; sourceTree = "<group>"; };
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* TimelinePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelinePostView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -365,6 +369,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FAA0FDD25E0B5700017CCDE /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		0FAA0FE425E0C7610017CCDE /* stylesheet */ = {
+			isa = PBXGroup;
+			children = (
+				0FAA0FE525E0C7700017CCDE /* FontStyle.swift */,
+			);
+			path = stylesheet;
+			sourceTree = "<group>";
+		};
 		1EBA4F56E920856A3FC84ACB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +657,7 @@
 		DB427DD425BAA00100D1B89D /* Mastodon */ = {
 			isa = PBXGroup;
 			children = (
+				0FAA0FE425E0C7610017CCDE /* stylesheet */,
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
 				2D5A3D0125CF8640002347D6 /* Vender */,
@@ -800,6 +821,7 @@
 		DB8AF55525C1379F002E6C99 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				0FAA0FDD25E0B5700017CCDE /* Welcome */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D7631A425C1532200929FB9 /* Share */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
@@ -1210,6 +1232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
+				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
@@ -1282,6 +1305,7 @@
 				DB01409625C40B6700F9F3CF /* AuthenticationViewController.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
 				DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */,
+				0FAA0FE625E0C7700017CCDE /* FontStyle.swift in Sources */,
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,

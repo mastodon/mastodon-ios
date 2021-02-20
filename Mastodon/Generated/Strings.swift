@@ -18,6 +18,10 @@ internal enum L10n {
         internal static let loadMore = L10n.tr("Localizable", "Common.Controls.Timeline.LoadMore")
       }
     }
+    internal enum Label {
+      /// Social networking\nback in your hands.
+      internal static let slogon = L10n.tr("Localizable", "Common.Label.Slogon")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
