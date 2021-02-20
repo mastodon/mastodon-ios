@@ -16,22 +16,43 @@ final class WelcomeViewController: UIViewController {
     
     let sloganLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .largeTitle)
-        label.textColor = .black
+        label.font = .boldSystemFont(ofSize: 34)
+        label.textColor = Asset.Colors.Label.black.color
         label.text = L10n.Common.Label.slogon
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
     }()
+    
+    let signUpButton: MasActionButton = {
+        let button = MasActionButton(type: .system)
+        button.setTitle(L10n.Button.signUp, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let signInButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle(L10n.Button.signIn, for: .normal)
+        button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .subheadline)
+        button.setInsets(forContentPadding: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0), imageTitlePadding: 0)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 }
 
 extension WelcomeViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = Asset.Colors.Background.signUpSystemBackground.color
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([
@@ -46,6 +67,18 @@ extension WelcomeViewController {
             sloganLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 16),
             sloganLabel.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: -16),
             sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
+        ])
+        
+        view.addSubview(signInButton)
+        view.addSubview(signUpButton)
+        NSLayoutConstraint.activate([
+            signInButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
+            signInButton.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: -12),
+            signInButton.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor, constant: -11),
+            
+            signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
+            signUpButton.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: -12),
+            signUpButton.bottomAnchor.constraint(equalTo: signInButton.topAnchor, constant: -5)
         ])
     }
     

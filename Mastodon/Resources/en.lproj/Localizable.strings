@@ -7,3 +7,7 @@
 */
 "Common.Controls.Timeline.LoadMore" = "Load More";
 "Common.Label.Slogon" = "Social networking\nback in your hands.";
+"Common.Label.PickAServer" = "Pick a server,\nany server.";
+
+"Button.SignUp" = "Sign Up";
+"Button.SignIn" = "Sign In";
