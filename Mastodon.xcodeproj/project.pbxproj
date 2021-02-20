@@ -83,6 +83,7 @@
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
+		DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */; };
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
 		DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */; };
@@ -266,6 +267,7 @@
 		DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardResponderService.swift; sourceTree = "<group>"; };
 		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
 		DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+MastodonUser.swift"; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 			children = (
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
+				DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1247,6 +1250,7 @@
 				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
+				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,

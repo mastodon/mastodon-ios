@@ -20,15 +20,13 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
     var viewModel: MastodonRegisterViewModel!
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-    
     let stackViewTopDistance: CGFloat = 16
-
-    var keyboardFrame: CGRect!
     
     var scrollview: UIScrollView = {
         let scrollview = UIScrollView()
         scrollview.showsVerticalScrollIndicator = false
         scrollview.translatesAutoresizingMaskIntoConstraints = false
+        scrollview.keyboardDismissMode = .interactive
         return scrollview
     }()
     
@@ -226,21 +224,21 @@ extension MastodonRegisterViewController {
         view.addSubview(scrollview)
         NSLayoutConstraint.activate([
             scrollview.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scrollview.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            view.trailingAnchor.constraint(equalTo: scrollview.frameLayoutGuide.trailingAnchor, constant: 20),
+            scrollview.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollview.frameLayoutGuide.trailingAnchor),
             scrollview.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            scrollview.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollview.contentLayoutGuide.widthAnchor),
         ])
-        
+
         // stackview
         scrollview.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        let bottomEdgeLayoutConstraint: NSLayoutConstraint = scrollview.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollview.contentLayoutGuide.topAnchor, constant: stackViewTopDistance),
             stackView.leadingAnchor.constraint(equalTo: scrollview.contentLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: scrollview.contentLayoutGuide.trailingAnchor),
             stackView.widthAnchor.constraint(equalTo: scrollview.frameLayoutGuide.widthAnchor),
-            bottomEdgeLayoutConstraint,
+            scrollview.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
 
         // photoview
@@ -268,7 +266,7 @@ extension MastodonRegisterViewController {
             plusIcon.trailingAnchor.constraint(equalTo: photoButton.trailingAnchor),
             plusIcon.bottomAnchor.constraint(equalTo: photoButton.bottomAnchor),
         ])
-        
+
         // textfield
         NSLayoutConstraint.activate([
             usernameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
@@ -280,34 +278,49 @@ extension MastodonRegisterViewController {
         // password
         stackView.setCustomSpacing(6, after: passwordTextField)
         stackView.setCustomSpacing(32, after: passwordCheckLabel)
-        
+
         // button
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
             signUpButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
-        
+
         signUpActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         scrollview.addSubview(signUpActivityIndicatorView)
         NSLayoutConstraint.activate([
             signUpActivityIndicatorView.centerXAnchor.constraint(equalTo: signUpButton.centerXAnchor),
             signUpActivityIndicatorView.centerYAnchor.constraint(equalTo: signUpButton.centerYAnchor),
         ])
-        
-        NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-            .sink { [weak self] notification in
-                guard let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-                    return
-                }
-                self?.keyboardFrame = endFrame
-                UIView.animate(withDuration: 0.3) {
-                    bottomEdgeLayoutConstraint.constant = UIScreen.main.bounds.height - endFrame.origin.y + 26
-                    self?.view.layoutIfNeeded()
-                }
+
+        Publishers.CombineLatest3(
+            KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
+            KeyboardResponderService.shared.state.eraseToAnyPublisher(),
+            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
+        )
+        .sink(receiveValue: { [weak self] isShow, state, endFrame in
+            guard let self = self else { return }
+            
+            guard isShow, state == .dock else {
+                self.scrollview.contentInset.bottom = 0.0
+                self.scrollview.verticalScrollIndicatorInsets.bottom = 0.0
+                return
             }
-            .store(in: &disposeBag)
-        
+
+            // isShow AND dock state
+            let contentFrame = self.view.convert(self.scrollview.frame, to: nil)
+            let padding = contentFrame.maxY - endFrame.minY
+            guard padding > 0 else {
+                self.scrollview.contentInset.bottom = 0.0
+                self.scrollview.verticalScrollIndicatorInsets.bottom = 0.0
+                return
+            }
+
+            self.scrollview.contentInset.bottom = padding + 16
+            self.scrollview.verticalScrollIndicatorInsets.bottom = padding + 16
+        })
+        .store(in: &disposeBag)
+
         viewModel.isRegistering
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isRegistering in
@@ -317,7 +330,7 @@ extension MastodonRegisterViewController {
                 self.signUpButton.isEnabled = !isRegistering
             }
             .store(in: &disposeBag)
-        
+
         viewModel.isUsernameValid
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isValid in
@@ -359,7 +372,7 @@ extension MastodonRegisterViewController {
             self.signUpButton.isEnabled = isUsernameValid ?? false && isDisplaynameValid ?? false && isEmailValid ?? false && isPasswordValid ?? false
         }
         .store(in: &disposeBag)
-        
+
         viewModel.error
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
@@ -375,6 +388,7 @@ extension MastodonRegisterViewController {
                 )
             }
             .store(in: &disposeBag)
+
         NotificationCenter.default
             .publisher(for: UITextField.textDidChangeNotification, object: passwordTextField)
             .receive(on: DispatchQueue.main)
@@ -385,20 +399,26 @@ extension MastodonRegisterViewController {
                 self.passwordCheckLabel.attributedText = self.viewModel.attributeStringForPassword(eightCharacters: validations.0, oneNumber: validations.1, oneSpecialCharacter: validations.2)
             }
             .store(in: &disposeBag)
-        
+
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        var bottomOffsetY: CGFloat = textField.frame.origin.y + textField.frame.height - scrollview.frame.height + keyboardFrame.size.height + stackViewTopDistance
-        if textField == passwordTextField {
-            bottomOffsetY += passwordCheckLabel.frame.height
-        }
-        
-        if bottomOffsetY > 0 {
-            scrollview.setContentOffset(CGPoint(x: 0, y: bottomOffsetY), animated: true)
+        // align to password label when overlap
+        if textField === passwordTextField,
+           KeyboardResponderService.shared.isShow.value,
+           KeyboardResponderService.shared.state.value == .dock {
+            let endFrame = KeyboardResponderService.shared.endFrame.value
+            let contentFrame = self.scrollview.convert(self.passwordCheckLabel.frame, to: nil)
+            let padding = contentFrame.maxY - endFrame.minY
+            if padding > 0 {
+                let contentOffsetY = scrollview.contentOffset.y
+                DispatchQueue.main.async {
+                    self.scrollview.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
+                }
+            }
         }
     }
 
@@ -454,7 +474,10 @@ extension MastodonRegisterViewController {
     
     @objc private func signUpButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-        if !validateAllTextField() {
+        guard validateAllTextField(),
+              let username = viewModel.username.value,
+              let email = viewModel.email.value,
+              let password = viewModel.password.value else {
             return
         }
         
@@ -463,9 +486,9 @@ extension MastodonRegisterViewController {
         
         let query = Mastodon.API.Account.RegisterQuery(
             reason: nil,
-            username: viewModel.username.value!,
-            email: viewModel.email.value!,
-            password: viewModel.password.value!,
+            username: username,
+            email: email,
+            password: password,
             agreement: true, // TODO:
             locale: "en" // TODO:
         )

@@ -15,7 +15,9 @@ final class MastodonRegisterViewModel {
     
     // input
     let domain: String
+    let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let applicationToken: Mastodon.Entity.Token
+    
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     let username = CurrentValueSubject<String?, Never>(nil)
     let displayname = CurrentValueSubject<String?, Never>(nil)
@@ -32,8 +34,13 @@ final class MastodonRegisterViewModel {
     
     let error = CurrentValueSubject<Error?, Never>(nil)
 
-    init(domain: String, applicationToken: Mastodon.Entity.Token) {
+    init(
+        domain: String,
+        authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
+        applicationToken: Mastodon.Entity.Token
+    ) {
         self.domain = domain
+        self.authenticateInfo = authenticateInfo
         self.applicationToken = applicationToken
         self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken)
         

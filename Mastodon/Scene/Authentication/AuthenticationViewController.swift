@@ -273,6 +273,7 @@ extension AuthenticationViewController {
         }
         guard viewModel.isIdle.value else { return }
         viewModel.isRegistering.value = true
+        
         context.apiService.instance(domain: domain)
             .compactMap { [weak self] response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error>? in
                 guard let self = self else { return nil }
@@ -289,9 +290,11 @@ extension AuthenticationViewController {
                 }
                 return authenticateInfo
             }
-            .compactMap { [weak self] authenticateInfo -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error>? in
+            .compactMap { [weak self] authenticateInfo -> AnyPublisher<(Mastodon.Response.Content<Mastodon.Entity.Token>, AuthenticationViewModel.AuthenticateInfo), Error>? in
                 guard let self = self else { return nil }
                 return self.context.apiService.applicationAccessToken(domain: domain, clientID: authenticateInfo.clientID, clientSecret: authenticateInfo.clientSecret)
+                    .map { ($0, authenticateInfo) }
+                    .eraseToAnyPublisher()
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
@@ -305,9 +308,13 @@ extension AuthenticationViewController {
                 case .finished:
                     break
                 }
-            } receiveValue: { [weak self] response in
+            } receiveValue: { [weak self] response, authenticateInfo in
                 guard let self = self else { return }
-                let mastodonRegisterViewModel = MastodonRegisterViewModel(domain: domain, applicationToken: response.value)
+                let mastodonRegisterViewModel = MastodonRegisterViewModel(
+                    domain: domain,
+                    authenticateInfo: authenticateInfo,
+                    applicationToken: response.value
+                )
                 self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: self, transition: .show)
             }
             .store(in: &disposeBag)
