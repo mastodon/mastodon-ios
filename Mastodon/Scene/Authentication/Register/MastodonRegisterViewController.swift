@@ -148,7 +148,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
     
     let passwordCheckLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 4
+        label.numberOfLines = 0
         return label
     }()
     
@@ -217,7 +217,7 @@ extension MastodonRegisterViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 40
-        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 26, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(photoView)
@@ -309,21 +309,19 @@ extension MastodonRegisterViewController {
             signUpActivityIndicatorView.centerYAnchor.constraint(equalTo: signUpButton.centerYAnchor),
         ])
 
-        Publishers.CombineLatest3(
-            KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
+        Publishers.CombineLatest(
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
+            KeyboardResponderService.shared.willEndFrame.eraseToAnyPublisher()
         )
-        .sink(receiveValue: { [weak self] isShow, state, endFrame in
+        .sink(receiveValue: { [weak self] state, endFrame in
             guard let self = self else { return }
             
-            guard isShow, state == .dock else {
+            guard state == .dock else {
                 self.scrollView.contentInset.bottom = 0.0
                 self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
                 return
             }
 
-            // isShow AND dock state
             let contentFrame = self.view.convert(self.scrollView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
@@ -431,9 +429,10 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         // align to password label when overlap
         if textField === passwordTextField,
            KeyboardResponderService.shared.isShow.value,
-           KeyboardResponderService.shared.state.value == .dock {
-            let endFrame = KeyboardResponderService.shared.endFrame.value
-            let contentFrame = self.scrollView.convert(self.passwordCheckLabel.frame, to: nil)
+           KeyboardResponderService.shared.state.value == .dock
+        {
+            let endFrame = KeyboardResponderService.shared.willEndFrame.value
+            let contentFrame = scrollView.convert(passwordCheckLabel.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             if padding > 0 {
                 let contentOffsetY = scrollView.contentOffset.y
