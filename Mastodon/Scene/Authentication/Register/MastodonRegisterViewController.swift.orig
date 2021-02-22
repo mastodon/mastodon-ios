@@ -210,14 +210,18 @@ extension MastodonRegisterViewController {
         
         // gesture
         view.addGestureRecognizer(tapGestureRecognizer)
-        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
+        tapGestureRecognizer.addTarget(self, action: #selector(_resignFirstResponder))
         
         // stackview
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 40
-        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 26, right: 0)
+<<<<<<< HEAD
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+=======
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 26, right: 4)
+>>>>>>> feature/signup
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(photoView)
@@ -316,31 +320,33 @@ extension MastodonRegisterViewController {
         .sink(receiveValue: { [weak self] state, endFrame in
             guard let self = self else { return }
             
-            guard state == .dock else {
+<<<<<<< HEAD
+            guard isShow, state == .dock else {
                 self.scrollView.contentInset.bottom = 0.0
                 self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
                 return
             }
 
+            // isShow AND dock state
             let contentFrame = self.view.convert(self.scrollView.frame, to: nil)
+=======
+            guard state == .dock else {
+                self.scrollview.contentInset.bottom = 0.0
+                self.scrollview.verticalScrollIndicatorInsets.bottom = 0.0
+                return
+            }
+
+            let contentFrame = self.view.convert(self.scrollview.frame, to: nil)
+>>>>>>> feature/signup
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
                 self.scrollView.contentInset.bottom = 0.0
                 self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
                 return
             }
-            
+
             self.scrollView.contentInset.bottom = padding + 16
             self.scrollView.verticalScrollIndicatorInsets.bottom = padding + 16
-            
-            if self.passwordTextField.isFirstResponder {
-                let contentFrame = self.scrollView.convert(self.signUpButton.frame, to: nil)
-                let labelPadding = contentFrame.maxY - endFrame.minY
-                let contentOffsetY = self.scrollView.contentOffset.y
-                DispatchQueue.main.async {
-                    self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + labelPadding + 16.0), animated: true)
-                }
-            }
         })
         .store(in: &disposeBag)
 
@@ -354,42 +360,45 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
-        viewModel.usernameValidateState
+        viewModel.isUsernameValid
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
+            .sink { [weak self] isValid in
                 guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.usernameTextField, validateState: validateState)
+                self.setTextFieldValidAppearance(self.usernameTextField, isValid: isValid)
             }
             .store(in: &disposeBag)
-        viewModel.displayNameValidateState
+        viewModel.isDisplaynameValid
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
+            .sink { [weak self] isValid in
                 guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.displayNameTextField, validateState: validateState)
+                self.setTextFieldValidAppearance(self.displayNameTextField, isValid: isValid)
             }
             .store(in: &disposeBag)
-        viewModel.emailValidateState
+        viewModel.isEmailValid
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
+            .sink { [weak self] isValid in
                 guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.emailTextField, validateState: validateState)
+                self.setTextFieldValidAppearance(self.emailTextField, isValid: isValid)
             }
             .store(in: &disposeBag)
-        viewModel.passwordValidateState
+        viewModel.isPasswordValid
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
+            .sink { [weak self] isValid in
                 guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.passwordTextField, validateState: validateState)
-                self.passwordCheckLabel.attributedText = self.viewModel.attributeStringForPassword(eightCharacters: validateState == .valid)
-
+                self.setTextFieldValidAppearance(self.passwordTextField, isValid: isValid)
             }
             .store(in: &disposeBag)
         
-        viewModel.isAllValid
+        Publishers.CombineLatest4(
+            viewModel.isUsernameValid,
+            viewModel.isDisplaynameValid,
+            viewModel.isEmailValid,
+            viewModel.isPasswordValid
+        )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isAllValid in
+        .sink { [weak self] isUsernameValid, isDisplaynameValid, isEmailValid, isPasswordValid in
             guard let self = self else { return }
-            self.signUpButton.isEnabled = isAllValid
+            self.signUpButton.isEnabled = isUsernameValid ?? false && isDisplaynameValid ?? false && isEmailValid ?? false && isPasswordValid ?? false
         }
         .store(in: &disposeBag)
 
@@ -410,38 +419,13 @@ extension MastodonRegisterViewController {
             .store(in: &disposeBag)
 
         NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: usernameTextField)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.username.value = self.usernameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-            .store(in: &disposeBag)
-        
-        NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: displayNameTextField)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.displayName.value = self.displayNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-            .store(in: &disposeBag)
-        
-        NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: emailTextField)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.email.value = self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-            .store(in: &disposeBag)
-        
-        NotificationCenter.default
             .publisher(for: UITextField.textDidChangeNotification, object: passwordTextField)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.password.value = self.passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                guard let text = self.passwordTextField.text else { return }
+                let validations = self.viewModel.validatePassword(text: text)
+                self.passwordCheckLabel.attributedText = self.viewModel.attributeStringForPassword(eightCharacters: validations.0, oneNumber: validations.1, oneSpecialCharacter: validations.2)
             }
             .store(in: &disposeBag)
 
@@ -456,40 +440,41 @@ extension MastodonRegisterViewController {
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
-
-    // FIXME: keyboard listener trigger when switch between text fields. Maybe could remove it
-    // func textFieldDidBeginEditing(_ textField: UITextField) {
-    //     // align to password label when overlap
-    //     if textField === passwordTextField,
-    //        KeyboardResponderService.shared.isShow.value,
-    //        KeyboardResponderService.shared.state.value == .dock
-    //     {
-    //         let endFrame = KeyboardResponderService.shared.willEndFrame.value
-    //         let contentFrame = scrollView.convert(signUpButton.frame, to: nil)
-    //         let padding = contentFrame.maxY - endFrame.minY
-    //         if padding > 0 {
-    //             let contentOffsetY = scrollView.contentOffset.y
-    //             DispatchQueue.main.async {
-    //                 self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
-    //             }
-    //         }
-    //     }
-    // }
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        
+        // align to password label when overlap
+        if textField === passwordTextField,
+           KeyboardResponderService.shared.isShow.value,
+<<<<<<< HEAD
+           KeyboardResponderService.shared.state.value == .dock {
+            let endFrame = KeyboardResponderService.shared.endFrame.value
+            let contentFrame = self.scrollView.convert(self.passwordCheckLabel.frame, to: nil)
+=======
+           KeyboardResponderService.shared.state.value == .dock
+        {
+            let endFrame = KeyboardResponderService.shared.willEndFrame.value
+            let contentFrame = scrollview.convert(passwordCheckLabel.frame, to: nil)
+>>>>>>> feature/signup
+            let padding = contentFrame.maxY - endFrame.minY
+            if padding > 0 {
+                let contentOffsetY = scrollView.contentOffset.y
+                DispatchQueue.main.async {
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
+                }
+            }
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case usernameTextField:
-            viewModel.username.value = text
+            viewModel.username.value = textField.text
         case displayNameTextField:
-            viewModel.displayName.value = text
+            viewModel.displayname.value = textField.text
         case emailTextField:
-            viewModel.email.value = text
+            viewModel.email.value = textField.text
         case passwordTextField:
-            viewModel.password.value = text
-        default:
-            break
+            viewModel.password.value = textField.text
+        default: break
         }
     }
 
@@ -502,34 +487,44 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
     }
 
-    private func setTextFieldValidAppearance(_ textField: UITextField, validateState: MastodonRegisterViewModel.ValidateState) {
-        switch validateState {
-        case .empty:
-            showShadowWithColor(color: textField.isFirstResponder ? Asset.Colors.TextField.highlight.color : .clear, textField: textField)
-        case .valid:
-            showShadowWithColor(color: Asset.Colors.TextField.valid.color, textField: textField)
-        case .invalid:
-            showShadowWithColor(color: Asset.Colors.TextField.invalid.color, textField: textField)
+    func validateAllTextField() -> Bool {
+        return viewModel.isUsernameValid.value ?? false && viewModel.isDisplaynameValid.value ?? false && viewModel.isEmailValid.value ?? false && viewModel.isPasswordValid.value ?? false
+    }
+    
+    private func setTextFieldValidAppearance(_ textField: UITextField, isValid: Bool?) {
+        guard let isValid = isValid else {
+            showShadowWithColor(color: .clear, textField: textField)
+            return
+        }
+        
+        if isValid {
+            showShadowWithColor(color: Asset.Colors.TextField.successGreen.color, textField: textField)
+        } else {
+            textField.shake()
+            showShadowWithColor(color: Asset.Colors.lightDangerRed.color, textField: textField)
         }
     }
 }
 
 extension MastodonRegisterViewController {
-    
-    @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
-        view.endEditing(true)
+    @objc private func _resignFirstResponder() {
+        usernameTextField.resignFirstResponder()
+        displayNameTextField.resignFirstResponder()
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
     }
     
     @objc private func signUpButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-        guard viewModel.isAllValid.value else { return }
+        guard validateAllTextField(),
+              let username = viewModel.username.value,
+              let email = viewModel.email.value,
+              let password = viewModel.password.value else {
+            return
+        }
         
         guard !viewModel.isRegistering.value else { return }
         viewModel.isRegistering.value = true
-    
-        let username = viewModel.username.value
-        let email = viewModel.email.value
-        let password = viewModel.password.value
         
         if let rules = viewModel.instance.rules, !rules.isEmpty {
             let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
@@ -579,5 +574,4 @@ extension MastodonRegisterViewController {
         }
         .store(in: &disposeBag)
     }
-    
 }
