@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: -Convinience view creation method
+// MARK: - Convinience view creation method
 extension UIView {
     
     static var separatorLine: UIView {
@@ -26,7 +26,7 @@ extension UIView {
     
 }
 
-// MARK: -Convinience view appearance modification method
+// MARK: - Convinience view appearance modification method
 extension UIView {
     @discardableResult
     func applyCornerRadius(radius: CGFloat) -> Self {

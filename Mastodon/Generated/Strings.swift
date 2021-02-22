@@ -26,8 +26,10 @@ internal enum L10n {
       }
     }
     internal enum Label {
+      /// Pick a server,\nany server.
+      internal static let pickAServer = L10n.tr("Localizable", "Common.Label.PickAServer")
       /// Social networking\nback in your hands.
-      internal static let slogon = L10n.tr("Localizable", "Common.Label.Slogon")
+      internal static let slogan = L10n.tr("Localizable", "Common.Label.Slogan")
     }
   }
 }

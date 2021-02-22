@@ -1,5 +1,5 @@
 //
-//  MasActionButton.swift
+//  PrimaryActionButton.swift
 //  Mastodon
 //
 //  Created by 高原 on 2021/2/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MasActionButton: UIButton {
+class PrimaryActionButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -19,7 +19,7 @@ class MasActionButton: UIButton {
     }
 }
 
-extension MasActionButton {
+extension PrimaryActionButton {
     private func _init() {
         titleLabel?.font = .preferredFont(forTextStyle: .headline)
         setTitleColor(Asset.Colors.lightWhite.color, for: .normal)

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */; };
-		0FAA101225E105390017CCDE /* MasActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101125E105390017CCDE /* MasActionButton.swift */; };
+		0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101125E105390017CCDE /* PrimaryActionButton.swift */; };
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
 		0FAA102725E1126A0017CCDE /* PickServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA102625E1126A0017CCDE /* PickServerViewController.swift */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
@@ -186,7 +186,7 @@
 
 /* Begin PBXFileReference section */
 		0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		0FAA101125E105390017CCDE /* MasActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasActionButton.swift; sourceTree = "<group>"; };
+		0FAA101125E105390017CCDE /* PrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryActionButton.swift; sourceTree = "<group>"; };
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		0FAA102625E1126A0017CCDE /* PickServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerViewController.swift; sourceTree = "<group>"; };
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 				DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */,
 				2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */,
 				2D5A3D1025CF87AA002347D6 /* AvatarBarButtonItem.swift */,
-				0FAA101125E105390017CCDE /* MasActionButton.swift */,
+				0FAA101125E105390017CCDE /* PrimaryActionButton.swift */,
 			);
 			path = Button;
 			sourceTree = "<group>";
@@ -1244,7 +1244,7 @@
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
-				0FAA101225E105390017CCDE /* MasActionButton.swift in Sources */,
+				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,

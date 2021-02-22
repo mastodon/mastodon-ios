@@ -18,15 +18,15 @@ final class WelcomeViewController: UIViewController {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
         label.textColor = Asset.Colors.Label.black.color
-        label.text = L10n.Common.Label.slogon
+        label.text = L10n.Common.Label.slogan
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
     }()
     
-    let signUpButton: MasActionButton = {
-        let button = MasActionButton(type: .system)
+    let signUpButton: PrimaryActionButton = {
+        let button = PrimaryActionButton(type: .system)
         button.setTitle(L10n.Button.signUp, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
