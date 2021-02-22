@@ -1,8 +1,37 @@
-/* 
-  Localizable.strings
-  Mastodon
-
-  Created by MainasuK Cirno on 2021/1/22.
-  
-*/
+"Common.Controls.Actions.Add" = "Add";
+"Common.Controls.Actions.Cancel" = "Cancel";
+"Common.Controls.Actions.Confirm" = "Confirm";
+"Common.Controls.Actions.Continue" = "Continue";
+"Common.Controls.Actions.Edit" = "Edit";
+"Common.Controls.Actions.Ok" = "OK";
+"Common.Controls.Actions.OpenInSafari" = "Open in Safari";
+"Common.Controls.Actions.Preview" = "Preview";
+"Common.Controls.Actions.Remove" = "Remove";
+"Common.Controls.Actions.Save" = "Save";
+"Common.Controls.Actions.SavePhoto" = "Save photo";
+"Common.Controls.Actions.SeeMore" = "See More";
+"Common.Controls.Actions.SignIn" = "Sign in";
+"Common.Controls.Actions.SignUp" = "Sign up";
+"Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Timeline.LoadMore" = "Load More";
+"Common.Countable.Photo.Multiple" = "photos";
+"Common.Countable.Photo.Single" = "photo";
+"Scene.HomeTimeline.Title" = "Home";
+"Scene.PublicTimeline.Title" = "Public";
+"Scene.Register.Input.DisplayName.Placeholder" = "display name";
+"Scene.Register.Input.Email.Placeholder" = "email";
+"Scene.Register.Input.Password.Placeholder" = "password";
+"Scene.Register.Input.Password.Prompt" = "Your password needs at least:";
+"Scene.Register.Input.Password.PromptEightCharacters" = "Eight characters";
+"Scene.Register.Input.Username.DuplicatePrompt" = "This username is taken.";
+"Scene.Register.Input.Username.Placeholder" = "username";
+"Scene.Register.Title" = "Tell us about you.";
+"Scene.ServerPicker.Input.Placeholder" = "Find a server or join your own...";
+"Scene.ServerPicker.Title" = "Pick a Server,
+any server.";
+"Scene.ServerRules.Button.Confirm" = "I Agree";
+"Scene.ServerRules.Prompt" = "By continuing, you're subject to the terms of service and privacy policy for %@.";
+"Scene.ServerRules.Subtitle" = "These rules are set by the admins of %@.";
+"Scene.ServerRules.Title" = "Some ground rules.";
+"Scene.Welcome.Slogan" = "Social networking
+back in your hands.";

@@ -27,8 +27,8 @@ internal enum Asset {
   }
   internal enum Colors {
     internal enum Background {
+      internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
-      internal static let signUpSystemBackground = ColorAsset(name: "Colors/Background/signUp.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
     }

@@ -20,13 +20,19 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
     var viewModel: MastodonRegisterViewModel!
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-    let stackViewTopDistance: CGFloat = 16
     
-    var scrollview: UIScrollView = {
+    let statusBarBackground: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        return view
+    }()
+    
+    let scrollView: UIScrollView = {
         let scrollview = UIScrollView()
         scrollview.showsVerticalScrollIndicator = false
         scrollview.translatesAutoresizingMaskIntoConstraints = false
         scrollview.keyboardDismissMode = .interactive
+        scrollview.clipsToBounds = false    // make content could display over bleeding
         return scrollview
     }()
     
@@ -34,7 +40,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
         label.textColor = Asset.Colors.Label.black.color
-        label.text = "Tell us about you."
+        label.text = L10n.Scene.Register.title
         return label
     }()
     
@@ -92,7 +98,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
         textField.textColor = .black
-        textField.attributedPlaceholder = NSAttributedString(string: "username",
+        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -113,7 +119,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
         textField.textColor = .black
-        textField.attributedPlaceholder = NSAttributedString(string: "display name",
+        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -130,7 +136,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         textField.keyboardType = .emailAddress
         textField.backgroundColor = .white
         textField.textColor = .black
-        textField.attributedPlaceholder = NSAttributedString(string: "email",
+        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -154,7 +160,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
         textField.textColor = .black
-        textField.attributedPlaceholder = NSAttributedString(string: "password",
+        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -171,7 +177,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightDisabled.color), for: .disabled)
         button.isEnabled = false
         button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
-        button.setTitle("Continue", for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 8
         button.layer.cornerCurve = .continuous
@@ -186,11 +192,12 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
 }
 
 extension MastodonRegisterViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = Asset.Colors.Background.signUpSystemBackground.color
+        overrideUserInterfaceStyle = .light
+        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
         passwordCheckLabel.attributedText = viewModel.attributeStringForPassword()
@@ -210,7 +217,7 @@ extension MastodonRegisterViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 40
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(photoView)
@@ -220,25 +227,34 @@ extension MastodonRegisterViewController {
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(passwordCheckLabel)
         
-        // scrollview
-        view.addSubview(scrollview)
+        // scrollView
+        view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollview.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scrollview.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollview.frameLayoutGuide.trailingAnchor),
-            scrollview.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            scrollview.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollview.contentLayoutGuide.widthAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
+            scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
         ])
 
         // stackview
-        scrollview.addSubview(stackView)
+        scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollview.contentLayoutGuide.topAnchor, constant: stackViewTopDistance),
-            stackView.leadingAnchor.constraint(equalTo: scrollview.contentLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollview.contentLayoutGuide.trailingAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollview.frameLayoutGuide.widthAnchor),
-            scrollview.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+        ])
+        
+        statusBarBackground.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(statusBarBackground)
+        NSLayoutConstraint.activate([
+            statusBarBackground.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBarBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusBarBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statusBarBackground.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
         ])
 
         // photoview
@@ -283,11 +299,11 @@ extension MastodonRegisterViewController {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
+            signUpButton.heightAnchor.constraint(equalToConstant: 46).priority(.defaultHigh),
         ])
 
         signUpActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        scrollview.addSubview(signUpActivityIndicatorView)
+        scrollView.addSubview(signUpActivityIndicatorView)
         NSLayoutConstraint.activate([
             signUpActivityIndicatorView.centerXAnchor.constraint(equalTo: signUpButton.centerXAnchor),
             signUpActivityIndicatorView.centerYAnchor.constraint(equalTo: signUpButton.centerYAnchor),
@@ -302,22 +318,22 @@ extension MastodonRegisterViewController {
             guard let self = self else { return }
             
             guard isShow, state == .dock else {
-                self.scrollview.contentInset.bottom = 0.0
-                self.scrollview.verticalScrollIndicatorInsets.bottom = 0.0
+                self.scrollView.contentInset.bottom = 0.0
+                self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
                 return
             }
 
             // isShow AND dock state
-            let contentFrame = self.view.convert(self.scrollview.frame, to: nil)
+            let contentFrame = self.view.convert(self.scrollView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
-                self.scrollview.contentInset.bottom = 0.0
-                self.scrollview.verticalScrollIndicatorInsets.bottom = 0.0
+                self.scrollView.contentInset.bottom = 0.0
+                self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
                 return
             }
 
-            self.scrollview.contentInset.bottom = padding + 16
-            self.scrollview.verticalScrollIndicatorInsets.bottom = padding + 16
+            self.scrollView.contentInset.bottom = padding + 16
+            self.scrollView.verticalScrollIndicatorInsets.bottom = padding + 16
         })
         .store(in: &disposeBag)
 
@@ -326,7 +342,7 @@ extension MastodonRegisterViewController {
             .sink { [weak self] isRegistering in
                 guard let self = self else { return }
                 isRegistering ? self.signUpActivityIndicatorView.startAnimating() : self.signUpActivityIndicatorView.stopAnimating()
-                self.signUpButton.setTitle(isRegistering ? "" : "Continue", for: .normal)
+                self.signUpButton.setTitle(isRegistering ? "" : L10n.Common.Controls.Actions.continue, for: .normal)
                 self.signUpButton.isEnabled = !isRegistering
             }
             .store(in: &disposeBag)
@@ -379,7 +395,7 @@ extension MastodonRegisterViewController {
             .sink { [weak self] error in
                 guard let self = self else { return }
                 let alertController = UIAlertController(error, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.coordinator.present(
                     scene: .alertController(alertController: alertController),
@@ -402,6 +418,12 @@ extension MastodonRegisterViewController {
 
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
@@ -411,12 +433,12 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
            KeyboardResponderService.shared.isShow.value,
            KeyboardResponderService.shared.state.value == .dock {
             let endFrame = KeyboardResponderService.shared.endFrame.value
-            let contentFrame = self.scrollview.convert(self.passwordCheckLabel.frame, to: nil)
+            let contentFrame = self.scrollView.convert(self.passwordCheckLabel.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             if padding > 0 {
-                let contentOffsetY = scrollview.contentOffset.y
+                let contentOffsetY = scrollView.contentOffset.y
                 DispatchQueue.main.async {
-                    self.scrollview.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
                 }
             }
         }
@@ -484,6 +506,16 @@ extension MastodonRegisterViewController {
         guard !viewModel.isRegistering.value else { return }
         viewModel.isRegistering.value = true
         
+        if let rules = viewModel.instance.rules, !rules.isEmpty {
+            let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
+                context: context,
+                domain: viewModel.domain,
+                rules: rules
+            )
+            coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
+            return
+        }
+        
         let query = Mastodon.API.Account.RegisterQuery(
             reason: nil,
             username: username,
@@ -513,7 +545,7 @@ extension MastodonRegisterViewController {
             _ = response.value
             // TODO:
             let alertController = UIAlertController(title: "Success", message: "Regsiter request sent. Please check your email.\n(Auto sign in not implement yet.)", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
                 guard let self = self else { return }
                 self.navigationController?.popViewController(animated: true)
             }
