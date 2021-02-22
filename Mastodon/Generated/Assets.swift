@@ -27,8 +27,8 @@ internal enum Asset {
   }
   internal enum Colors {
     internal enum Background {
+      internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
-      internal static let signUpSystemBackground = ColorAsset(name: "Colors/Background/signUp.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
     }
@@ -45,7 +45,9 @@ internal enum Asset {
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
     internal enum TextField {
-      internal static let successGreen = ColorAsset(name: "Colors/TextField/successGreen")
+      internal static let highlight = ColorAsset(name: "Colors/TextField/highlight")
+      internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
+      internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
     internal static let lightAlertYellow = ColorAsset(name: "Colors/lightAlertYellow")
     internal static let lightBackground = ColorAsset(name: "Colors/lightBackground")

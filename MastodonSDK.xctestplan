@@ -47,6 +47,18 @@
           }
         ]
       }
+    },
+    {
+      "id" : "C229D9A6-6A83-4AF9-8A71-ADD1AD2AD9D8",
+      "name" : "mastodon.online",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "mastodon.online"
+          }
+        ]
+      }
     }
   ],
   "defaultOptions" : {
@@ -54,8 +66,18 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "MastodonSDKTests\/testCreateAnAnpplication()",
+        "MastodonSDKTests\/testHomeTimeline()",
+        "MastodonSDKTests\/testOAuthAuthorize()",
+        "MastodonSDKTests\/testRetrieveAccountInfo()",
+        "MastodonSDKTests\/testRevokeToken()",
+        "MastodonSDKTests\/testUpdateCredentials()",
+        "MastodonSDKTests\/testVerifyAppCredentials()",
+        "MastodonSDKTests\/testVerifyCredentials()"
+      ],
       "target" : {
-        "containerPath" : "container:",
+        "containerPath" : "container:MastodonSDK",
         "identifier" : "MastodonSDKTests",
         "name" : "MastodonSDKTests"
       }

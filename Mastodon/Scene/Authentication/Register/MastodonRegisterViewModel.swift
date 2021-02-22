@@ -11,95 +11,120 @@ import MastodonSDK
 import UIKit
 
 final class MastodonRegisterViewModel {
+    
     var disposeBag = Set<AnyCancellable>()
     
     // input
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
+    let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
     
+    let username = CurrentValueSubject<String, Never>("")
+    let displayName = CurrentValueSubject<String, Never>("")
+    let email = CurrentValueSubject<String, Never>("")
+    let password = CurrentValueSubject<String, Never>("")
+    let isUsernameValidateDalay = CurrentValueSubject<Bool, Never>(true)
+    let isDisplayNameValidateDalay = CurrentValueSubject<Bool, Never>(true)
+    let isEmailValidateDalay = CurrentValueSubject<Bool, Never>(true)
+    let isPasswordValidateDalay = CurrentValueSubject<Bool, Never>(true)
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
-    let username = CurrentValueSubject<String?, Never>(nil)
-    let displayname = CurrentValueSubject<String?, Never>(nil)
-    let email = CurrentValueSubject<String?, Never>(nil)
-    let password = CurrentValueSubject<String?, Never>(nil)
+    
     
     // output
     let applicationAuthorization: Mastodon.API.OAuth.Authorization
     
-    let isUsernameValid = CurrentValueSubject<Bool?, Never>(nil)
-    let isDisplaynameValid = CurrentValueSubject<Bool?, Never>(nil)
-    let isEmailValid = CurrentValueSubject<Bool?, Never>(nil)
-    let isPasswordValid = CurrentValueSubject<Bool?, Never>(nil)
+    let usernameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+    let displayNameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+    let emailValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+    let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+    
+    let isAllValid = CurrentValueSubject<Bool, Never>(false)
     
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     init(
         domain: String,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
+        instance: Mastodon.Entity.Instance,
         applicationToken: Mastodon.Entity.Token
     ) {
         self.domain = domain
         self.authenticateInfo = authenticateInfo
+        self.instance = instance
         self.applicationToken = applicationToken
         self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken)
         
         username
             .map { username in
-                guard let username = username else {
-                    return nil
+                guard !username.isEmpty else { return .empty }
+                var isValid = true
+                
+                // regex opt-out way to check validation
+                // allowed:
+                // a-z (isASCII && isLetter)
+                // A-Z (isASCII && isLetter)
+                // 0-9 (isASCII && isNumber)
+                // _ ("_")
+                for char in username {
+                    guard char.isASCII, (char.isLetter || char.isNumber || char == "_") else {
+                        isValid = false
+                        break
+                    }
                 }
-                return !username.isEmpty
+                return isValid ? .valid : .invalid
             }
-            .assign(to: \.value, on: isUsernameValid)
+            .assign(to: \.value, on: usernameValidateState)
             .store(in: &disposeBag)
-        displayname
+        displayName
             .map { displayname in
-                guard let displayname = displayname else {
-                    return nil
-                }
-                return !displayname.isEmpty
+                guard !displayname.isEmpty else { return .empty }
+                return .valid
             }
-            .assign(to: \.value, on: isDisplaynameValid)
+            .assign(to: \.value, on: displayNameValidateState)
             .store(in: &disposeBag)
         email
-            .map { [weak self] email in
-                guard let self = self else { return nil }
-                guard let email = email else {
-                    return nil
-                }
-                return !email.isEmpty && self.isValidEmail(email)
+            .map { email in
+                guard !email.isEmpty else { return .empty }
+                return MastodonRegisterViewModel.isValidEmail(email) ? .valid : .invalid
             }
-            .assign(to: \.value, on: isEmailValid)
+            .assign(to: \.value, on: emailValidateState)
             .store(in: &disposeBag)
         password
-            .map { [weak self] password in
-                guard let self = self else { return nil }
-                guard let password = password else {
-                    return nil
-                }
-                let result = self.validatePassword(text: password)
-                return !password.isEmpty && result.0 && result.1 && result.2
+            .map { password in
+                guard !password.isEmpty else { return .empty }
+                return password.count >= 8 ? .valid : .invalid
             }
-            .assign(to: \.value, on: isPasswordValid)
+            .assign(to: \.value, on: passwordValidateState)
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest4(
+            usernameValidateState.eraseToAnyPublisher(),
+            displayNameValidateState.eraseToAnyPublisher(),
+            emailValidateState.eraseToAnyPublisher(),
+            passwordValidateState.eraseToAnyPublisher()
+        )
+        .map { $0.0 == .valid && $0.1 == .valid && $0.2 == .valid && $0.3 == .valid }
+        .assign(to: \.value, on: isAllValid)
+        .store(in: &disposeBag)
+    }
+    
+}
+
+extension MastodonRegisterViewModel {
+    enum ValidateState {
+        case empty
+        case invalid
+        case valid
     }
 }
 
 extension MastodonRegisterViewModel {
-    func isValidEmail(_ email: String) -> Bool {
+    static func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 
         let emailPred = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: email)
-    }
-    
-    func validatePassword(text: String) -> (Bool, Bool, Bool) {
-        let trimmedText = text.trimmingCharacters(in: .whitespaces)
-        let isEightCharacters = trimmedText.count >= 8
-        let isOneNumber = trimmedText.range(of: ".*[0-9]", options: .regularExpression) != nil
-        let isOneSpecialCharacter = trimmedText.trimmingCharacters(in: .decimalDigits).trimmingCharacters(in: .letters).count > 0
-        return (isEightCharacters, isOneNumber, isOneSpecialCharacter)
     }
 
     func attributeStringForUsername() -> NSAttributedString {
@@ -115,7 +140,7 @@ extension MastodonRegisterViewModel {
         return resultAttributeString
     }
 
-    func attributeStringForPassword(eightCharacters: Bool = false, oneNumber: Bool = false, oneSpecialCharacter: Bool = false) -> NSAttributedString {
+    func attributeStringForPassword(eightCharacters: Bool = false) -> NSAttributedString {
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         let color = UIColor.black
         let falseColor = UIColor.clear
@@ -125,16 +150,8 @@ extension MastodonRegisterViewModel {
         attributeString.append(start)
         
         attributeString.append(checkmarkImage(color: eightCharacters ? color : falseColor))
-        let eightCharactersDescription = NSAttributedString(string: "Eight characters\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+        let eightCharactersDescription = NSAttributedString(string: " Eight characters\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(eightCharactersDescription)
-        
-        attributeString.append(checkmarkImage(color: oneNumber ? color : falseColor))
-        let oneNumberDescription = NSAttributedString(string: "One number\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
-        attributeString.append(oneNumberDescription)
-        
-        attributeString.append(checkmarkImage(color: oneSpecialCharacter ? color : falseColor))
-        let oneSpecialCharacterDescription = NSAttributedString(string: "One special character\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
-        attributeString.append(oneSpecialCharacterDescription)
         
         return attributeString
     }
