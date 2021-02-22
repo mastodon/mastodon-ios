@@ -18,7 +18,8 @@ final class KeyboardResponderService {
     // output
     let isShow = CurrentValueSubject<Bool, Never>(false)
     let state = CurrentValueSubject<KeyboardState, Never>(.none)
-    let endFrame = CurrentValueSubject<CGRect, Never>(.zero)
+    let didEndFrame = CurrentValueSubject<CGRect, Never>(.zero)
+    let willEndFrame = CurrentValueSubject<CGRect, Never>(.zero)
     
     private init() {
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification, object: nil)
@@ -37,6 +38,15 @@ final class KeyboardResponderService {
         
         NotificationCenter.default.publisher(for: UIResponder.keyboardDidChangeFrameNotification, object: nil)
             .sink { notification in
+                guard let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+                self.didEndFrame.value = endFrame
+                self.updateInternalStatus(notification: notification)
+            }
+            .store(in: &disposeBag)
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+            .sink { notification in
+                guard let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+                self.willEndFrame.value = endFrame
                 self.updateInternalStatus(notification: notification)
             }
             .store(in: &disposeBag)
@@ -51,8 +61,6 @@ extension KeyboardResponderService {
             let endFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
                 return
         }
-        
-        self.endFrame.value = endFrame
         
         guard isLocal else {
             self.state.value = .notLocal
