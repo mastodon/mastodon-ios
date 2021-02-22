@@ -329,9 +329,18 @@ extension MastodonRegisterViewController {
                 self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
                 return
             }
-
+            
             self.scrollView.contentInset.bottom = padding + 16
             self.scrollView.verticalScrollIndicatorInsets.bottom = padding + 16
+            
+            if self.passwordTextField.isFirstResponder {
+                let contentFrame = self.scrollView.convert(self.signUpButton.frame, to: nil)
+                let labelPadding = contentFrame.maxY - endFrame.minY
+                let contentOffsetY = self.scrollView.contentOffset.y
+                DispatchQueue.main.async {
+                    self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + labelPadding + 16.0), animated: true)
+                }
+            }
         })
         .store(in: &disposeBag)
 
@@ -425,23 +434,25 @@ extension MastodonRegisterViewController {
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // align to password label when overlap
-        if textField === passwordTextField,
-           KeyboardResponderService.shared.isShow.value,
-           KeyboardResponderService.shared.state.value == .dock
-        {
-            let endFrame = KeyboardResponderService.shared.willEndFrame.value
-            let contentFrame = scrollView.convert(passwordCheckLabel.frame, to: nil)
-            let padding = contentFrame.maxY - endFrame.minY
-            if padding > 0 {
-                let contentOffsetY = scrollView.contentOffset.y
-                DispatchQueue.main.async {
-                    self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
-                }
-            }
-        }
-    }
+
+    // FIXME: keyboard listener trigger when switch between text fields. Maybe could remove it
+    // func textFieldDidBeginEditing(_ textField: UITextField) {
+    //     // align to password label when overlap
+    //     if textField === passwordTextField,
+    //        KeyboardResponderService.shared.isShow.value,
+    //        KeyboardResponderService.shared.state.value == .dock
+    //     {
+    //         let endFrame = KeyboardResponderService.shared.willEndFrame.value
+    //         let contentFrame = scrollView.convert(signUpButton.frame, to: nil)
+    //         let padding = contentFrame.maxY - endFrame.minY
+    //         if padding > 0 {
+    //             let contentOffsetY = scrollView.contentOffset.y
+    //             DispatchQueue.main.async {
+    //                 self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
+    //             }
+    //         }
+    //     }
+    // }
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
