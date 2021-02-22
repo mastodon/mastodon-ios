@@ -1,0 +1,4 @@
+{
+    "NSCameraUsageDescription": "Used to take photo for toot",
+    "NSPhotoLibraryAddUsageDescription": "Used to save photo into the Photo Library"
+}
