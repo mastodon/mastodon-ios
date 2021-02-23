@@ -14,12 +14,6 @@
 "Common.Controls.Actions.SignUp" = "Sign up";
 "Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Timeline.LoadMore" = "Load More";
-
-"Common.Label.Slogan" = "Social networking\nback in your hands.";
-"Common.Label.PickAServer" = "Pick a server,\nany server.";
-
-"Button.SignUp" = "Sign Up";
-"Button.SignIn" = "Sign In";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
 "Scene.HomeTimeline.Title" = "Home";

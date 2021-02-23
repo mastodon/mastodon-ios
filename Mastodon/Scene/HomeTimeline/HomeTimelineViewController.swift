@@ -50,7 +50,7 @@ extension HomeTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Home"
+        title = L10n.Scene.HomeTimeline.title
         view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.leftBarButtonItem = avatarBarButtonItem
         avatarBarButtonItem.avatarButton.addTarget(self, action: #selector(HomeTimelineViewController.avatarButtonPressed(_:)), for: .touchUpInside)

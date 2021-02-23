@@ -77,6 +77,7 @@ extension AuthenticationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        overrideUserInterfaceStyle = .dark  // FIXME:
         title = "Authentication"
         view.backgroundColor = Asset.Colors.Background.systemBackground.color
         
@@ -265,6 +266,22 @@ extension AuthenticationViewController {
             .store(in: &disposeBag)
     }
     
+    private struct SignUpResponseFirst {
+        let instance: Mastodon.Response.Content<Mastodon.Entity.Instance>
+        let application: Mastodon.Response.Content<Mastodon.Entity.Application>
+    }
+    
+    private struct SignUpResponseSecond {
+        let instance: Mastodon.Response.Content<Mastodon.Entity.Instance>
+        let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
+    }
+    
+    private struct SignUpResponseThird {
+        let instance: Mastodon.Response.Content<Mastodon.Entity.Instance>
+        let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
+        let applicationToken: Mastodon.Response.Content<Mastodon.Entity.Token>
+    }
+    
     @objc private func signUpButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard viewModel.isDomainValid.value, let domain = viewModel.domain.value else {
@@ -273,25 +290,36 @@ extension AuthenticationViewController {
         }
         guard viewModel.isIdle.value else { return }
         viewModel.isRegistering.value = true
+        
         context.apiService.instance(domain: domain)
-            .compactMap { [weak self] response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error>? in
+            .compactMap { [weak self] response -> AnyPublisher<SignUpResponseFirst, Error>? in
                 guard let self = self else { return nil }
                 guard response.value.registrations != false else {
                     return Fail(error: AuthenticationViewModel.AuthenticationError.registrationClosed).eraseToAnyPublisher()
                 }
                 return self.context.apiService.createApplication(domain: domain)
+                    .map { SignUpResponseFirst(instance: response, application: $0) }
+                    .eraseToAnyPublisher()
             }
             .switchToLatest()
-            .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
-                let application = response.value
+            .tryMap { response -> SignUpResponseSecond in
+                let application = response.application.value
                 guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(domain: domain, application: application) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
-                return authenticateInfo
+                return SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
             }
-            .compactMap { [weak self] authenticateInfo -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error>? in
+            .compactMap { [weak self] response -> AnyPublisher<SignUpResponseThird, Error>? in
                 guard let self = self else { return nil }
-                return self.context.apiService.applicationAccessToken(domain: domain, clientID: authenticateInfo.clientID, clientSecret: authenticateInfo.clientSecret)
+                let instance = response.instance
+                let authenticateInfo = response.authenticateInfo
+                return self.context.apiService.applicationAccessToken(
+                    domain: domain,
+                    clientID: authenticateInfo.clientID,
+                    clientSecret: authenticateInfo.clientSecret
+                )
+                .map { SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
+                .eraseToAnyPublisher()
             }
             .switchToLatest()
             .receive(on: DispatchQueue.main)
@@ -307,7 +335,12 @@ extension AuthenticationViewController {
                 }
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
-                let mastodonRegisterViewModel = MastodonRegisterViewModel(domain: domain, applicationToken: response.value)
+                let mastodonRegisterViewModel = MastodonRegisterViewModel(
+                    domain: domain,
+                    authenticateInfo: response.authenticateInfo,
+                    instance: response.instance.value,
+                    applicationToken: response.applicationToken.value
+                )
                 self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: self, transition: .show)
             }
             .store(in: &disposeBag)
