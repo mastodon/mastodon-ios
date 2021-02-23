@@ -86,6 +86,12 @@ extension TimelineSection {
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
 
         // toolbar
+        let replyCountTitle: String = {
+            let count = (toot.reblog ?? toot).repliesCount?.intValue ?? 0
+            return TimelineSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
+        
         let isLike = (toot.reblog ?? toot).favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {
             let count = (toot.reblog ?? toot).favouritesCount.intValue
