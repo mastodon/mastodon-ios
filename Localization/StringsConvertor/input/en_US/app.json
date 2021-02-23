@@ -1,0 +1,78 @@
+{
+    "common": {
+        "alerts": {},
+        "controls": {
+            "actions": {
+                "add": "Add",
+                "remove": "Remove",
+                "edit": "Edit",
+                "save": "Save",
+                "ok": "OK",
+                "confirm": "Confirm",
+                "continue": "Continue",
+                "cancel": "Cancel",
+                "take_photo": "Take photo",
+                "save_photo": "Save photo",
+                "sign_in": "Sign in",
+                "sign_up": "Sign up",
+                "see_more": "See More",
+                "preview": "Preview",
+                "open_in_safari": "Open in Safari"
+            },
+            "timeline": {
+                "load_more": "Load More"
+            }
+        },
+        "countable": {
+            "photo": {
+                "single": "photo",
+                "multiple": "photos"
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Social networking\nback in your hands."
+        },
+        "server_picker": {
+            "title": "Pick a Server,\nany server.",
+            "input": {
+                "placeholder": "Find a server or join your own..."
+            }
+        },
+        "register": {
+            "title": "Tell us about you.",
+            "input": {
+                "username": {
+                    "placeholder": "username",
+                    "duplicate_prompt": "This username is taken."
+                },
+                "display_name": {
+                    "placeholder": "display name"
+                },
+                "email": {
+                    "placeholder": "email"
+                },
+                "password": {
+                    "placeholder": "password",
+                    "prompt": "Your password needs at least:",
+                    "prompt_eight_characters": "Eight characters"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "Some ground rules.",
+            "subtitle": "These rules are set by the admins of %s.",
+            "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
+            "button": {
+                "confirm": "I Agree"
+            }
+        },
+        "home_timeline": {
+            "title": "Home"
+        },
+        "public_timeline": {
+            "title": "Public"
+        }
+    }
+}
