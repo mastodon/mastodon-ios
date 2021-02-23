@@ -15,6 +15,9 @@
 "Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Status.Userboosted" = "%@ boosted";
 "Common.Controls.Timeline.LoadMore" = "Load More";
+
+"Button.SignUp" = "Sign Up";
+"Button.SignIn" = "Sign In";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
 "Scene.HomeTimeline.Title" = "Home";

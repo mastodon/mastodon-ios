@@ -6,6 +6,7 @@
 
 import UIKit
 import SafariServices
+import CoreDataStack
 
 final public class SceneCoordinator {
     
@@ -37,6 +38,7 @@ extension SceneCoordinator {
     }
     
     enum Scene {
+        case welcome
         case authentication(viewModel: AuthenticationViewModel)
         case mastodonPinBasedAuthentication(viewModel: MastodonPinBasedAuthenticationViewModel)
         case mastodonRegister(viewModel: MastodonRegisterViewModel)
@@ -49,8 +51,24 @@ extension SceneCoordinator {
 extension SceneCoordinator {
     
     func setup() {
-        let viewController = MainTabBarController(context: appContext, coordinator: self)
-        sceneDelegate.window?.rootViewController = viewController
+        // Check user authentication status
+        
+        let request = MastodonAuthentication.sortedFetchRequest
+        do {
+            let fetchResult = try appContext.managedObjectContext.fetch(request)
+            DispatchQueue.main.async {
+                var rootViewController: UIViewController
+                if fetchResult.isEmpty {
+                    let welcomeNaviVC = UINavigationController(rootViewController: WelcomeViewController())
+                    rootViewController = welcomeNaviVC
+                } else {
+                    rootViewController = MainTabBarController(context: self.appContext, coordinator: self)
+                }
+                self.sceneDelegate.window?.rootViewController = rootViewController
+            }
+        } catch {
+            assertionFailure("CoreDataStack error at app launch!")
+        }
     }
     
     @discardableResult
@@ -114,6 +132,9 @@ private extension SceneCoordinator {
         let viewController: UIViewController?
         
         switch scene {
+        case .welcome:
+            let _viewController = WelcomeViewController()
+            viewController = _viewController
         case .authentication(let viewModel):
             let _viewController = AuthenticationViewController()
             _viewController.viewModel = viewModel
