@@ -36,6 +36,9 @@
 		2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
 		2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46976325C2A71500CF4AA9 /* UIIamge.swift */; };
+		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
+		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
+		2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */ = {isa = PBXBuildFile; productRef = 2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */; };
 		2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */; };
 		2D5A3D1125CF87AA002347D6 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D1025CF87AA002347D6 /* AvatarBarButtonItem.swift */; };
 		2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */; };
@@ -218,6 +221,8 @@
 		2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
 		2D46976325C2A71500CF4AA9 /* UIIamge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIamge.swift; sourceTree = "<group>"; };
+		2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewController.swift; sourceTree = "<group>"; };
+		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
 		2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlContainableScrollViews.swift; sourceTree = "<group>"; };
 		2D5A3D1025CF87AA002347D6 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -346,6 +351,7 @@
 				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
+				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +470,15 @@
 				0FAA101125E105390017CCDE /* PrimaryActionButton.swift */,
 			);
 			path = Button;
+			sourceTree = "<group>";
+		};
+		2D59819925E4A55C000FB903 /* ConfirmEmail */ = {
+			isa = PBXGroup;
+			children = (
+				2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */,
+				2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */,
+			);
+			path = ConfirmEmail;
 			sourceTree = "<group>";
 		};
 		2D5A3D0125CF8640002347D6 /* Vender */ = {
@@ -596,6 +611,7 @@
 		DB01409B25C40BB600F9F3CF /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 				DB0140A625C40C0900F9F3CF /* PinBased */,
 				DBE0821A25CD382900FD6BBD /* Register */,
 				DB72602125E36A2500235243 /* ServerRules */,
@@ -947,6 +963,7 @@
 				2D42FF6025C8177C004A627A /* ActiveLabel */,
 				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
 				DB5086B725CC0D6400C2C187 /* Kingfisher */,
+				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -1074,6 +1091,7 @@
 				2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */,
 				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
 				DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -1258,6 +1276,7 @@
 			files = (
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
+				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
@@ -1302,6 +1321,7 @@
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
+				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
@@ -1875,6 +1895,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vtourraine/ThirdPartyMailer.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.7.1;
+			};
+		};
 		2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireNetworkActivityIndicator";
@@ -1914,6 +1942,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */;
 			productName = ActiveLabel;
+		};
+		2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */;
+			productName = ThirdPartyMailer;
 		};
 		2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */ = {
 			isa = XCSwiftPackageProductDependency;

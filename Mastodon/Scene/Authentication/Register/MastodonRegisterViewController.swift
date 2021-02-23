@@ -572,7 +572,8 @@ extension MastodonRegisterViewController {
             let alertController = UIAlertController(title: "Success", message: "Regsiter request sent. Please check your email.\n(Auto sign in not implement yet.)", preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                self.navigationController?.popViewController(animated: true)
+                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email)
+                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
             }
             alertController.addAction(okAction)
             self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))

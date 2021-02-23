@@ -68,6 +68,32 @@ internal enum L10n {
   }
 
   internal enum Scene {
+    internal enum ConfirmEmail {
+      /// We just sent an email to %@,\ntap the link to confirm your account.
+      internal static func subtitle(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.ConfirmEmail.Subtitle", String(describing: p1))
+      }
+      /// One last thing.
+      internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.Title")
+      internal enum Button {
+        /// I never got an email
+        internal static let dontReceiveEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.DontReceiveEmail")
+        /// Open email app
+        internal static let openEmailApp = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.OpenEmailApp")
+      }
+      internal enum DontReceiveEmail {
+        /// Give our servers another n seconds before sending another email.\n\nCheck if your email address is correct as well as your junk folder if you haven’t.
+        internal static let alertDescription = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.alertDescription")
+        /// It’s too soon to tell.
+        internal static let alertTitle = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.alertTitle")
+      }
+      internal enum OpenEmailApp {
+        /// We just sent you another email. Check your junk folder if you haven’t.
+        internal static let alertDescription = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.alertDescription")
+        /// Check your inbox.
+        internal static let alertTitle = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.alertTitle")
+      }
+    }
     internal enum HomeTimeline {
       /// Home
       internal static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title")
