@@ -18,7 +18,7 @@ final class WelcomeViewController: UIViewController {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
         label.textColor = Asset.Colors.Label.black.color
-        label.text = L10n.Common.Label.slogan
+        label.text = L10n.Scene.Welcome.slogan
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -52,7 +52,7 @@ extension WelcomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.signUpSystemBackground.color
+        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([

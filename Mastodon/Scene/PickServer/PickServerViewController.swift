@@ -12,7 +12,7 @@ class PickServerViewController: UIViewController {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 34)
         label.textColor = Asset.Colors.Label.black.color
-        label.text = L10n.Common.Label.slogan
+        label.text = L10n.Scene.ServerPicker.title
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
