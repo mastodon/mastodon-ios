@@ -11,6 +11,13 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
+  internal enum Button {
+    /// Sign In
+    internal static let signIn = L10n.tr("Localizable", "Button.SignIn")
+    /// Sign Up
+    internal static let signUp = L10n.tr("Localizable", "Button.SignUp")
+  }
+
   internal enum Common {
     internal enum Controls {
       internal enum Actions {

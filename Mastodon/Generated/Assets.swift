@@ -76,6 +76,7 @@ internal enum Asset {
     internal static let lock = ImageAsset(name: "TootTimeline/lock")
     internal static let unlock = ImageAsset(name: "TootTimeline/unlock")
   }
+  internal static let welcomeLogo = ImageAsset(name: "welcome.logo")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
