@@ -12,7 +12,6 @@ protocol ActionToolbarContainerDelegate: class {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, retootButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton)
-    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, bookmarkButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton)
     
 }
@@ -23,7 +22,6 @@ final class ActionToolbarContainer: UIView {
     let replyButton     = HitTestExpandedButton()
     let retootButton    = HitTestExpandedButton()
     let starButton      = HitTestExpandedButton()
-    let bookmartButton  = HitTestExpandedButton()
     let moreButton      = HitTestExpandedButton()
     
     var isStarButtonHighlight: Bool = false {
@@ -62,7 +60,6 @@ extension ActionToolbarContainer {
         replyButton.addTarget(self, action: #selector(ActionToolbarContainer.replyButtonDidPressed(_:)), for: .touchUpInside)
         retootButton.addTarget(self, action: #selector(ActionToolbarContainer.retootButtonDidPressed(_:)), for: .touchUpInside)
         starButton.addTarget(self, action: #selector(ActionToolbarContainer.starButtonDidPressed(_:)), for: .touchUpInside)
-        bookmartButton.addTarget(self, action: #selector(ActionToolbarContainer.bookmarkButtonDidPressed(_:)), for: .touchUpInside)
         moreButton.addTarget(self, action: #selector(ActionToolbarContainer.moreButtonDidPressed(_:)), for: .touchUpInside)
     }
     
@@ -93,25 +90,29 @@ extension ActionToolbarContainer {
             subview.removeFromSuperview()
         }
         
-        let buttons = [replyButton, retootButton, starButton,bookmartButton, moreButton]
+        let buttons = [replyButton, retootButton, starButton, moreButton]
         buttons.forEach { button in
-            button.tintColor = Asset.Colors.Label.secondary.color
+            button.tintColor = UIColor.black.withAlphaComponent(0.6)
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
             button.setTitle("", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
             button.setInsets(forContentPadding: .zero, imageTitlePadding: style.buttonTitleImagePadding)
         }
         
+        let replyImage = UIImage(systemName: "arrowshape.turn.up.left.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .ultraLight))!.withRenderingMode(.alwaysTemplate)
+        let reblogImage = UIImage(systemName: "arrow.2.squarepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .bold))!.withRenderingMode(.alwaysTemplate)
+        let starImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .bold))!.withRenderingMode(.alwaysTemplate)
+        let moreImage = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .bold))!.withRenderingMode(.alwaysTemplate)
+        
         switch style {
         case .inline:
             buttons.forEach { button in
                 button.contentHorizontalAlignment = .leading
             }
-            replyButton.setImage(Asset.ToolBar.reply.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            retootButton.setImage(Asset.ToolBar.retoot.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            starButton.setImage(Asset.ToolBar.star.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            bookmartButton.setImage(Asset.ToolBar.bookmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            moreButton.setImage(Asset.ToolBar.more.image.withRenderingMode(.alwaysTemplate), for: .normal)
+            replyButton.setImage(replyImage, for: .normal)
+            retootButton.setImage(reblogImage, for: .normal)
+            starButton.setImage(starImage, for: .normal)
+            moreButton.setImage(moreImage, for: .normal)
             
             container.axis = .horizontal
             container.distribution = .fill
@@ -119,22 +120,18 @@ extension ActionToolbarContainer {
             replyButton.translatesAutoresizingMaskIntoConstraints = false
             retootButton.translatesAutoresizingMaskIntoConstraints = false
             starButton.translatesAutoresizingMaskIntoConstraints = false
-            bookmartButton.translatesAutoresizingMaskIntoConstraints = false
             moreButton.translatesAutoresizingMaskIntoConstraints = false
             container.addArrangedSubview(replyButton)
             container.addArrangedSubview(retootButton)
             container.addArrangedSubview(starButton)
-            container.addArrangedSubview(bookmartButton)
             container.addArrangedSubview(moreButton)
             NSLayoutConstraint.activate([
-                replyButton.heightAnchor.constraint(equalToConstant: 40).priority(.defaultHigh),
+                replyButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: retootButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: starButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: moreButton.heightAnchor).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: bookmartButton.heightAnchor).priority(.defaultHigh),
                 replyButton.widthAnchor.constraint(equalTo: retootButton.widthAnchor).priority(.defaultHigh),
                 replyButton.widthAnchor.constraint(equalTo: starButton.widthAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: bookmartButton.widthAnchor).priority(.defaultHigh),
             ])
             moreButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             moreButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -143,10 +140,9 @@ extension ActionToolbarContainer {
             buttons.forEach { button in
                 button.contentHorizontalAlignment = .center
             }
-            replyButton.setImage(Asset.ToolBar.reply.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            retootButton.setImage(Asset.ToolBar.retoot.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            starButton.setImage(Asset.ToolBar.bookmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
-            bookmartButton.setImage(Asset.ToolBar.bookmark.image.withRenderingMode(.alwaysTemplate), for: .normal)
+            replyButton.setImage(replyImage, for: .normal)
+            retootButton.setImage(reblogImage, for: .normal)
+            starButton.setImage(starImage, for: .normal)
             
             container.axis = .horizontal
             container.spacing = 8
@@ -155,7 +151,6 @@ extension ActionToolbarContainer {
             container.addArrangedSubview(replyButton)
             container.addArrangedSubview(retootButton)
             container.addArrangedSubview(starButton)
-            container.addArrangedSubview(bookmartButton)
         }
     }
     
@@ -165,7 +160,7 @@ extension ActionToolbarContainer {
     }
     
     private func isStarButtonHighlightStateDidChange(to isHighlight: Bool) {
-        let tintColor = isHighlight ? Asset.Colors.systemOrange.color : Asset.Colors.Label.secondary.color
+        let tintColor = isHighlight ? Asset.Colors.systemOrange.color : UIColor.black.withAlphaComponent(0.6)
         starButton.tintColor = tintColor
         starButton.setTitleColor(tintColor, for: .normal)
         starButton.setTitleColor(tintColor, for: .highlighted)
@@ -193,9 +188,23 @@ extension ActionToolbarContainer {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.actionToolbarContainer(self, moreButtonDidPressed: sender)
     }
-    @objc private func bookmarkButtonDidPressed(_ sender: UIButton) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.actionToolbarContainer(self, bookmarkButtonDidPressed: sender)
-    }
     
 }
+
+#if DEBUG
+import SwiftUI
+
+struct ActionToolbarContainer_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            UIViewPreview(width: 300) {
+                let toolbar = ActionToolbarContainer()
+                toolbar.configure(for: .inline)
+                return toolbar
+            }
+            .previewLayout(.fixed(width: 300, height: 44))
+            .previewDisplayName("Inline")
+        }
+    }
+}
+#endif

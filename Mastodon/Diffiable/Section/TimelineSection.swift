@@ -21,7 +21,7 @@ extension TimelineSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate,
+        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<TimelineSection, Item> {
         UITableViewDiffableDataSource(tableView: tableView) { [weak timelinePostTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
@@ -29,7 +29,7 @@ extension TimelineSection {
 
             switch item {
             case .homeTimelineIndex(objectID: let objectID, attribute: _):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelinePostTableViewCell.self), for: indexPath) as! TimelinePostTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
 
                 // configure cell
                 managedObjectContext.performAndWait {
@@ -39,7 +39,7 @@ extension TimelineSection {
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
             case .toot(let objectID):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelinePostTableViewCell.self), for: indexPath) as! TimelinePostTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
                 // configure cell
@@ -68,21 +68,22 @@ extension TimelineSection {
     }
 
     static func configure(
-        cell: TimelinePostTableViewCell,
+        cell: StatusTableViewCell,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot,
         requestUserID: String
     ) {
+        // set header
+        cell.statusView.headerContainerStackView.isHidden = toot.reblog == nil
+        cell.statusView.headerInfoLabel.text = L10n.Common.Controls.Status.userboosted(toot.author.displayName)
+        
         // set name username avatar
-        cell.timelinePostView.nameLabel.text = toot.author.displayName
-        cell.timelinePostView.usernameLabel.text = "@" + toot.author.username
-        cell.timelinePostView.avatarImageView.af.setImage(
-            withURL: URL(string: toot.author.avatar)!,
-            placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)
-        )
+        cell.statusView.nameLabel.text = toot.author.displayName
+        cell.statusView.usernameLabel.text = "@" + toot.author.username
+        cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+        
         // set text
-        cell.timelinePostView.activeTextLabel.config(content: toot.content)
+        cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
 
         // toolbar
         let isLike = (toot.reblog ?? toot).favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
@@ -90,15 +91,15 @@ extension TimelineSection {
             let count = (toot.reblog ?? toot).favouritesCount.intValue
             return TimelineSection.formattedNumberTitleForActionButton(count)
         }()
-        cell.timelinePostView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
-        cell.timelinePostView.actionToolbarContainer.isStarButtonHighlight = isLike
+        cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
         
         // set date
         let createdAt = (toot.reblog ?? toot).createdAt
-        cell.timelinePostView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+        cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
         timestampUpdatePublisher
             .sink { _ in
-                cell.timelinePostView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+                cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
 
@@ -115,8 +116,8 @@ extension TimelineSection {
                 let isLike = targetToot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
                 let favoriteCount = targetToot.favouritesCount.intValue
                 let favoriteCountTitle = TimelineSection.formattedNumberTitleForActionButton(favoriteCount)
-                cell.timelinePostView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
-                cell.timelinePostView.actionToolbarContainer.isStarButtonHighlight = isLike
+                cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
+                cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
                 os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, targetToot.id, favoriteCount)
             }
             .store(in: &cell.disposeBag)

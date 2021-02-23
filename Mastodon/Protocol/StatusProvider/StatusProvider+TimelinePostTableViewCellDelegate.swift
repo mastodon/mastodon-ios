@@ -14,9 +14,9 @@ import MastodonSDK
 import ActiveLabel
 
 // MARK: - ActionToolbarContainerDelegate
-extension TimelinePostTableViewCellDelegate where Self: StatusProvider {
+extension StatusTableViewCellDelegate where Self: StatusProvider {
     
-    func timelinePostTableViewCell(_ cell: TimelinePostTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton) {
+    func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton) {
         StatusProviderFacade.responseToStatusLikeAction(provider: self, cell: cell)
     }
     

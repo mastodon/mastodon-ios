@@ -15,7 +15,7 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
-final class HomeTimelineViewController: UIViewController, NeedsDependency,TimelinePostTableViewCellDelegate {
+final class HomeTimelineViewController: UIViewController, NeedsDependency,StatusTableViewCellDelegate {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -27,7 +27,7 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency,Timeli
     
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
-        tableView.register(TimelinePostTableViewCell.self, forCellReuseIdentifier: String(describing: TimelinePostTableViewCell.self))
+        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
         tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
@@ -51,7 +51,7 @@ extension HomeTimelineViewController {
         super.viewDidLoad()
         
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         navigationItem.leftBarButtonItem = avatarBarButtonItem
         avatarBarButtonItem.avatarButton.addTarget(self, action: #selector(HomeTimelineViewController.avatarButtonPressed(_:)), for: .touchUpInside)
         
@@ -105,12 +105,10 @@ extension HomeTimelineViewController {
             guard let self = self else { return }
             guard let user = activeMastodonAuthentication?.user,
                   let avatarImageURL = user.avatarImageURL() else {
-                let input = AvatarConfigurableViewConfiguration.Input(avatarImageURL: nil)
-                self.avatarBarButtonItem.configure(withConfigurationInput: input)
+                self.avatarBarButtonItem.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
                 return
             }
-            let input = AvatarConfigurableViewConfiguration.Input(avatarImageURL: avatarImageURL)
-            self.avatarBarButtonItem.configure(withConfigurationInput: input)
+            self.avatarBarButtonItem.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarImageURL))
         }
         .store(in: &disposeBag)
     }

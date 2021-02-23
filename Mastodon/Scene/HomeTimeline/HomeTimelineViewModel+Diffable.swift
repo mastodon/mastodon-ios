@@ -15,7 +15,7 @@ extension HomeTimelineViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate,
+        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)

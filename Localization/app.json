@@ -19,6 +19,9 @@
                 "preview": "Preview",
                 "open_in_safari": "Open in Safari"
             },
+            "status": {
+                "userBoosted": "%s boosted"
+            },
             "timeline": {
                 "load_more": "Load More"
             }

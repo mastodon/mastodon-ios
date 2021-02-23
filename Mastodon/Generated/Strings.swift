@@ -45,6 +45,12 @@ internal enum L10n {
         /// Take photo
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
       }
+      internal enum Status {
+        /// %@ boosted
+        internal static func userboosted(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.Userboosted", String(describing: p1))
+        }
+      }
       internal enum Timeline {
         /// Load More
         internal static let loadMore = L10n.tr("Localizable", "Common.Controls.Timeline.LoadMore")
