@@ -134,6 +134,9 @@
 		DB98338725C945ED00AD9700 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338525C945ED00AD9700 /* Strings.swift */; };
 		DB98338825C945ED00AD9700 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338625C945ED00AD9700 /* Assets.swift */; };
 		DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98339B25C96DE600AD9700 /* APIService+Account.swift */; };
+		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
+		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
+		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
@@ -328,6 +331,9 @@
 		DB98338525C945ED00AD9700 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		DB98338625C945ED00AD9700 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DB98339B25C96DE600AD9700 /* APIService+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Account.swift"; sourceTree = "<group>"; };
+		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -860,6 +866,9 @@
 				DB01409B25C40BB600F9F3CF /* Authentication */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
+				DB9D6BEE25E4F5370051B173 /* Search */,
+				DB9D6BFD25E4F57B0051B173 /* Notification */,
+				DB9D6C0825E4F5A60051B173 /* Profile */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -900,6 +909,30 @@
 				DB98338625C945ED00AD9700 /* Assets.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		DB9D6BEE25E4F5370051B173 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D6BE825E4F5340051B173 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		DB9D6BFD25E4F57B0051B173 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		DB9D6C0825E4F5A60051B173 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		DBE0821A25CD382900FD6BBD /* Register */ = {
@@ -1307,8 +1340,10 @@
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
+				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
+				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				DB98334725C8056600AD9700 /* AuthenticationViewModel.swift in Sources */,
@@ -1346,6 +1381,7 @@
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
+				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 			);

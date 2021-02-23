@@ -79,7 +79,7 @@ extension TimelineSection {
         
         // set name username avatar
         cell.statusView.nameLabel.text = toot.author.displayName
-        cell.statusView.usernameLabel.text = "@" + toot.author.username
+        cell.statusView.usernameLabel.text = "@" + toot.author.acct
         cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
         
         // set text

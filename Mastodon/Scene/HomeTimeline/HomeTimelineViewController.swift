@@ -23,7 +23,19 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency,Status
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
     
-    let avatarBarButtonItem = AvatarBarButtonItem()
+    let settingBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
+        return barButtonItem
+    }()
+    
+    let composeBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
+        return barButtonItem
+    }()
     
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
@@ -39,10 +51,10 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency,Status
     
     let refreshControl = UIRefreshControl()
     
-
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
+    
 }
 
 extension HomeTimelineViewController {
@@ -52,8 +64,17 @@ extension HomeTimelineViewController {
         
         title = L10n.Scene.HomeTimeline.title
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
-        navigationItem.leftBarButtonItem = avatarBarButtonItem
-        avatarBarButtonItem.avatarButton.addTarget(self, action: #selector(HomeTimelineViewController.avatarButtonPressed(_:)), for: .touchUpInside)
+        navigationItem.titleView = {
+            let imageView = UIImageView(image: Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate))
+            imageView.tintColor = Asset.Colors.Label.primary.color
+            return imageView
+        }()
+        navigationItem.leftBarButtonItem = settingBarButtonItem
+        settingBarButtonItem.target = self
+        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        navigationItem.rightBarButtonItem = composeBarButtonItem
+        composeBarButtonItem.target = self
+        composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(HomeTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -92,25 +113,9 @@ extension HomeTimelineViewController {
             .store(in: &disposeBag)
         
         #if DEBUG
-        avatarBarButtonItem.avatarButton.menu = debugMenu
-        avatarBarButtonItem.avatarButton.showsMenuAsPrimaryAction = true
+        // long press to trigger debug menu
+        settingBarButtonItem.menu = debugMenu
         #endif
-        
-        Publishers.CombineLatest(
-            context.authenticationService.activeMastodonAuthentication.eraseToAnyPublisher(),
-            viewModel.viewDidAppear.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] activeMastodonAuthentication, _ in
-            guard let self = self else { return }
-            guard let user = activeMastodonAuthentication?.user,
-                  let avatarImageURL = user.avatarImageURL() else {
-                self.avatarBarButtonItem.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
-                return
-            }
-            self.avatarBarButtonItem.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarImageURL))
-        }
-        .store(in: &disposeBag)
     }
 
 
@@ -147,7 +152,12 @@ extension HomeTimelineViewController {
 
 extension HomeTimelineViewController {
     
-    @objc private func avatarButtonPressed(_ sender: UIButton) {
+    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+
+    }
+    
+    @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
     }

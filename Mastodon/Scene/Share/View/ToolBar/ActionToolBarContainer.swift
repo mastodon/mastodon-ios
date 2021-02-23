@@ -13,7 +13,6 @@ protocol ActionToolbarContainerDelegate: class {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, retootButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton)
-    
 }
 
 
@@ -92,7 +91,7 @@ extension ActionToolbarContainer {
         
         let buttons = [replyButton, retootButton, starButton, moreButton]
         buttons.forEach { button in
-            button.tintColor = UIColor.black.withAlphaComponent(0.6)
+            button.tintColor = Asset.Colors.Button.actionToolbar.color
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
             button.setTitle("", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
@@ -160,7 +159,7 @@ extension ActionToolbarContainer {
     }
     
     private func isStarButtonHighlightStateDidChange(to isHighlight: Bool) {
-        let tintColor = isHighlight ? Asset.Colors.systemOrange.color : UIColor.black.withAlphaComponent(0.6)
+        let tintColor = isHighlight ? Asset.Colors.systemOrange.color : Asset.Colors.Button.actionToolbar.color
         starButton.tintColor = tintColor
         starButton.setTitleColor(tintColor, for: .normal)
         starButton.setTitleColor(tintColor, for: .highlighted)

@@ -47,19 +47,6 @@ final class StatusView: UIView {
         return button
     }()
     
-    let visibilityImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.TootTimeline.global.image.withRenderingMode(.alwaysTemplate))
-        imageView.tintColor = Asset.Colors.Label.secondary.color
-        return imageView
-    }()
-    
-    let lockImageView: UIImageView = {
-        let imageview = UIImageView(image: Asset.TootTimeline.textlock.image.withRenderingMode(.alwaysTemplate))
-        imageview.tintColor = Asset.Colors.Label.secondary.color
-        imageview.isHidden = true
-        return imageview
-    }()
-    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
