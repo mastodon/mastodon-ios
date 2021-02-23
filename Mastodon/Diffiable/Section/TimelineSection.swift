@@ -34,7 +34,7 @@ extension TimelineSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID)
+                    TimelineSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
@@ -45,7 +45,7 @@ extension TimelineSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    TimelineSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID)
+                    TimelineSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
@@ -69,21 +69,73 @@ extension TimelineSection {
 
     static func configure(
         cell: StatusTableViewCell,
+        readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot,
         requestUserID: String
     ) {
         // set header
         cell.statusView.headerContainerStackView.isHidden = toot.reblog == nil
-        cell.statusView.headerInfoLabel.text = L10n.Common.Controls.Status.userboosted(toot.author.displayName)
+        cell.statusView.headerInfoLabel.text = {
+            let author = toot.author
+            let name = author.displayName.isEmpty ? author.username : author.displayName
+            return L10n.Common.Controls.Status.userboosted(name)
+        }()
         
         // set name username avatar
-        cell.statusView.nameLabel.text = toot.author.displayName
-        cell.statusView.usernameLabel.text = "@" + toot.author.acct
-        cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+        cell.statusView.nameLabel.text = {
+            let author = (toot.reblog ?? toot).author
+            return author.displayName.isEmpty ? author.username : author.displayName
+        }()
+        cell.statusView.usernameLabel.text = "@" + (toot.reblog ?? toot).author.acct
+        cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: (toot.reblog ?? toot).author.avatarImageURL()))
         
         // set text
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
+        
+        // prepare media attachments
+        let mediaAttachments = Array((toot.reblog ?? toot).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
+        
+        // set image
+        let mosiacImageViewModel = MosaicImageViewModel(mediaAttachments: mediaAttachments)
+        let imageViewMaxSize: CGSize = {
+            let maxWidth: CGFloat = {
+                // use timelinePostView width as container width
+                // that width follows readable width and keep constant width after rotate
+                let containerFrame = readableLayoutFrame ?? cell.statusView.frame
+                var containerWidth = containerFrame.width
+                containerWidth -= 10
+                containerWidth -= StatusView.avatarImageSize.width
+                return containerWidth
+            }()
+            let scale: CGFloat = {
+                switch mosiacImageViewModel.metas.count {
+                case 1:     return 1.3
+                default:    return 0.7
+                }
+            }()
+            return CGSize(width: maxWidth, height: maxWidth * scale)
+        }()
+        if mosiacImageViewModel.metas.count == 1 {
+            let meta = mosiacImageViewModel.metas[0]
+            let imageView = cell.statusView.mosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+            imageView.af.setImage(
+                withURL: meta.url,
+                placeholderImage: UIImage.placeholder(color: .systemFill),
+                imageTransition: .crossDissolve(0.2)
+            )
+        } else {
+            let imageViews = cell.statusView.mosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+            for (i, imageView) in imageViews.enumerated() {
+                let meta = mosiacImageViewModel.metas[i]
+                imageView.af.setImage(
+                    withURL: meta.url,
+                    placeholderImage: UIImage.placeholder(color: .systemFill),
+                    imageTransition: .crossDissolve(0.2)
+                )
+            }
+        }
+        cell.statusView.mosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
 
         // toolbar
         let replyCountTitle: String = {

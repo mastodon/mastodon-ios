@@ -41,10 +41,12 @@ extension ActiveLabel {
 
 extension ActiveLabel {
     func config(content: String) {
+        activeEntities.removeAll()
         if let parseResult = try? TootContent.parse(toot: content) {
-            activeEntities.removeAll()
             text = parseResult.trimmed
             activeEntities = parseResult.activeEntities
+        } else {
+            text = ""
         }
     }
 }

@@ -137,6 +137,10 @@
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
+		DB9D6C0E25E4F9780051B173 /* MosaicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C0D25E4F9780051B173 /* MosaicImageView.swift */; };
+		DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */; };
+		DB9D6C2E25E504AC0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2D25E504AC0051B173 /* Attachment.swift */; };
+		DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C3725E508BE0051B173 /* Attachment.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
@@ -334,6 +338,10 @@
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DB9D6C0D25E4F9780051B173 /* MosaicImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageView.swift; sourceTree = "<group>"; };
+		DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageViewModel.swift; sourceTree = "<group>"; };
+		DB9D6C2D25E504AC0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		DB9D6C3725E508BE0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -547,6 +555,7 @@
 		2D7631A425C1532200929FB9 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				DB9D6C2025E502C60051B173 /* ViewModel */,
 				2D7631A525C1532D00929FB9 /* View */,
 			);
 			path = Share;
@@ -557,6 +566,7 @@
 			children = (
 				2D42FF8325C82245004A627A /* Button */,
 				2D42FF7C25C82207004A627A /* ToolBar */,
+				DB9D6C1325E4F97A0051B173 /* Container */,
 				2D152A8A25C295B8009AA50C /* Content */,
 				2D7631A625C1533800929FB9 /* TableviewCell */,
 			);
@@ -628,6 +638,7 @@
 			children = (
 				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
 				DB084B5625CBC56C00F898ED /* Toot.swift */,
+				DB9D6C3725E508BE0051B173 /* Attachment.swift */,
 			);
 			path = CoreDataStack;
 			sourceTree = "<group>";
@@ -816,6 +827,7 @@
 				2D927F1325C7EDD9004F19B8 /* Emoji.swift */,
 				DB45FAEC25CA7A9A005A8AC7 /* MastodonAuthentication.swift */,
 				2DA7D05625CA693F00804E11 /* Application.swift */,
+				DB9D6C2D25E504AC0051B173 /* Attachment.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -933,6 +945,22 @@
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		DB9D6C1325E4F97A0051B173 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D6C0D25E4F9780051B173 /* MosaicImageView.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		DB9D6C2025E502C60051B173 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		DBE0821A25CD382900FD6BBD /* Register */ = {
@@ -1319,6 +1347,7 @@
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
+				DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
@@ -1355,6 +1384,7 @@
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
+				DB9D6C0E25E4F9780051B173 /* MosaicImageView.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
@@ -1369,6 +1399,7 @@
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
 				2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */,
 				2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */,
+				DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
@@ -1412,6 +1443,7 @@
 				2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */,
 				DB89BA1225C1105C008580ED /* CoreDataStack.swift in Sources */,
 				DB89BA1C25C1107F008580ED /* NSManagedObjectContext.swift in Sources */,
+				DB9D6C2E25E504AC0051B173 /* Attachment.swift in Sources */,
 				2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */,
 				DB89BA3725C1145C008580ED /* CoreData.xcdatamodeld in Sources */,
 				DB8AF52525C131D1002E6C99 /* MastodonUser.swift in Sources */,

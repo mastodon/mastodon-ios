@@ -72,6 +72,8 @@ final class StatusView: UIView {
     }()
     
     let statusContainerStackView = UIStackView()
+    
+    let mosaicImageView = MosaicImageView()
 
     let actionToolbarContainer: ActionToolbarContainer = {
         let actionToolbarContainer = ActionToolbarContainer()
@@ -183,12 +185,14 @@ extension StatusView {
         statusContainerStackView.spacing = 10
         statusContainerStackView.addArrangedSubview(activeTextLabel)
         activeTextLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+        statusContainerStackView.addArrangedSubview(mosaicImageView)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         headerContainerStackView.isHidden = true
+        mosaicImageView.isHidden = true
     }
     
 }
@@ -208,7 +212,7 @@ import SwiftUI
 
 struct StatusView_Previews: PreviewProvider {
     
-    static let avatarFlora = UIImage(named: "tiraya-adam-QfHEWqPelsc-unsplash")
+    static let avatarFlora = UIImage(named: "tiraya-adam")
     
     static var previews: some View {
         Group {

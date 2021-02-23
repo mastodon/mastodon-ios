@@ -58,11 +58,24 @@ extension APIService.CoreData {
                 Emoji.insert(into: managedObjectContext, property: Emoji.Property(shortcode: emoji.shortcode, url: emoji.url, staticURL: emoji.staticURL, visibleInPicker: emoji.visibleInPicker, category: emoji.category))
             }
             let tags = entity.tags?.compactMap { tag -> Tag in
-                let histories = tag.history?.compactMap({ (history) -> History in
+                let histories = tag.history?.compactMap { history -> History in
                     History.insert(into: managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
-                })
+                }
                 return Tag.insert(into: managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
             }
+            let mediaAttachments: [Attachment]? = {
+                let encoder = JSONEncoder()
+                var attachments: [Attachment] = []
+                for (index, attachment) in (entity.mediaAttachments ?? []).enumerated() {
+                    let metaData = attachment.meta.flatMap { meta in
+                        try? encoder.encode(meta)
+                    }
+                    let property = Attachment.Property(domain: domain, index: index, id: attachment.id, typeRaw: attachment.type.rawValue, url: attachment.url, previewURL: attachment.previewURL, remoteURL: attachment.remoteURL, metaData: metaData, textURL: attachment.textURL, descriptionString: attachment.description, blurhash: attachment.blurhash, networkDate: networkDate)
+                    attachments.append(Attachment.insert(into: managedObjectContext, property: property))
+                }
+                guard !attachments.isEmpty else { return nil }
+                return attachments
+            }()
             let tootProperty = Toot.Property(entity: entity, domain: domain, networkDate: networkDate)
             let toot = Toot.insert(
                 into: managedObjectContext,
@@ -73,6 +86,7 @@ extension APIService.CoreData {
                 mentions: metions,
                 emojis: emojis,
                 tags: tags,
+                mediaAttachments: mediaAttachments,
                 favouritedBy: (entity.favourited ?? false) ? requestMastodonUser : nil,
                 rebloggedBy: (entity.reblogged ?? false) ? requestMastodonUser : nil,
                 mutedBy: (entity.muted ?? false) ? requestMastodonUser : nil,
