@@ -11,6 +11,11 @@
 		0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101125E105390017CCDE /* PrimaryActionButton.swift */; };
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
 		0FAA102725E1126A0017CCDE /* PickServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA102625E1126A0017CCDE /* PickServerViewController.swift */; };
+		0FB3D2F725E4C24D00AAD544 /* PickServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2F625E4C24D00AAD544 /* PickServerViewModel.swift */; };
+		0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */; };
+		0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */; };
+		0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */; };
+		0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* StatusView.swift */; };
@@ -204,6 +209,11 @@
 		0FAA101125E105390017CCDE /* PrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryActionButton.swift; sourceTree = "<group>"; };
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		0FAA102625E1126A0017CCDE /* PickServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerViewController.swift; sourceTree = "<group>"; };
+		0FB3D2F625E4C24D00AAD544 /* PickServerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerViewModel.swift; sourceTree = "<group>"; };
+		0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerTitleCell.swift; sourceTree = "<group>"; };
+		0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoriesCell.swift; sourceTree = "<group>"; };
+		0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryView.swift; sourceTree = "<group>"; };
+		0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -414,9 +424,38 @@
 		0FAA102525E1125D0017CCDE /* PickServer */ = {
 			isa = PBXGroup;
 			children = (
+				0FB3D31825E525DE00AAD544 /* CollectionViewCell */,
+				0FB3D30D25E525C000AAD544 /* View */,
+				0FB3D2FC25E4CB4B00AAD544 /* TableViewCell */,
 				0FAA102625E1126A0017CCDE /* PickServerViewController.swift */,
+				0FB3D2F625E4C24D00AAD544 /* PickServerViewModel.swift */,
 			);
 			path = PickServer;
+			sourceTree = "<group>";
+		};
+		0FB3D2FC25E4CB4B00AAD544 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */,
+				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		0FB3D30D25E525C000AAD544 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0FB3D31825E525DE00AAD544 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				0FB3D31D25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		1EBA4F56E920856A3FC84ACB /* Pods */ = {
@@ -1328,6 +1367,7 @@
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
+				0FB3D2F725E4C24D00AAD544 /* PickServerViewModel.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
@@ -1361,6 +1401,7 @@
 				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
+				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */,
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
@@ -1375,6 +1416,7 @@
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
@@ -1417,7 +1459,10 @@
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
+				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
+				2D5A3D1125CF87AA002347D6 /* AvatarBarButtonItem.swift in Sources */,
+				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -32,6 +32,7 @@
 "Scene.ServerPicker.Input.Placeholder" = "Find a server or join your own...";
 "Scene.ServerPicker.Title" = "Pick a Server,
 any server.";
+"Scene.ServerPicker.Button.Category.All" = "All";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.Prompt" = "By continuing, you're subject to the terms of service and privacy policy for %@.";
 "Scene.ServerRules.Subtitle" = "These rules are set by the admins of %@.";

@@ -2,7 +2,7 @@
 //  WelcomeViewController.swift
 //  Mastodon
 //
-//  Created by 高原 on 2021/2/20.
+//  Created by BradGao on 2021/2/20.
 //
 
 import os.log
@@ -88,8 +88,8 @@ extension WelcomeViewController {
             signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 5)
         ])
         
-        signInButton.addTarget(self, action: #selector(WelcomeViewController.signInButtonPressed(_:)), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(WelcomeViewController.signUpButtonPressed(_:)), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,4 +118,16 @@ extension WelcomeViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
+}
+
+extension WelcomeViewController {
+    @objc
+    private func signUpButtonDidClicked(_ sender: UIButton) {
+        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .SignUp)), from: self, transition: .show)
+    }
+    
+    @objc
+    private func signInButtonDidClicked(_ sender: UIButton) {
+        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .SignIn)), from: self, transition: .show)
+    }
 }

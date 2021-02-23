@@ -2,7 +2,7 @@
 //  UIFont.swift
 //  Mastodon
 //
-//  Created by 高原 on 2021/2/20.
+//  Created by BradGao on 2021/2/20.
 //
 
 import UIKit
