@@ -5,16 +5,23 @@
 //  Created by sxiaojian on 2021/1/28.
 //
 
+import os.log
 import UIKit
 import AVKit
 import ActiveLabel
 import AlamofireImage
+
+protocol StatusViewDelegate: class {
+    func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+}
 
 final class StatusView: UIView {
     
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
     static let contentWarningBlurRadius: CGFloat = 12
+    
+    weak var delegate: StatusViewDelegate?
     
     let headerContainerStackView = UIStackView()
     
@@ -231,7 +238,7 @@ extension StatusView {
         statusContentWarningContainerStackView.distribution = .fill
         statusContentWarningContainerStackView.alignment = .center
         statusTextContainerView.addSubview(statusContentWarningContainerStackView)
-        statusContentWarningContainerStackViewBottomLayoutConstraint = statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: statusContentWarningContainerStackView.bottomAnchor, constant: 8)
+        statusContentWarningContainerStackViewBottomLayoutConstraint = statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: statusContentWarningContainerStackView.bottomAnchor)
         NSLayoutConstraint.activate([
             statusContentWarningContainerStackView.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
             statusContentWarningContainerStackView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
@@ -252,6 +259,8 @@ extension StatusView {
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+        
+        contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
     }
     
 }
@@ -282,6 +291,13 @@ extension StatusView {
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = !isHidden
     }
     
+}
+
+extension StatusView {
+    @objc private func contentWarningActionButtonPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, contentWarningActionButtonPressed: sender)
+    }
 }
 
 extension StatusView: AvatarConfigurableView {

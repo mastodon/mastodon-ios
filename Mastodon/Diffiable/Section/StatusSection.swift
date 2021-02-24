@@ -11,11 +11,11 @@ import CoreDataStack
 import os.log
 import UIKit
 
-enum TimelineSection: Equatable, Hashable {
+enum StatusSection: Equatable, Hashable {
     case main
 }
 
-extension TimelineSection {
+extension StatusSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
@@ -23,29 +23,29 @@ extension TimelineSection {
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
-    ) -> UITableViewDiffableDataSource<TimelineSection, Item> {
+    ) -> UITableViewDiffableDataSource<StatusSection, Item> {
         UITableViewDiffableDataSource(tableView: tableView) { [weak timelinePostTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
             guard let timelinePostTableViewCellDelegate = timelinePostTableViewCellDelegate else { return UITableViewCell() }
 
             switch item {
-            case .homeTimelineIndex(objectID: let objectID, attribute: _):
+            case .homeTimelineIndex(objectID: let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
 
                 // configure cell
                 managedObjectContext.performAndWait {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                    TimelineSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID)
+                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusContentWarningAttribute: attribute)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
-            case .toot(let objectID):
+            case .toot(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    TimelineSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID)
+                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusContentWarningAttribute: attribute)
                 }
                 cell.delegate = timelinePostTableViewCellDelegate
                 return cell
@@ -72,7 +72,8 @@ extension TimelineSection {
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot,
-        requestUserID: String
+        requestUserID: String,
+        statusContentWarningAttribute: StatusContentWarningAttribute?
     ) {
         // set header
         cell.statusView.headerContainerStackView.isHidden = toot.reblog == nil
@@ -94,7 +95,8 @@ extension TimelineSection {
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
         
         // set content warning
-        cell.statusView.updateContentWarningDisplay(isHidden: !(toot.reblog ?? toot).sensitive)
+        let isStatusTextSensitive = statusContentWarningAttribute?.isStatusTextSensitive ?? (toot.reblog ?? toot).sensitive
+        cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
         cell.statusView.contentWarningTitle.text = (toot.reblog ?? toot).spoilerText.flatMap { spoilerText in
             return L10n.Common.Controls.Status.contentWarning + ": \(spoilerText)"
         } ?? L10n.Common.Controls.Status.contentWarning
@@ -146,14 +148,14 @@ extension TimelineSection {
         // toolbar
         let replyCountTitle: String = {
             let count = (toot.reblog ?? toot).repliesCount?.intValue ?? 0
-            return TimelineSection.formattedNumberTitleForActionButton(count)
+            return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
         
         let isLike = (toot.reblog ?? toot).favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {
             let count = (toot.reblog ?? toot).favouritesCount.intValue
-            return TimelineSection.formattedNumberTitleForActionButton(count)
+            return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
@@ -179,7 +181,7 @@ extension TimelineSection {
 
                 let isLike = targetToot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
                 let favoriteCount = targetToot.favouritesCount.intValue
-                let favoriteCountTitle = TimelineSection.formattedNumberTitleForActionButton(favoriteCount)
+                let favoriteCountTitle = StatusSection.formattedNumberTitleForActionButton(favoriteCount)
                 cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
                 cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
                 os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, targetToot.id, favoriteCount)
@@ -188,7 +190,7 @@ extension TimelineSection {
     }
 }
 
-extension TimelineSection {
+extension StatusSection {
     private static func formattedNumberTitleForActionButton(_ number: Int?) -> String {
         guard let number = number, number > 0 else { return "" }
         return String(number)

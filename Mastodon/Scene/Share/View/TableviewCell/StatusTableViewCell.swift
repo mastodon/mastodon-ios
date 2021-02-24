@@ -13,6 +13,7 @@ import Combine
 
 protocol StatusTableViewCellDelegate: class {
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -69,11 +70,20 @@ extension StatusTableViewCell {
             bottomPaddingView.heightAnchor.constraint(equalToConstant: 10).priority(.defaultHigh),
         ])
                 
+        statusView.delegate = self
         statusView.actionToolbarContainer.delegate = self
         bottomPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
     }
     
 }
+
+// MARK: - StatusViewDelegate
+extension StatusTableViewCell: StatusViewDelegate {
+    func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
+        delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)
+    }
+}
+
 // MARK: - ActionToolbarContainerDelegate
 extension StatusTableViewCell: ActionToolbarContainerDelegate {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton) {

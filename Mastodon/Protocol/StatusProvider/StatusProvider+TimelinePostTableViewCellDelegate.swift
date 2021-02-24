@@ -20,5 +20,26 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         StatusProviderFacade.responseToStatusLikeAction(provider: self, cell: cell)
     }
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
+        guard let diffableDataSource = self.tableViewDiffableDataSource else { return }
+        item(for: cell, indexPath: nil)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] item in
+                guard let _ = self else { return }
+                guard let item = item else { return }
+                switch item {
+                case .homeTimelineIndex(_, let attribute):
+                    attribute.isStatusTextSensitive = false
+                case .toot(_, let attribute):
+                    attribute.isStatusTextSensitive = false
+                default:
+                    return
+                }
+                var snapshot = diffableDataSource.snapshot()
+                snapshot.reloadItems([item])
+                diffableDataSource.apply(snapshot)
+            }
+            .store(in: &cell.disposeBag)
+    }
     
 }

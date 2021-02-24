@@ -15,7 +15,7 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
-final class HomeTimelineViewController: UIViewController, NeedsDependency,StatusTableViewCellDelegate {
+final class HomeTimelineViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -313,3 +313,6 @@ extension HomeTimelineViewController: ScrollViewContainer {
     }
     
 }
+
+// MARK: - StatusTableViewCellDelegate
+extension HomeTimelineViewController: StatusTableViewCellDelegate { }
