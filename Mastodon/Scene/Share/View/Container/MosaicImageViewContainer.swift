@@ -1,5 +1,5 @@
 //
-//  MosaicImageView.swift
+//  MosaicImageViewContainer.swift
 //  Mastodon
 //
 //  Created by Cirno MainasuK on 2021-2-23.
@@ -9,15 +9,15 @@ import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
 
-protocol MosaicImageViewPresentable: class {
-    var mosaicImageView: MosaicImageView { get }
+protocol MosaicImageViewContainerPresentable: class {
+    var mosaicImageViewContainer: MosaicImageViewContainer { get }
 }
 
 protocol MosaicImageViewDelegate: class {
-    func mosaicImageView(_ mosaicImageView: MosaicImageView, didTapImageView imageView: UIImageView, atIndex index: Int)
+    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
 }
 
-final class MosaicImageView: UIView {
+final class MosaicImageViewContainer: UIView {
 
     static let cornerRadius: CGFloat = 4
 
@@ -29,7 +29,7 @@ final class MosaicImageView: UIView {
             imageViews.forEach { imageView in
                 imageView.isUserInteractionEnabled = true
                 let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
-                tapGesture.addTarget(self, action: #selector(MosaicImageView.photoTapGestureRecognizerHandler(_:)))
+                tapGesture.addTarget(self, action: #selector(MosaicImageViewContainer.photoTapGestureRecognizerHandler(_:)))
                 imageView.addGestureRecognizer(tapGesture)
             }
         }
@@ -49,7 +49,7 @@ final class MosaicImageView: UIView {
     
 }
 
-extension MosaicImageView {
+extension MosaicImageViewContainer {
     
     private func _init() {
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +69,7 @@ extension MosaicImageView {
     
 }
 
-extension MosaicImageView {
+extension MosaicImageViewContainer {
     
     func reset() {
         container.arrangedSubviews.forEach { subview in
@@ -99,7 +99,7 @@ extension MosaicImageView {
         let imageView = UIImageView()
         imageViews.append(imageView)
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = MosaicImageView.cornerRadius
+        imageView.layer.cornerRadius = MosaicImageViewContainer.cornerRadius
         imageView.contentMode = .scaleAspectFill
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -142,7 +142,7 @@ extension MosaicImageView {
         self.imageViews.append(contentsOf: imageViews)
         imageViews.forEach { imageView in
             imageView.layer.masksToBounds = true
-            imageView.layer.cornerRadius = MosaicImageView.cornerRadius
+            imageView.layer.cornerRadius = MosaicImageViewContainer.cornerRadius
             imageView.layer.cornerCurve = .continuous
             imageView.contentMode = .scaleAspectFill
         }
@@ -195,13 +195,13 @@ extension MosaicImageView {
     }
 }
 
-extension MosaicImageView {
+extension MosaicImageViewContainer {
 
     @objc private func photoTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         guard let imageView = sender.view as? UIImageView else { return }
         guard let index = imageViews.firstIndex(of: imageView) else { return }
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: tap photo at index: %ld", ((#file as NSString).lastPathComponent), #line, #function, index)
-        delegate?.mosaicImageView(self, didTapImageView: imageView, atIndex: index)
+        delegate?.mosaicImageViewContainer(self, didTapImageView: imageView, atIndex: index)
     }
 }
 
@@ -218,7 +218,7 @@ struct MosaicImageView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             UIViewPreview(width: 375) {
-                let view = MosaicImageView()
+                let view = MosaicImageViewContainer()
                 let image = images[3]
                 let imageView = view.setupImageView(
                     aspectRatio: image.size,
@@ -230,7 +230,7 @@ struct MosaicImageView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 375, height: 400))
             .previewDisplayName("Portrait - one image")
             UIViewPreview(width: 375) {
-                let view = MosaicImageView()
+                let view = MosaicImageViewContainer()
                 let image = images[1]
                 let imageView = view.setupImageView(
                     aspectRatio: image.size,
@@ -245,7 +245,7 @@ struct MosaicImageView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 375, height: 400))
             .previewDisplayName("Landscape - one image")
             UIViewPreview(width: 375) {
-                let view = MosaicImageView()
+                let view = MosaicImageViewContainer()
                 let images = self.images.prefix(2)
                 let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
                 for (i, imageView) in imageViews.enumerated() {
@@ -256,7 +256,7 @@ struct MosaicImageView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 375, height: 200))
             .previewDisplayName("two image")
             UIViewPreview(width: 375) {
-                let view = MosaicImageView()
+                let view = MosaicImageViewContainer()
                 let images = self.images.prefix(3)
                 let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
                 for (i, imageView) in imageViews.enumerated() {
@@ -267,7 +267,7 @@ struct MosaicImageView_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 375, height: 200))
             .previewDisplayName("three image")
             UIViewPreview(width: 375) {
-                let view = MosaicImageView()
+                let view = MosaicImageViewContainer()
                 let images = self.images.prefix(4)
                 let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
                 for (i, imageView) in imageViews.enumerated() {

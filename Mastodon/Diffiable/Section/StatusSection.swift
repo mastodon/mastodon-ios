@@ -128,14 +128,14 @@ extension StatusSection {
         }()
         if mosiacImageViewModel.metas.count == 1 {
             let meta = mosiacImageViewModel.metas[0]
-            let imageView = cell.statusView.mosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+            let imageView = cell.statusView.statusMosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
             imageView.af.setImage(
                 withURL: meta.url,
                 placeholderImage: UIImage.placeholder(color: .systemFill),
                 imageTransition: .crossDissolve(0.2)
             )
         } else {
-            let imageViews = cell.statusView.mosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+            let imageViews = cell.statusView.statusMosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
             for (i, imageView) in imageViews.enumerated() {
                 let meta = mosiacImageViewModel.metas[i]
                 imageView.af.setImage(
@@ -145,7 +145,7 @@ extension StatusSection {
                 )
             }
         }
-        cell.statusView.mosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
+        cell.statusView.statusMosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
 
         // toolbar
         let replyCountTitle: String = {

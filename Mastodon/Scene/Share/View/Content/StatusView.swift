@@ -99,7 +99,7 @@ final class StatusView: UIView {
         button.setTitle(L10n.Common.Controls.Status.showPost, for: .normal)
         return button
     }()
-    let mosaicImageView = MosaicImageView()
+    let statusMosaicImageView = MosaicImageViewContainer()
     
     // do not use visual effect view due to we blur text only without background
     let contentWarningBlurContentImageView: UIImageView = {
@@ -257,7 +257,7 @@ extension StatusView {
         ])
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
-        statusContainerStackView.addArrangedSubview(mosaicImageView)
+        statusContainerStackView.addArrangedSubview(statusMosaicImageView)
         
         
         // action toolbar container
@@ -265,7 +265,7 @@ extension StatusView {
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         headerContainerStackView.isHidden = true
-        mosaicImageView.isHidden = true
+        statusMosaicImageView.isHidden = true
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
@@ -343,7 +343,7 @@ struct StatusView_Previews: PreviewProvider {
             }
             .previewLayout(.fixed(width: 375, height: 200))
             UIViewPreview(width: 375) {
-                let statusView = StatusView()
+                let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
                 statusView.configure(
                     with: AvatarConfigurableViewConfiguration(
                         avatarImageURL: nil,
@@ -351,9 +351,20 @@ struct StatusView_Previews: PreviewProvider {
                     )
                 )
                 statusView.headerContainerStackView.isHidden = false
+                statusView.isStatusTextSensitive = true
+                statusView.setNeedsLayout()
+                statusView.layoutIfNeeded()
+                statusView.drawContentWarningImageView()
+                statusView.updateContentWarningDisplay(isHidden: false)
+                let images = MosaicImageView_Previews.images
+                let imageViews = statusView.statusMosaicImageView.setupImageViews(count: 4, maxHeight: 162)
+                for (i, imageView) in imageViews.enumerated() {
+                    imageView.image = images[i]
+                }
+                statusView.statusMosaicImageView.isHidden = false
                 return statusView
             }
-            .previewLayout(.fixed(width: 375, height: 200))
+            .previewLayout(.fixed(width: 375, height: 380))
         }
     }
     
