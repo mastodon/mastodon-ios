@@ -13,4 +13,7 @@ protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewControl
     func toot() -> Future<Toot?, Never>
     func toot(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Toot?, Never>
     func toot(for cell: UICollectionViewCell) -> Future<Toot?, Never>
+    
+    var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? { get }
+    func item(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Item?, Never>
 }

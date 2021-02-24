@@ -14,7 +14,7 @@ extension Mastodon.Entity {
     /// - Since: 0.1.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/1/28
+    ///   2021/2/23
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/status/)
     public class Status: Codable {
@@ -31,7 +31,7 @@ extension Mastodon.Entity {
         public let visibility: Visibility?
         public let sensitive: Bool?
         public let spoilerText: String?
-        public let mediaAttachments: [Attachment]
+        public let mediaAttachments: [Attachment]?
         public let application: Application?
         
         // Rendering

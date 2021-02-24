@@ -11,13 +11,6 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
 
-  internal enum Button {
-    /// Sign In
-    internal static let signIn = L10n.tr("Localizable", "Button.SignIn")
-    /// Sign Up
-    internal static let signUp = L10n.tr("Localizable", "Button.SignUp")
-  }
-
   internal enum Common {
     internal enum Controls {
       internal enum Actions {
@@ -51,6 +44,16 @@ internal enum L10n {
         internal static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp")
         /// Take photo
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
+      }
+      internal enum Status {
+        /// content warning
+        internal static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning")
+        /// Show Post
+        internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
+        /// %@ boosted
+        internal static func userBoosted(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))
+        }
       }
       internal enum Timeline {
         /// Load More

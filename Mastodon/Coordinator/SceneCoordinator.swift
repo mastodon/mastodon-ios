@@ -59,8 +59,9 @@ extension SceneCoordinator {
             DispatchQueue.main.async {
                 var rootViewController: UIViewController
                 if fetchResult.isEmpty {
-                    let welcomeNaviVC = UINavigationController(rootViewController: WelcomeViewController())
-                    rootViewController = welcomeNaviVC
+                    let welcomViewController = WelcomeViewController()
+                    self.setupDependency(for: welcomViewController)
+                    rootViewController = UINavigationController(rootViewController: welcomViewController)
                 } else {
                     rootViewController = MainTabBarController(context: self.appContext, coordinator: self)
                 }

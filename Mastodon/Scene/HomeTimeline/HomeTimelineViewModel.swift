@@ -63,7 +63,7 @@ final class HomeTimelineViewModel: NSObject {
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     // middle loader
     let loadMiddleSateMachineList = CurrentValueSubject<[NSManagedObjectID: GKStateMachine], Never>([:])    // TimelineIndex.objectID : middle loading state machine
-    var diffableDataSource: UITableViewDiffableDataSource<TimelineSection, Item>?
+    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
     var cellFrameCache = NSCache<NSNumber, NSValue>()
 
     

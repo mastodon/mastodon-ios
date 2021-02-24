@@ -42,7 +42,8 @@ extension AvatarBarButtonItem {
 }
 
 extension AvatarBarButtonItem: AvatarConfigurableView {
-    static var configurableAvatarImageViewSize: CGSize { return avatarButtonSize }
+    static var configurableAvatarImageSize: CGSize { return avatarButtonSize }
+    static var configurableAvatarImageCornerRadius: CGFloat { return 4 }
     var configurableAvatarImageView: UIImageView? { return nil }
     var configurableAvatarButton: UIButton? { return avatarButton }
     var configurableVerifiedBadgeImageView: UIImageView? { return nil }

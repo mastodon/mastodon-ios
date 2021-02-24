@@ -11,7 +11,7 @@ class PickServerViewController: UIViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 34)
-        label.textColor = Asset.Colors.Label.black.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.ServerPicker.title
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false

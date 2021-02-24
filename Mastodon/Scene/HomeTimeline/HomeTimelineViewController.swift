@@ -15,7 +15,7 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
-final class HomeTimelineViewController: UIViewController, NeedsDependency,TimelinePostTableViewCellDelegate {
+final class HomeTimelineViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -23,11 +23,23 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency,Timeli
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
     
-    let avatarBarButtonItem = AvatarBarButtonItem()
+    let settingBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
+        return barButtonItem
+    }()
+    
+    let composeBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
+        return barButtonItem
+    }()
     
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
-        tableView.register(TimelinePostTableViewCell.self, forCellReuseIdentifier: String(describing: TimelinePostTableViewCell.self))
+        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
         tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
@@ -39,10 +51,10 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency,Timeli
     
     let refreshControl = UIRefreshControl()
     
-
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
+    
 }
 
 extension HomeTimelineViewController {
@@ -51,9 +63,18 @@ extension HomeTimelineViewController {
         super.viewDidLoad()
         
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
-        navigationItem.leftBarButtonItem = avatarBarButtonItem
-        avatarBarButtonItem.avatarButton.addTarget(self, action: #selector(HomeTimelineViewController.avatarButtonPressed(_:)), for: .touchUpInside)
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        navigationItem.titleView = {
+            let imageView = UIImageView(image: Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate))
+            imageView.tintColor = Asset.Colors.Label.primary.color
+            return imageView
+        }()
+        navigationItem.leftBarButtonItem = settingBarButtonItem
+        settingBarButtonItem.target = self
+        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        navigationItem.rightBarButtonItem = composeBarButtonItem
+        composeBarButtonItem.target = self
+        composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(HomeTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
@@ -92,27 +113,9 @@ extension HomeTimelineViewController {
             .store(in: &disposeBag)
         
         #if DEBUG
-        avatarBarButtonItem.avatarButton.menu = debugMenu
-        avatarBarButtonItem.avatarButton.showsMenuAsPrimaryAction = true
+        // long press to trigger debug menu
+        settingBarButtonItem.menu = debugMenu
         #endif
-        
-        Publishers.CombineLatest(
-            context.authenticationService.activeMastodonAuthentication.eraseToAnyPublisher(),
-            viewModel.viewDidAppear.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] activeMastodonAuthentication, _ in
-            guard let self = self else { return }
-            guard let user = activeMastodonAuthentication?.user,
-                  let avatarImageURL = user.avatarImageURL() else {
-                let input = AvatarConfigurableViewConfiguration.Input(avatarImageURL: nil)
-                self.avatarBarButtonItem.configure(withConfigurationInput: input)
-                return
-            }
-            let input = AvatarConfigurableViewConfiguration.Input(avatarImageURL: avatarImageURL)
-            self.avatarBarButtonItem.configure(withConfigurationInput: input)
-        }
-        .store(in: &disposeBag)
     }
 
 
@@ -149,7 +152,12 @@ extension HomeTimelineViewController {
 
 extension HomeTimelineViewController {
     
-    @objc private func avatarButtonPressed(_ sender: UIButton) {
+    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+
+    }
+    
+    @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
     }
@@ -197,6 +205,14 @@ extension HomeTimelineViewController: UITableViewDelegate {
         // os_log("%{public}s[%{public}ld], %{public}s: cache cell frame %s", ((#file as NSString).lastPathComponent), #line, #function, frame.debugDescription)
 
         return ceil(frame.height)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? StatusTableViewCell {
+            DispatchQueue.main.async {
+                cell.statusView.drawContentWarningImageView()
+            }
+        }
     }
 }
 
@@ -297,3 +313,6 @@ extension HomeTimelineViewController: ScrollViewContainer {
     }
     
 }
+
+// MARK: - StatusTableViewCellDelegate
+extension HomeTimelineViewController: StatusTableViewCellDelegate { }

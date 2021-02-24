@@ -13,7 +13,7 @@ import GameplayKit
 import os.log
 import UIKit
 
-final class PublicTimelineViewController: UIViewController, NeedsDependency, TimelinePostTableViewCellDelegate {
+final class PublicTimelineViewController: UIViewController, NeedsDependency, StatusTableViewCellDelegate {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -24,7 +24,7 @@ final class PublicTimelineViewController: UIViewController, NeedsDependency, Tim
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(TimelinePostTableViewCell.self, forCellReuseIdentifier: String(describing: TimelinePostTableViewCell.self))
+        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
         tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
@@ -42,7 +42,7 @@ extension PublicTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(PublicTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)

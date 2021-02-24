@@ -33,7 +33,7 @@ class PublicTimelineViewModel: NSObject {
     //
     var tootIDsWhichHasGap = [String]()
     // output
-    var diffableDataSource: UITableViewDiffableDataSource<TimelineSection, Item>?
+    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
 
     lazy var stateMachine: GKStateMachine = {
         let stateMachine = GKStateMachine(states: [
@@ -82,7 +82,7 @@ class PublicTimelineViewModel: NSObject {
                 let oldSnapshot = diffableDataSource.snapshot()
                 os_log("%{public}s[%{public}ld], %{public}s: items did change", (#file as NSString).lastPathComponent, #line, #function)
 
-                var snapshot = NSDiffableDataSourceSnapshot<TimelineSection, Item>()
+                var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(items)
                 if let currentState = self.stateMachine.currentState {
@@ -140,8 +140,8 @@ class PublicTimelineViewModel: NSObject {
     private func calculateReloadSnapshotDifference<T: Hashable>(
         navigationBar: UINavigationBar,
         tableView: UITableView,
-        oldSnapshot: NSDiffableDataSourceSnapshot<TimelineSection, T>,
-        newSnapshot: NSDiffableDataSourceSnapshot<TimelineSection, T>
+        oldSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>,
+        newSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>
     ) -> Difference<T>? {
         guard oldSnapshot.numberOfItems != 0 else { return nil }
         

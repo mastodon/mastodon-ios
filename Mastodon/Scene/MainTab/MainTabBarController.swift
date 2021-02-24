@@ -19,19 +19,25 @@ class MainTabBarController: UITabBarController {
         
     enum Tab: Int, CaseIterable {
         case home
-        case publicTimeline
+        case search
+        case notification
+        case me
         
         var title: String {
             switch self {
-            case .home:     return "Home"
-            case .publicTimeline : return "Public"
+            case .home:             return "Home"
+            case .search:           return "Search"
+            case .notification:     return "Notification"
+            case .me:               return "Me"
             }
         }
         
         var image: UIImage {
             switch self {
-            case .home:     return UIImage(systemName: "house")!
-            case .publicTimeline: return UIImage(systemName: "flame")!
+            case .home:             return UIImage(systemName: "house.fill")!
+            case .search:           return UIImage(systemName: "magnifyingglass")!
+            case .notification:     return UIImage(systemName: "bell.fill")!
+            case .me:               return UIImage(systemName: "person.fill")!
             }
         }
         
@@ -43,9 +49,18 @@ class MainTabBarController: UITabBarController {
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController
-            case .publicTimeline:
-                let _viewController = PublicTimelineViewController()
-                _viewController.viewModel = PublicTimelineViewModel(context: context)
+            case .search:
+                let _viewController = SearchViewController()
+                _viewController.context = context
+                _viewController.coordinator = coordinator
+                viewController = _viewController
+            case .notification:
+                let _viewController = NotificationViewController()
+                _viewController.context = context
+                _viewController.coordinator = coordinator
+                viewController = _viewController
+            case .me:
+                let _viewController = ProfileViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController
