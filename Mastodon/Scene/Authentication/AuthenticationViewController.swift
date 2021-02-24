@@ -78,7 +78,7 @@ extension AuthenticationViewController {
         super.viewDidLoad()
         
         overrideUserInterfaceStyle = .dark  // FIXME:
-        title = "Authentication"
+
         view.backgroundColor = Asset.Colors.Background.systemBackground.color
         
         domainLabel.translatesAutoresizingMaskIntoConstraints = false

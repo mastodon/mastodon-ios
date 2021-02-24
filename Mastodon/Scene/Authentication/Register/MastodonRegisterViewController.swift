@@ -567,12 +567,12 @@ extension MastodonRegisterViewController {
             }
         } receiveValue: { [weak self] response in
             guard let self = self else { return }
-            _ = response.value
+            let userToken = response.value
             // TODO:
-            let alertController = UIAlertController(title: "Success", message: "Regsiter request sent. Please check your email.\n(Auto sign in not implement yet.)", preferredStyle: .alert)
+            let alertController = UIAlertController(title: L10n.Scene.Register.success, message: L10n.Scene.Register.checkEmail, preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email)
+                let viewModel = MastodonConfirmEmailViewModel(context: self.context, coordinator: self.coordinator, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
                 self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
             }
             alertController.addAction(okAction)
@@ -580,5 +580,4 @@ extension MastodonRegisterViewController {
         }
         .store(in: &disposeBag)
     }
-    
 }

@@ -8,6 +8,7 @@
 import Combine
 import ThirdPartyMailer
 import UIKit
+import MastodonSDK
 
 final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
@@ -58,18 +59,25 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 }
 
 extension MastodonConfirmEmailViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     override func viewDidLoad() {
         overrideUserInterfaceStyle = .light
         view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        
         // set navigationBar transparent
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarPosition.any, barMetrics: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.topItem?.title = "Back"
+        let barAppearance =  UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.standardAppearance = barAppearance
+        navigationController?.navigationBar.compactAppearance = barAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
 
         // resizedView
         let resizedView = UIView()
         resizedView.translatesAutoresizingMaskIntoConstraints = false
-        resizedView.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.vertical)
+        resizedView.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         // stackView
         let stackView = UIStackView()
@@ -114,7 +122,11 @@ extension MastodonConfirmEmailViewController {
 
     @objc private func dontReceiveButtonPressed(_ sender: UIButton) {
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.alertTitle, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.alertDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in }
+        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
+            let url = Mastodon.API.resendEmailURL(domain:self.viewModel.authenticateInfo.domain)
+            let viewModel = MastodonResendEmailViewModel(resendEmailURL: url, email: self.viewModel.email)
+            self.coordinator.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .show)
+        }
         alertController.addAction(okAction)
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }

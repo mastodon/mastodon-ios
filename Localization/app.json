@@ -63,7 +63,9 @@
                     "prompt": "Your password needs at least:",
                     "prompt_eight_characters": "Eight characters"
                 }
-            }
+            },
+            "success": "Success",
+            "check_email": "Regsiter request sent. Please check your email."
         },
         "server_rules": {
             "title": "Some ground rules.",

@@ -18,6 +18,8 @@
 		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
 		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
 		2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */; };
+		2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D364F7125E66D7500204FDC /* MastodonResendEmailViewController.swift */; };
+		2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */; };
 		2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */; };
 		2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */; };
 		2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1DE25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift */; };
@@ -213,6 +215,8 @@
 		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
+		2D364F7125E66D7500204FDC /* MastodonResendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewController.swift; sourceTree = "<group>"; };
+		2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewModel.swift; sourceTree = "<group>"; };
 		2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOffsetAdjustableTimelineViewControllerDelegate.swift; sourceTree = "<group>"; };
 		2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewController.swift; sourceTree = "<group>"; };
 		2D38F1DE25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
@@ -446,6 +450,15 @@
 			path = Content;
 			sourceTree = "<group>";
 		};
+		2D364F7025E66D5B00204FDC /* ResendEmail */ = {
+			isa = PBXGroup;
+			children = (
+				2D364F7125E66D7500204FDC /* MastodonResendEmailViewController.swift */,
+				2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */,
+			);
+			path = ResendEmail;
+			sourceTree = "<group>";
+		};
 		2D38F1D325CD463600561493 /* HomeTimeline */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +644,7 @@
 		DB01409B25C40BB600F9F3CF /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				2D364F7025E66D5B00204FDC /* ResendEmail */,
 				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 				DB0140A625C40C0900F9F3CF /* PinBased */,
 				DBE0821A25CD382900FD6BBD /* Register */,
@@ -1353,6 +1367,7 @@
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
+				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
@@ -1395,6 +1410,7 @@
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,

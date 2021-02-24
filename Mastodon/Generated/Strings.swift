@@ -85,7 +85,7 @@ internal enum L10n {
         internal static let openEmailApp = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.OpenEmailApp")
       }
       internal enum DontReceiveEmail {
-        /// Give our servers another n seconds before sending another email.\n\nCheck if your email address is correct as well as your junk folder if you haven’t.
+        /// Give our servers another n seconds before sending another email.\nCheck if your email address is correct as well as your junk folder if you haven’t.
         internal static let alertDescription = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.AlertDescription")
         /// It’s too soon to tell.
         internal static let alertTitle = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.AlertTitle")
@@ -108,6 +108,10 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Scene.PublicTimeline.Title")
     }
     internal enum Register {
+      /// Regsiter request sent. Please check your email.
+      internal static let checkEmail = L10n.tr("Localizable", "Scene.Register.CheckEmail")
+      /// Success
+      internal static let success = L10n.tr("Localizable", "Scene.Register.Success")
       /// Tell us about you.
       internal static let title = L10n.tr("Localizable", "Scene.Register.Title")
       internal enum Input {
