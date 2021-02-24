@@ -45,6 +45,10 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         
         case alertController(alertController: UIAlertController)
+        
+        #if DEBUG
+        case publicTimeline
+        #endif
     }
 }
 
@@ -161,6 +165,12 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
+        #if DEBUG
+        case .publicTimeline:
+            let _viewController = PublicTimelineViewController()
+            _viewController.viewModel = PublicTimelineViewModel(context: appContext)
+            viewController = _viewController
+        #endif
         }
         
         setupDependency(for: viewController as? NeedsDependency)
