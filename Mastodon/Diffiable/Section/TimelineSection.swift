@@ -79,7 +79,7 @@ extension TimelineSection {
         cell.statusView.headerInfoLabel.text = {
             let author = toot.author
             let name = author.displayName.isEmpty ? author.username : author.displayName
-            return L10n.Common.Controls.Status.userboosted(name)
+            return L10n.Common.Controls.Status.userBoosted(name)
         }()
         
         // set name username avatar
@@ -92,6 +92,12 @@ extension TimelineSection {
         
         // set text
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
+        
+        // set content warning
+        cell.statusView.updateContentWarningDisplay(isHidden: !(toot.reblog ?? toot).sensitive)
+        cell.statusView.contentWarningTitle.text = (toot.reblog ?? toot).spoilerText.flatMap { spoilerText in
+            return L10n.Common.Controls.Status.contentWarning + ": \(spoilerText)"
+        } ?? L10n.Common.Controls.Status.contentWarning
         
         // prepare media attachments
         let mediaAttachments = Array((toot.reblog ?? toot).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }

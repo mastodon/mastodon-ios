@@ -40,3 +40,16 @@ extension UIImage {
         return UIColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
     }
 }
+
+extension UIImage {
+    func blur(radius: CGFloat) -> UIImage? {
+        guard let inputImage = CIImage(image: self) else { return nil }
+        let blurFilter = CIFilter.gaussianBlur()
+        blurFilter.inputImage = inputImage
+        blurFilter.radius = Float(radius)
+        guard let outputImage = blurFilter.outputImage else { return nil }
+        guard let cgImage = CIContext().createCGImage(outputImage, from: outputImage.extent) else { return nil }
+        let image = UIImage(cgImage: cgImage, scale: scale, orientation: imageOrientation)
+        return image
+    }
+}

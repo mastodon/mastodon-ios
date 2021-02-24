@@ -20,7 +20,9 @@
                 "open_in_safari": "Open in Safari"
             },
             "status": {
-                "userBoosted": "%s boosted"
+                "user_boosted": "%s boosted",
+                "content_warning": "content warning",
+                "show_post": "Show Post"
             },
             "timeline": {
                 "load_more": "Load More"

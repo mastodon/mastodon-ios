@@ -206,6 +206,14 @@ extension HomeTimelineViewController: UITableViewDelegate {
 
         return ceil(frame.height)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? StatusTableViewCell {
+            DispatchQueue.main.async {
+                cell.statusView.drawContentWarningImageView()
+            }
+        }
+    }
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate

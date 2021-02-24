@@ -14,6 +14,7 @@ final class StatusView: UIView {
     
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
+    static let contentWarningBlurRadius: CGFloat = 12
     
     let headerContainerStackView = UIStackView()
     
@@ -72,8 +73,33 @@ final class StatusView: UIView {
     }()
     
     let statusContainerStackView = UIStackView()
+    let statusTextContainerView = UIView()
+    let statusContentWarningContainerStackView = UIStackView()
+    var statusContentWarningContainerStackViewBottomLayoutConstraint: NSLayoutConstraint!
     
+    let contentWarningTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+        label.textColor = Asset.Colors.Label.primary.color
+        label.text = L10n.Common.Controls.Status.contentWarning
+        return label
+    }()
+    let contentWarningActionButton: UIButton = {
+        let button = UIButton()
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .medium))
+        button.setTitleColor(Asset.Colors.Label.highlight.color, for: .normal)
+        button.setTitle(L10n.Common.Controls.Status.showPost, for: .normal)
+        return button
+    }()
     let mosaicImageView = MosaicImageView()
+    
+    // do not use visual effect view due to we blur text only without background
+    let contentWarningBlurContentImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .secondarySystemGroupedBackground
+        imageView.layer.masksToBounds = false
+        return imageView
+    }()
 
     let actionToolbarContainer: ActionToolbarContainer = {
         let actionToolbarContainer = ActionToolbarContainer()
@@ -183,9 +209,39 @@ extension StatusView {
         containerStackView.addArrangedSubview(statusContainerStackView)
         statusContainerStackView.axis = .vertical
         statusContainerStackView.spacing = 10
-        statusContainerStackView.addArrangedSubview(activeTextLabel)
-        activeTextLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+        statusContainerStackView.addArrangedSubview(statusTextContainerView)
+        statusTextContainerView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+        activeTextLabel.translatesAutoresizingMaskIntoConstraints = false
+        statusTextContainerView.addSubview(activeTextLabel)
+        NSLayoutConstraint.activate([
+            activeTextLabel.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
+            activeTextLabel.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
+            activeTextLabel.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
+            statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: activeTextLabel.bottomAnchor),
+        ])
+        contentWarningBlurContentImageView.translatesAutoresizingMaskIntoConstraints = false
+        statusTextContainerView.addSubview(contentWarningBlurContentImageView)
+        NSLayoutConstraint.activate([
+            activeTextLabel.topAnchor.constraint(equalTo: contentWarningBlurContentImageView.topAnchor, constant: StatusView.contentWarningBlurRadius),
+            activeTextLabel.leadingAnchor.constraint(equalTo: contentWarningBlurContentImageView.leadingAnchor, constant: StatusView.contentWarningBlurRadius),
+            
+        ])
+        statusContentWarningContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        statusContentWarningContainerStackView.axis = .vertical
+        statusContentWarningContainerStackView.distribution = .fill
+        statusContentWarningContainerStackView.alignment = .center
+        statusTextContainerView.addSubview(statusContentWarningContainerStackView)
+        statusContentWarningContainerStackViewBottomLayoutConstraint = statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: statusContentWarningContainerStackView.bottomAnchor, constant: 8)
+        NSLayoutConstraint.activate([
+            statusContentWarningContainerStackView.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
+            statusContentWarningContainerStackView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
+            statusContentWarningContainerStackView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
+            statusContentWarningContainerStackViewBottomLayoutConstraint,
+        ])
+        statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
+        statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
         statusContainerStackView.addArrangedSubview(mosaicImageView)
+        
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -193,6 +249,37 @@ extension StatusView {
 
         headerContainerStackView.isHidden = true
         mosaicImageView.isHidden = true
+        contentWarningBlurContentImageView.isHidden = true
+        statusContentWarningContainerStackView.isHidden = true
+        statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+    }
+    
+}
+
+extension StatusView {
+    
+    func cleanUpContentWarning() {
+        contentWarningBlurContentImageView.image = nil
+    }
+    
+    func drawContentWarningImageView() {
+        guard activeTextLabel.frame != .zero, let text = activeTextLabel.text, !text.isEmpty else {
+            cleanUpContentWarning()
+            return
+        }
+        
+        let image = UIGraphicsImageRenderer(size: activeTextLabel.frame.size).image { context in
+            activeTextLabel.draw(activeTextLabel.bounds)
+        }
+        .blur(radius: StatusView.contentWarningBlurRadius)
+        contentWarningBlurContentImageView.contentScaleFactor = traitCollection.displayScale
+        contentWarningBlurContentImageView.image = image
+    }
+    
+    func updateContentWarningDisplay(isHidden: Bool) {
+        contentWarningBlurContentImageView.isHidden = isHidden
+        statusContentWarningContainerStackView.isHidden = isHidden
+        statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = !isHidden
     }
     
 }

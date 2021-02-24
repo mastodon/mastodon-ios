@@ -27,6 +27,7 @@ final class StatusTableViewCell: UITableViewCell {
         
     override func prepareForReuse() {
         super.prepareForReuse()
+        statusView.cleanUpContentWarning()
         disposeBag.removeAll()
         observations.removeAll()
     }

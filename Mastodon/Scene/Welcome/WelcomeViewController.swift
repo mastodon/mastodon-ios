@@ -37,7 +37,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     let signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
-        button.setTitle(L10n.Button.signUp, for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -45,7 +45,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     let signInButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
-        button.setTitle(L10n.Button.signIn, for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
         button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
         button.setInsets(forContentPadding: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0), imageTitlePadding: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
