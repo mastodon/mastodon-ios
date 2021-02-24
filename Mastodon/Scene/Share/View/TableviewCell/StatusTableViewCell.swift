@@ -18,6 +18,7 @@ protocol StatusTableViewCellDelegate: class {
 
 final class StatusTableViewCell: UITableViewCell {
     
+    static let bottomPaddingHeight: CGFloat = 10
     
     weak var delegate: StatusTableViewCellDelegate?
     
@@ -28,6 +29,7 @@ final class StatusTableViewCell: UITableViewCell {
         
     override func prepareForReuse() {
         super.prepareForReuse()
+        statusView.isStatusTextSensitive = false
         statusView.cleanUpContentWarning()
         disposeBag.removeAll()
         observations.removeAll()
@@ -41,6 +43,13 @@ final class StatusTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        DispatchQueue.main.async {
+            self.statusView.drawContentWarningImageView()            
+        }
     }
     
 }
@@ -68,7 +77,7 @@ extension StatusTableViewCell {
             bottomPaddingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             bottomPaddingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomPaddingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomPaddingView.heightAnchor.constraint(equalToConstant: 10).priority(.defaultHigh),
+            bottomPaddingView.heightAnchor.constraint(equalToConstant: StatusTableViewCell.bottomPaddingHeight).priority(.defaultHigh),
         ])
                 
         statusView.delegate = self

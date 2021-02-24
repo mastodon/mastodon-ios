@@ -10,7 +10,9 @@ import Combine
 
 class TimelineLoaderTableViewCell: UITableViewCell {
     
-    static let cellHeight: CGFloat = 48
+    static let cellHeight: CGFloat = 44 + TimelineLoaderTableViewCell.extraTopPadding + TimelineLoaderTableViewCell.bottomPadding
+    static let extraTopPadding: CGFloat = 3     // the status cell already has 10pt bottom padding
+    static let bottomPadding: CGFloat = StatusTableViewCell.bottomPaddingHeight + TimelineLoaderTableViewCell.extraTopPadding   // make balance
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -50,18 +52,18 @@ class TimelineLoaderTableViewCell: UITableViewCell {
         loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(loadMoreButton)
         NSLayoutConstraint.activate([
-            loadMoreButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            loadMoreButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TimelineLoaderTableViewCell.extraTopPadding),
             loadMoreButton.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: loadMoreButton.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: 8),
-            loadMoreButton.heightAnchor.constraint(equalToConstant: TimelineLoaderTableViewCell.cellHeight - 2 * 8).priority(.defaultHigh),
+            contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: TimelineLoaderTableViewCell.bottomPadding),
+            loadMoreButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
         
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(activityIndicatorView)
         NSLayoutConstraint.activate([
-            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            activityIndicatorView.centerXAnchor.constraint(equalTo: loadMoreButton.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: loadMoreButton.centerYAnchor),
         ])
         
         loadMoreButton.isHidden = true

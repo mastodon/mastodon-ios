@@ -139,7 +139,7 @@ extension APIService {
                 return APIService.Persist.persistTimeline(
                     managedObjectContext: self.backgroundManagedObjectContext,
                     domain: mastodonAuthenticationBox.domain,
-                    query: query as! TimelineQueryType,
+                    query: query,
                     response: response,
                     persistType: .likeList,
                     requestMastodonUserID: requestMastodonUserID,

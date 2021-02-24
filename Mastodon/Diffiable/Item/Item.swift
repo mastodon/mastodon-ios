@@ -30,32 +30,22 @@ protocol StatusContentWarningAttribute {
 
 extension Item {
     class StatusTimelineAttribute: Hashable, StatusContentWarningAttribute {
-        var separatorLineStyle: SeparatorLineStyle = .indent
         var isStatusTextSensitive: Bool = false
 
         public init(
-            separatorLineStyle: Item.StatusTimelineAttribute.SeparatorLineStyle = .indent,
             isStatusTextSensitive: Bool
         ) {
-            self.separatorLineStyle = separatorLineStyle
             self.isStatusTextSensitive = isStatusTextSensitive
         }
         
         static func == (lhs: Item.StatusTimelineAttribute, rhs: Item.StatusTimelineAttribute) -> Bool {
-            return lhs.separatorLineStyle == rhs.separatorLineStyle &&
-                lhs.isStatusTextSensitive == rhs.isStatusTextSensitive
+            return lhs.isStatusTextSensitive == rhs.isStatusTextSensitive
         }
 
         func hash(into hasher: inout Hasher) {
-            hasher.combine(separatorLineStyle)
             hasher.combine(isStatusTextSensitive)
         }
 
-        enum SeparatorLineStyle {
-            case indent // alignment to name label
-            case expand // alignment to table view two edges
-            case normal // alignment to readable guideline
-        }
     }
 }
 

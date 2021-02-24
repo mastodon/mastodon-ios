@@ -23,16 +23,6 @@ final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
         
         backgroundColor = .clear
         
-        let separatorLine = UIView.separatorLine
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separatorLine)
-        NSLayoutConstraint.activate([
-            separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: separatorLine.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: separatorLine.bottomAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: separatorLine))
-        ])
-        
         loadMoreButton.isHidden = false
         loadMoreButton.setImage(Asset.Arrows.arrowTriangle2Circlepath.image.withRenderingMode(.alwaysTemplate), for: .normal)
         loadMoreButton.setInsets(forContentPadding: .zero, imageTitlePadding: 4)

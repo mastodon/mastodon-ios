@@ -90,16 +90,12 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                 
                 let isLast = i == timelineIndexes.count - 1
                 switch (isLast, timelineIndex.hasMore) {
-                case (true, false):
-                    attribute.separatorLineStyle = .normal
                 case (false, true):
-                    attribute.separatorLineStyle = .expand
                     newTimelineItems.append(.homeMiddleLoader(upperTimelineIndexAnchorObjectID: timelineIndex.objectID))
                 case (true, true):
-                    attribute.separatorLineStyle = .normal
                     shouldAddBottomLoader = true
-                case (false, false):
-                    attribute.separatorLineStyle = .indent
+                default:
+                    break
                 }
             }   // end for
             
