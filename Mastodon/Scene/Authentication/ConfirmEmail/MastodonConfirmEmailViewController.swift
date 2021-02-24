@@ -108,7 +108,7 @@ extension MastodonConfirmEmailViewController {
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
         alertController.addAction(openEmailAction)
         alertController.addAction(cancelAction)
-
+        alertController.preferredAction = openEmailAction
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 
@@ -125,8 +125,9 @@ extension MastodonConfirmEmailViewController {
         let avaliableClients = clients.filter { client -> Bool in
             ThirdPartyMailer.application(application, isMailClientAvailable: client)
         }
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let alertAction = UIAlertAction(title: "Mail", style: .default) { _ in
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+
+        let alertAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.OpenEmailApp.mail, style: .default) { _ in
             UIApplication.shared.open(URL(string: "message://")!, options: [:], completionHandler: nil)
         }
         alertController.addAction(alertAction)
@@ -140,5 +141,6 @@ extension MastodonConfirmEmailViewController {
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+
     }
 }

@@ -48,11 +48,12 @@ tap the link to confirm your account.";
 
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
 
-"Scene.ConfirmEmail.DontReceiveEmail.alertTitle" = "It’s too soon to tell.";
-"Scene.ConfirmEmail.DontReceiveEmail.alertDescription" = "Give our servers another n seconds before sending another email.
+"Scene.ConfirmEmail.DontReceiveEmail.AlertTitle" = "It’s too soon to tell.";
+"Scene.ConfirmEmail.DontReceiveEmail.AlertDescription" = "Give our servers another n seconds before sending another email.
 
 Check if your email address is correct as well as your junk folder if you haven’t.";
-"Scene.ConfirmEmail.OpenEmailApp.alertTitle" = "Check your inbox.";
-"Scene.ConfirmEmail.OpenEmailApp.alertDescription" = "We just sent you another email. Check your junk folder if you haven’t.";
+"Scene.ConfirmEmail.OpenEmailApp.AlertTitle" = "Check your inbox.";
+"Scene.ConfirmEmail.OpenEmailApp.AlertDescription" = "We just sent you another email. Check your junk folder if you haven’t.";
+"Scene.ConfirmEmail.OpenEmailApp.Mail" = "Mail";
 
 
