@@ -32,7 +32,8 @@ final class PickServerViewController: UIViewController, NeedsDependency {
         let tableView = ControlContainableTableView()
         tableView.register(PickServerTitleCell.self, forCellReuseIdentifier: String(describing: PickServerTitleCell.self))
         tableView.register(PickServerCategoriesCell.self, forCellReuseIdentifier: String(describing: PickServerCategoriesCell.self))
-//        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+        tableView.register(PickServerSearchCell.self, forCellReuseIdentifier: String(describing: PickServerSearchCell.self))
+        tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -83,7 +84,20 @@ extension PickServerViewController {
             nextStepButton.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         }
         
+        viewModel.tableView = tableView
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
+        
+        viewModel.searchedServers
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                print("22")
+            } receiveValue: { [weak self] servers in
+                self?.tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
+            }
+            .store(in: &disposeBag)
+
+        
+        viewModel.fetchAllServers()
     }
 }

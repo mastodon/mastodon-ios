@@ -54,20 +54,12 @@ class PickServerCategoryView: UIView {
 
 extension PickServerCategoryView {
     private func configure() {
-//        bgShadowView.backgroundColor = nil
-//        addSubview(bgShadowView)
-//        bgShadowView.addSubview(bgView)
         addSubview(bgView)
         addSubview(titleLabel)
         
-        bgView.backgroundColor = .white
+        bgView.backgroundColor = Asset.Colors.lightWhite.color
         
         NSLayoutConstraint.activate([
-//            bgShadowView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-//            bgShadowView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-//            bgShadowView.topAnchor.constraint(equalTo: self.topAnchor),
-//            bgShadowView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
             bgView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             bgView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             bgView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -94,10 +86,10 @@ extension PickServerCategoryView {
             bgView.backgroundColor = Asset.Colors.lightBrandBlue.color
             bgView.applyShadow(color: Asset.Colors.lightBrandBlue.color, alpha: 1, x: 0, y: 0, blur: 4.0)
             if case .All = category {
-                titleLabel.textColor = .white
+                titleLabel.textColor = Asset.Colors.lightWhite.color
             }
         } else {
-            bgView.backgroundColor = .white
+            bgView.backgroundColor = Asset.Colors.lightWhite.color
             bgView.applyShadow(color: Asset.Colors.lightBrandBlue.color, alpha: 0, x: 0, y: 0, blur: 0.0)
             if case .All = category {
                 titleLabel.textColor = Asset.Colors.lightBackground.color

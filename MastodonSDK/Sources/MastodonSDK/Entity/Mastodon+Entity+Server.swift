@@ -37,6 +37,21 @@ extension Mastodon.Entity {
             case language
             case category
         }
+        
+        public init(instance: Instance) {
+            self.domain = instance.title
+            self.version = "\(instance.version)"
+            self.description = instance.description
+            self.language = instance.languages?.first ?? ""
+            self.languages = instance.languages ?? []
+            self.region = "Unknown" // TODO: how to handle properties not in an instance
+            self.categories = []
+            self.category = "Unknown"
+            self.proxiedThumbnail = instance.thumbnail
+            self.totalUsers = instance.statistics?.userCount ?? 0
+            self.lastWeekUsers = 0
+            self.approvalRequired = instance.approvalRequired ?? false
+        }
     }
     
 }
