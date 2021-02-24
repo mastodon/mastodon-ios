@@ -22,6 +22,7 @@ final class StatusView: UIView {
     static let contentWarningBlurRadius: CGFloat = 12
     
     weak var delegate: StatusViewDelegate?
+    var isStatusTextSensitive = false
     
     let headerContainerStackView = UIStackView()
     
@@ -281,7 +282,9 @@ extension StatusView {
     }
     
     func drawContentWarningImageView() {
-        guard activeTextLabel.frame != .zero, let text = activeTextLabel.text, !text.isEmpty else {
+        guard activeTextLabel.frame != .zero,
+              isStatusTextSensitive,
+              let text = activeTextLabel.text, !text.isEmpty else {
             cleanUpContentWarning()
             return
         }

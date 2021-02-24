@@ -200,14 +200,7 @@ extension HomeTimelineViewController: UITableViewDelegate {
 
         return ceil(frame.height)
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let cell = cell as? StatusTableViewCell {
-            DispatchQueue.main.async {
-                cell.statusView.drawContentWarningImageView()
-            }
-        }
-    }
+
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
@@ -227,7 +220,7 @@ extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate 
         viewModel.loadMiddleSateMachineList
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
-                guard let self = self else { return }
+                guard let _ = self else { return }
                 if let stateMachine = ids[upperTimelineIndexObjectID] {
                     guard let state = stateMachine.currentState else {
                         assertionFailure()

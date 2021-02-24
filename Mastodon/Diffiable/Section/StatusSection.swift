@@ -96,6 +96,7 @@ extension StatusSection {
         
         // set content warning
         let isStatusTextSensitive = statusContentWarningAttribute?.isStatusTextSensitive ?? (toot.reblog ?? toot).sensitive
+        cell.statusView.isStatusTextSensitive = isStatusTextSensitive
         cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
         cell.statusView.contentWarningTitle.text = (toot.reblog ?? toot).spoilerText.flatMap { spoilerText in
             guard !spoilerText.isEmpty else { return nil }
