@@ -103,7 +103,7 @@ final class StatusView: UIView {
     // do not use visual effect view due to we blur text only without background
     let contentWarningBlurContentImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .secondarySystemGroupedBackground
+        imageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         imageView.layer.masksToBounds = false
         return imageView
     }()
@@ -125,6 +125,15 @@ final class StatusView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        // update blur image when interface style changed
+        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            drawContentWarningImageView()
+        }
     }
 
 }

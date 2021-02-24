@@ -50,6 +50,7 @@ extension StatusTableViewCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
