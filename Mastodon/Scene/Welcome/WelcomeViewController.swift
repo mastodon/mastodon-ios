@@ -14,7 +14,12 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     #if DEBUG
-    let authenticationViewController = AuthenticationViewController()
+    lazy var authenticationViewController: AuthenticationViewController = {
+        let authenticationViewController = AuthenticationViewController()
+        authenticationViewController.context = context
+        authenticationViewController.coordinator = coordinator
+        return authenticationViewController
+    }()
     #endif
     
     let logoImageView: UIImageView = {
@@ -105,8 +110,6 @@ extension WelcomeViewController {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
         #if DEBUG
-        authenticationViewController.context = context
-        authenticationViewController.coordinator = coordinator
         authenticationViewController.viewModel = AuthenticationViewModel(context: context, coordinator: coordinator, isAuthenticationExist: true)
         authenticationViewController.viewModel.domain.value = "pawoo.net"
         let _ = authenticationViewController.view   // trigger view load
