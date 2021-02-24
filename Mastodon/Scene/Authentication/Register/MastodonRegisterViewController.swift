@@ -398,7 +398,7 @@ extension MastodonRegisterViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self = self else { return }
-                let alertController = UIAlertController(error, preferredStyle: .alert)
+                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.coordinator.present(

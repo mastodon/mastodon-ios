@@ -12,6 +12,16 @@ import Foundation
 internal enum L10n {
 
   internal enum Common {
+    internal enum Alerts {
+      internal enum ServerError {
+        /// Server Error
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
+      }
+      internal enum SignUpFailure {
+        /// Sign Up Failure
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
+      }
+    }
     internal enum Controls {
       internal enum Actions {
         /// Add

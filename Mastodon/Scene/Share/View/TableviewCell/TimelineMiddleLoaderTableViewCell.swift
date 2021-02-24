@@ -36,3 +36,20 @@ extension TimelineMiddleLoaderTableViewCell {
         delegate?.timelineMiddleLoaderTableViewCell(self, loadMoreButtonDidPressed: sender)
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct TimelineMiddleLoaderTableViewCell_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewPreview(width: 375) {
+            TimelineMiddleLoaderTableViewCell()
+        }
+        .previewLayout(.fixed(width: 375, height: 100))
+    }
+    
+}
+
+#endif
+

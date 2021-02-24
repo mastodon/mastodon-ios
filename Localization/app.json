@@ -1,6 +1,14 @@
 {
     "common": {
-        "alerts": {},
+        "alerts": {
+            "sign_up_failure": {
+                "title": "Sign Up Failure"
+            },
+            "server_error": {
+                "title": "Server Error"
+            }
+            
+        },
         "controls": {
             "actions": {
                 "add": "Add",
