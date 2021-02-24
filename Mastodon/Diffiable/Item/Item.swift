@@ -12,10 +12,11 @@ import MastodonSDK
 
 /// Note: update Equatable when change case
 enum Item {
-    case homeTimelineIndex(objectID: NSManagedObjectID, attribute: Attribute)
+    // timeline
+    case homeTimelineIndex(objectID: NSManagedObjectID, attribute: StatusTimelineAttribute)
 
     // normal list
-    case toot(objectID: NSManagedObjectID)
+    case toot(objectID: NSManagedObjectID, attribute: StatusTimelineAttribute)
 
     // loader
     case homeMiddleLoader(upperTimelineIndexAnchorObjectID: NSManagedObjectID)
@@ -23,16 +24,31 @@ enum Item {
     case bottomLoader
 }
 
-extension Item {
-    class Attribute: Hashable {
-        var separatorLineStyle: SeparatorLineStyle = .indent
+protocol StatusContentWarningAttribute {
+    var isStatusTextSensitive: Bool { get set }
+}
 
-        static func == (lhs: Item.Attribute, rhs: Item.Attribute) -> Bool {
-            return lhs.separatorLineStyle == rhs.separatorLineStyle
+extension Item {
+    class StatusTimelineAttribute: Hashable, StatusContentWarningAttribute {
+        var separatorLineStyle: SeparatorLineStyle = .indent
+        var isStatusTextSensitive: Bool = false
+
+        public init(
+            separatorLineStyle: Item.StatusTimelineAttribute.SeparatorLineStyle = .indent,
+            isStatusTextSensitive: Bool
+        ) {
+            self.separatorLineStyle = separatorLineStyle
+            self.isStatusTextSensitive = isStatusTextSensitive
+        }
+        
+        static func == (lhs: Item.StatusTimelineAttribute, rhs: Item.StatusTimelineAttribute) -> Bool {
+            return lhs.separatorLineStyle == rhs.separatorLineStyle &&
+                lhs.isStatusTextSensitive == rhs.isStatusTextSensitive
         }
 
         func hash(into hasher: inout Hasher) {
             hasher.combine(separatorLineStyle)
+            hasher.combine(isStatusTextSensitive)
         }
 
         enum SeparatorLineStyle {
@@ -48,7 +64,7 @@ extension Item: Equatable {
         switch (lhs, rhs) {
         case (.homeTimelineIndex(let objectIDLeft, _), .homeTimelineIndex(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
-        case (.toot(let objectIDLeft), .toot(let objectIDRight)):
+        case (.toot(let objectIDLeft, _), .toot(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
         case (.bottomLoader, .bottomLoader):
             return true
@@ -67,7 +83,7 @@ extension Item: Hashable {
         switch self {
         case .homeTimelineIndex(let objectID, _):
             hasher.combine(objectID)
-        case .toot(let objectID):
+        case .toot(let objectID, _):
             hasher.combine(objectID)
         case .publicMiddleLoader(let upper):
             hasher.combine(String(describing: Item.publicMiddleLoader.self))

@@ -25,14 +25,20 @@ internal enum Asset {
   internal enum Arrows {
     internal static let arrowTriangle2Circlepath = ImageAsset(name: "Arrows/arrow.triangle.2.circlepath")
   }
+  internal enum Asset {
+    internal static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
+  }
   internal enum Colors {
     internal enum Background {
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
+      internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
+      internal static let systemGroupedBackground = ColorAsset(name: "Colors/Background/system.grouped.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
     }
     internal enum Button {
+      internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let highlight = ColorAsset(name: "Colors/Button/highlight")
     }
     internal enum Icon {
@@ -40,7 +46,7 @@ internal enum Asset {
       internal static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
     internal enum Label {
-      internal static let black = ColorAsset(name: "Colors/Label/black")
+      internal static let highlight = ColorAsset(name: "Colors/Label/highlight")
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
@@ -60,21 +66,6 @@ internal enum Asset {
     internal static let lightSuccessGreen = ColorAsset(name: "Colors/lightSuccessGreen")
     internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
-  }
-  internal enum ToolBar {
-    internal static let bookmark = ImageAsset(name: "ToolBar/bookmark")
-    internal static let lock = ImageAsset(name: "ToolBar/lock")
-    internal static let more = ImageAsset(name: "ToolBar/more")
-    internal static let reply = ImageAsset(name: "ToolBar/reply")
-    internal static let retoot = ImageAsset(name: "ToolBar/retoot")
-    internal static let star = ImageAsset(name: "ToolBar/star")
-  }
-  internal enum TootTimeline {
-    internal static let global = ImageAsset(name: "TootTimeline/Global")
-    internal static let textlock = ImageAsset(name: "TootTimeline/Textlock")
-    internal static let email = ImageAsset(name: "TootTimeline/email")
-    internal static let lock = ImageAsset(name: "TootTimeline/lock")
-    internal static let unlock = ImageAsset(name: "TootTimeline/unlock")
   }
   internal static let welcomeLogo = ImageAsset(name: "welcome.logo")
 }

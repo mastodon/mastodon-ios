@@ -22,18 +22,18 @@ extension ActiveLabel {
     
         switch style {
         case .default:
-//            urlMaximumLength = 30
             font = .preferredFont(forTextStyle: .body)
-            textColor = .white
+            textColor = Asset.Colors.Label.primary.color
         case .timelineHeaderView:
             font = .preferredFont(forTextStyle: .footnote)
             textColor = .secondaryLabel
         }
         
         numberOfLines = 0
-        mentionColor = UIColor.yellow
-        hashtagColor = UIColor.blue
-        URLColor = UIColor.red
+        lineSpacing = 5
+        mentionColor = Asset.Colors.Label.highlight.color
+        hashtagColor = Asset.Colors.Label.highlight.color
+        URLColor = Asset.Colors.Label.highlight.color
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
     
@@ -41,16 +41,12 @@ extension ActiveLabel {
 
 extension ActiveLabel {
     func config(content: String) {
+        activeEntities.removeAll()
         if let parseResult = try? TootContent.parse(toot: content) {
-            activeEntities.removeAll()
-            numberOfLines = 0
-            font = UIFont(name: "SFProText-Regular", size: 16)
-            textColor = .white
-            URLColor = .systemRed
-            mentionColor = .systemGreen
-            hashtagColor = .systemBlue
             text = parseResult.trimmed
             activeEntities = parseResult.activeEntities
+        } else {
+            text = ""
         }
     }
 }

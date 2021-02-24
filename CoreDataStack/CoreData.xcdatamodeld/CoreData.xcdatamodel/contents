@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="vapidKey" optional="YES" attributeType="String"/>
         <attribute name="website" optional="YES" attributeType="String"/>
         <relationship name="toots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="application" inverseEntity="Toot"/>
+    </entity>
+    <entity name="Attachment" representedClassName=".Attachment" syncable="YES">
+        <attribute name="blurhash" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="descriptionString" optional="YES" attributeType="String"/>
+        <attribute name="domain" attributeType="String"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="index" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="metaData" optional="YES" attributeType="Binary"/>
+        <attribute name="previewRemoteURL" optional="YES" attributeType="String"/>
+        <attribute name="previewURL" attributeType="String"/>
+        <attribute name="remoteURL" optional="YES" attributeType="String"/>
+        <attribute name="textURL" optional="YES" attributeType="String"/>
+        <attribute name="typeRaw" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="mediaAttachments" inverseEntity="Toot"/>
     </entity>
     <entity name="Emoji" representedClassName=".Emoji" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -110,6 +127,7 @@
         <relationship name="emojis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Emoji" inverseName="toot" inverseEntity="Emoji"/>
         <relationship name="favouritedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
         <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toot" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="mediaAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="toot" inverseEntity="Attachment"/>
         <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedToot" inverseEntity="MastodonUser"/>
@@ -127,6 +145,7 @@
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="284"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="509"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="524"/>
+        <element name="Attachment" positionX="72" positionY="162" width="128" height="14"/>
     </elements>
 </model>

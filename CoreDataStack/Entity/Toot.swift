@@ -39,11 +39,13 @@ public final class Toot: NSManagedObject {
     // many-to-one relastionship
     @NSManaged public private(set) var author: MastodonUser
     @NSManaged public private(set) var reblog: Toot?
+    
+    // many-to-many relastionship
     @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
     @NSManaged public private(set) var rebloggedBy: Set<MastodonUser>?
     @NSManaged public private(set) var mutedBy: Set<MastodonUser>?
     @NSManaged public private(set) var bookmarkedBy: Set<MastodonUser>?
-    
+
     // one-to-one relastionship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
         
@@ -53,6 +55,7 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var emojis: Set<Emoji>?
     @NSManaged public private(set) var tags: Set<Tag>?
     @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
+    @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
@@ -69,6 +72,7 @@ public extension Toot {
         mentions: [Mention]?,
         emojis: [Emoji]?,
         tags: [Tag]?,
+        mediaAttachments: [Attachment]?,
         favouritedBy: MastodonUser?,
         rebloggedBy: MastodonUser?,
         mutedBy: MastodonUser?,
@@ -114,6 +118,9 @@ public extension Toot {
         }
         if let tags = tags {
             toot.mutableSetValue(forKey: #keyPath(Toot.tags)).addObjects(from: tags)
+        }
+        if let mediaAttachments = mediaAttachments {
+            toot.mutableSetValue(forKey: #keyPath(Toot.mediaAttachments)).addObjects(from: mediaAttachments)
         }
         if let favouritedBy = favouritedBy {
             toot.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).add(favouritedBy)

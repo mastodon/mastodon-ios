@@ -13,10 +13,10 @@
 "Common.Controls.Actions.SignIn" = "Sign in";
 "Common.Controls.Actions.SignUp" = "Sign up";
 "Common.Controls.Actions.TakePhoto" = "Take photo";
+"Common.Controls.Status.ContentWarning" = "content warning";
+"Common.Controls.Status.ShowPost" = "Show Post";
+"Common.Controls.Status.UserBoosted" = "%@ boosted";
 "Common.Controls.Timeline.LoadMore" = "Load More";
-
-"Button.SignUp" = "Sign Up";
-"Button.SignIn" = "Sign In";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
 "Scene.HomeTimeline.Title" = "Home";
@@ -29,7 +29,6 @@
 "Scene.Register.Input.Username.DuplicatePrompt" = "This username is taken.";
 "Scene.Register.Input.Username.Placeholder" = "username";
 "Scene.Register.Title" = "Tell us about you.";
-
 "Scene.ServerPicker.Input.Placeholder" = "Find a server or join your own...";
 "Scene.ServerPicker.Title" = "Pick a Server,
 any server.";
@@ -37,23 +36,5 @@ any server.";
 "Scene.ServerRules.Prompt" = "By continuing, you're subject to the terms of service and privacy policy for %@.";
 "Scene.ServerRules.Subtitle" = "These rules are set by the admins of %@.";
 "Scene.ServerRules.Title" = "Some ground rules.";
-
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
-
-"Scene.ConfirmEmail.Title" = "One last thing.";
-"Scene.ConfirmEmail.Subtitle" = "We just sent an email to %@,
-tap the link to confirm your account.";
-"Scene.ConfirmEmail.Button.OpenEmailApp" = "Open email app";
-
-"Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
-
-"Scene.ConfirmEmail.DontReceiveEmail.AlertTitle" = "It’s too soon to tell.";
-"Scene.ConfirmEmail.DontReceiveEmail.AlertDescription" = "Give our servers another n seconds before sending another email.
-
-Check if your email address is correct as well as your junk folder if you haven’t.";
-"Scene.ConfirmEmail.OpenEmailApp.AlertTitle" = "Check your inbox.";
-"Scene.ConfirmEmail.OpenEmailApp.AlertDescription" = "We just sent you another email. Check your junk folder if you haven’t.";
-"Scene.ConfirmEmail.OpenEmailApp.Mail" = "Mail";
-
-

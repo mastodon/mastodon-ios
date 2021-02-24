@@ -15,7 +15,7 @@ extension HomeTimelineViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate,
+        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -23,7 +23,7 @@ extension HomeTimelineViewModel {
             .share()
             .eraseToAnyPublisher()
         
-        diffableDataSource = TimelineSection.tableViewDiffableDataSource(
+        diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
@@ -73,7 +73,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             
             // that's will be the most fastest fetch because of upstream just update and no modify needs consider
             
-            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.Attribute] = [:]
+            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusTimelineAttribute] = [:]
             
             for item in oldSnapshot.itemIdentifiers {
                 guard case let .homeTimelineIndex(objectID, attribute) = item else { continue }
@@ -83,7 +83,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             var newTimelineItems: [Item] = []
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
-                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.Attribute()
+                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: timelineIndex.toot.sensitive)
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))
@@ -103,7 +103,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                 }
             }   // end for
             
-            var newSnapshot = NSDiffableDataSourceSnapshot<TimelineSection, Item>()
+            var newSnapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
             newSnapshot.appendSections([.main])
             newSnapshot.appendItems(newTimelineItems, toSection: .main)
             
@@ -142,8 +142,8 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
     private func calculateReloadSnapshotDifference<T: Hashable>(
         navigationBar: UINavigationBar,
         tableView: UITableView,
-        oldSnapshot: NSDiffableDataSourceSnapshot<TimelineSection, T>,
-        newSnapshot: NSDiffableDataSourceSnapshot<TimelineSection, T>
+        oldSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>,
+        newSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>
     ) -> Difference<T>? {
         guard oldSnapshot.numberOfItems != 0 else { return nil }
         

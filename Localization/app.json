@@ -19,6 +19,11 @@
                 "preview": "Preview",
                 "open_in_safari": "Open in Safari"
             },
+            "status": {
+                "user_boosted": "%s boosted",
+                "content_warning": "content warning",
+                "show_post": "Show Post"
+            },
             "timeline": {
                 "load_more": "Load More"
             }

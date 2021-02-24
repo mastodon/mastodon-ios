@@ -47,6 +47,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Attachment {
+    public typealias AttachmentType = Type
     public enum `Type`: RawRepresentable, Codable {
         case unknown
         case image

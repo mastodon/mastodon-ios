@@ -14,7 +14,7 @@ extension PublicTimelineViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        timelinePostTableViewCellDelegate: TimelinePostTableViewCellDelegate,
+        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -22,7 +22,7 @@ extension PublicTimelineViewModel {
             .share()
             .eraseToAnyPublisher()
 
-        diffableDataSource = TimelineSection.tableViewDiffableDataSource(
+        diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
@@ -50,11 +50,18 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
                 return indexes.firstIndex(of: toot.id).map { index in (index, toot) }
             }
             .sorted { $0.0 < $1.0 }
+        var oldSnapshotAttributeDict: [NSManagedObjectID: Item.StatusTimelineAttribute] = [:]
+        for item in self.items.value {
+            guard case let .toot(objectID, attribute) = item else { continue }
+            oldSnapshotAttributeDict[objectID] = attribute
+        }
+        
         var items = [Item]()
-        for tuple in indexTootTuples {
-            items.append(Item.toot(objectID: tuple.1.objectID))
-            if tootIDsWhichHasGap.contains(tuple.1.id) {
-                items.append(Item.publicMiddleLoader(tootID: tuple.1.id))
+        for (_, toot) in indexTootTuples {
+            let attribute = oldSnapshotAttributeDict[toot.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: toot.sensitive)
+            items.append(Item.toot(objectID: toot.objectID, attribute: attribute))
+            if tootIDsWhichHasGap.contains(toot.id) {
+                items.append(Item.publicMiddleLoader(tootID: toot.id))
             }
         }
 
