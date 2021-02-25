@@ -1,6 +1,8 @@
 #!/bin/zsh
 
 SRCROOT=`pwd`
+PODS_ROOT='Pods'
+
 echo ${SRCROOT}
 # task1 generate strings file
 cd ${SRCROOT}/Localization/StringsConvertor
@@ -12,11 +14,11 @@ cp -r ${SRCROOT}/Localization/StringsConvertor/output/  ${SRCROOT}/Mastodon/Reso
 
 # task3 swiftgen
 cd ${SRCROOT}
-
-if command -v swiftgen >/dev/null 2>&1; then 
-   swiftgen
+echo "${PODS_ROOT}/SwiftGen/bin/swiftgen"
+if [[ -f "${PODS_ROOT}/SwiftGen/bin/swiftgen" ]] then 
+   "${PODS_ROOT}/SwiftGen/bin/swiftgen"
 else
-	echo "please install swiftgen by run brew install swiftgen"
+	echo "Run 'pod install' or update your CocoaPods installation."
 fi
 
 #task4 clean temp file
