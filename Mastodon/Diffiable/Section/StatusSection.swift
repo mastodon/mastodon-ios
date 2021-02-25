@@ -94,13 +94,18 @@ extension StatusSection {
         // set text
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
         
-        // set content warning
-        let isStatusTextSensitive = statusContentWarningAttribute?.isStatusTextSensitive ?? (toot.reblog ?? toot).sensitive
+        // set status text content warning
+        let spoilerText = (toot.reblog ?? toot).spoilerText ?? ""
+        let isStatusTextSensitive = statusContentWarningAttribute?.isStatusTextSensitive ?? !spoilerText.isEmpty
+        cell.statusView.isStatusTextSensitive = isStatusTextSensitive
         cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
-        cell.statusView.contentWarningTitle.text = (toot.reblog ?? toot).spoilerText.flatMap { spoilerText in
-            guard !spoilerText.isEmpty else { return nil }
-            return L10n.Common.Controls.Status.contentWarning + ": \(spoilerText)"
-        } ?? L10n.Common.Controls.Status.contentWarning
+        cell.statusView.contentWarningTitle.text = {
+            if spoilerText.isEmpty {
+                return L10n.Common.Controls.Status.statusContentWarning
+            } else {
+                return L10n.Common.Controls.Status.statusContentWarning + ": \(spoilerText)"
+            }
+        }()
         
         // prepare media attachments
         let mediaAttachments = Array((toot.reblog ?? toot).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
@@ -127,14 +132,14 @@ extension StatusSection {
         }()
         if mosiacImageViewModel.metas.count == 1 {
             let meta = mosiacImageViewModel.metas[0]
-            let imageView = cell.statusView.mosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+            let imageView = cell.statusView.statusMosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
             imageView.af.setImage(
                 withURL: meta.url,
                 placeholderImage: UIImage.placeholder(color: .systemFill),
                 imageTransition: .crossDissolve(0.2)
             )
         } else {
-            let imageViews = cell.statusView.mosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+            let imageViews = cell.statusView.statusMosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
             for (i, imageView) in imageViews.enumerated() {
                 let meta = mosiacImageViewModel.metas[i]
                 imageView.af.setImage(
@@ -144,7 +149,10 @@ extension StatusSection {
                 )
             }
         }
-        cell.statusView.mosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
+        cell.statusView.statusMosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
+        let isStatusSensitive = statusContentWarningAttribute?.isStatusSensitive ?? (toot.reblog ?? toot).sensitive
+        cell.statusView.statusMosaicImageView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.statusMosaicImageView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
 
         // toolbar
         let replyCountTitle: String = {
