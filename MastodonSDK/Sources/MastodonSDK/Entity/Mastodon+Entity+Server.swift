@@ -39,7 +39,7 @@ extension Mastodon.Entity {
         }
         
         public init(instance: Instance) {
-            self.domain = instance.title
+            self.domain = instance.uri
             self.version = instance.version ?? ""
             self.description = instance.shortDescription ?? instance.description
             self.language = instance.languages?.first ?? ""

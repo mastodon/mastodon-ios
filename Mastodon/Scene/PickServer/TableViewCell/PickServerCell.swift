@@ -220,6 +220,15 @@ extension PickServerCell {
         let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.required)
         expandConstraints.append(expandButtonTopConstraintInExpand)
         
+//        domainLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+//        domainLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+//        descriptionLabel.setContentHuggingPriority(.required - 2, for: .vertical)
+//        descriptionLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+        domainLabel.setContentHuggingPriority(.required, for: .vertical)
+        domainLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        descriptionLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        
         NSLayoutConstraint.activate([
             // Set background view
             bgView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
