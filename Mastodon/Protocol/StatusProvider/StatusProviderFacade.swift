@@ -85,7 +85,7 @@ extension StatusProviderFacade {
                 os_log("%{public}s[%{public}ld], %{public}s: [Like] update local toot like status to: %s", ((#file as NSString).lastPathComponent), #line, #function, favoriteKind == .create ? "like" : "unlike")
             } receiveCompletion: { completion in
                 switch completion {
-                case .failure(let error):
+                case .failure:
                     // TODO: handle error
                     break
                 case .finished:

@@ -13,7 +13,7 @@ import GameplayKit
 import os.log
 import UIKit
 
-final class PublicTimelineViewController: UIViewController, NeedsDependency, StatusTableViewCellDelegate {
+final class PublicTimelineViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -42,6 +42,7 @@ extension PublicTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Public"
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         tableView.refreshControl = refreshControl
@@ -202,3 +203,6 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
         }
     }
 }
+
+// MARK: - StatusTableViewCellDelegate
+extension PublicTimelineViewController: StatusTableViewCellDelegate { }

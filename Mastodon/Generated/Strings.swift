@@ -12,6 +12,16 @@ import Foundation
 internal enum L10n {
 
   internal enum Common {
+    internal enum Alerts {
+      internal enum ServerError {
+        /// Server Error
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
+      }
+      internal enum SignUpFailure {
+        /// Sign Up Failure
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
+      }
+    }
     internal enum Controls {
       internal enum Actions {
         /// Add
@@ -46,10 +56,12 @@ internal enum L10n {
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
       }
       internal enum Status {
-        /// content warning
-        internal static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning")
+        /// Tap to reveal that may be sensitive
+        internal static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning")
         /// Show Post
         internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
+        /// content warning
+        internal static let statusContentWarning = L10n.tr("Localizable", "Common.Controls.Status.StatusContentWarning")
         /// %@ boosted
         internal static func userBoosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))

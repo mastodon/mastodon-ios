@@ -9,26 +9,34 @@ import UIKit
 // https://nshipster.com/swift-foundation-error-protocols/
 extension UIAlertController {
     convenience init(
-        _ error: Error,
+        for error: Error,
+        title: String?,
         preferredStyle: UIAlertController.Style
     ) {
-        let title: String
+        let _title: String
         let message: String?
         if let error = error as? LocalizedError {
-            title = error.errorDescription ?? "Unknown Error"
-            message = [
+            var messages: [String?] = []
+            if let title = title {
+                _title = title
+                messages.append(error.errorDescription)
+            } else {
+                _title = error.errorDescription ?? "Error"
+            }
+            messages.append(contentsOf: [
                 error.failureReason,
                 error.recoverySuggestion
-            ]
-            .compactMap { $0 }
-            .joined(separator: " ")
+            ])
+            message = messages
+                .compactMap { $0 }
+                .joined(separator: " ")
         } else {
-            title = "Internal Error"
+            _title = "Internal Error"
             message = error.localizedDescription
         }
         
         self.init(
-            title: title,
+            title: _title,
             message: message,
             preferredStyle: preferredStyle
         )

@@ -23,6 +23,13 @@ extension LoadMoreConfigurableTableViewContainer {
     func handleScrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView === loadMoreConfigurableTableView else { return }
 
+        // check if current scroll position is the bottom of table
+        let contentOffsetY = loadMoreConfigurableTableView.contentOffset.y
+        let bottomVisiblePageContentOffsetY = loadMoreConfigurableTableView.contentSize.height - (1.5 * loadMoreConfigurableTableView.visibleSize.height)
+        guard contentOffsetY > bottomVisiblePageContentOffsetY else {
+            return
+        }
+        
         let cells = loadMoreConfigurableTableView.visibleCells.compactMap { $0 as? BottomLoaderTableViewCell }
         guard let loaderTableViewCell = cells.first else { return }
         

@@ -23,16 +23,6 @@ final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
         
         backgroundColor = .clear
         
-        let separatorLine = UIView.separatorLine
-        separatorLine.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(separatorLine)
-        NSLayoutConstraint.activate([
-            separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: separatorLine.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: separatorLine.bottomAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: separatorLine))
-        ])
-        
         loadMoreButton.isHidden = false
         loadMoreButton.setImage(Asset.Arrows.arrowTriangle2Circlepath.image.withRenderingMode(.alwaysTemplate), for: .normal)
         loadMoreButton.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
@@ -46,3 +36,20 @@ extension TimelineMiddleLoaderTableViewCell {
         delegate?.timelineMiddleLoaderTableViewCell(self, loadMoreButtonDidPressed: sender)
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct TimelineMiddleLoaderTableViewCell_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewPreview(width: 375) {
+            TimelineMiddleLoaderTableViewCell()
+        }
+        .previewLayout(.fixed(width: 375, height: 100))
+    }
+    
+}
+
+#endif
+
