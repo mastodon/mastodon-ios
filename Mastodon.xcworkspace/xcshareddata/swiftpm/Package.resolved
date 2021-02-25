@@ -81,6 +81,15 @@
           "revision": "2b6054efa051565954e1d2b9da831680026cd768",
           "version": "5.0.0"
         }
+      },
+      {
+        "package": "ThirdPartyMailer",
+        "repositoryURL": "https://github.com/vtourraine/ThirdPartyMailer.git",
+        "state": {
+          "branch": null,
+          "revision": "923c60ee7588da47db8cfc4e0f5b96e5e605ef84",
+          "version": "1.7.1"
+        }
       }
     ]
   },

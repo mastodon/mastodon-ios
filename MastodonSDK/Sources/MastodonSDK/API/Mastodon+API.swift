@@ -81,6 +81,10 @@ extension Mastodon.API {
     
     static let joinMastodonEndpointURL = URL(string: "https://api.joinmastodon.org/")!
     
+    public static func resendEmailURL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/auth/confirmation/new")!
+    }
+    
 }
 
 extension Mastodon.API {
