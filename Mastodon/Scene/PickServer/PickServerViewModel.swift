@@ -112,7 +112,7 @@ class PickServerViewModel: NSObject {
                 return Just(Result.success(searchedServersFromAPI)).eraseToAnyPublisher()
             }
             // 2. No server found in the recorded list, check if searchText is a valid mastodon server domain
-            if let toSearchText = searchText, !toSearchText.isEmpty {
+            if let toSearchText = searchText, !toSearchText.isEmpty, let _ = URL(string: "https://\(toSearchText)") {
                 return self.context.apiService.instance(domain: toSearchText)
                     .map { return Result.success([Mastodon.Entity.Server(instance: $0.value)]) }
                     .catch({ error -> Just<Result<[Mastodon.Entity.Server], Error>> in
