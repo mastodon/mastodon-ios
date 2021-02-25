@@ -83,23 +83,24 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             var newTimelineItems: [Item] = []
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
-                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: timelineIndex.toot.sensitive)
+                let toot = timelineIndex.toot.reblog ?? timelineIndex.toot
+                let isStatusTextSensitive: Bool = {
+                    guard let spoilerText = toot.spoilerText, !spoilerText.isEmpty else { return false }
+                    return true
+                }()
+                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: toot.sensitive)
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))
                 
                 let isLast = i == timelineIndexes.count - 1
                 switch (isLast, timelineIndex.hasMore) {
-                case (true, false):
-                    attribute.separatorLineStyle = .normal
                 case (false, true):
-                    attribute.separatorLineStyle = .expand
                     newTimelineItems.append(.homeMiddleLoader(upperTimelineIndexAnchorObjectID: timelineIndex.objectID))
                 case (true, true):
-                    attribute.separatorLineStyle = .normal
                     shouldAddBottomLoader = true
-                case (false, false):
-                    attribute.separatorLineStyle = .indent
+                default:
+                    break
                 }
             }   // end for
             

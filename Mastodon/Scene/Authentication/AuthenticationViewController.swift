@@ -193,7 +193,7 @@ extension AuthenticationViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self = self else { return }
-                let alertController = UIAlertController(error, preferredStyle: .alert)
+                let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.coordinator.present(

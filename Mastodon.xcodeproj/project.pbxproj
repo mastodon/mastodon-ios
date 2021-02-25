@@ -145,7 +145,7 @@
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
-		DB9D6C0E25E4F9780051B173 /* MosaicImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C0D25E4F9780051B173 /* MosaicImageView.swift */; };
+		DB9D6C0E25E4F9780051B173 /* MosaicImageViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C0D25E4F9780051B173 /* MosaicImageViewContainer.swift */; };
 		DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */; };
 		DB9D6C2E25E504AC0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2D25E504AC0051B173 /* Attachment.swift */; };
 		DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C3725E508BE0051B173 /* Attachment.swift */; };
@@ -353,7 +353,7 @@
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		DB9D6C0D25E4F9780051B173 /* MosaicImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageView.swift; sourceTree = "<group>"; };
+		DB9D6C0D25E4F9780051B173 /* MosaicImageViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageViewContainer.swift; sourceTree = "<group>"; };
 		DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageViewModel.swift; sourceTree = "<group>"; };
 		DB9D6C2D25E504AC0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DB9D6C3725E508BE0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
@@ -989,7 +989,7 @@
 		DB9D6C1325E4F97A0051B173 /* Container */ = {
 			isa = PBXGroup;
 			children = (
-				DB9D6C0D25E4F9780051B173 /* MosaicImageView.swift */,
+				DB9D6C0D25E4F9780051B173 /* MosaicImageViewContainer.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -1432,7 +1432,7 @@
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
-				DB9D6C0E25E4F9780051B173 /* MosaicImageView.swift in Sources */,
+				DB9D6C0E25E4F9780051B173 /* MosaicImageViewContainer.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,

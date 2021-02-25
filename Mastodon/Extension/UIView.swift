@@ -20,10 +20,6 @@ extension UIView {
         return 1.0 / view.traitCollection.displayScale
     }
     
-    static var floatyButtonBottomMargin: CGFloat {
-        return 16
-    }
-    
 }
 
 // MARK: - Convinience view appearance modification method
