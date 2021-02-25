@@ -11,7 +11,7 @@ import Combine
 class TimelineLoaderTableViewCell: UITableViewCell {
     
     static let cellHeight: CGFloat = 44 + TimelineLoaderTableViewCell.extraTopPadding + TimelineLoaderTableViewCell.bottomPadding
-    static let extraTopPadding: CGFloat = 3     // the status cell already has 10pt bottom padding
+    static let extraTopPadding: CGFloat = 0     // the status cell already has 10pt bottom padding
     static let bottomPadding: CGFloat = StatusTableViewCell.bottomPaddingHeight + TimelineLoaderTableViewCell.extraTopPadding   // make balance
     
     var disposeBag = Set<AnyCancellable>()

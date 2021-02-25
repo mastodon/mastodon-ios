@@ -42,6 +42,7 @@ extension PublicTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Public"
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         tableView.refreshControl = refreshControl
