@@ -50,6 +50,8 @@ class PickServerSearchCell: UITableViewCell {
                                attributes: [.font: UIFont.preferredFont(forTextStyle: .headline),
                                             .foregroundColor: Asset.Colors.lightSecondaryText.color.withAlphaComponent(0.6)])
         textField.clearButtonMode = .whileEditing
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
         return textField
     }()
     

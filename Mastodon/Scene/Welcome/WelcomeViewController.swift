@@ -60,6 +60,10 @@ extension WelcomeViewController {
         
         overrideUserInterfaceStyle = .light
         view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .clear
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([

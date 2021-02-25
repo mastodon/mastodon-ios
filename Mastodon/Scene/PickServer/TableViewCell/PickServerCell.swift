@@ -10,7 +10,7 @@ import MastodonSDK
 import Kingfisher
 
 protocol PickServerCellDelegate: class {
-    func pickServerCell(modeChange updates: (() -> Void))
+    func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void))
 }
 
 class PickServerCell: UITableViewCell {
@@ -40,6 +40,8 @@ class PickServerCell: UITableViewCell {
     
     private var checkbox: UIImageView = {
         let imageView = UIImageView()
+        imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
+        imageView.tintColor = Asset.Colors.lightSecondaryText.color
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -80,7 +82,7 @@ class PickServerCell: UITableViewCell {
     }()
     
     private var expandButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .selected)
         button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
@@ -238,6 +240,7 @@ extension PickServerCell {
             checkbox.heightAnchor.constraint(equalToConstant: 22),
             bgView.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
             checkbox.leadingAnchor.constraint(equalTo: domainLabel.trailingAnchor, constant: 16),
+            checkbox.centerYAnchor.constraint(equalTo: domainLabel.centerYAnchor),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
             descriptionLabel.topAnchor.constraint(equalTo: domainLabel.firstBaselineAnchor, constant: 8),
@@ -284,20 +287,31 @@ extension PickServerCell {
         switch mode {
         case .collapse:
             expandBox.isHidden = true
+            expandButton.isSelected = false
             NSLayoutConstraint.deactivate(expandConstraints)
             NSLayoutConstraint.activate(collapseConstraints)
         case .expand:
             expandBox.isHidden = false
+            expandButton.isSelected = true
             NSLayoutConstraint.activate(expandConstraints)
             NSLayoutConstraint.deactivate(collapseConstraints)
         }
     }
     
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
+        } else {
+            checkbox.image = UIImage(systemName: "circle")
+        }
+    }
+    
     @objc
     private func expandButtonDidClicked(_ sender: UIButton) {
-        delegate?.pickServerCell(modeChange: {
-            let newMode: Mode = mode == .collapse ? .expand : .collapse
-            self.mode = newMode
+        let newMode: Mode = mode == .collapse ? .expand : .collapse
+        delegate?.pickServerCell(modeChange: server!, newMode: newMode, updates: { [weak self] in
+            self?.mode = newMode
         })
     }
 }
@@ -316,7 +330,17 @@ extension PickServerCell {
             .transition(.fade(1))
         ])
         langValueLabel.text = serverInfo.language.uppercased()
-        usersValueLabel.text = "\(serverInfo.totalUsers)"
+        usersValueLabel.text = parseUsersCount(serverInfo.totalUsers)
         categoryValueLabel.text = serverInfo.category.uppercased()
+    }
+    
+    private func parseUsersCount(_ usersCount: Int) -> String {
+        switch usersCount {
+        case 0..<1000:
+            return "\(usersCount)"
+        default:
+            let usersCountInThousand = Float(usersCount) / 1000.0
+            return String(format: "%.1fK", usersCountInThousand)
+        }
     }
 }

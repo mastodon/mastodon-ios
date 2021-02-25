@@ -7,6 +7,8 @@
 
 import UIKit
 import Combine
+import OSLog
+import MastodonSDK
 
 final class PickServerViewController: UIViewController, NeedsDependency {
     
@@ -17,17 +19,6 @@ final class PickServerViewController: UIViewController, NeedsDependency {
     
     var viewModel: PickServerViewModel!
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 34)
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Scene.ServerPicker.title
-        label.adjustsFontForContentSizeCategory = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        return label
-    }()
-    
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(PickServerTitleCell.self, forCellReuseIdentifier: String(describing: PickServerTitleCell.self))
@@ -37,7 +28,7 @@ final class PickServerViewController: UIViewController, NeedsDependency {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        
+        tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -83,21 +74,185 @@ extension PickServerViewController {
         case .SignUp:
             nextStepButton.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         }
+        nextStepButton.addTarget(self, action: #selector(nextStepButtonDidClicked(_:)), for: .touchUpInside)
         
         viewModel.tableView = tableView
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
         
-        viewModel.searchedServers
+        viewModel
+            .searchedServers
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                print("22")
+            .sink { _ in
+                
             } receiveValue: { [weak self] servers in
                 self?.tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
+                if let selectedServer = self?.viewModel.selectedServer.value, servers.contains(selectedServer) {
+                    // Previously selected server is still in the list, do nothing
+                } else {
+                    // Previously selected server is not in the updated list, reset the selectedServer's value
+                    self?.viewModel.selectedServer.send(nil)
+                }
             }
             .store(in: &disposeBag)
-
+        
+        viewModel
+            .selectedServer
+            .map {
+                $0 != nil
+            }
+            .assign(to: \.isEnabled, on: nextStepButton)
+            .store(in: &disposeBag)
+        
+        viewModel.error
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                let alertController = UIAlertController(error, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.coordinator.present(
+                    scene: .alertController(alertController: alertController),
+                    from: nil,
+                    transition: .alertController(animated: true, completion: nil)
+                )
+            }
+            .store(in: &disposeBag)
+        
+        viewModel
+            .authenticated
+            .receive(on: DispatchQueue.main)
+            .flatMap { [weak self] (domain, user) -> AnyPublisher<Result<Bool, Error>, Never> in
+                guard let self = self else { return Just(.success(false)).eraseToAnyPublisher() }
+                return self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
+            }
+            .sink { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                case .success(let isActived):
+                    assert(isActived)
+                    self.coordinator.setup()
+                }
+            }
+            .store(in: &disposeBag)
+        
         
         viewModel.fetchAllServers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    @objc
+    private func nextStepButtonDidClicked(_ sender: UIButton) {
+        switch viewModel.mode {
+        case .SignIn:
+            doSignIn()
+        case .SignUp:
+            doSignUp()
+        }
+    }
+    
+    private func doSignIn() {
+        guard let server = viewModel.selectedServer.value else { return }
+        context.apiService.createApplication(domain: server.domain)
+            .tryMap { response -> PickServerViewModel.AuthenticateInfo in
+                let application = response.value
+                guard let info = PickServerViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
+                    throw APIService.APIError.explicit(.badResponse)
+                }
+                return info
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+//                self.viewModel.isAuthenticating.value = false
+                
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign in fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    self.viewModel.error.send(error)
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] info in
+                guard let self = self else { return }
+                let mastodonPinBasedAuthenticationViewModel = MastodonPinBasedAuthenticationViewModel(authenticateURL: info.authorizeURL)
+                self.viewModel.authenticate(
+                    info: info,
+                    pinCodePublisher: mastodonPinBasedAuthenticationViewModel.pinCodePublisher
+                )
+                self.viewModel.mastodonPinBasedAuthenticationViewController = self.coordinator.present(
+                    scene: .mastodonPinBasedAuthentication(viewModel: mastodonPinBasedAuthenticationViewModel),
+                    from: nil,
+                    transition: .modal(animated: true, completion: nil)
+                )
+            }
+            .store(in: &disposeBag)
+    }
+    
+    private func doSignUp() {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let server = viewModel.selectedServer.value else { return }
+//        viewModel.isRegistering.value = true
+        
+        context.apiService.instance(domain: server.domain)
+            .compactMap { [weak self] response -> AnyPublisher<PickServerViewModel.SignUpResponseFirst, Error>? in
+                guard let self = self else { return nil }
+                guard response.value.registrations != false else {
+                    return Fail(error: AuthenticationViewModel.AuthenticationError.registrationClosed).eraseToAnyPublisher()
+                }
+                return self.context.apiService.createApplication(domain: server.domain)
+                    .map { PickServerViewModel.SignUpResponseFirst(instance: response, application: $0) }
+                    .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .tryMap { response -> PickServerViewModel.SignUpResponseSecond in
+                let application = response.application.value
+                guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
+                    throw APIService.APIError.explicit(.badResponse)
+                }
+                return PickServerViewModel.SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
+            }
+            .compactMap { [weak self] response -> AnyPublisher<PickServerViewModel.SignUpResponseThird, Error>? in
+                guard let self = self else { return nil }
+                let instance = response.instance
+                let authenticateInfo = response.authenticateInfo
+                return self.context.apiService.applicationAccessToken(
+                    domain: server.domain,
+                    clientID: authenticateInfo.clientID,
+                    clientSecret: authenticateInfo.clientSecret
+                )
+                .map { PickServerViewModel.SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
+                .eraseToAnyPublisher()
+            }
+            .switchToLatest()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+//                self.viewModel.isRegistering.value = false
+                
+                switch completion {
+                case .failure(let error):
+                    self.viewModel.error.send(error)
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                let mastodonRegisterViewModel = MastodonRegisterViewModel(
+                    domain: server.domain,
+                    authenticateInfo: response.authenticateInfo,
+                    instance: response.instance.value,
+                    applicationToken: response.applicationToken.value
+                )
+                self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: self, transition: .show)
+            }
+            .store(in: &disposeBag)
     }
 }
