@@ -176,7 +176,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightDisabled.color), for: .disabled)
         button.isEnabled = false
-        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 8

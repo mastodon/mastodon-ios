@@ -40,7 +40,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
-        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 8
