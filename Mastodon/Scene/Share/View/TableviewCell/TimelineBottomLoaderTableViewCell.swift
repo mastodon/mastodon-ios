@@ -17,3 +17,20 @@ final class TimelineBottomLoaderTableViewCell: TimelineLoaderTableViewCell {
         activityIndicatorView.startAnimating()
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct TimelineBottomLoaderTableViewCell_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewPreview(width: 375) {
+            TimelineBottomLoaderTableViewCell()
+        }
+        .previewLayout(.fixed(width: 375, height: 100))
+    }
+    
+}
+
+#endif
+

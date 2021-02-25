@@ -112,7 +112,7 @@ extension MainTabBarController {
                 case .implicit:
                     break
                 case .explicit:
-                    let alertController = UIAlertController(error, preferredStyle: .alert)
+                    let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alertController.addAction(okAction)
                     coordinator.present(

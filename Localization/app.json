@@ -1,6 +1,14 @@
 {
     "common": {
-        "alerts": {},
+        "alerts": {
+            "sign_up_failure": {
+                "title": "Sign Up Failure"
+            },
+            "server_error": {
+                "title": "Server Error"
+            }
+            
+        },
         "controls": {
             "actions": {
                 "add": "Add",
@@ -21,8 +29,9 @@
             },
             "status": {
                 "user_boosted": "%s boosted",
-                "content_warning": "content warning",
-                "show_post": "Show Post"
+                "show_post": "Show Post",
+                "status_content_warning": "content warning",
+                "media_content_warning": "Tap to reveal that may be sensitive"
             },
             "timeline": {
                 "load_more": "Load More"

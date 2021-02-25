@@ -13,14 +13,14 @@ extension Mastodon.Entity {
     /// - Since: 2.8.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/2/4
+    ///   2021/2/24
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/poll/)
     public struct Poll: Codable {
         public typealias ID = String
         
         public let id: ID
-        public let expiresAt: Date
+        public let expiresAt: Date?     // if nil the poll does not end
         public let expired: Bool
         public let multiple: Bool
         public let votesCount: Int
