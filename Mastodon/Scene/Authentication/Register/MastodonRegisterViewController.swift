@@ -11,7 +11,7 @@ import os.log
 import UIKit
 import UITextField_Shake
 
-final class MastodonRegisterViewController: UIViewController, NeedsDependency {
+final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -176,7 +176,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency {
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightDisabled.color), for: .disabled)
         button.isEnabled = false
-        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 8
@@ -196,8 +196,8 @@ extension MastodonRegisterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        self.setupOnboardingAppearance()
+        
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
         passwordCheckLabel.attributedText = viewModel.attributeStringForPassword()
@@ -451,7 +451,7 @@ extension MastodonRegisterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
@@ -567,17 +567,17 @@ extension MastodonRegisterViewController {
             }
         } receiveValue: { [weak self] response in
             guard let self = self else { return }
-            _ = response.value
-            // TODO:
-            let alertController = UIAlertController(title: "Success", message: "Regsiter request sent. Please check your email.\n(Auto sign in not implement yet.)", preferredStyle: .alert)
+            let userToken = response.value
+            
+            let alertController = UIAlertController(title: L10n.Scene.Register.success, message: L10n.Scene.Register.checkEmail, preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                self.navigationController?.popViewController(animated: true)
+                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
             }
             alertController.addAction(okAction)
             self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
         }
         .store(in: &disposeBag)
     }
-    
 }

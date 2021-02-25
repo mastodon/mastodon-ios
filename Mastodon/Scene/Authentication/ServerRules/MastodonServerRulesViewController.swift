@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 
-final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
+final class MastodonServerRulesViewController: UIViewController, NeedsDependency ,OnboardingViewControllerAppearance{
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -78,8 +78,7 @@ extension MastodonServerRulesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        self.setupOnboardingAppearance()
         
         bottonContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottonContainerView)
@@ -144,7 +143,7 @@ extension MastodonServerRulesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
 }

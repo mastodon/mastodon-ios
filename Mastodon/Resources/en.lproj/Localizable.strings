@@ -1,6 +1,7 @@
 "Common.Alerts.ServerError.Title" = "Server Error";
 "Common.Alerts.SignUpFailure.Title" = "Sign Up Failure";
 "Common.Controls.Actions.Add" = "Add";
+"Common.Controls.Actions.Back" = "Back";
 "Common.Controls.Actions.Cancel" = "Cancel";
 "Common.Controls.Actions.Confirm" = "Confirm";
 "Common.Controls.Actions.Continue" = "Continue";
@@ -22,8 +23,21 @@
 "Common.Controls.Timeline.LoadMore" = "Load More";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
+"Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
+"Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
+"Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
+"Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Resend email";
+"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Check your email";
+"Scene.ConfirmEmail.OpenEmailApp.Description" = "We just sent you an email. Check your junk folder if you haven’t.";
+"Scene.ConfirmEmail.OpenEmailApp.Mail" = "Mail";
+"Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "Open Email Client";
+"Scene.ConfirmEmail.OpenEmailApp.Title" = "Check your inbox.";
+"Scene.ConfirmEmail.Subtitle" = "We just sent an email to %@,
+tap the link to confirm your account.";
+"Scene.ConfirmEmail.Title" = "One last thing.";
 "Scene.HomeTimeline.Title" = "Home";
 "Scene.PublicTimeline.Title" = "Public";
+"Scene.Register.CheckEmail" = "Regsiter request sent. Please check your email.";
 "Scene.Register.Input.DisplayName.Placeholder" = "display name";
 "Scene.Register.Input.Email.Placeholder" = "email";
 "Scene.Register.Input.Password.Placeholder" = "password";
@@ -31,6 +45,7 @@
 "Scene.Register.Input.Password.PromptEightCharacters" = "Eight characters";
 "Scene.Register.Input.Username.DuplicatePrompt" = "This username is taken.";
 "Scene.Register.Input.Username.Placeholder" = "username";
+"Scene.Register.Success" = "Success";
 "Scene.Register.Title" = "Tell us about you.";
 "Scene.ServerPicker.Button.Category.All" = "All";
 "Scene.ServerPicker.Button.Seeless" = "See Less";
