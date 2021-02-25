@@ -60,13 +60,6 @@ extension MastodonResendEmailViewController {
 }
 
 extension MastodonResendEmailViewController {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        let scriptString = "document.getElementById('user_email').value = '\(self.viewModel.email)';"
-        webView.evaluateJavaScript(scriptString)
-    }
-}
-
-extension MastodonResendEmailViewController {
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }

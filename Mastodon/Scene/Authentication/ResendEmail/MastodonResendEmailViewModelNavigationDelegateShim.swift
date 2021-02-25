@@ -27,7 +27,11 @@ final class MastodonResendEmailViewModelNavigationDelegateShim: NSObject {
 extension MastodonResendEmailViewModelNavigationDelegateShim: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        
+        guard let email = self.viewModel?.email else {
+            return
+        }
+        let scriptString = "document.getElementById('user_email').value = '\(email)';"
+        webView.evaluateJavaScript(scriptString)
     }
     
 }
