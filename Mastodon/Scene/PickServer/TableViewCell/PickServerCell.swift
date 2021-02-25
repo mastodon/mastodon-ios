@@ -324,7 +324,7 @@ extension PickServerCell {
         descriptionLabel.text = serverInfo.description
         let processor =  RoundCornerImageProcessor(cornerRadius: 3)
         thumbImageView.kf.indicatorType = .activity
-        thumbImageView.kf.setImage(with: URL(string: serverInfo.proxiedThumbnail ?? "")!, placeholder: UIImage.placeholder(color: .yellow), options: [
+        thumbImageView.kf.setImage(with: URL(string: serverInfo.proxiedThumbnail ?? "")!, placeholder: UIImage.placeholder(color: Asset.Colors.lightBackground.color), options: [
             .processor(processor),
             .scaleFactor(UIScreen.main.scale),
             .transition(.fade(1))

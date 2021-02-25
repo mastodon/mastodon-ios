@@ -92,7 +92,7 @@ extension PickServerCategoryView {
             bgView.backgroundColor = Asset.Colors.lightWhite.color
             bgView.applyShadow(color: Asset.Colors.lightBrandBlue.color, alpha: 0, x: 0, y: 0, blur: 0.0)
             if case .All = category {
-                titleLabel.textColor = Asset.Colors.lightBackground.color
+                titleLabel.textColor = Asset.Colors.lightBrandBlue.color
             }
         }
     }

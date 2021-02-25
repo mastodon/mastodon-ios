@@ -13,10 +13,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    #if DEBUG
-    let authenticationViewController = AuthenticationViewController()
-    #endif
-    
     let logoImageView: UIImageView = {
         let imageView = UIImageView(image: Asset.welcomeLogo.image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -99,27 +95,6 @@ extension WelcomeViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
-    }
-    
-}
-
-extension WelcomeViewController {
-
-    @objc private func signInButtonPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
-        #if DEBUG
-        authenticationViewController.context = context
-        authenticationViewController.coordinator = coordinator
-        authenticationViewController.viewModel = AuthenticationViewModel(context: context, coordinator: coordinator, isAuthenticationExist: true)
-        authenticationViewController.viewModel.domain.value = "pawoo.net"
-        let _ = authenticationViewController.view   // trigger view load
-        authenticationViewController.signInButton.sendActions(for: .touchUpInside)
-        #endif
-    }
-    
-    @objc private func signUpButtonPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }

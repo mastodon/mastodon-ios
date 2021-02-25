@@ -36,7 +36,7 @@ final class PickServerViewController: UIViewController, NeedsDependency {
     
     let nextStepButton: PrimaryActionButton = {
         let button = PrimaryActionButton(type: .system)
-        button.setTitle(L10n.Button.signUp, for: .normal)
+        button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
