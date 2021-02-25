@@ -57,6 +57,8 @@
 		2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76319E25C1521200929FB9 /* StatusSection.swift */; };
 		2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7631A725C1535600929FB9 /* StatusTableViewCell.swift */; };
 		2D7631B325C159F700929FB9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7631B225C159F700929FB9 /* Item.swift */; };
+		2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */; };
+		2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */; };
 		2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0125C7E4F2004F19B8 /* Mention.swift */; };
 		2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0725C7E9A8004F19B8 /* Tag.swift */; };
 		2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0D25C7E9C9004F19B8 /* History.swift */; };
@@ -251,6 +253,8 @@
 		2D76319E25C1521200929FB9 /* StatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSection.swift; sourceTree = "<group>"; };
 		2D7631A725C1535600929FB9 /* StatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewCell.swift; sourceTree = "<group>"; };
 		2D7631B225C159F700929FB9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerAppearance.swift; sourceTree = "<group>"; };
+		2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewModelNavigationDelegateShim.swift; sourceTree = "<group>"; };
 		2D927F0125C7E4F2004F19B8 /* Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mention.swift; sourceTree = "<group>"; };
 		2D927F0725C7E9A8004F19B8 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		2D927F0D25C7E9C9004F19B8 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -455,6 +459,7 @@
 			children = (
 				2D364F7125E66D7500204FDC /* MastodonResendEmailViewController.swift */,
 				2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */,
+				2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */,
 			);
 			path = ResendEmail;
 			sourceTree = "<group>";
@@ -548,6 +553,7 @@
 				2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */,
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
 				2D5A3D3725CF8D9F002347D6 /* ScrollViewContainer.swift */,
+				2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1386,6 +1392,7 @@
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */,
+				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
@@ -1393,6 +1400,7 @@
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
 				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
+				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */,

@@ -6,11 +6,12 @@
 //
 
 import Combine
+import MastodonSDK
+import os.log
 import ThirdPartyMailer
 import UIKit
-import MastodonSDK
 
-final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency {
+final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -39,7 +40,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 8
@@ -63,17 +64,11 @@ extension MastodonConfirmEmailViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
-    override func viewDidLoad() {
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
-        
-        // set navigationBar transparent
-        let barAppearance =  UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
-        navigationController?.navigationBar.standardAppearance = barAppearance
-        navigationController?.navigationBar.compactAppearance = barAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
 
+    override func viewDidLoad() {
+
+        self.setupOnboardingAppearance()
+        
         // resizedView
         let resizedView = UIView()
         resizedView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,12 +98,31 @@ extension MastodonConfirmEmailViewController {
         NSLayoutConstraint.activate([
             self.openEmailButton.heightAnchor.constraint(equalToConstant: 46),
         ])
+
+        self.viewModel.timestampUpdatePublisher
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                AuthenticationViewModel.verifyAndSaveAuthentication(context: self.context, info: self.viewModel.authenticateInfo, userToken: self.viewModel.userToken)
+                    .receive(on: DispatchQueue.main)
+                    .sink { completion in
+                        switch completion {
+                        case .failure(let error):
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: swap user access token swap fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                        case .finished:
+                            break
+                        }
+                    } receiveValue: { _ in
+                        self.coordinator.setup()
+                    }
+                    .store(in: &self.disposeBag)
+            }
+            .store(in: &self.disposeBag)
     }
 }
 
 extension MastodonConfirmEmailViewController {
     @objc private func openEmailButtonPressed(_ sender: UIButton) {
-        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.alertTitle, message: L10n.Scene.ConfirmEmail.OpenEmailApp.alertDescription, preferredStyle: .alert)
+        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.title, message: L10n.Scene.ConfirmEmail.OpenEmailApp.description, preferredStyle: .alert)
         let openEmailAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.Button.openEmailApp, style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.showEmailAppAlert()
@@ -121,12 +135,15 @@ extension MastodonConfirmEmailViewController {
     }
 
     @objc private func dontReceiveButtonPressed(_ sender: UIButton) {
-        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.alertTitle, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.alertDescription, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
-            let url = Mastodon.API.resendEmailURL(domain:self.viewModel.authenticateInfo.domain)
+        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.title, message: L10n.Scene.ConfirmEmail.DontReceiveEmail.description, preferredStyle: .alert)
+        let resendAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.DontReceiveEmail.resendEmail, style: .default) { _ in
+            let url = Mastodon.API.resendEmailURL(domain: self.viewModel.authenticateInfo.domain)
             let viewModel = MastodonResendEmailViewModel(resendEmailURL: url, email: self.viewModel.email)
-            self.coordinator.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .show)
+            self.coordinator.present(scene: .mastodonResendEmail(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
         }
+        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { _ in
+        }
+        alertController.addAction(resendAction)
         alertController.addAction(okAction)
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
@@ -137,7 +154,7 @@ extension MastodonConfirmEmailViewController {
         let avaliableClients = clients.filter { client -> Bool in
             ThirdPartyMailer.application(application, isMailClientAvailable: client)
         }
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.openEmailClient, message: nil, preferredStyle: .alert)
 
         let alertAction = UIAlertAction(title: L10n.Scene.ConfirmEmail.OpenEmailApp.mail, style: .default) { _ in
             UIApplication.shared.open(URL(string: "message://")!, options: [:], completionHandler: nil)
@@ -153,6 +170,5 @@ extension MastodonConfirmEmailViewController {
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-
     }
 }

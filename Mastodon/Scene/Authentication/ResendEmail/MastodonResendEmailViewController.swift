@@ -53,7 +53,7 @@ extension MastodonResendEmailViewController {
         ])
         
         let request = URLRequest(url: viewModel.resendEmailURL)
-        webView.navigationDelegate = self
+        webView.navigationDelegate = self.viewModel.navigationDelegate
         webView.load(request)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: resendEmail via: %s", (#file as NSString).lastPathComponent, #line, #function, viewModel.resendEmailURL.debugDescription)
     }

@@ -86,17 +86,21 @@ internal enum L10n {
       }
       internal enum DontReceiveEmail {
         /// Give our servers another n seconds before sending another email.\nCheck if your email address is correct as well as your junk folder if you haven’t.
-        internal static let alertDescription = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.AlertDescription")
+        internal static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Description")
+        /// Resend Email
+        internal static let resendEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail")
         /// It’s too soon to tell.
-        internal static let alertTitle = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.AlertTitle")
+        internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Title")
       }
       internal enum OpenEmailApp {
         /// We just sent you another email. Check your junk folder if you haven’t.
-        internal static let alertDescription = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.AlertDescription")
-        /// Check your inbox.
-        internal static let alertTitle = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.AlertTitle")
+        internal static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Description")
         /// Mail
         internal static let mail = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Mail")
+        /// Open Email Client
+        internal static let openEmailClient = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient")
+        /// Check your inbox.
+        internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title")
       }
     }
     internal enum HomeTimeline {

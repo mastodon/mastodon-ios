@@ -79,17 +79,19 @@
             "title": "One last thing.",
             "subtitle": "We just sent an email to %@,\ntap the link to confirm your account.",
             "button": {
-                "open_email_app": "Open email app",
+                "open_email_app": "Open Email App",
                 "dont_receive_email": "I never got an email"
             },
             "dont_receive_email": {
-                "alert_title": "It’s too soon to tell.",
-                "alert_description": "Give our servers another n seconds before sending another email.\nCheck if your email address is correct as well as your junk folder if you haven’t."
+                "title": "Check your email",
+                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "resend_email": "Resend email"
             },
             "open_email_app": {
-                "alert_title": "Check your inbox.",
-                "alert_description": "We just sent you another email. Check your junk folder if you haven’t.",
-                "mail": "Mail"
+                "title": "Check your inbox.",
+                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "mail": "Mail",
+                "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {

@@ -11,7 +11,7 @@ import os.log
 import UIKit
 import UITextField_Shake
 
-final class MastodonRegisterViewController: UIViewController, NeedsDependency {
+final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -196,8 +196,8 @@ extension MastodonRegisterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        self.setupOnboardingAppearance()
+        
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
         passwordCheckLabel.attributedText = viewModel.attributeStringForPassword()
@@ -451,7 +451,7 @@ extension MastodonRegisterViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
@@ -568,11 +568,11 @@ extension MastodonRegisterViewController {
         } receiveValue: { [weak self] response in
             guard let self = self else { return }
             let userToken = response.value
-            // TODO:
+            
             let alertController = UIAlertController(title: L10n.Scene.Register.success, message: L10n.Scene.Register.checkEmail, preferredStyle: .alert)
             let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                let viewModel = MastodonConfirmEmailViewModel(context: self.context, coordinator: self.coordinator, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
                 self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
             }
             alertController.addAction(okAction)

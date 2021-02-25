@@ -15,6 +15,8 @@ final class MastodonResendEmailViewModel {
     let resendEmailURL: URL
     let email: String
     
+    private var navigationDelegateShim: MastodonResendEmailViewModelNavigationDelegateShim?
+    
     init(resendEmailURL: URL, email: String) {
         self.resendEmailURL = resendEmailURL
         self.email = email
@@ -23,4 +25,13 @@ final class MastodonResendEmailViewModel {
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
+}
+extension MastodonResendEmailViewModel {
+    
+    var navigationDelegate: WKNavigationDelegate {
+        let navigationDelegateShim = MastodonResendEmailViewModelNavigationDelegateShim(viewModel: self)
+        self.navigationDelegateShim = navigationDelegateShim
+        return navigationDelegateShim
+    }
+    
 }

@@ -11,7 +11,7 @@ import Combine
 import MastodonSDK
 import UITextField_Shake
 
-final class AuthenticationViewController: UIViewController, NeedsDependency {
+final class AuthenticationViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance{
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -77,9 +77,7 @@ extension AuthenticationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .dark  // FIXME:
-
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        self.setupOnboardingAppearance()
         
         domainLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(domainLabel)
