@@ -83,8 +83,8 @@ class PickServerCell: UITableViewCell {
     
     private var expandButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .selected)
+        button.setTitle(L10n.Scene.ServerPicker.Button.seemore, for: .normal)
+        button.setTitle(L10n.Scene.ServerPicker.Button.seeless, for: .selected)
         button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -217,7 +217,7 @@ extension PickServerCell {
         let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12)
         collapseConstraints.append(expandButtonTopConstraintInCollapse)
         
-        let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8)
+        let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.defaultHigh)
         expandConstraints.append(expandButtonTopConstraintInExpand)
         
         NSLayoutConstraint.activate([
@@ -255,7 +255,7 @@ extension PickServerCell {
             thumbImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: thumbImageView.trailingAnchor),
             thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
-            thumbImageView.heightAnchor.constraint(equalTo: thumbImageView.widthAnchor, multiplier: 151.0 / 303.0),
+            thumbImageView.heightAnchor.constraint(equalTo: thumbImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
             
             infoStackView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: infoStackView.trailingAnchor),

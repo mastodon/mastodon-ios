@@ -19,6 +19,17 @@ final class PickServerViewController: UIViewController, NeedsDependency {
     
     var viewModel: PickServerViewModel!
     
+    private var isAuthenticating = CurrentValueSubject<Bool, Never>(false)
+    
+    private var expandServerDomainSet = Set<String>()
+    
+    enum Section: CaseIterable {
+        case title
+        case categories
+        case search
+        case serverList
+    }
+    
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(PickServerTitleCell.self, forCellReuseIdentifier: String(describing: PickServerTitleCell.self))
@@ -69,16 +80,16 @@ extension PickServerViewController {
         ])
         
         switch viewModel.mode {
-        case .SignIn:
+        case .signIn:
             nextStepButton.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
-        case .SignUp:
+        case .signUp:
             nextStepButton.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         }
         nextStepButton.addTarget(self, action: #selector(nextStepButtonDidClicked(_:)), for: .touchUpInside)
         
-        viewModel.tableView = tableView
-        tableView.delegate = viewModel
-        tableView.dataSource = viewModel
+//        viewModel.tableView = tableView
+        tableView.delegate = self
+        tableView.dataSource = self
         
         viewModel
             .searchedServers
@@ -139,6 +150,16 @@ extension PickServerViewController {
             }
             .store(in: &disposeBag)
         
+        isAuthenticating
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] loading in
+                if loading {
+                    self?.nextStepButton.showLoading()
+                } else {
+                    self?.nextStepButton.stopLoading()
+                }
+            }
+            .store(in: &disposeBag)
         
         viewModel.fetchAllServers()
     }
@@ -151,15 +172,16 @@ extension PickServerViewController {
     @objc
     private func nextStepButtonDidClicked(_ sender: UIButton) {
         switch viewModel.mode {
-        case .SignIn:
+        case .signIn:
             doSignIn()
-        case .SignUp:
+        case .signUp:
             doSignUp()
         }
     }
     
     private func doSignIn() {
         guard let server = viewModel.selectedServer.value else { return }
+        isAuthenticating.send(true)
         context.apiService.createApplication(domain: server.domain)
             .tryMap { response -> PickServerViewModel.AuthenticateInfo in
                 let application = response.value
@@ -171,7 +193,7 @@ extension PickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-//                self.viewModel.isAuthenticating.value = false
+                self.isAuthenticating.send(false)
                 
                 switch completion {
                 case .failure(let error):
@@ -199,7 +221,7 @@ extension PickServerViewController {
     private func doSignUp() {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let server = viewModel.selectedServer.value else { return }
-//        viewModel.isRegistering.value = true
+        isAuthenticating.send(true)
         
         context.apiService.instance(domain: server.domain)
             .compactMap { [weak self] response -> AnyPublisher<PickServerViewModel.SignUpResponseFirst, Error>? in
@@ -235,7 +257,7 @@ extension PickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-//                self.viewModel.isRegistering.value = false
+                self.isAuthenticating.send(false)
                 
                 switch completion {
                 case .failure(let error):
@@ -254,5 +276,142 @@ extension PickServerViewController {
                 self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: self, transition: .show)
             }
             .store(in: &disposeBag)
+    }
+}
+
+extension PickServerViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let category = Section.allCases[section]
+        switch category {
+        case .title:
+            return 20
+        case .categories:
+            // Since category view has a blur shadow effect, its height need to be large than the actual height,
+            // Thus we reduce the section header's height by 10, and make the category cell height 60+20(10 inset for top and bottom)
+            return 10
+        case .search:
+            // Same reason as above
+            return 10
+        case .serverList:
+            // Header with 1 height as the separator
+            return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if tableView.indexPathForSelectedRow == indexPath {
+            tableView.deselectRow(at: indexPath, animated: false)
+            viewModel.selectedServer.send(nil)
+            return nil
+        }
+        return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        viewModel.selectedServer.send(viewModel.searchedServers.value[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        viewModel.selectedServer.send(nil)
+    }
+}
+
+extension PickServerViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return Self.Section.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let section = Self.Section.allCases[section]
+        switch section {
+        case .title,
+             .categories,
+             .search:
+            return 1
+        case .serverList:
+            return viewModel.searchedServers.value.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let section = Self.Section.allCases[indexPath.section]
+        switch section {
+        case .title:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerTitleCell.self), for: indexPath) as! PickServerTitleCell
+            return cell
+        case .categories:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCategoriesCell.self), for: indexPath) as! PickServerCategoriesCell
+            cell.dataSource = self
+            cell.delegate = self
+            return cell
+        case .search:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerSearchCell.self), for: indexPath) as! PickServerSearchCell
+            cell.delegate = self
+            return cell
+        case .serverList:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
+            let server = viewModel.searchedServers.value[indexPath.row]
+            cell.server = server
+            if expandServerDomainSet.contains(server.domain) {
+                cell.mode = .expand
+            } else {
+                cell.mode = .collapse
+            }
+            if server == viewModel.selectedServer.value {
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+            } else {
+                tableView.deselectRow(at: indexPath, animated: false)
+            }
+            
+            cell.delegate = self
+            return cell
+        }
+    }
+}
+
+extension PickServerViewController: PickServerCellDelegate {
+    func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void)) {
+        if newMode == .collapse {
+            expandServerDomainSet.remove(server.domain)
+        } else {
+            expandServerDomainSet.insert(server.domain)
+        }
+        
+        tableView.performBatchUpdates(updates) { _ in
+            if let modeChangeIndex = self.viewModel.searchedServers.value.firstIndex(where: { $0 == server }) {
+                self.tableView.scrollToRow(at: IndexPath(row: modeChangeIndex, section: 3), at: .bottom, animated: true)
+            }
+        }
+    }
+}
+
+extension PickServerViewController: PickServerSearchCellDelegate {
+    func pickServerSearchCell(didChange searchText: String?) {
+        viewModel.searchText.send(searchText)
+    }
+}
+
+extension PickServerViewController: PickServerCategoriesDataSource, PickServerCategoriesDelegate {
+    func numberOfCategories() -> Int {
+        return viewModel.categories.count
+    }
+    
+    func category(at index: Int) -> PickServerViewModel.Category {
+        return viewModel.categories[index]
+    }
+    
+    func selectedIndex() -> Int {
+        return viewModel.selectCategoryIndex.value
+    }
+    
+    func pickServerCategoriesCell(didSelect index: Int) {
+        return viewModel.selectCategoryIndex.send(index)
     }
 }

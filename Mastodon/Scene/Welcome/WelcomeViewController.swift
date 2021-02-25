@@ -102,11 +102,11 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .SignUp)), from: self, transition: .show)
+        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
     }
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .SignIn)), from: self, transition: .show)
+        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
     }
 }

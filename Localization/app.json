@@ -41,6 +41,18 @@
         },
         "server_picker": {
             "title": "Pick a Server,\nany server.",
+            "Button": {
+                "Category": {
+                    "All": "All"
+                },
+                "SeeLess": "See Less",
+                "SeeMore": "See More"
+            },
+            "Label": {
+                "Language": "LANGUAGE",
+                "Users": "USERS",
+                "Category": "CATEGORY"
+            },
             "input": {
                 "placeholder": "Find a server or join your own..."
             }

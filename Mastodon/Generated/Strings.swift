@@ -111,10 +111,10 @@ internal enum L10n {
       /// Pick a Server,\nany server.
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       internal enum Button {
-        /// See less
-        internal static let seeLess = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeLess")
+        /// See Less
+        internal static let seeless = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seeless")
         /// See More
-        internal static let seeMore = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeMore")
+        internal static let seemore = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seemore")
         internal enum Category {
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")
