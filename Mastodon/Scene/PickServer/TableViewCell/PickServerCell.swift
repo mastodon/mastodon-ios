@@ -249,12 +249,12 @@ extension PickServerCell {
             // Set expandBox constraints
             expandBox.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
             bgView.trailingAnchor.constraint(equalTo: expandBox.trailingAnchor, constant: 16),
-            expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            expandBox.bottomAnchor.constraint(equalTo: infoStackView.bottomAnchor),
+            expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8).priority(.defaultHigh),
+            expandBox.bottomAnchor.constraint(equalTo: infoStackView.bottomAnchor).priority(.defaultHigh),
             
             thumbImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: thumbImageView.trailingAnchor),
-            thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
+            thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor).priority(.defaultHigh),
             thumbImageView.heightAnchor.constraint(equalTo: thumbImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
             
             infoStackView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),

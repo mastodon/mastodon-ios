@@ -384,11 +384,12 @@ extension PickServerViewController: PickServerCellDelegate {
             expandServerDomainSet.insert(server.domain)
         }
         
-        tableView.performBatchUpdates(updates) { _ in
-            // Scroll to fully show the expanded cell, do not scroll when collapse
-            if newMode == .expand, let modeChangeIndex = self.viewModel.searchedServers.value.firstIndex(where: { $0 == server }), self.tableView.indexPathsForVisibleRows?.last?.row == modeChangeIndex {
-                self.tableView.scrollToRow(at: IndexPath(row: modeChangeIndex, section: 3), at: .bottom, animated: true)
-            }
+        tableView.beginUpdates()
+        updates()
+        tableView.endUpdates()
+        
+        if newMode == .expand, let modeChangeIndex = self.viewModel.searchedServers.value.firstIndex(where: { $0 == server }), self.tableView.indexPathsForVisibleRows?.last?.row == modeChangeIndex {
+            self.tableView.scrollToRow(at: IndexPath(row: modeChangeIndex, section: 3), at: .bottom, animated: true)
         }
     }
 }
