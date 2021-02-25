@@ -24,7 +24,7 @@ extension OnboardingViewControllerAppearance {
         navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
         
         let backItem = UIBarButtonItem()
-        backItem.title = "back"
+        backItem.title = L10n.Common.Controls.Actions.back
         navigationController?.navigationBar.topItem?.backBarButtonItem = backItem
     }
 }

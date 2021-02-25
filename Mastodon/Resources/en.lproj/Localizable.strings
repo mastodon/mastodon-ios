@@ -1,6 +1,7 @@
 "Common.Alerts.ServerError.Title" = "Server Error";
 "Common.Alerts.SignUpFailure.Title" = "Sign Up Failure";
 "Common.Controls.Actions.Add" = "Add";
+"Common.Controls.Actions.Back" = "Back";
 "Common.Controls.Actions.Cancel" = "Cancel";
 "Common.Controls.Actions.Confirm" = "Confirm";
 "Common.Controls.Actions.Continue" = "Continue";

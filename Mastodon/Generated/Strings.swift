@@ -26,6 +26,8 @@ internal enum L10n {
       internal enum Actions {
         /// Add
         internal static let add = L10n.tr("Localizable", "Common.Controls.Actions.Add")
+        /// Back
+        internal static let back = L10n.tr("Localizable", "Common.Controls.Actions.Back")
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "Common.Controls.Actions.Cancel")
         /// Confirm

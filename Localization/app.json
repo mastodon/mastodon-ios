@@ -11,6 +11,7 @@
         },
         "controls": {
             "actions": {
+                "back": "Back",
                 "add": "Add",
                 "remove": "Remove",
                 "edit": "Edit",
