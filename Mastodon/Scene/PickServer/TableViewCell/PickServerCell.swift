@@ -214,10 +214,10 @@ extension PickServerCell {
         infoStackView.addArrangedSubview(verticalInfoStackViewUsers)
         infoStackView.addArrangedSubview(verticalInfoStackViewCategory)
         
-        let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12)
+        let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12).priority(.required)
         collapseConstraints.append(expandButtonTopConstraintInCollapse)
         
-        let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.defaultHigh)
+        let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.required)
         expandConstraints.append(expandButtonTopConstraintInExpand)
         
         NSLayoutConstraint.activate([
@@ -243,13 +243,13 @@ extension PickServerCell {
             checkbox.centerYAnchor.constraint(equalTo: domainLabel.centerYAnchor),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
-            descriptionLabel.topAnchor.constraint(equalTo: domainLabel.firstBaselineAnchor, constant: 8).priority(.defaultHigh),
+            descriptionLabel.topAnchor.constraint(equalTo: domainLabel.firstBaselineAnchor, constant: 8).priority(.required),
             bgView.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant: 16),
             
             // Set expandBox constraints
             expandBox.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
             bgView.trailingAnchor.constraint(equalTo: expandBox.trailingAnchor, constant: 16),
-            expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8).priority(.defaultHigh),
+            expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             expandBox.bottomAnchor.constraint(equalTo: infoStackView.bottomAnchor).priority(.defaultHigh),
             
             thumbImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
