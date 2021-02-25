@@ -23,12 +23,11 @@
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
-"Scene.ConfirmEmail.Button.OpenEmailApp" = "Open email app";
-"Scene.ConfirmEmail.DontReceiveEmail.Description" = "Give our servers another n seconds before sending another email.
-Check if your email address is correct as well as your junk folder if you haven’t.";
-"Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Resend Email";
-"Scene.ConfirmEmail.DontReceiveEmail.Title" = "It’s too soon to tell.";
-"Scene.ConfirmEmail.OpenEmailApp.Description" = "We just sent you another email. Check your junk folder if you haven’t.";
+"Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
+"Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
+"Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Resend email";
+"Scene.ConfirmEmail.DontReceiveEmail.Title" = "Check your email";
+"Scene.ConfirmEmail.OpenEmailApp.Description" = "We just sent you an email. Check your junk folder if you haven’t.";
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "Mail";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "Open Email Client";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "Check your inbox.";

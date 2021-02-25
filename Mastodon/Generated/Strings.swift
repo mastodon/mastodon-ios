@@ -93,19 +93,19 @@ internal enum L10n {
       internal enum Button {
         /// I never got an email
         internal static let dontReceiveEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.DontReceiveEmail")
-        /// Open email app
+        /// Open Email App
         internal static let openEmailApp = L10n.tr("Localizable", "Scene.ConfirmEmail.Button.OpenEmailApp")
       }
       internal enum DontReceiveEmail {
-        /// Give our servers another n seconds before sending another email.\nCheck if your email address is correct as well as your junk folder if you haven’t.
+        /// Check if your email address is correct as well as your junk folder if you haven’t.
         internal static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Description")
-        /// Resend Email
+        /// Resend email
         internal static let resendEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail")
-        /// It’s too soon to tell.
+        /// Check your email
         internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Title")
       }
       internal enum OpenEmailApp {
-        /// We just sent you another email. Check your junk folder if you haven’t.
+        /// We just sent you an email. Check your junk folder if you haven’t.
         internal static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Description")
         /// Mail
         internal static let mail = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Mail")
