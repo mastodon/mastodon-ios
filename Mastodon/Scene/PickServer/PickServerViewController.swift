@@ -120,7 +120,7 @@ extension PickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self = self else { return }
-                let alertController = UIAlertController(error, preferredStyle: .alert)
+                let alertController = UIAlertController(for: error, title: "Error", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
                 self.coordinator.present(
@@ -385,7 +385,8 @@ extension PickServerViewController: PickServerCellDelegate {
         }
         
         tableView.performBatchUpdates(updates) { _ in
-            if let modeChangeIndex = self.viewModel.searchedServers.value.firstIndex(where: { $0 == server }) {
+            // Scroll to fully show the expanded cell, do not scroll when collapse
+            if newMode == .expand, let modeChangeIndex = self.viewModel.searchedServers.value.firstIndex(where: { $0 == server }), self.tableView.indexPathsForVisibleRows?.last?.row == modeChangeIndex {
                 self.tableView.scrollToRow(at: IndexPath(row: modeChangeIndex, section: 3), at: .bottom, animated: true)
             }
         }

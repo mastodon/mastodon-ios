@@ -243,7 +243,7 @@ extension PickServerCell {
             checkbox.centerYAnchor.constraint(equalTo: domainLabel.centerYAnchor),
             
             descriptionLabel.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
-            descriptionLabel.topAnchor.constraint(equalTo: domainLabel.firstBaselineAnchor, constant: 8),
+            descriptionLabel.topAnchor.constraint(equalTo: domainLabel.firstBaselineAnchor, constant: 8).priority(.defaultHigh),
             bgView.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant: 16),
             
             // Set expandBox constraints
