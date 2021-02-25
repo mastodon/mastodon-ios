@@ -14,6 +14,9 @@ import Combine
 protocol StatusTableViewCellDelegate: class {
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
+    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
+
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -79,10 +82,11 @@ extension StatusTableViewCell {
             bottomPaddingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             bottomPaddingView.heightAnchor.constraint(equalToConstant: StatusTableViewCell.bottomPaddingHeight).priority(.defaultHigh),
         ])
+        bottomPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
                 
         statusView.delegate = self
+        statusView.statusMosaicImageView.delegate = self
         statusView.actionToolbarContainer.delegate = self
-        bottomPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
     }
     
 }
@@ -92,6 +96,19 @@ extension StatusTableViewCell: StatusViewDelegate {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)
     }
+}
+
+// MARK: - MosaicImageViewDelegate
+extension StatusTableViewCell: MosaicImageViewContainerDelegate {
+    
+    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int) {
+        delegate?.statusTableViewCell(self, mosaicImageViewContainer: mosaicImageViewContainer, didTapImageView: imageView, atIndex: index)
+    }
+    
+    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView) {
+        delegate?.statusTableViewCell(self, mosaicImageViewContainer: mosaicImageViewContainer, didTapContentWarningVisualEffectView: visualEffectView)
+    }
+
 }
 
 // MARK: - ActionToolbarContainerDelegate

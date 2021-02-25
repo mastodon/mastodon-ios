@@ -119,5 +119,5 @@ xcuserdata
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpm,xcode,cocoapods
 
-Mastodon/Localization/StringsConvertor/input
-Mastodon/Localization/StringsConvertor/output
+Localization/StringsConvertor/input
+Localization/StringsConvertor/output

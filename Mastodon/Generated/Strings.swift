@@ -56,10 +56,12 @@ internal enum L10n {
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
       }
       internal enum Status {
-        /// content warning
-        internal static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning")
+        /// Tap to reveal that may be sensitive
+        internal static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning")
         /// Show Post
         internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
+        /// content warning
+        internal static let statusContentWarning = L10n.tr("Localizable", "Common.Controls.Status.StatusContentWarning")
         /// %@ boosted
         internal static func userBoosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))

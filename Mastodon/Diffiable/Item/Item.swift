@@ -26,24 +26,30 @@ enum Item {
 
 protocol StatusContentWarningAttribute {
     var isStatusTextSensitive: Bool { get set }
+    var isStatusSensitive: Bool { get set }
 }
 
 extension Item {
     class StatusTimelineAttribute: Hashable, StatusContentWarningAttribute {
-        var isStatusTextSensitive: Bool = false
+        var isStatusTextSensitive: Bool
+        var isStatusSensitive: Bool
 
         public init(
-            isStatusTextSensitive: Bool
+            isStatusTextSensitive: Bool,
+            isStatusSensitive: Bool
         ) {
             self.isStatusTextSensitive = isStatusTextSensitive
+            self.isStatusSensitive = isStatusSensitive
         }
         
         static func == (lhs: Item.StatusTimelineAttribute, rhs: Item.StatusTimelineAttribute) -> Bool {
-            return lhs.isStatusTextSensitive == rhs.isStatusTextSensitive
+            return lhs.isStatusTextSensitive == rhs.isStatusTextSensitive &&
+                lhs.isStatusSensitive == rhs.isStatusSensitive
         }
 
         func hash(into hasher: inout Hasher) {
             hasher.combine(isStatusTextSensitive)
+            hasher.combine(isStatusSensitive)
         }
 
     }

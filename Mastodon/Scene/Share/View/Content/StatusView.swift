@@ -89,7 +89,7 @@ final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Common.Controls.Status.contentWarning
+        label.text = L10n.Common.Controls.Status.statusContentWarning
         return label
     }()
     let contentWarningActionButton: UIButton = {

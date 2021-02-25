@@ -13,7 +13,7 @@ import GameplayKit
 import os.log
 import UIKit
 
-final class PublicTimelineViewController: UIViewController, NeedsDependency, StatusTableViewCellDelegate {
+final class PublicTimelineViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -203,3 +203,6 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
         }
     }
 }
+
+// MARK: - StatusTableViewCellDelegate
+extension PublicTimelineViewController: StatusTableViewCellDelegate { }

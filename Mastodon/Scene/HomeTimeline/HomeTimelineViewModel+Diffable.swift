@@ -83,7 +83,12 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             var newTimelineItems: [Item] = []
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
-                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: timelineIndex.toot.sensitive)
+                let toot = timelineIndex.toot.reblog ?? timelineIndex.toot
+                let isStatusTextSensitive: Bool = {
+                    guard let spoilerText = toot.spoilerText, !spoilerText.isEmpty else { return false }
+                    return true
+                }()
+                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: toot.sensitive)
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))
