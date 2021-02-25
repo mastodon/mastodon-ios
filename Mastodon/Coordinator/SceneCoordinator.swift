@@ -43,6 +43,8 @@ extension SceneCoordinator {
         case mastodonPinBasedAuthentication(viewModel: MastodonPinBasedAuthenticationViewModel)
         case mastodonRegister(viewModel: MastodonRegisterViewModel)
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
+        case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
+        case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         
         case alertController(alertController: UIAlertController)
         
@@ -154,6 +156,14 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .mastodonServerRules(let viewModel):
             let _viewController = MastodonServerRulesViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonConfirmEmail(let viewModel):
+            let _viewController = MastodonConfirmEmailViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonResendEmail(let viewModel):
+            let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .alertController(let alertController):

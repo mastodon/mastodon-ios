@@ -11,6 +11,7 @@
         },
         "controls": {
             "actions": {
+                "back": "Back",
                 "add": "Add",
                 "remove": "Remove",
                 "edit": "Edit",
@@ -72,7 +73,9 @@
                     "prompt": "Your password needs at least:",
                     "prompt_eight_characters": "Eight characters"
                 }
-            }
+            },
+            "success": "Success",
+            "check_email": "Regsiter request sent. Please check your email."
         },
         "server_rules": {
             "title": "Some ground rules.",
@@ -80,6 +83,25 @@
             "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
             "button": {
                 "confirm": "I Agree"
+            }
+        },
+        "confirm_email": {
+            "title": "One last thing.",
+            "subtitle": "We just sent an email to %@,\ntap the link to confirm your account.",
+            "button": {
+                "open_email_app": "Open Email App",
+                "dont_receive_email": "I never got an email"
+            },
+            "dont_receive_email": {
+                "title": "Check your email",
+                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "resend_email": "Resend email"
+            },
+            "open_email_app": {
+                "title": "Check your inbox.",
+                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "mail": "Mail",
+                "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {
