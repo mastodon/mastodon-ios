@@ -1,5 +1,5 @@
 //
-//  PickServerViewModel.swift
+//  MastodonPickServerViewModel.swift
 //  Mastodon
 //
 //  Created by BradGao on 2021/2/23.
@@ -11,7 +11,7 @@ import Combine
 import MastodonSDK
 import CoreDataStack
 
-class PickServerViewModel: NSObject {
+class MastodonPickServerViewModel: NSObject {
     enum PickServerMode {
         case signUp
         case signIn
@@ -173,7 +173,7 @@ class PickServerViewModel: NSObject {
 }
 
 // MARK: - SignIn methods & structs
-extension PickServerViewModel {
+extension MastodonPickServerViewModel {
     enum AuthenticationError: Error, LocalizedError {
         case badCredentials
         case registrationClosed
@@ -322,7 +322,7 @@ extension PickServerViewModel {
 }
 
 // MARK: - SignUp methods & structs
-extension PickServerViewModel {
+extension MastodonPickServerViewModel {
     struct SignUpResponseFirst {
         let instance: Mastodon.Response.Content<Mastodon.Entity.Instance>
         let application: Mastodon.Response.Content<Mastodon.Entity.Application>

@@ -16,6 +16,7 @@ protocol OnboardingViewControllerAppearance: UIViewController {
 extension OnboardingViewControllerAppearance {
     
     static var actionButtonHeight: CGFloat { return 46 }
+    static var actionButtonMargin: CGFloat { return 12 }
     static var viewBottomPaddingHeight: CGFloat { return 11 }
     
     func setupOnboardingAppearance() {

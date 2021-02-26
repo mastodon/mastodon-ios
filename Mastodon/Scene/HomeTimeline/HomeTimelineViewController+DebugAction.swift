@@ -37,35 +37,5 @@ extension HomeTimelineViewController {
         coordinator.present(scene: .publicTimeline, from: self, transition: .show)
     }
     
-    @objc private func signOutAction(_ sender: UIAction) {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-        let currentAccountCount = context.authenticationService.mastodonAuthentications.value.count
-        let isAuthenticationExistWhenSignOut = currentAccountCount - 1 > 0
-        // prepare advance
-        let authenticationViewModel = AuthenticationViewModel(context: context, coordinator: coordinator, isAuthenticationExist: isAuthenticationExistWhenSignOut)
-
-        context.authenticationService.signOutMastodonUser(
-            domain: activeMastodonAuthenticationBox.domain,
-            userID: activeMastodonAuthenticationBox.userID
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            case .success(let isSignOut):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign out %s", ((#file as NSString).lastPathComponent), #line, #function, isSignOut ? "success" : "fail")
-                guard isSignOut else { return }
-                if !isAuthenticationExistWhenSignOut {
-                    self.coordinator.present(scene: .authentication(viewModel: authenticationViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-                }
-            }
-        }
-        .store(in: &disposeBag)
-    }
-    
 }
 #endif

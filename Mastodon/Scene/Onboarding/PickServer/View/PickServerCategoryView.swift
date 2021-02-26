@@ -9,7 +9,7 @@ import UIKit
 import MastodonSDK
 
 class PickServerCategoryView: UIView {
-    var category: PickServerViewModel.Category? {
+    var category: MastodonPickServerViewModel.Category? {
         didSet {
             updateCategory()
         }

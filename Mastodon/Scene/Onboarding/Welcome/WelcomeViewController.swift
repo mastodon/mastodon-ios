@@ -47,6 +47,11 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension WelcomeViewController {
@@ -74,14 +79,14 @@ extension WelcomeViewController {
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signInButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 12),
+            signInButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: WelcomeViewController.actionButtonMargin),
+            view.readableContentGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: WelcomeViewController.actionButtonMargin),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
-            signInButton.heightAnchor.constraint(equalToConstant: 46).priority(.defaultHigh),
+            signInButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.defaultHigh),
             
             signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 9),
-            signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 12),
+            signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: WelcomeViewController.actionButtonMargin),
+            view.readableContentGuide.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: WelcomeViewController.actionButtonMargin),
             signUpButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.defaultHigh),
         ])
         
@@ -89,19 +94,28 @@ extension WelcomeViewController {
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle { return .darkContent }
+    
 }
 
 extension WelcomeViewController {
     @objc
     private func signUpButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
+        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
     }
     
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
-        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+        coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
     }
 }
 
 // MARK: - OnboardingViewControllerAppearance
 extension WelcomeViewController: OnboardingViewControllerAppearance { }
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .fullScreen
+    }
+}

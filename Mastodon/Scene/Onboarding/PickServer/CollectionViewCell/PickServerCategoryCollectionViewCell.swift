@@ -9,7 +9,7 @@ import UIKit
 
 class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     
-    var category: PickServerViewModel.Category? {
+    var category: MastodonPickServerViewModel.Category? {
         didSet {
             categoryView.category = category
         }

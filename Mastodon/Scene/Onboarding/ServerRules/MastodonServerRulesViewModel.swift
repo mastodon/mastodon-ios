@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import MastodonSDK
 
 final class MastodonServerRulesViewModel {
@@ -13,12 +14,30 @@ final class MastodonServerRulesViewModel {
     // input
     let context: AppContext
     let domain: String
+    let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let rules: [Mastodon.Entity.Instance.Rule]
+    let registerQuery: Mastodon.API.Account.RegisterQuery
+    let applicationAuthorization: Mastodon.API.OAuth.Authorization
+
+    // output
+    let isRegistering = CurrentValueSubject<Bool, Never>(false)
+    let error = CurrentValueSubject<Error?, Never>(nil)
+
     
-    init(context: AppContext, domain: String, rules: [Mastodon.Entity.Instance.Rule]) {
+    init(
+        context: AppContext,
+        domain: String,
+        authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
+        rules: [Mastodon.Entity.Instance.Rule],
+        registerQuery: Mastodon.API.Account.RegisterQuery,
+        applicationAuthorization: Mastodon.API.OAuth.Authorization
+    ) {
         self.context = context
         self.domain = domain
+        self.authenticateInfo = authenticateInfo
         self.rules = rules
+        self.registerQuery = registerQuery
+        self.applicationAuthorization = applicationAuthorization
     }
     
     var rulesAttributedString: NSAttributedString {
@@ -32,9 +51,6 @@ final class MastodonServerRulesViewModel {
             attributedString.append(indexString)
             attributedString.append(ruleString)
         }
-        // let paragraphStyle = NSMutableParagraphStyle()
-        // paragraphStyle.lineSpacing = 20
-        // attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
         return attributedString
     }
     

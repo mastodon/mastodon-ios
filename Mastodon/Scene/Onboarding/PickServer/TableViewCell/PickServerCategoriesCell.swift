@@ -10,7 +10,7 @@ import MastodonSDK
 
 protocol PickServerCategoriesDataSource: class {
     func numberOfCategories() -> Int
-    func category(at index: Int) -> PickServerViewModel.Category
+    func category(at index: Int) -> MastodonPickServerViewModel.Category
     func selectedIndex() -> Int
 }
 

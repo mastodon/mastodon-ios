@@ -70,8 +70,20 @@ extension HomeTimelineViewController {
             return imageView
         }()
         navigationItem.leftBarButtonItem = settingBarButtonItem
-        settingBarButtonItem.target = self
-        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        #if DEBUG
+        // long press to trigger debug menu
+        settingBarButtonItem.menu = debugMenu
+        #else
+        // settingBarButtonItem.target = self
+        // settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        settingBarButtonItem.menu = UIMenu(title: "Settings", image: nil, identifier: nil, options: .displayInline, children: [
+            UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
+                guard let self = self else { return }
+                self.signOutAction(action)
+            }
+        ])
+        #endif
+        
         navigationItem.rightBarButtonItem = composeBarButtonItem
         composeBarButtonItem.target = self
         composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
@@ -111,11 +123,6 @@ extension HomeTimelineViewController {
                 }
             }
             .store(in: &disposeBag)
-        
-        #if DEBUG
-        // long press to trigger debug menu
-        settingBarButtonItem.menu = debugMenu
-        #endif
     }
 
 
@@ -169,6 +176,30 @@ extension HomeTimelineViewController {
         }
     }
     
+    @objc func signOutAction(_ sender: UIAction) {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+
+        context.authenticationService.signOutMastodonUser(
+            domain: activeMastodonAuthenticationBox.domain,
+            userID: activeMastodonAuthenticationBox.userID
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                assertionFailure(error.localizedDescription)
+            case .success(let isSignOut):
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign out %s", ((#file as NSString).lastPathComponent), #line, #function, isSignOut ? "success" : "fail")
+                guard isSignOut else { return }
+                self.coordinator.setup()
+                self.coordinator.setupOnboardingIfNeeds(animated: true)
+            }
+        }
+        .store(in: &disposeBag)
+    }
 
 }
 

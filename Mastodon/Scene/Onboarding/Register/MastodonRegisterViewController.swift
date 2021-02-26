@@ -92,9 +92,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = Asset.Colors.Label.secondary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
@@ -113,9 +113,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = Asset.Colors.Label.secondary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
@@ -130,9 +130,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
         textField.backgroundColor = .white
-        textField.textColor = Asset.Colors.Label.secondary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
@@ -154,9 +154,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.keyboardType = .asciiCapable
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
-        textField.textColor = Asset.Colors.Label.secondary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
@@ -170,9 +170,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = Asset.Colors.Label.secondary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
@@ -181,18 +181,18 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         return textField
     }()
     
-    let signUpButton: UIButton = {
+    let buttonContainer = UIView()
+    let signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.isEnabled = false
         button.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
         return button
     }()
     
-    let signUpActivityIndicatorView: UIActivityIndicatorView = {
-        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-        activityIndicatorView.hidesWhenStopped = true
-        return activityIndicatorView
-    }()
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension MastodonRegisterViewController {
@@ -294,19 +294,17 @@ extension MastodonRegisterViewController {
         stackView.setCustomSpacing(32, after: passwordCheckLabel)
 
         // button
+        stackView.addArrangedSubview(buttonContainer)
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(signUpButton)
+        buttonContainer.addSubview(signUpButton)
         NSLayoutConstraint.activate([
+            signUpButton.topAnchor.constraint(equalTo: buttonContainer.topAnchor),
+            signUpButton.leadingAnchor.constraint(equalTo: buttonContainer.leadingAnchor, constant: MastodonRegisterViewController.actionButtonMargin),
+            buttonContainer.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: MastodonRegisterViewController.actionButtonMargin),
+            buttonContainer.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
             signUpButton.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.defaultHigh),
         ])
-
-        signUpActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(signUpActivityIndicatorView)
-        NSLayoutConstraint.activate([
-            signUpActivityIndicatorView.centerXAnchor.constraint(equalTo: signUpButton.centerXAnchor),
-            signUpActivityIndicatorView.centerYAnchor.constraint(equalTo: signUpButton.centerYAnchor),
-        ])
-
+        
         Publishers.CombineLatest(
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
             KeyboardResponderService.shared.willEndFrame.eraseToAnyPublisher()
@@ -332,7 +330,7 @@ extension MastodonRegisterViewController {
             self.scrollView.verticalScrollIndicatorInsets.bottom = padding + 16
             
             if self.passwordTextField.isFirstResponder {
-                let contentFrame = self.scrollView.convert(self.signUpButton.frame, to: nil)
+                let contentFrame = self.buttonContainer.convert(self.signUpButton.frame, to: nil)
                 let labelPadding = contentFrame.maxY - endFrame.minY
                 let contentOffsetY = self.scrollView.contentOffset.y
                 DispatchQueue.main.async {
@@ -346,9 +344,7 @@ extension MastodonRegisterViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isRegistering in
                 guard let self = self else { return }
-                isRegistering ? self.signUpActivityIndicatorView.startAnimating() : self.signUpActivityIndicatorView.stopAnimating()
-                self.signUpButton.setTitle(isRegistering ? "" : L10n.Common.Controls.Actions.continue, for: .normal)
-                self.signUpButton.isEnabled = !isRegistering
+                isRegistering ? self.signUpButton.showLoading() : self.signUpButton.stopLoading()
             }
             .store(in: &disposeBag)
 
@@ -463,7 +459,7 @@ extension MastodonRegisterViewController {
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] _ in
                     guard let self = self else { return }
-                    self.viewModel.invite.value = self.inviteTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                    self.viewModel.reason.value = self.inviteTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
                 }
                 .store(in: &disposeBag)
         }
@@ -471,11 +467,6 @@ extension MastodonRegisterViewController {
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
@@ -493,7 +484,7 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         case passwordTextField:
             viewModel.password.value = text
         case inviteTextField:
-            viewModel.invite.value = text
+            viewModel.reason.value = text
         default:
             break
         }
@@ -536,13 +527,24 @@ extension MastodonRegisterViewController {
         let username = viewModel.username.value
         let email = viewModel.email.value
         let password = viewModel.password.value
+        let query = Mastodon.API.Account.RegisterQuery(
+            reason: viewModel.reason.value,
+            username: username,
+            email: email,
+            password: password,
+            agreement: true, // TODO:
+            locale: "en" // TODO:
+        )
         
         if let rules = viewModel.instance.rules, !rules.isEmpty {
             // show server rules before register
             let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
                 context: context,
                 domain: viewModel.domain,
-                rules: rules
+                authenticateInfo: viewModel.authenticateInfo,
+                rules: rules,
+                registerQuery: query,
+                applicationAuthorization: viewModel.applicationAuthorization
             )
             
             viewModel.isRegistering.value = false
@@ -551,51 +553,28 @@ extension MastodonRegisterViewController {
             return
         } else {
             // register without show server rules
+            context.apiService.accountRegister(
+                domain: viewModel.domain,
+                query: query,
+                authorization: viewModel.applicationAuthorization
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.viewModel.isRegistering.value = false
+                switch completion {
+                case .failure(let error):
+                    self.viewModel.error.send(error)
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                let userToken = response.value
+                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+            }
+            .store(in: &disposeBag)
         }
-        
-        let query = Mastodon.API.Account.RegisterQuery(
-            reason: viewModel.invite.value,
-            username: username,
-            email: email,
-            password: password,
-            agreement: true, // TODO:
-            locale: "en" // TODO:
-        )
-        
-
     }
-}
-
-extension MastodonRegisterViewController {
-//    func register(query: Mastodon.API.Account.RegisterQuery) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> {
-//        context.apiService.accountRegister(
-//            domain: viewModel.domain,
-//            query: query,
-//            authorization: viewModel.applicationAuthorization
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] completion in
-//            guard let self = self else { return }
-//            self.viewModel.isRegistering.value = false
-//            switch completion {
-//            case .failure(let error):
-//                self.viewModel.error.send(error)
-//            case .finished:
-//                break
-//            }
-//        } receiveValue: { [weak self] response in
-//            guard let self = self else { return }
-//            let userToken = response.value
-//
-//            let alertController = UIAlertController(title: L10n.Scene.Register.success, message: L10n.Scene.Register.checkEmail, preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
-//                guard let self = self else { return }
-//                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
-//                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
-//            }
-//            alertController.addAction(okAction)
-//            self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-//        }
-//        .store(in: &disposeBag)
-//    }
 }

@@ -38,44 +38,61 @@ extension SceneCoordinator {
     }
     
     enum Scene {
+        // onboarding
         case welcome
-        case pickServer(viewMode: PickServerViewModel)
-        case authentication(viewModel: AuthenticationViewModel)
+        case mastodonPickServer(viewMode: MastodonPickServerViewModel)
         case mastodonPinBasedAuthentication(viewModel: MastodonPinBasedAuthenticationViewModel)
         case mastodonRegister(viewModel: MastodonRegisterViewModel)
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         
+        // misc
         case alertController(alertController: UIAlertController)
         
         #if DEBUG
         case publicTimeline
         #endif
+        
+        var isOnboarding: Bool {
+            switch self {
+            case .welcome,
+                 .mastodonPickServer,
+                 .mastodonPinBasedAuthentication,
+                 .mastodonRegister,
+                 .mastodonServerRules,
+                 .mastodonConfirmEmail,
+                 .mastodonResendEmail:
+                return true
+            default:
+                return false
+            }
+        }
     }
 }
 
 extension SceneCoordinator {
     
     func setup() {
-        // Check user authentication status
-        
-        let request = MastodonAuthentication.sortedFetchRequest
+        let viewController = MainTabBarController(context: appContext, coordinator: self)
+        sceneDelegate.window?.rootViewController = viewController
+    }
+    
+    func setupOnboardingIfNeeds(animated: Bool) {
+        // Check user authentication status and show onboarding if needs
         do {
-            let fetchResult = try appContext.managedObjectContext.fetch(request)
-            DispatchQueue.main.async {
-                var rootViewController: UIViewController
-                if fetchResult.isEmpty {
-                    let welcomViewController = WelcomeViewController()
-                    self.setupDependency(for: welcomViewController)
-                    rootViewController = UINavigationController(rootViewController: welcomViewController)
-                } else {
-                    rootViewController = MainTabBarController(context: self.appContext, coordinator: self)
+            let request = MastodonAuthentication.sortedFetchRequest
+            if try appContext.managedObjectContext.fetch(request).isEmpty {
+                DispatchQueue.main.async {
+                    self.present(
+                        scene: .welcome,
+                        from: nil,
+                        transition: .modal(animated: animated, completion: nil)
+                    )
                 }
-                self.sceneDelegate.window?.rootViewController = rootViewController
             }
         } catch {
-            assertionFailure("CoreDataStack error at app launch!")
+            assertionFailure(error.localizedDescription)
         }
     }
     
@@ -103,7 +120,13 @@ extension SceneCoordinator {
             presentingViewController.showDetailViewController(navigationController, sender: sender)
             
         case .modal(let animated, let completion):
-            let modalNavigationController = UINavigationController(rootViewController: viewController)
+            let modalNavigationController: UINavigationController = {
+                if scene.isOnboarding {
+                    return DarkContentStatusBarStyleNavigationController(rootViewController: viewController)
+                } else {
+                    return UINavigationController(rootViewController: viewController)
+                }
+            }()
             if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
                 modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
             }
@@ -143,12 +166,8 @@ private extension SceneCoordinator {
         case .welcome:
             let _viewController = WelcomeViewController()
             viewController = _viewController
-        case .pickServer(let viewModel):
-            let _viewController = PickServerViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .authentication(let viewModel):
-            let _viewController = AuthenticationViewController()
+        case .mastodonPickServer(let viewModel):
+            let _viewController = MastodonPickServerViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .mastodonPinBasedAuthentication(let viewModel):

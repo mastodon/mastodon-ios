@@ -1,5 +1,5 @@
 //
-//  PickServerViewController.swift
+//  MastodonPickServerViewController.swift
 //  Mastodon
 //
 //  Created by BradGao on 2021/2/20.
@@ -10,14 +10,14 @@ import Combine
 import OSLog
 import MastodonSDK
 
-final class PickServerViewController: UIViewController, NeedsDependency {
+final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
     private var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    var viewModel: PickServerViewModel!
+    var viewModel: MastodonPickServerViewModel!
     
     private var isAuthenticating = CurrentValueSubject<Bool, Never>(false)
     
@@ -58,7 +58,7 @@ final class PickServerViewController: UIViewController, NeedsDependency {
     
 }
 
-extension PickServerViewController {
+extension MastodonPickServerViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
@@ -72,9 +72,9 @@ extension PickServerViewController {
         
         view.addSubview(nextStepButton)
         NSLayoutConstraint.activate([
-            nextStepButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor, constant: 12),
-            nextStepButton.heightAnchor.constraint(equalToConstant: PickServerViewController.actionButtonHeight).priority(.defaultHigh),
+            nextStepButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
+            view.readableContentGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
+            nextStepButton.heightAnchor.constraint(equalToConstant: MastodonPickServerViewController.actionButtonHeight).priority(.defaultHigh),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
         ])
         
@@ -139,11 +139,11 @@ extension PickServerViewController {
         
         viewModel
             .authenticated
-            .receive(on: DispatchQueue.main)
             .flatMap { [weak self] (domain, user) -> AnyPublisher<Result<Bool, Error>, Never> in
                 guard let self = self else { return Just(.success(false)).eraseToAnyPublisher() }
                 return self.context.authenticationService.activeMastodonUser(domain: domain, userID: user.id)
             }
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 guard let self = self else { return }
                 switch result {
@@ -151,7 +151,7 @@ extension PickServerViewController {
                     assertionFailure(error.localizedDescription)
                 case .success(let isActived):
                     assert(isActived)
-                    self.coordinator.setup()
+                    self.dismiss(animated: true, completion: nil)
                 }
             }
             .store(in: &disposeBag)
@@ -181,9 +181,9 @@ extension PickServerViewController {
         guard let server = viewModel.selectedServer.value else { return }
         isAuthenticating.send(true)
         context.apiService.createApplication(domain: server.domain)
-            .tryMap { response -> PickServerViewModel.AuthenticateInfo in
+            .tryMap { response -> MastodonPickServerViewModel.AuthenticateInfo in
                 let application = response.value
-                guard let info = PickServerViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
+                guard let info = MastodonPickServerViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
                 return info
@@ -222,24 +222,24 @@ extension PickServerViewController {
         isAuthenticating.send(true)
         
         context.apiService.instance(domain: server.domain)
-            .compactMap { [weak self] response -> AnyPublisher<PickServerViewModel.SignUpResponseFirst, Error>? in
+            .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseFirst, Error>? in
                 guard let self = self else { return nil }
                 guard response.value.registrations != false else {
                     return Fail(error: AuthenticationViewModel.AuthenticationError.registrationClosed).eraseToAnyPublisher()
                 }
                 return self.context.apiService.createApplication(domain: server.domain)
-                    .map { PickServerViewModel.SignUpResponseFirst(instance: response, application: $0) }
+                    .map { MastodonPickServerViewModel.SignUpResponseFirst(instance: response, application: $0) }
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
-            .tryMap { response -> PickServerViewModel.SignUpResponseSecond in
+            .tryMap { response -> MastodonPickServerViewModel.SignUpResponseSecond in
                 let application = response.application.value
                 guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
-                return PickServerViewModel.SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
+                return MastodonPickServerViewModel.SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
             }
-            .compactMap { [weak self] response -> AnyPublisher<PickServerViewModel.SignUpResponseThird, Error>? in
+            .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseThird, Error>? in
                 guard let self = self else { return nil }
                 let instance = response.instance
                 let authenticateInfo = response.authenticateInfo
@@ -248,7 +248,7 @@ extension PickServerViewController {
                     clientID: authenticateInfo.clientID,
                     clientSecret: authenticateInfo.clientSecret
                 )
-                .map { PickServerViewModel.SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
+                .map { MastodonPickServerViewModel.SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
                 .eraseToAnyPublisher()
             }
             .switchToLatest()
@@ -277,7 +277,7 @@ extension PickServerViewController {
     }
 }
 
-extension PickServerViewController: UITableViewDelegate {
+extension MastodonPickServerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let category = Section.allCases[section]
         switch category {
@@ -316,7 +316,7 @@ extension PickServerViewController: UITableViewDelegate {
     }
 }
 
-extension PickServerViewController: UITableViewDataSource {
+extension MastodonPickServerViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
@@ -374,7 +374,7 @@ extension PickServerViewController: UITableViewDataSource {
     }
 }
 
-extension PickServerViewController: PickServerCellDelegate {
+extension MastodonPickServerViewController: PickServerCellDelegate {
     func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void)) {
         if newMode == .collapse {
             expandServerDomainSet.remove(server.domain)
@@ -392,18 +392,18 @@ extension PickServerViewController: PickServerCellDelegate {
     }
 }
 
-extension PickServerViewController: PickServerSearchCellDelegate {
+extension MastodonPickServerViewController: PickServerSearchCellDelegate {
     func pickServerSearchCell(didChange searchText: String?) {
         viewModel.searchText.send(searchText)
     }
 }
 
-extension PickServerViewController: PickServerCategoriesDataSource, PickServerCategoriesDelegate {
+extension MastodonPickServerViewController: PickServerCategoriesDataSource, PickServerCategoriesDelegate {
     func numberOfCategories() -> Int {
         return viewModel.categories.count
     }
     
-    func category(at index: Int) -> PickServerViewModel.Category {
+    func category(at index: Int) -> MastodonPickServerViewModel.Category {
         return viewModel.categories[index]
     }
     
@@ -417,4 +417,4 @@ extension PickServerViewController: PickServerCategoriesDataSource, PickServerCa
 }
 
 // MARK: - OnboardingViewControllerAppearance
-extension PickServerViewController: OnboardingViewControllerAppearance { }
+extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }

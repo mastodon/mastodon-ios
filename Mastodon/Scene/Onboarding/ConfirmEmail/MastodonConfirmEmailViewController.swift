@@ -11,7 +11,8 @@ import os.log
 import ThirdPartyMailer
 import UIKit
 
-final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
+final class MastodonConfirmEmailViewController: UIViewController, NeedsDependency {
+    
     var disposeBag = Set<AnyCancellable>()
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -57,13 +58,18 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         button.addTarget(self, action: #selector(dontReceiveButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         return button
     }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension MastodonConfirmEmailViewController {
 
     override func viewDidLoad() {
 
-        self.setupOnboardingAppearance()
+        setupOnboardingAppearance()
         
         // resizedView
         let resizedView = UIView()
@@ -107,17 +113,13 @@ extension MastodonConfirmEmailViewController {
                         case .finished:
                             break
                         }
-                    } receiveValue: { _ in
-                        self.coordinator.setup()
+                    } receiveValue: { response in
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
+                        self.dismiss(animated: true, completion: nil)
                     }
                     .store(in: &self.disposeBag)
             }
             .store(in: &self.disposeBag)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
 }
@@ -174,3 +176,6 @@ extension MastodonConfirmEmailViewController {
         self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
 }
+
+// MARK: - OnboardingViewControllerAppearance
+extension MastodonConfirmEmailViewController: OnboardingViewControllerAppearance { }

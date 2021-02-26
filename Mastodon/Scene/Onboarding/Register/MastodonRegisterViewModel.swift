@@ -23,33 +23,19 @@ final class MastodonRegisterViewModel {
     let displayName = CurrentValueSubject<String, Never>("")
     let email = CurrentValueSubject<String, Never>("")
     let password = CurrentValueSubject<String, Never>("")
-    let invite = CurrentValueSubject<String, Never>("")
-    
-    let isUsernameValidateDalay = CurrentValueSubject<Bool, Never>(true)
-    let isDisplayNameValidateDalay = CurrentValueSubject<Bool, Never>(true)
-    let isEmailValidateDalay = CurrentValueSubject<Bool, Never>(true)
-    let isPasswordValidateDalay = CurrentValueSubject<Bool, Never>(true)
-    let isInviteValidateDelay = CurrentValueSubject<Bool, Never>(true)
-    let isRegistering = CurrentValueSubject<Bool, Never>(false)
+    let reason = CurrentValueSubject<String, Never>("")
     
     // output
-    lazy var approvalRequired: Bool = {
-        if let approvalRequired = instance.approvalRequired {
-            return approvalRequired
-        }
-        return false
-    }()
-    
+    let approvalRequired: Bool
     let applicationAuthorization: Mastodon.API.OAuth.Authorization
-    
     let usernameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let displayNameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let emailValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let inviteValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     
+    let isRegistering = CurrentValueSubject<Bool, Never>(false)
     let isAllValid = CurrentValueSubject<Bool, Never>(false)
-    
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     init(
@@ -62,6 +48,7 @@ final class MastodonRegisterViewModel {
         self.authenticateInfo = authenticateInfo
         self.instance = instance
         self.applicationToken = applicationToken
+        self.approvalRequired = instance.approvalRequired ?? false
         self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken)
         
         username
@@ -107,7 +94,7 @@ final class MastodonRegisterViewModel {
             .assign(to: \.value, on: passwordValidateState)
             .store(in: &disposeBag)
         if approvalRequired {
-            invite
+            reason
                 .map { invite in
                     guard !invite.isEmpty else { return .empty }
                     return .valid

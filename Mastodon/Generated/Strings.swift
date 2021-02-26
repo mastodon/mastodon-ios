@@ -50,9 +50,9 @@ internal enum L10n {
         internal static let savePhoto = L10n.tr("Localizable", "Common.Controls.Actions.SavePhoto")
         /// See More
         internal static let seeMore = L10n.tr("Localizable", "Common.Controls.Actions.SeeMore")
-        /// Sign in
+        /// Sign In
         internal static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn")
-        /// Sign up
+        /// Sign Up
         internal static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp")
         /// Take photo
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
@@ -101,7 +101,7 @@ internal enum L10n {
       internal enum DontReceiveEmail {
         /// Check if your email address is correct as well as your junk folder if you haven’t.
         internal static let description = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Description")
-        /// Resend email
+        /// Resend Email
         internal static let resendEmail = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.ResendEmail")
         /// Check your email
         internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.DontReceiveEmail.Title")

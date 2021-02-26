@@ -7,8 +7,11 @@
 
 import os.log
 import UIKit
+import Combine
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
+    
+    var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -56,7 +59,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         return label
     }()
     
-    let confirmButton: UIButton = {
+    let confirmButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         button.setTitleColor(.white, for: .normal)
@@ -69,6 +72,10 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         scrollView.alwaysBounceVertical = true
         return scrollView
     }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
      
 }
 
@@ -109,7 +116,7 @@ extension MastodonServerRulesViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
@@ -136,6 +143,14 @@ extension MastodonServerRulesViewController {
         
         rulesLabel.attributedText = viewModel.rulesAttributedString
         confirmButton.addTarget(self, action: #selector(MastodonServerRulesViewController.confirmButtonPressed(_:)), for: .touchUpInside)
+        
+        viewModel.isRegistering
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isRegistering in
+                guard let self = self else { return }
+                isRegistering ? self.confirmButton.showLoading() : self.confirmButton.stopLoading()
+            }
+            .store(in: &disposeBag)
     }
     
 }
@@ -143,7 +158,31 @@ extension MastodonServerRulesViewController {
 extension MastodonServerRulesViewController {
     @objc private func confirmButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
+        
+        let email = viewModel.registerQuery.email
+        
+        context.apiService.accountRegister(
+            domain: viewModel.domain,
+            query: viewModel.registerQuery,
+            authorization: viewModel.applicationAuthorization
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] completion in
+            guard let self = self else { return }
+            self.viewModel.isRegistering.value = false
+            switch completion {
+            case .failure(let error):
+                self.viewModel.error.send(error)
+            case .finished:
+                break
+            }
+        } receiveValue: { [weak self] response in
+            guard let self = self else { return }
+            let userToken = response.value
+            let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+            self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+        }
+        .store(in: &disposeBag)
     }
 }
 
