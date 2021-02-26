@@ -40,6 +40,7 @@ tap the link to confirm your account.";
 "Scene.Register.CheckEmail" = "Regsiter request sent. Please check your email.";
 "Scene.Register.Input.DisplayName.Placeholder" = "display name";
 "Scene.Register.Input.Email.Placeholder" = "email";
+"Scene.Register.Input.Invite.RegistrationUserInviteRequest" = "Why do you want to join?";
 "Scene.Register.Input.Password.Placeholder" = "password";
 "Scene.Register.Input.Password.Prompt" = "Your password needs at least:";
 "Scene.Register.Input.Password.PromptEightCharacters" = "Eight characters";

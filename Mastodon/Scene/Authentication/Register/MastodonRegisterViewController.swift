@@ -97,7 +97,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -118,7 +118,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -135,7 +135,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -159,8 +159,24 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.keyboardType = .asciiCapable
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
+                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
+                                                                          NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
+        textField.borderStyle = UITextField.BorderStyle.roundedRect
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+        return textField
+    }()
+    
+    lazy var inviteTextField: UITextField = {
+        let textField = UITextField()
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.backgroundColor = .white
+        textField.textColor = Asset.Colors.Label.secondary.color
+        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
@@ -226,7 +242,9 @@ extension MastodonRegisterViewController {
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(passwordCheckLabel)
-        
+        if self.viewModel.approvalRequired {
+            stackView.addArrangedSubview(inviteTextField)
+        }
         // scrollView
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
@@ -445,6 +463,31 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
+        if self.viewModel.approvalRequired {
+            
+            inviteTextField.delegate = self
+            NSLayoutConstraint.activate([
+                inviteTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh)
+            ])
+            
+            viewModel.inviteValidateState
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] validateState in
+                    guard let self = self else { return }
+                    self.setTextFieldValidAppearance(self.inviteTextField, validateState: validateState)
+
+                }
+                .store(in: &disposeBag)
+            NotificationCenter.default
+                .publisher(for: UITextField.textDidChangeNotification, object: inviteTextField)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] _ in
+                    guard let self = self else { return }
+                    self.viewModel.invite.value = self.inviteTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                }
+                .store(in: &disposeBag)
+        }
+        
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
     
@@ -456,25 +499,6 @@ extension MastodonRegisterViewController {
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
-
-    // FIXME: keyboard listener trigger when switch between text fields. Maybe could remove it
-    // func textFieldDidBeginEditing(_ textField: UITextField) {
-    //     // align to password label when overlap
-    //     if textField === passwordTextField,
-    //        KeyboardResponderService.shared.isShow.value,
-    //        KeyboardResponderService.shared.state.value == .dock
-    //     {
-    //         let endFrame = KeyboardResponderService.shared.willEndFrame.value
-    //         let contentFrame = scrollView.convert(signUpButton.frame, to: nil)
-    //         let padding = contentFrame.maxY - endFrame.minY
-    //         if padding > 0 {
-    //             let contentOffsetY = scrollView.contentOffset.y
-    //             DispatchQueue.main.async {
-    //                 self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + padding + 16.0), animated: true)
-    //             }
-    //         }
-    //     }
-    // }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -488,6 +512,8 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
             viewModel.email.value = text
         case passwordTextField:
             viewModel.password.value = text
+        case inviteTextField:
+            viewModel.invite.value = text
         default:
             break
         }
@@ -542,7 +568,7 @@ extension MastodonRegisterViewController {
         }
         
         let query = Mastodon.API.Account.RegisterQuery(
-            reason: nil,
+            reason: viewModel.invite.value,
             username: username,
             email: email,
             password: password,

@@ -45,7 +45,7 @@ extension Mastodon.Entity {
             case languages
             case registrations
             case approvalRequired = "approval_required"
-            case invitesEnabled
+            case invitesEnabled = "invites_enabled"
             case urls
             case statistics
             
