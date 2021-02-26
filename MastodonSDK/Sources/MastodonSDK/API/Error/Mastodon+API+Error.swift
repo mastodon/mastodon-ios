@@ -39,7 +39,7 @@ extension Mastodon.API.Error: LocalizedError {
     
     public var errorDescription: String? {
         guard let mastodonError = mastodonError else {
-            return nil
+            return "HTTP \(httpResponseStatus.code)"
         }
         switch mastodonError {
         case .generic(let error):
@@ -49,7 +49,7 @@ extension Mastodon.API.Error: LocalizedError {
     
     public var failureReason: String? {
         guard let mastodonError = mastodonError else {
-            return nil
+            return httpResponseStatus.reasonPhrase
         }
         switch mastodonError {
         case .generic(let error):

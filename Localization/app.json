@@ -22,8 +22,8 @@
                 "cancel": "Cancel",
                 "take_photo": "Take photo",
                 "save_photo": "Save photo",
-                "sign_in": "Sign in",
-                "sign_up": "Sign up",
+                "sign_in": "Sign In",
+                "sign_up": "Sign Up",
                 "see_more": "See More",
                 "preview": "Preview",
                 "open_in_safari": "Open in Safari"
@@ -110,7 +110,7 @@
             "dont_receive_email": {
                 "title": "Check your email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend email"
+                "resend_email": "Resend Email"
             },
             "open_email_app": {
                 "title": "Check your inbox.",

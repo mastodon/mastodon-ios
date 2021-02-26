@@ -13,8 +13,8 @@
 "Common.Controls.Actions.Save" = "Save";
 "Common.Controls.Actions.SavePhoto" = "Save photo";
 "Common.Controls.Actions.SeeMore" = "See More";
-"Common.Controls.Actions.SignIn" = "Sign in";
-"Common.Controls.Actions.SignUp" = "Sign up";
+"Common.Controls.Actions.SignIn" = "Sign In";
+"Common.Controls.Actions.SignUp" = "Sign Up";
 "Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Status.MediaContentWarning" = "Tap to reveal that may be sensitive";
 "Common.Controls.Status.ShowPost" = "Show Post";
@@ -26,7 +26,7 @@
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
-"Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Resend email";
+"Scene.ConfirmEmail.DontReceiveEmail.ResendEmail" = "Resend Email";
 "Scene.ConfirmEmail.DontReceiveEmail.Title" = "Check your email";
 "Scene.ConfirmEmail.OpenEmailApp.Description" = "We just sent you an email. Check your junk folder if you haven’t.";
 "Scene.ConfirmEmail.OpenEmailApp.Mail" = "Mail";
