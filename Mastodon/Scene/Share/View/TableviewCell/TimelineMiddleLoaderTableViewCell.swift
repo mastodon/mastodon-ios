@@ -1,0 +1,55 @@
+//
+//  TimelineMiddleLoaderTableViewCell.swift
+//  Mastodon
+//
+//  Created by sxiaojian on 2021/2/4.
+//
+
+import Combine
+import CoreData
+import os.log
+import UIKit
+
+protocol TimelineMiddleLoaderTableViewCellDelegate: class {
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID:NSManagedObjectID?)
+    func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)
+}
+
+final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
+    weak var delegate: TimelineMiddleLoaderTableViewCellDelegate?
+    
+    override func _init() {
+        super._init()
+        
+        backgroundColor = .clear
+        
+        loadMoreButton.isHidden = false
+        loadMoreButton.setImage(Asset.Arrows.arrowTriangle2Circlepath.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        loadMoreButton.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
+        loadMoreButton.addTarget(self, action: #selector(TimelineMiddleLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
+    }
+}
+
+extension TimelineMiddleLoaderTableViewCell {
+    @objc private func loadMoreButtonDidPressed(_ sender: UIButton) {
+        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
+        delegate?.timelineMiddleLoaderTableViewCell(self, loadMoreButtonDidPressed: sender)
+    }
+}
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct TimelineMiddleLoaderTableViewCell_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewPreview(width: 375) {
+            TimelineMiddleLoaderTableViewCell()
+        }
+        .previewLayout(.fixed(width: 375, height: 100))
+    }
+    
+}
+
+#endif
+

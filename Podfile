@@ -1,4 +1,4 @@
-platform :ios, '13.0'
+platform :ios, '14.0'
 
 target 'Mastodon' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -6,10 +6,14 @@ target 'Mastodon' do
 
   # Pods for Mastodon
 
-   # misc
-  pod 'SwiftGen', '~> 6.3.0'
+  # UI
+  pod 'UITextField+Shake', '~> 1.2'
+  
+  # misc
+  pod 'SwiftGen', '~> 6.4.0'
   pod 'DateToolsSwift', '~> 5.0.0'
-
+  pod 'Kanna', '~> 5.2.2'
+  
   target 'MastodonTests' do
     inherit! :search_paths
     # Pods for testing

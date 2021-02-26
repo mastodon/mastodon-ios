@@ -10,11 +10,14 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let appContext = AppContext()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         return true
+        
+        // Update app version info. See: `Settings.bundle`
+        UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
+        UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
     }
 
     // MARK: UISceneSession Lifecycle
@@ -34,3 +37,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate {
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        #if DEBUG
+        return .all
+        #else
+        return UIDevice.current.userInterfaceIdiom == .pad ? .all : .portrait
+        #endif
+    }
+}
+
+
+extension AppContext {
+    static var shared: AppContext {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.appContext
+    }
+}

@@ -1,15 +1,19 @@
 import XCTest
+import Combine
 @testable import MastodonSDK
 
 final class MastodonSDKTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(MastodonSDK().text, "Hello, World!")
+    
+    var disposeBag = Set<AnyCancellable>()
+
+    let session = URLSession(configuration: .ephemeral)
+    var domain: String { MastodonSDKTests.environmentVariable(key: "domain") }
+
+    // TODO: replace with test account token
+    var testToken = ""
+    
+    static func environmentVariable(key: String) -> String {
+        return ProcessInfo.processInfo.environment[key]!
     }
 
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

@@ -1,0 +1,87 @@
+{
+  "configurations" : [
+    {
+      "id" : "5119353D-C795-4264-89FD-8376D9B144F8",
+      "name" : "mstdn.jp",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "mstdn.jp"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "9DA3EAE9-A502-49E9-BC74-5ED71250F4A8",
+      "name" : "mastodon.social",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "mastodon.social"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "C5184AF3-B83B-4A7E-949C-6B1AA3ABE7D1",
+      "name" : "pawoo.net",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "pawoo.net"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "71C5BF3D-A8CE-468B-B22E-E6DA4AD5AF4E",
+      "name" : "freespeechextremist.com",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "freespeechextremist.com"
+          }
+        ]
+      }
+    },
+    {
+      "id" : "C229D9A6-6A83-4AF9-8A71-ADD1AD2AD9D8",
+      "name" : "mastodon.online",
+      "options" : {
+        "environmentVariableEntries" : [
+          {
+            "key" : "domain",
+            "value" : "mastodon.online"
+          }
+        ]
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "MastodonSDKTests\/testCreateAnAnpplication()",
+        "MastodonSDKTests\/testHomeTimeline()",
+        "MastodonSDKTests\/testOAuthAuthorize()",
+        "MastodonSDKTests\/testRetrieveAccountInfo()",
+        "MastodonSDKTests\/testRevokeToken()",
+        "MastodonSDKTests\/testUpdateCredentials()",
+        "MastodonSDKTests\/testVerifyAppCredentials()",
+        "MastodonSDKTests\/testVerifyCredentials()"
+      ],
+      "target" : {
+        "containerPath" : "container:MastodonSDK",
+        "identifier" : "MastodonSDKTests",
+        "name" : "MastodonSDKTests"
+      }
+    }
+  ],
+  "version" : 1
+}

@@ -1,0 +1,129 @@
+{
+    "common": {
+        "alerts": {
+            "sign_up_failure": {
+                "title": "Sign Up Failure"
+            },
+            "server_error": {
+                "title": "Server Error"
+            }
+            
+        },
+        "controls": {
+            "actions": {
+                "back": "Back",
+                "add": "Add",
+                "remove": "Remove",
+                "edit": "Edit",
+                "save": "Save",
+                "ok": "OK",
+                "confirm": "Confirm",
+                "continue": "Continue",
+                "cancel": "Cancel",
+                "take_photo": "Take photo",
+                "save_photo": "Save photo",
+                "sign_in": "Sign In",
+                "sign_up": "Sign Up",
+                "see_more": "See More",
+                "preview": "Preview",
+                "open_in_safari": "Open in Safari"
+            },
+            "status": {
+                "user_boosted": "%s boosted",
+                "show_post": "Show Post",
+                "status_content_warning": "content warning",
+                "media_content_warning": "Tap to reveal that may be sensitive"
+            },
+            "timeline": {
+                "load_more": "Load More"
+            }
+        },
+        "countable": {
+            "photo": {
+                "single": "photo",
+                "multiple": "photos"
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Social networking\nback in your hands."
+        },
+        "server_picker": {
+            "title": "Pick a Server,\nany server.",
+            "Button": {
+                "Category": {
+                    "All": "All"
+                },
+                "SeeLess": "See Less",
+                "SeeMore": "See More"
+            },
+            "Label": {
+                "Language": "LANGUAGE",
+                "Users": "USERS",
+                "Category": "CATEGORY"
+            },
+            "input": {
+                "placeholder": "Find a server or join your own..."
+            }
+        },
+        "register": {
+            "title": "Tell us about you.",
+            "input": {
+                "username": {
+                    "placeholder": "username",
+                    "duplicate_prompt": "This username is taken."
+                },
+                "display_name": {
+                    "placeholder": "display name"
+                },
+                "email": {
+                    "placeholder": "email"
+                },
+                "password": {
+                    "placeholder": "password",
+                    "prompt": "Your password needs at least:",
+                    "prompt_eight_characters": "Eight characters"
+                },
+                "invite": {
+                  "registration_user_invite_request": "Why do you want to join?"
+                }
+            },
+            "success": "Success",
+            "check_email": "Regsiter request sent. Please check your email."
+        },
+        "server_rules": {
+            "title": "Some ground rules.",
+            "subtitle": "These rules are set by the admins of %s.",
+            "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
+            "button": {
+                "confirm": "I Agree"
+            }
+        },
+        "confirm_email": {
+            "title": "One last thing.",
+            "subtitle": "We just sent an email to %@,\ntap the link to confirm your account.",
+            "button": {
+                "open_email_app": "Open Email App",
+                "dont_receive_email": "I never got an email"
+            },
+            "dont_receive_email": {
+                "title": "Check your email",
+                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "resend_email": "Resend Email"
+            },
+            "open_email_app": {
+                "title": "Check your inbox.",
+                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "mail": "Mail",
+                "open_email_client": "Open Email Client"
+            }
+        },
+        "home_timeline": {
+            "title": "Home"
+        },
+        "public_timeline": {
+            "title": "Public"
+        }
+    }
+}
