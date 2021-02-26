@@ -70,6 +70,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
+        scrollView.showsVerticalScrollIndicator = false
         return scrollView
     }()
     
@@ -84,7 +85,8 @@ extension MastodonServerRulesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupOnboardingAppearance()
+        setupOnboardingAppearance()
+        defer { setupNavigationBarBackgroundView() }
         
         bottonContainerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(bottonContainerView)
@@ -94,14 +96,17 @@ extension MastodonServerRulesViewController {
             bottonContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         bottonContainerView.preservesSuperviewLayoutMargins = true
+        defer {
+            view.bringSubviewToFront(bottonContainerView)
+        }
         
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         bottonContainerView.addSubview(confirmButton)
         NSLayoutConstraint.activate([
             bottonContainerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: MastodonServerRulesViewController.viewBottomPaddingHeight),
-            confirmButton.leadingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.leadingAnchor),
-            confirmButton.trailingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.trailingAnchor),
-            confirmButton.heightAnchor.constraint(equalToConstant: 46).priority(.defaultHigh),
+            confirmButton.leadingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.leadingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
+            bottonContainerView.readableContentGuide.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
+            confirmButton.heightAnchor.constraint(equalToConstant: MastodonServerRulesViewController.actionButtonHeight).priority(.defaultHigh),
         ])
         
         bottomPromptLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -116,11 +121,11 @@ extension MastodonServerRulesViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
-            bottonContainerView.topAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor),
         ])
                 
         let stackView = UIStackView()
@@ -151,8 +156,42 @@ extension MastodonServerRulesViewController {
                 isRegistering ? self.confirmButton.showLoading() : self.confirmButton.stopLoading()
             }
             .store(in: &disposeBag)
+        
+        viewModel.error
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.coordinator.present(
+                    scene: .alertController(alertController: alertController),
+                    from: nil,
+                    transition: .alertController(animated: true, completion: nil)
+                )
+            }
+            .store(in: &disposeBag)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateScrollViewContentInset()
+    }
+    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        updateScrollViewContentInset()
+    }
+    
+}
+
+extension MastodonServerRulesViewController {
+    func updateScrollViewContentInset() {
+        view.layoutIfNeeded()
+        scrollView.contentInset.bottom = bottonContainerView.frame.height
+        scrollView.verticalScrollIndicatorInsets.bottom = bottonContainerView.frame.height
+    }
 }
 
 extension MastodonServerRulesViewController {
