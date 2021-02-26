@@ -39,6 +39,7 @@ extension SceneCoordinator {
     
     enum Scene {
         case welcome
+        case pickServer(viewMode: PickServerViewModel)
         case authentication(viewModel: AuthenticationViewModel)
         case mastodonPinBasedAuthentication(viewModel: MastodonPinBasedAuthenticationViewModel)
         case mastodonRegister(viewModel: MastodonRegisterViewModel)
@@ -141,6 +142,10 @@ private extension SceneCoordinator {
         switch scene {
         case .welcome:
             let _viewController = WelcomeViewController()
+            viewController = _viewController
+        case .pickServer(let viewModel):
+            let _viewController = PickServerViewController()
+            _viewController.viewModel = viewModel
             viewController = _viewController
         case .authentication(let viewModel):
             let _viewController = AuthenticationViewController()

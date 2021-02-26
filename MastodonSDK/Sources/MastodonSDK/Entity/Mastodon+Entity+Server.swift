@@ -9,7 +9,7 @@ import Foundation
 
 extension Mastodon.Entity {
     
-    public struct Server: Codable {
+    public struct Server: Codable, Equatable {
         public let domain: String
         public let version: String
         public let description: String
@@ -36,6 +36,25 @@ extension Mastodon.Entity {
             case approvalRequired = "approval_required"
             case language
             case category
+        }
+        
+        public init(instance: Instance) {
+            self.domain = instance.uri
+            self.version = instance.version ?? ""
+            self.description = instance.shortDescription ?? instance.description
+            self.language = instance.languages?.first ?? ""
+            self.languages = instance.languages ?? []
+            self.region = "Unknown" // TODO: how to handle properties not in an instance
+            self.categories = []
+            self.category = "Unknown"
+            self.proxiedThumbnail = instance.thumbnail
+            self.totalUsers = instance.statistics?.userCount ?? 0
+            self.lastWeekUsers = 0
+            self.approvalRequired = instance.approvalRequired ?? false
+        }
+        
+        public static func == (lhs: Self, rhs: Self) -> Bool {
+            return lhs.domain.caseInsensitiveCompare(rhs.domain) == .orderedSame
         }
     }
     

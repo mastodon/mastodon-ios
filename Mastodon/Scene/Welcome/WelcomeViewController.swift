@@ -2,7 +2,7 @@
 //  WelcomeViewController.swift
 //  Mastodon
 //
-//  Created by 高原 on 2021/2/20.
+//  Created by BradGao on 2021/2/20.
 //
 
 import os.log
@@ -12,15 +12,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
-    #if DEBUG
-    lazy var authenticationViewController: AuthenticationViewController = {
-        let authenticationViewController = AuthenticationViewController()
-        authenticationViewController.context = context
-        authenticationViewController.coordinator = coordinator
-        return authenticationViewController
-    }()
-    #endif
     
     let logoImageView: UIImageView = {
         let imageView = UIImageView(image: Asset.welcomeLogo.image)
@@ -65,6 +56,10 @@ extension WelcomeViewController {
         
         overrideUserInterfaceStyle = .light
         view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.view.backgroundColor = .clear
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([
@@ -93,8 +88,8 @@ extension WelcomeViewController {
             signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 5)
         ])
         
-        signInButton.addTarget(self, action: #selector(WelcomeViewController.signInButtonPressed(_:)), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(WelcomeViewController.signUpButtonPressed(_:)), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,20 +100,13 @@ extension WelcomeViewController {
 }
 
 extension WelcomeViewController {
-
-    @objc private func signInButtonPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
-        #if DEBUG
-        authenticationViewController.viewModel = AuthenticationViewModel(context: context, coordinator: coordinator, isAuthenticationExist: true)
-        authenticationViewController.viewModel.domain.value = "pawoo.net"
-        let _ = authenticationViewController.view   // trigger view load
-        authenticationViewController.signInButton.sendActions(for: .touchUpInside)
-        #endif
+    @objc
+    private func signUpButtonDidClicked(_ sender: UIButton) {
+        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signUp)), from: self, transition: .show)
     }
     
-    @objc private func signUpButtonPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    @objc
+    private func signInButtonDidClicked(_ sender: UIButton) {
+        coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
     }
-    
 }

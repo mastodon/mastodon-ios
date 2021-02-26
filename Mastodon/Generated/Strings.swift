@@ -160,9 +160,27 @@ internal enum L10n {
     internal enum ServerPicker {
       /// Pick a Server,\nany server.
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
+      internal enum Button {
+        /// See Less
+        internal static let seeless = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seeless")
+        /// See More
+        internal static let seemore = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seemore")
+        internal enum Category {
+          /// All
+          internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")
+        }
+      }
       internal enum Input {
         /// Find a server or join your own...
         internal static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")
+      }
+      internal enum Label {
+        /// CATEGORY
+        internal static let category = L10n.tr("Localizable", "Scene.ServerPicker.Label.Category")
+        /// LANGUAGE
+        internal static let language = L10n.tr("Localizable", "Scene.ServerPicker.Label.Language")
+        /// USERS
+        internal static let users = L10n.tr("Localizable", "Scene.ServerPicker.Label.Users")
       }
     }
     internal enum ServerRules {
