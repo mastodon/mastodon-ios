@@ -22,8 +22,9 @@ class PickServerCell: UITableViewCell {
         case expand
     }
     
-    private var bgView: UIView = {
+    private var containerView: UIView = {
         let view = UIView()
+        view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
         view.backgroundColor = Asset.Colors.lightWhite.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -193,16 +194,16 @@ extension PickServerCell {
         selectionStyle = .none
         backgroundColor = .clear
         
-        contentView.addSubview(bgView)
-        contentView.addSubview(domainLabel)
-        contentView.addSubview(checkbox)
-        contentView.addSubview(descriptionLabel)
-        contentView.addSubview(seperator)
+        contentView.addSubview(containerView)
+        containerView.addSubview(domainLabel)
+        containerView.addSubview(checkbox)
+        containerView.addSubview(descriptionLabel)
+        containerView.addSubview(seperator)
         
-        contentView.addSubview(expandButton)
+        containerView.addSubview(expandButton)
         
         // Always add the expandbox which contains elements only visible in expand mode
-        contentView.addSubview(expandBox)
+        containerView.addSubview(expandBox)
         expandBox.addSubview(thumbImageView)
         expandBox.addSubview(infoStackView)
         expandBox.isHidden = true
@@ -217,68 +218,63 @@ extension PickServerCell {
         let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12).priority(.required)
         collapseConstraints.append(expandButtonTopConstraintInCollapse)
         
-        let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.required)
+        let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.defaultHigh)
         expandConstraints.append(expandButtonTopConstraintInExpand)
-        
-//        domainLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-//        domainLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-//        descriptionLabel.setContentHuggingPriority(.required - 2, for: .vertical)
-//        descriptionLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
-        domainLabel.setContentHuggingPriority(.required, for: .vertical)
-        domainLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        descriptionLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
-        descriptionLabel.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         
         NSLayoutConstraint.activate([
             // Set background view
-            bgView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            bgView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: bgView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: 1),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 1),
             
             // Set bottom separator
-            seperator.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: seperator.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: seperator.bottomAnchor),
-            seperator.heightAnchor.constraint(equalToConstant: 1),
+            seperator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: seperator.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: seperator.bottomAnchor),
+            seperator.heightAnchor.constraint(equalToConstant: 1).priority(.defaultHigh),
             
-            domainLabel.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
-            domainLabel.topAnchor.constraint(equalTo: bgView.topAnchor, constant: 16),
+            domainLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
+            domainLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
             
             checkbox.widthAnchor.constraint(equalToConstant: 23),
             checkbox.heightAnchor.constraint(equalToConstant: 22),
-            bgView.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor, constant: 16),
+            containerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: checkbox.trailingAnchor),
             checkbox.leadingAnchor.constraint(equalTo: domainLabel.trailingAnchor, constant: 16),
             checkbox.centerYAnchor.constraint(equalTo: domainLabel.centerYAnchor),
             
-            descriptionLabel.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
-            descriptionLabel.topAnchor.constraint(equalTo: domainLabel.firstBaselineAnchor, constant: 8).priority(.required),
-            bgView.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor, constant: 16),
+            descriptionLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
+            descriptionLabel.topAnchor.constraint(equalTo: domainLabel.bottomAnchor, constant: 8),
+            containerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: descriptionLabel.trailingAnchor),
             
             // Set expandBox constraints
-            expandBox.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
-            bgView.trailingAnchor.constraint(equalTo: expandBox.trailingAnchor, constant: 16),
+            expandBox.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
+            containerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: expandBox.trailingAnchor),
             expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             expandBox.bottomAnchor.constraint(equalTo: infoStackView.bottomAnchor).priority(.defaultHigh),
             
+            thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
             thumbImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: thumbImageView.trailingAnchor),
-            thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor).priority(.defaultHigh),
             thumbImageView.heightAnchor.constraint(equalTo: thumbImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
             
             infoStackView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: infoStackView.trailingAnchor),
             infoStackView.topAnchor.constraint(equalTo: thumbImageView.bottomAnchor, constant: 16),
             
-            expandButton.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 16),
-            bgView.trailingAnchor.constraint(equalTo: expandButton.trailingAnchor, constant: 16),
-            bgView.bottomAnchor.constraint(equalTo: expandButton.bottomAnchor, constant: 8),
+            expandButton.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
+            containerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: expandButton.trailingAnchor),
+            containerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: expandButton.bottomAnchor),
         ])
         
         NSLayoutConstraint.activate(collapseConstraints)
         
-        expandButton.addTarget(self, action: #selector(expandButtonDidClicked(_:)), for: .touchUpInside)
+        domainLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        domainLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        descriptionLabel.setContentHuggingPriority(.required - 2, for: .vertical)
+        descriptionLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
         
+        expandButton.addTarget(self, action: #selector(expandButtonDidClicked(_:)), for: .touchUpInside)
     }
     
     private func makeVerticalInfoStackView(arrangedView: UIView...) -> UIStackView {

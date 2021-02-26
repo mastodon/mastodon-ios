@@ -13,6 +13,7 @@ class PrimaryActionButton: UIButton {
     
     lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .white
         indicator.hidesWhenStopped = true
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
@@ -28,6 +29,19 @@ class PrimaryActionButton: UIButton {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
+    }
+
+}
+
+extension PrimaryActionButton {
+    
+    private func _init() {
+        titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+        setTitleColor(.white, for: .normal)
+        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.highlight.color), for: .normal)
+        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.highlight.color.withAlphaComponent(0.5)), for: .highlighted)
+        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        applyCornerRadius(radius: 10)
     }
     
     func showLoading() {
@@ -53,16 +67,5 @@ class PrimaryActionButton: UIButton {
         }
         isEnabled = true
         self.setTitle(originalButtonTitle, for: .disabled)
-    }
-}
-
-extension PrimaryActionButton {
-    private func _init() {
-        titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        setTitleColor(Asset.Colors.lightWhite.color, for: .normal)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightDisabled.color), for: .disabled)
-        applyCornerRadius(radius: 10)
-        setInsets(forContentPadding: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0), imageTitlePadding: 0)
     }
 }

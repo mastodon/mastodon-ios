@@ -39,6 +39,7 @@ internal enum Asset {
     }
     internal enum Button {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
+      internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
       internal static let highlight = ColorAsset(name: "Colors/Button/highlight")
     }
     internal enum Icon {
@@ -67,7 +68,10 @@ internal enum Asset {
     internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
-  internal static let welcomeLogo = ImageAsset(name: "welcome.logo")
+  internal enum Welcome {
+    internal static let mastodonLogo = ImageAsset(name: "Welcome/mastodon.logo")
+    internal static let mastodonLogoLarge = ImageAsset(name: "Welcome/mastodon.logo.large")
+  }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

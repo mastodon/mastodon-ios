@@ -60,10 +60,6 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 }
 
 extension MastodonConfirmEmailViewController {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
 
     override func viewDidLoad() {
 
@@ -118,6 +114,12 @@ extension MastodonConfirmEmailViewController {
             }
             .store(in: &self.disposeBag)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
 }
 
 extension MastodonConfirmEmailViewController {

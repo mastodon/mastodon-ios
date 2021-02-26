@@ -7,6 +7,11 @@
 		<key>CoreDataStack.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>Mastodon - RTL.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
 			<integer>8</integer>
 		</dict>
 		<key>Mastodon.xcscheme_^#shared#^_</key>

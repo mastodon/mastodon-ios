@@ -21,18 +21,13 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
-    let statusBarBackground: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
-        return view
-    }()
-    
     let scrollView: UIScrollView = {
         let scrollview = UIScrollView()
         scrollview.showsVerticalScrollIndicator = false
-        scrollview.translatesAutoresizingMaskIntoConstraints = false
         scrollview.keyboardDismissMode = .interactive
+        scrollview.alwaysBounceVertical = true
         scrollview.clipsToBounds = false    // make content could display over bleeding
+        scrollview.translatesAutoresizingMaskIntoConstraints = false
         return scrollview
     }()
     
@@ -171,16 +166,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
     
     let signUpButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightDisabled.color), for: .disabled)
+        let button = PrimaryActionButton()
         button.isEnabled = false
-        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 8
-        button.layer.cornerCurve = .continuous
         return button
     }()
     
@@ -196,7 +184,8 @@ extension MastodonRegisterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupOnboardingAppearance()
+        setupOnboardingAppearance()
+        defer { setupNavigationBarBackgroundView() }
         
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
@@ -247,15 +236,6 @@ extension MastodonRegisterViewController {
             stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
             scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
-        
-        statusBarBackground.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(statusBarBackground)
-        NSLayoutConstraint.activate([
-            statusBarBackground.topAnchor.constraint(equalTo: view.topAnchor),
-            statusBarBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            statusBarBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            statusBarBackground.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-        ])
 
         // photoview
         photoView.translatesAutoresizingMaskIntoConstraints = false
@@ -299,7 +279,7 @@ extension MastodonRegisterViewController {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(signUpButton)
         NSLayoutConstraint.activate([
-            signUpButton.heightAnchor.constraint(equalToConstant: 46).priority(.defaultHigh),
+            signUpButton.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.defaultHigh),
         ])
 
         signUpActivityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -532,13 +512,19 @@ extension MastodonRegisterViewController {
         let password = viewModel.password.value
         
         if let rules = viewModel.instance.rules, !rules.isEmpty {
+            // show server rules before register
             let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
                 context: context,
                 domain: viewModel.domain,
                 rules: rules
             )
+            
+            viewModel.isRegistering.value = false
+            view.endEditing(true)
             coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
             return
+        } else {
+            // register without show server rules
         }
         
         let query = Mastodon.API.Account.RegisterQuery(
@@ -550,34 +536,40 @@ extension MastodonRegisterViewController {
             locale: "en" // TODO:
         )
         
-        context.apiService.accountRegister(
-            domain: viewModel.domain,
-            query: query,
-            authorization: viewModel.applicationAuthorization
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] completion in
-            guard let self = self else { return }
-            self.viewModel.isRegistering.value = false
-            switch completion {
-            case .failure(let error):
-                self.viewModel.error.send(error)
-            case .finished:
-                break
-            }
-        } receiveValue: { [weak self] response in
-            guard let self = self else { return }
-            let userToken = response.value
-            
-            let alertController = UIAlertController(title: L10n.Scene.Register.success, message: L10n.Scene.Register.checkEmail, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
-                guard let self = self else { return }
-                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
-                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
-            }
-            alertController.addAction(okAction)
-            self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-        }
-        .store(in: &disposeBag)
+
     }
+}
+
+extension MastodonRegisterViewController {
+//    func register(query: Mastodon.API.Account.RegisterQuery) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> {
+//        context.apiService.accountRegister(
+//            domain: viewModel.domain,
+//            query: query,
+//            authorization: viewModel.applicationAuthorization
+//        )
+//        .receive(on: DispatchQueue.main)
+//        .sink { [weak self] completion in
+//            guard let self = self else { return }
+//            self.viewModel.isRegistering.value = false
+//            switch completion {
+//            case .failure(let error):
+//                self.viewModel.error.send(error)
+//            case .finished:
+//                break
+//            }
+//        } receiveValue: { [weak self] response in
+//            guard let self = self else { return }
+//            let userToken = response.value
+//
+//            let alertController = UIAlertController(title: L10n.Scene.Register.success, message: L10n.Scene.Register.checkEmail, preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default) { [weak self] _ in
+//                guard let self = self else { return }
+//                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+//                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+//            }
+//            alertController.addAction(okAction)
+//            self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+//        }
+//        .store(in: &disposeBag)
+//    }
 }

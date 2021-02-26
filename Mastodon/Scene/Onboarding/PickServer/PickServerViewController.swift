@@ -29,7 +29,7 @@ final class PickServerViewController: UIViewController, NeedsDependency {
         case search
         case serverList
     }
-    
+
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(PickServerTitleCell.self, forCellReuseIdentifier: String(describing: PickServerTitleCell.self))
@@ -46,11 +46,16 @@ final class PickServerViewController: UIViewController, NeedsDependency {
     }()
     
     let nextStepButton: PrimaryActionButton = {
-        let button = PrimaryActionButton(type: .system)
+        let button = PrimaryActionButton()
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension PickServerViewController {
@@ -62,13 +67,15 @@ extension PickServerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        setupOnboardingAppearance()
+        defer { setupNavigationBarBackgroundView() }
         
         view.addSubview(nextStepButton)
         NSLayoutConstraint.activate([
             nextStepButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor, constant: 12),
-            view.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: 34),
+            nextStepButton.heightAnchor.constraint(equalToConstant: PickServerViewController.actionButtonHeight).priority(.defaultHigh),
+            view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
         ])
         
         view.addSubview(tableView)
@@ -87,7 +94,6 @@ extension PickServerViewController {
         }
         nextStepButton.addTarget(self, action: #selector(nextStepButtonDidClicked(_:)), for: .touchUpInside)
         
-//        viewModel.tableView = tableView
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -152,21 +158,13 @@ extension PickServerViewController {
         
         isAuthenticating
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] loading in
-                if loading {
-                    self?.nextStepButton.showLoading()
-                } else {
-                    self?.nextStepButton.stopLoading()
-                }
+            .sink { [weak self] isAuthenticating in
+                guard let self = self else { return }
+                isAuthenticating ? self.nextStepButton.showLoading() : self.nextStepButton.stopLoading()
             }
             .store(in: &disposeBag)
         
         viewModel.fetchAllServers()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     @objc
@@ -273,7 +271,7 @@ extension PickServerViewController {
                     instance: response.instance.value,
                     applicationToken: response.applicationToken.value
                 )
-                self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: self, transition: .show)
+                self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
             }
             .store(in: &disposeBag)
     }
@@ -417,3 +415,6 @@ extension PickServerViewController: PickServerCategoriesDataSource, PickServerCa
         return viewModel.selectCategoryIndex.send(index)
     }
 }
+
+// MARK: - OnboardingViewControllerAppearance
+extension PickServerViewController: OnboardingViewControllerAppearance { }

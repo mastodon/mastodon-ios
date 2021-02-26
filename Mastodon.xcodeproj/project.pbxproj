@@ -692,18 +692,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DB01409B25C40BB600F9F3CF /* Authentication */ = {
+		DB01409B25C40BB600F9F3CF /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				0FAA0FDD25E0B5700017CCDE /* Welcome */,
+				0FAA102525E1125D0017CCDE /* PickServer */,
+				DBE0821A25CD382900FD6BBD /* Register */,
+				DB72602125E36A2500235243 /* ServerRules */,
 				2D364F7025E66D5B00204FDC /* ResendEmail */,
 				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 				DB0140A625C40C0900F9F3CF /* PinBased */,
-				DBE0821A25CD382900FD6BBD /* Register */,
-				DB72602125E36A2500235243 /* ServerRules */,
 				DB01409525C40B6700F9F3CF /* AuthenticationViewController.swift */,
 				DB98334625C8056600AD9700 /* AuthenticationViewModel.swift */,
 			);
-			path = Authentication;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		DB0140A625C40C0900F9F3CF /* PinBased */ = {
@@ -956,9 +958,7 @@
 			children = (
 				2D7631A425C1532200929FB9 /* Share */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
-				0FAA0FDD25E0B5700017CCDE /* Welcome */,
-				0FAA102525E1125D0017CCDE /* PickServer */,
-				DB01409B25C40BB600F9F3CF /* Authentication */,
+				DB01409B25C40BB600F9F3CF /* Onboarding */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
 				DB9D6BEE25E4F5370051B173 /* Search */,
@@ -1513,7 +1513,6 @@
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
-				2D5A3D1125CF87AA002347D6 /* AvatarBarButtonItem.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 			);

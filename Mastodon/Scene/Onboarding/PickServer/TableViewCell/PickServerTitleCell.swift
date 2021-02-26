@@ -11,7 +11,7 @@ final class PickServerTitleCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.ServerPicker.title
         label.adjustsFontForContentSizeCategory = true

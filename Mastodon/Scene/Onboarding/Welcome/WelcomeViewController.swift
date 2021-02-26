@@ -13,15 +13,16 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    let logoImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.welcomeLogo.image)
+    private(set) lazy var logoImageView: UIImageView = {
+        let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Welcome.mastodonLogo.image : Asset.Welcome.mastodonLogoLarge.image
+        let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     let sloganLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Welcome.slogan
         label.adjustsFontForContentSizeCategory = true
@@ -31,8 +32,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     }()
     
     let signUpButton: PrimaryActionButton = {
-        let button = PrimaryActionButton(type: .system)
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+        let button = PrimaryActionButton()
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -54,18 +54,13 @@ extension WelcomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle = .light
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.view.backgroundColor = .clear
+        setupOnboardingAppearance()
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-            logoImageView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor, constant: 46),
             logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
         ])
         
@@ -81,20 +76,17 @@ extension WelcomeViewController {
         NSLayoutConstraint.activate([
             signInButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: signInButton.trailingAnchor, constant: 12),
-            view.readableContentGuide.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 11),
+            view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
+            signInButton.heightAnchor.constraint(equalToConstant: 46).priority(.defaultHigh),
             
+            signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 9),
             signUpButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 12),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: 12),
-            signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 5)
+            signUpButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.defaultHigh),
         ])
         
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
 }
@@ -110,3 +102,6 @@ extension WelcomeViewController {
         coordinator.present(scene: .pickServer(viewMode: PickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
     }
 }
+
+// MARK: - OnboardingViewControllerAppearance
+extension WelcomeViewController: OnboardingViewControllerAppearance { }

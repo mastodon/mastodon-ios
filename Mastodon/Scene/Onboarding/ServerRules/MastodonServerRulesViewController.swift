@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 
-final class MastodonServerRulesViewController: UIViewController, NeedsDependency ,OnboardingViewControllerAppearance{
+final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -17,7 +17,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let largeTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = .label
         label.text = L10n.Scene.ServerRules.title
         return label
@@ -57,19 +57,18 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     }()
     
     let confirmButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = PrimaryActionButton()
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightDisabled.color), for: .disabled)
-        button.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.ServerRules.Button.confirm, for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 8
-        button.layer.cornerCurve = .continuous
         return button
     }()
     
-    let scrollView = UIScrollView()
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.alwaysBounceVertical = true
+        return scrollView
+    }()
      
 }
 
@@ -92,8 +91,7 @@ extension MastodonServerRulesViewController {
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
         bottonContainerView.addSubview(confirmButton)
         NSLayoutConstraint.activate([
-            bottonContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: confirmButton.bottomAnchor, constant: 16),
-            bottonContainerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor).priority(.defaultHigh),
+            bottonContainerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: MastodonServerRulesViewController.viewBottomPaddingHeight),
             confirmButton.leadingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.leadingAnchor),
             confirmButton.trailingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.trailingAnchor),
             confirmButton.heightAnchor.constraint(equalToConstant: 46).priority(.defaultHigh),
@@ -111,7 +109,7 @@ extension MastodonServerRulesViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
@@ -122,7 +120,7 @@ extension MastodonServerRulesViewController {
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 10
-        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(subtitleLabel)
         stackView.addArrangedSubview(rulesLabel)
@@ -140,12 +138,6 @@ extension MastodonServerRulesViewController {
         confirmButton.addTarget(self, action: #selector(MastodonServerRulesViewController.confirmButtonPressed(_:)), for: .touchUpInside)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-    
 }
 
 extension MastodonServerRulesViewController {
@@ -154,6 +146,9 @@ extension MastodonServerRulesViewController {
 
     }
 }
+
+// MARK: - OnboardingViewControllerAppearance
+extension MastodonServerRulesViewController: OnboardingViewControllerAppearance { }
 
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
