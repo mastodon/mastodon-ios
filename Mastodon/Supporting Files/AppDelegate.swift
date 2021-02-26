@@ -13,8 +13,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appContext = AppContext()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         return true
+        
+        // Update app version info. See: `Settings.bundle`
+        UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
+        UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
     }
 
     // MARK: UISceneSession Lifecycle

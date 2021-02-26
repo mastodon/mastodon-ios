@@ -119,6 +119,8 @@
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
 		DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */; };
 		DB68A04A25E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */; };
+		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
+		DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A06225E905E000CFDF14 /* UIApplication.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
@@ -332,6 +334,8 @@
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
 		DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSKeyValueObservation.swift; sourceTree = "<group>"; };
 		DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkContentStatusBarStyleNavigationController.swift; sourceTree = "<group>"; };
+		DB68A05C25E9055900CFDF14 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		DB68A06225E905E000CFDF14 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -734,6 +738,7 @@
 				DB427DD725BAA00100D1B89D /* SceneDelegate.swift */,
 				DB427DDB25BAA00100D1B89D /* Main.storyboard */,
 				DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */,
+				DB68A05C25E9055900CFDF14 /* Settings.bundle */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -996,6 +1001,7 @@
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
 				2D42FF6A25C817D2004A627A /* MastodonContent.swift */,
+				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
@@ -1265,6 +1271,7 @@
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */,
 				DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */,
+				DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1438,6 +1445,7 @@
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
+				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
