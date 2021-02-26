@@ -141,6 +141,10 @@ internal enum L10n {
           /// email
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Email.Placeholder")
         }
+        internal enum Invite {
+          /// Why do you want to join?
+          internal static let registrationUserInviteRequest = L10n.tr("Localizable", "Scene.Register.Input.Invite.RegistrationUserInviteRequest")
+        }
         internal enum Password {
           /// password
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder")

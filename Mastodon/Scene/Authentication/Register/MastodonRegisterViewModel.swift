@@ -11,7 +11,6 @@ import MastodonSDK
 import UIKit
 
 final class MastodonRegisterViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -24,20 +23,30 @@ final class MastodonRegisterViewModel {
     let displayName = CurrentValueSubject<String, Never>("")
     let email = CurrentValueSubject<String, Never>("")
     let password = CurrentValueSubject<String, Never>("")
+    let invite = CurrentValueSubject<String, Never>("")
+    
     let isUsernameValidateDalay = CurrentValueSubject<Bool, Never>(true)
     let isDisplayNameValidateDalay = CurrentValueSubject<Bool, Never>(true)
     let isEmailValidateDalay = CurrentValueSubject<Bool, Never>(true)
     let isPasswordValidateDalay = CurrentValueSubject<Bool, Never>(true)
+    let isInviteValidateDelay = CurrentValueSubject<Bool, Never>(true)
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     
-    
     // output
+    lazy var inviteEnabled: Bool = {
+        if let inviteEnabled = instance.invitesEnabled {
+            return inviteEnabled
+        }
+        return false
+    }()
+    
     let applicationAuthorization: Mastodon.API.OAuth.Authorization
     
     let usernameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let displayNameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let emailValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+    let inviteValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     
     let isAllValid = CurrentValueSubject<Bool, Never>(false)
     
@@ -67,7 +76,7 @@ final class MastodonRegisterViewModel {
                 // 0-9 (isASCII && isNumber)
                 // _ ("_")
                 for char in username {
-                    guard char.isASCII, (char.isLetter || char.isNumber || char == "_") else {
+                    guard char.isASCII, char.isLetter || char.isNumber || char == "_" else {
                         isValid = false
                         break
                     }
@@ -97,18 +106,39 @@ final class MastodonRegisterViewModel {
             }
             .assign(to: \.value, on: passwordValidateState)
             .store(in: &disposeBag)
-        
-        Publishers.CombineLatest4(
+        if inviteEnabled {
+            invite
+                .map { invite in
+                    guard !invite.isEmpty else { return .empty }
+                    return .valid
+                }
+                .assign(to: \.value, on: inviteValidateState)
+                .store(in: &disposeBag)
+        }
+        let publisherOne = Publishers.CombineLatest(
             usernameValidateState.eraseToAnyPublisher(),
-            displayNameValidateState.eraseToAnyPublisher(),
-            emailValidateState.eraseToAnyPublisher(),
-            passwordValidateState.eraseToAnyPublisher()
+            displayNameValidateState.eraseToAnyPublisher()
         )
-        .map { $0.0 == .valid && $0.1 == .valid && $0.2 == .valid && $0.3 == .valid }
+        let publisherTwo = Publishers.CombineLatest3(
+            emailValidateState.eraseToAnyPublisher(),
+            passwordValidateState.eraseToAnyPublisher(),
+            inviteValidateState.eraseToAnyPublisher()
+        )
+        Publishers.CombineLatest(
+            publisherOne,
+            publisherTwo
+        )
+        .map { [weak self] in
+            guard let self = self else { return false }
+            if self.inviteEnabled {
+                return $0.0.0 == .valid && $0.0.1 == .valid && $0.1.0 == .valid && $0.1.1 == .valid && $0.1.2 == .valid
+            } else {
+                return $0.0.0 == .valid && $0.0.1 == .valid && $0.1.0 == .valid && $0.1.1 == .valid
+            }
+        }
         .assign(to: \.value, on: isAllValid)
         .store(in: &disposeBag)
     }
-    
 }
 
 extension MastodonRegisterViewModel {
