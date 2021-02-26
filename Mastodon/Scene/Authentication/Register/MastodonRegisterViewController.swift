@@ -97,7 +97,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -118,7 +118,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -135,7 +135,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -159,7 +159,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.keyboardType = .asciiCapable
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -175,7 +175,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = .white
-        textField.textColor = .black
+        textField.textColor = Asset.Colors.Label.secondary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.lightSecondaryText.color,
                                                                           NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
@@ -242,7 +242,7 @@ extension MastodonRegisterViewController {
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(passwordCheckLabel)
-        if self.viewModel.inviteEnabled {
+        if self.viewModel.approvalRequired {
             stackView.addArrangedSubview(inviteTextField)
         }
         // scrollView
@@ -463,7 +463,7 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
-        if self.viewModel.inviteEnabled {
+        if self.viewModel.approvalRequired {
             
             inviteTextField.delegate = self
             NSLayoutConstraint.activate([

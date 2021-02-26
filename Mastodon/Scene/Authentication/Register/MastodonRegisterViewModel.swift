@@ -33,9 +33,9 @@ final class MastodonRegisterViewModel {
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     
     // output
-    lazy var inviteEnabled: Bool = {
-        if let inviteEnabled = instance.invitesEnabled {
-            return inviteEnabled
+    lazy var approvalRequired: Bool = {
+        if let approvalRequired = instance.approvalRequired {
+            return approvalRequired
         }
         return false
     }()
@@ -106,7 +106,7 @@ final class MastodonRegisterViewModel {
             }
             .assign(to: \.value, on: passwordValidateState)
             .store(in: &disposeBag)
-        if inviteEnabled {
+        if approvalRequired {
             invite
                 .map { invite in
                     guard !invite.isEmpty else { return .empty }
@@ -115,26 +115,21 @@ final class MastodonRegisterViewModel {
                 .assign(to: \.value, on: inviteValidateState)
                 .store(in: &disposeBag)
         }
-        let publisherOne = Publishers.CombineLatest(
+        let publisherOne = Publishers.CombineLatest4(
             usernameValidateState.eraseToAnyPublisher(),
-            displayNameValidateState.eraseToAnyPublisher()
-        )
-        let publisherTwo = Publishers.CombineLatest3(
+            displayNameValidateState.eraseToAnyPublisher(),
             emailValidateState.eraseToAnyPublisher(),
-            passwordValidateState.eraseToAnyPublisher(),
-            inviteValidateState.eraseToAnyPublisher()
-        )
+            passwordValidateState.eraseToAnyPublisher()
+        ).map {
+            $0.0 == .valid && $0.1 == .valid && $0.2 == .valid && $0.3 == .valid
+        }
+        
         Publishers.CombineLatest(
             publisherOne,
-            publisherTwo
+            approvalRequired ? inviteValidateState.map {$0 == .valid}.eraseToAnyPublisher() : Just(true).eraseToAnyPublisher()
         )
-        .map { [weak self] in
-            guard let self = self else { return false }
-            if self.inviteEnabled {
-                return $0.0.0 == .valid && $0.0.1 == .valid && $0.1.0 == .valid && $0.1.1 == .valid && $0.1.2 == .valid
-            } else {
-                return $0.0.0 == .valid && $0.0.1 == .valid && $0.1.0 == .valid && $0.1.1 == .valid
-            }
+        .map {
+            return $0 && $1
         }
         .assign(to: \.value, on: isAllValid)
         .store(in: &disposeBag)
