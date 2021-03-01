@@ -65,37 +65,38 @@ extension Mastodon.Entity.Error {
         }
     }
 }
+extension Mastodon.Entity {
+    public struct ErrorDetail: Codable {
+        public let username: [ErrorDetailReason]?
+        public let email: [ErrorDetailReason]?
+        public let password: [ErrorDetailReason]?
+        public let agreement: [ErrorDetailReason]?
+        public let locale: [ErrorDetailReason]?
+        public let reason: [ErrorDetailReason]?
 
-public struct ErrorDetail: Codable {
-    public let username: [ErrorDetailReson]?
-    public let email: [ErrorDetailReson]?
-    public let password: [ErrorDetailReson]?
-    public let agreement: [ErrorDetailReson]?
-    public let locale: [ErrorDetailReson]?
-    public let reason: [ErrorDetailReson]?
-
-    enum CodingKeys: String, CodingKey {
-        case username
-        case email
-        case password
-        case agreement
-        case locale
-        case reason
+        enum CodingKeys: String, CodingKey {
+            case username
+            case email
+            case password
+            case agreement
+            case locale
+            case reason
+        }
     }
-}
 
-public struct ErrorDetailReson: Codable {
-    public init(error: String, errorDescription: String?) {
-        self.error = Mastodon.Entity.Error.SignUpError(rawValue: error) ?? ._other(error)
-        self.errorDescription = errorDescription
-    }
-    
-    public let error: Mastodon.Entity.Error.SignUpError
-    public let errorDescription: String?
+    public struct ErrorDetailReason: Codable {
+        public init(error: String, errorDescription: String?) {
+            self.error = Mastodon.Entity.Error.SignUpError(rawValue: error) ?? ._other(error)
+            self.errorDescription = errorDescription
+        }
+        
+        public let error: Mastodon.Entity.Error.SignUpError
+        public let errorDescription: String?
 
-    
-    enum CodingKeys: String, CodingKey {
-        case error
-        case errorDescription = "description"
+        
+        enum CodingKeys: String, CodingKey {
+            case error
+            case errorDescription = "description"
+        }
     }
 }

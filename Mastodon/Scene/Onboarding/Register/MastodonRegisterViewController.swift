@@ -105,6 +105,20 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let usernameIsTakenLabel: UILabel = {
         let label = UILabel()
+        let color = Asset.Colors.lightDangerRed.color
+        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let attributeString = NSMutableAttributedString()
+        
+        let errorImage = NSTextAttachment()
+        let configuration = UIImage.SymbolConfiguration(font: font)
+        errorImage.image = UIImage(systemName: "xmark.octagon.fill", withConfiguration: configuration)?.withTintColor(color)
+        let errorImageAttachment = NSAttributedString(attachment: errorImage)
+        attributeString.append(errorImageAttachment)
+        
+        let errorString = NSAttributedString(string: L10n.Common.Errors.Item.username + " " + L10n.Common.Errors.errTaken, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+        attributeString.append(errorString)
+        label.attributedText = attributeString
+        
         return label
     }()
     
@@ -392,6 +406,7 @@ extension MastodonRegisterViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self = self else { return }
+                guard let error = error as? Mastodon.API.Error else { return }
                 let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)

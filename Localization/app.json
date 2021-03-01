@@ -1,5 +1,25 @@
 {
     "common": {
+        "errors": {
+            "item": {
+                "username": "username",
+                "email": "email",
+                "password": "password",
+                "agreement": "agreement",
+                "locale": "locale",
+                "reason": "reason"
+            },
+            "ERR_BLOCKED": "is blocked",
+            "ERR_UNREACHABLE": "is unreachable",
+            "ERR_TAKEN": "is taken",
+            "ERR_RESERVED": "is reserved",
+            "ERR_ACCEPTED": "must be accepted",
+            "ERR_BLANK": "can't be blank",
+            "ERR_INVALID": "is invalid",
+            "ERR_TOO_LONG": "is too long",
+            "ERR_TOO_SHORT": "is too short",
+            "ERR_INCLUSION": "is inclusion"
+        },
         "alerts": {
             "sign_up_failure": {
                 "title": "Sign Up Failure"

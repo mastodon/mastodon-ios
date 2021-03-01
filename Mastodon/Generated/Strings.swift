@@ -82,6 +82,42 @@ internal enum L10n {
         internal static let single = L10n.tr("Localizable", "Common.Countable.Photo.Single")
       }
     }
+    internal enum Errors {
+      /// must be accepted
+      internal static let errAccepted = L10n.tr("Localizable", "Common.Errors.ErrAccepted")
+      /// can't be blank
+      internal static let errBlank = L10n.tr("Localizable", "Common.Errors.ErrBlank")
+      /// is blocked
+      internal static let errBlocked = L10n.tr("Localizable", "Common.Errors.ErrBlocked")
+      /// is inclusion
+      internal static let errInclusion = L10n.tr("Localizable", "Common.Errors.ErrInclusion")
+      /// is invalid
+      internal static let errInvalid = L10n.tr("Localizable", "Common.Errors.ErrInvalid")
+      /// is reserved
+      internal static let errReserved = L10n.tr("Localizable", "Common.Errors.ErrReserved")
+      /// is taken
+      internal static let errTaken = L10n.tr("Localizable", "Common.Errors.ErrTaken")
+      /// is too long
+      internal static let errTooLong = L10n.tr("Localizable", "Common.Errors.ErrTooLong")
+      /// is too short
+      internal static let errTooShort = L10n.tr("Localizable", "Common.Errors.ErrTooShort")
+      /// is unreachable
+      internal static let errUnreachable = L10n.tr("Localizable", "Common.Errors.ErrUnreachable")
+      internal enum Item {
+        /// agreement
+        internal static let agreement = L10n.tr("Localizable", "Common.Errors.Item.Agreement")
+        /// email
+        internal static let email = L10n.tr("Localizable", "Common.Errors.Item.Email")
+        /// locale
+        internal static let locale = L10n.tr("Localizable", "Common.Errors.Item.Locale")
+        /// password
+        internal static let password = L10n.tr("Localizable", "Common.Errors.Item.Password")
+        /// reason
+        internal static let reason = L10n.tr("Localizable", "Common.Errors.Item.Reason")
+        /// username
+        internal static let username = L10n.tr("Localizable", "Common.Errors.Item.Username")
+      }
+    }
   }
 
   internal enum Scene {
