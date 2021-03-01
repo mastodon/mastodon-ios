@@ -13,11 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let appContext = AppContext()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        return true
         
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
         UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
+        
+        return true
     }
 
     // MARK: UISceneSession Lifecycle
