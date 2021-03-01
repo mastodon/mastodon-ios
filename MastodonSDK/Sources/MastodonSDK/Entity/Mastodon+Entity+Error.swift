@@ -19,10 +19,12 @@ extension Mastodon.Entity {
     public struct Error: Codable {
         public let error: String
         public let errorDescription: String?
-
+        public let details: ErrorDetail?
+        
         enum CodingKeys: String, CodingKey {
             case error
             case errorDescription = "error_description"
+            case details
         }
     }
 }
