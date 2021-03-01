@@ -576,45 +576,29 @@ extension MastodonRegisterViewController {
             locale: "en" // TODO:
         )
         
-        if let rules = viewModel.instance.rules, !rules.isEmpty {
-            // show server rules before register
-            let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
-                context: context,
-                domain: viewModel.domain,
-                authenticateInfo: viewModel.authenticateInfo,
-                rules: rules,
-                registerQuery: query,
-                applicationAuthorization: viewModel.applicationAuthorization
-            )
-            
-            viewModel.isRegistering.value = false
-            view.endEditing(true)
-            coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
-            return
-        } else {
-            // register without show server rules
-            context.apiService.accountRegister(
-                domain: viewModel.domain,
-                query: query,
-                authorization: viewModel.applicationAuthorization
-            )
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] completion in
-                guard let self = self else { return }
-                self.viewModel.isRegistering.value = false
-                switch completion {
-                case .failure(let error):
-                    self.viewModel.error.send(error)
-                case .finished:
-                    break
-                }
-            } receiveValue: { [weak self] response in
-                guard let self = self else { return }
-                let userToken = response.value
-                let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
-                self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
+        // register without show server rules
+        context.apiService.accountRegister(
+            domain: viewModel.domain,
+            query: query,
+            authorization: viewModel.applicationAuthorization
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] completion in
+            guard let self = self else { return }
+            self.viewModel.isRegistering.value = false
+            switch completion {
+            case .failure(let error):
+                self.viewModel.error.send(error)
+            case .finished:
+                break
             }
-            .store(in: &disposeBag)
+        } receiveValue: { [weak self] response in
+            guard let self = self else { return }
+            let userToken = response.value
+            let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+            self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         }
+        .store(in: &disposeBag)
+        
     }
 }

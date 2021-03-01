@@ -8,7 +8,6 @@
 import os.log
 import UIKit
 import Combine
-import MastodonSDK
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
     
@@ -149,31 +148,6 @@ extension MastodonServerRulesViewController {
         
         rulesLabel.attributedText = viewModel.rulesAttributedString
         confirmButton.addTarget(self, action: #selector(MastodonServerRulesViewController.confirmButtonPressed(_:)), for: .touchUpInside)
-        
-        viewModel.isRegistering
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isRegistering in
-                guard let self = self else { return }
-                isRegistering ? self.confirmButton.showLoading() : self.confirmButton.stopLoading()
-            }
-            .store(in: &disposeBag)
-        
-        viewModel.error
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self else { return }
-                guard let error = error as? Mastodon.API.Error else { return }
-                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.coordinator.present(
-                    scene: .alertController(alertController: alertController),
-                    from: nil,
-                    transition: .alertController(animated: true, completion: nil)
-                )
-            }
-            .store(in: &disposeBag)
     }
     
     override func viewDidLayoutSubviews() {
@@ -199,31 +173,9 @@ extension MastodonServerRulesViewController {
 extension MastodonServerRulesViewController {
     @objc private func confirmButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
-        let email = viewModel.registerQuery.email
-        
-        context.apiService.accountRegister(
-            domain: viewModel.domain,
-            query: viewModel.registerQuery,
-            authorization: viewModel.applicationAuthorization
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] completion in
-            guard let self = self else { return }
-            self.viewModel.isRegistering.value = false
-            switch completion {
-            case .failure(let error):
-                self.viewModel.error.send(error)
-            case .finished:
-                break
-            }
-        } receiveValue: { [weak self] response in
-            guard let self = self else { return }
-            let userToken = response.value
-            let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
-            self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
-        }
-        .store(in: &disposeBag)
+
+        let viewModel = MastodonRegisterViewModel(domain: self.viewModel.domain, authenticateInfo: self.viewModel.authenticateInfo, instance: self.viewModel.instance, applicationToken: self.viewModel.applicationToken)
+        self.coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
     }
 }
 
