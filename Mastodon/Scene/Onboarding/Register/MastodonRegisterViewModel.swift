@@ -34,6 +34,8 @@ final class MastodonRegisterViewModel {
     let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let inviteValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     
+    let isUsernameTaken = CurrentValueSubject<Bool, Never>(false)
+    
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     let isAllValid = CurrentValueSubject<Bool, Never>(false)
     let error = CurrentValueSubject<Error?, Never>(nil)

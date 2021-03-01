@@ -241,11 +241,12 @@ extension MastodonRegisterViewController {
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(photoView)
         stackView.addArrangedSubview(usernameTextField)
+        stackView.addArrangedSubview(usernameIsTakenLabel)
         stackView.addArrangedSubview(displayNameTextField)
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(passwordCheckLabel)
-        if self.viewModel.approvalRequired {
+        if viewModel.approvalRequired {
             stackView.addArrangedSubview(inviteTextField)
         }
         // scrollView
@@ -389,24 +390,48 @@ extension MastodonRegisterViewController {
                 guard let self = self else { return }
                 self.setTextFieldValidAppearance(self.passwordTextField, validateState: validateState)
                 self.passwordCheckLabel.attributedText = self.viewModel.attributeStringForPassword(eightCharacters: validateState == .valid)
-
             }
             .store(in: &disposeBag)
         
         viewModel.isAllValid
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] isAllValid in
-            guard let self = self else { return }
-            self.signUpButton.isEnabled = isAllValid
-        }
-        .store(in: &disposeBag)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isAllValid in
+                guard let self = self else { return }
+                self.signUpButton.isEnabled = isAllValid
+            }
+            .store(in: &disposeBag)
 
+        viewModel.isUsernameTaken
+            .receive(on: DispatchQueue.main)
+            .sink {[weak self] isUsernameTaken in
+                guard let self = self else { return }
+                if isUsernameTaken {
+                    self.usernameIsTakenLabel.isHidden = false
+                    stackView.setCustomSpacing(6, after: self.usernameTextField)
+                    stackView.setCustomSpacing(16, after: self.usernameIsTakenLabel)
+                } else {
+                    self.usernameIsTakenLabel.isHidden = true
+                    stackView.setCustomSpacing(40, after: self.usernameTextField)
+                }
+            }
+            .store(in: &disposeBag)
         viewModel.error
             .compactMap { $0 }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error as? Mastodon.API.Error else { return }
+                switch error.mastodonError {
+                case .generic(let mastodonEntityError):
+                    if let usernameTakenError = mastodonEntityError.details?.username {
+                        let isUsernameAvaliable = usernameTakenError.filter { errorDetailReason -> Bool in
+                            errorDetailReason.error == .ERR_TAKEN
+                        }.isEmpty
+                        self.viewModel.isUsernameTaken.value = !isUsernameAvaliable
+                    }
+                default:
+                    break
+                }
                 let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
                 alertController.addAction(okAction)
@@ -454,7 +479,7 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
-        if self.viewModel.approvalRequired {
+        if viewModel.approvalRequired {
             
             inviteTextField.delegate = self
             NSLayoutConstraint.activate([
