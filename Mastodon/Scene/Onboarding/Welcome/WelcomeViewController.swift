@@ -14,7 +14,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     let welcomeIllustrationView = WelcomeIllustrationView()
-    var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint!
+    var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
     
     private(set) lazy var logoImageView: UIImageView = {
         let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Welcome.mastodonLogo.image : Asset.Welcome.mastodonLogoLarge.image
@@ -41,12 +41,12 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return button
     }()
     
-    let signInButton: UIButton = {
+    private(set) lazy var signInButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
-        button.setTitleColor(UIColor.white.withAlphaComponent(0.8), for: .normal)
-        button.setInsets(forContentPadding: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0), imageTitlePadding: 0)
+        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor.white.withAlphaComponent(0.8) : Asset.Colors.Button.highlight.color
+        button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -63,16 +63,18 @@ extension WelcomeViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
-        view.backgroundColor = Asset.Welcome.Illustration.backgroundCyan.color
         
-        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(welcomeIllustrationView)
-        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        NSLayoutConstraint.activate([
-            welcomeIllustrationView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            welcomeIllustrationViewBottomAnchorLayoutConstraint,
-        ])
+        if traitCollection.userInterfaceIdiom == .phone {
+            view.backgroundColor = Asset.Welcome.Illustration.backgroundCyan.color
+            welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeIllustrationView)
+            welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            NSLayoutConstraint.activate([
+                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 44),
+                welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 44),
+                welcomeIllustrationViewBottomAnchorLayoutConstraint!,
+            ])
+        }
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([
@@ -89,18 +91,45 @@ extension WelcomeViewController {
             sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
         ])
         
-        welcomeIllustrationView.cloudFirstImageView.translatesAutoresizingMaskIntoConstraints = false
-        welcomeIllustrationView.cloudSecondImageView.translatesAutoresizingMaskIntoConstraints = false
-        welcomeIllustrationView.cloudFirstImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
-//        NSLayoutConstraint.activate([
-//            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
-//            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: sloganLabel.topAnchor),
-//        ])
-//        welcomeIllustrationView.welcomeIllustrationView.sca
-//        view.bringSubviewToFront(sloganLabel)
+        if traitCollection.userInterfaceIdiom == .phone {
+            let imageSizeScale: CGFloat = view.frame.width > 375 ? 1.5 : 1.0
+            welcomeIllustrationView.cloudFirstImageView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeIllustrationView.cloudFirstImageView)
+            NSLayoutConstraint.activate([
+                welcomeIllustrationView.cloudFirstImageView.rightAnchor.constraint(equalTo: view.centerXAnchor),
+                welcomeIllustrationView.cloudFirstImageView.widthAnchor.constraint(equalToConstant: 272 / traitCollection.displayScale * imageSizeScale),
+                welcomeIllustrationView.cloudFirstImageView.heightAnchor.constraint(equalToConstant: 113 / traitCollection.displayScale * imageSizeScale),
+            ])
+            welcomeIllustrationView.cloudSecondImageView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeIllustrationView.cloudSecondImageView)
+            NSLayoutConstraint.activate([
+                welcomeIllustrationView.cloudSecondImageView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
+                welcomeIllustrationView.cloudSecondImageView.rightAnchor.constraint(equalTo: logoImageView.rightAnchor, constant: 20),
+                welcomeIllustrationView.cloudSecondImageView.widthAnchor.constraint(equalToConstant: 152 / traitCollection.displayScale),
+                welcomeIllustrationView.cloudSecondImageView.heightAnchor.constraint(equalToConstant: 96 / traitCollection.displayScale),
+                welcomeIllustrationView.cloudFirstImageView.topAnchor.constraint(equalTo: welcomeIllustrationView.cloudSecondImageView.bottomAnchor),
+            ])
+            welcomeIllustrationView.cloudThirdImageView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeIllustrationView.cloudThirdImageView)
+            NSLayoutConstraint.activate([
+                logoImageView.topAnchor.constraint(equalTo: welcomeIllustrationView.cloudThirdImageView.bottomAnchor, constant: 10),
+                welcomeIllustrationView.cloudThirdImageView.rightAnchor.constraint(equalTo: view.centerXAnchor),
+                welcomeIllustrationView.cloudThirdImageView.widthAnchor.constraint(equalToConstant: 126 / traitCollection.displayScale),
+                welcomeIllustrationView.cloudThirdImageView.heightAnchor.constraint(equalToConstant: 68 / traitCollection.displayScale),
+            ])
+            
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
+            NSLayoutConstraint.activate([
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: sloganLabel.topAnchor),
+                // make a little bit large
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalToConstant: 656 / traitCollection.displayScale * imageSizeScale),
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalToConstant: 195 / traitCollection.displayScale * imageSizeScale),
+            ])
+            view.bringSubviewToFront(logoImageView)
+            view.bringSubviewToFront(sloganLabel)
+        }
         
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
@@ -124,8 +153,8 @@ extension WelcomeViewController {
         super.viewSafeAreaInsetsDidChange()
         
         // make illustration bottom over the bleeding
-        let overlap: CGFloat = 100
-        welcomeIllustrationViewBottomAnchorLayoutConstraint.constant = overlap - view.safeAreaInsets.bottom
+        let overlap: CGFloat = 145
+        welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap - view.safeAreaInsets.bottom
     }
         
 }

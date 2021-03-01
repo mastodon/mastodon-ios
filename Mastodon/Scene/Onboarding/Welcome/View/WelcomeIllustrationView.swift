@@ -73,10 +73,10 @@ extension WelcomeIllustrationView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        artworkImageView.image = WelcomeIllustrationView.bottomPartImage()
+        artworkImageView.image = WelcomeIllustrationView.artworkImage()
     }
     
-    static func bottomPartImage() -> UIImage {
+    static func artworkImage() -> UIImage {
         let size = artworkImageSize
         let width = artworkImageSize.width
         let height = artworkImageSize.height
@@ -95,7 +95,7 @@ extension WelcomeIllustrationView {
             let elephantTwoImage = Asset.Welcome.Illustration.elephantTwo.image
             let ineDashTwoImage = Asset.Welcome.Illustration.lineDashTwo.image
             
-             let elephantOnAirplaneWithContrailImageView = Asset.Welcome.Illustration.elephantOnAirplaneWithContrail.image
+            // let elephantOnAirplaneWithContrailImageView = Asset.Welcome.Illustration.elephantOnAirplaneWithContrail.image
             
             // draw elephantFourOnGrassWithTreeTwo
             // elephantFourOnGrassWithTreeTwo.bottomY + 40 align to elephantThreeOnGrassImage.centerY
@@ -115,11 +115,12 @@ extension WelcomeIllustrationView {
             elephantTwoImage.draw(at: CGPoint(x: 0, y: height - elephantTwoImage.size.height - 125))
             
             // draw elephantOnAirplaneWithContrailImageView
-             elephantOnAirplaneWithContrailImageView.draw(at: CGPoint(x: 0, y: height - cloudBaseImage.size.height - 0.5 * elephantOnAirplaneWithContrailImageView.size.height))
+            // elephantOnAirplaneWithContrailImageView.draw(at: CGPoint(x: 0, y: height - cloudBaseImage.size.height - 0.5 * elephantOnAirplaneWithContrailImageView.size.height))
         }
         
         return image
     }
+    
 }
 
 #if canImport(SwiftUI) && DEBUG
