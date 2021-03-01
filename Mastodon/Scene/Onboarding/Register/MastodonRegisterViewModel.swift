@@ -160,7 +160,7 @@ extension MastodonRegisterViewModel {
         let falseColor = UIColor.clear
         let attributeString = NSMutableAttributedString()
         
-        let start = NSAttributedString(string: "Your password needs at least:\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+        let start = NSAttributedString(string: "Your password needs at least:", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(start)
         
         attributeString.append(checkmarkImage(color: eightCharacters ? color : falseColor))

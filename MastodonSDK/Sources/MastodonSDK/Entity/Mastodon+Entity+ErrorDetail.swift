@@ -7,15 +7,15 @@
 
 import Foundation
 extension Mastodon.Entity.Error {
-    ///        ERR_BLOCKED    When e-mail provider is not allowed
-    ///        ERR_UNREACHABLE    When e-mail address does not resolve to any IP via DNS (MX, A, AAAA)
-    ///        ERR_TAKEN    When username or e-mail are already taken
-    ///        ERR_RESERVED    When a username is reserved, e.g. "webmaster" or "admin"
-    ///        ERR_ACCEPTED    When agreement has not been accepted
-    ///        ERR_BLANK    When a required attribute is blank
-    ///        ERR_INVALID    When an attribute is malformed, e.g. wrong characters or invalid e-mail address
-    ///        ERR_TOO_LONG    When an attribute is over the character limit
-    ///        ERR_INCLUSION    When an attribute is not one of the allowed values, e.g. unsupported locale
+    /// ERR_BLOCKED    When e-mail provider is not allowed
+    /// ERR_UNREACHABLE    When e-mail address does not resolve to any IP via DNS (MX, A, AAAA)
+    /// ERR_TAKEN    When username or e-mail are already taken
+    /// ERR_RESERVED    When a username is reserved, e.g. "webmaster" or "admin"
+    /// ERR_ACCEPTED    When agreement has not been accepted
+    /// ERR_BLANK    When a required attribute is blank
+    /// ERR_INVALID    When an attribute is malformed, e.g. wrong characters or invalid e-mail address
+    /// ERR_TOO_LONG    When an attribute is over the character limit
+    /// ERR_INCLUSION    When an attribute is not one of the allowed values, e.g. unsupported locale
     public enum SignUpError: RawRepresentable, Codable {
         case ERR_BLOCKED
         case ERR_UNREACHABLE

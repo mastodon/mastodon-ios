@@ -38,53 +38,51 @@ extension Mastodon.Entity.ErrorDetailReason {
 extension Mastodon.Entity.ErrorDetail {
     func localizedDescription() -> String {
         var messages: [String?] = []
-        if let username = self.username {
-            if !username.isEmpty {
-                let errors = username.map {
-                    L10n.Common.Errors.Item.username + " " + $0.localizedDescription()
+
+        if let username = self.username, !username.isEmpty {
+            let errors = username.map { errorDetailReason -> String in
+                if errorDetailReason.error == .ERR_INVALID {
+                    return L10n.Common.Errors.Itemdetail.usernameinvalid
+                } else {
+                    return L10n.Common.Errors.Item.username + " " + errorDetailReason.localizedDescription()
                 }
-                messages.append(contentsOf: errors)
             }
+            messages.append(contentsOf: errors)
         }
-        if let email = self.email {
-            if !email.isEmpty {
-                let errors = email.map {
-                    L10n.Common.Errors.Item.email + " " + $0.localizedDescription()
+
+        if let email = self.email, !email.isEmpty {
+            let errors = email.map { errorDetailReason -> String in
+                if errorDetailReason.error == .ERR_INVALID {
+                    return L10n.Common.Errors.Itemdetail.emailinvalid
+                } else {
+                    return L10n.Common.Errors.Item.email + " " + errorDetailReason.localizedDescription()
                 }
-                messages.append(contentsOf: errors)
             }
+            messages.append(contentsOf: errors)
         }
-        if let password = self.password {
-            if !password.isEmpty {
-                let errors = password.map {
-                    L10n.Common.Errors.Item.password + " " + $0.localizedDescription()
-                }
-                messages.append(contentsOf: errors)
+        if let password = self.password,!password.isEmpty {
+            let errors = password.map {
+                L10n.Common.Errors.Item.password + " " + $0.localizedDescription()
             }
+            messages.append(contentsOf: errors)
         }
-        if let agreement = self.agreement {
-            if !agreement.isEmpty {
-                let errors = agreement.map {
-                    L10n.Common.Errors.Item.agreement + " " + $0.localizedDescription()
-                }
-                messages.append(contentsOf: errors)
+        if let agreement = self.agreement, !agreement.isEmpty {
+            let errors = agreement.map {
+                L10n.Common.Errors.Item.agreement + " " + $0.localizedDescription()
             }
+            messages.append(contentsOf: errors)
         }
-        if let locale = self.locale {
-            if !locale.isEmpty {
-                let errors = locale.map {
-                    L10n.Common.Errors.Item.locale + " " + $0.localizedDescription()
-                }
-                messages.append(contentsOf: errors)
+        if let locale = self.locale, !locale.isEmpty {
+            let errors = locale.map {
+                L10n.Common.Errors.Item.locale + " " + $0.localizedDescription()
             }
+            messages.append(contentsOf: errors)
         }
-        if let reason = self.reason {
-            if !reason.isEmpty {
-                let errors = reason.map {
-                    L10n.Common.Errors.Item.reason + " " + $0.localizedDescription()
-                }
-                messages.append(contentsOf: errors)
+        if let reason = self.reason, !reason.isEmpty {
+            let errors = reason.map {
+                L10n.Common.Errors.Item.reason + " " + $0.localizedDescription()
             }
+            messages.append(contentsOf: errors)
         }
         let message = messages
             .compactMap { $0 }
