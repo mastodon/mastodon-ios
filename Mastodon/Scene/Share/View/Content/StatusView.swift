@@ -358,8 +358,8 @@ struct StatusView_Previews: PreviewProvider {
                 statusView.updateContentWarningDisplay(isHidden: false)
                 let images = MosaicImageView_Previews.images
                 let imageViews = statusView.statusMosaicImageView.setupImageViews(count: 4, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
-                    imageView.image = images[i]
+                for (i, artworkImageView) in imageViews.enumerated() {
+                    artworkImageView.image = images[i]
                 }
                 statusView.statusMosaicImageView.isHidden = false
                 return statusView

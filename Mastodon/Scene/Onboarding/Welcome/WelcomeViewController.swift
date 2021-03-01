@@ -13,6 +13,9 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    let welcomeIllustrationView = WelcomeIllustrationView()
+    var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint!
+    
     private(set) lazy var logoImageView: UIImageView = {
         let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Welcome.mastodonLogo.image : Asset.Welcome.mastodonLogoLarge.image
         let imageView = UIImageView(image: image)
@@ -42,7 +45,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
-        button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
+        button.setTitleColor(UIColor.white.withAlphaComponent(0.8), for: .normal)
         button.setInsets(forContentPadding: UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0), imageTitlePadding: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -60,6 +63,16 @@ extension WelcomeViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
+        view.backgroundColor = Asset.Welcome.Illustration.backgroundCyan.color
+        
+        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(welcomeIllustrationView)
+        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        NSLayoutConstraint.activate([
+            welcomeIllustrationView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            welcomeIllustrationViewBottomAnchorLayoutConstraint,
+        ])
         
         view.addSubview(logoImageView)
         NSLayoutConstraint.activate([
@@ -75,6 +88,19 @@ extension WelcomeViewController {
             view.readableContentGuide.trailingAnchor.constraint(equalTo: sloganLabel.trailingAnchor, constant: 16),
             sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
         ])
+        
+        welcomeIllustrationView.cloudFirstImageView.translatesAutoresizingMaskIntoConstraints = false
+        welcomeIllustrationView.cloudSecondImageView.translatesAutoresizingMaskIntoConstraints = false
+        welcomeIllustrationView.cloudFirstImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+//        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
+//        NSLayoutConstraint.activate([
+//            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
+//            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: sloganLabel.topAnchor),
+//        ])
+//        welcomeIllustrationView.welcomeIllustrationView.sca
+//        view.bringSubviewToFront(sloganLabel)
         
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
@@ -94,8 +120,14 @@ extension WelcomeViewController {
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle { return .darkContent }
-    
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        
+        // make illustration bottom over the bleeding
+        let overlap: CGFloat = 100
+        welcomeIllustrationViewBottomAnchorLayoutConstraint.constant = overlap - view.safeAreaInsets.bottom
+    }
+        
 }
 
 extension WelcomeViewController {

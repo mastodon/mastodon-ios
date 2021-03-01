@@ -69,6 +69,19 @@ internal enum Asset {
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum Welcome {
+    internal enum Illustration {
+      internal static let backgroundCyan = ColorAsset(name: "Welcome/illustration/background.cyan")
+      internal static let cloudBase = ImageAsset(name: "Welcome/illustration/cloud.base")
+      internal static let cloudFirst = ImageAsset(name: "Welcome/illustration/cloud.first")
+      internal static let cloudSecond = ImageAsset(name: "Welcome/illustration/cloud.second")
+      internal static let cloudThird = ImageAsset(name: "Welcome/illustration/cloud.third")
+      internal static let elephantFourOnGrassWithTreeTwo = ImageAsset(name: "Welcome/illustration/elephant.four.on.grass.with.tree.two")
+      internal static let elephantOnAirplaneWithContrail = ImageAsset(name: "Welcome/illustration/elephant.on.airplane.with.contrail")
+      internal static let elephantThreeOnGrass = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass")
+      internal static let elephantThreeOnGrassWithTreeFour = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass.with.tree.four")
+      internal static let elephantTwo = ImageAsset(name: "Welcome/illustration/elephant.two")
+      internal static let lineDashTwo = ImageAsset(name: "Welcome/illustration/line.dash.two")
+    }
     internal static let mastodonLogo = ImageAsset(name: "Welcome/mastodon.logo")
     internal static let mastodonLogoLarge = ImageAsset(name: "Welcome/mastodon.logo.large")
   }

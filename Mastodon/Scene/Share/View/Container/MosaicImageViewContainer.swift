@@ -287,11 +287,11 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let image = images[3]
-                let imageView = view.setupImageView(
+                let artworkImageView = view.setupImageView(
                     aspectRatio: image.size,
                     maxSize: CGSize(width: 375, height: 400)
                 )
-                imageView.image = image
+                artworkImageView.image = image
                 return view
             }
             .previewLayout(.fixed(width: 375, height: 400))
@@ -299,14 +299,14 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let image = images[1]
-                let imageView = view.setupImageView(
+                let artworkImageView = view.setupImageView(
                     aspectRatio: image.size,
                     maxSize: CGSize(width: 375, height: 400)
                 )
-                imageView.layer.masksToBounds = true
-                imageView.layer.cornerRadius = 8
-                imageView.contentMode = .scaleAspectFill
-                imageView.image = image
+                artworkImageView.layer.masksToBounds = true
+                artworkImageView.layer.cornerRadius = 8
+                artworkImageView.contentMode = .scaleAspectFill
+                artworkImageView.image = image
                 return view
             }
             .previewLayout(.fixed(width: 375, height: 400))
@@ -315,8 +315,8 @@ struct MosaicImageView_Previews: PreviewProvider {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(2)
                 let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
-                    imageView.image = images[i]
+                for (i, artworkImageView) in imageViews.enumerated() {
+                    artworkImageView.image = images[i]
                 }
                 return view
             }
@@ -326,8 +326,8 @@ struct MosaicImageView_Previews: PreviewProvider {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(3)
                 let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
-                    imageView.image = images[i]
+                for (i, artworkImageView) in imageViews.enumerated() {
+                    artworkImageView.image = images[i]
                 }
                 return view
             }
@@ -337,8 +337,8 @@ struct MosaicImageView_Previews: PreviewProvider {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(4)
                 let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
-                    imageView.image = images[i]
+                for (i, artworkImageView) in imageViews.enumerated() {
+                    artworkImageView.image = images[i]
                 }
                 return view
             }
