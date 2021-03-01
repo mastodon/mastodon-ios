@@ -231,7 +231,7 @@ extension PickServerCell {
             // Set bottom separator
             seperator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: seperator.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: seperator.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: seperator.topAnchor),
             seperator.heightAnchor.constraint(equalToConstant: 1).priority(.defaultHigh),
             
             domainLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
