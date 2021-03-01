@@ -103,7 +103,9 @@ extension MastodonPickServerViewController {
             .sink { _ in
                 
             } receiveValue: { [weak self] servers in
+                self?.tableView.beginUpdates()
                 self?.tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
+                self?.tableView.endUpdates()
                 if let selectedServer = self?.viewModel.selectedServer.value, servers.contains(selectedServer) {
                     // Previously selected server is still in the list, do nothing
                 } else {
@@ -291,8 +293,7 @@ extension MastodonPickServerViewController: UITableViewDelegate {
             // Same reason as above
             return 10
         case .serverList:
-            // Header with 1 height as the separator
-            return 1
+            return 0
         }
     }
     
