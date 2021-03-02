@@ -18,6 +18,7 @@ final class MastodonRegisterViewModel {
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
+    let context: AppContext
     
     let username = CurrentValueSubject<String, Never>("")
     let displayName = CurrentValueSubject<String, Never>("")
@@ -46,11 +47,13 @@ final class MastodonRegisterViewModel {
 
     init(
         domain: String,
+        context: AppContext,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
         instance: Mastodon.Entity.Instance,
         applicationToken: Mastodon.Entity.Token
     ) {
         self.domain = domain
+        self.context = context
         self.authenticateInfo = authenticateInfo
         self.instance = instance
         self.applicationToken = applicationToken
@@ -78,6 +81,21 @@ final class MastodonRegisterViewModel {
             }
             .assign(to: \.value, on: usernameValidateState)
             .store(in: &disposeBag)
+        
+        username.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates()
+            .sink { [weak self] text in
+                self?.lookupAccount(by: text)
+            }
+            .store(in: &disposeBag)
+        
+        usernameValidateState
+            .sink { [weak self] validateState in
+                if validateState == .valid {
+                    self?.usernameErrorPrompt.value = nil
+                }
+            }
+            .store(in: &disposeBag)
+
         displayName
             .map { displayname in
                 guard !displayname.isEmpty else { return .empty }
@@ -144,6 +162,23 @@ final class MastodonRegisterViewModel {
         .map { $0 && $1 }
         .assign(to: \.value, on: isAllValid)
         .store(in: &disposeBag)
+    }
+    
+    func lookupAccount(by acct: String) {
+        if acct.isEmpty {
+            return
+        }
+        let query = Mastodon.API.Account.AccountLookupQuery(acct: acct)
+        context.apiService.accountLookup(domain: domain, query: query, authorization: applicationAuthorization)
+            .sink { _ in
+
+            } receiveValue: { [weak self] account in
+                guard let self = self else { return }
+                let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
+                self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
+            }
+            .store(in: &disposeBag)
+
     }
 }
 

@@ -152,4 +152,17 @@ extension APIService {
         )
     }
     
+    func accountLookup(
+        domain: String,
+        query: Mastodon.API.Account.AccountLookupQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        return Mastodon.API.Account.lookupAccount(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        )
+    }
+    
 }
