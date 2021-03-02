@@ -93,13 +93,13 @@ internal enum L10n {
       internal static let errInclusion = L10n.tr("Localizable", "Common.Errors.ErrInclusion")
       /// is invalid
       internal static let errInvalid = L10n.tr("Localizable", "Common.Errors.ErrInvalid")
-      /// is a reserved keyword or username
+      /// is a reserved keyword
       internal static let errReserved = L10n.tr("Localizable", "Common.Errors.ErrReserved")
       /// is already in use
       internal static let errTaken = L10n.tr("Localizable", "Common.Errors.ErrTaken")
-      /// is too long ( can't be longer than 30 characters)
+      /// is too long
       internal static let errTooLong = L10n.tr("Localizable", "Common.Errors.ErrTooLong")
-      /// is too short (must be at least 8 characters)
+      /// is too short
       internal static let errTooShort = L10n.tr("Localizable", "Common.Errors.ErrTooShort")
       /// does not seem to exist
       internal static let errUnreachable = L10n.tr("Localizable", "Common.Errors.ErrUnreachable")
@@ -118,10 +118,14 @@ internal enum L10n {
         internal static let username = L10n.tr("Localizable", "Common.Errors.Item.Username")
       }
       internal enum Itemdetail {
-        /// It's not a valid e-mail address
-        internal static let emailinvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.Emailinvalid")
-        /// username only contains alphanumeric characters and underscores
-        internal static let usernameinvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.Usernameinvalid")
+        /// This is not a valid e-mail address
+        internal static let emailInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.EmailInvalid")
+        /// password is too short (must be at least 8 characters)
+        internal static let passwordTooShrot = L10n.tr("Localizable", "Common.Errors.Itemdetail.PasswordTooShrot")
+        /// Username must only contain alphanumeric characters and underscores
+        internal static let usernameInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameInvalid")
+        /// username is too long ( can't be longer than 30 characters)
+        internal static let usernameTooLong = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameTooLong")
       }
     }
   }

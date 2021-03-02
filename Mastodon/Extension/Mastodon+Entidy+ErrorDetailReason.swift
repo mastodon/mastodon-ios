@@ -1,5 +1,5 @@
 //
-//  Mastodon+Entidy+ErrorDetailReason.swift
+//  Mastodon+Entity+ErrorDetailReason.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/3/1.
@@ -41,9 +41,12 @@ extension Mastodon.Entity.ErrorDetail {
 
         if let username = self.username, !username.isEmpty {
             let errors = username.map { errorDetailReason -> String in
-                if errorDetailReason.error == .ERR_INVALID {
-                    return L10n.Common.Errors.Itemdetail.usernameinvalid
-                } else {
+                switch errorDetailReason.error {
+                case .ERR_INVALID:
+                    return L10n.Common.Errors.Itemdetail.usernameInvalid
+                case .ERR_TOO_LONG:
+                    return L10n.Common.Errors.Itemdetail.usernameTooLong
+                default:
                     return L10n.Common.Errors.Item.username + " " + errorDetailReason.localizedDescription()
                 }
             }
@@ -53,7 +56,7 @@ extension Mastodon.Entity.ErrorDetail {
         if let email = self.email, !email.isEmpty {
             let errors = email.map { errorDetailReason -> String in
                 if errorDetailReason.error == .ERR_INVALID {
-                    return L10n.Common.Errors.Itemdetail.emailinvalid
+                    return L10n.Common.Errors.Itemdetail.emailInvalid
                 } else {
                     return L10n.Common.Errors.Item.email + " " + errorDetailReason.localizedDescription()
                 }
@@ -61,8 +64,12 @@ extension Mastodon.Entity.ErrorDetail {
             messages.append(contentsOf: errors)
         }
         if let password = self.password,!password.isEmpty {
-            let errors = password.map {
-                L10n.Common.Errors.Item.password + " " + $0.localizedDescription()
+            let errors = password.map { errorDetailReason -> String in
+                if errorDetailReason.error == .ERR_TOO_SHORT {
+                    return L10n.Common.Errors.Itemdetail.passwordTooShrot
+                } else {
+                    return L10n.Common.Errors.Item.password + " " + errorDetailReason.localizedDescription()
+                }
             }
             messages.append(contentsOf: errors)
         }
@@ -87,6 +94,6 @@ extension Mastodon.Entity.ErrorDetail {
         let message = messages
             .compactMap { $0 }
             .joined(separator: ", ")
-        return message
+        return message.capitalizingFirstLetter()
     }
 }

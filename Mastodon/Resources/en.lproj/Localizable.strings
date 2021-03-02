@@ -28,10 +28,10 @@
 "Common.Errors.ErrBlocked" = "contains a disallowed e-mail provider";
 "Common.Errors.ErrInclusion" = "is not a supported value";
 "Common.Errors.ErrInvalid" = "is invalid";
-"Common.Errors.ErrReserved" = "is a reserved keyword or username";
+"Common.Errors.ErrReserved" = "is a reserved keyword";
 "Common.Errors.ErrTaken" = "is already in use";
-"Common.Errors.ErrTooLong" = "is too long ( can't be longer than 30 characters)";
-"Common.Errors.ErrTooShort" = "is too short (must be at least 8 characters)";
+"Common.Errors.ErrTooLong" = "is too long";
+"Common.Errors.ErrTooShort" = "is too short";
 "Common.Errors.ErrUnreachable" = "does not seem to exist";
 "Common.Errors.Item.Agreement" = "agreement";
 "Common.Errors.Item.Email" = "email";
@@ -39,8 +39,10 @@
 "Common.Errors.Item.Password" = "password";
 "Common.Errors.Item.Reason" = "reason";
 "Common.Errors.Item.Username" = "username";
-"Common.Errors.Itemdetail.Emailinvalid" = "It's not a valid e-mail address";
-"Common.Errors.Itemdetail.Usernameinvalid" = "username only contains alphanumeric characters and underscores";
+"Common.Errors.Itemdetail.EmailInvalid" = "This is not a valid e-mail address";
+"Common.Errors.Itemdetail.PasswordTooShrot" = "password is too short (must be at least 8 characters)";
+"Common.Errors.Itemdetail.UsernameInvalid" = "Username must only contain alphanumeric characters and underscores";
+"Common.Errors.Itemdetail.UsernameTooLong" = "username is too long ( can't be longer than 30 characters)";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
