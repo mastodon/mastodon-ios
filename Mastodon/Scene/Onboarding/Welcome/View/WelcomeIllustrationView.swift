@@ -93,7 +93,7 @@ extension WelcomeIllustrationView {
             let elephantThreeOnGrassWithTreeFourImage = Asset.Welcome.Illustration.elephantThreeOnGrassWithTreeFour.image
             let elephantThreeOnGrassImage = Asset.Welcome.Illustration.elephantThreeOnGrass.image
             let elephantTwoImage = Asset.Welcome.Illustration.elephantTwo.image
-            let ineDashTwoImage = Asset.Welcome.Illustration.lineDashTwo.image
+            let lineDashTwoImage = Asset.Welcome.Illustration.lineDashTwo.image
             
             // let elephantOnAirplaneWithContrailImageView = Asset.Welcome.Illustration.elephantOnAirplaneWithContrail.image
             
@@ -109,7 +109,7 @@ extension WelcomeIllustrationView {
             elephantThreeOnGrassImage.draw(at: CGPoint(x: 0, y: height - elephantThreeOnGrassImage.size.height))
             
             // darw ineDashTwoImage
-            ineDashTwoImage.draw(at: CGPoint(x: 0.5 * elephantThreeOnGrassImage.size.width + 60, y: height - elephantThreeOnGrassImage.size.height - 50))
+            lineDashTwoImage.draw(at: CGPoint(x: 0.5 * elephantThreeOnGrassImage.size.width + 60, y: height - elephantThreeOnGrassImage.size.height - 50))
             
             // draw elephantTwo.image
             elephantTwoImage.draw(at: CGPoint(x: 0, y: height - elephantTwoImage.size.height - 125))
