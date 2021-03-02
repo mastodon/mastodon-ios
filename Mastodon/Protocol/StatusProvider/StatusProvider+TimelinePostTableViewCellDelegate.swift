@@ -69,8 +69,8 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                 var snapshot = diffableDataSource.snapshot()
                 snapshot.reloadItems([item])
                 UIView.animate(withDuration: 0.33) {
-                    cell.statusView.statusMosaicImageView.blurVisualEffectView.effect = nil
-                    cell.statusView.statusMosaicImageView.vibrancyVisualEffectView.alpha = 0.0
+                    cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = nil
+                    cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = 0.0
                 } completion: { _ in
                     diffableDataSource.apply(snapshot, animatingDifferences: false, completion: nil)
                 }

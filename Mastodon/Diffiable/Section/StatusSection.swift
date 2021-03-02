@@ -132,14 +132,14 @@ extension StatusSection {
         }()
         if mosiacImageViewModel.metas.count == 1 {
             let meta = mosiacImageViewModel.metas[0]
-            let imageView = cell.statusView.statusMosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+            let imageView = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
             imageView.af.setImage(
                 withURL: meta.url,
                 placeholderImage: UIImage.placeholder(color: .systemFill),
                 imageTransition: .crossDissolve(0.2)
             )
         } else {
-            let imageViews = cell.statusView.statusMosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+            let imageViews = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
             for (i, imageView) in imageViews.enumerated() {
                 let meta = mosiacImageViewModel.metas[i]
                 imageView.af.setImage(
@@ -149,18 +149,19 @@ extension StatusSection {
                 )
             }
         }
-        cell.statusView.statusMosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
+        cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
         let isStatusSensitive = statusContentWarningAttribute?.isStatusSensitive ?? (toot.reblog ?? toot).sensitive
-        cell.statusView.statusMosaicImageView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.statusMosaicImageView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set poll
         if let poll = (toot.reblog ?? toot).poll {
-            cell.statusView.statusPollTableView.isHidden = false
+            cell.statusView.pollTableView.isHidden = false
+            cell.statusView.pollStatusStackView.isHidden = false
             
             let managedObjectContext = toot.managedObjectContext!
             cell.statusView.statusPollTableViewDataSource = PollSection.tableViewDiffableDataSource(
-                for: cell.statusView.statusPollTableView,
+                for: cell.statusView.pollTableView,
                 managedObjectContext: managedObjectContext
             )
             
@@ -176,9 +177,9 @@ extension StatusSection {
                 }
             snapshot.appendItems(pollItems, toSection: .main)
             cell.statusView.statusPollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
-            // cell.statusView.statusPollTableView.layoutIfNeeded()
         } else {
-            cell.statusView.statusPollTableView.isHidden = true
+            cell.statusView.pollTableView.isHidden = true
+            cell.statusView.pollStatusStackView.isHidden = true
         }
 
         // toolbar

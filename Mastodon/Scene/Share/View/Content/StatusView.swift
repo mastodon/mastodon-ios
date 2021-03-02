@@ -103,15 +103,38 @@ final class StatusView: UIView {
         button.setTitle(L10n.Common.Controls.Status.showPost, for: .normal)
         return button
     }()
-    let statusMosaicImageView = MosaicImageViewContainer()
+    let statusMosaicImageViewContainer = MosaicImageViewContainer()
     
-    let statusPollTableView: UITableView = {
+    let pollTableView: UITableView = {
         let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         return tableView
+    }()
+    
+    let pollStatusStackView = UIStackView()
+    let pollVoteCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Status.Poll.VoteCount.single(0)
+        return label
+    }()
+    let pollStatusDotLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = " · "
+        return label
+    }()
+    let pollCountdownLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Status.Poll.timeLeft("6 hours")
+        return label
     }()
     
     // do not use visual effect view due to we blur text only without background
@@ -239,7 +262,7 @@ extension StatusView {
         subtitleContainerStackView.axis = .horizontal
         subtitleContainerStackView.addArrangedSubview(usernameLabel)
         
-        // status container: [status | image / video | audio | poll]
+        // status container: [status | image / video | audio | poll | poll status]
         containerStackView.addArrangedSubview(statusContainerStackView)
         statusContainerStackView.axis = .vertical
         statusContainerStackView.spacing = 10
@@ -275,30 +298,37 @@ extension StatusView {
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
         
-        statusContainerStackView.addArrangedSubview(statusMosaicImageView)
-        statusPollTableView.translatesAutoresizingMaskIntoConstraints = false
-        statusContainerStackView.addArrangedSubview(statusPollTableView)
-        statusPollTableViewHeightLaoutConstraint = statusPollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
+        statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)
+        pollTableView.translatesAutoresizingMaskIntoConstraints = false
+        statusContainerStackView.addArrangedSubview(pollTableView)
+        statusPollTableViewHeightLaoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
         NSLayoutConstraint.activate([
             statusPollTableViewHeightLaoutConstraint,
         ])
         
-        statusPollTableViewHeightObservation = statusPollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
+        statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
             guard let self = self else { return }
-            guard self.statusPollTableView.contentSize.height != .zero else {
+            guard self.pollTableView.contentSize.height != .zero else {
                 self.statusPollTableViewHeightLaoutConstraint.constant = 44
                 return
             }
-            self.statusPollTableViewHeightLaoutConstraint.constant = self.statusPollTableView.contentSize.height
+            self.statusPollTableViewHeightLaoutConstraint.constant = self.pollTableView.contentSize.height
         })
+        
+        statusContainerStackView.addArrangedSubview(pollStatusStackView)
+        pollStatusStackView.axis = .horizontal
+        pollStatusStackView.addArrangedSubview(pollVoteCountLabel)
+        pollStatusStackView.addArrangedSubview(pollStatusDotLabel)
+        pollStatusStackView.addArrangedSubview(pollCountdownLabel)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
         headerContainerStackView.isHidden = true
-        statusMosaicImageView.isHidden = true
-        statusPollTableView.isHidden = true
+        statusMosaicImageViewContainer.isHidden = true
+        pollTableView.isHidden = true
+        pollStatusStackView.isHidden = true
 
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
@@ -390,11 +420,11 @@ struct StatusView_Previews: PreviewProvider {
                 statusView.drawContentWarningImageView()
                 statusView.updateContentWarningDisplay(isHidden: false)
                 let images = MosaicImageView_Previews.images
-                let imageViews = statusView.statusMosaicImageView.setupImageViews(count: 4, maxHeight: 162)
+                let imageViews = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
                 for (i, imageView) in imageViews.enumerated() {
                     imageView.image = images[i]
                 }
-                statusView.statusMosaicImageView.isHidden = false
+                statusView.statusMosaicImageViewContainer.isHidden = false
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 380))

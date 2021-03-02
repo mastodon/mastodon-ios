@@ -32,7 +32,7 @@ final class StatusTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         statusView.isStatusTextSensitive = false
-        statusView.statusPollTableView.dataSource = nil
+        statusView.pollTableView.dataSource = nil
         statusView.cleanUpContentWarning()
         disposeBag.removeAll()
         observations.removeAll()
@@ -85,7 +85,7 @@ extension StatusTableViewCell {
         bottomPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
                 
         statusView.delegate = self
-        statusView.statusMosaicImageView.delegate = self
+        statusView.statusMosaicImageViewContainer.delegate = self
         statusView.actionToolbarContainer.delegate = self
     }
     

@@ -68,6 +68,22 @@ internal enum L10n {
         internal static func userBoosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))
         }
+        internal enum Poll {
+          /// %@ left
+          internal static func timeLeft(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Poll.TimeLeft", String(describing: p1))
+          }
+          internal enum VoteCount {
+            /// %d votes
+            internal static func multiple(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Multiple", p1)
+            }
+            /// %d vote
+            internal static func single(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Single", p1)
+            }
+          }
+        }
       }
       internal enum Timeline {
         /// Load More
@@ -124,7 +140,7 @@ internal enum L10n {
         internal static let passwordTooShrot = L10n.tr("Localizable", "Common.Errors.Itemdetail.PasswordTooShrot")
         /// Username must only contain alphanumeric characters and underscores
         internal static let usernameInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameInvalid")
-        /// username is too long ( can't be longer than 30 characters)
+        /// username is too long (can't be longer than 30 characters)
         internal static let usernameTooLong = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameTooLong")
       }
     }

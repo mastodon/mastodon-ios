@@ -17,6 +17,9 @@
 "Common.Controls.Actions.SignUp" = "Sign Up";
 "Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Status.MediaContentWarning" = "Tap to reveal that may be sensitive";
+"Common.Controls.Status.Poll.TimeLeft" = "%@ left";
+"Common.Controls.Status.Poll.VoteCount.Multiple" = "%d votes";
+"Common.Controls.Status.Poll.VoteCount.Single" = "%d vote";
 "Common.Controls.Status.ShowPost" = "Show Post";
 "Common.Controls.Status.StatusContentWarning" = "content warning";
 "Common.Controls.Status.UserBoosted" = "%@ boosted";
@@ -42,7 +45,7 @@
 "Common.Errors.Itemdetail.EmailInvalid" = "This is not a valid e-mail address";
 "Common.Errors.Itemdetail.PasswordTooShrot" = "password is too short (must be at least 8 characters)";
 "Common.Errors.Itemdetail.UsernameInvalid" = "Username must only contain alphanumeric characters and underscores";
-"Common.Errors.Itemdetail.UsernameTooLong" = "username is too long ( can't be longer than 30 characters)";
+"Common.Errors.Itemdetail.UsernameTooLong" = "username is too long (can't be longer than 30 characters)";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
