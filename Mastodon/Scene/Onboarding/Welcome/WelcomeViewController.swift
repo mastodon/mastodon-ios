@@ -65,7 +65,6 @@ extension WelcomeViewController {
         setupOnboardingAppearance()
         
         if traitCollection.userInterfaceIdiom == .phone {
-            view.backgroundColor = Asset.Welcome.Illustration.backgroundCyan.color
             welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(welcomeIllustrationView)
             welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -74,6 +73,8 @@ extension WelcomeViewController {
                 welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 44),
                 welcomeIllustrationViewBottomAnchorLayoutConstraint!,
             ])
+            view.backgroundColor = .black
+            welcomeIllustrationView.alpha = 0.9
         }
         
         view.addSubview(logoImageView)
