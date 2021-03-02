@@ -75,6 +75,25 @@ extension WelcomeViewController {
             ])
             view.backgroundColor = .black
             welcomeIllustrationView.alpha = 0.9
+            
+            welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
+            )
+            welcomeIllustrationView.rightHillImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -12, maxX: 12, minY: -12, maxY: 12)
+            )
+            welcomeIllustrationView.leftHillImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -12, maxX: 12, minY: -20, maxY: 20)
+            )
+            welcomeIllustrationView.centerHillImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -30, maxY: 30)
+            )
+            welcomeIllustrationView.lineDashTwoImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 25, minY: -40, maxY: 40)
+            )
+            welcomeIllustrationView.elephantTwoImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -30, maxX: 30, minY: -30, maxY: 30)
+            )
         }
         
         view.addSubview(logoImageView)
@@ -122,12 +141,26 @@ extension WelcomeViewController {
             welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
             NSLayoutConstraint.activate([
-                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor.constraint(equalTo: view.leftAnchor),
+                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
                 welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: sloganLabel.topAnchor),
                 // make a little bit large
                 welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalToConstant: 656 / traitCollection.displayScale * imageSizeScale),
                 welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalToConstant: 195 / traitCollection.displayScale * imageSizeScale),
             ])
+            
+            welcomeIllustrationView.cloudFirstImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -30, maxX: 30, minY: -20, maxY: 10)
+            )
+            welcomeIllustrationView.cloudSecondImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -10, maxX: 30, minY: -8, maxY: 10)
+            )
+            welcomeIllustrationView.cloudThirdImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 10, minY: -6, maxY: 10)
+            )
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
+            )
+            
             view.bringSubviewToFront(logoImageView)
             view.bringSubviewToFront(sloganLabel)
         }

@@ -40,12 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 extension AppDelegate {
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        #if DEBUG
-        return .all
-        #else
-        return UIDevice.current.userInterfaceIdiom == .pad ? .all : .portrait
-        #endif
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {        
+        return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
     }
 }
 

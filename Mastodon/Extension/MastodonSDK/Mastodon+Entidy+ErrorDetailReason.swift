@@ -4,6 +4,7 @@
 //
 //  Created by sxiaojian on 2021/3/1.
 //
+
 import MastodonSDK
 
 extension Mastodon.Entity.ErrorDetailReason {

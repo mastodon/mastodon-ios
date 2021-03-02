@@ -10,7 +10,13 @@ import UIKit
 final class WelcomeIllustrationView: UIView {
     
     static let artworkImageSize = CGSize(width: 870, height: 2000)
-    let artworkImageView = UIImageView()
+    
+    let cloudBaseImageView = UIImageView()
+    let rightHillImageView = UIImageView()
+    let leftHillImageView = UIImageView()
+    let centerHillImageView = UIImageView()
+    let lineDashTwoImageView = UIImageView()
+    let elephantTwoImageView = UIImageView()
     
     // layout outside
     let elephantOnAirplaneWithContrailImageView: UIImageView = {
@@ -47,6 +53,7 @@ final class WelcomeIllustrationView: UIView {
 }
 
 extension WelcomeIllustrationView {
+    
     private func _init() {
         backgroundColor = Asset.Welcome.Illustration.backgroundCyan.color
         
@@ -60,65 +67,108 @@ extension WelcomeIllustrationView {
             topPaddingView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
         
-        artworkImageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(artworkImageView)
+        cloudBaseImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(cloudBaseImageView)
         NSLayoutConstraint.activate([
-            artworkImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
-            artworkImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            artworkImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            artworkImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            artworkImageView.widthAnchor.constraint(equalTo: artworkImageView.heightAnchor, multiplier: WelcomeIllustrationView.artworkImageSize.width / WelcomeIllustrationView.artworkImageSize.height),
+            cloudBaseImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
+            cloudBaseImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            cloudBaseImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            cloudBaseImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cloudBaseImageView.widthAnchor.constraint(equalTo: cloudBaseImageView.heightAnchor, multiplier: WelcomeIllustrationView.artworkImageSize.width / WelcomeIllustrationView.artworkImageSize.height),
         ])
+        
+        
+        [
+            rightHillImageView,
+            leftHillImageView,
+            centerHillImageView,
+            lineDashTwoImageView,
+            elephantTwoImageView,
+        ].forEach { imageView in
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: cloudBaseImageView.topAnchor),
+                imageView.leadingAnchor.constraint(equalTo: cloudBaseImageView.leadingAnchor),
+                imageView.trailingAnchor.constraint(equalTo: cloudBaseImageView.trailingAnchor),
+                imageView.bottomAnchor.constraint(equalTo: cloudBaseImageView.bottomAnchor),
+            ])
+        }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        artworkImageView.image = WelcomeIllustrationView.artworkImage()
+        updateImage()
     }
     
-    static func artworkImage() -> UIImage {
-        let size = artworkImageSize
-        let width = artworkImageSize.width
-        let height = artworkImageSize.height
-        let image = UIGraphicsImageRenderer(size: size).image { context in
+    private func updateImage() {
+        let size = WelcomeIllustrationView.artworkImageSize
+        let width = size.width
+        let height = size.height
+        
+        let elephantFourOnGrassWithTreeTwoImage = Asset.Welcome.Illustration.elephantFourOnGrassWithTreeTwo.image
+        let elephantThreeOnGrassWithTreeFourImage = Asset.Welcome.Illustration.elephantThreeOnGrassWithTreeFour.image
+        let elephantThreeOnGrassImage = Asset.Welcome.Illustration.elephantThreeOnGrass.image
+        let elephantTwoImage = Asset.Welcome.Illustration.elephantTwo.image
+        let lineDashTwoImage = Asset.Welcome.Illustration.lineDashTwo.image
+        
+        
+        cloudBaseImageView.image = UIGraphicsImageRenderer(size: size).image { context in
             // clear background
             UIColor.clear.setFill()
-            context.fill(CGRect(origin: .zero, size: artworkImageSize))
+            context.fill(CGRect(origin: .zero, size: size))
             
             // draw cloud
             let cloudBaseImage = Asset.Welcome.Illustration.cloudBase.image
             cloudBaseImage.draw(at: CGPoint(x: 0, y: height - cloudBaseImage.size.height))
-            
-            let elephantFourOnGrassWithTreeTwoImage = Asset.Welcome.Illustration.elephantFourOnGrassWithTreeTwo.image
-            let elephantThreeOnGrassWithTreeFourImage = Asset.Welcome.Illustration.elephantThreeOnGrassWithTreeFour.image
-            let elephantThreeOnGrassImage = Asset.Welcome.Illustration.elephantThreeOnGrass.image
-            let elephantTwoImage = Asset.Welcome.Illustration.elephantTwo.image
-            let lineDashTwoImage = Asset.Welcome.Illustration.lineDashTwo.image
-            
-            // let elephantOnAirplaneWithContrailImageView = Asset.Welcome.Illustration.elephantOnAirplaneWithContrail.image
-            
-            // draw elephantFourOnGrassWithTreeTwo
-            // elephantFourOnGrassWithTreeTwo.bottomY + 40 align to elephantThreeOnGrassImage.centerY
-            elephantFourOnGrassWithTreeTwoImage.draw(at: CGPoint(x: 0, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantFourOnGrassWithTreeTwoImage.size.height - 40))
-            
+        }
+        
+        rightHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
             // draw elephantThreeOnGrassWithTreeFour
             // elephantThreeOnGrassWithTreeFour.bottomY + 40 align to elephantThreeOnGrassImage.centerY
             elephantThreeOnGrassWithTreeFourImage.draw(at: CGPoint(x: width - elephantThreeOnGrassWithTreeFourImage.size.width, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantThreeOnGrassWithTreeFourImage.size.height - 40))
-                        
-            // draw elephantThreeOnGrass
-            elephantThreeOnGrassImage.draw(at: CGPoint(x: 0, y: height - elephantThreeOnGrassImage.size.height))
-            
-            // darw ineDashTwoImage
-            lineDashTwoImage.draw(at: CGPoint(x: 0.5 * elephantThreeOnGrassImage.size.width + 60, y: height - elephantThreeOnGrassImage.size.height - 50))
-            
-            // draw elephantTwo.image
-            elephantTwoImage.draw(at: CGPoint(x: 0, y: height - elephantTwoImage.size.height - 125))
-            
-            // draw elephantOnAirplaneWithContrailImageView
-            // elephantOnAirplaneWithContrailImageView.draw(at: CGPoint(x: 0, y: height - cloudBaseImage.size.height - 0.5 * elephantOnAirplaneWithContrailImageView.size.height))
         }
         
-        return image
+        leftHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+    
+            // draw elephantFourOnGrassWithTreeTwo
+            // elephantFourOnGrassWithTreeTwo.bottomY + 40 align to elephantThreeOnGrassImage.centerY
+            elephantFourOnGrassWithTreeTwoImage.draw(at: CGPoint(x: 0, y: height - 0.5 * elephantThreeOnGrassImage.size.height - elephantFourOnGrassWithTreeTwoImage.size.height - 40))
+        }
+        
+        centerHillImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw elephantThreeOnGrass
+            elephantThreeOnGrassImage.draw(at: CGPoint(x: 0, y: height - elephantThreeOnGrassImage.size.height))
+        }
+        
+        lineDashTwoImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // darw ineDashTwoImage
+            lineDashTwoImage.draw(at: CGPoint(x: 0.5 * elephantThreeOnGrassImage.size.width + 60, y: height - elephantThreeOnGrassImage.size.height - 50))
+        }
+        
+        elephantTwoImageView.image = UIGraphicsImageRenderer(size: size).image { context in
+            // clear background
+            UIColor.clear.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+
+            // draw elephantTwo.image
+            elephantTwoImage.draw(at: CGPoint(x: 0, y: height - elephantTwoImage.size.height - 125))
+        }
     }
     
 }
