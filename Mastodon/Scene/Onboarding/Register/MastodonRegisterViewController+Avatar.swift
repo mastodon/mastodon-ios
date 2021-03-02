@@ -16,12 +16,27 @@ extension MastodonRegisterViewController: CropViewControllerDelegate, PHPickerVi
             picker.dismiss(animated: true, completion: {})
             return
         }
-        itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, _ in
-            guard let self = self, let image = image as? UIImage else { return }
+        itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+            guard let self = self else { return }
+            guard let image = image as? UIImage else {
+                guard let error = error else { return }
+                let alertController = UIAlertController(for: error, title: "", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                alertController.addAction(okAction)
+                DispatchQueue.main.async {
+                    self.coordinator.present(
+                        scene: .alertController(alertController: alertController),
+                        from: nil,
+                        transition: .alertController(animated: true, completion: nil)
+                    )
+                }
+                return
+            }
             DispatchQueue.main.async {
                 let cropController = CropViewController(croppingStyle: .default, image: image)
                 cropController.delegate = self
                 cropController.setAspectRatioPreset(.presetSquare, animated: true)
+                cropController.aspectRatioPickerButtonHidden = true
                 cropController.aspectRatioLockEnabled = true
                 picker.dismiss(animated: true, completion: {
                     self.present(cropController, animated: true, completion: nil)
@@ -37,11 +52,6 @@ extension MastodonRegisterViewController: CropViewControllerDelegate, PHPickerVi
     }
 
     @objc func avatarButtonPressed(_ sender: UIButton) {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-
-        let imagePicker = PHPickerViewController(configuration: configuration)
-        imagePicker.delegate = self
         self.present(imagePicker, animated: true, completion: nil)
     }
 }
