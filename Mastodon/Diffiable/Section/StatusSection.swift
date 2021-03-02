@@ -155,7 +155,31 @@ extension StatusSection {
         cell.statusView.statusMosaicImageView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set poll
-        
+        if let poll = (toot.reblog ?? toot).poll {
+            cell.statusView.statusPollTableView.isHidden = false
+            
+            let managedObjectContext = toot.managedObjectContext!
+            cell.statusView.statusPollTableViewDataSource = PollSection.tableViewDiffableDataSource(
+                for: cell.statusView.statusPollTableView,
+                managedObjectContext: managedObjectContext
+            )
+            
+            var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
+            snapshot.appendSections([.main])
+            let pollItems = poll.options
+                .sorted(by: { $0.index.intValue < $1.index.intValue })
+                .map { option -> PollItem in
+                    let isVoted = (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+                    let attribute = PollItem.Attribute(voted: isVoted)
+                    let option = PollItem.opion(objectID: option.objectID, attribute: attribute)
+                    return option
+                }
+            snapshot.appendItems(pollItems, toSection: .main)
+            cell.statusView.statusPollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+            // cell.statusView.statusPollTableView.layoutIfNeeded()
+        } else {
+            cell.statusView.statusPollTableView.isHidden = true
+        }
 
         // toolbar
         let replyCountTitle: String = {

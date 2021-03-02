@@ -9,13 +9,17 @@ import Foundation
 import CoreData
 
 enum PollItem {
-    case pollOpion(objectID: NSManagedObjectID, attribute: Attribute)
+    case opion(objectID: NSManagedObjectID, attribute: Attribute)
 }
 
 
 extension PollItem {
     class Attribute: Hashable {
         var voted: Bool = false
+        
+        init(voted: Bool = false) {
+            self.voted = voted
+        }
         
         static func == (lhs: PollItem.Attribute, rhs: PollItem.Attribute) -> Bool {
             return lhs.voted == rhs.voted
@@ -30,10 +34,8 @@ extension PollItem {
 extension PollItem: Equatable {
     static func == (lhs: PollItem, rhs: PollItem) -> Bool {
         switch (lhs, rhs) {
-        case (.pollOpion(let objectIDLeft, _), .pollOpion(let objectIDRight, _)):
+        case (.opion(let objectIDLeft, _), .opion(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
-        default:
-            return false
         }
     }
 }
@@ -42,7 +44,7 @@ extension PollItem: Equatable {
 extension PollItem: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .pollOpion(let objectID, _):
+        case .opion(let objectID, _):
             hasher.combine(objectID)
         }
     }

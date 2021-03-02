@@ -10,7 +10,6 @@ import UIKit
 import AVKit
 import Combine
 
-
 protocol StatusTableViewCellDelegate: class {
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)

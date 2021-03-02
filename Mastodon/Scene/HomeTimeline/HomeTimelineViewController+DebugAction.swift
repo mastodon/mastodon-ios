@@ -152,6 +152,10 @@ extension HomeTimelineViewController {
                         self.context.apiService.backgroundManagedObjectContext.delete(toot)
                     }
                 }
+                .sink { _ in
+                    // do nothing
+                }
+                .store(in: &self.disposeBag)
             case .failure(let error):
                 assertionFailure(error.localizedDescription)
             }

@@ -1,5 +1,5 @@
 //
-//  PollTableViewCell.swift
+//  PollOptionTableViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-2-25.
@@ -7,8 +7,11 @@
 
 import UIKit
 
-final class PollTableViewCell: UITableViewCell {
+final class PollOptionTableViewCell: UITableViewCell {
     
+    static let height: CGFloat = optionHeight + 2 * verticalMargin
+    static let optionHeight: CGFloat = 44
+    static let verticalMargin: CGFloat = 5
     static let checkmarkImageSize = CGSize(width: 26, height: 26)
     
     let roundedBackgroundView = UIView()
@@ -57,9 +60,11 @@ final class PollTableViewCell: UITableViewCell {
 
 }
 
-extension PollTableViewCell {
+extension PollOptionTableViewCell {
     
     private func _init() {
+        selectionStyle = .none
+        backgroundColor = .clear
         roundedBackgroundView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         roundedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,6 +74,7 @@ extension PollTableViewCell {
             roundedBackgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             roundedBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor, constant: 5),
+            roundedBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionTableViewCell.optionHeight).priority(.defaultHigh),
         ])
         
         checkmarkBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,8 +83,8 @@ extension PollTableViewCell {
             checkmarkBackgroundView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 9),
             checkmarkBackgroundView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor, constant: 9),
             roundedBackgroundView.bottomAnchor.constraint(equalTo: checkmarkBackgroundView.bottomAnchor, constant: 9),
-            checkmarkBackgroundView.widthAnchor.constraint(equalToConstant: PollTableViewCell.checkmarkImageSize.width).priority(.defaultHigh),
-            checkmarkBackgroundView.heightAnchor.constraint(equalToConstant: PollTableViewCell.checkmarkImageSize.height).priority(.defaultHigh),
+            checkmarkBackgroundView.widthAnchor.constraint(equalToConstant: PollOptionTableViewCell.checkmarkImageSize.width).priority(.defaultHigh),
+            checkmarkBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionTableViewCell.checkmarkImageSize.height).priority(.defaultHigh),
         ])
         
         checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,6 +110,8 @@ extension PollTableViewCell {
             roundedBackgroundView.trailingAnchor.constraint(equalTo: optionPercentageLabel.trailingAnchor, constant: 18),
             optionPercentageLabel.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
         ])
+        optionPercentageLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
+        optionPercentageLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
             
         configureCheckmark(state: .none)
     }
@@ -111,8 +119,12 @@ extension PollTableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        updateCornerRadius()
+    }
+    
+    private func updateCornerRadius() {
         roundedBackgroundView.layer.masksToBounds = true
-        roundedBackgroundView.layer.cornerRadius = roundedBackgroundView.bounds.height * 0.5
+        roundedBackgroundView.layer.cornerRadius = PollOptionTableViewCell.optionHeight * 0.5
         roundedBackgroundView.layer.cornerCurve = .circular
         
         checkmarkBackgroundView.layer.masksToBounds = true
@@ -122,7 +134,7 @@ extension PollTableViewCell {
     
 }
 
-extension PollTableViewCell {
+extension PollOptionTableViewCell {
     
     enum CheckmarkState {
         case none
@@ -168,17 +180,17 @@ struct PollTableViewCell_Previews: PreviewProvider {
     static var controls: some View {
         Group {
             UIViewPreview() {
-                PollTableViewCell()
+                PollOptionTableViewCell()
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))
             UIViewPreview() {
-                let cell = PollTableViewCell()
+                let cell = PollOptionTableViewCell()
                 cell.configureCheckmark(state: .off)
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))
             UIViewPreview() {
-                let cell = PollTableViewCell()
+                let cell = PollOptionTableViewCell()
                 cell.configureCheckmark(state: .on)
                 return cell
             }

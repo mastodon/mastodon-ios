@@ -150,7 +150,7 @@
         <relationship name="favouritedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
         <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toot" inverseEntity="HomeTimelineIndex"/>
         <relationship name="mediaAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="toot" inverseEntity="Attachment"/>
-        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
+        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedToot" inverseEntity="MastodonUser"/>
         <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="toot" inverseEntity="Poll"/>
@@ -168,9 +168,9 @@
         <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="299"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
-        <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="539"/>
         <element name="Poll" positionX="72" positionY="162" width="128" height="179"/>
         <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
+        <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="539"/>
     </elements>
 </model>

@@ -17,6 +17,8 @@ protocol StatusViewDelegate: class {
 
 final class StatusView: UIView {
     
+    var statusPollTableViewHeightObservation: NSKeyValueObservation?
+    
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
     static let contentWarningBlurRadius: CGFloat = 12
@@ -24,6 +26,7 @@ final class StatusView: UIView {
     weak var delegate: StatusViewDelegate?
     var isStatusTextSensitive = false
     var statusPollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
+    var statusPollTableViewHeightLaoutConstraint: NSLayoutConstraint!
     
     let headerContainerStackView = UIStackView()
     
@@ -103,9 +106,11 @@ final class StatusView: UIView {
     let statusMosaicImageView = MosaicImageViewContainer()
     
     let statusPollTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(PollTableViewCell.self, forCellReuseIdentifier: String(describing: PollTableViewCell.self))
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
         return tableView
     }()
     
@@ -143,6 +148,10 @@ final class StatusView: UIView {
         if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
             drawContentWarningImageView()
         }
+    }
+    
+    deinit {
+        statusPollTableViewHeightObservation = nil
     }
 
 }
@@ -265,8 +274,23 @@ extension StatusView {
         ])
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
+        
         statusContainerStackView.addArrangedSubview(statusMosaicImageView)
+        statusPollTableView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(statusPollTableView)
+        statusPollTableViewHeightLaoutConstraint = statusPollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
+        NSLayoutConstraint.activate([
+            statusPollTableViewHeightLaoutConstraint,
+        ])
+        
+        statusPollTableViewHeightObservation = statusPollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
+            guard let self = self else { return }
+            guard self.statusPollTableView.contentSize.height != .zero else {
+                self.statusPollTableViewHeightLaoutConstraint.constant = 44
+                return
+            }
+            self.statusPollTableViewHeightLaoutConstraint.constant = self.statusPollTableView.contentSize.height
+        })
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -322,14 +346,13 @@ extension StatusView {
     }
 }
 
+// MARK: - AvatarConfigurableView
 extension StatusView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { return Self.avatarImageSize }
     static var configurableAvatarImageCornerRadius: CGFloat { return 4 }
     var configurableAvatarImageView: UIImageView? { return nil }
     var configurableAvatarButton: UIButton? { return avatarButton }
     var configurableVerifiedBadgeImageView: UIImageView? { nil }
-    
-    
 }
 
 #if canImport(SwiftUI) && DEBUG
