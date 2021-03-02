@@ -124,7 +124,7 @@ internal enum L10n {
         internal static let passwordTooShrot = L10n.tr("Localizable", "Common.Errors.Itemdetail.PasswordTooShrot")
         /// Username must only contain alphanumeric characters and underscores
         internal static let usernameInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameInvalid")
-        /// username is too long ( can't be longer than 30 characters)
+        /// username is too long (can't be longer than 30 characters)
         internal static let usernameTooLong = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameTooLong")
       }
     }

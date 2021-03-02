@@ -42,7 +42,7 @@
 "Common.Errors.Itemdetail.EmailInvalid" = "This is not a valid e-mail address";
 "Common.Errors.Itemdetail.PasswordTooShrot" = "password is too short (must be at least 8 characters)";
 "Common.Errors.Itemdetail.UsernameInvalid" = "Username must only contain alphanumeric characters and underscores";
-"Common.Errors.Itemdetail.UsernameTooLong" = "username is too long ( can't be longer than 30 characters)";
+"Common.Errors.Itemdetail.UsernameTooLong" = "username is too long (can't be longer than 30 characters)";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";

@@ -17,6 +17,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    // avater image
+    var image: UIImage?
+    
     var viewModel: MastodonRegisterViewModel!
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
@@ -56,6 +59,8 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         button.backgroundColor = .white
         button.layer.cornerRadius = 45
         button.clipsToBounds = true
+        
+        button.addTarget(self, action: #selector(MastodonRegisterViewController.avatarButtonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
