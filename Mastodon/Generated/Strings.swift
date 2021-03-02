@@ -124,7 +124,7 @@ internal enum L10n {
         internal static let passwordTooShrot = L10n.tr("Localizable", "Common.Errors.Itemdetail.PasswordTooShrot")
         /// Username must only contain alphanumeric characters and underscores
         internal static let usernameInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameInvalid")
-        /// username is too long ( can't be longer than 30 characters)
+        /// username is too long (can't be longer than 30 characters)
         internal static let usernameTooLong = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameTooLong")
       }
     }
@@ -192,12 +192,10 @@ internal enum L10n {
           internal static let registrationUserInviteRequest = L10n.tr("Localizable", "Scene.Register.Input.Invite.RegistrationUserInviteRequest")
         }
         internal enum Password {
+          /// Your password needs at least Eight characters
+          internal static let hint = L10n.tr("Localizable", "Scene.Register.Input.Password.Hint")
           /// password
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder")
-          /// Your password needs at least:
-          internal static let prompt = L10n.tr("Localizable", "Scene.Register.Input.Password.Prompt")
-          /// Eight characters
-          internal static let promptEightCharacters = L10n.tr("Localizable", "Scene.Register.Input.Password.PromptEightCharacters")
         }
         internal enum Username {
           /// This username is taken.

@@ -10,6 +10,7 @@ import MastodonSDK
 import os.log
 import UIKit
 import UITextField_Shake
+import PhotosUI
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
@@ -19,6 +20,15 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     var viewModel: MastodonRegisterViewModel!
 
+    lazy var imagePicker: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
+    }()
+    
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
     let scrollView: UIScrollView = {
@@ -56,6 +66,8 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         button.backgroundColor = .white
         button.layer.cornerRadius = 45
         button.clipsToBounds = true
+        
+        button.addTarget(self, action: #selector(MastodonRegisterViewController.avatarButtonPressed(_:)), for: .touchUpInside)
         return button
     }()
     
