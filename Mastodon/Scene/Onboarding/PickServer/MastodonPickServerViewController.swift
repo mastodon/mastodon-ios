@@ -103,7 +103,9 @@ extension MastodonPickServerViewController {
             .sink { _ in
                 
             } receiveValue: { [weak self] servers in
+                self?.tableView.beginUpdates()
                 self?.tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
+                self?.tableView.endUpdates()
                 if let selectedServer = self?.viewModel.selectedServer.value, servers.contains(selectedServer) {
                     // Previously selected server is still in the list, do nothing
                 } else {
@@ -265,13 +267,25 @@ extension MastodonPickServerViewController {
                 }
             } receiveValue: { [weak self] response in
                 guard let self = self else { return }
-                let mastodonRegisterViewModel = MastodonRegisterViewModel(
-                    domain: server.domain,
-                    authenticateInfo: response.authenticateInfo,
-                    instance: response.instance.value,
-                    applicationToken: response.applicationToken.value
-                )
-                self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
+                if let rules = response.instance.value.rules, !rules.isEmpty {
+                    // show server rules before register
+                    let mastodonServerRulesViewModel = MastodonServerRulesViewModel(
+                        domain: server.domain,
+                        authenticateInfo: response.authenticateInfo,
+                        rules: rules,
+                        instance: response.instance.value,
+                        applicationToken: response.applicationToken.value
+                    )
+                    self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
+                } else {
+                    let mastodonRegisterViewModel = MastodonRegisterViewModel(
+                        domain: server.domain,
+                        authenticateInfo: response.authenticateInfo,
+                        instance: response.instance.value,
+                        applicationToken: response.applicationToken.value
+                    )
+                    self.coordinator.present(scene: .mastodonRegister(viewModel: mastodonRegisterViewModel), from: nil, transition: .show)
+                }
             }
             .store(in: &disposeBag)
     }
@@ -291,8 +305,7 @@ extension MastodonPickServerViewController: UITableViewDelegate {
             // Same reason as above
             return 10
         case .serverList:
-            // Header with 1 height as the separator
-            return 1
+            return 0
         }
     }
     

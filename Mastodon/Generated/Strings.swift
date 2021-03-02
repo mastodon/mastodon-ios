@@ -82,6 +82,52 @@ internal enum L10n {
         internal static let single = L10n.tr("Localizable", "Common.Countable.Photo.Single")
       }
     }
+    internal enum Errors {
+      /// must be accepted
+      internal static let errAccepted = L10n.tr("Localizable", "Common.Errors.ErrAccepted")
+      /// is required
+      internal static let errBlank = L10n.tr("Localizable", "Common.Errors.ErrBlank")
+      /// contains a disallowed e-mail provider
+      internal static let errBlocked = L10n.tr("Localizable", "Common.Errors.ErrBlocked")
+      /// is not a supported value
+      internal static let errInclusion = L10n.tr("Localizable", "Common.Errors.ErrInclusion")
+      /// is invalid
+      internal static let errInvalid = L10n.tr("Localizable", "Common.Errors.ErrInvalid")
+      /// is a reserved keyword
+      internal static let errReserved = L10n.tr("Localizable", "Common.Errors.ErrReserved")
+      /// is already in use
+      internal static let errTaken = L10n.tr("Localizable", "Common.Errors.ErrTaken")
+      /// is too long
+      internal static let errTooLong = L10n.tr("Localizable", "Common.Errors.ErrTooLong")
+      /// is too short
+      internal static let errTooShort = L10n.tr("Localizable", "Common.Errors.ErrTooShort")
+      /// does not seem to exist
+      internal static let errUnreachable = L10n.tr("Localizable", "Common.Errors.ErrUnreachable")
+      internal enum Item {
+        /// agreement
+        internal static let agreement = L10n.tr("Localizable", "Common.Errors.Item.Agreement")
+        /// email
+        internal static let email = L10n.tr("Localizable", "Common.Errors.Item.Email")
+        /// locale
+        internal static let locale = L10n.tr("Localizable", "Common.Errors.Item.Locale")
+        /// password
+        internal static let password = L10n.tr("Localizable", "Common.Errors.Item.Password")
+        /// reason
+        internal static let reason = L10n.tr("Localizable", "Common.Errors.Item.Reason")
+        /// username
+        internal static let username = L10n.tr("Localizable", "Common.Errors.Item.Username")
+      }
+      internal enum Itemdetail {
+        /// This is not a valid e-mail address
+        internal static let emailInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.EmailInvalid")
+        /// password is too short (must be at least 8 characters)
+        internal static let passwordTooShrot = L10n.tr("Localizable", "Common.Errors.Itemdetail.PasswordTooShrot")
+        /// Username must only contain alphanumeric characters and underscores
+        internal static let usernameInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameInvalid")
+        /// username is too long ( can't be longer than 30 characters)
+        internal static let usernameTooLong = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameTooLong")
+      }
+    }
   }
 
   internal enum Scene {

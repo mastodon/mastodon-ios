@@ -80,8 +80,6 @@ class MastodonPickServerViewModel: NSObject {
     
     weak var tableView: UITableView?
     
-//    private var expandServerDomainSet = Set<String>()
-    
     var mastodonPinBasedAuthenticationViewController: UIViewController?
     
     init(context: AppContext, mode: PickServerMode) {
