@@ -83,6 +83,7 @@
         <relationship name="pinnedToot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="pinnedBy" inverseEntity="Toot"/>
         <relationship name="reblogged" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="rebloggedBy" inverseEntity="Toot"/>
         <relationship name="toots" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="author" inverseEntity="Toot"/>
+        <relationship name="votePollOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="votedBy" inverseEntity="PollOption"/>
     </entity>
     <entity name="Mention" representedClassName=".Mention" syncable="YES">
         <attribute name="acct" attributeType="String"/>
@@ -92,6 +93,27 @@
         <attribute name="url" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
         <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="mentions" inverseEntity="Toot"/>
+    </entity>
+    <entity name="Poll" representedClassName=".Poll" syncable="YES">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="expired" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="expiresAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
+        <attribute name="multiple" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="votersCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="votesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="options" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="poll" inverseEntity="PollOption"/>
+        <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="poll" inverseEntity="Toot"/>
+    </entity>
+    <entity name="PollOption" representedClassName=".PollOption" syncable="YES">
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="index" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="votesCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="poll" maxCount="1" deletionRule="Nullify" destinationEntity="Poll" inverseName="options" inverseEntity="Poll"/>
+        <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePollOptions" inverseEntity="MastodonUser"/>
     </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES">
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
@@ -131,6 +153,7 @@
         <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedToot" inverseEntity="MastodonUser"/>
+        <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="toot" inverseEntity="Poll"/>
         <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblogFrom" inverseEntity="Toot"/>
         <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblog" inverseEntity="Toot"/>
         <relationship name="rebloggedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
@@ -138,14 +161,16 @@
     </entity>
     <elements>
         <element name="Application" positionX="160" positionY="192" width="128" height="104"/>
+        <element name="Attachment" positionX="72" positionY="162" width="128" height="14"/>
         <element name="Emoji" positionX="45" positionY="135" width="128" height="149"/>
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="284"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="299"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="524"/>
-        <element name="Attachment" positionX="72" positionY="162" width="128" height="14"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="539"/>
+        <element name="Poll" positionX="72" positionY="162" width="128" height="179"/>
+        <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
     </elements>
 </model>

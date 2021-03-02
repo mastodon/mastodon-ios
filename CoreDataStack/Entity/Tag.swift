@@ -23,13 +23,14 @@ public final class Tag: NSManagedObject {
     @NSManaged public private(set) var histories: Set<History>?
 }
 
-public extension Tag {
-    override func awakeFromInsert() {
+extension Tag {
+    public override func awakeFromInsert() {
         super.awakeFromInsert()
         identifier = UUID()
     }
+    
     @discardableResult
-    static func insert(
+    public static func insert(
         into context: NSManagedObjectContext,
         property: Property
     ) -> Tag {
@@ -43,8 +44,8 @@ public extension Tag {
     }
 }
 
-public extension Tag {
-    struct Property {
+extension Tag {
+    public struct Property {
         public let name: String
         public let url: String
         public let histories: [History]?

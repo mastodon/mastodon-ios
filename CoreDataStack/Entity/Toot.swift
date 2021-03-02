@@ -48,6 +48,7 @@ public final class Toot: NSManagedObject {
 
     // one-to-one relastionship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
+    @NSManaged public private(set) var poll: Poll?
         
     // one-to-many relationship
     @NSManaged public private(set) var reblogFrom: Set<Toot>?
@@ -69,6 +70,7 @@ public extension Toot {
         author: MastodonUser,
         reblog: Toot?,
         application: Application?,
+        poll: Poll?,
         mentions: [Mention]?,
         emojis: [Emoji]?,
         tags: [Tag]?,
@@ -109,6 +111,7 @@ public extension Toot {
         toot.reblog = reblog
         
         toot.pinnedBy = pinnedBy
+        toot.poll = poll
         
         if let mentions = mentions {
             toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)

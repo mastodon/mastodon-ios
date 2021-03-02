@@ -51,6 +51,14 @@ extension APIService.CoreData {
             let application = entity.application.flatMap { app -> Application? in
                 Application.insert(into: managedObjectContext, property: Application.Property(name: app.name, website: app.website, vapidKey: app.vapidKey))
             }
+            let poll = entity.poll.flatMap { poll -> Poll in
+                let options = poll.options.enumerated().map { i, option -> PollOption in
+                    let votedBy: MastodonUser? = (poll.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
+                    return PollOption.insert(into: managedObjectContext, property: PollOption.Property(index: i, title: option.title, votesCount: option.votesCount, networkDate: networkDate), votedBy: votedBy)
+                }
+                let object = Poll.insert(into: managedObjectContext, property: Poll.Property(id: poll.id, expiresAt: poll.expiresAt, expired: poll.expired, multiple: poll.multiple, votesCount: poll.votesCount, votersCount: poll.votersCount, networkDate: networkDate), options: options)
+                return object
+            }
             let metions = entity.mentions?.compactMap { mention -> Mention in
                 Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url))
             }
@@ -83,6 +91,7 @@ extension APIService.CoreData {
                 author: mastodonUser,
                 reblog: reblog,
                 application: application,
+                poll: poll,
                 mentions: metions,
                 emojis: emojis,
                 tags: tags,
@@ -127,9 +136,6 @@ extension APIService.CoreData {
                 toot.update(bookmarked: bookmarked, mastodonUser: mastodonUser)
             }
         }
-        
-        
-        
         
         // set updateAt
         toot.didUpdate(at: networkDate)
