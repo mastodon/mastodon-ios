@@ -19,6 +19,7 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: .displayInline,
             children: [
+                moveMenu,
                 dropMenu,
                 UIAction(title: "Show Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
@@ -33,6 +34,41 @@ extension HomeTimelineViewController {
         return menu
     }
     
+    var moveMenu: UIMenu {
+        return UIMenu(
+            title: "Move to…",
+            image: UIImage(systemName: "arrow.forward.circle"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "First Gap", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToTopGapAction(action)
+                }),
+                UIAction(title: "First Poll Toot", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToFirstPollToot(action)
+                }),
+//                UIAction(title: "First Reply Toot", image: nil, attributes: [], handler: { [weak self] action in
+//                    guard let self = self else { return }
+//                    self.moveToFirstReplyToot(action)
+//                }),
+//                UIAction(title: "First Reply Reblog", image: nil, attributes: [], handler: { [weak self] action in
+//                    guard let self = self else { return }
+//                    self.moveToFirstReplyReblog(action)
+//                }),
+//                UIAction(title: "First Video Toot", image: nil, attributes: [], handler: { [weak self] action in
+//                    guard let self = self else { return }
+//                    self.moveToFirstVideoToot(action)
+//                }),
+//                UIAction(title: "First GIF Toot", image: nil, attributes: [], handler: { [weak self] action in
+//                    guard let self = self else { return }
+//                    self.moveToFirstGIFToot(action)
+//                }),
+            ]
+        )
+    }
+    
     var dropMenu: UIMenu {
         return UIMenu(
             title: "Drop…",
@@ -40,9 +76,9 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: [],
             children: [50, 100, 150, 200, 250, 300].map { count in
-                UIAction(title: "Drop Recent \(count) Tweets", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "Drop Recent \(count) Toots", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
-                    self.dropRecentTweetsAction(action, count: count)
+                    self.dropRecentTootsAction(action, count: count)
                 })
             }
         )
@@ -51,7 +87,42 @@ extension HomeTimelineViewController {
 
 extension HomeTimelineViewController {
     
-    @objc private func dropRecentTweetsAction(_ sender: UIAction, count: Int) {
+    @objc private func moveToTopGapAction(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeMiddleLoader:         return true
+            default:                        return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+        }
+    }
+    
+    @objc private func moveToFirstPollToot(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeTimelineIndex(let objectID, _):
+                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                return toot.poll != nil
+            default:
+                return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            tableView.blinkRow(at: IndexPath(row: index, section: 0))
+        } else {
+            print("Not found poll toot")
+        }
+    }
+    
+    @objc private func dropRecentTootsAction(_ sender: UIAction, count: Int) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
         

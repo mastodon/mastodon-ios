@@ -23,6 +23,7 @@ final class StatusView: UIView {
     
     weak var delegate: StatusViewDelegate?
     var isStatusTextSensitive = false
+    var statusPollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
     
     let headerContainerStackView = UIStackView()
     
@@ -100,6 +101,13 @@ final class StatusView: UIView {
         return button
     }()
     let statusMosaicImageView = MosaicImageViewContainer()
+    
+    let statusPollTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(PollTableViewCell.self, forCellReuseIdentifier: String(describing: PollTableViewCell.self))
+        tableView.isScrollEnabled = false
+        return tableView
+    }()
     
     // do not use visual effect view due to we blur text only without background
     let contentWarningBlurContentImageView: UIImageView = {
@@ -222,7 +230,7 @@ extension StatusView {
         subtitleContainerStackView.axis = .horizontal
         subtitleContainerStackView.addArrangedSubview(usernameLabel)
         
-        // status container: [status | image / video | audio]
+        // status container: [status | image / video | audio | poll]
         containerStackView.addArrangedSubview(statusContainerStackView)
         statusContainerStackView.axis = .vertical
         statusContainerStackView.spacing = 10
@@ -258,7 +266,7 @@ extension StatusView {
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
         statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
         statusContainerStackView.addArrangedSubview(statusMosaicImageView)
-        
+        statusContainerStackView.addArrangedSubview(statusPollTableView)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -266,6 +274,8 @@ extension StatusView {
 
         headerContainerStackView.isHidden = true
         statusMosaicImageView.isHidden = true
+        statusPollTableView.isHidden = true
+
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false

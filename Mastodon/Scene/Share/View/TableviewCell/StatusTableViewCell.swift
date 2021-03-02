@@ -33,6 +33,7 @@ final class StatusTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         statusView.isStatusTextSensitive = false
+        statusView.statusPollTableView.dataSource = nil
         statusView.cleanUpContentWarning()
         disposeBag.removeAll()
         observations.removeAll()

@@ -109,6 +109,9 @@
 		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
 		DB4481AD25EE155900BEFB67 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481AC25EE155900BEFB67 /* Poll.swift */; };
 		DB4481B325EE16D000BEFB67 /* PollOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B225EE16D000BEFB67 /* PollOption.swift */; };
+		DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B825EE289600BEFB67 /* UITableView.swift */; };
+		DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481C525EE2ADA00BEFB67 /* PollSection.swift */; };
+		DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */; };
 		DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */; };
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
@@ -331,6 +334,9 @@
 		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		DB4481AC25EE155900BEFB67 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 		DB4481B225EE16D000BEFB67 /* PollOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollOption.swift; sourceTree = "<group>"; };
+		DB4481B825EE289600BEFB67 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
+		DB4481C525EE2ADA00BEFB67 /* PollSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollSection.swift; sourceTree = "<group>"; };
+		DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollItem.swift; sourceTree = "<group>"; };
 		DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardResponderService.swift; sourceTree = "<group>"; };
 		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
@@ -634,8 +640,8 @@
 		2D76319C25C151DE00929FB9 /* Diffiable */ = {
 			isa = PBXGroup;
 			children = (
-				2D7631B125C159E700929FB9 /* Item */,
 				2D76319D25C151F600929FB9 /* Section */,
+				2D7631B125C159E700929FB9 /* Item */,
 			);
 			path = Diffiable;
 			sourceTree = "<group>";
@@ -644,6 +650,7 @@
 			isa = PBXGroup;
 			children = (
 				2D76319E25C1521200929FB9 /* StatusSection.swift */,
+				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -686,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				2D7631B225C159F700929FB9 /* Item.swift */,
+				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1021,6 +1029,7 @@
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
+				DB4481B825EE289600BEFB67 /* UITableView.swift */,
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
 				2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */,
@@ -1476,7 +1485,9 @@
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */,
+				DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
+				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
@@ -1501,6 +1512,7 @@
 				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
+				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */,

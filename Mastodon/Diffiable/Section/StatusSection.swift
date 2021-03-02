@@ -153,6 +153,9 @@ extension StatusSection {
         let isStatusSensitive = statusContentWarningAttribute?.isStatusSensitive ?? (toot.reblog ?? toot).sensitive
         cell.statusView.statusMosaicImageView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
         cell.statusView.statusMosaicImageView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        
+        // set poll
+        
 
         // toolbar
         let replyCountTitle: String = {
