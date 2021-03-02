@@ -17,9 +17,6 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    // avater image
-    var image: UIImage?
-    
     var viewModel: MastodonRegisterViewModel!
 
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer

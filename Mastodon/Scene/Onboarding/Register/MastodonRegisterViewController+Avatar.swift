@@ -21,7 +21,8 @@ extension MastodonRegisterViewController: CropViewControllerDelegate, PHPickerVi
             DispatchQueue.main.async {
                 let cropController = CropViewController(croppingStyle: .default, image: image)
                 cropController.delegate = self
-                self.image = image
+                cropController.setAspectRatioPreset(.presetSquare, animated: true)
+                cropController.aspectRatioLockEnabled = true
                 picker.dismiss(animated: true, completion: {
                     self.present(cropController, animated: true, completion: nil)
                 })
@@ -30,7 +31,7 @@ extension MastodonRegisterViewController: CropViewControllerDelegate, PHPickerVi
     }
 
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        self.image = image
+        self.viewModel.avatarImage.value = image
         self.photoButton.setImage(image, for: .normal)
         cropViewController.dismiss(animated: true, completion: nil)
     }

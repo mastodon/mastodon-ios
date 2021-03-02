@@ -24,6 +24,7 @@ final class MastodonRegisterViewModel {
     let email = CurrentValueSubject<String, Never>("")
     let password = CurrentValueSubject<String, Never>("")
     let reason = CurrentValueSubject<String, Never>("")
+    let avatarImage = CurrentValueSubject<UIImage?, Never>(nil)
     
     // output
     let approvalRequired: Bool
