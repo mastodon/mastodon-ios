@@ -106,6 +106,7 @@
 		DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */; };
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
+		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
 		DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */; };
 		DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */; };
 		DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */; };
@@ -147,6 +148,8 @@
 		DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */; };
 		DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55C25C138B7002E6C99 /* UIViewController.swift */; };
 		DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */; };
+		DB92CF7225E7BB98002C1017 /* PollTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB92CF7125E7BB98002C1017 /* PollTableViewCell.swift */; };
+		DB98334725C8056600AD9700 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98334625C8056600AD9700 /* AuthenticationViewModel.swift */; };
 		DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98336A25C9420100AD9700 /* APIService+App.swift */; };
 		DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337025C9443200AD9700 /* APIService+Authentication.swift */; };
 		DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
@@ -324,6 +327,7 @@
 		DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MastodonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardResponderService.swift; sourceTree = "<group>"; };
 		DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
@@ -366,6 +370,8 @@
 		DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DB8AF55C25C138B7002E6C99 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineIndex.swift; sourceTree = "<group>"; };
+		DB92CF7125E7BB98002C1017 /* PollTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollTableViewCell.swift; sourceTree = "<group>"; };
+		DB98334625C8056600AD9700 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB98336A25C9420100AD9700 /* APIService+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+App.swift"; sourceTree = "<group>"; };
 		DB98337025C9443200AD9700 /* APIService+Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Authentication.swift"; sourceTree = "<group>"; };
 		DB98337E25C9452D00AD9700 /* APIService+APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+APIError.swift"; sourceTree = "<group>"; };
@@ -669,6 +675,7 @@
 				2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */,
 				2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */,
 				2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */,
+				DB92CF7125E7BB98002C1017 /* PollTableViewCell.swift */,
 			);
 			path = TableviewCell;
 			sourceTree = "<group>";
@@ -997,6 +1004,7 @@
 			isa = PBXGroup;
 			children = (
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
+				DB44384E25E8C1FA008912A2 /* CALayer.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
@@ -1448,6 +1456,7 @@
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
+				DB92CF7225E7BB98002C1017 /* PollTableViewCell.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
@@ -1508,6 +1517,7 @@
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
+				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,

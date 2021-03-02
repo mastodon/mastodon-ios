@@ -71,6 +71,7 @@ internal enum Asset {
   internal enum Welcome {
     internal static let mastodonLogo = ImageAsset(name: "Welcome/mastodon.logo")
     internal static let mastodonLogoLarge = ImageAsset(name: "Welcome/mastodon.logo.large")
+    internal static let welcomeLogo = ImageAsset(name: "Welcome/welcome.logo")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
