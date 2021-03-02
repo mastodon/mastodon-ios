@@ -34,6 +34,8 @@ final class MastodonRegisterViewModel {
     let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let inviteValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     
+    let isUsernameTaken = CurrentValueSubject<Bool, Never>(false)
+    
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     let isAllValid = CurrentValueSubject<Bool, Never>(false)
     let error = CurrentValueSubject<Error?, Never>(nil)
@@ -158,7 +160,7 @@ extension MastodonRegisterViewModel {
         let falseColor = UIColor.clear
         let attributeString = NSMutableAttributedString()
         
-        let start = NSAttributedString(string: "Your password needs at least:\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+        let start = NSAttributedString(string: "Your password needs at least:", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
         attributeString.append(start)
         
         attributeString.append(checkmarkImage(color: eightCharacters ? color : falseColor))

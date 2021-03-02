@@ -10,34 +10,27 @@ import Combine
 import MastodonSDK
 
 final class MastodonServerRulesViewModel {
-    
     // input
-    let context: AppContext
+
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let rules: [Mastodon.Entity.Instance.Rule]
-    let registerQuery: Mastodon.API.Account.RegisterQuery
-    let applicationAuthorization: Mastodon.API.OAuth.Authorization
-
-    // output
-    let isRegistering = CurrentValueSubject<Bool, Never>(false)
-    let error = CurrentValueSubject<Error?, Never>(nil)
+    let instance: Mastodon.Entity.Instance
+    let applicationToken: Mastodon.Entity.Token
 
     
     init(
-        context: AppContext,
         domain: String,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
         rules: [Mastodon.Entity.Instance.Rule],
-        registerQuery: Mastodon.API.Account.RegisterQuery,
-        applicationAuthorization: Mastodon.API.OAuth.Authorization
+        instance: Mastodon.Entity.Instance,
+        applicationToken: Mastodon.Entity.Token
     ) {
-        self.context = context
         self.domain = domain
         self.authenticateInfo = authenticateInfo
         self.rules = rules
-        self.registerQuery = registerQuery
-        self.applicationAuthorization = applicationAuthorization
+        self.instance = instance
+        self.applicationToken = applicationToken
     }
     
     var rulesAttributedString: NSAttributedString {
