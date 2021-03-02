@@ -8,9 +8,9 @@
 import Combine
 import MastodonSDK
 import os.log
+import PhotosUI
 import UIKit
 import UITextField_Shake
-import PhotosUI
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
@@ -36,7 +36,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         scrollview.showsVerticalScrollIndicator = false
         scrollview.keyboardDismissMode = .interactive
         scrollview.alwaysBounceVertical = true
-        scrollview.clipsToBounds = false    // make content could display over bleeding
+        scrollview.clipsToBounds = false // make content could display over bleeding
         scrollview.translatesAutoresizingMaskIntoConstraints = false
         return scrollview
     }()
@@ -216,18 +216,27 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
     
     deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
-    
 }
 
 extension MastodonRegisterViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
+        
+        NSObject.KeyValueObservingPublisher<UIButton, Bool>(object: photoButton, keyPath: \.isHighlighted, options: NSKeyValueObservingOptions.new)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isHighlighted in
+                guard let self = self else { return }
+                let alpha: CGFloat = isHighlighted ? 0.8 : 1
+                self.plusIcon.alpha = alpha
+                self.plusIconBackground.alpha = alpha
+                self.photoButton.alpha = alpha
+            }
+            .store(in: &disposeBag)
         
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
@@ -415,7 +424,7 @@ extension MastodonRegisterViewController {
 
         viewModel.isUsernameTaken
             .receive(on: DispatchQueue.main)
-            .sink {[weak self] isUsernameTaken in
+            .sink { [weak self] isUsernameTaken in
                 guard let self = self else { return }
                 if isUsernameTaken {
                     self.usernameIsTakenLabel.isHidden = false
@@ -492,10 +501,9 @@ extension MastodonRegisterViewController {
             .store(in: &disposeBag)
 
         if viewModel.approvalRequired {
-            
             inviteTextField.delegate = self
             NSLayoutConstraint.activate([
-                inviteTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh)
+                inviteTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
             ])
             
             viewModel.inviteValidateState
@@ -503,7 +511,6 @@ extension MastodonRegisterViewController {
                 .sink { [weak self] validateState in
                     guard let self = self else { return }
                     self.setTextFieldValidAppearance(self.inviteTextField, validateState: validateState)
-
                 }
                 .store(in: &disposeBag)
             NotificationCenter.default
@@ -518,11 +525,9 @@ extension MastodonRegisterViewController {
         
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
-    
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
@@ -564,7 +569,6 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
 }
 
 extension MastodonRegisterViewController {
-    
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
@@ -611,6 +615,5 @@ extension MastodonRegisterViewController {
             self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         }
         .store(in: &disposeBag)
-        
     }
 }
