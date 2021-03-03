@@ -44,7 +44,7 @@ extension APIService.CoreData {
 
         if let oldToot = oldToot {
             // merge old Toot
-            APIService.CoreData.mergeToot(for: requestMastodonUser, old: oldToot,in: domain, entity: entity, networkDate: networkDate)
+            APIService.CoreData.merge(toot: oldToot, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
             return (oldToot, false, false)
         } else {
             let (mastodonUser, isMastodonUserCreated) = createOrMergeMastodonUser(into: managedObjectContext, for: requestMastodonUser,in: domain, entity: entity.account, networkDate: networkDate, log: log)
@@ -106,10 +106,34 @@ extension APIService.CoreData {
         }
     }
     
-    static func mergeToot(for requestMastodonUser: MastodonUser?, old toot: Toot,in domain: String, entity: Mastodon.Entity.Status, networkDate: Date) {
+    static func merge(
+        toot: Toot,
+        entity: Mastodon.Entity.Status,
+        requestMastodonUser: MastodonUser?,
+        domain: String,
+        networkDate: Date
+    ) {
         guard networkDate > toot.updatedAt else { return }
 
-        // merge
+        // merge poll
+        if let poll = entity.poll, let oldPoll = toot.poll, poll.options.count == oldPoll.options.count {
+            oldPoll.update(expiresAt: poll.expiresAt)
+            oldPoll.update(expired: poll.expired)
+            oldPoll.update(votesCount: poll.votesCount)
+            oldPoll.update(votersCount: poll.votersCount)
+            
+            let oldOptions = oldPoll.options.sorted(by: { $0.index.intValue < $1.index.intValue })
+            for (i, (option, oldOption)) in zip(poll.options, oldOptions).enumerated() {
+                let votedBy: MastodonUser? = (poll.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
+                oldOption.update(votesCount: option.votesCount)
+                votedBy.flatMap { oldOption.update(votedBy: $0) }
+                oldOption.didUpdate(at: networkDate)
+            }
+            
+            oldPoll.didUpdate(at: networkDate)
+        }
+        
+        // merge metrics
         if entity.favouritesCount != toot.favouritesCount.intValue {
             toot.update(favouritesCount:NSNumber(value: entity.favouritesCount))
         }
@@ -122,6 +146,7 @@ extension APIService.CoreData {
             toot.update(reblogsCount:NSNumber(value: entity.reblogsCount))
         }
         
+        // merge relationship
         if let mastodonUser = requestMastodonUser {
             if let favourited = entity.favourited {
                 toot.update(liked: favourited, mastodonUser: mastodonUser)
@@ -142,10 +167,36 @@ extension APIService.CoreData {
 
         // merge user
         mergeMastodonUser(for: requestMastodonUser, old: toot.author, in: domain, entity: entity.account, networkDate: networkDate)
-        // merge indirect reblog & quote
+        
+        // merge indirect reblog
         if let reblog = toot.reblog, let reblogEntity = entity.reblog {
-            mergeToot(for: requestMastodonUser, old: reblog,in: domain, entity: reblogEntity, networkDate: networkDate)
+            merge(toot: reblog, entity: reblogEntity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
         }
     }
     
+}
+
+extension APIService.CoreData {
+    static func merge(
+        poll: Poll,
+        entity: Mastodon.Entity.Poll,
+        requestMastodonUser: MastodonUser?,
+        domain: String,
+        networkDate: Date
+    ) {
+        poll.update(expiresAt: entity.expiresAt)
+        poll.update(expired: entity.expired)
+        poll.update(votesCount: entity.votesCount)
+        poll.update(votersCount: entity.votersCount)
+        
+        let oldOptions = poll.options.sorted(by: { $0.index.intValue < $1.index.intValue })
+        for (i, (optionEntity, option)) in zip(entity.options, oldOptions).enumerated() {
+            let votedBy: MastodonUser? = (entity.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
+            option.update(votesCount: optionEntity.votesCount)
+            votedBy.flatMap { option.update(votedBy: $0) }
+            option.didUpdate(at: networkDate)
+        }
+        
+        poll.didUpdate(at: networkDate)
+    }
 }

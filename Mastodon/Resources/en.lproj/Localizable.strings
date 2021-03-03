@@ -18,8 +18,11 @@
 "Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Status.MediaContentWarning" = "Tap to reveal that may be sensitive";
 "Common.Controls.Status.Poll.TimeLeft" = "%@ left";
+"Common.Controls.Status.Poll.Vote" = "Vote";
 "Common.Controls.Status.Poll.VoteCount.Multiple" = "%d votes";
 "Common.Controls.Status.Poll.VoteCount.Single" = "%d vote";
+"Common.Controls.Status.Poll.VoterCount.Multiple" = "%d voters";
+"Common.Controls.Status.Poll.VoterCount.Single" = "%d voter";
 "Common.Controls.Status.ShowPost" = "Show Post";
 "Common.Controls.Status.StatusContentWarning" = "content warning";
 "Common.Controls.Status.UserBoosted" = "%@ boosted";

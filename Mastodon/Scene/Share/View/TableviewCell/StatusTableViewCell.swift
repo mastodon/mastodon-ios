@@ -9,13 +9,15 @@ import os.log
 import UIKit
 import AVKit
 import Combine
+import CoreData
+import CoreDataStack
 
 protocol StatusTableViewCellDelegate: class {
+    var managedObjectContext: NSManagedObjectContext { get }
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
-
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -32,8 +34,8 @@ final class StatusTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         statusView.isStatusTextSensitive = false
-        statusView.pollTableView.dataSource = nil
         statusView.cleanUpContentWarning()
+        statusView.pollTableView.dataSource = nil
         disposeBag.removeAll()
         observations.removeAll()
     }
@@ -85,10 +87,28 @@ extension StatusTableViewCell {
         bottomPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
                 
         statusView.delegate = self
+        statusView.pollTableView.delegate = self
         statusView.statusMosaicImageViewContainer.delegate = self
         statusView.actionToolbarContainer.delegate = self
     }
     
+}
+
+// MARK: - UITableViewDelegate
+extension StatusTableViewCell: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if tableView === statusView.pollTableView, let diffableDataSource = statusView.pollTableViewDataSource {
+            guard let item = diffableDataSource.itemIdentifier(for: indexPath),
+                  case let .opion(objectID, _) = item,
+                  let option = delegate?.managedObjectContext.object(with: objectID) as? PollOption else {
+                return false
+            }
+            
+            return !option.poll.expired
+        } else {
+            return true
+        }
+    }
 }
 
 // MARK: - StatusViewDelegate

@@ -39,7 +39,6 @@ extension PollSection {
         itemAttribute: PollItem.Attribute
     ) {
         cell.optionLabel.text = pollOption.title
-        cell.configureCheckmark(state: itemAttribute.voted ? .on : .off)
-        
+        cell.configure(state: itemAttribute.isOptionVoted ? .on : .off)
     }
 }

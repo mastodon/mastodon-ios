@@ -56,6 +56,34 @@ extension Poll {
         return poll
     }
     
+    public func update(expiresAt: Date?) {
+        if self.expiresAt != expiresAt {
+            self.expiresAt = expiresAt
+        }
+    }
+    
+    public func update(expired: Bool) {
+        if self.expired != expired {
+            self.expired = expired
+        }
+    }
+    
+    public func update(votesCount: Int) {
+        if self.votesCount.intValue != votesCount {
+            self.votesCount = NSNumber(value: votesCount)
+        }
+    }
+    
+    public func update(votersCount: Int?) {
+        if self.votersCount?.intValue != votersCount {
+            self.votersCount = votersCount.flatMap { NSNumber(value: $0) }
+        }
+    }
+    
+    public func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
+    }
+    
 }
 
 extension Poll {

@@ -25,8 +25,8 @@ final class StatusView: UIView {
     
     weak var delegate: StatusViewDelegate?
     var isStatusTextSensitive = false
-    var statusPollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
-    var statusPollTableViewHeightLaoutConstraint: NSLayoutConstraint!
+    var pollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
+    var pollTableViewHeightLaoutConstraint: NSLayoutConstraint!
     
     let headerContainerStackView = UIStackView()
     
@@ -105,8 +105,8 @@ final class StatusView: UIView {
     }()
     let statusMosaicImageViewContainer = MosaicImageViewContainer()
     
-    let pollTableView: UITableView = {
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    let pollTableView: PollTableView = {
+        let tableView = PollTableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
         tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
@@ -135,6 +135,15 @@ final class StatusView: UIView {
         label.textColor = Asset.Colors.Label.secondary.color
         label.text = L10n.Common.Controls.Status.Poll.timeLeft("6 hours")
         return label
+    }()
+    let pollVoteButton: UIButton = {
+        let button = HitTestExpandedButton()
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .regular))
+        button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
+        button.setTitleColor(Asset.Colors.Button.highlight.color, for: .normal)
+        button.setTitleColor(Asset.Colors.Button.highlight.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
+        return button
     }()
     
     // do not use visual effect view due to we blur text only without background
@@ -302,18 +311,18 @@ extension StatusView {
         statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)
         pollTableView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(pollTableView)
-        statusPollTableViewHeightLaoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
+        pollTableViewHeightLaoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
         NSLayoutConstraint.activate([
-            statusPollTableViewHeightLaoutConstraint,
+            pollTableViewHeightLaoutConstraint,
         ])
         
         statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
             guard let self = self else { return }
             guard self.pollTableView.contentSize.height != .zero else {
-                self.statusPollTableViewHeightLaoutConstraint.constant = 44
+                self.pollTableViewHeightLaoutConstraint.constant = 44
                 return
             }
-            self.statusPollTableViewHeightLaoutConstraint.constant = self.pollTableView.contentSize.height
+            self.pollTableViewHeightLaoutConstraint.constant = self.pollTableView.contentSize.height
         })
         
         statusContainerStackView.addArrangedSubview(pollStatusStackView)
@@ -321,9 +330,11 @@ extension StatusView {
         pollStatusStackView.addArrangedSubview(pollVoteCountLabel)
         pollStatusStackView.addArrangedSubview(pollStatusDotLabel)
         pollStatusStackView.addArrangedSubview(pollCountdownLabel)
+        pollStatusStackView.addArrangedSubview(pollVoteButton)
         pollVoteCountLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
         pollStatusDotLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)

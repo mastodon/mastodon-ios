@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class PollOptionTableViewCell: UITableViewCell {
     
@@ -14,6 +15,9 @@ final class PollOptionTableViewCell: UITableViewCell {
     static let verticalMargin: CGFloat = 5
     static let checkmarkImageSize = CGSize(width: 26, height: 26)
     
+    private var viewStateDisposeBag = Set<AnyCancellable>()
+    private(set) var pollState: PollState = .off
+        
     let roundedBackgroundView = UIView()
     
     let checkmarkBackgroundView: UIView = {
@@ -56,6 +60,22 @@ final class PollOptionTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        switch pollState {
+        case .off, .none:
+            let color = Asset.Colors.Background.systemGroupedBackground.color
+            self.roundedBackgroundView.backgroundColor = isHighlighted ? color.withAlphaComponent(0.8) : color
+        case .on:
+            break
+        }
     }
 
 }
@@ -113,7 +133,7 @@ extension PollOptionTableViewCell {
         optionPercentageLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         optionPercentageLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
             
-        configureCheckmark(state: .none)
+        configure(state: .none)
     }
     
     override func layoutSubviews() {
@@ -136,13 +156,13 @@ extension PollOptionTableViewCell {
 
 extension PollOptionTableViewCell {
     
-    enum CheckmarkState {
+    enum PollState {
         case none
         case off
         case on
     }
     
-    func configureCheckmark(state: CheckmarkState) {
+    func configure(state: PollState) {
         switch state {
         case .none:
             checkmarkBackgroundView.backgroundColor = .clear
@@ -185,13 +205,13 @@ struct PollTableViewCell_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 375, height: 44 + 10))
             UIViewPreview() {
                 let cell = PollOptionTableViewCell()
-                cell.configureCheckmark(state: .off)
+                cell.configure(state: .off)
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))
             UIViewPreview() {
                 let cell = PollOptionTableViewCell()
-                cell.configureCheckmark(state: .on)
+                cell.configure(state: .on)
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))

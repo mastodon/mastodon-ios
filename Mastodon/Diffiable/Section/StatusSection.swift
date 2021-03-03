@@ -21,11 +21,11 @@ extension StatusSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<StatusSection, Item> {
-        UITableViewDiffableDataSource(tableView: tableView) { [weak timelinePostTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
-            guard let timelinePostTableViewCellDelegate = timelinePostTableViewCellDelegate else { return UITableViewCell() }
+        UITableViewDiffableDataSource(tableView: tableView) { [weak statusTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
+            guard let statusTableViewCellDelegate = statusTableViewCellDelegate else { return UITableViewCell() }
 
             switch item {
             case .homeTimelineIndex(objectID: let objectID, let attribute):
@@ -36,7 +36,7 @@ extension StatusSection {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
                     StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusContentWarningAttribute: attribute)
                 }
-                cell.delegate = timelinePostTableViewCellDelegate
+                cell.delegate = statusTableViewCellDelegate
                 return cell
             case .toot(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
@@ -47,7 +47,7 @@ extension StatusSection {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
                     StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusContentWarningAttribute: attribute)
                 }
-                cell.delegate = timelinePostTableViewCellDelegate
+                cell.delegate = statusTableViewCellDelegate
                 return cell
             case .publicMiddleLoader(let upperTimelineTootID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
@@ -158,9 +158,27 @@ extension StatusSection {
         if let poll = (toot.reblog ?? toot).poll {
             cell.statusView.pollTableView.isHidden = false
             cell.statusView.pollStatusStackView.isHidden = false
+            cell.statusView.pollVoteButton.isHidden = !poll.multiple
+            cell.statusView.pollVoteCountLabel.text = {
+                if poll.multiple {
+                    let count = poll.votersCount?.intValue ?? 0
+                    if count > 1 {
+                        return L10n.Common.Controls.Status.Poll.VoterCount.single(count)
+                    } else {
+                        return L10n.Common.Controls.Status.Poll.VoterCount.multiple(count)
+                    }
+                } else {
+                    let count = poll.votesCount.intValue
+                    if count > 1 {
+                        return L10n.Common.Controls.Status.Poll.VoteCount.single(count)
+                    } else {
+                        return L10n.Common.Controls.Status.Poll.VoteCount.multiple(count)
+                    }
+                }
+            }()
             
             let managedObjectContext = toot.managedObjectContext!
-            cell.statusView.statusPollTableViewDataSource = PollSection.tableViewDiffableDataSource(
+            cell.statusView.pollTableViewDataSource = PollSection.tableViewDiffableDataSource(
                 for: cell.statusView.pollTableView,
                 managedObjectContext: managedObjectContext
             )
@@ -171,15 +189,16 @@ extension StatusSection {
                 .sorted(by: { $0.index.intValue < $1.index.intValue })
                 .map { option -> PollItem in
                     let isVoted = (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
-                    let attribute = PollItem.Attribute(voted: isVoted)
+                    let attribute = PollItem.Attribute(isOptionVoted: isVoted)
                     let option = PollItem.opion(objectID: option.objectID, attribute: attribute)
                     return option
                 }
             snapshot.appendItems(pollItems, toSection: .main)
-            cell.statusView.statusPollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+            cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
         } else {
             cell.statusView.pollTableView.isHidden = true
             cell.statusView.pollStatusStackView.isHidden = true
+            cell.statusView.pollVoteButton.isHidden = true
         }
 
         // toolbar

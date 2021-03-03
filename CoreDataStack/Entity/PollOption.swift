@@ -50,6 +50,22 @@ extension PollOption {
         return option
     }
     
+    public func update(votesCount: Int?) {
+        if self.votesCount?.intValue != votesCount {
+            self.votesCount = votesCount.flatMap { NSNumber(value: $0) }
+        }
+    }
+    
+    public func update(votedBy: MastodonUser) {
+        if !(self.votedBy ?? Set()).contains(votedBy) {
+            self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).add(votedBy)
+        }
+    }
+    
+    public func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
+    }
+    
 }
 
 extension PollOption {

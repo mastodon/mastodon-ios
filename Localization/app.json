@@ -60,9 +60,14 @@
                 "status_content_warning": "content warning",
                 "media_content_warning": "Tap to reveal that may be sensitive",
                 "poll": {
+                    "vote": "Vote",
                     "vote_count": {
                         "single": "%d vote",
                         "multiple": "%d votes",
+                    },
+                    "voter_count": {
+                        "single": "%d voter",
+                        "multiple": "%d voters",
                     },
                     "time_left": "%s left"
                 }

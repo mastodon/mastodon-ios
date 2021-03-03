@@ -15,18 +15,20 @@ enum PollItem {
 
 extension PollItem {
     class Attribute: Hashable {
-        var voted: Bool = false
+        // var pollVotable: Bool
+        var isOptionVoted: Bool
         
-        init(voted: Bool = false) {
-            self.voted = voted
+        init(isOptionVoted: Bool) {
+            // self.pollVotable = pollVotable
+            self.isOptionVoted = isOptionVoted
         }
         
         static func == (lhs: PollItem.Attribute, rhs: PollItem.Attribute) -> Bool {
-            return lhs.voted == rhs.voted
+            return lhs.isOptionVoted == rhs.isOptionVoted
         }
 
         func hash(into hasher: inout Hasher) {
-            hasher.combine(voted)
+            hasher.combine(isOptionVoted)
         }
     }
 }

@@ -73,6 +73,8 @@ internal enum L10n {
           internal static func timeLeft(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Status.Poll.TimeLeft", String(describing: p1))
           }
+          /// Vote
+          internal static let vote = L10n.tr("Localizable", "Common.Controls.Status.Poll.Vote")
           internal enum VoteCount {
             /// %d votes
             internal static func multiple(_ p1: Int) -> String {
@@ -81,6 +83,16 @@ internal enum L10n {
             /// %d vote
             internal static func single(_ p1: Int) -> String {
               return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Single", p1)
+            }
+          }
+          internal enum VoterCount {
+            /// %d voters
+            internal static func multiple(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoterCount.Multiple", p1)
+            }
+            /// %d voter
+            internal static func single(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoterCount.Single", p1)
             }
           }
         }
