@@ -56,7 +56,8 @@ extension APIService.CoreData {
                     let votedBy: MastodonUser? = (poll.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
                     return PollOption.insert(into: managedObjectContext, property: PollOption.Property(index: i, title: option.title, votesCount: option.votesCount, networkDate: networkDate), votedBy: votedBy)
                 }
-                let object = Poll.insert(into: managedObjectContext, property: Poll.Property(id: poll.id, expiresAt: poll.expiresAt, expired: poll.expired, multiple: poll.multiple, votesCount: poll.votesCount, votersCount: poll.votersCount, networkDate: networkDate), options: options)
+                let votedBy: MastodonUser? = (poll.voted ?? false) ? requestMastodonUser : nil
+                let object = Poll.insert(into: managedObjectContext, property: Poll.Property(id: poll.id, expiresAt: poll.expiresAt, expired: poll.expired, multiple: poll.multiple, votesCount: poll.votesCount, votersCount: poll.votersCount, networkDate: networkDate), votedBy: votedBy, options: options)
                 return object
             }
             let metions = entity.mentions?.compactMap { mention -> Mention in
@@ -116,21 +117,8 @@ extension APIService.CoreData {
         guard networkDate > toot.updatedAt else { return }
 
         // merge poll
-        if let poll = entity.poll, let oldPoll = toot.poll, poll.options.count == oldPoll.options.count {
-            oldPoll.update(expiresAt: poll.expiresAt)
-            oldPoll.update(expired: poll.expired)
-            oldPoll.update(votesCount: poll.votesCount)
-            oldPoll.update(votersCount: poll.votersCount)
-            
-            let oldOptions = oldPoll.options.sorted(by: { $0.index.intValue < $1.index.intValue })
-            for (i, (option, oldOption)) in zip(poll.options, oldOptions).enumerated() {
-                let votedBy: MastodonUser? = (poll.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
-                oldOption.update(votesCount: option.votesCount)
-                votedBy.flatMap { oldOption.update(votedBy: $0) }
-                oldOption.didUpdate(at: networkDate)
-            }
-            
-            oldPoll.didUpdate(at: networkDate)
+        if let poll = toot.poll, let entity = entity.poll {
+            merge(poll: poll, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
         }
         
         // merge metrics
@@ -188,12 +176,15 @@ extension APIService.CoreData {
         poll.update(expired: entity.expired)
         poll.update(votesCount: entity.votesCount)
         poll.update(votersCount: entity.votersCount)
+        requestMastodonUser.flatMap {
+            poll.update(voted: entity.voted ?? false, by: $0)
+        }
         
         let oldOptions = poll.options.sorted(by: { $0.index.intValue < $1.index.intValue })
         for (i, (optionEntity, option)) in zip(entity.options, oldOptions).enumerated() {
-            let votedBy: MastodonUser? = (entity.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
+            let voted: Bool = (entity.ownVotes ?? []).contains(i)
             option.update(votesCount: optionEntity.votesCount)
-            votedBy.flatMap { option.update(votedBy: $0) }
+            requestMastodonUser.flatMap { option.update(voted: voted, by: $0) }
             option.didUpdate(at: networkDate)
         }
         

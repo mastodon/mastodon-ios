@@ -56,9 +56,15 @@ extension PollOption {
         }
     }
     
-    public func update(votedBy: MastodonUser) {
-        if !(self.votedBy ?? Set()).contains(votedBy) {
-            self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).add(votedBy)
+    public func update(voted: Bool, by: MastodonUser) {
+        if voted {
+            if !(self.votedBy ?? Set()).contains(by) {
+                self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).add(by)
+            }
+        } else {
+            if !(self.votedBy ?? Set()).contains(by) {
+                self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).remove(by)
+            }
         }
     }
     

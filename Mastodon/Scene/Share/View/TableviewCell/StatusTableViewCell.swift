@@ -27,6 +27,7 @@ final class StatusTableViewCell: UITableViewCell {
     weak var delegate: StatusTableViewCellDelegate?
     
     var disposeBag = Set<AnyCancellable>()
+    var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
     
     let statusView = StatusView()

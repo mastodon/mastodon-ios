@@ -30,6 +30,10 @@ internal enum Asset {
   }
   internal enum Colors {
     internal enum Background {
+      internal enum Poll {
+        internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
+        internal static let highlight = ColorAsset(name: "Colors/Background/Poll/highlight")
+      }
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")

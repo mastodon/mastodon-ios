@@ -15,20 +15,34 @@ enum PollItem {
 
 extension PollItem {
     class Attribute: Hashable {
-        // var pollVotable: Bool
-        var isOptionVoted: Bool
         
-        init(isOptionVoted: Bool) {
-            // self.pollVotable = pollVotable
-            self.isOptionVoted = isOptionVoted
+        enum SelectState: Equatable, Hashable {
+            case none
+            case off
+            case on
+        }
+        
+        enum VoteState: Equatable, Hashable {
+            case hidden
+            case reveal(voted: Bool, percentage: Double)
+        }
+        
+        var selectState: SelectState
+        var voteState: VoteState
+        
+        init(selectState: SelectState, voteState: VoteState) {
+            self.selectState = selectState
+            self.voteState = voteState
         }
         
         static func == (lhs: PollItem.Attribute, rhs: PollItem.Attribute) -> Bool {
-            return lhs.isOptionVoted == rhs.isOptionVoted
+            return lhs.selectState == rhs.selectState &&
+                lhs.voteState == rhs.voteState
         }
 
         func hash(into hasher: inout Hasher) {
-            hasher.combine(isOptionVoted)
+            hasher.combine(selectState)
+            hasher.combine(voteState)
         }
     }
 }

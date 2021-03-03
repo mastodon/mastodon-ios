@@ -16,9 +16,15 @@ final class PollOptionTableViewCell: UITableViewCell {
     static let checkmarkImageSize = CGSize(width: 26, height: 26)
     
     private var viewStateDisposeBag = Set<AnyCancellable>()
-    private(set) var pollState: PollState = .off
+    var selectState: PollItem.Attribute.SelectState = .off
+    var voteState: PollItem.Attribute.VoteState?
         
     let roundedBackgroundView = UIView()
+    let voteProgressStripView: VoteProgressStripView = {
+        let view = VoteProgressStripView()
+        view.tintColor = Asset.Colors.Background.Poll.highlight.color
+        return view
+    }()
     
     let checkmarkBackgroundView: UIView = {
         let view = UIView()
@@ -43,6 +49,8 @@ final class PollOptionTableViewCell: UITableViewCell {
         return label
     }()
     
+    let optionLabelMiddlePaddingView = UIView()
+    
     let optionPercentageLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13, weight: .regular)
@@ -64,16 +72,26 @@ final class PollOptionTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        
+        guard let voteState = voteState else { return }
+        switch voteState {
+        case .hidden:
+            let color = Asset.Colors.Background.systemGroupedBackground.color
+            self.roundedBackgroundView.backgroundColor = isHighlighted ? color.withAlphaComponent(0.8) : color
+        case .reveal:
+            break
+        }
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
-        switch pollState {
-        case .off, .none:
+        guard let voteState = voteState else { return }
+        switch voteState {
+        case .hidden:
             let color = Asset.Colors.Background.systemGroupedBackground.color
             self.roundedBackgroundView.backgroundColor = isHighlighted ? color.withAlphaComponent(0.8) : color
-        case .on:
+        case .reveal:
             break
         }
     }
@@ -95,6 +113,15 @@ extension PollOptionTableViewCell {
             roundedBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor, constant: 5),
             roundedBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionTableViewCell.optionHeight).priority(.defaultHigh),
+        ])
+        
+        voteProgressStripView.translatesAutoresizingMaskIntoConstraints = false
+        roundedBackgroundView.addSubview(voteProgressStripView)
+        NSLayoutConstraint.activate([
+            voteProgressStripView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor),
+            voteProgressStripView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor),
+            voteProgressStripView.trailingAnchor.constraint(equalTo: roundedBackgroundView.trailingAnchor),
+            voteProgressStripView.bottomAnchor.constraint(equalTo: roundedBackgroundView.bottomAnchor),
         ])
         
         checkmarkBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -123,23 +150,32 @@ extension PollOptionTableViewCell {
             optionLabel.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
         ])
         
+        optionLabelMiddlePaddingView.translatesAutoresizingMaskIntoConstraints = false
+        roundedBackgroundView.addSubview(optionLabelMiddlePaddingView)
+        NSLayoutConstraint.activate([
+            optionLabelMiddlePaddingView.leadingAnchor.constraint(equalTo: optionLabel.trailingAnchor),
+            optionLabelMiddlePaddingView.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
+            optionLabelMiddlePaddingView.heightAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
+            optionLabelMiddlePaddingView.widthAnchor.constraint(greaterThanOrEqualToConstant: 8).priority(.defaultLow),
+        ])
+        optionLabelMiddlePaddingView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
         optionPercentageLabel.translatesAutoresizingMaskIntoConstraints = false
         roundedBackgroundView.addSubview(optionPercentageLabel)
         NSLayoutConstraint.activate([
-            optionPercentageLabel.leadingAnchor.constraint(equalTo: optionLabel.trailingAnchor, constant: 8),
+            optionPercentageLabel.leadingAnchor.constraint(equalTo: optionLabelMiddlePaddingView.trailingAnchor),
             roundedBackgroundView.trailingAnchor.constraint(equalTo: optionPercentageLabel.trailingAnchor, constant: 18),
             optionPercentageLabel.centerYAnchor.constraint(equalTo: roundedBackgroundView.centerYAnchor),
         ])
         optionPercentageLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
-        optionPercentageLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-            
-        configure(state: .none)
+        optionPercentageLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)            
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
         updateCornerRadius()
+        updateTextAppearance()
     }
     
     private func updateCornerRadius() {
@@ -152,41 +188,35 @@ extension PollOptionTableViewCell {
         checkmarkBackgroundView.layer.cornerCurve = .circular
     }
     
-}
-
-extension PollOptionTableViewCell {
-    
-    enum PollState {
-        case none
-        case off
-        case on
-    }
-    
-    func configure(state: PollState) {
-        switch state {
-        case .none:
-            checkmarkBackgroundView.backgroundColor = .clear
-            checkmarkImageView.isHidden = true
-            optionPercentageLabel.isHidden = true
+    func updateTextAppearance() {
+        guard let voteState = voteState else {
             optionLabel.textColor = Asset.Colors.Label.primary.color
             optionLabel.layer.removeShadow()
-        case .off:
-            checkmarkBackgroundView.backgroundColor = .systemBackground
-            checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
-            checkmarkBackgroundView.layer.borderWidth = 1
-            checkmarkImageView.isHidden = true
-            optionPercentageLabel.isHidden = true
-            optionLabel.textColor = Asset.Colors.Label.primary.color
-            optionLabel.layer.removeShadow()
-        case .on:
-            checkmarkBackgroundView.backgroundColor = .systemBackground
-            checkmarkBackgroundView.layer.borderColor = UIColor.clear.cgColor
-            checkmarkBackgroundView.layer.borderWidth = 0
-            checkmarkImageView.isHidden = false
-            optionPercentageLabel.isHidden = false
-            optionLabel.textColor = .white
-            optionLabel.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
+            return
         }
+        
+        switch voteState {
+        case .hidden:
+            optionLabel.textColor = Asset.Colors.Label.primary.color
+            optionLabel.layer.removeShadow()
+        case .reveal(_, let percentage):
+            if CGFloat(percentage) * voteProgressStripView.frame.width > optionLabelMiddlePaddingView.frame.minX {
+                optionLabel.textColor = .white
+                optionLabel.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
+            } else {
+                optionLabel.textColor = Asset.Colors.Label.primary.color
+                optionLabel.layer.removeShadow()
+            }
+            
+            if CGFloat(percentage) * voteProgressStripView.frame.width > optionLabelMiddlePaddingView.frame.maxX {
+                optionPercentageLabel.textColor = .white
+                optionPercentageLabel.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)
+            } else {
+                optionPercentageLabel.textColor = Asset.Colors.Label.primary.color
+                optionPercentageLabel.layer.removeShadow()
+            }
+        }
+        
     }
     
 }
@@ -205,13 +235,13 @@ struct PollTableViewCell_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 375, height: 44 + 10))
             UIViewPreview() {
                 let cell = PollOptionTableViewCell()
-                cell.configure(state: .off)
+                PollSection.configure(cell: cell, selectState: .off)
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))
             UIViewPreview() {
                 let cell = PollOptionTableViewCell()
-                cell.configure(state: .on)
+                PollSection.configure(cell: cell, selectState: .on)
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))

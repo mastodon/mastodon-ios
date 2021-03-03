@@ -39,6 +39,49 @@ extension PollSection {
         itemAttribute: PollItem.Attribute
     ) {
         cell.optionLabel.text = pollOption.title
-        cell.configure(state: itemAttribute.isOptionVoted ? .on : .off)
+        configure(cell: cell, selectState: itemAttribute.selectState)
+        configure(cell: cell, voteState: itemAttribute.voteState)
     }
+}
+
+extension PollSection {
+    
+    static func configure(cell: PollOptionTableViewCell, selectState state: PollItem.Attribute.SelectState) {
+        switch state {
+        case .none:
+            cell.checkmarkBackgroundView.isHidden = true
+            cell.checkmarkImageView.isHidden = true
+        case .off:
+            cell.checkmarkBackgroundView.backgroundColor = .systemBackground
+            cell.checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
+            cell.checkmarkBackgroundView.layer.borderWidth = 1
+            cell.checkmarkBackgroundView.isHidden = false
+            cell.checkmarkImageView.isHidden = true
+        case .on:
+            cell.checkmarkBackgroundView.backgroundColor = .systemBackground
+            cell.checkmarkBackgroundView.layer.borderColor = UIColor.clear.cgColor
+            cell.checkmarkBackgroundView.layer.borderWidth = 0
+            cell.checkmarkBackgroundView.isHidden = false
+            cell.checkmarkImageView.isHidden = false
+        }
+        
+        cell.selectState = state
+    }
+
+    static func configure(cell: PollOptionTableViewCell, voteState state: PollItem.Attribute.VoteState) {
+        switch state {
+        case .hidden:
+            cell.optionPercentageLabel.isHidden = true
+        case .reveal(let voted, let percentage):
+            cell.optionPercentageLabel.isHidden = false
+            cell.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
+            cell.voteProgressStripView.tintColor = voted ? Asset.Colors.Background.Poll.highlight.color : Asset.Colors.Background.Poll.disabled.color
+            cell.voteProgressStripView.progress.send(CGFloat(percentage))
+        }
+        cell.voteState = state
+        
+        cell.layoutIfNeeded()
+        cell.updateTextAppearance()
+    }
+    
 }

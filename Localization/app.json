@@ -69,7 +69,8 @@
                         "single": "%d voter",
                         "multiple": "%d voters",
                     },
-                    "time_left": "%s left"
+                    "time_left": "%s left",
+                    "closed": "Closed"
                 }
             },
             "timeline": {

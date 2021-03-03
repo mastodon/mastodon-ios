@@ -26,6 +26,9 @@ public final class Poll: NSManagedObject {
     
     // one-to-many relationship
     @NSManaged public private(set) var options: Set<PollOption>
+    
+    // many-to-many relationship
+    @NSManaged public private(set) var votedBy: Set<MastodonUser>?
 }
 
 extension Poll {
@@ -39,6 +42,7 @@ extension Poll {
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property,
+        votedBy: MastodonUser?,
         options: [PollOption]
     ) -> Poll {
         let poll: Poll = context.insertObject()
@@ -50,7 +54,12 @@ extension Poll {
         poll.votesCount = property.votesCount
         poll.votersCount = property.votersCount
         
+        
         poll.updatedAt = property.networkDate
+        
+        if let votedBy = votedBy {
+            poll.mutableSetValue(forKey: #keyPath(Poll.votedBy)).add(votedBy)            
+        }
         poll.mutableSetValue(forKey: #keyPath(Poll.options)).addObjects(from: options)
         
         return poll
@@ -77,6 +86,18 @@ extension Poll {
     public func update(votersCount: Int?) {
         if self.votersCount?.intValue != votersCount {
             self.votersCount = votersCount.flatMap { NSNumber(value: $0) }
+        }
+    }
+    
+    public func update(voted: Bool, by: MastodonUser) {
+        if voted {
+            if !(votedBy ?? Set()).contains(by) {
+                mutableSetValue(forKey: #keyPath(Poll.votedBy)).add(by)
+            }
+        } else {
+            if (votedBy ?? Set()).contains(by) {
+                mutableSetValue(forKey: #keyPath(Poll.votedBy)).remove(by)
+            }
         }
     }
     

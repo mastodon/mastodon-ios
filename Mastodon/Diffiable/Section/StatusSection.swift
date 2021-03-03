@@ -66,6 +66,9 @@ extension StatusSection {
             }
         }
     }
+}
+
+extension StatusSection {
 
     static func configure(
         cell: StatusTableViewCell,
@@ -155,52 +158,20 @@ extension StatusSection {
         cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set poll
-        if let poll = (toot.reblog ?? toot).poll {
-            cell.statusView.pollTableView.isHidden = false
-            cell.statusView.pollStatusStackView.isHidden = false
-            cell.statusView.pollVoteButton.isHidden = !poll.multiple
-            cell.statusView.pollVoteCountLabel.text = {
-                if poll.multiple {
-                    let count = poll.votersCount?.intValue ?? 0
-                    if count > 1 {
-                        return L10n.Common.Controls.Status.Poll.VoterCount.single(count)
-                    } else {
-                        return L10n.Common.Controls.Status.Poll.VoterCount.multiple(count)
-                    }
-                } else {
-                    let count = poll.votesCount.intValue
-                    if count > 1 {
-                        return L10n.Common.Controls.Status.Poll.VoteCount.single(count)
-                    } else {
-                        return L10n.Common.Controls.Status.Poll.VoteCount.multiple(count)
-                    }
+        let poll = (toot.reblog ?? toot).poll
+        configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, poll: poll, requestUserID: requestUserID)
+        if let poll = poll {
+            ManagedObjectObserver.observe(object: poll)
+                .sink { _ in
+                    // do nothing
+                } receiveValue: { change in
+                    guard case let .update(object) = change.changeType,
+                          let newPoll = object as? Poll else { return }
+                    StatusSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, poll: newPoll, requestUserID: requestUserID)
                 }
-            }()
-            
-            let managedObjectContext = toot.managedObjectContext!
-            cell.statusView.pollTableViewDataSource = PollSection.tableViewDiffableDataSource(
-                for: cell.statusView.pollTableView,
-                managedObjectContext: managedObjectContext
-            )
-            
-            var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
-            snapshot.appendSections([.main])
-            let pollItems = poll.options
-                .sorted(by: { $0.index.intValue < $1.index.intValue })
-                .map { option -> PollItem in
-                    let isVoted = (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
-                    let attribute = PollItem.Attribute(isOptionVoted: isVoted)
-                    let option = PollItem.opion(objectID: option.objectID, attribute: attribute)
-                    return option
-                }
-            snapshot.appendItems(pollItems, toSection: .main)
-            cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
-        } else {
-            cell.statusView.pollTableView.isHidden = true
-            cell.statusView.pollStatusStackView.isHidden = true
-            cell.statusView.pollVoteButton.isHidden = true
+                .store(in: &cell.disposeBag)
         }
-
+        
         // toolbar
         let replyCountTitle: String = {
             let count = (toot.reblog ?? toot).repliesCount?.intValue ?? 0
@@ -244,6 +215,104 @@ extension StatusSection {
             }
             .store(in: &cell.disposeBag)
     }
+    
+    static func configure(
+        cell: StatusTableViewCell,
+        timestampUpdatePublisher: AnyPublisher<Date, Never>,
+        poll: Poll?,
+        requestUserID: String
+    ) {
+        guard let poll = poll,
+              let managedObjectContext = poll.managedObjectContext else {
+            cell.statusView.pollTableView.isHidden = true
+            cell.statusView.pollStatusStackView.isHidden = true
+            cell.statusView.pollVoteButton.isHidden = true
+            return
+        }
+        
+        cell.statusView.pollTableView.isHidden = false
+        cell.statusView.pollStatusStackView.isHidden = false
+        cell.statusView.pollVoteButton.isHidden = !poll.multiple
+        cell.statusView.pollVoteCountLabel.text = {
+            if poll.multiple {
+                let count = poll.votersCount?.intValue ?? 0
+                if count > 1 {
+                    return L10n.Common.Controls.Status.Poll.VoterCount.single(count)
+                } else {
+                    return L10n.Common.Controls.Status.Poll.VoterCount.multiple(count)
+                }
+            } else {
+                let count = poll.votesCount.intValue
+                if count > 1 {
+                    return L10n.Common.Controls.Status.Poll.VoteCount.single(count)
+                } else {
+                    return L10n.Common.Controls.Status.Poll.VoteCount.multiple(count)
+                }
+            }
+        }()
+        if poll.expired {
+            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.closed
+        } else if let expiresAt = poll.expiresAt {
+            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+            cell.pollCountdownSubscription = timestampUpdatePublisher
+                .sink { _ in
+                    cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+                }
+        } else {
+            assertionFailure()
+            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownLabel.text = "-"
+        }
+        
+        cell.statusView.pollTableView.allowsSelection = !poll.expired
+        cell.statusView.pollTableView.allowsMultipleSelection = poll.multiple
+        
+        cell.statusView.pollTableViewDataSource = PollSection.tableViewDiffableDataSource(
+            for: cell.statusView.pollTableView,
+            managedObjectContext: managedObjectContext
+        )
+        
+        var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
+        snapshot.appendSections([.main])
+        let votedOptions = poll.options.filter { option in
+            (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        }
+        let isPollVoted = (poll.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        let pollItems = poll.options
+            .sorted(by: { $0.index.intValue < $1.index.intValue })
+            .map { option -> PollItem in
+                let attribute: PollItem.Attribute = {
+                    let selectState: PollItem.Attribute.SelectState = {
+                        if isPollVoted {
+                            guard !votedOptions.isEmpty else {
+                                return .none
+                            }
+                            return votedOptions.contains(option) ? .on : .off
+                        } else if poll.expired {
+                            return .none
+                        } else {
+                            return .off
+                        }
+                    }()
+                    let voteState: PollItem.Attribute.VoteState = {
+                        guard isPollVoted else { return .hidden }
+                        let percentage: Double = {
+                            guard poll.votesCount.intValue > 0 else { return 0.0 }
+                            return Double(option.votesCount?.intValue ?? 0) / Double(poll.votesCount.intValue)
+                        }()
+                        let voted = votedOptions.isEmpty ? true : votedOptions.contains(option)
+                        return .reveal(voted: voted, percentage: percentage)
+                    }()
+                    return PollItem.Attribute(selectState: selectState, voteState: voteState)
+                }()
+                let option = PollItem.opion(objectID: option.objectID, attribute: attribute)
+                return option
+            }
+        snapshot.appendItems(pollItems, toSection: .main)
+        cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+    }
+    
 }
 
 extension StatusSection {

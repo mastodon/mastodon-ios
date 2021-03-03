@@ -84,6 +84,7 @@
         <relationship name="reblogged" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="rebloggedBy" inverseEntity="Toot"/>
         <relationship name="toots" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="author" inverseEntity="Toot"/>
         <relationship name="votePollOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="votedBy" inverseEntity="PollOption"/>
+        <relationship name="votePolls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Poll" inverseName="votedBy" inverseEntity="Poll"/>
     </entity>
     <entity name="Mention" representedClassName=".Mention" syncable="YES">
         <attribute name="acct" attributeType="String"/>
@@ -105,6 +106,7 @@
         <attribute name="votesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="options" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="poll" inverseEntity="PollOption"/>
         <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="poll" inverseEntity="Toot"/>
+        <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePolls" inverseEntity="MastodonUser"/>
     </entity>
     <entity name="PollOption" representedClassName=".PollOption" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -166,9 +168,9 @@
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="299"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="314"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
-        <element name="Poll" positionX="72" positionY="162" width="128" height="179"/>
+        <element name="Poll" positionX="72" positionY="162" width="128" height="194"/>
         <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
         <element name="Toot" positionX="0" positionY="0" width="128" height="539"/>

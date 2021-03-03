@@ -17,6 +17,7 @@
 "Common.Controls.Actions.SignUp" = "Sign Up";
 "Common.Controls.Actions.TakePhoto" = "Take photo";
 "Common.Controls.Status.MediaContentWarning" = "Tap to reveal that may be sensitive";
+"Common.Controls.Status.Poll.Closed" = "Closed";
 "Common.Controls.Status.Poll.TimeLeft" = "%@ left";
 "Common.Controls.Status.Poll.Vote" = "Vote";
 "Common.Controls.Status.Poll.VoteCount.Multiple" = "%d votes";
