@@ -227,7 +227,8 @@ extension MastodonRegisterViewController {
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
         
-        NSObject.KeyValueObservingPublisher<UIButton, Bool>(object: photoButton, keyPath: \.isHighlighted, options: NSKeyValueObservingOptions.new)
+        
+        photoButton.publisher(for: \.isHighlighted, options: .new)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isHighlighted in
                 guard let self = self else { return }
