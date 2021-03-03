@@ -71,23 +71,13 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         return button
     }()
     
-    let plusIconBackground: UIImageView = {
-        let icon = UIImageView()
-        let boldFont = UIFont.systemFont(ofSize: 24)
-        let configuration = UIImage.SymbolConfiguration(font: boldFont)
-        let image = UIImage(systemName: "plus.circle", withConfiguration: configuration)
-        icon.image = image
-        icon.tintColor = .white
-        return icon
-    }()
-    
     let plusIcon: UIImageView = {
         let icon = UIImageView()
-        let boldFont = UIFont.systemFont(ofSize: 24)
-        let configuration = UIImage.SymbolConfiguration(font: boldFont)
-        let image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
+
+        let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
         icon.image = image
         icon.tintColor = Asset.Colors.Icon.plus.color
+        icon.backgroundColor = .white
         return icon
     }()
     
@@ -234,7 +224,6 @@ extension MastodonRegisterViewController {
                 guard let self = self else { return }
                 let alpha: CGFloat = isHighlighted ? 0.8 : 1
                 self.plusIcon.alpha = alpha
-                self.plusIconBackground.alpha = alpha
                 self.photoButton.alpha = alpha
             }
             .store(in: &disposeBag)
@@ -305,12 +294,7 @@ extension MastodonRegisterViewController {
             photoButton.centerXAnchor.constraint(equalTo: photoView.centerXAnchor),
             photoButton.centerYAnchor.constraint(equalTo: photoView.centerYAnchor),
         ])
-        plusIconBackground.translatesAutoresizingMaskIntoConstraints = false
-        photoView.addSubview(plusIconBackground)
-        NSLayoutConstraint.activate([
-            plusIconBackground.trailingAnchor.constraint(equalTo: photoButton.trailingAnchor),
-            plusIconBackground.bottomAnchor.constraint(equalTo: photoButton.bottomAnchor),
-        ])
+
         plusIcon.translatesAutoresizingMaskIntoConstraints = false
         photoView.addSubview(plusIcon)
         NSLayoutConstraint.activate([
@@ -525,6 +509,11 @@ extension MastodonRegisterViewController {
         }
         
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        plusIcon.layer.cornerRadius = plusIcon.frame.width/2
+        plusIcon.clipsToBounds = true
     }
 }
 
