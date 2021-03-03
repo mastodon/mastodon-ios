@@ -8,9 +8,9 @@
 import Combine
 import MastodonSDK
 import os.log
+import PhotosUI
 import UIKit
 import UITextField_Shake
-import PhotosUI
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
@@ -36,7 +36,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         scrollview.showsVerticalScrollIndicator = false
         scrollview.keyboardDismissMode = .interactive
         scrollview.alwaysBounceVertical = true
-        scrollview.clipsToBounds = false    // make content could display over bleeding
+        scrollview.clipsToBounds = false // make content could display over bleeding
         scrollview.translatesAutoresizingMaskIntoConstraints = false
         return scrollview
     }()
@@ -71,23 +71,13 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         return button
     }()
     
-    let plusIconBackground: UIImageView = {
-        let icon = UIImageView()
-        let boldFont = UIFont.systemFont(ofSize: 24)
-        let configuration = UIImage.SymbolConfiguration(font: boldFont)
-        let image = UIImage(systemName: "plus.circle", withConfiguration: configuration)
-        icon.image = image
-        icon.tintColor = .white
-        return icon
-    }()
-    
     let plusIcon: UIImageView = {
         let icon = UIImageView()
-        let boldFont = UIFont.systemFont(ofSize: 24)
-        let configuration = UIImage.SymbolConfiguration(font: boldFont)
-        let image = UIImage(systemName: "plus.circle.fill", withConfiguration: configuration)
+
+        let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
         icon.image = image
         icon.tintColor = Asset.Colors.Icon.plus.color
+        icon.backgroundColor = .white
         return icon
     }()
     
@@ -216,18 +206,27 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
     
     deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
-    
 }
 
 extension MastodonRegisterViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
+        
+        
+        photoButton.publisher(for: \.isHighlighted, options: .new)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isHighlighted in
+                guard let self = self else { return }
+                let alpha: CGFloat = isHighlighted ? 0.8 : 1
+                self.plusIcon.alpha = alpha
+                self.photoButton.alpha = alpha
+            }
+            .store(in: &disposeBag)
         
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
@@ -295,12 +294,7 @@ extension MastodonRegisterViewController {
             photoButton.centerXAnchor.constraint(equalTo: photoView.centerXAnchor),
             photoButton.centerYAnchor.constraint(equalTo: photoView.centerYAnchor),
         ])
-        plusIconBackground.translatesAutoresizingMaskIntoConstraints = false
-        photoView.addSubview(plusIconBackground)
-        NSLayoutConstraint.activate([
-            plusIconBackground.trailingAnchor.constraint(equalTo: photoButton.trailingAnchor),
-            plusIconBackground.bottomAnchor.constraint(equalTo: photoButton.bottomAnchor),
-        ])
+
         plusIcon.translatesAutoresizingMaskIntoConstraints = false
         photoView.addSubview(plusIcon)
         NSLayoutConstraint.activate([
@@ -415,7 +409,7 @@ extension MastodonRegisterViewController {
 
         viewModel.isUsernameTaken
             .receive(on: DispatchQueue.main)
-            .sink {[weak self] isUsernameTaken in
+            .sink { [weak self] isUsernameTaken in
                 guard let self = self else { return }
                 if isUsernameTaken {
                     self.usernameIsTakenLabel.isHidden = false
@@ -492,10 +486,9 @@ extension MastodonRegisterViewController {
             .store(in: &disposeBag)
 
         if viewModel.approvalRequired {
-            
             inviteTextField.delegate = self
             NSLayoutConstraint.activate([
-                inviteTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh)
+                inviteTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
             ])
             
             viewModel.inviteValidateState
@@ -503,7 +496,6 @@ extension MastodonRegisterViewController {
                 .sink { [weak self] validateState in
                     guard let self = self else { return }
                     self.setTextFieldValidAppearance(self.inviteTextField, validateState: validateState)
-
                 }
                 .store(in: &disposeBag)
             NotificationCenter.default
@@ -518,11 +510,14 @@ extension MastodonRegisterViewController {
         
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
-    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        plusIcon.layer.cornerRadius = plusIcon.frame.width/2
+        plusIcon.clipsToBounds = true
+    }
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
@@ -564,7 +559,6 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
 }
 
 extension MastodonRegisterViewController {
-    
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
@@ -611,6 +605,5 @@ extension MastodonRegisterViewController {
             self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         }
         .store(in: &disposeBag)
-        
     }
 }
