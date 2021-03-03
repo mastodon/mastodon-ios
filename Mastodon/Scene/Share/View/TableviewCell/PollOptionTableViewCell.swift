@@ -128,7 +128,7 @@ extension PollOptionTableViewCell {
         roundedBackgroundView.layer.cornerCurve = .circular
         
         checkmarkBackgroundView.layer.masksToBounds = true
-        checkmarkBackgroundView.layer.cornerRadius = checkmarkBackgroundView.bounds.height * 0.5
+        checkmarkBackgroundView.layer.cornerRadius = PollOptionTableViewCell.checkmarkImageSize.width * 0.5
         checkmarkBackgroundView.layer.cornerCurve = .circular
     }
     

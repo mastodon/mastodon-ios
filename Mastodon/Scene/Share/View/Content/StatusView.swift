@@ -276,6 +276,7 @@ extension StatusView {
             activeTextLabel.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
             statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: activeTextLabel.bottomAnchor),
         ])
+        activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         contentWarningBlurContentImageView.translatesAutoresizingMaskIntoConstraints = false
         statusTextContainerView.addSubview(contentWarningBlurContentImageView)
         NSLayoutConstraint.activate([
@@ -320,6 +321,9 @@ extension StatusView {
         pollStatusStackView.addArrangedSubview(pollVoteCountLabel)
         pollStatusStackView.addArrangedSubview(pollStatusDotLabel)
         pollStatusStackView.addArrangedSubview(pollCountdownLabel)
+        pollVoteCountLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
+        pollStatusDotLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
