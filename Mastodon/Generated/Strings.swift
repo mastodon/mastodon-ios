@@ -13,6 +13,12 @@ internal enum L10n {
 
   internal enum Common {
     internal enum Alerts {
+      internal enum Common {
+        /// Please try again.
+        internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")
+        /// Please try again later.
+        internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
+      }
       internal enum ServerError {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
@@ -20,6 +26,12 @@ internal enum L10n {
       internal enum SignUpFailure {
         /// Sign Up Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
+      }
+      internal enum VoteFailure {
+        /// The poll has expired
+        internal static let pollExpired = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollExpired")
+        /// Vote Failure
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.VoteFailure.Title")
       }
     }
     internal enum Controls {

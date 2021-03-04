@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 extension Mastodon.API.Favorites {
+    
     static func favoritesStatusesEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("favourites")
     }
@@ -34,6 +35,8 @@ extension Mastodon.API.Favorites {
     ///
     /// Add a status to your favourites list / Remove a status from your favourites list
     ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/3/3
     /// # Reference
@@ -60,6 +63,8 @@ extension Mastodon.API.Favorites {
     ///
     /// View who favourited a given status.
     ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/3/3
     /// # Reference
@@ -85,6 +90,8 @@ extension Mastodon.API.Favorites {
     ///
     /// Using this endpoint to view the favourited list for user
     ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
     /// # Last Update
     ///   2021/3/3
     /// # Reference
@@ -104,9 +111,11 @@ extension Mastodon.API.Favorites {
             }
             .eraseToAnyPublisher()
     }
+    
 }
 
 public extension Mastodon.API.Favorites {
+    
     enum FavoriteKind {
         case create
         case destroy
@@ -144,4 +153,5 @@ public extension Mastodon.API.Favorites {
             return items
         }
     }
+    
 }

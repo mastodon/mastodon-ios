@@ -51,7 +51,9 @@ extension VoteProgressStripView {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else { return }
-                self.updateLayerPath()
+                UIView.animate(withDuration: 0.33) {
+                    self.updateLayerPath()
+                }
             }
             .store(in: &disposeBag)
     }

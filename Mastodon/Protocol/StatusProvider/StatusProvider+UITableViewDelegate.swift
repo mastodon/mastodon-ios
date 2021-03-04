@@ -33,7 +33,12 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                     return nil
                 }
                 let timeIntervalSinceUpdate = now.timeIntervalSince(poll.updatedAt)
-                guard timeIntervalSinceUpdate > 60 else {
+                #if DEBUG
+                let autoRefreshTimeInterval: TimeInterval = 3   // speedup testing
+                #else
+                let autoRefreshTimeInterval: TimeInterval = 60
+                #endif
+                guard timeIntervalSinceUpdate > autoRefreshTimeInterval else {
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: poll %s updated in the %.2fs. Skip for update", ((#file as NSString).lastPathComponent), #line, #function, poll.id, timeIntervalSinceUpdate)
                     return nil
                 }

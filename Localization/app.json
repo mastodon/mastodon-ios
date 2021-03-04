@@ -27,13 +27,20 @@
             "ERR_INCLUSION": "is not a supported value"
         },
         "alerts": {
+            "common": {
+                "please_try_again": "Please try again.",
+                "please_try_again_later": "Please try again later."
+            },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
                 "title": "Server Error"
+            },
+            "vote_failure": {
+                "title": "Vote Failure",
+                "poll_expired": "The poll has expired"
             }
-            
         },
         "controls": {
             "actions": {
@@ -125,7 +132,7 @@
                     "prompt_eight_characters": "Eight characters"
                 },
                 "invite": {
-                  "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Why do you want to join?"
                 }
             },
             "success": "Success",

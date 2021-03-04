@@ -39,6 +39,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     
 }
 
+// MARK: - MosciaImageViewContainerDelegate
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int) {
@@ -65,6 +66,40 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = 0.0
         } completion: { _ in
             diffableDataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+        }
+    }
+    
+}
+
+// MARK: - PollTableView
+extension StatusTableViewCellDelegate where Self: StatusProvider {
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath) {
+        guard let activeMastodonAuthentication = context.authenticationService.activeMastodonAuthentication.value else { return }
+        
+        guard let diffableDataSource = cell.statusView.pollTableViewDataSource else { return }
+        let item = diffableDataSource.itemIdentifier(for: indexPath)
+        guard case let .opion(objectID, attribute) = item else { return }
+        guard let option = managedObjectContext.object(with: objectID) as? PollOption else { return }
+        
+        
+        if option.poll.multiple {
+            var choices: [Int] = []
+            
+        } else {
+            context.apiService.vote(
+                pollObjectID: option.poll.objectID,
+                mastodonUserObjectID: activeMastodonAuthentication.user.objectID,
+                choices: [option.index.intValue]
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                
+            } receiveValue: { pollID in
+                
+            }
+            .store(in: &context.disposeBag)
+
         }
     }
     

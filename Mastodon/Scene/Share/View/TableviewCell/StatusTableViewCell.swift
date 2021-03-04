@@ -13,11 +13,15 @@ import CoreData
 import CoreDataStack
 
 protocol StatusTableViewCellDelegate: class {
+    var context: AppContext! { get}
     var managedObjectContext: NSManagedObjectContext { get }
-    func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
-    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
+    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
+    func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)
+
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -110,6 +114,44 @@ extension StatusTableViewCell: UITableViewDelegate {
             return true
         }
     }
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if tableView === statusView.pollTableView, let diffableDataSource = statusView.pollTableViewDataSource {
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+
+            guard let context = delegate?.context else { return nil }
+            guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
+            guard let item = diffableDataSource.itemIdentifier(for: indexPath),
+                  case let .opion(objectID, _) = item,
+                  let option = delegate?.managedObjectContext.object(with: objectID) as? PollOption else {
+                return nil
+            }
+            let poll = option.poll
+            
+            // disallow select when: poll expired OR user voted remote OR user voted local
+            let userID = activeMastodonAuthenticationBox.userID
+            let didVotedRemote = (option.poll.votedBy ?? Set()).contains(where: { $0.id == userID })
+            let votedOptions = poll.options.filter { option in
+                (option.votedBy ?? Set()).map { $0.id }.contains(userID)
+            }
+            let didVotedLocal = !votedOptions.isEmpty
+            guard !option.poll.expired, !didVotedRemote, !didVotedLocal else {
+                return nil
+            }
+            
+            return indexPath
+        } else {
+            return indexPath
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView === statusView.pollTableView {
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+            delegate?.statusTableViewCell(self, pollTableView: statusView.pollTableView, didSelectRowAt: indexPath)
+        }
+    }
+    
 }
 
 // MARK: - StatusViewDelegate

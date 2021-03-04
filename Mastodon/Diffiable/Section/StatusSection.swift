@@ -284,12 +284,12 @@ extension StatusSection {
             .map { option -> PollItem in
                 let attribute: PollItem.Attribute = {
                     let selectState: PollItem.Attribute.SelectState = {
-                        if isPollVoted {
-                            guard !votedOptions.isEmpty else {
-                                return .none
-                            }
+                        // make isPollVoted check later to make only local change possible
+                        if !votedOptions.isEmpty {
                             return votedOptions.contains(option) ? .on : .off
                         } else if poll.expired {
+                            return .none
+                        } else if isPollVoted, votedOptions.isEmpty {
                             return .none
                         } else {
                             return .off
@@ -302,6 +302,8 @@ extension StatusSection {
                             return Double(option.votesCount?.intValue ?? 0) / Double(poll.votesCount.intValue)
                         }()
                         let voted = votedOptions.isEmpty ? true : votedOptions.contains(option)
+//                        let voted = true
+//                        let percentage: Double = Double.random(in: 0..<1)
                         return .reveal(voted: voted, percentage: percentage)
                     }()
                     return PollItem.Attribute(selectState: selectState, voteState: voteState)

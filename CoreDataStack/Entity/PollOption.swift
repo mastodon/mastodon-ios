@@ -62,7 +62,7 @@ extension PollOption {
                 self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).add(by)
             }
         } else {
-            if !(self.votedBy ?? Set()).contains(by) {
+            if (self.votedBy ?? Set()).contains(by) {
                 self.mutableSetValue(forKey: #keyPath(PollOption.votedBy)).remove(by)
             }
         }
