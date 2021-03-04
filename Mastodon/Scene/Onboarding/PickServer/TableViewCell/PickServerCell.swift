@@ -59,7 +59,9 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var thumbImageView: UIImageView = {
+    private let thumbnailActivityIdicator = UIActivityIndicatorView(style: .medium)
+    
+    private var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -178,6 +180,12 @@ class PickServerCell: UITableViewCell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        thumbnailImageView.af.cancelImageRequest()
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()
@@ -205,7 +213,7 @@ extension PickServerCell {
         
         // Always add the expandbox which contains elements only visible in expand mode
         containerView.addSubview(expandBox)
-        expandBox.addSubview(thumbImageView)
+        expandBox.addSubview(thumbnailImageView)
         expandBox.addSubview(infoStackView)
         expandBox.isHidden = true
         
@@ -254,19 +262,28 @@ extension PickServerCell {
             expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             expandBox.bottomAnchor.constraint(equalTo: infoStackView.bottomAnchor).priority(.defaultHigh),
             
-            thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
-            thumbImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
-            expandBox.trailingAnchor.constraint(equalTo: thumbImageView.trailingAnchor),
-            thumbImageView.heightAnchor.constraint(equalTo: thumbImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
+            thumbnailImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
+            expandBox.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
             
             infoStackView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: infoStackView.trailingAnchor),
-            infoStackView.topAnchor.constraint(equalTo: thumbImageView.bottomAnchor, constant: 16),
+            infoStackView.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 16),
             
             expandButton.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
             containerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: expandButton.trailingAnchor),
             containerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: expandButton.bottomAnchor),
         ])
+        
+        thumbnailActivityIdicator.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageView.addSubview(thumbnailActivityIdicator)
+        NSLayoutConstraint.activate([
+            thumbnailActivityIdicator.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
+            thumbnailActivityIdicator.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
+        ])
+        thumbnailActivityIdicator.hidesWhenStopped = true
+        thumbnailActivityIdicator.stopAnimating()
         
         NSLayoutConstraint.activate(collapseConstraints)
         
@@ -301,6 +318,8 @@ extension PickServerCell {
             expandButton.isSelected = true
             NSLayoutConstraint.activate(expandConstraints)
             NSLayoutConstraint.deactivate(collapseConstraints)
+            
+            updateThumbnail()
         }
     }
     
@@ -334,16 +353,27 @@ extension PickServerCell {
             
             return html.text ?? serverInfo.description
         }()
-        let processor =  RoundCornerImageProcessor(cornerRadius: 3)
-        thumbImageView.kf.indicatorType = .activity
-        thumbImageView.kf.setImage(with: URL(string: serverInfo.proxiedThumbnail ?? "")!, placeholder: UIImage.placeholder(color: Asset.Colors.lightBackground.color), options: [
-            .processor(processor),
-            .scaleFactor(UIScreen.main.scale),
-            .transition(.fade(1))
-        ])
         langValueLabel.text = serverInfo.language.uppercased()
         usersValueLabel.text = parseUsersCount(serverInfo.totalUsers)
         categoryValueLabel.text = serverInfo.category.uppercased()
+    }
+    
+    private func updateThumbnail() {
+        guard let serverInfo = server else { return }
+        
+        thumbnailActivityIdicator.startAnimating()
+        thumbnailImageView.af.setImage(
+            withURL: URL(string: serverInfo.proxiedThumbnail ?? "")!,
+            placeholderImage: UIImage.placeholder(color: .systemFill),
+            imageTransition: .crossDissolve(0.33),
+            completion: { [weak self] response in
+                guard let self = self else { return }
+                switch response.result {
+                case .success, .failure:
+                    self.thumbnailActivityIdicator.stopAnimating()
+                }
+            }
+        )
     }
     
     private func parseUsersCount(_ usersCount: Int) -> String {

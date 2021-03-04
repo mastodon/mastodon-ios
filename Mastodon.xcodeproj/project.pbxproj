@@ -55,7 +55,7 @@
 		2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */; };
 		2D61335E25C1894B00CAE157 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335D25C1894B00CAE157 /* APIService.swift */; };
 		2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */; };
-		2D650FAB25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */; };
+		2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */; };
 		2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */; };
 		2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */; };
 		2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */; };
@@ -125,6 +125,7 @@
 		DB68A04A25E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */; };
 		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
 		DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A06225E905E000CFDF14 /* UIApplication.swift */; };
+		DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
@@ -264,7 +265,7 @@
 		2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewController+DebugAction.swift"; sourceTree = "<group>"; };
 		2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+Timeline.swift"; sourceTree = "<group>"; };
 		2D61335D25C1894B00CAE157 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entidy+ErrorDetailReason.swift"; sourceTree = "<group>"; };
+		2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error+Detail.swift"; sourceTree = "<group>"; };
 		2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Toot.swift"; sourceTree = "<group>"; };
 		2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewController.swift; sourceTree = "<group>"; };
@@ -343,6 +344,7 @@
 		DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkContentStatusBarStyleNavigationController.swift; sourceTree = "<group>"; };
 		DB68A05C25E9055900CFDF14 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		DB68A06225E905E000CFDF14 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -885,6 +887,15 @@
 			path = NavigationController;
 			sourceTree = "<group>";
 		};
+		DB6C8C0525F0921200AAA452 /* MastodonSDK */ = {
+			isa = PBXGroup;
+			children = (
+				DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */,
+				2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */,
+			);
+			path = MastodonSDK;
+			sourceTree = "<group>";
+		};
 		DB72602125E36A2500235243 /* ServerRules */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1012,7 @@
 			isa = PBXGroup;
 			children = (
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
+				DB6C8C0525F0921200AAA452 /* MastodonSDK */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
@@ -1015,7 +1027,6 @@
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
-				2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
 			);
 			path = Extension;
@@ -1505,6 +1516,7 @@
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift in Sources */,
@@ -1517,7 +1529,7 @@
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
-				2D650FAB25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift in Sources */,
+				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Toot.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,

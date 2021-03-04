@@ -1,31 +1,5 @@
 {
     "common": {
-        "errors": {
-            "item": {
-                "username": "username",
-                "email": "email",
-                "password": "password",
-                "agreement": "agreement",
-                "locale": "locale",
-                "reason": "reason"
-            },
-            "itemDetail": {
-                "email_invalid": "This is not a valid e-mail address",
-                "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                "password_too_shrot": "password is too short (must be at least 8 characters)",
-                "username_too_long": "username is too long (can't be longer than 30 characters)"
-            },
-            "ERR_BLOCKED": "contains a disallowed e-mail provider",
-            "ERR_UNREACHABLE": "does not seem to exist",
-            "ERR_TAKEN": "is already in use",
-            "ERR_RESERVED": "is a reserved keyword",
-            "ERR_ACCEPTED": "must be accepted",
-            "ERR_BLANK": "is required",
-            "ERR_INVALID": "is invalid",
-            "ERR_TOO_LONG": "is too long",
-            "ERR_TOO_SHORT": "is too short",
-            "ERR_INCLUSION": "is not a supported value"
-        },
         "alerts": {
             "sign_up_failure": {
                 "title": "Sign Up Failure"
@@ -33,7 +7,6 @@
             "server_error": {
                 "title": "Server Error"
             }
-            
         },
         "controls": {
             "actions": {
@@ -108,14 +81,40 @@
                 },
                 "password": {
                     "placeholder": "password",
-                    "hint": "Your password needs at least Eight characters"
+                    "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
-                  "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Why do you want to join?"
                 }
             },
-            "success": "Success",
-            "check_email": "Regsiter request sent. Please check your email."
+            "error": {
+                "item": {
+                    "username": "Username",
+                    "email": "Email",
+                    "password": "Password",
+                    "agreement": "Agreement",
+                    "locale": "Locale",
+                    "reason": "Reason"
+                },
+                "reason": {
+                    "blocked": "%s contains a disallowed e-mail provider",
+                    "unreachable": "%s does not seem to exist",
+                    "taken": "%s is already in use",
+                    "reserved": "%s is a reserved keyword",
+                    "accepted": "%s must be accepted",
+                    "blank": "%s is required",
+                    "invalid": "%s is invalid",
+                    "too_long": "%s is too long",
+                    "too_short": "%s is too short",
+                    "inclusion": "%s is not a supported value"
+                },
+                "special": {
+                    "username_invalid": "Username must only contain alphanumeric characters and underscores.",
+                    "username_too_long": "Username is too long (can't be longer than 30 characters).",
+                    "email_invalid": "This is not a valid e-mail address.",
+                    "password_too_shrot": "Password is too short (must be at least 8 characters)."
+                }
+            }
         },
         "server_rules": {
             "title": "Some ground rules.",
