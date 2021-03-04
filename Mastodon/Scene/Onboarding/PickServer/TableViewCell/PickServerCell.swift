@@ -8,6 +8,7 @@
 import UIKit
 import MastodonSDK
 import Kingfisher
+import Kanna
 
 protocol PickServerCellDelegate: class {
     func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void))
@@ -326,7 +327,13 @@ extension PickServerCell {
     private func updateServerInfo() {
         guard let serverInfo = server else { return }
         domainLabel.text = serverInfo.domain
-        descriptionLabel.text = serverInfo.description
+        descriptionLabel.text = {
+            guard let html = try? HTML(html: serverInfo.description, encoding: .utf8) else {
+                return serverInfo.description
+            }
+            
+            return html.text ?? serverInfo.description
+        }()
         let processor =  RoundCornerImageProcessor(cornerRadius: 3)
         thumbImageView.kf.indicatorType = .activity
         thumbImageView.kf.setImage(with: URL(string: serverInfo.proxiedThumbnail ?? "")!, placeholder: UIImage.placeholder(color: Asset.Colors.lightBackground.color), options: [
