@@ -63,7 +63,7 @@ extension Mastodon.Entity.Error.Detail {
         case (.email, .ERR_INVALID):
             return L10n.Scene.Register.Error.Special.emailInvalid
         case (.password, .ERR_TOO_SHORT):
-            return L10n.Scene.Register.Error.Special.passwordTooShrot
+            return L10n.Scene.Register.Error.Special.passwordTooShort
         case (_, .ERR_BLOCKED):          return L10n.Scene.Register.Error.Reason.blocked(item.localized)
         case (_, .ERR_UNREACHABLE):      return L10n.Scene.Register.Error.Reason.unreachable(item.localized)
         case (_, .ERR_TAKEN):            return L10n.Scene.Register.Error.Reason.taken(item.localized)

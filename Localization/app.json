@@ -109,10 +109,10 @@
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores.",
-                    "username_too_long": "Username is too long (can't be longer than 30 characters).",
-                    "email_invalid": "This is not a valid e-mail address.",
-                    "password_too_shrot": "Password is too short (must be at least 8 characters)."
+                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_too_long": "Username is too long (can't be longer than 30 characters)",
+                    "email_invalid": "This is not a valid e-mail address",
+                    "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
             }
         },

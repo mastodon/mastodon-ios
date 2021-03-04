@@ -144,55 +144,55 @@ internal enum L10n {
           internal static let username = L10n.tr("Localizable", "Scene.Register.Error.Item.Username")
         }
         internal enum Reason {
-          /// %@ must be accepted.
+          /// %@ must be accepted
           internal static func accepted(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Accepted", String(describing: p1))
           }
-          /// %@ is required.
+          /// %@ is required
           internal static func blank(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Blank", String(describing: p1))
           }
-          /// %@ contains a disallowed e-mail provider.
+          /// %@ contains a disallowed e-mail provider
           internal static func blocked(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Blocked", String(describing: p1))
           }
-          /// %@ is not a supported value.
+          /// %@ is not a supported value
           internal static func inclusion(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Inclusion", String(describing: p1))
           }
-          /// %@ is invalid.
+          /// %@ is invalid
           internal static func invalid(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Invalid", String(describing: p1))
           }
-          /// %@ is a reserved keyword.
+          /// %@ is a reserved keyword
           internal static func reserved(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Reserved", String(describing: p1))
           }
-          /// %@ is already in use.
+          /// %@ is already in use
           internal static func taken(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Taken", String(describing: p1))
           }
-          /// %@ is too long.
+          /// %@ is too long
           internal static func tooLong(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.TooLong", String(describing: p1))
           }
-          /// %@ is too short.
+          /// %@ is too short
           internal static func tooShort(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.TooShort", String(describing: p1))
           }
-          /// %@ does not seem to exist.
+          /// %@ does not seem to exist
           internal static func unreachable(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Unreachable", String(describing: p1))
           }
         }
         internal enum Special {
-          /// This is not a valid e-mail address.
+          /// This is not a valid e-mail address
           internal static let emailInvalid = L10n.tr("Localizable", "Scene.Register.Error.Special.EmailInvalid")
-          /// Password is too short (must be at least 8 characters).
-          internal static let passwordTooShrot = L10n.tr("Localizable", "Scene.Register.Error.Special.PasswordTooShrot")
-          /// Username must only contain alphanumeric characters and underscores.
+          /// Password is too short (must be at least 8 characters)
+          internal static let passwordTooShort = L10n.tr("Localizable", "Scene.Register.Error.Special.PasswordTooShort")
+          /// Username must only contain alphanumeric characters and underscores
           internal static let usernameInvalid = L10n.tr("Localizable", "Scene.Register.Error.Special.UsernameInvalid")
-          /// Username is too long (can't be longer than 30 characters).
+          /// Username is too long (can't be longer than 30 characters)
           internal static let usernameTooLong = L10n.tr("Localizable", "Scene.Register.Error.Special.UsernameTooLong")
         }
       }
