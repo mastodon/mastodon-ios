@@ -7,7 +7,7 @@
 
 import UIKit
 import MastodonSDK
-import Kingfisher
+import AlamofireImage
 import Kanna
 
 protocol PickServerCellDelegate: class {
@@ -362,9 +362,11 @@ extension PickServerCell {
         guard let serverInfo = server else { return }
         
         thumbnailActivityIdicator.startAnimating()
+        let placeholderImage = UIImage.placeholder(color: .systemFill).af.imageRounded(withCornerRadius: 3.0, divideRadiusByImageScale: true)
         thumbnailImageView.af.setImage(
             withURL: URL(string: serverInfo.proxiedThumbnail ?? "")!,
-            placeholderImage: UIImage.placeholder(color: .systemFill),
+            placeholderImage: placeholderImage,
+            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: thumbnailImageView.frame.size, radius: 3),
             imageTransition: .crossDissolve(0.33),
             completion: { [weak self] response in
                 guard let self = self else { return }
