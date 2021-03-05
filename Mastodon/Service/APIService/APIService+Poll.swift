@@ -135,7 +135,7 @@ extension APIService {
         .eraseToAnyPublisher()
     }
     
-    // send vote request to remote
+    /// send vote request to remote
     func vote(
         domain: String,
         pollID: Mastodon.Entity.Poll.ID,

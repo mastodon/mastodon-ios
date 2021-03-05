@@ -34,7 +34,7 @@ extension StatusSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusContentWarningAttribute: attribute)
+                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusItemAttribute: attribute)
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
@@ -45,7 +45,7 @@ extension StatusSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusContentWarningAttribute: attribute)
+                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusItemAttribute: attribute)
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
@@ -76,7 +76,7 @@ extension StatusSection {
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot,
         requestUserID: String,
-        statusContentWarningAttribute: StatusContentWarningAttribute?
+        statusItemAttribute: Item.StatusAttribute
     ) {
         // set header
         cell.statusView.headerContainerStackView.isHidden = toot.reblog == nil
@@ -99,7 +99,7 @@ extension StatusSection {
         
         // set status text content warning
         let spoilerText = (toot.reblog ?? toot).spoilerText ?? ""
-        let isStatusTextSensitive = statusContentWarningAttribute?.isStatusTextSensitive ?? !spoilerText.isEmpty
+        let isStatusTextSensitive = statusItemAttribute.isStatusTextSensitive
         cell.statusView.isStatusTextSensitive = isStatusTextSensitive
         cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
         cell.statusView.contentWarningTitle.text = {
@@ -153,13 +153,19 @@ extension StatusSection {
             }
         }
         cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
-        let isStatusSensitive = statusContentWarningAttribute?.isStatusSensitive ?? (toot.reblog ?? toot).sensitive
+        let isStatusSensitive = statusItemAttribute.isStatusSensitive
         cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
         cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set poll
         let poll = (toot.reblog ?? toot).poll
-        configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, poll: poll, requestUserID: requestUserID)
+        StatusSection.configure(
+            cell: cell,
+            poll: poll,
+            requestUserID: requestUserID,
+            updateProgressAnimated: false,
+            timestampUpdatePublisher: timestampUpdatePublisher
+        )
         if let poll = poll {
             ManagedObjectObserver.observe(object: poll)
                 .sink { _ in
@@ -167,7 +173,13 @@ extension StatusSection {
                 } receiveValue: { change in
                     guard case let .update(object) = change.changeType,
                           let newPoll = object as? Poll else { return }
-                    StatusSection.configure(cell: cell, timestampUpdatePublisher: timestampUpdatePublisher, poll: newPoll, requestUserID: requestUserID)
+                    StatusSection.configure(
+                        cell: cell,
+                        poll: newPoll,
+                        requestUserID: requestUserID,
+                        updateProgressAnimated: true,
+                        timestampUpdatePublisher: timestampUpdatePublisher
+                    )
                 }
                 .store(in: &cell.disposeBag)
         }
@@ -218,9 +230,10 @@ extension StatusSection {
     
     static func configure(
         cell: StatusTableViewCell,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>,
         poll: Poll?,
-        requestUserID: String
+        requestUserID: String,
+        updateProgressAnimated: Bool,
+        timestampUpdatePublisher: AnyPublisher<Date, Never>
     ) {
         guard let poll = poll,
               let managedObjectContext = poll.managedObjectContext else {
@@ -302,7 +315,7 @@ extension StatusSection {
                             return Double(option.votesCount?.intValue ?? 0) / Double(poll.votesCount.intValue)
                         }()
                         let voted = votedOptions.isEmpty ? true : votedOptions.contains(option)
-                        return .reveal(voted: voted, percentage: percentage)
+                        return .reveal(voted: voted, percentage: percentage, animated: updateProgressAnimated)
                     }()
                     return PollItem.Attribute(selectState: selectState, voteState: voteState)
                 }()

@@ -16,8 +16,7 @@ final class PollOptionTableViewCell: UITableViewCell {
     static let checkmarkImageSize = CGSize(width: 26, height: 26)
     
     private var viewStateDisposeBag = Set<AnyCancellable>()
-    var selectState: PollItem.Attribute.SelectState = .off
-    var voteState: PollItem.Attribute.VoteState?
+    var attribute: PollItem.Attribute?
         
     let roundedBackgroundView = UIView()
     let voteProgressStripView: StripProgressView = {
@@ -73,7 +72,7 @@ final class PollOptionTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        guard let voteState = voteState else { return }
+        guard let voteState = attribute?.voteState else { return }
         switch voteState {
         case .hidden:
             let color = Asset.Colors.Background.systemGroupedBackground.color
@@ -86,7 +85,7 @@ final class PollOptionTableViewCell: UITableViewCell {
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
         
-        guard let voteState = voteState else { return }
+        guard let voteState = attribute?.voteState else { return }
         switch voteState {
         case .hidden:
             let color = Asset.Colors.Background.systemGroupedBackground.color
@@ -189,7 +188,7 @@ extension PollOptionTableViewCell {
     }
     
     func updateTextAppearance() {
-        guard let voteState = voteState else {
+        guard let voteState = attribute?.voteState else {
             optionLabel.textColor = Asset.Colors.Label.primary.color
             optionLabel.layer.removeShadow()
             return
@@ -199,7 +198,7 @@ extension PollOptionTableViewCell {
         case .hidden:
             optionLabel.textColor = Asset.Colors.Label.primary.color
             optionLabel.layer.removeShadow()
-        case .reveal(_, let percentage):
+        case .reveal(_, let percentage, _):
             if CGFloat(percentage) * voteProgressStripView.frame.width > optionLabelMiddlePaddingView.frame.minX {
                 optionLabel.textColor = .white
                 optionLabel.layer.setupShadow(x: 0, y: 0, blur: 4, spread: 0)

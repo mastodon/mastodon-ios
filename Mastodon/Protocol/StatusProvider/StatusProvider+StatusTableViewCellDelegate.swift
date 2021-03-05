@@ -75,6 +75,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath) {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let activeMastodonAuthentication = context.authenticationService.activeMastodonAuthentication.value else { return }
         
         guard let diffableDataSource = cell.statusView.pollTableViewDataSource else { return }
@@ -82,24 +83,38 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard case let .opion(objectID, attribute) = item else { return }
         guard let option = managedObjectContext.object(with: objectID) as? PollOption else { return }
         
+        let domain = option.poll.toot.domain
+        let pollObjectID = option.poll.objectID
         
         if option.poll.multiple {
             var choices: [Int] = []
             
         } else {
+            let choices = [option.index.intValue]
             context.apiService.vote(
                 pollObjectID: option.poll.objectID,
                 mastodonUserObjectID: activeMastodonAuthentication.user.objectID,
                 choices: [option.index.intValue]
             )
+            .handleEvents(receiveOutput: { _ in
+                // TODO: add haptic
+            })
+            .flatMap { pollID -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error> in
+                return self.context.apiService.vote(
+                    domain: domain,
+                    pollID: pollID,
+                    pollObjectID: pollObjectID,
+                    choices: choices,
+                    mastodonAuthenticationBox: activeMastodonAuthenticationBox
+                )
+            }
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 
-            } receiveValue: { pollID in
-                
+            } receiveValue: { response in
+                print(response.value)
             }
             .store(in: &context.disposeBag)
-
         }
     }
     

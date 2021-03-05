@@ -24,7 +24,7 @@ extension PollSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self), for: indexPath) as! PollOptionTableViewCell
                 managedObjectContext.performAndWait {
                     let option = managedObjectContext.object(with: objectID) as! PollOption
-                    PollSection.configure(cell: cell, pollOption: option, itemAttribute: attribute)
+                    PollSection.configure(cell: cell, pollOption: option, pollItemAttribute: attribute)
                 }
                 return cell
             }
@@ -35,12 +35,15 @@ extension PollSection {
 extension PollSection {
     static func configure(
         cell: PollOptionTableViewCell,
-        pollOption: PollOption,
-        itemAttribute: PollItem.Attribute
+        pollOption option: PollOption,
+        pollItemAttribute attribute: PollItem.Attribute
     ) {
-        cell.optionLabel.text = pollOption.title
-        configure(cell: cell, selectState: itemAttribute.selectState)
-        configure(cell: cell, voteState: itemAttribute.voteState)
+        cell.optionLabel.text = option.title
+        configure(cell: cell, selectState: attribute.selectState)
+        configure(cell: cell, voteState: attribute.voteState)
+        cell.attribute = attribute
+        cell.layoutIfNeeded()
+        cell.updateTextAppearance()
     }
 }
 
@@ -64,24 +67,18 @@ extension PollSection {
             cell.checkmarkBackgroundView.isHidden = false
             cell.checkmarkImageView.isHidden = false
         }
-        
-        cell.selectState = state
     }
 
     static func configure(cell: PollOptionTableViewCell, voteState state: PollItem.Attribute.VoteState) {
         switch state {
         case .hidden:
             cell.optionPercentageLabel.isHidden = true
-        case .reveal(let voted, let percentage):
+        case .reveal(let voted, let percentage, let animated):
             cell.optionPercentageLabel.isHidden = false
             cell.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
             cell.voteProgressStripView.tintColor = voted ? Asset.Colors.Background.Poll.highlight.color : Asset.Colors.Background.Poll.disabled.color
-            cell.voteProgressStripView.setProgress(CGFloat(percentage), animated: true)
+            cell.voteProgressStripView.setProgress(CGFloat(percentage), animated: animated)
         }
-        cell.voteState = state
-        
-        cell.layoutIfNeeded()
-        cell.updateTextAppearance()
     }
     
 }

@@ -24,7 +24,7 @@ extension PollItem {
         
         enum VoteState: Equatable, Hashable {
             case hidden
-            case reveal(voted: Bool, percentage: Double)
+            case reveal(voted: Bool, percentage: Double, animated: Bool)
         }
         
         var selectState: SelectState

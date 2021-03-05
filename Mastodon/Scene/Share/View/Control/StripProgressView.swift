@@ -11,12 +11,15 @@ import Combine
 
 private final class StripProgressLayer: CALayer {
     
+    static let progressAnimationKey = "progressAnimationKey"
+    static let progressKey = "progress"
+    
     var tintColor: UIColor = .black
     @NSManaged var progress: CGFloat
 
     override class func needsDisplay(forKey key: String) -> Bool {
         switch key {
-        case "progress":
+        case StripProgressLayer.progressKey:
             return true
         default:
             return super.needsDisplay(forKey: key)
@@ -24,7 +27,13 @@ private final class StripProgressLayer: CALayer {
     }
 
     override func display() {
-        let progress = presentation()?.progress ?? self.progress
+        let progress: CGFloat = {
+            guard animation(forKey: StripProgressLayer.progressAnimationKey) != nil else {
+                return self.progress
+            }
+            
+            return presentation()?.progress ?? self.progress
+        }()
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
@@ -72,15 +81,15 @@ final class StripProgressView: UIView {
     }
     
     func setProgress(_ progress: CGFloat, animated: Bool) {
-        stripProgressLayer.removeAnimation(forKey: "progressAnimationKey")
+        stripProgressLayer.removeAnimation(forKey: StripProgressLayer.progressAnimationKey)
         if animated {
-            let animation = CABasicAnimation(keyPath: "progress")
+            let animation = CABasicAnimation(keyPath: StripProgressLayer.progressKey)
             animation.fromValue = stripProgressLayer.presentation()?.progress ?? stripProgressLayer.progress
             animation.toValue = progress
             animation.duration = 0.33
             animation.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             animation.isRemovedOnCompletion = true
-            stripProgressLayer.add(animation, forKey: "progressAnimationKey")
+            stripProgressLayer.add(animation, forKey: StripProgressLayer.progressAnimationKey)
             stripProgressLayer.progress = progress
         } else {
             stripProgressLayer.progress = progress
