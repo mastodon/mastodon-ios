@@ -245,7 +245,6 @@ extension StatusSection {
         
         cell.statusView.pollTableView.isHidden = false
         cell.statusView.pollStatusStackView.isHidden = false
-        cell.statusView.pollVoteButton.isHidden = !poll.multiple
         cell.statusView.pollVoteCountLabel.text = {
             if poll.multiple {
                 let count = poll.votersCount?.intValue ?? 0
@@ -279,7 +278,14 @@ extension StatusSection {
         }
         
         cell.statusView.pollTableView.allowsSelection = !poll.expired
-        cell.statusView.pollTableView.allowsMultipleSelection = poll.multiple
+        
+        let votedOptions = poll.options.filter { option in
+            (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        }
+        let didVotedLocal = !votedOptions.isEmpty
+        let didVotedRemote = (poll.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        cell.statusView.pollVoteButton.isEnabled = didVotedLocal
+        cell.statusView.pollVoteButton.isHidden = !poll.multiple ? true : (didVotedRemote || poll.expired)
         
         cell.statusView.pollTableViewDataSource = PollSection.tableViewDiffableDataSource(
             for: cell.statusView.pollTableView,
@@ -288,21 +294,18 @@ extension StatusSection {
         
         var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
         snapshot.appendSections([.main])
-        let votedOptions = poll.options.filter { option in
-            (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
-        }
-        let isPollVoted = (poll.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+
         let pollItems = poll.options
             .sorted(by: { $0.index.intValue < $1.index.intValue })
             .map { option -> PollItem in
                 let attribute: PollItem.Attribute = {
                     let selectState: PollItem.Attribute.SelectState = {
-                        // make isPollVoted check later to make the local change possible
+                        // check didVotedRemote later to make the local change possible
                         if !votedOptions.isEmpty {
                             return votedOptions.contains(option) ? .on : .off
                         } else if poll.expired {
                             return .none
-                        } else if isPollVoted, votedOptions.isEmpty {
+                        } else if didVotedRemote, votedOptions.isEmpty {
                             return .none
                         } else {
                             return .off
@@ -312,7 +315,7 @@ extension StatusSection {
                         var needsReveal: Bool
                         if poll.expired {
                             needsReveal = true
-                        } else if isPollVoted {
+                        } else if didVotedRemote {
                             needsReveal = true
                         } else {
                             needsReveal = false

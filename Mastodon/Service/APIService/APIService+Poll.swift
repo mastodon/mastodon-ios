@@ -101,11 +101,13 @@ extension APIService {
             let votedOptions = poll.options.filter { option in
                 (option.votedBy ?? Set()).map { $0.id }.contains(mastodonUser.id)
             }
-            guard votedOptions.isEmpty else {
-                // if did voted. Do not allow vote again
+            
+            if !poll.multiple, !votedOptions.isEmpty {
+                // if did voted for single poll. Do not allow vote again
                 didVotedLocal = true
                 return
             }
+            
             for option in options {
                 let voted = choices.contains(option.index.intValue)
                 option.update(voted: voted, by: mastodonUser)

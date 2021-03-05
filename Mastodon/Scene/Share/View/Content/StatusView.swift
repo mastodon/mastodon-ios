@@ -13,6 +13,7 @@ import AlamofireImage
 
 protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
 }
 
 final class StatusView: UIView {
@@ -138,11 +139,12 @@ final class StatusView: UIView {
     }()
     let pollVoteButton: UIButton = {
         let button = HitTestExpandedButton()
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .regular))
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
         button.setTitleColor(Asset.Colors.Button.highlight.color, for: .normal)
         button.setTitleColor(Asset.Colors.Button.highlight.color.withAlphaComponent(0.8), for: .highlighted)
         button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
+        button.isEnabled = false
         return button
     }()
     
@@ -350,6 +352,7 @@ extension StatusView {
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
         
         contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
+        pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
     }
     
 }
@@ -385,10 +388,17 @@ extension StatusView {
 }
 
 extension StatusView {
+    
     @objc private func contentWarningActionButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.statusView(self, contentWarningActionButtonPressed: sender)
     }
+    
+    @objc private func pollVoteButtonPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, pollVoteButtonPressed: sender)
+    }
+    
 }
 
 // MARK: - AvatarConfigurableView

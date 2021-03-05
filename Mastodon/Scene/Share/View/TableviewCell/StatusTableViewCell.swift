@@ -13,15 +13,16 @@ import CoreData
 import CoreDataStack
 
 protocol StatusTableViewCellDelegate: class {
-    var context: AppContext! { get}
+    var context: AppContext! { get }
     var managedObjectContext: NSManagedObjectContext { get }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)
-
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -101,6 +102,7 @@ extension StatusTableViewCell {
 
 // MARK: - UITableViewDelegate
 extension StatusTableViewCell: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         if tableView === statusView.pollTableView, let diffableDataSource = statusView.pollTableViewDataSource {
             var pollID: String?
@@ -115,6 +117,7 @@ extension StatusTableViewCell: UITableViewDelegate {
             pollID = option.poll.id
             return !option.poll.expired
         } else {
+            assertionFailure()
             return true
         }
     }
@@ -143,20 +146,31 @@ extension StatusTableViewCell: UITableViewDelegate {
                 (option.votedBy ?? Set()).map { $0.id }.contains(userID)
             }
             let didVotedLocal = !votedOptions.isEmpty
-            guard !option.poll.expired, !didVotedRemote, !didVotedLocal else {
-                return nil
+            
+            if poll.multiple {
+                guard !option.poll.expired, !didVotedRemote else {
+                    return nil
+                }
+            } else {
+                guard !option.poll.expired, !didVotedRemote, !didVotedLocal else {
+                    return nil
+                }
             }
             
             return indexPath
         } else {
+            assertionFailure()
             return indexPath
         }
     }
     
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView === statusView.pollTableView {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
             delegate?.statusTableViewCell(self, pollTableView: statusView.pollTableView, didSelectRowAt: indexPath)
+        } else {
+            assertionFailure()
         }
     }
     
@@ -164,9 +178,15 @@ extension StatusTableViewCell: UITableViewDelegate {
 
 // MARK: - StatusViewDelegate
 extension StatusTableViewCell: StatusViewDelegate {
+    
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)
     }
+    
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+        delegate?.statusTableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
+    }
+    
 }
 
 // MARK: - MosaicImageViewDelegate

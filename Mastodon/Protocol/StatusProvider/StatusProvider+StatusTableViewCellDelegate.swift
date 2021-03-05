@@ -74,6 +74,45 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
 // MARK: - PollTableView
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        toot(for: cell, indexPath: nil)
+            .receive(on: DispatchQueue.main)
+            .setFailureType(to: Error.self)
+            .compactMap { toot -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error>? in
+                guard let toot = (toot?.reblog ?? toot) else { return nil }
+                guard let poll = toot.poll else { return nil }
+                
+                let votedOptions = poll.options.filter { ($0.votedBy ?? Set()).contains(where: { $0.id == activeMastodonAuthenticationBox.userID }) }
+                let choices = votedOptions.map { $0.index.intValue }
+                let domain = poll.toot.domain
+                
+                button.isEnabled = false
+                
+                return self.context.apiService.vote(
+                    domain: domain,
+                    pollID: poll.id,
+                    pollObjectID: poll.objectID,
+                    choices: choices,
+                    mastodonAuthenticationBox: activeMastodonAuthenticationBox
+                )
+            }
+            .switchToLatest()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    // TODO: handle error
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: multiple vote fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    button.isEnabled = true
+                case .finished:
+                    break
+                }
+            }, receiveValue: { response in
+                // do nothing
+            })
+            .store(in: &context.disposeBag)
+    }
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath) {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let activeMastodonAuthentication = context.authenticationService.activeMastodonAuthentication.value else { return }
@@ -83,16 +122,37 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard case let .opion(objectID, attribute) = item else { return }
         guard let option = managedObjectContext.object(with: objectID) as? PollOption else { return }
         
-        let domain = option.poll.toot.domain
+        let poll = option.poll
         let pollObjectID = option.poll.objectID
+        let domain = poll.toot.domain
         
-        if option.poll.multiple {
-            var choices: [Int] = []
-            
+        if poll.multiple {
+            var votedOptions = poll.options.filter { ($0.votedBy ?? Set()).contains(where: { $0.id == activeMastodonAuthenticationBox.userID }) }
+            if votedOptions.contains(option) {
+                votedOptions.remove(option)
+            } else {
+                votedOptions.insert(option)
+            }
+            let choices = votedOptions.map { $0.index.intValue }
+            context.apiService.vote(
+                pollObjectID: option.poll.objectID,
+                mastodonUserObjectID: activeMastodonAuthentication.user.objectID,
+                choices: choices
+            )
+            .handleEvents(receiveOutput: { _ in
+                // TODO: add haptic
+            })
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                // Do nothing
+            } receiveValue: { _ in
+                // Do nothing
+            }
+            .store(in: &context.disposeBag)
         } else {
             let choices = [option.index.intValue]
             context.apiService.vote(
-                pollObjectID: option.poll.objectID,
+                pollObjectID: pollObjectID,
                 mastodonUserObjectID: activeMastodonAuthentication.user.objectID,
                 choices: [option.index.intValue]
             )
