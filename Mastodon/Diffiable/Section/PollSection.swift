@@ -76,7 +76,7 @@ extension PollSection {
             cell.optionPercentageLabel.isHidden = false
             cell.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
             cell.voteProgressStripView.tintColor = voted ? Asset.Colors.Background.Poll.highlight.color : Asset.Colors.Background.Poll.disabled.color
-            cell.voteProgressStripView.progress.send(CGFloat(percentage))
+            cell.voteProgressStripView.setProgress(CGFloat(percentage), animated: true)
         }
         cell.voteState = state
         

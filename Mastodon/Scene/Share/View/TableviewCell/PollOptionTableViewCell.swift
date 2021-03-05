@@ -20,8 +20,8 @@ final class PollOptionTableViewCell: UITableViewCell {
     var voteState: PollItem.Attribute.VoteState?
         
     let roundedBackgroundView = UIView()
-    let voteProgressStripView: VoteProgressStripView = {
-        let view = VoteProgressStripView()
+    let voteProgressStripView: StripProgressView = {
+        let view = StripProgressView()
         view.tintColor = Asset.Colors.Background.Poll.highlight.color
         return view
     }()

@@ -302,8 +302,6 @@ extension StatusSection {
                             return Double(option.votesCount?.intValue ?? 0) / Double(poll.votesCount.intValue)
                         }()
                         let voted = votedOptions.isEmpty ? true : votedOptions.contains(option)
-//                        let voted = true
-//                        let percentage: Double = Double.random(in: 0..<1)
                         return .reveal(voted: voted, percentage: percentage)
                     }()
                     return PollItem.Attribute(selectState: selectState, voteState: voteState)
