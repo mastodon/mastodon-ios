@@ -34,7 +34,7 @@ private final class StripProgressLayer: CALayer {
             
             return presentation()?.progress ?? self.progress
         }()
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
+        // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
         guard let context = UIGraphicsGetCurrentContext() else {
