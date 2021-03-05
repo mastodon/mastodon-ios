@@ -5,25 +5,21 @@
 //  Created by BradGao on 2021/2/24.
 //
 
+import os.log
 import UIKit
 import MastodonSDK
 import AlamofireImage
 import Kanna
 
 protocol PickServerCellDelegate: class {
-    func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void))
+    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)
 }
 
 class PickServerCell: UITableViewCell {
     
     weak var delegate: PickServerCellDelegate?
     
-    enum Mode {
-        case collapse
-        case expand
-    }
-    
-    private var containerView: UIView = {
+    let containerView: UIView = {
         let view = UIView()
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
         view.backgroundColor = Asset.Colors.lightWhite.color
@@ -31,7 +27,7 @@ class PickServerCell: UITableViewCell {
         return view
     }()
     
-    private var domainLabel: UILabel = {
+    let domainLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         label.textColor = Asset.Colors.lightDarkGray.color
@@ -40,7 +36,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var checkbox: UIImageView = {
+    let checkbox: UIImageView = {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
         imageView.tintColor = Asset.Colors.lightSecondaryText.color
@@ -49,7 +45,7 @@ class PickServerCell: UITableViewCell {
         return imageView
     }()
     
-    private var descriptionLabel: UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0
@@ -59,9 +55,9 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private let thumbnailActivityIdicator = UIActivityIndicatorView(style: .medium)
+    let thumbnailActivityIdicator = UIActivityIndicatorView(style: .medium)
     
-    private var thumbnailImageView: UIImageView = {
+    let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -69,7 +65,7 @@ class PickServerCell: UITableViewCell {
         return imageView
     }()
     
-    private var infoStackView: UIStackView = {
+    let infoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -78,14 +74,14 @@ class PickServerCell: UITableViewCell {
         return stackView
     }()
     
-    private var expandBox: UIView = {
+    let expandBox: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var expandButton: UIButton = {
+    let expandButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(L10n.Scene.ServerPicker.Button.seemore, for: .normal)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeless, for: .selected)
@@ -95,14 +91,14 @@ class PickServerCell: UITableViewCell {
         return button
     }()
     
-    private var seperator: UIView = {
+    let seperator: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Colors.lightBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var langValueLabel: UILabel = {
+    let langValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.lightDarkGray.color
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
@@ -112,7 +108,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var usersValueLabel: UILabel = {
+    let usersValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.lightDarkGray.color
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
@@ -122,7 +118,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var categoryValueLabel: UILabel = {
+    let categoryValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.lightDarkGray.color
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
@@ -132,7 +128,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var langTitleLabel: UILabel = {
+    let langTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.lightDarkGray.color
         label.font = .preferredFont(forTextStyle: .caption2)
@@ -143,7 +139,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var usersTitleLabel: UILabel = {
+    let usersTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.lightDarkGray.color
         label.font = .preferredFont(forTextStyle: .caption2)
@@ -154,7 +150,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var categoryTitleLabel: UILabel = {
+    let categoryTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.lightDarkGray.color
         label.font = .preferredFont(forTextStyle: .caption2)
@@ -168,22 +164,12 @@ class PickServerCell: UITableViewCell {
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []
     
-    var mode: PickServerCell.Mode = .collapse {
-        didSet {
-            updateMode()
-        }
-    }
-    
-    var server: Mastodon.Entity.Server? {
-        didSet {
-            updateServerInfo()
-        }
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        thumbnailImageView.isHidden = false
         thumbnailImageView.af.cancelImageRequest()
+        thumbnailActivityIdicator.stopAnimating()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -195,6 +181,7 @@ class PickServerCell: UITableViewCell {
         super.init(coder: coder)
         _init()
     }
+    
 }
 
 // MARK: - Methods to configure appearance
@@ -224,7 +211,7 @@ extension PickServerCell {
         infoStackView.addArrangedSubview(verticalInfoStackViewUsers)
         infoStackView.addArrangedSubview(verticalInfoStackViewCategory)
         
-        let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12).priority(.required)
+        let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12).priority(.required - 1)
         collapseConstraints.append(expandButtonTopConstraintInCollapse)
         
         let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.defaultHigh)
@@ -292,7 +279,7 @@ extension PickServerCell {
         descriptionLabel.setContentHuggingPriority(.required - 2, for: .vertical)
         descriptionLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
         
-        expandButton.addTarget(self, action: #selector(expandButtonDidClicked(_:)), for: .touchUpInside)
+        expandButton.addTarget(self, action: #selector(expandButtonDidPressed(_:)), for: .touchUpInside)
     }
     
     private func makeVerticalInfoStackView(arrangedView: UIView...) -> UIStackView {
@@ -305,8 +292,31 @@ extension PickServerCell {
         arrangedView.forEach { stackView.addArrangedSubview($0) }
         return stackView
     }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected {
+            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
+        } else {
+            checkbox.image = UIImage(systemName: "circle")
+        }
+    }
     
-    private func updateMode() {
+    @objc
+    private func expandButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.pickServerCell(self, expandButtonPressed: sender)
+    }
+}
+
+extension PickServerCell {
+    
+    enum ExpandMode {
+        case collapse
+        case expand
+    }
+    
+    func updateExpandMode(mode: ExpandMode) {
         switch mode {
         case .collapse:
             expandBox.isHidden = true
@@ -318,73 +328,35 @@ extension PickServerCell {
             expandButton.isSelected = true
             NSLayoutConstraint.activate(expandConstraints)
             NSLayoutConstraint.deactivate(collapseConstraints)
-            
-            updateThumbnail()
         }
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        if selected {
-            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
-        } else {
-            checkbox.image = UIImage(systemName: "circle")
-        }
-    }
+//    private func updateThumbnail() {
+//        guard let serverInfo = server,
+//              let proxiedThumbnail = serverInfo.proxiedThumbnail,
+//              let url = URL(string: proxiedThumbnail) else {
+//            thumbnailImageView.isHidden = true
+//            thumbnailActivityIdicator.stopAnimating()
+//            return
+//        }
+//
+//        thumbnailImageView.isHidden = false
+//        thumbnailActivityIdicator.startAnimating()
+//
+//        let placeholderImage = UIImage.placeholder(color: .systemFill).af.imageRounded(withCornerRadius: 3.0, divideRadiusByImageScale: true)
+//        thumbnailImageView.af.setImage(
+//            withURL: url,
+//            placeholderImage: placeholderImage,
+//            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: thumbnailImageView.frame.size, radius: 3),
+//            imageTransition: .crossDissolve(0.33),
+//            completion: { [weak self] response in
+//                guard let self = self else { return }
+//                switch response.result {
+//                case .success, .failure:
+//                    self.thumbnailActivityIdicator.stopAnimating()
+//                }
+//            }
+//        )
+//    }
     
-    @objc
-    private func expandButtonDidClicked(_ sender: UIButton) {
-        let newMode: Mode = mode == .collapse ? .expand : .collapse
-        delegate?.pickServerCell(modeChange: server!, newMode: newMode, updates: { [weak self] in
-            self?.mode = newMode
-        })
-    }
-}
-
-// MARK: - Methods to update data
-extension PickServerCell {
-    private func updateServerInfo() {
-        guard let serverInfo = server else { return }
-        domainLabel.text = serverInfo.domain
-        descriptionLabel.text = {
-            guard let html = try? HTML(html: serverInfo.description, encoding: .utf8) else {
-                return serverInfo.description
-            }
-            
-            return html.text ?? serverInfo.description
-        }()
-        langValueLabel.text = serverInfo.language.uppercased()
-        usersValueLabel.text = parseUsersCount(serverInfo.totalUsers)
-        categoryValueLabel.text = serverInfo.category.uppercased()
-    }
-    
-    private func updateThumbnail() {
-        guard let serverInfo = server else { return }
-        
-        thumbnailActivityIdicator.startAnimating()
-        let placeholderImage = UIImage.placeholder(color: .systemFill).af.imageRounded(withCornerRadius: 3.0, divideRadiusByImageScale: true)
-        thumbnailImageView.af.setImage(
-            withURL: URL(string: serverInfo.proxiedThumbnail ?? "")!,
-            placeholderImage: placeholderImage,
-            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: thumbnailImageView.frame.size, radius: 3),
-            imageTransition: .crossDissolve(0.33),
-            completion: { [weak self] response in
-                guard let self = self else { return }
-                switch response.result {
-                case .success, .failure:
-                    self.thumbnailActivityIdicator.stopAnimating()
-                }
-            }
-        )
-    }
-    
-    private func parseUsersCount(_ usersCount: Int) -> String {
-        switch usersCount {
-        case 0..<1000:
-            return "\(usersCount)"
-        default:
-            let usersCountInThousand = Float(usersCount) / 1000.0
-            return String(format: "%.1fK", usersCountInThousand)
-        }
-    }
 }

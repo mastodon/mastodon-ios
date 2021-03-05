@@ -9,12 +9,6 @@ import UIKit
 
 class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     
-    var category: MastodonPickServerViewModel.Category? {
-        didSet {
-            categoryView.category = category
-        }
-    }
-    
     var categoryView: PickServerCategoryView = {
         let view = PickServerCategoryView()
         view.translatesAutoresizingMaskIntoConstraints = false

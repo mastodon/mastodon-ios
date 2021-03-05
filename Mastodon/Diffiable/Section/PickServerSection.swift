@@ -1,0 +1,100 @@
+//
+//  PickServerSection.swift
+//  Mastodon
+//
+//  Created by Cirno MainasuK on 2021/3/5.
+//
+
+import UIKit
+import MastodonSDK
+import Kanna
+
+enum PickServerSection: Equatable, Hashable {
+    case header
+    case category
+    case search
+    case servers
+}
+
+extension PickServerSection {
+    static func tableViewDiffableDataSource(
+        for tableView: UITableView,
+        dependency: NeedsDependency,
+        pickServerSearchCellDelegate: PickServerSearchCellDelegate,
+        pickServerCellDelegate: PickServerCellDelegate
+    ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
+        UITableViewDiffableDataSource(tableView: tableView) { [weak pickServerSearchCellDelegate, weak pickServerCellDelegate] tableView, indexPath, item -> UITableViewCell? in
+            switch item {
+            case .header:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerTitleCell.self), for: indexPath) as! PickServerTitleCell
+                return cell
+            case .categoryPicker(let items):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCategoriesCell.self), for: indexPath) as! PickServerCategoriesCell
+                cell.diffableDataSource = CategoryPickerSection.collectionViewDiffableDataSource(
+                    for: cell.collectionView,
+                    dependency: dependency
+                )
+                var snapshot = NSDiffableDataSourceSnapshot<CategoryPickerSection, CategoryPickerItem>()
+                snapshot.appendSections([.main])
+                snapshot.appendItems(items, toSection: .main)
+                cell.diffableDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+                return cell
+            case .search:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerSearchCell.self), for: indexPath) as! PickServerSearchCell
+                cell.delegate = pickServerSearchCellDelegate
+                return cell
+            case .server(let server, let attribute):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
+                PickServerSection.configure(cell: cell, server: server, attribute: attribute)
+                cell.delegate = pickServerCellDelegate
+                // cell.server = server
+                //            if expandServerDomainSet.contains(server.domain) {
+                //                cell.mode = .expand
+                //            } else {
+                //                cell.mode = .collapse
+                //            }
+//                if server == viewModel.selectedServer.value {
+//                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+//                } else {
+//                    tableView.deselectRow(at: indexPath, animated: false)
+//                }
+//
+//                cell.delegate = self
+                return cell
+            }
+        }
+    }
+}
+
+extension PickServerSection {
+    
+    static func configure(cell: PickServerCell, server: Mastodon.Entity.Server, attribute: PickServerItem.ServerItemAttribute) {
+        cell.domainLabel.text = server.domain
+        cell.descriptionLabel.text = {
+            guard let html = try? HTML(html: server.description, encoding: .utf8) else {
+                return server.description
+            }
+            
+            return html.text ?? server.description
+        }()
+        cell.langValueLabel.text = server.language.uppercased()
+        cell.usersValueLabel.text = parseUsersCount(server.totalUsers)
+        cell.categoryValueLabel.text = server.category.uppercased()
+        
+        cell.updateExpandMode(mode: attribute.isExpand ? .expand : .collapse)
+//        UIView.animate(withDuration: 0.33) {
+//            cell.expandBox.layoutIfNeeded()
+//        }
+    }
+    
+    private static func parseUsersCount(_ usersCount: Int) -> String {
+        switch usersCount {
+        case 0..<1000:
+            return "\(usersCount)"
+        default:
+            let usersCountInThousand = Float(usersCount) / 1000.0
+            return String(format: "%.1fK", usersCountInThousand)
+        }
+    }
+    
+}

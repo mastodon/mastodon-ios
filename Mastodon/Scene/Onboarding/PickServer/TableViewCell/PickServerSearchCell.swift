@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PickServerSearchCellDelegate: class {
-    func pickServerSearchCell(didChange searchText: String?)
+    func pickServerSearchCell(_ cell: PickServerSearchCell, searchTextDidChange searchText: String?)
 }
 
 class PickServerSearchCell: UITableViewCell {
@@ -55,6 +55,12 @@ class PickServerSearchCell: UITableViewCell {
         return textField
     }()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        delegate = nil
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()
@@ -97,7 +103,7 @@ extension PickServerSearchCell {
 }
 
 extension PickServerSearchCell {
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        delegate?.pickServerSearchCell(didChange: textField.text)
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        delegate?.pickServerSearchCell(self, searchTextDidChange: textField.text)
     }
 }

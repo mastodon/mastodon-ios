@@ -5,10 +5,9 @@
 //  Created by BradGao on 2021/2/20.
 //
 
+import os.log
 import UIKit
 import Combine
-import OSLog
-import MastodonSDK
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -22,13 +21,6 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     private var isAuthenticating = CurrentValueSubject<Bool, Never>(false)
     
     private var expandServerDomainSet = Set<String>()
-    
-    enum Section: CaseIterable {
-        case title
-        case categories
-        case search
-        case serverList
-    }
 
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
@@ -95,31 +87,16 @@ extension MastodonPickServerViewController {
         nextStepButton.addTarget(self, action: #selector(nextStepButtonDidClicked(_:)), for: .touchUpInside)
         
         tableView.delegate = self
-        tableView.dataSource = self
-        
-        viewModel
-            .searchedServers
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                
-            } receiveValue: { [weak self] servers in
-                self?.tableView.beginUpdates()
-                self?.tableView.reloadSections(IndexSet(integer: 3), with: .automatic)
-                self?.tableView.endUpdates()
-                if let selectedServer = self?.viewModel.selectedServer.value, servers.contains(selectedServer) {
-                    // Previously selected server is still in the list, do nothing
-                } else {
-                    // Previously selected server is not in the updated list, reset the selectedServer's value
-                    self?.viewModel.selectedServer.send(nil)
-                }
-            }
-            .store(in: &disposeBag)
+        viewModel.setupDiffableDataSource(
+            for: tableView,
+            dependency: self,
+            pickServerSearchCellDelegate: self,
+            pickServerCellDelegate: self
+        )
         
         viewModel
             .selectedServer
-            .map {
-                $0 != nil
-            }
+            .map { $0 != nil }
             .assign(to: \.isEnabled, on: nextStepButton)
             .store(in: &disposeBag)
         
@@ -165,8 +142,6 @@ extension MastodonPickServerViewController {
                 isAuthenticating ? self.nextStepButton.showLoading() : self.nextStepButton.stopLoading()
             }
             .store(in: &disposeBag)
-        
-        viewModel.fetchAllServers()
     }
     
     @objc
@@ -292,142 +267,150 @@ extension MastodonPickServerViewController {
 }
 
 extension MastodonPickServerViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let category = Section.allCases[section]
-        switch category {
-        case .title:
+        guard let diffableDataSource = viewModel.diffableDataSource else { return 0 }
+        let sections = diffableDataSource.snapshot().sectionIdentifiers
+        let section = sections[section]
+        switch section {
+        case .header:
             return 20
-        case .categories:
+        case .category:
             // Since category view has a blur shadow effect, its height need to be large than the actual height,
             // Thus we reduce the section header's height by 10, and make the category cell height 60+20(10 inset for top and bottom)
             return 10
         case .search:
             // Same reason as above
             return 10
-        case .serverList:
+        case .servers:
             return 0
         }
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+        guard case let .server(server) = item else { return nil }
+        
         if tableView.indexPathForSelectedRow == indexPath {
             tableView.deselectRow(at: indexPath, animated: false)
             viewModel.selectedServer.send(nil)
             return nil
         }
+        
         return indexPath
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard case let .server(server, _) = item else { return }
         tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-        viewModel.selectedServer.send(viewModel.searchedServers.value[indexPath.row])
+        viewModel.selectedServer.send(server)
     }
-    
+
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         viewModel.selectedServer.send(nil)
     }
+    
 }
 
-extension MastodonPickServerViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return Self.Section.allCases.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let section = Self.Section.allCases[section]
-        switch section {
-        case .title,
-             .categories,
-             .search:
-            return 1
-        case .serverList:
-            return viewModel.searchedServers.value.count
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let section = Self.Section.allCases[indexPath.section]
-        switch section {
-        case .title:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerTitleCell.self), for: indexPath) as! PickServerTitleCell
-            return cell
-        case .categories:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCategoriesCell.self), for: indexPath) as! PickServerCategoriesCell
-            cell.dataSource = self
-            cell.delegate = self
-            return cell
-        case .search:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerSearchCell.self), for: indexPath) as! PickServerSearchCell
-            cell.delegate = self
-            return cell
-        case .serverList:
-            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
-            let server = viewModel.searchedServers.value[indexPath.row]
-            cell.server = server
-            if expandServerDomainSet.contains(server.domain) {
-                cell.mode = .expand
-            } else {
-                cell.mode = .collapse
-            }
-            if server == viewModel.selectedServer.value {
-                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            } else {
-                tableView.deselectRow(at: indexPath, animated: false)
-            }
-            
-            cell.delegate = self
-            return cell
-        }
-    }
-}
+//extension MastodonPickServerViewController: UITableViewDataSource {
 
-extension MastodonPickServerViewController: PickServerCellDelegate {
-    func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void)) {
-        if newMode == .collapse {
-            expandServerDomainSet.remove(server.domain)
-        } else {
-            expandServerDomainSet.insert(server.domain)
-        }
-        
-        tableView.beginUpdates()
-        updates()
-        tableView.endUpdates()
-        
-        if newMode == .expand, let modeChangeIndex = self.viewModel.searchedServers.value.firstIndex(where: { $0 == server }), self.tableView.indexPathsForVisibleRows?.last?.row == modeChangeIndex {
-            self.tableView.scrollToRow(at: IndexPath(row: modeChangeIndex, section: 3), at: .bottom, animated: true)
-        }
-    }
-}
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        let section = Self.Section.allCases[indexPath.section]
+//        switch section {
+//        case .title:
+//
+//        case .categories:
+//
+//        case .search:
+//
+//        case .serverList:
+//            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
+//            let server = viewModel.servers.value[indexPath.row]
+//            // cell.server = server
+////            if expandServerDomainSet.contains(server.domain) {
+////                cell.mode = .expand
+////            } else {
+////                cell.mode = .collapse
+////            }
+//            if server == viewModel.selectedServer.value {
+//                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+//            } else {
+//                tableView.deselectRow(at: indexPath, animated: false)
+//            }
+//
+//            cell.delegate = self
+//            return cell
+//        }
+//    }
+//}
 
+// MARK: - PickServerSearchCellDelegate
 extension MastodonPickServerViewController: PickServerSearchCellDelegate {
-    func pickServerSearchCell(didChange searchText: String?) {
+    func pickServerSearchCell(_ cell: PickServerSearchCell, searchTextDidChange searchText: String?) {
         viewModel.searchText.send(searchText)
     }
 }
 
-extension MastodonPickServerViewController: PickServerCategoriesDataSource, PickServerCategoriesDelegate {
-    func numberOfCategories() -> Int {
-        return viewModel.categories.count
+// MARK: - PickServerCellDelegate
+extension MastodonPickServerViewController: PickServerCellDelegate {
+    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard case let .server(_, attribute) = item else { return }
+        
+        attribute.isExpand.toggle()
+        tableView.beginUpdates()
+        cell.updateExpandMode(mode: attribute.isExpand ? .expand : .collapse)
+        tableView.endUpdates()
+        
+        // expand attribute change do not needs apply snapshot to diffable data source
+        // but should I block the viewModel data binding during tableView.beginUpdates/endUpdates?
     }
-    
-    func category(at index: Int) -> MastodonPickServerViewModel.Category {
-        return viewModel.categories[index]
-    }
-    
-    func selectedIndex() -> Int {
-        return viewModel.selectCategoryIndex.value
-    }
-    
-    func pickServerCategoriesCell(didSelect index: Int) {
-        return viewModel.selectCategoryIndex.send(index)
-    }
+
+//    func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void)) {
+//        if newMode == .collapse {
+//            expandServerDomainSet.remove(server.domain)
+//        } else {
+//            expandServerDomainSet.insert(server.domain)
+//        }
+//
+//        tableView.beginUpdates()
+//        updates()
+//        tableView.endUpdates()
+//
+//        if newMode == .expand, let modeChangeIndex = self.viewModel.servers.value.firstIndex(where: { $0 == server }), self.tableView.indexPathsForVisibleRows?.last?.row == modeChangeIndex {
+//            self.tableView.scrollToRow(at: IndexPath(row: modeChangeIndex, section: 3), at: .bottom, animated: true)
+//        }
+//    }
 }
+
+//extension MastodonPickServerViewController: PickServerCategoriesDataSource, PickServerCategoriesCellDelegate {
+//    func numberOfCategories() -> Int {
+//        return viewModel.categories.count
+//    }
+//    
+//    func category(at index: Int) -> MastodonPickServerViewModel.Category {
+//        return viewModel.categories[index]
+//    }
+//    
+//    func selectedIndex() -> Int {
+//        return viewModel.selectCategoryIndex.value
+//    }
+//    
+//    func pickServerCategoriesCell(_ cell: PickServerCategoriesCell, didSelect index: Int) {
+//        return viewModel.selectCategoryIndex.send(index)
+//    }
+//}
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }

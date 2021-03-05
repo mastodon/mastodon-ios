@@ -39,8 +39,6 @@ final class MastodonPinBasedAuthenticationViewController: UIViewController, Need
     
 }
     
-
-
 extension MastodonPinBasedAuthenticationViewController {
     
     override func viewDidLoad() {
