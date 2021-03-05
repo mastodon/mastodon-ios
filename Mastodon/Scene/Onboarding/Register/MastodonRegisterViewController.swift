@@ -220,6 +220,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
 }
 
 extension MastodonRegisterViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -277,7 +278,7 @@ extension MastodonRegisterViewController {
         passwordErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addSubview(passwordErrorPromptLabel)
         NSLayoutConstraint.activate([
-            passwordErrorPromptLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 6),
+            passwordErrorPromptLabel.topAnchor.constraint(equalTo: passwordCheckLabel.bottomAnchor, constant: 2),
             passwordErrorPromptLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
             passwordErrorPromptLabel.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
         ])
@@ -552,11 +553,13 @@ extension MastodonRegisterViewController {
         avatarButton.addTarget(self, action: #selector(MastodonRegisterViewController.avatarButtonPressed(_:)), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        plusIconImageView.layer.cornerRadius = plusIconImageView.frame.width/2
-        plusIconImageView.clipsToBounds = true
+        plusIconImageView.layer.cornerRadius = plusIconImageView.frame.width / 2
+        plusIconImageView.layer.masksToBounds = true
     }
+    
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
