@@ -73,9 +73,12 @@ extension PollSection {
         switch state {
         case .hidden:
             cell.optionPercentageLabel.isHidden = true
+            cell.voteProgressStripView.isHidden = true
+            cell.voteProgressStripView.setProgress(0.0, animated: false)
         case .reveal(let voted, let percentage, let animated):
             cell.optionPercentageLabel.isHidden = false
             cell.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
+            cell.voteProgressStripView.isHidden = false
             cell.voteProgressStripView.tintColor = voted ? Asset.Colors.Background.Poll.highlight.color : Asset.Colors.Background.Poll.disabled.color
             cell.voteProgressStripView.setProgress(CGFloat(percentage), animated: animated)
         }

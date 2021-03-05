@@ -103,12 +103,16 @@ extension StatusTableViewCell {
 extension StatusTableViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         if tableView === statusView.pollTableView, let diffableDataSource = statusView.pollTableViewDataSource {
+            var pollID: String?
+            defer {
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s. PollID: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription, pollID ?? "<nil>")
+            }
             guard let item = diffableDataSource.itemIdentifier(for: indexPath),
                   case let .opion(objectID, _) = item,
                   let option = delegate?.managedObjectContext.object(with: objectID) as? PollOption else {
                 return false
             }
-            
+            pollID = option.poll.id
             return !option.poll.expired
         } else {
             return true
@@ -117,7 +121,10 @@ extension StatusTableViewCell: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if tableView === statusView.pollTableView, let diffableDataSource = statusView.pollTableViewDataSource {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+            var pollID: String?
+            defer {
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s. PollID: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription, pollID ?? "<nil>")
+            }
 
             guard let context = delegate?.context else { return nil }
             guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
@@ -127,6 +134,7 @@ extension StatusTableViewCell: UITableViewDelegate {
                 return nil
             }
             let poll = option.poll
+            pollID = poll.id
             
             // disallow select when: poll expired OR user voted remote OR user voted local
             let userID = activeMastodonAuthenticationBox.userID
