@@ -28,6 +28,9 @@ internal enum Asset {
   internal enum Asset {
     internal static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
   }
+  internal enum Circles {
+    internal static let plusCircleFill = ImageAsset(name: "Circles/plus.circle.fill")
+  }
   internal enum Colors {
     internal enum Background {
       internal enum Poll {
@@ -70,6 +73,7 @@ internal enum Asset {
     internal static let lightSecondaryText = ColorAsset(name: "Colors/lightSecondaryText")
     internal static let lightSuccessGreen = ColorAsset(name: "Colors/lightSuccessGreen")
     internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
+    internal static let plusCircleFill = ImageAsset(name: "Colors/plus.circle.fill")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum Welcome {

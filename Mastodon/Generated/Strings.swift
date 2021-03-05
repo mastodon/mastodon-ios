@@ -234,12 +234,10 @@ internal enum L10n {
           internal static let registrationUserInviteRequest = L10n.tr("Localizable", "Scene.Register.Input.Invite.RegistrationUserInviteRequest")
         }
         internal enum Password {
+          /// Your password needs at least Eight characters
+          internal static let hint = L10n.tr("Localizable", "Scene.Register.Input.Password.Hint")
           /// password
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder")
-          /// Your password needs at least:
-          internal static let prompt = L10n.tr("Localizable", "Scene.Register.Input.Password.Prompt")
-          /// Eight characters
-          internal static let promptEightCharacters = L10n.tr("Localizable", "Scene.Register.Input.Password.PromptEightCharacters")
         }
         internal enum Username {
           /// This username is taken.

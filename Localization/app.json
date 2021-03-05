@@ -128,8 +128,7 @@
                 },
                 "password": {
                     "placeholder": "password",
-                    "prompt": "Your password needs at least:",
-                    "prompt_eight_characters": "Eight characters"
+                    "hint": "Your password needs at least Eight characters"
                 },
                 "invite": {
                     "registration_user_invite_request": "Why do you want to join?"
