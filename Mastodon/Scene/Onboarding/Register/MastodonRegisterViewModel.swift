@@ -180,12 +180,12 @@ extension MastodonRegisterViewModel {
         return NSAttributedString(attachment: attachment)
     }
     
-    static func attributeStringForPassword(isValid: Bool) -> NSAttributedString {
+    static func attributeStringForPassword(validateState: ValidateState) -> NSAttributedString {
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         let attributeString = NSMutableAttributedString()
 
         let image = MastodonRegisterViewModel.checkmarkImage(font: font)
-        attributeString.append(attributedStringImage(with: image, tintColor: isValid ? .black : .clear))
+        attributeString.append(attributedStringImage(with: image, tintColor: validateState == .valid ? .black : .clear))
         attributeString.append(NSAttributedString(string: " "))
         let eightCharactersDescription = NSAttributedString(string: L10n.Scene.Register.Input.Password.hint, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black])
         attributeString.append(eightCharactersDescription)

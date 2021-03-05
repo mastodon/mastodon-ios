@@ -228,7 +228,7 @@ extension MastodonRegisterViewController {
         
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
-        passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(isValid: false)
+        passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: .empty)
         usernameTextField.rightView = domainLabel
         usernameTextField.rightViewMode = .always
         usernameTextField.delegate = self
@@ -441,7 +441,7 @@ extension MastodonRegisterViewController {
             .sink { [weak self] validateState in
                 guard let self = self else { return }
                 self.setTextFieldValidAppearance(self.passwordTextField, validateState: validateState)
-                self.passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(isValid: validateState == .valid)
+                self.passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: validateState)
             }
             .store(in: &disposeBag)
         viewModel.passwordErrorPrompt
