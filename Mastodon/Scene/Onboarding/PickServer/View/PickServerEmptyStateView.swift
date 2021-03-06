@@ -45,6 +45,12 @@ extension PickServerEmptyStateView {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        layer.maskedCorners = [
+            .layerMinXMaxYCorner,
+            .layerMaxXMaxYCorner
+        ]
+        layer.cornerCurve = .continuous
+        layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
         
         let topPaddingView = UIView()
         topPaddingView.translatesAutoresizingMaskIntoConstraints = false

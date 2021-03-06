@@ -100,9 +100,13 @@ class MastodonPickServerViewModel: NSObject {
             // TODO: handle filter
             var serverItems: [PickServerItem] = []
             for server in indexedServers {
-                let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isExpand: false)
+                let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
+                attribute.isLast = false
                 let item = PickServerItem.server(server: server, attribute: attribute)
                 serverItems.append(item)
+            }
+            if case let .server(_, attribute) = serverItems.last {
+                attribute.isLast = true
             }
             snapshot.appendItems(serverItems, toSection: .servers)
             

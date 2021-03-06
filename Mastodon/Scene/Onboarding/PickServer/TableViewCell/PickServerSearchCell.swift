@@ -24,7 +24,7 @@ class PickServerSearchCell: UITableViewCell {
             .layerMaxXMinYCorner
         ]
         view.layer.cornerCurve = .continuous
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
         return view
     }()
     

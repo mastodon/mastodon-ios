@@ -76,7 +76,7 @@ extension MastodonPickServerViewController {
             emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
             emptyStateView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
             emptyStateView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
-            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 7)
+            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
     
         // fix AutoLayout warning when observe before view appear
@@ -107,7 +107,7 @@ extension MastodonPickServerViewController {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nextStepButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 7)
+            nextStepButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 7),
         ])
         
         switch viewModel.mode {
@@ -181,16 +181,16 @@ extension MastodonPickServerViewController {
                 guard let self = self else { return }
                 switch state {
                 case .none:
-                    self.emptyStateView.networkIndicatorImageView.isHidden = true
-                    self.emptyStateView.activityIndicatorView.stopAnimating()
-                    self.emptyStateView.infoLabel.isHidden = true
+                    self.emptyStateView.isHidden = true
                 case .loading:
+                    self.emptyStateView.isHidden = false
                     self.emptyStateView.networkIndicatorImageView.isHidden = true
                     self.emptyStateView.activityIndicatorView.startAnimating()
                     self.emptyStateView.infoLabel.isHidden = false
                     self.emptyStateView.infoLabel.text = L10n.Scene.ServerPicker.EmptyState.findingServers
                     self.emptyStateView.infoLabel.textAlignment = self.traitCollection.layoutDirection == .rightToLeft ? .right : .left
                 case .badNetwork:
+                    self.emptyStateView.isHidden = false
                     self.emptyStateView.networkIndicatorImageView.isHidden = false
                     self.emptyStateView.activityIndicatorView.stopAnimating()
                     self.emptyStateView.infoLabel.isHidden = false

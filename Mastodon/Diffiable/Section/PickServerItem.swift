@@ -18,9 +18,11 @@ enum PickServerItem {
 
 extension PickServerItem {
     final class ServerItemAttribute: Equatable, Hashable {
+        var isLast: Bool
         var isExpand: Bool
         
-        init(isExpand: Bool) {
+        init(isLast: Bool, isExpand: Bool) {
+            self.isLast = isLast
             self.isExpand = isExpand
         }
         

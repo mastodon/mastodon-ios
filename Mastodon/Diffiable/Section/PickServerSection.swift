@@ -84,6 +84,17 @@ extension PickServerSection {
         
         cell.updateExpandMode(mode: attribute.isExpand ? .expand : .collapse)
         
+        if attribute.isLast {
+            cell.containerView.layer.maskedCorners = [
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner
+            ]
+            cell.containerView.layer.cornerCurve = .continuous
+            cell.containerView.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
+        } else {
+            cell.containerView.layer.cornerRadius = 0
+        }
+        
         cell.expandMode
             .receive(on: DispatchQueue.main)
             .sink { mode in
