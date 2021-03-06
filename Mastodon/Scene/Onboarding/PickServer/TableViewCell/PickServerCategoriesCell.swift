@@ -89,9 +89,11 @@ extension PickServerCategoriesCell {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 extension PickServerCategoriesCell: UICollectionViewDelegateFlowLayout {
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-//        delegate.pickServerCategoriesCell(self, didSelect: indexPath.row)
+        delegate?.pickServerCategoriesCell(self, collectionView: collectionView, didSelectItemAt: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -106,27 +108,5 @@ extension PickServerCategoriesCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 80)
     }
+    
 }
-
-//extension PickServerCategoriesCell: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return dataSource.numberOfCategories()
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let category = dataSource.category(at: indexPath.row)
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PickServerCategoryCollectionViewCell.self), for: indexPath) as! PickServerCategoryCollectionViewCell
-//        cell.category = category
-//
-//        // Select the default category by default
-//        if indexPath.row == dataSource.selectedIndex() {
-//            // Use `[]` as the scrollPosition to avoid contentOffset change
-//            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-//            cell.isSelected = true
-//        }
-//        return cell
-//    }
-//
-//
-//}
-

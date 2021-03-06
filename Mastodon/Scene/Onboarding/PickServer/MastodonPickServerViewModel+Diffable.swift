@@ -12,12 +12,14 @@ extension MastodonPickServerViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
+        pickServerCategoriesCellDelegate: PickServerCategoriesCellDelegate,
         pickServerSearchCellDelegate: PickServerSearchCellDelegate,
         pickServerCellDelegate: PickServerCellDelegate
     ) {
         diffableDataSource = PickServerSection.tableViewDiffableDataSource(
             for: tableView,
             dependency: dependency,
+            pickServerCategoriesCellDelegate: pickServerCategoriesCellDelegate,
             pickServerSearchCellDelegate: pickServerSearchCellDelegate,
             pickServerCellDelegate: pickServerCellDelegate
         )

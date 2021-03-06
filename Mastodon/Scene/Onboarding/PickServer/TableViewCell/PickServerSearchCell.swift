@@ -38,7 +38,7 @@ class PickServerSearchCell: UITableViewCell {
         return view
     }()
     
-    private var searchTextField: UITextField = {
+    let searchTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .preferredFont(forTextStyle: .headline)

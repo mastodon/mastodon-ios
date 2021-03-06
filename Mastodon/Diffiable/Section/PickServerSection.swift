@@ -21,16 +21,18 @@ extension PickServerSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
+        pickServerCategoriesCellDelegate: PickServerCategoriesCellDelegate,
         pickServerSearchCellDelegate: PickServerSearchCellDelegate,
         pickServerCellDelegate: PickServerCellDelegate
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
-        UITableViewDiffableDataSource(tableView: tableView) { [weak pickServerSearchCellDelegate, weak pickServerCellDelegate] tableView, indexPath, item -> UITableViewCell? in
+        UITableViewDiffableDataSource(tableView: tableView) { [weak pickServerCategoriesCellDelegate, weak pickServerSearchCellDelegate, weak pickServerCellDelegate] tableView, indexPath, item -> UITableViewCell? in
             switch item {
             case .header:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerTitleCell.self), for: indexPath) as! PickServerTitleCell
                 return cell
             case .categoryPicker(let items):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCategoriesCell.self), for: indexPath) as! PickServerCategoriesCell
+                cell.delegate = pickServerCategoriesCellDelegate
                 cell.diffableDataSource = CategoryPickerSection.collectionViewDiffableDataSource(
                     for: cell.collectionView,
                     dependency: dependency
@@ -48,19 +50,6 @@ extension PickServerSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
                 PickServerSection.configure(cell: cell, server: server, attribute: attribute)
                 cell.delegate = pickServerCellDelegate
-                // cell.server = server
-                //            if expandServerDomainSet.contains(server.domain) {
-                //                cell.mode = .expand
-                //            } else {
-                //                cell.mode = .collapse
-                //            }
-//                if server == viewModel.selectedServer.value {
-//                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-//                } else {
-//                    tableView.deselectRow(at: indexPath, animated: false)
-//                }
-//
-//                cell.delegate = self
                 return cell
             }
         }

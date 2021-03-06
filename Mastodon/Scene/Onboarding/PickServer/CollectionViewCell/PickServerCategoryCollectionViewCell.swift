@@ -9,16 +9,17 @@ import UIKit
 
 class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     
+    var observations = Set<NSKeyValueObservation>()
+    
     var categoryView: PickServerCategoryView = {
         let view = PickServerCategoryView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    override var isSelected: Bool {
-        didSet {
-            categoryView.selected = isSelected
-        }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        observations.removeAll()
     }
     
     override init(frame: CGRect) {
