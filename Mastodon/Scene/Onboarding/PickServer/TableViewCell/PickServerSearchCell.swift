@@ -74,8 +74,8 @@ class PickServerSearchCell: UITableViewCell {
 
 extension PickServerSearchCell {
     private func _init() {
-        self.selectionStyle = .none
-        backgroundColor = .clear
+        selectionStyle = .none
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         

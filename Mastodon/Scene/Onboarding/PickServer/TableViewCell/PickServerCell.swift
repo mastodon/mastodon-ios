@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import Combine
 import MastodonSDK
 import AlamofireImage
 import Kanna
@@ -18,6 +19,10 @@ protocol PickServerCellDelegate: class {
 class PickServerCell: UITableViewCell {
     
     weak var delegate: PickServerCellDelegate?
+    
+    var disposeBag = Set<AnyCancellable>()
+    
+    let expandMode = CurrentValueSubject<ExpandMode, Never>(.collapse)
     
     let containerView: UIView = {
         let view = UIView()
@@ -170,6 +175,7 @@ class PickServerCell: UITableViewCell {
         thumbnailImageView.isHidden = false
         thumbnailImageView.af.cancelImageRequest()
         thumbnailActivityIdicator.stopAnimating()
+        disposeBag.removeAll()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -329,34 +335,8 @@ extension PickServerCell {
             NSLayoutConstraint.activate(expandConstraints)
             NSLayoutConstraint.deactivate(collapseConstraints)
         }
+        
+        expandMode.value = mode
     }
-    
-//    private func updateThumbnail() {
-//        guard let serverInfo = server,
-//              let proxiedThumbnail = serverInfo.proxiedThumbnail,
-//              let url = URL(string: proxiedThumbnail) else {
-//            thumbnailImageView.isHidden = true
-//            thumbnailActivityIdicator.stopAnimating()
-//            return
-//        }
-//
-//        thumbnailImageView.isHidden = false
-//        thumbnailActivityIdicator.startAnimating()
-//
-//        let placeholderImage = UIImage.placeholder(color: .systemFill).af.imageRounded(withCornerRadius: 3.0, divideRadiusByImageScale: true)
-//        thumbnailImageView.af.setImage(
-//            withURL: url,
-//            placeholderImage: placeholderImage,
-//            filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: thumbnailImageView.frame.size, radius: 3),
-//            imageTransition: .crossDissolve(0.33),
-//            completion: { [weak self] response in
-//                guard let self = self else { return }
-//                switch response.result {
-//                case .success, .failure:
-//                    self.thumbnailActivityIdicator.stopAnimating()
-//                }
-//            }
-//        )
-//    }
     
 }

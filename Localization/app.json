@@ -64,6 +64,10 @@
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
+            },
+            "empty_state": {
+                "finding_servers": "Finding available servers...",
+                "bad_network": "Something went wrong while loading data. Check your internet connection."
             }
         },
         "register": {

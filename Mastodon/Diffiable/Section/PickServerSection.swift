@@ -8,6 +8,7 @@
 import UIKit
 import MastodonSDK
 import Kanna
+import AlamofireImage
 
 enum PickServerSection: Equatable, Hashable {
     case header
@@ -82,9 +83,41 @@ extension PickServerSection {
         cell.categoryValueLabel.text = server.category.uppercased()
         
         cell.updateExpandMode(mode: attribute.isExpand ? .expand : .collapse)
-//        UIView.animate(withDuration: 0.33) {
-//            cell.expandBox.layoutIfNeeded()
-//        }
+        
+        cell.expandMode
+            .receive(on: DispatchQueue.main)
+            .sink { mode in
+                switch mode {
+                case .collapse:
+                    // do nothing
+                    break
+                case .expand:
+                    let placeholderImage = UIImage.placeholder(size: cell.thumbnailImageView.frame.size, color: .systemFill)
+                        .af.imageRounded(withCornerRadius: 3.0, divideRadiusByImageScale: false)
+                    guard let proxiedThumbnail = server.proxiedThumbnail,
+                          let url = URL(string: proxiedThumbnail) else {
+                        cell.thumbnailImageView.image = placeholderImage
+                        cell.thumbnailActivityIdicator.stopAnimating()
+                        return
+                    }
+                    cell.thumbnailImageView.isHidden = false
+                    cell.thumbnailActivityIdicator.startAnimating()
+            
+                    cell.thumbnailImageView.af.setImage(
+                        withURL: url,
+                        placeholderImage: placeholderImage,
+                        filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: cell.thumbnailImageView.frame.size, radius: 3),
+                        imageTransition: .crossDissolve(0.33),
+                        completion: { [weak cell] response in
+                            switch response.result {
+                            case .success, .failure:
+                                cell?.thumbnailActivityIdicator.stopAnimating()
+                            }
+                        }
+                    )
+                }
+            }
+            .store(in: &cell.disposeBag)
     }
     
     private static func parseUsersCount(_ usersCount: Int) -> String {

@@ -236,6 +236,12 @@ internal enum L10n {
           internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")
         }
       }
+      internal enum EmptyState {
+        /// Something went wrong while loading data. Check your internet connection.
+        internal static let badNetwork = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.BadNetwork")
+        /// Finding available servers...
+        internal static let findingServers = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.FindingServers")
+      }
       internal enum Input {
         /// Find a server or join your own...
         internal static let placeholder = L10n.tr("Localizable", "Scene.ServerPicker.Input.Placeholder")

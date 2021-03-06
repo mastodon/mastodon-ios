@@ -54,8 +54,8 @@ final class PickServerCategoriesCell: UITableViewCell {
 extension PickServerCategoriesCell {
     
     private func _init() {
-        self.selectionStyle = .none
-        backgroundColor = .clear
+        selectionStyle = .none
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         metricView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(metricView)

@@ -41,6 +41,7 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
             super.didEnter(from: previousState)
             
             guard let viewModel = self.viewModel, let stateMachine = self.stateMachine else { return }
+            viewModel.isLoadingIndexedServers.value = true
             viewModel.context.apiService.servers(language: nil, category: nil)
                 .sink { completion in
                     switch completion {
@@ -67,9 +68,9 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             
-            guard let viewModel = self.viewModel, let stateMachine = self.stateMachine else { return }
+            guard let stateMachine = self.stateMachine else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                guard let self = self else { return }
+                guard let _ = self else { return }
                 stateMachine.enter(Loading.self)
             }
         }
@@ -78,6 +79,13 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
     class Idle: MastodonPickServerViewModel.LoadIndexedServerState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return false
+        }
+        
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+            
+            guard let viewModel = self.viewModel, let stateMachine = self.stateMachine else { return }
+            viewModel.isLoadingIndexedServers.value = false
         }
     }
 

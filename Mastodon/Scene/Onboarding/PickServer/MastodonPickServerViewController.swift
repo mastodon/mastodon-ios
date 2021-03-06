@@ -12,16 +12,19 @@ import Combine
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
     private var disposeBag = Set<AnyCancellable>()
+    private var tableViewObservation: NSKeyValueObservation?
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: MastodonPickServerViewModel!
     
-    private var isAuthenticating = CurrentValueSubject<Bool, Never>(false)
-    
     private var expandServerDomainSet = Set<String>()
-
+    
+    let emptyStateView = PickServerEmptyStateView()
+    let tableViewTopPaddingView = UIView()      // fix empty state view background display when tableView bounce scrolling
+    var tableViewTopPaddingViewHeightLayoutConstraint: NSLayoutConstraint!
+    
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(PickServerTitleCell.self, forCellReuseIdentifier: String(describing: PickServerTitleCell.self))
@@ -45,16 +48,13 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     }()
     
     deinit {
+        tableViewObservation = nil
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
 
 extension MastodonPickServerViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,38 @@ extension MastodonPickServerViewController {
             nextStepButton.heightAnchor.constraint(equalToConstant: MastodonPickServerViewController.actionButtonHeight).priority(.defaultHigh),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
         ])
+        
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyStateView)
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 7)
+        ])
+    
+        // fix AutoLayout warning when observe before view appear
+        viewModel.viewWillAppear
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.tableViewObservation = self.tableView.observe(\.contentSize, options: [.initial, .new]) { [weak self] tableView, _ in
+                    guard let self = self else { return }
+                    self.updateEmptyStateViewLayout()
+                }
+            }
+            .store(in: &disposeBag)
+        
+        tableViewTopPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableViewTopPaddingView)
+        tableViewTopPaddingViewHeightLayoutConstraint = tableViewTopPaddingView.heightAnchor.constraint(equalToConstant: 0.0).priority(.defaultHigh)
+        NSLayoutConstraint.activate([
+            tableViewTopPaddingView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            tableViewTopPaddingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableViewTopPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableViewTopPaddingViewHeightLayoutConstraint,
+        ])
+        tableViewTopPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -135,14 +167,49 @@ extension MastodonPickServerViewController {
             }
             .store(in: &disposeBag)
         
-        isAuthenticating
+        viewModel.isAuthenticating
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
                 isAuthenticating ? self.nextStepButton.showLoading() : self.nextStepButton.stopLoading()
             }
             .store(in: &disposeBag)
+        
+        viewModel.emptyStateViewState
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                switch state {
+                case .none:
+                    self.emptyStateView.networkIndicatorImageView.isHidden = true
+                    self.emptyStateView.activityIndicatorView.stopAnimating()
+                    self.emptyStateView.infoLabel.isHidden = true
+                case .loading:
+                    self.emptyStateView.networkIndicatorImageView.isHidden = true
+                    self.emptyStateView.activityIndicatorView.startAnimating()
+                    self.emptyStateView.infoLabel.isHidden = false
+                    self.emptyStateView.infoLabel.text = L10n.Scene.ServerPicker.EmptyState.findingServers
+                    self.emptyStateView.infoLabel.textAlignment = self.traitCollection.layoutDirection == .rightToLeft ? .right : .left
+                case .badNetwork:
+                    self.emptyStateView.networkIndicatorImageView.isHidden = false
+                    self.emptyStateView.activityIndicatorView.stopAnimating()
+                    self.emptyStateView.infoLabel.isHidden = false
+                    self.emptyStateView.infoLabel.text = L10n.Scene.ServerPicker.EmptyState.badNetwork
+                    self.emptyStateView.infoLabel.textAlignment = .center
+                }
+            }
+            .store(in: &disposeBag)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear.send()
+    }
+    
+    
+}
+
+extension MastodonPickServerViewController {
     
     @objc
     private func nextStepButtonDidClicked(_ sender: UIButton) {
@@ -156,7 +223,7 @@ extension MastodonPickServerViewController {
     
     private func doSignIn() {
         guard let server = viewModel.selectedServer.value else { return }
-        isAuthenticating.send(true)
+        viewModel.isAuthenticating.send(true)
         context.apiService.createApplication(domain: server.domain)
             .tryMap { response -> MastodonPickServerViewModel.AuthenticateInfo in
                 let application = response.value
@@ -168,7 +235,7 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.isAuthenticating.send(false)
+                self.viewModel.isAuthenticating.send(false)
                 
                 switch completion {
                 case .failure(let error):
@@ -196,7 +263,7 @@ extension MastodonPickServerViewController {
     private func doSignUp() {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let server = viewModel.selectedServer.value else { return }
-        isAuthenticating.send(true)
+        viewModel.isAuthenticating.send(true)
         
         context.apiService.instance(domain: server.domain)
             .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseFirst, Error>? in
@@ -232,7 +299,7 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.isAuthenticating.send(false)
+                self.viewModel.isAuthenticating.send(false)
                 
                 switch completion {
                 case .failure(let error):
@@ -266,10 +333,23 @@ extension MastodonPickServerViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension MastodonPickServerViewController: UITableViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView === tableView else { return }
+        let offsetY = scrollView.contentOffset.y + scrollView.safeAreaInsets.top
+        if offsetY < 0 {
+            tableViewTopPaddingViewHeightLayoutConstraint.constant = abs(offsetY)
+        } else {
+            tableViewTopPaddingViewHeightLayoutConstraint.constant = 0
+        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
+        let headerView = UIView()
+        headerView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -320,6 +400,15 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     
 }
 
+extension MastodonPickServerViewController {
+    private func updateEmptyStateViewLayout() {
+        guard let diffableDataSource = self.viewModel.diffableDataSource else { return }
+        guard let indexPath = diffableDataSource.indexPath(for: .search) else { return }
+        let rectInTableView = tableView.rectForRow(at: indexPath)
+    
+        emptyStateView.topPaddingViewTopLayoutConstraint.constant = rectInTableView.maxY
+    }
+}
 //extension MastodonPickServerViewController: UITableViewDataSource {
 
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

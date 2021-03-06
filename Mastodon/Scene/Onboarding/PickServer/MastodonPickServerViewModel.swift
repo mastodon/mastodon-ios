@@ -13,9 +13,16 @@ import MastodonSDK
 import CoreDataStack
 
 class MastodonPickServerViewModel: NSObject {
+    
     enum PickServerMode {
         case signUp
         case signIn
+    }
+    
+    enum EmptyStateViewState {
+        case none
+        case loading
+        case badNetwork
     }
     
     var disposeBag = Set<AnyCancellable>()
@@ -33,6 +40,7 @@ class MastodonPickServerViewModel: NSObject {
     let searchText = CurrentValueSubject<String?, Never>(nil)
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
     let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Instance], Never>([])
+    let viewWillAppear = PassthroughSubject<Void, Never>()
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<PickServerSection, PickServerItem>?
@@ -47,12 +55,15 @@ class MastodonPickServerViewModel: NSObject {
         stateMachine.enter(LoadIndexedServerState.Initial.self)
         return stateMachine
     }()
-    
     let servers = CurrentValueSubject<[Mastodon.Entity.Server], Error>([])
     let selectedServer = CurrentValueSubject<Mastodon.Entity.Server?, Never>(nil)
     let error = PassthroughSubject<Error, Never>()
     let authenticated = PassthroughSubject<(domain: String, account: Mastodon.Entity.Account), Never>()
-        
+    let isAuthenticating = CurrentValueSubject<Bool, Never>(false)
+
+    let isLoadingIndexedServers = CurrentValueSubject<Bool, Never>(false)
+    let emptyStateViewState = CurrentValueSubject<EmptyStateViewState, Never>(.none)
+    
     var mastodonPinBasedAuthenticationViewController: UIViewController?
     
     init(context: AppContext, mode: PickServerMode) {
@@ -99,6 +110,16 @@ class MastodonPickServerViewModel: NSObject {
         })
         .store(in: &disposeBag)
         
+        isLoadingIndexedServers
+            .map { isLoadingIndexedServers -> EmptyStateViewState in
+                if isLoadingIndexedServers {
+                    return .loading
+                } else {
+                    return .none
+                }
+            }
+            .assign(to: \.value, on: emptyStateViewState)
+            .store(in: &disposeBag)
         
 //        Publishers.CombineLatest3(
 //            selectCategoryIndex,
