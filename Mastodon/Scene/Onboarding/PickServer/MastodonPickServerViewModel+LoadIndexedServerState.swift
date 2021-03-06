@@ -47,7 +47,7 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
                     switch completion {
                     case .failure(let error):
                         // TODO: handle error
-                        break
+                        stateMachine.enter(Fail.self)
                     case .finished:
                         break
                     }
