@@ -445,7 +445,7 @@ extension MastodonPickServerViewController {
 // MARK: - PickServerSearchCellDelegate
 extension MastodonPickServerViewController: PickServerSearchCellDelegate {
     func pickServerSearchCell(_ cell: PickServerSearchCell, searchTextDidChange searchText: String?) {
-        viewModel.searchText.send(searchText)
+        viewModel.searchText.send(searchText ?? "")
     }
 }
 
