@@ -26,7 +26,7 @@ public final class Tag: NSManagedObject {
 extension Tag {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
+        setPrimitiveValue(UUID(), forKey: #keyPath(Tag.identifier))
     }
     
     @discardableResult

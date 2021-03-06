@@ -36,7 +36,7 @@ public extension Attachment {
     
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = Date()
+        setPrimitiveValue(Date(), forKey: #keyPath(Attachment.createdAt))
     }
     
     @discardableResult

@@ -26,7 +26,7 @@ public final class Emoji: NSManagedObject {
 public extension Emoji {
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
+        setPrimitiveValue(UUID(), forKey: #keyPath(Emoji.identifier))
     }
 
     @discardableResult

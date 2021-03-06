@@ -35,7 +35,7 @@ extension Poll {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = Date()
+        setPrimitiveValue(Date(), forKey: #keyPath(Poll.createdAt))
     }
     
     @discardableResult
