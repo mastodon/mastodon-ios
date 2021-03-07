@@ -30,7 +30,7 @@ protocol StatusContentWarningAttribute {
 }
 
 extension Item {
-    class StatusAttribute: Hashable, StatusContentWarningAttribute {
+    class StatusAttribute: Equatable, Hashable, StatusContentWarningAttribute {
         var isStatusTextSensitive: Bool
         var isStatusSensitive: Bool
 
@@ -51,7 +51,6 @@ extension Item {
             hasher.combine(isStatusTextSensitive)
             hasher.combine(isStatusSensitive)
         }
-
     }
 }
 

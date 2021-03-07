@@ -124,52 +124,6 @@ internal enum L10n {
         internal static let single = L10n.tr("Localizable", "Common.Countable.Photo.Single")
       }
     }
-    internal enum Errors {
-      /// must be accepted
-      internal static let errAccepted = L10n.tr("Localizable", "Common.Errors.ErrAccepted")
-      /// is required
-      internal static let errBlank = L10n.tr("Localizable", "Common.Errors.ErrBlank")
-      /// contains a disallowed e-mail provider
-      internal static let errBlocked = L10n.tr("Localizable", "Common.Errors.ErrBlocked")
-      /// is not a supported value
-      internal static let errInclusion = L10n.tr("Localizable", "Common.Errors.ErrInclusion")
-      /// is invalid
-      internal static let errInvalid = L10n.tr("Localizable", "Common.Errors.ErrInvalid")
-      /// is a reserved keyword
-      internal static let errReserved = L10n.tr("Localizable", "Common.Errors.ErrReserved")
-      /// is already in use
-      internal static let errTaken = L10n.tr("Localizable", "Common.Errors.ErrTaken")
-      /// is too long
-      internal static let errTooLong = L10n.tr("Localizable", "Common.Errors.ErrTooLong")
-      /// is too short
-      internal static let errTooShort = L10n.tr("Localizable", "Common.Errors.ErrTooShort")
-      /// does not seem to exist
-      internal static let errUnreachable = L10n.tr("Localizable", "Common.Errors.ErrUnreachable")
-      internal enum Item {
-        /// agreement
-        internal static let agreement = L10n.tr("Localizable", "Common.Errors.Item.Agreement")
-        /// email
-        internal static let email = L10n.tr("Localizable", "Common.Errors.Item.Email")
-        /// locale
-        internal static let locale = L10n.tr("Localizable", "Common.Errors.Item.Locale")
-        /// password
-        internal static let password = L10n.tr("Localizable", "Common.Errors.Item.Password")
-        /// reason
-        internal static let reason = L10n.tr("Localizable", "Common.Errors.Item.Reason")
-        /// username
-        internal static let username = L10n.tr("Localizable", "Common.Errors.Item.Username")
-      }
-      internal enum Itemdetail {
-        /// This is not a valid e-mail address
-        internal static let emailInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.EmailInvalid")
-        /// password is too short (must be at least 8 characters)
-        internal static let passwordTooShrot = L10n.tr("Localizable", "Common.Errors.Itemdetail.PasswordTooShrot")
-        /// Username must only contain alphanumeric characters and underscores
-        internal static let usernameInvalid = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameInvalid")
-        /// username is too long (can't be longer than 30 characters)
-        internal static let usernameTooLong = L10n.tr("Localizable", "Common.Errors.Itemdetail.UsernameTooLong")
-      }
-    }
   }
 
   internal enum Scene {
@@ -214,12 +168,76 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Scene.PublicTimeline.Title")
     }
     internal enum Register {
-      /// Regsiter request sent. Please check your email.
-      internal static let checkEmail = L10n.tr("Localizable", "Scene.Register.CheckEmail")
-      /// Success
-      internal static let success = L10n.tr("Localizable", "Scene.Register.Success")
       /// Tell us about you.
       internal static let title = L10n.tr("Localizable", "Scene.Register.Title")
+      internal enum Error {
+        internal enum Item {
+          /// Agreement
+          internal static let agreement = L10n.tr("Localizable", "Scene.Register.Error.Item.Agreement")
+          /// Email
+          internal static let email = L10n.tr("Localizable", "Scene.Register.Error.Item.Email")
+          /// Locale
+          internal static let locale = L10n.tr("Localizable", "Scene.Register.Error.Item.Locale")
+          /// Password
+          internal static let password = L10n.tr("Localizable", "Scene.Register.Error.Item.Password")
+          /// Reason
+          internal static let reason = L10n.tr("Localizable", "Scene.Register.Error.Item.Reason")
+          /// Username
+          internal static let username = L10n.tr("Localizable", "Scene.Register.Error.Item.Username")
+        }
+        internal enum Reason {
+          /// %@ must be accepted
+          internal static func accepted(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Accepted", String(describing: p1))
+          }
+          /// %@ is required
+          internal static func blank(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Blank", String(describing: p1))
+          }
+          /// %@ contains a disallowed e-mail provider
+          internal static func blocked(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Blocked", String(describing: p1))
+          }
+          /// %@ is not a supported value
+          internal static func inclusion(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Inclusion", String(describing: p1))
+          }
+          /// %@ is invalid
+          internal static func invalid(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Invalid", String(describing: p1))
+          }
+          /// %@ is a reserved keyword
+          internal static func reserved(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Reserved", String(describing: p1))
+          }
+          /// %@ is already in use
+          internal static func taken(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Taken", String(describing: p1))
+          }
+          /// %@ is too long
+          internal static func tooLong(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.TooLong", String(describing: p1))
+          }
+          /// %@ is too short
+          internal static func tooShort(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.TooShort", String(describing: p1))
+          }
+          /// %@ does not seem to exist
+          internal static func unreachable(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Register.Error.Reason.Unreachable", String(describing: p1))
+          }
+        }
+        internal enum Special {
+          /// This is not a valid e-mail address
+          internal static let emailInvalid = L10n.tr("Localizable", "Scene.Register.Error.Special.EmailInvalid")
+          /// Password is too short (must be at least 8 characters)
+          internal static let passwordTooShort = L10n.tr("Localizable", "Scene.Register.Error.Special.PasswordTooShort")
+          /// Username must only contain alphanumeric characters and underscores
+          internal static let usernameInvalid = L10n.tr("Localizable", "Scene.Register.Error.Special.UsernameInvalid")
+          /// Username is too long (can't be longer than 30 characters)
+          internal static let usernameTooLong = L10n.tr("Localizable", "Scene.Register.Error.Special.UsernameTooLong")
+        }
+      }
       internal enum Input {
         internal enum DisplayName {
           /// display name
@@ -234,7 +252,7 @@ internal enum L10n {
           internal static let registrationUserInviteRequest = L10n.tr("Localizable", "Scene.Register.Input.Invite.RegistrationUserInviteRequest")
         }
         internal enum Password {
-          /// Your password needs at least Eight characters
+          /// Your password needs at least eight characters
           internal static let hint = L10n.tr("Localizable", "Scene.Register.Input.Password.Hint")
           /// password
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Password.Placeholder")
@@ -259,6 +277,12 @@ internal enum L10n {
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")
         }
+      }
+      internal enum EmptyState {
+        /// Something went wrong while loading data. Check your internet connection.
+        internal static let badNetwork = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.BadNetwork")
+        /// Finding available servers...
+        internal static let findingServers = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.FindingServers")
       }
       internal enum Input {
         /// Find a server or join your own...
