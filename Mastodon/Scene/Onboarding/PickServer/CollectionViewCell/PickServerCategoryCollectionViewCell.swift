@@ -9,11 +9,7 @@ import UIKit
 
 class PickServerCategoryCollectionViewCell: UICollectionViewCell {
     
-    var category: MastodonPickServerViewModel.Category? {
-        didSet {
-            categoryView.category = category
-        }
-    }
+    var observations = Set<NSKeyValueObservation>()
     
     var categoryView: PickServerCategoryView = {
         let view = PickServerCategoryView()
@@ -21,10 +17,9 @@ class PickServerCategoryCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    override var isSelected: Bool {
-        didSet {
-            categoryView.selected = isSelected
-        }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        observations.removeAll()
     }
     
     override init(frame: CGRect) {

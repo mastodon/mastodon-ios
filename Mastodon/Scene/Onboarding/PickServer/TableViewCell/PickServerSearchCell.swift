@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PickServerSearchCellDelegate: class {
-    func pickServerSearchCell(didChange searchText: String?)
+    func pickServerSearchCell(_ cell: PickServerSearchCell, searchTextDidChange searchText: String?)
 }
 
 class PickServerSearchCell: UITableViewCell {
@@ -24,7 +24,7 @@ class PickServerSearchCell: UITableViewCell {
             .layerMaxXMinYCorner
         ]
         view.layer.cornerCurve = .continuous
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
         return view
     }()
     
@@ -38,7 +38,7 @@ class PickServerSearchCell: UITableViewCell {
         return view
     }()
     
-    private var searchTextField: UITextField = {
+    let searchTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .preferredFont(forTextStyle: .headline)
@@ -55,6 +55,12 @@ class PickServerSearchCell: UITableViewCell {
         return textField
     }()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        delegate = nil
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()
@@ -68,8 +74,8 @@ class PickServerSearchCell: UITableViewCell {
 
 extension PickServerSearchCell {
     private func _init() {
-        self.selectionStyle = .none
-        backgroundColor = .clear
+        selectionStyle = .none
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -97,7 +103,7 @@ extension PickServerSearchCell {
 }
 
 extension PickServerSearchCell {
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        delegate?.pickServerSearchCell(didChange: textField.text)
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        delegate?.pickServerSearchCell(self, searchTextDidChange: textField.text)
     }
 }

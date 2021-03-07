@@ -34,8 +34,8 @@ final class PickServerTitleCell: UITableViewCell {
 extension PickServerTitleCell {
     
     private func _init() {
-        self.selectionStyle = .none
-        backgroundColor = .clear
+        selectionStyle = .none
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
 
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([

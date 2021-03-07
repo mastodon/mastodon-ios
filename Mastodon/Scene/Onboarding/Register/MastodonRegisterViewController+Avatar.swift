@@ -10,7 +10,8 @@ import Foundation
 import PhotosUI
 import UIKit
 
-extension MastodonRegisterViewController: CropViewControllerDelegate, PHPickerViewControllerDelegate {
+// MARK: - PHPickerViewControllerDelegate
+extension MastodonRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         guard let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else {
             picker.dismiss(animated: true, completion: {})
@@ -44,13 +45,18 @@ extension MastodonRegisterViewController: CropViewControllerDelegate, PHPickerVi
             }
         }
     }
+}
 
+// MARK: - CropViewControllerDelegate
+extension MastodonRegisterViewController: CropViewControllerDelegate {
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         self.viewModel.avatarImage.value = image
-        self.photoButton.setImage(image, for: .normal)
+        self.avatarButton.setImage(image, for: .normal)
         cropViewController.dismiss(animated: true, completion: nil)
     }
+}
 
+extension MastodonRegisterViewController {
     @objc func avatarButtonPressed(_ sender: UIButton) {
         self.present(imagePicker, animated: true, completion: nil)
     }

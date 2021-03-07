@@ -42,21 +42,7 @@ final class AuthenticationViewModel {
         
         input
             .map { input in
-                let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-                guard !trimmed.isEmpty else { return nil }
-                
-                let urlString = trimmed.hasPrefix("https://") ? trimmed : "https://" + trimmed
-                guard let url = URL(string: urlString),
-                      let host = url.host else {
-                    return nil
-                }
-                let components = host.components(separatedBy: ".")
-                guard !components.contains(where: { $0.isEmpty }) else { return nil }
-                guard components.count >= 2 else { return nil }
-                
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: iput host: %s", ((#file as NSString).lastPathComponent), #line, #function, host)
-
-                return host
+                AuthenticationViewModel.parseDomain(from: input)
             }
             .assign(to: \.value, on: domain)
             .store(in: &disposeBag)
@@ -75,6 +61,26 @@ final class AuthenticationViewModel {
             .store(in: &disposeBag)
     }
     
+}
+
+extension AuthenticationViewModel {
+    static func parseDomain(from input: String) -> String? {
+        let trimmed = input.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        guard !trimmed.isEmpty else { return nil }
+        
+        let urlString = trimmed.hasPrefix("https://") ? trimmed : "https://" + trimmed
+        guard let url = URL(string: urlString),
+              let host = url.host else {
+            return nil
+        }
+        let components = host.components(separatedBy: ".")
+        guard !components.contains(where: { $0.isEmpty }) else { return nil }
+        guard components.count >= 2 else { return nil }
+        
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: input host: %s", ((#file as NSString).lastPathComponent), #line, #function, host)
+        
+        return host
+    }
 }
 
 extension AuthenticationViewModel {

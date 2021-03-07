@@ -55,7 +55,7 @@
 		2D61335825C188A000CAE157 /* APIService+Persist+Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */; };
 		2D61335E25C1894B00CAE157 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335D25C1894B00CAE157 /* APIService.swift */; };
 		2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */; };
-		2D650FAB25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */; };
+		2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */; };
 		2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */; };
 		2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */; };
 		2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */; };
@@ -96,6 +96,12 @@
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */; };
+		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
+		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
+		DB1FD44A25F26CD7004CFCFC /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44925F26CD7004CFCFC /* PickServerItem.swift */; };
+		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
+		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
+		DB1FD46025F278AF004CFCFC /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */; };
 		DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */; };
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
@@ -125,6 +131,7 @@
 		DB68A04A25E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */; };
 		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
 		DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A06225E905E000CFDF14 /* UIApplication.swift */; };
+		DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
@@ -149,6 +156,7 @@
 		DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */; };
 		DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55C25C138B7002E6C99 /* UIViewController.swift */; };
 		DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */; };
+		DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */; };
 		DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98336A25C9420100AD9700 /* APIService+App.swift */; };
 		DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337025C9443200AD9700 /* APIService+Authentication.swift */; };
 		DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
@@ -162,6 +170,7 @@
 		DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */; };
 		DB9D6C2E25E504AC0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2D25E504AC0051B173 /* Attachment.swift */; };
 		DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C3725E508BE0051B173 /* Attachment.swift */; };
+		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
@@ -264,7 +273,7 @@
 		2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewController+DebugAction.swift"; sourceTree = "<group>"; };
 		2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+Timeline.swift"; sourceTree = "<group>"; };
 		2D61335D25C1894B00CAE157 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entidy+ErrorDetailReason.swift"; sourceTree = "<group>"; };
+		2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error+Detail.swift"; sourceTree = "<group>"; };
 		2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Toot.swift"; sourceTree = "<group>"; };
 		2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewController.swift; sourceTree = "<group>"; };
@@ -309,6 +318,12 @@
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightDimmableButton.swift; sourceTree = "<group>"; };
+		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
+		DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerSection.swift; sourceTree = "<group>"; };
+		DB1FD44925F26CD7004CFCFC /* PickServerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PickServerItem.swift; path = Mastodon/Diffiable/Section/PickServerItem.swift; sourceTree = SOURCE_ROOT; };
+		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
+		DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2B3AE825E38850007045F9 /* UIViewPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -343,6 +358,7 @@
 		DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkContentStatusBarStyleNavigationController.swift; sourceTree = "<group>"; };
 		DB68A05C25E9055900CFDF14 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		DB68A06225E905E000CFDF14 /* UIApplication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +385,7 @@
 		DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DB8AF55C25C138B7002E6C99 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineIndex.swift; sourceTree = "<group>"; };
+		DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerEmptyStateView.swift; sourceTree = "<group>"; };
 		DB98336A25C9420100AD9700 /* APIService+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+App.swift"; sourceTree = "<group>"; };
 		DB98337025C9443200AD9700 /* APIService+Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Authentication.swift"; sourceTree = "<group>"; };
 		DB98337E25C9452D00AD9700 /* APIService+APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+APIError.swift"; sourceTree = "<group>"; };
@@ -382,6 +399,7 @@
 		DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageViewModel.swift; sourceTree = "<group>"; };
 		DB9D6C2D25E504AC0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DB9D6C3725E508BE0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -454,11 +472,14 @@
 		0FAA102525E1125D0017CCDE /* PickServer */ = {
 			isa = PBXGroup;
 			children = (
-				0FB3D31825E525DE00AAD544 /* CollectionViewCell */,
 				0FB3D30D25E525C000AAD544 /* View */,
+				0FB3D31825E525DE00AAD544 /* CollectionViewCell */,
 				0FB3D2FC25E4CB4B00AAD544 /* TableViewCell */,
+				DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */,
 				0FAA102625E1126A0017CCDE /* MastodonPickServerViewController.swift */,
 				0FB3D2F625E4C24D00AAD544 /* MastodonPickServerViewModel.swift */,
+				DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */,
+				DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */,
 			);
 			path = PickServer;
 			sourceTree = "<group>";
@@ -478,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */,
+				DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -640,6 +662,8 @@
 			isa = PBXGroup;
 			children = (
 				2D76319E25C1521200929FB9 /* StatusSection.swift */,
+				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
+				DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -681,6 +705,8 @@
 			isa = PBXGroup;
 			children = (
 				2D7631B225C159F700929FB9 /* Item.swift */,
+				DB1FD44925F26CD7004CFCFC /* PickServerItem.swift */,
+				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -885,6 +911,15 @@
 			path = NavigationController;
 			sourceTree = "<group>";
 		};
+		DB6C8C0525F0921200AAA452 /* MastodonSDK */ = {
+			isa = PBXGroup;
+			children = (
+				DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */,
+				2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */,
+			);
+			path = MastodonSDK;
+			sourceTree = "<group>";
+		};
 		DB72602125E36A2500235243 /* ServerRules */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1036,7 @@
 			isa = PBXGroup;
 			children = (
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
+				DB6C8C0525F0921200AAA452 /* MastodonSDK */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
@@ -1015,7 +1051,6 @@
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
-				2D650FAA25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
 			);
 			path = Extension;
@@ -1453,8 +1488,10 @@
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				0FB3D33225E5F50E00AAD544 /* PickServerSearchCell.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
+				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
+				DB1FD44A25F26CD7004CFCFC /* PickServerItem.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
@@ -1500,11 +1537,14 @@
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+TimelinePostTableViewCellDelegate.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
+				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
+				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift in Sources */,
@@ -1517,14 +1557,18 @@
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
-				2D650FAB25ECDC9300851B58 /* Mastodon+Entidy+ErrorDetailReason.swift in Sources */,
+				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Toot.swift in Sources */,
+				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
+				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB9D6C0E25E4F9780051B173 /* MosaicImageViewContainer.swift in Sources */,
+				DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
+				DB1FD46025F278AF004CFCFC /* CategoryPickerSection.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */,
