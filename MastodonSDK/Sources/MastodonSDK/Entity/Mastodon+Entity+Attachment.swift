@@ -23,7 +23,7 @@ extension Mastodon.Entity {
         public let id: ID
         public let type: Type
         public let url: String
-        public let previewURL: String
+        public let previewURL: String?
         
         public let remoteURL: String?
         public let textURL: String?
