@@ -140,8 +140,13 @@ extension Mastodon.API {
             timeoutInterval: Mastodon.API.timeoutInterval
         )
         request.httpMethod = method.rawValue
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query?.body
+        if let contentType = query?.contentType {
+            request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        }
+        if let body = query?.body {
+            request.httpBody = body
+            request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
+        }
         if let authorization = authorization {
             request.setValue(
                 "Bearer \(authorization.accessToken)",
