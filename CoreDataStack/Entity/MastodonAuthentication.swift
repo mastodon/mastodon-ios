@@ -36,12 +36,12 @@ extension MastodonAuthentication {
     
     public override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
         
+        setPrimitiveValue(UUID(), forKey: #keyPath(MastodonAuthentication.identifier))
         let now = Date()
-        createdAt = now
-        updatedAt = now
-        activedAt = now
+        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthentication.createdAt))
+        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthentication.updatedAt))
+        setPrimitiveValue(now, forKey: #keyPath(MastodonAuthentication.activedAt))
     }
     
     @discardableResult

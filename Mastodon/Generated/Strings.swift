@@ -13,6 +13,12 @@ internal enum L10n {
 
   internal enum Common {
     internal enum Alerts {
+      internal enum Common {
+        /// Please try again.
+        internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")
+        /// Please try again later.
+        internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
+      }
       internal enum ServerError {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
@@ -20,6 +26,12 @@ internal enum L10n {
       internal enum SignUpFailure {
         /// Sign Up Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
+      }
+      internal enum VoteFailure {
+        /// The poll has expired
+        internal static let pollExpired = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollExpired")
+        /// Vote Failure
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.VoteFailure.Title")
       }
     }
     internal enum Controls {
@@ -67,6 +79,36 @@ internal enum L10n {
         /// %@ boosted
         internal static func userBoosted(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))
+        }
+        internal enum Poll {
+          /// Closed
+          internal static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed")
+          /// %@ left
+          internal static func timeLeft(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Status.Poll.TimeLeft", String(describing: p1))
+          }
+          /// Vote
+          internal static let vote = L10n.tr("Localizable", "Common.Controls.Status.Poll.Vote")
+          internal enum VoteCount {
+            /// %d votes
+            internal static func multiple(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Multiple", p1)
+            }
+            /// %d vote
+            internal static func single(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Single", p1)
+            }
+          }
+          internal enum VoterCount {
+            /// %d voters
+            internal static func multiple(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoterCount.Multiple", p1)
+            }
+            /// %d voter
+            internal static func single(_ p1: Int) -> String {
+              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoterCount.Single", p1)
+            }
+          }
         }
       }
       internal enum Timeline {

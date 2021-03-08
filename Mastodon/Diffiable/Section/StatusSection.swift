@@ -21,11 +21,11 @@ extension StatusSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<StatusSection, Item> {
-        UITableViewDiffableDataSource(tableView: tableView) { [weak timelinePostTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
-            guard let timelinePostTableViewCellDelegate = timelinePostTableViewCellDelegate else { return UITableViewCell() }
+        UITableViewDiffableDataSource(tableView: tableView) { [weak statusTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
+            guard let statusTableViewCellDelegate = statusTableViewCellDelegate else { return UITableViewCell() }
 
             switch item {
             case .homeTimelineIndex(objectID: let objectID, let attribute):
@@ -34,9 +34,9 @@ extension StatusSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusContentWarningAttribute: attribute)
+                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusItemAttribute: attribute)
                 }
-                cell.delegate = timelinePostTableViewCellDelegate
+                cell.delegate = statusTableViewCellDelegate
                 return cell
             case .toot(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
@@ -45,9 +45,9 @@ extension StatusSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusContentWarningAttribute: attribute)
+                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusItemAttribute: attribute)
                 }
-                cell.delegate = timelinePostTableViewCellDelegate
+                cell.delegate = statusTableViewCellDelegate
                 return cell
             case .publicMiddleLoader(let upperTimelineTootID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
@@ -66,6 +66,9 @@ extension StatusSection {
             }
         }
     }
+}
+
+extension StatusSection {
 
     static func configure(
         cell: StatusTableViewCell,
@@ -73,7 +76,7 @@ extension StatusSection {
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot,
         requestUserID: String,
-        statusContentWarningAttribute: StatusContentWarningAttribute?
+        statusItemAttribute: Item.StatusAttribute
     ) {
         // set header
         cell.statusView.headerContainerStackView.isHidden = toot.reblog == nil
@@ -96,7 +99,7 @@ extension StatusSection {
         
         // set status text content warning
         let spoilerText = (toot.reblog ?? toot).spoilerText ?? ""
-        let isStatusTextSensitive = statusContentWarningAttribute?.isStatusTextSensitive ?? !spoilerText.isEmpty
+        let isStatusTextSensitive = statusItemAttribute.isStatusTextSensitive
         cell.statusView.isStatusTextSensitive = isStatusTextSensitive
         cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
         cell.statusView.contentWarningTitle.text = {
@@ -132,14 +135,14 @@ extension StatusSection {
         }()
         if mosiacImageViewModel.metas.count == 1 {
             let meta = mosiacImageViewModel.metas[0]
-            let imageView = cell.statusView.statusMosaicImageView.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+            let imageView = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
             imageView.af.setImage(
                 withURL: meta.url,
                 placeholderImage: UIImage.placeholder(color: .systemFill),
                 imageTransition: .crossDissolve(0.2)
             )
         } else {
-            let imageViews = cell.statusView.statusMosaicImageView.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+            let imageViews = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
             for (i, imageView) in imageViews.enumerated() {
                 let meta = mosiacImageViewModel.metas[i]
                 imageView.af.setImage(
@@ -149,11 +152,38 @@ extension StatusSection {
                 )
             }
         }
-        cell.statusView.statusMosaicImageView.isHidden = mosiacImageViewModel.metas.isEmpty
-        let isStatusSensitive = statusContentWarningAttribute?.isStatusSensitive ?? (toot.reblog ?? toot).sensitive
-        cell.statusView.statusMosaicImageView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.statusMosaicImageView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
-
+        cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
+        let isStatusSensitive = statusItemAttribute.isStatusSensitive
+        cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        
+        // set poll
+        let poll = (toot.reblog ?? toot).poll
+        StatusSection.configure(
+            cell: cell,
+            poll: poll,
+            requestUserID: requestUserID,
+            updateProgressAnimated: false,
+            timestampUpdatePublisher: timestampUpdatePublisher
+        )
+        if let poll = poll {
+            ManagedObjectObserver.observe(object: poll)
+                .sink { _ in
+                    // do nothing
+                } receiveValue: { change in
+                    guard case let .update(object) = change.changeType,
+                          let newPoll = object as? Poll else { return }
+                    StatusSection.configure(
+                        cell: cell,
+                        poll: newPoll,
+                        requestUserID: requestUserID,
+                        updateProgressAnimated: true,
+                        timestampUpdatePublisher: timestampUpdatePublisher
+                    )
+                }
+                .store(in: &cell.disposeBag)
+        }
+        
         // toolbar
         let replyCountTitle: String = {
             let count = (toot.reblog ?? toot).repliesCount?.intValue ?? 0
@@ -197,6 +227,116 @@ extension StatusSection {
             }
             .store(in: &cell.disposeBag)
     }
+    
+    static func configure(
+        cell: StatusTableViewCell,
+        poll: Poll?,
+        requestUserID: String,
+        updateProgressAnimated: Bool,
+        timestampUpdatePublisher: AnyPublisher<Date, Never>
+    ) {
+        guard let poll = poll,
+              let managedObjectContext = poll.managedObjectContext else {
+            cell.statusView.pollTableView.isHidden = true
+            cell.statusView.pollStatusStackView.isHidden = true
+            cell.statusView.pollVoteButton.isHidden = true
+            return
+        }
+        
+        cell.statusView.pollTableView.isHidden = false
+        cell.statusView.pollStatusStackView.isHidden = false
+        cell.statusView.pollVoteCountLabel.text = {
+            if poll.multiple {
+                let count = poll.votersCount?.intValue ?? 0
+                if count > 1 {
+                    return L10n.Common.Controls.Status.Poll.VoterCount.single(count)
+                } else {
+                    return L10n.Common.Controls.Status.Poll.VoterCount.multiple(count)
+                }
+            } else {
+                let count = poll.votesCount.intValue
+                if count > 1 {
+                    return L10n.Common.Controls.Status.Poll.VoteCount.single(count)
+                } else {
+                    return L10n.Common.Controls.Status.Poll.VoteCount.multiple(count)
+                }
+            }
+        }()
+        if poll.expired {
+            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.closed
+        } else if let expiresAt = poll.expiresAt {
+            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+            cell.pollCountdownSubscription = timestampUpdatePublisher
+                .sink { _ in
+                    cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+                }
+        } else {
+            assertionFailure()
+            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownLabel.text = "-"
+        }
+        
+        cell.statusView.pollTableView.allowsSelection = !poll.expired
+        
+        let votedOptions = poll.options.filter { option in
+            (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        }
+        let didVotedLocal = !votedOptions.isEmpty
+        let didVotedRemote = (poll.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        cell.statusView.pollVoteButton.isEnabled = didVotedLocal
+        cell.statusView.pollVoteButton.isHidden = !poll.multiple ? true : (didVotedRemote || poll.expired)
+        
+        cell.statusView.pollTableViewDataSource = PollSection.tableViewDiffableDataSource(
+            for: cell.statusView.pollTableView,
+            managedObjectContext: managedObjectContext
+        )
+        
+        var snapshot = NSDiffableDataSourceSnapshot<PollSection, PollItem>()
+        snapshot.appendSections([.main])
+
+        let pollItems = poll.options
+            .sorted(by: { $0.index.intValue < $1.index.intValue })
+            .map { option -> PollItem in
+                let attribute: PollItem.Attribute = {
+                    let selectState: PollItem.Attribute.SelectState = {
+                        // check didVotedRemote later to make the local change possible
+                        if !votedOptions.isEmpty {
+                            return votedOptions.contains(option) ? .on : .off
+                        } else if poll.expired {
+                            return .none
+                        } else if didVotedRemote, votedOptions.isEmpty {
+                            return .none
+                        } else {
+                            return .off
+                        }
+                    }()
+                    let voteState: PollItem.Attribute.VoteState = {
+                        var needsReveal: Bool
+                        if poll.expired {
+                            needsReveal = true
+                        } else if didVotedRemote {
+                            needsReveal = true
+                        } else {
+                            needsReveal = false
+                        }
+                        guard needsReveal else { return .hidden }
+                        let percentage: Double = {
+                            guard poll.votesCount.intValue > 0 else { return 0.0 }
+                            return Double(option.votesCount?.intValue ?? 0) / Double(poll.votesCount.intValue)
+                        }()
+                        let voted = votedOptions.isEmpty ? true : votedOptions.contains(option)
+                        return .reveal(voted: voted, percentage: percentage, animated: updateProgressAnimated)
+                    }()
+                    return PollItem.Attribute(selectState: selectState, voteState: voteState)
+                }()
+                let option = PollItem.opion(objectID: option.objectID, attribute: attribute)
+                return option
+            }
+        snapshot.appendItems(pollItems, toSection: .main)
+        cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+    }
+    
 }
 
 extension StatusSection {

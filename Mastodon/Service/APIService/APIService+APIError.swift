@@ -21,6 +21,8 @@ extension APIService {
             case badResponse
             case requestThrottle
             
+            case voteExpiredPoll
+            
             // Server API error
             case mastodonAPIError(Mastodon.API.Error)
         }
@@ -44,6 +46,7 @@ extension APIService.APIError: LocalizedError {
         case .badRequest:                   return "Bad Request"
         case .badResponse:                  return "Bad Response"
         case .requestThrottle:              return "Request Throttled"
+        case .voteExpiredPoll:              return L10n.Common.Alerts.VoteFailure.title
         case .mastodonAPIError(let error):
             guard let responseError = error.mastodonError else {
                 guard error.httpResponseStatus != .ok else {
@@ -62,6 +65,7 @@ extension APIService.APIError: LocalizedError {
         case .badRequest:                   return "Request invalid."
         case .badResponse:                  return "Response invalid."
         case .requestThrottle:              return "Request too frequency."
+        case .voteExpiredPoll:              return L10n.Common.Alerts.VoteFailure.pollExpired
         case .mastodonAPIError(let error):
             guard let responseError = error.mastodonError else {
                 return nil
@@ -73,9 +77,10 @@ extension APIService.APIError: LocalizedError {
     var helpAnchor: String? {
         switch errorReason {
         case .authenticationMissing:        return "Please request after authenticated."
-        case .badRequest:                   return "Please try again."
-        case .badResponse:                  return "Please try again."
-        case .requestThrottle:              return "Please try again later."
+        case .badRequest:                   return L10n.Common.Alerts.Common.pleaseTryAgain
+        case .badResponse:                  return L10n.Common.Alerts.Common.pleaseTryAgain
+        case .requestThrottle:              return L10n.Common.Alerts.Common.pleaseTryAgainLater
+        case .voteExpiredPoll:              return nil
         case .mastodonAPIError(let error):
             guard let responseError = error.mastodonError else {
                 return nil

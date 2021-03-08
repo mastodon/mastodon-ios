@@ -25,7 +25,8 @@ public final class Mention: NSManagedObject {
 public extension Mention {
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
+        
+        setPrimitiveValue(UUID(), forKey: #keyPath(Mention.identifier))
     }
 
     @discardableResult

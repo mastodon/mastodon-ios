@@ -44,12 +44,21 @@ extension APIService.CoreData {
 
         if let oldToot = oldToot {
             // merge old Toot
-            APIService.CoreData.mergeToot(for: requestMastodonUser, old: oldToot,in: domain, entity: entity, networkDate: networkDate)
+            APIService.CoreData.merge(toot: oldToot, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
             return (oldToot, false, false)
         } else {
             let (mastodonUser, isMastodonUserCreated) = createOrMergeMastodonUser(into: managedObjectContext, for: requestMastodonUser,in: domain, entity: entity.account, networkDate: networkDate, log: log)
             let application = entity.application.flatMap { app -> Application? in
                 Application.insert(into: managedObjectContext, property: Application.Property(name: app.name, website: app.website, vapidKey: app.vapidKey))
+            }
+            let poll = entity.poll.flatMap { poll -> Poll in
+                let options = poll.options.enumerated().map { i, option -> PollOption in
+                    let votedBy: MastodonUser? = (poll.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
+                    return PollOption.insert(into: managedObjectContext, property: PollOption.Property(index: i, title: option.title, votesCount: option.votesCount, networkDate: networkDate), votedBy: votedBy)
+                }
+                let votedBy: MastodonUser? = (poll.voted ?? false) ? requestMastodonUser : nil
+                let object = Poll.insert(into: managedObjectContext, property: Poll.Property(id: poll.id, expiresAt: poll.expiresAt, expired: poll.expired, multiple: poll.multiple, votesCount: poll.votesCount, votersCount: poll.votersCount, networkDate: networkDate), votedBy: votedBy, options: options)
+                return object
             }
             let metions = entity.mentions?.compactMap { mention -> Mention in
                 Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url))
@@ -83,6 +92,7 @@ extension APIService.CoreData {
                 author: mastodonUser,
                 reblog: reblog,
                 application: application,
+                poll: poll,
                 mentions: metions,
                 emojis: emojis,
                 tags: tags,
@@ -97,10 +107,21 @@ extension APIService.CoreData {
         }
     }
     
-    static func mergeToot(for requestMastodonUser: MastodonUser?, old toot: Toot,in domain: String, entity: Mastodon.Entity.Status, networkDate: Date) {
+    static func merge(
+        toot: Toot,
+        entity: Mastodon.Entity.Status,
+        requestMastodonUser: MastodonUser?,
+        domain: String,
+        networkDate: Date
+    ) {
         guard networkDate > toot.updatedAt else { return }
 
-        // merge
+        // merge poll
+        if let poll = toot.poll, let entity = entity.poll {
+            merge(poll: poll, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
+        }
+        
+        // merge metrics
         if entity.favouritesCount != toot.favouritesCount.intValue {
             toot.update(favouritesCount:NSNumber(value: entity.favouritesCount))
         }
@@ -113,6 +134,7 @@ extension APIService.CoreData {
             toot.update(reblogsCount:NSNumber(value: entity.reblogsCount))
         }
         
+        // merge relationship
         if let mastodonUser = requestMastodonUser {
             if let favourited = entity.favourited {
                 toot.update(liked: favourited, mastodonUser: mastodonUser)
@@ -128,18 +150,44 @@ extension APIService.CoreData {
             }
         }
         
-        
-        
-        
         // set updateAt
         toot.didUpdate(at: networkDate)
 
         // merge user
         mergeMastodonUser(for: requestMastodonUser, old: toot.author, in: domain, entity: entity.account, networkDate: networkDate)
-        // merge indirect reblog & quote
+        
+        // merge indirect reblog
         if let reblog = toot.reblog, let reblogEntity = entity.reblog {
-            mergeToot(for: requestMastodonUser, old: reblog,in: domain, entity: reblogEntity, networkDate: networkDate)
+            merge(toot: reblog, entity: reblogEntity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
         }
     }
     
+}
+
+extension APIService.CoreData {
+    static func merge(
+        poll: Poll,
+        entity: Mastodon.Entity.Poll,
+        requestMastodonUser: MastodonUser?,
+        domain: String,
+        networkDate: Date
+    ) {
+        poll.update(expiresAt: entity.expiresAt)
+        poll.update(expired: entity.expired)
+        poll.update(votesCount: entity.votesCount)
+        poll.update(votersCount: entity.votersCount)
+        requestMastodonUser.flatMap {
+            poll.update(voted: entity.voted ?? false, by: $0)
+        }
+        
+        let oldOptions = poll.options.sorted(by: { $0.index.intValue < $1.index.intValue })
+        for (i, (optionEntity, option)) in zip(entity.options, oldOptions).enumerated() {
+            let voted: Bool = (entity.ownVotes ?? []).contains(i)
+            option.update(votesCount: optionEntity.votesCount)
+            requestMastodonUser.flatMap { option.update(voted: voted, by: $0) }
+            option.didUpdate(at: networkDate)
+        }
+        
+        poll.didUpdate(at: networkDate)
+    }
 }

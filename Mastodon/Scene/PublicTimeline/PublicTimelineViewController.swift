@@ -76,7 +76,7 @@ extension PublicTimelineViewController {
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
-            timelinePostTableViewCellDelegate: self,
+            statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
     }

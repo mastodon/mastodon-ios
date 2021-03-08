@@ -13,10 +13,10 @@ import MastodonSDK
 /// Note: update Equatable when change case
 enum Item {
     // timeline
-    case homeTimelineIndex(objectID: NSManagedObjectID, attribute: StatusTimelineAttribute)
+    case homeTimelineIndex(objectID: NSManagedObjectID, attribute: StatusAttribute)
 
     // normal list
-    case toot(objectID: NSManagedObjectID, attribute: StatusTimelineAttribute)
+    case toot(objectID: NSManagedObjectID, attribute: StatusAttribute)
 
     // loader
     case homeMiddleLoader(upperTimelineIndexAnchorObjectID: NSManagedObjectID)
@@ -30,7 +30,7 @@ protocol StatusContentWarningAttribute {
 }
 
 extension Item {
-    class StatusTimelineAttribute: Equatable, Hashable, StatusContentWarningAttribute {
+    class StatusAttribute: Equatable, Hashable, StatusContentWarningAttribute {
         var isStatusTextSensitive: Bool
         var isStatusSensitive: Bool
 
@@ -42,7 +42,7 @@ extension Item {
             self.isStatusSensitive = isStatusSensitive
         }
         
-        static func == (lhs: Item.StatusTimelineAttribute, rhs: Item.StatusTimelineAttribute) -> Bool {
+        static func == (lhs: Item.StatusAttribute, rhs: Item.StatusAttribute) -> Bool {
             return lhs.isStatusTextSensitive == rhs.isStatusTextSensitive &&
                 lhs.isStatusSensitive == rhs.isStatusSensitive
         }

@@ -1,11 +1,19 @@
 {
     "common": {
         "alerts": {
+            "common": {
+                "please_try_again": "Please try again.",
+                "please_try_again_later": "Please try again later."
+            },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
                 "title": "Server Error"
+            },
+            "vote_failure": {
+                "title": "Vote Failure",
+                "poll_expired": "The poll has expired"
             }
         },
         "controls": {
@@ -31,7 +39,20 @@
                 "user_boosted": "%s boosted",
                 "show_post": "Show Post",
                 "status_content_warning": "content warning",
-                "media_content_warning": "Tap to reveal that may be sensitive"
+                "media_content_warning": "Tap to reveal that may be sensitive",
+                "poll": {
+                    "vote": "Vote",
+                    "vote_count": {
+                        "single": "%d vote",
+                        "multiple": "%d votes",
+                    },
+                    "voter_count": {
+                        "single": "%d voter",
+                        "multiple": "%d voters",
+                    },
+                    "time_left": "%s left",
+                    "closed": "Closed"
+                }
             },
             "timeline": {
                 "load_more": "Load More"
