@@ -12,4 +12,5 @@ public enum Mastodon {
     public enum Response {  }
     public enum API { }
     public enum Entity {  }
+    public enum Query { }
 }

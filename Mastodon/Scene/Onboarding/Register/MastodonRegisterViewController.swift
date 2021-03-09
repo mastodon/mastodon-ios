@@ -5,12 +5,12 @@
 //  Created by MainasuK Cirno on 2021-2-5.
 //
 
+import AlamofireImage
 import Combine
 import MastodonSDK
 import os.log
 import PhotosUI
 import UIKit
-import UITextField_Shake
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
     var disposeBag = Set<AnyCancellable>()
@@ -623,10 +623,10 @@ extension MastodonRegisterViewController {
             username: username,
             email: email,
             password: password,
-            agreement: true, // TODO:
-            locale: "en" // TODO:
+            agreement: true, // user confirmed in the server rules scene
+            locale: Locale.current.languageCode ?? "en"
         )
-        
+ 
         // register without show server rules
         context.apiService.accountRegister(
             domain: viewModel.domain,
@@ -646,7 +646,21 @@ extension MastodonRegisterViewController {
         } receiveValue: { [weak self] response in
             guard let self = self else { return }
             let userToken = response.value
-            let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken)
+            let updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery = {
+                let displayName: String? = self.viewModel.displayName.value.isEmpty ? nil : self.viewModel.displayName.value
+                let avatar: Mastodon.Query.MediaAttachment? = {
+                    guard let avatarImage = self.viewModel.avatarImage.value else { return nil }
+                    guard avatarImage.size.width <= 400 else {
+                        return .jpeg(avatarImage.af.imageScaled(to: CGSize(width: 400, height: 400)).jpegData(compressionQuality: 0.8))
+                    }
+                    return .jpeg(avatarImage.jpegData(compressionQuality: 0.8))
+                }()
+                return Mastodon.API.Account.UpdateCredentialQuery(
+                    displayName: displayName,
+                    avatar: avatar
+                )
+            }()
+            let viewModel = MastodonConfirmEmailViewModel(context: self.context, email: email, authenticateInfo: self.viewModel.authenticateInfo, userToken: userToken, updateCredentialQuery: updateCredentialQuery)
             self.coordinator.present(scene: .mastodonConfirmEmail(viewModel: viewModel), from: self, transition: .show)
         }
         .store(in: &disposeBag)
