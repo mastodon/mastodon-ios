@@ -18,14 +18,16 @@ final class AudioPlayer: NSObject {
     var timeObserver: Any?
     var statusObserver: Any?
     var attachment: Attachment?
-    var currentURL: URL?
+
     let session = AVAudioSession.sharedInstance()
     let playbackState = CurrentValueSubject<PlaybackState, Never>(PlaybackState.unknown)
+    
+    // MARK: - singleton
     public static let shared = AudioPlayer()
 
     let currentTimeSubject = CurrentValueSubject<TimeInterval, Never>(0)
 
-    override init() {
+    private override init() {
         super.init()
         addObserver()
     }
@@ -45,7 +47,7 @@ extension AudioPlayer {
 
         if audioAttachment == attachment {
             if self.playbackState.value == .stopped {
-                self.seekToTime(time: 0)
+                self.seekToTime(time: .zero)
             }
             player.play()
             self.playbackState.value = .playing
@@ -97,12 +99,14 @@ extension AudioPlayer {
                 case .unknown:
                     self.playbackState.value = .unknown
                 @unknown default:
-                    fatalError()
+                    assertionFailure()
                 }
             })
             .store(in: &disposeBag)
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: nil)
-            .sink { _ in
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.player.seek(to: .zero)
                 self.playbackState.value = .stopped
                 self.currentTimeSubject.value = 0
             }

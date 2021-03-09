@@ -20,7 +20,6 @@ class AudioContainerViewModel {
 
         audioView.playButton.publisher(for: .touchUpInside)
             .sink { _ in
-
                 if audioAttachment === AudioPlayer.shared.attachment {
                     if AudioPlayer.shared.isPlaying() {
                         AudioPlayer.shared.pause()
@@ -53,16 +52,26 @@ class AudioContainerViewModel {
         audioAttachment: Attachment
     ) {
         let audioView = cell.statusView.audioView
+        var lastCurrentTimeSubject: TimeInterval?
         AudioPlayer.shared.currentTimeSubject
-            .receive(on: DispatchQueue.main)
-            .filter { _ in
-                audioAttachment === AudioPlayer.shared.attachment
-            }
-            .sink(receiveValue: { time in
-                audioView.timeLabel.text = time.asString(style: .positional)
-                if let duration = audioAttachment.meta?.original?.duration, !audioView.slider.isTracking {
-                    audioView.slider.setValue(Float(time / duration), animated: true)
+            .throttle(for: 0.33, scheduler: DispatchQueue.main, latest: true)
+            .compactMap { time -> (TimeInterval, Float)? in
+                defer {
+                    lastCurrentTimeSubject = time
                 }
+                guard audioAttachment === AudioPlayer.shared.attachment else { return nil }
+                guard let duration = audioAttachment.meta?.original?.duration else { return nil }
+                
+                if let lastCurrentTimeSubject = lastCurrentTimeSubject, time != 0.0 {
+                    guard abs(time - lastCurrentTimeSubject) < 0.5 else { return nil }  // debounce
+                }
+                
+                guard !audioView.slider.isTracking else { return nil }
+                return (time, Float(time / duration))
+            }
+            .sink(receiveValue: { time, progress in
+                audioView.timeLabel.text = time.asString(style: .positional)
+                audioView.slider.setValue(progress, animated: true)
             })
             .store(in: &cell.disposeBag)
         AudioPlayer.shared.playbackState
