@@ -5,8 +5,8 @@
 //  Created by sxiaojian on 2021/3/9.
 //
 
-import Foundation
 import CoreDataStack
+import Foundation
 import UIKit
 
 class AudioContainerViewModel {
@@ -17,10 +17,11 @@ class AudioContainerViewModel {
         guard let duration = audioAttachment.meta?.original?.duration else { return }
         let audioView = cell.statusView.audioView
         audioView.timeLabel.text = duration.asString(style: .positional)
-        
+
         audioView.playButton.publisher(for: .touchUpInside)
-            .sink { button in
-                if (button.isSelected) {
+            .sink { _ in
+                let isPlaying = AudioPlayer.shared.playbackState.value == .readyToPlay || AudioPlayer.shared.playbackState.value == .playing
+                if isPlaying {
                     AudioPlayer.shared.pause()
                 } else {
                     if audioAttachment === AudioPlayer.shared.attachment {
@@ -39,15 +40,15 @@ class AudioContainerViewModel {
             .sink { slider in
                 let slider = slider as! UISlider
                 let time = Double(slider.value) * duration
-                
                 AudioPlayer.shared.seekToTime(time: time)
             }
             .store(in: &cell.disposeBag)
-        self.observePlayer(cell:cell, audioAttachment: audioAttachment)
+        self.observePlayer(cell: cell, audioAttachment: audioAttachment)
         if audioAttachment != AudioPlayer.shared.attachment {
             self.resetAudioView(audioView: audioView)
         }
     }
+
     static func observePlayer(
         cell: StatusTableViewCell,
         audioAttachment: Attachment
@@ -61,16 +62,17 @@ class AudioContainerViewModel {
             .sink(receiveValue: { time in
                 audioView.timeLabel.text = time.asString(style: .positional)
                 if let duration = audioAttachment.meta?.original?.duration, !audioView.slider.isTracking {
-                    audioView.slider.setValue(Float(time/duration), animated: true)
+                    audioView.slider.setValue(Float(time / duration), animated: true)
                 }
             })
             .store(in: &cell.disposeBag)
         AudioPlayer.shared.playbackState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { playbackState in
-                if (audioAttachment === AudioPlayer.shared.attachment) {
+                if audioAttachment === AudioPlayer.shared.attachment {
                     let isPlaying = playbackState == .playing || playbackState == .readyToPlay
                     audioView.playButton.isSelected = isPlaying
+                    audioView.slider.isEnabled = isPlaying
                     if playbackState == .stopped {
                         self.resetAudioView(audioView: audioView)
                     }
@@ -80,8 +82,10 @@ class AudioContainerViewModel {
             })
             .store(in: &cell.disposeBag)
     }
-    static func resetAudioView(audioView:AudioContainerView) {
+
+    static func resetAudioView(audioView: AudioContainerView) {
         audioView.playButton.isSelected = false
         audioView.slider.setValue(0, animated: false)
+        audioView.slider.isEnabled = false
     }
 }

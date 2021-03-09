@@ -5,13 +5,11 @@
 //  Created by sxiaojian on 2021/3/8.
 //
 
-import os.log
 import CoreDataStack
+import os.log
 import UIKit
 
-
 final class AudioContainerView: UIView {
-
     static let cornerRadius: CGFloat = 22
     
     let container: UIStackView = {
@@ -20,7 +18,7 @@ final class AudioContainerView: UIView {
         stackView.distribution = .fill
         stackView.alignment = .center
         stackView.spacing = 11
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 9, bottom: 0, right: 9)
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layer.cornerRadius = AudioContainerView.cornerRadius
         stackView.clipsToBounds = true
@@ -29,7 +27,7 @@ final class AudioContainerView: UIView {
         return stackView
     }()
 
-    let checkmarkBackgroundView: UIView = {
+    let playButtonBackgroundView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
@@ -39,7 +37,7 @@ final class AudioContainerView: UIView {
     }()
     
     let playButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = HighlightDimmableButton(type: .custom)
         let image = UIImage(systemName: "play.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 32, weight: .bold))!
         button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
         
@@ -57,7 +55,7 @@ final class AudioContainerView: UIView {
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minimumTrackTintColor = Asset.Colors.Slider.bar.color
         slider.maximumTrackTintColor = Asset.Colors.Slider.bar.color
-        if let image = UIImage.imageWithColor(color: .white, size: CGSize(width: 22, height: 22))?.withRoundedCorners(radius: 11) {
+        if let image = UIImage.placeholder(size: CGSize(width: 22, height: 22), color: .white).withRoundedCorners(radius: 11) {
             slider.setThumbImage(image, for: .normal)
         }
         return slider
@@ -81,13 +79,10 @@ final class AudioContainerView: UIView {
         super.init(coder: coder)
         _init()
     }
-    
 }
 
 extension AudioContainerView {
-    
     private func _init() {
-        
         addSubview(container)
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: topAnchor),
@@ -96,14 +91,14 @@ extension AudioContainerView {
             bottomAnchor.constraint(equalTo: container.bottomAnchor),
         ])
         
-        //checkmark
-        checkmarkBackgroundView.addSubview(playButton)
-        container.addArrangedSubview(checkmarkBackgroundView)
+        // checkmark
+        playButtonBackgroundView.addSubview(playButton)
+        container.addArrangedSubview(playButtonBackgroundView)
         NSLayoutConstraint.activate([
-            playButton.centerXAnchor.constraint(equalTo: checkmarkBackgroundView.centerXAnchor),
-            playButton.centerYAnchor.constraint(equalTo: checkmarkBackgroundView.centerYAnchor),
-            checkmarkBackgroundView.heightAnchor.constraint(equalToConstant: 32),
-            checkmarkBackgroundView.widthAnchor.constraint(equalToConstant: 32),
+            playButton.centerXAnchor.constraint(equalTo: playButtonBackgroundView.centerXAnchor),
+            playButton.centerYAnchor.constraint(equalTo: playButtonBackgroundView.centerYAnchor),
+            playButtonBackgroundView.heightAnchor.constraint(equalToConstant: 32),
+            playButtonBackgroundView.widthAnchor.constraint(equalToConstant: 32),
         ])
 
         container.addArrangedSubview(slider)
@@ -113,5 +108,4 @@ extension AudioContainerView {
             timeLabel.widthAnchor.constraint(equalToConstant: 40),
         ])
     }
-    
 }
