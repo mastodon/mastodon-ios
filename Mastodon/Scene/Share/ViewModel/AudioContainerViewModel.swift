@@ -66,12 +66,14 @@ class AudioContainerViewModel {
             })
             .store(in: &cell.disposeBag)
         AudioPlayer.shared.playbackState
-            .map {
-                return $0 == .playing || $0 == .readyToPlay
-            }
-            .sink(receiveValue: { isPlaying in
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { playbackState in
                 if (audioAttachment === AudioPlayer.shared.attachment) {
+                    let isPlaying = playbackState == .playing || playbackState == .readyToPlay
                     audioView.playButton.isSelected = isPlaying
+                    if playbackState == .stopped {
+                        self.resetAudioView(audioView: audioView)
+                    }
                 } else {
                     self.resetAudioView(audioView: audioView)
                 }

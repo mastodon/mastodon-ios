@@ -109,6 +109,9 @@ extension AudioContainerView {
         container.addArrangedSubview(slider)
         
         container.addArrangedSubview(timeLabel)
+        NSLayoutConstraint.activate([
+            timeLabel.widthAnchor.constraint(equalToConstant: 40),
+        ])
     }
     
 }

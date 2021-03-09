@@ -57,14 +57,34 @@ extension AudioPlayer {
 
     func addObserver() {
         UIDevice.current.isProximityMonitoringEnabled = true
-        NotificationCenter.default.addObserver(self, selector: #selector(proxumityStateChange), name: UIDevice.proximityStateDidChangeNotification, object: nil)
-
+        NotificationCenter.default.publisher(for: UIDevice.proximityStateDidChangeNotification, object: nil)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                if UIDevice.current.proximityState == true {
+                    do {
+                        try self.session.setCategory(.playAndRecord)
+                    } catch {
+                        print(error)
+                        return
+                    }
+                } else {
+                    do {
+                        try self.session.setCategory(.playback)
+                    } catch {
+                        print(error)
+                        return
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+        
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [weak self] time in
             guard let self = self else { return }
             self.currentTimeSubject.value = time.seconds
         })
         player.publisher(for: \.status, options: .new)
-            .sink(receiveValue: { status in
+            .sink(receiveValue: { [weak self] status in
+                guard let self = self else { return }
                 switch status {
                 case .failed:
                     self.playbackState.value = .failed
@@ -77,25 +97,13 @@ extension AudioPlayer {
                 }
             })
             .store(in: &disposeBag)
+        NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: nil)
+            .sink { _ in
+                self.playbackState.send(PlaybackState.stopped)
+            }
+            .store(in: &disposeBag)
     }
 
-    @objc func proxumityStateChange(notification: NSNotification) {
-        if UIDevice.current.proximityState == true {
-            do {
-                try session.setCategory(.playAndRecord)
-            } catch {
-                print(error)
-                return
-            }
-        } else {
-            do {
-                try session.setCategory(.playback)
-            } catch {
-                print(error)
-                return
-            }
-        }
-    }
 
     func resume() {
         player.play()
