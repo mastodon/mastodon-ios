@@ -17,6 +17,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     // }
     
     func handleTableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // update poll when toot appear
         let now = Date()
         var pollID: Mastodon.Entity.Poll.ID?
         toot(for: cell, indexPath: indexPath)

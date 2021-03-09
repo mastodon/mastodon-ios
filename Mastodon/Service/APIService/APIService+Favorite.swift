@@ -78,7 +78,7 @@ extension APIService {
                     }()
                     let _oldToot: Toot? = {
                         let request = Toot.sortedFetchRequest
-                        request.predicate = Toot.predicate(domain: mastodonAuthenticationBox.domain, id: entity.id)
+                        request.predicate = Toot.predicate(domain: mastodonAuthenticationBox.domain, id: statusID)
                         request.returnsObjectsAsFaults = false
                         request.relationshipKeyPathsForPrefetching = [#keyPath(Toot.reblog)]
                         do {
@@ -112,7 +112,8 @@ extension APIService {
             .handleEvents(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: error:", ((#file as NSString).lastPathComponent), #line, #function)
+                    debugPrint(error)
                 case .finished:
                     break
                 }

@@ -159,7 +159,7 @@ extension StatusSection {
         
         // set poll
         let poll = (toot.reblog ?? toot).poll
-        StatusSection.configure(
+        StatusSection.configurePoll(
             cell: cell,
             poll: poll,
             requestUserID: requestUserID,
@@ -173,7 +173,7 @@ extension StatusSection {
                 } receiveValue: { change in
                     guard case let .update(object) = change.changeType,
                           let newPoll = object as? Poll else { return }
-                    StatusSection.configure(
+                    StatusSection.configurePoll(
                         cell: cell,
                         poll: newPoll,
                         requestUserID: requestUserID,
@@ -185,19 +185,7 @@ extension StatusSection {
         }
         
         // toolbar
-        let replyCountTitle: String = {
-            let count = (toot.reblog ?? toot).repliesCount?.intValue ?? 0
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
-        
-        let isLike = (toot.reblog ?? toot).favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-        let favoriteCountTitle: String = {
-            let count = (toot.reblog ?? toot).favouritesCount.intValue
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
-        cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
+        StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
         
         // set date
         let createdAt = (toot.reblog ?? toot).createdAt
@@ -215,20 +203,47 @@ extension StatusSection {
                 // do nothing
             } receiveValue: { change in
                 guard case .update(let object) = change.changeType,
-                      let newToot = object as? Toot else { return }
-                let targetToot = newToot.reblog ?? newToot
-
-                let isLike = targetToot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-                let favoriteCount = targetToot.favouritesCount.intValue
-                let favoriteCountTitle = StatusSection.formattedNumberTitleForActionButton(favoriteCount)
-                cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
-                cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
-                os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, targetToot.id, favoriteCount)
+                      let toot = object as? Toot else { return }
+                StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
+                
+                os_log("%{public}s[%{public}ld], %{public}s: boost count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.reblogsCount.intValue)
+                os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.favouritesCount.intValue)
             }
             .store(in: &cell.disposeBag)
     }
     
-    static func configure(
+    static func configureActionToolBar(
+        cell: StatusTableViewCell,
+        toot: Toot,
+        requestUserID: String
+    ) {
+        let toot = toot.reblog ?? toot
+        
+        // set reply
+        let replyCountTitle: String = {
+            let count = toot.repliesCount?.intValue ?? 0
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
+        // set boost
+        let isBoosted = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let boostCountTitle: String = {
+            let count = toot.reblogsCount.intValue
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.boostButton.setTitle(boostCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isBoostButtonHighlight = isBoosted
+        // set like
+        let isLike = toot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let favoriteCountTitle: String = {
+            let count = toot.favouritesCount.intValue
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
+    }
+    
+    static func configurePoll(
         cell: StatusTableViewCell,
         poll: Poll?,
         requestUserID: String,

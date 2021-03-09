@@ -10,7 +10,7 @@ import UIKit
 
 protocol ActionToolbarContainerDelegate: class {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton)
-    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, retootButtonDidPressed sender: UIButton)
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, boostButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton)
 }
@@ -19,12 +19,16 @@ protocol ActionToolbarContainerDelegate: class {
 final class ActionToolbarContainer: UIView {
         
     let replyButton     = HitTestExpandedButton()
-    let retootButton    = HitTestExpandedButton()
-    let starButton      = HitTestExpandedButton()
+    let boostButton     = HitTestExpandedButton()
+    let favoriteButton  = HitTestExpandedButton()
     let moreButton      = HitTestExpandedButton()
     
-    var isStarButtonHighlight: Bool = false {
-        didSet { isStarButtonHighlightStateDidChange(to: isStarButtonHighlight) }
+    var isBoostButtonHighlight: Bool = false {
+        didSet { isBoostButtonHighlightStateDidChange(to: isBoostButtonHighlight) }
+    }
+    
+    var isFavoriteButtonHighlight: Bool = false {
+        didSet { isFavoriteButtonHighlightStateDidChange(to: isFavoriteButtonHighlight) }
     }
     
     weak var delegate: ActionToolbarContainerDelegate?
@@ -57,8 +61,8 @@ extension ActionToolbarContainer {
         ])
         
         replyButton.addTarget(self, action: #selector(ActionToolbarContainer.replyButtonDidPressed(_:)), for: .touchUpInside)
-        retootButton.addTarget(self, action: #selector(ActionToolbarContainer.retootButtonDidPressed(_:)), for: .touchUpInside)
-        starButton.addTarget(self, action: #selector(ActionToolbarContainer.starButtonDidPressed(_:)), for: .touchUpInside)
+        boostButton.addTarget(self, action: #selector(ActionToolbarContainer.boostButtonDidPressed(_:)), for: .touchUpInside)
+        favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.favoriteButtonDidPressed(_:)), for: .touchUpInside)
         moreButton.addTarget(self, action: #selector(ActionToolbarContainer.moreButtonDidPressed(_:)), for: .touchUpInside)
     }
     
@@ -89,7 +93,7 @@ extension ActionToolbarContainer {
             subview.removeFromSuperview()
         }
         
-        let buttons = [replyButton, retootButton, starButton, moreButton]
+        let buttons = [replyButton, boostButton, favoriteButton, moreButton]
         buttons.forEach { button in
             button.tintColor = Asset.Colors.Button.actionToolbar.color
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
@@ -109,28 +113,28 @@ extension ActionToolbarContainer {
                 button.contentHorizontalAlignment = .leading
             }
             replyButton.setImage(replyImage, for: .normal)
-            retootButton.setImage(reblogImage, for: .normal)
-            starButton.setImage(starImage, for: .normal)
+            boostButton.setImage(reblogImage, for: .normal)
+            favoriteButton.setImage(starImage, for: .normal)
             moreButton.setImage(moreImage, for: .normal)
             
             container.axis = .horizontal
             container.distribution = .fill
             
             replyButton.translatesAutoresizingMaskIntoConstraints = false
-            retootButton.translatesAutoresizingMaskIntoConstraints = false
-            starButton.translatesAutoresizingMaskIntoConstraints = false
+            boostButton.translatesAutoresizingMaskIntoConstraints = false
+            favoriteButton.translatesAutoresizingMaskIntoConstraints = false
             moreButton.translatesAutoresizingMaskIntoConstraints = false
             container.addArrangedSubview(replyButton)
-            container.addArrangedSubview(retootButton)
-            container.addArrangedSubview(starButton)
+            container.addArrangedSubview(boostButton)
+            container.addArrangedSubview(favoriteButton)
             container.addArrangedSubview(moreButton)
             NSLayoutConstraint.activate([
                 replyButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: retootButton.heightAnchor).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: starButton.heightAnchor).priority(.defaultHigh),
+                replyButton.heightAnchor.constraint(equalTo: boostButton.heightAnchor).priority(.defaultHigh),
+                replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: moreButton.heightAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: retootButton.widthAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: starButton.widthAnchor).priority(.defaultHigh),
+                replyButton.widthAnchor.constraint(equalTo: boostButton.widthAnchor).priority(.defaultHigh),
+                replyButton.widthAnchor.constraint(equalTo: favoriteButton.widthAnchor).priority(.defaultHigh),
             ])
             moreButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             moreButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
@@ -140,16 +144,16 @@ extension ActionToolbarContainer {
                 button.contentHorizontalAlignment = .center
             }
             replyButton.setImage(replyImage, for: .normal)
-            retootButton.setImage(reblogImage, for: .normal)
-            starButton.setImage(starImage, for: .normal)
+            boostButton.setImage(reblogImage, for: .normal)
+            favoriteButton.setImage(starImage, for: .normal)
             
             container.axis = .horizontal
             container.spacing = 8
             container.distribution = .fillEqually
             
             container.addArrangedSubview(replyButton)
-            container.addArrangedSubview(retootButton)
-            container.addArrangedSubview(starButton)
+            container.addArrangedSubview(boostButton)
+            container.addArrangedSubview(favoriteButton)
         }
     }
     
@@ -158,11 +162,18 @@ extension ActionToolbarContainer {
         return oldStyle != style
     }
     
-    private func isStarButtonHighlightStateDidChange(to isHighlight: Bool) {
+    private func isBoostButtonHighlightStateDidChange(to isHighlight: Bool) {
+        let tintColor = isHighlight ? Asset.Colors.systemGreen.color : Asset.Colors.Button.actionToolbar.color
+        boostButton.tintColor = tintColor
+        boostButton.setTitleColor(tintColor, for: .normal)
+        boostButton.setTitleColor(tintColor, for: .highlighted)
+    }
+    
+    private func isFavoriteButtonHighlightStateDidChange(to isHighlight: Bool) {
         let tintColor = isHighlight ? Asset.Colors.systemOrange.color : Asset.Colors.Button.actionToolbar.color
-        starButton.tintColor = tintColor
-        starButton.setTitleColor(tintColor, for: .normal)
-        starButton.setTitleColor(tintColor, for: .highlighted)
+        favoriteButton.tintColor = tintColor
+        favoriteButton.setTitleColor(tintColor, for: .normal)
+        favoriteButton.setTitleColor(tintColor, for: .highlighted)
     }
 }
 
@@ -173,12 +184,12 @@ extension ActionToolbarContainer {
         delegate?.actionToolbarContainer(self, replayButtonDidPressed: sender)
     }
     
-    @objc private func retootButtonDidPressed(_ sender: UIButton) {
+    @objc private func boostButtonDidPressed(_ sender: UIButton) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.actionToolbarContainer(self, retootButtonDidPressed: sender)
+        delegate?.actionToolbarContainer(self, boostButtonDidPressed: sender)
     }
     
-    @objc private func starButtonDidPressed(_ sender: UIButton) {
+    @objc private func favoriteButtonDidPressed(_ sender: UIButton) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.actionToolbarContainer(self, starButtonDidPressed: sender)
     }
