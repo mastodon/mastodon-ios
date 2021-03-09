@@ -14,12 +14,22 @@ enum RequestMethod: String {
 protocol RequestQuery {
     // All kinds of queries could have queryItems and body
     var queryItems: [URLQueryItem]? { get }
+    var contentType: String? { get }
     var body: Data? { get }
+}
+
+extension RequestQuery {
+    static func multipartContentType(boundary: String = Multipart.boundary) -> String {
+        return "multipart/form-data; charset=utf-8; boundary=\"\(boundary)\""
+    }
 }
 
 // An `Encodable` query provides its body by encoding itself
 // A `Get` query only contains queryItems, it should not be `Encodable`
 extension RequestQuery where Self: Encodable {
+    var contentType: String? {
+        return "application/json; charset=utf-8"
+    }
     var body: Data? {
         return try? Mastodon.API.encoder.encode(self)
     }
@@ -30,18 +40,20 @@ protocol GetQuery: RequestQuery { }
 extension GetQuery {
     // By default a `GetQuery` does not has data body
     var body: Data? { nil }
+    var contentType: String? { nil }
 }
 
-protocol PostQuery: RequestQuery & Encodable { }
+protocol PostQuery: RequestQuery { }
 
 extension PostQuery {
-    // By default a `GetQuery` does not has query items
+    // By default a `PostQuery` does not has query items
     var queryItems: [URLQueryItem]? { nil }
 }
 
-protocol PatchQuery: RequestQuery & Encodable { }
+protocol PatchQuery: RequestQuery { }
 
 extension PatchQuery {
-    // By default a `GetQuery` does not has query items
+    // By default a `PatchQuery` does not has query items
     var queryItems: [URLQueryItem]? { nil }
 }
+
