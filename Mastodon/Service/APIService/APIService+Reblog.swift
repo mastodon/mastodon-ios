@@ -101,6 +101,9 @@ extension APIService {
                     return
                 }
                 APIService.CoreData.merge(toot: oldToot, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
+                if boostKind == .undoBoost {
+                    oldToot.update(reblogsCount: NSNumber(value: max(0, oldToot.reblogsCount.intValue - 1)))
+                }
                 os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s reblog status to: %{public}s. now %ld boosts", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.reblogged.flatMap { $0 ? "boost" : "unboost" } ?? "<nil>", entity.reblogsCount )
             }
             .setFailureType(to: Error.self)

@@ -95,6 +95,9 @@ extension APIService {
                         return
                     }
                     APIService.CoreData.merge(toot: oldToot, entity: entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
+                    if favoriteKind == .destroy {
+                        oldToot.update(favouritesCount: NSNumber(value: max(0, oldToot.favouritesCount.intValue - 1)))
+                    }
                     os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s like status to: %{public}s. now %ld likes", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.favourited.flatMap { $0 ? "like" : "unlike" } ?? "<nil>", entity.favouritesCount )
                 }
                 .setFailureType(to: Error.self)
