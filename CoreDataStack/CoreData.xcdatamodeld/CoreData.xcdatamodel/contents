@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -16,7 +16,7 @@
         <attribute name="index" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="metaData" optional="YES" attributeType="Binary"/>
         <attribute name="previewRemoteURL" optional="YES" attributeType="String"/>
-        <attribute name="previewURL" attributeType="String"/>
+        <attribute name="previewURL" optional="YES" attributeType="String"/>
         <attribute name="remoteURL" optional="YES" attributeType="String"/>
         <attribute name="textURL" optional="YES" attributeType="String"/>
         <attribute name="typeRaw" attributeType="String"/>
@@ -163,7 +163,7 @@
     </entity>
     <elements>
         <element name="Application" positionX="160" positionY="192" width="128" height="104"/>
-        <element name="Attachment" positionX="72" positionY="162" width="128" height="14"/>
+        <element name="Attachment" positionX="72" positionY="162" width="128" height="254"/>
         <element name="Emoji" positionX="45" positionY="135" width="128" height="149"/>
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>

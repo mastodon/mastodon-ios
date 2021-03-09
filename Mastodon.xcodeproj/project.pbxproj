@@ -22,6 +22,11 @@
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* StatusView.swift */; };
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
+		2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7125F5D27F00143C56 /* AudioContainerView.swift */; };
+		2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7F25F5F45E00143C56 /* UIImage.swift */; };
+		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
+		2D206B8C25F6015000143C56 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8B25F6015000143C56 /* AudioPlayer.swift */; };
+		2D206B9225F60EA700143C56 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B9125F60EA700143C56 /* UIControl.swift */; };
 		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
 		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
 		2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */; };
@@ -44,7 +49,6 @@
 		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
 		2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
-		2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46976325C2A71500CF4AA9 /* UIIamge.swift */; };
 		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
 		2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */ = {isa = PBXBuildFile; productRef = 2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */; };
@@ -74,6 +78,8 @@
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		2D939AC825EE14620076FA61 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* CropViewController */; };
 		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
+		2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6054625F716A2006356F9 /* PlaybackState.swift */; };
+		2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */; };
 		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
 		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
@@ -255,6 +261,11 @@
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		2D206B7125F5D27F00143C56 /* AudioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerView.swift; sourceTree = "<group>"; };
+		2D206B7F25F5F45E00143C56 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		2D206B8B25F6015000143C56 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		2D206B9125F60EA700143C56 /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
@@ -276,7 +287,6 @@
 		2D42FF8E25C8228A004A627A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
-		2D46976325C2A71500CF4AA9 /* UIIamge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIIamge.swift; sourceTree = "<group>"; };
 		2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
 		2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlContainableScrollViews.swift; sourceTree = "<group>"; };
@@ -303,6 +313,8 @@
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		2D939AB425EDD8A90076FA61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewController+Avatar.swift"; sourceTree = "<group>"; };
+		2DA6054625F716A2006356F9 /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
+		2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerViewModel.swift; sourceTree = "<group>"; };
 		2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
@@ -637,6 +649,8 @@
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 				DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */,
+				2D206B8B25F6015000143C56 /* AudioPlayer.swift */,
+				2DA6054625F716A2006356F9 /* PlaybackState.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1085,7 +1099,6 @@
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
-				2D46976325C2A71500CF4AA9 /* UIIamge.swift */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
 				2D42FF6A25C817D2004A627A /* MastodonContent.swift */,
@@ -1097,6 +1110,9 @@
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
+				2D206B7F25F5F45E00143C56 /* UIImage.swift */,
+				2D206B8525F5FB0900143C56 /* Double.swift */,
+				2D206B9125F60EA700143C56 /* UIControl.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1148,6 +1164,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9D6C0D25E4F9780051B173 /* MosaicImageViewContainer.swift */,
+				2D206B7125F5D27F00143C56 /* AudioContainerView.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -1156,6 +1173,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */,
+				2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1534,6 +1552,7 @@
 			files = (
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
+				2D206B8C25F6015000143C56 /* AudioPlayer.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
@@ -1571,6 +1590,7 @@
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
+				2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */,
 				DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
@@ -1585,17 +1605,19 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
+				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */,
+				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
-				2D46976425C2A71500CF4AA9 /* UIIamge.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
+				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
 				DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
@@ -1621,6 +1643,7 @@
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
+				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,
@@ -1642,6 +1665,7 @@
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
+				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
 				2D42FF6B25C817D2004A627A /* MastodonContent.swift in Sources */,

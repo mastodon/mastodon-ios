@@ -127,8 +127,8 @@ extension StatusSection {
             }()
             let scale: CGFloat = {
                 switch mosiacImageViewModel.metas.count {
-                case 1:     return 1.3
-                default:    return 0.7
+                case 1: return 1.3
+                default: return 0.7
                 }
             }()
             return CGSize(width: maxWidth, height: maxWidth * scale)
@@ -157,6 +157,14 @@ extension StatusSection {
         cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
         cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
+        // set audio
+        if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
+            cell.statusView.audioView.isHidden = false
+            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment)
+        } else {
+            cell.statusView.audioView.isHidden = true
+        }
+        
         // set poll
         let poll = (toot.reblog ?? toot).poll
         StatusSection.configure(
@@ -171,7 +179,7 @@ extension StatusSection {
                 .sink { _ in
                     // do nothing
                 } receiveValue: { change in
-                    guard case let .update(object) = change.changeType,
+                    guard case .update(let object) = change.changeType,
                           let newPoll = object as? Poll else { return }
                     StatusSection.configure(
                         cell: cell,
@@ -336,7 +344,6 @@ extension StatusSection {
         snapshot.appendItems(pollItems, toSection: .main)
         cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
     }
-    
 }
 
 extension StatusSection {
