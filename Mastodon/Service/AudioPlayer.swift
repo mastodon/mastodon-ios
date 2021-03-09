@@ -44,7 +44,11 @@ extension AudioPlayer {
         }
 
         if audioAttachment == attachment {
+            if self.playbackState.value == .stopped {
+                self.seekToTime(time: 0)
+            }
             player.play()
+            self.playbackState.value = .playing
             return
         }
 
@@ -52,7 +56,7 @@ extension AudioPlayer {
         player.replaceCurrentItem(with: playerItem)
         attachment = audioAttachment
         player.play()
-        playbackState.send(PlaybackState.playing)
+        playbackState.value = .playing
     }
 
     func addObserver() {
@@ -99,20 +103,23 @@ extension AudioPlayer {
             .store(in: &disposeBag)
         NotificationCenter.default.publisher(for: .AVPlayerItemDidPlayToEndTime, object: nil)
             .sink { _ in
-                self.playbackState.send(PlaybackState.stopped)
+                self.playbackState.value = .stopped
+                self.currentTimeSubject.value = 0
             }
             .store(in: &disposeBag)
     }
 
-
+    func isPlaying() -> Bool {
+        return self.playbackState.value == .readyToPlay || self.playbackState.value == .playing
+    }
     func resume() {
         player.play()
-        playbackState.send(PlaybackState.playing)
+        playbackState.value = .playing
     }
 
     func pause() {
         player.pause()
-        playbackState.send(PlaybackState.paused)
+        playbackState.value = .paused
     }
 
     func seekToTime(time: TimeInterval) {

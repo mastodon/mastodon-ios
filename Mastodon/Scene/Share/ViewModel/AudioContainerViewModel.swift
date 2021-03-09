@@ -20,8 +20,7 @@ class AudioContainerViewModel {
 
         audioView.playButton.publisher(for: .touchUpInside)
             .sink { _ in
-                let isPlaying = AudioPlayer.shared.playbackState.value == .readyToPlay || AudioPlayer.shared.playbackState.value == .playing
-                if isPlaying {
+                if AudioPlayer.shared.isPlaying() {
                     AudioPlayer.shared.pause()
                 } else {
                     if audioAttachment === AudioPlayer.shared.attachment {
@@ -70,7 +69,7 @@ class AudioContainerViewModel {
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { playbackState in
                 if audioAttachment === AudioPlayer.shared.attachment {
-                    let isPlaying = playbackState == .playing || playbackState == .readyToPlay
+                    let isPlaying = AudioPlayer.shared.isPlaying()
                     audioView.playButton.isSelected = isPlaying
                     audioView.slider.isEnabled = isPlaying
                     if playbackState == .stopped {
