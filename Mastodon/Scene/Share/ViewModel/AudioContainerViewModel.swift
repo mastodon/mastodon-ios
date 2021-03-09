@@ -20,18 +20,18 @@ class AudioContainerViewModel {
 
         audioView.playButton.publisher(for: .touchUpInside)
             .sink { _ in
-                if AudioPlayer.shared.isPlaying() {
-                    AudioPlayer.shared.pause()
-                } else {
-                    if audioAttachment === AudioPlayer.shared.attachment {
-                        if AudioPlayer.shared.currentTimeSubject.value == 0 {
-                            AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
-                        } else {
-                            AudioPlayer.shared.resume()
-                        }
+
+                if audioAttachment === AudioPlayer.shared.attachment {
+                    if AudioPlayer.shared.isPlaying() {
+                        AudioPlayer.shared.pause()
                     } else {
+                        AudioPlayer.shared.resume()
+                    }
+                    if AudioPlayer.shared.currentTimeSubject.value == 0 {
                         AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
                     }
+                } else {
+                    AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
                 }
             }
             .store(in: &cell.disposeBag)
@@ -44,7 +44,7 @@ class AudioContainerViewModel {
             .store(in: &cell.disposeBag)
         self.observePlayer(cell: cell, audioAttachment: audioAttachment)
         if audioAttachment != AudioPlayer.shared.attachment {
-            self.resetAudioView(audioView: audioView)
+            self.resetAudioView(audioView: audioView, audioAttachment: audioAttachment)
         }
     }
 
@@ -73,18 +73,23 @@ class AudioContainerViewModel {
                     audioView.playButton.isSelected = isPlaying
                     audioView.slider.isEnabled = isPlaying
                     if playbackState == .stopped {
-                        self.resetAudioView(audioView: audioView)
+                        self.resetAudioView(audioView: audioView, audioAttachment: audioAttachment)
                     }
                 } else {
-                    self.resetAudioView(audioView: audioView)
+                    self.resetAudioView(audioView: audioView, audioAttachment: audioAttachment)
                 }
             })
             .store(in: &cell.disposeBag)
     }
 
-    static func resetAudioView(audioView: AudioContainerView) {
+    static func resetAudioView(
+        audioView: AudioContainerView,
+        audioAttachment: Attachment
+    ) {
         audioView.playButton.isSelected = false
         audioView.slider.setValue(0, animated: false)
         audioView.slider.isEnabled = false
+        guard let duration = audioAttachment.meta?.original?.duration else { return }
+        audioView.timeLabel.text = duration.asString(style: .positional)
     }
 }

@@ -51,7 +51,7 @@ extension AudioPlayer {
             self.playbackState.value = .playing
             return
         }
-
+        player.pause()
         let playerItem = AVPlayerItem(url: url)
         player.replaceCurrentItem(with: playerItem)
         attachment = audioAttachment
