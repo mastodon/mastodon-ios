@@ -160,15 +160,15 @@ extension StatusProviderFacade {
         let responseFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         
         toot
-            .compactMap { toot -> (NSManagedObjectID, Mastodon.API.Status.Reblog.BoostKind)? in
+            .compactMap { toot -> (NSManagedObjectID, Mastodon.API.Reblog.BoostKind)? in
                 guard let toot = toot?.reblog ?? toot else { return nil }
-                let boostKind: Mastodon.API.Status.Reblog.BoostKind = {
+                let boostKind: Mastodon.API.Reblog.BoostKind = {
                     let isBoosted = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
                     return isBoosted ? .undoBoost : .boost
                 }()
                 return (toot.objectID, boostKind)
             }
-            .map { tootObjectID, boostKind -> AnyPublisher<(Toot.ID, Mastodon.API.Status.Reblog.BoostKind), Error>  in
+            .map { tootObjectID, boostKind -> AnyPublisher<(Toot.ID, Mastodon.API.Reblog.BoostKind), Error>  in
                 return context.apiService.boost(
                     tootObjectID: tootObjectID,
                     mastodonUserObjectID: mastodonUserObjectID,

@@ -7,6 +7,4 @@
 
 import Foundation
 
-extension Mastodon.API.Status {
-    public enum Reblog { }
-}
+extension Mastodon.API.Status { }

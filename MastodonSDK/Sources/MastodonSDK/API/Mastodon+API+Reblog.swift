@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-extension Mastodon.API.Status.Reblog {
+extension Mastodon.API.Reblog {
  
     static func boostedByEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
         let pathComponent = "statuses/" + statusID + "/reblogged_by"
@@ -52,7 +52,7 @@ extension Mastodon.API.Status.Reblog {
     
 }
 
-extension Mastodon.API.Status.Reblog {
+extension Mastodon.API.Reblog {
  
     static func reblogEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
         let pathComponent = "statuses/" + statusID + "/reblog"
@@ -107,7 +107,7 @@ extension Mastodon.API.Status.Reblog {
     
 }
 
-extension Mastodon.API.Status.Reblog {
+extension Mastodon.API.Reblog {
  
     static func unreblogEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
         let pathComponent = "statuses/" + statusID + "/unreblog"
@@ -151,7 +151,7 @@ extension Mastodon.API.Status.Reblog {
     
 }
 
-extension Mastodon.API.Status.Reblog {
+extension Mastodon.API.Reblog {
     
     public enum BoostKind {
         case boost

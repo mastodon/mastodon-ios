@@ -18,7 +18,7 @@ extension APIService {
     func boost(
         tootObjectID: NSManagedObjectID,
         mastodonUserObjectID: NSManagedObjectID,
-        boostKind: Mastodon.API.Status.Reblog.BoostKind
+        boostKind: Mastodon.API.Reblog.BoostKind
     ) -> AnyPublisher<Toot.ID, Error> {
         var _targetTootID: Toot.ID?
         let managedObjectContext = backgroundManagedObjectContext
@@ -51,13 +51,13 @@ extension APIService {
     // send boost request to remote
     func boost(
         statusID: Mastodon.Entity.Status.ID,
-        boostKind: Mastodon.API.Status.Reblog.BoostKind,
+        boostKind: Mastodon.API.Reblog.BoostKind,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let domain = mastodonAuthenticationBox.domain
         let authorization = mastodonAuthenticationBox.userAuthorization
         let requestMastodonUserID = mastodonAuthenticationBox.userID
-        return Mastodon.API.Status.Reblog.boost(
+        return Mastodon.API.Reblog.boost(
             session: session,
             domain: domain,
             statusID: statusID,
