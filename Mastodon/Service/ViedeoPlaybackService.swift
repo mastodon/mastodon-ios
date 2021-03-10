@@ -90,6 +90,13 @@ extension VideoPlaybackService {
                 self.playerViewModel(viewModel, didUpdateTimeControlStatus: timeControlStatus)
             }
             .store(in: &disposeBag)
+        
+        NotificationCenter.default.publisher(for: AudioPlayer.appWillPlayAudioNotification)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.pauseWhenPlayAudio()
+            }
+            .store(in: &disposeBag)
     }
 }
 

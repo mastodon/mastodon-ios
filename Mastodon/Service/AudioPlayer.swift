@@ -12,6 +12,9 @@ import Foundation
 import UIKit
 
 final class AudioPlayer: NSObject {
+    
+    static let appWillPlayAudioNotification = NSNotification.Name(rawValue: "appWillPlayAudioNotification")
+    
     var disposeBag = Set<AnyCancellable>()
 
     var player = AVPlayer()
@@ -45,6 +48,7 @@ extension AudioPlayer {
             return
         }
 
+        pushWillPlayAudioNotification()
         if audioAttachment == attachment {
             if self.playbackState.value == .stopped {
                 self.seekToTime(time: .zero)
@@ -83,6 +87,12 @@ extension AudioPlayer {
                 }
             }
             .store(in: &disposeBag)
+        NotificationCenter.default.publisher(for: VideoPlayerViewModel.appWillPlayVideoNotification)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.pauseIfNeed()
+            }
+            .store(in: &disposeBag)
         
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [weak self] time in
             guard let self = self else { return }
@@ -119,10 +129,14 @@ extension AudioPlayer {
             .store(in: &disposeBag)
     }
 
+    func pushWillPlayAudioNotification() {
+        NotificationCenter.default.post(name: AudioPlayer.appWillPlayAudioNotification, object: nil)
+    }
     func isPlaying() -> Bool {
-        return self.playbackState.value == .readyToPlay || self.playbackState.value == .playing
+        return playbackState.value == .readyToPlay || playbackState.value == .playing
     }
     func resume() {
+        pushWillPlayAudioNotification()
         player.play()
         playbackState.value = .playing
     }

@@ -12,8 +12,7 @@ import UIKit
 class AudioContainerViewModel {
     static func configure(
         cell: StatusTableViewCell,
-        audioAttachment: Attachment,
-        videoPlaybackService: VideoPlaybackService
+        audioAttachment: Attachment
     ) {
         guard let duration = audioAttachment.meta?.original?.duration else { return }
         let audioView = cell.statusView.audioView
@@ -26,15 +25,12 @@ class AudioContainerViewModel {
                         AudioPlayer.shared.pause()
                     } else {
                         AudioPlayer.shared.resume()
-                        videoPlaybackService.pauseWhenPlayAudio()
                     }
                     if AudioPlayer.shared.currentTimeSubject.value == 0 {
                         AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
-                        videoPlaybackService.pauseWhenPlayAudio()
                     }
                 } else {
                     AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
-                    videoPlaybackService.pauseWhenPlayAudio()
                 }
             }
             .store(in: &cell.disposeBag)

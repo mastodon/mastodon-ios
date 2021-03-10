@@ -81,6 +81,10 @@ extension PublicTimelineViewController {
         )
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        context.videoPlaybackService.viewDidDisappear(from: self)
+    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -103,6 +107,7 @@ extension PublicTimelineViewController {
 // MARK: - UITableViewDelegate
 extension PublicTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return 100 }
         
@@ -114,8 +119,11 @@ extension PublicTimelineViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         
