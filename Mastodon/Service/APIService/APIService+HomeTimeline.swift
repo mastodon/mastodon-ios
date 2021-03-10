@@ -40,7 +40,7 @@ extension APIService {
             authorization: authorization
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
-            return APIService.Persist.persistTimeline(
+            return APIService.Persist.persistToots(
                 managedObjectContext: self.backgroundManagedObjectContext,
                 domain: domain,
                 query: query,

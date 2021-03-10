@@ -18,6 +18,7 @@ extension APIService.CoreData {
         for requestMastodonUser: MastodonUser?,
         in domain: String,
         entity: Mastodon.Entity.Account,
+        userCache: APIService.Persist.PersistCache<MastodonUser>?,
         networkDate: Date,
         log: OSLog
     ) -> (user: MastodonUser, isCreated: Bool) {
@@ -29,15 +30,19 @@ extension APIService.CoreData {
         
         // fetch old mastodon user
         let oldMastodonUser: MastodonUser? = {
-            let request = MastodonUser.sortedFetchRequest
-            request.predicate = MastodonUser.predicate(domain: domain, id: entity.id)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            do {
-                return try managedObjectContext.fetch(request).first
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
+            if let userCache = userCache {
+                return userCache.dictionary[entity.id]
+            } else {
+                let request = MastodonUser.sortedFetchRequest
+                request.predicate = MastodonUser.predicate(domain: domain, id: entity.id)
+                request.fetchLimit = 1
+                request.returnsObjectsAsFaults = false
+                do {
+                    return try managedObjectContext.fetch(request).first
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return nil
+                }                
             }
         }()
         
@@ -57,7 +62,7 @@ extension APIService.CoreData {
                 into: managedObjectContext,
                 property: mastodonUserProperty
             )
-            
+            userCache?.dictionary[entity.id] = mastodonUser
             os_signpost(.event, log: log, name: "update database - process entity: createOrMergeMastodonUser", signpostID: processEntityTaskSignpostID, "did insert new mastodon user %{public}s: name %s", mastodonUser.identifier, mastodonUser.username)
             return (mastodonUser, true)
         }

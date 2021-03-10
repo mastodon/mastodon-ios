@@ -39,6 +39,7 @@ public final class Toot: NSManagedObject {
     // many-to-one relastionship
     @NSManaged public private(set) var author: MastodonUser
     @NSManaged public private(set) var reblog: Toot?
+    @NSManaged public private(set) var replyTo: Toot?
     
     // many-to-many relastionship
     @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
@@ -57,6 +58,7 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var tags: Set<Tag>?
     @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
     @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
+    @NSManaged public private(set) var replyFrom: Set<Toot>?
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
@@ -70,6 +72,7 @@ public extension Toot {
         author: MastodonUser,
         reblog: Toot?,
         application: Application?,
+        replyTo: Toot?,
         poll: Poll?,
         mentions: [Mention]?,
         emojis: [Emoji]?,

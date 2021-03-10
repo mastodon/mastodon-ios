@@ -31,6 +31,7 @@ extension APIService {
                     for: nil,
                     in: domain,
                     entity: account,
+                    userCache: nil,
                     networkDate: response.networkDate,
                     log: log)
                 let flag = isCreated ? "+" : "-"
@@ -64,6 +65,7 @@ extension APIService {
                     for: nil,
                     in: domain,
                     entity: account,
+                    userCache: nil,
                     networkDate: response.networkDate,
                     log: log)
                 let flag = isCreated ? "+" : "-"

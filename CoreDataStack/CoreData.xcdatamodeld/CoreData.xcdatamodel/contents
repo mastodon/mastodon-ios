@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D5029f" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -159,6 +159,8 @@
         <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblogFrom" inverseEntity="Toot"/>
         <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblog" inverseEntity="Toot"/>
         <relationship name="rebloggedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
+        <relationship name="replyFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="replyTo" inverseEntity="Toot"/>
+        <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="replyFrom" inverseEntity="Toot"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="toot" inverseEntity="Tag"/>
     </entity>
     <elements>
@@ -173,6 +175,6 @@
         <element name="Poll" positionX="72" positionY="162" width="128" height="194"/>
         <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="539"/>
+        <element name="Toot" positionX="0" positionY="0" width="128" height="14"/>
     </elements>
 </model>
