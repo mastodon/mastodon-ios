@@ -66,6 +66,18 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: poll %s info updated", ((#file as NSString).lastPathComponent), #line, #function, poll.id)
             })
             .store(in: &disposeBag)
+        
+        toot(for: cell, indexPath: indexPath)
+            .sink { [weak self] toot in
+                guard let self = self else { return }
+                guard let media = (toot?.mediaAttachments ?? Set()).first else { return }
+                guard let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) else { return }
+                
+                DispatchQueue.main.async {
+                    videoPlayerViewModel.willDisplay()
+                }
+            }
+            .store(in: &disposeBag)
     }
 
 }

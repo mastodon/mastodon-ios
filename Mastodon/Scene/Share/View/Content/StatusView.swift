@@ -156,6 +156,8 @@ final class StatusView: UIView {
         return imageView
     }()
 
+    let mosaicPlayerView = MosaicPlayerView()
+    
     let audioView: AudioContainerView = {
         let audioView = AudioContainerView()
         return audioView
@@ -342,6 +344,7 @@ extension StatusView {
         pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
+        // audio
         audioView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(audioView)
         NSLayoutConstraint.activate([
@@ -349,6 +352,8 @@ extension StatusView {
             audioView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
             audioView.heightAnchor.constraint(equalToConstant: 44)
         ])
+        // video gif
+        statusContainerStackView.addArrangedSubview(mosaicPlayerView)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -359,7 +364,8 @@ extension StatusView {
         pollTableView.isHidden = true
         pollStatusStackView.isHidden = true
         audioView.isHidden = true
-
+        mosaicPlayerView.isHidden = true
+        
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false

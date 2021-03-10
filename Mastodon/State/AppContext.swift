@@ -27,6 +27,8 @@ class AppContext: ObservableObject {
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
     
+    let videoPlaybackService = VideoPlaybackService()
+    
     let overrideTraitCollection = CurrentValueSubject<UITraitCollection?, Never>(nil)
 
     init() {

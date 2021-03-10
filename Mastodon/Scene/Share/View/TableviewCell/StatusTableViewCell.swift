@@ -16,6 +16,11 @@ protocol StatusTableViewCellDelegate: class {
     var context: AppContext! { get }
     var managedObjectContext: NSManagedObjectContext { get }
     
+    func parent() -> UIViewController
+    var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { get }
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController)
+    
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
@@ -23,6 +28,13 @@ protocol StatusTableViewCellDelegate: class {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)
+}
+
+extension StatusTableViewCellDelegate {
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        playerViewController.showsPlaybackControls.toggle()
+    }
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -42,6 +54,8 @@ final class StatusTableViewCell: UITableViewCell {
         statusView.isStatusTextSensitive = false
         statusView.cleanUpContentWarning()
         statusView.pollTableView.dataSource = nil
+        statusView.mosaicPlayerView.reset()
+        statusView.mosaicPlayerView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
     }
