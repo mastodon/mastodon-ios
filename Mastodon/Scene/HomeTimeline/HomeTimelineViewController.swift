@@ -103,6 +103,7 @@ extension HomeTimelineViewController {
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
@@ -237,6 +238,13 @@ extension HomeTimelineViewController: UITableViewDelegate {
         handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
 
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+extension HomeTimelineViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        handleTableView(tableView, prefetchRowsAt: indexPaths)
+    }
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate

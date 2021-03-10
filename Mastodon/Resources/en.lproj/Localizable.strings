@@ -31,6 +31,7 @@
 "Common.Controls.Status.ShowPost" = "Show Post";
 "Common.Controls.Status.StatusContentWarning" = "content warning";
 "Common.Controls.Status.UserBoosted" = "%@ boosted";
+"Common.Controls.Status.UserRepliedTo" = "Replied to %@";
 "Common.Controls.Timeline.LoadMore" = "Load More";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";

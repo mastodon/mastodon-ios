@@ -79,12 +79,17 @@ extension StatusSection {
         statusItemAttribute: Item.StatusAttribute
     ) {
         // set header
-        cell.statusView.headerContainerStackView.isHidden = toot.reblog == nil
-        cell.statusView.headerInfoLabel.text = {
-            let author = toot.author
-            let name = author.displayName.isEmpty ? author.username : author.displayName
-            return L10n.Common.Controls.Status.userBoosted(name)
-        }()
+        StatusSection.configureHeader(cell: cell, toot: toot)
+        ManagedObjectObserver.observe(object: toot)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { change in
+                guard case .update(let object) = change.changeType,
+                      let newToot = object as? Toot else { return }
+                StatusSection.configureHeader(cell: cell, toot: newToot)
+            }
+            .store(in: &cell.disposeBag)
         
         // set name username avatar
         cell.statusView.nameLabel.text = {
@@ -225,7 +230,6 @@ extension StatusSection {
                 guard case .update(let object) = change.changeType,
                       let newToot = object as? Toot else { return }
                 let targetToot = newToot.reblog ?? newToot
-
                 let isLike = targetToot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
                 let favoriteCount = targetToot.favouritesCount.intValue
                 let favoriteCountTitle = StatusSection.formattedNumberTitleForActionButton(favoriteCount)
@@ -234,6 +238,31 @@ extension StatusSection {
                 os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, targetToot.id, favoriteCount)
             }
             .store(in: &cell.disposeBag)
+    }
+    
+    static func configureHeader(
+        cell: StatusTableViewCell,
+        toot: Toot
+    ) {
+        if toot.reblog != nil {
+            cell.statusView.headerContainerStackView.isHidden = false
+            cell.statusView.headerInfoLabel.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
+            cell.statusView.headerInfoLabel.text = {
+                let author = toot.author
+                let name = author.displayName.isEmpty ? author.username : author.displayName
+                return L10n.Common.Controls.Status.userBoosted(name)
+            }()
+        } else if let replyTo = toot.replyTo {
+            cell.statusView.headerContainerStackView.isHidden = false
+            cell.statusView.headerInfoLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+            cell.statusView.headerInfoLabel.text = {
+                let author = replyTo.author
+                let name = author.displayName.isEmpty ? author.username : author.displayName
+                return L10n.Common.Controls.Status.userRepliedTo(name)
+            }()
+        } else {
+            cell.statusView.headerContainerStackView.isHidden = true
+        }
     }
     
     static func configure(

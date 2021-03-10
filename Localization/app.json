@@ -37,6 +37,7 @@
             },
             "status": {
                 "user_boosted": "%s boosted",
+                "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
                 "status_content_warning": "content warning",
                 "media_content_warning": "Tap to reveal that may be sensitive",

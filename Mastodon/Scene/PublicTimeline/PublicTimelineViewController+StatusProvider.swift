@@ -70,4 +70,18 @@ extension PublicTimelineViewController: StatusProvider {
         return item
     }
     
+    func items(indexPaths: [IndexPath]) -> [Item] {
+        guard let diffableDataSource = self.viewModel.diffableDataSource else {
+            assertionFailure()
+            return []
+        }
+        
+        var items: [Item] = []
+        for indexPath in indexPaths {
+            guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { continue }
+            items.append(item)
+        }
+        return items
+    }
+    
 }

@@ -73,6 +73,7 @@ extension PublicTimelineViewController {
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
@@ -122,6 +123,13 @@ extension PublicTimelineViewController: UITableViewDelegate {
         let key = item.hashValue
         let frame = cell.frame
         viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+extension PublicTimelineViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        handleTableView(tableView, prefetchRowsAt: indexPaths)
     }
 }
 

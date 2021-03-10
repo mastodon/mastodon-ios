@@ -145,16 +145,19 @@ public extension Toot {
         
         return toot
     }
+    
     func update(reblogsCount: NSNumber) {
         if self.reblogsCount.intValue != reblogsCount.intValue {
             self.reblogsCount = reblogsCount
         }
     }
+    
     func update(favouritesCount: NSNumber) {
         if self.favouritesCount.intValue != favouritesCount.intValue {
             self.favouritesCount = favouritesCount
         }
     }
+    
     func update(repliesCount: NSNumber?) {
         guard let count = repliesCount else {
             return
@@ -163,6 +166,13 @@ public extension Toot {
             self.repliesCount = repliesCount
         }
     }
+    
+    func update(replyTo: Toot?) {
+        if self.replyTo != replyTo {
+            self.replyTo = replyTo
+        }
+    }
+    
     func update(liked: Bool, mastodonUser: MastodonUser) {
         if liked {
             if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
@@ -174,6 +184,7 @@ public extension Toot {
             }
         }
     }
+    
     func update(reblogged: Bool, mastodonUser: MastodonUser) {
         if reblogged {
             if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {

@@ -19,12 +19,13 @@ extension APIService.Persist {
         case `public`
         case home
         case likeList
+        case lookUp
     }
     
     static func persistToots(
         managedObjectContext: NSManagedObjectContext,
         domain: String,
-        query: Mastodon.API.Timeline.TimelineQuery,
+        query: Mastodon.API.Timeline.TimelineQuery?,
         response: Mastodon.Response.Content<[Mastodon.Entity.Status]>,
         persistType: PersistTimelineType,
         requestMastodonUserID: MastodonUser.ID?,        // could be nil when response from public endpoint
@@ -122,6 +123,7 @@ extension APIService.Persist {
                 case .home:             return .homeTimeline
                 case .public:           return .publicTimeline
                 case .likeList:         return .likeList
+                case .lookUp:           return .lookUp
                 }
             }()
             
@@ -152,7 +154,8 @@ extension APIService.Persist {
             // home timeline tasks
             switch persistType {
             case .home:
-                guard let requestMastodonUserID = requestMastodonUserID else {
+                guard let query = query,
+                      let requestMastodonUserID = requestMastodonUserID else {
                     assertionFailure()
                     return
                 }

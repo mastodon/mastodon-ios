@@ -176,7 +176,7 @@ class MastodonPickServerViewModel: NSObject {
                 switch result {
                 case .success(let response):
                     self.unindexedServers.send(response.value)
-                case .failure(let error):
+                case .failure:
                     // TODO: What should be presented when user inputs invalid search text?
                     self.unindexedServers.send([])
                 }
