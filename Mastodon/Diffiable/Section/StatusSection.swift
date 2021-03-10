@@ -86,13 +86,23 @@ extension StatusSection {
             return L10n.Common.Controls.Status.userBoosted(name)
         }()
         
-        // set name username avatar
+        // set name username
         cell.statusView.nameLabel.text = {
             let author = (toot.reblog ?? toot).author
             return author.displayName.isEmpty ? author.username : author.displayName
         }()
         cell.statusView.usernameLabel.text = "@" + (toot.reblog ?? toot).author.acct
-        cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: (toot.reblog ?? toot).author.avatarImageURL()))
+        // set avatar
+        if let reblog = toot.reblog {
+            cell.statusView.avatarButton.isHidden = true
+            cell.statusView.avatarStackedContainerButton.isHidden = false
+            cell.statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: reblog.author.avatarImageURL()))
+            cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+        } else {
+            cell.statusView.avatarButton.isHidden = false
+            cell.statusView.avatarStackedContainerButton.isHidden = true
+            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: (toot.reblog ?? toot).author.avatarImageURL()))
+        }
         
         // set text
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)

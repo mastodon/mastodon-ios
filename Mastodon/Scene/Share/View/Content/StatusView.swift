@@ -60,6 +60,7 @@ final class StatusView: UIView {
         button.setImage(placeholderImage, for: .normal)
         return button
     }()
+    let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -238,6 +239,14 @@ extension StatusView {
             avatarButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
             avatarButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
         ])
+        avatarStackedContainerButton.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.addSubview(avatarStackedContainerButton)
+        NSLayoutConstraint.activate([
+            avatarStackedContainerButton.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            avatarStackedContainerButton.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
+            avatarStackedContainerButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
+            avatarStackedContainerButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
+        ])
         
         // author meta container: [title container | subtitle container]
         let authorMetaContainerStackView = UIStackView()
@@ -360,6 +369,7 @@ extension StatusView {
         pollStatusStackView.isHidden = true
         audioView.isHidden = true
 
+        avatarStackedContainerButton.isHidden = true
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
@@ -429,6 +439,7 @@ import SwiftUI
 struct StatusView_Previews: PreviewProvider {
     
     static let avatarFlora = UIImage(named: "tiraya-adam")
+    static let avatarMarkus = UIImage(named: "markus-spiske")
     
     static var previews: some View {
         Group {
@@ -443,6 +454,49 @@ struct StatusView_Previews: PreviewProvider {
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 200))
+            .previewDisplayName("Normal")
+            UIViewPreview(width: 375) {
+                let statusView = StatusView()
+                statusView.headerContainerStackView.isHidden = false
+                statusView.avatarButton.isHidden = true
+                statusView.avatarStackedContainerButton.isHidden = false
+                statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarFlora
+                    )
+                )
+                statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarMarkus
+                    )
+                )
+                return statusView
+            }
+            .previewLayout(.fixed(width: 375, height: 200))
+            .previewDisplayName("Boost")
+            UIViewPreview(width: 375) {
+                let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
+                statusView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarFlora
+                    )
+                )
+                statusView.headerContainerStackView.isHidden = false
+                let images = MosaicImageView_Previews.images
+                let imageViews = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                for (i, imageView) in imageViews.enumerated() {
+                    imageView.image = images[i]
+                }
+                statusView.statusMosaicImageViewContainer.isHidden = false
+                statusView.statusMosaicImageViewContainer.blurVisualEffectView.isHidden = true
+                statusView.isStatusTextSensitive = false
+                return statusView
+            }
+            .previewLayout(.fixed(width: 375, height: 380))
+            .previewDisplayName("Image Meida")
             UIViewPreview(width: 375) {
                 let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
                 statusView.configure(
@@ -466,6 +520,7 @@ struct StatusView_Previews: PreviewProvider {
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 380))
+            .previewDisplayName("Content Sensitive")
         }
     }
     
