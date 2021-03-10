@@ -5,8 +5,8 @@
 //  Created by MainasuK Cirno on 2021-3-10.
 //
 
+import os.log
 import UIKit
-
 final class AvatarStackedImageView: UIImageView { }
 
 // MARK: - AvatarConfigurableView
@@ -16,9 +16,6 @@ extension AvatarStackedImageView: AvatarConfigurableView {
     var configurableAvatarImageView: UIImageView? { self }
     var configurableAvatarButton: UIButton? { nil }
 }
-
-import os.log
-import UIKit
 
 extension UIControl.State: Hashable { }
 
