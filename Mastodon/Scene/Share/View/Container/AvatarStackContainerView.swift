@@ -71,28 +71,17 @@ extension AvatarStackContainerButton {
         let offset: CGFloat = 2
         let path: CGPath = {
             let path = CGMutablePath()
-            path.addRect(CGRect(origin: .zero, size: AvatarStackContainerButton.containerSize))
-            if UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft {
-                path.addPath(UIBezierPath(
-                    roundedRect: CGRect(
-                        x: AvatarStackedImageView.configurableAvatarImageSize.width + offset,
-                        y: AvatarStackContainerButton.containerSize.height - AvatarStackedImageView.configurableAvatarImageSize.height - offset,
-                        width: AvatarStackedImageView.configurableAvatarImageSize.width,
-                        height: AvatarStackedImageView.configurableAvatarImageSize.height
-                    ),
-                    cornerRadius: AvatarStackedImageView.configurableAvatarImageCornerRadius
-                ).cgPath)
-            } else {
-                path.addPath(UIBezierPath(
-                    roundedRect: CGRect(
-                        x: AvatarStackContainerButton.containerSize.width - AvatarStackedImageView.configurableAvatarImageSize.width - offset,
-                        y: AvatarStackContainerButton.containerSize.height - AvatarStackedImageView.configurableAvatarImageSize.height - offset,
-                        width: AvatarStackedImageView.configurableAvatarImageSize.width,
-                        height: AvatarStackedImageView.configurableAvatarImageSize.height
-                    ),
-                    cornerRadius: AvatarStackedImageView.configurableAvatarImageCornerRadius
-                ).cgPath)
-            }
+            path.addRect(CGRect(origin: .zero, size: AvatarStackedImageView.configurableAvatarImageSize))
+            let mirrorScale: CGFloat = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? -1 : 1
+            path.addPath(UIBezierPath(
+                roundedRect: CGRect(
+                    x: mirrorScale * (AvatarStackContainerButton.containerSize.width - AvatarStackedImageView.configurableAvatarImageSize.width - offset),
+                    y: AvatarStackContainerButton.containerSize.height - AvatarStackedImageView.configurableAvatarImageSize.height - offset,
+                    width: AvatarStackedImageView.configurableAvatarImageSize.width,
+                    height: AvatarStackedImageView.configurableAvatarImageSize.height
+                ),
+                cornerRadius: AvatarStackedImageView.configurableAvatarImageCornerRadius
+            ).cgPath)
             return path
         }()
         let maskShapeLayer = CAShapeLayer()
