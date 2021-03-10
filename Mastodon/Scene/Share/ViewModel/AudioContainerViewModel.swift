@@ -12,7 +12,8 @@ import UIKit
 class AudioContainerViewModel {
     static func configure(
         cell: StatusTableViewCell,
-        audioAttachment: Attachment
+        audioAttachment: Attachment,
+        videoPlaybackService: VideoPlaybackService
     ) {
         guard let duration = audioAttachment.meta?.original?.duration else { return }
         let audioView = cell.statusView.audioView
@@ -25,12 +26,15 @@ class AudioContainerViewModel {
                         AudioPlayer.shared.pause()
                     } else {
                         AudioPlayer.shared.resume()
+                        videoPlaybackService.pauseWhenPlayAudio()
                     }
                     if AudioPlayer.shared.currentTimeSubject.value == 0 {
                         AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
+                        videoPlaybackService.pauseWhenPlayAudio()
                     }
                 } else {
                     AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
+                    videoPlaybackService.pauseWhenPlayAudio()
                 }
             }
             .store(in: &cell.disposeBag)
@@ -41,7 +45,7 @@ class AudioContainerViewModel {
                 AudioPlayer.shared.seekToTime(time: time)
             }
             .store(in: &cell.disposeBag)
-        self.observePlayer(cell: cell, audioAttachment: audioAttachment)
+        observePlayer(cell: cell, audioAttachment: audioAttachment)
         if audioAttachment != AudioPlayer.shared.attachment {
             configureAudioView(audioView: audioView, audioAttachment: audioAttachment, playbackState: .stopped)
         }
@@ -61,11 +65,11 @@ class AudioContainerViewModel {
                 }
                 guard audioAttachment === AudioPlayer.shared.attachment else { return nil }
                 guard let duration = audioAttachment.meta?.original?.duration else { return nil }
-                
+
                 if let lastCurrentTimeSubject = lastCurrentTimeSubject, time != 0.0 {
-                    guard abs(time - lastCurrentTimeSubject) < 0.5 else { return nil }  // debounce
+                    guard abs(time - lastCurrentTimeSubject) < 0.5 else { return nil } // debounce
                 }
-                
+
                 guard !audioView.slider.isTracking else { return nil }
                 return (time, Float(time / duration))
             }

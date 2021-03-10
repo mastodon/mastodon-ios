@@ -5,14 +5,13 @@
 //  Created by xiaojian sun on 2021/3/10.
 //
 
+import AVKit
+import Combine
+import CoreDataStack
 import os.log
 import UIKit
-import AVKit
-import CoreDataStack
-import Combine
 
 final class VideoPlayerViewModel {
-    
     var disposeBag = Set<AnyCancellable>()
 
     // input
@@ -33,7 +32,7 @@ final class VideoPlayerViewModel {
     
     // output
     let player: AVPlayer
-    private(set) var looper: AVPlayerLooper?     // works with AVQueuePlayer (iOS 10+)
+    private(set) var looper: AVPlayerLooper? // works with AVQueuePlayer (iOS 10+)
     
     private var timeControlStatusObservation: NSKeyValueObservation?
     let timeControlStatus = CurrentValueSubject<AVPlayer.TimeControlStatus, Never>(.paused)
@@ -55,7 +54,7 @@ final class VideoPlayerViewModel {
         
         timeControlStatusObservation = player.observe(\.timeControlStatus, options: [.initial, .new]) { [weak self] player, _ in
             guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: player state: %s", ((#file as NSString).lastPathComponent), #line, #function, player.timeControlStatus.debugDescription)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: player state: %s", (#file as NSString).lastPathComponent, #line, #function, player.timeControlStatus.debugDescription)
             self.timeControlStatus.value = player.timeControlStatus
         }
         
@@ -64,11 +63,13 @@ final class VideoPlayerViewModel {
             .sink { [weak self] timeControlStatus in
                 guard let _ = self else { return }
                 guard timeControlStatus == .playing else { return }
+                AudioPlayer.shared.pauseIfNeed()
                 switch videoKind {
-                case .gif:      try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
-                case .video:    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
+                case .gif:
+                    break
+                case .video:
+                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
                 }
-                try? AVAudioSession.sharedInstance().setActive(true)
             }
             .store(in: &disposeBag)
         
@@ -84,7 +85,6 @@ final class VideoPlayerViewModel {
     deinit {
         timeControlStatusObservation = nil
     }
-    
 }
 
 extension VideoPlayerViewModel {
@@ -95,7 +95,6 @@ extension VideoPlayerViewModel {
 }
 
 extension VideoPlayerViewModel {
-    
     func setupLooper() {
         guard looper == nil, let queuePlayer = player as? AVQueuePlayer else { return }
         guard let templateItem = queuePlayer.items().first else { return }
@@ -104,10 +103,12 @@ extension VideoPlayerViewModel {
     
     func play() {
         switch videoKind {
-        case .gif:      try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
-        case .video:    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
+        case .gif:
+            break
+        case .video:
+            try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
         }
-        try? AVAudioSession.sharedInstance().setActive(true)
+
         player.play()
         updateDate = Date()
     }
@@ -118,11 +119,11 @@ extension VideoPlayerViewModel {
     }
     
     func willDisplay() {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: url: %s", ((#file as NSString).lastPathComponent), #line, #function, videoURL.debugDescription)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: url: %s", (#file as NSString).lastPathComponent, #line, #function, videoURL.debugDescription)
         
         switch videoKind {
         case .gif:
-            play()   // always auto play GIF
+            play() // always auto play GIF
         case .video:
             guard isPlayingWhenEndDisplaying else { return }
             // mute before resume
@@ -136,17 +137,16 @@ extension VideoPlayerViewModel {
     }
     
     func didEndDisplaying() {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: url: %s", ((#file as NSString).lastPathComponent), #line, #function, videoURL.debugDescription)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: url: %s", (#file as NSString).lastPathComponent, #line, #function, videoURL.debugDescription)
         
         isPlayingWhenEndDisplaying = timeControlStatus.value != .paused
         switch videoKind {
         case .gif:
-            pause()     // always pause GIF immediately
+            pause() // always pause GIF immediately
         case .video:
             debouncePlayingState.send(false)
         }
         
         updateDate = Date()
     }
-    
 }

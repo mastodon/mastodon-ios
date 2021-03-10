@@ -111,6 +111,12 @@ extension AudioPlayer {
                 self.currentTimeSubject.value = 0
             }
             .store(in: &disposeBag)
+        NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification, object: nil)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.pause()
+            }
+            .store(in: &disposeBag)
     }
 
     func isPlaying() -> Bool {
@@ -125,7 +131,11 @@ extension AudioPlayer {
         player.pause()
         playbackState.value = .paused
     }
-
+    func pauseIfNeed() {
+        if isPlaying() {
+            pause()
+        }
+    }
     func seekToTime(time: TimeInterval) {
         player.seek(to: CMTimeMake(value:Int64(time), timescale: 1))
     }

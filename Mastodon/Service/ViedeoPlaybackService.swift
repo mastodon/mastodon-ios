@@ -5,14 +5,13 @@
 //  Created by xiaojian sun on 2021/3/10.
 //
 
-import os.log
-import Foundation
 import AVKit
 import Combine
 import CoreDataStack
+import Foundation
+import os.log
 
 final class VideoPlaybackService {
-    
     var disposeBag = Set<AnyCancellable>()
     
     let workingQueue = DispatchQueue(label: "com.twidere.twiderex.video-playback-service.working-queue")
@@ -20,7 +19,6 @@ final class VideoPlaybackService {
     
     // only for video kind
     weak var latestPlayingVideoPlayerViewModel: VideoPlayerViewModel?
-    
 }
 
 extension VideoPlaybackService {
@@ -43,7 +41,6 @@ extension VideoPlaybackService {
                 if latestPlayingVideoPlayerViewModel === playerViewModel {
                     latestPlayingVideoPlayerViewModel = nil
                     try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
-                    try? AVAudioSession.sharedInstance().setActive(false)
                 }
             }
         }
@@ -51,16 +48,15 @@ extension VideoPlaybackService {
 }
 
 extension VideoPlaybackService {
-    
     func dequeueVideoPlayerViewModel(for media: Attachment) -> VideoPlayerViewModel? {
         // Core Data entity not thread-safe. Save attribute before enter working queue
         guard let height = media.meta?.original?.height,
               let width = media.meta?.original?.width,
               let url = URL(string: media.url),
-              media.type == .gifv || media.type == .video else
-        { return nil }
+              media.type == .gifv || media.type == .video
+        else { return nil }
 
-        let previewImageURL = media.previewURL.flatMap({ URL(string: $0) })
+        let previewImageURL = media.previewURL.flatMap { URL(string: $0) }
         let videoKind: VideoPlayerViewModel.Kind = media.type == .gifv ? .gif : .video
 
         var _viewModel: VideoPlayerViewModel?
@@ -95,7 +91,6 @@ extension VideoPlaybackService {
             }
             .store(in: &disposeBag)
     }
-    
 }
 
 extension VideoPlaybackService {
@@ -106,7 +101,7 @@ extension VideoPlaybackService {
     }
     
     func viewDidDisappear(from viewController: UIViewController?) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
         
         // note: do not retain view controller
         // pause all player when view disppear exclude full screen player and other transitioning scene
@@ -116,10 +111,24 @@ extension VideoPlaybackService {
                 continue
             }
             guard !viewModel.isFullScreenPresentationing else {
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: isFullScreenPresentationing", ((#file as NSString).lastPathComponent), #line, #function)
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: isFullScreenPresentationing", (#file as NSString).lastPathComponent, #line, #function)
                 continue
             }
             guard viewModel.videoKind == .video else { continue }
+            viewModel.pause()
+        }
+    }
+
+    func pauseWhenPlayAudio() {
+        for viewModel in viewPlayerViewModelDict.values {
+            guard !viewModel.isTransitioning else {
+                viewModel.isTransitioning = false
+                continue
+            }
+            guard !viewModel.isFullScreenPresentationing else {
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: isFullScreenPresentationing", (#file as NSString).lastPathComponent, #line, #function)
+                continue
+            }
             viewModel.pause()
         }
     }
