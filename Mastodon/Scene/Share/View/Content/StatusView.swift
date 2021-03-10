@@ -156,6 +156,10 @@ final class StatusView: UIView {
         return imageView
     }()
 
+    let audioView: AudioContainerView = {
+        let audioView = AudioContainerView()
+        return audioView
+    }()
     let actionToolbarContainer: ActionToolbarContainer = {
         let actionToolbarContainer = ActionToolbarContainer()
         actionToolbarContainer.configure(for: .inline)
@@ -338,6 +342,14 @@ extension StatusView {
         pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
+        audioView.translatesAutoresizingMaskIntoConstraints = false
+        statusContainerStackView.addArrangedSubview(audioView)
+        NSLayoutConstraint.activate([
+            audioView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
+            audioView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
+            audioView.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
@@ -346,6 +358,7 @@ extension StatusView {
         statusMosaicImageViewContainer.isHidden = true
         pollTableView.isHidden = true
         pollStatusStackView.isHidden = true
+        audioView.isHidden = true
 
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true

@@ -58,6 +58,9 @@ internal enum Asset {
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
+    internal enum Slider {
+      internal static let bar = ColorAsset(name: "Colors/Slider/bar")
+    }
     internal enum TextField {
       internal static let highlight = ColorAsset(name: "Colors/TextField/highlight")
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")

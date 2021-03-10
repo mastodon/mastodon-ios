@@ -16,7 +16,8 @@ struct MosaicImageViewModel {
         var metas: [MosaicMeta] = []
         for element in mediaAttachments where element.type == .image {
             // Display original on the iPad/Mac
-            let urlString = UIDevice.current.userInterfaceIdiom == .phone ? element.previewURL : element.url
+            guard let previewURL = element.previewURL else { continue }
+            let urlString = UIDevice.current.userInterfaceIdiom == .phone ? previewURL : element.url
             guard let meta = element.meta,
                   let width = meta.original?.width,
                   let height = meta.original?.height,

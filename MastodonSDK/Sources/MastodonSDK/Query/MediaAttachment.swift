@@ -1,5 +1,5 @@
 //
-//  Mastodon+Entity+MediaAttachment.swift
+//  MediaAttachment.swift
 //  
 //
 //  Created by jk234ert on 2/9/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Mastodon.Entity {
+extension Mastodon.Query {
     public enum MediaAttachment {
         /// JPEG (Joint Photographic Experts Group) image
         case jpeg(Data?)
@@ -20,7 +20,7 @@ extension Mastodon.Entity {
     }
 }
 
-extension Mastodon.Entity.MediaAttachment {
+extension Mastodon.Query.MediaAttachment {
     var data: Data? {
         switch self {
         case .jpeg(let data): return data
@@ -31,11 +31,12 @@ extension Mastodon.Entity.MediaAttachment {
     }
 
     var fileName: String {
+        let name = UUID().uuidString
         switch self {
-        case .jpeg: return "file.jpg"
-        case .gif: return "file.gif"
-        case .png: return "file.png"
-        case .other(_, let fileExtension, _): return "file.\(fileExtension)"
+        case .jpeg: return "\(name).jpg"
+        case .gif: return "\(name).gif"
+        case .png: return "\(name).png"
+        case .other(_, let fileExtension, _): return "\(name).\(fileExtension)"
         }
     }
 
@@ -53,3 +54,8 @@ extension Mastodon.Entity.MediaAttachment {
     }
 }
 
+extension Mastodon.Query.MediaAttachment: MultipartFormValue {
+    var multipartValue: Data { return data ?? Data() }
+    var multipartContentType: String? { return mimeType }
+    var multipartFilename: String? { return fileName }
+}

@@ -8,9 +8,11 @@
 import os.log
 import XCTest
 import Combine
+import UIKit
 @testable import MastodonSDK
 
 extension MastodonSDKTests {
+    
     func testVerifyCredentials() throws {
         let theExpectation = expectation(description: "Verify Account Credentials")
 
@@ -44,11 +46,14 @@ extension MastodonSDKTests {
             .flatMap({ (result) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
 
                 // TODO: replace with test account acct
-                XCTAssertEqual(result.value.acct, "")
+                XCTAssert(!result.value.acct.isEmpty)
                 theExpectation1.fulfill()
-
-                var query = Mastodon.API.Account.UpdateCredentialQuery()
-                query.note = dateString
+                
+                let query = Mastodon.API.Account.UpdateCredentialQuery(
+                    bot: !(result.value.bot ?? false),
+                    note: dateString,
+                    header: Mastodon.Query.MediaAttachment.jpeg(UIImage(systemName: "house")!.jpegData(compressionQuality: 0.8))
+                )
                 return Mastodon.API.Account.updateCredentials(session: self.session, domain: self.domain, query: query, authorization: authorization)
             })
             .sink { completion in
@@ -73,8 +78,7 @@ extension MastodonSDKTests {
     func testRetrieveAccountInfo() throws {
         let theExpectation = expectation(description: "Verify Account Credentials")
 
-        let query = Mastodon.API.Account.AccountInfoQuery(id: "1")
-        Mastodon.API.Account.accountInfo(session: session, domain: domain, query: query, authorization: nil)
+        Mastodon.API.Account.accountInfo(session: session, domain: "mastodon.online", userID: "1", authorization: nil)
         .receive(on: DispatchQueue.main)
         .sink { completion in
             switch completion {
@@ -91,4 +95,5 @@ extension MastodonSDKTests {
 
         wait(for: [theExpectation], timeout: 5.0)
     }
+    
 }

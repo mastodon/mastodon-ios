@@ -111,7 +111,24 @@ extension MastodonConfirmEmailViewController {
                         case .failure(let error):
                             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: swap user access token swap fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                         case .finished:
-                            break
+                            // upload avatar and set display name in the background
+                            self.context.apiService.accountUpdateCredentials(
+                                domain: self.viewModel.authenticateInfo.domain,
+                                query: self.viewModel.updateCredentialQuery,
+                                authorization: Mastodon.API.OAuth.Authorization(accessToken: self.viewModel.userToken.accessToken)
+                            )
+                            .retry(3)
+                            .sink { completion in
+                                switch completion {
+                                case .failure(let error):
+                                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                                case .finished:
+                                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name success", ((#file as NSString).lastPathComponent), #line, #function)
+                                }
+                            } receiveValue: { _ in
+                                // do nothing
+                            }
+                            .store(in: &self.context.disposeBag)    // execute in the background
                         }
                     } receiveValue: { response in
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
