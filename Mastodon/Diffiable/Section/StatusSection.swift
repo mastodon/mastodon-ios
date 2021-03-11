@@ -193,13 +193,13 @@ extension StatusSection {
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
         
-        cell.statusView.mosaicPlayerView.mosaicView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.mosaicPlayerView.mosaicView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
-        cell.statusView.mosaicPlayerView.mosaicView.isUserInteractionEnabled = isStatusSensitive
-        cell.statusView.mosaicPlayerView.mosaicView.mosaicButton.publisher(for: .touchUpInside)
+        cell.statusView.mosaicPlayerView.mosaicBlurView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.mosaicPlayerView.mosaicBlurView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.mosaicPlayerView.mosaicBlurView.isUserInteractionEnabled = isStatusSensitive
+        cell.statusView.mosaicPlayerView.mosaicBlurView.tapButton.publisher(for: .touchUpInside)
             .sink { [weak cell] _ in
                 guard let cell = cell else { return }
-                cell.delegate?.statusTableViewCell(cell, mosaicView: cell.statusView.mosaicPlayerView.mosaicView, didTapContentWarningVisualEffectView: cell.statusView.mosaicPlayerView.mosaicView.blurVisualEffectView)
+                cell.delegate?.statusTableViewCell(cell, mosaicBlurView: cell.statusView.mosaicPlayerView.mosaicBlurView, didTapContentWarningVisualEffectView: cell.statusView.mosaicPlayerView.mosaicBlurView.blurVisualEffectView)
             }
             .store(in: &cell.disposeBag)
         

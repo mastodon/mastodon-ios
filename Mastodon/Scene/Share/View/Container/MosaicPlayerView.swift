@@ -15,9 +15,9 @@ final class MosaicPlayerView: UIView {
     private let touchBlockingView = TouchBlockingView()
     private var containerHeightLayoutConstraint: NSLayoutConstraint!
     
-    let mosaicView: MosaicView = {
-        let mosaicView = MosaicView()
-        return mosaicView
+    let mosaicBlurView: MosaicBlurView = {
+        let mosaicBlurView = MosaicBlurView()
+        return mosaicBlurView
     }()
     
     let playerViewController = AVPlayerViewController()
@@ -67,12 +67,12 @@ extension MosaicPlayerView {
         playerViewController.view.layer.cornerRadius = MosaicPlayerView.cornerRadius
         playerViewController.view.layer.cornerCurve = .continuous
         
-        addSubview(mosaicView)
+        addSubview(mosaicBlurView)
         NSLayoutConstraint.activate([
-            mosaicView.topAnchor.constraint(equalTo: topAnchor),
-            mosaicView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mosaicView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mosaicView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            mosaicBlurView.topAnchor.constraint(equalTo: topAnchor),
+            mosaicBlurView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mosaicBlurView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mosaicBlurView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
