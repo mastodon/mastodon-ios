@@ -201,8 +201,8 @@ extension StatusSection {
            let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
         {
             let parent = cell.delegate?.parent()
-            let mosaicPlayerView = cell.statusView.playerContainerView
-            let playerViewController = mosaicPlayerView.setupPlayer(
+            let playerContainerView = cell.statusView.playerContainerView
+            let playerViewController = playerContainerView.setupPlayer(
                 aspectRatio: videoPlayerViewModel.videoSize,
                 maxSize: playerViewMaxSize,
                 parent: parent
@@ -211,8 +211,8 @@ extension StatusSection {
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
             
-            mosaicPlayerView.gifIndicatorLabel.isHidden = videoPlayerViewModel.videoKind != .gif
-            mosaicPlayerView.isHidden = false
+            playerContainerView.gifIndicatorLabel.isHidden = videoPlayerViewModel.videoKind != .gif
+            playerContainerView.isHidden = false
             
         } else {
             cell.statusView.playerContainerView.playerViewController.player?.pause()
