@@ -1,5 +1,5 @@
 //
-//  AvatarStackContainerView.swift
+//  AvatarStackContainerButton.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-10.
@@ -16,8 +16,6 @@ extension AvatarStackedImageView: AvatarConfigurableView {
     var configurableAvatarImageView: UIImageView? { self }
     var configurableAvatarButton: UIButton? { nil }
 }
-
-extension UIControl.State: Hashable { }
 
 final class AvatarStackContainerButton: UIControl {
     
