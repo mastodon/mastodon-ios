@@ -192,6 +192,14 @@ extension StatusSection {
             let scale: CGFloat = 1.3
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
+        cell.statusView.mosaicPlayerView.mosaicView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.mosaicPlayerView.mosaicView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.mosaicPlayerView.mosaicView.mosaicButton.publisher(for: .touchUpInside)
+            .sink { [weak cell] _ in
+                guard let cell = cell else { return }
+                cell.delegate?.statusTableViewCell(cell, mosaicView: cell.statusView.mosaicPlayerView.mosaicView, didTapContentWarningVisualEffectView: cell.statusView.mosaicPlayerView.mosaicView.blurVisualEffectView)
+            }
+            .store(in: &cell.disposeBag)
         
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
            let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)

@@ -15,6 +15,11 @@ final class MosaicPlayerView: UIView {
     private let touchBlockingView = TouchBlockingView()
     private var containerHeightLayoutConstraint: NSLayoutConstraint!
     
+    let mosaicView: MosaicView = {
+        let mosaicView = MosaicView()
+        return mosaicView
+    }()
+    
     let playerViewController = AVPlayerViewController()
     
     let gifIndicatorLabel: UILabel = {
@@ -38,6 +43,14 @@ final class MosaicPlayerView: UIView {
 
 extension MosaicPlayerView {
     private func _init() {
+        addSubview(mosaicView)
+        NSLayoutConstraint.activate([
+            mosaicView.topAnchor.constraint(equalTo: topAnchor),
+            mosaicView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mosaicView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mosaicView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+        
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         containerHeightLayoutConstraint = container.heightAnchor.constraint(equalToConstant: 162).priority(.required - 1)
