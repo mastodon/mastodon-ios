@@ -91,7 +91,7 @@ extension VideoPlaybackService {
             }
             .store(in: &disposeBag)
         
-        NotificationCenter.default.publisher(for: AudioPlayer.appWillPlayAudioNotification)
+        NotificationCenter.default.publisher(for: AudioPlaybackService.appWillPlayAudioNotification)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.pauseWhenPlayAudio()

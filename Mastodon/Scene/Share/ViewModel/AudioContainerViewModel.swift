@@ -12,54 +12,58 @@ import UIKit
 class AudioContainerViewModel {
     static func configure(
         cell: StatusTableViewCell,
-        audioAttachment: Attachment
+        audioAttachment: Attachment,
+        audioService: AudioPlaybackService
     ) {
         guard let duration = audioAttachment.meta?.original?.duration else { return }
         let audioView = cell.statusView.audioView
         audioView.timeLabel.text = duration.asString(style: .positional)
 
         audioView.playButton.publisher(for: .touchUpInside)
-            .sink { _ in
-                if audioAttachment === AudioPlayer.shared.attachment {
-                    if AudioPlayer.shared.isPlaying() {
-                        AudioPlayer.shared.pause()
+            .sink { [weak audioService] _ in
+                guard let audioService = audioService else { return }
+                if audioAttachment === audioService.attachment {
+                    if audioService.isPlaying() {
+                        audioService.pause()
                     } else {
-                        AudioPlayer.shared.resume()
+                        audioService.resume()
                     }
-                    if AudioPlayer.shared.currentTimeSubject.value == 0 {
-                        AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
+                    if audioService.currentTimeSubject.value == 0 {
+                        audioService.playAudio(audioAttachment: audioAttachment)
                     }
                 } else {
-                    AudioPlayer.shared.playAudio(audioAttachment: audioAttachment)
+                    audioService.playAudio(audioAttachment: audioAttachment)
                 }
             }
             .store(in: &cell.disposeBag)
         audioView.slider.publisher(for: .valueChanged)
-            .sink { slider in
+            .sink { [weak audioService] slider in
+                guard let audioService = audioService else { return }
                 let slider = slider as! UISlider
                 let time = Double(slider.value) * duration
-                AudioPlayer.shared.seekToTime(time: time)
+                audioService.seekToTime(time: time)
             }
             .store(in: &cell.disposeBag)
-        observePlayer(cell: cell, audioAttachment: audioAttachment)
-        if audioAttachment != AudioPlayer.shared.attachment {
+        observePlayer(cell: cell, audioAttachment: audioAttachment, audioService: audioService)
+        if audioAttachment != audioService.attachment {
             configureAudioView(audioView: audioView, audioAttachment: audioAttachment, playbackState: .stopped)
         }
     }
 
     static func observePlayer(
         cell: StatusTableViewCell,
-        audioAttachment: Attachment
+        audioAttachment: Attachment,
+        audioService: AudioPlaybackService
     ) {
         let audioView = cell.statusView.audioView
         var lastCurrentTimeSubject: TimeInterval?
-        AudioPlayer.shared.currentTimeSubject
+        audioService.currentTimeSubject
             .throttle(for: 0.33, scheduler: DispatchQueue.main, latest: true)
-            .compactMap { time -> (TimeInterval, Float)? in
+            .compactMap { [weak audioService] time -> (TimeInterval, Float)? in
                 defer {
                     lastCurrentTimeSubject = time
                 }
-                guard audioAttachment === AudioPlayer.shared.attachment else { return nil }
+                guard audioAttachment === audioService?.attachment else { return nil }
                 guard let duration = audioAttachment.meta?.original?.duration else { return nil }
 
                 if let lastCurrentTimeSubject = lastCurrentTimeSubject, time != 0.0 {
@@ -74,10 +78,10 @@ class AudioContainerViewModel {
                 audioView.slider.setValue(progress, animated: true)
             })
             .store(in: &cell.disposeBag)
-        AudioPlayer.shared.playbackState
+        audioService.playbackState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { playbackState in
-                if audioAttachment === AudioPlayer.shared.attachment {
+                if audioAttachment === audioService.attachment {
                     configureAudioView(audioView: audioView, audioAttachment: audioAttachment, playbackState: playbackState)
                 } else {
                     configureAudioView(audioView: audioView, audioAttachment: audioAttachment, playbackState: .stopped)

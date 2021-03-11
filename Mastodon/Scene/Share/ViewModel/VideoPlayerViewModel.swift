@@ -14,7 +14,7 @@ import UIKit
 final class VideoPlayerViewModel {
     var disposeBag = Set<AnyCancellable>()
 
-    static let appWillPlayVideoNotification = NSNotification.Name(rawValue: "appWillPlayVideoNotification")
+    static let appWillPlayVideoNotification = NSNotification.Name(rawValue: "org.joinmastodon.Mastodon.VideoPlayerViewModel.appWillPlayVideo")
     // input
     let previewImageURL: URL?
     let videoURL: URL

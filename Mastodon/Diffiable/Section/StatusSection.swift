@@ -176,7 +176,7 @@ extension StatusSection {
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
             cell.statusView.audioView.isHidden = false
-            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment  )
+            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment, audioService: dependency.context.audioPlaybackService)
         } else {
             cell.statusView.audioView.isHidden = true
         }

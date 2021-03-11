@@ -84,6 +84,7 @@ extension PublicTimelineViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         context.videoPlaybackService.viewDidDisappear(from: self)
+        context.audioPlaybackService.viewDidDisappear(from: self)
     }
 }
 
@@ -107,7 +108,6 @@ extension PublicTimelineViewController {
 // MARK: - UITableViewDelegate
 extension PublicTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return 100 }
         

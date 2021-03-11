@@ -10,10 +10,11 @@ import Combine
 import CoreDataStack
 import Foundation
 import UIKit
+import os.log
 
-final class AudioPlayer: NSObject {
+final class AudioPlaybackService: NSObject {
     
-    static let appWillPlayAudioNotification = NSNotification.Name(rawValue: "appWillPlayAudioNotification")
+    static let appWillPlayAudioNotification = NSNotification.Name(rawValue: "org.joinmastodon.Mastodon.AudioPlayer.appWillPlayAudio")
     
     var disposeBag = Set<AnyCancellable>()
 
@@ -24,19 +25,16 @@ final class AudioPlayer: NSObject {
 
     let session = AVAudioSession.sharedInstance()
     let playbackState = CurrentValueSubject<PlaybackState, Never>(PlaybackState.unknown)
-    
-    // MARK: - singleton
-    public static let shared = AudioPlayer()
 
     let currentTimeSubject = CurrentValueSubject<TimeInterval, Never>(0)
 
-    private override init() {
+    override init() {
         super.init()
         addObserver()
     }
 }
 
-extension AudioPlayer {
+extension AudioPlaybackService {
     func playAudio(audioAttachment: Attachment) {
         guard let url = URL(string: audioAttachment.url) else {
             return
@@ -48,7 +46,7 @@ extension AudioPlayer {
             return
         }
 
-        pushWillPlayAudioNotification()
+        notifyWillPlayAudioNotification()
         if audioAttachment == attachment {
             if self.playbackState.value == .stopped {
                 self.seekToTime(time: .zero)
@@ -129,14 +127,14 @@ extension AudioPlayer {
             .store(in: &disposeBag)
     }
 
-    func pushWillPlayAudioNotification() {
-        NotificationCenter.default.post(name: AudioPlayer.appWillPlayAudioNotification, object: nil)
+    func notifyWillPlayAudioNotification() {
+        NotificationCenter.default.post(name: AudioPlaybackService.appWillPlayAudioNotification, object: nil)
     }
     func isPlaying() -> Bool {
         return playbackState.value == .readyToPlay || playbackState.value == .playing
     }
     func resume() {
-        pushWillPlayAudioNotification()
+        notifyWillPlayAudioNotification()
         player.play()
         playbackState.value = .playing
     }
@@ -152,5 +150,12 @@ extension AudioPlayer {
     }
     func seekToTime(time: TimeInterval) {
         player.seek(to: CMTimeMake(value:Int64(time), timescale: 1))
+    }
+}
+
+extension AudioPlaybackService {
+    func viewDidDisappear(from viewController: UIViewController?) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
+        pause()
     }
 }
