@@ -85,6 +85,7 @@ extension APIService {
                 let _oldToot: Toot? = {
                     let request = Toot.sortedFetchRequest
                     request.predicate = Toot.predicate(domain: domain, id: statusID)
+                    request.fetchLimit = 1
                     request.returnsObjectsAsFaults = false
                     request.relationshipKeyPathsForPrefetching = [#keyPath(Toot.reblog)]
                     do {
