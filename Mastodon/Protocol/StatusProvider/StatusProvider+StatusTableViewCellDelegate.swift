@@ -57,7 +57,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         default:
             return
         }
-        
+        mosaicView.isUserInteractionEnabled = false
         var snapshot = diffableDataSource.snapshot()
         snapshot.reloadItems([item])
         UIView.animate(withDuration: 0.33) {

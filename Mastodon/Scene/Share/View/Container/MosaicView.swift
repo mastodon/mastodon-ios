@@ -17,6 +17,7 @@ class MosaicView: UIView {
     let mosaicButton: UIButton = {
         let button = UIButton(type: .custom)
         button.backgroundColor = .clear
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
 
@@ -41,14 +42,9 @@ class MosaicView: UIView {
 
 extension MosaicView {
     private func _init() {
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
-        addSubview(mosaicButton)
-        NSLayoutConstraint.activate([
-            mosaicButton.topAnchor.constraint(equalTo: topAnchor),
-            mosaicButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mosaicButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mosaicButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-        ])
+
         // add blur visual effect view in the setup method
         blurVisualEffectView.layer.masksToBounds = true
         blurVisualEffectView.layer.cornerRadius = MosaicView.cornerRadius
@@ -69,6 +65,23 @@ extension MosaicView {
             contentWarningLabel.leadingAnchor.constraint(equalTo: vibrancyVisualEffectView.contentView.layoutMarginsGuide.leadingAnchor),
             contentWarningLabel.trailingAnchor.constraint(equalTo: vibrancyVisualEffectView.contentView.layoutMarginsGuide.trailingAnchor),
             contentWarningLabel.centerYAnchor.constraint(equalTo: vibrancyVisualEffectView.contentView.centerYAnchor),
+        ])
+        
+        blurVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(blurVisualEffectView)
+        NSLayoutConstraint.activate([
+            blurVisualEffectView.topAnchor.constraint(equalTo: topAnchor),
+            blurVisualEffectView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            blurVisualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            blurVisualEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        addSubview(mosaicButton)
+        NSLayoutConstraint.activate([
+            mosaicButton.topAnchor.constraint(equalTo: topAnchor),
+            mosaicButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mosaicButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mosaicButton.leadingAnchor.constraint(equalTo: leadingAnchor),
         ])
     }
 }

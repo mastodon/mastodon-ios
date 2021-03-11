@@ -43,14 +43,6 @@ final class MosaicPlayerView: UIView {
 
 extension MosaicPlayerView {
     private func _init() {
-        addSubview(mosaicView)
-        NSLayoutConstraint.activate([
-            mosaicView.topAnchor.constraint(equalTo: topAnchor),
-            mosaicView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mosaicView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mosaicView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         containerHeightLayoutConstraint = container.heightAnchor.constraint(equalToConstant: 162).priority(.required - 1)
@@ -74,6 +66,14 @@ extension MosaicPlayerView {
         playerViewController.view.layer.masksToBounds = true
         playerViewController.view.layer.cornerRadius = MosaicPlayerView.cornerRadius
         playerViewController.view.layer.cornerCurve = .continuous
+        
+        addSubview(mosaicView)
+        NSLayoutConstraint.activate([
+            mosaicView.topAnchor.constraint(equalTo: topAnchor),
+            mosaicView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            mosaicView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mosaicView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }
 
