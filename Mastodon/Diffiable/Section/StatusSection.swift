@@ -193,21 +193,15 @@ extension StatusSection {
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
         
-        cell.statusView.mosaicPlayerView.mosaicBlurView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.mosaicPlayerView.mosaicBlurView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
-        cell.statusView.mosaicPlayerView.mosaicBlurView.isUserInteractionEnabled = isStatusSensitive
-        cell.statusView.mosaicPlayerView.mosaicBlurView.tapButton.publisher(for: .touchUpInside)
-            .sink { [weak cell] _ in
-                guard let cell = cell else { return }
-                cell.delegate?.statusTableViewCell(cell, mosaicBlurView: cell.statusView.mosaicPlayerView.mosaicBlurView, didTapContentWarningVisualEffectView: cell.statusView.mosaicPlayerView.mosaicBlurView.blurVisualEffectView)
-            }
-            .store(in: &cell.disposeBag)
+        cell.statusView.playerContainerView.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.playerContainerView.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
         
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
            let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
         {
             let parent = cell.delegate?.parent()
-            let mosaicPlayerView = cell.statusView.mosaicPlayerView
+            let mosaicPlayerView = cell.statusView.playerContainerView
             let playerViewController = mosaicPlayerView.setupPlayer(
                 aspectRatio: videoPlayerViewModel.videoSize,
                 maxSize: playerViewMaxSize,
@@ -221,8 +215,8 @@ extension StatusSection {
             mosaicPlayerView.isHidden = false
             
         } else {
-            cell.statusView.mosaicPlayerView.playerViewController.player?.pause()
-            cell.statusView.mosaicPlayerView.playerViewController.player = nil
+            cell.statusView.playerContainerView.playerViewController.player?.pause()
+            cell.statusView.playerContainerView.playerViewController.player = nil
         }
         // set poll
         let poll = (toot.reblog ?? toot).poll

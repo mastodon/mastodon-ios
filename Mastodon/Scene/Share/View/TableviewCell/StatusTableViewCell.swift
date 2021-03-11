@@ -23,8 +23,8 @@ protocol StatusTableViewCellDelegate: class {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
-    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicBlurView: MosaicBlurView, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -55,8 +55,8 @@ final class StatusTableViewCell: UITableViewCell {
         statusView.isStatusTextSensitive = false
         statusView.cleanUpContentWarning()
         statusView.pollTableView.dataSource = nil
-        statusView.mosaicPlayerView.reset()
-        statusView.mosaicPlayerView.isHidden = true
+        statusView.playerContainerView.reset()
+        statusView.playerContainerView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
     }
@@ -196,6 +196,10 @@ extension StatusTableViewCell: StatusViewDelegate {
     
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)
+    }
+    
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusTableViewCell(self, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
     }
     
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {

@@ -13,6 +13,7 @@ import AlamofireImage
 
 protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
 }
 
@@ -156,7 +157,7 @@ final class StatusView: UIView {
         return imageView
     }()
 
-    let mosaicPlayerView = MosaicPlayerView()
+    let playerContainerView = PlayerContainerView()
     
     let audioView: AudioContainerView = {
         let audioView = AudioContainerView()
@@ -353,7 +354,7 @@ extension StatusView {
             audioView.heightAnchor.constraint(equalToConstant: 44)
         ])
         // video gif
-        statusContainerStackView.addArrangedSubview(mosaicPlayerView)
+        statusContainerStackView.addArrangedSubview(playerContainerView)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -364,11 +365,13 @@ extension StatusView {
         pollTableView.isHidden = true
         pollStatusStackView.isHidden = true
         audioView.isHidden = true
-        mosaicPlayerView.isHidden = true
+        playerContainerView.isHidden = true
         
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+        
+        playerContainerView.delegate = self
         
         contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
@@ -418,6 +421,13 @@ extension StatusView {
         delegate?.statusView(self, pollVoteButtonPressed: sender)
     }
     
+}
+
+// MARK: - PlayerContainerViewDelegate
+extension StatusView: PlayerContainerViewDelegate {
+    func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusView(self, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
 }
 
 // MARK: - AvatarConfigurableView
