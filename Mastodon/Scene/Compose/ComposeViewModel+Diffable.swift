@@ -30,9 +30,9 @@ extension ComposeViewModel {
         switch composeKind {
         case .replyToot(let tootObjectID):
             snapshot.appendItems([.replyTo(tootObjectID: tootObjectID)], toSection: .repliedTo)
-            snapshot.appendItems([.toot(attribute: ComposeStatusItem.InputAttribute(hasReplyTo: true))], toSection: .status)
+            snapshot.appendItems([.toot(replyToTootObjectID: tootObjectID)], toSection: .status)
         case .toot:
-            snapshot.appendItems([.toot(attribute: ComposeStatusItem.InputAttribute(hasReplyTo: false))], toSection: .status)
+            snapshot.appendItems([.toot(replyToTootObjectID: nil)], toSection: .status)
         }
         diffableDataSource.apply(snapshot, animatingDifferences: false)
     }

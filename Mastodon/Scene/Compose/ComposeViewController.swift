@@ -59,6 +59,36 @@ extension ComposeViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Fix AutoLayout conflict issue
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.markTextViewEditorBecomeFirstResponser()
+        }
+    }
+    
+}
+
+extension ComposeViewController {
+    private func markTextViewEditorBecomeFirstResponser() {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let items = diffableDataSource.snapshot().itemIdentifiers
+        for item in items {
+            switch item {
+            case .toot:
+                guard let indexPath = diffableDataSource.indexPath(for: item),
+                      let cell = tableView.cellForRow(at: indexPath) as? ComposeTootContentTableViewCell else {
+                    continue
+                }
+                cell.textEditorView.isEditing = true
+                return
+            default:
+                continue
+            }
+        }
+    }
 }
 
 extension ComposeViewController {

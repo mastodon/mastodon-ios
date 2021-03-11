@@ -10,25 +10,7 @@ import CoreData
 
 enum ComposeStatusItem {
     case replyTo(tootObjectID: NSManagedObjectID)
-    case toot(attribute: InputAttribute)
+    case toot(replyToTootObjectID: NSManagedObjectID?)
 }
 
 extension ComposeStatusItem: Hashable { }
-
-extension ComposeStatusItem {
-    class InputAttribute: Hashable {
-        let hasReplyTo: Bool
-        
-        init(hasReplyTo: Bool) {
-            self.hasReplyTo = hasReplyTo
-        }
-        
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(hasReplyTo)
-        }
-        
-        static func == (lhs: ComposeStatusItem.InputAttribute, rhs: ComposeStatusItem.InputAttribute) -> Bool {
-            return lhs.hasReplyTo == rhs.hasReplyTo
-        }
-    }
-}
