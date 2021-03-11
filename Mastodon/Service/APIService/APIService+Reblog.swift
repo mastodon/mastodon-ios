@@ -70,7 +70,7 @@ extension APIService {
             let managedObjectContext = self.backgroundManagedObjectContext
 
             return managedObjectContext.performChanges {
-                let _requestMastodonUser: MastodonUser? = {
+                guard let requestMastodonUser: MastodonUser = {
                     let request = MastodonUser.sortedFetchRequest
                     request.predicate = MastodonUser.predicate(domain: mastodonAuthenticationBox.domain, id: requestMastodonUserID)
                     request.fetchLimit = 1
@@ -81,8 +81,11 @@ extension APIService {
                         assertionFailure(error.localizedDescription)
                         return nil
                     }
-                }()
-                let _oldToot: Toot? = {
+                }() else {
+                    return
+                }
+                
+                guard let oldToot: Toot = {
                     let request = Toot.sortedFetchRequest
                     request.predicate = Toot.predicate(domain: domain, id: statusID)
                     request.fetchLimit = 1
@@ -94,13 +97,10 @@ extension APIService {
                         assertionFailure(error.localizedDescription)
                         return nil
                     }
-                }()
-
-                guard let requestMastodonUser = _requestMastodonUser,
-                      let oldToot = _oldToot else {
-                    assertionFailure()
+                }() else {
                     return
                 }
+
                 APIService.CoreData.merge(toot: oldToot, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
                 if boostKind == .undoBoost {
                     oldToot.update(reblogsCount: NSNumber(value: max(0, oldToot.reblogsCount.intValue - 1)))
