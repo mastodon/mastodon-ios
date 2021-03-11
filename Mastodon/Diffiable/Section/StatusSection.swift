@@ -101,7 +101,7 @@ extension StatusSection {
         } else {
             cell.statusView.avatarButton.isHidden = false
             cell.statusView.avatarStackedContainerButton.isHidden = true
-            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: (toot.reblog ?? toot).author.avatarImageURL()))
+            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
         }
         
         // set text
