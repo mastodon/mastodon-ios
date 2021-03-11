@@ -99,6 +99,15 @@
           "revision": "dad97167bf1be16aeecd109130900995dd01c515",
           "version": "2.6.0"
         }
+      },
+      {
+        "package": "TwitterTextEditor",
+        "repositoryURL": "https://github.com/twitter/TwitterTextEditor.git",
+        "state": {
+          "branch": null,
+          "revision": "8aa914134c5b6aa46e862de63f239ec0e3b52a91",
+          "version": "1.0.0"
+        }
       }
     ]
   },

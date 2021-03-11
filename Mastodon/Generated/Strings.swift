@@ -127,6 +127,14 @@ internal enum L10n {
   }
 
   internal enum Scene {
+    internal enum Compose {
+      internal enum Title {
+        /// New Reply
+        internal static let newReply = L10n.tr("Localizable", "Scene.Compose.Title.NewReply")
+        /// New Toot
+        internal static let newToot = L10n.tr("Localizable", "Scene.Compose.Title.NewToot")
+      }
+    }
     internal enum ConfirmEmail {
       /// We just sent an email to %@,\ntap the link to confirm your account.
       internal static func subtitle(_ p1: Any) -> String {

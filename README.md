@@ -53,5 +53,6 @@ arch -x86_64 pod install
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [SwiftGen](https://github.com/SwiftGen/SwiftGen)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+- [TwitterTextEditor](https://github.com/twitter/TwitterTextEditor)
 
 ## License

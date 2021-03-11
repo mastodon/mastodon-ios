@@ -173,6 +173,12 @@
         },
         "public_timeline": {
             "title": "Public"
+        },
+        "compose": {
+            "title": {
+                "new_toot": "New Toot",
+                "new_reply": "New Reply"
+            }
         }
     }
 }
