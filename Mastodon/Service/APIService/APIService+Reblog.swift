@@ -75,12 +75,7 @@ extension APIService {
                     request.predicate = MastodonUser.predicate(domain: mastodonAuthenticationBox.domain, id: requestMastodonUserID)
                     request.fetchLimit = 1
                     request.returnsObjectsAsFaults = false
-                    do {
-                        return try managedObjectContext.fetch(request).first
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return nil
-                    }
+                    return managedObjectContext.safeFetch(request).first
                 }() else {
                     return
                 }
@@ -91,12 +86,7 @@ extension APIService {
                     request.fetchLimit = 1
                     request.returnsObjectsAsFaults = false
                     request.relationshipKeyPathsForPrefetching = [#keyPath(Toot.reblog)]
-                    do {
-                        return try managedObjectContext.fetch(request).first
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return nil
-                    }
+                    return managedObjectContext.safeFetch(request).first
                 }() else {
                     return
                 }
