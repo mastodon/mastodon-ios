@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import TwitterTextEditor
 
 enum ComposeStatusSection: Equatable, Hashable {
     case repliedTo
@@ -27,9 +28,10 @@ extension ComposeStatusSection {
         for tableView: UITableView,
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
-        composeKind: ComposeKind
+        composeKind: ComposeKind,
+        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate
     ) -> UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
-        UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
+        UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>(tableView: tableView) { [weak textEditorViewTextAttributesDelegate] tableView, indexPath, item -> UITableViewCell? in
             switch item {
             case .replyTo(let tootObjectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self), for: indexPath) as! ComposeRepliedToTootContentTableViewCell
@@ -47,6 +49,7 @@ extension ComposeStatusSection {
                     cell.statusView.headerInfoLabel.text = "[TODO] \(replyTo.author.displayName)"
                 }
                 ComposeStatusSection.configure(cell: cell, attribute: attribute)
+                cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
                 // self size input cell
                 cell.composeContent
                     .receive(on: DispatchQueue.main)

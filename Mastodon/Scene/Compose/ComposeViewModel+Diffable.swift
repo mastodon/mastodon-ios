@@ -6,18 +6,21 @@
 //
 
 import UIKit
+import TwitterTextEditor
 
 extension ComposeViewModel {
     
     func setupDiffableDataSource(
         for tableView: UITableView,
-        dependency: NeedsDependency
+        dependency: NeedsDependency,
+        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate
     ) {
         diffableDataSource = ComposeStatusSection.tableViewDiffableDataSource(
             for: tableView,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
-            composeKind: composeKind
+            composeKind: composeKind,
+            textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate
         )
         
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()

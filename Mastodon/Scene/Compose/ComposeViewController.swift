@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import TwitterTextEditor
-import KeyboardGuide
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -44,11 +43,13 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     let composeToolbarView: ComposeToolbarView = {
         let composeToolbarView = ComposeToolbarView()
+        composeToolbarView.backgroundColor = .secondarySystemBackground
         return composeToolbarView
     }()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
     let composeToolbarBackgroundView: UIView = {
         let backgroundView = UIView()
+        backgroundView.backgroundColor = .secondarySystemBackground
         return backgroundView
     }()
     
@@ -91,8 +92,21 @@ extension ComposeViewController {
         composeToolbarView.preservesSuperviewLayoutMargins = true
         composeToolbarView.delegate = self
         
+        composeToolbarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(composeToolbarBackgroundView, belowSubview: composeToolbarView)
+        NSLayoutConstraint.activate([
+            composeToolbarBackgroundView.topAnchor.constraint(equalTo: composeToolbarView.topAnchor),
+            composeToolbarBackgroundView.leadingAnchor.constraint(equalTo: composeToolbarView.leadingAnchor),
+            composeToolbarBackgroundView.trailingAnchor.constraint(equalTo: composeToolbarView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
+        ])
+        
         tableView.delegate = self
-        viewModel.setupDiffableDataSource(for: tableView, dependency: self)
+        viewModel.setupDiffableDataSource(
+            for: tableView,
+            dependency: self,
+            textEditorViewTextAttributesDelegate: self
+        )
         
         // respond scrollView overlap change
         view.layoutIfNeeded()
@@ -208,11 +222,104 @@ extension ComposeViewController {
 // MARK: - TextEditorViewTextAttributesDelegate
 extension ComposeViewController: TextEditorViewTextAttributesDelegate {
     
-    func textEditorView(_ textEditorView: TextEditorView, updateAttributedString attributedString: NSAttributedString, completion: @escaping (NSAttributedString?) -> Void) {
-        // TODO:
+    func textEditorView(
+        _ textEditorView: TextEditorView,
+        updateAttributedString attributedString: NSAttributedString,
+        completion: @escaping (NSAttributedString?) -> Void
+    ) {
+
+        DispatchQueue.global().async {
+            let string = attributedString.string
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
+
+            let stringRange = NSRange(location: 0, length: string.length)
+            let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)|#([^\\s]+))")
+            // not accept :$ to force user input space to make emoji take effect
+            let emojiMatches = string.matches(pattern: "(?:(^:|\\s:)([a-zA-Z0-9_]+):\\s)")
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    completion(nil)
+                    return
+                }
+
+                // set normal apperance
+                let attributedString = NSMutableAttributedString(attributedString: attributedString)
+                attributedString.removeAttribute(.suffixedAttachment, range: stringRange)
+                attributedString.removeAttribute(.underlineStyle, range: stringRange)
+                attributedString.addAttribute(.foregroundColor, value: Asset.Colors.Label.primary.color, range: stringRange)
+                attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: stringRange)
+
+                for match in highlightMatches {
+                    // hashtag
+                    if let name = string.substring(with: match, at: 2) {
+                       let attachment: TextAttributes.SuffixedAttachment?
+                        switch name {
+                        // FIXME:
+                        case "person":
+                            attachment = .init(size: CGSize(width: 20.0, height: 20.0),
+                                               attachment: .image(UIImage(systemName: "person")!))
+                        default:
+                            attachment = nil
+                        }
+
+                        if let attachment = attachment {
+                            let index = match.range.upperBound - 1
+                            attributedString.addAttribute(
+                                .suffixedAttachment,
+                                value: attachment,
+                                range: NSRange(location: index, length: 1)
+                            )
+                        }
+                    }
+
+                    // set highlight
+                    var attributes = [NSAttributedString.Key: Any]()
+                    attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    // See `traitCollectionDidChange(_:)`
+                    // set accessibility
+                    if #available(iOS 13.0, *) {
+                        switch self.traitCollection.accessibilityContrast {
+                        case .high:
+                            attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+                        default:
+                            break
+                        }
+                    }
+                    attributedString.addAttributes(attributes, range: match.range)
+                }
+                for match in emojiMatches {
+                    if let name = string.substring(with: match, at: 2) {
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
+                        
+                        // set emoji token invisiable (without upper bounce space)
+                        var attributes = [NSAttributedString.Key: Any]()
+                        attributes[.font] = UIFont.systemFont(ofSize: 0.01)
+                        let rangeWithoutUpperBounceSpace = NSRange(location: match.range.location, length: match.range.length - 1)
+                        attributedString.addAttributes(attributes, range: rangeWithoutUpperBounceSpace)
+                        
+                        // append emoji attachment
+                        let attachment = TextAttributes.SuffixedAttachment(
+                            size: CGSize(width: 20, height: 20),
+                            attachment: .image(UIImage(systemName: "circle")!)
+                        )
+                        let index = match.range.upperBound - 1
+                        attributedString.addAttribute(
+                            .suffixedAttachment,
+                            value: attachment,
+                            range: NSRange(location: index, length: 1)
+                        )
+                    }
+                }
+                
+                completion(attributedString)
+            }
+        }
     }
     
 }
+
+
 
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {

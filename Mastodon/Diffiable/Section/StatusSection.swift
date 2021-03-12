@@ -322,7 +322,7 @@ extension StatusSection {
                     cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
                 }
         } else {
-            assertionFailure()
+            // assertionFailure()
             cell.pollCountdownSubscription = nil
             cell.statusView.pollCountdownLabel.text = "-"
         }
