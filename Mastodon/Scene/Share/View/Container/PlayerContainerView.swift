@@ -28,7 +28,6 @@ final class PlayerContainerView: UIView {
     
     let mediaTypeIndicotorLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .heavy)
         label.textColor = .white
         label.textAlignment = .right
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -162,12 +161,21 @@ extension PlayerContainerView {
         return playerViewController
     }
     
+    func roundedFont(weight: UIFont.Weight,fontSize: CGFloat) -> UIFont {
+        let systemFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
+        guard let descriptor = systemFont.fontDescriptor.withDesign(.rounded) else { return systemFont }
+        let roundedFont = UIFont(descriptor: descriptor, size: fontSize)
+        return roundedFont
+    }
     func setMediaKind(kind: VideoPlayerViewModel.Kind) {
+        let fontSize: CGFloat = 18
+
         switch kind {
         case .gif:
+            mediaTypeIndicotorLabel.font = roundedFont(weight: .heavy, fontSize: fontSize)
             mediaTypeIndicotorLabel.text = "GIF"
         case .video:
-            let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 18, weight: .regular))
+            let configuration = UIImage.SymbolConfiguration(font: roundedFont(weight: .regular, fontSize: fontSize))
             let image = UIImage(systemName: "video.fill", withConfiguration: configuration)!
             let attachment = NSTextAttachment()
             attachment.image = image.withTintColor(.white)
