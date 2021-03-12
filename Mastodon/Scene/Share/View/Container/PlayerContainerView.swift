@@ -1,5 +1,5 @@
 //
-//  MosaicPlayerView.swift
+//  PlayerContainerView.swift
 //  Mastodon
 //
 //  Created by xiaojian sun on 2021/3/10.
@@ -8,16 +8,20 @@
 import AVKit
 import UIKit
 
-final class MosaicPlayerView: UIView {
+protocol PlayerContainerViewDelegate: class {
+    func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+}
+
+final class PlayerContainerView: UIView {
     static let cornerRadius: CGFloat = 8
 
     private let container = UIView()
     private let touchBlockingView = TouchBlockingView()
     private var containerHeightLayoutConstraint: NSLayoutConstraint!
     
-    let mosaicBlurView: MosaicBlurView = {
-        let mosaicBlurView = MosaicBlurView()
-        return mosaicBlurView
+    let contentWarningOverlayView: ContentWarningOverlayView = {
+        let contentWarningOverlayView = ContentWarningOverlayView()
+        return contentWarningOverlayView
     }()
     
     let playerViewController = AVPlayerViewController()
@@ -30,6 +34,8 @@ final class MosaicPlayerView: UIView {
         return label
     }()
     
+    weak var delegate: PlayerContainerViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -41,7 +47,7 @@ final class MosaicPlayerView: UIView {
     }
 }
 
-extension MosaicPlayerView {
+extension PlayerContainerView {
     private func _init() {
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
@@ -64,20 +70,29 @@ extension MosaicPlayerView {
         
         // will not influence full-screen playback
         playerViewController.view.layer.masksToBounds = true
-        playerViewController.view.layer.cornerRadius = MosaicPlayerView.cornerRadius
+        playerViewController.view.layer.cornerRadius = PlayerContainerView.cornerRadius
         playerViewController.view.layer.cornerCurve = .continuous
         
-        addSubview(mosaicBlurView)
+        addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
-            mosaicBlurView.topAnchor.constraint(equalTo: topAnchor),
-            mosaicBlurView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mosaicBlurView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mosaicBlurView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            contentWarningOverlayView.topAnchor.constraint(equalTo: topAnchor),
+            contentWarningOverlayView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentWarningOverlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentWarningOverlayView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        contentWarningOverlayView.delegate = self
     }
 }
 
-extension MosaicPlayerView {
+// MARK: - ContentWarningOverlayViewDelegate
+extension PlayerContainerView: ContentWarningOverlayViewDelegate {
+    func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.playerContainerView(self, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+}
+
+extension PlayerContainerView {
     func reset() {
         // note: set playerViewController.player pause() and nil in data source configuration process make reloadData not break playing
         

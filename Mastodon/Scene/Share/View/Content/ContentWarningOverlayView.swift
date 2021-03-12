@@ -1,25 +1,24 @@
 //
-//  MosaicView.swift
+//  ContentWarningOverlayView.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/3/11.
 //
 
+import os.log
 import Foundation
 import UIKit
 
-class MosaicBlurView: UIView {
+protocol ContentWarningOverlayViewDelegate: class {
+    func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView)
+}
+
+class ContentWarningOverlayView: UIView {
+    
     static let cornerRadius: CGFloat = 4
     static let blurVisualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
-    let blurVisualEffectView = UIVisualEffectView(effect: MosaicBlurView.blurVisualEffect)
-    let vibrancyVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: MosaicBlurView.blurVisualEffect))
-
-    let tapButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.backgroundColor = .clear
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    let blurVisualEffectView = UIVisualEffectView(effect: ContentWarningOverlayView.blurVisualEffect)
+    let vibrancyVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: ContentWarningOverlayView.blurVisualEffect))
 
     let contentWarningLabel: UILabel = {
         let label = UILabel()
@@ -28,6 +27,10 @@ class MosaicBlurView: UIView {
         label.textAlignment = .center
         return label
     }()
+    
+    let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+    
+    weak var delegate: ContentWarningOverlayViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,14 +43,14 @@ class MosaicBlurView: UIView {
     }
 }
 
-extension MosaicBlurView {
+extension ContentWarningOverlayView {
     private func _init() {
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
 
         // add blur visual effect view in the setup method
         blurVisualEffectView.layer.masksToBounds = true
-        blurVisualEffectView.layer.cornerRadius = MosaicBlurView.cornerRadius
+        blurVisualEffectView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
         blurVisualEffectView.layer.cornerCurve = .continuous
 
         vibrancyVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,13 +78,15 @@ extension MosaicBlurView {
             blurVisualEffectView.trailingAnchor.constraint(equalTo: trailingAnchor),
             blurVisualEffectView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    
+        tapGestureRecognizer.addTarget(self, action: #selector(ContentWarningOverlayView.tapGestureRecognizerHandler(_:)))
+        addGestureRecognizer(tapGestureRecognizer)
+    }
+}
 
-        addSubview(tapButton)
-        NSLayoutConstraint.activate([
-            tapButton.topAnchor.constraint(equalTo: topAnchor),
-            tapButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tapButton.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tapButton.leadingAnchor.constraint(equalTo: leadingAnchor),
-        ])
+extension ContentWarningOverlayView {
+    @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.contentWarningOverlayViewDidPressed(self)
     }
 }
