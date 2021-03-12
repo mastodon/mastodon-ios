@@ -6,18 +6,25 @@
 //
 
 import UIKit
+import Combine
 import TwitterTextEditor
 
 final class ComposeTootContentTableViewCell: UITableViewCell {
     
+    var disposeBag = Set<AnyCancellable>()
+    
     let statusView = StatusView()
+    
     let textEditorView: TextEditorView = {
         let textEditorView = TextEditorView()
         textEditorView.font = .preferredFont(forTextStyle: .body)
-//        textEditorView.scrollView.isScrollEnabled = false
+        textEditorView.scrollView.isScrollEnabled = false
         textEditorView.isScrollEnabled = false
+        textEditorView.placeholderText = L10n.Scene.Compose.contentInputPlaceholder
         return textEditorView
     }()
+    
+    let composeContent = PassthroughSubject<String, Never>()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -56,19 +63,9 @@ extension ComposeTootContentTableViewCell {
             textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         
-        // let containerStackView = UIStackView()
-        // containerStackView.axis = .vertical
-        // containerStackView.spacing = 8
-        // containerStackView.translatesAutoresizingMaskIntoConstraints = false
-        // contentView.addSubview(containerStackView)
-        // NSLayoutConstraint.activate([
-        //     containerStackView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
-        //     containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-        //     containerStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-        //     contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 20),
-        // ])
-        
         // TODO:
+        
+        textEditorView.changeObserver = self
     }
     
     override func didMoveToWindow() {
@@ -80,4 +77,12 @@ extension ComposeTootContentTableViewCell {
 
 extension ComposeTootContentTableViewCell {
     
+}
+
+// MARK: - UITextViewDelegate
+extension ComposeTootContentTableViewCell: TextEditorViewChangeObserver {
+    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
+        guard changeResult.isTextChanged else { return }
+        composeContent.send(textEditorView.text)
+    }
 }

@@ -9,30 +9,25 @@ import UIKit
 
 extension ComposeViewModel {
     
-    func setupDiffableDataSource(for tableView: UITableView) {
-        diffableDataSource = UITableViewDiffableDataSource(tableView: tableView) { [weak self] tableView, indexPath, item -> UITableViewCell? in
-            guard let self = self else { return nil }
-            
-            switch item {
-            case .replyTo(let tootObjectID):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self), for: indexPath) as! ComposeRepliedToTootContentTableViewCell
-                // TODO:
-                return cell
-            case .toot(let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeTootContentTableViewCell.self), for: indexPath) as! ComposeTootContentTableViewCell
-                // TODO:
-                return cell
-            }
-        }
+    func setupDiffableDataSource(
+        for tableView: UITableView,
+        dependency: NeedsDependency
+    ) {
+        diffableDataSource = ComposeStatusSection.tableViewDiffableDataSource(
+            for: tableView,
+            dependency: dependency,
+            managedObjectContext: context.managedObjectContext,
+            composeKind: composeKind
+        )
         
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
         snapshot.appendSections([.repliedTo, .status])
         switch composeKind {
         case .replyToot(let tootObjectID):
             snapshot.appendItems([.replyTo(tootObjectID: tootObjectID)], toSection: .repliedTo)
-            snapshot.appendItems([.toot(replyToTootObjectID: tootObjectID)], toSection: .status)
+            snapshot.appendItems([.toot(replyToTootObjectID: tootObjectID, attribute: composeTootAttribute)], toSection: .status)
         case .toot:
-            snapshot.appendItems([.toot(replyToTootObjectID: nil)], toSection: .status)
+            snapshot.appendItems([.toot(replyToTootObjectID: nil, attribute: composeTootAttribute)], toSection: .status)
         }
         diffableDataSource.apply(snapshot, animatingDifferences: false)
     }

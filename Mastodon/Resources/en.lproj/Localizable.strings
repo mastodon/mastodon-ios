@@ -34,6 +34,8 @@
 "Common.Controls.Timeline.LoadMore" = "Load More";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
+"Scene.Compose.ComposeAction" = "Toot";
+"Scene.Compose.ContentInputPlaceholder" = "Type or paste what's on your mind";
 "Scene.Compose.Title.NewReply" = "New Reply";
 "Scene.Compose.Title.NewToot" = "New Toot";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";

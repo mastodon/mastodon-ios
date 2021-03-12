@@ -128,6 +128,10 @@ internal enum L10n {
 
   internal enum Scene {
     internal enum Compose {
+      /// Toot
+      internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
+      /// Type or paste what's on your mind
+      internal static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder")
       internal enum Title {
         /// New Reply
         internal static let newReply = L10n.tr("Localizable", "Scene.Compose.Title.NewReply")

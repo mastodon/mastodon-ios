@@ -12,18 +12,25 @@ import CoreDataStack
 
 final class ComposeViewModel {
     
+    var disposeBag = Set<AnyCancellable>()
+    
     // input
     let context: AppContext
-    let composeKind: ComposeKind
+    let composeKind: ComposeStatusSection.ComposeKind
+    let composeTootAttribute = ComposeStatusItem.ComposeTootAttribute()
+    let composeContent = CurrentValueSubject<String, Never>("")
+    let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    
+    // UI & UX
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
     
     init(
         context: AppContext,
-        composeKind: ComposeKind
+        composeKind: ComposeStatusSection.ComposeKind
     ) {
         self.context = context
         self.composeKind = composeKind
@@ -31,14 +38,30 @@ final class ComposeViewModel {
         case .toot:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newToot)
         case .replyToot:    self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
+        self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         // end init
+        
+        // bind active authentication
+        context.authenticationService.activeMastodonAuthentication
+            .assign(to: \.value, on: activeAuthentication)
+            .store(in: &disposeBag)
+        
+        activeAuthentication
+            .sink { [weak self] mastodonAuthentication in
+                guard let self = self else { return }
+                let mastodonUser = mastodonAuthentication?.user
+                let username = mastodonUser?.username ?? " "
+
+                self.composeTootAttribute.avatarURL.value = mastodonUser?.avatarImageURL()
+                self.composeTootAttribute.displayName.value = {
+                    guard let displayName = mastodonUser?.displayName, !displayName.isEmpty else {
+                        return username
+                    }
+                    return displayName
+                }()
+                self.composeTootAttribute.username.value = username
+            }
+            .store(in: &disposeBag)
     }
     
-}
-
-extension ComposeViewModel {
-    enum ComposeKind {
-        case toot
-        case replyToot(tootObjectID: NSManagedObjectID)
-    }
 }

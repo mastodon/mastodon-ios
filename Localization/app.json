@@ -178,7 +178,9 @@
             "title": {
                 "new_toot": "New Toot",
                 "new_reply": "New Reply"
-            }
+            },
+            "content_input_placeholder": "Type or paste what's on your mind",
+            "compose_action": "Toot"
         }
     }
 }

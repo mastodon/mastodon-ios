@@ -18,6 +18,20 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ComposeViewModel!
     
+    let composeTootBarButtonItem: UIBarButtonItem = {
+        let button = RoundedEdgesButton(type: .custom)
+        button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color), for: .normal)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        button.setTitleColor(.white, for: .normal)
+        button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+        button.adjustsImageWhenHighlighted = false
+        let barButtonItem = UIBarButtonItem(customView: button)
+        return barButtonItem
+    }()
+    
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(ComposeRepliedToTootContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self))
@@ -34,7 +48,6 @@ extension ComposeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         viewModel.title
             .receive(on: DispatchQueue.main)
             .sink { [weak self] title in
@@ -42,7 +55,10 @@ extension ComposeViewController {
                 self.title = title
             }
             .store(in: &disposeBag)
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
+        navigationItem.rightBarButtonItem = composeTootBarButtonItem
+        
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -54,9 +70,7 @@ extension ComposeViewController {
         ])
         
         tableView.delegate = self
-        viewModel.setupDiffableDataSource(for: tableView)
-        
-
+        viewModel.setupDiffableDataSource(for: tableView, dependency: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,7 +125,9 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 
 // MARK: - UITableViewDelegate
 extension ComposeViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
 }
 
 // MARK: - ComposeViewController
