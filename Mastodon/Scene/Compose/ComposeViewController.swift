@@ -70,7 +70,6 @@ extension ComposeViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
         navigationItem.rightBarButtonItem = composeTootBarButtonItem
         
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -87,13 +86,17 @@ extension ComposeViewController {
             composeToolbarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             composeToolbarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             composeToolbarViewBottomLayoutConstraint,
-            composeToolbarView.heightAnchor.constraint(equalToConstant: 44),
+            composeToolbarView.heightAnchor.constraint(equalToConstant: ComposeToolbarView.toolbarHeight),
         ])
         composeToolbarView.preservesSuperviewLayoutMargins = true
         composeToolbarView.delegate = self
         
+        tableView.delegate = self
+        viewModel.setupDiffableDataSource(for: tableView, dependency: self)
+        
         // respond scrollView overlap change
         view.layoutIfNeeded()
+        // update layout when keyboard show/dismiss
         Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
@@ -125,8 +128,9 @@ extension ComposeViewController {
                 return
             }
 
-            self.tableView.contentInset.bottom = padding
-            self.tableView.verticalScrollIndicatorInsets.bottom = padding
+            // add 16pt margin
+            self.tableView.contentInset.bottom = padding + 16
+            self.tableView.verticalScrollIndicatorInsets.bottom = padding + 16
             UIView.animate(withDuration: 0.3) {
                 self.composeToolbarViewBottomLayoutConstraint.constant = padding
                 self.view.layoutIfNeeded()
@@ -134,8 +138,10 @@ extension ComposeViewController {
         })
         .store(in: &disposeBag)
         
-        tableView.delegate = self
-        viewModel.setupDiffableDataSource(for: tableView, dependency: self)
+        viewModel.isComposeTootBarButtonItemEnabled
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: composeTootBarButtonItem)
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,12 +174,32 @@ extension ComposeViewController {
             }
         }
     }
+    
+    private func showDismissConfirmAlertController() {
+        let alertController = UIAlertController(
+            title: L10n.Common.Alerts.DiscardComposeContent.title,
+            message: L10n.Common.Alerts.DiscardComposeContent.message,
+            preferredStyle: .alert
+        )
+        let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(discardAction)
+        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension ComposeViewController {
 
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard viewModel.shouldDismiss.value else {
+            showDismissConfirmAlertController()
+            return
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -222,21 +248,15 @@ extension ComposeViewController: UITableViewDelegate {
 
 // MARK: - ComposeViewController
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
-//    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-//        switch traitCollection.userInterfaceIdiom {
-//        case .phone:
-//            return .fullScreen
-//        default:
-//            return .pageSheet
-//        }
-//    }
-    
+
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return viewModel.shouldDismiss.value
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        showDismissConfirmAlertController()
+
     }
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {

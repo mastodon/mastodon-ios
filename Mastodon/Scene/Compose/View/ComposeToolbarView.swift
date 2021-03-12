@@ -17,6 +17,8 @@ protocol ComposeToolbarViewDelegate: class {
 
 final class ComposeToolbarView: UIView {
     
+    static let toolbarHeight: CGFloat = 44
+    
     weak var delegate: ComposeToolbarViewDelegate?
     
     let mediaButton: UIButton = {

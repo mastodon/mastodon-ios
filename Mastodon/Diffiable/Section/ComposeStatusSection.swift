@@ -46,7 +46,7 @@ extension ComposeStatusSection {
                     cell.statusView.headerContainerStackView.isHidden = false
                     cell.statusView.headerInfoLabel.text = "[TODO] \(replyTo.author.displayName)"
                 }
-                ComposeStatusSection.configureComposeTootContent(cell: cell, attribute: attribute)
+                ComposeStatusSection.configure(cell: cell, attribute: attribute)
                 // self size input cell
                 cell.composeContent
                     .receive(on: DispatchQueue.main)
@@ -62,16 +62,18 @@ extension ComposeStatusSection {
 }
 
 extension ComposeStatusSection {
-    static func configureComposeTootContent(
+    static func configure(
         cell: ComposeTootContentTableViewCell,
         attribute: ComposeStatusItem.ComposeTootAttribute
     ) {
+        // set avatar
         attribute.avatarURL
             .receive(on: DispatchQueue.main)
             .sink { avatarURL in
                 cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarURL))
             }
             .store(in: &cell.disposeBag)
+        // set display name and username
         Publishers.CombineLatest(
             attribute.displayName.eraseToAnyPublisher(),
             attribute.username.eraseToAnyPublisher()
@@ -82,5 +84,11 @@ extension ComposeStatusSection {
             cell.statusView.usernameLabel.text = username
         }
         .store(in: &cell.disposeBag)
+        
+        // bind compose content
+        cell.composeContent
+            .map { $0 as String? }
+            .assign(to: \.value, on: attribute.composeContent)
+            .store(in: &cell.disposeBag)
     }
 }

@@ -14,6 +14,10 @@
             "vote_failure": {
                 "title": "Vote Failure",
                 "poll_expired": "The poll has expired"
+            },
+            "discard_compose_content": {
+                "title": "Discard Toot",
+                "message": "Confirm discard composed toot content."
             }
         },
         "controls": {
@@ -27,6 +31,7 @@
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "cancel": "Cancel",
+                "discard": "Discard",
                 "take_photo": "Take photo",
                 "save_photo": "Save photo",
                 "sign_in": "Sign In",

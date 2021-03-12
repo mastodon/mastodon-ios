@@ -19,6 +19,12 @@ internal enum L10n {
         /// Please try again later.
         internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
       }
+      internal enum DiscardComposeContent {
+        /// Confirm discard composed toot content.
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.DiscardComposeContent.Message")
+        /// Discard Toot
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardComposeContent.Title")
+      }
       internal enum ServerError {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
@@ -46,6 +52,8 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm")
         /// Continue
         internal static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue")
+        /// Discard
+        internal static let discard = L10n.tr("Localizable", "Common.Controls.Actions.Discard")
         /// Edit
         internal static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit")
         /// OK

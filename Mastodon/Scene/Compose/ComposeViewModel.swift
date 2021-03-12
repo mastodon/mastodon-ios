@@ -27,6 +27,7 @@ final class ComposeViewModel {
     // UI & UX
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
+    let isComposeTootBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
     
     init(
         context: AppContext,
@@ -61,6 +62,24 @@ final class ComposeViewModel {
                 }()
                 self.composeTootAttribute.username.value = username
             }
+            .store(in: &disposeBag)
+        
+        composeTootAttribute.composeContent
+            .receive(on: DispatchQueue.main)
+            .map { content in
+                let content = content?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                return !content.isEmpty
+            }
+            .assign(to: \.value, on: isComposeTootBarButtonItemEnabled)
+            .store(in: &disposeBag)
+        
+        composeTootAttribute.composeContent
+            .receive(on: DispatchQueue.main)
+            .map { content in
+                let content = content ?? ""
+                return content.isEmpty
+            }
+            .assign(to: \.value, on: shouldDismiss)
             .store(in: &disposeBag)
     }
     
