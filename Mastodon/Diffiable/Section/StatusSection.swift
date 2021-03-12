@@ -170,8 +170,8 @@ extension StatusSection {
         }
         cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
         let isStatusSensitive = statusItemAttribute.isStatusSensitive
-        cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
@@ -193,7 +193,7 @@ extension StatusSection {
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
         
-        cell.statusView.playerContainerView.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
+        cell.statusView.playerContainerView.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
         cell.statusView.playerContainerView.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         cell.statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
         
