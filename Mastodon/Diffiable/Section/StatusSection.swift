@@ -210,8 +210,7 @@ extension StatusSection {
             playerViewController.delegate = cell.delegate?.playerViewControllerDelegate
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
-            
-            playerContainerView.gifIndicatorLabel.isHidden = videoPlayerViewModel.videoKind != .gif
+            playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
             playerContainerView.isHidden = false
             
         } else {

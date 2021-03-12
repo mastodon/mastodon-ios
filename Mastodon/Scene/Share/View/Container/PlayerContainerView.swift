@@ -26,12 +26,26 @@ final class PlayerContainerView: UIView {
     
     let playerViewController = AVPlayerViewController()
     
-    let gifIndicatorLabel: UILabel = {
+    let mediaTypeIndicotorLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16, weight: .heavy)
-        label.text = "GIF"
+        label.font = .systemFont(ofSize: 18, weight: .heavy)
         label.textColor = .white
+        label.textAlignment = .right
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let mediaTypeIndicotorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.Background.mediaTypeIndicotor.color
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let rect = CGRect(x: 0, y: 0, width: 47, height: 50)
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft], cornerRadii: CGSize(width: 50, height: 50))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = rect
+        maskLayer.path = path.cgPath
+        view.layer.mask = maskLayer
+        return view
     }()
     
     weak var delegate: PlayerContainerViewDelegate?
@@ -60,14 +74,6 @@ extension PlayerContainerView {
             containerHeightLayoutConstraint,
         ])
         
-        addSubview(gifIndicatorLabel)
-        gifIndicatorLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            gifIndicatorLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 4),
-            gifIndicatorLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-        
         // will not influence full-screen playback
         playerViewController.view.layer.masksToBounds = true
         playerViewController.view.layer.cornerRadius = PlayerContainerView.cornerRadius
@@ -80,8 +86,24 @@ extension PlayerContainerView {
             contentWarningOverlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
         contentWarningOverlayView.delegate = self
+        
+        // mediaType
+        addSubview(mediaTypeIndicotorView)
+        NSLayoutConstraint.activate([
+            mediaTypeIndicotorView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            mediaTypeIndicotorView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: 25),
+            mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: 47)
+        ])
+        
+        mediaTypeIndicotorView.addSubview(mediaTypeIndicotorLabel)
+        NSLayoutConstraint.activate([
+            mediaTypeIndicotorLabel.topAnchor.constraint(equalTo: mediaTypeIndicotorView.topAnchor),
+            mediaTypeIndicotorLabel.leadingAnchor.constraint(equalTo: mediaTypeIndicotorView.leadingAnchor),
+            mediaTypeIndicotorLabel.bottomAnchor.constraint(equalTo: mediaTypeIndicotorView.bottomAnchor),
+            mediaTypeIndicotorView.trailingAnchor.constraint(equalTo: mediaTypeIndicotorLabel.trailingAnchor, constant: 8)
+        ])
     }
 }
 
@@ -95,8 +117,6 @@ extension PlayerContainerView: ContentWarningOverlayViewDelegate {
 extension PlayerContainerView {
     func reset() {
         // note: set playerViewController.player pause() and nil in data source configuration process make reloadData not break playing
-        
-        gifIndicatorLabel.removeFromSuperview()
         
         playerViewController.willMove(toParent: nil)
         playerViewController.view.removeFromSuperview()
@@ -137,13 +157,21 @@ extension PlayerContainerView {
         containerHeightLayoutConstraint.constant = floor(rect.height)
         containerHeightLayoutConstraint.isActive = true
         
-        gifIndicatorLabel.translatesAutoresizingMaskIntoConstraints = false
-        touchBlockingView.addSubview(gifIndicatorLabel)
-        NSLayoutConstraint.activate([
-            touchBlockingView.trailingAnchor.constraint(equalTo: gifIndicatorLabel.trailingAnchor, constant: 8),
-            touchBlockingView.bottomAnchor.constraint(equalTo: gifIndicatorLabel.bottomAnchor, constant: 8),
-        ])
+        bringSubviewToFront(mediaTypeIndicotorView)
         
         return playerViewController
+    }
+    
+    func setMediaKind(kind: VideoPlayerViewModel.Kind) {
+        switch kind {
+        case .gif:
+            mediaTypeIndicotorLabel.text = "GIF"
+        case .video:
+            let configuration = UIImage.SymbolConfiguration(font: .systemFont(ofSize: 18, weight: .regular))
+            let image = UIImage(systemName: "video.fill", withConfiguration: configuration)!
+            let attachment = NSTextAttachment()
+            attachment.image = image.withTintColor(.white)
+            mediaTypeIndicotorLabel.attributedText = NSAttributedString(attachment: attachment)
+        }
     }
 }
