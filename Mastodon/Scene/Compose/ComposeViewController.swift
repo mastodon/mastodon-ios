@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import TwitterTextEditor
+import KeyboardGuide
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -41,6 +42,16 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return tableView
     }()
     
+    let composeToolbarView: ComposeToolbarView = {
+        let composeToolbarView = ComposeToolbarView()
+        return composeToolbarView
+    }()
+    var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
+    let composeToolbarBackgroundView: UIView = {
+        let backgroundView = UIView()
+        return backgroundView
+    }()
+    
 }
 
 extension ComposeViewController {
@@ -68,6 +79,60 @@ extension ComposeViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(composeToolbarView)
+        composeToolbarViewBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: composeToolbarView.bottomAnchor)
+        NSLayoutConstraint.activate([
+            composeToolbarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            composeToolbarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            composeToolbarViewBottomLayoutConstraint,
+            composeToolbarView.heightAnchor.constraint(equalToConstant: 44),
+        ])
+        composeToolbarView.preservesSuperviewLayoutMargins = true
+        composeToolbarView.delegate = self
+        
+        // respond scrollView overlap change
+        view.layoutIfNeeded()
+        Publishers.CombineLatest3(
+            KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
+            KeyboardResponderService.shared.state.eraseToAnyPublisher(),
+            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
+        )
+        .sink(receiveValue: { [weak self] isShow, state, endFrame in
+            guard let self = self else { return }
+            
+            guard isShow, state == .dock else {
+                self.tableView.contentInset.bottom = 0.0
+                self.tableView.verticalScrollIndicatorInsets.bottom = 0.0
+                UIView.animate(withDuration: 0.3) {
+                    self.composeToolbarViewBottomLayoutConstraint.constant = 0.0
+                    self.view.layoutIfNeeded()
+                }
+                return
+            }
+
+            // isShow AND dock state
+            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
+            let padding = contentFrame.maxY - endFrame.minY
+            guard padding > 0 else {
+                self.tableView.contentInset.bottom = 0.0
+                self.tableView.verticalScrollIndicatorInsets.bottom = 0.0
+                UIView.animate(withDuration: 0.3) {
+                    self.composeToolbarViewBottomLayoutConstraint.constant = 0.0
+                    self.view.layoutIfNeeded()
+                }
+                return
+            }
+
+            self.tableView.contentInset.bottom = padding
+            self.tableView.verticalScrollIndicatorInsets.bottom = padding
+            UIView.animate(withDuration: 0.3) {
+                self.composeToolbarViewBottomLayoutConstraint.constant = padding
+                self.view.layoutIfNeeded()
+            }
+        })
+        .store(in: &disposeBag)
         
         tableView.delegate = self
         viewModel.setupDiffableDataSource(for: tableView, dependency: self)
@@ -123,6 +188,31 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
     
 }
 
+// MARK: - ComposeToolbarViewDelegate
+extension ComposeViewController: ComposeToolbarViewDelegate {
+    
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, atButtonDidPressed sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, topicButtonDidPressed sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, locationButtonDidPressed sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+}
+
 // MARK: - UITableViewDelegate
 extension ComposeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -132,6 +222,14 @@ extension ComposeViewController: UITableViewDelegate {
 
 // MARK: - ComposeViewController
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
+//    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+//        switch traitCollection.userInterfaceIdiom {
+//        case .phone:
+//            return .fullScreen
+//        default:
+//            return .pageSheet
+//        }
+//    }
     
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return viewModel.shouldDismiss.value
