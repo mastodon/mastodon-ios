@@ -12,15 +12,35 @@ import MastodonSDK
 
 final class EmojiService {
     
-    let workingQueue = DispatchQueue(label: "com.twidere.twiderex.video-playback-service.working-queue")
     
     weak var apiService: APIService?
     
-    // ouput
-    
+    let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.EmojiService.working-queue")
+    private(set) var customEmojiViewModelDict: [String: CustomEmojiViewModel] = [:]
     
     init(apiService: APIService) {
         self.apiService = apiService
     }
+    
+}
+
+extension EmojiService {
+
+    func dequeueCustomEmojiViewModel(for domain: String) -> CustomEmojiViewModel? {
+        var _customEmojiViewModel: CustomEmojiViewModel?
+        workingQueue.sync {
+            if let viewModel = customEmojiViewModelDict[domain] {
+                _customEmojiViewModel = viewModel
+            } else {
+                let viewModel = CustomEmojiViewModel(domain: domain, service: self)
+                _customEmojiViewModel = viewModel
+                
+                // trigger loading
+                viewModel.stateMachine.enter(CustomEmojiViewModel.LoadState.Loading.self)
+            }
+        }
+        return _customEmojiViewModel
+    }
+    
 }
 

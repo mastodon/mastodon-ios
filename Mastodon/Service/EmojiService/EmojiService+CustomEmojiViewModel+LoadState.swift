@@ -1,5 +1,5 @@
 //
-//  EmojiService+CustomEmoji+LoadState.swift
+//  EmojiService+CustomEmojiViewModel+LoadState.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-15.
@@ -9,11 +9,11 @@ import os.log
 import Foundation
 import GameplayKit
 
-extension EmojiService.CustomEmoji {
+extension EmojiService.CustomEmojiViewModel {
     class LoadState: GKState {
-        weak var viewModel: EmojiService.CustomEmoji?
+        weak var viewModel: EmojiService.CustomEmojiViewModel?
         
-        init(viewModel: EmojiService.CustomEmoji) {
+        init(viewModel: EmojiService.CustomEmojiViewModel) {
             self.viewModel = viewModel
         }
         
@@ -23,24 +23,24 @@ extension EmojiService.CustomEmoji {
     }
 }
 
-extension EmojiService.CustomEmoji.LoadState {
+extension EmojiService.CustomEmojiViewModel.LoadState {
     
-    class Initial: EmojiService.CustomEmoji.LoadState {
+    class Initial: EmojiService.CustomEmojiViewModel.LoadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Loading.self
         }
     }
     
-    class Loading: EmojiService.CustomEmoji.LoadState {
+    class Loading: EmojiService.CustomEmojiViewModel.LoadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Fail.self || stateClass == Finish.self
         }
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let viewModel = viewModel, let apiService = viewModel.service?.apiService, let stateMachine = stateMachine else { return }
             
-            viewModel.context.apiService.customEmoji(domain: viewModel.domain)
+            apiService.customEmoji(domain: viewModel.domain)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in
                     switch completion {
@@ -59,7 +59,7 @@ extension EmojiService.CustomEmoji.LoadState {
         }
     }
     
-    class Fail: EmojiService.CustomEmoji.LoadState {
+    class Fail: EmojiService.CustomEmojiViewModel.LoadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Loading.self || stateClass == Finish.self
         }
@@ -76,7 +76,7 @@ extension EmojiService.CustomEmoji.LoadState {
         }
     }
     
-    class Finish: EmojiService.CustomEmoji.LoadState {
+    class Finish: EmojiService.CustomEmojiViewModel.LoadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             // one time task
             return false

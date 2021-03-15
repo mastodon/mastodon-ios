@@ -1,5 +1,5 @@
 //
-//  APIService+CustomEmoji.swift
+//  APIService+CustomEmojiViewModel.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-15.

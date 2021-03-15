@@ -1,5 +1,5 @@
 //
-//  EmojiService+CustomEmoji.swift
+//  EmojiService+CustomEmojiViewModel.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-15.
@@ -11,13 +11,13 @@ import GameplayKit
 import MastodonSDK
 
 extension EmojiService {
-    final class CustomEmoji {
+    final class CustomEmojiViewModel {
         
         var disposeBag = Set<AnyCancellable>()
         
         // input
         let domain: String
-        let context: AppContext
+        weak var service: EmojiService?
         
         // output
         private(set) lazy var stateMachine: GKStateMachine = {
@@ -33,12 +33,9 @@ extension EmojiService {
         }()
         let emojis = CurrentValueSubject<[Mastodon.Entity.Emoji], Never>([])
         
-        init(domain: String, context: AppContext) {
+        init(domain: String, service: EmojiService) {
             self.domain = domain
-            self.context = context
-            
-            // trigger loading
-            stateMachine.enter(LoadState.Loading.self)
+            self.service = service
         }
         
     }

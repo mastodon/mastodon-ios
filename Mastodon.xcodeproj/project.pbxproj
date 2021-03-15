@@ -142,8 +142,8 @@
 		DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */; };
 		DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */; };
 		DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61325FF2C5600B98345 /* EmojiService.swift */; };
-		DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmoji.swift */; };
-		DB49A62525FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62425FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift */; };
+		DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */; };
+		DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */; };
 		DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
@@ -412,8 +412,8 @@
 		DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HomeTimeline.swift"; sourceTree = "<group>"; };
 		DB49A61325FF2C5600B98345 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
-		DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmoji.swift"; sourceTree = "<group>"; };
-		DB49A62425FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmoji+LoadState.swift"; sourceTree = "<group>"; };
+		DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel.swift"; sourceTree = "<group>"; };
+		DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel+LoadState.swift"; sourceTree = "<group>"; };
 		DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CustomEmoji.swift"; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
@@ -995,8 +995,8 @@
 			isa = PBXGroup;
 			children = (
 				DB49A61325FF2C5600B98345 /* EmojiService.swift */,
-				DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmoji.swift */,
-				DB49A62425FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift */,
+				DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */,
+				DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */,
 			);
 			path = EmojiService;
 			sourceTree = "<group>";
@@ -1710,7 +1710,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
-				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmoji.swift in Sources */,
+				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
@@ -1793,7 +1793,7 @@
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
-				DB49A62525FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift in Sources */,
+				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
