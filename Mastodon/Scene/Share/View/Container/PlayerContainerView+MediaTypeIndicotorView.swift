@@ -51,6 +51,10 @@ extension PlayerContainerView {
             maskLayer.frame = bounds
             maskLayer.path = path.cgPath
             layer.mask = maskLayer
+            
+            layer.cornerRadius = PlayerContainerView.cornerRadius
+            layer.maskedCorners = [.layerMaxXMaxYCorner]
+            layer.cornerCurve = .continuous
         }
     }
     

@@ -65,7 +65,7 @@ extension PlayerContainerView {
         playerViewController.contentOverlayView!.addSubview(mediaTypeIndicotorView)
         NSLayoutConstraint.activate([
             mediaTypeIndicotorView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
-            mediaTypeIndicotorView.trailingAnchor.constraint(equalTo: playerViewController.contentOverlayView!.trailingAnchor),
+            mediaTypeIndicotorView.rightAnchor.constraint(equalTo: playerViewController.contentOverlayView!.rightAnchor),
             mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.defaultHigh),
             mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.defaultHigh),
         ])
@@ -83,7 +83,7 @@ extension PlayerContainerView {
         contentWarningOverlayView.addSubview(mediaTypeIndicotorViewInContentWarningOverlay)
         NSLayoutConstraint.activate([
             mediaTypeIndicotorViewInContentWarningOverlay.bottomAnchor.constraint(equalTo: contentWarningOverlayView.bottomAnchor),
-            mediaTypeIndicotorViewInContentWarningOverlay.trailingAnchor.constraint(equalTo: contentWarningOverlayView.trailingAnchor),
+            mediaTypeIndicotorViewInContentWarningOverlay.rightAnchor.constraint(equalTo: contentWarningOverlayView.rightAnchor),
             mediaTypeIndicotorViewInContentWarningOverlay.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.defaultHigh),
             mediaTypeIndicotorViewInContentWarningOverlay.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.defaultHigh),
         ])
