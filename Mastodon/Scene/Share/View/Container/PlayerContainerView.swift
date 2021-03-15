@@ -26,26 +26,8 @@ final class PlayerContainerView: UIView {
     
     let playerViewController = AVPlayerViewController()
     
-    let mediaTypeIndicotorLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.textAlignment = .right
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let mediaTypeIndicotorView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.mediaTypeIndicotor.color
-        view.translatesAutoresizingMaskIntoConstraints = false
-        let rect = CGRect(x: 0, y: 0, width: 47, height: 50)
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft], cornerRadii: CGSize(width: 50, height: 50))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = rect
-        maskLayer.path = path.cgPath
-        view.layer.mask = maskLayer
-        return view
-    }()
+    let mediaTypeIndicotorView = MediaTypeIndicotorView()
+    let mediaTypeIndicotorViewInContentWarningOverlay = MediaTypeIndicotorView()
     
     weak var delegate: PlayerContainerViewDelegate?
     
@@ -78,6 +60,16 @@ extension PlayerContainerView {
         playerViewController.view.layer.cornerRadius = PlayerContainerView.cornerRadius
         playerViewController.view.layer.cornerCurve = .continuous
         
+        // mediaType
+        mediaTypeIndicotorView.translatesAutoresizingMaskIntoConstraints = false
+        playerViewController.contentOverlayView!.addSubview(mediaTypeIndicotorView)
+        NSLayoutConstraint.activate([
+            mediaTypeIndicotorView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
+            mediaTypeIndicotorView.trailingAnchor.constraint(equalTo: playerViewController.contentOverlayView!.trailingAnchor),
+            mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: 25).priority(.defaultHigh),
+            mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: 47).priority(.defaultHigh),
+        ])
+        
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: topAnchor),
@@ -87,21 +79,13 @@ extension PlayerContainerView {
         ])
         contentWarningOverlayView.delegate = self
         
-        // mediaType
-        addSubview(mediaTypeIndicotorView)
+        mediaTypeIndicotorViewInContentWarningOverlay.translatesAutoresizingMaskIntoConstraints = false
+        contentWarningOverlayView.addSubview(mediaTypeIndicotorViewInContentWarningOverlay)
         NSLayoutConstraint.activate([
-            mediaTypeIndicotorView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mediaTypeIndicotorView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: 25),
-            mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: 47)
-        ])
-        
-        mediaTypeIndicotorView.addSubview(mediaTypeIndicotorLabel)
-        NSLayoutConstraint.activate([
-            mediaTypeIndicotorLabel.topAnchor.constraint(equalTo: mediaTypeIndicotorView.topAnchor),
-            mediaTypeIndicotorLabel.leadingAnchor.constraint(equalTo: mediaTypeIndicotorView.leadingAnchor),
-            mediaTypeIndicotorLabel.bottomAnchor.constraint(equalTo: mediaTypeIndicotorView.bottomAnchor),
-            mediaTypeIndicotorView.trailingAnchor.constraint(equalTo: mediaTypeIndicotorLabel.trailingAnchor, constant: 8)
+            mediaTypeIndicotorViewInContentWarningOverlay.bottomAnchor.constraint(equalTo: contentWarningOverlayView.bottomAnchor),
+            mediaTypeIndicotorViewInContentWarningOverlay.trailingAnchor.constraint(equalTo: contentWarningOverlayView.trailingAnchor),
+            mediaTypeIndicotorViewInContentWarningOverlay.heightAnchor.constraint(equalToConstant: 25).priority(.defaultHigh),
+            mediaTypeIndicotorViewInContentWarningOverlay.widthAnchor.constraint(equalToConstant: 47).priority(.defaultHigh),
         ])
     }
 }
@@ -161,25 +145,14 @@ extension PlayerContainerView {
         return playerViewController
     }
     
-    func roundedFont(weight: UIFont.Weight,fontSize: CGFloat) -> UIFont {
-        let systemFont = UIFont.systemFont(ofSize: fontSize, weight: weight)
-        guard let descriptor = systemFont.fontDescriptor.withDesign(.rounded) else { return systemFont }
-        let roundedFont = UIFont(descriptor: descriptor, size: fontSize)
-        return roundedFont
-    }
     func setMediaKind(kind: VideoPlayerViewModel.Kind) {
-        let fontSize: CGFloat = 18
-
-        switch kind {
-        case .gif:
-            mediaTypeIndicotorLabel.font = roundedFont(weight: .heavy, fontSize: fontSize)
-            mediaTypeIndicotorLabel.text = "GIF"
-        case .video:
-            let configuration = UIImage.SymbolConfiguration(font: roundedFont(weight: .regular, fontSize: fontSize))
-            let image = UIImage(systemName: "video.fill", withConfiguration: configuration)!
-            let attachment = NSTextAttachment()
-            attachment.image = image.withTintColor(.white)
-            mediaTypeIndicotorLabel.attributedText = NSAttributedString(attachment: attachment)
-        }
+        mediaTypeIndicotorView.setMediaKind(kind: kind)
+        mediaTypeIndicotorViewInContentWarningOverlay.setMediaKind(kind: kind)
     }
+    
+    func setMediaIndicator(isHidden: Bool) {
+        mediaTypeIndicotorView.alpha = isHidden ? 0 : 1
+        mediaTypeIndicotorViewInContentWarningOverlay.alpha = isHidden ? 0 : 1
+    }
+    
 }

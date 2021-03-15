@@ -222,6 +222,23 @@ extension StatusSection {
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
             playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
+            if videoPlayerViewModel.videoKind == .gif {
+                playerContainerView.setMediaIndicator(isHidden: false)
+            } else {
+                videoPlayerViewModel.timeControlStatus.sink { timeControlStatus in
+                    UIView.animate(withDuration: 0.33) {
+                        switch timeControlStatus {
+                        case .playing:
+                            playerContainerView.setMediaIndicator(isHidden: true)
+                        case .paused, .waitingToPlayAtSpecifiedRate:
+                            playerContainerView.setMediaIndicator(isHidden: false)
+                        @unknown default:
+                            assertionFailure()
+                        }
+                    }
+                }
+                .store(in: &cell.disposeBag)
+            }
             playerContainerView.isHidden = false
             
         } else {

@@ -143,6 +143,7 @@
 		DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */; };
 		DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */; };
 		DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */; };
+		DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
 		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
@@ -400,6 +401,7 @@
 		DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HomeTimeline.swift"; sourceTree = "<group>"; };
 		DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerContainerView+MediaTypeIndicotorView.swift"; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
@@ -1190,6 +1192,7 @@
 				DB9D6C0D25E4F9780051B173 /* MosaicImageViewContainer.swift */,
 				2D206B7125F5D27F00143C56 /* AudioContainerView.swift */,
 				5DF1057825F88A1D00D6C0D4 /* PlayerContainerView.swift */,
+				DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */,
 				5DF1057E25F88A4100D6C0D4 /* TouchBlockingView.swift */,
 			);
 			path = Container;
@@ -1675,6 +1678,7 @@
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
+				DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
