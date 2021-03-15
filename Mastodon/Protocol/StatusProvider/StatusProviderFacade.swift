@@ -123,21 +123,21 @@ extension StatusProviderFacade {
 extension StatusProviderFacade {
  
     
-    static func responseToStatusBoostAction(provider: StatusProvider) {
-        _responseToStatusBoostAction(
+    static func responseToStatusReblogAction(provider: StatusProvider) {
+        _responseToStatusReblogAction(
             provider: provider,
             toot: provider.toot()
         )
     }
     
     static func responseToStatusReblogAction(provider: StatusProvider, cell: UITableViewCell) {
-        _responseToStatusBoostAction(
+        _responseToStatusReblogAction(
             provider: provider,
             toot: provider.toot(for: cell, indexPath: nil)
         )
     }
     
-    private static func _responseToStatusBoostAction(provider: StatusProvider, toot: Future<Toot?, Never>) {
+    private static func _responseToStatusReblogAction(provider: StatusProvider, toot: Future<Toot?, Never>) {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
@@ -190,7 +190,7 @@ extension StatusProviderFacade {
                 case .reblog:
                     os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "reblog")
                 case .undoReblog:
-                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "unboost")
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "unreblog")
                 }
             } receiveCompletion: { completion in
                 switch completion {

@@ -99,7 +99,7 @@ extension StatusSection {
         cell.statusView.headerInfoLabel.text = {
             let author = toot.author
             let name = author.displayName.isEmpty ? author.username : author.displayName
-            return L10n.Common.Controls.Status.userBoosted(name)
+            return L10n.Common.Controls.Status.userReblogged(name)
         }()
         
         // set name username
