@@ -70,8 +70,10 @@ extension HomeTimelineViewModel.LoadOldestState {
                     // enter no more state when no new toots
                     if toots.isEmpty || (toots.count == 1 && toots[0].id == maxID) {
                         stateMachine.enter(NoMore.self)
+                        viewModel.homeTimelineNavigationBarState.newBottomContent.value = false
                     } else {
                         stateMachine.enter(Idle.self)
+                        viewModel.homeTimelineNavigationBarState.newBottomContent.value = true
                     }
                 }
                 .store(in: &viewModel.disposeBag)

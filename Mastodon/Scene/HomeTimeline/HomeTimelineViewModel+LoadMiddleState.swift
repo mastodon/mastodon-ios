@@ -68,6 +68,7 @@ extension HomeTimelineViewModel.LoadMiddleState {
                 .delay(for: .seconds(1), scheduler: DispatchQueue.main)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in
+                    viewModel.homeTimelineNavigationBarState.receiveCompletion(completion: completion)
                     switch completion {
                     case .failure(let error):
                         // TODO: handle error
@@ -82,8 +83,10 @@ extension HomeTimelineViewModel.LoadMiddleState {
                     os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld toots, %{public}%ld new toots", ((#file as NSString).lastPathComponent), #line, #function, toots.count, newToots.count)
                     if newToots.isEmpty {
                         stateMachine.enter(Fail.self)
+                        viewModel.homeTimelineNavigationBarState.newTopContent.value = false
                     } else {
                         stateMachine.enter(Success.self)
+                        viewModel.homeTimelineNavigationBarState.newTopContent.value = true
                     }
                 }
                 .store(in: &viewModel.disposeBag)
