@@ -37,7 +37,11 @@ extension StatusSection {
                     StatusSection.configure(
                         cell: cell,
                         dependency: dependency,
-                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusItemAttribute: attribute
+                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
+                        timestampUpdatePublisher: timestampUpdatePublisher,
+                        toot: timelineIndex.toot,
+                        requestUserID: timelineIndex.userID,
+                        statusItemAttribute: attribute
                     )
                 }
                 cell.delegate = statusTableViewCellDelegate
@@ -52,7 +56,11 @@ extension StatusSection {
                     StatusSection.configure(
                         cell: cell,
                         dependency: dependency,
-                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusItemAttribute: attribute
+                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
+                        timestampUpdatePublisher: timestampUpdatePublisher,
+                        toot: toot,
+                        requestUserID: requestUserID,
+                        statusItemAttribute: attribute
                     )
                 }
                 cell.delegate = statusTableViewCellDelegate
@@ -162,13 +170,13 @@ extension StatusSection {
         }
         cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
         let isStatusSensitive = statusItemAttribute.isStatusSensitive
-        cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
             cell.statusView.audioView.isHidden = false
-            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment, videoPlaybackService: dependency.context.videoPlaybackService)
+            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment, audioService: dependency.context.audioPlaybackService)
         } else {
             cell.statusView.audioView.isHidden = true
         }
@@ -185,12 +193,16 @@ extension StatusSection {
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
         
+        cell.statusView.playerContainerView.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
+        cell.statusView.playerContainerView.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
+        
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
            let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
         {
             let parent = cell.delegate?.parent()
-            let mosaicPlayerView = cell.statusView.mosaicPlayerView
-            let playerViewController = mosaicPlayerView.setupPlayer(
+            let playerContainerView = cell.statusView.playerContainerView
+            let playerViewController = playerContainerView.setupPlayer(
                 aspectRatio: videoPlayerViewModel.videoSize,
                 maxSize: playerViewMaxSize,
                 parent: parent
@@ -198,13 +210,12 @@ extension StatusSection {
             playerViewController.delegate = cell.delegate?.playerViewControllerDelegate
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
-            
-            mosaicPlayerView.gifIndicatorLabel.isHidden = videoPlayerViewModel.videoKind != .gif
-            mosaicPlayerView.isHidden = false
+            playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
+            playerContainerView.isHidden = false
             
         } else {
-            cell.statusView.mosaicPlayerView.playerViewController.player?.pause()
-            cell.statusView.mosaicPlayerView.playerViewController.player = nil
+            cell.statusView.playerContainerView.playerViewController.player?.pause()
+            cell.statusView.playerContainerView.playerViewController.player = nil
         }
         // set poll
         let poll = (toot.reblog ?? toot).poll

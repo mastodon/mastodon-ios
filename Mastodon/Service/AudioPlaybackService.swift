@@ -10,8 +10,12 @@ import Combine
 import CoreDataStack
 import Foundation
 import UIKit
+import os.log
 
-final class AudioPlayer: NSObject {
+final class AudioPlaybackService: NSObject {
+    
+    static let appWillPlayAudioNotification = NSNotification.Name(rawValue: "org.joinmastodon.Mastodon.audio-playback-service.appWillPlayAudio")
+    
     var disposeBag = Set<AnyCancellable>()
 
     var player = AVPlayer()
@@ -21,19 +25,16 @@ final class AudioPlayer: NSObject {
 
     let session = AVAudioSession.sharedInstance()
     let playbackState = CurrentValueSubject<PlaybackState, Never>(PlaybackState.unknown)
-    
-    // MARK: - singleton
-    public static let shared = AudioPlayer()
 
     let currentTimeSubject = CurrentValueSubject<TimeInterval, Never>(0)
 
-    private override init() {
+    override init() {
         super.init()
         addObserver()
     }
 }
 
-extension AudioPlayer {
+extension AudioPlaybackService {
     func playAudio(audioAttachment: Attachment) {
         guard let url = URL(string: audioAttachment.url) else {
             return
@@ -45,6 +46,7 @@ extension AudioPlayer {
             return
         }
 
+        notifyWillPlayAudioNotification()
         if audioAttachment == attachment {
             if self.playbackState.value == .stopped {
                 self.seekToTime(time: .zero)
@@ -83,6 +85,12 @@ extension AudioPlayer {
                 }
             }
             .store(in: &disposeBag)
+        NotificationCenter.default.publisher(for: VideoPlayerViewModel.appWillPlayVideoNotification)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.pauseIfNeed()
+            }
+            .store(in: &disposeBag)
         
         timeObserver = player.addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { [weak self] time in
             guard let self = self else { return }
@@ -119,10 +127,14 @@ extension AudioPlayer {
             .store(in: &disposeBag)
     }
 
+    func notifyWillPlayAudioNotification() {
+        NotificationCenter.default.post(name: AudioPlaybackService.appWillPlayAudioNotification, object: nil)
+    }
     func isPlaying() -> Bool {
-        return self.playbackState.value == .readyToPlay || self.playbackState.value == .playing
+        return playbackState.value == .readyToPlay || playbackState.value == .playing
     }
     func resume() {
+        notifyWillPlayAudioNotification()
         player.play()
         playbackState.value = .playing
     }
@@ -138,5 +150,12 @@ extension AudioPlayer {
     }
     func seekToTime(time: TimeInterval) {
         player.seek(to: CMTimeMake(value:Int64(time), timescale: 1))
+    }
+}
+
+extension AudioPlaybackService {
+    func viewDidDisappear(from viewController: UIViewController?) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
+        pause()
     }
 }

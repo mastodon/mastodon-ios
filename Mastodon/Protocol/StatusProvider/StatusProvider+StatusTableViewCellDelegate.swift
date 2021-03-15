@@ -46,7 +46,16 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         
     }
     
-    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView) {
+    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        statusTableViewCell(cell, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        contentWarningOverlayView.isUserInteractionEnabled = false
+        statusTableViewCell(cell, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
         guard let diffableDataSource = self.tableViewDiffableDataSource else { return }
         guard let item = item(for: cell, indexPath: nil) else { return }
         
@@ -58,12 +67,12 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         default:
             return
         }
-        
+        contentWarningOverlayView.isUserInteractionEnabled = false
         var snapshot = diffableDataSource.snapshot()
         snapshot.reloadItems([item])
         UIView.animate(withDuration: 0.33) {
-            cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = nil
-            cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = 0.0
+            contentWarningOverlayView.blurVisualEffectView.effect = nil
+            contentWarningOverlayView.vibrancyVisualEffectView.alpha = 0.0
         } completion: { _ in
             diffableDataSource.apply(snapshot, animatingDifferences: false, completion: nil)
         }

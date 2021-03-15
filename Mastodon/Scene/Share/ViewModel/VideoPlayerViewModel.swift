@@ -14,6 +14,7 @@ import UIKit
 final class VideoPlayerViewModel {
     var disposeBag = Set<AnyCancellable>()
 
+    static let appWillPlayVideoNotification = NSNotification.Name(rawValue: "org.joinmastodon.Mastodon.video-playback-service.appWillPlayVideo")
     // input
     let previewImageURL: URL?
     let videoURL: URL
@@ -63,7 +64,7 @@ final class VideoPlayerViewModel {
             .sink { [weak self] timeControlStatus in
                 guard let _ = self else { return }
                 guard timeControlStatus == .playing else { return }
-                AudioPlayer.shared.pauseIfNeed()
+                NotificationCenter.default.post(name: VideoPlayerViewModel.appWillPlayVideoNotification, object: nil)
                 switch videoKind {
                 case .gif:
                     break

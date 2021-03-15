@@ -87,10 +87,14 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             .sink { [weak self] toot in
                 guard let self = self else { return }
                 guard let media = (toot?.mediaAttachments ?? Set()).first else { return }
-                guard let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) else { return }
                 
-                DispatchQueue.main.async {
-                    videoPlayerViewModel.didEndDisplaying()
+                if let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) {
+                    DispatchQueue.main.async {
+                        videoPlayerViewModel.didEndDisplaying()
+                    }
+                }
+                if let currentAudioAttachment = self.context.audioPlaybackService.attachment, let _ = toot?.mediaAttachments?.contains(currentAudioAttachment) {
+                    self.context.audioPlaybackService.pause()
                 }
             }
             .store(in: &disposeBag)
