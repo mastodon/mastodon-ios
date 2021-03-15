@@ -34,7 +34,15 @@ extension StatusSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: timelineIndex.toot, requestUserID: timelineIndex.userID, statusItemAttribute: attribute)
+                    StatusSection.configure(
+                        cell: cell,
+                        dependency: dependency,
+                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
+                        timestampUpdatePublisher: timestampUpdatePublisher,
+                        toot: timelineIndex.toot,
+                        requestUserID: timelineIndex.userID,
+                        statusItemAttribute: attribute
+                    )
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
@@ -45,7 +53,15 @@ extension StatusSection {
                 // configure cell
                 managedObjectContext.performAndWait {
                     let toot = managedObjectContext.object(with: objectID) as! Toot
-                    StatusSection.configure(cell: cell, readableLayoutFrame: tableView.readableContentGuide.layoutFrame, timestampUpdatePublisher: timestampUpdatePublisher, toot: toot, requestUserID: requestUserID, statusItemAttribute: attribute)
+                    StatusSection.configure(
+                        cell: cell,
+                        dependency: dependency,
+                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
+                        timestampUpdatePublisher: timestampUpdatePublisher,
+                        toot: toot,
+                        requestUserID: requestUserID,
+                        statusItemAttribute: attribute
+                    )
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
@@ -69,9 +85,9 @@ extension StatusSection {
 }
 
 extension StatusSection {
-
     static func configure(
         cell: StatusTableViewCell,
+        dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         toot: Toot,
@@ -164,17 +180,53 @@ extension StatusSection {
         }
         cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
         let isStatusSensitive = statusItemAttribute.isStatusSensitive
-        cell.statusView.statusMosaicImageViewContainer.blurVisualEffectView.effect = isStatusSensitive ? MosaicImageViewContainer.blurVisualEffect : nil
-        cell.statusView.statusMosaicImageViewContainer.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
             cell.statusView.audioView.isHidden = false
-            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment)
+            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment, audioService: dependency.context.audioPlaybackService)
         } else {
             cell.statusView.audioView.isHidden = true
         }
         
+        // set GIF & video
+        let playerViewMaxSize: CGSize = {
+            let maxWidth: CGFloat = {
+                // use statusView width as container width
+                // that width follows readable width and keep constant width after rotate
+                let containerFrame = readableLayoutFrame ?? cell.statusView.frame
+                return containerFrame.width
+            }()
+            let scale: CGFloat = 1.3
+            return CGSize(width: maxWidth, height: maxWidth * scale)
+        }()
+        
+        cell.statusView.playerContainerView.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
+        cell.statusView.playerContainerView.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
+        
+        if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
+           let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
+        {
+            let parent = cell.delegate?.parent()
+            let playerContainerView = cell.statusView.playerContainerView
+            let playerViewController = playerContainerView.setupPlayer(
+                aspectRatio: videoPlayerViewModel.videoSize,
+                maxSize: playerViewMaxSize,
+                parent: parent
+            )
+            playerViewController.delegate = cell.delegate?.playerViewControllerDelegate
+            playerViewController.player = videoPlayerViewModel.player
+            playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
+            playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
+            playerContainerView.isHidden = false
+            
+        } else {
+            cell.statusView.playerContainerView.playerViewController.player?.pause()
+            cell.statusView.playerContainerView.playerViewController.player = nil
+        }
         // set poll
         let poll = (toot.reblog ?? toot).poll
         StatusSection.configurePoll(
@@ -269,7 +321,8 @@ extension StatusSection {
         timestampUpdatePublisher: AnyPublisher<Date, Never>
     ) {
         guard let poll = poll,
-              let managedObjectContext = poll.managedObjectContext else {
+              let managedObjectContext = poll.managedObjectContext
+        else {
             cell.statusView.pollTableView.isHidden = true
             cell.statusView.pollStatusStackView.isHidden = true
             cell.statusView.pollVoteButton.isHidden = true
@@ -313,10 +366,10 @@ extension StatusSection {
         cell.statusView.pollTableView.allowsSelection = !poll.expired
         
         let votedOptions = poll.options.filter { option in
-            (option.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+            (option.votedBy ?? Set()).map(\.id).contains(requestUserID)
         }
         let didVotedLocal = !votedOptions.isEmpty
-        let didVotedRemote = (poll.votedBy ?? Set()).map { $0.id }.contains(requestUserID)
+        let didVotedRemote = (poll.votedBy ?? Set()).map(\.id).contains(requestUserID)
         cell.statusView.pollVoteButton.isEnabled = didVotedLocal
         cell.statusView.pollVoteButton.isHidden = !poll.multiple ? true : (didVotedRemote || poll.expired)
         

@@ -25,7 +25,7 @@
 		2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7125F5D27F00143C56 /* AudioContainerView.swift */; };
 		2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7F25F5F45E00143C56 /* UIImage.swift */; };
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
-		2D206B8C25F6015000143C56 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8B25F6015000143C56 /* AudioPlayer.swift */; };
+		2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */; };
 		2D206B9225F60EA700143C56 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B9125F60EA700143C56 /* UIControl.swift */; };
 		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
 		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
@@ -60,6 +60,7 @@
 		2D61335E25C1894B00CAE157 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335D25C1894B00CAE157 /* APIService.swift */; };
 		2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */; };
 		2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */; };
+		2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */; };
 		2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */; };
 		2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */; };
 		2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */; };
@@ -89,8 +90,13 @@
 		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
 		2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */; };
 		2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */; };
-		45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
+		5DF1054125F886D400D6C0D4 /* ViedeoPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */; };
+		5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */; };
+		5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */; };
+		5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1057825F88A1D00D6C0D4 /* PlayerContainerView.swift */; };
+		5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1057E25F88A4100D6C0D4 /* TouchBlockingView.swift */; };
+		5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */; };
@@ -267,7 +273,7 @@
 		2D206B7125F5D27F00143C56 /* AudioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerView.swift; sourceTree = "<group>"; };
 		2D206B7F25F5F45E00143C56 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
-		2D206B8B25F6015000143C56 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackService.swift; sourceTree = "<group>"; };
 		2D206B9125F60EA700143C56 /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -299,6 +305,7 @@
 		2D61335725C188A000CAE157 /* APIService+Persist+Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+Timeline.swift"; sourceTree = "<group>"; };
 		2D61335D25C1894B00CAE157 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error+Detail.swift"; sourceTree = "<group>"; };
+		2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWarningOverlayView.swift; sourceTree = "<group>"; };
 		2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2D69D00925CAA00300C3A1B2 /* APIService+CoreData+Toot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Toot.swift"; sourceTree = "<group>"; };
 		2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewController.swift; sourceTree = "<group>"; };
@@ -332,6 +339,12 @@
 		3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViedeoPlaybackService.swift; sourceTree = "<group>"; };
+		5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
+		5DF1057825F88A1D00D6C0D4 /* PlayerContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerContainerView.swift; sourceTree = "<group>"; };
+		5DF1057E25F88A4100D6C0D4 /* TouchBlockingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBlockingView.swift; sourceTree = "<group>"; };
+		5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NeedsDependency+AVPlayerViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
 		9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,7 +478,6 @@
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
-				45B49097460EDE530AD5AA72 /* Pods_Mastodon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +584,7 @@
 			isa = PBXGroup;
 			children = (
 				2D152A8B25C295CC009AA50C /* StatusView.swift */,
+				2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -655,8 +668,9 @@
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 				DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */,
-				2D206B8B25F6015000143C56 /* AudioPlayer.swift */,
+				2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */,
 				2DA6054625F716A2006356F9 /* PlaybackState.swift */,
+				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -679,6 +693,7 @@
 				DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */,
 				2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */,
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
+				5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1120,6 +1135,7 @@
 				2D206B7F25F5F45E00143C56 /* UIImage.swift */,
 				2D206B8525F5FB0900143C56 /* Double.swift */,
 				2D206B9125F60EA700143C56 /* UIControl.swift */,
+				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
 				DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */,
 			);
 			path = Extension;
@@ -1173,6 +1189,8 @@
 			children = (
 				DB9D6C0D25E4F9780051B173 /* MosaicImageViewContainer.swift */,
 				2D206B7125F5D27F00143C56 /* AudioContainerView.swift */,
+				5DF1057825F88A1D00D6C0D4 /* PlayerContainerView.swift */,
+				5DF1057E25F88A4100D6C0D4 /* TouchBlockingView.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -1182,6 +1200,7 @@
 			children = (
 				DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */,
 				2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */,
+				5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1560,11 +1579,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
+				5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
-				2D206B8C25F6015000143C56 /* AudioPlayer.swift in Sources */,
+				2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
+				5DF1054125F886D400D6C0D4 /* ViedeoPlaybackService.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
@@ -1612,6 +1633,7 @@
 				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
 				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
+				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
@@ -1622,10 +1644,12 @@
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
+				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
+				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
 				DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */,
 				DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */,
@@ -1672,6 +1696,7 @@
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
+				5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
@@ -1697,6 +1722,7 @@
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
+				5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 			);

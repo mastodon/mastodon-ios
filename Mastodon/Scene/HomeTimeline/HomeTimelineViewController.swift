@@ -141,7 +141,8 @@ extension HomeTimelineViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+        context.videoPlaybackService.viewDidDisappear(from: self)
+        context.audioPlaybackService.viewDidDisappear(from: self)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -236,7 +237,10 @@ extension HomeTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
-
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
@@ -337,5 +341,21 @@ extension HomeTimelineViewController: ScrollViewContainer {
     
 }
 
+// MARK: - AVPlayerViewControllerDelegate
+extension HomeTimelineViewController: AVPlayerViewControllerDelegate {
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+}
+
 // MARK: - StatusTableViewCellDelegate
-extension HomeTimelineViewController: StatusTableViewCellDelegate { }
+extension HomeTimelineViewController: StatusTableViewCellDelegate {
+    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
+    func parent() -> UIViewController { return self }
+}

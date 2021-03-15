@@ -81,6 +81,11 @@ extension PublicTimelineViewController {
         )
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        context.videoPlaybackService.viewDidDisappear(from: self)
+        context.audioPlaybackService.viewDidDisappear(from: self)
+    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -114,8 +119,11 @@ extension PublicTimelineViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         
@@ -204,5 +212,21 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
     }
 }
 
+// MARK: - AVPlayerViewControllerDelegate
+extension PublicTimelineViewController: AVPlayerViewControllerDelegate {
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+}
+
 // MARK: - StatusTableViewCellDelegate
-extension PublicTimelineViewController: StatusTableViewCellDelegate { }
+extension PublicTimelineViewController: StatusTableViewCellDelegate {
+    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
+    func parent() -> UIViewController { return self }
+}

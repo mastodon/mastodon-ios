@@ -13,6 +13,7 @@ import AlamofireImage
 
 protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
 }
 
@@ -157,6 +158,8 @@ final class StatusView: UIView {
         return imageView
     }()
 
+    let playerContainerView = PlayerContainerView()
+    
     let audioView: AudioContainerView = {
         let audioView = AudioContainerView()
         return audioView
@@ -351,6 +354,7 @@ extension StatusView {
         pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
+        // audio
         audioView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(audioView)
         NSLayoutConstraint.activate([
@@ -358,6 +362,8 @@ extension StatusView {
             audioView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
             audioView.heightAnchor.constraint(equalToConstant: 44)
         ])
+        // video gif
+        statusContainerStackView.addArrangedSubview(playerContainerView)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -368,11 +374,14 @@ extension StatusView {
         pollTableView.isHidden = true
         pollStatusStackView.isHidden = true
         audioView.isHidden = true
-
+        playerContainerView.isHidden = true
+        
         avatarStackedContainerButton.isHidden = true
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+        
+        playerContainerView.delegate = self
         
         contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
@@ -422,6 +431,13 @@ extension StatusView {
         delegate?.statusView(self, pollVoteButtonPressed: sender)
     }
     
+}
+
+// MARK: - PlayerContainerViewDelegate
+extension StatusView: PlayerContainerViewDelegate {
+    func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusView(self, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
 }
 
 // MARK: - AvatarConfigurableView
@@ -491,7 +507,7 @@ struct StatusView_Previews: PreviewProvider {
                     imageView.image = images[i]
                 }
                 statusView.statusMosaicImageViewContainer.isHidden = false
-                statusView.statusMosaicImageViewContainer.blurVisualEffectView.isHidden = true
+                statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
                 statusView.isStatusTextSensitive = false
                 return statusView
             }
