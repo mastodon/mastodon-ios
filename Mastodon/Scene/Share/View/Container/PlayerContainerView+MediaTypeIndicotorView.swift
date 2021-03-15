@@ -100,4 +100,39 @@ extension PlayerContainerView.MediaTypeIndicotorView {
     
 }
     
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct PlayerContainerViewMediaTypeIndicotorView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        Group {
+            UIViewPreview(width: 47) {
+                let view = PlayerContainerView.MediaTypeIndicotorView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    view.heightAnchor.constraint(equalToConstant: 25),
+                    view.widthAnchor.constraint(equalToConstant: 47),
+                ])
+                view.setMediaKind(kind: .gif)
+                return view
+            }
+            .previewLayout(.fixed(width: 47, height: 25))
+            UIViewPreview(width: 47) {
+                let view = PlayerContainerView.MediaTypeIndicotorView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    view.heightAnchor.constraint(equalToConstant: 25),
+                    view.widthAnchor.constraint(equalToConstant: 47),
+                ])
+                view.setMediaKind(kind: .video)
+                return view
+            }
+            .previewLayout(.fixed(width: 47, height: 25))
+        }
+    }
+    
+}
+
+#endif
 
