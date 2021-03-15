@@ -71,6 +71,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         toot(for: cell, indexPath: indexPath)
             .sink { [weak self] toot in
                 guard let self = self else { return }
+                let toot = toot?.reblog ?? toot
                 guard let media = (toot?.mediaAttachments ?? Set()).first else { return }
                 guard let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) else { return }
                 
