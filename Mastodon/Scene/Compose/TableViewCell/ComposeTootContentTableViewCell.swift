@@ -21,6 +21,7 @@ final class ComposeTootContentTableViewCell: UITableViewCell {
         textEditorView.scrollView.isScrollEnabled = false
         textEditorView.isScrollEnabled = false
         textEditorView.placeholderText = L10n.Scene.Compose.contentInputPlaceholder
+        textEditorView.keyboardType = .twitter
         return textEditorView
     }()
     
