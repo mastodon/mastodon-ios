@@ -23,11 +23,11 @@ class AppContext: ObservableObject {
     
     let apiService: APIService
     let authenticationService: AuthenticationService
+    let emojiService: EmojiService
+    let videoPlaybackService = VideoPlaybackService()
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
-    
-    let videoPlaybackService = VideoPlaybackService()
     
     let overrideTraitCollection = CurrentValueSubject<UITraitCollection?, Never>(nil)
 
@@ -46,6 +46,10 @@ class AppContext: ObservableObject {
             managedObjectContext: _managedObjectContext,
             backgroundManagedObjectContext: _backgroundManagedObjectContext,
             apiService: _apiService
+        )
+        
+        emojiService = EmojiService(
+            apiService: apiService
         )
         
         documentStore = DocumentStore()

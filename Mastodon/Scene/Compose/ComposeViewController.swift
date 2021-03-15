@@ -375,7 +375,7 @@ extension ComposeViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - ComposeViewController
+// MARK: - UIAdaptivePresentationControllerDelegate
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {

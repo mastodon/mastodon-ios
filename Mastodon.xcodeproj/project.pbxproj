@@ -141,6 +141,10 @@
 		DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */; };
 		DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */; };
 		DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */; };
+		DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61325FF2C5600B98345 /* EmojiService.swift */; };
+		DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmoji.swift */; };
+		DB49A62525FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62425FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift */; };
+		DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
 		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
@@ -407,6 +411,10 @@
 		DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+MastodonAuthentication.swift"; sourceTree = "<group>"; };
 		DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HomeTimeline.swift"; sourceTree = "<group>"; };
+		DB49A61325FF2C5600B98345 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
+		DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmoji.swift"; sourceTree = "<group>"; };
+		DB49A62425FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmoji+LoadState.swift"; sourceTree = "<group>"; };
+		DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CustomEmoji.swift"; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
@@ -688,6 +696,7 @@
 				2D206B8B25F6015000143C56 /* AudioPlayer.swift */,
 				2DA6054625F716A2006356F9 /* PlaybackState.swift */,
 				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
+				DB49A61925FF327D00B98345 /* EmojiService */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -967,6 +976,7 @@
 				DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */,
 				DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */,
 				DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */,
+				DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -979,6 +989,16 @@
 				DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DB49A61925FF327D00B98345 /* EmojiService */ = {
+			isa = PBXGroup;
+			children = (
+				DB49A61325FF2C5600B98345 /* EmojiService.swift */,
+				DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmoji.swift */,
+				DB49A62425FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift */,
+			);
+			path = EmojiService;
 			sourceTree = "<group>";
 		};
 		DB5086CB25CC0DB400C2C187 /* Preference */ = {
@@ -1632,6 +1652,7 @@
 				2D206B8C25F6015000143C56 /* AudioPlayer.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
 				DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */,
+				DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				5DF1054125F886D400D6C0D4 /* ViedeoPlaybackService.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
@@ -1664,6 +1685,7 @@
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Toot.swift in Sources */,
 				DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */,
+				DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
@@ -1688,6 +1710,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
+				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmoji.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
@@ -1770,6 +1793,7 @@
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
+				DB49A62525FF334C00B98345 /* EmojiService+CustomEmoji+LoadState.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
