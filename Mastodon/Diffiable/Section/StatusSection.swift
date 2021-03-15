@@ -99,16 +99,26 @@ extension StatusSection {
         cell.statusView.headerInfoLabel.text = {
             let author = toot.author
             let name = author.displayName.isEmpty ? author.username : author.displayName
-            return L10n.Common.Controls.Status.userBoosted(name)
+            return L10n.Common.Controls.Status.userReblogged(name)
         }()
         
-        // set name username avatar
+        // set name username
         cell.statusView.nameLabel.text = {
             let author = (toot.reblog ?? toot).author
             return author.displayName.isEmpty ? author.username : author.displayName
         }()
         cell.statusView.usernameLabel.text = "@" + (toot.reblog ?? toot).author.acct
-        cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: (toot.reblog ?? toot).author.avatarImageURL()))
+        // set avatar
+        if let reblog = toot.reblog {
+            cell.statusView.avatarButton.isHidden = true
+            cell.statusView.avatarStackedContainerButton.isHidden = false
+            cell.statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: reblog.author.avatarImageURL()))
+            cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+        } else {
+            cell.statusView.avatarButton.isHidden = false
+            cell.statusView.avatarStackedContainerButton.isHidden = true
+            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+        }
         
         // set text
         cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
@@ -172,6 +182,7 @@ extension StatusSection {
         let isStatusSensitive = statusItemAttribute.isStatusSensitive
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
@@ -211,6 +222,23 @@ extension StatusSection {
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
             playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
+            if videoPlayerViewModel.videoKind == .gif {
+                playerContainerView.setMediaIndicator(isHidden: false)
+            } else {
+                videoPlayerViewModel.timeControlStatus.sink { timeControlStatus in
+                    UIView.animate(withDuration: 0.33) {
+                        switch timeControlStatus {
+                        case .playing:
+                            playerContainerView.setMediaIndicator(isHidden: true)
+                        case .paused, .waitingToPlayAtSpecifiedRate:
+                            playerContainerView.setMediaIndicator(isHidden: false)
+                        @unknown default:
+                            assertionFailure()
+                        }
+                    }
+                }
+                .store(in: &cell.disposeBag)
+            }
             playerContainerView.isHidden = false
             
         } else {
@@ -219,7 +247,7 @@ extension StatusSection {
         }
         // set poll
         let poll = (toot.reblog ?? toot).poll
-        StatusSection.configure(
+        StatusSection.configurePoll(
             cell: cell,
             poll: poll,
             requestUserID: requestUserID,
@@ -233,7 +261,7 @@ extension StatusSection {
                 } receiveValue: { change in
                     guard case .update(let object) = change.changeType,
                           let newPoll = object as? Poll else { return }
-                    StatusSection.configure(
+                    StatusSection.configurePoll(
                         cell: cell,
                         poll: newPoll,
                         requestUserID: requestUserID,
@@ -245,19 +273,7 @@ extension StatusSection {
         }
         
         // toolbar
-        let replyCountTitle: String = {
-            let count = (toot.reblog ?? toot).repliesCount?.intValue ?? 0
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
-        
-        let isLike = (toot.reblog ?? toot).favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-        let favoriteCountTitle: String = {
-            let count = (toot.reblog ?? toot).favouritesCount.intValue
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
-        cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
+        StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
         
         // set date
         let createdAt = (toot.reblog ?? toot).createdAt
@@ -275,20 +291,47 @@ extension StatusSection {
                 // do nothing
             } receiveValue: { change in
                 guard case .update(let object) = change.changeType,
-                      let newToot = object as? Toot else { return }
-                let targetToot = newToot.reblog ?? newToot
-
-                let isLike = targetToot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-                let favoriteCount = targetToot.favouritesCount.intValue
-                let favoriteCountTitle = StatusSection.formattedNumberTitleForActionButton(favoriteCount)
-                cell.statusView.actionToolbarContainer.starButton.setTitle(favoriteCountTitle, for: .normal)
-                cell.statusView.actionToolbarContainer.isStarButtonHighlight = isLike
-                os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, targetToot.id, favoriteCount)
+                      let toot = object as? Toot else { return }
+                StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
+                
+                os_log("%{public}s[%{public}ld], %{public}s: reblog count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.reblogsCount.intValue)
+                os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.favouritesCount.intValue)
             }
             .store(in: &cell.disposeBag)
     }
     
-    static func configure(
+    static func configureActionToolBar(
+        cell: StatusTableViewCell,
+        toot: Toot,
+        requestUserID: String
+    ) {
+        let toot = toot.reblog ?? toot
+        
+        // set reply
+        let replyCountTitle: String = {
+            let count = toot.repliesCount?.intValue ?? 0
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
+        // set reblog
+        let isReblogged = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let reblogCountTitle: String = {
+            let count = toot.reblogsCount.intValue
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.reblogButton.setTitle(reblogCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isReblogButtonHighlight = isReblogged
+        // set like
+        let isLike = toot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let favoriteCountTitle: String = {
+            let count = toot.favouritesCount.intValue
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
+    }
+    
+    static func configurePoll(
         cell: StatusTableViewCell,
         poll: Poll?,
         requestUserID: String,

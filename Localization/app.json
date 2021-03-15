@@ -36,7 +36,7 @@
                 "open_in_safari": "Open in Safari"
             },
             "status": {
-                "user_boosted": "%s boosted",
+                "user_reblogged": "%s reblogged",
                 "show_post": "Show Post",
                 "status_content_warning": "content warning",
                 "media_content_warning": "Tap to reveal that may be sensitive",

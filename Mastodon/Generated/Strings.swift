@@ -76,9 +76,9 @@ internal enum L10n {
         internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
         /// content warning
         internal static let statusContentWarning = L10n.tr("Localizable", "Common.Controls.Status.StatusContentWarning")
-        /// %@ boosted
-        internal static func userBoosted(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))
+        /// %@ reblogged
+        internal static func userReblogged(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1))
         }
         internal enum Poll {
           /// Closed

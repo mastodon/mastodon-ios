@@ -78,6 +78,7 @@ internal enum Asset {
     internal static let lightSuccessGreen = ColorAsset(name: "Colors/lightSuccessGreen")
     internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
     internal static let plusCircleFill = ImageAsset(name: "Colors/plus.circle.fill")
+    internal static let systemGreen = ColorAsset(name: "Colors/system.green")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum Welcome {

@@ -16,6 +16,10 @@ import ActiveLabel
 // MARK: - ActionToolbarContainerDelegate
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton) {
+        StatusProviderFacade.responseToStatusReblogAction(provider: self, cell: cell)
+    }
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton) {
         StatusProviderFacade.responseToStatusLikeAction(provider: self, cell: cell)
     }
