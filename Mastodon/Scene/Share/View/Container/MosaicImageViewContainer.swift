@@ -63,7 +63,6 @@ extension MosaicImageViewContainer: ContentWarningOverlayViewDelegate {
 extension MosaicImageViewContainer {
     
     private func _init() {
-        contentWarningOverlayView.delegate = self
         container.translatesAutoresizingMaskIntoConstraints = false
         container.axis = .horizontal
         container.distribution = .fillEqually
@@ -77,13 +76,7 @@ extension MosaicImageViewContainer {
             containerHeightLayoutConstraint
         ])
         
-        addSubview(contentWarningOverlayView)
-        NSLayoutConstraint.activate([
-            contentWarningOverlayView.topAnchor.constraint(equalTo: container.topAnchor),
-            contentWarningOverlayView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            contentWarningOverlayView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            contentWarningOverlayView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
-        ])
+        contentWarningOverlayView.delegate = self
     }
     
 }
@@ -101,6 +94,7 @@ extension MosaicImageViewContainer {
         contentWarningOverlayView.removeFromSuperview()
         contentWarningOverlayView.blurVisualEffectView.effect = ContentWarningOverlayView.blurVisualEffect
         contentWarningOverlayView.vibrancyVisualEffectView.alpha = 1.0
+        contentWarningOverlayView.isUserInteractionEnabled = true
         imageViews = []
         
         container.spacing = 1
