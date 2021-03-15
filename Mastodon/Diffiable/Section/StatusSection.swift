@@ -182,6 +182,7 @@ extension StatusSection {
         let isStatusSensitive = statusItemAttribute.isStatusSensitive
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
+        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
