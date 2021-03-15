@@ -14,7 +14,7 @@ import os.log
 
 final class AudioPlaybackService: NSObject {
     
-    static let appWillPlayAudioNotification = NSNotification.Name(rawValue: "org.joinmastodon.Mastodon.AudioPlayer.appWillPlayAudio")
+    static let appWillPlayAudioNotification = NSNotification.Name(rawValue: "org.joinmastodon.Mastodon.audio-playback-service.appWillPlayAudio")
     
     var disposeBag = Set<AnyCancellable>()
 
