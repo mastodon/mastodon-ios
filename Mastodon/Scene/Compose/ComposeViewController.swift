@@ -235,6 +235,8 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
             let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)|#([^\\s]+))")
             // not accept :$ to force user input space to make emoji take effect
             let emojiMatches = string.matches(pattern: "(?:(^:|\\s:)([a-zA-Z0-9_]+):\\s)")
+            // only accept http/https scheme
+            let urlMatches = string.matches(pattern: "(?i)https?://\\S+(?:/|\\b)")
 
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
@@ -308,6 +310,27 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                             value: attachment,
                             range: NSRange(location: index, length: 1)
                         )
+                    }
+                }
+                
+                for match in urlMatches {
+                    if let name = string.substring(with: match, at: 0) {
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
+                        
+                        // set highlight
+                        var attributes = [NSAttributedString.Key: Any]()
+                        attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                        // See `traitCollectionDidChange(_:)`
+                        // set accessibility
+                        if #available(iOS 13.0, *) {
+                            switch self.traitCollection.accessibilityContrast {
+                            case .high:
+                                attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+                            default:
+                                break
+                            }
+                        }
+                        attributedString.addAttributes(attributes, range: match.range)
                     }
                 }
                 
