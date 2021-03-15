@@ -49,7 +49,7 @@ final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
         label.textColor = Asset.Colors.Label.secondary.color
-        label.text = "Bob boosted"
+        label.text = "Bob reblogged"
         return label
     }()
     
@@ -491,7 +491,7 @@ struct StatusView_Previews: PreviewProvider {
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 200))
-            .previewDisplayName("Boost")
+            .previewDisplayName("Reblog")
             UIViewPreview(width: 375) {
                 let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
                 statusView.configure(

@@ -10,7 +10,7 @@ import UIKit
 
 protocol ActionToolbarContainerDelegate: class {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton)
-    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, boostButtonDidPressed sender: UIButton)
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton)
 }
@@ -19,12 +19,12 @@ protocol ActionToolbarContainerDelegate: class {
 final class ActionToolbarContainer: UIView {
         
     let replyButton     = HitTestExpandedButton()
-    let boostButton     = HitTestExpandedButton()
+    let reblogButton    = HitTestExpandedButton()
     let favoriteButton  = HitTestExpandedButton()
     let moreButton      = HitTestExpandedButton()
     
-    var isBoostButtonHighlight: Bool = false {
-        didSet { isBoostButtonHighlightStateDidChange(to: isBoostButtonHighlight) }
+    var isReblogButtonHighlight: Bool = false {
+        didSet { isReblogButtonHighlightStateDidChange(to: isReblogButtonHighlight) }
     }
     
     var isFavoriteButtonHighlight: Bool = false {
@@ -61,7 +61,7 @@ extension ActionToolbarContainer {
         ])
         
         replyButton.addTarget(self, action: #selector(ActionToolbarContainer.replyButtonDidPressed(_:)), for: .touchUpInside)
-        boostButton.addTarget(self, action: #selector(ActionToolbarContainer.boostButtonDidPressed(_:)), for: .touchUpInside)
+        reblogButton.addTarget(self, action: #selector(ActionToolbarContainer.reblogButtonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.favoriteButtonDidPressed(_:)), for: .touchUpInside)
         moreButton.addTarget(self, action: #selector(ActionToolbarContainer.moreButtonDidPressed(_:)), for: .touchUpInside)
     }
@@ -93,7 +93,7 @@ extension ActionToolbarContainer {
             subview.removeFromSuperview()
         }
         
-        let buttons = [replyButton, boostButton, favoriteButton, moreButton]
+        let buttons = [replyButton, reblogButton, favoriteButton, moreButton]
         buttons.forEach { button in
             button.tintColor = Asset.Colors.Button.actionToolbar.color
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
@@ -113,7 +113,7 @@ extension ActionToolbarContainer {
                 button.contentHorizontalAlignment = .leading
             }
             replyButton.setImage(replyImage, for: .normal)
-            boostButton.setImage(reblogImage, for: .normal)
+            reblogButton.setImage(reblogImage, for: .normal)
             favoriteButton.setImage(starImage, for: .normal)
             moreButton.setImage(moreImage, for: .normal)
             
@@ -121,19 +121,19 @@ extension ActionToolbarContainer {
             container.distribution = .fill
             
             replyButton.translatesAutoresizingMaskIntoConstraints = false
-            boostButton.translatesAutoresizingMaskIntoConstraints = false
+            reblogButton.translatesAutoresizingMaskIntoConstraints = false
             favoriteButton.translatesAutoresizingMaskIntoConstraints = false
             moreButton.translatesAutoresizingMaskIntoConstraints = false
             container.addArrangedSubview(replyButton)
-            container.addArrangedSubview(boostButton)
+            container.addArrangedSubview(reblogButton)
             container.addArrangedSubview(favoriteButton)
             container.addArrangedSubview(moreButton)
             NSLayoutConstraint.activate([
                 replyButton.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
-                replyButton.heightAnchor.constraint(equalTo: boostButton.heightAnchor).priority(.defaultHigh),
+                replyButton.heightAnchor.constraint(equalTo: reblogButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: favoriteButton.heightAnchor).priority(.defaultHigh),
                 replyButton.heightAnchor.constraint(equalTo: moreButton.heightAnchor).priority(.defaultHigh),
-                replyButton.widthAnchor.constraint(equalTo: boostButton.widthAnchor).priority(.defaultHigh),
+                replyButton.widthAnchor.constraint(equalTo: reblogButton.widthAnchor).priority(.defaultHigh),
                 replyButton.widthAnchor.constraint(equalTo: favoriteButton.widthAnchor).priority(.defaultHigh),
             ])
             moreButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
@@ -144,7 +144,7 @@ extension ActionToolbarContainer {
                 button.contentHorizontalAlignment = .center
             }
             replyButton.setImage(replyImage, for: .normal)
-            boostButton.setImage(reblogImage, for: .normal)
+            reblogButton.setImage(reblogImage, for: .normal)
             favoriteButton.setImage(starImage, for: .normal)
             
             container.axis = .horizontal
@@ -152,7 +152,7 @@ extension ActionToolbarContainer {
             container.distribution = .fillEqually
             
             container.addArrangedSubview(replyButton)
-            container.addArrangedSubview(boostButton)
+            container.addArrangedSubview(reblogButton)
             container.addArrangedSubview(favoriteButton)
         }
     }
@@ -162,11 +162,11 @@ extension ActionToolbarContainer {
         return oldStyle != style
     }
     
-    private func isBoostButtonHighlightStateDidChange(to isHighlight: Bool) {
+    private func isReblogButtonHighlightStateDidChange(to isHighlight: Bool) {
         let tintColor = isHighlight ? Asset.Colors.systemGreen.color : Asset.Colors.Button.actionToolbar.color
-        boostButton.tintColor = tintColor
-        boostButton.setTitleColor(tintColor, for: .normal)
-        boostButton.setTitleColor(tintColor, for: .highlighted)
+        reblogButton.tintColor = tintColor
+        reblogButton.setTitleColor(tintColor, for: .normal)
+        reblogButton.setTitleColor(tintColor, for: .highlighted)
     }
     
     private func isFavoriteButtonHighlightStateDidChange(to isHighlight: Bool) {
@@ -184,9 +184,9 @@ extension ActionToolbarContainer {
         delegate?.actionToolbarContainer(self, replayButtonDidPressed: sender)
     }
     
-    @objc private func boostButtonDidPressed(_ sender: UIButton) {
+    @objc private func reblogButtonDidPressed(_ sender: UIButton) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.actionToolbarContainer(self, boostButtonDidPressed: sender)
+        delegate?.actionToolbarContainer(self, reblogButtonDidPressed: sender)
     }
     
     @objc private func favoriteButtonDidPressed(_ sender: UIButton) {

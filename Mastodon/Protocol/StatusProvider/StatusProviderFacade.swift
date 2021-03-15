@@ -130,7 +130,7 @@ extension StatusProviderFacade {
         )
     }
     
-    static func responseToStatusBoostAction(provider: StatusProvider, cell: UITableViewCell) {
+    static func responseToStatusReblogAction(provider: StatusProvider, cell: UITableViewCell) {
         _responseToStatusBoostAction(
             provider: provider,
             toot: provider.toot(for: cell, indexPath: nil)
@@ -160,21 +160,21 @@ extension StatusProviderFacade {
         let responseFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         
         toot
-            .compactMap { toot -> (NSManagedObjectID, Mastodon.API.Reblog.BoostKind)? in
+            .compactMap { toot -> (NSManagedObjectID, Mastodon.API.Reblog.ReblogKind)? in
                 guard let toot = toot?.reblog ?? toot else { return nil }
-                let boostKind: Mastodon.API.Reblog.BoostKind = {
-                    let isBoosted = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
-                    return isBoosted ? .undoBoost : .boost
+                let reblogKind: Mastodon.API.Reblog.ReblogKind = {
+                    let isReblogged = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
+                    return isReblogged ? .undoReblog : .reblog(query: .init(visibility: nil))
                 }()
-                return (toot.objectID, boostKind)
+                return (toot.objectID, reblogKind)
             }
-            .map { tootObjectID, boostKind -> AnyPublisher<(Toot.ID, Mastodon.API.Reblog.BoostKind), Error>  in
-                return context.apiService.boost(
+            .map { tootObjectID, reblogKind -> AnyPublisher<(Toot.ID, Mastodon.API.Reblog.ReblogKind), Error>  in
+                return context.apiService.reblog(
                     tootObjectID: tootObjectID,
                     mastodonUserObjectID: mastodonUserObjectID,
-                    boostKind: boostKind
+                    reblogKind: reblogKind
                 )
-                .map { tootID in (tootID, boostKind) }
+                .map { tootID in (tootID, reblogKind) }
                 .eraseToAnyPublisher()
             }
             .setFailureType(to: Error.self)
@@ -184,9 +184,14 @@ extension StatusProviderFacade {
             .handleEvents { _ in
                 generator.prepare()
                 responseFeedbackGenerator.prepare()
-            } receiveOutput: { _, boostKind in
+            } receiveOutput: { _, reblogKind in
                 generator.impactOccurred()
-                os_log("%{public}s[%{public}ld], %{public}s: [Boost] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, boostKind == .boost ? "boost" : "unboost")
+                switch reblogKind {
+                case .reblog:
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "reblog")
+                case .undoReblog:
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "unboost")
+                }
             } receiveCompletion: { completion in
                 switch completion {
                 case .failure:
@@ -196,10 +201,10 @@ extension StatusProviderFacade {
                     break
                 }
             }
-            .map { tootID, boostKind in
-                return context.apiService.boost(
+            .map { tootID, reblogKind in
+                return context.apiService.reblog(
                     statusID: tootID,
-                    boostKind: boostKind,
+                    reblogKind: reblogKind,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox
                 )
             }
@@ -212,9 +217,9 @@ extension StatusProviderFacade {
                 }
                 switch completion {
                 case .failure(let error):
-                    os_log("%{public}s[%{public}ld], %{public}s: [Boost] remote boost request fail: %{public}s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] remote reblog request fail: %{public}s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                 case .finished:
-                    os_log("%{public}s[%{public}ld], %{public}s: [Boost] remote boost request success", ((#file as NSString).lastPathComponent), #line, #function)
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] remote reblog request success", ((#file as NSString).lastPathComponent), #line, #function)
                 }
             } receiveValue: { response in
                 // do nothing

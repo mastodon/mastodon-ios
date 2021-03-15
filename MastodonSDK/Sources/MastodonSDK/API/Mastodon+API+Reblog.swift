@@ -10,7 +10,7 @@ import Combine
 
 extension Mastodon.API.Reblog {
  
-    static func boostedByEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
+    static func rebloggedByEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
         let pathComponent = "statuses/" + statusID + "/reblogged_by"
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(pathComponent)
     }
@@ -22,7 +22,7 @@ extension Mastodon.API.Reblog {
     /// - Since: 0.0.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/3/9
+    ///   2021/3/15
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/statuses/)
     /// - Parameters:
@@ -31,14 +31,14 @@ extension Mastodon.API.Reblog {
     ///   - statusID: id for status
     ///   - authorization: User token. Could be nil if status is public
     /// - Returns: `AnyPublisher` contains `Status` nested in the response
-    public static func poll(
+    public static func rebloggedBy(
         session: URLSession,
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>  {
         let request = Mastodon.API.get(
-            url: boostedByEndpointURL(domain: domain, statusID: statusID),
+            url: rebloggedByEndpointURL(domain: domain, statusID: statusID),
             query: nil,
             authorization: authorization
         )
@@ -66,7 +66,7 @@ extension Mastodon.API.Reblog {
     /// - Since: 0.0.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/3/9
+    ///   2021/3/15
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/statuses/)
     /// - Parameters:
@@ -75,11 +75,11 @@ extension Mastodon.API.Reblog {
     ///   - statusID: id for status
     ///   - authorization: User token.
     /// - Returns: `AnyPublisher` contains `Status` nested in the response
-    public static func boost(
+    public static func reblog(
         session: URLSession,
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        query: BoostQuery,
+        query: ReblogQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>  {
         let request = Mastodon.API.post(
@@ -97,10 +97,10 @@ extension Mastodon.API.Reblog {
     
     public typealias Visibility = Mastodon.Entity.Source.Privacy
     
-    public struct BoostQuery: Codable, PostQuery {
-        public let visibility: Visibility
+    public struct ReblogQuery: Codable, PostQuery {
+        public let visibility: Visibility?
         
-        public init(visibility: Visibility) {
+        public init(visibility: Visibility?) {
             self.visibility = visibility
         }
     }
@@ -114,7 +114,7 @@ extension Mastodon.API.Reblog {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent(pathComponent)
     }
     
-    /// Undo boost
+    /// Undo reblog
     ///
     /// Undo a reshare of a status.
     ///
@@ -130,7 +130,7 @@ extension Mastodon.API.Reblog {
     ///   - statusID: id for status
     ///   - authorization: User token.
     /// - Returns: `AnyPublisher` contains `Status` nested in the response
-    public static func undoBoost(
+    public static func undoReblog(
         session: URLSession,
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
@@ -153,34 +153,24 @@ extension Mastodon.API.Reblog {
 
 extension Mastodon.API.Reblog {
     
-    public enum BoostKind {
-        case boost
-        case undoBoost
+    public enum ReblogKind {
+        case reblog(query: ReblogQuery)
+        case undoReblog
     }
     
-    public static func boost(
+    public static func reblog(
         session: URLSession,
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        boostKind: BoostKind,
+        reblogKind: ReblogKind,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>  {
-        let url: URL
-        switch boostKind {
-        case .boost:        url = reblogEndpointURL(domain: domain, statusID: statusID)
-        case .undoBoost:    url = unreblogEndpointURL(domain: domain, statusID: statusID)
+        switch reblogKind {
+        case .reblog(let query):
+            return reblog(session: session, domain: domain, statusID: statusID, query: query, authorization: authorization)
+        case .undoReblog:
+            return undoReblog(session: session, domain: domain, statusID: statusID, authorization: authorization)
         }
-        let request = Mastodon.API.post(
-            url: url,
-            query: nil,
-            authorization: authorization
-        )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
     }
     
 }

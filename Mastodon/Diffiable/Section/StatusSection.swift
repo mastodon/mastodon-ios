@@ -294,7 +294,7 @@ extension StatusSection {
                       let toot = object as? Toot else { return }
                 StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
                 
-                os_log("%{public}s[%{public}ld], %{public}s: boost count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.reblogsCount.intValue)
+                os_log("%{public}s[%{public}ld], %{public}s: reblog count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.reblogsCount.intValue)
                 os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.favouritesCount.intValue)
             }
             .store(in: &cell.disposeBag)
@@ -313,14 +313,14 @@ extension StatusSection {
             return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
-        // set boost
-        let isBoosted = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-        let boostCountTitle: String = {
+        // set reblog
+        let isReblogged = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let reblogCountTitle: String = {
             let count = toot.reblogsCount.intValue
             return StatusSection.formattedNumberTitleForActionButton(count)
         }()
-        cell.statusView.actionToolbarContainer.boostButton.setTitle(boostCountTitle, for: .normal)
-        cell.statusView.actionToolbarContainer.isBoostButtonHighlight = isBoosted
+        cell.statusView.actionToolbarContainer.reblogButton.setTitle(reblogCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isReblogButtonHighlight = isReblogged
         // set like
         let isLike = toot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {

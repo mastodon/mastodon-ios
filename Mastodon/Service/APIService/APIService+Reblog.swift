@@ -15,10 +15,10 @@ import CommonOSLog
 extension APIService {
     
     // make local state change only
-    func boost(
+    func reblog(
         tootObjectID: NSManagedObjectID,
         mastodonUserObjectID: NSManagedObjectID,
-        boostKind: Mastodon.API.Reblog.BoostKind
+        reblogKind: Mastodon.API.Reblog.ReblogKind
     ) -> AnyPublisher<Toot.ID, Error> {
         var _targetTootID: Toot.ID?
         let managedObjectContext = backgroundManagedObjectContext
@@ -29,7 +29,12 @@ extension APIService {
             let targetTootID = targetToot.id
             _targetTootID = targetTootID
 
-            targetToot.update(reblogged: boostKind == .boost, mastodonUser: mastodonUser)
+            switch reblogKind {
+            case .reblog:
+                targetToot.update(reblogged: true, mastodonUser: mastodonUser)
+            case .undoReblog:
+                targetToot.update(reblogged: false, mastodonUser: mastodonUser)
+            }
 
         }
         .tryMap { result in
@@ -48,20 +53,20 @@ extension APIService {
         .eraseToAnyPublisher()
     }
 
-    // send boost request to remote
-    func boost(
+    // send reblog request to remote
+    func reblog(
         statusID: Mastodon.Entity.Status.ID,
-        boostKind: Mastodon.API.Reblog.BoostKind,
+        reblogKind: Mastodon.API.Reblog.ReblogKind,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let domain = mastodonAuthenticationBox.domain
         let authorization = mastodonAuthenticationBox.userAuthorization
         let requestMastodonUserID = mastodonAuthenticationBox.userID
-        return Mastodon.API.Reblog.boost(
+        return Mastodon.API.Reblog.reblog(
             session: session,
             domain: domain,
             statusID: statusID,
-            boostKind: boostKind,
+            reblogKind: reblogKind,
             authorization: authorization
         )
         .map { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
@@ -92,10 +97,13 @@ extension APIService {
                 }
 
                 APIService.CoreData.merge(toot: oldToot, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
-                if boostKind == .undoBoost {
+                switch reblogKind {
+                case .undoReblog:
                     oldToot.update(reblogsCount: NSNumber(value: max(0, oldToot.reblogsCount.intValue - 1)))
+                default:
+                    break
                 }
-                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s reblog status to: %{public}s. now %ld boosts", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.reblogged.flatMap { $0 ? "boost" : "unboost" } ?? "<nil>", entity.reblogsCount )
+                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s reblog status to: %{public}s. now %ld reblog", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.reblogged.flatMap { $0 ? "reblog" : "unreblog" } ?? "<nil>", entity.reblogsCount )
             }
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
