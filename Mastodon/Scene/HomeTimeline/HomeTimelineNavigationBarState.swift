@@ -17,8 +17,8 @@ final class HomeTimelineNavigationBarState {
     
     var titleViewBeforePublishing: UIView? // used for restore titleView after published
     
-    var newTopContent = CurrentValueSubject<Bool,Never>(false)
-    var newBottomContent = CurrentValueSubject<Bool,Never>(false)
+    var newTopContent = CurrentValueSubject<Bool, Never>(false)
+    var newBottomContent = CurrentValueSubject<Bool, Never>(false)
     var hasContentBeforeFetching: Bool = true
     
     weak var viewController: HomeTimelineViewController?
@@ -26,6 +26,7 @@ final class HomeTimelineNavigationBarState {
     init() {
         reCountdown()
         subscribeNewContent()
+        addGesture()
     }
 }
 
@@ -57,13 +58,52 @@ extension HomeTimelineNavigationBarState {
 }
 
 extension HomeTimelineNavigationBarState {
+    func handleScrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentOffsetY = scrollView.contentOffset.y
+        print(contentOffsetY)
+        let isTop = contentOffsetY < -scrollView.contentInset.top
+        if isTop {
+            newTopContent.value = false
+            showMastodonLogoInNavigationBar()
+        }
+        let isBottom = contentOffsetY > max(-scrollView.adjustedContentInset.top, scrollView.contentSize.height - scrollView.frame.height + scrollView.adjustedContentInset.bottom)
+        if isBottom {
+            newBottomContent.value = false
+            showMastodonLogoInNavigationBar()
+        }
+    }
+    
+    func addGesture() {
+        let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
+        tapGesture.addTarget(self, action: #selector(newPostsNewDidPressed))
+        HomeTimelineNavigationBarView.newPostsView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func newPostsNewDidPressed() {
+        if newTopContent.value == true {
+            scrollToDirection(direction: .top)
+        }
+        if newBottomContent.value == true {
+            scrollToDirection(direction: .bottom)
+        }
+    }
+    
+    func scrollToDirection(direction: UIScrollView.ScrollDirection) {
+        viewController?.tableView.scroll(to: direction, animated: true)
+    }
+}
+
+extension HomeTimelineNavigationBarState {
     func subscribeNewContent() {
         newTopContent
             .receive(on: DispatchQueue.main)
             .sink { [weak self] newContent in
                 guard let self = self else { return }
-                if self.hasContentBeforeFetching && newContent {
+                if self.hasContentBeforeFetching, newContent {
                     self.showNewPostsInNavigationBar()
+                }
+                if newContent {
+                    self.newBottomContent.value = false
                 }
             }
             .store(in: &disposeBag)
@@ -74,10 +114,13 @@ extension HomeTimelineNavigationBarState {
                 if newContent {
                     self.showNewPostsInNavigationBar()
                 }
+                if (newContent) {
+                    self.newTopContent.value = false
+                }
             }
             .store(in: &disposeBag)
-        
     }
+
     func reCountdown() {
         errorCountDownDispose = networkErrorCountSubject
             .scan(0) { value, _ in value + 1 }
@@ -87,21 +130,6 @@ extension HomeTimelineNavigationBarState {
                     self.showOfflineInNavigationBar()
                 }
             })
-    }
-    
-    func handleScrollViewDidScroll(_ scrollView: UIScrollView) {
-        let contentOffsetY = scrollView.contentOffset.y
-        print(contentOffsetY)
-        let isTop = contentOffsetY < -scrollView.contentInset.top
-        if isTop {
-            newTopContent.value = false
-            showMastodonLogoInNavigationBar()
-        }
-        let isBottom = contentOffsetY > max(-scrollView.contentInset.top, scrollView.contentSize.height - scrollView.frame.height + scrollView.contentInset.bottom)
-        if isBottom {
-            newBottomContent.value = false
-            showMastodonLogoInNavigationBar()
-        }
     }
     
     func receiveCompletion(completion: Subscribers.Completion<Error>) {
