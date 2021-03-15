@@ -36,8 +36,8 @@ final class ComposeViewModel {
         self.context = context
         self.composeKind = composeKind
         switch composeKind {
-        case .toot:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newToot)
-        case .replyToot:    self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
+        case .post:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
+        case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         // end init

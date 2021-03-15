@@ -350,7 +350,7 @@ extension StatusView {
         NSLayoutConstraint.activate([
             audioView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
             audioView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            audioView.heightAnchor.constraint(equalToConstant: 44)
+            audioView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
         ])
         // video gif
         statusContainerStackView.addArrangedSubview(mosaicPlayerView)

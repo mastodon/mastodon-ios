@@ -18,8 +18,8 @@ enum ComposeStatusSection: Equatable, Hashable {
 
 extension ComposeStatusSection {
     enum ComposeKind {
-        case toot
-        case replyToot(tootObjectID: NSManagedObjectID)
+        case post
+        case reply(repliedToStatusObjectID: NSManagedObjectID)
     }
 }
 
@@ -33,7 +33,7 @@ extension ComposeStatusSection {
     ) -> UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
         UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>(tableView: tableView) { [weak textEditorViewTextAttributesDelegate] tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .replyTo(let tootObjectID):
+            case .replyTo(let repliedToStatusObjectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self), for: indexPath) as! ComposeRepliedToTootContentTableViewCell
                 // TODO:
                 return cell

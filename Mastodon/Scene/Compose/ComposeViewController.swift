@@ -191,8 +191,8 @@ extension ComposeViewController {
     
     private func showDismissConfirmAlertController() {
         let alertController = UIAlertController(
-            title: L10n.Common.Alerts.DiscardComposeContent.title,
-            message: L10n.Common.Alerts.DiscardComposeContent.message,
+            title: L10n.Common.Alerts.DiscardPostContent.title,
+            message: L10n.Common.Alerts.DiscardPostContent.message,
             preferredStyle: .alert
         )
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
@@ -227,7 +227,6 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
         updateAttributedString attributedString: NSAttributedString,
         completion: @escaping (NSAttributedString?) -> Void
     ) {
-
         DispatchQueue.global().async {
             let string = attributedString.string
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)

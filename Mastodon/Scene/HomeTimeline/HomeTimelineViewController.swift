@@ -166,7 +166,7 @@ extension HomeTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let composeViewModel = ComposeViewModel(context: context, composeKind: .toot)
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
         coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     

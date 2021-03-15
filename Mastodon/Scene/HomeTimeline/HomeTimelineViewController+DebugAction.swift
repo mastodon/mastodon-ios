@@ -108,8 +108,8 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
-                return toot.poll != nil
+                let post = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                return post.poll != nil
             default:
                 return false
             }
@@ -148,8 +148,8 @@ extension HomeTimelineViewController {
                 self.context.apiService.backgroundManagedObjectContext.performChanges { [weak self] in
                     guard let self = self else { return }
                     for objectID in droppingTootObjectIDs {
-                        guard let toot = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Toot else { continue }
-                        self.context.apiService.backgroundManagedObjectContext.delete(toot)
+                        guard let post = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Toot else { continue }
+                        self.context.apiService.backgroundManagedObjectContext.delete(post)
                     }
                 }
                 .sink { _ in

@@ -15,9 +15,9 @@
                 "title": "Vote Failure",
                 "poll_expired": "The poll has expired"
             },
-            "discard_compose_content": {
-                "title": "Discard Toot",
-                "message": "Confirm discard composed toot content."
+            "discard_post_content": {
+                "title": "Discard Publish",
+                "message": "Confirm discard composed post content."
             }
         },
         "controls": {
@@ -41,7 +41,7 @@
                 "open_in_safari": "Open in Safari"
             },
             "status": {
-                "user_boosted": "%s boosted",
+                "user_reblogged": "%s reblogged",
                 "show_post": "Show Post",
                 "status_content_warning": "content warning",
                 "media_content_warning": "Tap to reveal that may be sensitive",
@@ -76,17 +76,17 @@
         },
         "server_picker": {
             "title": "Pick a Server,\nany server.",
-            "Button": {
-                "Category": {
+            "button": {
+                "category": {
                     "All": "All"
                 },
-                "SeeLess": "See Less",
-                "SeeMore": "See More"
+                "see_less": "See Less",
+                "see_more": "See More"
             },
-            "Label": {
-                "Language": "LANGUAGE",
-                "Users": "USERS",
-                "Category": "CATEGORY"
+            "label": {
+                "language": "LANGUAGE",
+                "users": "USERS",
+                "category": "CATEGORY"
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
@@ -181,11 +181,11 @@
         },
         "compose": {
             "title": {
-                "new_toot": "New Toot",
+                "new_post": "New Post",
                 "new_reply": "New Reply"
             },
             "content_input_placeholder": "Type or paste what's on your mind",
-            "compose_action": "Toot"
+            "compose_action": "Publish"
         }
     }
 }

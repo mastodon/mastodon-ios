@@ -26,10 +26,10 @@ extension ComposeViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
         snapshot.appendSections([.repliedTo, .status])
         switch composeKind {
-        case .replyToot(let tootObjectID):
+        case .reply(let tootObjectID):
             snapshot.appendItems([.replyTo(tootObjectID: tootObjectID)], toSection: .repliedTo)
             snapshot.appendItems([.toot(replyToTootObjectID: tootObjectID, attribute: composeTootAttribute)], toSection: .status)
-        case .toot:
+        case .post:
             snapshot.appendItems([.toot(replyToTootObjectID: nil, attribute: composeTootAttribute)], toSection: .status)
         }
         diffableDataSource.apply(snapshot, animatingDifferences: false)

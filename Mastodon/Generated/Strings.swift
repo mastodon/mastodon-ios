@@ -19,11 +19,11 @@ internal enum L10n {
         /// Please try again later.
         internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
       }
-      internal enum DiscardComposeContent {
-        /// Confirm discard composed toot content.
-        internal static let message = L10n.tr("Localizable", "Common.Alerts.DiscardComposeContent.Message")
-        /// Discard Toot
-        internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardComposeContent.Title")
+      internal enum DiscardPostContent {
+        /// Confirm discard composed post content.
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Message")
+        /// Discard Publish
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Title")
       }
       internal enum ServerError {
         /// Server Error
@@ -84,9 +84,9 @@ internal enum L10n {
         internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
         /// content warning
         internal static let statusContentWarning = L10n.tr("Localizable", "Common.Controls.Status.StatusContentWarning")
-        /// %@ boosted
-        internal static func userBoosted(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Status.UserBoosted", String(describing: p1))
+        /// %@ reblogged
+        internal static func userReblogged(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1))
         }
         internal enum Poll {
           /// Closed
@@ -136,15 +136,15 @@ internal enum L10n {
 
   internal enum Scene {
     internal enum Compose {
-      /// Toot
+      /// Publish
       internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
       /// Type or paste what's on your mind
       internal static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder")
       internal enum Title {
+        /// New Post
+        internal static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost")
         /// New Reply
         internal static let newReply = L10n.tr("Localizable", "Scene.Compose.Title.NewReply")
-        /// New Toot
-        internal static let newToot = L10n.tr("Localizable", "Scene.Compose.Title.NewToot")
       }
     }
     internal enum ConfirmEmail {
@@ -290,9 +290,9 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       internal enum Button {
         /// See Less
-        internal static let seeless = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seeless")
+        internal static let seeLess = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeLess")
         /// See More
-        internal static let seemore = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seemore")
+        internal static let seeMore = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeMore")
         internal enum Category {
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")
