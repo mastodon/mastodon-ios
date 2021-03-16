@@ -49,6 +49,7 @@
 		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
 		2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
+		2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */; };
 		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
 		2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */ = {isa = PBXBuildFile; productRef = 2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */; };
@@ -72,6 +73,9 @@
 		2D7631B325C159F700929FB9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7631B225C159F700929FB9 /* Item.swift */; };
 		2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */; };
 		2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */; };
+		2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarState.swift */; };
+		2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift */; };
+		2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84350425FF858100EECE90 /* UIScrollView.swift */; };
 		2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0125C7E4F2004F19B8 /* Mention.swift */; };
 		2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0725C7E9A8004F19B8 /* Tag.swift */; };
 		2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0D25C7E9C9004F19B8 /* History.swift */; };
@@ -299,6 +303,7 @@
 		2D42FF8E25C8228A004A627A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
+		2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProgressView.swift; sourceTree = "<group>"; };
 		2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
 		2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlContainableScrollViews.swift; sourceTree = "<group>"; };
@@ -320,6 +325,9 @@
 		2D7631B225C159F700929FB9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerAppearance.swift; sourceTree = "<group>"; };
 		2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewModelNavigationDelegateShim.swift; sourceTree = "<group>"; };
+		2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarState.swift; sourceTree = "<group>"; };
+		2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarView.swift; sourceTree = "<group>"; };
+		2D84350425FF858100EECE90 /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		2D927F0125C7E4F2004F19B8 /* Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mention.swift; sourceTree = "<group>"; };
 		2D927F0725C7E9A8004F19B8 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		2D927F0D25C7E9C9004F19B8 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -592,6 +600,7 @@
 			children = (
 				2D152A8B25C295CC009AA50C /* StatusView.swift */,
 				2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */,
+				2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -617,6 +626,8 @@
 				2D38F1EA25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift */,
 				2D38F1F025CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift */,
 				2D38F1F625CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift */,
+				2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarState.swift */,
+				2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift */,
 			);
 			path = HomeTimeline;
 			sourceTree = "<group>";
@@ -1151,6 +1162,7 @@
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
+				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
 			);
 			path = Extension;
@@ -1625,6 +1637,7 @@
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
+				2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB92CF7225E7BB98002C1017 /* PollOptionTableViewCell.swift in Sources */,
@@ -1632,7 +1645,9 @@
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
+				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
+				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
@@ -1669,6 +1684,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
+				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,

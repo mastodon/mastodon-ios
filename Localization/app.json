@@ -169,7 +169,13 @@
             }
         },
         "home_timeline": {
-            "title": "Home"
+            "title": "Home",
+            "navigation_bar_state": {
+                "offline": "Offline",
+                "new_posts": "See new posts",
+                "published": "Published!",
+                "Publishing": "Publishing post..."
+            },
         },
         "public_timeline": {
             "title": "Public"

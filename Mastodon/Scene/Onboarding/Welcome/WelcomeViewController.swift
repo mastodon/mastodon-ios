@@ -13,17 +13,17 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    private(set) lazy var welcomeIllustrationView = WelcomeIllustrationView()
+    let welcomeIllustrationView = WelcomeIllustrationView()
     var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
     
     private(set) lazy var logoImageView: UIImageView = {
-        let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Welcome.mastodonLogo.image : Asset.Welcome.mastodonLogoLarge.image
+        let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Welcome.mastodonLogo.image : Asset.Welcome.mastodonLogoBlackLarge.image
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let sloganLabel: UILabel = {
+    private(set) lazy var sloganLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
@@ -39,7 +39,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         let backgroundImageColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? .white : Asset.Colors.Button.highlight.color
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
-        button.setBackgroundImage(.placeholder(color: backgroundImageColor.withAlphaComponent(0.8)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: backgroundImageColor.withAlphaComponent(0.9)), for: .highlighted)
         let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? Asset.Colors.Button.highlight.color : UIColor.white
         button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -68,109 +68,7 @@ extension WelcomeViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
-        
-        if traitCollection.userInterfaceIdiom == .phone {
-//            welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-//            view.addSubview(welcomeIllustrationView)
-//            welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//            NSLayoutConstraint.activate([
-//                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 44),
-//                welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 44),
-//                welcomeIllustrationViewBottomAnchorLayoutConstraint!,
-//            ])
-//            view.backgroundColor = .black
-//            welcomeIllustrationView.alpha = 0.9
-
-//            welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
-//            )
-//            welcomeIllustrationView.rightHillImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -12, maxX: 12, minY: -12, maxY: 12)
-//            )
-//            welcomeIllustrationView.leftHillImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -12, maxX: 12, minY: -20, maxY: 20)
-//            )
-//            welcomeIllustrationView.centerHillImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -30, maxY: 30)
-//            )
-//            welcomeIllustrationView.lineDashTwoImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 25, minY: -40, maxY: 40)
-//            )
-//            welcomeIllustrationView.elephantTwoImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -30, maxX: 30, minY: -30, maxY: 30)
-//            )
-        }
-
-//        view.addSubview(logoImageView)
-//        NSLayoutConstraint.activate([
-//            logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-//            logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
-//            view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
-//            logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
-//        ])
-
-        if traitCollection.userInterfaceIdiom != .phone {
-            view.addSubview(sloganLabel)
-            NSLayoutConstraint.activate([
-                sloganLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 16),
-                view.readableContentGuide.trailingAnchor.constraint(equalTo: sloganLabel.trailingAnchor, constant: 16),
-                sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
-            ])
-        }
-
-//        if traitCollection.userInterfaceIdiom == .phone {
-//            let imageSizeScale: CGFloat = view.frame.width > 375 ? 1.5 : 1.0
-//            welcomeIllustrationView.cloudFirstImageView.translatesAutoresizingMaskIntoConstraints = false
-//            view.addSubview(welcomeIllustrationView.cloudFirstImageView)
-//            NSLayoutConstraint.activate([
-//                welcomeIllustrationView.cloudFirstImageView.rightAnchor.constraint(equalTo: view.centerXAnchor),
-//                welcomeIllustrationView.cloudFirstImageView.widthAnchor.constraint(equalToConstant: 272 / traitCollection.displayScale * imageSizeScale),
-//                welcomeIllustrationView.cloudFirstImageView.heightAnchor.constraint(equalToConstant: 113 / traitCollection.displayScale * imageSizeScale),
-//            ])
-//            welcomeIllustrationView.cloudSecondImageView.translatesAutoresizingMaskIntoConstraints = false
-//            view.addSubview(welcomeIllustrationView.cloudSecondImageView)
-//            NSLayoutConstraint.activate([
-//                welcomeIllustrationView.cloudSecondImageView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
-//                welcomeIllustrationView.cloudSecondImageView.rightAnchor.constraint(equalTo: logoImageView.rightAnchor, constant: 20),
-//                welcomeIllustrationView.cloudSecondImageView.widthAnchor.constraint(equalToConstant: 152 / traitCollection.displayScale),
-//                welcomeIllustrationView.cloudSecondImageView.heightAnchor.constraint(equalToConstant: 96 / traitCollection.displayScale),
-//                welcomeIllustrationView.cloudFirstImageView.topAnchor.constraint(equalTo: welcomeIllustrationView.cloudSecondImageView.bottomAnchor),
-//            ])
-//            welcomeIllustrationView.cloudThirdImageView.translatesAutoresizingMaskIntoConstraints = false
-//            view.addSubview(welcomeIllustrationView.cloudThirdImageView)
-//            NSLayoutConstraint.activate([
-//                logoImageView.topAnchor.constraint(equalTo: welcomeIllustrationView.cloudThirdImageView.bottomAnchor, constant: 10),
-//                welcomeIllustrationView.cloudThirdImageView.rightAnchor.constraint(equalTo: view.centerXAnchor),
-//                welcomeIllustrationView.cloudThirdImageView.widthAnchor.constraint(equalToConstant: 126 / traitCollection.displayScale),
-//                welcomeIllustrationView.cloudThirdImageView.heightAnchor.constraint(equalToConstant: 68 / traitCollection.displayScale),
-//            ])
-//
-//            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
-//            view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
-//            NSLayoutConstraint.activate([
-//                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
-//                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor.constraint(equalTo: sloganLabel.topAnchor),
-//                // make a little bit large
-//                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalToConstant: 656 / traitCollection.displayScale * imageSizeScale),
-//                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalToConstant: 195 / traitCollection.displayScale * imageSizeScale),
-//            ])
-//
-//            welcomeIllustrationView.cloudFirstImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -30, maxX: 30, minY: -20, maxY: 10)
-//            )
-//            welcomeIllustrationView.cloudSecondImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -10, maxX: 30, minY: -8, maxY: 10)
-//            )
-//            welcomeIllustrationView.cloudThirdImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 10, minY: -6, maxY: 10)
-//            )
-//            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
-//                UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
-//            )
-//
-//            view.bringSubviewToFront(logoImageView)
-//            view.bringSubviewToFront(sloganLabel)
-//        }
+        setupIllustrationLayout()
 
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
@@ -193,11 +91,112 @@ extension WelcomeViewController {
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         
-        // make illustration bottom over the bleeding
-        let overlap: CGFloat = 145
-        welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap - view.safeAreaInsets.bottom
+        // shift illustration down for non-notch phone
+        var overlap: CGFloat = 5
+        if view.safeAreaInsets.bottom == 0 {
+            overlap += 56
+        }
+        welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
     }
         
+}
+
+extension WelcomeViewController {
+    
+    private func setupIllustrationLayout() {
+        // set logo
+        if logoImageView.superview == nil {
+            view.addSubview(logoImageView)
+            NSLayoutConstraint.activate([
+                logoImageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+                logoImageView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 35),
+                view.readableContentGuide.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor, constant: 35),
+                logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor, multiplier: 65.4/265.1),
+            ])
+            logoImageView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        }
+        
+        // set illustration for phone
+        if traitCollection.userInterfaceIdiom == .phone {
+            guard welcomeIllustrationView.superview == nil else {
+                return
+            }
+            
+            welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+            welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
+
+            view.addSubview(welcomeIllustrationView)
+            NSLayoutConstraint.activate([
+                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
+                welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
+                welcomeIllustrationViewBottomAnchorLayoutConstraint!
+            ])
+            
+            welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
+            )
+            welcomeIllustrationView.rightHillImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
+            )
+            welcomeIllustrationView.leftHillImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
+            )
+            welcomeIllustrationView.centerHillImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
+            )
+
+            let topPaddingView = UIView()
+            topPaddingView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(topPaddingView)
+            NSLayoutConstraint.activate([
+                topPaddingView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
+                topPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
+                topPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
+            ])
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
+            NSLayoutConstraint.activate([
+                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
+                // make a little bit large
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
+                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
+            ])
+            let bottomPaddingView = UIView()
+            bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(bottomPaddingView)
+            NSLayoutConstraint.activate([
+                bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
+                bottomPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
+                bottomPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
+                bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+                bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
+            ])
+
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
+                UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
+            )
+
+            view.bringSubviewToFront(logoImageView)
+            view.bringSubviewToFront(sloganLabel)
+        }
+
+        // set slogan for non-phone
+        if traitCollection.userInterfaceIdiom != .phone {
+            guard sloganLabel.superview == nil else {
+                return
+            }
+            view.addSubview(sloganLabel)
+            NSLayoutConstraint.activate([
+                sloganLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 16),
+                view.readableContentGuide.trailingAnchor.constraint(equalTo: sloganLabel.trailingAnchor, constant: 16),
+                sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
+            ])
+        }
+        
+        view.bringSubviewToFront(sloganLabel)
+        view.bringSubviewToFront(logoImageView)
+    }
 }
 
 extension WelcomeViewController {

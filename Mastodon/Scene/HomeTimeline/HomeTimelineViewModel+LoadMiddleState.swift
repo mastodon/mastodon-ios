@@ -68,6 +68,7 @@ extension HomeTimelineViewModel.LoadMiddleState {
                 .delay(for: .seconds(1), scheduler: DispatchQueue.main)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in
+                    viewModel.homeTimelineNavigationBarState.receiveCompletion(completion: completion)
                     switch completion {
                     case .failure(let error):
                         // TODO: handle error
