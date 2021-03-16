@@ -311,7 +311,7 @@ extension StatusSection {
     ) {
         if toot.reblog != nil {
             cell.statusView.headerContainerStackView.isHidden = false
-            cell.statusView.headerInfoLabel.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
+            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
             cell.statusView.headerInfoLabel.text = {
                 let author = toot.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
@@ -319,7 +319,7 @@ extension StatusSection {
             }()
         } else if let replyTo = toot.replyTo {
             cell.statusView.headerContainerStackView.isHidden = false
-            cell.statusView.headerInfoLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
             cell.statusView.headerInfoLabel.text = {
                 let author = replyTo.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
