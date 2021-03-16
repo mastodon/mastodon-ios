@@ -53,6 +53,8 @@ extension ComposeTootContentTableViewCell {
         ])
         statusView.statusContainerStackView.isHidden = true
         statusView.actionToolbarContainer.isHidden = true
+        statusView.nameTrialingDotLabel.isHidden = true
+        statusView.dateLabel.isHidden = true
         
         textEditorView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(textEditorView)
