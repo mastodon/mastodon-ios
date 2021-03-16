@@ -162,6 +162,16 @@ internal enum L10n {
     internal enum HomeTimeline {
       /// Home
       internal static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title")
+      internal enum NavigationBarState {
+        /// See new posts
+        internal static let newPosts = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.NewPosts")
+        /// Offline
+        internal static let offline = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Offline")
+        /// Published!
+        internal static let published = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Published")
+        /// Publishing post...
+        internal static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing")
+      }
     }
     internal enum PublicTimeline {
       /// Public
