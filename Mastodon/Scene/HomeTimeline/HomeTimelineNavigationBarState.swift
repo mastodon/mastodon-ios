@@ -112,7 +112,7 @@ extension HomeTimelineNavigationBarState {
     
     @objc func newPostsNewDidPressed(_ sender: UITapGestureRecognizer) {
         if newTopContent.value == true {
-            viewController?.tableView.scroll(to: .top, animated: true)
+            viewController?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
 }
