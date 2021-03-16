@@ -76,9 +76,9 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: [],
             children: [50, 100, 150, 200, 250, 300].map { count in
-                UIAction(title: "Drop Recent \(count) Toots", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "Drop Recent \(count) Statuses", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
-                    self.dropRecentTootsAction(action, count: count)
+                    self.dropRecentStatusAction(action, count: count)
                 })
             }
         )
@@ -118,11 +118,11 @@ extension HomeTimelineViewController {
             tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
             tableView.blinkRow(at: IndexPath(row: index, section: 0))
         } else {
-            print("Not found poll toot")
+            print("Not found status contains poll")
         }
     }
     
-    @objc private func dropRecentTootsAction(_ sender: UIAction, count: Int) {
+    @objc private func dropRecentStatusAction(_ sender: UIAction, count: Int) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
         

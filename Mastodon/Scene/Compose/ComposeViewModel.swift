@@ -17,7 +17,7 @@ final class ComposeViewModel {
     // input
     let context: AppContext
     let composeKind: ComposeStatusSection.ComposeKind
-    let composeTootAttribute = ComposeStatusItem.ComposeTootAttribute()
+    let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
     let composeContent = CurrentValueSubject<String, Never>("")
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     

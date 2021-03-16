@@ -37,7 +37,7 @@ extension ComposeStatusSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self), for: indexPath) as! ComposeRepliedToTootContentTableViewCell
                 // TODO:
                 return cell
-            case .toot(let replyToTootObjectID, let attribute):
+            case .input(let replyToTootObjectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeTootContentTableViewCell.self), for: indexPath) as! ComposeTootContentTableViewCell
                 managedObjectContext.perform {
                     guard let replyToTootObjectID = replyToTootObjectID,
@@ -67,7 +67,7 @@ extension ComposeStatusSection {
 extension ComposeStatusSection {
     static func configure(
         cell: ComposeTootContentTableViewCell,
-        attribute: ComposeStatusItem.ComposeTootAttribute
+        attribute: ComposeStatusItem.ComposeStatusAttribute
     ) {
         // set avatar
         attribute.avatarURL

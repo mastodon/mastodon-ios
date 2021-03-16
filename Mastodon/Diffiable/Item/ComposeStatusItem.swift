@@ -10,14 +10,14 @@ import Combine
 import CoreData
 
 enum ComposeStatusItem {
-    case replyTo(tootObjectID: NSManagedObjectID)
-    case toot(replyToTootObjectID: NSManagedObjectID?, attribute: ComposeTootAttribute)
+    case replyTo(statusObjectID: NSManagedObjectID)
+    case input(replyToStatusObjectID: NSManagedObjectID?, attribute: ComposeStatusAttribute)
 }
 
 extension ComposeStatusItem: Hashable { }
 
 extension ComposeStatusItem {
-    final class ComposeTootAttribute: Equatable, Hashable {
+    final class ComposeStatusAttribute: Equatable, Hashable {
         private let id = UUID()
         
         let avatarURL = CurrentValueSubject<URL?, Never>(nil)
@@ -25,7 +25,7 @@ extension ComposeStatusItem {
         let username = CurrentValueSubject<String?, Never>(nil)
         let composeContent = CurrentValueSubject<String?, Never>(nil)
         
-        static func == (lhs: ComposeTootAttribute, rhs: ComposeTootAttribute) -> Bool {
+        static func == (lhs: ComposeStatusAttribute, rhs: ComposeStatusAttribute) -> Bool {
             return lhs.avatarURL.value == rhs.avatarURL.value &&
                 lhs.displayName.value == rhs.displayName.value &&
                 lhs.username.value  == rhs.username.value &&

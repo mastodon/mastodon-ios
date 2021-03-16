@@ -176,7 +176,7 @@ extension ComposeViewController {
         let items = diffableDataSource.snapshot().itemIdentifiers
         for item in items {
             switch item {
-            case .toot:
+            case .input:
                 guard let indexPath = diffableDataSource.indexPath(for: item),
                       let cell = tableView.cellForRow(at: indexPath) as? ComposeTootContentTableViewCell else {
                     continue
