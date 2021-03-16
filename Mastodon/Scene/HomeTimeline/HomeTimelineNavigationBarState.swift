@@ -17,7 +17,6 @@ final class HomeTimelineNavigationBarState {
     var networkErrorCountSubject = PassthroughSubject<Bool, Never>()
     
     var newTopContent = CurrentValueSubject<Bool, Never>(false)
-    var newBottomContent = CurrentValueSubject<Bool, Never>(false)
     var hasContentBeforeFetching: Bool = true
     
     weak var viewController: HomeTimelineViewController?
@@ -36,10 +35,12 @@ final class HomeTimelineNavigationBarState {
 
 extension HomeTimelineNavigationBarState {
     func showOfflineInNavigationBar() {
+        HomeTimelineNavigationBarView.progressView.removeFromSuperview()
         viewController?.navigationItem.titleView = HomeTimelineNavigationBarView.offlineView
     }
     
     func showNewPostsInNavigationBar() {
+        HomeTimelineNavigationBarView.progressView.removeFromSuperview()
         viewController?.navigationItem.titleView = HomeTimelineNavigationBarView.newPostsView
     }
     
@@ -84,6 +85,7 @@ extension HomeTimelineNavigationBarState {
     }
     
     func showMastodonLogoInNavigationBar() {
+        HomeTimelineNavigationBarView.progressView.removeFromSuperview()
         viewController?.navigationItem.titleView = HomeTimelineNavigationBarView.mastodonLogoTitleView
     }
 }
@@ -100,30 +102,18 @@ extension HomeTimelineNavigationBarState {
             newTopContent.value = false
             showMastodonLogoInNavigationBar()
         }
-        let isBottom = contentOffsetY > max(-scrollView.adjustedContentInset.top, scrollView.contentSize.height - scrollView.frame.height + scrollView.adjustedContentInset.bottom)
-        if isBottom {
-            newBottomContent.value = false
-            showMastodonLogoInNavigationBar()
-        }
     }
     
     func addGesture() {
         let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
-        tapGesture.addTarget(self, action: #selector(newPostsNewDidPressed))
+        tapGesture.addTarget(self, action: #selector(HomeTimelineNavigationBarState.newPostsNewDidPressed(_:)))
         HomeTimelineNavigationBarView.newPostsView.addGestureRecognizer(tapGesture)
     }
     
-    @objc func newPostsNewDidPressed() {
+    @objc func newPostsNewDidPressed(_ sender: UITapGestureRecognizer) {
         if newTopContent.value == true {
-            scrollToDirection(direction: .top)
+            viewController?.tableView.scroll(to: .top, animated: true)
         }
-        if newBottomContent.value == true {
-            scrollToDirection(direction: .bottom)
-        }
-    }
-    
-    func scrollToDirection(direction: UIScrollView.ScrollDirection) {
-        viewController?.tableView.scroll(to: direction, animated: true)
     }
 }
 
@@ -135,21 +125,6 @@ extension HomeTimelineNavigationBarState {
                 guard let self = self else { return }
                 if self.hasContentBeforeFetching, newContent {
                     self.showNewPostsInNavigationBar()
-                }
-                if newContent {
-                    self.newBottomContent.value = false
-                }
-            }
-            .store(in: &disposeBag)
-        newBottomContent
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] newContent in
-                guard let self = self else { return }
-                if newContent {
-                    self.showNewPostsInNavigationBar()
-                }
-                if newContent {
-                    self.newTopContent.value = false
                 }
             }
             .store(in: &disposeBag)

@@ -55,18 +55,17 @@ final class HomeTimelineNavigationBarView {
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             view.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: 16),
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 1),
-            view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 1)
+            view.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 1),
+            view.heightAnchor.constraint(equalToConstant: 24),
         ])
-        label.sizeToFit()
-        view.layoutIfNeeded()
-        view.layer.cornerRadius = view.frame.height / 2
-        view.clipsToBounds = true
     }
     
     static func backgroundViewWithColor(color: UIColor) -> UIView {
         let view = UIView()
         view.backgroundColor = color
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
         return view
     }
     
