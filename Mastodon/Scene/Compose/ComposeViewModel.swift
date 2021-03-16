@@ -29,6 +29,10 @@ final class ComposeViewModel {
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
     let isComposeTootBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
     
+    // custom emojis
+    let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
+    
+    
     init(
         context: AppContext,
         composeKind: ComposeStatusSection.ComposeKind
@@ -47,24 +51,26 @@ final class ComposeViewModel {
             .assign(to: \.value, on: activeAuthentication)
             .store(in: &disposeBag)
         
+        // bind avatar and names
         activeAuthentication
             .sink { [weak self] mastodonAuthentication in
                 guard let self = self else { return }
                 let mastodonUser = mastodonAuthentication?.user
                 let username = mastodonUser?.username ?? " "
 
-                self.composeTootAttribute.avatarURL.value = mastodonUser?.avatarImageURL()
-                self.composeTootAttribute.displayName.value = {
+                self.composeStatusAttribute.avatarURL.value = mastodonUser?.avatarImageURL()
+                self.composeStatusAttribute.displayName.value = {
                     guard let displayName = mastodonUser?.displayName, !displayName.isEmpty else {
                         return username
                     }
                     return displayName
                 }()
-                self.composeTootAttribute.username.value = username
+                self.composeStatusAttribute.username.value = username
             }
             .store(in: &disposeBag)
         
-        composeTootAttribute.composeContent
+        // bind compose bar button item UI state
+        composeStatusAttribute.composeContent
             .receive(on: DispatchQueue.main)
             .map { content in
                 let content = content?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -73,13 +79,27 @@ final class ComposeViewModel {
             .assign(to: \.value, on: isComposeTootBarButtonItemEnabled)
             .store(in: &disposeBag)
         
-        composeTootAttribute.composeContent
+        // bind modal dismiss state
+        composeStatusAttribute.composeContent
             .receive(on: DispatchQueue.main)
             .map { content in
                 let content = content ?? ""
                 return content.isEmpty
             }
             .assign(to: \.value, on: shouldDismiss)
+            .store(in: &disposeBag)
+        
+        // bind custom emojis
+        context.authenticationService.activeMastodonAuthenticationBox
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] activeMastodonAuthenticationBox in
+                guard let self = self else { return }
+                guard let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return }
+                let domain = activeMastodonAuthenticationBox.domain
+                
+                // trigger dequeue to preload emojis
+                _ = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
+            }
             .store(in: &disposeBag)
     }
     

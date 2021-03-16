@@ -123,18 +123,6 @@ extension MainTabBarController {
                 }
             }
             .store(in: &disposeBag)
-        
-        context.authenticationService.activeMastodonAuthenticationBox
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] activeMastodonAuthenticationBox in
-                guard let self = self else { return }
-                guard let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return }
-                let domain = activeMastodonAuthenticationBox.domain
-                
-                // trigger dequeue to preload emojis
-                _ = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
-            }
-            .store(in: &disposeBag)
                 
         #if DEBUG
         // selectedIndex = 1
