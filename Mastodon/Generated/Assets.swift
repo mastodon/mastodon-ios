@@ -68,6 +68,10 @@ internal enum Asset {
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
+    internal static let backgroundLight = ColorAsset(name: "Colors/backgroundLight")
+    internal static let buttonDefault = ColorAsset(name: "Colors/buttonDefault")
+    internal static let buttonDisabled = ColorAsset(name: "Colors/buttonDisabled")
+    internal static let buttonInactive = ColorAsset(name: "Colors/buttonInactive")
     internal static let lightAlertYellow = ColorAsset(name: "Colors/lightAlertYellow")
     internal static let lightBackground = ColorAsset(name: "Colors/lightBackground")
     internal static let lightBrandBlue = ColorAsset(name: "Colors/lightBrandBlue")
