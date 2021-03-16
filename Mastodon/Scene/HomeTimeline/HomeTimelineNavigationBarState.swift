@@ -9,7 +9,6 @@ import Combine
 import Foundation
 import UIKit
 
-
 final class HomeTimelineNavigationBarState {
     static let errorCountMax: Int = 3
     var disposeBag = Set<AnyCancellable>()
@@ -46,7 +45,7 @@ extension HomeTimelineNavigationBarState {
     
     func showPublishingNewPostInNavigationBar() {
         let progressView = HomeTimelineNavigationBarView.progressView
-        if let navigationBar = viewController?.navigationBar(),  progressView.superview == nil {
+        if let navigationBar = viewController?.navigationBar(), progressView.superview == nil {
             navigationBar.addSubview(progressView)
             NSLayoutConstraint.activate([
                 progressView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
@@ -65,7 +64,7 @@ extension HomeTimelineNavigationBarState {
                 times += 1
                 return Double(times)
             }
-            .scan(0) { value,count  in
+            .scan(0) { value, count in
                 value + 1 / pow(Double(2), count)
             }
             .receive(on: DispatchQueue.main)
@@ -149,7 +148,7 @@ extension HomeTimelineNavigationBarState {
                 if newContent {
                     self.showNewPostsInNavigationBar()
                 }
-                if (newContent) {
+                if newContent {
                     self.newTopContent.value = false
                 }
             }
@@ -173,7 +172,10 @@ extension HomeTimelineNavigationBarState {
             networkErrorCountSubject.send(false)
         case .finished:
             reCountdown()
-            showPublishingNewPostInNavigationBar()
+            let isShowingOfflineView = viewController?.navigationItem.titleView === HomeTimelineNavigationBarView.offlineView
+            if isShowingOfflineView {
+                showMastodonLogoInNavigationBar()
+            }
         }
     }
 }

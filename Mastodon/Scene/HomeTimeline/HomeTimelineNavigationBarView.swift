@@ -8,7 +8,6 @@
 import UIKit
 
 final class HomeTimelineNavigationBarView {
-    
     static let mastodonLogoTitleView: UIImageView = {
         let imageView = UIImageView(image: Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate))
         imageView.tintColor = Asset.Colors.Label.primary.color
@@ -50,7 +49,7 @@ final class HomeTimelineNavigationBarView {
         return label
     }()
     
-    static func addLabelToView(label: UILabel,view:UIView) {
+    static func addLabelToView(label: UILabel, view: UIView) {
         view.addSubview(label)
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -60,11 +59,11 @@ final class HomeTimelineNavigationBarView {
         ])
         label.sizeToFit()
         view.layoutIfNeeded()
-        view.layer.cornerRadius = view.frame.height/2
+        view.layer.cornerRadius = view.frame.height / 2
         view.clipsToBounds = true
     }
     
-    static func backgroundViewWithColor(color:UIColor) -> UIView {
+    static func backgroundViewWithColor(color: UIColor) -> UIView {
         let view = UIView()
         view.backgroundColor = color
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -80,4 +79,3 @@ final class HomeTimelineNavigationBarView {
         return label
     }
 }
-
