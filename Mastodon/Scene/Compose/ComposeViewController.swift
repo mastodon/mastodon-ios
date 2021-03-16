@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import TwitterTextEditor
+import Kingfisher
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -17,6 +18,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ComposeViewModel!
+    
+    private var suffixedAttachmentViews: [UIView] = []
     
     let composeTootBarButtonItem: UIBarButtonItem = {
         let button = RoundedEdgesButton(type: .custom)
@@ -156,6 +159,20 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: composeTootBarButtonItem)
             .store(in: &disposeBag)
+        
+        // bind custom emojis
+        viewModel.customEmojiViewModel
+            .compactMap { $0?.emojis }
+            .switchToLatest()
+            .sink(receiveValue: { [weak self] emojis in
+                guard let self = self else { return }
+                for emoji in emojis {
+                    UITextChecker.learnWord(emoji.shortcode)
+                    UITextChecker.learnWord(":" + emoji.shortcode + ":")
+                }
+                self.textEditorView()?.setNeedsUpdateTextAttributes()
+            })
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,15 +181,16 @@ extension ComposeViewController {
         // Fix AutoLayout conflict issue
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.markTextViewEditorBecomeFirstResponser()
+            self.markTextEditorViewBecomeFirstResponser()
         }
     }
     
 }
 
 extension ComposeViewController {
-    private func markTextViewEditorBecomeFirstResponser() {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+    
+    private func textEditorView() -> TextEditorView? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
         let items = diffableDataSource.snapshot().itemIdentifiers
         for item in items {
             switch item {
@@ -181,12 +199,17 @@ extension ComposeViewController {
                       let cell = tableView.cellForRow(at: indexPath) as? ComposeTootContentTableViewCell else {
                     continue
                 }
-                cell.textEditorView.isEditing = true
-                return
+                return cell.textEditorView
             default:
                 continue
             }
         }
+        
+        return nil
+    }
+    
+    private func markTextEditorViewBecomeFirstResponser() {
+        textEditorView()?.isEditing = true
     }
     
     private func showDismissConfirmAlertController() {
@@ -233,8 +256,9 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 
             let stringRange = NSRange(location: 0, length: string.length)
             let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)|#([^\\s]+))")
-            // not accept :$ to force user input space to make emoji take effect
-            let emojiMatches = string.matches(pattern: "(?:(^:|\\s:)([a-zA-Z0-9_]+):\\s)")
+            // accept ^\B: or \s: but not accept \B: to force user input a space to make emoji take effect
+            // precondition :\B with following space 
+            let emojiMatches = string.matches(pattern: "(?:(^\\B:|\\s:)([a-zA-Z0-9_]+)(:\\B(?=\\s)))")
             // only accept http/https scheme
             let urlMatches = string.matches(pattern: "(?i)https?://\\S+(?:/|\\b)")
 
@@ -243,6 +267,11 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     completion(nil)
                     return
                 }
+                let customEmojiViewModel = self.viewModel.customEmojiViewModel.value
+                for view in self.suffixedAttachmentViews {
+                    view.removeFromSuperview()
+                }
+                self.suffixedAttachmentViews.removeAll()
 
                 // set normal apperance
                 let attributedString = NSMutableAttributedString(attributedString: attributedString)
@@ -289,20 +318,44 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     }
                     attributedString.addAttributes(attributes, range: match.range)
                 }
-                for match in emojiMatches {
-                    if let name = string.substring(with: match, at: 2) {
+                
+                let emojis = customEmojiViewModel?.emojis.value ?? []
+                if !emojis.isEmpty {
+                    for match in emojiMatches {
+                        guard let name = string.substring(with: match, at: 2) else { continue }
+                        guard let emoji = emojis.first(where: { $0.shortcode == name }) else { continue }
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
                         
                         // set emoji token invisiable (without upper bounce space)
                         var attributes = [NSAttributedString.Key: Any]()
                         attributes[.font] = UIFont.systemFont(ofSize: 0.01)
-                        let rangeWithoutUpperBounceSpace = NSRange(location: match.range.location, length: match.range.length - 1)
-                        attributedString.addAttributes(attributes, range: rangeWithoutUpperBounceSpace)
+                        attributedString.addAttributes(attributes, range: match.range)
                         
                         // append emoji attachment
+                        let imageViewSize = CGSize(width: 20, height: 20)
+                        let imageView = UIImageView(frame: CGRect(origin: .zero, size: imageViewSize))
+                        textEditorView.textContentView.addSubview(imageView)
+                        self.suffixedAttachmentViews.append(imageView)
+                        let processor = DownsamplingImageProcessor(size: imageViewSize)
+                        imageView.kf.setImage(
+                            with: URL(string: emoji.url),
+                            placeholder: UIImage.placeholder(size: imageViewSize, color: .systemFill),
+                            options: [
+                                .processor(processor),
+                                .scaleFactor(textEditorView.traitCollection.displayScale),
+                            ], completionHandler: nil
+                        )
+                        let layoutInTextContainer = { [weak textEditorView] (view: UIView, frame: CGRect) in
+                            // `textEditorView` retains `textStorage`, which retains this block as a part of attributes.
+                            guard let textEditorView = textEditorView else {
+                                return
+                            }
+                            let insets = textEditorView.textContentInsets
+                            view.frame = frame.offsetBy(dx: insets.left, dy: insets.top)
+                        }
                         let attachment = TextAttributes.SuffixedAttachment(
-                            size: CGSize(width: 20, height: 20),
-                            attachment: .image(UIImage(systemName: "circle")!)
+                            size: imageViewSize,
+                            attachment: .view(view: imageView, layoutInTextContainer: layoutInTextContainer)
                         )
                         let index = match.range.upperBound - 1
                         attributedString.addAttribute(

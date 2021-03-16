@@ -98,7 +98,7 @@ final class ComposeViewModel {
                 let domain = activeMastodonAuthenticationBox.domain
                 
                 // trigger dequeue to preload emojis
-                _ = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
+                self.customEmojiViewModel.value = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
             }
             .store(in: &disposeBag)
     }
