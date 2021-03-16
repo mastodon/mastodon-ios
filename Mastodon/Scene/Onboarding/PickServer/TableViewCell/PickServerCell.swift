@@ -88,8 +88,8 @@ class PickServerCell: UITableViewCell {
     
     let expandButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seemore, for: .normal)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seeless, for: .selected)
+        button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
+        button.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .selected)
         button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
         button.translatesAutoresizingMaskIntoConstraints = false

@@ -49,6 +49,7 @@ internal enum Asset {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
       internal static let highlight = ColorAsset(name: "Colors/Button/highlight")
+      internal static let normal = ColorAsset(name: "Colors/Button/normal")
     }
     internal enum Icon {
       internal static let photo = ColorAsset(name: "Colors/Icon/photo")

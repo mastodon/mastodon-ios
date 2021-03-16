@@ -217,6 +217,7 @@ extension WelcomeViewController: OnboardingViewControllerAppearance { }
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .fullScreen
+        // make underneath view controller alive to fix layout issue due to view life cycle
+        return .overFullScreen
     }
 }

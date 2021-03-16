@@ -71,6 +71,14 @@ final class StatusView: UIView {
         return label
     }()
     
+    let nameTrialingDotLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.font = .systemFont(ofSize: 17)
+        label.text = "·"
+        return label
+    }()
+    
     let usernameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
@@ -268,18 +276,11 @@ extension StatusView {
             nameLabel.heightAnchor.constraint(equalToConstant: 22).priority(.defaultHigh),
         ])
         titleContainerStackView.alignment = .firstBaseline
-        let dotLabel: UILabel = {
-            let label = UILabel()
-            label.textColor = Asset.Colors.Label.secondary.color
-            label.font = .systemFont(ofSize: 17)
-            label.text = "·"
-            return label
-        }()
-        titleContainerStackView.addArrangedSubview(dotLabel)
+        titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
         nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
-        dotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
-        dotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
+        nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         
@@ -360,7 +361,7 @@ extension StatusView {
         NSLayoutConstraint.activate([
             audioView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
             audioView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            audioView.heightAnchor.constraint(equalToConstant: 44)
+            audioView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
         ])
         // video gif
         statusContainerStackView.addArrangedSubview(playerContainerView)

@@ -20,7 +20,6 @@ protocol StatusTableViewCellDelegate: class {
     var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { get }
     func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController)
     
-    
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
