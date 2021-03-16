@@ -36,6 +36,19 @@ final class HomeTimelineNavigationBarView {
         return view
     }()
     
+    static var progressView: NavigationBarProgressView = {
+        let view = NavigationBarProgressView()
+        return view
+    }()
+    
+    static var publishingLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
+        label.text = L10n.Scene.HomeTimeline.NavigationBarState.publishing
+        return label
+    }()
     
     static func addLabelToView(label: UILabel,view:UIView) {
         view.addSubview(label)

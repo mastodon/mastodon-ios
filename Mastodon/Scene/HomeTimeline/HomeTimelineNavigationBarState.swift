@@ -9,19 +9,24 @@ import Combine
 import Foundation
 import UIKit
 
+
 final class HomeTimelineNavigationBarState {
     static let errorCountMax: Int = 3
     var disposeBag = Set<AnyCancellable>()
     var errorCountDownDispose: AnyCancellable?
+    var timerDispose: AnyCancellable?
     var networkErrorCountSubject = PassthroughSubject<Bool, Never>()
-    
-    var titleViewBeforePublishing: UIView? // used for restore titleView after published
     
     var newTopContent = CurrentValueSubject<Bool, Never>(false)
     var newBottomContent = CurrentValueSubject<Bool, Never>(false)
     var hasContentBeforeFetching: Bool = true
     
     weak var viewController: HomeTimelineViewController?
+    
+    let timestampUpdatePublisher = Timer.publish(every: NavigationBarProgressView.progressAnimationDuration, on: .main, in: .common)
+        .autoconnect()
+        .share()
+        .eraseToAnyPublisher()
     
     init() {
         reCountdown()
@@ -40,15 +45,42 @@ extension HomeTimelineNavigationBarState {
     }
     
     func showPublishingNewPostInNavigationBar() {
-        titleViewBeforePublishing = viewController?.navigationItem.titleView
+        let progressView = HomeTimelineNavigationBarView.progressView
+        if let navigationBar = viewController?.navigationBar(),  progressView.superview == nil {
+            navigationBar.addSubview(progressView)
+            NSLayoutConstraint.activate([
+                progressView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+                progressView.leadingAnchor.constraint(equalTo: navigationBar.leadingAnchor),
+                progressView.trailingAnchor.constraint(equalTo: navigationBar.trailingAnchor),
+                progressView.heightAnchor.constraint(equalToConstant: 3)
+            ])
+        }
+        progressView.layoutIfNeeded()
+        progressView.progress = 0
+        viewController?.navigationItem.titleView = HomeTimelineNavigationBarView.publishingLabel
+        
+        var times: Int = 0
+        timerDispose = timestampUpdatePublisher
+            .map { _ in
+                times += 1
+                return Double(times)
+            }
+            .scan(0) { value,count  in
+                value + 1 / pow(Double(2), count)
+            }
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+                print(value)
+                progressView.progress = CGFloat(value)
+            }
     }
     
     func showPublishedInNavigationBar() {
+        timerDispose = nil
+        HomeTimelineNavigationBarView.progressView.removeFromSuperview()
         viewController?.navigationItem.titleView = HomeTimelineNavigationBarView.publishedView
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            if let titleView = self.titleViewBeforePublishing, let navigationItem = self.viewController?.navigationItem {
-                navigationItem.titleView = titleView
-            }
+            self.showMastodonLogoInNavigationBar()
         }
     }
     
@@ -60,7 +92,10 @@ extension HomeTimelineNavigationBarState {
 extension HomeTimelineNavigationBarState {
     func handleScrollViewDidScroll(_ scrollView: UIScrollView) {
         let contentOffsetY = scrollView.contentOffset.y
-        print(contentOffsetY)
+        let isShowingNewPostsNew = viewController?.navigationItem.titleView === HomeTimelineNavigationBarView.newPostsView
+        if !isShowingNewPostsNew {
+            return
+        }
         let isTop = contentOffsetY < -scrollView.contentInset.top
         if isTop {
             newTopContent.value = false
@@ -138,6 +173,7 @@ extension HomeTimelineNavigationBarState {
             networkErrorCountSubject.send(false)
         case .finished:
             reCountdown()
+            showPublishingNewPostInNavigationBar()
         }
     }
 }

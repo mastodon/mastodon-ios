@@ -58,6 +58,7 @@ extension HomeTimelineViewModel.LoadOldestState {
                 .delay(for: .seconds(1), scheduler: DispatchQueue.main)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in
+                    viewModel.homeTimelineNavigationBarState.receiveCompletion(completion: completion)
                     switch completion {
                     case .failure(let error):
                         os_log("%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
