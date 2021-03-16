@@ -34,7 +34,8 @@
 "Common.Controls.Status.ShowPost" = "Show Post";
 "Common.Controls.Status.StatusContentWarning" = "content warning";
 "Common.Controls.Status.UserReblogged" = "%@ reblogged";
-"Common.Controls.Timeline.LoadMore" = "Load More";
+"Common.Controls.Timeline.Loader.LoadMissingPosts" = "Load missing posts";
+"Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
 "Scene.Compose.ComposeAction" = "Publish";

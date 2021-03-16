@@ -120,8 +120,12 @@ internal enum L10n {
         }
       }
       internal enum Timeline {
-        /// Load More
-        internal static let loadMore = L10n.tr("Localizable", "Common.Controls.Timeline.LoadMore")
+        internal enum Loader {
+          /// Loading missing posts...
+          internal static let loadingMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadingMissingPosts")
+          /// Load missing posts
+          internal static let loadMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadMissingPosts")
+        }
       }
     }
     internal enum Countable {

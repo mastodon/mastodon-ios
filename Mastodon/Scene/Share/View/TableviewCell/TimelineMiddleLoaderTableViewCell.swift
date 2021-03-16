@@ -21,10 +21,6 @@ final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
     override func _init() {
         super._init()
         
-        backgroundColor = .clear
-        
-        loadMoreButton.isHidden = false
-        loadMoreButton.setImage(Asset.Arrows.arrowTriangle2Circlepath.image.withRenderingMode(.alwaysTemplate), for: .normal)
         loadMoreButton.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
         loadMoreButton.addTarget(self, action: #selector(TimelineMiddleLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
     }
