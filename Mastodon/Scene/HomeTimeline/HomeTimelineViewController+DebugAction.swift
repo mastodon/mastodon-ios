@@ -84,9 +84,9 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: [],
             children: [50, 100, 150, 200, 250, 300].map { count in
-                UIAction(title: "Drop Recent \(count) Toots", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "Drop Recent \(count) Statuses", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
-                    self.dropRecentTootsAction(action, count: count)
+                    self.dropRecentStatusAction(action, count: count)
                 })
             }
         )
@@ -136,8 +136,8 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
-                return toot.poll != nil
+                let post = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                return post.poll != nil
             default:
                 return false
             }
@@ -146,7 +146,7 @@ extension HomeTimelineViewController {
             tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
             tableView.blinkRow(at: IndexPath(row: index, section: 0))
         } else {
-            print("Not found poll toot")
+            print("Not found poll status")
         }
     }
     
@@ -171,7 +171,7 @@ extension HomeTimelineViewController {
         }
     }
     
-    @objc private func dropRecentTootsAction(_ sender: UIAction, count: Int) {
+    @objc private func dropRecentStatusAction(_ sender: UIAction, count: Int) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
         
@@ -197,8 +197,8 @@ extension HomeTimelineViewController {
                 self.context.apiService.backgroundManagedObjectContext.performChanges { [weak self] in
                     guard let self = self else { return }
                     for objectID in droppingTootObjectIDs {
-                        guard let toot = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Toot else { continue }
-                        self.context.apiService.backgroundManagedObjectContext.delete(toot)
+                        guard let post = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Toot else { continue }
+                        self.context.apiService.backgroundManagedObjectContext.delete(post)
                     }
                 }
                 .sink { _ in

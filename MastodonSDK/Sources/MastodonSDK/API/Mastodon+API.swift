@@ -91,14 +91,15 @@ extension Mastodon.API {
 extension Mastodon.API {
     public enum Account { }
     public enum App { }
+    public enum CustomEmojis { }
+    public enum Favorites { }
     public enum Instance { }
     public enum OAuth { }
     public enum Onboarding { }
     public enum Polls { }
+    public enum Statuses { }
     public enum Reblog { }
-    public enum Status { }
     public enum Timeline { }
-    public enum Favorites { }
 }
 
 extension Mastodon.API {
