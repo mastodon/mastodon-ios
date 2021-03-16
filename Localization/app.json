@@ -36,7 +36,7 @@
                 "open_in_safari": "Open in Safari"
             },
             "status": {
-                "user_boosted": "%s boosted",
+                "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
                 "status_content_warning": "content warning",
@@ -45,11 +45,11 @@
                     "vote": "Vote",
                     "vote_count": {
                         "single": "%d vote",
-                        "multiple": "%d votes",
+                        "multiple": "%d votes"
                     },
                     "voter_count": {
                         "single": "%d voter",
-                        "multiple": "%d voters",
+                        "multiple": "%d voters"
                     },
                     "time_left": "%s left",
                     "closed": "Closed"

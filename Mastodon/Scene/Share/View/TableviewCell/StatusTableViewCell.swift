@@ -16,13 +16,27 @@ protocol StatusTableViewCellDelegate: class {
     var context: AppContext! { get }
     var managedObjectContext: NSManagedObjectContext { get }
     
+    func parent() -> UIViewController
+    var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { get }
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController)
+    
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
-    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView)
+    func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)
+}
+
+extension StatusTableViewCellDelegate {
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        playerViewController.showsPlaybackControls.toggle()
+    }
 }
 
 final class StatusTableViewCell: UITableViewCell {
@@ -42,6 +56,8 @@ final class StatusTableViewCell: UITableViewCell {
         statusView.isStatusTextSensitive = false
         statusView.cleanUpContentWarning()
         statusView.pollTableView.dataSource = nil
+        statusView.playerContainerView.reset()
+        statusView.playerContainerView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
     }
@@ -183,6 +199,10 @@ extension StatusTableViewCell: StatusViewDelegate {
         delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)
     }
     
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusTableViewCell(self, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
     }
@@ -196,8 +216,8 @@ extension StatusTableViewCell: MosaicImageViewContainerDelegate {
         delegate?.statusTableViewCell(self, mosaicImageViewContainer: mosaicImageViewContainer, didTapImageView: imageView, atIndex: index)
     }
     
-    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, didTapContentWarningVisualEffectView visualEffectView: UIVisualEffectView) {
-        delegate?.statusTableViewCell(self, mosaicImageViewContainer: mosaicImageViewContainer, didTapContentWarningVisualEffectView: visualEffectView)
+    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusTableViewCell(self, mosaicImageViewContainer: mosaicImageViewContainer, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
     }
 
 }
@@ -207,8 +227,8 @@ extension StatusTableViewCell: ActionToolbarContainerDelegate {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton) {
         
     }
-    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, retootButtonDidPressed sender: UIButton) {
-        
+    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton) {
+        delegate?.statusTableViewCell(self, actionToolbarContainer: actionToolbarContainer, reblogButtonDidPressed: sender)
     }
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton) {
         delegate?.statusTableViewCell(self, actionToolbarContainer: actionToolbarContainer, likeButtonDidPressed: sender)

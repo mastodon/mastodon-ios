@@ -176,7 +176,7 @@ public extension Toot {
     func update(liked: Bool, mastodonUser: MastodonUser) {
         if liked {
             if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).addObjects(from: [mastodonUser])
+                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).add(mastodonUser)
             }
         } else {
             if (self.favouritedBy ?? Set()).contains(mastodonUser) {
@@ -188,7 +188,7 @@ public extension Toot {
     func update(reblogged: Bool, mastodonUser: MastodonUser) {
         if reblogged {
             if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).addObjects(from: [mastodonUser])
+                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).add(mastodonUser)
             }
         } else {
             if (self.rebloggedBy ?? Set()).contains(mastodonUser) {
@@ -200,7 +200,7 @@ public extension Toot {
     func update(muted: Bool, mastodonUser: MastodonUser) {
         if muted {
             if !(self.mutedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).addObjects(from: [mastodonUser])
+                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).add(mastodonUser)
             }
         } else {
             if (self.mutedBy ?? Set()).contains(mastodonUser) {
@@ -212,7 +212,7 @@ public extension Toot {
     func update(bookmarked: Bool, mastodonUser: MastodonUser) {
         if bookmarked {
             if !(self.bookmarkedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).addObjects(from: [mastodonUser])
+                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(mastodonUser)
             }
         } else {
             if (self.bookmarkedBy ?? Set()).contains(mastodonUser) {
