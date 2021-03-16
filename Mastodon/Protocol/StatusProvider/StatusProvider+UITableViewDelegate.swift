@@ -17,6 +17,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     // }
     
     func handleTableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // update poll when toot appear
         let now = Date()
         var pollID: Mastodon.Entity.Poll.ID?
         toot(for: cell, indexPath: indexPath)
@@ -70,6 +71,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         toot(for: cell, indexPath: indexPath)
             .sink { [weak self] toot in
                 guard let self = self else { return }
+                let toot = toot?.reblog ?? toot
                 guard let media = (toot?.mediaAttachments ?? Set()).first else { return }
                 guard let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) else { return }
                 
@@ -87,10 +89,14 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             .sink { [weak self] toot in
                 guard let self = self else { return }
                 guard let media = (toot?.mediaAttachments ?? Set()).first else { return }
-                guard let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) else { return }
                 
-                DispatchQueue.main.async {
-                    videoPlayerViewModel.didEndDisplaying()
+                if let videoPlayerViewModel = self.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: media) {
+                    DispatchQueue.main.async {
+                        videoPlayerViewModel.didEndDisplaying()
+                    }
+                }
+                if let currentAudioAttachment = self.context.audioPlaybackService.attachment, let _ = toot?.mediaAttachments?.contains(currentAudioAttachment) {
+                    self.context.audioPlaybackService.pause()
                 }
             }
             .store(in: &disposeBag)

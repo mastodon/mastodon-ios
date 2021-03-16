@@ -45,9 +45,17 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.moveToTopGapAction(action)
                 }),
+                UIAction(title: "First Reblog Toot", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToFirstReblogToot(action)
+                }),
                 UIAction(title: "First Poll Toot", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
                     self.moveToFirstPollToot(action)
+                }),
+                UIAction(title: "First Audio Toot", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToFirstAudioToot(action)
                 }),
 //                UIAction(title: "First Reply Toot", image: nil, attributes: [], handler: { [weak self] action in
 //                    guard let self = self else { return }
@@ -101,6 +109,26 @@ extension HomeTimelineViewController {
         }
     }
     
+    @objc private func moveToFirstReblogToot(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeTimelineIndex(let objectID, _):
+                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                return homeTimelineIndex.toot.reblog != nil
+            default:
+                return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            tableView.blinkRow(at: IndexPath(row: index, section: 0))
+        } else {
+            print("Not found reblog toot")
+        }
+    }
+    
     @objc private func moveToFirstPollToot(_ sender: UIAction) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
@@ -118,7 +146,28 @@ extension HomeTimelineViewController {
             tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
             tableView.blinkRow(at: IndexPath(row: index, section: 0))
         } else {
-            print("Not found status contains poll")
+            print("Not found poll status")
+        }
+    }
+    
+    @objc private func moveToFirstAudioToot(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeTimelineIndex(let objectID, _):
+                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                return toot.mediaAttachments?.contains(where: { $0.type == .audio }) ?? false
+            default:
+                return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            tableView.blinkRow(at: IndexPath(row: index, section: 0))
+        } else {
+            print("Not found audio toot")
         }
     }
     

@@ -13,6 +13,7 @@ import AlamofireImage
 
 protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
 }
 
@@ -48,7 +49,7 @@ final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
         label.textColor = Asset.Colors.Label.secondary.color
-        label.text = "Bob boosted"
+        label.text = "Bob reblogged"
         return label
     }()
     
@@ -60,6 +61,7 @@ final class StatusView: UIView {
         button.setImage(placeholderImage, for: .normal)
         return button
     }()
+    let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -156,7 +158,7 @@ final class StatusView: UIView {
         return imageView
     }()
 
-    let mosaicPlayerView = MosaicPlayerView()
+    let playerContainerView = PlayerContainerView()
     
     let audioView: AudioContainerView = {
         let audioView = AudioContainerView()
@@ -239,6 +241,14 @@ extension StatusView {
             avatarButton.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
             avatarButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
             avatarButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
+        ])
+        avatarStackedContainerButton.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.addSubview(avatarStackedContainerButton)
+        NSLayoutConstraint.activate([
+            avatarStackedContainerButton.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            avatarStackedContainerButton.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
+            avatarStackedContainerButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
+            avatarStackedContainerButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
         ])
         
         // author meta container: [title container | subtitle container]
@@ -353,7 +363,7 @@ extension StatusView {
             audioView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
         ])
         // video gif
-        statusContainerStackView.addArrangedSubview(mosaicPlayerView)
+        statusContainerStackView.addArrangedSubview(playerContainerView)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
@@ -364,11 +374,14 @@ extension StatusView {
         pollTableView.isHidden = true
         pollStatusStackView.isHidden = true
         audioView.isHidden = true
-        mosaicPlayerView.isHidden = true
+        playerContainerView.isHidden = true
         
+        avatarStackedContainerButton.isHidden = true
         contentWarningBlurContentImageView.isHidden = true
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+        
+        playerContainerView.delegate = self
         
         contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
@@ -420,6 +433,13 @@ extension StatusView {
     
 }
 
+// MARK: - PlayerContainerViewDelegate
+extension StatusView: PlayerContainerViewDelegate {
+    func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusView(self, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+}
+
 // MARK: - AvatarConfigurableView
 extension StatusView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { return Self.avatarImageSize }
@@ -435,6 +455,7 @@ import SwiftUI
 struct StatusView_Previews: PreviewProvider {
     
     static let avatarFlora = UIImage(named: "tiraya-adam")
+    static let avatarMarkus = UIImage(named: "markus-spiske")
     
     static var previews: some View {
         Group {
@@ -449,6 +470,49 @@ struct StatusView_Previews: PreviewProvider {
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 200))
+            .previewDisplayName("Normal")
+            UIViewPreview(width: 375) {
+                let statusView = StatusView()
+                statusView.headerContainerStackView.isHidden = false
+                statusView.avatarButton.isHidden = true
+                statusView.avatarStackedContainerButton.isHidden = false
+                statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarFlora
+                    )
+                )
+                statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarMarkus
+                    )
+                )
+                return statusView
+            }
+            .previewLayout(.fixed(width: 375, height: 200))
+            .previewDisplayName("Reblog")
+            UIViewPreview(width: 375) {
+                let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
+                statusView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarFlora
+                    )
+                )
+                statusView.headerContainerStackView.isHidden = false
+                let images = MosaicImageView_Previews.images
+                let imageViews = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                for (i, imageView) in imageViews.enumerated() {
+                    imageView.image = images[i]
+                }
+                statusView.statusMosaicImageViewContainer.isHidden = false
+                statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
+                statusView.isStatusTextSensitive = false
+                return statusView
+            }
+            .previewLayout(.fixed(width: 375, height: 380))
+            .previewDisplayName("Image Meida")
             UIViewPreview(width: 375) {
                 let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
                 statusView.configure(
@@ -472,6 +536,7 @@ struct StatusView_Previews: PreviewProvider {
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 380))
+            .previewDisplayName("Content Sensitive")
         }
     }
     

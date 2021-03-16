@@ -114,14 +114,14 @@ extension Mastodon.API.Favorites {
     
 }
 
-public extension Mastodon.API.Favorites {
+extension Mastodon.API.Favorites {
     
-    enum FavoriteKind {
+    public enum FavoriteKind {
         case create
         case destroy
     }
     
-    struct ListQuery: GetQuery,TimelineQueryType {
+    public struct ListQuery: GetQuery,TimelineQueryType {
         
         public var limit: Int?
         public var minID: String?

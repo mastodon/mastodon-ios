@@ -24,6 +24,7 @@ class AppContext: ObservableObject {
     let apiService: APIService
     let authenticationService: AuthenticationService
     let emojiService: EmojiService
+    let audioPlaybackService = AudioPlaybackService()
     let videoPlaybackService = VideoPlaybackService()
     
     let documentStore: DocumentStore
