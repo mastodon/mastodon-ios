@@ -78,7 +78,8 @@ extension APIService {
                     }()
                     let _oldToot: Toot? = {
                         let request = Toot.sortedFetchRequest
-                        request.predicate = Toot.predicate(domain: mastodonAuthenticationBox.domain, id: entity.id)
+                        request.predicate = Toot.predicate(domain: mastodonAuthenticationBox.domain, id: statusID)
+                        request.fetchLimit = 1
                         request.returnsObjectsAsFaults = false
                         request.relationshipKeyPathsForPrefetching = [#keyPath(Toot.reblog)]
                         do {
@@ -94,7 +95,10 @@ extension APIService {
                         assertionFailure()
                         return
                     }
-                    APIService.CoreData.mergeToot(for: requestMastodonUser, old: oldToot, in: mastodonAuthenticationBox.domain, entity: entity, networkDate: response.networkDate)
+                    APIService.CoreData.merge(toot: oldToot, entity: entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
+                    if favoriteKind == .destroy {
+                        oldToot.update(favouritesCount: NSNumber(value: max(0, oldToot.favouritesCount.intValue - 1)))
+                    }
                     os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s like status to: %{public}s. now %ld likes", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.favourited.flatMap { $0 ? "like" : "unlike" } ?? "<nil>", entity.favouritesCount )
                 }
                 .setFailureType(to: Error.self)
@@ -112,7 +116,8 @@ extension APIService {
             .handleEvents(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: error:", ((#file as NSString).lastPathComponent), #line, #function)
+                    debugPrint(error)
                 case .finished:
                     break
                 }
@@ -132,7 +137,7 @@ extension APIService {
 
         let requestMastodonUserID = mastodonAuthenticationBox.userID
         let query = Mastodon.API.Favorites.ListQuery(limit: limit, minID: nil, maxID: maxID)
-        return Mastodon.API.Favorites.getFavoriteStatus(domain: mastodonAuthenticationBox.domain, session: session, authorization: mastodonAuthenticationBox.userAuthorization, query: query)
+        return Mastodon.API.Favorites.favoritedStatus(domain: mastodonAuthenticationBox.domain, session: session, authorization: mastodonAuthenticationBox.userAuthorization, query: query)
             .map { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
                 let log = OSLog.api
                 

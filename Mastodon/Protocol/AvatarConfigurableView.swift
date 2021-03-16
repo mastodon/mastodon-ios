@@ -23,7 +23,13 @@ extension AvatarConfigurableView {
     public func configure(with configuration: AvatarConfigurableViewConfiguration) {
         let placeholderImage: UIImage = {
             let placeholderImage = configuration.placeholderImage ?? UIImage.placeholder(size: Self.configurableAvatarImageSize, color: .systemFill)
-            return placeholderImage.af.imageRoundedIntoCircle()
+            if Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 {
+                return placeholderImage
+                    .af.imageAspectScaled(toFill: Self.configurableAvatarImageSize)
+                    .af.imageRounded(withCornerRadius: 4, divideRadiusByImageScale: true)
+            } else {
+                return placeholderImage.af.imageRoundedIntoCircle()
+            }
         }()
         
         // cancel previous task
@@ -65,7 +71,8 @@ extension AvatarConfigurableView {
                 )
                 avatarImageView.layer.masksToBounds = true
                 avatarImageView.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                avatarImageView.layer.cornerCurve = .circular
+                avatarImageView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+                    
             default:
                 let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
                 avatarImageView.af.setImage(
@@ -92,7 +99,7 @@ extension AvatarConfigurableView {
                 )
                 avatarButton.layer.masksToBounds = true
                 avatarButton.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                avatarButton.layer.cornerCurve = .continuous
+                avatarButton.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous : .circular
             default:
                 let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
                 avatarButton.af.setImage(

@@ -15,7 +15,7 @@ extension HomeTimelineViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -28,7 +28,7 @@ extension HomeTimelineViewModel {
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
-            timelinePostTableViewCellDelegate: timelinePostTableViewCellDelegate,
+            statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
         )
     }
@@ -73,7 +73,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             
             // that's will be the most fastest fetch because of upstream just update and no modify needs consider
             
-            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusTimelineAttribute] = [:]
+            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
             
             for item in oldSnapshot.itemIdentifiers {
                 guard case let .homeTimelineIndex(objectID, attribute) = item else { continue }
@@ -88,7 +88,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                     guard let spoilerText = toot.spoilerText, !spoilerText.isEmpty else { return false }
                     return true
                 }()
-                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: toot.sensitive)
+                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: toot.sensitive)
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))

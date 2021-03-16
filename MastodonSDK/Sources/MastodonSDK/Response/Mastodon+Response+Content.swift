@@ -39,10 +39,23 @@ extension Mastodon.Response {
             }()
         }
         
+        init<O>(value: T, old: Mastodon.Response.Content<O>) {
+            self.value = value
+            self.date = old.date
+            self.rateLimit = old.rateLimit
+            self.responseTime = old.responseTime
+        }
+        
     }
 }
 
 extension Mastodon.Response.Content {
+    public func map<R>(_ transform: (T) -> R) -> Mastodon.Response.Content<R> {
+        return Mastodon.Response.Content(value: transform(value), old: self)
+    }
+}
+
+extension Mastodon.Response {
     public struct RateLimit {
         
         public let limit: Int

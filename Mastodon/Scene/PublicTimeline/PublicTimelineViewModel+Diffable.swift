@@ -14,7 +14,7 @@ extension PublicTimelineViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -27,7 +27,7 @@ extension PublicTimelineViewModel {
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
-            timelinePostTableViewCellDelegate: timelinePostTableViewCellDelegate,
+            statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
         )
         items.value = []
@@ -50,7 +50,7 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
                 return indexes.firstIndex(of: toot.id).map { index in (index, toot) }
             }
             .sorted { $0.0 < $1.0 }
-        var oldSnapshotAttributeDict: [NSManagedObjectID: Item.StatusTimelineAttribute] = [:]
+        var oldSnapshotAttributeDict: [NSManagedObjectID: Item.StatusAttribute] = [:]
         for item in self.items.value {
             guard case let .toot(objectID, attribute) = item else { continue }
             oldSnapshotAttributeDict[objectID] = attribute
@@ -63,7 +63,7 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
                 guard let spoilerText = targetToot.spoilerText, !spoilerText.isEmpty else { return false }
                 return true
             }()
-            let attribute = oldSnapshotAttributeDict[toot.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: targetToot.sensitive)
+            let attribute = oldSnapshotAttributeDict[toot.objectID] ?? Item.StatusAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: targetToot.sensitive)
             items.append(Item.toot(objectID: toot.objectID, attribute: attribute))
             if tootIDsWhichHasGap.contains(toot.id) {
                 items.append(Item.publicMiddleLoader(tootID: toot.id))

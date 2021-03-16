@@ -24,7 +24,7 @@ public final class Application: NSManagedObject {
 public extension Application {
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
+        setPrimitiveValue(UUID(), forKey: #keyPath(Application.identifier))
     }
 
     @discardableResult

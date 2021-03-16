@@ -5,6 +5,7 @@
 //  Created by xiaojian sun on 2021/1/25.
 //
 
+import os.log
 import Foundation
 import enum NIOHTTP1.HTTPResponseStatus
 
@@ -93,6 +94,9 @@ extension Mastodon.API {
     public enum Instance { }
     public enum OAuth { }
     public enum Onboarding { }
+    public enum Polls { }
+    public enum Reblog { }
+    public enum Status { }
     public enum Timeline { }
     public enum Favorites { }
 }
@@ -138,8 +142,13 @@ extension Mastodon.API {
             timeoutInterval: Mastodon.API.timeoutInterval
         )
         request.httpMethod = method.rawValue
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query?.body
+        if let contentType = query?.contentType {
+            request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        }
+        if let body = query?.body {
+            request.httpBody = body
+            request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
+        }
         if let authorization = authorization {
             request.setValue(
                 "Bearer \(authorization.accessToken)",
@@ -155,6 +164,7 @@ extension Mastodon.API {
             return try Mastodon.API.decoder.decode(type, from: data)
         } catch let decodeError {
             #if DEBUG
+            os_log(.info, "%{public}s[%{public}ld], %{public}s: decode fail. content %s", ((#file as NSString).lastPathComponent), #line, #function, String(data: data, encoding: .utf8) ?? "<nil>")
             debugPrint(decodeError)
             #endif
             

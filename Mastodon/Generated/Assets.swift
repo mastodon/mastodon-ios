@@ -28,8 +28,16 @@ internal enum Asset {
   internal enum Asset {
     internal static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
   }
+  internal enum Circles {
+    internal static let plusCircleFill = ImageAsset(name: "Circles/plus.circle.fill")
+  }
   internal enum Colors {
     internal enum Background {
+      internal enum Poll {
+        internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
+        internal static let highlight = ColorAsset(name: "Colors/Background/Poll/highlight")
+      }
+      internal static let mediaTypeIndicotor = ColorAsset(name: "Colors/Background/mediaTypeIndicotor")
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
@@ -51,6 +59,9 @@ internal enum Asset {
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
+    internal enum Slider {
+      internal static let bar = ColorAsset(name: "Colors/Slider/bar")
+    }
     internal enum TextField {
       internal static let highlight = ColorAsset(name: "Colors/TextField/highlight")
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
@@ -66,6 +77,8 @@ internal enum Asset {
     internal static let lightSecondaryText = ColorAsset(name: "Colors/lightSecondaryText")
     internal static let lightSuccessGreen = ColorAsset(name: "Colors/lightSuccessGreen")
     internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
+    internal static let plusCircleFill = ImageAsset(name: "Colors/plus.circle.fill")
+    internal static let systemGreen = ColorAsset(name: "Colors/system.green")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum Welcome {
@@ -84,7 +97,6 @@ internal enum Asset {
     }
     internal static let mastodonLogo = ImageAsset(name: "Welcome/mastodon.logo")
     internal static let mastodonLogoLarge = ImageAsset(name: "Welcome/mastodon.logo.large")
-    internal static let welcomeLogo = ImageAsset(name: "Welcome/welcome.logo")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

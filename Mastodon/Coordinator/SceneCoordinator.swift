@@ -82,7 +82,7 @@ extension SceneCoordinator {
         // Check user authentication status and show onboarding if needs
         do {
             let request = MastodonAuthentication.sortedFetchRequest
-            if try appContext.managedObjectContext.fetch(request).isEmpty {
+            if try appContext.managedObjectContext.count(for: request) == 0 {
                 DispatchQueue.main.async {
                     self.present(
                         scene: .welcome,

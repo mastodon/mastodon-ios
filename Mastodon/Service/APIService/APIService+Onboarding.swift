@@ -23,7 +23,7 @@ extension APIService {
         return Mastodon.API.Onboarding.categories(session: session)
     }
     
-    func stubCategories() -> [Mastodon.Entity.Category] {
+    static func stubCategories() -> [Mastodon.Entity.Category] {
         return Mastodon.Entity.Category.Kind.allCases.map { kind in
             return Mastodon.Entity.Category(category: kind.rawValue, serversCount: 0)
         }

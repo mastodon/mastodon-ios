@@ -24,6 +24,12 @@ final class MastodonRegisterViewModel {
     let email = CurrentValueSubject<String, Never>("")
     let password = CurrentValueSubject<String, Never>("")
     let reason = CurrentValueSubject<String, Never>("")
+    let avatarImage = CurrentValueSubject<UIImage?, Never>(nil)
+    
+    let usernameErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
+    let emailErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
+    let passwordErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
+    let reasonErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
     
     // output
     let approvalRequired: Bool
@@ -32,10 +38,8 @@ final class MastodonRegisterViewModel {
     let displayNameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let emailValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
     let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
-    let inviteValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
-    
-    let isUsernameTaken = CurrentValueSubject<Bool, Never>(false)
-    
+    let reasonValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+        
     let isRegistering = CurrentValueSubject<Bool, Never>(false)
     let isAllValid = CurrentValueSubject<Bool, Never>(false)
     let error = CurrentValueSubject<Error?, Never>(nil)
@@ -101,25 +105,43 @@ final class MastodonRegisterViewModel {
                     guard !invite.isEmpty else { return .empty }
                     return .valid
                 }
-                .assign(to: \.value, on: inviteValidateState)
+                .assign(to: \.value, on: reasonValidateState)
                 .store(in: &disposeBag)
         }
+        
+        error
+            .sink { [weak self] error in
+                guard let self = self else { return }
+                let error = error as? Mastodon.API.Error
+                let mastodonError = error?.mastodonError
+                if case let .generic(genericMastodonError) = mastodonError,
+                   let details = genericMastodonError.details {
+                    self.usernameErrorPrompt.value = details.usernameErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+                    self.emailErrorPrompt.value = details.emailErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+                    self.passwordErrorPrompt.value = details.passwordErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+                    self.reasonErrorPrompt.value = details.reasonErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+                } else {
+                    self.usernameErrorPrompt.value = nil
+                    self.emailErrorPrompt.value = nil
+                    self.passwordErrorPrompt.value = nil
+                    self.reasonErrorPrompt.value = nil
+                }
+            }
+            .store(in: &disposeBag)
+        
         let publisherOne = Publishers.CombineLatest4(
             usernameValidateState.eraseToAnyPublisher(),
             displayNameValidateState.eraseToAnyPublisher(),
             emailValidateState.eraseToAnyPublisher(),
             passwordValidateState.eraseToAnyPublisher()
-        ).map {
-            $0.0 == .valid && $0.1 == .valid && $0.2 == .valid && $0.3 == .valid
-        }
+        )
+        .map { $0.0 == .valid && $0.1 == .valid && $0.2 == .valid && $0.3 == .valid }
         
         Publishers.CombineLatest(
             publisherOne,
-            approvalRequired ? inviteValidateState.map {$0 == .valid}.eraseToAnyPublisher() : Just(true).eraseToAnyPublisher()
+            approvalRequired ? reasonValidateState.map {$0 == .valid}.eraseToAnyPublisher() : Just(true).eraseToAnyPublisher()
         )
-        .map {
-            return $0 && $1
-        }
+        .map { $0 && $1 }
         .assign(to: \.value, on: isAllValid)
         .store(in: &disposeBag)
     }
@@ -134,6 +156,7 @@ extension MastodonRegisterViewModel {
 }
 
 extension MastodonRegisterViewModel {
+    
     static func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 
@@ -141,40 +164,47 @@ extension MastodonRegisterViewModel {
         return emailPred.evaluate(with: email)
     }
 
-    func attributeStringForUsername() -> NSAttributedString {
-        let resultAttributeString = NSMutableAttributedString()
-        let redImage = NSTextAttachment()
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+    static func checkmarkImage(font: UIFont = .preferredFont(forTextStyle: .caption1)) -> UIImage {
         let configuration = UIImage.SymbolConfiguration(font: font)
-        redImage.image = UIImage(systemName: "xmark.octagon.fill", withConfiguration: configuration)?.withTintColor(Asset.Colors.lightDangerRed.color)
-        let imageAttribute = NSAttributedString(attachment: redImage)
-        let stringAttribute = NSAttributedString(string: "This username is taken.", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Asset.Colors.lightDangerRed.color])
-        resultAttributeString.append(imageAttribute)
-        resultAttributeString.append(stringAttribute)
-        return resultAttributeString
+        return UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)!
+    }
+    
+    static func xmarkImage(font: UIFont = .preferredFont(forTextStyle: .caption1)) -> UIImage {
+        let configuration = UIImage.SymbolConfiguration(font: font)
+        return UIImage(systemName: "xmark.octagon.fill", withConfiguration: configuration)!
     }
 
-    func attributeStringForPassword(eightCharacters: Bool = false) -> NSAttributedString {
+    static func attributedStringImage(with image: UIImage, tintColor: UIColor) -> NSAttributedString {
+        let attachment = NSTextAttachment()
+        attachment.image = image.withTintColor(tintColor)
+        return NSAttributedString(attachment: attachment)
+    }
+    
+    static func attributeStringForPassword(validateState: ValidateState) -> NSAttributedString {
         let font = UIFont.preferredFont(forTextStyle: .caption1)
-        let color = UIColor.black
-        let falseColor = UIColor.clear
         let attributeString = NSMutableAttributedString()
-        
-        let start = NSAttributedString(string: "Your password needs at least:", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
-        attributeString.append(start)
-        
-        attributeString.append(checkmarkImage(color: eightCharacters ? color : falseColor))
-        let eightCharactersDescription = NSAttributedString(string: " Eight characters\n", attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
+
+        let image = MastodonRegisterViewModel.checkmarkImage(font: font)
+        attributeString.append(attributedStringImage(with: image, tintColor: validateState == .valid ? .black : .clear))
+        attributeString.append(NSAttributedString(string: " "))
+        let eightCharactersDescription = NSAttributedString(string: L10n.Scene.Register.Input.Password.hint, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black])
         attributeString.append(eightCharactersDescription)
         
         return attributeString
     }
-
-    func checkmarkImage(color: UIColor) -> NSAttributedString {
-        let checkmarkImage = NSTextAttachment()
+    
+    static func errorPromptAttributedString(for prompt: String) -> NSAttributedString {
         let font = UIFont.preferredFont(forTextStyle: .caption1)
-        let configuration = UIImage.SymbolConfiguration(font: font)
-        checkmarkImage.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)?.withTintColor(color)
-        return NSAttributedString(attachment: checkmarkImage)
+        let attributeString = NSMutableAttributedString()
+
+        let image = MastodonRegisterViewModel.xmarkImage(font: font)
+        attributeString.append(attributedStringImage(with: image, tintColor: Asset.Colors.lightDangerRed.color))
+        attributeString.append(NSAttributedString(string: " "))
+        
+        let promptAttributedString = NSAttributedString(string: prompt, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Asset.Colors.lightDangerRed.color])
+        attributeString.append(promptAttributedString)
+        
+        return attributeString
     }
+    
 }

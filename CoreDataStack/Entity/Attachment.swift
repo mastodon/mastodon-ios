@@ -15,7 +15,7 @@ public final class Attachment: NSManagedObject {
     @NSManaged public private(set) var domain: String
     @NSManaged public private(set) var typeRaw: String
     @NSManaged public private(set) var url: String
-    @NSManaged public private(set) var previewURL: String
+    @NSManaged public private(set) var previewURL: String?
     
     @NSManaged public private(set) var remoteURL: String?
     @NSManaged public private(set) var metaData: Data?
@@ -36,7 +36,7 @@ public extension Attachment {
     
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        createdAt = Date()
+        setPrimitiveValue(Date(), forKey: #keyPath(Attachment.createdAt))
     }
     
     @discardableResult
@@ -80,7 +80,7 @@ public extension Attachment {
         public let typeRaw: String
         public let url: String
         
-        public let previewURL: String
+        public let previewURL: String?
         public let remoteURL: String?
         public let metaData: Data?
         public let textURL: String?
@@ -95,7 +95,7 @@ public extension Attachment {
             id: Attachment.ID,
             typeRaw: String,
             url: String,
-            previewURL: String,
+            previewURL: String?,
             remoteURL: String?,
             metaData: Data?,
             textURL: String?,

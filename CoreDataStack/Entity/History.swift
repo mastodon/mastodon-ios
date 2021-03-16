@@ -24,7 +24,7 @@ public final class History: NSManagedObject {
 public extension History {
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
+        setPrimitiveValue(UUID(), forKey: #keyPath(History.identifier))
     }
 
     @discardableResult

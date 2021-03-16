@@ -37,6 +37,8 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var reblogged: Set<Toot>?
     @NSManaged public private(set) var muted: Set<Toot>?
     @NSManaged public private(set) var bookmarked: Set<Toot>?
+    @NSManaged public private(set) var votePollOptions: Set<PollOption>?
+    @NSManaged public private(set) var votePolls: Set<Poll>?
         
 }
 

@@ -53,13 +53,14 @@ extension Mastodon.API.Timeline {
     /// - Since: 0.0.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/2/19
+    ///   2021/3/3
     /// # Reference
     ///   [Document](https://https://docs.joinmastodon.org/methods/timelines/)
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: `PublicTimelineQuery` with query parameters
+    ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func home(
         session: URLSession,
