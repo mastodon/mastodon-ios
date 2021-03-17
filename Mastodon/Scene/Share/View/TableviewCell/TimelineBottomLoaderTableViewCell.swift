@@ -11,6 +11,9 @@ import Combine
 final class TimelineBottomLoaderTableViewCell: TimelineLoaderTableViewCell {
     override func _init() {
         super._init()
+        
+        activityIndicatorView.isHidden = false
+        
         startAnimating()
     }
 }

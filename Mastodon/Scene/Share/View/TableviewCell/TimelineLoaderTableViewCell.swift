@@ -13,27 +13,31 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     static let buttonHeight: CGFloat = 62
     static let cellHeight: CGFloat = TimelineLoaderTableViewCell.buttonHeight + 17
     static let extraTopPadding: CGFloat = 10
-
+    static let labelFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .medium))
     
     var disposeBag = Set<AnyCancellable>()
     
     var stateBindDispose: AnyCancellable?
     
     let loadMoreButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = Asset.Colors.lightWhite.color
+        let button = HighlightDimmableButton()
+        button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
+        button.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
+        button.setTitle(L10n.Common.Controls.Timeline.Loader.loadMissingPosts, for: .normal)
+        button.setTitle("", for: .disabled)
         return button
     }()
     
-    private let loadMoreLabel: UILabel = {
+    let loadMoreLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = TimelineLoaderTableViewCell.labelFont
         return label
     }()
     
-    private let activityIndicatorView: UIActivityIndicatorView = {
+    let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-        activityIndicatorView.tintColor = Asset.Colors.lightSecondaryText.color
+        activityIndicatorView.tintColor = Asset.Colors.Label.secondary.color
         activityIndicatorView.hidesWhenStopped = true
         return activityIndicatorView
     }()
@@ -52,21 +56,24 @@ class TimelineLoaderTableViewCell: UITableViewCell {
         super.init(coder: coder)
         _init()
     }
+    
     func startAnimating() {
         activityIndicatorView.startAnimating()
-        self.loadMoreLabel.textColor = Asset.Colors.lightSecondaryText.color
+        self.loadMoreButton.isEnabled = false
+        self.loadMoreLabel.textColor = Asset.Colors.Label.secondary.color
         self.loadMoreLabel.text = L10n.Common.Controls.Timeline.Loader.loadingMissingPosts
     }
     
     func stopAnimating() {
         activityIndicatorView.stopAnimating()
+        self.loadMoreButton.isEnabled = true
         self.loadMoreLabel.textColor = Asset.Colors.buttonDefault.color
-        self.loadMoreLabel.text = L10n.Common.Controls.Timeline.Loader.loadMissingPosts
+        self.loadMoreLabel.text = ""
     }
     
     func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(loadMoreButton)
@@ -75,23 +82,38 @@ class TimelineLoaderTableViewCell: UITableViewCell {
             loadMoreButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: loadMoreButton.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: 14),
-            loadMoreButton.heightAnchor.constraint(equalToConstant: TimelineLoaderTableViewCell.buttonHeight).priority(.defaultHigh),
+            loadMoreButton.heightAnchor.constraint(equalToConstant: TimelineLoaderTableViewCell.buttonHeight).priority(.required - 1),
         ])
         
-        loadMoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(loadMoreLabel)
+        // use stack view to alignlment content center
+        let stackView = UIStackView()
+        stackView.spacing = 4
+        stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.isUserInteractionEnabled = false
+        contentView.addSubview(stackView)
         NSLayoutConstraint.activate([
-            loadMoreLabel.centerXAnchor.constraint(equalTo: loadMoreButton.centerXAnchor),
-            loadMoreLabel.centerYAnchor.constraint(equalTo: loadMoreButton.centerYAnchor),
+            stackView.topAnchor.constraint(equalTo: loadMoreButton.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: loadMoreButton.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: loadMoreButton.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor),
         ])
-        
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(activityIndicatorView)
+        let leftPaddingView = UIView()
+        leftPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(leftPaddingView)
+        stackView.addArrangedSubview(activityIndicatorView)
+        stackView.addArrangedSubview(loadMoreLabel)
+        let rightPaddingView = UIView()
+        rightPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(rightPaddingView)
         NSLayoutConstraint.activate([
-            activityIndicatorView.centerYAnchor.constraint(equalTo: loadMoreButton.centerYAnchor),
-            activityIndicatorView.trailingAnchor.constraint(equalTo: loadMoreLabel.leadingAnchor),
+            leftPaddingView.widthAnchor.constraint(equalTo: rightPaddingView.widthAnchor, multiplier: 1.0),
         ])
         
+        // default set hidden and let subclass override it
+        loadMoreButton.isHidden = true
+        loadMoreLabel.isHidden = true
         activityIndicatorView.isHidden = true
     }
     
