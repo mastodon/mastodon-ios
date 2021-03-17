@@ -38,7 +38,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(ComposeRepliedToTootContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self))
-        tableView.register(ComposeTootContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeTootContentTableViewCell.self))
+        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
+        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         return tableView
@@ -196,7 +197,7 @@ extension ComposeViewController {
             switch item {
             case .input:
                 guard let indexPath = diffableDataSource.indexPath(for: item),
-                      let cell = tableView.cellForRow(at: indexPath) as? ComposeTootContentTableViewCell else {
+                      let cell = tableView.cellForRow(at: indexPath) as? ComposeStatusContentTableViewCell else {
                     continue
                 }
                 return cell.textEditorView
@@ -401,6 +402,8 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let attachmentService = MastodonAttachmentService()
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton) {

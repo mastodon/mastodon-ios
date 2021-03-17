@@ -12,6 +12,7 @@ import CoreData
 enum ComposeStatusItem {
     case replyTo(statusObjectID: NSManagedObjectID)
     case input(replyToStatusObjectID: NSManagedObjectID?, attribute: ComposeStatusAttribute)
+    case attachment(attachmentService: MastodonAttachmentService)
 }
 
 extension ComposeStatusItem: Hashable { }

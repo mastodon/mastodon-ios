@@ -24,7 +24,7 @@ extension ComposeViewModel {
         )
         
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
-        snapshot.appendSections([.repliedTo, .status])
+        snapshot.appendSections([.repliedTo, .status, .attachment])
         switch composeKind {
         case .reply(let statusObjectID):
             snapshot.appendItems([.replyTo(statusObjectID: statusObjectID)], toSection: .repliedTo)

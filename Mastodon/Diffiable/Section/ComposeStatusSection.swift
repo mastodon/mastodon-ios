@@ -14,6 +14,7 @@ import TwitterTextEditor
 enum ComposeStatusSection: Equatable, Hashable {
     case repliedTo
     case status
+    case attachment
 }
 
 extension ComposeStatusSection {
@@ -38,7 +39,7 @@ extension ComposeStatusSection {
                 // TODO:
                 return cell
             case .input(let replyToTootObjectID, let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeTootContentTableViewCell.self), for: indexPath) as! ComposeTootContentTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeStatusContentTableViewCell.self), for: indexPath) as! ComposeStatusContentTableViewCell
                 managedObjectContext.perform {
                     guard let replyToTootObjectID = replyToTootObjectID,
                           let replyTo = managedObjectContext.object(with: replyToTootObjectID) as? Toot else {
@@ -59,6 +60,10 @@ extension ComposeStatusSection {
                     }
                     .store(in: &cell.disposeBag)
                 return cell
+            case .attachment(let attachmentService):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self), for: indexPath) as! ComposeStatusAttachmentTableViewCell
+                
+                return cell
             }
         }
     }
@@ -66,7 +71,7 @@ extension ComposeStatusSection {
 
 extension ComposeStatusSection {
     static func configure(
-        cell: ComposeTootContentTableViewCell,
+        cell: ComposeStatusContentTableViewCell,
         attribute: ComposeStatusItem.ComposeStatusAttribute
     ) {
         // set avatar

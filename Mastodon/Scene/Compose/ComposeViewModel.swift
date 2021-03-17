@@ -32,6 +32,9 @@ final class ComposeViewModel {
     // custom emojis
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
     
+    // attachment
+    let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
+    
     
     init(
         context: AppContext,
@@ -99,6 +102,26 @@ final class ComposeViewModel {
                 
                 // trigger dequeue to preload emojis
                 self.customEmojiViewModel.value = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
+            }
+            .store(in: &disposeBag)
+        
+        // bind snapshot
+        attachmentServices
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                guard let diffableDataSource = self.diffableDataSource else { return }
+                var snapshot = diffableDataSource.snapshot()
+                
+                snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .attachment))
+                var items: [ComposeStatusItem] = []
+                for attachmentService in attachmentServices {
+                    let item = ComposeStatusItem.attachment(attachmentService: attachmentService)
+                    items.append(item)
+                }
+                snapshot.appendItems(items, toSection: .attachment)
+                
+                diffableDataSource.apply(snapshot)
             }
             .store(in: &disposeBag)
     }

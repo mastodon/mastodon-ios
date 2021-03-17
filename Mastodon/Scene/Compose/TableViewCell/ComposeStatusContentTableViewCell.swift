@@ -1,5 +1,5 @@
 //
-//  ComposeTootContentTableViewCell.swift
+//  ComposeStatusContentTableViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-11.
@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import TwitterTextEditor
 
-final class ComposeTootContentTableViewCell: UITableViewCell {
+final class ComposeStatusContentTableViewCell: UITableViewCell {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -39,7 +39,7 @@ final class ComposeTootContentTableViewCell: UITableViewCell {
     
 }
 
-extension ComposeTootContentTableViewCell {
+extension ComposeStatusContentTableViewCell {
     
     private func _init() {
         selectionStyle = .none
@@ -56,6 +56,9 @@ extension ComposeTootContentTableViewCell {
         statusView.nameTrialingDotLabel.isHidden = true
         statusView.dateLabel.isHidden = true
         
+        statusView.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        statusView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        
         textEditorView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(textEditorView)
         NSLayoutConstraint.activate([
@@ -65,6 +68,7 @@ extension ComposeTootContentTableViewCell {
             contentView.bottomAnchor.constraint(equalTo: textEditorView.bottomAnchor, constant: 20),
             textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
+        textEditorView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
         
         // TODO:
         
@@ -78,12 +82,12 @@ extension ComposeTootContentTableViewCell {
     
 }
 
-extension ComposeTootContentTableViewCell {
+extension ComposeStatusContentTableViewCell {
     
 }
 
 // MARK: - UITextViewDelegate
-extension ComposeTootContentTableViewCell: TextEditorViewChangeObserver {
+extension ComposeStatusContentTableViewCell: TextEditorViewChangeObserver {
     func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
         guard changeResult.isTextChanged else { return }
         composeContent.send(textEditorView.text)
