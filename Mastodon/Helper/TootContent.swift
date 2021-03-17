@@ -1,5 +1,5 @@
 //
-//  MastodonContent.swift
+//  TootContent.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021/2/1.
