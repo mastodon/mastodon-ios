@@ -66,8 +66,8 @@ extension PlayerContainerView {
         NSLayoutConstraint.activate([
             mediaTypeIndicotorView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
             mediaTypeIndicotorView.rightAnchor.constraint(equalTo: playerViewController.contentOverlayView!.rightAnchor),
-            mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.defaultHigh),
-            mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.defaultHigh),
+            mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.required - 1),
+            mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
         ])
         
         addSubview(contentWarningOverlayView)
@@ -84,8 +84,8 @@ extension PlayerContainerView {
         NSLayoutConstraint.activate([
             mediaTypeIndicotorViewInContentWarningOverlay.bottomAnchor.constraint(equalTo: contentWarningOverlayView.bottomAnchor),
             mediaTypeIndicotorViewInContentWarningOverlay.rightAnchor.constraint(equalTo: contentWarningOverlayView.rightAnchor),
-            mediaTypeIndicotorViewInContentWarningOverlay.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.defaultHigh),
-            mediaTypeIndicotorViewInContentWarningOverlay.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.defaultHigh),
+            mediaTypeIndicotorViewInContentWarningOverlay.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.required - 1),
+            mediaTypeIndicotorViewInContentWarningOverlay.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
         ])
     }
 }
