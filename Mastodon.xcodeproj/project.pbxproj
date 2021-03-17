@@ -83,6 +83,7 @@
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		2D939AC825EE14620076FA61 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* CropViewController */; };
 		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
+		2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA504682601ADE7008F4E6C /* SawToothView.swift */; };
 		2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6054625F716A2006356F9 /* PlaybackState.swift */; };
 		2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */; };
 		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
@@ -356,6 +357,7 @@
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		2D939AB425EDD8A90076FA61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewController+Avatar.swift"; sourceTree = "<group>"; };
+		2DA504682601ADE7008F4E6C /* SawToothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SawToothView.swift; sourceTree = "<group>"; };
 		2DA6054625F716A2006356F9 /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerViewModel.swift; sourceTree = "<group>"; };
 		2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLoaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 		2D7631A525C1532D00929FB9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2DA504672601ADBA008F4E6C /* Decoration */,
 				2D42FF8325C82245004A627A /* Button */,
 				2D42FF7C25C82207004A627A /* ToolBar */,
 				DB9D6C1325E4F97A0051B173 /* Container */,
@@ -845,6 +848,14 @@
 				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
 			);
 			path = Item;
+			sourceTree = "<group>";
+		};
+		2DA504672601ADBA008F4E6C /* Decoration */ = {
+			isa = PBXGroup;
+			children = (
+				2DA504682601ADE7008F4E6C /* SawToothView.swift */,
+			);
+			path = Decoration;
 			sourceTree = "<group>";
 		};
 		2DF75BB725D1473400694EC8 /* Stack */ = {
@@ -1738,6 +1749,7 @@
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
+				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
