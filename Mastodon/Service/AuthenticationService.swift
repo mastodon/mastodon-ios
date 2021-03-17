@@ -12,7 +12,7 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 
-class AuthenticationService: NSObject {
+final class AuthenticationService: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
     // input

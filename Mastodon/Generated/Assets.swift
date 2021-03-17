@@ -49,6 +49,7 @@ internal enum Asset {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
       internal static let highlight = ColorAsset(name: "Colors/Button/highlight")
+      internal static let normal = ColorAsset(name: "Colors/Button/normal")
     }
     internal enum Icon {
       internal static let photo = ColorAsset(name: "Colors/Icon/photo")
@@ -67,6 +68,10 @@ internal enum Asset {
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
+    internal static let backgroundLight = ColorAsset(name: "Colors/backgroundLight")
+    internal static let buttonDefault = ColorAsset(name: "Colors/buttonDefault")
+    internal static let buttonDisabled = ColorAsset(name: "Colors/buttonDisabled")
+    internal static let buttonInactive = ColorAsset(name: "Colors/buttonInactive")
     internal static let lightAlertYellow = ColorAsset(name: "Colors/lightAlertYellow")
     internal static let lightBackground = ColorAsset(name: "Colors/lightBackground")
     internal static let lightBrandBlue = ColorAsset(name: "Colors/lightBrandBlue")
@@ -82,6 +87,16 @@ internal enum Asset {
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum Welcome {
+    internal enum Illustration {
+      internal static let backgroundCyan = ColorAsset(name: "Welcome/illustration/background.cyan")
+      internal static let cloudBase = ImageAsset(name: "Welcome/illustration/cloud.base")
+      internal static let elephantOnAirplaneWithContrail = ImageAsset(name: "Welcome/illustration/elephant.on.airplane.with.contrail")
+      internal static let elephantThreeOnGrass = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass")
+      internal static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass.with.tree.three")
+      internal static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass.with.tree.two")
+    }
+    internal static let mastodonLogoBlack = ImageAsset(name: "Welcome/mastodon.logo.black")
+    internal static let mastodonLogoBlackLarge = ImageAsset(name: "Welcome/mastodon.logo.black.large")
     internal static let mastodonLogo = ImageAsset(name: "Welcome/mastodon.logo")
     internal static let mastodonLogoLarge = ImageAsset(name: "Welcome/mastodon.logo.large")
   }

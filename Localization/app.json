@@ -14,6 +14,10 @@
             "vote_failure": {
                 "title": "Vote Failure",
                 "poll_expired": "The poll has expired"
+            },
+            "discard_post_content": {
+                "title": "Discard Publish",
+                "message": "Confirm discard composed post content."
             }
         },
         "controls": {
@@ -27,6 +31,7 @@
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "cancel": "Cancel",
+                "discard": "Discard",
                 "take_photo": "Take photo",
                 "save_photo": "Save photo",
                 "sign_in": "Sign In",
@@ -72,17 +77,17 @@
         },
         "server_picker": {
             "title": "Pick a Server,\nany server.",
-            "Button": {
-                "Category": {
+            "button": {
+                "category": {
                     "All": "All"
                 },
-                "SeeLess": "See Less",
-                "SeeMore": "See More"
+                "see_less": "See Less",
+                "see_more": "See More"
             },
-            "Label": {
-                "Language": "LANGUAGE",
-                "Users": "USERS",
-                "Category": "CATEGORY"
+            "label": {
+                "language": "LANGUAGE",
+                "users": "USERS",
+                "category": "CATEGORY"
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
@@ -170,10 +175,24 @@
             }
         },
         "home_timeline": {
-            "title": "Home"
+            "title": "Home",
+            "navigation_bar_state": {
+                "offline": "Offline",
+                "new_posts": "See new posts",
+                "published": "Published!",
+                "Publishing": "Publishing post..."
+            },
         },
         "public_timeline": {
             "title": "Public"
+        },
+        "compose": {
+            "title": {
+                "new_post": "New Post",
+                "new_reply": "New Reply"
+            },
+            "content_input_placeholder": "Type or paste what's on your mind",
+            "compose_action": "Publish"
         }
     }
 }

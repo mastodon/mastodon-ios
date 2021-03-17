@@ -1,5 +1,7 @@
 "Common.Alerts.Common.PleaseTryAgain" = "Please try again.";
 "Common.Alerts.Common.PleaseTryAgainLater" = "Please try again later.";
+"Common.Alerts.DiscardPostContent.Message" = "Confirm discard composed post content.";
+"Common.Alerts.DiscardPostContent.Title" = "Discard Publish";
 "Common.Alerts.ServerError.Title" = "Server Error";
 "Common.Alerts.SignUpFailure.Title" = "Sign Up Failure";
 "Common.Alerts.VoteFailure.PollExpired" = "The poll has expired";
@@ -9,6 +11,7 @@
 "Common.Controls.Actions.Cancel" = "Cancel";
 "Common.Controls.Actions.Confirm" = "Confirm";
 "Common.Controls.Actions.Continue" = "Continue";
+"Common.Controls.Actions.Discard" = "Discard";
 "Common.Controls.Actions.Edit" = "Edit";
 "Common.Controls.Actions.Ok" = "OK";
 "Common.Controls.Actions.OpenInSafari" = "Open in Safari";
@@ -35,6 +38,10 @@
 "Common.Controls.Timeline.LoadMore" = "Load More";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
+"Scene.Compose.ComposeAction" = "Publish";
+"Scene.Compose.ContentInputPlaceholder" = "Type or paste what's on your mind";
+"Scene.Compose.Title.NewPost" = "New Post";
+"Scene.Compose.Title.NewReply" = "New Reply";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "Open Email App";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "Check if your email address is correct as well as your junk folder if you haven’t.";
@@ -47,6 +54,10 @@
 "Scene.ConfirmEmail.Subtitle" = "We just sent an email to %@,
 tap the link to confirm your account.";
 "Scene.ConfirmEmail.Title" = "One last thing.";
+"Scene.HomeTimeline.NavigationBarState.NewPosts" = "See new posts";
+"Scene.HomeTimeline.NavigationBarState.Offline" = "Offline";
+"Scene.HomeTimeline.NavigationBarState.Published" = "Published!";
+"Scene.HomeTimeline.NavigationBarState.Publishing" = "Publishing post...";
 "Scene.HomeTimeline.Title" = "Home";
 "Scene.PublicTimeline.Title" = "Public";
 "Scene.Register.Error.Item.Agreement" = "Agreement";
@@ -78,8 +89,8 @@ tap the link to confirm your account.";
 "Scene.Register.Input.Username.Placeholder" = "username";
 "Scene.Register.Title" = "Tell us about you.";
 "Scene.ServerPicker.Button.Category.All" = "All";
-"Scene.ServerPicker.Button.Seeless" = "See Less";
-"Scene.ServerPicker.Button.Seemore" = "See More";
+"Scene.ServerPicker.Button.SeeLess" = "See Less";
+"Scene.ServerPicker.Button.SeeMore" = "See More";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Something went wrong while loading data. Check your internet connection.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Finding available servers...";
 "Scene.ServerPicker.Input.Placeholder" = "Find a server or join your own...";

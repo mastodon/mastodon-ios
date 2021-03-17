@@ -64,11 +64,7 @@ extension HomeTimelineViewController {
         
         title = L10n.Scene.HomeTimeline.title
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
-        navigationItem.titleView = {
-            let imageView = UIImageView(image: Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate))
-            imageView.tintColor = Asset.Colors.Label.primary.color
-            return imageView
-        }()
+        navigationItem.titleView = HomeTimelineNavigationBarView.mastodonLogoTitleView
         navigationItem.leftBarButtonItem = settingBarButtonItem
         #if DEBUG
         // long press to trigger debug menu
@@ -101,6 +97,7 @@ extension HomeTimelineViewController {
         ])
 
         viewModel.tableView = tableView
+        viewModel.viewController = self
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
         tableView.prefetchDataSource = self
@@ -168,7 +165,8 @@ extension HomeTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -209,6 +207,7 @@ extension HomeTimelineViewController {
 extension HomeTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
+        self.viewModel.homeTimelineNavigationBarState.handleScrollViewDidScroll(scrollView)
     }
 }
 

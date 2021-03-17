@@ -19,6 +19,12 @@ internal enum L10n {
         /// Please try again later.
         internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
       }
+      internal enum DiscardPostContent {
+        /// Confirm discard composed post content.
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Message")
+        /// Discard Publish
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Title")
+      }
       internal enum ServerError {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
@@ -46,6 +52,8 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm")
         /// Continue
         internal static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue")
+        /// Discard
+        internal static let discard = L10n.tr("Localizable", "Common.Controls.Actions.Discard")
         /// Edit
         internal static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit")
         /// OK
@@ -131,6 +139,18 @@ internal enum L10n {
   }
 
   internal enum Scene {
+    internal enum Compose {
+      /// Publish
+      internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
+      /// Type or paste what's on your mind
+      internal static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder")
+      internal enum Title {
+        /// New Post
+        internal static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost")
+        /// New Reply
+        internal static let newReply = L10n.tr("Localizable", "Scene.Compose.Title.NewReply")
+      }
+    }
     internal enum ConfirmEmail {
       /// We just sent an email to %@,\ntap the link to confirm your account.
       internal static func subtitle(_ p1: Any) -> String {
@@ -166,6 +186,16 @@ internal enum L10n {
     internal enum HomeTimeline {
       /// Home
       internal static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title")
+      internal enum NavigationBarState {
+        /// See new posts
+        internal static let newPosts = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.NewPosts")
+        /// Offline
+        internal static let offline = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Offline")
+        /// Published!
+        internal static let published = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Published")
+        /// Publishing post...
+        internal static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing")
+      }
     }
     internal enum PublicTimeline {
       /// Public
@@ -274,9 +304,9 @@ internal enum L10n {
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       internal enum Button {
         /// See Less
-        internal static let seeless = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seeless")
+        internal static let seeLess = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeLess")
         /// See More
-        internal static let seemore = L10n.tr("Localizable", "Scene.ServerPicker.Button.Seemore")
+        internal static let seeMore = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeMore")
         internal enum Category {
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")

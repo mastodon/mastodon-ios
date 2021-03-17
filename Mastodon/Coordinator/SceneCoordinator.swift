@@ -47,6 +47,9 @@ extension SceneCoordinator {
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         
+        // compose
+        case compose(viewModel: ComposeViewModel)
+        
         // misc
         case alertController(alertController: UIAlertController)
         
@@ -82,7 +85,7 @@ extension SceneCoordinator {
         // Check user authentication status and show onboarding if needs
         do {
             let request = MastodonAuthentication.sortedFetchRequest
-            if try appContext.managedObjectContext.fetch(request).isEmpty {
+            if try appContext.managedObjectContext.count(for: request) == 0 {
                 DispatchQueue.main.async {
                     self.present(
                         scene: .welcome,
@@ -188,6 +191,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .compose(let viewModel):
+            let _viewController = ComposeViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .alertController(let alertController):

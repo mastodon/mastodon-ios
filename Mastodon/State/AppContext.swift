@@ -23,14 +23,13 @@ class AppContext: ObservableObject {
     
     let apiService: APIService
     let authenticationService: AuthenticationService
-    
+    let emojiService: EmojiService
+    let audioPlaybackService = AudioPlaybackService()
+    let videoPlaybackService = VideoPlaybackService()
     let statusPrefetchingService: StatusPrefetchingService
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
-    
-    let videoPlaybackService = VideoPlaybackService()
-    let audioPlaybackService = AudioPlaybackService()
     
     let overrideTraitCollection = CurrentValueSubject<UITraitCollection?, Never>(nil)
 
@@ -51,6 +50,9 @@ class AppContext: ObservableObject {
             apiService: _apiService
         )
         
+        emojiService = EmojiService(
+            apiService: apiService
+        )
         statusPrefetchingService = StatusPrefetchingService(
             apiService: _apiService
         )

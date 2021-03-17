@@ -91,6 +91,8 @@ extension Mastodon.API {
 extension Mastodon.API {
     public enum Account { }
     public enum App { }
+    public enum CustomEmojis { }
+    public enum Favorites { }
     public enum Instance { }
     public enum OAuth { }
     public enum Onboarding { }
@@ -98,7 +100,6 @@ extension Mastodon.API {
     public enum Reblog { }
     public enum Statuses { }
     public enum Timeline { }
-    public enum Favorites { }
 }
 
 extension Mastodon.API {

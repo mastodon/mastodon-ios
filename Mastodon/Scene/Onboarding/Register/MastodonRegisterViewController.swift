@@ -351,7 +351,7 @@ extension MastodonRegisterViewController {
         
         Publishers.CombineLatest(
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.willEndFrame.eraseToAnyPublisher()
+            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
         )
         .sink(receiveValue: { [weak self] state, endFrame in
             guard let self = self else { return }
