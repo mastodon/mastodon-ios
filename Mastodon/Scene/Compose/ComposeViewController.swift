@@ -281,32 +281,12 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                 attributedString.addAttribute(.foregroundColor, value: Asset.Colors.Label.primary.color, range: stringRange)
                 attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: stringRange)
 
+                // hashtag
                 for match in highlightMatches {
-                    // hashtag
-                    if let name = string.substring(with: match, at: 2) {
-                       let attachment: TextAttributes.SuffixedAttachment?
-                        switch name {
-                        // FIXME:
-                        case "person":
-                            attachment = .init(size: CGSize(width: 20.0, height: 20.0),
-                                               attachment: .image(UIImage(systemName: "person")!))
-                        default:
-                            attachment = nil
-                        }
-
-                        if let attachment = attachment {
-                            let index = match.range.upperBound - 1
-                            attributedString.addAttribute(
-                                .suffixedAttachment,
-                                value: attachment,
-                                range: NSRange(location: index, length: 1)
-                            )
-                        }
-                    }
-
                     // set highlight
                     var attributes = [NSAttributedString.Key: Any]()
                     attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    
                     // See `traitCollectionDidChange(_:)`
                     // set accessibility
                     if #available(iOS 13.0, *) {
@@ -320,6 +300,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     attributedString.addAttributes(attributes, range: match.range)
                 }
                 
+                // emoji
                 let emojis = customEmojiViewModel?.emojis.value ?? []
                 if !emojis.isEmpty {
                     for match in emojiMatches {
@@ -367,25 +348,26 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     }
                 }
                 
+                // url
                 for match in urlMatches {
-                    if let name = string.substring(with: match, at: 0) {
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
-                        
-                        // set highlight
-                        var attributes = [NSAttributedString.Key: Any]()
-                        attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
-                        // See `traitCollectionDidChange(_:)`
-                        // set accessibility
-                        if #available(iOS 13.0, *) {
-                            switch self.traitCollection.accessibilityContrast {
-                            case .high:
-                                attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
-                            default:
-                                break
-                            }
+                    guard let name = string.substring(with: match, at: 0) else { continue }
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
+                    
+                    // set highlight
+                    var attributes = [NSAttributedString.Key: Any]()
+                    attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    
+                    // See `traitCollectionDidChange(_:)`
+                    // set accessibility
+                    if #available(iOS 13.0, *) {
+                        switch self.traitCollection.accessibilityContrast {
+                        case .high:
+                            attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+                        default:
+                            break
                         }
-                        attributedString.addAttributes(attributes, range: match.range)
                     }
+                    attributedString.addAttributes(attributes, range: match.range)
                 }
                 
                 completion(attributedString)
