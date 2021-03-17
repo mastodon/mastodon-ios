@@ -18,15 +18,29 @@ protocol TimelineMiddleLoaderTableViewCellDelegate: class {
 final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
     weak var delegate: TimelineMiddleLoaderTableViewCellDelegate?
     
+    let sawToothView: SawToothView = {
+        let sawToothView = SawToothView()
+        sawToothView.translatesAutoresizingMaskIntoConstraints = false
+        return sawToothView
+    }()
+    
     override func _init() {
         super._init()
         
-        backgroundColor = .clear
-        
         loadMoreButton.isHidden = false
-        loadMoreButton.setImage(Asset.Arrows.arrowTriangle2Circlepath.image.withRenderingMode(.alwaysTemplate), for: .normal)
+        loadMoreLabel.isHidden = false
+        activityIndicatorView.isHidden = false
+        
         loadMoreButton.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
         loadMoreButton.addTarget(self, action: #selector(TimelineMiddleLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
+        
+        contentView.addSubview(sawToothView)
+        NSLayoutConstraint.activate([
+            sawToothView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            sawToothView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            sawToothView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            sawToothView.heightAnchor.constraint(equalToConstant: 3),
+        ])
     }
 }
 

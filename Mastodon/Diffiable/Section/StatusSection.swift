@@ -77,7 +77,7 @@ extension StatusSection {
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
-                cell.activityIndicatorView.startAnimating()
+                cell.startAnimating()
                 return cell
             }
         }

@@ -83,6 +83,7 @@
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		2D939AC825EE14620076FA61 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* CropViewController */; };
 		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
+		2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA504682601ADE7008F4E6C /* SawToothView.swift */; };
 		2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6054625F716A2006356F9 /* PlaybackState.swift */; };
 		2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */; };
 		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
@@ -147,11 +148,11 @@
 		DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */; };
 		DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */; };
 		DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */; };
-		DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */; };
 		DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61325FF2C5600B98345 /* EmojiService.swift */; };
 		DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */; };
 		DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */; };
 		DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */; };
+		DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
 		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
@@ -215,12 +216,12 @@
 		DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */; };
 		DB9D6C2E25E504AC0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2D25E504AC0051B173 /* Attachment.swift */; };
 		DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C3725E508BE0051B173 /* Attachment.swift */; };
+		DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */; };
 		DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */; };
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
+		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */; };
-		DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */; };
-		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
@@ -351,6 +352,7 @@
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		2D939AB425EDD8A90076FA61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewController+Avatar.swift"; sourceTree = "<group>"; };
+		2DA504682601ADE7008F4E6C /* SawToothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SawToothView.swift; sourceTree = "<group>"; };
 		2DA6054625F716A2006356F9 /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerViewModel.swift; sourceTree = "<group>"; };
 		2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineLoaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -428,11 +430,11 @@
 		DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HomeTimeline.swift"; sourceTree = "<group>"; };
 		DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
-		DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerContainerView+MediaTypeIndicotorView.swift"; sourceTree = "<group>"; };
 		DB49A61325FF2C5600B98345 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
 		DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel.swift"; sourceTree = "<group>"; };
 		DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel+LoadState.swift"; sourceTree = "<group>"; };
 		DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CustomEmoji.swift"; sourceTree = "<group>"; };
+		DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerContainerView+MediaTypeIndicotorView.swift"; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
@@ -495,12 +497,12 @@
 		DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MosaicImageViewModel.swift; sourceTree = "<group>"; };
 		DB9D6C2D25E504AC0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DB9D6C3725E508BE0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
+		DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterpolatingMotionEffect.swift; sourceTree = "<group>"; };
 		DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedEdgesButton.swift; sourceTree = "<group>"; };
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
+		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
 		DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Reblog.swift"; sourceTree = "<group>"; };
-		DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterpolatingMotionEffect.swift; sourceTree = "<group>"; };
-		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 		2D7631A525C1532D00929FB9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2DA504672601ADBA008F4E6C /* Decoration */,
 				2D42FF8325C82245004A627A /* Button */,
 				2D42FF7C25C82207004A627A /* ToolBar */,
 				DB9D6C1325E4F97A0051B173 /* Container */,
@@ -831,6 +834,14 @@
 				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
 			);
 			path = Item;
+			sourceTree = "<group>";
+		};
+		2DA504672601ADBA008F4E6C /* Decoration */ = {
+			isa = PBXGroup;
+			children = (
+				2DA504682601ADE7008F4E6C /* SawToothView.swift */,
+			);
+			path = Decoration;
 			sourceTree = "<group>";
 		};
 		2DF75BB725D1473400694EC8 /* Stack */ = {
@@ -1214,21 +1225,15 @@
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
 				DB6C8C0525F0921200AAA452 /* MastodonSDK */,
 				DB44384E25E8C1FA008912A2 /* CALayer.swift */,
-				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
-				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
-				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
-				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
-				2D939AB425EDD8A90076FA61 /* String.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
 				DB4481B825EE289600BEFB67 /* UITableView.swift */,
-				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
 				2D206B7F25F5F45E00143C56 /* UIImage.swift */,
@@ -1236,7 +1241,6 @@
 				2D206B9125F60EA700143C56 /* UIControl.swift */,
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
 				DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */,
-				2D46976325C2A71500CF4AA9 /* UIIamge.swift */,
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
@@ -1311,6 +1315,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		DB9E0D6925EDFFE500CFDD76 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				2D42FF6A25C817D2004A627A /* TootContent.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		DBA9B90325F1D4420012E7B6 /* Control */ = {
 			isa = PBXGroup;
 			children = (
@@ -1318,14 +1330,6 @@
 				DB59F11725EFA35B001F1DAB /* StripProgressView.swift */,
 			);
 			path = Control;
-			sourceTree = "<group>";
-		};
-		DB9E0D6925EDFFE500CFDD76 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				2D42FF6A25C817D2004A627A /* TootContent.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		DBABE3F125ECAC4E00879EE5 /* View */ = {
@@ -1729,6 +1733,7 @@
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
+				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,

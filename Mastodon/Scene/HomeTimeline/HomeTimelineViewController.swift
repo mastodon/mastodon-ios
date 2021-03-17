@@ -268,15 +268,13 @@ extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate 
 
                     // make success state same as loading due to snapshot updating delay
                     let isLoading = state is HomeTimelineViewModel.LoadMiddleState.Loading || state is HomeTimelineViewModel.LoadMiddleState.Success
-                    cell.loadMoreButton.isHidden = isLoading
                     if isLoading {
-                        cell.activityIndicatorView.startAnimating()
+                        cell.startAnimating()
                     } else {
-                        cell.activityIndicatorView.stopAnimating()
+                        cell.stopAnimating()
                     }
                 } else {
-                    cell.loadMoreButton.isHidden = false
-                    cell.activityIndicatorView.stopAnimating()
+                    cell.stopAnimating()
                 }
             }
             .store(in: &cell.disposeBag)

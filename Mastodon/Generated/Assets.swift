@@ -22,9 +22,6 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
-  internal enum Arrows {
-    internal static let arrowTriangle2Circlepath = ImageAsset(name: "Arrows/arrow.triangle.2.circlepath")
-  }
   internal enum Asset {
     internal static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
   }

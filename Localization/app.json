@@ -60,7 +60,10 @@
                 }
             },
             "timeline": {
-                "load_more": "Load More"
+                "loader": {
+                    "load_missing_posts": "Load missing posts",
+                    "loading_missing_posts": "Loading missing posts..."
+                }
             }
         },
         "countable": {
