@@ -1,5 +1,5 @@
 //
-//  APIService+Persist+Toot.swift
+//  APIService+Persist+Status.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/1/27.
@@ -22,7 +22,7 @@ extension APIService.Persist {
         case lookUp
     }
     
-    static func persistToots(
+    static func persistStatus(
         managedObjectContext: NSManagedObjectContext,
         domain: String,
         query: Mastodon.API.Timeline.TimelineQuery?,

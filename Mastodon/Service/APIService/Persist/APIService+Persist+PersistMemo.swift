@@ -163,7 +163,7 @@ extension APIService.Persist.PersistMemo where T == Toot, U == MastodonUser {
         let children = [reblogMemo].compactMap { $0 }
 
 
-        let (toot, isTootCreated, isMastodonUserCreated) = APIService.CoreData.createOrMergeToot(
+        let (toot, isTootCreated, isMastodonUserCreated) = APIService.CoreData.createOrMergeStatus(
             into: managedObjectContext,
             for: requestMastodonUser,
             domain: domain,

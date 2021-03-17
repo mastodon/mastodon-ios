@@ -39,7 +39,7 @@ extension APIService {
             query: query
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
-            return APIService.Persist.persistToots(
+            return APIService.Persist.persistStatus(
                 managedObjectContext: self.backgroundManagedObjectContext,
                 domain: domain,
                 query: query,

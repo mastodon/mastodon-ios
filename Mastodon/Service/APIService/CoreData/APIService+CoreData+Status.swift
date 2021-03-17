@@ -1,5 +1,5 @@
 //
-//  APIService+CoreData+Toot.swift
+//  APIService+CoreData+Status.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/2/3.
@@ -13,7 +13,7 @@ import MastodonSDK
 
 extension APIService.CoreData {
     
-    static func createOrMergeToot(
+    static func createOrMergeStatus(
         into managedObjectContext: NSManagedObjectContext,
         for requestMastodonUser: MastodonUser?,
         domain: String,
@@ -31,7 +31,7 @@ extension APIService.CoreData {
         
         // build tree
         let reblog = entity.reblog.flatMap { entity -> Toot in
-            let (toot, _, _) = createOrMergeToot(
+            let (toot, _, _) = createOrMergeStatus(
                 into: managedObjectContext,
                 for: requestMastodonUser,
                 domain: domain,
