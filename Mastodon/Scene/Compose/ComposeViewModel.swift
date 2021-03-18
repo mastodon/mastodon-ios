@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import GameplayKit
 
 final class ComposeViewModel {
     
@@ -18,11 +19,22 @@ final class ComposeViewModel {
     let context: AppContext
     let composeKind: ComposeStatusSection.ComposeKind
     let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
-    let composeContent = CurrentValueSubject<String, Never>("")
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
+    let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    private(set) lazy var publishStateMachine: GKStateMachine = {
+        // exclude timeline middle fetcher state
+        let stateMachine = GKStateMachine(states: [
+            PublishState.Initial(viewModel: self),
+            PublishState.Publishing(viewModel: self),
+            PublishState.Fail(viewModel: self),
+            PublishState.Finish(viewModel: self),
+        ])
+        stateMachine.enter(PublishState.Initial.self)
+        return stateMachine
+    }()
     
     // UI & UX
     let title: CurrentValueSubject<String, Never>
@@ -47,11 +59,15 @@ final class ComposeViewModel {
         case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
+        self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
         
         // bind active authentication
         context.authenticationService.activeMastodonAuthentication
             .assign(to: \.value, on: activeAuthentication)
+            .store(in: &disposeBag)
+        context.authenticationService.activeMastodonAuthenticationBox
+            .assign(to: \.value, on: activeAuthenticationBox)
             .store(in: &disposeBag)
         
         // bind avatar and names

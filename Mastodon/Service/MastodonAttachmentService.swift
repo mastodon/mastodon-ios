@@ -17,6 +17,7 @@ final class MastodonAttachmentService {
     
     // input
     let pickerResult: PHPickerResult
+    let description = CurrentValueSubject<String?, Never>(nil)
     
     // output
     let imageData = CurrentValueSubject<Data?, Never>(nil)

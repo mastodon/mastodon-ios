@@ -42,6 +42,7 @@ extension ComposeStatusSection {
                 return cell
             case .input(let replyToTootObjectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeStatusContentTableViewCell.self), for: indexPath) as! ComposeStatusContentTableViewCell
+                cell.textEditorView.text = attribute.composeContent.value ?? ""
                 managedObjectContext.perform {
                     guard let replyToTootObjectID = replyToTootObjectID,
                           let replyTo = managedObjectContext.object(with: replyToTootObjectID) as? Toot else {
@@ -55,15 +56,19 @@ extension ComposeStatusSection {
                 cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
                 // self size input cell
                 cell.composeContent
+                    .removeDuplicates()
                     .receive(on: DispatchQueue.main)
                     .sink { text in
                         tableView.beginUpdates()
                         tableView.endUpdates()
+                        // bind input data
+                        attribute.composeContent.value = text
                     }
                     .store(in: &cell.disposeBag)
                 return cell
             case .attachment(let attachmentService):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self), for: indexPath) as! ComposeStatusAttachmentTableViewCell
+                cell.attachmentContainerView.descriptionTextView.text = attachmentService.description.value
                 cell.delegate = composeStatusAttachmentTableViewCellDelegate
                 attachmentService.imageData
                     .receive(on: DispatchQueue.main)
@@ -93,6 +98,17 @@ extension ComposeStatusSection {
                         cell.attachmentContainerView.emptyStateView.isHidden = error == nil
                     }
                     .store(in: &cell.disposeBag)
+                NotificationCenter.default.publisher(
+                    for: UITextView.textDidChangeNotification,
+                    object: cell.attachmentContainerView.descriptionTextView
+                )
+                .receive(on: DispatchQueue.main)
+                .sink { notification in
+                    guard let textField = notification.object as? UITextView else { return }
+                    let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    attachmentService.description.value = text
+                }
+                .store(in: &cell.disposeBag)
                 return cell
             }
         }

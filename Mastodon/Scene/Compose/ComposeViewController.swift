@@ -22,7 +22,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     private var suffixedAttachmentViews: [UIView] = []
     
-    let composeTootBarButtonItem: UIBarButtonItem = {
+    let publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
@@ -32,7 +32,10 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setTitleColor(.white, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
         button.adjustsImageWhenHighlighted = false
-        let barButtonItem = UIBarButtonItem(customView: button)
+        return button
+    }()
+    private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(customView: publishButton)
         return barButtonItem
     }()
     
@@ -85,7 +88,8 @@ extension ComposeViewController {
             .store(in: &disposeBag)
         view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
-        navigationItem.rightBarButtonItem = composeTootBarButtonItem
+        navigationItem.rightBarButtonItem = publishBarButtonItem
+        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
@@ -171,7 +175,7 @@ extension ComposeViewController {
         
         viewModel.isComposeTootBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: composeTootBarButtonItem)
+            .assign(to: \.isEnabled, on: publishBarButtonItem)
             .store(in: &disposeBag)
         
         // bind custom emojis
@@ -186,6 +190,16 @@ extension ComposeViewController {
                 }
                 self.textEditorView()?.setNeedsUpdateTextAttributes()
             })
+            .store(in: &disposeBag)
+        
+        // bind image picker toolbar state
+        viewModel.attachmentServices
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
+                self.resetImagePicker()
+            }
             .store(in: &disposeBag)
     }
     
@@ -241,6 +255,22 @@ extension ComposeViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    private func resetImagePicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        let selectionLimit = max(1, 4 - viewModel.attachmentServices.value.count)
+        configuration.selectionLimit = selectionLimit
+        
+        imagePicker = createImagePicker(configuration: configuration)
+    }
+    
+    private func createImagePicker(configuration: PHPickerConfiguration) -> PHPickerViewController {
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
+    }
+    
 }
 
 extension ComposeViewController {
@@ -251,6 +281,16 @@ extension ComposeViewController {
             showDismissConfirmAlertController()
             return
         }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard viewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self) else {
+            // TODO: handle error
+            return
+        }
+        
         dismiss(animated: true, completion: nil)
     }
     

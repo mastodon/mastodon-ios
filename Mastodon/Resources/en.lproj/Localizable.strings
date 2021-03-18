@@ -40,6 +40,8 @@
 "Common.Countable.Photo.Single" = "photo";
 "Scene.Compose.Attachment.AttachmentBroken" = "This %@ is broken and can't be
 uploaded to Mastodon.";
+"Scene.Compose.Attachment.DescriptionPhoto" = "Describe photo for low vision people...";
+"Scene.Compose.Attachment.DescriptionVideo" = "Describe what’s happening for low vision people...";
 "Scene.Compose.Attachment.Photo" = "photo";
 "Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.ComposeAction" = "Publish";

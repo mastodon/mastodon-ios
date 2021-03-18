@@ -149,6 +149,10 @@ internal enum L10n {
         internal static func attachmentBroken(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentBroken", String(describing: p1))
         }
+        /// Describe photo for low vision people...
+        internal static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto")
+        /// Describe what’s happening for low vision people...
+        internal static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo")
         /// photo
         internal static let photo = L10n.tr("Localizable", "Scene.Compose.Attachment.Photo")
         /// video

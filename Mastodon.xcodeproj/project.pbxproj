@@ -214,6 +214,9 @@
 		DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98339B25C96DE600AD9700 /* APIService+Account.swift */; };
 		DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
+		DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* UITextView+Placeholder */; };
+		DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488326034BD7008B817C /* APIService+Status.swift */; };
+		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
@@ -500,6 +503,8 @@
 		DB98339B25C96DE600AD9700 /* APIService+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Account.swift"; sourceTree = "<group>"; };
 		DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerResultLoader.swift; sourceTree = "<group>"; };
 		DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttachmentContainerView+EmptyStateView.swift"; sourceTree = "<group>"; };
+		DB9A488326034BD7008B817C /* APIService+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status.swift"; sourceTree = "<group>"; };
+		DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+PublishState.swift"; sourceTree = "<group>"; };
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -530,6 +535,7 @@
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
+				DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */,
 				2D939AC825EE14620076FA61 /* CropViewController in Frameworks */,
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
@@ -1029,6 +1035,7 @@
 				DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */,
 				DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */,
 				DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */,
+				DB9A488326034BD7008B817C /* APIService+Status.swift */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -1113,6 +1120,7 @@
 				DB789A2125F9F76D0071ACA0 /* TableViewCell */,
 				DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */,
 				DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */,
+				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 				DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */,
 			);
 			path = Compose;
@@ -1407,6 +1415,7 @@
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
 				DB6672A225F9FDE500D60309 /* TwitterTextEditor */,
+				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -1537,6 +1546,7 @@
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				DB6672A125F9FDE500D60309 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
+				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -1748,6 +1758,7 @@
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */,
+				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */,
@@ -1818,6 +1829,7 @@
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentTableViewCell.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
+				DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
@@ -2489,6 +2501,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MainasuK/UITextView-Placeholder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2535,6 +2555,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB6672A125F9FDE500D60309 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
 			productName = TwitterTextEditor;
+		};
+		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
+			productName = "UITextView+Placeholder";
 		};
 /* End XCSwiftPackageProductDependency section */
 
