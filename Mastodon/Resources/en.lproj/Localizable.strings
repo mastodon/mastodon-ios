@@ -38,6 +38,10 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
+"Scene.Compose.Attachment.AttachmentBroken" = "This %@ is broken and can't be
+uploaded to Mastodon.";
+"Scene.Compose.Attachment.Photo" = "photo";
+"Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.ComposeAction" = "Publish";
 "Scene.Compose.ContentInputPlaceholder" = "Type or paste what's on your mind";
 "Scene.Compose.Title.NewPost" = "New Post";

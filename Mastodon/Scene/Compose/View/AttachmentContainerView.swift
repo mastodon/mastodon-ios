@@ -8,15 +8,19 @@
 import UIKit
 
 final class AttachmentContainerView: UIView {
+        
+    static let containerViewCornerRadius: CGFloat = 4
     
-    let attachmentPreviewImageView: UIImageView = {
+    let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+    
+    let previewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 4
-        imageView.layer.cornerCurve = .continuous
         return imageView
     }()
+    
+    let emptyStateView = AttachmentContainerView.EmptyStateView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,16 +37,34 @@ final class AttachmentContainerView: UIView {
 extension AttachmentContainerView {
     
     private func _init() {
-        
-        attachmentPreviewImageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(attachmentPreviewImageView)
+        previewImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(previewImageView)
         NSLayoutConstraint.activate([
-            attachmentPreviewImageView.topAnchor.constraint(equalTo: topAnchor),
-            attachmentPreviewImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            attachmentPreviewImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            attachmentPreviewImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            previewImageView.topAnchor.constraint(equalTo: topAnchor),
+            previewImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            previewImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            previewImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(emptyStateView)
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: topAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            emptyStateView.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: previewImageView.centerYAnchor),
+        ])
+        
+        emptyStateView.isHidden = true
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.startAnimating()
     }
     
 }

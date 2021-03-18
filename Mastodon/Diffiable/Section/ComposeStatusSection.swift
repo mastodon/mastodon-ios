@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import TwitterTextEditor
+import AlamofireImage
 
 enum ComposeStatusSection: Equatable, Hashable {
     case repliedTo
@@ -30,9 +31,10 @@ extension ComposeStatusSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         composeKind: ComposeKind,
-        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate
+        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentTableViewCellDelegate
     ) -> UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
-        UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>(tableView: tableView) { [weak textEditorViewTextAttributesDelegate] tableView, indexPath, item -> UITableViewCell? in
+        UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>(tableView: tableView) { [weak textEditorViewTextAttributesDelegate, weak composeStatusAttachmentTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
             switch item {
             case .replyTo(let repliedToStatusObjectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self), for: indexPath) as! ComposeRepliedToTootContentTableViewCell
@@ -62,7 +64,35 @@ extension ComposeStatusSection {
                 return cell
             case .attachment(let attachmentService):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self), for: indexPath) as! ComposeStatusAttachmentTableViewCell
-                
+                cell.delegate = composeStatusAttachmentTableViewCellDelegate
+                attachmentService.imageData
+                    .receive(on: DispatchQueue.main)
+                    .sink { imageData in
+                        guard let imageData = imageData,
+                              let image = UIImage(data: imageData) else {
+                            let placeholder = UIImage.placeholder(
+                                size: cell.attachmentContainerView.previewImageView.frame.size,
+                                color: Asset.Colors.Background.systemGroupedBackground.color
+                            )
+                            .af.imageRounded(
+                                withCornerRadius: AttachmentContainerView.containerViewCornerRadius
+                            )
+                            cell.attachmentContainerView.previewImageView.image = placeholder
+                            return
+                        }
+                        cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        cell.attachmentContainerView.previewImageView.image = image
+                            .af.imageAspectScaled(toFill: cell.attachmentContainerView.previewImageView.frame.size)
+                            .af.imageRounded(withCornerRadius: AttachmentContainerView.containerViewCornerRadius)
+                    }
+                    .store(in: &cell.disposeBag)
+                attachmentService.error
+                    .receive(on: DispatchQueue.main)
+                    .sink { error in
+                        cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        cell.attachmentContainerView.emptyStateView.isHidden = error == nil
+                    }
+                    .store(in: &cell.disposeBag)
                 return cell
             }
         }

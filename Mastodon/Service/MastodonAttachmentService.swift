@@ -7,10 +7,40 @@
 
 import UIKit
 import Combine
+import PhotosUI
 
 final class MastodonAttachmentService {
     
+    var disposeBag = Set<AnyCancellable>()
+    
     let identifier = UUID()
+    
+    // input
+    let pickerResult: PHPickerResult
+    
+    // output
+    let imageData = CurrentValueSubject<Data?, Never>(nil)
+    let error = CurrentValueSubject<Error?, Never>(nil)
+    
+    init(pickerResult: PHPickerResult) {
+        self.pickerResult = pickerResult
+        // end init
+        
+        PHPickerResultLoader.loadImageData(from: pickerResult)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                switch completion {
+                case .failure(let error):
+                    self.error.value = error
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] imageData in
+                guard let self = self else { return }
+                self.imageData.value = imageData
+            }
+            .store(in: &disposeBag)
+    }
     
 }
 

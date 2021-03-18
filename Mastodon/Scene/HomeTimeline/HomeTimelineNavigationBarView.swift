@@ -22,7 +22,7 @@ final class HomeTimelineNavigationBarView {
     }()
     
     static let newPostsView: UIView = {
-        let view = HomeTimelineNavigationBarView.backgroundViewWithColor(color: Asset.Colors.Button.highlight.color)
+        let view = HomeTimelineNavigationBarView.backgroundViewWithColor(color: Asset.Colors.Button.normal.color)
         let label = HomeTimelineNavigationBarView.contentLabel(text: L10n.Scene.HomeTimeline.NavigationBarState.newPosts)
         HomeTimelineNavigationBarView.addLabelToView(label: label, view: view)
         return view

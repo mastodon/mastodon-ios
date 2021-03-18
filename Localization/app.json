@@ -194,7 +194,12 @@
                 "new_reply": "New Reply"
             },
             "content_input_placeholder": "Type or paste what's on your mind",
-            "compose_action": "Publish"
+            "compose_action": "Publish",
+            "attachment": {
+                "photo": "photo",
+                "video": "video",
+                "attachment_broken": "This %s is broken and can't be\nuploaded to Mastodon."
+            }
         }
     }
 }

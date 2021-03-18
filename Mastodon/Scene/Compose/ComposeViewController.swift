@@ -8,8 +8,9 @@
 import os.log
 import UIKit
 import Combine
-import TwitterTextEditor
+import PhotosUI
 import Kingfisher
+import TwitterTextEditor
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -42,6 +43,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
     
@@ -55,6 +57,16 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let backgroundView = UIView()
         backgroundView.backgroundColor = .secondarySystemBackground
         return backgroundView
+    }()
+    
+    lazy var imagePicker: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 4
+
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
     }()
     
 }
@@ -109,7 +121,8 @@ extension ComposeViewController {
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
-            textEditorViewTextAttributesDelegate: self
+            textEditorViewTextAttributesDelegate: self,
+            composeStatusAttachmentTableViewCellDelegate: self
         )
         
         // respond scrollView overlap change
@@ -377,15 +390,12 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
     
 }
 
-
-
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let attachmentService = MastodonAttachmentService()
-        viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
+        present(imagePicker, animated: true, completion: nil)
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton) {
@@ -428,6 +438,32 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension ComposeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        let attachmentServices = results.map { MastodonAttachmentService(pickerResult: $0) }
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + attachmentServices
+    }
+}
+
+// MARK: - ComposeStatusAttachmentTableViewCellDelegate
+extension ComposeViewController: ComposeStatusAttachmentTableViewCellDelegate {
+    
+    func composeStatusAttachmentTableViewCell(_ cell: ComposeStatusAttachmentTableViewCell, removeButtonDidPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard case let .attachment(attachmentService) = item else { return }
+        
+        var attachmentServices = viewModel.attachmentServices.value
+        guard let index = attachmentServices.firstIndex(of: attachmentService) else { return }
+        attachmentServices.remove(at: index)
+        viewModel.attachmentServices.value = attachmentServices
     }
     
 }

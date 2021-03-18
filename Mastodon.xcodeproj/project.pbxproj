@@ -212,6 +212,8 @@
 		DB98338725C945ED00AD9700 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338525C945ED00AD9700 /* Strings.swift */; };
 		DB98338825C945ED00AD9700 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338625C945ED00AD9700 /* Assets.swift */; };
 		DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98339B25C96DE600AD9700 /* APIService+Account.swift */; };
+		DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */; };
+		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
 		DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BE825E4F5340051B173 /* SearchViewController.swift */; };
 		DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */; };
 		DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */; };
@@ -496,6 +498,8 @@
 		DB98338525C945ED00AD9700 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		DB98338625C945ED00AD9700 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		DB98339B25C96DE600AD9700 /* APIService+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Account.swift"; sourceTree = "<group>"; };
+		DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerResultLoader.swift; sourceTree = "<group>"; };
+		DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttachmentContainerView+EmptyStateView.swift"; sourceTree = "<group>"; };
 		DB9D6BE825E4F5340051B173 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -718,6 +722,7 @@
 				2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */,
 				DB2B3AE825E38850007045F9 /* UIViewPreview.swift */,
 				DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */,
+				DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -1061,6 +1066,7 @@
 			children = (
 				DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */,
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
+				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1799,6 +1805,7 @@
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
+				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
@@ -1834,6 +1841,7 @@
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
+				DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,

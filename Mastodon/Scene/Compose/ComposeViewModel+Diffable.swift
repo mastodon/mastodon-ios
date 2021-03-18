@@ -13,14 +13,16 @@ extension ComposeViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate
+        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentTableViewCellDelegate
     ) {
         diffableDataSource = ComposeStatusSection.tableViewDiffableDataSource(
             for: tableView,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
             composeKind: composeKind,
-            textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate
+            textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
+            composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate
         )
         
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
