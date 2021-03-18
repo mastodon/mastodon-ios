@@ -7,8 +7,7 @@
 
 import os.log
 import Foundation
-import CoreData
-import CoreDataStack
+import Combine
 import GameplayKit
 import MastodonSDK
 
@@ -34,6 +33,9 @@ extension ComposeViewModel.PublishState {
     }
     
     class Publishing: ComposeViewModel.PublishState {
+        
+        var publishingSubscription: AnyCancellable?
+        
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Fail.self || stateClass == Finish.self
         }
@@ -46,11 +48,14 @@ extension ComposeViewModel.PublishState {
                 return
             }
             
+            let mediaIDs = viewModel.attachmentServices.value.compactMap { attachmentService in
+                attachmentService.attachment.value?.id
+            }
             let query = Mastodon.API.Statuses.PublishStatusQuery(
                 status: viewModel.composeStatusAttribute.composeContent.value,
-                mediaIDs: nil
+                mediaIDs: mediaIDs
             )
-            viewModel.context.apiService.publishStatus(
+            publishingSubscription = viewModel.context.apiService.publishStatus(
                 domain: mastodonAuthenticationBox.domain,
                 query: query,
                 mastodonAuthenticationBox: mastodonAuthenticationBox
@@ -65,10 +70,9 @@ extension ComposeViewModel.PublishState {
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: publish status success", ((#file as NSString).lastPathComponent), #line, #function)
                     stateMachine.enter(Finish.self)
                 }
-            } receiveValue: { status in
-                
+            } receiveValue: { response in
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: status %s published: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.uri)
             }
-            .store(in: &viewModel.disposeBag)
         }
     }
     

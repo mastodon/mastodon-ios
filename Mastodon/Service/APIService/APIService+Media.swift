@@ -1,5 +1,5 @@
 //
-//  APIService+Status.swift
+//  APIService+Media.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-18.
@@ -11,14 +11,14 @@ import MastodonSDK
 
 extension APIService {
  
-    func publishStatus(
+    func uploadMedia(
         domain: String,
-        query: Mastodon.API.Statuses.PublishStatusQuery,
+        query: Mastodon.API.Media.UploadMeidaQuery,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 
-        return Mastodon.API.Statuses.publishStatus(
+        return Mastodon.API.Media.uploadMedia(
             session: session,
             domain: domain,
             query: query,

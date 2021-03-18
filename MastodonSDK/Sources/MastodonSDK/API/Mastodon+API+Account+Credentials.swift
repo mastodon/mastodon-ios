@@ -219,6 +219,7 @@ extension Mastodon.API.Account {
                     data.append(Data.multipart(key: "fields_attributes[value][]", value: fieldsAttribute.value))
                 }
             }
+            
             data.append(Data.multipartEnd())
             return data
         }

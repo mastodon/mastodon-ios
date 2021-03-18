@@ -173,7 +173,7 @@ extension ComposeViewController {
         })
         .store(in: &disposeBag)
         
-        viewModel.isComposeTootBarButtonItemEnabled
+        viewModel.isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: publishBarButtonItem)
             .store(in: &disposeBag)
@@ -486,7 +486,16 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
 extension ComposeViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
-        let attachmentServices = results.map { MastodonAttachmentService(pickerResult: $0) }
+        
+        let attachmentServices: [MastodonAttachmentService] = results.map { result in
+            let service = MastodonAttachmentService(
+                context: context,
+                pickerResult: result,
+                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            )
+            service.delegate = viewModel
+            return service
+        }
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + attachmentServices
     }
 }

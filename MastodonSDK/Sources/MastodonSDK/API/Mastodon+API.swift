@@ -94,6 +94,7 @@ extension Mastodon.API {
     public enum CustomEmojis { }
     public enum Favorites { }
     public enum Instance { }
+    public enum Media { }
     public enum OAuth { }
     public enum Onboarding { }
     public enum Polls { }

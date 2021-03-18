@@ -39,14 +39,13 @@ final class ComposeViewModel {
     // UI & UX
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
-    let isComposeTootBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
+    let isPublishBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
     
     // custom emojis
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
     
     // attachment
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
-    
     
     init(
         context: AppContext,
@@ -89,14 +88,30 @@ final class ComposeViewModel {
             .store(in: &disposeBag)
         
         // bind compose bar button item UI state
-        composeStatusAttribute.composeContent
-            .receive(on: DispatchQueue.main)
-            .map { content in
-                let content = content?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                return !content.isEmpty
+        let isComposeContentEmpty = composeStatusAttribute.composeContent
+            .map { ($0 ?? "").isEmpty }
+        let isComposeContentValid = Just(true).eraseToAnyPublisher()
+        let isMediaEmpty = attachmentServices
+            .map { $0.isEmpty }
+        let isMediaUploadAllSuccess = attachmentServices
+            .map { services in
+                services.allSatisfy { $0.uploadStateMachineSubject.value is MastodonAttachmentService.UploadState.Finish }
             }
-            .assign(to: \.value, on: isComposeTootBarButtonItemEnabled)
-            .store(in: &disposeBag)
+        Publishers.CombineLatest4(
+            isComposeContentEmpty.eraseToAnyPublisher(),
+            isComposeContentValid.eraseToAnyPublisher(),
+            isMediaEmpty.eraseToAnyPublisher(),
+            isMediaUploadAllSuccess.eraseToAnyPublisher()
+        )
+        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess in
+            if isMediaEmpty {
+                return isComposeContentValid && !isComposeContentEmpty
+            } else {
+                return isComposeContentValid && isMediaUploadAllSuccess
+            }
+        }
+        .assign(to: \.value, on: isPublishBarButtonItemEnabled)
+        .store(in: &disposeBag)
         
         // bind modal dismiss state
         composeStatusAttribute.composeContent
@@ -142,4 +157,12 @@ final class ComposeViewModel {
             .store(in: &disposeBag)
     }
     
+}
+
+// MARK: - MastodonAttachmentServiceDelegate
+extension ComposeViewModel: MastodonAttachmentServiceDelegate {
+    func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?) {
+        // trigger new output event
+        attachmentServices.value = attachmentServices.value
+    }
 }
