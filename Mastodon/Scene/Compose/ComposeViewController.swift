@@ -62,7 +62,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return backgroundView
     }()
     
-    lazy var imagePicker: PHPickerViewController = {
+    private(set) lazy var imagePicker: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 4
@@ -70,6 +70,18 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let imagePicker = PHPickerViewController(configuration: configuration)
         imagePicker.delegate = self
         return imagePicker
+    }()
+    private(set) lazy var imagePickerController: UIImagePickerController = {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .camera
+        imagePickerController.delegate = self
+        return imagePickerController
+    }()
+    
+    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
+        let documentPickerController = UIDocumentPickerViewController(documentTypes: ["public.image"], in: .open)
+        documentPickerController.delegate = self
+        return documentPickerController
     }()
     
 }
@@ -433,9 +445,16 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        present(imagePicker, animated: true, completion: nil)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, mediaSelectionType.rawValue)
+        switch mediaSelectionType {
+        case .photoLibrary:
+            present(imagePicker, animated: true, completion: nil)
+        case .camera:
+            present(imagePickerController, animated: true, completion: nil)
+        case .browse:
+            present(documentPickerController, animated: true, completion: nil)
+        }
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton) {
@@ -497,6 +516,51 @@ extension ComposeViewController: PHPickerViewControllerDelegate {
             return service
         }
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + attachmentServices
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        let attachmentService = MastodonAttachmentService(
+            context: context,
+            image: image,
+            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+        )
+        attachmentService.delegate = viewModel
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIDocumentPickerDelegate
+extension ComposeViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+        
+        do {
+            guard url.startAccessingSecurityScopedResource() else { return }
+            defer { url.stopAccessingSecurityScopedResource() }
+            let imageData = try Data(contentsOf: url)
+            let attachmentService = MastodonAttachmentService(
+                context: context,
+                imageData: imageData,
+                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            )
+            attachmentService.delegate = viewModel
+            viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
+        } catch {
+            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        }
     }
 }
 

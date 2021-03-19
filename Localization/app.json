@@ -193,6 +193,11 @@
                 "new_post": "New Post",
                 "new_reply": "New Reply"
             },
+            "media_selection": {
+                "camera": "Take Photo",
+                "photo_library": "Photo Library",
+                "browse": "Browse"
+            },
             "content_input_placeholder": "Type or paste what's on your mind",
             "compose_action": "Publish",
             "attachment": {

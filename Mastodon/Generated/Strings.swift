@@ -158,6 +158,14 @@ internal enum L10n {
         /// video
         internal static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
       }
+      internal enum MediaSelection {
+        /// Browse
+        internal static let browse = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Browse")
+        /// Take Photo
+        internal static let camera = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Camera")
+        /// Photo Library
+        internal static let photoLibrary = L10n.tr("Localizable", "Scene.Compose.MediaSelection.PhotoLibrary")
+      }
       internal enum Title {
         /// New Post
         internal static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost")

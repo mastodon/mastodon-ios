@@ -198,6 +198,10 @@ extension Mastodon.API.Account {
             return Self.multipartContentType()
         }
         
+        var queryItems: [URLQueryItem]? {
+            return nil
+        }
+        
         var body: Data? {
             var data = Data()
 

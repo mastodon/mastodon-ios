@@ -48,31 +48,60 @@ extension ComposeViewModel.PublishState {
                 return
             }
             
-            let mediaIDs = viewModel.attachmentServices.value.compactMap { attachmentService in
+            let domain = mastodonAuthenticationBox.domain
+            let attachmentServices = viewModel.attachmentServices.value
+            let mediaIDs = attachmentServices.compactMap { attachmentService in
                 attachmentService.attachment.value?.id
             }
-            let query = Mastodon.API.Statuses.PublishStatusQuery(
-                status: viewModel.composeStatusAttribute.composeContent.value,
-                mediaIDs: mediaIDs
-            )
-            publishingSubscription = viewModel.context.apiService.publishStatus(
-                domain: mastodonAuthenticationBox.domain,
-                query: query,
-                mastodonAuthenticationBox: mastodonAuthenticationBox
-            )
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: publish status %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    stateMachine.enter(Fail.self)
-                case .finished:
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: publish status success", ((#file as NSString).lastPathComponent), #line, #function)
-                    stateMachine.enter(Finish.self)
+            let updateMediaQuerySubscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = {
+                var subscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = []
+                for attachmentService in attachmentServices {
+                    guard let attachmentID = attachmentService.attachment.value?.id else { continue }
+                    let description = attachmentService.description.value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                    guard !description.isEmpty else { continue }
+                    let query = Mastodon.API.Media.UpdateMediaQuery(
+                        file: nil,
+                        thumbnail: nil,
+                        description: description,
+                        focus: nil
+                    )
+                    let subscription = viewModel.context.apiService.updateMedia(
+                        domain: domain,
+                        attachmentID: attachmentID,
+                        query: query,
+                        mastodonAuthenticationBox: mastodonAuthenticationBox
+                    )
+                    subscriptions.append(subscription)
                 }
-            } receiveValue: { response in
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: status %s published: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.uri)
-            }
+                return subscriptions
+            }()
+            
+            publishingSubscription = Publishers.MergeMany(updateMediaQuerySubscriptions)
+                .collect()
+                .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+                    let query = Mastodon.API.Statuses.PublishStatusQuery(
+                        status: viewModel.composeStatusAttribute.composeContent.value,
+                        mediaIDs: mediaIDs
+                    )
+                    return viewModel.context.apiService.publishStatus(
+                        domain: domain,
+                        query: query,
+                        mastodonAuthenticationBox: mastodonAuthenticationBox
+                    )
+                }
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: publish status %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        stateMachine.enter(Fail.self)
+                    case .finished:
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: publish status success", ((#file as NSString).lastPathComponent), #line, #function)
+                        stateMachine.enter(Finish.self)
+                    }
+                } receiveValue: { response in
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: status %s published: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.uri)
+                }
         }
     }
     

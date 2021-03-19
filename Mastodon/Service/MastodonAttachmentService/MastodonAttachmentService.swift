@@ -25,7 +25,6 @@ final class MastodonAttachmentService {
     
     // input
     let context: AppContext
-    let pickerResult: PHPickerResult
     var authenticationBox: AuthenticationService.MastodonAuthenticationBox?
     
     // output
@@ -54,16 +53,10 @@ final class MastodonAttachmentService {
         initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
     ) {
         self.context = context
-        self.pickerResult = pickerResult
         self.authenticationBox = initalAuthenticationBox
         // end init
         
-        uploadStateMachineSubject
-            .sink { [weak self] state in
-                guard let self = self else { return }
-                self.delegate?.mastodonAttachmentService(self, uploadStateDidChange: state)
-            }
-            .store(in: &disposeBag)
+        setupServiceObserver()
         
         PHPickerResultLoader.loadImageData(from: pickerResult)
             .sink { [weak self] completion in
@@ -80,6 +73,49 @@ final class MastodonAttachmentService {
                 
                 // Try pre-upload attachment for current active user
                 self.uploadStateMachine.enter(UploadState.Uploading.self)
+            }
+            .store(in: &disposeBag)
+    }
+    
+    init(
+        context: AppContext,
+        image: UIImage,
+        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    ) {
+        self.context = context
+        self.authenticationBox = initalAuthenticationBox
+        // end init
+        
+        setupServiceObserver()
+        
+        imageData.value = image.jpegData(compressionQuality: 0.75)
+
+        // Try pre-upload attachment for current active user
+        uploadStateMachine.enter(UploadState.Uploading.self)
+    }
+    
+    init(
+        context: AppContext,
+        imageData: Data,
+        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    ) {
+        self.context = context
+        self.authenticationBox = initalAuthenticationBox
+        // end init
+        
+        setupServiceObserver()
+        
+        self.imageData.value = imageData
+
+        // Try pre-upload attachment for current active user
+        uploadStateMachine.enter(UploadState.Uploading.self)
+    }
+    
+    private func setupServiceObserver() {
+        uploadStateMachineSubject
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                self.delegate?.mastodonAttachmentService(self, uploadStateDidChange: state)
             }
             .store(in: &disposeBag)
     }

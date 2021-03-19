@@ -85,19 +85,32 @@ extension ComposeStatusSection {
                             cell.attachmentContainerView.previewImageView.image = placeholder
                             return
                         }
-                        cell.attachmentContainerView.activityIndicatorView.stopAnimating()
                         cell.attachmentContainerView.previewImageView.image = image
                             .af.imageAspectScaled(toFill: cell.attachmentContainerView.previewImageView.frame.size)
                             .af.imageRounded(withCornerRadius: AttachmentContainerView.containerViewCornerRadius)
                     }
                     .store(in: &cell.disposeBag)
-                attachmentService.error
-                    .receive(on: DispatchQueue.main)
-                    .sink { error in
+                Publishers.CombineLatest(
+                    attachmentService.uploadStateMachineSubject.eraseToAnyPublisher(),
+                    attachmentService.error.eraseToAnyPublisher()
+                )
+                .receive(on: DispatchQueue.main)
+                .sink { uploadState, error  in
+                    cell.attachmentContainerView.emptyStateView.isHidden = error == nil
+                    if let _ = error {
                         cell.attachmentContainerView.activityIndicatorView.stopAnimating()
-                        cell.attachmentContainerView.emptyStateView.isHidden = error == nil
+                    } else {
+                        guard let uploadState = uploadState else { return }
+                        switch uploadState {
+                        case is MastodonAttachmentService.UploadState.Finish,
+                             is MastodonAttachmentService.UploadState.Fail:
+                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        default:
+                            break
+                        }
                     }
-                    .store(in: &cell.disposeBag)
+                }
+                .store(in: &cell.disposeBag)
                 NotificationCenter.default.publisher(
                     for: UITextView.textDidChangeNotification,
                     object: cell.attachmentContainerView.descriptionTextView

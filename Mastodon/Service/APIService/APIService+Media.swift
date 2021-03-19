@@ -26,4 +26,21 @@ extension APIService {
         )
     }
     
+    func updateMedia(
+        domain: String,
+        attachmentID: Mastodon.Entity.Attachment.ID,
+        query: Mastodon.API.Media.UpdateMediaQuery,
+        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
+        let authorization = mastodonAuthenticationBox.userAuthorization
+
+        return Mastodon.API.Media.updateMedia(
+            session: session,
+            domain: domain,
+            attachmentID: attachmentID,
+            query: query,
+            authorization: authorization
+        )
+    }
+    
 }

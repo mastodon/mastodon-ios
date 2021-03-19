@@ -50,7 +50,7 @@ extension Mastodon.API.Media {
             .eraseToAnyPublisher()
     }
     
-    public struct UploadMeidaQuery: PostQuery {
+    public struct UploadMeidaQuery: PostQuery, PutQuery {
         public let file: Mastodon.Query.MediaAttachment?
         public let thumbnail: Mastodon.Query.MediaAttachment?
         public let description: String?
@@ -86,3 +86,51 @@ extension Mastodon.API.Media {
     }
     
 }
+
+extension Mastodon.API.Media {
+
+    static func updateMediaEndpointURL(domain: String, attachmentID: Mastodon.Entity.Attachment.ID) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("media").appendingPathComponent(attachmentID)
+    }
+    
+    /// Update attachment
+    ///
+    /// Update an Attachment, before it is attached to a status and posted..
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/3/18
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/statuses/media/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `UploadMediaQuery`
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Attachment` nested in the response
+    public static func updateMedia(
+        session: URLSession,
+        domain: String,
+        attachmentID: Mastodon.Entity.Attachment.ID,
+        query: UpdateMediaQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>  {
+        var request = Mastodon.API.put(
+            url: updateMediaEndpointURL(domain: domain, attachmentID: attachmentID),
+            query: query,
+            authorization: authorization
+        )
+        request.timeoutInterval = 180    // should > 200 Kb/s for 40 MiB media attachment
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public typealias UpdateMediaQuery = UploadMeidaQuery
+    
+}
+

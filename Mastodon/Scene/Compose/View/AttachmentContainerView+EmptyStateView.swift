@@ -50,6 +50,7 @@ extension AttachmentContainerView.EmptyStateView {
         layer.masksToBounds = true
         layer.cornerRadius = AttachmentContainerView.containerViewCornerRadius
         layer.cornerCurve = .continuous
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         let stackView = UIStackView()
         stackView.axis = .vertical

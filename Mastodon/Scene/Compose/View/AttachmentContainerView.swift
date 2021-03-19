@@ -14,7 +14,7 @@ final class AttachmentContainerView: UIView {
     
     var descriptionBackgroundViewFrameObservation: NSKeyValueObservation?
     
-    let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+    let activityIndicatorView = UIActivityIndicatorView(style: .large)
     
     let previewImageView: UIImageView = {
         let imageView = UIImageView()
@@ -49,7 +49,8 @@ final class AttachmentContainerView: UIView {
         textView.textColor = .white
         textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15))
         textView.placeholder = L10n.Scene.Compose.Attachment.descriptionPhoto
-        textView.placeholderColor = Asset.Colors.Label.secondary.color
+        textView.placeholderColor = UIColor.white.withAlphaComponent(0.6)   // force white with alpha for Light/Dark mode
+        textView.returnKeyType = .done
         return textView
     }()
     
@@ -115,12 +116,25 @@ extension AttachmentContainerView {
             activityIndicatorView.centerXAnchor.constraint(equalTo: previewImageView.centerXAnchor),
             activityIndicatorView.centerYAnchor.constraint(equalTo: previewImageView.centerYAnchor),
         ])
-        
-        descriptionBackgroundView.overrideUserInterfaceStyle = .dark
-        
+
         emptyStateView.isHidden = true
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.startAnimating()
+        
+        descriptionTextView.delegate = self
     }
     
+}
+
+// MARK: - UITextViewDelegate
+extension AttachmentContainerView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // let keyboard dismiss when input description with "done" type return key
+        if textView === descriptionTextView, text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        
+        return true
+    }
 }
