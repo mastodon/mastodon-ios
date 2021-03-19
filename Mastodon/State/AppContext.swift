@@ -26,6 +26,7 @@ class AppContext: ObservableObject {
     let emojiService: EmojiService
     let audioPlaybackService = AudioPlaybackService()
     let videoPlaybackService = VideoPlaybackService()
+    let statusPrefetchingService: StatusPrefetchingService
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
@@ -51,6 +52,9 @@ class AppContext: ObservableObject {
         
         emojiService = EmojiService(
             apiService: apiService
+        )
+        statusPrefetchingService = StatusPrefetchingService(
+            apiService: _apiService
         )
         
         documentStore = DocumentStore()

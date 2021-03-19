@@ -39,6 +39,7 @@ public final class Toot: NSManagedObject {
     // many-to-one relastionship
     @NSManaged public private(set) var author: MastodonUser
     @NSManaged public private(set) var reblog: Toot?
+    @NSManaged public private(set) var replyTo: Toot?
     
     // many-to-many relastionship
     @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
@@ -57,6 +58,7 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var tags: Set<Tag>?
     @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
     @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
+    @NSManaged public private(set) var replyFrom: Set<Toot>?
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
@@ -70,6 +72,7 @@ public extension Toot {
         author: MastodonUser,
         reblog: Toot?,
         application: Application?,
+        replyTo: Toot?,
         poll: Poll?,
         mentions: [Mention]?,
         emojis: [Emoji]?,
@@ -142,16 +145,19 @@ public extension Toot {
         
         return toot
     }
+    
     func update(reblogsCount: NSNumber) {
         if self.reblogsCount.intValue != reblogsCount.intValue {
             self.reblogsCount = reblogsCount
         }
     }
+    
     func update(favouritesCount: NSNumber) {
         if self.favouritesCount.intValue != favouritesCount.intValue {
             self.favouritesCount = favouritesCount
         }
     }
+    
     func update(repliesCount: NSNumber?) {
         guard let count = repliesCount else {
             return
@@ -160,6 +166,13 @@ public extension Toot {
             self.repliesCount = repliesCount
         }
     }
+    
+    func update(replyTo: Toot?) {
+        if self.replyTo != replyTo {
+            self.replyTo = replyTo
+        }
+    }
+    
     func update(liked: Bool, mastodonUser: MastodonUser) {
         if liked {
             if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
@@ -171,6 +184,7 @@ public extension Toot {
             }
         }
     }
+    
     func update(reblogged: Bool, mastodonUser: MastodonUser) {
         if reblogged {
             if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {

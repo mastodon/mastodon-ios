@@ -375,7 +375,7 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
-        guard case let .server(server) = item else { return nil }
+        guard case .server = item else { return nil }
         
         if tableView.indexPathForSelectedRow == indexPath {
             tableView.deselectRow(at: indexPath, animated: false)

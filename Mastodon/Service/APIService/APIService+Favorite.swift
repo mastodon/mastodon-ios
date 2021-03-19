@@ -141,7 +141,7 @@ extension APIService {
             .map { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
                 let log = OSLog.api
                 
-                return APIService.Persist.persistTimeline(
+                return APIService.Persist.persistStatus(
                     managedObjectContext: self.backgroundManagedObjectContext,
                     domain: mastodonAuthenticationBox.domain,
                     query: query,

@@ -45,7 +45,7 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
             viewModel.context.apiService.servers(language: nil, category: nil)
                 .sink { completion in
                     switch completion {
-                    case .failure(let error):
+                    case .failure:
                         // TODO: handle error
                         stateMachine.enter(Fail.self)
                     case .finished:
@@ -84,7 +84,7 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             
-            guard let viewModel = self.viewModel, let stateMachine = self.stateMachine else { return }
+            guard let viewModel = self.viewModel else { return }
             viewModel.isLoadingIndexedServers.value = false
         }
     }
