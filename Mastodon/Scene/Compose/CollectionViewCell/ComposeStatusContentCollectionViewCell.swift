@@ -1,5 +1,5 @@
 //
-//  ComposeStatusContentTableViewCell.swift
+//  ComposeStatusContentCollectionViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-11.
@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import TwitterTextEditor
 
-final class ComposeStatusContentTableViewCell: UITableViewCell {
+final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -27,8 +27,8 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
     
     let composeContent = PassthroughSubject<String, Never>()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         _init()
     }
     
@@ -39,10 +39,11 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
     
 }
 
-extension ComposeStatusContentTableViewCell {
+extension ComposeStatusContentCollectionViewCell {
     
     private func _init() {
-        selectionStyle = .none
+        // selectionStyle = .none
+        preservesSuperviewLayoutMargins = true
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
@@ -82,12 +83,8 @@ extension ComposeStatusContentTableViewCell {
     
 }
 
-extension ComposeStatusContentTableViewCell {
-    
-}
-
 // MARK: - UITextViewDelegate
-extension ComposeStatusContentTableViewCell: TextEditorViewChangeObserver {
+extension ComposeStatusContentCollectionViewCell: TextEditorViewChangeObserver {
     func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
         guard changeResult.isTextChanged else { return }
         composeContent.send(textEditorView.text)

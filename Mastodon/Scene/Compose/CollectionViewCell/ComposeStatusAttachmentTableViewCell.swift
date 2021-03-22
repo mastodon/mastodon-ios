@@ -9,18 +9,18 @@ import os.log
 import UIKit
 import Combine
 
-protocol ComposeStatusAttachmentTableViewCellDelegate: class {
-    func composeStatusAttachmentTableViewCell(_ cell: ComposeStatusAttachmentTableViewCell, removeButtonDidPressed button: UIButton)
+protocol ComposeStatusAttachmentCollectionViewCellDelegate: class {
+    func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton)
 }
 
-final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
+final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
     
     var disposeBag = Set<AnyCancellable>()
 
-    static let verticalMarginHeight: CGFloat = ComposeStatusAttachmentTableViewCell.removeButtonSize.height * 0.5
+    static let verticalMarginHeight: CGFloat = ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height * 0.5
     static let removeButtonSize = CGSize(width: 22, height: 22)
     
-    weak var delegate: ComposeStatusAttachmentTableViewCellDelegate?
+    weak var delegate: ComposeStatusAttachmentCollectionViewCellDelegate?
     
     let attachmentContainerView = AttachmentContainerView()
     let removeButton: UIButton = {
@@ -31,7 +31,7 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
         button.setImage(image, for: .normal)
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Background.danger.color), for: .normal)
         button.layer.masksToBounds = true
-        button.layer.cornerRadius = ComposeStatusAttachmentTableViewCell.removeButtonSize.width * 0.5
+        button.layer.cornerRadius = ComposeStatusAttachmentCollectionViewCell.removeButtonSize.width * 0.5
         button.layer.borderColor = Asset.Colors.Background.dangerBorder.color.cgColor
         button.layer.borderWidth = 1
         return button
@@ -41,11 +41,14 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         attachmentContainerView.activityIndicatorView.startAnimating()
+        attachmentContainerView.previewImageView.af.cancelImageRequest()
+        attachmentContainerView.previewImageView.image = .placeholder(color: .systemFill)
         delegate = nil
+        disposeBag.removeAll()
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         _init()
     }
     
@@ -56,18 +59,18 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
     
 }
 
-extension ComposeStatusAttachmentTableViewCell {
+extension ComposeStatusAttachmentCollectionViewCell {
     
     private func _init() {
-        selectionStyle = .none
+        // selectionStyle = .none
         
         attachmentContainerView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(attachmentContainerView)
         NSLayoutConstraint.activate([
-            attachmentContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ComposeStatusAttachmentTableViewCell.verticalMarginHeight),
+            attachmentContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
             attachmentContainerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             attachmentContainerView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: attachmentContainerView.bottomAnchor, constant: ComposeStatusAttachmentTableViewCell.verticalMarginHeight),
+            contentView.bottomAnchor.constraint(equalTo: attachmentContainerView.bottomAnchor, constant: ComposeStatusAttachmentCollectionViewCell.verticalMarginHeight),
             attachmentContainerView.heightAnchor.constraint(equalToConstant: 205).priority(.defaultHigh),
         ])
         
@@ -76,21 +79,21 @@ extension ComposeStatusAttachmentTableViewCell {
         NSLayoutConstraint.activate([
             removeButton.centerXAnchor.constraint(equalTo: attachmentContainerView.trailingAnchor),
             removeButton.centerYAnchor.constraint(equalTo: attachmentContainerView.topAnchor),
-            removeButton.widthAnchor.constraint(equalToConstant: ComposeStatusAttachmentTableViewCell.removeButtonSize.width).priority(.defaultHigh),
-            removeButton.heightAnchor.constraint(equalToConstant: ComposeStatusAttachmentTableViewCell.removeButtonSize.height).priority(.defaultHigh),
+            removeButton.widthAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.width).priority(.defaultHigh),
+            removeButton.heightAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height).priority(.defaultHigh),
         ])
         
-        removeButton.addTarget(self, action: #selector(ComposeStatusAttachmentTableViewCell.removeButtonDidPressed(_:)), for: .touchUpInside)
+        removeButton.addTarget(self, action: #selector(ComposeStatusAttachmentCollectionViewCell.removeButtonDidPressed(_:)), for: .touchUpInside)
     }
     
 }
 
 
-extension ComposeStatusAttachmentTableViewCell {
+extension ComposeStatusAttachmentCollectionViewCell {
 
     @objc private func removeButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.composeStatusAttachmentTableViewCell(self, removeButtonDidPressed: sender)
+        delegate?.composeStatusAttachmentCollectionViewCell(self, removeButtonDidPressed: sender)
     }
 
 }

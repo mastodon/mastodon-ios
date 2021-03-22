@@ -39,15 +39,14 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return barButtonItem
     }()
     
-    let tableView: UITableView = {
-        let tableView = ControlContainableTableView()
-        tableView.register(ComposeRepliedToTootContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self))
-        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
-        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        return tableView
+    let collectionView: UICollectionView = {
+        let collectionViewLayout = ComposeViewController.createLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.register(ComposeRepliedToTootContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self))
+        collectionView.register(ComposeStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self))
+        collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
+        collectionView.backgroundColor = Asset.Colors.Background.systemBackground.color
+        return collectionView
     }()
     
     let composeToolbarView: ComposeToolbarView = {
@@ -87,6 +86,20 @@ final class ComposeViewController: UIViewController, NeedsDependency {
 }
 
 extension ComposeViewController {
+    private static func createLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsetsReference = .readableContent
+        // section.interGroupSpacing = 10
+        // section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+}
+
+extension ComposeViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,13 +116,13 @@ extension ComposeViewController {
         navigationItem.rightBarButtonItem = publishBarButtonItem
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
@@ -133,9 +146,11 @@ extension ComposeViewController {
             view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
         ])
         
-        tableView.delegate = self
+        collectionView.delegate = self
+        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
+        collectionView.addGestureRecognizer(longPressReorderGesture)
         viewModel.setupDiffableDataSource(
-            for: tableView,
+            for: collectionView,
             dependency: self,
             textEditorViewTextAttributesDelegate: self,
             composeStatusAttachmentTableViewCellDelegate: self
@@ -151,45 +166,45 @@ extension ComposeViewController {
         )
         .sink(receiveValue: { [weak self] isShow, state, endFrame in
             guard let self = self else { return }
-            
+
             guard isShow, state == .dock else {
-                self.tableView.contentInset.bottom = 0.0
-                self.tableView.verticalScrollIndicatorInsets.bottom = 0.0
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
                 UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = 0.0
+                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
                 return
             }
 
             // isShow AND dock state
-            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
+            let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
-                self.tableView.contentInset.bottom = 0.0
-                self.tableView.verticalScrollIndicatorInsets.bottom = 0.0
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
                 UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = 0.0
+                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
                 return
             }
 
             // add 16pt margin
-            self.tableView.contentInset.bottom = padding + 16
-            self.tableView.verticalScrollIndicatorInsets.bottom = padding + 16
+            self.collectionView.contentInset.bottom = padding + 16
+            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + 16
             UIView.animate(withDuration: 0.3) {
                 self.composeToolbarViewBottomLayoutConstraint.constant = padding
                 self.view.layoutIfNeeded()
             }
         })
         .store(in: &disposeBag)
-        
+
         viewModel.isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: publishBarButtonItem)
             .store(in: &disposeBag)
-        
+
         // bind custom emojis
         viewModel.customEmojiViewModel
             .compactMap { $0?.emojis }
@@ -203,7 +218,7 @@ extension ComposeViewController {
                 self.textEditorView()?.setNeedsUpdateTextAttributes()
             })
             .store(in: &disposeBag)
-        
+
         // bind image picker toolbar state
         viewModel.attachmentServices
             .receive(on: DispatchQueue.main)
@@ -236,7 +251,7 @@ extension ComposeViewController {
             switch item {
             case .input:
                 guard let indexPath = diffableDataSource.indexPath(for: item),
-                      let cell = tableView.cellForRow(at: indexPath) as? ComposeStatusContentTableViewCell else {
+                      let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusContentCollectionViewCell else {
                     continue
                 }
                 return cell.textEditorView
@@ -304,6 +319,33 @@ extension ComposeViewController {
         }
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
+        switch(sender.state) {
+        case .began:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
+                  let diffableDataSource = viewModel.diffableDataSource else {
+                break
+            }
+            guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
+                  case .attachment = item else {
+                collectionView.cancelInteractiveMovement()
+                return
+            }
+
+            collectionView.updateInteractiveMovementTargetPosition(sender.location(in: collectionView))
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
     }
     
 }
@@ -476,10 +518,8 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
 }
 
 // MARK: - UITableViewDelegate
-extension ComposeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+extension ComposeViewController: UICollectionViewDelegate {
+    
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -565,11 +605,11 @@ extension ComposeViewController: UIDocumentPickerDelegate {
 }
 
 // MARK: - ComposeStatusAttachmentTableViewCellDelegate
-extension ComposeViewController: ComposeStatusAttachmentTableViewCellDelegate {
+extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelegate {
     
-    func composeStatusAttachmentTableViewCell(_ cell: ComposeStatusAttachmentTableViewCell, removeButtonDidPressed button: UIButton) {
+    func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         guard case let .attachment(attachmentService) = item else { return }
         

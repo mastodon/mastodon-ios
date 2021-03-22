@@ -11,19 +11,39 @@ import TwitterTextEditor
 extension ComposeViewModel {
     
     func setupDiffableDataSource(
-        for tableView: UITableView,
+        for collectionView: UICollectionView,
         dependency: NeedsDependency,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
-        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentTableViewCellDelegate
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate
     ) {
-        diffableDataSource = ComposeStatusSection.tableViewDiffableDataSource(
-            for: tableView,
+        let diffableDataSource = ComposeStatusSection.collectionViewDiffableDataSource(
+            for: collectionView,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
             composeKind: composeKind,
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
             composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate
         )
+        
+        diffableDataSource.reorderingHandlers.canReorderItem = { item in
+            switch item {
+            case .attachment:       return true
+            default:                return false
+            }
+            
+        }
+        diffableDataSource.reorderingHandlers.didReorder = { [weak self] transaction in
+            guard let self = self else { return }
+            
+            let items = transaction.finalSnapshot.itemIdentifiers
+            var attachmentServices: [MastodonAttachmentService] = []
+            for item in items {
+                guard case let .attachment(attachmentService) = item else { continue }
+                attachmentServices.append(attachmentService)
+            }
+            self.attachmentServices.value = attachmentServices
+        }
+        self.diffableDataSource = diffableDataSource
         
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
         snapshot.appendSections([.repliedTo, .status, .attachment])

@@ -76,10 +76,10 @@ extension MastodonAttachmentService.UploadState {
                     service.error.send(error)
                 case .finished:
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment success", ((#file as NSString).lastPathComponent), #line, #function)
-
                     break
                 }
             } receiveValue: { response in
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment %s success: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.url)
                 service.attachment.value = response.value
                 stateMachine.enter(Finish.self)
             }
