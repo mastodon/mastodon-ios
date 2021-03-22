@@ -31,8 +31,15 @@ extension MastodonAttachmentService.UploadState {
     class Initial: MastodonAttachmentService.UploadState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard service?.authenticationBox != nil else { return false }
-            guard service?.imageData.value != nil else { return false }
-            return stateClass == Uploading.self
+            if stateClass == Initial.self {
+                return true
+            }
+
+            if service?.imageData.value != nil {
+                return stateClass == Uploading.self
+            } else {
+                return stateClass == Fail.self
+            }
         }
     }
     

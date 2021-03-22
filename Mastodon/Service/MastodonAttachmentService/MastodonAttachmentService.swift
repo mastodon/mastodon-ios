@@ -64,15 +64,14 @@ final class MastodonAttachmentService {
                 switch completion {
                 case .failure(let error):
                     self.error.value = error
+                    self.uploadStateMachine.enter(UploadState.Fail.self)
                 case .finished:
                     break
                 }
             } receiveValue: { [weak self] imageData in
                 guard let self = self else { return }
                 self.imageData.value = imageData
-                
-                // Try pre-upload attachment for current active user
-                self.uploadStateMachine.enter(UploadState.Uploading.self)
+                self.uploadStateMachine.enter(UploadState.Initial.self)
             }
             .store(in: &disposeBag)
     }
@@ -89,9 +88,7 @@ final class MastodonAttachmentService {
         setupServiceObserver()
         
         imageData.value = image.jpegData(compressionQuality: 0.75)
-
-        // Try pre-upload attachment for current active user
-        uploadStateMachine.enter(UploadState.Uploading.self)
+        uploadStateMachine.enter(UploadState.Initial.self)
     }
     
     init(
@@ -106,9 +103,7 @@ final class MastodonAttachmentService {
         setupServiceObserver()
         
         self.imageData.value = imageData
-
-        // Try pre-upload attachment for current active user
-        uploadStateMachine.enter(UploadState.Uploading.self)
+        uploadStateMachine.enter(UploadState.Initial.self)
     }
     
     private func setupServiceObserver() {

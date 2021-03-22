@@ -24,27 +24,29 @@ extension ComposeViewModel {
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
             composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate
         )
+
+        // Note: do not allow reorder due to the images display order following the upload time
+        // diffableDataSource.reorderingHandlers.canReorderItem = { item in
+        //     switch item {
+        //     case .attachment:       return true
+        //     default:                return false
+        //     }
+        //
+        // }
+        // diffableDataSource.reorderingHandlers.didReorder = { [weak self] transaction in
+        //     guard let self = self else { return }
+        //
+        //     let items = transaction.finalSnapshot.itemIdentifiers
+        //     var attachmentServices: [MastodonAttachmentService] = []
+        //     for item in items {
+        //         guard case let .attachment(attachmentService) = item else { continue }
+        //         attachmentServices.append(attachmentService)
+        //     }
+        //     self.attachmentServices.value = attachmentServices
+        // }
+        //
         
-        diffableDataSource.reorderingHandlers.canReorderItem = { item in
-            switch item {
-            case .attachment:       return true
-            default:                return false
-            }
-            
-        }
-        diffableDataSource.reorderingHandlers.didReorder = { [weak self] transaction in
-            guard let self = self else { return }
-            
-            let items = transaction.finalSnapshot.itemIdentifiers
-            var attachmentServices: [MastodonAttachmentService] = []
-            for item in items {
-                guard case let .attachment(attachmentService) = item else { continue }
-                attachmentServices.append(attachmentService)
-            }
-            self.attachmentServices.value = attachmentServices
-        }
         self.diffableDataSource = diffableDataSource
-        
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
         snapshot.appendSections([.repliedTo, .status, .attachment])
         switch composeKind {

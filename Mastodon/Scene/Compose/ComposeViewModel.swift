@@ -137,7 +137,7 @@ final class ComposeViewModel {
             }
             .store(in: &disposeBag)
         
-        // bind snapshot
+        // bind snapshot and drive service upload state
         attachmentServices
             .receive(on: DispatchQueue.main)
             .sink { [weak self] attachmentServices in
@@ -154,6 +154,26 @@ final class ComposeViewModel {
                 snapshot.appendItems(items, toSection: .attachment)
                 
                 diffableDataSource.apply(snapshot)
+                
+                // make image upload in the queue
+                for attachmentService in attachmentServices {
+                    // skip when prefix N task when task finish OR fail OR uploading
+                    guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
+                    if currentState is MastodonAttachmentService.UploadState.Fail {
+                        continue
+                    }
+                    if currentState is MastodonAttachmentService.UploadState.Finish {
+                        continue
+                    }
+                    if currentState is MastodonAttachmentService.UploadState.Uploading {
+                        break
+                    }
+                    // trigger uploading one by one
+                    if currentState is MastodonAttachmentService.UploadState.Initial {
+                        attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
+                        break
+                    }
+                }
             }
             .store(in: &disposeBag)
     }

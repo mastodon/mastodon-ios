@@ -147,8 +147,9 @@ extension ComposeViewController {
         ])
         
         collectionView.delegate = self
-        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
-        collectionView.addGestureRecognizer(longPressReorderGesture)
+        // Note: do not allow reorder due to the images display order following the upload time
+        // let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
+        // collectionView.addGestureRecognizer(longPressReorderGesture)
         viewModel.setupDiffableDataSource(
             for: collectionView,
             dependency: self,
@@ -321,7 +322,7 @@ extension ComposeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
+    /* Do not allow reorder image due to image display order following the update time
     @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
         switch(sender.state) {
         case .began:
@@ -347,6 +348,7 @@ extension ComposeViewController {
             collectionView.cancelInteractiveMovement()
         }
     }
+     */
     
 }
 
