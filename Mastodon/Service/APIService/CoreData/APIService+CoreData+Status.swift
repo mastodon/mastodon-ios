@@ -1,5 +1,5 @@
 //
-//  APIService+CoreData+Toot.swift
+//  APIService+CoreData+Status.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/2/3.
@@ -13,32 +13,52 @@ import MastodonSDK
 
 extension APIService.CoreData {
     
-    static func createOrMergeToot(
+    static func createOrMergeStatus(
         into managedObjectContext: NSManagedObjectContext,
         for requestMastodonUser: MastodonUser?,
-        entity: Mastodon.Entity.Status,
         domain: String,
+        entity: Mastodon.Entity.Status,
+        tootCache: APIService.Persist.PersistCache<Toot>?,
+        userCache: APIService.Persist.PersistCache<MastodonUser>?,
         networkDate: Date,
         log: OSLog
     ) -> (Toot: Toot, isTootCreated: Bool, isMastodonUserCreated: Bool) {
-
+        let processEntityTaskSignpostID = OSSignpostID(log: log)
+        os_signpost(.begin, log: log, name: "update database - process entity: createOrMergeToot", signpostID: processEntityTaskSignpostID, "process toot %{public}s", entity.id)
+        defer {
+            os_signpost(.end, log: log, name: "update database - process entity: createOrMergeToot", signpostID: processEntityTaskSignpostID, "process toot %{public}s", entity.id)
+        }
+        
         // build tree
         let reblog = entity.reblog.flatMap { entity -> Toot in
-            let (toot, _, _) = createOrMergeToot(into: managedObjectContext, for: requestMastodonUser, entity: entity, domain: domain, networkDate: networkDate, log: log)
+            let (toot, _, _) = createOrMergeStatus(
+                into: managedObjectContext,
+                for: requestMastodonUser,
+                domain: domain,
+                entity: entity,
+                tootCache: tootCache,
+                userCache: userCache,
+                networkDate: networkDate,
+                log: log
+            )
             return toot
         }
         
         // fetch old Toot
         let oldToot: Toot? = {
-            let request = Toot.sortedFetchRequest
-            request.predicate = Toot.predicate(domain: domain, id: entity.id)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            do {
-                return try managedObjectContext.fetch(request).first
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
+            if let tootCache = tootCache {
+                return tootCache.dictionary[entity.id]
+            } else {
+                let request = Toot.sortedFetchRequest
+                request.predicate = Toot.predicate(domain: domain, id: entity.id)
+                request.fetchLimit = 1
+                request.returnsObjectsAsFaults = false
+                do {
+                    return try managedObjectContext.fetch(request).first
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return nil
+                }
             }
         }()
 
@@ -47,10 +67,16 @@ extension APIService.CoreData {
             APIService.CoreData.merge(toot: oldToot, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: networkDate)
             return (oldToot, false, false)
         } else {
-            let (mastodonUser, isMastodonUserCreated) = createOrMergeMastodonUser(into: managedObjectContext, for: requestMastodonUser,in: domain, entity: entity.account, networkDate: networkDate, log: log)
+            let (mastodonUser, isMastodonUserCreated) = createOrMergeMastodonUser(into: managedObjectContext, for: requestMastodonUser,in: domain, entity: entity.account, userCache: userCache, networkDate: networkDate, log: log)
             let application = entity.application.flatMap { app -> Application? in
                 Application.insert(into: managedObjectContext, property: Application.Property(name: app.name, website: app.website, vapidKey: app.vapidKey))
             }
+            let replyTo: Toot? = {
+                // could be nil if target replyTo toot's persist task in the queue
+                guard let inReplyToID = entity.inReplyToID,
+                      let replyTo = tootCache?.dictionary[inReplyToID] else { return nil }
+                return replyTo
+            }()
             let poll = entity.poll.flatMap { poll -> Poll in
                 let options = poll.options.enumerated().map { i, option -> PollOption in
                     let votedBy: MastodonUser? = (poll.ownVotes ?? []).contains(i) ? requestMastodonUser : nil
@@ -92,6 +118,7 @@ extension APIService.CoreData {
                 author: mastodonUser,
                 reblog: reblog,
                 application: application,
+                replyTo: replyTo,
                 poll: poll,
                 mentions: metions,
                 emojis: emojis,
@@ -103,6 +130,8 @@ extension APIService.CoreData {
                 bookmarkedBy: (entity.bookmarked ?? false) ? requestMastodonUser : nil,
                 pinnedBy: (entity.pinned ?? false) ? requestMastodonUser : nil
             )
+            tootCache?.dictionary[entity.id] = toot
+            os_signpost(.event, log: log, name: "update database - process entity: createOrMergeToot", signpostID: processEntityTaskSignpostID, "did insert new tweet %{public}s: %s", mastodonUser.identifier, entity.id)
             return (toot, true, isMastodonUserCreated)
         }
     }

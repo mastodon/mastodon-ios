@@ -20,4 +20,5 @@ protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewControl
     var managedObjectContext: NSManagedObjectContext { get }
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? { get }
     func item(for cell: UITableViewCell?, indexPath: IndexPath?) -> Item?
+    func items(indexPaths: [IndexPath]) -> [Item]
 }

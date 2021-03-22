@@ -1,5 +1,5 @@
 //
-//  Mastodon+Entity+Toot.swift
+//  Mastodon+Entity+Status.swift
 //  
 //
 //  Created by MainasuK Cirno on 2021/1/27.

@@ -98,8 +98,8 @@ extension Mastodon.API {
     public enum OAuth { }
     public enum Onboarding { }
     public enum Polls { }
-    public enum Statuses { }
     public enum Reblog { }
+    public enum Statuses { }
     public enum Timeline { }
 }
 

@@ -25,6 +25,29 @@ final class StatusView: UIView {
     static let avatarImageCornerRadius: CGFloat = 4
     static let contentWarningBlurRadius: CGFloat = 12
     
+    static let boostIconImage: UIImage = {
+        let font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        let configuration = UIImage.SymbolConfiguration(font: font)
+        let image = UIImage(systemName: "arrow.2.squarepath", withConfiguration: configuration)!.withTintColor(Asset.Colors.Label.secondary.color)
+        return image
+    }()
+    
+    static let replyIconImage: UIImage = {
+        let font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        let configuration = UIImage.SymbolConfiguration(font: font)
+        let image = UIImage(systemName: "arrowshape.turn.up.left.fill", withConfiguration: configuration)!.withTintColor(Asset.Colors.Label.secondary.color)
+        return image
+    }()
+    
+    static func iconAttributedString(image: UIImage) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString()
+        let imageTextAttachment = NSTextAttachment()
+        let imageAttribute = NSAttributedString(attachment: imageTextAttachment)
+        imageTextAttachment.image = image
+        attributedString.append(imageAttribute)
+        return attributedString
+    }
+    
     weak var delegate: StatusViewDelegate?
     var isStatusTextSensitive = false
     var pollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
@@ -34,14 +57,7 @@ final class StatusView: UIView {
     
     let headerIconLabel: UILabel = {
         let label = UILabel()
-        let attributedString = NSMutableAttributedString()
-        let imageTextAttachment = NSTextAttachment()
-        let font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        let configuration = UIImage.SymbolConfiguration(font: font)
-        imageTextAttachment.image = UIImage(systemName: "arrow.2.squarepath", withConfiguration: configuration)?.withTintColor(Asset.Colors.Label.secondary.color)
-        let imageAttribute = NSAttributedString(attachment: imageTextAttachment)
-        attributedString.append(imageAttribute)
-        label.attributedText = attributedString
+        label.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
         return label
     }()
     

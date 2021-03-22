@@ -45,34 +45,30 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.moveToTopGapAction(action)
                 }),
-                UIAction(title: "First Reblog Toot", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "First Replied Status", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
-                    self.moveToFirstReblogToot(action)
+                    self.moveToFirstRepliedStatus(action)
                 }),
-                UIAction(title: "First Poll Toot", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "First Reblog Status", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
-                    self.moveToFirstPollToot(action)
+                    self.moveToFirstReblogStatus(action)
                 }),
-                UIAction(title: "First Audio Toot", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "First Poll Status", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
-                    self.moveToFirstAudioToot(action)
+                    self.moveToFirstPollStatus(action)
                 }),
-//                UIAction(title: "First Reply Toot", image: nil, attributes: [], handler: { [weak self] action in
-//                    guard let self = self else { return }
-//                    self.moveToFirstReplyToot(action)
-//                }),
-//                UIAction(title: "First Reply Reblog", image: nil, attributes: [], handler: { [weak self] action in
-//                    guard let self = self else { return }
-//                    self.moveToFirstReplyReblog(action)
-//                }),
-//                UIAction(title: "First Video Toot", image: nil, attributes: [], handler: { [weak self] action in
-//                    guard let self = self else { return }
-//                    self.moveToFirstVideoToot(action)
-//                }),
-//                UIAction(title: "First GIF Toot", image: nil, attributes: [], handler: { [weak self] action in
-//                    guard let self = self else { return }
-//                    self.moveToFirstGIFToot(action)
-//                }),
+                UIAction(title: "First Audio Status", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToFirstAudioStatus(action)
+                }),
+                UIAction(title: "First Video Status", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToFirstVideoStatus(action)
+                }),
+                UIAction(title: "First GIF Toot", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.moveToFirstGIFStatus(action)
+                }),
             ]
         )
     }
@@ -109,7 +105,7 @@ extension HomeTimelineViewController {
         }
     }
     
-    @objc private func moveToFirstReblogToot(_ sender: UIAction) {
+    @objc private func moveToFirstReblogStatus(_ sender: UIAction) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
         let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
@@ -125,11 +121,11 @@ extension HomeTimelineViewController {
             tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
             tableView.blinkRow(at: IndexPath(row: index, section: 0))
         } else {
-            print("Not found reblog toot")
+            print("Not found reblog status")
         }
     }
     
-    @objc private func moveToFirstPollToot(_ sender: UIAction) {
+    @objc private func moveToFirstPollStatus(_ sender: UIAction) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
         let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
@@ -150,7 +146,30 @@ extension HomeTimelineViewController {
         }
     }
     
-    @objc private func moveToFirstAudioToot(_ sender: UIAction) {
+    @objc private func moveToFirstRepliedStatus(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeTimelineIndex(let objectID, _):
+                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                guard homeTimelineIndex.toot.inReplyToID != nil else {
+                    return false
+                }
+                return true
+            default:
+                return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            tableView.blinkRow(at: IndexPath(row: index, section: 0))
+        } else {
+            print("Not found replied status")
+        }
+    }
+    
+    @objc private func moveToFirstAudioStatus(_ sender: UIAction) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
         let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
@@ -168,6 +187,48 @@ extension HomeTimelineViewController {
             tableView.blinkRow(at: IndexPath(row: index, section: 0))
         } else {
             print("Not found audio toot")
+        }
+    }
+    
+    @objc private func moveToFirstVideoStatus(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeTimelineIndex(let objectID, _):
+                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                return toot.mediaAttachments?.contains(where: { $0.type == .video }) ?? false
+            default:
+                return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            tableView.blinkRow(at: IndexPath(row: index, section: 0))
+        } else {
+            print("Not found video status")
+        }
+    }
+    
+    @objc private func moveToFirstGIFStatus(_ sender: UIAction) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let snapshotTransitioning = diffableDataSource.snapshot()
+        let item = snapshotTransitioning.itemIdentifiers.first(where: { item in
+            switch item {
+            case .homeTimelineIndex(let objectID, _):
+                let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                return toot.mediaAttachments?.contains(where: { $0.type == .gifv }) ?? false
+            default:
+                return false
+            }
+        })
+        if let targetItem = item, let index = snapshotTransitioning.indexOfItem(targetItem) {
+            tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
+            tableView.blinkRow(at: IndexPath(row: index, section: 0))
+        } else {
+            print("Not found GIF status")
         }
     }
     

@@ -88,6 +88,10 @@ internal enum L10n {
         internal static func userReblogged(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1))
         }
+        /// Replied to %@
+        internal static func userRepliedTo(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Status.UserRepliedTo", String(describing: p1))
+        }
         internal enum Poll {
           /// Closed
           internal static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed")
