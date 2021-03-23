@@ -187,6 +187,10 @@
 		DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */; };
 		DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToTootContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A2A25F9F7AB0071ACA0 /* ComposeRepliedToTootContentCollectionViewCell.swift */; };
 		DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */; };
+		DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */; };
+		DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D44A2609C11900D12C0D /* PollOptionView.swift */; };
+		DB87D4512609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4502609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift */; };
+		DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4562609DD5300D12C0D /* DeleteBackwardResponseTextField.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DB89B9FE25C10FD0008580ED /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */; };
 		DB89BA0025C10FD0008580ED /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = DB89B9F025C10FD0008580ED /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -481,6 +485,10 @@
 		DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB789A2A25F9F7AB0071ACA0 /* ComposeRepliedToTootContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeRepliedToTootContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
+		DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB87D44A2609C11900D12C0D /* PollOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollOptionView.swift; sourceTree = "<group>"; };
+		DB87D4502609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusNewPollOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB87D4562609DD5300D12C0D /* DeleteBackwardResponseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBackwardResponseTextField.swift; sourceTree = "<group>"; };
 		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB89B9F025C10FD0008580ED /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
 		DB89B9F125C10FD0008580ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -665,6 +673,7 @@
 				2D152A8B25C295CC009AA50C /* StatusView.swift */,
 				2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */,
 				2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */,
+				DB87D44A2609C11900D12C0D /* PollOptionView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -752,7 +761,6 @@
 			isa = PBXGroup;
 			children = (
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
-				DB49A61925FF327D00B98345 /* EmojiService */,
 				DB9A489B26036E19008B817C /* MastodonAttachmentService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 				DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */,
@@ -843,6 +851,7 @@
 				DB9D6C1325E4F97A0051B173 /* Container */,
 				DBA9B90325F1D4420012E7B6 /* Control */,
 				2D152A8A25C295B8009AA50C /* Content */,
+				DB87D45C2609DE6600D12C0D /* TextField */,
 				DB1D187125EF5BBD003F1F23 /* TableView */,
 				2D7631A625C1533800929FB9 /* TableviewCell */,
 			);
@@ -1153,8 +1162,18 @@
 				DB789A2A25F9F7AB0071ACA0 /* ComposeRepliedToTootContentCollectionViewCell.swift */,
 				DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */,
 				DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentTableViewCell.swift */,
+				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
+				DB87D4502609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		DB87D45C2609DE6600D12C0D /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				DB87D4562609DD5300D12C0D /* DeleteBackwardResponseTextField.swift */,
+			);
+			path = TextField;
 			sourceTree = "<group>";
 		};
 		DB89B9EF25C10FD0008580ED /* CoreDataStack */ = {
@@ -1792,6 +1811,7 @@
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
+				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
@@ -1818,6 +1838,7 @@
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
+				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */,
 				DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */,
@@ -1868,6 +1889,7 @@
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
+				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
@@ -1931,6 +1953,7 @@
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				DB71FD2C25F86A5100512AE1 /* AvatarStackContainerButton.swift in Sources */,
+				DB87D4512609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,

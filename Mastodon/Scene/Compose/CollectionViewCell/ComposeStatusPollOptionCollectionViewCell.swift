@@ -1,0 +1,147 @@
+//
+//  ComposeStatusPollOptionCollectionViewCell.swift
+//  Mastodon
+//
+//  Created by MainasuK Cirno on 2021-3-23.
+//
+
+import os.log
+import UIKit
+import Combine
+
+protocol ComposeStatusPollOptionCollectionViewCellDelegate: class {
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?)
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField)
+}
+
+final class ComposeStatusPollOptionCollectionViewCell: UICollectionViewCell {
+    
+    var disposeBag = Set<AnyCancellable>()
+    weak var delegate: ComposeStatusPollOptionCollectionViewCellDelegate?
+    
+    let pollOptionView = PollOptionView()
+    
+    let singleTagGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+    
+    private var pollOptionSubscription: AnyCancellable?
+    let pollOption = PassthroughSubject<String, Never>()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        delegate = nil
+        disposeBag.removeAll()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        _init()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        _init()
+    }
+    
+}
+
+extension ComposeStatusPollOptionCollectionViewCell {
+    
+    private func _init() {
+        pollOptionView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(pollOptionView)
+        NSLayoutConstraint.activate([
+            pollOptionView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            pollOptionView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            pollOptionView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            pollOptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+        
+        pollOptionView.checkmarkImageView.isHidden = true
+        pollOptionView.optionPercentageLabel.isHidden = true
+        pollOptionView.optionTextField.text = nil
+        
+        pollOptionView.roundedBackgroundView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        pollOptionView.checkmarkBackgroundView.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
+        setupBorderColor()
+        
+        pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
+        singleTagGestureRecognizer.addTarget(self, action: #selector(ComposeStatusPollOptionCollectionViewCell.singleTagGestureRecognizerHandler(_:)))
+        
+        pollOptionSubscription = NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: pollOptionView.optionTextField)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                guard let self = self else { return }
+                guard let textField = notification.object as? UITextField else { return }
+                self.pollOption.send(textField.text ?? "")
+            }
+        pollOptionView.optionTextField.deleteBackwardDelegate = self
+        pollOptionView.optionTextField.delegate = self
+    }
+    
+    private func setupBorderColor() {
+        pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
+        pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupBorderColor()
+    }
+    
+}
+
+extension ComposeStatusPollOptionCollectionViewCell {
+
+    @objc private func singleTagGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        pollOptionView.optionTextField.becomeFirstResponder()
+    }
+    
+}
+
+// MARK: - DeleteBackwardResponseTextFieldDelegate
+extension ComposeStatusPollOptionCollectionViewCell: DeleteBackwardResponseTextFieldDelegate {
+    func deleteBackwardResponseTextField(_ textField: DeleteBackwardResponseTextField, textBeforeDelete: String?) {
+        delegate?.composeStatusPollOptionCollectionViewCell(self, textBeforeDeleteBackward: textBeforeDelete)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension ComposeStatusPollOptionCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        if textField === pollOptionView.optionTextField {
+            delegate?.composeStatusPollOptionCollectionViewCell(self, pollOptionTextFieldDidReturn: textField)
+        }
+        return true
+    }
+}
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct ComposeStatusPollOptionCollectionViewCell_Previews: PreviewProvider {
+    
+    static var controls: some View {
+        Group {
+            UIViewPreview() {
+                let cell = ComposeStatusPollOptionCollectionViewCell()
+                return cell
+            }
+            .previewLayout(.fixed(width: 375, height: 44 + 10))
+        }
+    }
+    
+    static var previews: some View {
+        Group {
+            controls.colorScheme(.light)
+            controls.colorScheme(.dark)
+        }
+        .background(Color.gray)
+    }
+    
+}
+
+#endif

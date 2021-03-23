@@ -8,6 +8,7 @@
 import Foundation
 import MastodonSDK
 
+/// Note: update Equatable when change case
 enum CategoryPickerItem {
     case all
     case category(category: Mastodon.Entity.Category)

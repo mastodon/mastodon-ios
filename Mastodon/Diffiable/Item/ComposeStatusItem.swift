@@ -9,11 +9,16 @@ import Foundation
 import Combine
 import CoreData
 
+/// Note: update Equatable when change case
 enum ComposeStatusItem {
     case replyTo(statusObjectID: NSManagedObjectID)
     case input(replyToStatusObjectID: NSManagedObjectID?, attribute: ComposeStatusAttribute)
     case attachment(attachmentService: MastodonAttachmentService)
+    case poll(attribute: ComposePollAttribute)
+    case newPoll
 }
+
+extension ComposeStatusItem: Equatable { }
 
 extension ComposeStatusItem: Hashable { }
 
@@ -31,6 +36,23 @@ extension ComposeStatusItem {
                 lhs.displayName.value == rhs.displayName.value &&
                 lhs.username.value  == rhs.username.value &&
                 lhs.composeContent.value == rhs.composeContent.value
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
+}
+
+extension ComposeStatusItem {
+    final class ComposePollAttribute: Equatable, Hashable {
+        private let id = UUID()
+        
+        let option = CurrentValueSubject<String, Never>("")
+        
+        static func == (lhs: ComposePollAttribute, rhs: ComposePollAttribute) -> Bool {
+            return lhs.id == rhs.id &&
+                lhs.option.value == rhs.option.value
         }
         
         func hash(into hasher: inout Hasher) {

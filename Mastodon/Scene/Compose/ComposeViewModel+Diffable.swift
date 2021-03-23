@@ -14,7 +14,9 @@ extension ComposeViewModel {
         for collectionView: UICollectionView,
         dependency: NeedsDependency,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
-        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
+        composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
+        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusNewPollOptionCollectionViewCellDelegate
     ) {
         let diffableDataSource = ComposeStatusSection.collectionViewDiffableDataSource(
             for: collectionView,
@@ -22,7 +24,9 @@ extension ComposeViewModel {
             managedObjectContext: context.managedObjectContext,
             composeKind: composeKind,
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
-            composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate
+            composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate,
+            composeStatusPollOptionCollectionViewCellDelegate: composeStatusPollOptionCollectionViewCellDelegate,
+            composeStatusNewPollOptionCollectionViewCellDelegate: composeStatusNewPollOptionCollectionViewCellDelegate
         )
 
         // Note: do not allow reorder due to the images display order following the upload time
@@ -48,7 +52,7 @@ extension ComposeViewModel {
         
         self.diffableDataSource = diffableDataSource
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
-        snapshot.appendSections([.repliedTo, .status, .attachment])
+        snapshot.appendSections([.repliedTo, .status, .attachment, .poll])
         switch composeKind {
         case .reply(let statusObjectID):
             snapshot.appendItems([.replyTo(statusObjectID: statusObjectID)], toSection: .repliedTo)

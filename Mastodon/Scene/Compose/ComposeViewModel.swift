@@ -19,6 +19,7 @@ final class ComposeViewModel {
     let context: AppContext
     let composeKind: ComposeStatusSection.ComposeKind
     let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
+    let isPollComposing = CurrentValueSubject<Bool, Never>(false)
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     
@@ -41,12 +42,17 @@ final class ComposeViewModel {
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
     let isPublishBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
+    let isMediaToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
+    let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     
     // custom emojis
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
     
     // attachment
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
+    
+    // polls
+    let pollAttributes = CurrentValueSubject<[ComposeStatusItem.ComposePollAttribute], Never>([])
     
     init(
         context: AppContext,
@@ -137,47 +143,89 @@ final class ComposeViewModel {
             }
             .store(in: &disposeBag)
         
-        // bind snapshot and drive service upload state
-        attachmentServices
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] attachmentServices in
-                guard let self = self else { return }
-                guard let diffableDataSource = self.diffableDataSource else { return }
-                var snapshot = diffableDataSource.snapshot()
-                
-                snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .attachment))
-                var items: [ComposeStatusItem] = []
-                for attachmentService in attachmentServices {
-                    let item = ComposeStatusItem.attachment(attachmentService: attachmentService)
-                    items.append(item)
+        // bind snapshot
+        Publishers.CombineLatest3(
+            attachmentServices.eraseToAnyPublisher(),
+            isPollComposing.eraseToAnyPublisher(),
+            pollAttributes.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] attachmentServices, isPollComposing, pollAttributes in
+            guard let self = self else { return }
+            guard let diffableDataSource = self.diffableDataSource else { return }
+            var snapshot = diffableDataSource.snapshot()
+            
+            snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .attachment))
+            var attachmentItems: [ComposeStatusItem] = []
+            for attachmentService in attachmentServices {
+                let item = ComposeStatusItem.attachment(attachmentService: attachmentService)
+                attachmentItems.append(item)
+            }
+            snapshot.appendItems(attachmentItems, toSection: .attachment)
+            
+            snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .poll))
+            if isPollComposing {
+                var pollItems: [ComposeStatusItem] = []
+                for pollAttribute in pollAttributes {
+                    let item = ComposeStatusItem.poll(attribute: pollAttribute)
+                    pollItems.append(item)
                 }
-                snapshot.appendItems(items, toSection: .attachment)
-                
-                diffableDataSource.apply(snapshot)
-                
-                // make image upload in the queue
-                for attachmentService in attachmentServices {
-                    // skip when prefix N task when task finish OR fail OR uploading
-                    guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
-                    if currentState is MastodonAttachmentService.UploadState.Fail {
-                        continue
-                    }
-                    if currentState is MastodonAttachmentService.UploadState.Finish {
-                        continue
-                    }
-                    if currentState is MastodonAttachmentService.UploadState.Uploading {
-                        break
-                    }
-                    // trigger uploading one by one
-                    if currentState is MastodonAttachmentService.UploadState.Initial {
-                        attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
-                        break
-                    }
+                snapshot.appendItems(pollItems, toSection: .poll)
+                if pollAttributes.count < 4 {
+                    snapshot.appendItems([ComposeStatusItem.newPoll], toSection: .poll)
                 }
             }
-            .store(in: &disposeBag)
+            
+            diffableDataSource.apply(snapshot)
+            
+            // drive service upload state
+            // make image upload in the queue
+            for attachmentService in attachmentServices {
+                // skip when prefix N task when task finish OR fail OR uploading
+                guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
+                if currentState is MastodonAttachmentService.UploadState.Fail {
+                    continue
+                }
+                if currentState is MastodonAttachmentService.UploadState.Finish {
+                    continue
+                }
+                if currentState is MastodonAttachmentService.UploadState.Uploading {
+                    break
+                }
+                // trigger uploading one by one
+                if currentState is MastodonAttachmentService.UploadState.Initial {
+                    attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
+                    break
+                }
+            }
+        }
+        .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            isPollComposing.eraseToAnyPublisher(),
+            attachmentServices.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink(receiveValue: { [weak self] isPollComposing, attachmentServices in
+            guard let self = self else { return }
+            let shouldMediaDisable = isPollComposing || attachmentServices.count >= 4
+            let shouldPollDisable = attachmentServices.count > 0
+            
+            self.isMediaToolbarButtonEnabled.value = !shouldMediaDisable
+            self.isPollToolbarButtonEnabled.value = !shouldPollDisable
+        })
+        .store(in: &disposeBag)
     }
     
+}
+
+extension ComposeViewModel {
+    func createNewPollOptionIfPossible() {
+        guard pollAttributes.value.count < 4 else { return }
+        
+        let attribute = ComposeStatusItem.ComposePollAttribute()
+        pollAttributes.value = pollAttributes.value + [attribute]
+    }
 }
 
 // MARK: - MastodonAttachmentServiceDelegate

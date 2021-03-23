@@ -16,6 +16,7 @@ enum ComposeStatusSection: Equatable, Hashable {
     case repliedTo
     case status
     case attachment
+    case poll
 }
 
 extension ComposeStatusSection {
@@ -33,7 +34,9 @@ extension ComposeStatusSection {
         managedObjectContext: NSManagedObjectContext,
         composeKind: ComposeKind,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
-        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
+        composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
+        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusNewPollOptionCollectionViewCellDelegate
     ) -> UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
@@ -54,11 +57,11 @@ extension ComposeStatusSection {
                 }
                 ComposeStatusSection.configure(cell: cell, attribute: attribute)
                 cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
-                // self size input cell
                 cell.composeContent
                     .removeDuplicates()
                     .receive(on: DispatchQueue.main)
                     .sink { text in
+                        // self size input cell
                         collectionView.collectionViewLayout.invalidateLayout()
                         // bind input data
                         attribute.composeContent.value = text
@@ -123,6 +126,19 @@ extension ComposeStatusSection {
                     attachmentService.description.value = text
                 }
                 .store(in: &cell.disposeBag)
+                return cell
+            case .poll(let attribute):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusPollOptionCollectionViewCell
+                cell.pollOptionView.optionTextField.text = attribute.option.value
+                cell.pollOption
+                    .receive(on: DispatchQueue.main)
+                    .assign(to: \.value, on: attribute.option)
+                    .store(in: &cell.disposeBag)
+                cell.delegate = composeStatusPollOptionCollectionViewCellDelegate
+                return cell
+            case .newPoll:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusNewPollOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusNewPollOptionCollectionViewCell
+                cell.delegate = composeStatusNewPollOptionCollectionViewCellDelegate
                 return cell
             }
         }

@@ -5,14 +5,15 @@
 //  Created by MainasuK Cirno on 2021-3-12.
 //
 
+import os.log
 import UIKit
 
 protocol ComposeToolbarViewDelegate: class {
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, atButtonDidPressed sender: UIButton)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, topicButtonDidPressed sender: UIButton)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, locationButtonDidPressed sender: UIButton)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton)
 }
 
 final class ComposeToolbarView: UIView {
@@ -102,10 +103,10 @@ extension ComposeToolbarView {
         
         mediaButton.menu = createMediaContextMenu()
         mediaButton.showsMenuAsPrimaryAction = true
-        pollButton.addTarget(self, action: #selector(ComposeToolbarView.gifButtonDidPressed(_:)), for: .touchUpInside)
-        emojiButton.addTarget(self, action: #selector(ComposeToolbarView.atButtonDidPressed(_:)), for: .touchUpInside)
-        contentWarningButton.addTarget(self, action: #selector(ComposeToolbarView.topicButtonDidPressed(_:)), for: .touchUpInside)
-        visibilityButton.addTarget(self, action: #selector(ComposeToolbarView.locationButtonDidPressed(_:)), for: .touchUpInside)
+        pollButton.addTarget(self, action: #selector(ComposeToolbarView.pollButtonDidPressed(_:)), for: .touchUpInside)
+        emojiButton.addTarget(self, action: #selector(ComposeToolbarView.emojiButtonDidPressed(_:)), for: .touchUpInside)
+        contentWarningButton.addTarget(self, action: #selector(ComposeToolbarView.contentWarningButtonDidPressed(_:)), for: .touchUpInside)
+        visibilityButton.addTarget(self, action: #selector(ComposeToolbarView.visibilityButtonDidPressed(_:)), for: .touchUpInside)
     }
 }
 
@@ -131,18 +132,21 @@ extension ComposeToolbarView {
         var children: [UIMenuElement] = []
         let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibaray", ((#file as NSString).lastPathComponent), #line, #function)
             self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .photoLibrary)
         }
         children.append(photoLibraryAction)
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
                 guard let self = self else { return }
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .camera", ((#file as NSString).lastPathComponent), #line, #function)
                 self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .camera)
             })
             children.append(cameraAction)
         }
         let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .browse", ((#file as NSString).lastPathComponent), #line, #function)
             self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .browse)
         }
         children.append(browseAction)
@@ -155,20 +159,24 @@ extension ComposeToolbarView {
 
 extension ComposeToolbarView {
     
-    @objc private func gifButtonDidPressed(_ sender: UIButton) {
-        delegate?.composeToolbarView(self, gifButtonDidPressed: sender)
+    @objc private func pollButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.composeToolbarView(self, pollButtonDidPressed: sender)
     }
     
-    @objc private func atButtonDidPressed(_ sender: UIButton) {
-        delegate?.composeToolbarView(self, atButtonDidPressed: sender)
+    @objc private func emojiButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.composeToolbarView(self, emojiButtonDidPressed: sender)
     }
     
-    @objc private func topicButtonDidPressed(_ sender: UIButton) {
-        delegate?.composeToolbarView(self, topicButtonDidPressed: sender)
+    @objc private func contentWarningButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.composeToolbarView(self, contentWarningButtonDidPressed: sender)
     }
     
-    @objc private func locationButtonDidPressed(_ sender: UIButton) {
-        delegate?.composeToolbarView(self, locationButtonDidPressed: sender)
+    @objc private func visibilityButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.composeToolbarView(self, visibilityButtonDidPressed: sender)
     }
     
 }

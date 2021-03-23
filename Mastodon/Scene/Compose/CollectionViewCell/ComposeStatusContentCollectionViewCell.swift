@@ -66,7 +66,7 @@ extension ComposeStatusContentCollectionViewCell {
             textEditorView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
             textEditorView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             textEditorView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: textEditorView.bottomAnchor, constant: 20),
+            contentView.bottomAnchor.constraint(equalTo: textEditorView.bottomAnchor, constant: 10),
             textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         textEditorView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
