@@ -104,19 +104,48 @@ final class ComposeViewModel {
             .map { services in
                 services.allSatisfy { $0.uploadStateMachineSubject.value is MastodonAttachmentService.UploadState.Finish }
             }
-        Publishers.CombineLatest4(
+        let isPollAttributeAllValid = pollAttributes
+            .map { pollAttributes in
+                pollAttributes.allSatisfy { attribute -> Bool in
+                    !attribute.option.value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                }
+            }
+        
+        let isPublishBarButtonItemEnabledPrecondition1 = Publishers.CombineLatest4(
             isComposeContentEmpty.eraseToAnyPublisher(),
             isComposeContentValid.eraseToAnyPublisher(),
             isMediaEmpty.eraseToAnyPublisher(),
             isMediaUploadAllSuccess.eraseToAnyPublisher()
         )
-        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess in
+        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess -> Bool in
             if isMediaEmpty {
                 return isComposeContentValid && !isComposeContentEmpty
             } else {
                 return isComposeContentValid && isMediaUploadAllSuccess
             }
         }
+        .eraseToAnyPublisher()
+
+        let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest4(
+            isComposeContentEmpty.eraseToAnyPublisher(),
+            isComposeContentValid.eraseToAnyPublisher(),
+            isPollComposing.eraseToAnyPublisher(),
+            isPollAttributeAllValid.eraseToAnyPublisher()
+        )
+        .map { isComposeContentEmpty, isComposeContentValid, isPollComposing, isPollAttributeAllValid -> Bool in
+            if isPollComposing {
+                return isComposeContentValid && !isComposeContentEmpty && isPollAttributeAllValid
+            } else {
+                return isComposeContentValid && !isComposeContentEmpty
+            }
+        }
+        .eraseToAnyPublisher()
+        
+        Publishers.CombineLatest(
+            isPublishBarButtonItemEnabledPrecondition1,
+            isPublishBarButtonItemEnabledPrecondition2
+        )
+        .map { $0 && $1 }
         .assign(to: \.value, on: isPublishBarButtonItemEnabled)
         .store(in: &disposeBag)
         
@@ -201,6 +230,22 @@ final class ComposeViewModel {
         }
         .store(in: &disposeBag)
         
+        // bind delegate
+        attachmentServices
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                attachmentServices.forEach { $0.delegate = self }
+            }
+            .store(in: &disposeBag)
+        
+        pollAttributes
+            .sink { [weak self] pollAttributes in
+                guard let self = self else { return }
+                pollAttributes.forEach { $0.delegate = self }
+            }
+            .store(in: &disposeBag)
+        
+        // bind compose toolbar UI state
         Publishers.CombineLatest(
             isPollComposing.eraseToAnyPublisher(),
             attachmentServices.eraseToAnyPublisher()
@@ -233,5 +278,13 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
     func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?) {
         // trigger new output event
         attachmentServices.value = attachmentServices.value
+    }
+}
+
+// MARK: - ComposeStatusAttributeDelegate
+extension ComposeViewModel: ComposeStatusItemDelegate {
+    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollAttribute, pollOptionDidChange: String?) {
+        // trigger update
+        pollAttributes.value = pollAttributes.value
     }
 }

@@ -25,7 +25,7 @@ extension ComposeStatusItem: Hashable { }
 extension ComposeStatusItem {
     final class ComposeStatusAttribute: Equatable, Hashable {
         private let id = UUID()
-        
+                
         let avatarURL = CurrentValueSubject<URL?, Never>(nil)
         let displayName = CurrentValueSubject<String?, Never>(nil)
         let username = CurrentValueSubject<String?, Never>(nil)
@@ -44,11 +44,31 @@ extension ComposeStatusItem {
     }
 }
 
+protocol ComposeStatusItemDelegate: class {
+    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollAttribute, pollOptionDidChange: String?)
+}
+
 extension ComposeStatusItem {
     final class ComposePollAttribute: Equatable, Hashable {
         private let id = UUID()
         
+        var disposeBag = Set<AnyCancellable>()
+        weak var delegate: ComposeStatusItemDelegate?
+
         let option = CurrentValueSubject<String, Never>("")
+        
+        init() {
+            option
+                .sink { [weak self] option in
+                    guard let self = self else { return }
+                    self.delegate?.composePollAttribute(self, pollOptionDidChange: option)
+                }
+                .store(in: &disposeBag)
+        }
+        
+        deinit {
+            disposeBag.removeAll()
+        }
         
         static func == (lhs: ComposePollAttribute, rhs: ComposePollAttribute) -> Bool {
             return lhs.id == rhs.id &&

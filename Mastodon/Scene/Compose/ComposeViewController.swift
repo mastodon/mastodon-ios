@@ -629,7 +629,6 @@ extension ComposeViewController: PHPickerViewControllerDelegate {
                 pickerResult: result,
                 initalAuthenticationBox: viewModel.activeAuthenticationBox.value
             )
-            service.delegate = viewModel
             return service
         }
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + attachmentServices
@@ -649,7 +648,6 @@ extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationC
             image: image,
             initalAuthenticationBox: viewModel.activeAuthenticationBox.value
         )
-        attachmentService.delegate = viewModel
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
     
@@ -673,7 +671,6 @@ extension ComposeViewController: UIDocumentPickerDelegate {
                 imageData: imageData,
                 initalAuthenticationBox: viewModel.activeAuthenticationBox.value
             )
-            attachmentService.delegate = viewModel
             viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
         } catch {
             os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
