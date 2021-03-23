@@ -54,5 +54,6 @@ arch -x86_64 pod install
 - [SwiftGen](https://github.com/SwiftGen/SwiftGen)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [TwitterTextEditor](https://github.com/twitter/TwitterTextEditor)
+- [UITextView-Placeholder](https://github.com/devxoul/UITextView-Placeholder)
 
 ## License

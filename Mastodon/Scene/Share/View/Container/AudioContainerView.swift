@@ -22,7 +22,7 @@ final class AudioContainerView: UIView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layer.cornerRadius = AudioContainerView.cornerRadius
         stackView.clipsToBounds = true
-        stackView.backgroundColor = Asset.Colors.Button.highlight.color
+        stackView.backgroundColor = Asset.Colors.Background.AudioPlayer.highlight.color
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -31,7 +31,7 @@ final class AudioContainerView: UIView {
         let view = UIView()
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
-        view.backgroundColor = Asset.Colors.Button.highlight.color
+        view.backgroundColor = Asset.Colors.Background.AudioPlayer.highlight.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -109,3 +109,20 @@ extension AudioContainerView {
         ])
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct AudioContainerView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewPreview(width: 375) {
+            AudioContainerView()
+        }
+        .previewLayout(.fixed(width: 375, height: 100))
+    }
+    
+}
+
+#endif
+

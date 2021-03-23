@@ -8,8 +8,9 @@
 import os.log
 import UIKit
 import Combine
-import TwitterTextEditor
+import PhotosUI
 import Kingfisher
+import TwitterTextEditor
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -21,7 +22,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     private var suffixedAttachmentViews: [UIView] = []
     
-    let composeTootBarButtonItem: UIBarButtonItem = {
+    let publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
@@ -31,17 +32,21 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setTitleColor(.white, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
         button.adjustsImageWhenHighlighted = false
-        let barButtonItem = UIBarButtonItem(customView: button)
+        return button
+    }()
+    private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(customView: publishButton)
         return barButtonItem
     }()
     
-    let tableView: UITableView = {
-        let tableView = ControlContainableTableView()
-        tableView.register(ComposeRepliedToTootContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self))
-        tableView.register(ComposeTootContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeTootContentTableViewCell.self))
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        return tableView
+    let collectionView: UICollectionView = {
+        let collectionViewLayout = ComposeViewController.createLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.register(ComposeRepliedToTootContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self))
+        collectionView.register(ComposeStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self))
+        collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
+        collectionView.backgroundColor = Asset.Colors.Background.systemBackground.color
+        return collectionView
     }()
     
     let composeToolbarView: ComposeToolbarView = {
@@ -56,6 +61,42 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return backgroundView
     }()
     
+    private(set) lazy var imagePicker: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 4
+
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
+    }()
+    private(set) lazy var imagePickerController: UIImagePickerController = {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .camera
+        imagePickerController.delegate = self
+        return imagePickerController
+    }()
+    
+    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
+        let documentPickerController = UIDocumentPickerViewController(documentTypes: ["public.image"], in: .open)
+        documentPickerController.delegate = self
+        return documentPickerController
+    }()
+    
+}
+
+extension ComposeViewController {
+    private static func createLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsetsReference = .readableContent
+        // section.interGroupSpacing = 10
+        // section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+        return UICollectionViewCompositionalLayout(section: section)
+    }
 }
 
 extension ComposeViewController {
@@ -72,15 +113,16 @@ extension ComposeViewController {
             .store(in: &disposeBag)
         view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
-        navigationItem.rightBarButtonItem = composeTootBarButtonItem
+        navigationItem.rightBarButtonItem = publishBarButtonItem
+        publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,11 +146,15 @@ extension ComposeViewController {
             view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
         ])
         
-        tableView.delegate = self
+        collectionView.delegate = self
+        // Note: do not allow reorder due to the images display order following the upload time
+        // let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
+        // collectionView.addGestureRecognizer(longPressReorderGesture)
         viewModel.setupDiffableDataSource(
-            for: tableView,
+            for: collectionView,
             dependency: self,
-            textEditorViewTextAttributesDelegate: self
+            textEditorViewTextAttributesDelegate: self,
+            composeStatusAttachmentTableViewCellDelegate: self
         )
         
         // respond scrollView overlap change
@@ -121,45 +167,45 @@ extension ComposeViewController {
         )
         .sink(receiveValue: { [weak self] isShow, state, endFrame in
             guard let self = self else { return }
-            
+
             guard isShow, state == .dock else {
-                self.tableView.contentInset.bottom = 0.0
-                self.tableView.verticalScrollIndicatorInsets.bottom = 0.0
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
                 UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = 0.0
+                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
                 return
             }
 
             // isShow AND dock state
-            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
+            let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
-                self.tableView.contentInset.bottom = 0.0
-                self.tableView.verticalScrollIndicatorInsets.bottom = 0.0
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
                 UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = 0.0
+                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
                 return
             }
 
             // add 16pt margin
-            self.tableView.contentInset.bottom = padding + 16
-            self.tableView.verticalScrollIndicatorInsets.bottom = padding + 16
+            self.collectionView.contentInset.bottom = padding + 16
+            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + 16
             UIView.animate(withDuration: 0.3) {
                 self.composeToolbarViewBottomLayoutConstraint.constant = padding
                 self.view.layoutIfNeeded()
             }
         })
         .store(in: &disposeBag)
-        
-        viewModel.isComposeTootBarButtonItemEnabled
+
+        viewModel.isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: composeTootBarButtonItem)
+            .assign(to: \.isEnabled, on: publishBarButtonItem)
             .store(in: &disposeBag)
-        
+
         // bind custom emojis
         viewModel.customEmojiViewModel
             .compactMap { $0?.emojis }
@@ -172,6 +218,16 @@ extension ComposeViewController {
                 }
                 self.textEditorView()?.setNeedsUpdateTextAttributes()
             })
+            .store(in: &disposeBag)
+
+        // bind image picker toolbar state
+        viewModel.attachmentServices
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
+                self.resetImagePicker()
+            }
             .store(in: &disposeBag)
     }
     
@@ -196,7 +252,7 @@ extension ComposeViewController {
             switch item {
             case .input:
                 guard let indexPath = diffableDataSource.indexPath(for: item),
-                      let cell = tableView.cellForRow(at: indexPath) as? ComposeTootContentTableViewCell else {
+                      let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusContentCollectionViewCell else {
                     continue
                 }
                 return cell.textEditorView
@@ -227,6 +283,22 @@ extension ComposeViewController {
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    private func resetImagePicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        let selectionLimit = max(1, 4 - viewModel.attachmentServices.value.count)
+        configuration.selectionLimit = selectionLimit
+        
+        imagePicker = createImagePicker(configuration: configuration)
+    }
+    
+    private func createImagePicker(configuration: PHPickerConfiguration) -> PHPickerViewController {
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
+    }
+    
 }
 
 extension ComposeViewController {
@@ -239,6 +311,44 @@ extension ComposeViewController {
         }
         dismiss(animated: true, completion: nil)
     }
+    
+    @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard viewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self) else {
+            // TODO: handle error
+            return
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    /* Do not allow reorder image due to image display order following the update time
+    @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
+        switch(sender.state) {
+        case .began:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)) else {
+                break
+            }
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
+                  let diffableDataSource = viewModel.diffableDataSource else {
+                break
+            }
+            guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
+                  case .attachment = item else {
+                collectionView.cancelInteractiveMovement()
+                return
+            }
+
+            collectionView.updateInteractiveMovementTargetPosition(sender.location(in: collectionView))
+        case .ended:
+            collectionView.endInteractiveMovement()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+     */
     
 }
 
@@ -280,32 +390,12 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                 attributedString.addAttribute(.foregroundColor, value: Asset.Colors.Label.primary.color, range: stringRange)
                 attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: stringRange)
 
+                // hashtag
                 for match in highlightMatches {
-                    // hashtag
-                    if let name = string.substring(with: match, at: 2) {
-                       let attachment: TextAttributes.SuffixedAttachment?
-                        switch name {
-                        // FIXME:
-                        case "person":
-                            attachment = .init(size: CGSize(width: 20.0, height: 20.0),
-                                               attachment: .image(UIImage(systemName: "person")!))
-                        default:
-                            attachment = nil
-                        }
-
-                        if let attachment = attachment {
-                            let index = match.range.upperBound - 1
-                            attributedString.addAttribute(
-                                .suffixedAttachment,
-                                value: attachment,
-                                range: NSRange(location: index, length: 1)
-                            )
-                        }
-                    }
-
                     // set highlight
                     var attributes = [NSAttributedString.Key: Any]()
                     attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    
                     // See `traitCollectionDidChange(_:)`
                     // set accessibility
                     if #available(iOS 13.0, *) {
@@ -319,6 +409,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     attributedString.addAttributes(attributes, range: match.range)
                 }
                 
+                // emoji
                 let emojis = customEmojiViewModel?.emojis.value ?? []
                 if !emojis.isEmpty {
                     for match in emojiMatches {
@@ -366,25 +457,26 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     }
                 }
                 
+                // url
                 for match in urlMatches {
-                    if let name = string.substring(with: match, at: 0) {
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
-                        
-                        // set highlight
-                        var attributes = [NSAttributedString.Key: Any]()
-                        attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
-                        // See `traitCollectionDidChange(_:)`
-                        // set accessibility
-                        if #available(iOS 13.0, *) {
-                            switch self.traitCollection.accessibilityContrast {
-                            case .high:
-                                attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
-                            default:
-                                break
-                            }
+                    guard let name = string.substring(with: match, at: 0) else { continue }
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
+                    
+                    // set highlight
+                    var attributes = [NSAttributedString.Key: Any]()
+                    attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    
+                    // See `traitCollectionDidChange(_:)`
+                    // set accessibility
+                    if #available(iOS 13.0, *) {
+                        switch self.traitCollection.accessibilityContrast {
+                        case .high:
+                            attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+                        default:
+                            break
                         }
-                        attributedString.addAttributes(attributes, range: match.range)
                     }
+                    attributedString.addAttributes(attributes, range: match.range)
                 }
                 
                 completion(attributedString)
@@ -394,13 +486,19 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
     
 }
 
-
-
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, mediaSelectionType.rawValue)
+        switch mediaSelectionType {
+        case .photoLibrary:
+            present(imagePicker, animated: true, completion: nil)
+        case .camera:
+            present(imagePickerController, animated: true, completion: nil)
+        case .browse:
+            present(documentPickerController, animated: true, completion: nil)
+        }
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton) {
@@ -422,10 +520,8 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
 }
 
 // MARK: - UITableViewDelegate
-extension ComposeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+extension ComposeViewController: UICollectionViewDelegate {
+    
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -443,6 +539,86 @@ extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension ComposeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        let attachmentServices: [MastodonAttachmentService] = results.map { result in
+            let service = MastodonAttachmentService(
+                context: context,
+                pickerResult: result,
+                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            )
+            service.delegate = viewModel
+            return service
+        }
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + attachmentServices
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        let attachmentService = MastodonAttachmentService(
+            context: context,
+            image: image,
+            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+        )
+        attachmentService.delegate = viewModel
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIDocumentPickerDelegate
+extension ComposeViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+        
+        do {
+            guard url.startAccessingSecurityScopedResource() else { return }
+            defer { url.stopAccessingSecurityScopedResource() }
+            let imageData = try Data(contentsOf: url)
+            let attachmentService = MastodonAttachmentService(
+                context: context,
+                imageData: imageData,
+                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            )
+            attachmentService.delegate = viewModel
+            viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
+        } catch {
+            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - ComposeStatusAttachmentTableViewCellDelegate
+extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelegate {
+    
+    func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard case let .attachment(attachmentService) = item else { return }
+        
+        var attachmentServices = viewModel.attachmentServices.value
+        guard let index = attachmentServices.firstIndex(of: attachmentService) else { return }
+        attachmentServices.remove(at: index)
+        viewModel.attachmentServices.value = attachmentServices
     }
     
 }

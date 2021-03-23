@@ -148,6 +148,28 @@ internal enum L10n {
       internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
       /// Type or paste what's on your mind
       internal static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder")
+      internal enum Attachment {
+        /// This %@ is broken and can't be\nuploaded to Mastodon.
+        internal static func attachmentBroken(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentBroken", String(describing: p1))
+        }
+        /// Describe photo for low vision people...
+        internal static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto")
+        /// Describe what’s happening for low vision people...
+        internal static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo")
+        /// photo
+        internal static let photo = L10n.tr("Localizable", "Scene.Compose.Attachment.Photo")
+        /// video
+        internal static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
+      }
+      internal enum MediaSelection {
+        /// Browse
+        internal static let browse = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Browse")
+        /// Take Photo
+        internal static let camera = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Camera")
+        /// Photo Library
+        internal static let photoLibrary = L10n.tr("Localizable", "Scene.Compose.MediaSelection.PhotoLibrary")
+      }
       internal enum Title {
         /// New Post
         internal static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost")

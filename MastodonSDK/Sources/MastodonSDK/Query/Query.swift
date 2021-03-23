@@ -35,6 +35,7 @@ extension RequestQuery where Self: Encodable {
     }
 }
 
+// GET
 protocol GetQuery: RequestQuery { }
 
 extension GetQuery {
@@ -43,6 +44,7 @@ extension GetQuery {
     var contentType: String? { nil }
 }
 
+// POST
 protocol PostQuery: RequestQuery { }
 
 extension PostQuery {
@@ -50,10 +52,9 @@ extension PostQuery {
     var queryItems: [URLQueryItem]? { nil }
 }
 
+// PATCH
 protocol PatchQuery: RequestQuery { }
 
-extension PatchQuery {
-    // By default a `PatchQuery` does not has query items
-    var queryItems: [URLQueryItem]? { nil }
-}
+// PUT
+protocol PutQuery: RequestQuery { }
 

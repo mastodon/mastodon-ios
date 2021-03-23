@@ -39,8 +39,17 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
+"Scene.Compose.Attachment.AttachmentBroken" = "This %@ is broken and can't be
+uploaded to Mastodon.";
+"Scene.Compose.Attachment.DescriptionPhoto" = "Describe photo for low vision people...";
+"Scene.Compose.Attachment.DescriptionVideo" = "Describe what’s happening for low vision people...";
+"Scene.Compose.Attachment.Photo" = "photo";
+"Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.ComposeAction" = "Publish";
 "Scene.Compose.ContentInputPlaceholder" = "Type or paste what's on your mind";
+"Scene.Compose.MediaSelection.Browse" = "Browse";
+"Scene.Compose.MediaSelection.Camera" = "Take Photo";
+"Scene.Compose.MediaSelection.PhotoLibrary" = "Photo Library";
 "Scene.Compose.Title.NewPost" = "New Post";
 "Scene.Compose.Title.NewReply" = "New Reply";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "I never got an email";

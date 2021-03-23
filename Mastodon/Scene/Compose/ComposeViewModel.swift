@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import GameplayKit
 
 final class ComposeViewModel {
     
@@ -18,20 +19,34 @@ final class ComposeViewModel {
     let context: AppContext
     let composeKind: ComposeStatusSection.ComposeKind
     let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
-    let composeContent = CurrentValueSubject<String, Never>("")
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
+    let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     
     // output
-    var diffableDataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    //var diffableDataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    private(set) lazy var publishStateMachine: GKStateMachine = {
+        // exclude timeline middle fetcher state
+        let stateMachine = GKStateMachine(states: [
+            PublishState.Initial(viewModel: self),
+            PublishState.Publishing(viewModel: self),
+            PublishState.Fail(viewModel: self),
+            PublishState.Finish(viewModel: self),
+        ])
+        stateMachine.enter(PublishState.Initial.self)
+        return stateMachine
+    }()
     
     // UI & UX
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
-    let isComposeTootBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
+    let isPublishBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
     
     // custom emojis
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
     
+    // attachment
+    let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
     
     init(
         context: AppContext,
@@ -44,11 +59,15 @@ final class ComposeViewModel {
         case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
+        self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
         
         // bind active authentication
         context.authenticationService.activeMastodonAuthentication
             .assign(to: \.value, on: activeAuthentication)
+            .store(in: &disposeBag)
+        context.authenticationService.activeMastodonAuthenticationBox
+            .assign(to: \.value, on: activeAuthenticationBox)
             .store(in: &disposeBag)
         
         // bind avatar and names
@@ -70,14 +89,30 @@ final class ComposeViewModel {
             .store(in: &disposeBag)
         
         // bind compose bar button item UI state
-        composeStatusAttribute.composeContent
-            .receive(on: DispatchQueue.main)
-            .map { content in
-                let content = content?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                return !content.isEmpty
+        let isComposeContentEmpty = composeStatusAttribute.composeContent
+            .map { ($0 ?? "").isEmpty }
+        let isComposeContentValid = Just(true).eraseToAnyPublisher()
+        let isMediaEmpty = attachmentServices
+            .map { $0.isEmpty }
+        let isMediaUploadAllSuccess = attachmentServices
+            .map { services in
+                services.allSatisfy { $0.uploadStateMachineSubject.value is MastodonAttachmentService.UploadState.Finish }
             }
-            .assign(to: \.value, on: isComposeTootBarButtonItemEnabled)
-            .store(in: &disposeBag)
+        Publishers.CombineLatest4(
+            isComposeContentEmpty.eraseToAnyPublisher(),
+            isComposeContentValid.eraseToAnyPublisher(),
+            isMediaEmpty.eraseToAnyPublisher(),
+            isMediaUploadAllSuccess.eraseToAnyPublisher()
+        )
+        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess in
+            if isMediaEmpty {
+                return isComposeContentValid && !isComposeContentEmpty
+            } else {
+                return isComposeContentValid && isMediaUploadAllSuccess
+            }
+        }
+        .assign(to: \.value, on: isPublishBarButtonItemEnabled)
+        .store(in: &disposeBag)
         
         // bind modal dismiss state
         composeStatusAttribute.composeContent
@@ -101,6 +136,54 @@ final class ComposeViewModel {
                 self.customEmojiViewModel.value = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
             }
             .store(in: &disposeBag)
+        
+        // bind snapshot and drive service upload state
+        attachmentServices
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                guard let diffableDataSource = self.diffableDataSource else { return }
+                var snapshot = diffableDataSource.snapshot()
+                
+                snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .attachment))
+                var items: [ComposeStatusItem] = []
+                for attachmentService in attachmentServices {
+                    let item = ComposeStatusItem.attachment(attachmentService: attachmentService)
+                    items.append(item)
+                }
+                snapshot.appendItems(items, toSection: .attachment)
+                
+                diffableDataSource.apply(snapshot)
+                
+                // make image upload in the queue
+                for attachmentService in attachmentServices {
+                    // skip when prefix N task when task finish OR fail OR uploading
+                    guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
+                    if currentState is MastodonAttachmentService.UploadState.Fail {
+                        continue
+                    }
+                    if currentState is MastodonAttachmentService.UploadState.Finish {
+                        continue
+                    }
+                    if currentState is MastodonAttachmentService.UploadState.Uploading {
+                        break
+                    }
+                    // trigger uploading one by one
+                    if currentState is MastodonAttachmentService.UploadState.Initial {
+                        attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
+                        break
+                    }
+                }
+            }
+            .store(in: &disposeBag)
     }
     
+}
+
+// MARK: - MastodonAttachmentServiceDelegate
+extension ComposeViewModel: MastodonAttachmentServiceDelegate {
+    func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?) {
+        // trigger new output event
+        attachmentServices.value = attachmentServices.value
+    }
 }

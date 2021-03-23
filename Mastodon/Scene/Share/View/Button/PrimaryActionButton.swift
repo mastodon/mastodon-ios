@@ -38,8 +38,8 @@ extension PrimaryActionButton {
     private func _init() {
         titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         setTitleColor(.white, for: .normal)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.highlight.color), for: .normal)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.highlight.color.withAlphaComponent(0.5)), for: .highlighted)
+        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.normal.color), for: .normal)
+        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
         setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         applyCornerRadius(radius: 10)
     }

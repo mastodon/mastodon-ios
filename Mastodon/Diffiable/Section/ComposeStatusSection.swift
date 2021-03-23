@@ -10,10 +10,12 @@ import Combine
 import CoreData
 import CoreDataStack
 import TwitterTextEditor
+import AlamofireImage
 
 enum ComposeStatusSection: Equatable, Hashable {
     case repliedTo
     case status
+    case attachment
 }
 
 extension ComposeStatusSection {
@@ -24,21 +26,23 @@ extension ComposeStatusSection {
 }
 
 extension ComposeStatusSection {
-    static func tableViewDiffableDataSource(
-        for tableView: UITableView,
+    
+    static func collectionViewDiffableDataSource(
+        for collectionView: UICollectionView,
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         composeKind: ComposeKind,
-        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate
-    ) -> UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
-        UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>(tableView: tableView) { [weak textEditorViewTextAttributesDelegate] tableView, indexPath, item -> UITableViewCell? in
+        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate
+    ) -> UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
+        UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
             case .replyTo(let repliedToStatusObjectID):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToTootContentTableViewCell.self), for: indexPath) as! ComposeRepliedToTootContentTableViewCell
-                // TODO:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToTootContentCollectionViewCell
                 return cell
             case .input(let replyToTootObjectID, let attribute):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeTootContentTableViewCell.self), for: indexPath) as! ComposeTootContentTableViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
+                cell.textEditorView.text = attribute.composeContent.value ?? ""
                 managedObjectContext.perform {
                     guard let replyToTootObjectID = replyToTootObjectID,
                           let replyTo = managedObjectContext.object(with: replyToTootObjectID) as? Toot else {
@@ -52,12 +56,73 @@ extension ComposeStatusSection {
                 cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
                 // self size input cell
                 cell.composeContent
+                    .removeDuplicates()
                     .receive(on: DispatchQueue.main)
                     .sink { text in
-                        tableView.beginUpdates()
-                        tableView.endUpdates()
+                        collectionView.collectionViewLayout.invalidateLayout()
+                        // bind input data
+                        attribute.composeContent.value = text
                     }
                     .store(in: &cell.disposeBag)
+                return cell
+            case .attachment(let attachmentService):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self), for: indexPath) as! ComposeStatusAttachmentCollectionViewCell
+                cell.attachmentContainerView.descriptionTextView.text = attachmentService.description.value
+                cell.delegate = composeStatusAttachmentTableViewCellDelegate
+                attachmentService.imageData
+                    .receive(on: DispatchQueue.main)
+                    .sink { imageData in
+                        let size = cell.attachmentContainerView.previewImageView.frame.size != .zero ? cell.attachmentContainerView.previewImageView.frame.size : CGSize(width: 1, height: 1)
+                        guard let imageData = imageData,
+                              let image = UIImage(data: imageData) else {
+                            let placeholder = UIImage.placeholder(
+                                size: size,
+                                color: Asset.Colors.Background.systemGroupedBackground.color
+                            )
+                            .af.imageRounded(
+                                withCornerRadius: AttachmentContainerView.containerViewCornerRadius
+                            )
+                            cell.attachmentContainerView.previewImageView.image = placeholder
+                            return
+                        }
+                        cell.attachmentContainerView.previewImageView.image = image
+                            .af.imageAspectScaled(toFill: size)
+                            .af.imageRounded(withCornerRadius: AttachmentContainerView.containerViewCornerRadius)
+                    }
+                    .store(in: &cell.disposeBag)
+                Publishers.CombineLatest(
+                    attachmentService.uploadStateMachineSubject.eraseToAnyPublisher(),
+                    attachmentService.error.eraseToAnyPublisher()
+                )
+                .receive(on: DispatchQueue.main)
+                .sink { uploadState, error  in
+                    cell.attachmentContainerView.emptyStateView.isHidden = error == nil
+                    cell.attachmentContainerView.descriptionBackgroundView.isHidden = error != nil
+                    if let _ = error {
+                        cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                    } else {
+                        guard let uploadState = uploadState else { return }
+                        switch uploadState {
+                        case is MastodonAttachmentService.UploadState.Finish,
+                             is MastodonAttachmentService.UploadState.Fail:
+                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        default:
+                            break
+                        }
+                    }
+                }
+                .store(in: &cell.disposeBag)
+                NotificationCenter.default.publisher(
+                    for: UITextView.textDidChangeNotification,
+                    object: cell.attachmentContainerView.descriptionTextView
+                )
+                .receive(on: DispatchQueue.main)
+                .sink { notification in
+                    guard let textField = notification.object as? UITextView else { return }
+                    let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    attachmentService.description.value = text
+                }
+                .store(in: &cell.disposeBag)
                 return cell
             }
         }
@@ -66,7 +131,7 @@ extension ComposeStatusSection {
 
 extension ComposeStatusSection {
     static func configure(
-        cell: ComposeTootContentTableViewCell,
+        cell: ComposeStatusContentCollectionViewCell,
         attribute: ComposeStatusItem.ComposeStatusAttribute
     ) {
         // set avatar

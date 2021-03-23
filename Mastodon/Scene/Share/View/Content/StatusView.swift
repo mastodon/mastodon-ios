@@ -167,8 +167,8 @@ final class StatusView: UIView {
         let button = HitTestExpandedButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
-        button.setTitleColor(Asset.Colors.Button.highlight.color, for: .normal)
-        button.setTitleColor(Asset.Colors.Button.highlight.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
+        button.setTitleColor(Asset.Colors.Button.normal.color.withAlphaComponent(0.8), for: .highlighted)
         button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.isEnabled = false
         return button

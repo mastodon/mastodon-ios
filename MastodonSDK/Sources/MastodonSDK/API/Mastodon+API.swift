@@ -94,6 +94,7 @@ extension Mastodon.API {
     public enum CustomEmojis { }
     public enum Favorites { }
     public enum Instance { }
+    public enum Media { }
     public enum OAuth { }
     public enum Onboarding { }
     public enum Polls { }
@@ -126,6 +127,14 @@ extension Mastodon.API {
         authorization: OAuth.Authorization?
     ) -> URLRequest {
         return buildRequest(url: url, method: .PATCH, query: query, authorization: authorization)
+    }
+    
+    static func put(
+        url: URL,
+        query: PutQuery?,
+        authorization: OAuth.Authorization?
+    ) -> URLRequest {
+        return buildRequest(url: url, method: .PUT, query: query, authorization: authorization)
     }
 
     private static func buildRequest(

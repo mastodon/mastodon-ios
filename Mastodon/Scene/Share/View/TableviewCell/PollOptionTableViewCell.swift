@@ -35,7 +35,7 @@ final class PollOptionTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         let image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .bold))!
         imageView.image = image.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = Asset.Colors.Button.highlight.color
+        imageView.tintColor = Asset.Colors.Button.normal.color
         return imageView
     }()
     

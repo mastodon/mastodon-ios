@@ -194,8 +194,20 @@
                 "new_post": "New Post",
                 "new_reply": "New Reply"
             },
+            "media_selection": {
+                "camera": "Take Photo",
+                "photo_library": "Photo Library",
+                "browse": "Browse"
+            },
             "content_input_placeholder": "Type or paste what's on your mind",
-            "compose_action": "Publish"
+            "compose_action": "Publish",
+            "attachment": {
+                "photo": "photo",
+                "video": "video",
+                "attachment_broken": "This %s is broken and can't be\nuploaded to Mastodon.",
+                "description_photo": "Describe photo for low vision people...",
+                "description_video": "Describe what’s happening for low vision people..."
+            }
         }
     }
 }

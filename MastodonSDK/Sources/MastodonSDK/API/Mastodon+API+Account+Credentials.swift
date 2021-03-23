@@ -198,6 +198,10 @@ extension Mastodon.API.Account {
             return Self.multipartContentType()
         }
         
+        var queryItems: [URLQueryItem]? {
+            return nil
+        }
+        
         var body: Data? {
             var data = Data()
 
@@ -219,6 +223,7 @@ extension Mastodon.API.Account {
                     data.append(Data.multipart(key: "fields_attributes[value][]", value: fieldsAttribute.value))
                 }
             }
+            
             data.append(Data.multipartEnd())
             return data
         }
