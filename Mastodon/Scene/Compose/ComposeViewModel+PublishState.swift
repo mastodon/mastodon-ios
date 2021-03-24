@@ -55,7 +55,7 @@ extension ComposeViewModel.PublishState {
             }
             let pollOptions: [String]? = {
                 guard viewModel.isPollComposing.value else { return nil }
-                return viewModel.pollAttributes.value.map { attribute in attribute.option.value }
+                return viewModel.pollOptionAttributes.value.map { attribute in attribute.option.value }
             }()
             let pollExpiresIn: Int? = {
                 guard viewModel.isPollComposing.value else { return nil }

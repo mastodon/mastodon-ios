@@ -150,9 +150,6 @@ extension ComposeViewController {
         ])
         
         collectionView.delegate = self
-        // Note: do not allow reorder due to the images display order following the upload time
-        // let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
-        // collectionView.addGestureRecognizer(longPressReorderGesture)
         viewModel.setupDiffableDataSource(
             for: collectionView,
             dependency: self,
@@ -162,6 +159,8 @@ extension ComposeViewController {
             composeStatusNewPollOptionCollectionViewCellDelegate: self,
             composeStatusPollExpiresOptionCollectionViewCellDelegate: self
         )
+        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
+        collectionView.addGestureRecognizer(longPressReorderGesture)
         
         // respond scrollView overlap change
         view.layoutIfNeeded()
@@ -389,13 +388,20 @@ extension ComposeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    /* Do not allow reorder image due to image display order following the update time
+    // seealso: ComposeViewModel.setupDiffableDataSource(…)
     @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
         switch(sender.state) {
         case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)) else {
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
+                  let cell = collectionView.cellForItem(at: selectedIndexPath) as? ComposeStatusPollOptionCollectionViewCell else {
                 break
             }
+            // check if pressing reorder bar no not
+            let locationInCell = sender.location(in: cell)
+            guard cell.reorderBarImageView.frame.contains(locationInCell) else {
+                return
+            }
+            
             collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
             guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
@@ -403,19 +409,20 @@ extension ComposeViewController {
                 break
             }
             guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
-                  case .attachment = item else {
+                  case .pollOption = item else {
                 collectionView.cancelInteractiveMovement()
                 return
             }
 
-            collectionView.updateInteractiveMovementTargetPosition(sender.location(in: collectionView))
+            var position = sender.location(in: collectionView)
+            position.x = collectionView.frame.width * 0.5
+            collectionView.updateInteractiveMovementTargetPosition(position)
         case .ended:
             collectionView.endInteractiveMovement()
         default:
             collectionView.cancelInteractiveMovement()
         }
     }
-     */
     
 }
 
@@ -571,8 +578,8 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         viewModel.isPollComposing.value.toggle()
         
         // setup initial poll option if needs
-        if viewModel.isPollComposing.value, viewModel.pollAttributes.value.isEmpty {
-            viewModel.pollAttributes.value = [ComposeStatusItem.ComposePollOptionAttribute(), ComposeStatusItem.ComposePollOptionAttribute()]
+        if viewModel.isPollComposing.value, viewModel.pollOptionAttributes.value.isEmpty {
+            viewModel.pollOptionAttributes.value = [ComposeStatusItem.ComposePollOptionAttribute(), ComposeStatusItem.ComposePollOptionAttribute()]
         }
         
         if viewModel.isPollComposing.value {
@@ -708,7 +715,7 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         guard case let .pollOption(attribute) = item else { return }
         
-        var pollAttributes = viewModel.pollAttributes.value
+        var pollAttributes = viewModel.pollOptionAttributes.value
         guard let index = pollAttributes.firstIndex(of: attribute) else { return }
     
         // mark previous (fallback to next) item of removed middle poll option become first responder
@@ -741,7 +748,7 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
         pollAttributes.remove(at: index)
         
         // update data source
-        viewModel.pollAttributes.value = pollAttributes
+        viewModel.pollOptionAttributes.value = pollAttributes
     }
     
     // handle keyboard return event for poll option input

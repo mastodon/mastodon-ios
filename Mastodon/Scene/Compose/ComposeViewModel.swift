@@ -52,7 +52,7 @@ final class ComposeViewModel {
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
     
     // polls
-    let pollAttributes = CurrentValueSubject<[ComposeStatusItem.ComposePollOptionAttribute], Never>([])
+    let pollOptionAttributes = CurrentValueSubject<[ComposeStatusItem.ComposePollOptionAttribute], Never>([])
     let pollExpiresOptionAttribute = ComposeStatusItem.ComposePollExpiresOptionAttribute()
     
     init(
@@ -105,7 +105,7 @@ final class ComposeViewModel {
             .map { services in
                 services.allSatisfy { $0.uploadStateMachineSubject.value is MastodonAttachmentService.UploadState.Finish }
             }
-        let isPollAttributeAllValid = pollAttributes
+        let isPollAttributeAllValid = pollOptionAttributes
             .map { pollAttributes in
                 pollAttributes.allSatisfy { attribute -> Bool in
                     !attribute.option.value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -177,7 +177,7 @@ final class ComposeViewModel {
         Publishers.CombineLatest3(
             attachmentServices.eraseToAnyPublisher(),
             isPollComposing.eraseToAnyPublisher(),
-            pollAttributes.eraseToAnyPublisher()
+            pollOptionAttributes.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] attachmentServices, isPollComposing, pollAttributes in
@@ -240,7 +240,7 @@ final class ComposeViewModel {
             }
             .store(in: &disposeBag)
         
-        pollAttributes
+        pollOptionAttributes
             .sink { [weak self] pollAttributes in
                 guard let self = self else { return }
                 pollAttributes.forEach { $0.delegate = self }
@@ -268,10 +268,10 @@ final class ComposeViewModel {
 
 extension ComposeViewModel {
     func createNewPollOptionIfPossible() {
-        guard pollAttributes.value.count < 4 else { return }
+        guard pollOptionAttributes.value.count < 4 else { return }
         
         let attribute = ComposeStatusItem.ComposePollOptionAttribute()
-        pollAttributes.value = pollAttributes.value + [attribute]
+        pollOptionAttributes.value = pollOptionAttributes.value + [attribute]
     }
 }
 
@@ -287,6 +287,6 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
 extension ComposeViewModel: ComposePollAttributeDelegate {
     func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?) {
         // trigger update
-        pollAttributes.value = pollAttributes.value
+        pollOptionAttributes.value = pollOptionAttributes.value
     }
 }

@@ -13,10 +13,19 @@ protocol ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate: class {
 }
 
 final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionViewCell {
-    
+        
     let pollOptionView = PollOptionView()
+    let reorderBarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(systemName: "line.horizontal.3")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)).withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Asset.Colors.Label.secondary.color
+        return imageView
+    }()
     
     let singleTagGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+    
+    weak var delegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate?
     
     override var isHighlighted: Bool {
         didSet {
@@ -25,7 +34,9 @@ final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionVi
         }
     }
     
-    weak var delegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate?
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        return pollOptionView.frame.contains(point)
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -53,8 +64,16 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
         NSLayoutConstraint.activate([
             pollOptionView.topAnchor.constraint(equalTo: contentView.topAnchor),
             pollOptionView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            pollOptionView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             pollOptionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+        
+        reorderBarImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(reorderBarImageView)
+        NSLayoutConstraint.activate([
+            reorderBarImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            reorderBarImageView.leadingAnchor.constraint(equalTo: pollOptionView.trailingAnchor, constant: ComposeStatusPollOptionCollectionViewCell.reorderHandlerImageLeadingMargin),
+            reorderBarImageView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            reorderBarImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         
         pollOptionView.checkmarkImageView.isHidden = true
@@ -68,6 +87,8 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
         
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
         singleTagGestureRecognizer.addTarget(self, action: #selector(ComposeStatusPollOptionAppendEntryCollectionViewCell.singleTagGestureRecognizerHandler(_:)))
+        
+        reorderBarImageView.isHidden = true
     }
     
     private func setupBorderColor() {
