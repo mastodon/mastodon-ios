@@ -36,7 +36,8 @@ extension ComposeStatusSection {
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
         composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
-        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusNewPollOptionCollectionViewCellDelegate
+        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate,
+        composeStatusPollExpiresOptionCollectionViewCellDelegate: ComposeStatusPollExpiresOptionCollectionViewCellDelegate
     ) -> UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
@@ -127,7 +128,7 @@ extension ComposeStatusSection {
                 }
                 .store(in: &cell.disposeBag)
                 return cell
-            case .poll(let attribute):
+            case .pollOption(let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusPollOptionCollectionViewCell
                 cell.pollOptionView.optionTextField.text = attribute.option.value
                 cell.pollOption
@@ -136,9 +137,20 @@ extension ComposeStatusSection {
                     .store(in: &cell.disposeBag)
                 cell.delegate = composeStatusPollOptionCollectionViewCellDelegate
                 return cell
-            case .newPoll:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusNewPollOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusNewPollOptionCollectionViewCell
+            case .pollOptionAppendEntry:
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self), for: indexPath) as! ComposeStatusPollOptionAppendEntryCollectionViewCell
                 cell.delegate = composeStatusNewPollOptionCollectionViewCellDelegate
+                return cell
+            case .pollExpiresOption(let attribute):
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusPollExpiresOptionCollectionViewCell
+                cell.durationButton.setTitle(L10n.Scene.Compose.Poll.durationTime(attribute.expiresOption.value.title), for: .normal)
+                attribute.expiresOption
+                    .receive(on: DispatchQueue.main)
+                    .sink { expiresOption in
+                        cell.durationButton.setTitle(L10n.Scene.Compose.Poll.durationTime(expiresOption.title), for: .normal)
+                    }
+                    .store(in: &cell.disposeBag)
+                cell.delegate = composeStatusPollExpiresOptionCollectionViewCellDelegate
                 return cell
             }
         }

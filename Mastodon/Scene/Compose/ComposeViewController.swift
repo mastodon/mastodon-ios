@@ -46,7 +46,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         collectionView.register(ComposeStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self))
         collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
         collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
-        collectionView.register(ComposeStatusNewPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusNewPollOptionCollectionViewCell.self))
+        collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
+        collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
         collectionView.backgroundColor = Asset.Colors.Background.systemBackground.color
         return collectionView
     }()
@@ -158,7 +159,8 @@ extension ComposeViewController {
             textEditorViewTextAttributesDelegate: self,
             composeStatusAttachmentTableViewCellDelegate: self,
             composeStatusPollOptionCollectionViewCellDelegate: self,
-            composeStatusNewPollOptionCollectionViewCellDelegate: self
+            composeStatusNewPollOptionCollectionViewCellDelegate: self,
+            composeStatusPollExpiresOptionCollectionViewCellDelegate: self
         )
         
         // respond scrollView overlap change
@@ -283,7 +285,7 @@ extension ComposeViewController {
     }
     
     private func pollOptionCollectionViewCell(of item: ComposeStatusItem) -> ComposeStatusPollOptionCollectionViewCell? {
-        guard case .poll = item else { return nil }
+        guard case .pollOption = item else { return nil }
         guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
         guard let indexPath = diffableDataSource.indexPath(for: item),
               let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusPollOptionCollectionViewCell else {
@@ -297,7 +299,7 @@ extension ComposeViewController {
         guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
         let items = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
         let firstPollItem = items.first { item -> Bool in
-            guard case .poll = item else { return false }
+            guard case .pollOption = item else { return false }
             return true
         }
                 
@@ -312,7 +314,7 @@ extension ComposeViewController {
         guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
         let items = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
         let lastPollItem = items.last { item -> Bool in
-            guard case .poll = item else { return false }
+            guard case .pollOption = item else { return false }
             return true
         }
                 
@@ -570,7 +572,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         
         // setup initial poll option if needs
         if viewModel.isPollComposing.value, viewModel.pollAttributes.value.isEmpty {
-            viewModel.pollAttributes.value = [ComposeStatusItem.ComposePollAttribute(), ComposeStatusItem.ComposePollAttribute()]
+            viewModel.pollAttributes.value = [ComposeStatusItem.ComposePollOptionAttribute(), ComposeStatusItem.ComposePollOptionAttribute()]
         }
         
         if viewModel.isPollComposing.value {
@@ -704,7 +706,7 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        guard case let .poll(attribute) = item else { return }
+        guard case let .pollOption(attribute) = item else { return }
         
         var pollAttributes = viewModel.pollAttributes.value
         guard let index = pollAttributes.firstIndex(of: attribute) else { return }
@@ -747,7 +749,7 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         let pollItems = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll).filter { item in
-            guard case .poll = item else { return false }
+            guard case .pollOption = item else { return false }
             return true
         }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
@@ -770,12 +772,19 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
     
 }
 
-// MARK: - ComposeStatusNewPollOptionCollectionViewCellDelegate
-extension ComposeViewController: ComposeStatusNewPollOptionCollectionViewCellDelegate {
-    func ComposeStatusNewPollOptionCollectionViewCellDidPressed(_ cell: ComposeStatusNewPollOptionCollectionViewCell) {
+// MARK: - ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate
+extension ComposeViewController: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate {
+    func composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(_ cell: ComposeStatusPollOptionAppendEntryCollectionViewCell) {
         viewModel.createNewPollOptionIfPossible()
         DispatchQueue.main.async {
             self.markLastPollOptionCollectionViewCellBecomeFirstResponser()
         }
+    }
+}
+
+// MARK: - ComposeStatusPollExpiresOptionCollectionViewCellDelegate
+extension ComposeViewController: ComposeStatusPollExpiresOptionCollectionViewCellDelegate {
+    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption) {
+        viewModel.pollExpiresOptionAttribute.expiresOption.value = expiresOption
     }
 }

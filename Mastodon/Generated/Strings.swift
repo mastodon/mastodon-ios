@@ -170,6 +170,24 @@ internal enum L10n {
         /// Photo Library
         internal static let photoLibrary = L10n.tr("Localizable", "Scene.Compose.MediaSelection.PhotoLibrary")
       }
+      internal enum Poll {
+        /// Duration: %@
+        internal static func durationTime(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Poll.DurationTime", String(describing: p1))
+        }
+        /// 1 Day
+        internal static let oneDay = L10n.tr("Localizable", "Scene.Compose.Poll.OneDay")
+        /// 1 Hour
+        internal static let oneHour = L10n.tr("Localizable", "Scene.Compose.Poll.OneHour")
+        /// 7 Days
+        internal static let sevenDays = L10n.tr("Localizable", "Scene.Compose.Poll.SevenDays")
+        /// 6 Hours
+        internal static let sixHours = L10n.tr("Localizable", "Scene.Compose.Poll.SixHours")
+        /// 30 minutes
+        internal static let thirtyMinutes = L10n.tr("Localizable", "Scene.Compose.Poll.ThirtyMinutes")
+        /// 3 Days
+        internal static let threeDays = L10n.tr("Localizable", "Scene.Compose.Poll.ThreeDays")
+      }
       internal enum Title {
         /// New Post
         internal static let newPost = L10n.tr("Localizable", "Scene.Compose.Title.NewPost")

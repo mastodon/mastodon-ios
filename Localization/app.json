@@ -207,6 +207,15 @@
                 "attachment_broken": "This %s is broken and can't be\nuploaded to Mastodon.",
                 "description_photo": "Describe photo for low vision people...",
                 "description_video": "Describe what’s happening for low vision people..."
+            },
+            "poll": {
+                "duration_time": "Duration: %s",
+                "thirty_minutes": "30 minutes",
+                "one_hour": "1 Hour",
+                "six_hours": "6 Hours",
+                "one_day": "1 Day",
+                "three_days": "3 Days",
+                "seven_days": "7 Days"
             }
         }
     }

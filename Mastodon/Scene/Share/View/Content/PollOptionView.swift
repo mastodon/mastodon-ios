@@ -14,6 +14,7 @@ final class PollOptionView: UIView {
     static let optionHeight: CGFloat = 44
     static let verticalMargin: CGFloat = 5
     static let checkmarkImageSize = CGSize(width: 26, height: 26)
+    static let checkmarkBackgroundLeadingMargin: CGFloat = 9
     
     private var viewStateDisposeBag = Set<AnyCancellable>()
     
@@ -105,7 +106,7 @@ extension PollOptionView {
         roundedBackgroundView.addSubview(checkmarkBackgroundView)
         NSLayoutConstraint.activate([
             checkmarkBackgroundView.topAnchor.constraint(equalTo: roundedBackgroundView.topAnchor, constant: 9),
-            checkmarkBackgroundView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor, constant: 9),
+            checkmarkBackgroundView.leadingAnchor.constraint(equalTo: roundedBackgroundView.leadingAnchor, constant: PollOptionView.checkmarkBackgroundLeadingMargin),
             roundedBackgroundView.bottomAnchor.constraint(equalTo: checkmarkBackgroundView.bottomAnchor, constant: 9),
             checkmarkBackgroundView.widthAnchor.constraint(equalToConstant: PollOptionView.checkmarkImageSize.width).priority(.required - 1),
             checkmarkBackgroundView.heightAnchor.constraint(equalToConstant: PollOptionView.checkmarkImageSize.height).priority(.required - 1),

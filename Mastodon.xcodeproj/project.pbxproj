@@ -123,6 +123,7 @@
 		DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */; };
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
+		DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
@@ -189,7 +190,7 @@
 		DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */; };
 		DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */; };
 		DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D44A2609C11900D12C0D /* PollOptionView.swift */; };
-		DB87D4512609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4502609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift */; };
+		DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */; };
 		DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4562609DD5300D12C0D /* DeleteBackwardResponseTextField.swift */; };
 		DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DB89B9FE25C10FD0008580ED /* CoreDataStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB89B9FD25C10FD0008580ED /* CoreDataStackTests.swift */; };
@@ -418,6 +419,7 @@
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2B3AE825E38850007045F9 /* UIViewPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollExpiresOptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -487,7 +489,7 @@
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
 		DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollOptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB87D44A2609C11900D12C0D /* PollOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollOptionView.swift; sourceTree = "<group>"; };
-		DB87D4502609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusNewPollOptionCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollOptionAppendEntryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB87D4562609DD5300D12C0D /* DeleteBackwardResponseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteBackwardResponseTextField.swift; sourceTree = "<group>"; };
 		DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB89B9F025C10FD0008580ED /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
@@ -1163,7 +1165,8 @@
 				DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */,
 				DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentTableViewCell.swift */,
 				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
-				DB87D4502609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift */,
+				DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */,
+				DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -1826,6 +1829,7 @@
 				DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */,
 				2D61335825C188A000CAE157 /* APIService+Persist+Status.swift in Sources */,
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
+				DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */,
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Status.swift in Sources */,
 				DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */,
@@ -1953,7 +1957,7 @@
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				DB71FD2C25F86A5100512AE1 /* AvatarStackContainerButton.swift in Sources */,
-				DB87D4512609CF1E00D12C0D /* ComposeStatusNewPollOptionCollectionViewCell.swift in Sources */,
+				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,

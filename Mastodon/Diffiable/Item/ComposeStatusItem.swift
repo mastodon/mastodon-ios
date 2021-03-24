@@ -14,8 +14,9 @@ enum ComposeStatusItem {
     case replyTo(statusObjectID: NSManagedObjectID)
     case input(replyToStatusObjectID: NSManagedObjectID?, attribute: ComposeStatusAttribute)
     case attachment(attachmentService: MastodonAttachmentService)
-    case poll(attribute: ComposePollAttribute)
-    case newPoll
+    case pollOption(attribute: ComposePollOptionAttribute)
+    case pollOptionAppendEntry
+    case pollExpiresOption(attribute: ComposePollExpiresOptionAttribute)
 }
 
 extension ComposeStatusItem: Equatable { }
@@ -44,16 +45,16 @@ extension ComposeStatusItem {
     }
 }
 
-protocol ComposeStatusItemDelegate: class {
-    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollAttribute, pollOptionDidChange: String?)
+protocol ComposePollAttributeDelegate: class {
+    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?)
 }
 
 extension ComposeStatusItem {
-    final class ComposePollAttribute: Equatable, Hashable {
+    final class ComposePollOptionAttribute: Equatable, Hashable {
         private let id = UUID()
         
         var disposeBag = Set<AnyCancellable>()
-        weak var delegate: ComposeStatusItemDelegate?
+        weak var delegate: ComposePollAttributeDelegate?
 
         let option = CurrentValueSubject<String, Never>("")
         
@@ -70,13 +71,62 @@ extension ComposeStatusItem {
             disposeBag.removeAll()
         }
         
-        static func == (lhs: ComposePollAttribute, rhs: ComposePollAttribute) -> Bool {
+        static func == (lhs: ComposePollOptionAttribute, rhs: ComposePollOptionAttribute) -> Bool {
             return lhs.id == rhs.id &&
                 lhs.option.value == rhs.option.value
         }
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(id)
+        }
+    }
+}
+
+extension ComposeStatusItem {
+    final class ComposePollExpiresOptionAttribute: Equatable, Hashable {
+        private let id = UUID()
+
+        let expiresOption = CurrentValueSubject<ExpiresOption, Never>(.thirtyMinutes)
+        
+        
+        static func == (lhs: ComposePollExpiresOptionAttribute, rhs: ComposePollExpiresOptionAttribute) -> Bool {
+            return lhs.id == rhs.id &&
+                lhs.expiresOption.value == rhs.expiresOption.value
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+        
+        enum ExpiresOption: Equatable, Hashable, CaseIterable {
+            case thirtyMinutes
+            case oneHour
+            case sixHours
+            case oneDay
+            case threeDays
+            case sevenDays
+            
+            var title: String {
+                switch self {
+                case .thirtyMinutes: return L10n.Scene.Compose.Poll.thirtyMinutes
+                case .oneHour: return L10n.Scene.Compose.Poll.oneHour
+                case .sixHours: return L10n.Scene.Compose.Poll.sixHours
+                case .oneDay: return L10n.Scene.Compose.Poll.oneDay
+                case .threeDays: return L10n.Scene.Compose.Poll.threeDays
+                case .sevenDays: return L10n.Scene.Compose.Poll.sevenDays
+                }
+            }
+            
+            var seconds: Int {
+                switch self {
+                case .thirtyMinutes: return 60 * 30
+                case .oneHour: return 60 * 60 * 1
+                case .sixHours: return 60 * 60 * 6
+                case .oneDay: return 60 * 60 * 24
+                case .threeDays: return 60 * 60 * 24 * 3
+                case .sevenDays: return 60 * 60 * 24 * 7
+                }
+            }
         }
     }
 }

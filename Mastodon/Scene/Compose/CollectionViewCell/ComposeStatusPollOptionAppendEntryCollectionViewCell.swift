@@ -1,5 +1,5 @@
 //
-//  ComposeStatusNewPollOptionCollectionViewCell.swift
+//  ComposeStatusPollOptionAppendEntryCollectionViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-23.
@@ -8,11 +8,11 @@
 import os.log
 import UIKit
 
-protocol ComposeStatusNewPollOptionCollectionViewCellDelegate: class {
-    func ComposeStatusNewPollOptionCollectionViewCellDidPressed(_ cell: ComposeStatusNewPollOptionCollectionViewCell)
+protocol ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate: class {
+    func composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(_ cell: ComposeStatusPollOptionAppendEntryCollectionViewCell)
 }
 
-final class ComposeStatusNewPollOptionCollectionViewCell: UICollectionViewCell {
+final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionViewCell {
     
     let pollOptionView = PollOptionView()
     
@@ -25,7 +25,7 @@ final class ComposeStatusNewPollOptionCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    weak var delegate: ComposeStatusNewPollOptionCollectionViewCellDelegate?
+    weak var delegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate?
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -45,7 +45,7 @@ final class ComposeStatusNewPollOptionCollectionViewCell: UICollectionViewCell {
     
 }
 
-extension ComposeStatusNewPollOptionCollectionViewCell {
+extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
     
     private func _init() {
         pollOptionView.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +67,7 @@ extension ComposeStatusNewPollOptionCollectionViewCell {
         setupBorderColor()
         
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
-        singleTagGestureRecognizer.addTarget(self, action: #selector(ComposeStatusNewPollOptionCollectionViewCell.singleTagGestureRecognizerHandler(_:)))
+        singleTagGestureRecognizer.addTarget(self, action: #selector(ComposeStatusPollOptionAppendEntryCollectionViewCell.singleTagGestureRecognizerHandler(_:)))
     }
     
     private func setupBorderColor() {
@@ -83,11 +83,11 @@ extension ComposeStatusNewPollOptionCollectionViewCell {
     
 }
 
-extension ComposeStatusNewPollOptionCollectionViewCell {
+extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
 
     @objc private func singleTagGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.ComposeStatusNewPollOptionCollectionViewCellDidPressed(self)
+        delegate?.composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(self)
     }
     
 }
@@ -100,7 +100,7 @@ struct ComposeStatusNewPollOptionCollectionViewCell_Previews: PreviewProvider {
     static var controls: some View {
         Group {
             UIViewPreview() {
-                let cell = ComposeStatusNewPollOptionCollectionViewCell()
+                let cell = ComposeStatusPollOptionAppendEntryCollectionViewCell()
                 return cell
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))

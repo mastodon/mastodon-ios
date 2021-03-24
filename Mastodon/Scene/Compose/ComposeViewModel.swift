@@ -52,7 +52,8 @@ final class ComposeViewModel {
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
     
     // polls
-    let pollAttributes = CurrentValueSubject<[ComposeStatusItem.ComposePollAttribute], Never>([])
+    let pollAttributes = CurrentValueSubject<[ComposeStatusItem.ComposePollOptionAttribute], Never>([])
+    let pollExpiresOptionAttribute = ComposeStatusItem.ComposePollExpiresOptionAttribute()
     
     init(
         context: AppContext,
@@ -196,13 +197,14 @@ final class ComposeViewModel {
             if isPollComposing {
                 var pollItems: [ComposeStatusItem] = []
                 for pollAttribute in pollAttributes {
-                    let item = ComposeStatusItem.poll(attribute: pollAttribute)
+                    let item = ComposeStatusItem.pollOption(attribute: pollAttribute)
                     pollItems.append(item)
                 }
                 snapshot.appendItems(pollItems, toSection: .poll)
                 if pollAttributes.count < 4 {
-                    snapshot.appendItems([ComposeStatusItem.newPoll], toSection: .poll)
+                    snapshot.appendItems([ComposeStatusItem.pollOptionAppendEntry], toSection: .poll)
                 }
+                snapshot.appendItems([ComposeStatusItem.pollExpiresOption(attribute: self.pollExpiresOptionAttribute)], toSection: .poll)
             }
             
             diffableDataSource.apply(snapshot)
@@ -268,7 +270,7 @@ extension ComposeViewModel {
     func createNewPollOptionIfPossible() {
         guard pollAttributes.value.count < 4 else { return }
         
-        let attribute = ComposeStatusItem.ComposePollAttribute()
+        let attribute = ComposeStatusItem.ComposePollOptionAttribute()
         pollAttributes.value = pollAttributes.value + [attribute]
     }
 }
@@ -281,9 +283,9 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
     }
 }
 
-// MARK: - ComposeStatusAttributeDelegate
-extension ComposeViewModel: ComposeStatusItemDelegate {
-    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollAttribute, pollOptionDidChange: String?) {
+// MARK: - ComposePollAttributeDelegate
+extension ComposeViewModel: ComposePollAttributeDelegate {
+    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?) {
         // trigger update
         pollAttributes.value = pollAttributes.value
     }

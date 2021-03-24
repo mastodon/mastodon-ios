@@ -16,7 +16,8 @@ extension ComposeViewModel {
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
         composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
-        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusNewPollOptionCollectionViewCellDelegate
+        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate,
+        composeStatusPollExpiresOptionCollectionViewCellDelegate: ComposeStatusPollExpiresOptionCollectionViewCellDelegate
     ) {
         let diffableDataSource = ComposeStatusSection.collectionViewDiffableDataSource(
             for: collectionView,
@@ -26,7 +27,8 @@ extension ComposeViewModel {
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
             composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate,
             composeStatusPollOptionCollectionViewCellDelegate: composeStatusPollOptionCollectionViewCellDelegate,
-            composeStatusNewPollOptionCollectionViewCellDelegate: composeStatusNewPollOptionCollectionViewCellDelegate
+            composeStatusNewPollOptionCollectionViewCellDelegate: composeStatusNewPollOptionCollectionViewCellDelegate,
+            composeStatusPollExpiresOptionCollectionViewCellDelegate: composeStatusPollExpiresOptionCollectionViewCellDelegate
         )
 
         // Note: do not allow reorder due to the images display order following the upload time
