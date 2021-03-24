@@ -53,6 +53,15 @@ extension ComposeViewModel.PublishState {
             let mediaIDs = attachmentServices.compactMap { attachmentService in
                 attachmentService.attachment.value?.id
             }
+            let pollOptions: [String]? = {
+                guard viewModel.isPollComposing.value else { return nil }
+                return viewModel.pollAttributes.value.map { attribute in attribute.option.value }
+            }()
+            let pollExpiresIn: Int? = {
+                guard viewModel.isPollComposing.value else { return nil }
+                return viewModel.pollExpiresOptionAttribute.expiresOption.value.seconds
+            }()
+            
             let updateMediaQuerySubscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = {
                 var subscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = []
                 for attachmentService in attachmentServices {
@@ -81,7 +90,9 @@ extension ComposeViewModel.PublishState {
                 .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
                     let query = Mastodon.API.Statuses.PublishStatusQuery(
                         status: viewModel.composeStatusAttribute.composeContent.value,
-                        mediaIDs: mediaIDs
+                        mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
+                        pollOptions: pollOptions,
+                        pollExpiresIn: pollExpiresIn
                     )
                     return viewModel.context.apiService.publishStatus(
                         domain: domain,

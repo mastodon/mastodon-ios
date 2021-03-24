@@ -35,3 +35,12 @@ extension String: MultipartFormValue {
     var multipartContentType: String? { return nil }
     var multipartFilename: String? { return nil }
 }
+
+
+extension Int: MultipartFormValue {
+    var multipartValue: Data {
+        return String(self).data(using: .utf8)!
+    }
+    var multipartContentType: String? { return nil }
+    var multipartFilename: String? { return nil }
+}

@@ -96,15 +96,34 @@ extension Mastodon.API.Statuses {
     public struct PublishStatusQuery: Codable, PostQuery {
         public let status: String?
         public let mediaIDs: [String]?
+        public let pollOptions: [String]?
+        public let pollExpiresIn: Int?
         
-        enum CodingKeys: String, CodingKey {
-            case status
-            case mediaIDs = "media_ids"
-        }
-        
-        public init(status: String?, mediaIDs: [String]?) {
+        public init(status: String?, mediaIDs: [String]?, pollOptions: [String]?, pollExpiresIn: Int?) {
             self.status = status
             self.mediaIDs = mediaIDs
+            self.pollOptions = pollOptions
+            self.pollExpiresIn = pollExpiresIn
+        }
+        
+        var contentType: String? {
+            return Self.multipartContentType()
+        }
+        
+        var body: Data? {
+            var data = Data()
+
+            status.flatMap { data.append(Data.multipart(key: "status", value: $0)) }
+            for mediaID in mediaIDs ?? [] {
+                data.append(Data.multipart(key: "media_ids[]", value: mediaID))
+            }
+            for pollOption in pollOptions ?? [] {
+                data.append(Data.multipart(key: "poll[options][]", value: pollOption))
+            }
+            pollExpiresIn.flatMap { data.append(Data.multipart(key: "poll[expires_in]", value: $0)) }
+
+            data.append(Data.multipartEnd())
+            return data
         }
     }
     
