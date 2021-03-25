@@ -69,6 +69,7 @@ extension ComposeViewModel.PublishState {
                 }
                 return text
             }()
+            let visibility = viewModel.selectedStatusVisibility.value.visibility
             
             let updateMediaQuerySubscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = {
                 var subscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = []
@@ -102,7 +103,8 @@ extension ComposeViewModel.PublishState {
                         pollOptions: pollOptions,
                         pollExpiresIn: pollExpiresIn,
                         sensitive: sensitive,
-                        spoilerText: spoilerText
+                        spoilerText: spoilerText,
+                        visibility: visibility
                     )
                     return viewModel.context.apiService.publishStatus(
                         domain: domain,

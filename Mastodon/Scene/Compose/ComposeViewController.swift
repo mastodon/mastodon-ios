@@ -270,6 +270,14 @@ extension ComposeViewController {
                 self.resetImagePicker()
             }
             .store(in: &disposeBag)
+        
+        viewModel.selectedStatusVisibility
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] type in
+                guard let self = self else { return }
+                self.composeToolbarView.visibilityButton.setImage(type.image, for: .normal)
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -589,8 +597,8 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType) {
-        switch mediaSelectionType {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
+        switch type {
         case .photoLibrary:
             present(imagePicker, animated: true, completion: nil)
         case .camera:
@@ -626,7 +634,8 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         viewModel.isContentWarningComposing.value.toggle()
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
+        viewModel.selectedStatusVisibility.value = type
     }
     
 }

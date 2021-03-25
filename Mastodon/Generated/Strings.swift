@@ -198,6 +198,16 @@ internal enum L10n {
         /// New Reply
         internal static let newReply = L10n.tr("Localizable", "Scene.Compose.Title.NewReply")
       }
+      internal enum Visibility {
+        /// Only people I mention
+        internal static let direct = L10n.tr("Localizable", "Scene.Compose.Visibility.Direct")
+        /// Followers only
+        internal static let `private` = L10n.tr("Localizable", "Scene.Compose.Visibility.Private")
+        /// Public
+        internal static let `public` = L10n.tr("Localizable", "Scene.Compose.Visibility.Public")
+        /// Unlisted
+        internal static let unlisted = L10n.tr("Localizable", "Scene.Compose.Visibility.Unlisted")
+      }
     }
     internal enum ConfirmEmail {
       /// We just sent an email to %@,\ntap the link to confirm your account.

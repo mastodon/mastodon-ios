@@ -100,6 +100,7 @@ extension Mastodon.API.Statuses {
         public let pollExpiresIn: Int?
         public let sensitive: Bool?
         public let spoilerText: String?
+        public let visibility: Mastodon.Entity.Status.Visibility?
         
         public init(
             status: String?,
@@ -107,7 +108,8 @@ extension Mastodon.API.Statuses {
             pollOptions: [String]?,
             pollExpiresIn: Int?,
             sensitive: Bool?,
-            spoilerText: String?
+            spoilerText: String?,
+            visibility: Mastodon.Entity.Status.Visibility?
         ) {
             self.status = status
             self.mediaIDs = mediaIDs
@@ -115,6 +117,7 @@ extension Mastodon.API.Statuses {
             self.pollExpiresIn = pollExpiresIn
             self.sensitive = sensitive
             self.spoilerText = spoilerText
+            self.visibility = visibility
             
         }
         
@@ -135,6 +138,7 @@ extension Mastodon.API.Statuses {
             pollExpiresIn.flatMap { data.append(Data.multipart(key: "poll[expires_in]", value: $0)) }
             sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
             spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
+            visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
 
             data.append(Data.multipartEnd())
             return data

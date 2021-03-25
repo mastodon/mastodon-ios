@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonSDK
 
 final class ComposeViewModel {
     
@@ -22,6 +23,7 @@ final class ComposeViewModel {
     let isPollComposing = CurrentValueSubject<Bool, Never>(false)
     let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
     let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
+    let selectedStatusVisibility = CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>(.public)
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     

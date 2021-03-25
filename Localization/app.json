@@ -219,6 +219,12 @@
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
+            },
+            "visibility": {
+                "public": "Public",
+                "unlisted": "Unlisted",
+                "private": "Followers only",
+                "direct": "Only people I mention"
             }
         }
     }

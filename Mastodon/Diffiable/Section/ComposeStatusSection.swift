@@ -100,6 +100,8 @@ extension ComposeStatusSection {
                     }
                     .store(in: &cell.disposeBag)
                 ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplacableTextInput: cell.textEditorView, disposeBag: &cell.disposeBag)
+                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplacableTextInput: cell.statusContentWarningEditorView.textView, disposeBag: &cell.disposeBag)
+
                 return cell
             case .attachment(let attachmentService):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self), for: indexPath) as! ComposeStatusAttachmentCollectionViewCell
