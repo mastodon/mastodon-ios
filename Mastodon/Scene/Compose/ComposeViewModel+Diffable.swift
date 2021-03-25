@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import Combine
 import TwitterTextEditor
+import MastodonSDK
 
 extension ComposeViewModel {
     
     func setupDiffableDataSource(
         for collectionView: UICollectionView,
         dependency: NeedsDependency,
+        customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
         composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
@@ -24,6 +27,7 @@ extension ComposeViewModel {
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
             composeKind: composeKind,
+            customEmojiPickerInputViewModel: customEmojiPickerInputViewModel,
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
             composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate,
             composeStatusPollOptionCollectionViewCellDelegate: composeStatusPollOptionCollectionViewCellDelegate,
@@ -63,6 +67,51 @@ extension ComposeViewModel {
             snapshot.appendItems([.input(replyToStatusObjectID: nil, attribute: composeStatusAttribute)], toSection: .status)
         }
         diffableDataSource.apply(snapshot, animatingDifferences: false)
+    }
+    
+    func setupCustomEmojiPickerDiffableDataSource(
+        for collectionView: UICollectionView,
+        dependency: NeedsDependency
+    ) {
+        let diffableDataSource = CustomEmojiPickerSection.collectionViewDiffableDataSource(
+            for: collectionView,
+            dependency: dependency
+        )
+        self.customEmojiPickerDiffableDataSource = diffableDataSource
+        
+        customEmojiViewModel
+            .sink { [weak self, weak diffableDataSource] customEmojiViewModel in
+                guard let self = self else { return }
+                guard let diffableDataSource = diffableDataSource else { return }
+                guard let customEmojiViewModel = customEmojiViewModel else {
+                    self.customEmojiViewModelSubscription = nil
+                    let snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
+                    diffableDataSource.apply(snapshot)
+                    return
+                }
+
+                self.customEmojiViewModelSubscription = customEmojiViewModel.emojis
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self, weak diffableDataSource] emojis in
+                        guard let _ = self else { return }
+                        guard let diffableDataSource = diffableDataSource else { return }
+                        var snapshot = NSDiffableDataSourceSnapshot<CustomEmojiPickerSection, CustomEmojiPickerItem>()
+                        let customEmojiSection = CustomEmojiPickerSection.emoji(name: customEmojiViewModel.domain.uppercased())
+                        snapshot.appendSections([customEmojiSection])
+                        let items: [CustomEmojiPickerItem] = {
+                            var items = [CustomEmojiPickerItem]()
+                            for emoji in emojis where emoji.visibleInPicker {
+                                let attribute = CustomEmojiPickerItem.CustomEmojiAttribute(emoji: emoji)
+                                let item = CustomEmojiPickerItem.emoji(attribute: attribute)
+                                items.append(item)
+                            }
+                            return items
+                        }()
+                        snapshot.appendItems(items, toSection: customEmojiSection)
+                        diffableDataSource.apply(snapshot)
+                    }
+            }
+            .store(in: &disposeBag)
     }
     
 }

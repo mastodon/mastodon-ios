@@ -52,9 +52,25 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return collectionView
     }()
     
+    var systemKeyboardHeight: CGFloat = .zero {
+        didSet {
+            // note: some system AutoLayout warning here
+            customEmojiPickerInputView.frame.size.height = systemKeyboardHeight != .zero ? systemKeyboardHeight : 300
+        }
+    }
+    
+    // CustomEmojiPickerView
+    let customEmojiPickerInputView: CustomEmojiPickerInputView = {
+        let view = CustomEmojiPickerInputView(frame: CGRect(x: 0, y: 0, width: 0, height: 300), inputViewStyle: .keyboard)
+        return view
+    }()
+    
     let composeToolbarView: ComposeToolbarView = {
         let composeToolbarView = ComposeToolbarView()
-        composeToolbarView.backgroundColor = .secondarySystemBackground
+        let text = UITextView()
+        let inputView = UIInputView(frame: .init(x: 0, y: 0, width: 40, height: 40), inputViewStyle: .keyboard)
+        text.inputAccessoryView = inputView
+        composeToolbarView.backgroundColor = inputView.backgroundColor
         return composeToolbarView
     }()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
@@ -153,6 +169,7 @@ extension ComposeViewController {
         viewModel.setupDiffableDataSource(
             for: collectionView,
             dependency: self,
+            customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
             textEditorViewTextAttributesDelegate: self,
             composeStatusAttachmentTableViewCellDelegate: self,
             composeStatusPollOptionCollectionViewCellDelegate: self,
@@ -162,15 +179,23 @@ extension ComposeViewController {
         let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
         collectionView.addGestureRecognizer(longPressReorderGesture)
         
+        customEmojiPickerInputView.collectionView.delegate = self
+        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
+        viewModel.setupCustomEmojiPickerDiffableDataSource(
+            for: customEmojiPickerInputView.collectionView,
+            dependency: self
+        )
+        
         // respond scrollView overlap change
         view.layoutIfNeeded()
         // update layout when keyboard show/dismiss
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
+            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher(),
+            viewModel.isCustomEmojiComposing.eraseToAnyPublisher()
         )
-        .sink(receiveValue: { [weak self] isShow, state, endFrame in
+        .sink(receiveValue: { [weak self] isShow, state, endFrame, isCustomEmojiComposing in
             guard let self = self else { return }
 
             guard isShow, state == .dock else {
@@ -182,8 +207,9 @@ extension ComposeViewController {
                 }
                 return
             }
-
             // isShow AND dock state
+            self.systemKeyboardHeight = endFrame.height
+
             let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
@@ -593,6 +619,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton) {
+        viewModel.isCustomEmojiComposing.value.toggle()
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
@@ -606,6 +633,35 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
 // MARK: - UITableViewDelegate
 extension ComposeViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+
+        if collectionView === customEmojiPickerInputView.collectionView {
+            guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }
+            let item = diffableDataSource.itemIdentifier(for: indexPath)
+            guard case let .emoji(attribute) = item else { return }
+            let emoji = attribute.emoji
+            let textEditorView = self.textEditorView()
+            
+            // retrive active text input and insert emoji
+            // the leading and trailing space is REQUIRED to fix `UITextStorage` layout issue
+            let reference = viewModel.customEmojiPickerInputViewModel.insertText(" :\(emoji.shortcode): ")
+            
+            // workaround: non-user interactive change do not trigger value update event
+            if reference?.value === textEditorView {
+                viewModel.composeStatusAttribute.composeContent.value = textEditorView?.text
+                // update text storage
+                textEditorView?.setNeedsUpdateTextAttributes()
+                // collection self-size
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.collectionView.collectionViewLayout.invalidateLayout()
+                }
+            }
+        } else {
+            // do nothing
+        }
+    }
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate

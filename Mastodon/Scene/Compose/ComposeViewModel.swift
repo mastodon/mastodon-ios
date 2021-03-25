@@ -20,12 +20,13 @@ final class ComposeViewModel {
     let composeKind: ComposeStatusSection.ComposeKind
     let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
     let isPollComposing = CurrentValueSubject<Bool, Never>(false)
+    let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     
     // output
-    //var diffableDataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>!
     private(set) lazy var publishStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
@@ -46,7 +47,9 @@ final class ComposeViewModel {
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     
     // custom emojis
+    var customEmojiViewModelSubscription: AnyCancellable?
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
+    let customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
     
     // attachment
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
@@ -68,6 +71,10 @@ final class ComposeViewModel {
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
+        
+        isCustomEmojiComposing
+            .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)
+            .store(in: &disposeBag)
         
         // bind active authentication
         context.authenticationService.activeMastodonAuthentication

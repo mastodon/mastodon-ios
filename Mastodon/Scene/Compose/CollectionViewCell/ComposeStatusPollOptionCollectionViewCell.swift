@@ -77,6 +77,7 @@ extension ComposeStatusPollOptionCollectionViewCell {
             reorderBarImageView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             reorderBarImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+        reorderBarImageView.setContentCompressionResistancePriority(.defaultHigh + 10, for: .horizontal)
         
         pollOptionView.checkmarkImageView.isHidden = true
         pollOptionView.optionPercentageLabel.isHidden = true
