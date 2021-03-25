@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 
+/// Note: update Equatable when change case
 enum PollItem {
     case opion(objectID: NSManagedObjectID, attribute: Attribute)
 }

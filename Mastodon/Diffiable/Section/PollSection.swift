@@ -38,7 +38,7 @@ extension PollSection {
         pollOption option: PollOption,
         pollItemAttribute attribute: PollItem.Attribute
     ) {
-        cell.optionLabel.text = option.title
+        cell.pollOptionView.optionTextField.text = option.title
         configure(cell: cell, selectState: attribute.selectState)
         configure(cell: cell, voteState: attribute.voteState)
         cell.attribute = attribute
@@ -52,35 +52,35 @@ extension PollSection {
     static func configure(cell: PollOptionTableViewCell, selectState state: PollItem.Attribute.SelectState) {
         switch state {
         case .none:
-            cell.checkmarkBackgroundView.isHidden = true
-            cell.checkmarkImageView.isHidden = true
+            cell.pollOptionView.checkmarkBackgroundView.isHidden = true
+            cell.pollOptionView.checkmarkImageView.isHidden = true
         case .off:
-            cell.checkmarkBackgroundView.backgroundColor = .systemBackground
-            cell.checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
-            cell.checkmarkBackgroundView.layer.borderWidth = 1
-            cell.checkmarkBackgroundView.isHidden = false
-            cell.checkmarkImageView.isHidden = true
+            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = .systemBackground
+            cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
+            cell.pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
+            cell.pollOptionView.checkmarkBackgroundView.isHidden = false
+            cell.pollOptionView.checkmarkImageView.isHidden = true
         case .on:
-            cell.checkmarkBackgroundView.backgroundColor = .systemBackground
-            cell.checkmarkBackgroundView.layer.borderColor = UIColor.clear.cgColor
-            cell.checkmarkBackgroundView.layer.borderWidth = 0
-            cell.checkmarkBackgroundView.isHidden = false
-            cell.checkmarkImageView.isHidden = false
+            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = .systemBackground
+            cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.clear.cgColor
+            cell.pollOptionView.checkmarkBackgroundView.layer.borderWidth = 0
+            cell.pollOptionView.checkmarkBackgroundView.isHidden = false
+            cell.pollOptionView.checkmarkImageView.isHidden = false
         }
     }
 
     static func configure(cell: PollOptionTableViewCell, voteState state: PollItem.Attribute.VoteState) {
         switch state {
         case .hidden:
-            cell.optionPercentageLabel.isHidden = true
-            cell.voteProgressStripView.isHidden = true
-            cell.voteProgressStripView.setProgress(0.0, animated: false)
+            cell.pollOptionView.optionPercentageLabel.isHidden = true
+            cell.pollOptionView.voteProgressStripView.isHidden = true
+            cell.pollOptionView.voteProgressStripView.setProgress(0.0, animated: false)
         case .reveal(let voted, let percentage, let animated):
-            cell.optionPercentageLabel.isHidden = false
-            cell.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
-            cell.voteProgressStripView.isHidden = false
-            cell.voteProgressStripView.tintColor = voted ? Asset.Colors.Background.Poll.highlight.color : Asset.Colors.Background.Poll.disabled.color
-            cell.voteProgressStripView.setProgress(CGFloat(percentage), animated: animated)
+            cell.pollOptionView.optionPercentageLabel.isHidden = false
+            cell.pollOptionView.optionPercentageLabel.text = String(Int(100 * percentage)) + "%"
+            cell.pollOptionView.voteProgressStripView.isHidden = false
+            cell.pollOptionView.voteProgressStripView.tintColor = voted ? Asset.Colors.Background.Poll.highlight.color : Asset.Colors.Background.Poll.disabled.color
+            cell.pollOptionView.voteProgressStripView.setProgress(CGFloat(percentage), animated: animated)
         }
     }
     

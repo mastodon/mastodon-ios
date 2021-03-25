@@ -14,7 +14,10 @@ extension ComposeViewModel {
         for collectionView: UICollectionView,
         dependency: NeedsDependency,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
-        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate
+        composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
+        composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
+        composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate,
+        composeStatusPollExpiresOptionCollectionViewCellDelegate: ComposeStatusPollExpiresOptionCollectionViewCellDelegate
     ) {
         let diffableDataSource = ComposeStatusSection.collectionViewDiffableDataSource(
             for: collectionView,
@@ -22,33 +25,36 @@ extension ComposeViewModel {
             managedObjectContext: context.managedObjectContext,
             composeKind: composeKind,
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
-            composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate
+            composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate,
+            composeStatusPollOptionCollectionViewCellDelegate: composeStatusPollOptionCollectionViewCellDelegate,
+            composeStatusNewPollOptionCollectionViewCellDelegate: composeStatusNewPollOptionCollectionViewCellDelegate,
+            composeStatusPollExpiresOptionCollectionViewCellDelegate: composeStatusPollExpiresOptionCollectionViewCellDelegate
         )
 
-        // Note: do not allow reorder due to the images display order following the upload time
-        // diffableDataSource.reorderingHandlers.canReorderItem = { item in
-        //     switch item {
-        //     case .attachment:       return true
-        //     default:                return false
-        //     }
-        //
-        // }
-        // diffableDataSource.reorderingHandlers.didReorder = { [weak self] transaction in
-        //     guard let self = self else { return }
-        //
-        //     let items = transaction.finalSnapshot.itemIdentifiers
-        //     var attachmentServices: [MastodonAttachmentService] = []
-        //     for item in items {
-        //         guard case let .attachment(attachmentService) = item else { continue }
-        //         attachmentServices.append(attachmentService)
-        //     }
-        //     self.attachmentServices.value = attachmentServices
-        // }
-        //
+        diffableDataSource.reorderingHandlers.canReorderItem = { item in
+            switch item {
+            case .pollOption:       return true
+            default:                return false
+            }
+        }
+        
+        // update reordered data source
+        diffableDataSource.reorderingHandlers.didReorder = { [weak self] transaction in
+            guard let self = self else { return }
+        
+            let items = transaction.finalSnapshot.itemIdentifiers
+            var pollOptionAttributes: [ComposeStatusItem.ComposePollOptionAttribute] = []
+            for item in items {
+                guard case let .pollOption(attribute) = item else { continue }
+                pollOptionAttributes.append(attribute)
+            }
+            self.pollOptionAttributes.value = pollOptionAttributes
+        }
+    
         
         self.diffableDataSource = diffableDataSource
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
-        snapshot.appendSections([.repliedTo, .status, .attachment])
+        snapshot.appendSections([.repliedTo, .status, .attachment, .poll])
         switch composeKind {
         case .reply(let statusObjectID):
             snapshot.appendItems([.replyTo(statusObjectID: statusObjectID)], toSection: .repliedTo)

@@ -45,6 +45,9 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         collectionView.register(ComposeRepliedToTootContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self))
         collectionView.register(ComposeStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self))
         collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
+        collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
+        collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
+        collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
         collectionView.backgroundColor = Asset.Colors.Background.systemBackground.color
         return collectionView
     }()
@@ -147,15 +150,17 @@ extension ComposeViewController {
         ])
         
         collectionView.delegate = self
-        // Note: do not allow reorder due to the images display order following the upload time
-        // let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
-        // collectionView.addGestureRecognizer(longPressReorderGesture)
         viewModel.setupDiffableDataSource(
             for: collectionView,
             dependency: self,
             textEditorViewTextAttributesDelegate: self,
-            composeStatusAttachmentTableViewCellDelegate: self
+            composeStatusAttachmentTableViewCellDelegate: self,
+            composeStatusPollOptionCollectionViewCellDelegate: self,
+            composeStatusNewPollOptionCollectionViewCellDelegate: self,
+            composeStatusPollExpiresOptionCollectionViewCellDelegate: self
         )
+        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
+        collectionView.addGestureRecognizer(longPressReorderGesture)
         
         // respond scrollView overlap change
         view.layoutIfNeeded()
@@ -204,6 +209,16 @@ extension ComposeViewController {
         viewModel.isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: publishBarButtonItem)
+            .store(in: &disposeBag)
+        
+        viewModel.isMediaToolbarButtonEnabled
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: composeToolbarView.mediaButton)
+            .store(in: &disposeBag)
+        
+        viewModel.isPollToolbarButtonEnabled
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: composeToolbarView.pollButton)
             .store(in: &disposeBag)
 
         // bind custom emojis
@@ -268,6 +283,57 @@ extension ComposeViewController {
         textEditorView()?.isEditing = true
     }
     
+    private func pollOptionCollectionViewCell(of item: ComposeStatusItem) -> ComposeStatusPollOptionCollectionViewCell? {
+        guard case .pollOption = item else { return nil }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        guard let indexPath = diffableDataSource.indexPath(for: item),
+              let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusPollOptionCollectionViewCell else {
+            return nil
+        }
+        
+        return cell
+    }
+    
+    private func firstPollOptionCollectionViewCell() -> ComposeStatusPollOptionCollectionViewCell? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        let items = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
+        let firstPollItem = items.first { item -> Bool in
+            guard case .pollOption = item else { return false }
+            return true
+        }
+                
+        guard let item = firstPollItem else {
+            return nil
+        }
+        
+        return pollOptionCollectionViewCell(of: item)
+    }
+    
+    private func lastPollOptionCollectionViewCell() -> ComposeStatusPollOptionCollectionViewCell? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        let items = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
+        let lastPollItem = items.last { item -> Bool in
+            guard case .pollOption = item else { return false }
+            return true
+        }
+                
+        guard let item = lastPollItem else {
+            return nil
+        }
+        
+        return pollOptionCollectionViewCell(of: item)
+    }
+    
+    private func markFirstPollOptionCollectionViewCellBecomeFirstResponser() {
+        guard let cell = firstPollOptionCollectionViewCell() else { return }
+        cell.pollOptionView.optionTextField.becomeFirstResponder()
+    }
+
+    private func markLastPollOptionCollectionViewCellBecomeFirstResponser() {
+        guard let cell = lastPollOptionCollectionViewCell() else { return }
+        cell.pollOptionView.optionTextField.becomeFirstResponder()
+    }
+    
     private func showDismissConfirmAlertController() {
         let alertController = UIAlertController(
             title: L10n.Common.Alerts.DiscardPostContent.title,
@@ -322,13 +388,20 @@ extension ComposeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    /* Do not allow reorder image due to image display order following the update time
+    // seealso: ComposeViewModel.setupDiffableDataSource(…)
     @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
         switch(sender.state) {
         case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)) else {
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
+                  let cell = collectionView.cellForItem(at: selectedIndexPath) as? ComposeStatusPollOptionCollectionViewCell else {
                 break
             }
+            // check if pressing reorder bar no not
+            let locationInCell = sender.location(in: cell)
+            guard cell.reorderBarImageView.frame.contains(locationInCell) else {
+                return
+            }
+            
             collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
         case .changed:
             guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
@@ -336,19 +409,20 @@ extension ComposeViewController {
                 break
             }
             guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
-                  case .attachment = item else {
+                  case .pollOption = item else {
                 collectionView.cancelInteractiveMovement()
                 return
             }
 
-            collectionView.updateInteractiveMovementTargetPosition(sender.location(in: collectionView))
+            var position = sender.location(in: collectionView)
+            position.x = collectionView.frame.width * 0.5
+            collectionView.updateInteractiveMovementTargetPosition(position)
         case .ended:
             collectionView.endInteractiveMovement()
         default:
             collectionView.cancelInteractiveMovement()
         }
     }
-     */
     
 }
 
@@ -490,7 +564,6 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, mediaSelectionType.rawValue)
         switch mediaSelectionType {
         case .photoLibrary:
             present(imagePicker, animated: true, completion: nil)
@@ -501,20 +574,31 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         }
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, gifButtonDidPressed sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton) {
+        viewModel.isPollComposing.value.toggle()
+        
+        // setup initial poll option if needs
+        if viewModel.isPollComposing.value, viewModel.pollOptionAttributes.value.isEmpty {
+            viewModel.pollOptionAttributes.value = [ComposeStatusItem.ComposePollOptionAttribute(), ComposeStatusItem.ComposePollOptionAttribute()]
+        }
+        
+        if viewModel.isPollComposing.value {
+            // Magic RunLoop
+            DispatchQueue.main.async {
+                self.markFirstPollOptionCollectionViewCellBecomeFirstResponser()
+            }
+        } else {
+            markTextEditorViewBecomeFirstResponser()
+        }
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, atButtonDidPressed sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton) {
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, topicButtonDidPressed sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, locationButtonDidPressed sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton) {
     }
     
 }
@@ -554,7 +638,6 @@ extension ComposeViewController: PHPickerViewControllerDelegate {
                 pickerResult: result,
                 initalAuthenticationBox: viewModel.activeAuthenticationBox.value
             )
-            service.delegate = viewModel
             return service
         }
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + attachmentServices
@@ -574,7 +657,6 @@ extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationC
             image: image,
             initalAuthenticationBox: viewModel.activeAuthenticationBox.value
         )
-        attachmentService.delegate = viewModel
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
     
@@ -598,7 +680,6 @@ extension ComposeViewController: UIDocumentPickerDelegate {
                 imageData: imageData,
                 initalAuthenticationBox: viewModel.activeAuthenticationBox.value
             )
-            attachmentService.delegate = viewModel
             viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
         } catch {
             os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
@@ -621,4 +702,96 @@ extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelega
         viewModel.attachmentServices.value = attachmentServices
     }
     
+}
+
+// MARK: - ComposeStatusPollOptionCollectionViewCellDelegate
+extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelegate {
+    
+    // handle delete backward event for poll option input
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?) {
+        guard (text ?? "").isEmpty else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard case let .pollOption(attribute) = item else { return }
+        
+        var pollAttributes = viewModel.pollOptionAttributes.value
+        guard let index = pollAttributes.firstIndex(of: attribute) else { return }
+    
+        // mark previous (fallback to next) item of removed middle poll option become first responder
+        let pollItems = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
+        if let indexOfItem = pollItems.firstIndex(of: item), index > 0 {
+            func cellBeforeRemoved() -> ComposeStatusPollOptionCollectionViewCell? {
+                guard index > 0 else { return nil }
+                let indexBeforeRemoved = pollItems.index(before: indexOfItem)
+                let itemBeforeRemoved = pollItems[indexBeforeRemoved]
+                return pollOptionCollectionViewCell(of: itemBeforeRemoved)
+            }
+            
+            func cellAfterRemoved() -> ComposeStatusPollOptionCollectionViewCell? {
+                guard index < pollItems.count - 1 else { return nil }
+                let indexAfterRemoved = pollItems.index(after: index)
+                let itemAfterRemoved = pollItems[indexAfterRemoved]
+                return pollOptionCollectionViewCell(of: itemAfterRemoved)
+            }
+
+            var cell: ComposeStatusPollOptionCollectionViewCell? = cellBeforeRemoved()
+            if cell == nil {
+                cell = cellAfterRemoved()
+            }
+            cell?.pollOptionView.optionTextField.becomeFirstResponder()
+        }
+        
+        guard pollAttributes.count > 2 else {
+            return
+        }
+        pollAttributes.remove(at: index)
+        
+        // update data source
+        viewModel.pollOptionAttributes.value = pollAttributes
+    }
+    
+    // handle keyboard return event for poll option input
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let pollItems = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll).filter { item in
+            guard case .pollOption = item else { return false }
+            return true
+        }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let index = pollItems.firstIndex(of: item) else { return }
+        
+        if index == pollItems.count - 1 {
+            // is the last
+            viewModel.createNewPollOptionIfPossible()
+            DispatchQueue.main.async {
+                self.markLastPollOptionCollectionViewCellBecomeFirstResponser()
+            }
+        } else {
+            // not the last
+            let indexAfter = pollItems.index(after: index)
+            let itemAfter = pollItems[indexAfter]
+            let cell = pollOptionCollectionViewCell(of: itemAfter)
+            cell?.pollOptionView.optionTextField.becomeFirstResponder()
+        }
+    }
+    
+}
+
+// MARK: - ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate
+extension ComposeViewController: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate {
+    func composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(_ cell: ComposeStatusPollOptionAppendEntryCollectionViewCell) {
+        viewModel.createNewPollOptionIfPossible()
+        DispatchQueue.main.async {
+            self.markLastPollOptionCollectionViewCellBecomeFirstResponser()
+        }
+    }
+}
+
+// MARK: - ComposeStatusPollExpiresOptionCollectionViewCellDelegate
+extension ComposeViewController: ComposeStatusPollExpiresOptionCollectionViewCellDelegate {
+    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption) {
+        viewModel.pollExpiresOptionAttribute.expiresOption.value = expiresOption
+    }
 }

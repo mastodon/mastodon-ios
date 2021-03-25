@@ -27,6 +27,7 @@ internal enum Asset {
   }
   internal enum Circles {
     internal static let plusCircleFill = ImageAsset(name: "Circles/plus.circle.fill")
+    internal static let plusCircle = ImageAsset(name: "Circles/plus.circle")
   }
   internal enum Colors {
     internal enum Background {
@@ -46,6 +47,7 @@ internal enum Asset {
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Colors/Background/system.grouped.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
+      internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
     }
     internal enum Button {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
