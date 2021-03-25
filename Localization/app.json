@@ -216,6 +216,9 @@
                 "one_day": "1 Day",
                 "three_days": "3 Days",
                 "seven_days": "7 Days"
+            },
+            "content_warning": {
+                "placeholder": "Write an accurate warning here..."
             }
         }
     }

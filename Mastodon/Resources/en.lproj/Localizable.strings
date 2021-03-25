@@ -47,6 +47,7 @@ uploaded to Mastodon.";
 "Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.ComposeAction" = "Publish";
 "Scene.Compose.ContentInputPlaceholder" = "Type or paste what's on your mind";
+"Scene.Compose.ContentWarning.Placeholder" = "Write an accurate warning here...";
 "Scene.Compose.MediaSelection.Browse" = "Browse";
 "Scene.Compose.MediaSelection.Camera" = "Take Photo";
 "Scene.Compose.MediaSelection.PhotoLibrary" = "Photo Library";

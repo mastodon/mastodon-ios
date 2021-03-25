@@ -21,6 +21,7 @@ final class ComposeViewModel {
     let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
     let isPollComposing = CurrentValueSubject<Bool, Never>(false)
     let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
+    let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     
@@ -74,6 +75,10 @@ final class ComposeViewModel {
         
         isCustomEmojiComposing
             .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)
+            .store(in: &disposeBag)
+        
+        isContentWarningComposing
+            .assign(to: \.value, on: composeStatusAttribute.isContentWarningComposing)
             .store(in: &disposeBag)
         
         // bind active authentication

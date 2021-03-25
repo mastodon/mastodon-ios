@@ -23,6 +23,7 @@ final class StatusView: UIView {
     
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
+    static let avatarToLabelSpacing: CGFloat = 5
     static let contentWarningBlurRadius: CGFloat = 12
     
     static let boostIconImage: UIImage = {
@@ -249,7 +250,7 @@ extension StatusView {
         let authorContainerStackView = UIStackView()
         containerStackView.addArrangedSubview(authorContainerStackView)
         authorContainerStackView.axis = .horizontal
-        authorContainerStackView.spacing = 5
+        authorContainerStackView.spacing = StatusView.avatarToLabelSpacing
 
         // avatar
         avatarView.translatesAutoresizingMaskIntoConstraints = false

@@ -68,6 +68,37 @@ extension ComposeStatusSection {
                         attribute.composeContent.value = text
                     }
                     .store(in: &cell.disposeBag)
+                attribute.isContentWarningComposing
+                    .receive(on: DispatchQueue.main)
+                    .sink { isContentWarningComposing in
+                        // self size input cell
+                        collectionView.collectionViewLayout.invalidateLayout()
+                        cell.statusContentWarningEditorView.containerView.isHidden = !isContentWarningComposing
+                        cell.statusContentWarningEditorView.alpha = 0
+                        UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseOut]) {
+                            cell.statusContentWarningEditorView.alpha = 1
+                        } completion: { _ in
+                            if isContentWarningComposing {
+                                cell.statusContentWarningEditorView.textView.becomeFirstResponder()
+                            }
+                            // do nothing
+                        }
+                        // restore responder if needs
+                        if cell.statusContentWarningEditorView.textView.isFirstResponder {
+                            cell.textEditorView.isEditing = true
+                        }
+                    }
+                    .store(in: &cell.disposeBag)
+                cell.contentWarningContent
+                    .removeDuplicates()
+                    .receive(on: DispatchQueue.main)
+                    .sink { text in
+                        // self size input cell
+                        collectionView.collectionViewLayout.invalidateLayout()
+                        // bind input data
+                        attribute.contentWarningContent.value = text
+                    }
+                    .store(in: &cell.disposeBag)
                 ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplacableTextInput: cell.textEditorView, disposeBag: &cell.disposeBag)
                 return cell
             case .attachment(let attachmentService):

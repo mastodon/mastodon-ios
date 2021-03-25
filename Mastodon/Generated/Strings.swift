@@ -162,6 +162,10 @@ internal enum L10n {
         /// video
         internal static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
       }
+      internal enum ContentWarning {
+        /// Write an accurate warning here...
+        internal static let placeholder = L10n.tr("Localizable", "Scene.Compose.ContentWarning.Placeholder")
+      }
       internal enum MediaSelection {
         /// Browse
         internal static let browse = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Browse")

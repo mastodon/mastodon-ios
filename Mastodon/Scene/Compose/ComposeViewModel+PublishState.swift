@@ -61,6 +61,14 @@ extension ComposeViewModel.PublishState {
                 guard viewModel.isPollComposing.value else { return nil }
                 return viewModel.pollExpiresOptionAttribute.expiresOption.value.seconds
             }()
+            let sensitive: Bool = viewModel.isContentWarningComposing.value
+            let spoilerText: String? = {
+                let text = viewModel.composeStatusAttribute.contentWarningContent.value.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !text.isEmpty else {
+                    return nil
+                }
+                return text
+            }()
             
             let updateMediaQuerySubscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = {
                 var subscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = []
@@ -92,7 +100,9 @@ extension ComposeViewModel.PublishState {
                         status: viewModel.composeStatusAttribute.composeContent.value,
                         mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
                         pollOptions: pollOptions,
-                        pollExpiresIn: pollExpiresIn
+                        pollExpiresIn: pollExpiresIn,
+                        sensitive: sensitive,
+                        spoilerText: spoilerText
                     )
                     return viewModel.context.apiService.publishStatus(
                         domain: domain,

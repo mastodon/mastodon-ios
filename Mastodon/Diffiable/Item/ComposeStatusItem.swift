@@ -32,11 +32,16 @@ extension ComposeStatusItem {
         let username = CurrentValueSubject<String?, Never>(nil)
         let composeContent = CurrentValueSubject<String?, Never>(nil)
         
+        let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
+        let contentWarningContent = CurrentValueSubject<String, Never>("")
+        
         static func == (lhs: ComposeStatusAttribute, rhs: ComposeStatusAttribute) -> Bool {
             return lhs.avatarURL.value == rhs.avatarURL.value &&
                 lhs.displayName.value == rhs.displayName.value &&
-                lhs.username.value  == rhs.username.value &&
-                lhs.composeContent.value == rhs.composeContent.value
+                lhs.username.value == rhs.username.value &&
+                lhs.composeContent.value == rhs.composeContent.value &&
+                lhs.isContentWarningComposing.value == rhs.isContentWarningComposing.value &&
+                lhs.contentWarningContent.value == rhs.contentWarningContent.value
         }
         
         func hash(into hasher: inout Hasher) {

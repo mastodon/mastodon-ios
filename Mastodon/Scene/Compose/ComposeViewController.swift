@@ -623,6 +623,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
+        viewModel.isContentWarningComposing.value.toggle()
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton) {
