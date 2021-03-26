@@ -106,7 +106,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let usernameErrorPromptLabel: UILabel = {
         let label = UILabel()
-        let color = Asset.Colors.lightDangerRed.color
+        let color = Asset.Colors.danger.color
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()
@@ -146,7 +146,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let emailErrorPromptLabel: UILabel = {
         let label = UILabel()
-        let color = Asset.Colors.lightDangerRed.color
+        let color = Asset.Colors.danger.color
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()
@@ -177,7 +177,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let passwordErrorPromptLabel: UILabel = {
         let label = UILabel()
-        let color = Asset.Colors.lightDangerRed.color
+        let color = Asset.Colors.danger.color
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()
@@ -201,7 +201,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let reasonErrorPromptLabel: UILabel = {
         let label = UILabel()
-        let color = Asset.Colors.lightDangerRed.color
+        let color = Asset.Colors.danger.color
         let font = UIFont.preferredFont(forTextStyle: .caption1)
         return label
     }()

@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import PhotosUI
 import Kingfisher
+import MastodonSDK
 import TwitterTextEditor
 
 final class ComposeViewController: UIViewController, NeedsDependency {
@@ -102,14 +103,18 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return documentPickerController
     }()
     
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension ComposeViewController {
     private static func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsetsReference = .readableContent
         // section.interGroupSpacing = 10
@@ -232,22 +237,61 @@ extension ComposeViewController {
         })
         .store(in: &disposeBag)
 
+        // bind publish bar button state
         viewModel.isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: publishBarButtonItem)
             .store(in: &disposeBag)
         
+        // bind media button toolbar state
         viewModel.isMediaToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: composeToolbarView.mediaButton)
             .store(in: &disposeBag)
         
+        // bind poll button toolbar state
         viewModel.isPollToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: composeToolbarView.pollButton)
             .store(in: &disposeBag)
 
-        // bind custom emojis
+        // bind image picker toolbar state
+        viewModel.attachmentServices
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
+                self.resetImagePicker()
+            }
+            .store(in: &disposeBag)
+        
+        // bind visibility toolbar UI
+        viewModel.selectedStatusVisibility
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] type in
+                guard let self = self else { return }
+                self.composeToolbarView.visibilityButton.setImage(type.image, for: .normal)
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.characterCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] characterCount in
+                guard let self = self else { return }
+                let count = ComposeViewModel.composeContentLimit - characterCount
+                self.composeToolbarView.characterCountLabel.text = "\(count)"
+                switch count {
+                case _ where count < 0:
+                    self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 24, weight: .bold)
+                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
+                default:
+                    self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 15, weight: .regular)
+                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
+                }
+            }
+            .store(in: &disposeBag)
+        
+        // bind text editor for custom emojis update event
         viewModel.customEmojiViewModel
             .compactMap { $0?.emojis }
             .switchToLatest()
@@ -261,22 +305,24 @@ extension ComposeViewController {
             })
             .store(in: &disposeBag)
 
-        // bind image picker toolbar state
-        viewModel.attachmentServices
+        // bind custom emoji picker UI
+        viewModel.customEmojiViewModel
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] attachmentServices in
-                guard let self = self else { return }
-                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
-                self.resetImagePicker()
+            .map { viewModel -> AnyPublisher<[Mastodon.Entity.Emoji], Never> in
+                guard let viewModel = viewModel else {
+                    return Just([]).eraseToAnyPublisher()
+                }
+                return viewModel.emojis.eraseToAnyPublisher()
             }
-            .store(in: &disposeBag)
-        
-        viewModel.selectedStatusVisibility
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] type in
+            .switchToLatest()
+            .sink(receiveValue: { [weak self] emojis in
                 guard let self = self else { return }
-                self.composeToolbarView.visibilityButton.setImage(type.image, for: .normal)
-            }
+                if emojis.isEmpty {
+                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
+                } else {
+                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+                }
+            })
             .store(in: &disposeBag)
     }
     
@@ -315,6 +361,25 @@ extension ComposeViewController {
     
     private func markTextEditorViewBecomeFirstResponser() {
         textEditorView()?.isEditing = true
+    }
+    
+    private func contentWarningEditorTextView() -> UITextView? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        let items = diffableDataSource.snapshot().itemIdentifiers
+        for item in items {
+            switch item {
+            case .input:
+                guard let indexPath = diffableDataSource.indexPath(for: item),
+                      let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusContentCollectionViewCell else {
+                    continue
+                }
+                return cell.statusContentWarningEditorView.textView
+            default:
+                continue
+            }
+        }
+        
+        return nil
     }
     
     private func pollOptionCollectionViewCell(of item: ComposeStatusItem) -> ComposeStatusPollOptionCollectionViewCell? {
@@ -398,7 +463,7 @@ extension ComposeViewController {
         imagePicker.delegate = self
         return imagePicker
     }
-    
+
 }
 
 extension ComposeViewController {
@@ -587,6 +652,15 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     attributedString.addAttributes(attributes, range: match.range)
                 }
                 
+                if string.count > ComposeViewModel.composeContentLimit {
+                    var attributes = [NSAttributedString.Key: Any]()
+                    attributes[.foregroundColor] = Asset.Colors.danger.color
+                    let boundStart = string.index(string.startIndex, offsetBy: ComposeViewModel.composeContentLimit)
+                    let boundEnd = string.endIndex
+                    let range = boundStart..<boundEnd
+                    attributedString.addAttributes(attributes, range: NSRange(range, in: string))
+                }
+                
                 completion(attributedString)
             }
         }
@@ -631,7 +705,20 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
+        // restore first responder for text editor when content warning dismiss
+        if viewModel.isContentWarningComposing.value {
+            if contentWarningEditorTextView()?.isFirstResponder == true {
+                markTextEditorViewBecomeFirstResponser()
+            }
+        }
+        
+        // toggle composing status
         viewModel.isContentWarningComposing.value.toggle()
+        
+        // active content warning after toggled
+        if viewModel.isContentWarningComposing.value {
+            contentWarningEditorTextView()?.becomeFirstResponder()
+        }
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
@@ -772,6 +859,14 @@ extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelega
 
 // MARK: - ComposeStatusPollOptionCollectionViewCellDelegate
 extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelegate {
+    
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField) {
+        // FIXME: make poll section visible
+        // DispatchQueue.main.async {
+        //     self.collectionView.scroll(to: .bottom, animated: true)
+        // }
+    }
+
     
     // handle delete backward event for poll option input
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?) {

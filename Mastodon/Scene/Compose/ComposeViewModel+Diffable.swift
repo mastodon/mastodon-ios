@@ -55,7 +55,6 @@ extension ComposeViewModel {
             self.pollOptionAttributes.value = pollOptionAttributes
         }
     
-        
         self.diffableDataSource = diffableDataSource
         var snapshot = NSDiffableDataSourceSnapshot<ComposeStatusSection, ComposeStatusItem>()
         snapshot.appendSections([.repliedTo, .status, .attachment, .poll])

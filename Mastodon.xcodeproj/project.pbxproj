@@ -1171,8 +1171,8 @@
 				DB789A2125F9F76D0071ACA0 /* CollectionViewCell */,
 				DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */,
 				DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */,
-				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 				DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */,
+				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";

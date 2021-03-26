@@ -85,14 +85,7 @@ extension ComposeStatusSection {
                         UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseOut]) {
                             cell.statusContentWarningEditorView.alpha = 1
                         } completion: { _ in
-                            if isContentWarningComposing {
-                                cell.statusContentWarningEditorView.textView.becomeFirstResponder()
-                            }
                             // do nothing
-                        }
-                        // restore responder if needs
-                        if cell.statusContentWarningEditorView.textView.isFirstResponder {
-                            cell.textEditorView.isEditing = true
                         }
                     }
                     .store(in: &cell.disposeBag)

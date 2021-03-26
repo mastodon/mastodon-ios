@@ -198,10 +198,10 @@ extension MastodonRegisterViewModel {
         let attributeString = NSMutableAttributedString()
 
         let image = MastodonRegisterViewModel.xmarkImage(font: font)
-        attributeString.append(attributedStringImage(with: image, tintColor: Asset.Colors.lightDangerRed.color))
+        attributeString.append(attributedStringImage(with: image, tintColor: Asset.Colors.danger.color))
         attributeString.append(NSAttributedString(string: " "))
         
-        let promptAttributedString = NSAttributedString(string: prompt, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Asset.Colors.lightDangerRed.color])
+        let promptAttributedString = NSAttributedString(string: prompt, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Asset.Colors.danger.color])
         attributeString.append(promptAttributedString)
         
         return attributeString

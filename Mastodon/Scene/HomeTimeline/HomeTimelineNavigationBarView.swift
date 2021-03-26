@@ -15,7 +15,7 @@ final class HomeTimelineNavigationBarView {
     }()
     
     static let offlineView: UIView = {
-        let view = HomeTimelineNavigationBarView.backgroundViewWithColor(color: Asset.Colors.lightDangerRed.color)
+        let view = HomeTimelineNavigationBarView.backgroundViewWithColor(color: Asset.Colors.danger.color)
         let label = HomeTimelineNavigationBarView.contentLabel(text: L10n.Scene.HomeTimeline.NavigationBarState.offline)
         HomeTimelineNavigationBarView.addLabelToView(label: label, view: view)
         return view

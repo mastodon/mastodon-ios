@@ -17,6 +17,8 @@ final class CustomEmojiPickerInputView: UIInputView {
         return collectionView
     }()
     
+    let activityIndicatorView = UIActivityIndicatorView(style: .large)
+    
     override init(frame: CGRect, inputViewStyle: UIInputView.Style) {
         super.init(frame: frame, inputViewStyle: inputViewStyle)
         _init()
@@ -33,6 +35,13 @@ extension CustomEmojiPickerInputView {
     private func _init() {
         allowsSelfSizing = true
         
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -41,6 +50,9 @@ extension CustomEmojiPickerInputView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+        
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.startAnimating()
     }
 }
 

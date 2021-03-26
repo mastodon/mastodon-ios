@@ -59,6 +59,14 @@ final class ComposeToolbarView: UIView {
         return button
     }()
     
+    let characterCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.text = "500"
+        label.textColor = Asset.Colors.Label.secondary.color
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -101,6 +109,16 @@ extension ComposeToolbarView {
                 button.heightAnchor.constraint(equalToConstant: 44),
             ])
         }
+        
+        characterCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(characterCountLabel)
+        NSLayoutConstraint.activate([
+            characterCountLabel.topAnchor.constraint(equalTo: topAnchor),
+            characterCountLabel.leadingAnchor.constraint(greaterThanOrEqualTo: stackView.trailingAnchor, constant: 8),
+            characterCountLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            characterCountLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        characterCountLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
         mediaButton.menu = createMediaContextMenu()
         mediaButton.showsMenuAsPrimaryAction = true

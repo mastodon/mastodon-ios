@@ -10,6 +10,7 @@ import UIKit
 import Combine
 
 protocol ComposeStatusPollOptionCollectionViewCellDelegate: class {
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField)
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?)
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField)
 }
@@ -132,6 +133,12 @@ extension ComposeStatusPollOptionCollectionViewCell: DeleteBackwardResponseTextF
 
 // MARK: - UITextFieldDelegate
 extension ComposeStatusPollOptionCollectionViewCell: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.composeStatusPollOptionCollectionViewCell(self, textFieldDidBeginEditing: textField)
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         if textField === pollOptionView.optionTextField {
