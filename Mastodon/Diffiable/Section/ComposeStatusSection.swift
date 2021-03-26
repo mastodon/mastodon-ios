@@ -39,7 +39,14 @@ extension ComposeStatusSection {
         composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate,
         composeStatusPollExpiresOptionCollectionViewCellDelegate: ComposeStatusPollExpiresOptionCollectionViewCellDelegate
     ) -> UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
-        UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak customEmojiPickerInputViewModel] collectionView, indexPath, item -> UICollectionViewCell? in
+        UICollectionViewDiffableDataSource(collectionView: collectionView) { [
+            weak customEmojiPickerInputViewModel,
+            weak textEditorViewTextAttributesDelegate,
+            weak composeStatusAttachmentTableViewCellDelegate,
+            weak composeStatusPollOptionCollectionViewCellDelegate,
+            weak composeStatusNewPollOptionCollectionViewCellDelegate,
+            weak composeStatusPollExpiresOptionCollectionViewCellDelegate
+        ] collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
             case .replyTo(let repliedToStatusObjectID):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToTootContentCollectionViewCell
@@ -213,7 +220,7 @@ extension ComposeStatusSection {
         .receive(on: DispatchQueue.main)
         .sink { displayName, username in
             cell.statusView.nameLabel.text = displayName
-            cell.statusView.usernameLabel.text = username
+            cell.statusView.usernameLabel.text = username.flatMap { "@" + $0 } ?? " "
         }
         .store(in: &cell.disposeBag)
         
