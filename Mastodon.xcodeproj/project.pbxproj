@@ -120,6 +120,7 @@
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
 		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
+		DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */; };
 		DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */; };
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
@@ -134,6 +135,11 @@
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
+		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
+		DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */; };
+		DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */; };
+		DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */; };
+		DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */; };
 		DB4481AD25EE155900BEFB67 /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481AC25EE155900BEFB67 /* Poll.swift */; };
 		DB4481B325EE16D000BEFB67 /* PollOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B225EE16D000BEFB67 /* PollOption.swift */; };
 		DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4481B825EE289600BEFB67 /* UITableView.swift */; };
@@ -166,8 +172,6 @@
 		DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */; };
 		DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729525F9F91600D60309 /* ComposeStatusSection.swift */; };
 		DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */; };
-		DB6672A325F9FDE500D60309 /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DB6672A225F9FDE500D60309 /* TwitterTextEditor */; };
-		DB6672A425F9FDE500D60309 /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DB6672A225F9FDE500D60309 /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */; };
 		DB68A04A25E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* DarkContentStatusBarStyleNavigationController.swift */; };
 		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
@@ -241,10 +245,13 @@
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
+		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
+		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
+		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -292,7 +299,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DB6672A425F9FDE500D60309 /* TwitterTextEditor in Embed Frameworks */,
+				DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */,
 				DB89BA0425C10FD0008580ED /* CoreDataStack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -416,6 +423,7 @@
 		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
 		DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
+		DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputViewModel.swift; sourceTree = "<group>"; };
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2B3AE825E38850007045F9 /* UIViewPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -436,6 +444,11 @@
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
+		DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerSection.swift; sourceTree = "<group>"; };
+		DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerItem.swift; sourceTree = "<group>"; };
+		DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		DB4481AC25EE155900BEFB67 /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 		DB4481B225EE16D000BEFB67 /* PollOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollOption.swift; sourceTree = "<group>"; };
 		DB4481B825EE289600BEFB67 /* UITableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
@@ -541,6 +554,7 @@
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
+		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
 		DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Reblog.swift"; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
@@ -555,7 +569,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB6672A325F9FDE500D60309 /* TwitterTextEditor in Frameworks */,
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
@@ -565,6 +578,7 @@
 				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
+				DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -763,6 +777,7 @@
 			isa = PBXGroup;
 			children = (
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
+				DB49A61925FF327D00B98345 /* EmojiService */,
 				DB9A489B26036E19008B817C /* MastodonAttachmentService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 				DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */,
@@ -770,7 +785,6 @@
 				2DA6054625F716A2006356F9 /* PlaybackState.swift */,
 				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
 				DB71FD4B25F8C80E00512AE1 /* StatusPrefetchingService.swift */,
-				DB49A61925FF327D00B98345 /* EmojiService */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -830,6 +844,7 @@
 				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
 				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
+				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -880,6 +895,7 @@
 				DB1E347725F519300079D7DF /* PickServerItem.swift */,
 				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
+				DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1106,6 +1122,9 @@
 				DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */,
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
 				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
+				DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */,
+				DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */,
+				DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1152,8 +1171,8 @@
 				DB789A2125F9F76D0071ACA0 /* CollectionViewCell */,
 				DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */,
 				DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */,
-				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 				DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */,
+				DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */,
 			);
 			path = Compose;
 			sourceTree = "<group>";
@@ -1167,6 +1186,8 @@
 				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
 				DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */,
 				DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */,
+				DB447690260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift */,
+				DB447696260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -1466,8 +1487,8 @@
 				DB5086B725CC0D6400C2C187 /* Kingfisher */,
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
-				DB6672A225F9FDE500D60309 /* TwitterTextEditor */,
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
+				DBE64A8A260C49D200E6359A /* TwitterTextEditor */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -1597,8 +1618,8 @@
 				DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
-				DB6672A125F9FDE500D60309 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
+				DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -1797,6 +1818,7 @@
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
 				DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
+				DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */,
 				0FB3D33225E5F50E00AAD544 /* PickServerSearchCell.swift in Sources */,
 				DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
@@ -1878,14 +1900,18 @@
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
+				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
 				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
+				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
+				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
 				DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */,
 				DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
+				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
@@ -1919,6 +1945,7 @@
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Toot.swift in Sources */,
+				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
@@ -1936,6 +1963,7 @@
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */,
+				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
@@ -2557,20 +2585,20 @@
 				minimumVersion = 6.1.0;
 			};
 		};
-		DB6672A125F9FDE500D60309 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twitter/TwitterTextEditor.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/UITextView-Placeholder";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.4.1;
+			};
+		};
+		DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MainasuK/TwitterTextEditor";
+			requirement = {
+				branch = "feature/input-view";
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -2615,15 +2643,15 @@
 			package = DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		DB6672A225F9FDE500D60309 /* TwitterTextEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB6672A125F9FDE500D60309 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
-			productName = TwitterTextEditor;
-		};
 		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
 			productName = "UITextView+Placeholder";
+		};
+		DBE64A8A260C49D200E6359A /* TwitterTextEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
+			productName = TwitterTextEditor;
 		};
 /* End XCSwiftPackageProductDependency section */
 

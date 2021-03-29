@@ -5,6 +5,7 @@
 //  Created by MainasuK Cirno on 2021-3-11.
 //
 
+import os.log
 import UIKit
 import Combine
 import TwitterTextEditor
@@ -14,6 +15,8 @@ final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
     var disposeBag = Set<AnyCancellable>()
     
     let statusView = StatusView()
+    
+    let statusContentWarningEditorView = StatusContentWarningEditorView()
     
     let textEditorView: TextEditorView = {
         let textEditorView = TextEditorView()
@@ -25,7 +28,9 @@ final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
         return textEditorView
     }()
     
+    // output
     let composeContent = PassthroughSubject<String, Never>()
+    let contentWarningContent = PassthroughSubject<String, Never>()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,10 +50,20 @@ extension ComposeStatusContentCollectionViewCell {
         // selectionStyle = .none
         preservesSuperviewLayoutMargins = true
         
+        statusContentWarningEditorView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(statusContentWarningEditorView)
+        NSLayoutConstraint.activate([
+            statusContentWarningEditorView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            statusContentWarningEditorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            statusContentWarningEditorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ])
+        statusContentWarningEditorView.preservesSuperviewLayoutMargins = true
+        statusContentWarningEditorView.containerBackgroundView.isHidden = false
+        
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         NSLayoutConstraint.activate([
-            statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            statusView.topAnchor.constraint(equalTo: statusContentWarningEditorView.bottomAnchor, constant: 20),
             statusView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             statusView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
         ])
@@ -70,23 +85,39 @@ extension ComposeStatusContentCollectionViewCell {
             textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         textEditorView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
-        
-        // TODO:
-        
+                
+        statusContentWarningEditorView.textView.delegate = self
         textEditorView.changeObserver = self
-    }
-    
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
         
+        statusContentWarningEditorView.containerView.isHidden = true
     }
     
 }
 
-// MARK: - UITextViewDelegate
+// MARK: - TextEditorViewChangeObserver
 extension ComposeStatusContentCollectionViewCell: TextEditorViewChangeObserver {
     func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textEditorView.text)
         guard changeResult.isTextChanged else { return }
         composeContent.send(textEditorView.text)
     }
+}
+
+// MARK: - UITextViewDelegate
+extension ComposeStatusContentCollectionViewCell: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // disable input line break
+        guard text != "\n" else { return false }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textView.text)
+        guard textView === statusContentWarningEditorView.textView else { return }
+        // replace line break with space
+        textView.text = textView.text.replacingOccurrences(of: "\n", with: " ")
+        contentWarningContent.send(textView.text)
+    }
+    
 }

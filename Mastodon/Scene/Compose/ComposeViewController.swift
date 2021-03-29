@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import PhotosUI
 import Kingfisher
+import MastodonSDK
 import TwitterTextEditor
 
 final class ComposeViewController: UIViewController, NeedsDependency {
@@ -52,9 +53,25 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return collectionView
     }()
     
+    var systemKeyboardHeight: CGFloat = .zero {
+        didSet {
+            // note: some system AutoLayout warning here
+            customEmojiPickerInputView.frame.size.height = systemKeyboardHeight != .zero ? systemKeyboardHeight : 300
+        }
+    }
+    
+    // CustomEmojiPickerView
+    let customEmojiPickerInputView: CustomEmojiPickerInputView = {
+        let view = CustomEmojiPickerInputView(frame: CGRect(x: 0, y: 0, width: 0, height: 300), inputViewStyle: .keyboard)
+        return view
+    }()
+    
     let composeToolbarView: ComposeToolbarView = {
         let composeToolbarView = ComposeToolbarView()
-        composeToolbarView.backgroundColor = .secondarySystemBackground
+        let text = UITextView()
+        let inputView = UIInputView(frame: .init(x: 0, y: 0, width: 40, height: 40), inputViewStyle: .keyboard)
+        text.inputAccessoryView = inputView
+        composeToolbarView.backgroundColor = inputView.backgroundColor
         return composeToolbarView
     }()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
@@ -86,14 +103,18 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return documentPickerController
     }()
     
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension ComposeViewController {
     private static func createLayout() -> UICollectionViewLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsetsReference = .readableContent
         // section.interGroupSpacing = 10
@@ -153,6 +174,7 @@ extension ComposeViewController {
         viewModel.setupDiffableDataSource(
             for: collectionView,
             dependency: self,
+            customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
             textEditorViewTextAttributesDelegate: self,
             composeStatusAttachmentTableViewCellDelegate: self,
             composeStatusPollOptionCollectionViewCellDelegate: self,
@@ -162,15 +184,23 @@ extension ComposeViewController {
         let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
         collectionView.addGestureRecognizer(longPressReorderGesture)
         
+        customEmojiPickerInputView.collectionView.delegate = self
+        viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
+        viewModel.setupCustomEmojiPickerDiffableDataSource(
+            for: customEmojiPickerInputView.collectionView,
+            dependency: self
+        )
+        
         // respond scrollView overlap change
         view.layoutIfNeeded()
         // update layout when keyboard show/dismiss
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
+            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher(),
+            viewModel.isCustomEmojiComposing.eraseToAnyPublisher()
         )
-        .sink(receiveValue: { [weak self] isShow, state, endFrame in
+        .sink(receiveValue: { [weak self] isShow, state, endFrame, isCustomEmojiComposing in
             guard let self = self else { return }
 
             guard isShow, state == .dock else {
@@ -182,8 +212,9 @@ extension ComposeViewController {
                 }
                 return
             }
-
             // isShow AND dock state
+            self.systemKeyboardHeight = endFrame.height
+
             let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
@@ -206,22 +237,61 @@ extension ComposeViewController {
         })
         .store(in: &disposeBag)
 
+        // bind publish bar button state
         viewModel.isPublishBarButtonItemEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: publishBarButtonItem)
             .store(in: &disposeBag)
         
+        // bind media button toolbar state
         viewModel.isMediaToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: composeToolbarView.mediaButton)
             .store(in: &disposeBag)
         
+        // bind poll button toolbar state
         viewModel.isPollToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: composeToolbarView.pollButton)
             .store(in: &disposeBag)
 
-        // bind custom emojis
+        // bind image picker toolbar state
+        viewModel.attachmentServices
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] attachmentServices in
+                guard let self = self else { return }
+                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
+                self.resetImagePicker()
+            }
+            .store(in: &disposeBag)
+        
+        // bind visibility toolbar UI
+        viewModel.selectedStatusVisibility
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] type in
+                guard let self = self else { return }
+                self.composeToolbarView.visibilityButton.setImage(type.image, for: .normal)
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.characterCount
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] characterCount in
+                guard let self = self else { return }
+                let count = ComposeViewModel.composeContentLimit - characterCount
+                self.composeToolbarView.characterCountLabel.text = "\(count)"
+                switch count {
+                case _ where count < 0:
+                    self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 24, weight: .bold)
+                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
+                default:
+                    self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 15, weight: .regular)
+                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
+                }
+            }
+            .store(in: &disposeBag)
+        
+        // bind text editor for custom emojis update event
         viewModel.customEmojiViewModel
             .compactMap { $0?.emojis }
             .switchToLatest()
@@ -235,14 +305,24 @@ extension ComposeViewController {
             })
             .store(in: &disposeBag)
 
-        // bind image picker toolbar state
-        viewModel.attachmentServices
+        // bind custom emoji picker UI
+        viewModel.customEmojiViewModel
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] attachmentServices in
-                guard let self = self else { return }
-                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
-                self.resetImagePicker()
+            .map { viewModel -> AnyPublisher<[Mastodon.Entity.Emoji], Never> in
+                guard let viewModel = viewModel else {
+                    return Just([]).eraseToAnyPublisher()
+                }
+                return viewModel.emojis.eraseToAnyPublisher()
             }
+            .switchToLatest()
+            .sink(receiveValue: { [weak self] emojis in
+                guard let self = self else { return }
+                if emojis.isEmpty {
+                    self.customEmojiPickerInputView.activityIndicatorView.startAnimating()
+                } else {
+                    self.customEmojiPickerInputView.activityIndicatorView.stopAnimating()
+                }
+            })
             .store(in: &disposeBag)
     }
     
@@ -281,6 +361,25 @@ extension ComposeViewController {
     
     private func markTextEditorViewBecomeFirstResponser() {
         textEditorView()?.isEditing = true
+    }
+    
+    private func contentWarningEditorTextView() -> UITextView? {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
+        let items = diffableDataSource.snapshot().itemIdentifiers
+        for item in items {
+            switch item {
+            case .input:
+                guard let indexPath = diffableDataSource.indexPath(for: item),
+                      let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusContentCollectionViewCell else {
+                    continue
+                }
+                return cell.statusContentWarningEditorView.textView
+            default:
+                continue
+            }
+        }
+        
+        return nil
     }
     
     private func pollOptionCollectionViewCell(of item: ComposeStatusItem) -> ComposeStatusPollOptionCollectionViewCell? {
@@ -364,7 +463,7 @@ extension ComposeViewController {
         imagePicker.delegate = self
         return imagePicker
     }
-    
+
 }
 
 extension ComposeViewController {
@@ -553,6 +652,15 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     attributedString.addAttributes(attributes, range: match.range)
                 }
                 
+                if string.count > ComposeViewModel.composeContentLimit {
+                    var attributes = [NSAttributedString.Key: Any]()
+                    attributes[.foregroundColor] = Asset.Colors.danger.color
+                    let boundStart = string.index(string.startIndex, offsetBy: ComposeViewModel.composeContentLimit)
+                    let boundEnd = string.endIndex
+                    let range = boundStart..<boundEnd
+                    attributedString.addAttributes(attributes, range: NSRange(range, in: string))
+                }
+                
                 completion(attributedString)
             }
         }
@@ -563,8 +671,8 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType) {
-        switch mediaSelectionType {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
+        switch type {
         case .photoLibrary:
             present(imagePicker, animated: true, completion: nil)
         case .camera:
@@ -593,12 +701,28 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton) {
+        viewModel.isCustomEmojiComposing.value.toggle()
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
+        // restore first responder for text editor when content warning dismiss
+        if viewModel.isContentWarningComposing.value {
+            if contentWarningEditorTextView()?.isFirstResponder == true {
+                markTextEditorViewBecomeFirstResponser()
+            }
+        }
+        
+        // toggle composing status
+        viewModel.isContentWarningComposing.value.toggle()
+        
+        // active content warning after toggled
+        if viewModel.isContentWarningComposing.value {
+            contentWarningEditorTextView()?.becomeFirstResponder()
+        }
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
+        viewModel.selectedStatusVisibility.value = type
     }
     
 }
@@ -606,6 +730,35 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
 // MARK: - UITableViewDelegate
 extension ComposeViewController: UICollectionViewDelegate {
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+
+        if collectionView === customEmojiPickerInputView.collectionView {
+            guard let diffableDataSource = viewModel.customEmojiPickerDiffableDataSource else { return }
+            let item = diffableDataSource.itemIdentifier(for: indexPath)
+            guard case let .emoji(attribute) = item else { return }
+            let emoji = attribute.emoji
+            let textEditorView = self.textEditorView()
+            
+            // retrive active text input and insert emoji
+            // the leading and trailing space is REQUIRED to fix `UITextStorage` layout issue
+            let reference = viewModel.customEmojiPickerInputViewModel.insertText(" :\(emoji.shortcode): ")
+            
+            // workaround: non-user interactive change do not trigger value update event
+            if reference?.value === textEditorView {
+                viewModel.composeStatusAttribute.composeContent.value = textEditorView?.text
+                // update text storage
+                textEditorView?.setNeedsUpdateTextAttributes()
+                // collection self-size
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.collectionView.collectionViewLayout.invalidateLayout()
+                }
+            }
+        } else {
+            // do nothing
+        }
+    }
 }
 
 // MARK: - UIAdaptivePresentationControllerDelegate
@@ -706,6 +859,14 @@ extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelega
 
 // MARK: - ComposeStatusPollOptionCollectionViewCellDelegate
 extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelegate {
+    
+    func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField) {
+        // FIXME: make poll section visible
+        // DispatchQueue.main.async {
+        //     self.collectionView.scroll(to: .bottom, animated: true)
+        // }
+    }
+
     
     // handle delete backward event for poll option input
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?) {

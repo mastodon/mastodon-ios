@@ -7,13 +7,14 @@
 
 import os.log
 import UIKit
+import MastodonSDK
 
 protocol ComposeToolbarViewDelegate: class {
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType: ComposeToolbarView.MediaSelectionType)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton)
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType)
 }
 
 final class ComposeToolbarView: UIView {
@@ -56,6 +57,14 @@ final class ComposeToolbarView: UIView {
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
         button.setImage(UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium)), for: .normal)
         return button
+    }()
+    
+    let characterCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.text = "500"
+        label.textColor = Asset.Colors.Label.secondary.color
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -101,12 +110,23 @@ extension ComposeToolbarView {
             ])
         }
         
+        characterCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(characterCountLabel)
+        NSLayoutConstraint.activate([
+            characterCountLabel.topAnchor.constraint(equalTo: topAnchor),
+            characterCountLabel.leadingAnchor.constraint(greaterThanOrEqualTo: stackView.trailingAnchor, constant: 8),
+            characterCountLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            characterCountLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+        ])
+        characterCountLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         mediaButton.menu = createMediaContextMenu()
         mediaButton.showsMenuAsPrimaryAction = true
         pollButton.addTarget(self, action: #selector(ComposeToolbarView.pollButtonDidPressed(_:)), for: .touchUpInside)
         emojiButton.addTarget(self, action: #selector(ComposeToolbarView.emojiButtonDidPressed(_:)), for: .touchUpInside)
         contentWarningButton.addTarget(self, action: #selector(ComposeToolbarView.contentWarningButtonDidPressed(_:)), for: .touchUpInside)
-        visibilityButton.addTarget(self, action: #selector(ComposeToolbarView.visibilityButtonDidPressed(_:)), for: .touchUpInside)
+        visibilityButton.menu = createVisibilityContextMenu()
+        visibilityButton.showsMenuAsPrimaryAction = true
     }
 }
 
@@ -115,6 +135,40 @@ extension ComposeToolbarView {
         case camera
         case photoLibrary
         case browse
+    }
+    
+    enum VisibilitySelectionType: String, CaseIterable {
+        case `public`
+        case unlisted
+        case `private`
+        case direct
+        
+        var title: String {
+            switch self {
+            case .public: return L10n.Scene.Compose.Visibility.public
+            case .unlisted: return L10n.Scene.Compose.Visibility.unlisted
+            case .private: return L10n.Scene.Compose.Visibility.private
+            case .direct: return L10n.Scene.Compose.Visibility.direct
+            }
+        }
+        
+        var image: UIImage {
+            switch self {
+            case .public: return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+            case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!
+            case .private: return UIImage(systemName: "person.crop.circle.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!
+            case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!
+            }
+        }
+        
+        var visibility: Mastodon.Entity.Status.Visibility {
+            switch self {
+            case .public: return .public
+            case .unlisted: return .unlisted
+            case .private: return .private
+            case .direct: return .direct
+            }
+        }
     }
 }
 
@@ -154,8 +208,18 @@ extension ComposeToolbarView {
         return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
     }
     
+    private func createVisibilityContextMenu() -> UIMenu {
+        let children: [UIMenuElement] = VisibilitySelectionType.allCases.map { type in
+            UIAction(title: type.title, image: type.image, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] action in
+                guard let self = self else { return }
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: visibilitySelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, type.rawValue)
+                self.delegate?.composeToolbarView(self, visibilityButtonDidPressed: self.visibilityButton, visibilitySelectionType: type)
+            }
+        }
+        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
+    }
+    
 }
-
 
 extension ComposeToolbarView {
     
@@ -172,11 +236,6 @@ extension ComposeToolbarView {
     @objc private func contentWarningButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.composeToolbarView(self, contentWarningButtonDidPressed: sender)
-    }
-    
-    @objc private func visibilityButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.composeToolbarView(self, visibilityButtonDidPressed: sender)
     }
     
 }

@@ -5,13 +5,17 @@
 //  Created by MainasuK Cirno on 2021-3-11.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonSDK
 
 final class ComposeViewModel {
+    
+    static let composeContentLimit: Int = 500
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -20,12 +24,15 @@ final class ComposeViewModel {
     let composeKind: ComposeStatusSection.ComposeKind
     let composeStatusAttribute = ComposeStatusItem.ComposeStatusAttribute()
     let isPollComposing = CurrentValueSubject<Bool, Never>(false)
+    let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
+    let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
+    let selectedStatusVisibility = CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>(.public)
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     
     // output
-    //var diffableDataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
+    var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>!
     private(set) lazy var publishStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
@@ -44,9 +51,13 @@ final class ComposeViewModel {
     let isPublishBarButtonItemEnabled = CurrentValueSubject<Bool, Never>(false)
     let isMediaToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
+    let characterCount = CurrentValueSubject<Int, Never>(0)
     
     // custom emojis
+    var customEmojiViewModelSubscription: AnyCancellable?
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
+    let customEmojiPickerInputViewModel = CustomEmojiPickerInputViewModel()
+    let isLoadingCustomEmoji = CurrentValueSubject<Bool, Never>(false)
     
     // attachment
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
@@ -68,6 +79,14 @@ final class ComposeViewModel {
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
+        
+        isCustomEmojiComposing
+            .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)
+            .store(in: &disposeBag)
+        
+        isContentWarningComposing
+            .assign(to: \.value, on: composeStatusAttribute.isContentWarningComposing)
+            .store(in: &disposeBag)
         
         // bind active authentication
         context.authenticationService.activeMastodonAuthentication
@@ -95,10 +114,30 @@ final class ComposeViewModel {
             }
             .store(in: &disposeBag)
         
+        // bind character count
+        Publishers.CombineLatest3(
+            composeStatusAttribute.composeContent.eraseToAnyPublisher(),
+            composeStatusAttribute.isContentWarningComposing.eraseToAnyPublisher(),
+            composeStatusAttribute.contentWarningContent.eraseToAnyPublisher()
+        )
+        .map { composeContent, isContentWarningComposing, contentWarningContent -> Int in
+            let composeContent = composeContent ?? ""
+            var count = composeContent.count
+            if isContentWarningComposing {
+                count += contentWarningContent.count
+            }
+            return count
+        }
+        .assign(to: \.value, on: characterCount)
+        .store(in: &disposeBag)
         // bind compose bar button item UI state
         let isComposeContentEmpty = composeStatusAttribute.composeContent
             .map { ($0 ?? "").isEmpty }
-        let isComposeContentValid = Just(true).eraseToAnyPublisher()
+        let isComposeContentValid = composeStatusAttribute.composeContent
+            .map { composeContent -> Bool in
+                let composeContent = composeContent ?? ""
+                return composeContent.count <= ComposeViewModel.composeContentLimit
+            }
         let isMediaEmpty = attachmentServices
             .map { $0.isEmpty }
         let isMediaUploadAllSuccess = attachmentServices
@@ -264,6 +303,10 @@ final class ComposeViewModel {
         .store(in: &disposeBag)
     }
     
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension ComposeViewModel {
@@ -287,6 +330,6 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
 extension ComposeViewModel: ComposePollAttributeDelegate {
     func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?) {
         // trigger update
-        pollOptionAttributes.value = pollOptionAttributes.value
+        // pollOptionAttributes.value = pollOptionAttributes.value
     }
 }
