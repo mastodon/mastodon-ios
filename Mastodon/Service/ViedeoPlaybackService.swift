@@ -14,7 +14,7 @@ import os.log
 final class VideoPlaybackService {
     var disposeBag = Set<AnyCancellable>()
     
-    let workingQueue = DispatchQueue(label: "com.twidere.twiderex.video-playback-service.working-queue")
+    let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.VideoPlaybackService.working-queue")
     private(set) var viewPlayerViewModelDict: [URL: VideoPlayerViewModel] = [:]
     
     // only for video kind

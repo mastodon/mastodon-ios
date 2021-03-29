@@ -2,6 +2,9 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "Please try again later.";
 "Common.Alerts.DiscardPostContent.Message" = "Confirm discard composed post content.";
 "Common.Alerts.DiscardPostContent.Title" = "Discard Publish";
+"Common.Alerts.PublishPostFailure.Message" = "Failed to publish the post.
+Please check your internet connection.";
+"Common.Alerts.PublishPostFailure.Title" = "Publish Failure";
 "Common.Alerts.ServerError.Title" = "Server Error";
 "Common.Alerts.SignUpFailure.Title" = "Sign Up Failure";
 "Common.Alerts.VoteFailure.PollExpired" = "The poll has expired";
@@ -23,6 +26,7 @@
 "Common.Controls.Actions.SignIn" = "Sign In";
 "Common.Controls.Actions.SignUp" = "Sign Up";
 "Common.Controls.Actions.TakePhoto" = "Take photo";
+"Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Status.MediaContentWarning" = "Tap to reveal that may be sensitive";
 "Common.Controls.Status.Poll.Closed" = "Closed";
 "Common.Controls.Status.Poll.TimeLeft" = "%@ left";

@@ -23,6 +23,8 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
     
+    let titleView = HomeTimelineNavigationBarTitleView()
+    
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
         barButtonItem.tintColor = Asset.Colors.Label.highlight.color
@@ -49,6 +51,12 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency {
         return tableView
     }()
     
+    let publishProgressView: UIProgressView = {
+        let progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.alpha = 0
+        return progressView
+    }()
+    
     let refreshControl = UIRefreshControl()
     
     deinit {
@@ -64,8 +72,19 @@ extension HomeTimelineViewController {
         
         title = L10n.Scene.HomeTimeline.title
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
-        navigationItem.titleView = HomeTimelineNavigationBarView.mastodonLogoTitleView
         navigationItem.leftBarButtonItem = settingBarButtonItem
+        navigationItem.titleView = titleView
+        titleView.delegate = self
+        
+        viewModel.homeTimelineNavigationBarTitleViewModel.state
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                self.titleView.configure(state: state)
+            }
+            .store(in: &disposeBag)
+        
+        
         #if DEBUG
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
@@ -95,9 +114,16 @@ extension HomeTimelineViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        publishProgressView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(publishProgressView)
+        NSLayoutConstraint.activate([
+            publishProgressView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            publishProgressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            publishProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
 
         viewModel.tableView = tableView
-        viewModel.viewController = self
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
         tableView.prefetchDataSource = self
@@ -121,8 +147,34 @@ extension HomeTimelineViewController {
                 }
             }
             .store(in: &disposeBag)
+        
+        viewModel.homeTimelineNavigationBarTitleViewModel.publishingProgress
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] progress in
+                guard let self = self else { return }
+                guard progress > 0 else {
+                    let dismissAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut)
+                    dismissAnimator.addAnimations {
+                        self.publishProgressView.alpha = 0
+                    }
+                    dismissAnimator.addCompletion { _ in
+                        self.publishProgressView.setProgress(0, animated: false)
+                    }
+                    dismissAnimator.startAnimation()
+                    return
+                }
+                if self.publishProgressView.alpha == 0 {
+                    let progressAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut)
+                    progressAnimator.addAnimations {
+                        self.publishProgressView.alpha = 1
+                    }
+                    progressAnimator.startAnimation()
+                }
+                
+                self.publishProgressView.setProgress(progress, animated: true)
+            }
+            .store(in: &disposeBag)
     }
-
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -207,7 +259,7 @@ extension HomeTimelineViewController {
 extension HomeTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
-        self.viewModel.homeTimelineNavigationBarState.handleScrollViewDidScroll(scrollView)
+        self.viewModel.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
     }
 }
 
@@ -221,8 +273,9 @@ extension HomeTimelineViewController: LoadMoreConfigurableTableViewContainer {
 // MARK: - UITableViewDelegate
 extension HomeTimelineViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     // TODO:
-    // func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
     //     guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }
     //     guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return 100 }
     //
@@ -232,7 +285,7 @@ extension HomeTimelineViewController: UITableViewDelegate {
     //     // os_log("%{public}s[%{public}ld], %{public}s: cache cell frame %s", ((#file as NSString).lastPathComponent), #line, #function, frame.debugDescription)
     //
     //     return ceil(frame.height)
-    // }
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
@@ -363,4 +416,24 @@ extension HomeTimelineViewController: AVPlayerViewControllerDelegate {
 extension HomeTimelineViewController: StatusTableViewCellDelegate {
     weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
     func parent() -> UIViewController { return self }
+}
+
+// MARK: - HomeTimelineNavigationBarTitleViewDelegate
+extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate {
+    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton) {
+        switch titleView.state {
+        case .newPostButton:
+            guard let diffableDataSource = viewModel.diffableDataSource else { return }
+            let indexPath = IndexPath(row: 0, section: 0)
+            guard diffableDataSource.itemIdentifier(for: indexPath) != nil else { return }
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        case .offlineButton:
+            // TODO: retry
+            break
+        case .publishedButton:
+            break
+        default:
+            break
+        }
+    }
 }

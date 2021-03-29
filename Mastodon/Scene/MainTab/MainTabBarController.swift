@@ -123,6 +123,32 @@ extension MainTabBarController {
                 }
             }
             .store(in: &disposeBag)
+        
+        // handle post failure
+        context.statusPublishService
+            .latestPublishingComposeViewModel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] composeViewModel in
+                guard let self = self else { return }
+                guard let composeViewModel = composeViewModel else { return }
+                guard let currentState = composeViewModel.publishStateMachine.currentState else { return }
+                guard currentState is ComposeViewModel.PublishState.Fail else { return }
+                
+                let alertController = UIAlertController(title: L10n.Common.Alerts.PublishPostFailure.title, message: L10n.Common.Alerts.PublishPostFailure.message, preferredStyle: .alert)
+                let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self, weak composeViewModel] _ in
+                    guard let self = self else { return }
+                    guard let composeViewModel = composeViewModel else { return }
+                    self.context.statusPublishService.remove(composeViewModel: composeViewModel)
+                }
+                alertController.addAction(discardAction)
+                let retryAction = UIAlertAction(title: L10n.Common.Controls.Actions.tryAgain, style: .default) { [weak composeViewModel] _ in
+                    guard let composeViewModel = composeViewModel else { return }
+                    composeViewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self)
+                }
+                alertController.addAction(retryAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+            .store(in: &disposeBag)
                 
         #if DEBUG
         // selectedIndex = 1
