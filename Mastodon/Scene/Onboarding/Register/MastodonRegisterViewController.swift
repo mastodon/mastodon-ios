@@ -20,13 +20,27 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     var viewModel: MastodonRegisterViewModel!
 
-    lazy var imagePicker: PHPickerViewController = {
+    // picker
+    private(set) lazy var imagePicker: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
+        configuration.selectionLimit = 1
 
         let imagePicker = PHPickerViewController(configuration: configuration)
         imagePicker.delegate = self
         return imagePicker
+    }()
+    private(set) lazy var imagePickerController: UIImagePickerController = {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .camera
+        imagePickerController.delegate = self
+        return imagePickerController
+    }()
+    
+    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
+        let documentPickerController = UIDocumentPickerViewController(documentTypes: ["public.image"], in: .open)
+        documentPickerController.delegate = self
+        return documentPickerController
     }()
     
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
@@ -56,7 +70,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
     
     let avatarButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = HighlightDimmableButton()
         let boldFont = UIFont.systemFont(ofSize: 42)
         let configuration = UIImage.SymbolConfiguration(font: boldFont)
         let image = UIImage(systemName: "person.fill.viewfinder", withConfiguration: configuration)
@@ -227,6 +241,9 @@ extension MastodonRegisterViewController {
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
         
+        avatarButton.menu = createMediaContextMenu()
+        avatarButton.showsMenuAsPrimaryAction = true
+        
         domainLabel.text = "@" + viewModel.domain + "  "
         domainLabel.sizeToFit()
         passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: .empty)
@@ -388,9 +405,8 @@ extension MastodonRegisterViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isHighlighted in
                 guard let self = self else { return }
-                let alpha: CGFloat = isHighlighted ? 0.8 : 1
+                let alpha: CGFloat = isHighlighted ? 0.6 : 1
                 self.plusIconImageView.alpha = alpha
-                self.avatarButton.alpha = alpha
             }
             .store(in: &disposeBag)
 
@@ -550,7 +566,6 @@ extension MastodonRegisterViewController {
                 .store(in: &disposeBag)
         }
         
-        avatarButton.addTarget(self, action: #selector(MastodonRegisterViewController.avatarButtonPressed(_:)), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
     

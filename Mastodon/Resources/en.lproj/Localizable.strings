@@ -102,6 +102,7 @@ tap the link to confirm your account.";
 "Scene.Register.Error.Special.PasswordTooShort" = "Password is too short (must be at least 8 characters)";
 "Scene.Register.Error.Special.UsernameInvalid" = "Username must only contain alphanumeric characters and underscores";
 "Scene.Register.Error.Special.UsernameTooLong" = "Username is too long (can't be longer than 30 characters)";
+"Scene.Register.Input.Avatar.Delete" = "delete";
 "Scene.Register.Input.DisplayName.Placeholder" = "display name";
 "Scene.Register.Input.Email.Placeholder" = "email";
 "Scene.Register.Input.Invite.RegistrationUserInviteRequest" = "Why do you want to join?";
