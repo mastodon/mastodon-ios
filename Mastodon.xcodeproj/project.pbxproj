@@ -42,7 +42,7 @@
 		2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1FD25CD481700561493 /* StatusProvider.swift */; };
 		2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F20725CD491300561493 /* DisposeBagCollectable.swift */; };
 		2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */; };
-		2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* ActiveLabel */; };
+		2D42FF6125C8177C004A627A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* SwiftPackageProductDependency */; };
 		2D42FF6B25C817D2004A627A /* TootContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF6A25C817D2004A627A /* TootContent.swift */; };
 		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
 		2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */; };
@@ -52,14 +52,14 @@
 		2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */; };
 		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
-		2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */ = {isa = PBXBuildFile; productRef = 2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */; };
+		2D5981BA25E4D7F8000FB903 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2D5981B925E4D7F8000FB903 /* SwiftPackageProductDependency */; };
 		2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D0225CF8742002347D6 /* ControlContainableScrollViews.swift */; };
 		2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */; };
 		2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D3725CF8D9F002347D6 /* ScrollViewContainer.swift */; };
 		2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */; };
 		2D61335825C188A000CAE157 /* APIService+Persist+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335725C188A000CAE157 /* APIService+Persist+Status.swift */; };
 		2D61335E25C1894B00CAE157 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D61335D25C1894B00CAE157 /* APIService.swift */; };
-		2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */; };
+		2D61336925C18A4F00CAE157 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2D61336825C18A4F00CAE157 /* SwiftPackageProductDependency */; };
 		2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */; };
 		2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */; };
 		2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */; };
@@ -81,7 +81,7 @@
 		2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0D25C7E9C9004F19B8 /* History.swift */; };
 		2D927F1425C7EDD9004F19B8 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F1325C7EDD9004F19B8 /* Emoji.swift */; };
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
-		2D939AC825EE14620076FA61 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* CropViewController */; };
+		2D939AC825EE14620076FA61 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* SwiftPackageProductDependency */; };
 		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
 		2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA504682601ADE7008F4E6C /* SawToothView.swift */; };
 		2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6054625F716A2006356F9 /* PlaybackState.swift */; };
@@ -95,7 +95,7 @@
 		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
 		2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */; };
 		2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */; };
-		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
+		5D526FE225BE9AC400460CB9 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* SwiftPackageProductDependency */; };
 		5DF1054125F886D400D6C0D4 /* ViedeoPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */; };
 		5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */; };
 		5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */; };
@@ -104,10 +104,11 @@
 		5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
+		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */; };
 		DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */; };
 		DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */; };
-		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
+		DB0140BD25C40D7500F9F3CF /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* SwiftPackageProductDependency */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
 		DB084B5725CBC56C00F898ED /* Toot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Toot.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
@@ -125,7 +126,7 @@
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
 		DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */; };
-		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
+		DB3D0FF325BAA61700EAA174 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* SwiftPackageProductDependency */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
@@ -162,7 +163,7 @@
 		DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
-		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
+		DB5086B825CC0D6400C2C187 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* SwiftPackageProductDependency */; };
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
 		DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */; };
 		DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */; };
@@ -228,7 +229,7 @@
 		DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98339B25C96DE600AD9700 /* APIService+Account.swift */; };
 		DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
-		DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* UITextView+Placeholder */; };
+		DB9A487E2603456B008B817C /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* SwiftPackageProductDependency */; };
 		DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488326034BD7008B817C /* APIService+Status.swift */; };
 		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9A489026035963008B817C /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488F26035963008B817C /* APIService+Media.swift */; };
@@ -250,8 +251,8 @@
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
-		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
-		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DBE64A8B260C49D200E6359A /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* SwiftPackageProductDependency */; };
+		DBE64A8C260C49D200E6359A /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* SwiftPackageProductDependency */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -299,7 +300,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */,
+				DBE64A8C260C49D200E6359A /* BuildFile in Embed Frameworks */,
 				DB89BA0425C10FD0008580ED /* CoreDataStack.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -569,17 +570,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
+				DB0140BD25C40D7500F9F3CF /* BuildFile in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
-				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
-				DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */,
-				2D939AC825EE14620076FA61 /* CropViewController in Frameworks */,
-				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
-				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
-				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
-				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
-				DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */,
-				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
+				2D42FF6125C8177C004A627A /* BuildFile in Frameworks */,
+				DB9A487E2603456B008B817C /* BuildFile in Frameworks */,
+				2D939AC825EE14620076FA61 /* BuildFile in Frameworks */,
+				5D526FE225BE9AC400460CB9 /* BuildFile in Frameworks */,
+				DB5086B825CC0D6400C2C187 /* BuildFile in Frameworks */,
+				2D61336925C18A4F00CAE157 /* BuildFile in Frameworks */,
+				DB3D0FF325BAA61700EAA174 /* BuildFile in Frameworks */,
+				DBE64A8B260C49D200E6359A /* BuildFile in Frameworks */,
+				2D5981BA25E4D7F8000FB903 /* BuildFile in Frameworks */,
+				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1479,16 +1481,16 @@
 			);
 			name = Mastodon;
 			packageProductDependencies = (
-				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
-				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
-				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
-				2D42FF6025C8177C004A627A /* ActiveLabel */,
-				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
-				DB5086B725CC0D6400C2C187 /* Kingfisher */,
-				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
-				2D939AC725EE14620076FA61 /* CropViewController */,
-				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
-				DBE64A8A260C49D200E6359A /* TwitterTextEditor */,
+				DB3D0FF225BAA61700EAA174 /* SwiftPackageProductDependency */,
+				5D526FE125BE9AC400460CB9 /* SwiftPackageProductDependency */,
+				2D61336825C18A4F00CAE157 /* SwiftPackageProductDependency */,
+				2D42FF6025C8177C004A627A /* SwiftPackageProductDependency */,
+				DB0140BC25C40D7500F9F3CF /* SwiftPackageProductDependency */,
+				DB5086B725CC0D6400C2C187 /* SwiftPackageProductDependency */,
+				2D5981B925E4D7F8000FB903 /* SwiftPackageProductDependency */,
+				2D939AC725EE14620076FA61 /* SwiftPackageProductDependency */,
+				DB9A487D2603456B008B817C /* SwiftPackageProductDependency */,
+				DBE64A8A260C49D200E6359A /* SwiftPackageProductDependency */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -1611,15 +1613,15 @@
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
-				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
-				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
-				2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */,
-				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
-				DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
-				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
-				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
-				DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
+				DB3D0FF125BAA61700EAA174 /* RemoteSwiftPackageReference */,
+				2D61336725C18A4F00CAE157 /* RemoteSwiftPackageReference */,
+				2D42FF5F25C8177C004A627A /* RemoteSwiftPackageReference */,
+				DB0140BB25C40D7500F9F3CF /* RemoteSwiftPackageReference */,
+				DB5086B625CC0D6400C2C187 /* RemoteSwiftPackageReference */,
+				2D5981B825E4D7F8000FB903 /* RemoteSwiftPackageReference */,
+				2D939AC625EE14620076FA61 /* RemoteSwiftPackageReference */,
+				DB9A487C2603456B008B817C /* RemoteSwiftPackageReference */,
+				DBE64A89260C49D200E6359A /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -2529,7 +2531,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */ = {
+		2D42FF5F25C8177C004A627A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
 			requirement = {
@@ -2537,7 +2539,7 @@
 				minimumVersion = 4.0.0;
 			};
 		};
-		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
+		2D5981B825E4D7F8000FB903 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vtourraine/ThirdPartyMailer.git";
 			requirement = {
@@ -2545,7 +2547,7 @@
 				minimumVersion = 1.7.1;
 			};
 		};
-		2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */ = {
+		2D61336725C18A4F00CAE157 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireNetworkActivityIndicator";
 			requirement = {
@@ -2553,7 +2555,7 @@
 				minimumVersion = 3.1.0;
 			};
 		};
-		2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+		2D939AC625EE14620076FA61 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
 			requirement = {
@@ -2561,7 +2563,7 @@
 				minimumVersion = 2.6.0;
 			};
 		};
-		DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */ = {
+		DB0140BB25C40D7500F9F3CF /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/CommonOSLog";
 			requirement = {
@@ -2569,7 +2571,7 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+		DB3D0FF125BAA61700EAA174 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
 			requirement = {
@@ -2577,7 +2579,7 @@
 				minimumVersion = 4.1.0;
 			};
 		};
-		DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		DB5086B625CC0D6400C2C187 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -2585,7 +2587,7 @@
 				minimumVersion = 6.1.0;
 			};
 		};
-		DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */ = {
+		DB9A487C2603456B008B817C /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/UITextView-Placeholder";
 			requirement = {
@@ -2593,7 +2595,7 @@
 				minimumVersion = 1.4.1;
 			};
 		};
-		DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */ = {
+		DBE64A89260C49D200E6359A /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MainasuK/TwitterTextEditor";
 			requirement = {
@@ -2604,53 +2606,53 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2D42FF6025C8177C004A627A /* ActiveLabel */ = {
+		2D42FF6025C8177C004A627A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */;
+			package = 2D42FF5F25C8177C004A627A /* RemoteSwiftPackageReference */;
 			productName = ActiveLabel;
 		};
-		2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */ = {
+		2D5981B925E4D7F8000FB903 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */;
+			package = 2D5981B825E4D7F8000FB903 /* RemoteSwiftPackageReference */;
 			productName = ThirdPartyMailer;
 		};
-		2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */ = {
+		2D61336825C18A4F00CAE157 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;
+			package = 2D61336725C18A4F00CAE157 /* RemoteSwiftPackageReference */;
 			productName = AlamofireNetworkActivityIndicator;
 		};
-		2D939AC725EE14620076FA61 /* CropViewController */ = {
+		2D939AC725EE14620076FA61 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			package = 2D939AC625EE14620076FA61 /* RemoteSwiftPackageReference */;
 			productName = CropViewController;
 		};
-		5D526FE125BE9AC400460CB9 /* MastodonSDK */ = {
+		5D526FE125BE9AC400460CB9 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDK;
 		};
-		DB0140BC25C40D7500F9F3CF /* CommonOSLog */ = {
+		DB0140BC25C40D7500F9F3CF /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
+			package = DB0140BB25C40D7500F9F3CF /* RemoteSwiftPackageReference */;
 			productName = CommonOSLog;
 		};
-		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
+		DB3D0FF225BAA61700EAA174 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			package = DB3D0FF125BAA61700EAA174 /* RemoteSwiftPackageReference */;
 			productName = AlamofireImage;
 		};
-		DB5086B725CC0D6400C2C187 /* Kingfisher */ = {
+		DB5086B725CC0D6400C2C187 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = DB5086B625CC0D6400C2C187 /* RemoteSwiftPackageReference */;
 			productName = Kingfisher;
 		};
-		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
+		DB9A487D2603456B008B817C /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
+			package = DB9A487C2603456B008B817C /* RemoteSwiftPackageReference */;
 			productName = "UITextView+Placeholder";
 		};
-		DBE64A8A260C49D200E6359A /* TwitterTextEditor */ = {
+		DBE64A8A260C49D200E6359A /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
+			package = DBE64A89260C49D200E6359A /* RemoteSwiftPackageReference */;
 			productName = TwitterTextEditor;
 		};
 /* End XCSwiftPackageProductDependency section */

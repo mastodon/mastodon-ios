@@ -21,7 +21,8 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     
     private var expandServerDomainSet = Set<String>()
     
-    let emptyStateView = PickServerEmptyStateView()
+    private let emptyStateView = PickServerEmptyStateView()
+    private let emptyStateViewHPadding: CGFloat = 4 // UIView's readableContentGuide is 4pt smaller then UITableViewCell's
     let tableViewTopPaddingView = UIView()      // fix empty state view background display when tableView bounce scrolling
     var tableViewTopPaddingViewHeightLayoutConstraint: NSLayoutConstraint!
     
@@ -74,8 +75,8 @@ extension MastodonPickServerViewController {
         view.addSubview(emptyStateView)
         NSLayoutConstraint.activate([
             emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyStateView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: emptyStateViewHPadding),
+            emptyStateView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: -emptyStateViewHPadding),
             nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
     
