@@ -16,6 +16,10 @@ extension Mastodon.API.Timeline {
     static func homeTimelineEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("timelines/home")
     }
+    static func hashtagTimelineEndpointURL(domain: String, hashtag: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("tag/\(hashtag)")
+    }
     
     /// View public timeline statuses
     ///
@@ -81,6 +85,38 @@ extension Mastodon.API.Timeline {
             .eraseToAnyPublisher()
     }
     
+    /// View public statuses containing the given hashtag.
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/3/29
+    /// # Reference
+    ///   [Document](https://https://docs.joinmastodon.org/methods/timelines/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `HashtagTimelineQuery` with query parameters
+    ///   - hashtag: Content of a #hashtag, not including # symbol.
+    /// - Returns: `AnyPublisher` contains `Token` nested in the response
+    public static func hashtag(
+        session: URLSession,
+        domain: String,
+        query: HashtagTimelineQuery,
+        hashtag: String
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
+        let request = Mastodon.API.get(
+            url: hashtagTimelineEndpointURL(domain: domain, hashtag: hashtag),
+            query: query,
+            authorization: nil
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 public protocol TimelineQueryType {
@@ -162,6 +198,43 @@ extension Mastodon.API.Timeline {
             minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
             limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
             local.flatMap { items.append(URLQueryItem(name: "local", value: $0.queryItemValue)) }
+            guard !items.isEmpty else { return nil }
+            return items
+        }
+    }
+    
+    public struct HashtagTimelineQuery: Codable, TimelineQuery, GetQuery {
+        public let maxID: Mastodon.Entity.Status.ID?
+        public let sinceID: Mastodon.Entity.Status.ID?
+        public let minID: Mastodon.Entity.Status.ID?
+        public let limit: Int?
+        public let local: Bool?
+        public let onlyMedia: Bool?
+    
+        public init(
+            maxID: Mastodon.Entity.Status.ID? = nil,
+            sinceID: Mastodon.Entity.Status.ID? = nil,
+            minID: Mastodon.Entity.Status.ID? = nil,
+            limit: Int? = nil,
+            local: Bool? = nil,
+            onlyMedia: Bool? = nil
+        ) {
+            self.maxID = maxID
+            self.sinceID = sinceID
+            self.minID = minID
+            self.limit = limit
+            self.local = local
+            self.onlyMedia = onlyMedia
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            maxID.flatMap { items.append(URLQueryItem(name: "max_id", value: $0)) }
+            sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+            minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
+            limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+            local.flatMap { items.append(URLQueryItem(name: "local", value: $0.queryItemValue)) }
+            onlyMedia.flatMap { items.append(URLQueryItem(name: "only_media", value: $0.queryItemValue)) }
             guard !items.isEmpty else { return nil }
             return items
         }
