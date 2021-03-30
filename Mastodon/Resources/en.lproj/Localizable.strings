@@ -129,8 +129,10 @@ tap the link to confirm your account.";
 "Scene.ServerPicker.Title" = "Pick a Server,
 any server.";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
+"Scene.ServerRules.PrivacyPolicy" = "privacy policy";
 "Scene.ServerRules.Prompt" = "By continuing, you're subject to the terms of service and privacy policy for %@.";
 "Scene.ServerRules.Subtitle" = "These rules are set by the admins of %@.";
+"Scene.ServerRules.TermsOfService" = "terms of service";
 "Scene.ServerRules.Title" = "Some ground rules.";
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
