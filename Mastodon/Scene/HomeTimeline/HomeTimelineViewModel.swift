@@ -28,17 +28,11 @@ final class HomeTimelineViewModel: NSObject {
     let fetchedResultsController: NSFetchedResultsController<HomeTimelineIndex>
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let viewDidAppear = PassthroughSubject<Void, Never>()
-    
-    let homeTimelineNavigationBarState = HomeTimelineNavigationBarState()
+    let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
-    weak var viewController: HomeTimelineViewController? {
-        willSet(value) {
-            self.homeTimelineNavigationBarState.viewController = value
-        }
-    }
     
     // output
     // top loader
@@ -90,6 +84,7 @@ final class HomeTimelineViewModel: NSObject {
             
             return controller
         }()
+        self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         
         fetchedResultsController.delegate = self

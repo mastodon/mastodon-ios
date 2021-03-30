@@ -27,6 +27,7 @@ class AppContext: ObservableObject {
     let audioPlaybackService = AudioPlaybackService()
     let videoPlaybackService = VideoPlaybackService()
     let statusPrefetchingService: StatusPrefetchingService
+    let statusPublishService = StatusPublishService()
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!

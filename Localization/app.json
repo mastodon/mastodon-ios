@@ -18,6 +18,10 @@
             "discard_post_content": {
                 "title": "Discard Publish",
                 "message": "Confirm discard composed post content."
+            },
+            "publish_post_failure": {
+                "title": "Publish Failure",
+                "message": "Failed to publish the post.\nPlease check your internet connection."
             }
         },
         "controls": {
@@ -32,6 +36,7 @@
                 "continue": "Continue",
                 "cancel": "Cancel",
                 "discard": "Discard",
+                "try_again": "Try Again",
                 "take_photo": "Take photo",
                 "save_photo": "Save photo",
                 "sign_in": "Sign In",

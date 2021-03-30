@@ -73,7 +73,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                     stateMachine.enter(Fail.self)
                     return
                 }
-                viewModel.homeTimelineNavigationBarState.hasContentBeforeFetching = !latestTootIDs.isEmpty
+
                 let end = CACurrentMediaTime()
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect toots id cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, end - start)
                 
@@ -81,7 +81,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 viewModel.context.apiService.homeTimeline(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
                     .receive(on: DispatchQueue.main)
                     .sink { completion in
-                        viewModel.homeTimelineNavigationBarState.receiveCompletion(completion: completion)
+                        viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(completion)
                         switch completion {
                         case .failure(let error):
                             // TODO: handle error
@@ -102,9 +102,10 @@ extension HomeTimelineViewModel.LoadLatestState {
                         
                         if newToots.isEmpty {
                             viewModel.isFetchingLatestTimeline.value = false
-                            viewModel.homeTimelineNavigationBarState.newTopContent.value = false
                         } else {
-                            viewModel.homeTimelineNavigationBarState.newTopContent.value = true
+                            if !latestTootIDs.isEmpty {
+                                viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
+                            }
                         }
                     }
                     .store(in: &viewModel.disposeBag)

@@ -25,6 +25,12 @@ internal enum L10n {
         /// Discard Publish
         internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Title")
       }
+      internal enum PublishPostFailure {
+        /// Failed to publish the post.\nPlease check your internet connection.
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Message")
+        /// Publish Failure
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Title")
+      }
       internal enum ServerError {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
@@ -76,6 +82,8 @@ internal enum L10n {
         internal static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp")
         /// Take photo
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
+        /// Try Again
+        internal static let tryAgain = L10n.tr("Localizable", "Common.Controls.Actions.TryAgain")
       }
       internal enum Status {
         /// Tap to reveal that may be sensitive

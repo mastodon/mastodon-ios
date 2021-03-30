@@ -21,6 +21,7 @@ extension ComposeViewModel {
         
         override func didEnter(from previousState: GKState?) {
             os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
+            viewModel?.publishStateMachinePublisher.value = self
         }
     }
 }
@@ -47,6 +48,8 @@ extension ComposeViewModel.PublishState {
                 stateMachine.enter(Fail.self)
                 return
             }
+            
+            viewModel.updatePublishDate()
             
             let domain = mastodonAuthenticationBox.domain
             let attachmentServices = viewModel.attachmentServices.value
@@ -131,7 +134,13 @@ extension ComposeViewModel.PublishState {
     class Fail: ComposeViewModel.PublishState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             // allow discard publishing
-            return stateClass == Publishing.self || stateClass == Finish.self
+            return stateClass == Publishing.self || stateClass == Discard.self
+        }
+    }
+    
+    class Discard: ComposeViewModel.PublishState {
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+            return false
         }
     }
     

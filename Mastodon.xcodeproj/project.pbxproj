@@ -73,8 +73,8 @@
 		2D7631B325C159F700929FB9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7631B225C159F700929FB9 /* Item.swift */; };
 		2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */; };
 		2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */; };
-		2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarState.swift */; };
-		2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift */; };
+		2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift */; };
+		2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift */; };
 		2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D84350425FF858100EECE90 /* UIScrollView.swift */; };
 		2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0125C7E4F2004F19B8 /* Mention.swift */; };
 		2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D927F0725C7E9A8004F19B8 /* Tag.swift */; };
@@ -246,6 +246,7 @@
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
+		DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */; };
 		DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
@@ -370,8 +371,8 @@
 		2D7631B225C159F700929FB9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewControllerAppearance.swift; sourceTree = "<group>"; };
 		2D82BA0425E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewModelNavigationDelegateShim.swift; sourceTree = "<group>"; };
-		2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarState.swift; sourceTree = "<group>"; };
-		2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarView.swift; sourceTree = "<group>"; };
+		2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarTitleViewModel.swift; sourceTree = "<group>"; };
+		2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineNavigationBarTitleView.swift; sourceTree = "<group>"; };
 		2D84350425FF858100EECE90 /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		2D927F0125C7E4F2004F19B8 /* Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mention.swift; sourceTree = "<group>"; };
 		2D927F0725C7E9A8004F19B8 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
@@ -555,6 +556,7 @@
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
 		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
+		DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPublishService.swift; sourceTree = "<group>"; };
 		DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Reblog.swift"; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 		2D38F1D325CD463600561493 /* HomeTimeline */ = {
 			isa = PBXGroup;
 			children = (
+				DB1F239626117C360057430E /* View */,
 				2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */,
 				2D38F1DE25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift */,
 				2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */,
@@ -715,8 +718,6 @@
 				2D38F1EA25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift */,
 				2D38F1F025CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift */,
 				2D38F1F625CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift */,
-				2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarState.swift */,
-				2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift */,
 			);
 			path = HomeTimeline;
 			sourceTree = "<group>";
@@ -785,6 +786,7 @@
 				2DA6054625F716A2006356F9 /* PlaybackState.swift */,
 				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
 				DB71FD4B25F8C80E00512AE1 /* StatusPrefetchingService.swift */,
+				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -968,6 +970,15 @@
 				DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */,
 			);
 			path = TableView;
+			sourceTree = "<group>";
+		};
+		DB1F239626117C360057430E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2D8434F425FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift */,
+				2D8434FA25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DB3D0FF725BAA68500EAA174 /* Supporting Files */ = {
@@ -1832,12 +1843,12 @@
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
-				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarView.swift in Sources */,
+				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */,
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
-				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarState.swift in Sources */,
+				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
@@ -1925,6 +1936,7 @@
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
+				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
@@ -2246,7 +2258,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 7LFDZ96332;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -2254,7 +2266,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.Mastodon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2273,7 +2285,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 7LFDZ96332;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -2281,7 +2293,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.Mastodon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

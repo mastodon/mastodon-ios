@@ -39,12 +39,15 @@ final class ComposeViewModel {
             PublishState.Initial(viewModel: self),
             PublishState.Publishing(viewModel: self),
             PublishState.Fail(viewModel: self),
+            PublishState.Discard(viewModel: self),
             PublishState.Finish(viewModel: self),
         ])
         stateMachine.enter(PublishState.Initial.self)
         return stateMachine
     }()
-    
+    private(set) lazy var publishStateMachinePublisher = CurrentValueSubject<PublishState?, Never>(nil)
+    private(set) var publishDate = Date()   // update it when enter Publishing state
+
     // UI & UX
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
@@ -315,6 +318,10 @@ extension ComposeViewModel {
         
         let attribute = ComposeStatusItem.ComposePollOptionAttribute()
         pollOptionAttributes.value = pollOptionAttributes.value + [attribute]
+    }
+    
+    func updatePublishDate() {
+        publishDate = Date()
     }
 }
 

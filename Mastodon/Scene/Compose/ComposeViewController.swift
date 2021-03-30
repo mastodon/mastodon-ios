@@ -483,7 +483,7 @@ extension ComposeViewController {
             // TODO: handle error
             return
         }
-        
+        context.statusPublishService.publish(composeViewModel: viewModel)
         dismiss(animated: true, completion: nil)
     }
     
