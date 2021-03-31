@@ -114,6 +114,8 @@ tap the link to confirm your account.";
 "Scene.Register.Input.Username.DuplicatePrompt" = "This username is taken.";
 "Scene.Register.Input.Username.Placeholder" = "username";
 "Scene.Register.Title" = "Tell us about you.";
+"Scene.Search.Searchbar.Cancel" = "Cancel";
+"Scene.Search.Searchbar.Placeholder" = "Search hashtags and users";
 "Scene.ServerPicker.Button.Category.All" = "All";
 "Scene.ServerPicker.Button.SeeLess" = "See Less";
 "Scene.ServerPicker.Button.SeeMore" = "See More";

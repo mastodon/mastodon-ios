@@ -231,6 +231,12 @@
                 "private": "Followers only",
                 "direct": "Only people I mention"
             }
+        },
+        "search": {
+            "searchBar": {
+                "placeholder": "Search hashtags and users",
+                "cancel": "Cancel"
+            }
         }
     }
 }

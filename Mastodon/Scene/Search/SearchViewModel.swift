@@ -14,12 +14,17 @@ final class SearchViewModel {
     
     var disposeBag = Set<AnyCancellable>()
     
-
-    let context: AppContext
     // input
-    let username = CurrentValueSubject<String, Never>("")
+    let context: AppContext
+    
+    // output
+    let searchText = CurrentValueSubject<String, Never>("")
+    
+    var recommendHashTags = [Mastodon.Entity.Tag]()
+    var recommendAccounts = [Mastodon.Entity.Account]()
     
     init(context: AppContext) {
         self.context  = context
+        
     }
 }
