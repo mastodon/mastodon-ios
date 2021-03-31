@@ -31,7 +31,7 @@ extension Mastodon.API.Trends {
     public static func get(
         session: URLSession,
         domain: String,
-        query: Mastodon.API.Trends.Query
+        query: Mastodon.API.Trends.Query?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> {
         let request = Mastodon.API.get(
             url: trendsURL(domain: domain),

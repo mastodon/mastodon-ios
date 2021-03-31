@@ -31,7 +31,7 @@ extension Mastodon.API.Suggestions {
     public static func get(
         session: URLSession,
         domain: String,
-        query: Mastodon.API.Suggestions.Query,
+        query: Mastodon.API.Suggestions.Query?,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
         let request = Mastodon.API.get(

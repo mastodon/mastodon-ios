@@ -27,7 +27,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return searchBar
     }()
     
-    let recomemndView: UICollectionView = {
+    let recommendView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)

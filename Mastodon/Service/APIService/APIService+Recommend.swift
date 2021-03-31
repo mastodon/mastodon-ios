@@ -13,7 +13,7 @@ extension APIService {
  
     func recommendAccount(
         domain: String,
-        query: Mastodon.API.Suggestions.Query,
+        query: Mastodon.API.Suggestions.Query?,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
@@ -23,7 +23,7 @@ extension APIService {
     
     func recommendTrends(
         domain: String,
-        query: Mastodon.API.Trends.Query
+        query: Mastodon.API.Trends.Query?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> {
         return Mastodon.API.Trends.get(session: session, domain: domain, query: query)
     }
