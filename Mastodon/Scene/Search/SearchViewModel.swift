@@ -7,13 +7,17 @@
 
 import Foundation
 import Combine
+import MastodonSDK
+import UIKit
 
 final class SearchViewModel {
     
     var disposeBag = Set<AnyCancellable>()
     
-    // input
+
     let context: AppContext
+    // input
+    let username = CurrentValueSubject<String, Never>("")
     
     init(context: AppContext) {
         self.context  = context

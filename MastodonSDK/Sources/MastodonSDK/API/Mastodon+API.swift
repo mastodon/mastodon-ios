@@ -102,6 +102,8 @@ extension Mastodon.API {
     public enum Statuses { }
     public enum Timeline { }
     public enum Search { }
+    public enum Trends { }
+    public enum Suggestions { }
 }
 
 extension Mastodon.API {
