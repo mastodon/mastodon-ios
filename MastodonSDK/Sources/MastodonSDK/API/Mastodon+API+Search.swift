@@ -32,7 +32,7 @@ extension Mastodon.API.Search {
     public static func search(
         session: URLSession,
         domain: String,
-        query: Query,
+        query: Mastodon.API.Search.Query,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> {
         let request = Mastodon.API.get(

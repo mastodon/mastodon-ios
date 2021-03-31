@@ -25,13 +25,13 @@ import Foundation
 
 extension Mastodon.API.Trends {
     static func trendsURL(domain: String) -> URL {
-        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("/api/v1/trends")
+        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("api/v1/trends")
     }
 
     public static func get(
         session: URLSession,
         domain: String,
-        query: Query
+        query: Mastodon.API.Trends.Query
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Tag]>, Error> {
         let request = Mastodon.API.get(
             url: trendsURL(domain: domain),

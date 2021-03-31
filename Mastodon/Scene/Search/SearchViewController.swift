@@ -16,13 +16,17 @@ final class SearchViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = SearchViewModel(context: context)
     
+    let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        return searchBar
+    }()
 }
 
 extension SearchViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
     
 }
