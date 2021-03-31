@@ -101,6 +101,7 @@ extension Mastodon.API {
     public enum Reblog { }
     public enum Statuses { }
     public enum Timeline { }
+    public enum Search { }
 }
 
 extension Mastodon.API {
