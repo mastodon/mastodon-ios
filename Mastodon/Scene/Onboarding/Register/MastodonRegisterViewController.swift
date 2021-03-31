@@ -38,7 +38,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     }()
     
     private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
-        let documentPickerController = UIDocumentPickerViewController(documentTypes: ["public.image"], in: .open)
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPickerController.delegate = self
         return documentPickerController
     }()
@@ -500,6 +500,21 @@ extension MastodonRegisterViewController {
             }
             .store(in: &disposeBag)
 
+        viewModel.avatarImage
+            .receive(on: DispatchQueue.main)
+            .sink{ [weak self] image in
+                guard let self = self else { return }
+                self.avatarButton.menu = self.createMediaContextMenu()
+                if let avatar = image {
+                    self.avatarButton.setImage(avatar, for: .normal)
+                } else {
+                    let boldFont = UIFont.systemFont(ofSize: 42)
+                    let configuration = UIImage.SymbolConfiguration(font: boldFont)
+                    let image = UIImage(systemName: "person.fill.viewfinder", withConfiguration: configuration)
+                    self.avatarButton.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: UIControl.State.normal)
+                }
+            }
+            .store(in: &disposeBag)
         NotificationCenter.default
             .publisher(for: UITextField.textDidChangeNotification, object: usernameTextField)
             .receive(on: DispatchQueue.main)

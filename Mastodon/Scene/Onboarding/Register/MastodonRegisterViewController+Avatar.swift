@@ -35,7 +35,6 @@ extension MastodonRegisterViewController {
             let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
                 guard let self = self else { return }
                 self.viewModel.avatarImage.value = nil
-                self.avatarButton.setImage(nil, for: .normal)
             }
             children.append(deleteAction)
         }
@@ -126,7 +125,6 @@ extension MastodonRegisterViewController: UIDocumentPickerDelegate {
 extension MastodonRegisterViewController: CropViewControllerDelegate {
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
         self.viewModel.avatarImage.value = image
-        self.avatarButton.setImage(image, for: .normal)
         cropViewController.dismiss(animated: true, completion: nil)
     }
 }
