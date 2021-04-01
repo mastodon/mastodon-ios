@@ -23,7 +23,7 @@ final class StatusFetchedResultsController: NSObject {
     let statusIDs = CurrentValueSubject<[Mastodon.Entity.Status.ID], Never>([])
     
     // output
-    let items = CurrentValueSubject<[NSManagedObjectID], Never>([])
+    let objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
     
     init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate) {
         self.domain.value = domain ?? ""
@@ -81,6 +81,6 @@ extension StatusFetchedResultsController: NSFetchedResultsControllerDelegate {
             }
             .sorted { $0.0 < $1.0 }
             .map { $0.1.objectID }
-        self.items.value = items
+        self.objectIDs.value = items
     }
 }

@@ -60,7 +60,7 @@ class UserTimelineViewModel: NSObject {
             .store(in: &disposeBag)
         
         
-        statusFetchedResultsController.items
+        statusFetchedResultsController.objectIDs
             .receive(on: DispatchQueue.main)
             .sink { [weak self] objectIDs in
                 guard let self = self else { return }
