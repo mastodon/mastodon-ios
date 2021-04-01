@@ -15,6 +15,7 @@ protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, didSelectActiveEntity activeLabel: ActiveLabel, entity: ActiveEntity)
 }
 
 final class StatusView: UIView {
@@ -400,6 +401,7 @@ extension StatusView {
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
         
         playerContainerView.delegate = self
+        activeTextLabel.delegate = self
         
         contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
@@ -465,6 +467,13 @@ extension StatusView: AvatarConfigurableView {
     var configurableAvatarImageView: UIImageView? { return nil }
     var configurableAvatarButton: UIButton? { return avatarButton }
     var configurableVerifiedBadgeImageView: UIImageView? { nil }
+}
+
+// MARK: - ActiveLabelDelegate
+extension StatusView: ActiveLabelDelegate {
+    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        delegate?.statusView(self, didSelectActiveEntity: activeLabel, entity: entity)
+    }
 }
 
 #if canImport(SwiftUI) && DEBUG

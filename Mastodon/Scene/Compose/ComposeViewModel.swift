@@ -56,6 +56,8 @@ final class ComposeViewModel {
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
     
+    var injectedContent: String? = nil
+    
     // custom emojis
     var customEmojiViewModelSubscription: AnyCancellable?
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
@@ -71,10 +73,12 @@ final class ComposeViewModel {
     
     init(
         context: AppContext,
-        composeKind: ComposeStatusSection.ComposeKind
+        composeKind: ComposeStatusSection.ComposeKind,
+        injectedContent: String? = nil
     ) {
         self.context = context
         self.composeKind = composeKind
+        self.injectedContent = injectedContent
         switch composeKind {
         case .post:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
         case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
@@ -195,9 +199,16 @@ final class ComposeViewModel {
         // bind modal dismiss state
         composeStatusAttribute.composeContent
             .receive(on: DispatchQueue.main)
-            .map { content in
+            .map { [weak self] content in
                 let content = content ?? ""
-                return content.isEmpty
+                if content.isEmpty {
+                    return true
+                }
+                // if injectedContent plus a space is equal to the content, simply dismiss the modal
+                if let injectedContent = self?.injectedContent {
+                    return content == (injectedContent + " ")
+                }
+                return false
             }
             .assign(to: \.value, on: shouldDismiss)
             .store(in: &disposeBag)
@@ -304,6 +315,11 @@ final class ComposeViewModel {
             self.isPollToolbarButtonEnabled.value = !shouldPollDisable
         })
         .store(in: &disposeBag)
+        
+        if let injectedContent = injectedContent {
+            // add a space after the injected text
+            composeStatusAttribute.composeContent.send(injectedContent + " ")
+        }
     }
     
     deinit {

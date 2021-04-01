@@ -50,6 +50,9 @@ extension SceneCoordinator {
         // compose
         case compose(viewModel: ComposeViewModel)
         
+        // Hashtag Timeline
+        case hashtagTimeline(viewModel: HashtagTimelineViewModel)
+        
         // misc
         case alertController(alertController: UIAlertController)
         
@@ -206,6 +209,10 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
+        case .hashtagTimeline(let viewModel):
+            let _viewController = HashtagTimelineViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()

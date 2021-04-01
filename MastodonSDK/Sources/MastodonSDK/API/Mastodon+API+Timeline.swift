@@ -18,7 +18,7 @@ extension Mastodon.API.Timeline {
     }
     static func hashtagTimelineEndpointURL(domain: String, hashtag: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain)
-            .appendingPathComponent("tag/\(hashtag)")
+            .appendingPathComponent("timelines/tag/\(hashtag)")
     }
     
     /// View public timeline statuses
@@ -98,17 +98,19 @@ extension Mastodon.API.Timeline {
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: `HashtagTimelineQuery` with query parameters
     ///   - hashtag: Content of a #hashtag, not including # symbol.
+    ///   - authorization: User token, auth is required if public preview is disabled
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func hashtag(
         session: URLSession,
         domain: String,
         query: HashtagTimelineQuery,
-        hashtag: String
+        hashtag: String,
+        authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
         let request = Mastodon.API.get(
             url: hashtagTimelineEndpointURL(domain: domain, hashtag: hashtag),
             query: query,
-            authorization: nil
+            authorization: authorization
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in

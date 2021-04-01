@@ -1,0 +1,279 @@
+//
+//  HashtagTimelineViewController.swift
+//  Mastodon
+//
+//  Created by BradGao on 2021/3/30.
+//
+
+import os.log
+import UIKit
+import AVKit
+import Combine
+import GameplayKit
+import CoreData
+
+class HashtagTimelineViewController: UIViewController, NeedsDependency {
+    weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
+    weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
+    
+    var disposeBag = Set<AnyCancellable>()
+    
+    var viewModel: HashtagTimelineViewModel!
+    
+    let composeBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
+        return barButtonItem
+    }()
+    
+    let tableView: UITableView = {
+        let tableView = ControlContainableTableView()
+        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
+        tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        
+        return tableView
+    }()
+    
+    let refreshControl = UIRefreshControl()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+}
+
+extension HashtagTimelineViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        title = "#\(viewModel.hashTag)"
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        
+        navigationItem.rightBarButtonItem = composeBarButtonItem
+        
+        composeBarButtonItem.target = self
+        composeBarButtonItem.action = #selector(HashtagTimelineViewController.composeBarButtonItemPressed(_:))
+        
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(HashtagTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+
+        viewModel.tableView = tableView
+        viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
+        tableView.delegate = self
+        tableView.prefetchDataSource = self
+        viewModel.setupDiffableDataSource(
+            for: tableView,
+            dependency: self,
+            statusTableViewCellDelegate: self,
+            timelineMiddleLoaderTableViewCellDelegate: self
+        )
+
+        // bind refresh control
+        viewModel.isFetchingLatestTimeline
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isFetching in
+                guard let self = self else { return }
+                if !isFetching {
+                    UIView.animate(withDuration: 0.5) { [weak self] in
+                        guard let self = self else { return }
+                        self.refreshControl.endRefreshing()
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard viewModel.loadLatestStateMachine.currentState is HashtagTimelineViewModel.LoadLatestState.Initial else { return }
+        tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.size.height), animated: true)
+        refreshControl.beginRefreshing()
+        refreshControl.sendActions(for: .valueChanged)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        context.videoPlaybackService.viewDidDisappear(from: self)
+        context.audioPlaybackService.viewDidDisappear(from: self)
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+
+        coordinator.animate { _ in
+            // do nothing
+        } completion: { _ in
+            // fix AutoLayout cell height not update after rotate issue
+            self.viewModel.cellFrameCache.removeAllObjects()
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension HashtagTimelineViewController {
+    
+    @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .post, injectedContent: "#\(viewModel.hashTag)")
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        guard viewModel.loadLatestStateMachine.enter(HashtagTimelineViewModel.LoadLatestState.Loading.self) else {
+            sender.endRefreshing()
+            return
+        }
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension HashtagTimelineViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollViewDidScroll(scrollView)
+//        self.viewModel.homeTimelineNavigationBarState.handleScrollViewDidScroll(scrollView)
+    }
+}
+
+extension HashtagTimelineViewController: LoadMoreConfigurableTableViewContainer {
+    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
+    typealias LoadingState = HashtagTimelineViewModel.LoadOldestState.Loading
+    var loadMoreConfigurableTableView: UITableView { return tableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+}
+
+// MARK: - UITableViewDelegate
+extension HashtagTimelineViewController: UITableViewDelegate {
+    
+    // TODO:
+    // func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    //     guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }
+    //     guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return 100 }
+    //
+    //     guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
+    //         return 200
+    //     }
+    //     // os_log("%{public}s[%{public}ld], %{public}s: cache cell frame %s", ((#file as NSString).lastPathComponent), #line, #function, frame.debugDescription)
+    //
+    //     return ceil(frame.height)
+    // }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+}
+
+// MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
+extension HashtagTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
+    func navigationBar() -> UINavigationBar? {
+        return navigationController?.navigationBar
+    }
+}
+
+
+// MARK: - UITableViewDataSourcePrefetching
+extension HashtagTimelineViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        handleTableView(tableView, prefetchRowsAt: indexPaths)
+    }
+}
+
+// MARK: - TimelineMiddleLoaderTableViewCellDelegate
+extension HashtagTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID: NSManagedObjectID?) {
+        guard let upperTimelineIndexObjectID = timelineIndexobjectID else {
+            return
+        }
+        viewModel.loadMiddleSateMachineList
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ids in
+                guard let _ = self else { return }
+                if let stateMachine = ids[upperTimelineIndexObjectID] {
+                    guard let state = stateMachine.currentState else {
+                        assertionFailure()
+                        return
+                    }
+
+                    // make success state same as loading due to snapshot updating delay
+                    let isLoading = state is HashtagTimelineViewModel.LoadMiddleState.Loading || state is HashtagTimelineViewModel.LoadMiddleState.Success
+                    if isLoading {
+                        cell.startAnimating()
+                    } else {
+                        cell.stopAnimating()
+                    }
+                } else {
+                    cell.stopAnimating()
+                }
+            }
+            .store(in: &cell.disposeBag)
+        
+        var dict = viewModel.loadMiddleSateMachineList.value
+        if let _ = dict[upperTimelineIndexObjectID] {
+            // do nothing
+        } else {
+            let stateMachine = GKStateMachine(states: [
+                HashtagTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperStatusObjectID: upperTimelineIndexObjectID),
+                HashtagTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperStatusObjectID: upperTimelineIndexObjectID),
+                HashtagTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperStatusObjectID: upperTimelineIndexObjectID),
+                HashtagTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperStatusObjectID: upperTimelineIndexObjectID),
+            ])
+            stateMachine.enter(HashtagTimelineViewModel.LoadMiddleState.Initial.self)
+            dict[upperTimelineIndexObjectID] = stateMachine
+            viewModel.loadMiddleSateMachineList.value = dict
+        }
+    }
+    
+    func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        
+        switch item {
+        case .homeMiddleLoader(let upper):
+            guard let stateMachine = viewModel.loadMiddleSateMachineList.value[upper] else {
+                assertionFailure()
+                return
+            }
+            stateMachine.enter(HashtagTimelineViewModel.LoadMiddleState.Loading.self)
+        default:
+            assertionFailure()
+        }
+    }
+}
+
+// MARK: - AVPlayerViewControllerDelegate
+extension HashtagTimelineViewController: AVPlayerViewControllerDelegate {
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+}
+
+// MARK: - StatusTableViewCellDelegate
+extension HashtagTimelineViewController: StatusTableViewCellDelegate {
+    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
+    func parent() -> UIViewController { return self }
+}
