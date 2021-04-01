@@ -22,7 +22,7 @@ public final class Poll: NSManagedObject {
     @NSManaged public private(set) var updatedAt: Date
     
     // one-to-one relationship
-    @NSManaged public private(set) var toot: Toot
+    @NSManaged public private(set) var status: Status
     
     // one-to-many relationship
     @NSManaged public private(set) var options: Set<PollOption>

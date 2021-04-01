@@ -11,7 +11,7 @@ import os.log
 import UIKit
 
 protocol TimelineMiddleLoaderTableViewCellDelegate: class {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID:NSManagedObjectID?)
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID:NSManagedObjectID?)
     func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)
 }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="vapidKey" optional="YES" attributeType="String"/>
         <attribute name="website" optional="YES" attributeType="String"/>
-        <relationship name="toots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="application" inverseEntity="Toot"/>
+        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="application" inverseEntity="Status"/>
     </entity>
     <entity name="Attachment" representedClassName=".Attachment" syncable="YES">
         <attribute name="blurhash" optional="YES" attributeType="String"/>
@@ -22,7 +22,7 @@
         <attribute name="typeRaw" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" optional="YES" attributeType="String"/>
-        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="mediaAttachments" inverseEntity="Toot"/>
+        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="mediaAttachments" inverseEntity="Status"/>
     </entity>
     <entity name="Emoji" representedClassName=".Emoji" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -32,7 +32,7 @@
         <attribute name="staticURL" attributeType="String"/>
         <attribute name="url" attributeType="String"/>
         <attribute name="visibleInPicker" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="emojis" inverseEntity="Toot"/>
+        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="emojis" inverseEntity="Status"/>
     </entity>
     <entity name="History" representedClassName=".History" syncable="YES">
         <attribute name="accounts" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -49,7 +49,7 @@
         <attribute name="hasMore" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="identifier" attributeType="String"/>
         <attribute name="userID" attributeType="String"/>
-        <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="homeTimelineIndexes" inverseEntity="Toot"/>
+        <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="homeTimelineIndexes" inverseEntity="Status"/>
     </entity>
     <entity name="MastodonAuthentication" representedClassName=".MastodonAuthentication" syncable="YES">
         <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -72,17 +72,38 @@
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="displayName" attributeType="String"/>
         <attribute name="domain" attributeType="String"/>
+        <attribute name="followersCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="followingCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="header" attributeType="String"/>
+        <attribute name="headerStatic" optional="YES" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="identifier" attributeType="String"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="statusesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
-        <relationship name="bookmarked" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="bookmarkedBy" inverseEntity="Toot"/>
-        <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="favouritedBy" inverseEntity="Toot"/>
+        <relationship name="blocking" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="blockingBy" inverseEntity="MastodonUser"/>
+        <relationship name="blockingBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="blocking" inverseEntity="MastodonUser"/>
+        <relationship name="bookmarked" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="bookmarkedBy" inverseEntity="Status"/>
+        <relationship name="domainBlocking" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="domainBlockingBy" inverseEntity="MastodonUser"/>
+        <relationship name="domainBlockingBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="domainBlocking" inverseEntity="MastodonUser"/>
+        <relationship name="endorsed" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="endorsedBy" inverseEntity="MastodonUser"/>
+        <relationship name="endorsedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="endorsed" inverseEntity="MastodonUser"/>
+        <relationship name="favourite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="favouritedBy" inverseEntity="Status"/>
+        <relationship name="following" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followingBy" inverseEntity="MastodonUser"/>
+        <relationship name="followingBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="following" inverseEntity="MastodonUser"/>
+        <relationship name="followRequested" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followRequestedBy" inverseEntity="MastodonUser"/>
+        <relationship name="followRequestedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="followRequested" inverseEntity="MastodonUser"/>
         <relationship name="mastodonAuthentication" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonAuthentication" inverseName="user" inverseEntity="MastodonAuthentication"/>
-        <relationship name="muted" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="mutedBy" inverseEntity="Toot"/>
-        <relationship name="pinnedToot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="pinnedBy" inverseEntity="Toot"/>
-        <relationship name="reblogged" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="rebloggedBy" inverseEntity="Toot"/>
-        <relationship name="toots" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="author" inverseEntity="Toot"/>
+        <relationship name="muted" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="mutedBy" inverseEntity="Status"/>
+        <relationship name="muting" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="mutingBy" inverseEntity="MastodonUser"/>
+        <relationship name="mutingBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muting" inverseEntity="MastodonUser"/>
+        <relationship name="pinnedStatus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="pinnedBy" inverseEntity="Status"/>
+        <relationship name="privateNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="to" inverseEntity="PrivateNote"/>
+        <relationship name="privateNotesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="from" inverseEntity="PrivateNote"/>
+        <relationship name="reblogged" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="rebloggedBy" inverseEntity="Status"/>
+        <relationship name="statuses" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="author" inverseEntity="Status"/>
         <relationship name="votePollOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="votedBy" inverseEntity="PollOption"/>
         <relationship name="votePolls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Poll" inverseName="votedBy" inverseEntity="Poll"/>
     </entity>
@@ -93,7 +114,7 @@
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="url" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
-        <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="mentions" inverseEntity="Toot"/>
+        <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="mentions" inverseEntity="Status"/>
     </entity>
     <entity name="Poll" representedClassName=".Poll" syncable="YES">
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -105,7 +126,7 @@
         <attribute name="votersCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="votesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="options" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="poll" inverseEntity="PollOption"/>
-        <relationship name="toot" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="poll" inverseEntity="Toot"/>
+        <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="poll" inverseEntity="Status"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePolls" inverseEntity="MastodonUser"/>
     </entity>
     <entity name="PollOption" representedClassName=".PollOption" syncable="YES">
@@ -117,15 +138,13 @@
         <relationship name="poll" maxCount="1" deletionRule="Nullify" destinationEntity="Poll" inverseName="options" inverseEntity="Poll"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePollOptions" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="Tag" representedClassName=".Tag" syncable="YES">
-        <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
-        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" attributeType="String"/>
-        <attribute name="url" attributeType="String"/>
-        <relationship name="histories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="History" inverseName="tag" inverseEntity="History"/>
-        <relationship name="toot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="tags" inverseEntity="Toot"/>
+    <entity name="PrivateNote" representedClassName="PrivateNote" syncable="YES">
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="from" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotesTo" inverseEntity="MastodonUser"/>
+        <relationship name="to" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="privateNotes" inverseEntity="MastodonUser"/>
     </entity>
-    <entity name="Toot" representedClassName=".Toot" syncable="YES">
+    <entity name="Status" representedClassName=".Status" syncable="YES">
         <attribute name="content" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="deletedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -145,23 +164,31 @@
         <attribute name="uri" attributeType="String"/>
         <attribute name="url" attributeType="String"/>
         <attribute name="visibility" optional="YES" attributeType="String"/>
-        <relationship name="application" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="toots" inverseEntity="Application"/>
-        <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="toots" inverseEntity="MastodonUser"/>
+        <relationship name="application" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Application" inverseName="status" inverseEntity="Application"/>
+        <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="statuses" inverseEntity="MastodonUser"/>
         <relationship name="bookmarkedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
-        <relationship name="emojis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Emoji" inverseName="toot" inverseEntity="Emoji"/>
+        <relationship name="emojis" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Emoji" inverseName="status" inverseEntity="Emoji"/>
         <relationship name="favouritedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
-        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="toot" inverseEntity="HomeTimelineIndex"/>
-        <relationship name="mediaAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="toot" inverseEntity="Attachment"/>
-        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Mention" inverseName="toot" inverseEntity="Mention"/>
+        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="status" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="mediaAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="status" inverseEntity="Attachment"/>
+        <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Mention" inverseName="status" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
-        <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedToot" inverseEntity="MastodonUser"/>
-        <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="toot" inverseEntity="Poll"/>
-        <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblogFrom" inverseEntity="Toot"/>
-        <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="reblog" inverseEntity="Toot"/>
+        <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedStatus" inverseEntity="MastodonUser"/>
+        <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="status" inverseEntity="Poll"/>
+        <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="reblogFrom" inverseEntity="Status"/>
+        <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="reblog" inverseEntity="Status"/>
         <relationship name="rebloggedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
-        <relationship name="replyFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Toot" inverseName="replyTo" inverseEntity="Toot"/>
-        <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Toot" inverseName="replyFrom" inverseEntity="Toot"/>
-        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="toot" inverseEntity="Tag"/>
+        <relationship name="replyFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="replyTo" inverseEntity="Status"/>
+        <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="statuses" inverseEntity="Tag"/>
+    </entity>
+    <entity name="Tag" representedClassName=".Tag" syncable="YES">
+        <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
+        <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+        <relationship name="histories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="History" inverseName="tag" inverseEntity="History"/>
+        <relationship name="statuses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="tags" inverseEntity="Status"/>
     </entity>
     <elements>
         <element name="Application" positionX="160" positionY="192" width="128" height="104"/>
@@ -170,11 +197,12 @@
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="314"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="629"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Poll" positionX="72" positionY="162" width="128" height="194"/>
         <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
         <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="Toot" positionX="0" positionY="0" width="128" height="14"/>
+        <element name="Status" positionX="0" positionY="0" width="128" height="569"/>
+        <element name="PrivateNote" positionX="72" positionY="153" width="128" height="89"/>
     </elements>
 </model>

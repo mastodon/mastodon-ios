@@ -13,6 +13,19 @@ import CoreDataStack
 import MastodonSDK
 import ActiveLabel
 
+// MARK: - StatusViewDelegate
+extension StatusTableViewCellDelegate where Self: StatusProvider {
+
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
+        StatusProviderFacade.coordinateToStatusAuthorProfileScene(for: .secondary, provider: self, cell: cell)
+    }
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+        StatusProviderFacade.coordinateToStatusAuthorProfileScene(for: .primary, provider: self, cell: cell)
+    }
+    
+}
+
 // MARK: - ActionToolbarContainerDelegate
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
@@ -31,7 +44,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         switch item {
         case .homeTimelineIndex(_, let attribute):
             attribute.isStatusTextSensitive = false
-        case .toot(_, let attribute):
+        case .status(_, let attribute):
             attribute.isStatusTextSensitive = false
         default:
             return
@@ -66,7 +79,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         switch item {
         case .homeTimelineIndex(_, let attribute):
             attribute.isStatusSensitive = false
-        case .toot(_, let attribute):
+        case .status(_, let attribute):
             attribute.isStatusSensitive = false
         default:
             return
@@ -89,16 +102,16 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton) {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        toot(for: cell, indexPath: nil)
+        status(for: cell, indexPath: nil)
             .receive(on: DispatchQueue.main)
             .setFailureType(to: Error.self)
-            .compactMap { toot -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error>? in
-                guard let toot = (toot?.reblog ?? toot) else { return nil }
-                guard let poll = toot.poll else { return nil }
+            .compactMap { status -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error>? in
+                guard let status = (status?.reblog ?? status) else { return nil }
+                guard let poll = status.poll else { return nil }
                 
                 let votedOptions = poll.options.filter { ($0.votedBy ?? Set()).contains(where: { $0.id == activeMastodonAuthenticationBox.userID }) }
                 let choices = votedOptions.map { $0.index.intValue }
-                let domain = poll.toot.domain
+                let domain = poll.status.domain
                 
                 button.isEnabled = false
                 
@@ -137,7 +150,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         
         let poll = option.poll
         let pollObjectID = option.poll.objectID
-        let domain = poll.toot.domain
+        let domain = poll.status.domain
         
         if poll.multiple {
             var votedOptions = poll.options.filter { ($0.votedBy ?? Set()).contains(where: { $0.id == activeMastodonAuthenticationBox.userID }) }

@@ -15,11 +15,11 @@ import MastodonSDK
 // MARK: - StatusProvider
 extension PublicTimelineViewController: StatusProvider {
 
-    func toot() -> Future<Toot?, Never> {
+    func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
     
-    func toot(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Toot?, Never> {
+    func status(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Status?, Never> {
         return Future { promise in
             guard let diffableDataSource = self.viewModel.diffableDataSource else {
                 assertionFailure()
@@ -33,11 +33,11 @@ extension PublicTimelineViewController: StatusProvider {
             }
             
             switch item {
-            case .toot(let objectID, _):
+            case .status(let objectID, _):
                 let managedObjectContext = self.viewModel.fetchedResultsController.managedObjectContext
                 managedObjectContext.perform {
-                    let toot = managedObjectContext.object(with: objectID) as? Toot
-                    promise(.success(toot))
+                    let status = managedObjectContext.object(with: objectID) as? Status
+                    promise(.success(status))
                 }
             default:
                 promise(.success(nil))
@@ -45,7 +45,7 @@ extension PublicTimelineViewController: StatusProvider {
         }
     }
     
-    func toot(for cell: UICollectionViewCell) -> Future<Toot?, Never> {
+    func status(for cell: UICollectionViewCell) -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
     

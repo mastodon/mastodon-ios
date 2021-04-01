@@ -17,23 +17,23 @@ extension APIService.Persist {
 
 }
 
-extension APIService.Persist.PersistCache where T == Toot {
+extension APIService.Persist.PersistCache where T == Status {
 
-    static func ids(for toots: [Mastodon.Entity.Status]) -> Set<Mastodon.Entity.Status.ID> {
+    static func ids(for statuses: [Mastodon.Entity.Status]) -> Set<Mastodon.Entity.Status.ID> {
         var value = Set<String>()
-        for toot in toots {
-            value = value.union(ids(for: toot))
+        for status in statuses {
+            value = value.union(ids(for: status))
         }
         return value
     }
     
-    static func ids(for toot: Mastodon.Entity.Status) -> Set<Mastodon.Entity.Status.ID> {
+    static func ids(for status: Mastodon.Entity.Status) -> Set<Mastodon.Entity.Status.ID> {
         var value = Set<String>()
-        value.insert(toot.id)
-        if let inReplyToID = toot.inReplyToID {
+        value.insert(status.id)
+        if let inReplyToID = status.inReplyToID {
             value.insert(inReplyToID)
         }
-        if let reblog = toot.reblog {
+        if let reblog = status.reblog {
             value = value.union(ids(for: reblog))
         }
         return value
@@ -43,21 +43,21 @@ extension APIService.Persist.PersistCache where T == Toot {
 
 extension APIService.Persist.PersistCache where T == MastodonUser {
 
-    static func ids(for toots: [Mastodon.Entity.Status]) -> Set<Mastodon.Entity.Account.ID> {
+    static func ids(for statuses: [Mastodon.Entity.Status]) -> Set<Mastodon.Entity.Account.ID> {
         var value = Set<String>()
-        for toot in toots {
-            value = value.union(ids(for: toot))
+        for status in statuses {
+            value = value.union(ids(for: status))
         }
         return value
     }
     
-    static func ids(for toot: Mastodon.Entity.Status) -> Set<Mastodon.Entity.Account.ID> {
+    static func ids(for status: Mastodon.Entity.Status) -> Set<Mastodon.Entity.Account.ID> {
         var value = Set<String>()
-        value.insert(toot.account.id)
-        if let inReplyToAccountID = toot.inReplyToAccountID {
+        value.insert(status.account.id)
+        if let inReplyToAccountID = status.inReplyToAccountID {
             value.insert(inReplyToAccountID)
         }
-        if let reblog = toot.reblog {
+        if let reblog = status.reblog {
             value = value.union(ids(for: reblog))
         }
         return value

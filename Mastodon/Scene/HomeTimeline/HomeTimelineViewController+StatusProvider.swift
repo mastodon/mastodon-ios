@@ -14,11 +14,11 @@ import CoreDataStack
 // MARK: - StatusProvider
 extension HomeTimelineViewController: StatusProvider {
 
-    func toot() -> Future<Toot?, Never> {
+    func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
     
-    func toot(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Toot?, Never> {
+    func status(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Status?, Never> {
         return Future { promise in
             guard let diffableDataSource = self.viewModel.diffableDataSource else {
                 assertionFailure()
@@ -36,7 +36,7 @@ extension HomeTimelineViewController: StatusProvider {
                 let managedObjectContext = self.viewModel.fetchedResultsController.managedObjectContext
                 managedObjectContext.perform {
                     let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
-                    promise(.success(timelineIndex?.toot))
+                    promise(.success(timelineIndex?.status))
                 }
             default:
                 promise(.success(nil))
@@ -44,7 +44,7 @@ extension HomeTimelineViewController: StatusProvider {
         }
     }
     
-    func toot(for cell: UICollectionViewCell) -> Future<Toot?, Never> {
+    func status(for cell: UICollectionViewCell) -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
     

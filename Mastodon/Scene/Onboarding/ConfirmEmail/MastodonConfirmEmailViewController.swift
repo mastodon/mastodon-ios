@@ -66,6 +66,10 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 }
 
 extension MastodonConfirmEmailViewController {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
 
     override func viewDidLoad() {
 

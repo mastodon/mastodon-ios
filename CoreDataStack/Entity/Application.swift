@@ -17,8 +17,8 @@ public final class Application: NSManagedObject {
     @NSManaged public private(set) var website: String?
     @NSManaged public private(set) var vapidKey: String?
 
-    // one-to-many relationship
-    @NSManaged public private(set) var toots: Set<Toot>
+    // one-to-one relationship
+    @NSManaged public private(set) var status: Status
 }
 
 public extension Application {

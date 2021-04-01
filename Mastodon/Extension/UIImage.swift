@@ -40,6 +40,13 @@ extension UIImage {
 }
 
 extension UIImage {
+    var domainLumaCoefficientsStyle: UIUserInterfaceStyle? {
+        guard let brightness = cgImage?.brightness else { return nil }
+        return brightness > 100 ? .light : .dark // 0 ~ 255
+    }
+}
+
+extension UIImage {
     func blur(radius: CGFloat) -> UIImage? {
         guard let inputImage = CIImage(image: self) else { return nil }
         let blurFilter = CIFilter.gaussianBlur()

@@ -32,6 +32,7 @@
                 "edit": "Edit",
                 "save": "Save",
                 "ok": "OK",
+                "done": "Done",
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "cancel": "Cancel",
@@ -64,6 +65,15 @@
                     "time_left": "%s left",
                     "closed": "Closed"
                 }
+            },
+            "firendship": {
+                "follow": "Follow",
+                "following": "Following",
+                "block": "Block",
+                "blocked": "Blocked",
+                "mute": "Mute",
+                "muted": "Muted",
+                "edit_info": "Edit info"
             },
             "timeline": {
                 "loader": {
@@ -230,6 +240,18 @@
                 "unlisted": "Unlisted",
                 "private": "Followers only",
                 "direct": "Only people I mention"
+            }
+        },
+        "profile": {
+            "dashboard": {
+                "posts": "posts",
+                "following": "following",
+                "followers": "followers"
+            },
+            "segmented_control": {
+                "posts": "Posts",
+                "replies": "Replies",
+                "media": "Media"
             }
         }
     }

@@ -40,6 +40,11 @@ final class MastodonResendEmailViewController: UIViewController, NeedsDependency
 }
     
 extension MastodonResendEmailViewController {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +64,7 @@ extension MastodonResendEmailViewController {
         webView.load(request)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: resendEmail via: %s", (#file as NSString).lastPathComponent, #line, #function, viewModel.resendEmailURL.debugDescription)
     }
+    
 }
 
 extension MastodonResendEmailViewController {

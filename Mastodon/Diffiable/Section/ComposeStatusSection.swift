@@ -49,14 +49,14 @@ extension ComposeStatusSection {
         ] collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
             case .replyTo(let repliedToStatusObjectID):
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToTootContentCollectionViewCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToStatusContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToStatusContentCollectionViewCell
                 return cell
-            case .input(let replyToTootObjectID, let attribute):
+            case .input(let replyToStatusObjectID, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
                 cell.textEditorView.text = attribute.composeContent.value ?? ""
                 managedObjectContext.perform {
-                    guard let replyToTootObjectID = replyToTootObjectID,
-                          let replyTo = managedObjectContext.object(with: replyToTootObjectID) as? Toot else {
+                    guard let replyToStatusObjectID = replyToStatusObjectID,
+                          let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
                         cell.statusView.headerContainerStackView.isHidden = true
                         return
                     }
