@@ -16,7 +16,7 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/history/)
-    public struct History: Codable {
+    public struct History: Codable, Hashable {
         /// UNIX timestamp on midnight of the given day
         public let day: Date
         public let uses: String

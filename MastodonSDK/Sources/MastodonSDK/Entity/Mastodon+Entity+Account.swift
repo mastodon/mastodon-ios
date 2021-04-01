@@ -17,7 +17,16 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/account/)
-    public class Account: Codable {
+    public class Account: Codable, Hashable {
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+        
+        public static func == (lhs: Mastodon.Entity.Account, rhs: Mastodon.Entity.Account) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
         
         public typealias ID = String
 
@@ -82,5 +91,6 @@ extension Mastodon.Entity {
             case muteExpiresAt = "mute_expires_at"
         }
     }
+
     
 }

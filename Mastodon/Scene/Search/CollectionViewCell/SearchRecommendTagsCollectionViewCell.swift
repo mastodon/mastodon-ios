@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import MastodonSDK
 
 class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
     let backgroundImageView: UIImageView = {
@@ -18,8 +19,9 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
     let hashTagTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
-        label.font = .preferredFont(forTextStyle: .caption1)
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.lineBreakMode = .byTruncatingTail
         return label
     }()
     
@@ -57,20 +59,60 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
 
 extension SearchRecommendTagsCollectionViewCell {
     private func configure() {
+        backgroundColor = Asset.Colors.buttonDefault.color
+        layer.cornerRadius = 8
+        clipsToBounds = true
+        
         contentView.addSubview(backgroundImageView)
         backgroundImageView.constrain(toSuperviewEdges: nil)
         
         contentView.addSubview(hashTagTitleLabel)
-        hashTagTitleLabel.pinTopLeft(padding: 16)
+        hashTagTitleLabel.pin(top: 16, left: 16, bottom: nil, right: 42)
         
         contentView.addSubview(peopleLabel)
-        peopleLabel.constrain([
-            peopleLabel.constraint(toTop: contentView, constant: 46),
-            peopleLabel.constraint(toLeading: contentView, constant: 16)
-        ])
+        peopleLabel.pinTopLeft(top: 46, left: 16)
         
         contentView.addSubview(flameIconView)
         flameIconView.pinTopRight(padding: 16)
         
     }
+    
+    func config(with tag: Mastodon.Entity.Tag) {
+        hashTagTitleLabel.text = "# " + tag.name
+        if let peopleAreTalking = tag.history?.compactMap({ Int($0.uses)}).reduce(0, +) {
+            let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
+            peopleLabel.text = string
+        } else {
+            peopleLabel.text = ""
+        }
+    }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct SearchRecommendTagsCollectionViewCell_Previews: PreviewProvider {
+    
+    static var controls: some View {
+        Group {
+            UIViewPreview() {
+                let cell = SearchRecommendTagsCollectionViewCell()
+                cell.hashTagTitleLabel.text = "# test"
+                cell.peopleLabel.text = "128 people are talking"
+                return cell
+            }
+            .previewLayout(.fixed(width: 228, height: 130))
+        }
+    }
+    
+    static var previews: some View {
+        Group {
+            controls.colorScheme(.light)
+            controls.colorScheme(.dark)
+        }
+        .background(Color.gray)
+    }
+    
+}
+
+#endif
