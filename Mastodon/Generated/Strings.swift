@@ -446,6 +446,8 @@ internal enum L10n {
       }
     }
     internal enum ServerRules {
+      /// privacy policy
+      internal static let privacyPolicy = L10n.tr("Localizable", "Scene.ServerRules.PrivacyPolicy")
       /// By continuing, you're subject to the terms of service and privacy policy for %@.
       internal static func prompt(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Prompt", String(describing: p1))
@@ -454,6 +456,8 @@ internal enum L10n {
       internal static func subtitle(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Subtitle", String(describing: p1))
       }
+      /// terms of service
+      internal static let termsOfService = L10n.tr("Localizable", "Scene.ServerRules.TermsOfService")
       /// Some ground rules.
       internal static let title = L10n.tr("Localizable", "Scene.ServerRules.Title")
       internal enum Button {

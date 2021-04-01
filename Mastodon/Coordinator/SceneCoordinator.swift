@@ -46,6 +46,7 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
+        case mastodonWebView(viewModel:WebViewModel)
         
         // compose
         case compose(viewModel: ComposeViewModel)
@@ -198,6 +199,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .mastodonResendEmail(let viewModel):
             let _viewController = MastodonResendEmailViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mastodonWebView(let viewModel):
+            let _viewController = WebViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .compose(let viewModel):

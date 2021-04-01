@@ -172,6 +172,8 @@
             "title": "Some ground rules.",
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
+            "terms_of_service": "terms of service",
+            "privacy_policy": "privacy policy",
             "button": {
                 "confirm": "I Agree"
             }
