@@ -98,7 +98,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
-        let documentPickerController = UIDocumentPickerViewController(documentTypes: ["public.image"], in: .open)
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
         documentPickerController.delegate = self
         return documentPickerController
     }()
