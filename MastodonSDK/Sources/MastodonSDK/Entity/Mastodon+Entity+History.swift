@@ -19,7 +19,7 @@ extension Mastodon.Entity {
     public struct History: Codable {
         /// UNIX timestamp on midnight of the given day
         public let day: Date
-        public let uses: Int
-        public let accounts: Int
+        public let uses: String
+        public let accounts: String
     }
 }

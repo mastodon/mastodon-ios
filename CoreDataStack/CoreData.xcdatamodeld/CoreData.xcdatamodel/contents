@@ -35,11 +35,11 @@
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="emojis" inverseEntity="Status"/>
     </entity>
     <entity name="History" representedClassName=".History" syncable="YES">
-        <attribute name="accounts" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="accounts" optional="YES" attributeType="String"/>
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
         <attribute name="day" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="uses" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="uses" optional="YES" attributeType="String"/>
         <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="histories" inverseEntity="Tag"/>
     </entity>
     <entity name="HomeTimelineIndex" representedClassName=".HomeTimelineIndex" syncable="YES">

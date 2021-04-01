@@ -118,6 +118,9 @@
         "register": {
             "title": "Tell us about you.",
             "input": {
+                "avatar": {
+                    "delete": "delete"
+                },
                 "username": {
                     "placeholder": "username",
                     "duplicate_prompt": "This username is taken."
@@ -252,6 +255,12 @@
                 "posts": "Posts",
                 "replies": "Replies",
                 "media": "Media"
+            }
+        },
+        "search": {
+            "searchBar": {
+                "placeholder": "Search hashtags and users",
+                "cancel": "Cancel"
             }
         }
     }

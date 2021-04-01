@@ -375,6 +375,10 @@ internal enum L10n {
         }
       }
       internal enum Input {
+        internal enum Avatar {
+          /// delete
+          internal static let delete = L10n.tr("Localizable", "Scene.Register.Input.Avatar.Delete")
+        }
         internal enum DisplayName {
           /// display name
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.DisplayName.Placeholder")
@@ -399,6 +403,14 @@ internal enum L10n {
           /// username
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Username.Placeholder")
         }
+      }
+    }
+    internal enum Search {
+      internal enum Searchbar {
+        /// Cancel
+        internal static let cancel = L10n.tr("Localizable", "Scene.Search.Searchbar.Cancel")
+        /// Search hashtags and users
+        internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
       }
     }
     internal enum ServerPicker {

@@ -14,8 +14,8 @@ public final class History: NSManagedObject {
     @NSManaged public private(set) var createAt: Date
 
     @NSManaged public private(set) var day: Date
-    @NSManaged public private(set) var uses: Int
-    @NSManaged public private(set) var accounts: Int
+    @NSManaged public private(set) var uses: String
+    @NSManaged public private(set) var accounts: String
     
     // many-to-one relationship
     @NSManaged public private(set) var tag: Tag
@@ -43,10 +43,10 @@ public extension History {
 public extension History {
     struct Property {
         public let day: Date
-        public let uses: Int
-        public let accounts: Int
+        public let uses: String
+        public let accounts: String
 
-        public init(day: Date, uses: Int, accounts: Int) {
+        public init(day: Date, uses: String, accounts: String) {
             self.day = day
             self.uses = uses
             self.accounts = accounts
