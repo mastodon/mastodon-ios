@@ -369,6 +369,14 @@ internal enum L10n {
         }
       }
     }
+    internal enum Search {
+      internal enum Searchbar {
+        /// Cancel
+        internal static let cancel = L10n.tr("Localizable", "Scene.Search.Searchbar.Cancel")
+        /// Search hashtags and users
+        internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
+      }
+    }
     internal enum ServerPicker {
       /// Pick a Server,\nany server.
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
