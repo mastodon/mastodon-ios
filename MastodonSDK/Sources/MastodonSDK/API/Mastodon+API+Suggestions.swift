@@ -10,7 +10,7 @@ import Foundation
 
 extension Mastodon.API.Suggestions {
     static func suggestionsURL(domain: String) -> URL {
-        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("api/v1/suggestions")
+        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("suggestions")
     }
 
     /// Follow suggestions

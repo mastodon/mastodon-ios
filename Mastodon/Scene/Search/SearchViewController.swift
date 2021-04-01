@@ -47,6 +47,7 @@ extension SearchViewController {
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.hidesBackButton = true
+        viewModel.requestRecommendData()
     }
     
 }

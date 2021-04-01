@@ -50,6 +50,9 @@ extension Mastodon.API {
                 if let date = fullDatePreciseISO8601Formatter.date(from: string) {
                     return date
                 }
+                if let timestamp = TimeInterval(string) {
+                    return Date(timeIntervalSince1970: timestamp)
+                }
             } catch {
                 // do nothing
             }

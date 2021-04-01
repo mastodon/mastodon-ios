@@ -8,27 +8,27 @@
 import Combine
 import Foundation
 
-/// Search results
-///
-/// Search for content in accounts, statuses and hashtags.
-///
-/// Version history:
-/// 2.4.1 - added, limit hardcoded to 5
-/// 2.8.0 - add type, limit, offset, min_id, max_id, account_id
-/// 3.0.0 - add exclude_unreviewed param
-/// # Reference
-///   [Document](https://docs.joinmastodon.org/methods/search/)
-/// - Parameters:
-///   - session: `URLSession`
-///   - domain: Mastodon instance domain. e.g. "example.com"
-///   - query: search query
-/// - Returns: `AnyPublisher` contains `Accounts,Hashtags,Status` nested in the response
-
 extension Mastodon.API.Search {
     static func searchURL(domain: String) -> URL {
-        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("api/v2/search")
+        Mastodon.API.endpointV2URL(domain: domain).appendingPathComponent("search")
     }
 
+    /// Search results
+    ///
+    /// Search for content in accounts, statuses and hashtags.
+    ///
+    /// Version history:
+    /// 2.4.1 - added, limit hardcoded to 5
+    /// 2.8.0 - add type, limit, offset, min_id, max_id, account_id
+    /// 3.0.0 - add exclude_unreviewed param
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/search/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: search query
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Accounts,Hashtags,Status` nested in the response
     public static func search(
         session: URLSession,
         domain: String,
