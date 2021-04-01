@@ -8,26 +8,25 @@
 import Combine
 import Foundation
 
-/// Trending tags
-///
-/// Tags that are being used more frequently within the past week.
-///
-/// Version history:
-/// 3.0.0 - added
-/// # Reference
-///   [Document](https://docs.joinmastodon.org/methods/instance/trends/)
-/// - Parameters:
-///   - session: `URLSession`
-///   - domain: Mastodon instance domain. e.g. "example.com"
-///   - query: query
-///   - authorization: User token.
-/// - Returns: `AnyPublisher` contains `Hashtags` nested in the response
-
 extension Mastodon.API.Trends {
     static func trendsURL(domain: String) -> URL {
         Mastodon.API.endpointURL(domain: domain).appendingPathComponent("api/v1/trends")
     }
 
+    /// Trending tags
+    ///
+    /// Tags that are being used more frequently within the past week.
+    ///
+    /// Version history:
+    /// 3.0.0 - added
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/instance/trends/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: query
+    /// - Returns: `AnyPublisher` contains `Hashtags` nested in the response
+    
     public static func get(
         session: URLSession,
         domain: String,

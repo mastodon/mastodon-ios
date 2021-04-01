@@ -8,26 +8,25 @@
 import Combine
 import Foundation
 
-/// Follow suggestions
-///
-/// Server-generated suggestions on who to follow, based on previous positive interactions.
-///
-/// Version history:
-/// 2.4.3 - added
-/// # Reference
-///   [Document](https://docs.joinmastodon.org/methods/accounts/suggestions/)
-/// - Parameters:
-///   - session: `URLSession`
-///   - domain: Mastodon instance domain. e.g. "example.com"
-///   - query: query
-///   - authorization: User token.
-/// - Returns: `AnyPublisher` contains `Accounts` nested in the response
-
 extension Mastodon.API.Suggestions {
     static func suggestionsURL(domain: String) -> URL {
         Mastodon.API.endpointURL(domain: domain).appendingPathComponent("api/v1/suggestions")
     }
 
+    /// Follow suggestions
+    ///
+    /// Server-generated suggestions on who to follow, based on previous positive interactions.
+    ///
+    /// Version history:
+    /// 2.4.3 - added
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/suggestions/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: query
+    ///   - authorization: User token.
+    /// - Returns: `AnyPublisher` contains `Accounts` nested in the response
     public static func get(
         session: URLSession,
         domain: String,

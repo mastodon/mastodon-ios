@@ -97,6 +97,7 @@ extension UIView {
 
     func pinToBottom(to: UIView, height: CGFloat) {
         guard superview != nil else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.width, toView: to),
                 constraint(toBottom: to, constant: 0.0),
@@ -124,6 +125,7 @@ extension UIView {
 
     func constrainTopCorners(sidePadding: CGFloat, topPadding: CGFloat, topLayoutGuide: UILayoutSupport) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.leading, toView: view, constant: sidePadding),
                 NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: topPadding),
@@ -133,6 +135,7 @@ extension UIView {
 
     func constrainTopCorners(sidePadding: CGFloat, topPadding: CGFloat) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.leading, toView: view, constant: sidePadding),
                 constraint(.top, toView: view, constant: topPadding),
@@ -142,6 +145,7 @@ extension UIView {
 
     func constrainTopCorners(height: CGFloat) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.leading, toView: view),
                 constraint(.top, toView: view),
@@ -152,6 +156,7 @@ extension UIView {
 
     func constrainBottomCorners(sidePadding: CGFloat, bottomPadding: CGFloat) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.leading, toView: view, constant: sidePadding),
                 constraint(.bottom, toView: view, constant: -bottomPadding),
@@ -161,6 +166,7 @@ extension UIView {
 
     func constrainBottomCorners(height: CGFloat) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.leading, toView: view),
                 constraint(.bottom, toView: view),
@@ -171,6 +177,7 @@ extension UIView {
 
     func constrainLeadingCorners() {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.top, toView: view),
                 constraint(.leading, toView: view),
@@ -180,6 +187,7 @@ extension UIView {
 
     func constrainTrailingCorners() {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.top, toView: view),
                 constraint(.trailing, toView: view),
@@ -189,6 +197,7 @@ extension UIView {
 
     func constrainToCenter() {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
             constraint(.centerX, toView: view),
             constraint(.centerY, toView: view)
@@ -197,6 +206,7 @@ extension UIView {
 
     func pinTo(viewAbove: UIView, padding: CGFloat = 0.0, height: CGFloat? = nil) {
         guard superview != nil else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
                 constraint(.width, toView: viewAbove),
                 constraint(toBottom: viewAbove, constant: padding),
@@ -207,6 +217,7 @@ extension UIView {
 
     func pin(toSize: CGSize) {
         guard superview != nil else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
             widthAnchor.constraint(equalToConstant: toSize.width),
             heightAnchor.constraint(equalToConstant: toSize.height)])
@@ -214,6 +225,7 @@ extension UIView {
 
     func pinTopLeft(padding: CGFloat) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
             leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             topAnchor.constraint(equalTo: view.topAnchor, constant: padding)])
@@ -221,6 +233,7 @@ extension UIView {
     
     func pinTopRight(padding: CGFloat) {
         guard let view = superview else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
             view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: padding),
             topAnchor.constraint(equalTo: view.topAnchor, constant: padding)])
@@ -228,6 +241,7 @@ extension UIView {
 
     func pinTopLeft(toView: UIView, topPadding: CGFloat) {
         guard superview != nil else { assert(false, "Superview cannot be nil when adding contraints"); return }
+        translatesAutoresizingMaskIntoConstraints = false
         constrain([
             leadingAnchor.constraint(equalTo: toView.leadingAnchor),
             topAnchor.constraint(equalTo: toView.bottomAnchor, constant: topPadding)])
