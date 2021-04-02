@@ -249,6 +249,12 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title")
       }
     }
+    internal enum Hashtag {
+      /// %@ people talking
+      internal static func prompt(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Hashtag.Prompt", String(describing: p1))
+      }
+    }
     internal enum HomeTimeline {
       /// Home
       internal static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title")

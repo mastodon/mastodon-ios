@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1E2D0B2615C39400C38565 /* HashtagTimelineTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */; };
 		0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */; };
 		0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */; };
 		0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */; };
@@ -325,6 +326,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineTitleView.swift; sourceTree = "<group>"; };
 		0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewController.swift; sourceTree = "<group>"; };
 		0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewModel.swift; sourceTree = "<group>"; };
 		0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -652,9 +654,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1E2D102615C39800C38565 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0F2021F5261325ED000C64BF /* HashtagTimeline */ = {
 			isa = PBXGroup;
 			children = (
+				0F1E2D102615C39800C38565 /* View */,
 				0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */,
 				0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */,
 				0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */,
@@ -1907,6 +1918,7 @@
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */,
+				0F1E2D0B2615C39400C38565 /* HashtagTimelineTitleView.swift in Sources */,
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,

@@ -121,14 +121,14 @@ extension Mastodon.API.Timeline {
     }
 }
 
-public protocol TimelineQueryType {
+public protocol PagedQueryType {
     var maxID: Mastodon.Entity.Status.ID? { get }
     var sinceID: Mastodon.Entity.Status.ID? { get }
 }
 
 extension Mastodon.API.Timeline {
     
-    public typealias TimelineQuery = TimelineQueryType
+    public typealias TimelineQuery = PagedQueryType
     
     public struct PublicTimelineQuery: Codable, TimelineQuery, GetQuery {
         

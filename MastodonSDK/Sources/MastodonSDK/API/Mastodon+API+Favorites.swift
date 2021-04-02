@@ -121,7 +121,7 @@ extension Mastodon.API.Favorites {
         case destroy
     }
     
-    public struct ListQuery: GetQuery,TimelineQueryType {
+    public struct ListQuery: GetQuery,PagedQueryType {
         
         public var limit: Int?
         public var minID: String?

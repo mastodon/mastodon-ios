@@ -27,6 +27,7 @@ final class HashtagTimelineViewModel: NSObject {
     let fetchedResultsController: NSFetchedResultsController<Toot>
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
+    let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
 
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
@@ -103,6 +104,24 @@ final class HashtagTimelineViewModel: NSObject {
                 }
             }
             .store(in: &disposeBag)
+    }
+    
+    func fetchTag() {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let query = Mastodon.API.Search.Query(q: hashTag, type: .hashtags)
+        context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+            .sink { _ in
+                
+            } receiveValue: { [weak self] response in
+                let matchedTag = response.value.hashtags.first { tag -> Bool in
+                    return tag.name == self?.hashTag
+                }
+                self?.hashtagEntity.send(matchedTag)
+            }
+            .store(in: &disposeBag)
+
     }
     
     deinit {

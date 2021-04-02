@@ -95,13 +95,21 @@ extension HashtagTimelineViewController {
                 }
             }
             .store(in: &disposeBag)
+        
+        viewModel.hashtagEntity
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tag in
+                self?.updatePromptTitle()
+            }
+            .store(in: &disposeBag)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.fetchTag()
         guard viewModel.loadLatestStateMachine.currentState is HashtagTimelineViewModel.LoadLatestState.Initial else { return }
-        tableView.setContentOffset(CGPoint(x: 0, y: tableView.contentOffset.y - refreshControl.frame.size.height), animated: true)
+
         refreshControl.beginRefreshing()
         refreshControl.sendActions(for: .valueChanged)
     }
@@ -121,6 +129,24 @@ extension HashtagTimelineViewController {
             // fix AutoLayout cell height not update after rotate issue
             self.viewModel.cellFrameCache.removeAllObjects()
             self.tableView.reloadData()
+        }
+    }
+    
+    private func updatePromptTitle() {
+        guard let histories = viewModel.hashtagEntity.value?.history else {
+            navigationItem.prompt = nil
+            return
+        }
+        if histories.isEmpty {
+            // No tag history, remove the prompt title
+            navigationItem.prompt = nil
+        } else {
+            let sortedHistory = histories.sorted { (h1, h2) -> Bool in
+                return h1.day > h2.day
+            }
+            if let accountsNumber = sortedHistory.first?.accounts {
+                navigationItem.prompt = L10n.Scene.Hashtag.prompt(accountsNumber)
+            }
         }
     }
 }
