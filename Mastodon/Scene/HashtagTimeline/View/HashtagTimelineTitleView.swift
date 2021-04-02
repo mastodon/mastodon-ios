@@ -7,20 +7,26 @@
 
 import UIKit
 
-final class HashtagTimelineTitleView: UIView {
+final class HashtagTimelineNavigationBarTitleView: UIView {
     
     let containerView = UIStackView()
     
-    let imageView = UIImageView()
-    let button = RoundedEdgesButton()
-    let label = UILabel()
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.textColor = Asset.Colors.Label.primary.color
+        label.textAlignment = .center
+        return label
+    }()
     
-    // input
-    private var blockingState: HomeTimelineNavigationBarTitleViewModel.State?
-    weak var delegate: HomeTimelineNavigationBarTitleViewDelegate?
-    
-    // output
-    private(set) var state: HomeTimelineNavigationBarTitleViewModel.State = .logoImage
+    let subtitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,8 +40,11 @@ final class HashtagTimelineTitleView: UIView {
     
 }
 
-extension HomeTimelineNavigationBarTitleView {
+extension HashtagTimelineNavigationBarTitleView {
     private func _init() {
+        containerView.axis = .vertical
+        containerView.alignment = .center
+        containerView.distribution = .fill
         containerView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerView)
         NSLayoutConstraint.activate([
@@ -45,15 +54,18 @@ extension HomeTimelineNavigationBarTitleView {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
-        containerView.addArrangedSubview(imageView)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addArrangedSubview(button)
-        NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: 24).priority(.defaultHigh)
-        ])
-        containerView.addArrangedSubview(label)
-        
-        configure(state: .logoImage)
-        button.addTarget(self, action: #selector(HomeTimelineNavigationBarTitleView.buttonDidPressed(_:)), for: .touchUpInside)
+        containerView.addArrangedSubview(titleLabel)
+        containerView.addArrangedSubview(subtitleLabel)
+    }
+    
+    func updateTitle(hashtag: String, peopleNumber: String?) {
+        titleLabel.text = "#\(hashtag)"
+        if let peopleNumebr = peopleNumber {
+            subtitleLabel.text = L10n.Scene.Hashtag.prompt(peopleNumebr)
+            subtitleLabel.isHidden = false
+        } else {
+            subtitleLabel.text = nil
+            subtitleLabel.isHidden = true
+        }
     }
 }

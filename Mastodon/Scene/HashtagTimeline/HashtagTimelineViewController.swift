@@ -41,6 +41,8 @@ class HashtagTimelineViewController: UIViewController, NeedsDependency {
     
     let refreshControl = UIRefreshControl()
     
+    let titleView = HashtagTimelineNavigationBarTitleView()
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -52,6 +54,9 @@ extension HashtagTimelineViewController {
         super.viewDidLoad()
         
         title = "#\(viewModel.hashTag)"
+        titleView.updateTitle(hashtag: viewModel.hashTag, peopleNumber: nil)
+        navigationItem.titleView = titleView
+        
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         navigationItem.rightBarButtonItem = composeBarButtonItem
@@ -133,20 +138,21 @@ extension HashtagTimelineViewController {
     }
     
     private func updatePromptTitle() {
+        var subtitle: String?
+        defer {
+            titleView.updateTitle(hashtag: viewModel.hashTag, peopleNumber: subtitle)
+        }
         guard let histories = viewModel.hashtagEntity.value?.history else {
-            navigationItem.prompt = nil
             return
         }
         if histories.isEmpty {
             // No tag history, remove the prompt title
-            navigationItem.prompt = nil
+            return
         } else {
             let sortedHistory = histories.sorted { (h1, h2) -> Bool in
                 return h1.day > h2.day
             }
-            if let accountsNumber = sortedHistory.first?.accounts {
-                navigationItem.prompt = L10n.Scene.Hashtag.prompt(accountsNumber)
-            }
+            subtitle = sortedHistory.first?.accounts
         }
     }
 }
