@@ -58,7 +58,7 @@ extension HashtagTimelineViewModel.LoadLatestState {
                     case .failure(let error):
                         // TODO: handle error
                         viewModel.isFetchingLatestTimeline.value = false
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch statues failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                     case .finished:
                         // handle isFetchingLatestTimeline in fetch controller delegate
                         break
@@ -83,7 +83,7 @@ extension HashtagTimelineViewModel.LoadLatestState {
                     viewModel.hashtagStatusIDList.insert(contentsOf: newStatusIDList, at: 0)
                     viewModel.hashtagStatusIDList.removeDuplicates()
                     
-                    let newPredicate = Toot.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
+                    let newPredicate = Status.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
                     viewModel.timelinePredicate.send(newPredicate)
                 }
                 .store(in: &viewModel.disposeBag)

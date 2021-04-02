@@ -24,7 +24,7 @@ final class HashtagTimelineViewModel: NSObject {
     
     // input
     let context: AppContext
-    let fetchedResultsController: NSFetchedResultsController<Toot>
+    let fetchedResultsController: NSFetchedResultsController<Status>
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
@@ -70,7 +70,7 @@ final class HashtagTimelineViewModel: NSObject {
         self.context  = context
         self.hashTag = hashTag
         self.fetchedResultsController = {
-            let fetchRequest = Toot.sortedFetchRequest
+            let fetchRequest = Status.sortedFetchRequest
             fetchRequest.returnsObjectsAsFaults = false
             fetchRequest.fetchBatchSize = 20
             let controller = NSFetchedResultsController(

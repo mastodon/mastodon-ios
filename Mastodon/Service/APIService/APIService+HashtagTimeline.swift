@@ -19,7 +19,7 @@ extension APIService {
         domain: String,
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
-        limit: Int = onceRequestTootMaxCount,
+        limit: Int = onceRequestStatusMaxCount,
         local: Bool? = nil,
         hashtag: String,
         authorizationBox: AuthenticationService.MastodonAuthenticationBox

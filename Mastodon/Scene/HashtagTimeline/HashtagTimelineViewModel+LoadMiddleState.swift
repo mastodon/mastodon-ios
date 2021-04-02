@@ -76,7 +76,7 @@ extension HashtagTimelineViewModel.LoadMiddleState {
                     switch completion {
                     case .failure(let error):
                         // TODO: handle error
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log("%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                         stateMachine.enter(Fail.self)
                     case .finished:
                         break
@@ -105,7 +105,7 @@ extension HashtagTimelineViewModel.LoadMiddleState {
                         viewModel.needLoadMiddleIndex = nil
                     }
                     
-                    let newPredicate = Toot.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
+                    let newPredicate = Status.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
                     viewModel.timelinePredicate.send(newPredicate)
                     
                 }

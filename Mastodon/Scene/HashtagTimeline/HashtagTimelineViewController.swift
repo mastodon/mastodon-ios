@@ -234,7 +234,7 @@ extension HashtagTimelineViewController: UITableViewDataSourcePrefetching {
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension HashtagTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID: NSManagedObjectID?) {
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID: NSManagedObjectID?) {
         guard let upperTimelineIndexObjectID = timelineIndexobjectID else {
             return
         }
