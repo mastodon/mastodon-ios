@@ -28,7 +28,7 @@ public final class Attachment: NSManagedObject {
     @NSManaged public private(set) var index: NSNumber
 
     // many-to-one relastionship
-    @NSManaged public private(set) var toot: Toot?
+    @NSManaged public private(set) var status: Status?
 
 }
 

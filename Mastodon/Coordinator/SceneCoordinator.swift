@@ -46,12 +46,16 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
+        case mastodonWebView(viewModel:WebViewModel)
         
         // compose
         case compose(viewModel: ComposeViewModel)
         
         // Hashtag Timeline
         case hashtagTimeline(viewModel: HashtagTimelineViewModel)
+      
+        // profile
+        case profile(viewModel: ProfileViewModel)
         
         // misc
         case alertController(alertController: UIAlertController)
@@ -122,17 +126,18 @@ extension SceneCoordinator {
             presentingViewController.show(viewController, sender: sender)
             
         case .showDetail:
-            let navigationController = UINavigationController(rootViewController: viewController)
+            let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
             presentingViewController.showDetailViewController(navigationController, sender: sender)
             
         case .modal(let animated, let completion):
             let modalNavigationController: UINavigationController = {
                 if scene.isOnboarding {
-                    return DarkContentStatusBarStyleNavigationController(rootViewController: viewController)
+                    return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
                 } else {
                     return UINavigationController(rootViewController: viewController)
                 }
             }()
+            modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
             if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
                 modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
             }
@@ -149,12 +154,15 @@ extension SceneCoordinator {
             sender?.navigationController?.pushViewController(viewController, animated: true)
             
         case .safariPresent(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
             
         case .activityViewControllerPresent(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
             
         case .alertController(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
         }
         
@@ -196,8 +204,16 @@ private extension SceneCoordinator {
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .mastodonWebView(let viewModel):
+            let _viewController = WebViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .compose(let viewModel):
             let _viewController = ComposeViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .profile(let viewModel):
+            let _viewController = ProfileViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .alertController(let alertController):

@@ -58,10 +58,10 @@ extension StatusPrefetchingService {
                 guard let self = self else { return }
                 let backgroundManagedObjectContext = apiService.backgroundManagedObjectContext
                 backgroundManagedObjectContext.performChanges {
-                    guard let status = backgroundManagedObjectContext.object(with: statusObjectID) as? Toot else { return }
+                    guard let status = backgroundManagedObjectContext.object(with: statusObjectID) as? Status else { return }
                     do {
-                        let predicate = Toot.predicate(domain: domain, id: replyToStatusID)
-                        let request = Toot.sortedFetchRequest
+                        let predicate = Status.predicate(domain: domain, id: replyToStatusID)
+                        let request = Status.sortedFetchRequest
                         request.predicate = predicate
                         request.returnsObjectsAsFaults = false
                         request.fetchLimit = 1

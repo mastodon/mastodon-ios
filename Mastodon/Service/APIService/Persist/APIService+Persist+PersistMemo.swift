@@ -125,36 +125,36 @@ extension APIService.Persist.PersistMemo {
     
 }
 
-extension APIService.Persist.PersistMemo where T == Toot, U == MastodonUser {
+extension APIService.Persist.PersistMemo where T == Status, U == MastodonUser {
     
-    static func createOrMergeToot(
+    static func createOrMergeStatus(
         into managedObjectContext: NSManagedObjectContext,
         for requestMastodonUser: MastodonUser?,
         requestMastodonUserID: MastodonUser.ID?,
         domain: String,
         entity: Mastodon.Entity.Status,
         memoType: MemoType,
-        tootCache: APIService.Persist.PersistCache<T>?,
+        statusCache: APIService.Persist.PersistCache<T>?,
         userCache: APIService.Persist.PersistCache<U>?,
         networkDate: Date,
         log: OSLog
     ) -> APIService.Persist.PersistMemo<T, U> {
         let processEntityTaskSignpostID = OSSignpostID(log: log)
-        os_signpost(.begin, log: log, name: "update database - process entity: createOrMergeToot", signpostID: processEntityTaskSignpostID, "process toot %{public}s", entity.id)
+        os_signpost(.begin, log: log, name: "update database - process entity: createOrMergeStatus", signpostID: processEntityTaskSignpostID, "process status %{public}s", entity.id)
         defer {
-            os_signpost(.end, log: log, name: "update database - process entity: createOrMergeToot", signpostID: processEntityTaskSignpostID, "finish process toot %{public}s", entity.id)
+            os_signpost(.end, log: log, name: "update database - process entity: createOrMergeStatus", signpostID: processEntityTaskSignpostID, "finish process status %{public}s", entity.id)
         }
         
         // build tree
         let reblogMemo = entity.reblog.flatMap { entity -> APIService.Persist.PersistMemo<T, U> in
-            createOrMergeToot(
+            createOrMergeStatus(
                 into: managedObjectContext,
                 for: requestMastodonUser,
                 requestMastodonUserID: requestMastodonUserID,
                 domain: domain,
                 entity: entity,
                 memoType: .reblog,
-                tootCache: tootCache,
+                statusCache: statusCache,
                 userCache: userCache,
                 networkDate: networkDate,
                 log: log
@@ -163,27 +163,27 @@ extension APIService.Persist.PersistMemo where T == Toot, U == MastodonUser {
         let children = [reblogMemo].compactMap { $0 }
 
 
-        let (toot, isTootCreated, isMastodonUserCreated) = APIService.CoreData.createOrMergeStatus(
+        let (status, isStatusCreated, isMastodonUserCreated) = APIService.CoreData.createOrMergeStatus(
             into: managedObjectContext,
             for: requestMastodonUser,
             domain: domain,
             entity: entity,
-            tootCache: tootCache,
+            statusCache: statusCache,
             userCache: userCache,
             networkDate: networkDate,
             log: log
         )
         let memo = APIService.Persist.PersistMemo<T, U>(
-            status: toot,
+            status: status,
             children: children,
             memoType: memoType,
-            statusProcessType: isTootCreated ? .create : .merge,
+            statusProcessType: isStatusCreated ? .create : .merge,
             authorProcessType: isMastodonUserCreated ? .create : .merge
         )
         
         switch (memo.statusProcessType, memoType) {
         case (.create, .homeTimeline), (.merge, .homeTimeline):
-            let timelineIndex = toot.homeTimelineIndexes?
+            let timelineIndex = status.homeTimelineIndexes?
                 .first { $0.userID == requestMastodonUserID }
             guard let requestMastodonUserID = requestMastodonUserID else {
                 assertionFailure()
@@ -192,7 +192,7 @@ extension APIService.Persist.PersistMemo where T == Toot, U == MastodonUser {
             if timelineIndex == nil {
                 // make it indexed
                 let timelineIndexProperty = HomeTimelineIndex.Property(domain: domain, userID: requestMastodonUserID)
-                let _ = HomeTimelineIndex.insert(into: managedObjectContext, property: timelineIndexProperty, toot: toot)
+                let _ = HomeTimelineIndex.insert(into: managedObjectContext, property: timelineIndexProperty, status: status)
             } else {
                 // enity already in home timeline
             }

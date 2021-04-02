@@ -32,6 +32,7 @@
                 "edit": "Edit",
                 "save": "Save",
                 "ok": "OK",
+                "done": "Done",
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "cancel": "Cancel",
@@ -64,6 +65,15 @@
                     "time_left": "%s left",
                     "closed": "Closed"
                 }
+            },
+            "firendship": {
+                "follow": "Follow",
+                "following": "Following",
+                "block": "Block",
+                "blocked": "Blocked",
+                "mute": "Mute",
+                "muted": "Muted",
+                "edit_info": "Edit info"
             },
             "timeline": {
                 "loader": {
@@ -162,6 +172,8 @@
             "title": "Some ground rules.",
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
+            "terms_of_service": "terms of service",
+            "privacy_policy": "privacy policy",
             "button": {
                 "confirm": "I Agree"
             }
@@ -233,6 +245,18 @@
                 "unlisted": "Unlisted",
                 "private": "Followers only",
                 "direct": "Only people I mention"
+            }
+        },
+        "profile": {
+            "dashboard": {
+                "posts": "posts",
+                "following": "following",
+                "followers": "followers"
+            },
+            "segmented_control": {
+                "posts": "Posts",
+                "replies": "Replies",
+                "media": "Media"
             }
         },
         "search": {

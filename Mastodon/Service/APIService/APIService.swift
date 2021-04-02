@@ -44,7 +44,7 @@ final class APIService {
 }
 
 extension APIService {
-    public static let onceRequestTootMaxCount = 100
+    public static let onceRequestStatusMaxCount = 100
     public static let onceRequestUserMaxCount = 100
 }
 

@@ -159,13 +159,13 @@ extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID: NSManagedObjectID?) {
-        guard let upperTimelineTootID = upperTimelineTootID else {return}
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID: NSManagedObjectID?) {
+        guard let upperTimelineStatusID = upperTimelineStatusID else {return}
         viewModel.loadMiddleSateMachineList
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
                 guard let _ = self else { return }
-                if let stateMachine = ids[upperTimelineTootID] {
+                if let stateMachine = ids[upperTimelineStatusID] {
                     guard let state = stateMachine.currentState else {
                         assertionFailure()
                         return
@@ -185,17 +185,17 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
             .store(in: &cell.disposeBag)
         
         var dict = viewModel.loadMiddleSateMachineList.value
-        if let _ = dict[upperTimelineTootID] {
+        if let _ = dict[upperTimelineStatusID] {
             // do nothing
         } else {
             let stateMachine = GKStateMachine(states: [
-                PublicTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
-                PublicTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
-                PublicTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
-                PublicTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
+                PublicTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
+                PublicTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
+                PublicTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
+                PublicTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
             ])
             stateMachine.enter(PublicTimelineViewModel.LoadMiddleState.Initial.self)
-            dict[upperTimelineTootID] = stateMachine
+            dict[upperTimelineStatusID] = stateMachine
             viewModel.loadMiddleSateMachineList.value = dict
         }
     }

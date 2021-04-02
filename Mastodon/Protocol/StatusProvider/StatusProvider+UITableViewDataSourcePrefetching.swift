@@ -11,7 +11,7 @@ import CoreDataStack
 
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     func handleTableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        // prefetch reply toot
+        // prefetch reply status
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let domain = activeMastodonAuthenticationBox.domain
         
@@ -20,8 +20,8 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                statusObjectIDs.append(homeTimelineIndex.toot.objectID)
-            case .toot(let objectID, _):
+                statusObjectIDs.append(homeTimelineIndex.status.objectID)
+            case .status(let objectID, _):
                 statusObjectIDs.append(objectID)
             default:
                 continue
@@ -32,15 +32,15 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         backgroundManagedObjectContext.perform { [weak self] in
             guard let self = self else { return }
             for objectID in statusObjectIDs {
-                let toot = backgroundManagedObjectContext.object(with: objectID) as! Toot
-                guard let replyToID = toot.inReplyToID, toot.replyTo == nil else {
+                let status = backgroundManagedObjectContext.object(with: objectID) as! Status
+                guard let replyToID = status.inReplyToID, status.replyTo == nil else {
                     // skip
                     continue
                 }
                 self.context.statusPrefetchingService.prefetchReplyTo(
                     domain: domain,
-                    statusObjectID: toot.objectID,
-                    statusID: toot.id,
+                    statusObjectID: status.objectID,
+                    statusID: status.id,
                     replyToStatusID: replyToID,
                     authorizationBox: activeMastodonAuthenticationBox
                 )

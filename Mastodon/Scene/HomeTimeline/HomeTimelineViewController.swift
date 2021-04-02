@@ -175,6 +175,13 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // needs trigger manually after onboarding dismiss
+        setNeedsStatusBarAppearanceUpdate()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -313,7 +320,7 @@ extension HomeTimelineViewController: ContentOffsetAdjustableTimelineViewControl
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID: NSManagedObjectID?) {
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID: NSManagedObjectID?) {
         guard let upperTimelineIndexObjectID = timelineIndexobjectID else {
             return
         }

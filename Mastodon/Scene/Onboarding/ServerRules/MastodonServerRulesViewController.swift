@@ -8,6 +8,8 @@
 import os.log
 import UIKit
 import Combine
+import MastodonSDK
+import SafariServices
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
     
@@ -44,19 +46,20 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         return label
     }()
     
-    let bottonContainerView: UIView = {
+    let bottomContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
         return view
     }()
     
-    private(set) lazy var bottomPromptLabel: UILabel = {
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.text = L10n.Scene.ServerRules.prompt(viewModel.domain)
-        label.numberOfLines = 0
-        return label
+    private(set) lazy var bottomPromptTextView: UITextView = {
+        let textView = UITextView()
+        textView.font = .preferredFont(forTextStyle: .body)
+        textView.textColor = .label
+        textView.isSelectable = true
+        textView.isEditable = false
+        textView.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        return textView
     }()
     
     let confirmButton: PrimaryActionButton = {
@@ -82,40 +85,47 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
 
 extension MastodonServerRulesViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
+        configTextView()
+        
         defer { setupNavigationBarBackgroundView() }
         
-        bottonContainerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bottonContainerView)
+        bottomContainerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomContainerView)
         NSLayoutConstraint.activate([
-            view.bottomAnchor.constraint(equalTo: bottonContainerView.bottomAnchor),
-            bottonContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottonContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: bottomContainerView.bottomAnchor),
+            bottomContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-        bottonContainerView.preservesSuperviewLayoutMargins = true
+        bottomContainerView.preservesSuperviewLayoutMargins = true
         defer {
-            view.bringSubviewToFront(bottonContainerView)
+            view.bringSubviewToFront(bottomContainerView)
         }
         
         confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        bottonContainerView.addSubview(confirmButton)
+        bottomContainerView.addSubview(confirmButton)
         NSLayoutConstraint.activate([
-            bottonContainerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: MastodonServerRulesViewController.viewBottomPaddingHeight),
-            confirmButton.leadingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.leadingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
-            bottonContainerView.readableContentGuide.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
+            bottomContainerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: MastodonServerRulesViewController.viewBottomPaddingHeight),
+            confirmButton.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
+            bottomContainerView.readableContentGuide.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
             confirmButton.heightAnchor.constraint(equalToConstant: MastodonServerRulesViewController.actionButtonHeight).priority(.defaultHigh),
         ])
         
-        bottomPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        bottonContainerView.addSubview(bottomPromptLabel)
+        bottomPromptTextView.translatesAutoresizingMaskIntoConstraints = false
+        bottomContainerView.addSubview(bottomPromptTextView)
         NSLayoutConstraint.activate([
-            bottomPromptLabel.topAnchor.constraint(equalTo: bottonContainerView.topAnchor, constant: 20),
-            bottomPromptLabel.leadingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.leadingAnchor),
-            bottomPromptLabel.trailingAnchor.constraint(equalTo: bottonContainerView.readableContentGuide.trailingAnchor),
-            confirmButton.topAnchor.constraint(equalTo: bottomPromptLabel.bottomAnchor, constant: 20),
+            bottomPromptTextView.frameLayoutGuide.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 20),
+            bottomPromptTextView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor),
+            bottomPromptTextView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.trailingAnchor),
+            bottomPromptTextView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 50),
+            confirmButton.topAnchor.constraint(equalTo: bottomPromptTextView.frameLayoutGuide.bottomAnchor, constant: 20),
         ])
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -165,8 +175,32 @@ extension MastodonServerRulesViewController {
 extension MastodonServerRulesViewController {
     func updateScrollViewContentInset() {
         view.layoutIfNeeded()
-        scrollView.contentInset.bottom = bottonContainerView.frame.height
-        scrollView.verticalScrollIndicatorInsets.bottom = bottonContainerView.frame.height
+        scrollView.contentInset.bottom = bottomContainerView.frame.height
+        scrollView.verticalScrollIndicatorInsets.bottom = bottomContainerView.frame.height
+    }
+    
+    func configTextView() {
+        let linkColor = Asset.Colors.Button.normal.color
+        
+        let str = NSString(string: L10n.Scene.ServerRules.prompt(viewModel.domain))
+        let termsOfServiceRange = str.range(of: L10n.Scene.ServerRules.termsOfService)
+        let privacyRange = str.range(of: L10n.Scene.ServerRules.privacyPolicy)
+        let attributeString = NSMutableAttributedString(string: L10n.Scene.ServerRules.prompt(viewModel.domain), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body), NSAttributedString.Key.foregroundColor: UIColor.label])
+        attributeString.addAttribute(.link, value: Mastodon.API.serverRulesURL(domain: viewModel.domain), range: termsOfServiceRange)
+        attributeString.addAttribute(.link, value: Mastodon.API.privacyURL(domain: viewModel.domain), range: privacyRange)
+        let linkAttributes = [NSAttributedString.Key.foregroundColor:linkColor]
+        bottomPromptTextView.attributedText = attributeString
+        bottomPromptTextView.linkTextAttributes = linkAttributes
+        bottomPromptTextView.delegate = self
+    }
+    
+}
+
+extension MastodonServerRulesViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        let safariVC = SFSafariViewController(url: URL)
+        self.present(safariVC, animated: true, completion: nil)
+        return false
     }
 }
 

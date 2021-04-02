@@ -19,6 +19,13 @@ extension MastodonUser.Property {
             displayName: entity.displayName,
             avatar: entity.avatar,
             avatarStatic: entity.avatarStatic,
+            header: entity.header,
+            headerStatic: entity.headerStatic,
+            note: entity.note,
+            url: entity.url,
+            statusesCount: entity.statusesCount,
+            followingCount: entity.followingCount,
+            followersCount: entity.followersCount,
             createdAt: entity.createdAt,
             networkDate: networkDate
         )
@@ -26,7 +33,25 @@ extension MastodonUser.Property {
 }
 
 extension MastodonUser {
+    
+    var displayNameWithFallback: String {
+        return !displayName.isEmpty ? displayName : username
+    }
+    
+    var acctWithDomain: String {
+        return username + "@" + domain
+    }
+    
+}
+
+extension MastodonUser {
+    
+    public func headerImageURL() -> URL? {
+        return URL(string: header)
+    }
+    
     public func avatarImageURL() -> URL? {
         return URL(string: avatar)
     }
+    
 }

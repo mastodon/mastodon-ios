@@ -19,7 +19,7 @@ public final class Mention: NSManagedObject {
     @NSManaged public private(set) var url: String
 
     // many-to-one relationship
-    @NSManaged public private(set) var toot: Toot
+    @NSManaged public private(set) var status: Status
 }
 
 public extension Mention {

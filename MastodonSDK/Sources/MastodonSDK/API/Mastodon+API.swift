@@ -89,6 +89,13 @@ extension Mastodon.API {
         return URL(string: "https://" + domain + "/auth/confirmation/new")!
     }
     
+    public static func serverRulesURL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/about/more")!
+    }
+    
+    public static func privacyURL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/terms")!
+    }
 }
 
 extension Mastodon.API {
