@@ -71,17 +71,26 @@ final class ComposeViewModel {
     
     init(
         context: AppContext,
-        composeKind: ComposeStatusSection.ComposeKind
+        composeKind: ComposeStatusSection.ComposeKind,
+        initialComposeContent: String? = nil
     ) {
         self.context = context
         self.composeKind = composeKind
         switch composeKind {
-        case .post:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
-        case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
+        case .post, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
+        case .reply:                self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
+        
+        if case let .mention(mastodonUserObjectID) = composeKind {
+            context.managedObjectContext.performAndWait {
+                let mastodonUser = context.managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
+                let initialComposeContent = "@" + mastodonUser.acct + " "
+                self.composeStatusAttribute.composeContent.value = initialComposeContent
+            }
+        }
         
         isCustomEmojiComposing
             .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)

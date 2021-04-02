@@ -538,7 +538,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
 
             let stringRange = NSRange(location: 0, length: string.length)
-            let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)|#([^\\s.]+))")
+            let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.]+)?|#([^\\s.]+))")
             // accept ^\B: or \s: but not accept \B: to force user input a space to make emoji take effect
             // precondition :\B with following space 
             let emojiMatches = string.matches(pattern: "(?:(^\\B:|\\s:)([a-zA-Z0-9_]+)(:\\B(?=\\s)))")

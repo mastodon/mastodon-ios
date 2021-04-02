@@ -62,7 +62,7 @@ extension ComposeViewModel {
         case .reply(let statusObjectID):
             snapshot.appendItems([.replyTo(statusObjectID: statusObjectID)], toSection: .repliedTo)
             snapshot.appendItems([.input(replyToStatusObjectID: statusObjectID, attribute: composeStatusAttribute)], toSection: .repliedTo)
-        case .post:
+        case .mention, .post:
             snapshot.appendItems([.input(replyToStatusObjectID: nil, attribute: composeStatusAttribute)], toSection: .status)
         }
         diffableDataSource.apply(snapshot, animatingDifferences: false)

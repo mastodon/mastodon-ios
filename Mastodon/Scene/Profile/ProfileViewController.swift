@@ -429,7 +429,12 @@ extension ProfileViewController {
     
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        // TODO:
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        let composeViewModel = ComposeViewModel(
+            context: context,
+            composeKind: .mention(mastodonUserObjectID: mastodonUser.objectID)
+        )
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -641,7 +646,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-        
+
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dwingDashboardMeterView: ProfileStatusDashboardMeterView) {
