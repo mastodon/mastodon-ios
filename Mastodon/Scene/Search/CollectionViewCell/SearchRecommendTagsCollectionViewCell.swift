@@ -78,12 +78,22 @@ extension SearchRecommendTagsCollectionViewCell {
     
     func config(with tag: Mastodon.Entity.Tag) {
         hashTagTitleLabel.text = "# " + tag.name
-        if let peopleAreTalking = tag.history?.compactMap({ Int($0.uses) }).reduce(0, +) {
-            let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
-            peopleLabel.text = string
-        } else {
+        guard let historys = tag.history else {
             peopleLabel.text = ""
+            return
         }
+        var recentHistory = [Mastodon.Entity.History]()
+        for history in historys {
+            if Int(history.uses) == 0 {
+                break
+            } else {
+                recentHistory.append(history)
+            }
+        }
+        let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
+        let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
+        peopleLabel.text = string
+
     }
 }
 

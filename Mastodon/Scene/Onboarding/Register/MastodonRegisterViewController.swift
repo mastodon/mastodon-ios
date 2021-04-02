@@ -58,7 +58,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     let largeTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
-        label.textColor = .black
+        label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Register.title
         return label
     }()
@@ -97,7 +97,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     let domainLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
-        label.textColor = .black
+        label.textColor = Asset.Colors.Label.primary.color
         return label
     }()
     

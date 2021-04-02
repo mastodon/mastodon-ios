@@ -40,7 +40,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     let rulesLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .black
+        label.textColor = Asset.Colors.Label.primary.color
         label.text = "Rules"
         label.numberOfLines = 0
         return label

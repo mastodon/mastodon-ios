@@ -11,7 +11,7 @@ import UIKit
 class SearchRecommendCollectionHeader: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
