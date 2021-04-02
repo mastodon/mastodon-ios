@@ -17,6 +17,7 @@ protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
 }
 
 final class StatusView: UIView {
@@ -402,6 +403,7 @@ extension StatusView {
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
         
+        activeTextLabel.delegate = self
         playerContainerView.delegate = self
         
         headerInfoLabelTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerInfoLabelTapGestureRecognizerHandler(_:)))
@@ -473,6 +475,14 @@ extension StatusView {
         delegate?.statusView(self, pollVoteButtonPressed: sender)
     }
     
+}
+
+// MARK: - ActiveLabelDelegate
+extension StatusView: ActiveLabelDelegate {
+    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
+        delegate?.statusView(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
+    }
 }
 
 // MARK: - PlayerContainerViewDelegate

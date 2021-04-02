@@ -64,6 +64,68 @@ extension StatusProviderFacade {
 
 extension StatusProviderFacade {
     
+    static func responseToStatusActiveLabelAction(provider: StatusProvider, cell: UITableViewCell, activeLabel: ActiveLabel, didTapEntity entity: ActiveEntity) {
+        switch entity.type {
+        case .hashtag(let text, let userInfo):
+            break
+        case .mention(let text, let userInfo):
+            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text)
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url) else { return }
+            provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+        default:
+            break
+        }
+    }
+    
+    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell, mention: String) {
+        guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let domain = activeMastodonAuthenticationBox.domain
+        
+        provider.status(for: cell, indexPath: nil)
+            .sink { [weak provider] status in
+                guard let provider = provider else { return }
+                let _status: Status? = {
+                    switch target {
+                    case .primary:    return status?.reblog ?? status
+                    case .secondary:  return status
+                    }
+                }()
+                guard let status = _status else { return }
+                
+                // cannot continue without meta
+                guard let mentionMeta = (status.mentions ?? Set()).first(where: { $0.username == mention }) else { return }
+                
+                let userID = mentionMeta.id
+                
+                let profileViewModel: ProfileViewModel = {
+                    // check if self
+                    guard userID != activeMastodonAuthenticationBox.userID else {
+                        return MeProfileViewModel(context: provider.context)
+                    }
+                    
+                    let request = MastodonUser.sortedFetchRequest
+                    request.fetchLimit = 1
+                    request.predicate = MastodonUser.predicate(domain: domain, id: userID)
+                    let mastodonUser = provider.context.managedObjectContext.safeFetch(request).first
+                    
+                    if let mastodonUser = mastodonUser {
+                        return CachedProfileViewModel(context: provider.context, mastodonUser: mastodonUser)
+                    } else {
+                        return RemoteProfileViewModel(context: provider.context, userID: userID)
+                    }
+                }()
+                
+                DispatchQueue.main.async {
+                    provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: provider, transition: .show)
+                }
+            }
+            .store(in: &provider.disposeBag)
+    }
+}
+
+extension StatusProviderFacade {
+    
     static func responseToStatusLikeAction(provider: StatusProvider) {
         _responseToStatusLikeAction(
             provider: provider,

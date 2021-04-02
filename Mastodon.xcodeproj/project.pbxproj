@@ -266,6 +266,7 @@
 		DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F932616E28B004B8251 /* APIService+Follow.swift */; };
 		DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */; };
 		DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */; };
+		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
 		DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */; };
@@ -618,6 +619,7 @@
 		DBAE3F932616E28B004B8251 /* APIService+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Follow.swift"; sourceTree = "<group>"; };
 		DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Mute.swift"; sourceTree = "<group>"; };
 		DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonMetricFormatter.swift; sourceTree = "<group>"; };
+		DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
 		DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewController.swift; sourceTree = "<group>"; };
 		DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewModel.swift; sourceTree = "<group>"; };
@@ -1524,6 +1526,7 @@
 				DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
 				DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */,
+				DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */,
 				DBB525632612C988002F1F29 /* MeProfileViewModel.swift */,
 			);
 			path = Profile;
@@ -2098,6 +2101,7 @@
 				DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
+				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
