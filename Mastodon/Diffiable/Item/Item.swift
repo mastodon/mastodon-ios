@@ -16,40 +16,44 @@ enum Item {
     case homeTimelineIndex(objectID: NSManagedObjectID, attribute: StatusAttribute)
 
     // normal list
-    case toot(objectID: NSManagedObjectID, attribute: StatusAttribute)
+    case status(objectID: NSManagedObjectID, attribute: StatusAttribute)
 
     // loader
     case homeMiddleLoader(upperTimelineIndexAnchorObjectID: NSManagedObjectID)
-    case publicMiddleLoader(tootID: String)
+    case publicMiddleLoader(statusID: String)
     case bottomLoader
 }
 
 protocol StatusContentWarningAttribute {
-    var isStatusTextSensitive: Bool { get set }
-    var isStatusSensitive: Bool { get set }
+    var isStatusTextSensitive: Bool? { get set }
+    var isStatusSensitive: Bool? { get set }
 }
 
 extension Item {
-    class StatusAttribute: Equatable, Hashable, StatusContentWarningAttribute {
-        var isStatusTextSensitive: Bool
-        var isStatusSensitive: Bool
+    class StatusAttribute: StatusContentWarningAttribute {
+        var isStatusTextSensitive: Bool?
+        var isStatusSensitive: Bool?
 
-        public init(
-            isStatusTextSensitive: Bool,
-            isStatusSensitive: Bool
+        init(
+            isStatusTextSensitive: Bool? = nil,
+            isStatusSensitive: Bool? = nil
         ) {
             self.isStatusTextSensitive = isStatusTextSensitive
             self.isStatusSensitive = isStatusSensitive
         }
         
-        static func == (lhs: Item.StatusAttribute, rhs: Item.StatusAttribute) -> Bool {
-            return lhs.isStatusTextSensitive == rhs.isStatusTextSensitive &&
-                lhs.isStatusSensitive == rhs.isStatusSensitive
-        }
-
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(isStatusTextSensitive)
-            hasher.combine(isStatusSensitive)
+        // delay attribute init
+        func setupForStatus(status: Status) {
+            if isStatusTextSensitive == nil {
+                isStatusTextSensitive = {
+                    guard let spoilerText = status.spoilerText, !spoilerText.isEmpty else { return false }
+                    return true
+                }()
+            }
+            
+            if isStatusSensitive == nil {
+                isStatusSensitive = status.sensitive
+            }
         }
     }
 }
@@ -59,7 +63,7 @@ extension Item: Equatable {
         switch (lhs, rhs) {
         case (.homeTimelineIndex(let objectIDLeft, _), .homeTimelineIndex(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
-        case (.toot(let objectIDLeft, _), .toot(let objectIDRight, _)):
+        case (.status(let objectIDLeft, _), .status(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
         case (.bottomLoader, .bottomLoader):
             return true
@@ -78,7 +82,7 @@ extension Item: Hashable {
         switch self {
         case .homeTimelineIndex(let objectID, _):
             hasher.combine(objectID)
-        case .toot(let objectID, _):
+        case .status(let objectID, _):
             hasher.combine(objectID)
         case .publicMiddleLoader(let upper):
             hasher.combine(String(describing: Item.publicMiddleLoader.self))

@@ -58,12 +58,12 @@ extension HomeTimelineViewModel.LoadMiddleState {
                 stateMachine.enter(Fail.self)
                 return
             }
-            let tootIDs = (viewModel.fetchedResultsController.fetchedObjects ?? []).compactMap { timelineIndex in
-                timelineIndex.toot.id
+            let statusIDs = (viewModel.fetchedResultsController.fetchedObjects ?? []).compactMap { timelineIndex in
+                timelineIndex.status.id
             }
 
             // TODO: only set large count when using Wi-Fi
-            let maxID = timelineIndex.toot.id
+            let maxID = timelineIndex.status.id
             viewModel.context.apiService.homeTimeline(domain: activeMastodonAuthenticationBox.domain,maxID: maxID, authorizationBox: activeMastodonAuthenticationBox)
                 .delay(for: .seconds(1), scheduler: DispatchQueue.main)
                 .receive(on: DispatchQueue.main)
@@ -72,16 +72,16 @@ extension HomeTimelineViewModel.LoadMiddleState {
                     switch completion {
                     case .failure(let error):
                         // TODO: handle error
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log("%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                         stateMachine.enter(Fail.self)
                     case .finished:
                         break
                     }
                 } receiveValue: { response in
-                    let toots = response.value
-                    let newToots = toots.filter { !tootIDs.contains($0.id) }
-                    os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld toots, %{public}%ld new toots", ((#file as NSString).lastPathComponent), #line, #function, toots.count, newToots.count)
-                    if newToots.isEmpty {
+                    let statuses = response.value
+                    let newStatuses = statuses.filter { !statusIDs.contains($0.id) }
+                    os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld statuses, %{public}%ld new statuses", ((#file as NSString).lastPathComponent), #line, #function, statuses.count, newStatuses.count)
+                    if newStatuses.isEmpty {
                         stateMachine.enter(Fail.self)
                     } else {
                         stateMachine.enter(Success.self)

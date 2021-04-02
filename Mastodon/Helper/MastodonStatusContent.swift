@@ -1,5 +1,5 @@
 //
-//  TootContent.swift
+//  MastodonStatusContent.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021/2/1.
@@ -9,15 +9,15 @@ import Foundation
 import Kanna
 import ActiveLabel
 
-enum TootContent {
+enum MastodonStatusContent {
     
-    static func parse(toot: String) throws -> TootContent.ParseResult {
-        let toot = toot.replacingOccurrences(of: "<br/>", with: "\n")
-        let rootNode = try Node.parse(document: toot)
+    static func parse(status: String) throws -> MastodonStatusContent.ParseResult {
+        let status = status.replacingOccurrences(of: "<br/>", with: "\n")
+        let rootNode = try Node.parse(document: status)
         let text = String(rootNode.text)
         
         var activeEntities: [ActiveEntity] = []
-        let entities = TootContent.Node.entities(in: rootNode)
+        let entities = MastodonStatusContent.Node.entities(in: rootNode)
         for entity in entities {
             let range = NSRange(entity.text.startIndex..<entity.text.endIndex, in: text)
             
@@ -48,22 +48,22 @@ enum TootContent {
         var trimmed = text
         for activeEntity in activeEntities {
             guard case .url = activeEntity.type else { continue }
-            TootContent.trimEntity(toot: &trimmed, activeEntity: activeEntity, activeEntities: activeEntities)
+            MastodonStatusContent.trimEntity(status: &trimmed, activeEntity: activeEntity, activeEntities: activeEntities)
         }
 
         return ParseResult(
-            document: toot,
+            document: status,
             original: text,
             trimmed: trimmed,
             activeEntities: validate(text: trimmed, activeEntities: activeEntities) ? activeEntities : []
         )
     }
     
-    static func trimEntity(toot: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
+    static func trimEntity(status: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
         guard case let .url(text, trimmed, _, _) = activeEntity.type else { return }
         guard let index = activeEntities.firstIndex(where: { $0.range == activeEntity.range }) else { return }
-        guard let range = Range(activeEntity.range, in: toot) else { return }
-        toot.replaceSubrange(range, with: trimmed)
+        guard let range = Range(activeEntity.range, in: status) else { return }
+        status.replaceSubrange(range, with: trimmed)
         
         let offset = trimmed.count - text.count
         activeEntity.range.length += offset
@@ -97,7 +97,7 @@ extension String {
     }
 }
 
-extension TootContent {
+extension MastodonStatusContent {
     struct ParseResult {
         let document: String
         let original: String
@@ -106,8 +106,7 @@ extension TootContent {
     }
 }
 
-
-extension TootContent {
+extension MastodonStatusContent {
     
     class Node {
         
@@ -167,12 +166,12 @@ extension TootContent {
             self.children = children
         }
         
-        static func parse(document: String) throws -> TootContent.Node {
+        static func parse(document: String) throws -> MastodonStatusContent.Node {
             let html = try HTML(html: document, encoding: .utf8)
             let body = html.body ?? nil
             let text = body?.text ?? ""
             let level = 0
-            let children: [TootContent.Node] = body.flatMap { body in
+            let children: [MastodonStatusContent.Node] = body.flatMap { body in
                 return Node.parse(element: body, parentText: text[...], parentLevel: level + 1)
             } ?? []
             let node = Node(
@@ -253,32 +252,32 @@ extension TootContent {
     
 }
 
-extension TootContent.Node {
+extension MastodonStatusContent.Node {
     enum `Type` {
         case url
         case mention
         case hashtag
     }
     
-    static func entities(in node: TootContent.Node) -> [TootContent.Node] {
-        return TootContent.Node.collect(node: node) { node in node.type != nil }
+    static func entities(in node: MastodonStatusContent.Node) -> [MastodonStatusContent.Node] {
+        return MastodonStatusContent.Node.collect(node: node) { node in node.type != nil }
     }
     
-    static func hashtags(in node: TootContent.Node) -> [TootContent.Node] {
-        return TootContent.Node.collect(node: node) { node in node.type == .hashtag }
+    static func hashtags(in node: MastodonStatusContent.Node) -> [MastodonStatusContent.Node] {
+        return MastodonStatusContent.Node.collect(node: node) { node in node.type == .hashtag }
     }
     
-    static func mentions(in node: TootContent.Node) -> [TootContent.Node] {
-        return TootContent.Node.collect(node: node) { node in node.type == .mention }
+    static func mentions(in node: MastodonStatusContent.Node) -> [MastodonStatusContent.Node] {
+        return MastodonStatusContent.Node.collect(node: node) { node in node.type == .mention }
     }
     
-    static func urls(in node: TootContent.Node) -> [TootContent.Node] {
-        return TootContent.Node.collect(node: node) { node in node.type == .url }
+    static func urls(in node: MastodonStatusContent.Node) -> [MastodonStatusContent.Node] {
+        return MastodonStatusContent.Node.collect(node: node) { node in node.type == .url }
     }
     
 }
 
-extension TootContent.Node: CustomDebugStringConvertible {
+extension MastodonStatusContent.Node: CustomDebugStringConvertible {
     var debugDescription: String {
         let linkInfo: String = {
             switch (href, hrefEllipsis) {

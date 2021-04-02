@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class RoundedEdgesButton: UIButton {
+class RoundedEdgesButton: UIButton {
         
     override func layoutSubviews() {
         super.layoutSubviews()

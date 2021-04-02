@@ -16,34 +16,34 @@ extension APIService {
     
     // make local state change only
     func reblog(
-        tootObjectID: NSManagedObjectID,
+        statusObjectID: NSManagedObjectID,
         mastodonUserObjectID: NSManagedObjectID,
         reblogKind: Mastodon.API.Reblog.ReblogKind
-    ) -> AnyPublisher<Toot.ID, Error> {
-        var _targetTootID: Toot.ID?
+    ) -> AnyPublisher<Status.ID, Error> {
+        var _targetStatusID: Status.ID?
         let managedObjectContext = backgroundManagedObjectContext
         return managedObjectContext.performChanges {
-            let toot = managedObjectContext.object(with: tootObjectID) as! Toot
+            let status = managedObjectContext.object(with: statusObjectID) as! Status
             let mastodonUser = managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-            let targetToot = toot.reblog ?? toot
-            let targetTootID = targetToot.id
-            _targetTootID = targetTootID
+            let targetStatus = status.reblog ?? status
+            let targetStatusID = targetStatus.id
+            _targetStatusID = targetStatusID
 
             switch reblogKind {
             case .reblog:
-                targetToot.update(reblogged: true, mastodonUser: mastodonUser)
+                targetStatus.update(reblogged: true, by: mastodonUser)
             case .undoReblog:
-                targetToot.update(reblogged: false, mastodonUser: mastodonUser)
+                targetStatus.update(reblogged: false, by: mastodonUser)
             }
 
         }
         .tryMap { result in
             switch result {
             case .success:
-                guard let targetTootID = _targetTootID else {
+                guard let targetStatusID = _targetStatusID else {
                     throw APIError.implicit(.badRequest)
                 }
-                return targetTootID
+                return targetStatusID
 
             case .failure(let error):
                 assertionFailure(error.localizedDescription)
@@ -85,25 +85,25 @@ extension APIService {
                     return
                 }
                 
-                guard let oldToot: Toot = {
-                    let request = Toot.sortedFetchRequest
-                    request.predicate = Toot.predicate(domain: domain, id: statusID)
+                guard let oldStatus: Status = {
+                    let request = Status.sortedFetchRequest
+                    request.predicate = Status.predicate(domain: domain, id: statusID)
                     request.fetchLimit = 1
                     request.returnsObjectsAsFaults = false
-                    request.relationshipKeyPathsForPrefetching = [#keyPath(Toot.reblog)]
+                    request.relationshipKeyPathsForPrefetching = [#keyPath(Status.reblog)]
                     return managedObjectContext.safeFetch(request).first
                 }() else {
                     return
                 }
 
-                APIService.CoreData.merge(toot: oldToot, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
+                APIService.CoreData.merge(status: oldStatus, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
                 switch reblogKind {
                 case .undoReblog:
-                    oldToot.update(reblogsCount: NSNumber(value: max(0, oldToot.reblogsCount.intValue - 1)))
+                    oldStatus.update(reblogsCount: NSNumber(value: max(0, oldStatus.reblogsCount.intValue - 1)))
                 default:
                     break
                 }
-                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s reblog status to: %{public}s. now %ld reblog", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.reblogged.flatMap { $0 ? "reblog" : "unreblog" } ?? "<nil>", entity.reblogsCount )
+                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update status %{public}s reblog status to: %{public}s. now %ld reblog", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.reblogged.flatMap { $0 ? "reblog" : "unreblog" } ?? "<nil>", entity.reblogsCount )
             }
             .setFailureType(to: Error.self)
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in

@@ -12,6 +12,8 @@ import ActiveLabel
 import AlamofireImage
 
 protocol StatusViewDelegate: class {
+    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
+    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -195,8 +197,9 @@ final class StatusView: UIView {
         return actionToolbarContainer
     }()
     
-    
     let activeTextLabel = ActiveLabel(style: .default)
+    
+    private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -226,7 +229,7 @@ final class StatusView: UIView {
 extension StatusView {
     
     func _init() {
-        // container: [retoot | author | status | action toolbar]
+        // container: [reblog | author | status | action toolbar]
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical
         containerStackView.spacing = 10
@@ -401,6 +404,12 @@ extension StatusView {
         
         playerContainerView.delegate = self
         
+        headerInfoLabelTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerInfoLabelTapGestureRecognizerHandler(_:)))
+        headerInfoLabel.isUserInteractionEnabled = true
+        headerInfoLabel.addGestureRecognizer(headerInfoLabelTapGestureRecognizer)
+        
+        avatarButton.addTarget(self, action: #selector(StatusView.avatarButtonDidPressed(_:)), for: .touchUpInside)
+        avatarStackedContainerButton.addTarget(self, action: #selector(StatusView.avatarStackedContainerButtonDidPressed(_:)), for: .touchUpInside)
         contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
     }
@@ -438,6 +447,21 @@ extension StatusView {
 }
 
 extension StatusView {
+    
+    @objc private func headerInfoLabelTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, headerInfoLabelDidPressed: headerInfoLabel)
+    }
+    
+    @objc private func avatarButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, avatarButtonDidPressed: sender)
+    }
+    
+    @objc private func avatarStackedContainerButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, avatarButtonDidPressed: sender)
+    }
     
     @objc private func contentWarningActionButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)

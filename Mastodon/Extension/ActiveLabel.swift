@@ -14,40 +14,61 @@ extension ActiveLabel {
     
     enum Style {
         case `default`
-        case timelineHeaderView
+        case profileField
     }
     
     convenience init(style: Style) {
         self.init()
     
-        switch style {
-        case .default:
-            font = .preferredFont(forTextStyle: .body)
-            textColor = Asset.Colors.Label.primary.color
-        case .timelineHeaderView:
-            font = .preferredFont(forTextStyle: .footnote)
-            textColor = .secondaryLabel
-        }
-        
         numberOfLines = 0
         lineSpacing = 5
         mentionColor = Asset.Colors.Label.highlight.color
         hashtagColor = Asset.Colors.Label.highlight.color
         URLColor = Asset.Colors.Label.highlight.color
+        #if DEBUG
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        #endif
+        
+        switch style {
+        case .default:
+            font = .preferredFont(forTextStyle: .body)
+            textColor = Asset.Colors.Label.primary.color
+        case .profileField:
+            font = .preferredFont(forTextStyle: .body)
+            textColor = Asset.Colors.Label.primary.color
+            numberOfLines = 1
+        }
     }
     
 }
 
 extension ActiveLabel {
-    func config(content: String) {
+    /// status content
+    func configure(content: String) {
         activeEntities.removeAll()
-        if let parseResult = try? TootContent.parse(toot: content) {
+        if let parseResult = try? MastodonStatusContent.parse(status: content) {
             text = parseResult.trimmed
             activeEntities = parseResult.activeEntities
         } else {
             text = ""
         }
     }
+    
+    /// account note
+    func configure(note: String) {
+        configure(content: note)
+    }
 }
 
+extension ActiveLabel {
+    /// account field
+    func configure(field: String) {
+        activeEntities.removeAll()
+        if let parseResult = try? MastodonField.parse(field: field) {
+            text = parseResult.value
+            activeEntities = parseResult.activeEntities
+        } else {
+            text = ""
+        }
+    }
+}

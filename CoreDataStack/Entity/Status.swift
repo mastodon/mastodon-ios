@@ -8,7 +8,7 @@
 import CoreData
 import Foundation
 
-public final class Toot: NSManagedObject {
+public final class Status: NSManagedObject {
     public typealias ID = String
     
     @NSManaged public private(set) var identifier: ID
@@ -30,7 +30,7 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var repliesCount: NSNumber?
     
     @NSManaged public private(set) var url: String?
-    @NSManaged public private(set) var inReplyToID: Toot.ID?
+    @NSManaged public private(set) var inReplyToID: Status.ID?
     @NSManaged public private(set) var inReplyToAccountID: MastodonUser.ID?
     
     @NSManaged public private(set) var language: String? //  (ISO 639 Part 1 two-letter language code)
@@ -38,8 +38,8 @@ public final class Toot: NSManagedObject {
     
     // many-to-one relastionship
     @NSManaged public private(set) var author: MastodonUser
-    @NSManaged public private(set) var reblog: Toot?
-    @NSManaged public private(set) var replyTo: Toot?
+    @NSManaged public private(set) var reblog: Status?
+    @NSManaged public private(set) var replyTo: Status?
     
     // many-to-many relastionship
     @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
@@ -52,27 +52,27 @@ public final class Toot: NSManagedObject {
     @NSManaged public private(set) var poll: Poll?
         
     // one-to-many relationship
-    @NSManaged public private(set) var reblogFrom: Set<Toot>?
+    @NSManaged public private(set) var reblogFrom: Set<Status>?
     @NSManaged public private(set) var mentions: Set<Mention>?
     @NSManaged public private(set) var emojis: Set<Emoji>?
     @NSManaged public private(set) var tags: Set<Tag>?
     @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
     @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
-    @NSManaged public private(set) var replyFrom: Set<Toot>?
+    @NSManaged public private(set) var replyFrom: Set<Status>?
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
 }
 
-public extension Toot {
+public extension Status {
     @discardableResult
     static func insert(
         into context: NSManagedObjectContext,
         property: Property,
         author: MastodonUser,
-        reblog: Toot?,
+        reblog: Status?,
         application: Application?,
-        replyTo: Toot?,
+        replyTo: Status?,
         poll: Poll?,
         mentions: [Mention]?,
         emojis: [Emoji]?,
@@ -83,8 +83,8 @@ public extension Toot {
         mutedBy: MastodonUser?,
         bookmarkedBy: MastodonUser?,
         pinnedBy: MastodonUser?
-    ) -> Toot {
-        let toot: Toot = context.insertObject()
+    ) -> Status {
+        let toot: Status = context.insertObject()
         
         toot.identifier = property.identifier
         toot.domain = property.domain
@@ -117,28 +117,28 @@ public extension Toot {
         toot.poll = poll
         
         if let mentions = mentions {
-            toot.mutableSetValue(forKey: #keyPath(Toot.mentions)).addObjects(from: mentions)
+            toot.mutableSetValue(forKey: #keyPath(Status.mentions)).addObjects(from: mentions)
         }
         if let emojis = emojis {
-            toot.mutableSetValue(forKey: #keyPath(Toot.emojis)).addObjects(from: emojis)
+            toot.mutableSetValue(forKey: #keyPath(Status.emojis)).addObjects(from: emojis)
         }
         if let tags = tags {
-            toot.mutableSetValue(forKey: #keyPath(Toot.tags)).addObjects(from: tags)
+            toot.mutableSetValue(forKey: #keyPath(Status.tags)).addObjects(from: tags)
         }
         if let mediaAttachments = mediaAttachments {
-            toot.mutableSetValue(forKey: #keyPath(Toot.mediaAttachments)).addObjects(from: mediaAttachments)
+            toot.mutableSetValue(forKey: #keyPath(Status.mediaAttachments)).addObjects(from: mediaAttachments)
         }
         if let favouritedBy = favouritedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).add(favouritedBy)
+            toot.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(favouritedBy)
         }
         if let rebloggedBy = rebloggedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).add(rebloggedBy)
+            toot.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(rebloggedBy)
         }
         if let mutedBy = mutedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).add(mutedBy)
+            toot.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mutedBy)
         }
         if let bookmarkedBy = bookmarkedBy {
-            toot.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(bookmarkedBy)
+            toot.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(bookmarkedBy)
         }
         
         toot.updatedAt = property.networkDate
@@ -167,56 +167,56 @@ public extension Toot {
         }
     }
     
-    func update(replyTo: Toot?) {
+    func update(replyTo: Status?) {
         if self.replyTo != replyTo {
             self.replyTo = replyTo
         }
     }
     
-    func update(liked: Bool, mastodonUser: MastodonUser) {
+    func update(liked: Bool, by mastodonUser: MastodonUser) {
         if liked {
             if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(mastodonUser)
             }
         } else {
             if (self.favouritedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.favouritedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).remove(mastodonUser)
             }
         }
     }
     
-    func update(reblogged: Bool, mastodonUser: MastodonUser) {
+    func update(reblogged: Bool, by mastodonUser: MastodonUser) {
         if reblogged {
             if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(mastodonUser)
             }
         } else {
             if (self.rebloggedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.rebloggedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).remove(mastodonUser)
             }
         }
     }
     
-    func update(muted: Bool, mastodonUser: MastodonUser) {
+    func update(muted: Bool, by mastodonUser: MastodonUser) {
         if muted {
             if !(self.mutedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mastodonUser)
             }
         } else {
             if (self.mutedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.mutedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).remove(mastodonUser)
             }
         }
     }
     
-    func update(bookmarked: Bool, mastodonUser: MastodonUser) {
+    func update(bookmarked: Bool, by mastodonUser: MastodonUser) {
         if bookmarked {
             if !(self.bookmarkedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).add(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(mastodonUser)
             }
         } else {
             if (self.bookmarkedBy ?? Set()).contains(mastodonUser) {
-                self.mutableSetValue(forKey: #keyPath(Toot.bookmarkedBy)).remove(mastodonUser)
+                self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).remove(mastodonUser)
             }
         }
     }
@@ -227,7 +227,7 @@ public extension Toot {
 
 }
 
-public extension Toot {
+public extension Status {
     struct Property {
         
         public let identifier: ID
@@ -247,7 +247,7 @@ public extension Toot {
         public let repliesCount: NSNumber?
         
         public let url: String?
-        public let inReplyToID: Toot.ID?
+        public let inReplyToID: Status.ID?
         public let inReplyToAccountID: MastodonUser.ID?
         public let language: String? //  (ISO 639 Part @1 two-letter language code)
         public let text: String?
@@ -267,7 +267,7 @@ public extension Toot {
             favouritesCount: NSNumber,
             repliesCount: NSNumber?,
             url: String?,
-            inReplyToID: Toot.ID?,
+            inReplyToID: Status.ID?,
             inReplyToAccountID: MastodonUser.ID?,
             language: String?,
             text: String?,
@@ -296,20 +296,20 @@ public extension Toot {
     }
 }
 
-extension Toot: Managed {
+extension Status: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \Toot.createdAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \Status.createdAt, ascending: false)]
     }
 }
 
-extension Toot {
+extension Status {
     
     static func predicate(domain: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Toot.domain), domain)
+        return NSPredicate(format: "%K == %@", #keyPath(Status.domain), domain)
     }
     
     static func predicate(id: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Toot.id), id)
+        return NSPredicate(format: "%K == %@", #keyPath(Status.id), id)
     }
     
     public static func predicate(domain: String, id: String) -> NSPredicate {
@@ -320,7 +320,7 @@ extension Toot {
     }
     
     static func predicate(ids: [String]) -> NSPredicate {
-        return NSPredicate(format: "%K IN %@", #keyPath(Toot.id), ids)
+        return NSPredicate(format: "%K IN %@", #keyPath(Status.id), ids)
     }
     
     public static func predicate(domain: String, ids: [String]) -> NSPredicate {
@@ -331,10 +331,10 @@ extension Toot {
     }
     
     public static func notDeleted() -> NSPredicate {
-        return NSPredicate(format: "%K == nil", #keyPath(Toot.deletedAt))
+        return NSPredicate(format: "%K == nil", #keyPath(Status.deletedAt))
     }
     
     public static func deleted() -> NSPredicate {
-        return NSPredicate(format: "%K != nil", #keyPath(Toot.deletedAt))
+        return NSPredicate(format: "%K != nil", #keyPath(Status.deletedAt))
     }
 }

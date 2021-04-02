@@ -1,5 +1,5 @@
 //
-//  Toot.swift
+//  Status.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021/2/4.
@@ -9,7 +9,7 @@ import Foundation
 import CoreDataStack
 import MastodonSDK
 
-extension Toot.Property {
+extension Status.Property {
     init(entity: Mastodon.Entity.Status, domain: String, networkDate: Date) {
         self.init(
             domain: domain,
