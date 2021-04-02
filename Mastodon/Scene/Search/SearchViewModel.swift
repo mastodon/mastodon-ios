@@ -19,12 +19,51 @@ final class SearchViewModel {
     
     // output
     let searchText = CurrentValueSubject<String, Never>("")
+    let searchScope = CurrentValueSubject<String, Never>("")
+    
+    let isSearching = CurrentValueSubject<Bool, Never>(false)
+    
+    let searchResult = CurrentValueSubject<Mastodon.Entity.SearchResult?, Never>(nil)
     
     var recommendHashTags = [Mastodon.Entity.Tag]()
     var recommendAccounts = [Mastodon.Entity.Account]()
     
     init(context: AppContext) {
         self.context = context
+        guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        Publishers.CombineLatest(
+            searchText
+                .filter { !$0.isEmpty }
+                .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),
+            searchScope)
+            .flatMap { (text, scope) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> in
+                let query = Mastodon.API.Search.Query(accountID: nil,
+                                                      maxID: nil,
+                                                      minID: nil,
+                                                      type: scope,
+                                                      excludeUnreviewed: nil,
+                                                      q: text,
+                                                      resolve: nil,
+                                                      limit: nil,
+                                                      offset: nil,
+                                                      following: nil)
+                return context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+            }
+            .sink { _ in
+            } receiveValue: { [weak self] result in
+                self?.searchResult.value = result.value
+            }
+            .store(in: &disposeBag)
+        
+        isSearching
+            .sink { [weak self] isSearching in
+                if !isSearching {
+                    self?.searchResult.value == nil
+                }
+            }
+            .store(in: &disposeBag)
     }
     
     func requestRecommendHashTags() -> Future<Void, Error> {

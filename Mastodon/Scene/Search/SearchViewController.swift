@@ -24,9 +24,12 @@ final class SearchViewController: UIViewController, NeedsDependency {
         let micImage = UIImage(systemName: "mic.fill")
         searchBar.setImage(micImage, for: .bookmark, state: .normal)
         searchBar.showsBookmarkButton = true
+        searchBar.showsScopeBar = false
+        searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people,L10n.Scene.Search.Searching.Segment.hashtags]
         return searchBar
     }()
     
+    // recommend
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -71,6 +74,16 @@ final class SearchViewController: UIViewController, NeedsDependency {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    // searching
+    let searchingTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .singleLine
+        tableView.backgroundColor = .white
+        return tableView
+    }()
+    var searchResultDiffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>?
 }
 
 extension SearchViewController {
@@ -83,6 +96,7 @@ extension SearchViewController {
         setupScrollView()
         setupHashTagCollectionView()
         setupAccountsCollectionView()
+        setupSearchingTableView()
     }
 
     func setupScrollView() {
@@ -109,22 +123,40 @@ extension SearchViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
+        searchBar.showsScopeBar = true
+        viewModel.isSearching.value = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.showsScopeBar = false
+        viewModel.isSearching.value = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.showsScopeBar = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        viewModel.isSearching.value = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchText.send(searchText)
     }
     
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            viewModel.searchScope.value = ""
+        case 1:
+            viewModel.searchScope.value = "accounts"
+        case 2:
+            viewModel.searchScope.value = "hashtags"
+        default:
+            break
+        }
+    }
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {}
 }
 

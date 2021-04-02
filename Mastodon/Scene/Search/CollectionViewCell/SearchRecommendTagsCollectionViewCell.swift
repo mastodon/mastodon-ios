@@ -82,14 +82,7 @@ extension SearchRecommendTagsCollectionViewCell {
             peopleLabel.text = ""
             return
         }
-        var recentHistory = [Mastodon.Entity.History]()
-        for history in historys {
-            if Int(history.uses) == 0 {
-                break
-            } else {
-                recentHistory.append(history)
-            }
-        }
+        let recentHistory = historys[0...2]
         let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         peopleLabel.text = string

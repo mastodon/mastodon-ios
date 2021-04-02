@@ -265,7 +265,7 @@
                 "cancel": "Cancel"
             },
             "recommend": {
-              "buttonText": "See All",
+              "button_text": "See All",
               "hash_tag": {
                   "title": "Trending in your timeline",
                   "description": "Hashtags that are getting quite a bit of attention among people you follow",
@@ -276,6 +276,15 @@
                   "description": "Except for Sam, you will not like his account.",
                   "follow": "Follow"
               }
+            },
+            "searching": {
+                "segment": {
+                    "all": "All",
+                    "people": "People",
+                    "hashtags": "Hashtags"
+                },
+                "recent_search": "Recent searches",
+                "clear": "clear"
             }
         }
     }
