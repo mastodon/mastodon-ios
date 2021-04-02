@@ -1,14 +1,14 @@
 //
-//  SearchViewController+hashTagCollectionView.swift
+//  SearchViewController+RecomendView.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/3/31.
 //
 
 import Foundation
-import UIKit
-import OSLog
 import MastodonSDK
+import OSLog
+import UIKit
 
 extension SearchViewController {
     func setupHashTagCollectionView() {
@@ -17,15 +17,15 @@ extension SearchViewController {
         header.descriptionLabel.text = L10n.Scene.Search.Recommend.HashTag.description
         header.seeAllButton.addTarget(self, action: #selector(SearchViewController.hashTagSeeAllButtonPressed(_:)), for: .touchUpInside)
         stackView.addArrangedSubview(header)
-        
+
         hashTagCollectionView.register(SearchRecommendTagsCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SearchRecommendTagsCollectionViewCell.self))
         hashTagCollectionView.delegate = self
-        
+
         stackView.addArrangedSubview(hashTagCollectionView)
         hashTagCollectionView.constrain([
             hashTagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 130)
         ])
-        
+
         viewModel.requestRecommendHashTags()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -39,10 +39,10 @@ extension SearchViewController {
                     self.hashTagDiffableDataSource = dataSource
                 }
             } receiveValue: { _ in
-                
             }
             .store(in: &disposeBag)
     }
+
     func setupAccountsCollectionView() {
         let header = SearchRecommendCollectionHeader()
         header.titleLabel.text = L10n.Scene.Search.Recommend.Accounts.title
@@ -71,11 +71,10 @@ extension SearchViewController {
                     self.accountDiffableDataSource = dataSource
                 }
             } receiveValue: { _ in
-
             }
             .store(in: &disposeBag)
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         hashTagCollectionView.collectionViewLayout.invalidateLayout()
@@ -85,16 +84,16 @@ extension SearchViewController {
 
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", (#file as NSString).lastPathComponent, #line, #function, indexPath.debugDescription)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
+extension SearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -104,24 +103,18 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
             return 12
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == hashTagCollectionView {
             return CGSize(width: 228, height: 130)
         } else {
             return CGSize(width: 257, height: 202)
         }
-        
     }
-    
 }
 
 extension SearchViewController {
-    @objc func hashTagSeeAllButtonPressed(_ sender: UIButton) {
-        
-    }
-    
-    @objc func accountSeeAllButtonPressed(_ sender: UIButton) {
-        
-    }
+    @objc func hashTagSeeAllButtonPressed(_ sender: UIButton) {}
+
+    @objc func accountSeeAllButtonPressed(_ sender: UIButton) {}
 }

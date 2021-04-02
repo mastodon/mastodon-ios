@@ -5,12 +5,11 @@
 //  Created by sxiaojian on 2021/3/31.
 //
 
-import UIKit
 import Combine
 import MastodonSDK
+import UIKit
 
 final class SearchViewController: UIViewController, NeedsDependency {
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -57,9 +56,9 @@ final class SearchViewController: UIViewController, NeedsDependency {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+
     var hashTagDiffableDataSource: UICollectionViewDiffableDataSource<RecomendHashTagSection, Mastodon.Entity.Tag>?
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account>?
-    
     
     let accountsCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -75,7 +74,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
 }
 
 extension SearchViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Asset.Colors.Background.search.color
@@ -85,8 +83,8 @@ extension SearchViewController {
         setupScrollView()
         setupHashTagCollectionView()
         setupAccountsCollectionView()
-        
     }
+
     func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.constrain([
@@ -94,7 +92,7 @@ extension SearchViewController {
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor)
+            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
         
         scrollView.addSubview(stackView)
@@ -105,7 +103,6 @@ extension SearchViewController {
             stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
             scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
-        
     }
 }
 
@@ -128,20 +125,13 @@ extension SearchViewController: UISearchBarDelegate {
         viewModel.searchText.send(searchText)
     }
     
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        
-    }
-}
-
-extension SearchViewController {
-
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {}
 }
 
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
 struct SearchViewController_Previews: PreviewProvider {
-    
     static var previews: some View {
         UIViewControllerPreview {
             let viewController = SearchViewController()
@@ -149,7 +139,6 @@ struct SearchViewController_Previews: PreviewProvider {
         }
         .previewLayout(.fixed(width: 375, height: 800))
     }
-    
 }
 
 #endif

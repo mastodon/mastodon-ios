@@ -30,7 +30,7 @@
 		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
 		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
 		2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */; };
-		2D34D9CB261489930081BFC0 /* SearchViewController+recomendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9CA261489930081BFC0 /* SearchViewController+recomendView.swift */; };
+		2D34D9CB261489930081BFC0 /* SearchViewController+RecomendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9CA261489930081BFC0 /* SearchViewController+RecomendView.swift */; };
 		2D34D9D126148D9E0081BFC0 /* APIService+Recommend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9D026148D9E0081BFC0 /* APIService+Recommend.swift */; };
 		2D34D9DB261494120081BFC0 /* APIService+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9DA261494120081BFC0 /* APIService+Search.swift */; };
 		2D34D9E226149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9E126149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift */; };
@@ -344,7 +344,7 @@
 		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
-		2D34D9CA261489930081BFC0 /* SearchViewController+recomendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+recomendView.swift"; sourceTree = "<group>"; };
+		2D34D9CA261489930081BFC0 /* SearchViewController+RecomendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+RecomendView.swift"; sourceTree = "<group>"; };
 		2D34D9D026148D9E0081BFC0 /* APIService+Recommend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Recommend.swift"; sourceTree = "<group>"; };
 		2D34D9DA261494120081BFC0 /* APIService+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Search.swift"; sourceTree = "<group>"; };
 		2D34D9E126149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendTagsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1439,7 +1439,7 @@
 			children = (
 				2DE0FAC62615F5D200CDF649 /* View */,
 				DB9D6BE825E4F5340051B173 /* SearchViewController.swift */,
-				2D34D9CA261489930081BFC0 /* SearchViewController+recomendView.swift */,
+				2D34D9CA261489930081BFC0 /* SearchViewController+RecomendView.swift */,
 				2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */,
 				2D34D9E026149C550081BFC0 /* CollectionViewCell */,
 			);
@@ -2021,7 +2021,7 @@
 				DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
-				2D34D9CB261489930081BFC0 /* SearchViewController+recomendView.swift in Sources */,
+				2D34D9CB261489930081BFC0 /* SearchViewController+RecomendView.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
 				DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,

@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import MastodonSDK
+import UIKit
 
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
     let avatarImageView: UIImageView = {
@@ -75,7 +75,7 @@ extension SearchRecommendAccountsCollectionViewCell {
         clipsToBounds = true
         
         contentView.addSubview(headerImageView)
-        headerImageView.pin(top: 16, left: 0, bottom: 0, right: 0   )
+        headerImageView.pin(top: 16, left: 0, bottom: 0, right: 0)
         
         contentView.addSubview(avatarImageView)
         avatarImageView.pin(toSize: CGSize(width: 88, height: 88))
@@ -86,20 +86,20 @@ extension SearchRecommendAccountsCollectionViewCell {
         
         contentView.addSubview(displayNameLabel)
         displayNameLabel.constrain([
-            displayNameLabel.constraint(.top, toView: contentView,constant: 108),
+            displayNameLabel.constraint(.top, toView: contentView, constant: 108),
             displayNameLabel.constraint(.centerX, toView: contentView)
         ])
         
         contentView.addSubview(acctLabel)
         acctLabel.constrain([
-            acctLabel.constraint(.top, toView: contentView,constant: 132),
+            acctLabel.constraint(.top, toView: contentView, constant: 132),
             acctLabel.constraint(.centerX, toView: contentView)
         ])
         
         contentView.addSubview(followButton)
         followButton.pin(toSize: CGSize(width: 76, height: 24))
         followButton.constrain([
-            followButton.constraint(.top, toView: contentView,constant: 159),
+            followButton.constraint(.top, toView: contentView, constant: 159),
             followButton.constraint(.centerX, toView: contentView)
         ])
     }
@@ -124,10 +124,9 @@ extension SearchRecommendAccountsCollectionViewCell {
 import SwiftUI
 
 struct SearchRecommendAccountsCollectionViewCell_Previews: PreviewProvider {
-    
     static var controls: some View {
         Group {
-            UIViewPreview() {
+            UIViewPreview {
                 let cell = SearchRecommendAccountsCollectionViewCell()
                 cell.avatarImageView.backgroundColor = .white
                 cell.headerImageView.backgroundColor = .red
@@ -146,7 +145,6 @@ struct SearchRecommendAccountsCollectionViewCell_Previews: PreviewProvider {
         }
         .background(Color.gray)
     }
-    
 }
 
 #endif

@@ -62,10 +62,9 @@ extension SearchRecommendCollectionHeader {
 import SwiftUI
 
 struct SearchRecommendCollectionHeader_Previews: PreviewProvider {
-    
     static var controls: some View {
         Group {
-            UIViewPreview() {
+            UIViewPreview {
                 let cell = SearchRecommendCollectionHeader()
                 cell.titleLabel.text = "Trending in your timeline"
                 cell.descriptionLabel.text = "Hashtags that are getting quite a bit of attention among people you follow"
@@ -83,7 +82,6 @@ struct SearchRecommendCollectionHeader_Previews: PreviewProvider {
         }
         .background(Color.gray)
     }
-    
 }
 
 #endif

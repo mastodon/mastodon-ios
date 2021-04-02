@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import MastodonSDK
+import UIKit
 
 class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
     let backgroundImageView: UIImageView = {
@@ -74,12 +74,11 @@ extension SearchRecommendTagsCollectionViewCell {
         
         contentView.addSubview(flameIconView)
         flameIconView.pinTopRight(padding: 16)
-        
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
         hashTagTitleLabel.text = "# " + tag.name
-        if let peopleAreTalking = tag.history?.compactMap({ Int($0.uses)}).reduce(0, +) {
+        if let peopleAreTalking = tag.history?.compactMap({ Int($0.uses) }).reduce(0, +) {
             let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
             peopleLabel.text = string
         } else {
@@ -92,10 +91,9 @@ extension SearchRecommendTagsCollectionViewCell {
 import SwiftUI
 
 struct SearchRecommendTagsCollectionViewCell_Previews: PreviewProvider {
-    
     static var controls: some View {
         Group {
-            UIViewPreview() {
+            UIViewPreview {
                 let cell = SearchRecommendTagsCollectionViewCell()
                 cell.hashTagTitleLabel.text = "# test"
                 cell.peopleLabel.text = "128 people are talking"
@@ -112,7 +110,6 @@ struct SearchRecommendTagsCollectionViewCell_Previews: PreviewProvider {
         }
         .background(Color.gray)
     }
-    
 }
 
 #endif
