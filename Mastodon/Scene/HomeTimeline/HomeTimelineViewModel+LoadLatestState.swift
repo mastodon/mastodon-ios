@@ -55,7 +55,7 @@ extension HomeTimelineViewModel.LoadLatestState {
 
             managedObjectContext.perform {
                 let start = CACurrentMediaTime()
-                let latestTootIDs: [Toot.ID]
+                let latestStatusIDs: [Status.ID]
                 let request = HomeTimelineIndex.sortedFetchRequest
                 request.returnsObjectsAsFaults = false
                 request.predicate = predicate
@@ -64,10 +64,10 @@ extension HomeTimelineViewModel.LoadLatestState {
                     let timelineIndexes = try managedObjectContext.fetch(request)
                     let endFetch = CACurrentMediaTime()
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect timelineIndexes cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, endFetch - start)
-                    latestTootIDs = timelineIndexes
-                        .prefix(APIService.onceRequestTootMaxCount)        // avoid performance issue
+                    latestStatusIDs = timelineIndexes
+                        .prefix(APIService.onceRequestStatusMaxCount)        // avoid performance issue
                         .compactMap { timelineIndex in
-                            timelineIndex.value(forKeyPath: #keyPath(HomeTimelineIndex.toot.id)) as? Toot.ID
+                            timelineIndex.value(forKeyPath: #keyPath(HomeTimelineIndex.status.id)) as? Status.ID
                         }
                 } catch {
                     stateMachine.enter(Fail.self)
@@ -75,7 +75,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                 }
 
                 let end = CACurrentMediaTime()
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect toots id cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, end - start)
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: collect statuses id cost: %.2fs", ((#file as NSString).lastPathComponent), #line, #function, end - start)
                 
                 // TODO: only set large count when using Wi-Fi
                 viewModel.context.apiService.homeTimeline(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
@@ -86,7 +86,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                         case .failure(let error):
                             // TODO: handle error
                             viewModel.isFetchingLatestTimeline.value = false
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                         case .finished:
                             // handle isFetchingLatestTimeline in fetch controller delegate
                             break
@@ -95,15 +95,15 @@ extension HomeTimelineViewModel.LoadLatestState {
                         stateMachine.enter(Idle.self)
                         
                     } receiveValue: { response in
-                        // stop refresher if no new toots
-                        let toots = response.value
-                        let newToots = toots.filter { !latestTootIDs.contains($0.id) }
-                        os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld new toots", ((#file as NSString).lastPathComponent), #line, #function, newToots.count)
+                        // stop refresher if no new statuses
+                        let statuses = response.value
+                        let newStatuses = statuses.filter { !latestStatusIDs.contains($0.id) }
+                        os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld new statuses", ((#file as NSString).lastPathComponent), #line, #function, newStatuses.count)
                         
-                        if newToots.isEmpty {
+                        if newStatuses.isEmpty {
                             viewModel.isFetchingLatestTimeline.value = false
                         } else {
-                            if !latestTootIDs.isEmpty {
+                            if !latestStatusIDs.isEmpty {
                                 viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                             }
                         }

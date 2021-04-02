@@ -35,13 +35,16 @@ final class MastodonServerRulesViewModel {
     
     var rulesAttributedString: NSAttributedString {
         let attributedString = NSMutableAttributedString(string: "\n")
+        let configuration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .title3))
         for (i, rule) in rules.enumerated() {
-            let index = String(i + 1)
-            let indexString = NSAttributedString(string: index + ". ", attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel
-            ])
-            let ruleString = NSAttributedString(string: rule.text + "\n\n")
-            attributedString.append(indexString)
+            let imageName = String(i + 1) + ".circle.fill"
+            let image = UIImage(systemName: imageName, withConfiguration: configuration)!
+            let attachment = NSTextAttachment()
+            attachment.image = image.withTintColor(.black)
+            let imageAttribute = NSAttributedString(attachment: attachment)
+
+            let ruleString = NSAttributedString(string: "  " + rule.text + "\n\n")
+            attributedString.append(imageAttribute)
             attributedString.append(ruleString)
         }
         return attributedString

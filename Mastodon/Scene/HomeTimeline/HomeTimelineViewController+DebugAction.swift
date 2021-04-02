@@ -65,7 +65,7 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.moveToFirstVideoStatus(action)
                 }),
-                UIAction(title: "First GIF Toot", image: nil, attributes: [], handler: { [weak self] action in
+                UIAction(title: "First GIF status", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
                     self.moveToFirstGIFStatus(action)
                 }),
@@ -112,7 +112,7 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                return homeTimelineIndex.toot.reblog != nil
+                return homeTimelineIndex.status.reblog != nil
             default:
                 return false
             }
@@ -132,7 +132,7 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let post = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
+                let post = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
                 return post.poll != nil
             default:
                 return false
@@ -153,7 +153,7 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                guard homeTimelineIndex.toot.inReplyToID != nil else {
+                guard homeTimelineIndex.status.inReplyToID != nil else {
                     return false
                 }
                 return true
@@ -176,8 +176,8 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
-                return toot.mediaAttachments?.contains(where: { $0.type == .audio }) ?? false
+                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
+                return status.mediaAttachments?.contains(where: { $0.type == .audio }) ?? false
             default:
                 return false
             }
@@ -186,7 +186,7 @@ extension HomeTimelineViewController {
             tableView.scrollToRow(at: IndexPath(row: index, section: 0), at: .middle, animated: true)
             tableView.blinkRow(at: IndexPath(row: index, section: 0))
         } else {
-            print("Not found audio toot")
+            print("Not found audio status")
         }
     }
     
@@ -197,8 +197,8 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
-                return toot.mediaAttachments?.contains(where: { $0.type == .video }) ?? false
+                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
+                return status.mediaAttachments?.contains(where: { $0.type == .video }) ?? false
             default:
                 return false
             }
@@ -218,8 +218,8 @@ extension HomeTimelineViewController {
             switch item {
             case .homeTimelineIndex(let objectID, _):
                 let homeTimelineIndex = viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                let toot = homeTimelineIndex.toot.reblog ?? homeTimelineIndex.toot
-                return toot.mediaAttachments?.contains(where: { $0.type == .gifv }) ?? false
+                let status = homeTimelineIndex.status.reblog ?? homeTimelineIndex.status
+                return status.mediaAttachments?.contains(where: { $0.type == .gifv }) ?? false
             default:
                 return false
             }
@@ -242,12 +242,12 @@ extension HomeTimelineViewController {
             default:                                    return nil
             }
         }
-        var droppingTootObjectIDs: [NSManagedObjectID] = []
+        var droppingStatusObjectIDs: [NSManagedObjectID] = []
         context.apiService.backgroundManagedObjectContext.performChanges { [weak self] in
             guard let self = self else { return }
             for objectID in droppingObjectIDs {
                 guard let homeTimelineIndex = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else { continue }
-                droppingTootObjectIDs.append(homeTimelineIndex.toot.objectID)
+                droppingStatusObjectIDs.append(homeTimelineIndex.status.objectID)
                 self.context.apiService.backgroundManagedObjectContext.delete(homeTimelineIndex)
             }
         }
@@ -257,8 +257,8 @@ extension HomeTimelineViewController {
             case .success:
                 self.context.apiService.backgroundManagedObjectContext.performChanges { [weak self] in
                     guard let self = self else { return }
-                    for objectID in droppingTootObjectIDs {
-                        guard let post = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Toot else { continue }
+                    for objectID in droppingStatusObjectIDs {
+                        guard let post = try? self.context.apiService.backgroundManagedObjectContext.existingObject(with: objectID) as? Status else { continue }
                         self.context.apiService.backgroundManagedObjectContext.delete(post)
                     }
                 }

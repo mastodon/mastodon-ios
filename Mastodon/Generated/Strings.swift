@@ -60,6 +60,8 @@ internal enum L10n {
         internal static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue")
         /// Discard
         internal static let discard = L10n.tr("Localizable", "Common.Controls.Actions.Discard")
+        /// Done
+        internal static let done = L10n.tr("Localizable", "Common.Controls.Actions.Done")
         /// Edit
         internal static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit")
         /// OK
@@ -84,6 +86,22 @@ internal enum L10n {
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
         /// Try Again
         internal static let tryAgain = L10n.tr("Localizable", "Common.Controls.Actions.TryAgain")
+      }
+      internal enum Firendship {
+        /// Block
+        internal static let block = L10n.tr("Localizable", "Common.Controls.Firendship.Block")
+        /// Blocked
+        internal static let blocked = L10n.tr("Localizable", "Common.Controls.Firendship.Blocked")
+        /// Edit info
+        internal static let editInfo = L10n.tr("Localizable", "Common.Controls.Firendship.EditInfo")
+        /// Follow
+        internal static let follow = L10n.tr("Localizable", "Common.Controls.Firendship.Follow")
+        /// Following
+        internal static let following = L10n.tr("Localizable", "Common.Controls.Firendship.Following")
+        /// Mute
+        internal static let mute = L10n.tr("Localizable", "Common.Controls.Firendship.Mute")
+        /// Muted
+        internal static let muted = L10n.tr("Localizable", "Common.Controls.Firendship.Muted")
       }
       internal enum Status {
         /// Tap to reveal that may be sensitive
@@ -269,6 +287,24 @@ internal enum L10n {
         internal static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing")
       }
     }
+    internal enum Profile {
+      internal enum Dashboard {
+        /// followers
+        internal static let followers = L10n.tr("Localizable", "Scene.Profile.Dashboard.Followers")
+        /// following
+        internal static let following = L10n.tr("Localizable", "Scene.Profile.Dashboard.Following")
+        /// posts
+        internal static let posts = L10n.tr("Localizable", "Scene.Profile.Dashboard.Posts")
+      }
+      internal enum SegmentedControl {
+        /// Media
+        internal static let media = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Media")
+        /// Posts
+        internal static let posts = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Posts")
+        /// Replies
+        internal static let replies = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Replies")
+      }
+    }
     internal enum PublicTimeline {
       /// Public
       internal static let title = L10n.tr("Localizable", "Scene.PublicTimeline.Title")
@@ -416,6 +452,8 @@ internal enum L10n {
       }
     }
     internal enum ServerRules {
+      /// privacy policy
+      internal static let privacyPolicy = L10n.tr("Localizable", "Scene.ServerRules.PrivacyPolicy")
       /// By continuing, you're subject to the terms of service and privacy policy for %@.
       internal static func prompt(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Prompt", String(describing: p1))
@@ -424,6 +462,8 @@ internal enum L10n {
       internal static func subtitle(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Subtitle", String(describing: p1))
       }
+      /// terms of service
+      internal static let termsOfService = L10n.tr("Localizable", "Scene.ServerRules.TermsOfService")
       /// Some ground rules.
       internal static let title = L10n.tr("Localizable", "Scene.ServerRules.Title")
       internal enum Button {

@@ -68,21 +68,21 @@ extension PublicTimelineViewModel.State {
                         break
                     }
                 } receiveValue: { response in
-                    let resposeTootIDs = response.value.compactMap { $0.id }
-                    var newTootsIDs = resposeTootIDs
-                    let oldTootsIDs = viewModel.tootIDs.value
+                    let resposeStatusIDs = response.value.compactMap { $0.id }
+                    var newStatusIDs = resposeStatusIDs
+                    let oldStatusIDs = viewModel.statusIDs.value
                     var hasGap = true
-                    for tootID in oldTootsIDs {
-                        if !newTootsIDs.contains(tootID) {
-                            newTootsIDs.append(tootID)
+                    for statusID in oldStatusIDs {
+                        if !newStatusIDs.contains(statusID) {
+                            newStatusIDs.append(statusID)
                         } else {
                             hasGap = false
                         }
                     }
-                    if hasGap && oldTootsIDs.count > 0 {
-                        resposeTootIDs.last.flatMap { viewModel.tootIDsWhichHasGap.append($0) }
+                    if hasGap && oldStatusIDs.count > 0 {
+                        resposeStatusIDs.last.flatMap { viewModel.statusIDsWhichHasGap.append($0) }
                     }
-                    viewModel.tootIDs.value = newTootsIDs
+                    viewModel.statusIDs.value = newStatusIDs
                     stateMachine.enter(Idle.self)
                 }
                 .store(in: &viewModel.disposeBag)
@@ -138,7 +138,7 @@ extension PublicTimelineViewModel.State {
                 stateMachine.enter(Fail.self)
                 return
             }
-            let maxID = viewModel.tootIDs.value.last
+            let maxID = viewModel.statusIDs.value.last
             viewModel.context.apiService.publicTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
                 maxID: maxID
@@ -153,14 +153,14 @@ extension PublicTimelineViewModel.State {
                 }
             } receiveValue: { response in
                 stateMachine.enter(Idle.self)
-                var oldTootsIDs = viewModel.tootIDs.value
-                for toot in response.value {
-                    if !oldTootsIDs.contains(toot.id) {
-                        oldTootsIDs.append(toot.id)
+                var oldStatusIDs = viewModel.statusIDs.value
+                for status in response.value {
+                    if !oldStatusIDs.contains(status.id) {
+                        oldStatusIDs.append(status.id)
                     }
                 }
                 
-                viewModel.tootIDs.value = oldTootsIDs
+                viewModel.statusIDs.value = oldStatusIDs
             }
             .store(in: &viewModel.disposeBag)
         }

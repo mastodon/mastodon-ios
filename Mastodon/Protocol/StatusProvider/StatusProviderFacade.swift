@@ -13,8 +13,53 @@ import CoreDataStack
 import MastodonSDK
 import ActiveLabel
 
-enum StatusProviderFacade {
+enum StatusProviderFacade { }
 
+extension StatusProviderFacade {
+    
+    static func coordinateToStatusAuthorProfileScene(for target: Target, provider: StatusProvider) {
+        _coordinateToStatusAuthorProfileScene(
+            for: target,
+            provider: provider,
+            status: provider.status()
+        )
+    }
+    
+    static func coordinateToStatusAuthorProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell) {
+        _coordinateToStatusAuthorProfileScene(
+            for: target,
+            provider: provider,
+            status: provider.status(for: cell, indexPath: nil)
+        )
+    }
+    
+    private static func _coordinateToStatusAuthorProfileScene(for target: Target, provider: StatusProvider, status: Future<Status?, Never>) {
+        status
+            .sink { [weak provider] status in
+                guard let provider = provider else { return }
+                let _status: Status? = {
+                    switch target {
+                    case .primary:      return status?.reblog ?? status         // original status
+                    case .secondary:    return status?.replyTo ?? status        // reblog or reply to status
+                    }
+                }()
+                guard let status = _status else { return }
+                
+                let mastodonUser = status.author
+                let profileViewModel = CachedProfileViewModel(context: provider.context, mastodonUser: mastodonUser)
+                DispatchQueue.main.async {
+                    if provider.navigationController == nil {
+                        let from = provider.presentingViewController ?? provider
+                        provider.dismiss(animated: true) {
+                            provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
+                        }
+                    } else {
+                        provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: provider, transition: .show)
+                    }
+                }
+            }
+            .store(in: &provider.disposeBag)
+    }
 }
 
 extension StatusProviderFacade {
@@ -22,18 +67,18 @@ extension StatusProviderFacade {
     static func responseToStatusLikeAction(provider: StatusProvider) {
         _responseToStatusLikeAction(
             provider: provider,
-            toot: provider.toot()
+            status: provider.status()
         )
     }
     
     static func responseToStatusLikeAction(provider: StatusProvider, cell: UITableViewCell) {
         _responseToStatusLikeAction(
             provider: provider,
-            toot: provider.toot(for: cell, indexPath: nil)
+            status: provider.status(for: cell, indexPath: nil)
         )
     }
     
-    private static func _responseToStatusLikeAction(provider: StatusProvider, toot: Future<Toot?, Never>) {
+    private static func _responseToStatusLikeAction(provider: StatusProvider, status: Future<Status?, Never>) {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
@@ -55,22 +100,22 @@ extension StatusProviderFacade {
         let generator = UIImpactFeedbackGenerator(style: .light)
         let responseFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         
-        toot
-            .compactMap { toot -> (NSManagedObjectID, Mastodon.API.Favorites.FavoriteKind)? in
-                guard let toot = toot?.reblog ?? toot else { return nil }
+        status
+            .compactMap { status -> (NSManagedObjectID, Mastodon.API.Favorites.FavoriteKind)? in
+                guard let status = status?.reblog ?? status else { return nil }
                 let favoriteKind: Mastodon.API.Favorites.FavoriteKind = {
-                    let isLiked = toot.favouritedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
+                    let isLiked = status.favouritedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
                     return isLiked ? .destroy : .create
                 }()
-                return (toot.objectID, favoriteKind)
+                return (status.objectID, favoriteKind)
             }
-            .map { tootObjectID, favoriteKind -> AnyPublisher<(Toot.ID, Mastodon.API.Favorites.FavoriteKind), Error>  in
+            .map { statusObjectID, favoriteKind -> AnyPublisher<(Status.ID, Mastodon.API.Favorites.FavoriteKind), Error>  in
                 return context.apiService.like(
-                    tootObjectID: tootObjectID,
+                            statusObjectID: statusObjectID,
                     mastodonUserObjectID: mastodonUserObjectID,
                     favoriteKind: favoriteKind
                 )
-                .map { tootID in (tootID, favoriteKind) }
+                .map { statusID in (statusID, favoriteKind) }
                 .eraseToAnyPublisher()
             }
             .setFailureType(to: Error.self)
@@ -82,7 +127,7 @@ extension StatusProviderFacade {
                 responseFeedbackGenerator.prepare()
             } receiveOutput: { _, favoriteKind in
                 generator.impactOccurred()
-                os_log("%{public}s[%{public}ld], %{public}s: [Like] update local toot like status to: %s", ((#file as NSString).lastPathComponent), #line, #function, favoriteKind == .create ? "like" : "unlike")
+                os_log("%{public}s[%{public}ld], %{public}s: [Like] update local status like status to: %s", ((#file as NSString).lastPathComponent), #line, #function, favoriteKind == .create ? "like" : "unlike")
             } receiveCompletion: { completion in
                 switch completion {
                 case .failure:
@@ -92,9 +137,9 @@ extension StatusProviderFacade {
                     break
                 }
             }
-            .map { tootID, favoriteKind in
+            .map { statusID, favoriteKind in
                 return context.apiService.like(
-                    statusID: tootID,
+                    statusID: statusID,
                     favoriteKind: favoriteKind,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox
                 )
@@ -126,18 +171,18 @@ extension StatusProviderFacade {
     static func responseToStatusReblogAction(provider: StatusProvider) {
         _responseToStatusReblogAction(
             provider: provider,
-            toot: provider.toot()
+            status: provider.status()
         )
     }
     
     static func responseToStatusReblogAction(provider: StatusProvider, cell: UITableViewCell) {
         _responseToStatusReblogAction(
             provider: provider,
-            toot: provider.toot(for: cell, indexPath: nil)
+            status: provider.status(for: cell, indexPath: nil)
         )
     }
     
-    private static func _responseToStatusReblogAction(provider: StatusProvider, toot: Future<Toot?, Never>) {
+    private static func _responseToStatusReblogAction(provider: StatusProvider, status: Future<Status?, Never>) {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
@@ -159,22 +204,22 @@ extension StatusProviderFacade {
         let generator = UIImpactFeedbackGenerator(style: .light)
         let responseFeedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
         
-        toot
-            .compactMap { toot -> (NSManagedObjectID, Mastodon.API.Reblog.ReblogKind)? in
-                guard let toot = toot?.reblog ?? toot else { return nil }
+        status
+            .compactMap { status -> (NSManagedObjectID, Mastodon.API.Reblog.ReblogKind)? in
+                guard let status = status?.reblog ?? status else { return nil }
                 let reblogKind: Mastodon.API.Reblog.ReblogKind = {
-                    let isReblogged = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
+                    let isReblogged = status.rebloggedBy.flatMap { $0.contains(where: { $0.id == mastodonUserID }) } ?? false
                     return isReblogged ? .undoReblog : .reblog(query: .init(visibility: nil))
                 }()
-                return (toot.objectID, reblogKind)
+                return (status.objectID, reblogKind)
             }
-            .map { tootObjectID, reblogKind -> AnyPublisher<(Toot.ID, Mastodon.API.Reblog.ReblogKind), Error>  in
+            .map { statusObjectID, reblogKind -> AnyPublisher<(Status.ID, Mastodon.API.Reblog.ReblogKind), Error>  in
                 return context.apiService.reblog(
-                    tootObjectID: tootObjectID,
+                    statusObjectID: statusObjectID,
                     mastodonUserObjectID: mastodonUserObjectID,
                     reblogKind: reblogKind
                 )
-                .map { tootID in (tootID, reblogKind) }
+                .map { statusID in (statusID, reblogKind) }
                 .eraseToAnyPublisher()
             }
             .setFailureType(to: Error.self)
@@ -188,9 +233,9 @@ extension StatusProviderFacade {
                 generator.impactOccurred()
                 switch reblogKind {
                 case .reblog:
-                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "reblog")
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local status reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "reblog")
                 case .undoReblog:
-                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local toot reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "unreblog")
+                    os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local status reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "unreblog")
                 }
             } receiveCompletion: { completion in
                 switch completion {
@@ -201,9 +246,9 @@ extension StatusProviderFacade {
                     break
                 }
             }
-            .map { tootID, reblogKind in
+            .map { statusID, reblogKind in
                 return context.apiService.reblog(
-                    statusID: tootID,
+                    statusID: statusID,
                     reblogKind: reblogKind,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox
                 )
@@ -231,8 +276,8 @@ extension StatusProviderFacade {
 
 extension StatusProviderFacade {
     enum Target {
-        case toot
-        case reblog
+        case primary        // original
+        case secondary      // attachment reblog or reply
     }
 }
  

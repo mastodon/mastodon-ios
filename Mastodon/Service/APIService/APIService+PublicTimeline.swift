@@ -21,7 +21,7 @@ extension APIService {
         domain: String,
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
-        limit: Int = onceRequestTootMaxCount
+        limit: Int = onceRequestStatusMaxCount
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let query = Mastodon.API.Timeline.PublicTimelineQuery(
             local: nil,

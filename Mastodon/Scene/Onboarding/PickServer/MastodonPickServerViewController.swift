@@ -57,6 +57,10 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
 
 extension MastodonPickServerViewController {
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

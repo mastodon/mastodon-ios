@@ -12,9 +12,9 @@ import CoreDataStack
 
 protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewController {
     // async
-    func toot() -> Future<Toot?, Never>
-    func toot(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Toot?, Never>
-    func toot(for cell: UICollectionViewCell) -> Future<Toot?, Never>
+    func status() -> Future<Status?, Never>
+    func status(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Status?, Never>
+    func status(for cell: UICollectionViewCell) -> Future<Status?, Never>
     
     // sync
     var managedObjectContext: NSManagedObjectContext { get }
