@@ -10,6 +10,7 @@ import UIKit
 import ActiveLabel
 
 protocol ProfileHeaderViewDelegate: class {
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity)
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
@@ -22,6 +23,7 @@ final class ProfileHeaderView: UIView {
     static let avatarImageViewSize = CGSize(width: 56, height: 56)
     static let avatarImageViewCornerRadius: CGFloat = 6
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
+    static let bannerImageViewPlaceholderColor = UIColor.systemGray
     
     weak var delegate: ProfileHeaderViewDelegate?
     
@@ -29,9 +31,17 @@ final class ProfileHeaderView: UIView {
     let bannerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = .placeholder(color: .systemGray)
+        imageView.image = .placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
         imageView.layer.masksToBounds = true
+        // #if DEBUG
+        // imageView.image = .placeholder(color: .red)
+        // #endif
         return imageView
+    }()
+    let bannerImageViewOverlayView: UIView = {
+        let overlayView = UIView()
+        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        return overlayView
     }()
 
     let avatarImageView: UIImageView = {
@@ -59,14 +69,18 @@ final class ProfileHeaderView: UIView {
         label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.textColor = .white
+        label.textColor = Asset.Profile.Banner.usernameGray.color
         label.text = "@alice"
         label.applyShadow(color: UIColor.black.withAlphaComponent(0.2), alpha: 0.5, x: 0, y: 2, blur: 2, spread: 0)
         return label
     }()
     
     let statusDashboardView = ProfileStatusDashboardView()
-    let friendshipActionButton = ProfileFriendshipActionButton()
+    let relationshipActionButton: ProfileRelationshipActionButton = {
+        let button = ProfileRelationshipActionButton()
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        return button
+    }()
     
     let bioContainerView = UIView()
     let fieldContainerStackView = UIStackView()
@@ -103,6 +117,15 @@ extension ProfileHeaderView {
         bannerImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         bannerImageView.frame = bannerContainerView.bounds
         bannerContainerView.addSubview(bannerImageView)
+        
+        bannerImageViewOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        bannerImageView.addSubview(bannerImageViewOverlayView)
+        NSLayoutConstraint.activate([
+            bannerImageViewOverlayView.topAnchor.constraint(equalTo: bannerImageView.topAnchor),
+            bannerImageViewOverlayView.leadingAnchor.constraint(equalTo: bannerImageView.leadingAnchor),
+            bannerImageViewOverlayView.trailingAnchor.constraint(equalTo: bannerImageView.trailingAnchor),
+            bannerImageViewOverlayView.bottomAnchor.constraint(equalTo: bannerImageView.bottomAnchor),
+        ])
 
         // avatar
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -156,14 +179,14 @@ extension ProfileHeaderView {
             statusDashboardView.bottomAnchor.constraint(equalTo: dashboardContainerView.bottomAnchor),
         ])
         
-        friendshipActionButton.translatesAutoresizingMaskIntoConstraints = false
-        dashboardContainerView.addSubview(friendshipActionButton)
+        relationshipActionButton.translatesAutoresizingMaskIntoConstraints = false
+        dashboardContainerView.addSubview(relationshipActionButton)
         NSLayoutConstraint.activate([
-            friendshipActionButton.topAnchor.constraint(equalTo: dashboardContainerView.topAnchor),
-            friendshipActionButton.leadingAnchor.constraint(greaterThanOrEqualTo: statusDashboardView.trailingAnchor, constant: 8),
-            friendshipActionButton.trailingAnchor.constraint(equalTo: dashboardContainerView.readableContentGuide.trailingAnchor),
-            friendshipActionButton.widthAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.defaultHigh),
-            friendshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
+            relationshipActionButton.topAnchor.constraint(equalTo: dashboardContainerView.topAnchor),
+            relationshipActionButton.leadingAnchor.constraint(greaterThanOrEqualTo: statusDashboardView.trailingAnchor, constant: 8),
+            relationshipActionButton.trailingAnchor.constraint(equalTo: dashboardContainerView.readableContentGuide.trailingAnchor),
+            relationshipActionButton.widthAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.defaultHigh),
+            relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
         ])
         
         bioContainerView.preservesSuperviewLayoutMargins = true
@@ -184,8 +207,18 @@ extension ProfileHeaderView {
         bringSubviewToFront(nameContainerStackView)
         
         bioActiveLabel.delegate = self
+        
+        relationshipActionButton.addTarget(self, action: #selector(ProfileHeaderView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
     }
 
+}
+
+extension ProfileHeaderView {
+    @objc private func relationshipActionButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        assert(sender === relationshipActionButton)
+        delegate?.profileHeaderView(self, relationshipButtonDidPressed: relationshipActionButton)
+    }
 }
 
 // MARK: - ActiveLabelDelegate

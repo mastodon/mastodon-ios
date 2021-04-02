@@ -93,6 +93,11 @@ internal enum Asset {
   internal enum Connectivity {
     internal static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
+  internal enum Profile {
+    internal enum Banner {
+      internal static let usernameGray = ColorAsset(name: "Profile/Banner/username.gray")
+    }
+  }
   internal enum Welcome {
     internal enum Illustration {
       internal static let backgroundCyan = ColorAsset(name: "Welcome/illustration/background.cyan")

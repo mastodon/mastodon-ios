@@ -69,9 +69,16 @@
             "firendship": {
                 "follow": "Follow",
                 "following": "Following",
+                "pending": "Pending",
                 "block": "Block",
+                "block_user": "Block %s",
+                "unblock": "Unblock",
+                "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
                 "mute": "Mute",
+                "mute_user": "Mute %s",
+                "unmute": "Unmute",
+                "unmute_user": "Unmute %s",
                 "muted": "Muted",
                 "edit_info": "Edit info"
             },
@@ -257,6 +264,16 @@
                 "posts": "Posts",
                 "replies": "Replies",
                 "media": "Media"
+            },
+            "relationship_action_alert": {
+                "confirm_unmute_user": {
+                    "title": "Unmute Account",
+                    "message": "Confirm unmute %s"
+                },
+                "confirm_unblock_usre": {
+                    "title": "Unblock Account",
+                    "message": "Confirm unblock %s"
+                }
             }
         },
         "search": {

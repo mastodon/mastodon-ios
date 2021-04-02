@@ -56,6 +56,7 @@ extension SceneCoordinator {
         
         // misc
         case alertController(alertController: UIAlertController)
+        case safari(url: URL)
         
         #if DEBUG
         case publicTimeline
@@ -110,6 +111,17 @@ extension SceneCoordinator {
         }
         guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
             return nil
+        }
+        // adapt for child controller
+        if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
+            switch viewController {
+            case is ProfileViewController:
+                let barButtonItem = UIBarButtonItem(title: navigationControllerVisibleViewController.title, style: .plain, target: nil, action: nil)
+                barButtonItem.tintColor = .white
+                navigationControllerVisibleViewController.navigationItem.backBarButtonItem = barButtonItem
+            default:
+                navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
+            }
         }
         
         if let mainTabBarController = presentingViewController as? MainTabBarController,
@@ -222,6 +234,12 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
+        case .safari(let url):
+            guard let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else {
+                return nil
+            }
+            viewController = SFSafariViewController(url: url)
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()

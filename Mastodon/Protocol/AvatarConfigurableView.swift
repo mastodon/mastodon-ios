@@ -84,6 +84,8 @@ extension AvatarConfigurableView {
                     completion: nil
                 )
             }
+            
+            configureLayerBorder(view: avatarImageView, configuration: configuration)
         }
         
         if let avatarButton = configurableAvatarButton {
@@ -110,7 +112,22 @@ extension AvatarConfigurableView {
                     completion: nil
                 )
             }
+            
+            configureLayerBorder(view: avatarButton, configuration: configuration)
         }
+    }
+    
+    func configureLayerBorder(view: UIView, configuration: AvatarConfigurableViewConfiguration) {
+        guard let borderWidth = configuration.borderWidth, borderWidth > 0,
+              let borderColor = configuration.borderColor else {
+            return
+        }
+        
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+        view.layer.cornerCurve = .continuous
+        view.layer.borderColor = borderColor.cgColor
+        view.layer.borderWidth = borderWidth
     }
     
     func avatarConfigurableView(_ avatarConfigurableView: AvatarConfigurableView, didFinishConfiguration configuration: AvatarConfigurableViewConfiguration) { }
@@ -121,10 +138,19 @@ struct AvatarConfigurableViewConfiguration {
     
     let avatarImageURL: URL?
     let placeholderImage: UIImage?
+    let borderColor: UIColor?
+    let borderWidth: CGFloat?
     
-    init(avatarImageURL: URL?, placeholderImage: UIImage? = nil) {
+    init(
+        avatarImageURL: URL?,
+        placeholderImage: UIImage? = nil,
+        borderColor: UIColor? = nil,
+        borderWidth: CGFloat? = nil
+    ) {
         self.avatarImageURL = avatarImageURL
         self.placeholderImage = placeholderImage
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
     }
     
 }
