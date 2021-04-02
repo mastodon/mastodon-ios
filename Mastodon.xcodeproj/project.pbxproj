@@ -108,6 +108,9 @@
 		5D0393902612D259007FE196 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D03938F2612D259007FE196 /* WebViewController.swift */; };
 		5D0393962612D266007FE196 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0393952612D266007FE196 /* WebViewModel.swift */; };
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
+		5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1922617442700311060 /* Mastodon+Entity+Account.swift */; };
+		5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */; };
+		5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */; };
 		5DF1054125F886D400D6C0D4 /* ViedeoPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */; };
 		5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */; };
 		5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */; };
@@ -449,6 +452,9 @@
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D03938F2612D259007FE196 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		5D0393952612D266007FE196 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		5DDDF1922617442700311060 /* Mastodon+Entity+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Account.swift"; sourceTree = "<group>"; };
+		5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Tag.swift"; sourceTree = "<group>"; };
+		5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+History.swift"; sourceTree = "<group>"; };
 		5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViedeoPlaybackService.swift; sourceTree = "<group>"; };
 		5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
 		5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayer.swift; sourceTree = "<group>"; };
@@ -1275,6 +1281,9 @@
 			isa = PBXGroup;
 			children = (
 				DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */,
+				5DDDF1922617442700311060 /* Mastodon+Entity+Account.swift */,
+				5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */,
+				5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */,
 				2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */,
 			);
 			path = MastodonSDK;
@@ -2048,6 +2057,7 @@
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
+				5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
@@ -2092,6 +2102,7 @@
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
+				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
 				DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
@@ -2118,6 +2129,7 @@
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
+				5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,

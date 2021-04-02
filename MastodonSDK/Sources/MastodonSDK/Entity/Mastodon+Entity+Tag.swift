@@ -16,15 +16,16 @@ extension Mastodon.Entity {
     ///   2021/1/28
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/tag/)
-    public struct Tag: Codable, Hashable {
-        public static func == (lhs: Mastodon.Entity.Tag, rhs: Mastodon.Entity.Tag) -> Bool {
-            return lhs.name == rhs.name
-        }
-        
+    public struct Tag: Codable {
         // Base
         public let name: String
         public let url: String
         
         public let history: [History]?
+        enum CodingKeys: String, CodingKey {
+            case name
+            case url
+            case history
+        }
     }
 }
