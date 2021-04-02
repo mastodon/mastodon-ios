@@ -152,7 +152,11 @@ extension HashtagTimelineViewController {
             let sortedHistory = histories.sorted { (h1, h2) -> Bool in
                 return h1.day > h2.day
             }
-            subtitle = sortedHistory.first?.accounts
+            let peopleTalkingNumber = sortedHistory
+                .prefix(2)
+                .compactMap({ Int($0.accounts) })
+                .reduce(0, +)
+            subtitle = "\(peopleTalkingNumber)"
         }
     }
 }
