@@ -63,10 +63,11 @@ class MainTabBarController: UITabBarController {
                 let _viewController = ProfileViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
+                _viewController.viewModel = MeProfileViewModel(context: context)
                 viewController = _viewController
             }
             viewController.title = self.title
-            return UINavigationController(rootViewController: viewController)
+            return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
         }
     }
     
@@ -84,6 +85,11 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController {
     
+    
+    open override var childForStatusBarStyle: UIViewController? {
+        return selectedViewController
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,9 +106,9 @@ extension MainTabBarController {
         selectedIndex = 0
         
         // TODO: custom accent color
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithDefaultBackground()
-        tabBar.standardAppearance = tabBarAppearance
+//        let tabBarAppearance = UITabBarAppearance()
+//        tabBarAppearance.configureWithDefaultBackground()
+//        tabBar.standardAppearance = tabBarAppearance
         
         context.apiService.error
             .receive(on: DispatchQueue.main)
@@ -151,7 +157,7 @@ extension MainTabBarController {
             .store(in: &disposeBag)
                 
         #if DEBUG
-        // selectedIndex = 1
+        // selectedIndex = 3
         #endif
     }
         

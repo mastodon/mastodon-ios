@@ -19,7 +19,7 @@ class PublicTimelineViewModel: NSObject {
     
     // input
     let context: AppContext
-    let fetchedResultsController: NSFetchedResultsController<Toot>
+    let fetchedResultsController: NSFetchedResultsController<Status>
     
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     
@@ -31,7 +31,7 @@ class PublicTimelineViewModel: NSObject {
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
     //
-    var tootIDsWhichHasGap = [String]()
+    var statusIDsWhichHasGap = [String]()
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
 
@@ -47,15 +47,15 @@ class PublicTimelineViewModel: NSObject {
         return stateMachine
     }()
     
-    let tootIDs = CurrentValueSubject<[String], Never>([])
+    let statusIDs = CurrentValueSubject<[String], Never>([])
     let items = CurrentValueSubject<[Item], Never>([])
     var cellFrameCache = NSCache<NSNumber, NSValue>()
     
     init(context: AppContext) {
         self.context = context
         self.fetchedResultsController = {
-            let fetchRequest = Toot.sortedFetchRequest
-            fetchRequest.predicate = Toot.predicate(domain: "", ids: [])
+            let fetchRequest = Status.sortedFetchRequest
+            fetchRequest.predicate = Status.predicate(domain: "", ids: [])
             fetchRequest.returnsObjectsAsFaults = false
             fetchRequest.fetchBatchSize = 20
             let controller = NSFetchedResultsController(
@@ -111,12 +111,12 @@ class PublicTimelineViewModel: NSObject {
             }
             .store(in: &disposeBag)
         
-        tootIDs
+        statusIDs
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
                 guard let self = self else { return }
                 let domain = self.context.authenticationService.activeMastodonAuthenticationBox.value?.domain ?? ""
-                self.fetchedResultsController.fetchRequest.predicate = Toot.predicate(domain: domain, ids: ids)
+                self.fetchedResultsController.fetchRequest.predicate = Status.predicate(domain: domain, ids: ids)
                 do {
                     try self.fetchedResultsController.performFetch()
                 } catch {

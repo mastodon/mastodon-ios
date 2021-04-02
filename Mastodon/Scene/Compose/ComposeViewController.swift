@@ -43,7 +43,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     let collectionView: UICollectionView = {
         let collectionViewLayout = ComposeViewController.createLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.register(ComposeRepliedToTootContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeRepliedToTootContentCollectionViewCell.self))
+        collectionView.register(ComposeRepliedToStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeRepliedToStatusContentCollectionViewCell.self))
         collectionView.register(ComposeStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self))
         collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
         collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))

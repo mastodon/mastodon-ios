@@ -38,6 +38,7 @@ internal enum Asset {
         internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
         internal static let highlight = ColorAsset(name: "Colors/Background/Poll/highlight")
       }
+      internal static let alertYellow = ColorAsset(name: "Colors/Background/alert.yellow")
       internal static let dangerBorder = ColorAsset(name: "Colors/Background/danger.border")
       internal static let danger = ColorAsset(name: "Colors/Background/danger")
       internal static let mediaTypeIndicotor = ColorAsset(name: "Colors/Background/media.type.indicotor")

@@ -20,6 +20,8 @@ protocol StatusTableViewCellDelegate: class {
     var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { get }
     func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController)
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarButtonDidPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
@@ -193,6 +195,14 @@ extension StatusTableViewCell: UITableViewDelegate {
 
 // MARK: - StatusViewDelegate
 extension StatusTableViewCell: StatusViewDelegate {
+    
+    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
+        delegate?.statusTableViewCell(self, statusView: statusView, headerInfoLabelDidPressed: label)
+    }
+    
+    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+        delegate?.statusTableViewCell(self, statusView: statusView, avatarButtonDidPressed: button)
+    }
     
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)

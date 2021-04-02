@@ -31,6 +31,10 @@ extension HomeTimelineViewModel {
             statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
         )
+        
+//        var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
+//        snapshot.appendSections([.main])
+//        diffableDataSource?.apply(snapshot)
     }
     
 }
@@ -83,12 +87,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             var newTimelineItems: [Item] = []
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
-                let toot = timelineIndex.toot.reblog ?? timelineIndex.toot
-                let isStatusTextSensitive: Bool = {
-                    guard let spoilerText = toot.spoilerText, !spoilerText.isEmpty else { return false }
-                    return true
-                }()
-                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: toot.sensitive)
+                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusAttribute()
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))

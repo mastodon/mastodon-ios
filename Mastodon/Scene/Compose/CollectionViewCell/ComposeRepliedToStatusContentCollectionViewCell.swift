@@ -1,5 +1,5 @@
 //
-//  ComposeRepliedToTootContentCollectionViewCell.swift
+//  ComposeRepliedToStatusContentCollectionViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-11.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ComposeRepliedToTootContentCollectionViewCell: UICollectionViewCell {
+final class ComposeRepliedToStatusContentCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ final class ComposeRepliedToTootContentCollectionViewCell: UICollectionViewCell 
     
 }
 
-extension ComposeRepliedToTootContentCollectionViewCell {
+extension ComposeRepliedToStatusContentCollectionViewCell {
     
     private func _init() {
         

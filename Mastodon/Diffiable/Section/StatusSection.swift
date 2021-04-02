@@ -39,41 +39,41 @@ extension StatusSection {
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
-                        toot: timelineIndex.toot,
+                        status: timelineIndex.status,
                         requestUserID: timelineIndex.userID,
                         statusItemAttribute: attribute
                     )
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
-            case .toot(let objectID, let attribute):
+            case .status(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
                 // configure cell
                 managedObjectContext.performAndWait {
-                    let toot = managedObjectContext.object(with: objectID) as! Toot
+                    let status = managedObjectContext.object(with: objectID) as! Status
                     StatusSection.configure(
                         cell: cell,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
-                        toot: toot,
+                        status: status,
                         requestUserID: requestUserID,
                         statusItemAttribute: attribute
                     )
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
-            case .publicMiddleLoader(let upperTimelineTootID):
+            case .publicMiddleLoader(let upperTimelineStatusID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
                 cell.delegate = timelineMiddleLoaderTableViewCellDelegate
-                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineTootID: upperTimelineTootID, timelineIndexobjectID: nil)
+                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineStatusID: upperTimelineStatusID, timelineIndexobjectID: nil)
                 return cell
             case .homeMiddleLoader(let upperTimelineIndexObjectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
                 cell.delegate = timelineMiddleLoaderTableViewCellDelegate
-                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineTootID: nil, timelineIndexobjectID: upperTimelineIndexObjectID)
+                timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineStatusID: nil, timelineIndexobjectID: upperTimelineIndexObjectID)
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
@@ -90,47 +90,50 @@ extension StatusSection {
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        toot: Toot,
+        status: Status,
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
     ) {
+        // setup attribute
+        statusItemAttribute.setupForStatus(status: status.reblog ?? status)
+        
         // set header
-        StatusSection.configureHeader(cell: cell, toot: toot)
-        ManagedObjectObserver.observe(object: toot)
+        StatusSection.configureHeader(cell: cell, status: status)
+        ManagedObjectObserver.observe(object: status)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
             } receiveValue: { change in
                 guard case .update(let object) = change.changeType,
-                      let newToot = object as? Toot else { return }
-                StatusSection.configureHeader(cell: cell, toot: newToot)
+                      let newStatus = object as? Status else { return }
+                StatusSection.configureHeader(cell: cell, status: newStatus)
             }
             .store(in: &cell.disposeBag)
         
         // set name username
         cell.statusView.nameLabel.text = {
-            let author = (toot.reblog ?? toot).author
+            let author = (status.reblog ?? status).author
             return author.displayName.isEmpty ? author.username : author.displayName
         }()
-        cell.statusView.usernameLabel.text = "@" + (toot.reblog ?? toot).author.acct
+        cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
         // set avatar
-        if let reblog = toot.reblog {
+        if let reblog = status.reblog {
             cell.statusView.avatarButton.isHidden = true
             cell.statusView.avatarStackedContainerButton.isHidden = false
             cell.statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: reblog.author.avatarImageURL()))
-            cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+            cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
         } else {
             cell.statusView.avatarButton.isHidden = false
             cell.statusView.avatarStackedContainerButton.isHidden = true
-            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: toot.author.avatarImageURL()))
+            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
         }
         
         // set text
-        cell.statusView.activeTextLabel.config(content: (toot.reblog ?? toot).content)
+        cell.statusView.activeTextLabel.configure(content: (status.reblog ?? status).content)
         
         // set status text content warning
-        let spoilerText = (toot.reblog ?? toot).spoilerText ?? ""
-        let isStatusTextSensitive = statusItemAttribute.isStatusTextSensitive
+        let isStatusTextSensitive = statusItemAttribute.isStatusTextSensitive ?? false
+        let spoilerText = (status.reblog ?? status).spoilerText ?? ""
         cell.statusView.isStatusTextSensitive = isStatusTextSensitive
         cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
         cell.statusView.contentWarningTitle.text = {
@@ -142,7 +145,7 @@ extension StatusSection {
         }()
         
         // prepare media attachments
-        let mediaAttachments = Array((toot.reblog ?? toot).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
+        let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
         
         // set image
         let mosiacImageViewModel = MosaicImageViewModel(mediaAttachments: mediaAttachments)
@@ -184,7 +187,7 @@ extension StatusSection {
             }
         }
         cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
-        let isStatusSensitive = statusItemAttribute.isStatusSensitive
+        let isStatusSensitive = statusItemAttribute.isStatusSensitive ?? false
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
         cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
@@ -251,7 +254,7 @@ extension StatusSection {
             cell.statusView.playerContainerView.playerViewController.player = nil
         }
         // set poll
-        let poll = (toot.reblog ?? toot).poll
+        let poll = (status.reblog ?? status).poll
         StatusSection.configurePoll(
             cell: cell,
             poll: poll,
@@ -278,10 +281,10 @@ extension StatusSection {
         }
         
         // toolbar
-        StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
+        StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
         
         // set date
-        let createdAt = (toot.reblog ?? toot).createdAt
+        let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
         timestampUpdatePublisher
             .sink { _ in
@@ -290,34 +293,34 @@ extension StatusSection {
             .store(in: &cell.disposeBag)
 
         // observe model change
-        ManagedObjectObserver.observe(object: toot.reblog ?? toot)
+        ManagedObjectObserver.observe(object: status.reblog ?? status)
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
             } receiveValue: { change in
                 guard case .update(let object) = change.changeType,
-                      let toot = object as? Toot else { return }
-                StatusSection.configureActionToolBar(cell: cell, toot: toot, requestUserID: requestUserID)
+                      let status = object as? Status else { return }
+                StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
                 
-                os_log("%{public}s[%{public}ld], %{public}s: reblog count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.reblogsCount.intValue)
-                os_log("%{public}s[%{public}ld], %{public}s: like count label for toot %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, toot.id, toot.favouritesCount.intValue)
+                os_log("%{public}s[%{public}ld], %{public}s: reblog count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.reblogsCount.intValue)
+                os_log("%{public}s[%{public}ld], %{public}s: like count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.favouritesCount.intValue)
             }
             .store(in: &cell.disposeBag)
     }
 
     static func configureHeader(
         cell: StatusTableViewCell,
-        toot: Toot
+        status: Status
     ) {
-        if toot.reblog != nil {
+        if status.reblog != nil {
             cell.statusView.headerContainerStackView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
             cell.statusView.headerInfoLabel.text = {
-                let author = toot.author
+                let author = status.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
-        } else if let replyTo = toot.replyTo {
+        } else if let replyTo = status.replyTo {
             cell.statusView.headerContainerStackView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
             cell.statusView.headerInfoLabel.text = {
@@ -332,29 +335,29 @@ extension StatusSection {
     
     static func configureActionToolBar(
         cell: StatusTableViewCell,
-        toot: Toot,
+        status: Status,
         requestUserID: String
     ) {
-        let toot = toot.reblog ?? toot
+        let status = status.reblog ?? status
         
         // set reply
         let replyCountTitle: String = {
-            let count = toot.repliesCount?.intValue ?? 0
+            let count = status.repliesCount?.intValue ?? 0
             return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
         // set reblog
-        let isReblogged = toot.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let isReblogged = status.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let reblogCountTitle: String = {
-            let count = toot.reblogsCount.intValue
+            let count = status.reblogsCount.intValue
             return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.reblogButton.setTitle(reblogCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isReblogButtonHighlight = isReblogged
         // set like
-        let isLike = toot.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {
-            let count = toot.favouritesCount.intValue
+            let count = status.favouritesCount.intValue
             return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)

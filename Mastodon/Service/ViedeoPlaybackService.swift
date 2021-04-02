@@ -101,8 +101,8 @@ extension VideoPlaybackService {
 }
 
 extension VideoPlaybackService {
-    func markTransitioning(for toot: Toot) {
-        guard let videoAttachment = toot.mediaAttachments?.filter({ $0.type == .gifv || $0.type == .video }).first else { return }
+    func markTransitioning(for status: Status) {
+        guard let videoAttachment = status.mediaAttachments?.filter({ $0.type == .gifv || $0.type == .video }).first else { return }
         guard let videoPlayerViewModel = dequeueVideoPlayerViewModel(for: videoAttachment) else { return }
         videoPlayerViewModel.isTransitioning = true
     }
