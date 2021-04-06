@@ -32,6 +32,7 @@ final class ProfileHeaderView: UIView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = .placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
+        imageView.backgroundColor = ProfileHeaderView.bannerImageViewPlaceholderColor
         imageView.layer.masksToBounds = true
         // #if DEBUG
         // imageView.image = .placeholder(color: .red)
