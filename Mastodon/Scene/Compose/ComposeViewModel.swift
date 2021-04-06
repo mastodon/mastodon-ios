@@ -71,8 +71,7 @@ final class ComposeViewModel {
     
     init(
         context: AppContext,
-        composeKind: ComposeStatusSection.ComposeKind,
-        initialComposeContent: String? = nil
+        composeKind: ComposeStatusSection.ComposeKind
     ) {
         self.context = context
         self.composeKind = composeKind
@@ -87,8 +86,9 @@ final class ComposeViewModel {
         if case let .mention(mastodonUserObjectID) = composeKind {
             context.managedObjectContext.performAndWait {
                 let mastodonUser = context.managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-                let initialComposeContent = "@" + mastodonUser.acct + " "
-                self.composeStatusAttribute.composeContent.value = initialComposeContent
+                let initialComposeContent = "@" + mastodonUser.acct
+                UITextChecker.learnWord(initialComposeContent)
+                self.composeStatusAttribute.composeContent.value = initialComposeContent + " "
             }
         }
         
