@@ -13,7 +13,7 @@ class NavigationBarProgressView: UIView {
     
     let sliderView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.buttonDefault.color
+        view.backgroundColor = Asset.Colors.brandBlue.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

@@ -17,7 +17,7 @@ class PickServerSearchCell: UITableViewCell {
     
     private var bgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.lightWhite.color
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.maskedCorners = [
             .layerMinXMinYCorner,
@@ -30,7 +30,7 @@ class PickServerSearchCell: UITableViewCell {
     
     private var textFieldBgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.lightBackground.color.withAlphaComponent(0.6)
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color.withAlphaComponent(0.6)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 6
@@ -42,13 +42,13 @@ class PickServerSearchCell: UITableViewCell {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .preferredFont(forTextStyle: .headline)
-        textField.tintColor = Asset.Colors.lightDarkGray.color
-        textField.textColor = Asset.Colors.lightDarkGray.color
+        textField.tintColor = Asset.Colors.Label.primary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.adjustsFontForContentSizeCategory = true
         textField.attributedPlaceholder =
             NSAttributedString(string: L10n.Scene.ServerPicker.Input.placeholder,
                                attributes: [.font: UIFont.preferredFont(forTextStyle: .headline),
-                                            .foregroundColor: Asset.Colors.lightSecondaryText.color.withAlphaComponent(0.6)])
+                                            .foregroundColor: Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)])
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no

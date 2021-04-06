@@ -67,7 +67,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     func stopAnimating() {
         activityIndicatorView.stopAnimating()
         self.loadMoreButton.isEnabled = true
-        self.loadMoreLabel.textColor = Asset.Colors.buttonDefault.color
+        self.loadMoreLabel.textColor = Asset.Colors.brandBlue.color
         self.loadMoreLabel.text = ""
     }
     

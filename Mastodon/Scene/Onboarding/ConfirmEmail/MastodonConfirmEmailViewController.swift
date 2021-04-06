@@ -40,7 +40,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     let openEmailButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
+        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
         button.layer.masksToBounds = true
@@ -53,7 +53,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     let dontReceiveButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.boldSystemFont(ofSize: 15))
-        button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.dontReceiveEmail, for: .normal)
         button.addTarget(self, action: #selector(dontReceiveButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         return button
