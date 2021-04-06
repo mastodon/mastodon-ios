@@ -419,43 +419,6 @@ extension ProfileViewController {
 //        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 //        coordinator.present(scene: .drawerSidebar, from: self, transition: .custom(transitioningDelegate: drawerSidebarTransitionController))
 //    }
-//
-//    @objc private func unmuteBarButtonItemPressed(_ sender: UIBarButtonItem) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-//        guard let twitterUser = viewModel.twitterUser.value else {
-//            assertionFailure()
-//            return
-//        }
-//
-//        UserProviderFacade.toggleMuteUser(
-//            context: context,
-//            twitterUser: twitterUser,
-//            muted: viewModel.muted.value
-//        )
-//        .sink { _ in
-//            // do nothing
-//        } receiveValue: { _ in
-//            // do nothing
-//        }
-//        .store(in: &disposeBag)
-//    }
-//
-//    @objc private func moreMenuBarButtonItemPressed(_ sender: UIBarButtonItem) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-//        guard let twitterUser = viewModel.twitterUser.value else {
-//            assertionFailure()
-//            return
-//        }
-//
-//        let moreMenuAlertController = UserProviderFacade.createMoreMenuAlertControllerForUser(
-//            twitterUser: twitterUser,
-//            muted: viewModel.muted.value,
-//            blocked: viewModel.blocked.value,
-//            sender: sender,
-//            dependency: self
-//        )
-//        present(moreMenuAlertController, animated: true, completion: nil)
-//    }
     
 }
 

@@ -307,8 +307,8 @@ extension ProfileViewModel {
         case pending
         case following
         case muting
-        case blocking
         case blocked
+        case blocking
         case edit
         case editing
         
@@ -326,8 +326,8 @@ extension ProfileViewModel {
         static let pending = RelationshipAction.pending.option
         static let following = RelationshipAction.following.option
         static let muting = RelationshipAction.muting.option
-        static let blocking = RelationshipAction.blocking.option
         static let blocked = RelationshipAction.blocked.option
+        static let blocking = RelationshipAction.blocking.option
         static let edit = RelationshipAction.edit.option
         static let editing = RelationshipAction.editing.option
         
@@ -353,8 +353,8 @@ extension ProfileViewModel {
             case .pending: return L10n.Common.Controls.Firendship.pending
             case .following: return L10n.Common.Controls.Firendship.following
             case .muting: return L10n.Common.Controls.Firendship.muted
-            case .blocking: return L10n.Common.Controls.Firendship.blocked
             case .blocked: return L10n.Common.Controls.Firendship.follow   // blocked by user
+            case .blocking: return L10n.Common.Controls.Firendship.blocked
             case .edit: return L10n.Common.Controls.Firendship.editInfo
             case .editing: return L10n.Common.Controls.Actions.done
             }
@@ -371,8 +371,8 @@ extension ProfileViewModel {
             case .pending: return Asset.Colors.Button.normal.color
             case .following: return Asset.Colors.Button.normal.color
             case .muting: return Asset.Colors.Background.alertYellow.color
-            case .blocking: return Asset.Colors.Background.danger.color
             case .blocked: return Asset.Colors.Button.disabled.color
+            case .blocking: return Asset.Colors.Background.danger.color
             case .edit: return Asset.Colors.Button.normal.color
             case .editing: return Asset.Colors.Button.normal.color
             }

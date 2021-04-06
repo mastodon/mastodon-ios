@@ -34,7 +34,13 @@ extension ProfileRelationshipActionButton {
         setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .normal)
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
-        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
+        setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor), for: .disabled)
+        
+        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked {
+            isEnabled = false
+        } else {
+            isEnabled = true
+        }
     }
 }
 
