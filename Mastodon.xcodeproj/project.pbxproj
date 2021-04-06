@@ -244,7 +244,6 @@
 		DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
 		DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* UITextView+Placeholder */; };
-		DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488326034BD7008B817C /* APIService+Status.swift */; };
 		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9A489026035963008B817C /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488F26035963008B817C /* APIService+Media.swift */; };
 		DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A48952603685D008B817C /* MastodonAttachmentService+UploadState.swift */; };
@@ -295,6 +294,8 @@
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
+		DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */; };
+		DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */; };
 		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
 		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -647,6 +648,8 @@
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
+		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -780,6 +783,7 @@
 				2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */,
 				2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */,
 				DB87D44A2609C11900D12C0D /* PollOptionView.swift */,
+				DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -982,6 +986,7 @@
 				2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */,
 				2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */,
 				2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */,
+				DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */,
 				DB92CF7125E7BB98002C1017 /* PollOptionTableViewCell.swift */,
 			);
 			path = TableviewCell;
@@ -2022,6 +2027,7 @@
 				DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */,
 				DB35FC2F26130172006193C9 /* MastodonField.swift in Sources */,
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
+				DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */,
 				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
 				5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
@@ -2088,6 +2094,7 @@
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
+				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
@@ -2153,7 +2160,6 @@
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
-				DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,

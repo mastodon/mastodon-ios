@@ -22,6 +22,8 @@ enum Item {
     case homeMiddleLoader(upperTimelineIndexAnchorObjectID: NSManagedObjectID)
     case publicMiddleLoader(statusID: String)
     case bottomLoader
+    
+    case emptyStateHeader(attribute: EmptyStateHeaderAttribute)
 }
 
 protocol StatusContentWarningAttribute {
@@ -56,6 +58,30 @@ extension Item {
             }
         }
     }
+    
+    class EmptyStateHeaderAttribute: Hashable {
+        let id = UUID()
+        let reason: Reason
+        
+        enum Reason {
+            case noStatusFound
+            case blocking
+            case blocked
+            case suspended
+        }
+        
+        init(reason: Reason) {
+            self.reason = reason
+        }
+        
+        static func == (lhs: Item.EmptyStateHeaderAttribute, rhs: Item.EmptyStateHeaderAttribute) -> Bool {
+            return lhs.reason == rhs.reason
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
 }
 
 extension Item: Equatable {
@@ -65,12 +91,14 @@ extension Item: Equatable {
             return objectIDLeft == objectIDRight
         case (.status(let objectIDLeft, _), .status(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
-        case (.bottomLoader, .bottomLoader):
-            return true
-        case (.publicMiddleLoader(let upperLeft), .publicMiddleLoader(let upperRight)):
-            return upperLeft == upperRight
         case (.homeMiddleLoader(let upperLeft), .homeMiddleLoader(let upperRight)):
             return upperLeft == upperRight
+        case (.publicMiddleLoader(let upperLeft), .publicMiddleLoader(let upperRight)):
+            return upperLeft == upperRight
+        case (.bottomLoader, .bottomLoader):
+            return true
+        case (.emptyStateHeader(let attributeLeft), .emptyStateHeader(let attributeRight)):
+            return attributeLeft == attributeRight
         default:
             return false
         }
@@ -84,14 +112,16 @@ extension Item: Hashable {
             hasher.combine(objectID)
         case .status(let objectID, _):
             hasher.combine(objectID)
-        case .publicMiddleLoader(let upper):
-            hasher.combine(String(describing: Item.publicMiddleLoader.self))
-            hasher.combine(upper)
         case .homeMiddleLoader(upperTimelineIndexAnchorObjectID: let upper):
             hasher.combine(String(describing: Item.homeMiddleLoader.self))
             hasher.combine(upper)
+        case .publicMiddleLoader(let upper):
+            hasher.combine(String(describing: Item.publicMiddleLoader.self))
+            hasher.combine(upper)
         case .bottomLoader:
             hasher.combine(String(describing: Item.bottomLoader.self))
+        case .emptyStateHeader(let attribute):
+            hasher.combine(attribute)
         }
     }
 }

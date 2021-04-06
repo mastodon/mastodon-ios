@@ -54,6 +54,13 @@ Please check your internet connection.";
 "Common.Controls.Status.StatusContentWarning" = "content warning";
 "Common.Controls.Status.UserReblogged" = "%@ reblogged";
 "Common.Controls.Status.UserRepliedTo" = "Replied to %@";
+"Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view Artbot’s profile
+ until they unblock you.";
+"Common.Controls.Timeline.Header.BlockingWarning" = "You can’t view Artbot’s profile
+ until you unblock them.
+Your account looks like this to them.";
+"Common.Controls.Timeline.Header.NoStatusFound" = "No Status Found";
+"Common.Controls.Timeline.Header.SuspendedWarning" = "This account is suspended.";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "Load missing posts";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Countable.Photo.Multiple" = "photos";

@@ -66,9 +66,9 @@ extension StatusProviderFacade {
     
     static func responseToStatusActiveLabelAction(provider: StatusProvider, cell: UITableViewCell, activeLabel: ActiveLabel, didTapEntity entity: ActiveEntity) {
         switch entity.type {
-        case .hashtag(let text, let userInfo):
+        case .hashtag:
             break
-        case .mention(let text, let userInfo):
+        case .mention(let text, _):
             coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text)
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }

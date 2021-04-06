@@ -145,11 +145,12 @@ extension APIService {
             authorization: authorization
         )
         .handleEvents(receiveCompletion: { [weak self] completion in
-            guard let self = self else { return }
+            guard let _ = self else { return }
             switch completion {
             case .failure(let error):
                 // TODO: handle error
-                break
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] block update fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+
             case .finished:
                 // TODO: update relationship
                 switch blockQueryType {

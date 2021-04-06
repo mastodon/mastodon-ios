@@ -167,10 +167,11 @@ extension APIService {
             authorization: authorization
         )
         .handleEvents(receiveCompletion: { [weak self] completion in
-            guard let self = self else { return }
+            guard let _ = self else { return }
             switch completion {
             case .failure(let error):
                 // TODO: handle error
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Relationship] update follow fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                 break
             case .finished:
                 switch followQueryType {

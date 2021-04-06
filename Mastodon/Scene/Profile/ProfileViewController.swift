@@ -140,63 +140,17 @@ extension ProfileViewController {
         }
         .store(in: &disposeBag)
 
-        
-//        Publishers.CombineLatest4(
-//            viewModel.muted.eraseToAnyPublisher(),
-//            viewModel.blocked.eraseToAnyPublisher(),
-//            viewModel.twitterUser.eraseToAnyPublisher(),
-//            context.authenticationService.activeTwitterAuthenticationBox.eraseToAnyPublisher()
-//        )
-//        .receive(on: DispatchQueue.main)
-//        .sink { [weak self] muted, blocked, twitterUser, activeTwitterAuthenticationBox in
-//            guard let self = self else { return }
-//            guard let twitterUser = twitterUser,
-//                  let activeTwitterAuthenticationBox = activeTwitterAuthenticationBox,
-//                  twitterUser.id != activeTwitterAuthenticationBox.twitterUserID else {
-//                self.navigationItem.rightBarButtonItems = []
-//                return
-//            }
-//
-//            if #available(iOS 14.0, *) {
-//                self.moreMenuBarButtonItem.target = nil
-//                self.moreMenuBarButtonItem.action = nil
-//                self.moreMenuBarButtonItem.menu = UserProviderFacade.createMenuForUser(
-//                    twitterUser: twitterUser,
-//                    muted: muted,
-//                    blocked: blocked,
-//                    dependency: self
-//                )
-//            } else {
-//                // no menu supports for early version
-//                self.moreMenuBarButtonItem.target = self
-//                self.moreMenuBarButtonItem.action = #selector(ProfileViewController.moreMenuBarButtonItemPressed(_:))
-//            }
-//
-//            var rightBarButtonItems: [UIBarButtonItem] = [self.moreMenuBarButtonItem]
-//            if muted {
-//                rightBarButtonItems.append(self.unmuteMenuBarButtonItem)
-//            }
-//
-//            self.navigationItem.rightBarButtonItems = rightBarButtonItems
-//        }
-//        .store(in: &disposeBag)
-        
         overlayScrollView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(ProfileViewController.refreshControlValueChanged(_:)), for: .valueChanged)
         
-//        drawerSidebarTransitionController = DrawerSidebarTransitionController(drawerSidebarTransitionableViewController: self)
-        
         let postsUserTimelineViewModel = UserTimelineViewModel(context: context, domain: viewModel.domain.value, userID: viewModel.userID.value, queryFilter: UserTimelineViewModel.QueryFilter())
-        viewModel.domain.assign(to: \.value, on: postsUserTimelineViewModel.domain).store(in: &disposeBag)
-        viewModel.userID.assign(to: \.value, on: postsUserTimelineViewModel.userID).store(in: &disposeBag)
-
+        bind(userTimelineViewModel: postsUserTimelineViewModel)
+        
         let repliesUserTimelineViewModel = UserTimelineViewModel(context: context, domain: viewModel.domain.value, userID: viewModel.userID.value, queryFilter: UserTimelineViewModel.QueryFilter(excludeReplies: true))
-        viewModel.domain.assign(to: \.value, on: repliesUserTimelineViewModel.domain).store(in: &disposeBag)
-        viewModel.userID.assign(to: \.value, on: repliesUserTimelineViewModel.userID).store(in: &disposeBag)
-
+        bind(userTimelineViewModel: repliesUserTimelineViewModel)
+        
         let mediaUserTimelineViewModel = UserTimelineViewModel(context: context, domain: viewModel.domain.value, userID: viewModel.userID.value, queryFilter: UserTimelineViewModel.QueryFilter(onlyMedia: true))
-        viewModel.domain.assign(to: \.value, on: mediaUserTimelineViewModel.domain).store(in: &disposeBag)
-        viewModel.userID.assign(to: \.value, on: mediaUserTimelineViewModel.userID).store(in: &disposeBag)
+        bind(userTimelineViewModel: mediaUserTimelineViewModel)
         
         profileSegmentedViewController.pagingViewController.viewModel = {
             let profilePagingViewModel = ProfilePagingViewModel(
@@ -275,7 +229,7 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] name in
                 guard let self = self else { return }
-                self.title = name
+                self.navigationItem.title = name
             }
             .store(in: &disposeBag)
         
@@ -421,6 +375,17 @@ extension ProfileViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         currentPostTimelineTableViewContentSizeObservation = nil
+    }
+    
+}
+
+extension ProfileViewController {
+
+    private func bind(userTimelineViewModel: UserTimelineViewModel) {
+        viewModel.domain.assign(to: \.value, on: userTimelineViewModel.domain).store(in: &disposeBag)
+        viewModel.userID.assign(to: \.value, on: userTimelineViewModel.userID).store(in: &disposeBag)
+        viewModel.isBlocking.assign(to: \.value, on: userTimelineViewModel.isBlocking).store(in: &disposeBag)
+        viewModel.isBlockedBy.assign(to: \.value, on: userTimelineViewModel.isBlockedBy).store(in: &disposeBag)
     }
     
 }

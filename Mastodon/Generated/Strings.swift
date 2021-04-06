@@ -172,6 +172,16 @@ internal enum L10n {
         }
       }
       internal enum Timeline {
+        internal enum Header {
+          /// You can’t view Artbot’s profile\n until they unblock you.
+          internal static let blockedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockedWarning")
+          /// You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.
+          internal static let blockingWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockingWarning")
+          /// No Status Found
+          internal static let noStatusFound = L10n.tr("Localizable", "Common.Controls.Timeline.Header.NoStatusFound")
+          /// This account is suspended.
+          internal static let suspendedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.SuspendedWarning")
+        }
         internal enum Loader {
           /// Loading missing posts...
           internal static let loadingMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadingMissingPosts")
