@@ -6,6 +6,7 @@
 //
 
 import Combine
+import GameplayKit
 import MastodonSDK
 import UIKit
 
@@ -25,7 +26,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
         searchBar.setImage(micImage, for: .bookmark, state: .normal)
         searchBar.showsBookmarkButton = true
         searchBar.showsScopeBar = false
-        searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people,L10n.Scene.Search.Searching.Segment.hashtags]
+        searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
         return searchBar
     }()
     
@@ -59,9 +60,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    var hashTagDiffableDataSource: UICollectionViewDiffableDataSource<RecomendHashTagSection, Mastodon.Entity.Tag>?
-    var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account>?
     
     let accountsCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -83,7 +81,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
         tableView.backgroundColor = .white
         return tableView
     }()
-    var searchResultDiffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>?
 }
 
 extension SearchViewController {
@@ -97,6 +94,7 @@ extension SearchViewController {
         setupHashTagCollectionView()
         setupAccountsCollectionView()
         setupSearchingTableView()
+        setupDataSource()
     }
 
     func setupScrollView() {
@@ -117,6 +115,20 @@ extension SearchViewController {
             stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
             scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
+    }
+    
+    func setupDataSource() {
+        viewModel.hashTagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashTagCollectionView)
+        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView)
+        viewModel.searchResultDiffableDataSource = SearchResultSection.tableViewDiffableDataSource(for: searchingTableView)
+    }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == searchingTableView {
+            handleScrollViewDidScroll(scrollView)
+        }
     }
 }
 
@@ -150,14 +162,22 @@ extension SearchViewController: UISearchBarDelegate {
         case 0:
             viewModel.searchScope.value = ""
         case 1:
-            viewModel.searchScope.value = "accounts"
+            viewModel.searchScope.value = Mastodon.API.Search.Scope.accounts.rawValue
         case 2:
-            viewModel.searchScope.value = "hashtags"
+            viewModel.searchScope.value = Mastodon.API.Search.Scope.hashTags.rawValue
         default:
             break
         }
     }
+
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {}
+}
+
+extension SearchViewController: LoadMoreConfigurableTableViewContainer {
+    typealias BottomLoaderTableViewCell = SearchBottomLoader
+    typealias LoadingState = SearchViewModel.LoadOldestState.Loading
+    var loadMoreConfigurableTableView: UITableView { searchingTableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }
 }
 
 #if canImport(SwiftUI) && DEBUG

@@ -49,8 +49,8 @@ extension Mastodon.API.Search {
     }
 }
 
-extension Mastodon.API.Search {
-    public struct Query: Codable, GetQuery {
+public extension Mastodon.API.Search {
+    struct Query: Codable, GetQuery {
         public init(accountID: Mastodon.Entity.Account.ID?, maxID: Mastodon.Entity.Status.ID?, minID: Mastodon.Entity.Status.ID?, type: String?, excludeUnreviewed: Bool?, q: String, resolve: Bool?, limit: Int?, offset: Int?, following: Bool?) {
             self.accountID = accountID
             self.maxID = maxID
@@ -90,6 +90,22 @@ extension Mastodon.API.Search {
             following.flatMap { items.append(URLQueryItem(name: "following", value: $0.queryItemValue)) }
             guard !items.isEmpty else { return nil }
             return items
+        }
+    }
+}
+
+public extension Mastodon.API.Search {
+    enum Scope: String {
+        case accounts
+        case hashTags
+
+        public var rawValue: String {
+            switch self {
+            case .accounts:
+                return "accounts"
+            case .hashTags:
+                return "hashtags"
+            }
         }
     }
 }

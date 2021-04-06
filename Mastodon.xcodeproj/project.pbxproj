@@ -20,10 +20,13 @@
 		0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3D33725E6401400AAD544 /* PickServerCell.swift */; };
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
+		2D0B7A0B261D5A5600B44727 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0B7A0A261D5A5600B44727 /* Array.swift */; };
 		2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* StatusView.swift */; };
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
+		2D19864F261C372A00F0B013 /* SearchBottomLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D19864E261C372A00F0B013 /* SearchBottomLoader.swift */; };
+		2D198655261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */; };
 		2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7125F5D27F00143C56 /* AudioContainerView.swift */; };
 		2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7F25F5F45E00143C56 /* UIImage.swift */; };
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
@@ -97,7 +100,7 @@
 		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
 		2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */; };
-		2DE0FAC12615F04D00CDF649 /* RecomendHashTagSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC02615F04D00CDF649 /* RecomendHashTagSection.swift */; };
+		2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */; };
 		2DE0FAC82615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC72615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift */; };
 		2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */; };
 		2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF123A625C3B0210020F248 /* ActiveLabel.swift */; };
@@ -368,10 +371,13 @@
 		0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerSearchCell.swift; sourceTree = "<group>"; };
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
+		2D0B7A0A261D5A5600B44727 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
+		2D19864E261C372A00F0B013 /* SearchBottomLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBottomLoader.swift; sourceTree = "<group>"; };
+		2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
 		2D206B7125F5D27F00143C56 /* AudioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerView.swift; sourceTree = "<group>"; };
 		2D206B7F25F5F45E00143C56 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -442,7 +448,7 @@
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2DA7D05625CA693F00804E11 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendCollectionHeader.swift; sourceTree = "<group>"; };
-		2DE0FAC02615F04D00CDF649 /* RecomendHashTagSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendHashTagSection.swift; sourceTree = "<group>"; };
+		2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendHashTagSection.swift; sourceTree = "<group>"; };
 		2DE0FAC72615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendAccountsCollectionViewCell.swift; sourceTree = "<group>"; };
 		2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendAccountSection.swift; sourceTree = "<group>"; };
 		2DF123A625C3B0210020F248 /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveLabel.swift; sourceTree = "<group>"; };
@@ -949,7 +955,7 @@
 				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
 				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
 				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
-				2DE0FAC02615F04D00CDF649 /* RecomendHashTagSection.swift */,
+				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
 				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
@@ -1039,6 +1045,7 @@
 			isa = PBXGroup;
 			children = (
 				2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */,
+				2D19864E261C372A00F0B013 /* SearchBottomLoader.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1470,6 +1477,7 @@
 				2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
+				2D0B7A0A261D5A5600B44727 /* Array.swift */,
 				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
@@ -1532,6 +1540,7 @@
 				2D34D9CA261489930081BFC0 /* SearchViewController+Recomend.swift */,
 				2DFAD5262616F9D300F9EE7C /* SearchViewController+Searching.swift */,
 				2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */,
+				2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */,
 				2D34D9E026149C550081BFC0 /* CollectionViewCell */,
 			);
 			path = Search;
@@ -2097,6 +2106,7 @@
 				2D34D9DB261494120081BFC0 /* APIService+Search.swift in Sources */,
 				DBB5256E2612D5A1002F1F29 /* ProfileStatusDashboardView.swift in Sources */,
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
+				2D19864F261C372A00F0B013 /* SearchBottomLoader.swift in Sources */,
 				DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */,
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Status.swift in Sources */,
@@ -2135,7 +2145,7 @@
 				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
-				2DE0FAC12615F04D00CDF649 /* RecomendHashTagSection.swift in Sources */,
+				2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
 				DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */,
@@ -2179,6 +2189,7 @@
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
+				2D0B7A0B261D5A5600B44727 /* Array.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
@@ -2245,6 +2256,7 @@
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
+				2D198655261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */,
 				2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */,

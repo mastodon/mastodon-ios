@@ -25,22 +25,6 @@ extension SearchViewController {
         hashTagCollectionView.constrain([
             hashTagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 130)
         ])
-
-        viewModel.requestRecommendHashTags()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                if !self.viewModel.recommendHashTags.isEmpty {
-                    let dataSource = RecomendHashTagSection.collectionViewDiffableDataSource(for: self.hashTagCollectionView)
-                    var snapshot = NSDiffableDataSourceSnapshot<RecomendHashTagSection, Mastodon.Entity.Tag>()
-                    snapshot.appendSections([.main])
-                    snapshot.appendItems(self.viewModel.recommendHashTags, toSection: .main)
-                    dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-                    self.hashTagDiffableDataSource = dataSource
-                }
-            } receiveValue: { _ in
-            }
-            .store(in: &disposeBag)
     }
 
     func setupAccountsCollectionView() {
@@ -57,22 +41,6 @@ extension SearchViewController {
         accountsCollectionView.constrain([
             accountsCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 202)
         ])
-
-        viewModel.requestRecommendAccounts()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                if !self.viewModel.recommendAccounts.isEmpty {
-                    let dataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: self.accountsCollectionView)
-                    var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, Mastodon.Entity.Account>()
-                    snapshot.appendSections([.main])
-                    snapshot.appendItems(self.viewModel.recommendAccounts, toSection: .main)
-                    dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-                    self.accountDiffableDataSource = dataSource
-                }
-            } receiveValue: { _ in
-            }
-            .store(in: &disposeBag)
     }
 
     override func viewDidLayoutSubviews() {

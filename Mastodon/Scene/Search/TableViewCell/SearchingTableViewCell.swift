@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import MastodonSDK
+import UIKit
 
 final class SearchingTableViewCell: UITableViewCell {
     let _imageView: UIImageView = {
@@ -50,7 +50,7 @@ final class SearchingTableViewCell: UITableViewCell {
 
 extension SearchingTableViewCell {
     private func configure() {
-        self.selectionStyle = .none
+        selectionStyle = .none
         contentView.addSubview(_imageView)
         _imageView.pin(toSize: CGSize(width: 42, height: 42))
         _imageView.constrain([
@@ -65,28 +65,28 @@ extension SearchingTableViewCell {
         _subTitleLabel.pin(top: 34, left: 75, bottom: nil, right: 0)
     }
     
-    func config(with account:Mastodon.Entity.Account) {
-        self._imageView.af.setImage(
+    func config(with account: Mastodon.Entity.Account) {
+        _imageView.af.setImage(
             withURL: URL(string: account.avatar)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)
         )
-        self._titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
-        self._subTitleLabel.text = account.acct
+        _titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
+        _subTitleLabel.text = account.acct
     }
     
-    func config(with tag:Mastodon.Entity.Tag) {
+    func config(with tag: Mastodon.Entity.Tag) {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-        self._imageView.image = image
-        self._titleLabel.text = "# " + tag.name
+        _imageView.image = image
+        _titleLabel.text = "# " + tag.name
         guard let historys = tag.history else {
-            self._subTitleLabel.text = ""
+            _subTitleLabel.text = ""
             return
         }
-        let recentHistory = historys[0...2]
-        let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
+        let recentHistory = historys[0 ... 2]
+        let peopleAreTalking = recentHistory.compactMap { Int($0.accounts) }.reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
-        self._subTitleLabel.text = string
+        _subTitleLabel.text = string
     }
 }
 

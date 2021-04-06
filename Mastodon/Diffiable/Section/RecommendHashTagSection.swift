@@ -1,5 +1,5 @@
 //
-//  RecomendHashTagSection.swift
+//  RecommendHashTagSection.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/4/1.
@@ -9,14 +9,14 @@ import Foundation
 import MastodonSDK
 import UIKit
 
-enum RecomendHashTagSection: Equatable, Hashable {
+enum RecommendHashTagSection: Equatable, Hashable {
     case main
 }
 
-extension RecomendHashTagSection {
+extension RecommendHashTagSection {
     static func collectionViewDiffableDataSource(
         for collectionView: UICollectionView
-    ) -> UICollectionViewDiffableDataSource<RecomendHashTagSection, Mastodon.Entity.Tag> {
+    ) -> UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, tag -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SearchRecommendTagsCollectionViewCell.self), for: indexPath) as! SearchRecommendTagsCollectionViewCell
             cell.config(with: tag)
