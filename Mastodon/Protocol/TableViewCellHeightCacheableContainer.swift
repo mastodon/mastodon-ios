@@ -13,7 +13,7 @@ protocol TableViewCellHeightCacheableContainer: StatusProvider {
 
 extension TableViewCellHeightCacheableContainer {
     
-    func handleTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let item = item(for: nil, indexPath: indexPath) else { return }
         
         let key = item.hashValue
