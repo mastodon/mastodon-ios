@@ -22,7 +22,7 @@ final class SearchViewModel: NSObject {
     
     // output
     let searchText = CurrentValueSubject<String, Never>("")
-    let searchScope = CurrentValueSubject<String, Never>("")
+    let searchScope = CurrentValueSubject<Mastodon.API.Search.SearchType, Never>(Mastodon.API.Search.SearchType.default)
     
     let isSearching = CurrentValueSubject<Bool, Never>(false)
     
@@ -68,12 +68,12 @@ final class SearchViewModel: NSObject {
         }
         .flatMap { (text, scope) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> in
             
-            let query = Mastodon.API.Search.Query(accountID: nil,
+            let query = Mastodon.API.Search.Query(q: text,
+                                                  type: scope,
+                                                  accountID: nil,
                                                   maxID: nil,
                                                   minID: nil,
-                                                  type: scope,
                                                   excludeUnreviewed: nil,
-                                                  q: text,
                                                   resolve: nil,
                                                   limit: nil,
                                                   offset: nil,
@@ -101,25 +101,27 @@ final class SearchViewModel: NSObject {
             searchScope
         )
         .filter { isSearching, text, _ in
-            isSearching && text.isEmpty
+            isSearching
         }
-        .sink { [weak self] _, _, scope in
+        .sink { [weak self] _, text, scope in
             guard let self = self else { return }
             guard let searchHistories = self.fetchSearchHistory() else { return }
             guard let dataSource = self.searchResultDiffableDataSource else { return }
             var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()
-            snapshot.appendSections([.mixed])
-            
-            searchHistories.forEach { searchHistory in
-                let containsAccount = scope == Mastodon.API.Search.Scope.accounts.rawValue || scope == ""
-                let containsHashTag = scope == Mastodon.API.Search.Scope.hashtags.rawValue || scope == ""
-                if let mastodonUser = searchHistory.account, containsAccount {
-                    let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
-                    snapshot.appendItems([item], toSection: .mixed)
-                }
-                if let tag = searchHistory.hashtag, containsHashTag {
-                    let item = SearchResultItem.hashtagObjectID(hashtagObjectID: tag.objectID)
-                    snapshot.appendItems([item], toSection: .mixed)
+            if text.isEmpty {
+                snapshot.appendSections([.mixed])
+                
+                searchHistories.forEach { searchHistory in
+                    let containsAccount = scope == Mastodon.API.Search.SearchType.accounts || scope == Mastodon.API.Search.SearchType.default
+                    let containsHashTag = scope == Mastodon.API.Search.SearchType.hashtags || scope == Mastodon.API.Search.SearchType.default
+                    if let mastodonUser = searchHistory.account, containsAccount {
+                        let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
+                        snapshot.appendItems([item], toSection: .mixed)
+                    }
+                    if let tag = searchHistory.hashtag, containsHashTag {
+                        let item = SearchResultItem.hashtagObjectID(hashtagObjectID: tag.objectID)
+                        snapshot.appendItems([item], toSection: .mixed)
+                    }
                 }
             }
             dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
@@ -166,7 +168,7 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.account])
                     let items = accounts.compactMap { SearchResultItem.account(account: $0) }
                     snapshot.appendItems(items, toSection: .account)
-                    if self.searchScope.value == Mastodon.API.Search.Scope.accounts.rawValue && !items.isEmpty {
+                    if self.searchScope.value == Mastodon.API.Search.SearchType.accounts && !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .account)
                     }
                 }
@@ -174,7 +176,7 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.hashtag])
                     let items = tags.compactMap { SearchResultItem.hashtag(tag: $0) }
                     snapshot.appendItems(items, toSection: .hashtag)
-                    if self.searchScope.value == Mastodon.API.Search.Scope.hashtags.rawValue && !items.isEmpty {
+                    if self.searchScope.value == Mastodon.API.Search.SearchType.hashtags && !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .hashtag)
                     }
                 }

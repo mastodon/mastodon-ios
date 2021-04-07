@@ -50,9 +50,6 @@ extension Mastodon.API.Search {
 }
 
 extension Mastodon.API.Search {
-    public enum SearchType: String, Codable {
-        case ccounts, hashtags, statuses
-    }
     
     public struct Query: Codable, GetQuery {
         public init(q: String,
@@ -109,9 +106,11 @@ extension Mastodon.API.Search {
 }
 
 public extension Mastodon.API.Search {
-    enum Scope: String {
+    enum SearchType: String, Codable {
         case accounts
         case hashtags
+        case statuses
+        case `default`
 
         public var rawValue: String {
             switch self {
@@ -119,6 +118,10 @@ public extension Mastodon.API.Search {
                 return "accounts"
             case .hashtags:
                 return "hashtags"
+            case .statuses:
+                return "statuses"
+            case .default:
+                return ""
             }
         }
     }

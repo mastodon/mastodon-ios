@@ -27,6 +27,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
         searchBar.showsBookmarkButton = true
         searchBar.showsScopeBar = false
         searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
+        searchBar.barTintColor = Asset.Colors.Background.navigationBar.color
         return searchBar
     }()
     
@@ -76,9 +77,10 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // searching
     let searchingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        tableView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
     
@@ -99,7 +101,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     
     let clearSearchHistoryButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitleColor(Asset.Colors.buttonDefault.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Scene.Search.Searching.clear, for: .normal)
         return button
     }()
@@ -109,6 +111,12 @@ extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        barAppearance.backgroundColor = Asset.Colors.Background.navigationBar.color
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.hidesBackButton = true
@@ -183,11 +191,11 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         switch selectedScope {
         case 0:
-            viewModel.searchScope.value = ""
+            viewModel.searchScope.value = Mastodon.API.Search.SearchType.default
         case 1:
-            viewModel.searchScope.value = Mastodon.API.Search.Scope.accounts.rawValue
+            viewModel.searchScope.value = Mastodon.API.Search.SearchType.accounts
         case 2:
-            viewModel.searchScope.value = Mastodon.API.Search.Scope.hashtags.rawValue
+            viewModel.searchScope.value = Mastodon.API.Search.SearchType.hashtags
         default:
             break
         }

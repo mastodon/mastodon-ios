@@ -40,7 +40,7 @@ final class SearchBottomLoader: UITableViewCell {
     
     func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.lightWhite.color
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         contentView.addSubview(activityIndicatorView)
         activityIndicatorView.constrainToCenter()
     }

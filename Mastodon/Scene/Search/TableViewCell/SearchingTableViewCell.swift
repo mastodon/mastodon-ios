@@ -20,7 +20,7 @@ final class SearchingTableViewCell: UITableViewCell {
     
     let _titleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.buttonDefault.color
+        label.textColor = Asset.Colors.brandBlue.color
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.lineBreakMode = .byTruncatingTail
         return label
