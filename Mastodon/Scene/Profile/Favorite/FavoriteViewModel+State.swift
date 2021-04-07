@@ -1,8 +1,8 @@
 //
-//  UserTimelineViewModel+State.swift
+//  FavoriteViewModel+State.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-3-30.
+//  Created by MainasuK Cirno on 2021-4-7.
 //
 
 import os.log
@@ -10,11 +10,11 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 
-extension UserTimelineViewModel {
+extension FavoriteViewModel {
     class State: GKState {
-        weak var viewModel: UserTimelineViewModel?
+        weak var viewModel: FavoriteViewModel?
         
-        init(viewModel: UserTimelineViewModel) {
+        init(viewModel: FavoriteViewModel) {
             self.viewModel = viewModel
         }
         
@@ -24,20 +24,20 @@ extension UserTimelineViewModel {
     }
 }
 
-extension UserTimelineViewModel.State {
-    class Initial: UserTimelineViewModel.State {
+extension FavoriteViewModel.State {
+    class Initial: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
             case is Reloading.Type:
-                return viewModel.userID.value != nil
+                return viewModel.activeMastodonAuthenticationBox.value != nil
             default:
                 return false
             }
         }
     }
     
-    class Reloading: UserTimelineViewModel.State {
+    class Reloading: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Loading.Type:
@@ -53,13 +53,12 @@ extension UserTimelineViewModel.State {
             
             // reset
             viewModel.statusFetchedResultsController.statusIDs.value = []
-
+            
             stateMachine.enter(Loading.self)
         }
     }
     
-    class Fail: UserTimelineViewModel.State {
-        
+    class Fail: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Loading.Type:
@@ -81,7 +80,7 @@ extension UserTimelineViewModel.State {
         }
     }
     
-    class Idle: UserTimelineViewModel.State {
+    class Idle: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type, is Loading.Type:
@@ -92,7 +91,7 @@ extension UserTimelineViewModel.State {
         }
     }
     
-    class Loading: UserTimelineViewModel.State {
+    class Loading: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Fail.Type:
@@ -110,29 +109,16 @@ extension UserTimelineViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             
+            guard let activeMastodonAuthenticationBox = viewModel.activeMastodonAuthenticationBox.value else {
+                stateMachine.enter(Fail.self)
+                return
+            }
+            
             let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
             
-            guard let userID = viewModel.userID.value, !userID.isEmpty else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-            
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                stateMachine.enter(Fail.self)
-                return
-            }
-            let domain = activeMastodonAuthenticationBox.domain
-            let queryFilter = viewModel.queryFilter.value
-            
-            viewModel.context.apiService.userTimeline(
-                domain: domain,
-                accountID: userID,
+            viewModel.context.apiService.favoritedStatuses(
                 maxID: maxID,
-                sinceID: nil,
-                excludeReplies: queryFilter.excludeReplies,
-                excludeReblogs: queryFilter.excludeReblogs,
-                onlyMedia: queryFilter.onlyMedia,
-                authorizationBox: activeMastodonAuthenticationBox
+                mastodonAuthenticationBox: activeMastodonAuthenticationBox
             )
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -145,7 +131,7 @@ extension UserTimelineViewModel.State {
                 }
             } receiveValue: { response in
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-                
+
                 var hasNewStatusesAppend = false
                 var statusIDs = viewModel.statusFetchedResultsController.statusIDs.value
                 for status in response.value {
@@ -153,7 +139,7 @@ extension UserTimelineViewModel.State {
                     statusIDs.append(status.id)
                     hasNewStatusesAppend = true
                 }
-                
+
                 if hasNewStatusesAppend {
                     stateMachine.enter(Idle.self)
                 } else {
@@ -165,7 +151,7 @@ extension UserTimelineViewModel.State {
         }
     }
     
-    class NoMore: UserTimelineViewModel.State {
+    class NoMore: FavoriteViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type:
@@ -173,14 +159,6 @@ extension UserTimelineViewModel.State {
             default:
                 return false
             }
-        }
-        
-        override func didEnter(from previousState: GKState?) {
-            super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let _ = stateMachine else { return }
-            
-            // trigger data source update
-            viewModel.statusFetchedResultsController.objectIDs.value = viewModel.statusFetchedResultsController.objectIDs.value
         }
     }
 }

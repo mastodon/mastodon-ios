@@ -313,6 +313,12 @@
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
 		DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */; };
 		DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */; };
+		DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDEB261C6B2900430CC6 /* FavoriteViewController.swift */; };
+		DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */; };
+		DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */; };
+		DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */; };
+		DBE3CE0D261D767100430CC6 /* FavoriteViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */; };
+		DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */; };
 		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
 		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -684,6 +690,12 @@
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
+		DBE3CDEB261C6B2900430CC6 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
+		DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+State.swift"; sourceTree = "<group>"; };
+		DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -971,6 +983,7 @@
 				2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */,
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
 				5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */,
+				DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1602,6 +1615,7 @@
 				DBB525132611EBB1002F1F29 /* Segmented */,
 				DBB525462611ED57002F1F29 /* Header */,
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
+				DBE3CDF1261C6B3100430CC6 /* Favorite */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
@@ -1737,6 +1751,18 @@
 				DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		DBE3CDF1261C6B3100430CC6 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				DBE3CDEB261C6B2900430CC6 /* FavoriteViewController.swift */,
+				DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */,
+				DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */,
+				DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */,
+				DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */,
+			);
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2158,6 +2184,7 @@
 				0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */,
 				DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */,
 				DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */,
+				DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */,
 				2D61335825C188A000CAE157 /* APIService+Persist+Status.swift in Sources */,
 				2D34D9DB261494120081BFC0 /* APIService+Search.swift in Sources */,
 				DBB5256E2612D5A1002F1F29 /* ProfileStatusDashboardView.swift in Sources */,
@@ -2172,6 +2199,7 @@
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
 				DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */,
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
+				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
@@ -2181,15 +2209,18 @@
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
+				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */,
 				DB9D6C2425E502C60051B173 /* MosaicImageViewModel.swift in Sources */,
+				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
+				DBE3CE0D261D767100430CC6 /* FavoriteViewController+StatusProvider.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
@@ -2353,6 +2384,7 @@
 				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */,
+				DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */,
 				DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

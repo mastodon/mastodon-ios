@@ -53,6 +53,7 @@ class ProfileViewModel: NSObject {
     let isRelationshipActionButtonHidden = CurrentValueSubject<Bool, Never>(true)
     let isReplyBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
     let isMoreMenuBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
+    let isMeBarButtonItemsHidden = CurrentValueSubject<Bool, Never>(true)
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
@@ -240,6 +241,7 @@ extension ProfileViewModel {
             // set bar button item state
             self.isReplyBarButtonItemHidden.value = true
             self.isMoreMenuBarButtonItemHidden.value = true
+            self.isMeBarButtonItemsHidden.value = true
             return
         }
         
@@ -248,6 +250,7 @@ extension ProfileViewModel {
             // set bar button item state
             self.isReplyBarButtonItemHidden.value = true
             self.isMoreMenuBarButtonItemHidden.value = true
+            self.isMeBarButtonItemsHidden.value = false
         } else {
             // set with follow action default
             var relationshipActionSet = RelationshipActionOptionSet([.follow])
@@ -294,6 +297,7 @@ extension ProfileViewModel {
             // set bar button item state
             self.isReplyBarButtonItemHidden.value = isBlocking || isBlockedBy
             self.isMoreMenuBarButtonItemHidden.value = false
+            self.isMeBarButtonItemsHidden.value = true
         }
     }
 

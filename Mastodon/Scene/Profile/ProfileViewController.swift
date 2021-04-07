@@ -18,6 +18,24 @@ final class ProfileViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ProfileViewModel!
     
+    private(set) lazy var settingBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(ProfileViewController.settingBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
+    private(set) lazy var shareBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(ProfileViewController.shareBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
+    private(set) lazy var favoriteBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
     private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
         barButtonItem.tintColor = .white
@@ -118,25 +136,32 @@ extension ProfileViewController {
         
         navigationItem.titleView = UIView()
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
+            viewModel.isMeBarButtonItemsHidden.eraseToAnyPublisher(),
             viewModel.isReplyBarButtonItemHidden.eraseToAnyPublisher(),
             viewModel.isMoreMenuBarButtonItemHidden.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden in
+        .sink { [weak self] isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden in
             guard let self = self else { return }
             var items: [UIBarButtonItem] = []
+            defer {
+                self.navigationItem.rightBarButtonItems = !items.isEmpty ? items : nil
+            }
+
+            guard isMeBarButtonItemsHidden else {
+                items.append(self.settingBarButtonItem)
+                items.append(self.shareBarButtonItem)
+                items.append(self.favoriteBarButtonItem)
+                return
+            }
+            
             if !isReplyBarButtonItemHidden {
                 items.append(self.replyBarButtonItem)
             }
             if !isMoreMenuBarButtonItemHidden {
                 items.append(self.moreMenuBarButtonItem)
             }
-            guard !items.isEmpty else {
-                self.navigationItem.rightBarButtonItems = nil
-                return
-            }
-            self.navigationItem.rightBarButtonItems = items
         }
         .store(in: &disposeBag)
 
@@ -391,6 +416,21 @@ extension ProfileViewController {
 }
 
 extension ProfileViewController {
+    
+    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+
+    }
+    
+    @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+    @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let favoriteViewModel = FavoriteViewModel(context: context)
+        coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
+    }
     
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)

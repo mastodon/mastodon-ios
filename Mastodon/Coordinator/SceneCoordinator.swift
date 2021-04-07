@@ -56,6 +56,7 @@ extension SceneCoordinator {
       
         // profile
         case profile(viewModel: ProfileViewModel)
+        case favorite(viewModel: FavoriteViewModel)
         
         // misc
         case alertController(alertController: UIAlertController)
@@ -230,6 +231,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .profile(let viewModel):
             let _viewController = ProfileViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .favorite(let viewModel):
+            let _viewController = FavoriteViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .alertController(let alertController):

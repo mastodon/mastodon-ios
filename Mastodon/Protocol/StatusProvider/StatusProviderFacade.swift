@@ -173,7 +173,7 @@ extension StatusProviderFacade {
                 return (status.objectID, favoriteKind)
             }
             .map { statusObjectID, favoriteKind -> AnyPublisher<(Status.ID, Mastodon.API.Favorites.FavoriteKind), Error>  in
-                return context.apiService.like(
+                return context.apiService.favorite(
                             statusObjectID: statusObjectID,
                     mastodonUserObjectID: mastodonUserObjectID,
                     favoriteKind: favoriteKind
@@ -201,7 +201,7 @@ extension StatusProviderFacade {
                 }
             }
             .map { statusID, favoriteKind in
-                return context.apiService.like(
+                return context.apiService.favorite(
                     statusID: statusID,
                     favoriteKind: favoriteKind,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox
