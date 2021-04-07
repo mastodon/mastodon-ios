@@ -67,7 +67,7 @@ extension StatusProviderFacade {
     static func responseToStatusActiveLabelAction(provider: StatusProvider, cell: UITableViewCell, activeLabel: ActiveLabel, didTapEntity entity: ActiveEntity) {
         switch entity.type {
         case .hashtag(let text, _):
-            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashTag: text)
+            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
             provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: provider, transition: .show)
         case .mention(let text, _):
             coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text)
