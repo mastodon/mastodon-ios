@@ -167,7 +167,7 @@ extension HashtagTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let composeViewModel = ComposeViewModel(context: context, composeKind: .post, preInsertedContent: "#\(viewModel.hashtag)")
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .hashtag(hashtag: viewModel.hashtag))
         coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     

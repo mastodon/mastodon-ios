@@ -56,8 +56,9 @@ final class ComposeViewModel {
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
     
-    // In some specific scenes(hashtag scene e.g.), we need to display the compose scene with pre-inserted text(insert '#mastodon ' in #mastodon hashtag scene, e.g.), the pre-inserted text should be treated as mannually inputed by users.
-    var preInsertedContent: String? = nil
+    // for hashtag: #<hashag>' '
+    // for mention: @<mention>' '
+    private(set) var preInsertedContent: String?
     
     // custom emojis
     var customEmojiViewModelSubscription: AnyCancellable?
@@ -74,27 +75,34 @@ final class ComposeViewModel {
     
     init(
         context: AppContext,
-        composeKind: ComposeStatusSection.ComposeKind,
-        preInsertedContent: String? = nil
+        composeKind: ComposeStatusSection.ComposeKind
     ) {
         self.context = context
         self.composeKind = composeKind
-        self.preInsertedContent = preInsertedContent
         switch composeKind {
-        case .post, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
-        case .reply:                self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
+        case .post, .hashtag, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
+        case .reply:                          self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
-        
-        if case let .mention(mastodonUserObjectID) = composeKind {
+        if case let .hashtag(text) = composeKind {
+            let initialComposeContent = "#" + text
+            UITextChecker.learnWord(initialComposeContent)
+            let preInsertedContent = initialComposeContent + " "
+            self.preInsertedContent = preInsertedContent
+            self.composeStatusAttribute.composeContent.value = preInsertedContent
+        } else if case let .mention(mastodonUserObjectID) = composeKind {
             context.managedObjectContext.performAndWait {
                 let mastodonUser = context.managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
                 let initialComposeContent = "@" + mastodonUser.acct
                 UITextChecker.learnWord(initialComposeContent)
-                self.composeStatusAttribute.composeContent.value = initialComposeContent + " "
+                let preInsertedContent = initialComposeContent + " "
+                self.preInsertedContent = preInsertedContent
+                self.composeStatusAttribute.composeContent.value = preInsertedContent
             }
+        } else {
+            self.preInsertedContent = nil
         }
         
         isCustomEmojiComposing
