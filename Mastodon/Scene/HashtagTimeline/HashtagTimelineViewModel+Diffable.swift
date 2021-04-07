@@ -55,14 +55,17 @@ extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
         let oldSnapshot = diffableDataSource.snapshot()
         let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
         
+        var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
+        for item in oldSnapshot.itemIdentifiers {
+            guard case let .status(objectID, attribute) = item else { continue }
+            oldSnapshotAttributeDict[objectID] = attribute
+        }
+        
         let statusItemList: [Item] = snapshot.itemIdentifiers.map {
             let status = managedObjectContext.object(with: $0) as! Status
             
-            let isStatusTextSensitive: Bool = {
-                guard let spoilerText = status.spoilerText, !spoilerText.isEmpty else { return false }
-                return true
-            }()
-            return Item.status(objectID: $0, attribute: Item.StatusAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: status.sensitive))
+            let attribute = oldSnapshotAttributeDict[$0] ?? Item.StatusAttribute()
+            return Item.status(objectID: $0, attribute: attribute)
         }
         
         var newSnapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()

@@ -56,7 +56,8 @@ final class ComposeViewModel {
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
     
-    var injectedContent: String? = nil
+    // In some specific scenes(hashtag scene e.g.), we need to display the compose scene with pre-inserted text(insert '#mastodon ' in #mastodon hashtag scene, e.g.), the pre-inserted text should be treated as mannually inputed by users.
+    var preInsertedContent: String? = nil
     
     // custom emojis
     var customEmojiViewModelSubscription: AnyCancellable?
@@ -74,11 +75,11 @@ final class ComposeViewModel {
     init(
         context: AppContext,
         composeKind: ComposeStatusSection.ComposeKind,
-        injectedContent: String? = nil
+        preInsertedContent: String? = nil
     ) {
         self.context = context
         self.composeKind = composeKind
-        self.injectedContent = injectedContent
+        self.preInsertedContent = preInsertedContent
         switch composeKind {
         case .post:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
         case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
@@ -204,9 +205,9 @@ final class ComposeViewModel {
                 if content.isEmpty {
                     return true
                 }
-                // if injectedContent plus a space is equal to the content, simply dismiss the modal
-                if let injectedContent = self?.injectedContent {
-                    return content == (injectedContent + " ")
+                // if preInsertedContent plus a space is equal to the content, simply dismiss the modal
+                if let preInsertedContent = self?.preInsertedContent {
+                    return content == (preInsertedContent + " ")
                 }
                 return false
             }
@@ -316,9 +317,9 @@ final class ComposeViewModel {
         })
         .store(in: &disposeBag)
         
-        if let injectedContent = injectedContent {
+        if let preInsertedContent = preInsertedContent {
             // add a space after the injected text
-            composeStatusAttribute.composeContent.send(injectedContent + " ")
+            composeStatusAttribute.composeContent.send(preInsertedContent + " ")
         }
     }
     

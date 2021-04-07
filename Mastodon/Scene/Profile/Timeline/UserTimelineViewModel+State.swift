@@ -258,5 +258,12 @@ extension UserTimelineViewModel.State {
                 return false
             }
         }
+        
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            
+            viewModel.statusFetchedResultsController.objectIDs.value = viewModel.statusFetchedResultsController.objectIDs.value
+        }
     }
 }

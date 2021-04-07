@@ -32,11 +32,11 @@ extension HashtagTimelineViewController: StatusProvider {
             }
             
             switch item {
-            case .homeTimelineIndex(let objectID, _):
+            case .status(let objectID, _):
                 let managedObjectContext = self.viewModel.context.managedObjectContext
                 managedObjectContext.perform {
-                    let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
-                    promise(.success(timelineIndex?.status))
+                    let status = managedObjectContext.object(with: objectID) as? Status
+                    promise(.success(status))
                 }
             default:
                 promise(.success(nil))
