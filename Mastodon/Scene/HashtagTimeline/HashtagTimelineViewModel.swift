@@ -15,7 +15,7 @@ import MastodonSDK
     
 final class HashtagTimelineViewModel: NSObject {
     
-    let hashTag: String
+    let hashtag: String
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -65,9 +65,9 @@ final class HashtagTimelineViewModel: NSObject {
     var cellFrameCache = NSCache<NSNumber, NSValue>()
 
     
-    init(context: AppContext, hashTag: String) {
+    init(context: AppContext, hashtag: String) {
         self.context  = context
-        self.hashTag = hashTag
+        self.hashtag = hashtag
         let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value
         self.fetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: activeMastodonAuthenticationBox?.domain, additionalTweetPredicate: nil)
         super.init()
@@ -84,13 +84,13 @@ final class HashtagTimelineViewModel: NSObject {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-        let query = Mastodon.API.Search.Query(q: hashTag, type: .hashtags)
+        let query = Mastodon.API.Search.Query(q: hashtag, type: .hashtags)
         context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
             .sink { _ in
                 
             } receiveValue: { [weak self] response in
                 let matchedTag = response.value.hashtags.first { tag -> Bool in
-                    return tag.name == self?.hashTag
+                    return tag.name == self?.hashtag
                 }
                 self?.hashtagEntity.send(matchedTag)
             }

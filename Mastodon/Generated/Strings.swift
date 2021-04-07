@@ -92,6 +92,10 @@ internal enum L10n {
         internal static let block = L10n.tr("Localizable", "Common.Controls.Firendship.Block")
         /// Blocked
         internal static let blocked = L10n.tr("Localizable", "Common.Controls.Firendship.Blocked")
+        /// Block %@
+        internal static func blockUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Firendship.BlockUser", String(describing: p1))
+        }
         /// Edit info
         internal static let editInfo = L10n.tr("Localizable", "Common.Controls.Firendship.EditInfo")
         /// Follow
@@ -102,6 +106,24 @@ internal enum L10n {
         internal static let mute = L10n.tr("Localizable", "Common.Controls.Firendship.Mute")
         /// Muted
         internal static let muted = L10n.tr("Localizable", "Common.Controls.Firendship.Muted")
+        /// Mute %@
+        internal static func muteUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Firendship.MuteUser", String(describing: p1))
+        }
+        /// Pending
+        internal static let pending = L10n.tr("Localizable", "Common.Controls.Firendship.Pending")
+        /// Unblock
+        internal static let unblock = L10n.tr("Localizable", "Common.Controls.Firendship.Unblock")
+        /// Unblock %@
+        internal static func unblockUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Firendship.UnblockUser", String(describing: p1))
+        }
+        /// Unmute
+        internal static let unmute = L10n.tr("Localizable", "Common.Controls.Firendship.Unmute")
+        /// Unmute %@
+        internal static func unmuteUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Firendship.UnmuteUser", String(describing: p1))
+        }
       }
       internal enum Status {
         /// Tap to reveal that may be sensitive
@@ -150,6 +172,16 @@ internal enum L10n {
         }
       }
       internal enum Timeline {
+        internal enum Header {
+          /// You can’t view Artbot’s profile\n until they unblock you.
+          internal static let blockedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockedWarning")
+          /// You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.
+          internal static let blockingWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockingWarning")
+          /// No Status Found
+          internal static let noStatusFound = L10n.tr("Localizable", "Common.Controls.Timeline.Header.NoStatusFound")
+          /// This account is suspended.
+          internal static let suspendedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.SuspendedWarning")
+        }
         internal enum Loader {
           /// Loading missing posts...
           internal static let loadingMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadingMissingPosts")
@@ -295,6 +327,24 @@ internal enum L10n {
         internal static let following = L10n.tr("Localizable", "Scene.Profile.Dashboard.Following")
         /// posts
         internal static let posts = L10n.tr("Localizable", "Scene.Profile.Dashboard.Posts")
+      }
+      internal enum RelationshipActionAlert {
+        internal enum ConfirmUnblockUsre {
+          /// Confirm unblock %@
+          internal static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message", String(describing: p1))
+          }
+          /// Unblock Account
+          internal static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Title")
+        }
+        internal enum ConfirmUnmuteUser {
+          /// Confirm unmute %@
+          internal static func message(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message", String(describing: p1))
+          }
+          /// Unmute Account
+          internal static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Title")
+        }
       }
       internal enum SegmentedControl {
         /// Media

@@ -53,8 +53,8 @@ extension HashtagTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "#\(viewModel.hashTag)"
-        titleView.updateTitle(hashtag: viewModel.hashTag, peopleNumber: nil)
+        title = "#\(viewModel.hashtag)"
+        titleView.updateTitle(hashtag: viewModel.hashtag, peopleNumber: nil)
         navigationItem.titleView = titleView
         
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
@@ -142,7 +142,7 @@ extension HashtagTimelineViewController {
     private func updatePromptTitle() {
         var subtitle: String?
         defer {
-            titleView.updateTitle(hashtag: viewModel.hashTag, peopleNumber: subtitle)
+            titleView.updateTitle(hashtag: viewModel.hashtag, peopleNumber: subtitle)
         }
         guard let histories = viewModel.hashtagEntity.value?.history else {
             return
@@ -167,7 +167,7 @@ extension HashtagTimelineViewController {
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        let composeViewModel = ComposeViewModel(context: context, composeKind: .post, preInsertedContent: "#\(viewModel.hashTag)")
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .hashtag(hashtag: viewModel.hashtag))
         coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     

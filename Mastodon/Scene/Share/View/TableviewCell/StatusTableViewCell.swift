@@ -19,21 +19,23 @@ protocol StatusTableViewCellDelegate: class {
     
     func parent() -> UIViewController
     var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { get }
-    func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController)
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarButtonDidPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func statusTableViewCell(_ cell: StatusTableViewCell, playerViewControllerDidPressed playerViewController: AVPlayerViewController)
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton)
     
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)
-    
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, didSelectActiveEntity entity: ActiveEntity)
+    func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)    
 }
 
 extension StatusTableViewCellDelegate {
@@ -219,10 +221,10 @@ extension StatusTableViewCell: StatusViewDelegate {
         delegate?.statusTableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
     }
     
-    func statusView(_ statusView: StatusView, didSelectActiveEntity activeLabel: ActiveLabel, entity: ActiveEntity) {
-        delegate?.statusTableViewCell(self, statusView: statusView, didSelectActiveEntity: entity)
+    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        delegate?.statusTableViewCell(self, statusView: statusView, activeLabel: activeLabel, didSelectActiveEntity: entity)
     }
-    
+
 }
 
 // MARK: - MosaicImageViewDelegate

@@ -17,7 +17,7 @@ protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func statusView(_ statusView: StatusView, didSelectActiveEntity activeLabel: ActiveLabel, entity: ActiveEntity)
+    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
 }
 
 final class StatusView: UIView {
@@ -403,8 +403,8 @@ extension StatusView {
         statusContentWarningContainerStackView.isHidden = true
         statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
         
-        playerContainerView.delegate = self
         activeTextLabel.delegate = self
+        playerContainerView.delegate = self
         
         headerInfoLabelTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerInfoLabelTapGestureRecognizerHandler(_:)))
         headerInfoLabel.isUserInteractionEnabled = true
@@ -477,6 +477,14 @@ extension StatusView {
     
 }
 
+// MARK: - ActiveLabelDelegate
+extension StatusView: ActiveLabelDelegate {
+    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
+        delegate?.statusView(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
+    }
+}
+
 // MARK: - PlayerContainerViewDelegate
 extension StatusView: PlayerContainerViewDelegate {
     func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
@@ -491,13 +499,6 @@ extension StatusView: AvatarConfigurableView {
     var configurableAvatarImageView: UIImageView? { return nil }
     var configurableAvatarButton: UIButton? { return avatarButton }
     var configurableVerifiedBadgeImageView: UIImageView? { nil }
-}
-
-// MARK: - ActiveLabelDelegate
-extension StatusView: ActiveLabelDelegate {
-    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        delegate?.statusView(self, didSelectActiveEntity: activeLabel, entity: entity)
-    }
 }
 
 #if canImport(SwiftUI) && DEBUG

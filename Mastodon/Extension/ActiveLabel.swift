@@ -64,11 +64,8 @@ extension ActiveLabel {
     /// account field
     func configure(field: String) {
         activeEntities.removeAll()
-        if let parseResult = try? MastodonField.parse(field: field) {
-            text = parseResult.value
-            activeEntities = parseResult.activeEntities
-        } else {
-            text = ""
-        }
+        let parseResult = MastodonField.parse(field: field)
+        text = parseResult.value
+        activeEntities = parseResult.activeEntities
     }
 }

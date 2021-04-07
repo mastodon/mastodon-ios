@@ -67,7 +67,7 @@ extension HashtagTimelineViewModel.LoadMiddleState {
             viewModel.context.apiService.hashtagTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
                 maxID: maxID,
-                hashtag: viewModel.hashTag,
+                hashtag: viewModel.hashtag,
                 authorizationBox: activeMastodonAuthenticationBox)
                 .delay(for: .seconds(1), scheduler: DispatchQueue.main)
                 .receive(on: DispatchQueue.main)

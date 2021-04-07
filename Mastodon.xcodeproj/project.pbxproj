@@ -151,7 +151,7 @@
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
 		DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */; };
-		DB35FC1F2612F1D9006193C9 /* ProfileFriendshipActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC1E2612F1D9006193C9 /* ProfileFriendshipActionButton.swift */; };
+		DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */; };
 		DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC242612FD7A006193C9 /* ProfileFieldView.swift */; };
 		DB35FC2F26130172006193C9 /* MastodonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC2E26130172006193C9 /* MastodonField.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
@@ -261,7 +261,6 @@
 		DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */; };
 		DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */; };
 		DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DB9A487D2603456B008B817C /* UITextView+Placeholder */; };
-		DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488326034BD7008B817C /* APIService+Status.swift */; };
 		DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */; };
 		DB9A489026035963008B817C /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488F26035963008B817C /* APIService+Media.swift */; };
 		DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A48952603685D008B817C /* MastodonAttachmentService+UploadState.swift */; };
@@ -276,6 +275,14 @@
 		DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */; };
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
+		DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F672615DD60004B8251 /* UserProvider.swift */; };
+		DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */; };
+		DBAE3F882615DDF4004B8251 /* UserProviderFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */; };
+		DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F8D2616E0B1004B8251 /* APIService+Block.swift */; };
+		DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F932616E28B004B8251 /* APIService+Follow.swift */; };
+		DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */; };
+		DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */; };
+		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
 		DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */; };
@@ -304,6 +311,8 @@
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
+		DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */; };
+		DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */; };
 		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
 		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -507,7 +516,7 @@
 		DB2B3AE825E38850007045F9 /* UIViewPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollExpiresOptionCollectionViewCell.swift; sourceTree = "<group>"; };
-		DB35FC1E2612F1D9006193C9 /* ProfileFriendshipActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFriendshipActionButton.swift; sourceTree = "<group>"; };
+		DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRelationshipActionButton.swift; sourceTree = "<group>"; };
 		DB35FC242612FD7A006193C9 /* ProfileFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldView.swift; sourceTree = "<group>"; };
 		DB35FC2E26130172006193C9 /* MastodonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonField.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
@@ -638,6 +647,14 @@
 		DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedEdgesButton.swift; sourceTree = "<group>"; };
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
+		DBAE3F672615DD60004B8251 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
+		DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+UserProvider.swift"; sourceTree = "<group>"; };
+		DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProviderFacade.swift; sourceTree = "<group>"; };
+		DBAE3F8D2616E0B1004B8251 /* APIService+Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Block.swift"; sourceTree = "<group>"; };
+		DBAE3F932616E28B004B8251 /* APIService+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Follow.swift"; sourceTree = "<group>"; };
+		DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Mute.swift"; sourceTree = "<group>"; };
+		DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonMetricFormatter.swift; sourceTree = "<group>"; };
+		DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
 		DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewController.swift; sourceTree = "<group>"; };
 		DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewModel.swift; sourceTree = "<group>"; };
@@ -665,6 +682,8 @@
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
+		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -821,6 +840,7 @@
 				2D694A7325F9EB4E0038ADDC /* ContentWarningOverlayView.swift */,
 				2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */,
 				DB87D44A2609C11900D12C0D /* PollOptionView.swift */,
+				DBE3CDCE261C42ED00430CC6 /* TimelineHeaderView.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -943,6 +963,7 @@
 			isa = PBXGroup;
 			children = (
 				2D38F1FC25CD47D900561493 /* StatusProvider */,
+				DBAE3F742615DD63004B8251 /* UserProvider */,
 				DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */,
 				2D69CFF325CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift */,
 				2D5A3D3725CF8D9F002347D6 /* ScrollViewContainer.swift */,
@@ -1025,6 +1046,7 @@
 				2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */,
 				2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */,
 				2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */,
+				DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */,
 				DB92CF7125E7BB98002C1017 /* PollOptionTableViewCell.swift */,
 			);
 			path = TableviewCell;
@@ -1259,6 +1281,9 @@
 				2D34D9DA261494120081BFC0 /* APIService+Search.swift */,
 				0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */,
 				DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */,
+				DBAE3F932616E28B004B8251 /* APIService+Follow.swift */,
+				DBAE3F8D2616E0B1004B8251 /* APIService+Block.swift */,
+				DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */,
 			);
 			path = APIService;
 			sourceTree = "<group>";
@@ -1578,8 +1603,10 @@
 				DBB525462611ED57002F1F29 /* Header */,
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
+				DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
 				DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */,
+				DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */,
 				DBB525632612C988002F1F29 /* MeProfileViewModel.swift */,
 			);
 			path = Profile;
@@ -1612,6 +1639,7 @@
 			children = (
 				2D42FF6A25C817D2004A627A /* MastodonStatusContent.swift */,
 				DB35FC2E26130172006193C9 /* MastodonField.swift */,
+				DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1631,6 +1659,15 @@
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DBAE3F742615DD63004B8251 /* UserProvider */ = {
+			isa = PBXGroup;
+			children = (
+				DBAE3F672615DD60004B8251 /* UserProvider.swift */,
+				DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */,
+			);
+			path = UserProvider;
 			sourceTree = "<group>";
 		};
 		DBB525132611EBB1002F1F29 /* Segmented */ = {
@@ -1678,7 +1715,7 @@
 				DBB5254F2611ED6D002F1F29 /* ProfileHeaderView.swift */,
 				DBB5256D2612D5A1002F1F29 /* ProfileStatusDashboardView.swift */,
 				DBB525842612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift */,
-				DB35FC1E2612F1D9006193C9 /* ProfileFriendshipActionButton.swift */,
+				DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */,
 				DB35FC242612FD7A006193C9 /* ProfileFieldView.swift */,
 			);
 			path = View;
@@ -2065,6 +2102,8 @@
 				DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */,
 				DB35FC2F26130172006193C9 /* MastodonField.swift in Sources */,
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
+				DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */,
+				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
 				5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */,
@@ -2105,6 +2144,7 @@
 				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */,
+				DBAE3F882615DDF4004B8251 /* UserProviderFacade.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
@@ -2134,6 +2174,7 @@
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
+				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
@@ -2148,6 +2189,7 @@
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
+				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
@@ -2180,6 +2222,7 @@
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
+				DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
@@ -2191,7 +2234,7 @@
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
-				DB35FC1F2612F1D9006193C9 /* ProfileFriendshipActionButton.swift in Sources */,
+				DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
 				DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */,
 				DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */,
@@ -2202,7 +2245,6 @@
 				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
-				DB9A488426034BD7008B817C /* APIService+Status.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
@@ -2213,6 +2255,7 @@
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */,
+				DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */,
 				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
 				2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
@@ -2239,12 +2282,14 @@
 				DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,
+				DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Status.swift in Sources */,
 				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
+				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
 				DB9D6C0E25E4F9780051B173 /* MosaicImageViewContainer.swift in Sources */,
 				DB71FD3625F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift in Sources */,
@@ -2308,6 +2353,7 @@
 				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */,
+				DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

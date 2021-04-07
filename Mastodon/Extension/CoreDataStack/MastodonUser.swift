@@ -26,6 +26,8 @@ extension MastodonUser.Property {
             statusesCount: entity.statusesCount,
             followingCount: entity.followingCount,
             followersCount: entity.followersCount,
+            locked: entity.locked,
+            bot: entity.bot,
             createdAt: entity.createdAt,
             networkDate: networkDate
         )
@@ -39,7 +41,12 @@ extension MastodonUser {
     }
     
     var acctWithDomain: String {
-        return username + "@" + domain
+        if !acct.contains("@") {
+            // Safe concat due to username cannot contains "@"
+            return username + "@" + domain
+        } else {
+            return acct
+        }
     }
     
 }

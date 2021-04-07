@@ -27,7 +27,7 @@ class PickServerCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
-        view.backgroundColor = Asset.Colors.lightWhite.color
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -35,7 +35,7 @@ class PickServerCell: UITableViewCell {
     let domainLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -44,7 +44,7 @@ class PickServerCell: UITableViewCell {
     let checkbox: UIImageView = {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
-        imageView.tintColor = Asset.Colors.lightSecondaryText.color
+        imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -54,7 +54,7 @@ class PickServerCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .subheadline)
         label.numberOfLines = 0
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -90,7 +90,7 @@ class PickServerCell: UITableViewCell {
         let button = UIButton(type: .custom)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .selected)
-        button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -98,14 +98,14 @@ class PickServerCell: UITableViewCell {
     
     let seperator: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.lightBackground.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let langValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -115,7 +115,7 @@ class PickServerCell: UITableViewCell {
     
     let usersValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -125,7 +125,7 @@ class PickServerCell: UITableViewCell {
     
     let categoryValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -135,7 +135,7 @@ class PickServerCell: UITableViewCell {
     
     let langTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = .preferredFont(forTextStyle: .caption2)
         label.text = L10n.Scene.ServerPicker.Label.language
         label.textAlignment = .center
@@ -146,7 +146,7 @@ class PickServerCell: UITableViewCell {
     
     let usersTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = .preferredFont(forTextStyle: .caption2)
         label.text = L10n.Scene.ServerPicker.Label.users
         label.textAlignment = .center
@@ -157,7 +157,7 @@ class PickServerCell: UITableViewCell {
     
     let categoryTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.font = .preferredFont(forTextStyle: .caption2)
         label.text = L10n.Scene.ServerPicker.Label.category
         label.textAlignment = .center

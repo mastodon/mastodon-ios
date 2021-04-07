@@ -70,7 +70,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
 
 extension SearchRecommendAccountsCollectionViewCell {
     private func configure() {
-        headerImageView.backgroundColor = Asset.Colors.buttonDefault.color
+        headerImageView.backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 8
         clipsToBounds = true
         

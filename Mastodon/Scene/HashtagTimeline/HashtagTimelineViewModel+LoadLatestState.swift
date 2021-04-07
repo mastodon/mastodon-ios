@@ -50,7 +50,7 @@ extension HashtagTimelineViewModel.LoadLatestState {
             // TODO: only set large count when using Wi-Fi
             viewModel.context.apiService.hashtagTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
-                hashtag: viewModel.hashTag,
+                hashtag: viewModel.hashtag,
                 authorizationBox: activeMastodonAuthenticationBox)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in

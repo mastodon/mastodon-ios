@@ -9,6 +9,18 @@ import UIKit
 import CoreData
 import CoreDataStack
 
+import MastodonSDK
+
+extension Mastodon.Entity.Attachment: Hashable {
+    public static func == (lhs: Mastodon.Entity.Attachment, rhs: Mastodon.Entity.Attachment) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
 enum PollSection: Equatable, Hashable {
     case main
 }

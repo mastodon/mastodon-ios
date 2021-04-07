@@ -120,7 +120,7 @@ extension HomeTimelineNavigationBarTitleView {
             configureButton(
                 title: L10n.Scene.HomeTimeline.NavigationBarState.published,
                 textColor: .white,
-                backgroundColor: Asset.Colors.Background.success.color
+                backgroundColor: Asset.Colors.successGreen.color
             )
             button.isHidden = false
             

@@ -18,7 +18,7 @@ class SearchRecommendCollectionHeader: UIView {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightSecondaryText.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
@@ -27,7 +27,7 @@ class SearchRecommendCollectionHeader: UIView {
     
     let seeAllButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitleColor(Asset.Colors.buttonDefault.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Scene.Search.Recommend.buttontext, for: .normal)
         return button
     }()

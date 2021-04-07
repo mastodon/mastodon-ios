@@ -11,7 +11,6 @@ import UIKit
 // SeeAlso: `AdaptiveStatusBarStyleNavigationController`
 extension UINavigationController {
     open override var childForStatusBarStyle: UIViewController? {
-        assertionFailure("Won't enter here")
         return visibleViewController
     }
 }
