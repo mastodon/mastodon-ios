@@ -5,11 +5,11 @@
 //  Created by sxiaojian on 2021/3/31.
 //
 
-import UIKit
 import Combine
+import MastodonSDK
+import UIKit
 
 final class SearchViewController: UIViewController, NeedsDependency {
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -27,7 +27,40 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return searchBar
     }()
     
-    let recommendView: UICollectionView = {
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.alwaysBounceVertical = true
+        scrollView.clipsToBounds = false
+        return scrollView
+    }()
+    
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.spacing = 0
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 68, right: 0)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        return stackView
+    }()
+    
+    let hashTagCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        view.backgroundColor = .clear
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.layer.masksToBounds = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    var hashTagDiffableDataSource: UICollectionViewDiffableDataSource<RecomendHashTagSection, Mastodon.Entity.Tag>?
+    var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account>?
+    
+    let accountsCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -41,15 +74,36 @@ final class SearchViewController: UIViewController, NeedsDependency {
 }
 
 extension SearchViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = Asset.Colors.Background.search.color
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.hidesBackButton = true
-        viewModel.requestRecommendData()
+        setupScrollView()
+        setupHashTagCollectionView()
+        setupAccountsCollectionView()
     }
-    
+
+    func setupScrollView() {
+        view.addSubview(scrollView)
+        scrollView.constrain([
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor),
+        ])
+        
+        scrollView.addSubview(stackView)
+        stackView.constrain([
+            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
+            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+        ])
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -71,11 +125,20 @@ extension SearchViewController: UISearchBarDelegate {
         viewModel.searchText.send(searchText)
     }
     
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {}
+}
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct SearchViewController_Previews: PreviewProvider {
+    static var previews: some View {
+        UIViewControllerPreview {
+            let viewController = SearchViewController()
+            return viewController
+        }
+        .previewLayout(.fixed(width: 375, height: 800))
     }
 }
 
-extension SearchViewController {
-
-}
+#endif

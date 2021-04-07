@@ -22,5 +22,10 @@ extension Mastodon.Entity {
         public let url: String
         
         public let history: [History]?
+        enum CodingKeys: String, CodingKey {
+            case name
+            case url
+            case history
+        }
     }
 }

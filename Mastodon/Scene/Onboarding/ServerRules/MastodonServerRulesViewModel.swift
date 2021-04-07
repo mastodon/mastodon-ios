@@ -40,7 +40,7 @@ final class MastodonServerRulesViewModel {
             let imageName = String(i + 1) + ".circle.fill"
             let image = UIImage(systemName: imageName, withConfiguration: configuration)!
             let attachment = NSTextAttachment()
-            attachment.image = image.withTintColor(.black)
+            attachment.image = image.withTintColor(Asset.Colors.Label.primary.color)
             let imageAttribute = NSAttributedString(attachment: attachment)
 
             let ruleString = NSAttributedString(string: "  " + rule.text + "\n\n")
