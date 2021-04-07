@@ -14,7 +14,7 @@ public final class SearchHistory: NSManagedObject {
     @NSManaged public private(set) var createAt: Date
     
     @NSManaged public private(set) var account: MastodonUser?
-    @NSManaged public private(set) var hashTag: Tag?
+    @NSManaged public private(set) var hashtag: Tag?
 
 }
 
@@ -38,10 +38,10 @@ extension SearchHistory {
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
-        hashTag: Tag
+        hashtag: Tag
     ) -> SearchHistory {
         let searchHistory: SearchHistory = context.insertObject()
-        searchHistory.hashTag = hashTag
+        searchHistory.hashtag = hashtag
         searchHistory.createAt = Date()
         return searchHistory
     }

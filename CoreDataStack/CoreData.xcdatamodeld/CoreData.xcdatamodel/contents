@@ -148,7 +148,7 @@
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
-        <relationship name="hashTag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
+        <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
     </entity>
     <entity name="Status" representedClassName=".Status" syncable="YES">
         <attribute name="content" attributeType="String"/>
@@ -197,19 +197,19 @@
         <relationship name="statuses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="tags" inverseEntity="Status"/>
     </entity>
     <elements>
-        <element name="Application" positionX="160" positionY="192" width="128" height="104"/>
-        <element name="Attachment" positionX="72" positionY="162" width="128" height="254"/>
-        <element name="Emoji" positionX="45" positionY="135" width="128" height="149"/>
-        <element name="History" positionX="27" positionY="126" width="128" height="119"/>
-        <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
-        <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="629"/>
-        <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
-        <element name="Poll" positionX="72" positionY="162" width="128" height="194"/>
-        <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
-        <element name="PrivateNote" positionX="72" positionY="153" width="128" height="89"/>
-        <element name="Status" positionX="0" positionY="0" width="128" height="569"/>
-        <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
-        <element name="SearchHistory" positionX="72" positionY="162" width="128" height="89"/>
+        <element name="Application" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Attachment" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Emoji" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="History" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="HomeTimelineIndex" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MastodonAuthentication" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Mention" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Poll" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PollOption" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="PrivateNote" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="SearchHistory" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Status" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

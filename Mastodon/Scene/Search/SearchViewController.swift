@@ -49,7 +49,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return stackView
     }()
     
-    let hashTagCollectionView: UICollectionView = {
+    let hashtagCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -141,7 +141,7 @@ extension SearchViewController {
     }
     
     func setupDataSource() {
-        viewModel.hashTagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashTagCollectionView)
+        viewModel.hashtagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashtagCollectionView)
         viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView)
         viewModel.searchResultDiffableDataSource = SearchResultSection.tableViewDiffableDataSource(for: searchingTableView, dependency: self)
     }
@@ -187,7 +187,7 @@ extension SearchViewController: UISearchBarDelegate {
         case 1:
             viewModel.searchScope.value = Mastodon.API.Search.Scope.accounts.rawValue
         case 2:
-            viewModel.searchScope.value = Mastodon.API.Search.Scope.hashTags.rawValue
+            viewModel.searchScope.value = Mastodon.API.Search.Scope.hashtags.rawValue
         default:
             break
         }

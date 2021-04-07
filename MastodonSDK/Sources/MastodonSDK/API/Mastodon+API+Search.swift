@@ -97,13 +97,13 @@ public extension Mastodon.API.Search {
 public extension Mastodon.API.Search {
     enum Scope: String {
         case accounts
-        case hashTags
+        case hashtags
 
         public var rawValue: String {
             switch self {
             case .accounts:
                 return "accounts"
-            case .hashTags:
+            case .hashtags:
                 return "hashtags"
             }
         }

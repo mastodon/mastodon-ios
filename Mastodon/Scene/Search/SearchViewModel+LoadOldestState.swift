@@ -55,7 +55,7 @@ extension SearchViewModel.LoadOldestState {
             switch viewModel.searchScope.value {
             case Mastodon.API.Search.Scope.accounts.rawValue:
                 offset = oldSearchResult.accounts.count
-            case Mastodon.API.Search.Scope.hashTags.rawValue:
+            case Mastodon.API.Search.Scope.hashtags.rawValue:
                 offset = oldSearchResult.hashtags.count
             default:
                 return
@@ -91,7 +91,7 @@ extension SearchViewModel.LoadOldestState {
                             viewModel.searchResult.value = Mastodon.Entity.SearchResult(accounts: newAccounts.removeDuplicate(), statuses: oldSearchResult.statuses, hashtags: oldSearchResult.hashtags)
                             stateMachine.enter(Idle.self)
                         }
-                    case Mastodon.API.Search.Scope.hashTags.rawValue:
+                    case Mastodon.API.Search.Scope.hashtags.rawValue:
                         if result.value.hashtags.isEmpty {
                             stateMachine.enter(NoMore.self)
                         } else {

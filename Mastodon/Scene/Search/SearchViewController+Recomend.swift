@@ -15,15 +15,15 @@ extension SearchViewController {
         let header = SearchRecommendCollectionHeader()
         header.titleLabel.text = L10n.Scene.Search.Recommend.HashTag.title
         header.descriptionLabel.text = L10n.Scene.Search.Recommend.HashTag.description
-        header.seeAllButton.addTarget(self, action: #selector(SearchViewController.hashTagSeeAllButtonPressed(_:)), for: .touchUpInside)
+        header.seeAllButton.addTarget(self, action: #selector(SearchViewController.hashtagSeeAllButtonPressed(_:)), for: .touchUpInside)
         stackView.addArrangedSubview(header)
 
-        hashTagCollectionView.register(SearchRecommendTagsCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SearchRecommendTagsCollectionViewCell.self))
-        hashTagCollectionView.delegate = self
+        hashtagCollectionView.register(SearchRecommendTagsCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SearchRecommendTagsCollectionViewCell.self))
+        hashtagCollectionView.delegate = self
 
-        stackView.addArrangedSubview(hashTagCollectionView)
-        hashTagCollectionView.constrain([
-            hashTagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 130)
+        stackView.addArrangedSubview(hashtagCollectionView)
+        hashtagCollectionView.constrain([
+            hashtagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 130)
         ])
     }
 
@@ -45,7 +45,7 @@ extension SearchViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        hashTagCollectionView.collectionViewLayout.invalidateLayout()
+        hashtagCollectionView.collectionViewLayout.invalidateLayout()
         accountsCollectionView.collectionViewLayout.invalidateLayout()
     }
 }
@@ -65,7 +65,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if collectionView == hashTagCollectionView {
+        if collectionView == hashtagCollectionView {
             return 6
         } else {
             return 12
@@ -73,7 +73,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == hashTagCollectionView {
+        if collectionView == hashtagCollectionView {
             return CGSize(width: 228, height: 130)
         } else {
             return CGSize(width: 257, height: 202)
@@ -82,7 +82,7 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension SearchViewController {
-    @objc func hashTagSeeAllButtonPressed(_ sender: UIButton) {}
+    @objc func hashtagSeeAllButtonPressed(_ sender: UIButton) {}
 
     @objc func accountSeeAllButtonPressed(_ sender: UIButton) {}
 }

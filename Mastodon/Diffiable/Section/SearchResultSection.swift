@@ -13,7 +13,7 @@ import CoreDataStack
 
 enum SearchResultSection: Equatable, Hashable {
     case account
-    case hashTag
+    case hashtag
     case mixed
     case bottomLoader
 }
@@ -29,13 +29,13 @@ extension SearchResultSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
                 cell.config(with: account)
                 return cell
-            case .hashTag(let tag):
+            case .hashtag(let tag):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
                 cell.config(with: tag)
                 return cell
-            case .hashTagObjectID(let hashTagObjectID):
+            case .hashtagObjectID(let hashtagObjectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
-                let tag  = dependency.context.managedObjectContext.object(with: hashTagObjectID) as! Tag
+                let tag  = dependency.context.managedObjectContext.object(with: hashtagObjectID) as! Tag
                 cell.config(with: tag)
                 return cell
             case .accountObjectID(let accountObjectID):

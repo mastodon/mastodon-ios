@@ -31,7 +31,7 @@ final class SearchViewModel: NSObject {
     var recommendHashTags = [Mastodon.Entity.Tag]()
     var recommendAccounts = [Mastodon.Entity.Account]()
     
-    var hashTagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
+    var hashtagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account>?
     var searchResultDiffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>?
 
@@ -112,13 +112,13 @@ final class SearchViewModel: NSObject {
             
             searchHistories.forEach { searchHistory in
                 let containsAccount = scope == Mastodon.API.Search.Scope.accounts.rawValue || scope == ""
-                let containsHashTag = scope == Mastodon.API.Search.Scope.hashTags.rawValue || scope == ""
+                let containsHashTag = scope == Mastodon.API.Search.Scope.hashtags.rawValue || scope == ""
                 if let mastodonUser = searchHistory.account, containsAccount {
                     let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
                     snapshot.appendItems([item], toSection: .mixed)
                 }
-                if let tag = searchHistory.hashTag, containsHashTag {
-                    let item = SearchResultItem.hashTagObjectID(hashTagObjectID: tag.objectID)
+                if let tag = searchHistory.hashtag, containsHashTag {
+                    let item = SearchResultItem.hashtagObjectID(hashtagObjectID: tag.objectID)
                     snapshot.appendItems([item], toSection: .mixed)
                 }
             }
@@ -131,7 +131,7 @@ final class SearchViewModel: NSObject {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if !self.recommendHashTags.isEmpty {
-                    guard let dataSource = self.hashTagDiffableDataSource else { return }
+                    guard let dataSource = self.hashtagDiffableDataSource else { return }
                     var snapshot = NSDiffableDataSourceSnapshot<RecommendHashTagSection, Mastodon.Entity.Tag>()
                     snapshot.appendSections([.main])
                     snapshot.appendItems(self.recommendHashTags, toSection: .main)
@@ -166,16 +166,16 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.account])
                     let items = accounts.compactMap { SearchResultItem.account(account: $0) }
                     snapshot.appendItems(items, toSection: .account)
-                    if self.searchScope.value == Mastodon.API.Search.Scope.accounts.rawValue {
+                    if self.searchScope.value == Mastodon.API.Search.Scope.accounts.rawValue && !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .account)
                     }
                 }
                 if let tags = searchResult?.hashtags {
-                    snapshot.appendSections([.hashTag])
-                    let items = tags.compactMap { SearchResultItem.hashTag(tag: $0) }
-                    snapshot.appendItems(items, toSection: .hashTag)
-                    if self.searchScope.value == Mastodon.API.Search.Scope.hashTags.rawValue {
-                        snapshot.appendItems([.bottomLoader], toSection: .hashTag)
+                    snapshot.appendSections([.hashtag])
+                    let items = tags.compactMap { SearchResultItem.hashtag(tag: $0) }
+                    snapshot.appendItems(items, toSection: .hashtag)
+                    if self.searchScope.value == Mastodon.API.Search.Scope.hashtags.rawValue && !items.isEmpty {
+                        snapshot.appendItems([.bottomLoader], toSection: .hashtag)
                     }
                 }
                 dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
@@ -255,12 +255,12 @@ final class SearchViewModel: NSObject {
                 let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.context.managedObjectContext, for: requestMastodonUser, in: activeMastodonAuthenticationBox.domain, entity: account, userCache: nil, networkDate: Date(), log: OSLog.api)
                 SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
             
-            case .hashTag(let tag):
+            case .hashtag(let tag):
                 let histories = tag.history?[0 ... 2].compactMap { history -> History in
                     History.insert(into: self.context.managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
                 }
                 let tagInCoreData = Tag.insert(into: self.context.managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
-                SearchHistory.insert(into: self.context.managedObjectContext, hashTag: tagInCoreData)
+                SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
 
             default:
                 break

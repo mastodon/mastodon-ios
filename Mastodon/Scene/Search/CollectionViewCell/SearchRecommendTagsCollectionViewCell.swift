@@ -16,7 +16,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
-    let hashTagTitleLabel: UILabel = {
+    let hashtagTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -66,8 +66,8 @@ extension SearchRecommendTagsCollectionViewCell {
         contentView.addSubview(backgroundImageView)
         backgroundImageView.constrain(toSuperviewEdges: nil)
         
-        contentView.addSubview(hashTagTitleLabel)
-        hashTagTitleLabel.pin(top: 16, left: 16, bottom: nil, right: 42)
+        contentView.addSubview(hashtagTitleLabel)
+        hashtagTitleLabel.pin(top: 16, left: 16, bottom: nil, right: 42)
         
         contentView.addSubview(peopleLabel)
         peopleLabel.pinTopLeft(top: 46, left: 16)
@@ -77,7 +77,7 @@ extension SearchRecommendTagsCollectionViewCell {
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
-        hashTagTitleLabel.text = "# " + tag.name
+        hashtagTitleLabel.text = "# " + tag.name
         guard let historys = tag.history else {
             peopleLabel.text = ""
             return
@@ -98,7 +98,7 @@ struct SearchRecommendTagsCollectionViewCell_Previews: PreviewProvider {
         Group {
             UIViewPreview {
                 let cell = SearchRecommendTagsCollectionViewCell()
-                cell.hashTagTitleLabel.text = "# test"
+                cell.hashtagTitleLabel.text = "# test"
                 cell.peopleLabel.text = "128 people are talking"
                 return cell
             }
