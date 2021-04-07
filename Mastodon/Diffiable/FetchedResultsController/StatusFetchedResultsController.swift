@@ -25,7 +25,7 @@ final class StatusFetchedResultsController: NSObject {
     // output
     let objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
     
-    init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate) {
+    init(managedObjectContext: NSManagedObjectContext, domain: String?, additionalTweetPredicate: NSPredicate?) {
         self.domain.value = domain ?? ""
         self.fetchedResultsController = {
             let fetchRequest = Status.sortedFetchRequest
@@ -52,10 +52,11 @@ final class StatusFetchedResultsController: NSObject {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] domain, ids in
             guard let self = self else { return }
-            self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                Status.predicate(domain: domain ?? "", ids: ids),
-                additionalTweetPredicate
-            ])
+            var predicates = [Status.predicate(domain: domain ?? "", ids: ids)]
+            if let additionalPredicate = additionalTweetPredicate {
+                predicates.append(additionalPredicate)
+            }
+            self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
             do {
                 try self.fetchedResultsController.performFetch()
             } catch {

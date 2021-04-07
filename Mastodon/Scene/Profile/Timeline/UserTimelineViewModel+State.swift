@@ -213,7 +213,8 @@ extension UserTimelineViewModel.State {
         }
         
         override func didEnter(from previousState: GKState?) {
-            guard let viewModel = viewModel else { return }
+            super.didEnter(from: previousState)
+            guard let viewModel = viewModel, let _ = stateMachine else { return }
             
             // trigger data source update
             viewModel.statusFetchedResultsController.objectIDs.value = viewModel.statusFetchedResultsController.objectIDs.value

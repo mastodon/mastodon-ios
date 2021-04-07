@@ -300,6 +300,9 @@
                   "follow": "Follow"
               }
             }
+        },
+        "hashtag": {
+            "prompt": "%s people talking"
         }
     }
 }

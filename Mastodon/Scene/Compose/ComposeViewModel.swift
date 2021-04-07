@@ -56,6 +56,9 @@ final class ComposeViewModel {
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
     
+    // In some specific scenes(hashtag scene e.g.), we need to display the compose scene with pre-inserted text(insert '#mastodon ' in #mastodon hashtag scene, e.g.), the pre-inserted text should be treated as mannually inputed by users.
+    var preInsertedContent: String? = nil
+    
     // custom emojis
     var customEmojiViewModelSubscription: AnyCancellable?
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
@@ -71,10 +74,12 @@ final class ComposeViewModel {
     
     init(
         context: AppContext,
-        composeKind: ComposeStatusSection.ComposeKind
+        composeKind: ComposeStatusSection.ComposeKind,
+        preInsertedContent: String? = nil
     ) {
         self.context = context
         self.composeKind = composeKind
+        self.preInsertedContent = preInsertedContent
         switch composeKind {
         case .post, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
         case .reply:                self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
@@ -204,9 +209,16 @@ final class ComposeViewModel {
         // bind modal dismiss state
         composeStatusAttribute.composeContent
             .receive(on: DispatchQueue.main)
-            .map { content in
+            .map { [weak self] content in
                 let content = content ?? ""
-                return content.isEmpty
+                if content.isEmpty {
+                    return true
+                }
+                // if preInsertedContent plus a space is equal to the content, simply dismiss the modal
+                if let preInsertedContent = self?.preInsertedContent {
+                    return content == (preInsertedContent + " ")
+                }
+                return false
             }
             .assign(to: \.value, on: shouldDismiss)
             .store(in: &disposeBag)
@@ -313,6 +325,11 @@ final class ComposeViewModel {
             self.isPollToolbarButtonEnabled.value = !shouldPollDisable
         })
         .store(in: &disposeBag)
+        
+        if let preInsertedContent = preInsertedContent {
+            // add a space after the injected text
+            composeStatusAttribute.composeContent.send(preInsertedContent + " ")
+        }
     }
     
     deinit {

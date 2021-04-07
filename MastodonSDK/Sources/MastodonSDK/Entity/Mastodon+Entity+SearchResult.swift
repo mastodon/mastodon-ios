@@ -8,9 +8,9 @@
 import Foundation
 extension Mastodon.Entity {
     public struct SearchResult: Codable {
-        let accounts: [Mastodon.Entity.Account]
-        let statuses: [Mastodon.Entity.Status]
-        let hashtags: [Mastodon.Entity.Tag]
+        public let accounts: [Mastodon.Entity.Account]
+        public let statuses: [Mastodon.Entity.Status]
+        public let hashtags: [Mastodon.Entity.Tag]
     }
     
 }
