@@ -45,7 +45,7 @@ extension Mastodon.API.Favorites {
             .eraseToAnyPublisher()
     }
     
-    public struct FavoriteStatusesQuery: GetQuery,TimelineQueryType {
+    public struct FavoriteStatusesQuery: GetQuery, PagedQueryType {
         
         public var limit: Int?
         public var minID: String?
