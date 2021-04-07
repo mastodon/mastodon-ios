@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F1E2D0B2615C39400C38565 /* HashtagTimelineTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */; };
+		0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */; };
+		0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */; };
+		0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */; };
+		0F20220D26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220C26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift */; };
+		0F202213261351F5000C64BF /* APIService+HashtagTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */; };
+		0F202227261411BB000C64BF /* HashtagTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */; };
+		0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */; };
+		0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */; };
+		0F20223926146553000C64BF /* Array+removeDuplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array+removeDuplicates.swift */; };
 		0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */; };
 		0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101125E105390017CCDE /* PrimaryActionButton.swift */; };
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
@@ -352,6 +362,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineTitleView.swift; sourceTree = "<group>"; };
+		0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewController.swift; sourceTree = "<group>"; };
+		0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewModel.swift; sourceTree = "<group>"; };
+		0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		0F20220C26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadLatestState.swift"; sourceTree = "<group>"; };
+		0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HashtagTimeline.swift"; sourceTree = "<group>"; };
+		0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
+		0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
+		0F20223826146553000C64BF /* Array+removeDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+removeDuplicates.swift"; sourceTree = "<group>"; };
 		0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FAA101125E105390017CCDE /* PrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryActionButton.swift; sourceTree = "<group>"; };
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -706,6 +726,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F1E2D102615C39800C38565 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F2021F5261325ED000C64BF /* HashtagTimeline */ = {
+			isa = PBXGroup;
+			children = (
+				0F1E2D102615C39800C38565 /* View */,
+				0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */,
+				0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */,
+				0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */,
+				0F20220C26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift */,
+				0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */,
+				0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */,
+				0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */,
+			);
+			path = HashtagTimeline;
+			sourceTree = "<group>";
+		};
 		0FAA0FDD25E0B5700017CCDE /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -1214,6 +1257,7 @@
 				DB9A488F26035963008B817C /* APIService+Media.swift */,
 				2D34D9D026148D9E0081BFC0 /* APIService+Recommend.swift */,
 				2D34D9DA261494120081BFC0 /* APIService+Search.swift */,
+				0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */,
 				DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */,
 			);
 			path = APIService;
@@ -1428,6 +1472,7 @@
 		DB8AF55525C1379F002E6C99 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				0F2021F5261325ED000C64BF /* HashtagTimeline */,
 				5D03938E2612D200007FE196 /* Webview */,
 				2D7631A425C1532200929FB9 /* Share */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
@@ -1471,6 +1516,7 @@
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
+				0F20223826146553000C64BF /* Array+removeDuplicates.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
 			);
@@ -2052,6 +2098,7 @@
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */,
+				0F1E2D0B2615C39400C38565 /* HashtagTimelineTitleView.swift in Sources */,
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
@@ -2076,6 +2123,7 @@
 				DBB5256E2612D5A1002F1F29 /* ProfileStatusDashboardView.swift in Sources */,
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
 				DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */,
+				0F202213261351F5000C64BF /* APIService+HashtagTimeline.swift in Sources */,
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Status.swift in Sources */,
 				DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */,
@@ -2098,6 +2146,7 @@
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
+				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
@@ -2135,6 +2184,7 @@
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
+				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */,
 				DB4563BD25E11A24004DA0B9 /* KeyboardResponderService.swift in Sources */,
 				DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */,
 				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,
@@ -2176,6 +2226,7 @@
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
+				0F20220D26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
@@ -2206,6 +2257,7 @@
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
+				0F20223926146553000C64BF /* Array+removeDuplicates.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */,
 				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
@@ -2213,7 +2265,9 @@
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D34D9E226149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
+				0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */,
 				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
+				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
 				2D42FF6B25C817D2004A627A /* MastodonStatusContent.swift in Sources */,
@@ -2222,11 +2276,13 @@
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
+				0F202227261411BB000C64BF /* HashtagTimelineViewController+StatusProvider.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */,
 				2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */,
 				DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
+				0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */,
 				DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */,
 				DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */,
 				DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */,

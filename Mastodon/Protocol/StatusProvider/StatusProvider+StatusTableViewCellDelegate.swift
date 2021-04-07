@@ -205,3 +205,21 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     }
     
 }
+
+// MARK: - ActiveLabel didSelect ActiveEntity
+extension StatusTableViewCellDelegate where Self: StatusProvider {
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, didSelectActiveEntity entity: ActiveEntity) {
+        switch entity.type {
+        case .hashtag(let hashtag, let userInfo):
+            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: context, hashTag: hashtag)
+            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: self, transition: .show)
+            break
+        case .email(let content, let userInfo):
+            break
+        case .mention(let mention, let userInfo):
+            break
+        case .url(let content, let trimmed, let url, let userInfo):
+            break
+        }
+    }
+}

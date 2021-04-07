@@ -11,6 +11,7 @@ import AVKit
 import Combine
 import CoreData
 import CoreDataStack
+import ActiveLabel
 
 protocol StatusTableViewCellDelegate: class {
     var context: AppContext! { get }
@@ -31,6 +32,8 @@ protocol StatusTableViewCellDelegate: class {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, pollTableView: PollTableView, didSelectRowAt indexPath: IndexPath)
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, didSelectActiveEntity entity: ActiveEntity)
 }
 
 extension StatusTableViewCellDelegate {
@@ -214,6 +217,10 @@ extension StatusTableViewCell: StatusViewDelegate {
     
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
+    }
+    
+    func statusView(_ statusView: StatusView, didSelectActiveEntity activeLabel: ActiveLabel, entity: ActiveEntity) {
+        delegate?.statusTableViewCell(self, statusView: statusView, didSelectActiveEntity: entity)
     }
     
 }
