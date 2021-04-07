@@ -185,9 +185,9 @@ extension MastodonRegisterViewModel {
         let attributeString = NSMutableAttributedString()
 
         let image = MastodonRegisterViewModel.checkmarkImage(font: font)
-        attributeString.append(attributedStringImage(with: image, tintColor: validateState == .valid ? .black : .clear))
+        attributeString.append(attributedStringImage(with: image, tintColor: validateState == .valid ? Asset.Colors.Label.primary.color : .clear))
         attributeString.append(NSAttributedString(string: " "))
-        let eightCharactersDescription = NSAttributedString(string: L10n.Scene.Register.Input.Password.hint, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: UIColor.black])
+        let eightCharactersDescription = NSAttributedString(string: L10n.Scene.Register.Input.Password.hint, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: Asset.Colors.Label.primary.color])
         attributeString.append(eightCharactersDescription)
         
         return attributeString

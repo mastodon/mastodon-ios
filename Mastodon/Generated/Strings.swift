@@ -406,6 +406,28 @@ internal enum L10n {
       }
     }
     internal enum Search {
+      internal enum Recommend {
+        /// See All
+        internal static let buttontext = L10n.tr("Localizable", "Scene.Search.Recommend.Buttontext")
+        internal enum Accounts {
+          /// Except for Sam, you will not like his account.
+          internal static let description = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Description")
+          /// Follow
+          internal static let follow = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Follow")
+          /// Accounts you might like
+          internal static let title = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Title")
+        }
+        internal enum HashTag {
+          /// Hashtags that are getting quite a bit of attention among people you follow
+          internal static let description = L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.Description")
+          /// %@ people are talking
+          internal static func peopleTalking(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.PeopleTalking", String(describing: p1))
+          }
+          /// Trending in your timeline
+          internal static let title = L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.Title")
+        }
+      }
       internal enum Searchbar {
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "Scene.Search.Searchbar.Cancel")
