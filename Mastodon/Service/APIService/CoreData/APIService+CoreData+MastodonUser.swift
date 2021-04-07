@@ -111,6 +111,7 @@ extension APIService.CoreData {
         networkDate: Date
     ) {
         guard networkDate > user.updatedAt else { return }
+        guard entity.id != requestMastodonUser.id else { return }     // not update relationship for self
         
         user.update(isFollowing: entity.following, by: requestMastodonUser)
         entity.requested.flatMap { user.update(isFollowRequested: $0, by: requestMastodonUser) }

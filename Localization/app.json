@@ -69,9 +69,16 @@
             "firendship": {
                 "follow": "Follow",
                 "following": "Following",
+                "pending": "Pending",
                 "block": "Block",
+                "block_user": "Block %s",
+                "unblock": "Unblock",
+                "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
                 "mute": "Mute",
+                "mute_user": "Mute %s",
+                "unmute": "Unmute",
+                "unmute_user": "Unmute %s",
                 "muted": "Muted",
                 "edit_info": "Edit info"
             },
@@ -79,6 +86,12 @@
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts..."
+                },
+                "header": {
+                    "no_status_found": "No Status Found",
+                    "blocking_warning": "You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.",
+                    "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
+                    "suspended_warning": "This account is suspended."
                 }
             }
         },
@@ -257,6 +270,16 @@
                 "posts": "Posts",
                 "replies": "Replies",
                 "media": "Media"
+            },
+            "relationship_action_alert": {
+                "confirm_unmute_user": {
+                    "title": "Unmute Account",
+                    "message": "Confirm unmute %s"
+                },
+                "confirm_unblock_usre": {
+                    "title": "Unblock Account",
+                    "message": "Confirm unblock %s"
+                }
             }
         },
         "search": {
@@ -286,6 +309,9 @@
                 "recent_search": "Recent searches",
                 "clear": "clear"
             }
+        },
+        "hashtag": {
+            "prompt": "%s people talking"
         }
     }
 }

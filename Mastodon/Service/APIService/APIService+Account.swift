@@ -11,6 +11,52 @@ import CommonOSLog
 import MastodonSDK
 
 extension APIService {
+
+    func accountInfo(
+        domain: String,
+        userID: Mastodon.Entity.Account.ID,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        return Mastodon.API.Account.accountInfo(
+            session: session,
+            domain: domain,
+            userID: userID,
+            authorization: authorization
+        )
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
+            let log = OSLog.api
+            let account = response.value
+            
+            return self.backgroundManagedObjectContext.performChanges {
+                let (mastodonUser, isCreated) = APIService.CoreData.createOrMergeMastodonUser(
+                    into: self.backgroundManagedObjectContext,
+                    for: nil,
+                    in: domain,
+                    entity: account,
+                    userCache: nil,
+                    networkDate: response.networkDate,
+                    log: log
+                )
+                let flag = isCreated ? "+" : "-"
+                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)%s", ((#file as NSString).lastPathComponent), #line, #function, flag, mastodonUser.id, mastodonUser.username)
+            }
+            .setFailureType(to: Error.self)
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
+                switch result {
+                case .success:
+                    return response
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+    
+}
+
+extension APIService {
     
     func accountVerifyCredentials(
         domain: String,
@@ -33,12 +79,20 @@ extension APIService {
                     entity: account,
                     userCache: nil,
                     networkDate: response.networkDate,
-                    log: log)
+                    log: log
+                )
                 let flag = isCreated ? "+" : "-"
                 os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: mastodon user [%s](%s)%s verifed", ((#file as NSString).lastPathComponent), #line, #function, flag, mastodonUser.id, mastodonUser.username)
             }
             .setFailureType(to: Error.self)
-            .map { _ in return response }
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
+                switch result {
+                case .success:
+                    return response
+                case .failure(let error):
+                    throw error
+                }
+            }
             .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()
@@ -72,7 +126,14 @@ extension APIService {
                 os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: mastodon user [%s](%s)%s verifed", ((#file as NSString).lastPathComponent), #line, #function, flag, mastodonUser.id, mastodonUser.username)
             }
             .setFailureType(to: Error.self)
-            .map { _ in return response }
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Account> in
+                switch result {
+                case .success:
+                    return response
+                case .failure(let error):
+                    throw error
+                }
+            }
             .eraseToAnyPublisher()
         }
         .eraseToAnyPublisher()

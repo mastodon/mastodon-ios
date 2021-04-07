@@ -49,9 +49,23 @@ extension Mastodon.API.Search {
     }
 }
 
-public extension Mastodon.API.Search {
-    struct Query: Codable, GetQuery {
-        public init(accountID: Mastodon.Entity.Account.ID?, maxID: Mastodon.Entity.Status.ID?, minID: Mastodon.Entity.Status.ID?, type: String?, excludeUnreviewed: Bool?, q: String, resolve: Bool?, limit: Int?, offset: Int?, following: Bool?) {
+extension Mastodon.API.Search {
+    public enum SearchType: String, Codable {
+        case ccounts, hashtags, statuses
+    }
+    
+    public struct Query: Codable, GetQuery {
+        public init(q: String,
+                    type: SearchType? = nil,
+                    accountID: Mastodon.Entity.Account.ID? = nil,
+                    maxID: Mastodon.Entity.Status.ID? = nil,
+                    minID: Mastodon.Entity.Status.ID? = nil,
+                    excludeUnreviewed: Bool? = nil,
+                    resolve: Bool? = nil,
+                    limit: Int? = nil,
+                    offset: Int? = nil,
+                    following: Bool? = nil) {
+
             self.accountID = accountID
             self.maxID = maxID
             self.minID = minID
@@ -67,7 +81,7 @@ public extension Mastodon.API.Search {
         public let accountID: Mastodon.Entity.Account.ID?
         public let maxID: Mastodon.Entity.Status.ID?
         public let minID: Mastodon.Entity.Status.ID?
-        public let type: String?
+        public let type: SearchType?
         public let excludeUnreviewed: Bool? // Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.
         public let q: String
         public let resolve: Bool? // Attempt WebFinger lookup. Defaults to false.
@@ -80,7 +94,7 @@ public extension Mastodon.API.Search {
             accountID.flatMap { items.append(URLQueryItem(name: "account_id", value: $0)) }
             maxID.flatMap { items.append(URLQueryItem(name: "max_id", value: $0)) }
             minID.flatMap { items.append(URLQueryItem(name: "min_id", value: $0)) }
-            type.flatMap { items.append(URLQueryItem(name: "type", value: $0)) }
+            type.flatMap { items.append(URLQueryItem(name: "type", value: $0.rawValue)) }
             excludeUnreviewed.flatMap { items.append(URLQueryItem(name: "exclude_unreviewed", value: $0.queryItemValue)) }
             items.append(URLQueryItem(name: "q", value: q))
             resolve.flatMap { items.append(URLQueryItem(name: "resolve", value: $0.queryItemValue)) }

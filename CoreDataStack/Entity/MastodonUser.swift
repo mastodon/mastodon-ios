@@ -29,6 +29,9 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var followingCount: NSNumber
     @NSManaged public private(set) var followersCount: NSNumber
     
+    @NSManaged public private(set) var locked: Bool
+    @NSManaged public private(set) var bot: Bool
+    
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
@@ -87,6 +90,9 @@ extension MastodonUser {
         user.statusesCount = NSNumber(value: property.statusesCount)
         user.followingCount = NSNumber(value: property.followingCount)
         user.followersCount = NSNumber(value: property.followersCount)
+        
+        user.locked = property.locked
+        user.bot = property.bot ?? false
         
         // Mastodon do not provide relationship on the `Account`
         // Update relationship via attribute updating interface
@@ -158,6 +164,17 @@ extension MastodonUser {
             self.followersCount = NSNumber(value: followersCount)
         }
     }
+    public func update(locked: Bool) {
+        if self.locked != locked {
+            self.locked = locked
+        }
+    }
+    public func update(bot: Bool) {
+        if self.bot != bot {
+            self.bot = bot
+        }
+    }
+    
     public func update(isFollowing: Bool, by mastodonUser: MastodonUser) {
         if isFollowing {
             if !(self.followingBy ?? Set()).contains(mastodonUser) {
@@ -249,6 +266,8 @@ extension MastodonUser {
         public let statusesCount: Int
         public let followingCount: Int
         public let followersCount: Int
+        public let locked: Bool
+        public let bot: Bool?
         
         public let createdAt: Date
         public let networkDate: Date
@@ -268,6 +287,8 @@ extension MastodonUser {
             statusesCount: Int,
             followingCount: Int,
             followersCount: Int,
+            locked: Bool,
+            bot: Bool?,
             createdAt: Date,
             networkDate: Date
         ) {
@@ -286,6 +307,8 @@ extension MastodonUser {
             self.statusesCount = statusesCount
             self.followingCount = followingCount
             self.followersCount = followersCount
+            self.locked = locked
+            self.bot = bot
             self.createdAt = createdAt
             self.networkDate = networkDate
         }

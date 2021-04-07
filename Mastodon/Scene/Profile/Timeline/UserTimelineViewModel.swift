@@ -24,6 +24,10 @@ class UserTimelineViewModel: NSObject {
     let userID: CurrentValueSubject<String?, Never>
     let queryFilter: CurrentValueSubject<QueryFilter, Never>
     let statusFetchedResultsController: StatusFetchedResultsController
+    var cellFrameCache = NSCache<NSNumber, NSValue>()
+    
+    let isBlocking = CurrentValueSubject<Bool, Never>(false)
+    let isBlockedBy = CurrentValueSubject<Bool, Never>(false)
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
@@ -34,9 +38,6 @@ class UserTimelineViewModel: NSObject {
             State.Fail(viewModel: self),
             State.Idle(viewModel: self),
             State.LoadingMore(viewModel: self),
-            State.NotAuthorized(viewModel: self),
-            State.Blocked(viewModel: self),
-            State.Suspended(viewModel: self),
             State.NoMore(viewModel: self),
         ])
         stateMachine.enter(State.Initial.self)
@@ -59,46 +60,64 @@ class UserTimelineViewModel: NSObject {
             .assign(to: \.value, on: statusFetchedResultsController.domain)
             .store(in: &disposeBag)
         
-        
-        statusFetchedResultsController.objectIDs
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] objectIDs in
-                guard let self = self else { return }
-                guard let diffableDataSource = self.diffableDataSource else { return }
-                
-                // var isPermissionDenied = false
-                
-                var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
-                let oldSnapshot = diffableDataSource.snapshot()
-                for item in oldSnapshot.itemIdentifiers {
-                    guard case let .status(objectID, attribute) = item else { continue }
-                    oldSnapshotAttributeDict[objectID] = attribute
-                }
-                
-                var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
-                snapshot.appendSections([.main])
-
-                var items: [Item] = []
-                for objectID in objectIDs {
-                    let attribute = oldSnapshotAttributeDict[objectID] ?? Item.StatusAttribute()
-                    items.append(.status(objectID: objectID, attribute: attribute))
-                }
-                snapshot.appendItems(items, toSection: .main)
-                
-                if let currentState = self.stateMachine.currentState {
-                    switch currentState {
-                    case is State.Reloading, is State.LoadingMore, is State.Idle, is State.Fail:
-                        snapshot.appendItems([.bottomLoader], toSection: .main)
-                    // TODO: handle other states
-                    default:
-                        break
-                    }
-                }
-
+        Publishers.CombineLatest3(
+            statusFetchedResultsController.objectIDs.eraseToAnyPublisher(),
+            isBlocking.eraseToAnyPublisher(),
+            isBlockedBy.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+        .sink { [weak self] objectIDs, isBlocking, isBlockedBy in
+            guard let self = self else { return }
+            guard let diffableDataSource = self.diffableDataSource else { return }
+            
+            var items: [Item] = []
+            var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
+            snapshot.appendSections([.main])
+            
+            defer {
                 // not animate when empty items fix loader first appear layout issue
                 diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
             }
-            .store(in: &disposeBag)
+            
+            guard !isBlocking else {
+                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocking))], toSection: .main)
+                return
+            }
+            
+            guard !isBlockedBy else {
+                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocked))], toSection: .main)
+                return
+            }
+            
+            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
+            let oldSnapshot = diffableDataSource.snapshot()
+            for item in oldSnapshot.itemIdentifiers {
+                guard case let .status(objectID, attribute) = item else { continue }
+                oldSnapshotAttributeDict[objectID] = attribute
+            }
+            
+            for objectID in objectIDs {
+                let attribute = oldSnapshotAttributeDict[objectID] ?? Item.StatusAttribute()
+                items.append(.status(objectID: objectID, attribute: attribute))
+            }
+            snapshot.appendItems(items, toSection: .main)
+            
+            if let currentState = self.stateMachine.currentState {
+                switch currentState {
+                case is State.Reloading, is State.LoadingMore, is State.Idle, is State.Fail:
+                    snapshot.appendItems([.bottomLoader], toSection: .main)
+                case is State.NoMore:
+                    break
+                // TODO: handle other states
+                default:
+                    break
+                }
+            }
+
+
+        }
+        .store(in: &disposeBag)
     }
 
     deinit {
@@ -125,3 +144,4 @@ extension UserTimelineViewModel {
     }
 
 }
+

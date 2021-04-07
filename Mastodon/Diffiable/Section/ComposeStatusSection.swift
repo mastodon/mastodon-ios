@@ -22,6 +22,8 @@ enum ComposeStatusSection: Equatable, Hashable {
 extension ComposeStatusSection {
     enum ComposeKind {
         case post
+        case hashtag(hashtag: String)
+        case mention(mastodonUserObjectID: NSManagedObjectID)
         case reply(repliedToStatusObjectID: NSManagedObjectID)
     }
 }

@@ -45,7 +45,6 @@ internal enum Asset {
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
-      internal static let success = ColorAsset(name: "Colors/Background/success")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Colors/Background/system.grouped.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
@@ -54,6 +53,7 @@ internal enum Asset {
     internal enum Button {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
+      internal static let inactive = ColorAsset(name: "Colors/Button/inactive")
       internal static let normal = ColorAsset(name: "Colors/Button/normal")
     }
     internal enum Icon {
@@ -73,25 +73,20 @@ internal enum Asset {
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
-    internal static let backgroundLight = ColorAsset(name: "Colors/backgroundLight")
-    internal static let buttonDefault = ColorAsset(name: "Colors/buttonDefault")
-    internal static let buttonDisabled = ColorAsset(name: "Colors/buttonDisabled")
-    internal static let buttonInactive = ColorAsset(name: "Colors/buttonInactive")
+    internal static let brandBlue = ColorAsset(name: "Colors/brand.blue")
     internal static let danger = ColorAsset(name: "Colors/danger")
-    internal static let lightAlertYellow = ColorAsset(name: "Colors/lightAlertYellow")
-    internal static let lightBackground = ColorAsset(name: "Colors/lightBackground")
-    internal static let lightBrandBlue = ColorAsset(name: "Colors/lightBrandBlue")
-    internal static let lightDarkGray = ColorAsset(name: "Colors/lightDarkGray")
-    internal static let lightDisabled = ColorAsset(name: "Colors/lightDisabled")
-    internal static let lightInactive = ColorAsset(name: "Colors/lightInactive")
-    internal static let lightSecondaryText = ColorAsset(name: "Colors/lightSecondaryText")
-    internal static let lightSuccessGreen = ColorAsset(name: "Colors/lightSuccessGreen")
-    internal static let lightWhite = ColorAsset(name: "Colors/lightWhite")
-    internal static let systemGreen = ColorAsset(name: "Colors/system.green")
+    internal static let disabled = ColorAsset(name: "Colors/disabled")
+    internal static let inactive = ColorAsset(name: "Colors/inactive")
+    internal static let successGreen = ColorAsset(name: "Colors/success.green")
     internal static let systemOrange = ColorAsset(name: "Colors/system.orange")
   }
   internal enum Connectivity {
     internal static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
+  }
+  internal enum Profile {
+    internal enum Banner {
+      internal static let usernameGray = ColorAsset(name: "Profile/Banner/username.gray")
+    }
   }
   internal enum Welcome {
     internal enum Illustration {

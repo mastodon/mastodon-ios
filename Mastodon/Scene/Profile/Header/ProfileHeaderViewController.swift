@@ -21,7 +21,7 @@ final class ProfileHeaderViewController: UIViewController {
     
     weak var delegate: ProfileHeaderViewControllerDelegate?
     
-    let profileBannerView = ProfileHeaderView()
+    let profileHeaderView = ProfileHeaderView()
     let pageSegmentedControl: UISegmentedControl = {
         let segmenetedControl = UISegmentedControl(items: ["A", "B"])
         segmenetedControl.selectedSegmentIndex = 0
@@ -31,7 +31,7 @@ final class ProfileHeaderViewController: UIViewController {
     private var isBannerPinned = false
     private var bottomShadowAlpha: CGFloat = 0.0
 
-    private var isAdjustBannerImageViewForSafeAreaInset = false
+    // private var isAdjustBannerImageViewForSafeAreaInset = false
     private var containerSafeAreaInset: UIEdgeInsets = .zero
 
     deinit {
@@ -47,19 +47,19 @@ extension ProfileHeaderViewController {
         
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
 
-        profileBannerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(profileBannerView)
+        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(profileHeaderView)
         NSLayoutConstraint.activate([
-            profileBannerView.topAnchor.constraint(equalTo: view.topAnchor),
-            profileBannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            profileBannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            profileHeaderView.topAnchor.constraint(equalTo: view.topAnchor),
+            profileHeaderView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
-        profileBannerView.preservesSuperviewLayoutMargins = true
+        profileHeaderView.preservesSuperviewLayoutMargins = true
         
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pageSegmentedControl)
         NSLayoutConstraint.activate([
-            pageSegmentedControl.topAnchor.constraint(equalTo: profileBannerView.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
+            pageSegmentedControl.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
             pageSegmentedControl.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
             pageSegmentedControl.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: pageSegmentedControl.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
@@ -72,11 +72,13 @@ extension ProfileHeaderViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if !isAdjustBannerImageViewForSafeAreaInset {
-            isAdjustBannerImageViewForSafeAreaInset = true
-            profileBannerView.bannerImageView.frame.origin.y = -containerSafeAreaInset.top
-            profileBannerView.bannerImageView.frame.size.height += containerSafeAreaInset.top
-        }
+        // Deprecated:
+        // not needs this tweak due to force layout update in the parent
+        // if !isAdjustBannerImageViewForSafeAreaInset {
+        //     isAdjustBannerImageViewForSafeAreaInset = true
+        //     profileHeaderView.bannerImageView.frame.origin.y = -containerSafeAreaInset.top
+        //     profileHeaderView.bannerImageView.frame.size.height += containerSafeAreaInset.top
+        // }
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,13 +117,13 @@ extension ProfileHeaderViewController {
         // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
         updateHeaderBottomShadow(progress: progress)
                 
-        let bannerImageView = profileBannerView.bannerImageView
+        let bannerImageView = profileHeaderView.bannerImageView
         guard bannerImageView.bounds != .zero else {
             // wait layout finish
             return
         }
         
-        let bannerContainerInWindow = profileBannerView.convert(profileBannerView.bannerContainerView.frame, to: nil)
+        let bannerContainerInWindow = profileHeaderView.convert(profileHeaderView.bannerContainerView.frame, to: nil)
         let bannerContainerBottomOffset = bannerContainerInWindow.origin.y + bannerContainerInWindow.height
         
         if bannerContainerInWindow.origin.y > containerSafeAreaInset.top {

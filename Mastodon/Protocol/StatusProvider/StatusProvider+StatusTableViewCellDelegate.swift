@@ -24,6 +24,10 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         StatusProviderFacade.coordinateToStatusAuthorProfileScene(for: .primary, provider: self, cell: cell)
     }
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        StatusProviderFacade.responseToStatusActiveLabelAction(provider: self, cell: cell, activeLabel: activeLabel, didTapEntity: entity)
+    }
+    
 }
 
 // MARK: - ActionToolbarContainerDelegate

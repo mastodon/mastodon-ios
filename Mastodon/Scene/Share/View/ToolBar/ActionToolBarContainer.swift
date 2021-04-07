@@ -163,7 +163,7 @@ extension ActionToolbarContainer {
     }
     
     private func isReblogButtonHighlightStateDidChange(to isHighlight: Bool) {
-        let tintColor = isHighlight ? Asset.Colors.systemGreen.color : Asset.Colors.Button.actionToolbar.color
+        let tintColor = isHighlight ? Asset.Colors.successGreen.color : Asset.Colors.Button.actionToolbar.color
         reblogButton.tintColor = tintColor
         reblogButton.setTitleColor(tintColor, for: .normal)
         reblogButton.setTitleColor(tintColor, for: .highlighted)

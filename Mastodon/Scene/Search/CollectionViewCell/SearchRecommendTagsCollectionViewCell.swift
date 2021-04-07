@@ -59,7 +59,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
 
 extension SearchRecommendTagsCollectionViewCell {
     private func configure() {
-        backgroundColor = Asset.Colors.buttonDefault.color
+        backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 8
         clipsToBounds = true
         

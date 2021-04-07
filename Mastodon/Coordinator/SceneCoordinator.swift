@@ -51,11 +51,15 @@ extension SceneCoordinator {
         // compose
         case compose(viewModel: ComposeViewModel)
         
+        // Hashtag Timeline
+        case hashtagTimeline(viewModel: HashtagTimelineViewModel)
+      
         // profile
         case profile(viewModel: ProfileViewModel)
         
         // misc
         case alertController(alertController: UIAlertController)
+        case safari(url: URL)
         
         #if DEBUG
         case publicTimeline
@@ -110,6 +114,17 @@ extension SceneCoordinator {
         }
         guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
             return nil
+        }
+        // adapt for child controller
+        if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
+            switch viewController {
+            case is ProfileViewController:
+                let barButtonItem = UIBarButtonItem(title: navigationControllerVisibleViewController.navigationItem.title, style: .plain, target: nil, action: nil)
+                barButtonItem.tintColor = .white
+                navigationControllerVisibleViewController.navigationItem.backBarButtonItem = barButtonItem
+            default:
+                navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
+            }
         }
         
         if let mainTabBarController = presentingViewController as? MainTabBarController,
@@ -209,6 +224,10 @@ private extension SceneCoordinator {
             let _viewController = ComposeViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .hashtagTimeline(let viewModel):
+            let _viewController = HashtagTimelineViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .profile(let viewModel):
             let _viewController = ProfileViewController()
             _viewController.viewModel = viewModel
@@ -222,6 +241,12 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
+        case .safari(let url):
+            guard let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else {
+                return nil
+            }
+            viewController = SFSafariViewController(url: url)
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()

@@ -27,8 +27,8 @@ class SearchRecommendCollectionHeader: UIView {
     
     let seeAllButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitleColor(Asset.Colors.buttonDefault.color, for: .normal)
-        button.setTitle(L10n.Scene.Search.Recommend.buttonText, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitle(L10n.Scene.Search.Recommend.buttontext, for: .normal)
         return button
     }()
     

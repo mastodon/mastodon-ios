@@ -56,6 +56,10 @@ final class ComposeViewModel {
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
     
+    // for hashtag: #<hashag>' '
+    // for mention: @<mention>' '
+    private(set) var preInsertedContent: String?
+    
     // custom emojis
     var customEmojiViewModelSubscription: AnyCancellable?
     let customEmojiViewModel = CurrentValueSubject<EmojiService.CustomEmojiViewModel?, Never>(nil)
@@ -76,12 +80,30 @@ final class ComposeViewModel {
         self.context = context
         self.composeKind = composeKind
         switch composeKind {
-        case .post:         self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
-        case .reply:        self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
+        case .post, .hashtag, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
+        case .reply:                          self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
+        if case let .hashtag(text) = composeKind {
+            let initialComposeContent = "#" + text
+            UITextChecker.learnWord(initialComposeContent)
+            let preInsertedContent = initialComposeContent + " "
+            self.preInsertedContent = preInsertedContent
+            self.composeStatusAttribute.composeContent.value = preInsertedContent
+        } else if case let .mention(mastodonUserObjectID) = composeKind {
+            context.managedObjectContext.performAndWait {
+                let mastodonUser = context.managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
+                let initialComposeContent = "@" + mastodonUser.acct
+                UITextChecker.learnWord(initialComposeContent)
+                let preInsertedContent = initialComposeContent + " "
+                self.preInsertedContent = preInsertedContent
+                self.composeStatusAttribute.composeContent.value = preInsertedContent
+            }
+        } else {
+            self.preInsertedContent = nil
+        }
         
         isCustomEmojiComposing
             .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)
@@ -195,9 +217,16 @@ final class ComposeViewModel {
         // bind modal dismiss state
         composeStatusAttribute.composeContent
             .receive(on: DispatchQueue.main)
-            .map { content in
+            .map { [weak self] content in
                 let content = content ?? ""
-                return content.isEmpty
+                if content.isEmpty {
+                    return true
+                }
+                // if preInsertedContent plus a space is equal to the content, simply dismiss the modal
+                if let preInsertedContent = self?.preInsertedContent {
+                    return content == (preInsertedContent + " ")
+                }
+                return false
             }
             .assign(to: \.value, on: shouldDismiss)
             .store(in: &disposeBag)
@@ -304,6 +333,11 @@ final class ComposeViewModel {
             self.isPollToolbarButtonEnabled.value = !shouldPollDisable
         })
         .store(in: &disposeBag)
+        
+        if let preInsertedContent = preInsertedContent {
+            // add a space after the injected text
+            composeStatusAttribute.composeContent.send(preInsertedContent + " ")
+        }
     }
     
     deinit {

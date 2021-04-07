@@ -79,12 +79,17 @@ extension StatusSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
                 cell.startAnimating()
                 return cell
+            case .emptyStateHeader(let attribute):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineHeaderTableViewCell.self), for: indexPath) as! TimelineHeaderTableViewCell
+                StatusSection.configureEmptyStateHeader(cell: cell, attribute: attribute)
+                return cell
             }
         }
     }
 }
 
 extension StatusSection {
+    
     static func configure(
         cell: StatusTableViewCell,
         dependency: NeedsDependency,
@@ -472,6 +477,14 @@ extension StatusSection {
             }
         snapshot.appendItems(pollItems, toSection: .main)
         cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+    }
+    
+    static func configureEmptyStateHeader(
+        cell: TimelineHeaderTableViewCell,
+        attribute: Item.EmptyStateHeaderAttribute
+    ) {
+        cell.timelineHeaderView.iconImageView.image = attribute.reason.iconImage
+        cell.timelineHeaderView.messageLabel.text = attribute.reason.message
     }
 }
 

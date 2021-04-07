@@ -31,8 +31,6 @@ extension UserTimelineViewModel.State {
             switch stateClass {
             case is Reloading.Type:
                 return viewModel.userID.value != nil
-            case is Suspended.Type:
-                return true
             default:
                 return false
             }
@@ -47,10 +45,6 @@ extension UserTimelineViewModel.State {
             case is Idle.Type:
                 return true
             case is NoMore.Type:
-                return true
-            case is NotAuthorized.Type, is Blocked.Type:
-                return true
-            case is Suspended.Type:
                 return true
             default:
                 return false
@@ -116,8 +110,6 @@ extension UserTimelineViewModel.State {
             switch stateClass {
             case is Reloading.Type, is LoadingMore.Type:
                 return true
-            case is Suspended.Type:
-                return true
             default:
                 return false
             }
@@ -128,8 +120,6 @@ extension UserTimelineViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type, is LoadingMore.Type:
-                return true
-            case is Suspended.Type:
                 return true
             default:
                 return false
@@ -145,10 +135,6 @@ extension UserTimelineViewModel.State {
             case is Idle.Type:
                 return true
             case is NoMore.Type:
-                return true
-            case is NotAuthorized.Type, is Blocked.Type:
-                return true
-            case is Suspended.Type:
                 return true
             default:
                 return false
@@ -188,7 +174,12 @@ extension UserTimelineViewModel.State {
             )
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch user timeline fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                case .finished:
+                    break
+                }
             } receiveValue: { response in
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
                 
@@ -210,53 +201,23 @@ extension UserTimelineViewModel.State {
             .store(in: &viewModel.disposeBag)
         }
     }
-        
-    class NotAuthorized: UserTimelineViewModel.State {
-        
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            switch stateClass {
-            case is Reloading.Type:
-                return true
-            case is Suspended.Type:
-                return true
-            default:
-                return false
-            }
-        }
-
-    }
-    
-    class Blocked: UserTimelineViewModel.State {
-        
-        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            switch stateClass {
-            case is Reloading.Type:
-                return true
-            case is Suspended.Type:
-                return true
-            default:
-                return false
-            }
-        }
-        
-    }
-    
-    class Suspended: UserTimelineViewModel.State {
-
-    }
     
     class NoMore: UserTimelineViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type:
                 return true
-            case is NotAuthorized.Type, is Blocked.Type:
-                return true
-            case is Suspended.Type:
-                return true
             default:
                 return false
             }
+        }
+        
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+            guard let viewModel = viewModel, let _ = stateMachine else { return }
+            
+            // trigger data source update
+            viewModel.statusFetchedResultsController.objectIDs.value = viewModel.statusFetchedResultsController.objectIDs.value
         }
     }
 }
