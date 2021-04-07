@@ -19,12 +19,11 @@ final class HashtagTimelineViewModel: NSObject {
     
     var disposeBag = Set<AnyCancellable>()
     
-    var hashtagStatusIDList = [Mastodon.Entity.Status.ID]()
     var needLoadMiddleIndex: Int? = nil
     
     // input
     let context: AppContext
-    let fetchedResultsController: NSFetchedResultsController<Status>
+    let fetchedResultsController: StatusFetchedResultsController
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let timelinePredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let hashtagEntity = CurrentValueSubject<Mastodon.Entity.Tag?, Never>(nil)
@@ -69,39 +68,14 @@ final class HashtagTimelineViewModel: NSObject {
     init(context: AppContext, hashTag: String) {
         self.context  = context
         self.hashTag = hashTag
-        self.fetchedResultsController = {
-            let fetchRequest = Status.sortedFetchRequest
-            fetchRequest.returnsObjectsAsFaults = false
-            fetchRequest.fetchBatchSize = 20
-            let controller = NSFetchedResultsController(
-                fetchRequest: fetchRequest,
-                managedObjectContext: context.managedObjectContext,
-                sectionNameKeyPath: nil,
-                cacheName: nil
-            )
-
-            return controller
-        }()
+        let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value
+        self.fetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: activeMastodonAuthenticationBox?.domain, additionalTweetPredicate: nil)
         super.init()
         
-        fetchedResultsController.delegate = self
-        
-        timelinePredicate
+        fetchedResultsController.objectIDs
             .receive(on: DispatchQueue.main)
-            .compactMap { $0 }
-            .sink { [weak self] predicate in
-                guard let self = self else { return }
-                self.fetchedResultsController.fetchRequest.predicate = predicate
-                do {
-                    self.diffableDataSource?.defaultRowAnimation = .fade
-                    try self.fetchedResultsController.performFetch()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                        guard let self = self else { return }
-                        self.diffableDataSource?.defaultRowAnimation = .automatic
-                    }
-                } catch {
-                    assertionFailure(error.localizedDescription)
-                }
+            .sink { [weak self] objectIds in
+                self?.generateStatusItems(newObjectIDs: objectIds)
             }
             .store(in: &disposeBag)
     }

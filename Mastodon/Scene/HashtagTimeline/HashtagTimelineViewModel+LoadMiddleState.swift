@@ -54,11 +54,11 @@ extension HashtagTimelineViewModel.LoadMiddleState {
                 return
             }
             
-            guard let upperStatusObject = (viewModel.fetchedResultsController.fetchedObjects ?? []).first(where: { $0.objectID == upperStatusObjectID }) else {
+            guard let upperStatusObject = (viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects ?? []).first(where: { $0.objectID == upperStatusObjectID }) else {
                 stateMachine.enter(Fail.self)
                 return
             }
-            let statusIDs = (viewModel.fetchedResultsController.fetchedObjects ?? []).compactMap { status in
+            let statusIDs = (viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects ?? []).compactMap { status in
                 status.id
             }
 
@@ -86,27 +86,27 @@ extension HashtagTimelineViewModel.LoadMiddleState {
                     
                     let newStatusIDList = response.value.map { $0.id }
                     
-                    if let indexToInsert = viewModel.hashtagStatusIDList.firstIndex(of: maxID) {
+                    var oldStatusIDs = viewModel.fetchedResultsController.statusIDs.value
+                    if let indexToInsert = oldStatusIDs.firstIndex(of: maxID) {
                         // When response data:
                         // 1. is not empty
                         // 2. last status are not recorded
                         // Then we may have middle data to load
                         if let lastNewStatusID = newStatusIDList.last,
-                           !viewModel.hashtagStatusIDList.contains(lastNewStatusID) {
+                           !oldStatusIDs.contains(lastNewStatusID) {
                             viewModel.needLoadMiddleIndex = indexToInsert + newStatusIDList.count
                         } else {
                             viewModel.needLoadMiddleIndex = nil
                         }
-                        viewModel.hashtagStatusIDList.insert(contentsOf: newStatusIDList, at: indexToInsert + 1)
-                        viewModel.hashtagStatusIDList.removeDuplicates()
+                        oldStatusIDs.insert(contentsOf: newStatusIDList, at: indexToInsert + 1)
+                        oldStatusIDs.removeDuplicates()
                     } else {
                         // Only when the hashtagStatusIDList changes, we could not find the `loadMiddleState` index
                         // Then there is no need to set a `loadMiddleState` cell
                         viewModel.needLoadMiddleIndex = nil
                     }
                     
-                    let newPredicate = Status.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
-                    viewModel.timelinePredicate.send(newPredicate)
+                    viewModel.fetchedResultsController.statusIDs.value = oldStatusIDs
                     
                 }
                 .store(in: &viewModel.disposeBag)

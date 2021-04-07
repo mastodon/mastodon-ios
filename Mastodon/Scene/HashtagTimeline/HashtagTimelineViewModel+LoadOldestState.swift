@@ -29,7 +29,7 @@ extension HashtagTimelineViewModel.LoadOldestState {
     class Initial: HashtagTimelineViewModel.LoadOldestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
-            guard !(viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty else { return false }
+            guard !(viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects ?? []).isEmpty else { return false }
             return stateClass == Loading.self
         }
     }
@@ -48,7 +48,7 @@ extension HashtagTimelineViewModel.LoadOldestState {
                 return
             }
             
-            guard let last = viewModel.fetchedResultsController.fetchedObjects?.last else {
+            guard let last = viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects?.last else {
                 stateMachine.enter(Idle.self)
                 return
             }
@@ -79,10 +79,10 @@ extension HashtagTimelineViewModel.LoadOldestState {
                     } else {
                         stateMachine.enter(Idle.self)
                     }
-                    let newStatusIDList = statuses.map { $0.id }
-                    viewModel.hashtagStatusIDList.append(contentsOf: newStatusIDList)
-                    let newPredicate = Status.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
-                    viewModel.timelinePredicate.send(newPredicate)
+                    var newStatusIDs = viewModel.fetchedResultsController.statusIDs.value
+                    let fetchedStatusIDList = statuses.map { $0.id }
+                    newStatusIDs.append(contentsOf: fetchedStatusIDList)
+                    viewModel.fetchedResultsController.statusIDs.value = newStatusIDs
                 }
                 .store(in: &viewModel.disposeBag)
         }

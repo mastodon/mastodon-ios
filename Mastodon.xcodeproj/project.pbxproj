@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0F1E2D0B2615C39400C38565 /* HashtagTimelineTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */; };
-		0F1E2FE9261D7FD000C38565 /* StatusWithGapFetchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F1E2FE8261D7FD000C38565 /* StatusWithGapFetchResultController.swift */; };
 		0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */; };
 		0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */; };
 		0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */; };
@@ -357,7 +356,6 @@
 
 /* Begin PBXFileReference section */
 		0F1E2D0A2615C39400C38565 /* HashtagTimelineTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineTitleView.swift; sourceTree = "<group>"; };
-		0F1E2FE8261D7FD000C38565 /* StatusWithGapFetchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusWithGapFetchResultController.swift; sourceTree = "<group>"; };
 		0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewController.swift; sourceTree = "<group>"; };
 		0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagTimelineViewModel.swift; sourceTree = "<group>"; };
 		0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -1661,7 +1659,6 @@
 			isa = PBXGroup;
 			children = (
 				DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */,
-				0F1E2FE8261D7FD000C38565 /* StatusWithGapFetchResultController.swift */,
 			);
 			path = FetchedResultsController;
 			sourceTree = "<group>";
@@ -2140,7 +2137,6 @@
 				DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
-				0F1E2FE9261D7FD000C38565 /* StatusWithGapFetchResultController.swift in Sources */,
 				DBCC3B7B261443AD0045B23D /* ViewController.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,

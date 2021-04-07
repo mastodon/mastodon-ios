@@ -33,14 +33,9 @@ extension HashtagTimelineViewModel {
     }
 }
 
-// MARK: - NSFetchedResultsControllerDelegate
-extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
+// MARK: - Compare old & new snapshots and generate new items
+extension HashtagTimelineViewModel {
+    func generateStatusItems(newObjectIDs: [NSManagedObjectID]) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         
         guard let tableView = self.tableView else { return }
@@ -48,12 +43,12 @@ extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
         
         guard let diffableDataSource = self.diffableDataSource else { return }
         
-        let parentManagedObjectContext = fetchedResultsController.managedObjectContext
+        let parentManagedObjectContext = fetchedResultsController.fetchedResultsController.managedObjectContext
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.parent = parentManagedObjectContext
         
         let oldSnapshot = diffableDataSource.snapshot()
-        let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
+//        let snapshot = snapshot as NSDiffableDataSourceSnapshot<Int, NSManagedObjectID>
         
         var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
         for item in oldSnapshot.itemIdentifiers {
@@ -61,9 +56,7 @@ extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
             oldSnapshotAttributeDict[objectID] = attribute
         }
         
-        let statusItemList: [Item] = snapshot.itemIdentifiers.map {
-            let status = managedObjectContext.object(with: $0) as! Status
-            
+        let statusItemList: [Item] = newObjectIDs.map {
             let attribute = oldSnapshotAttributeDict[$0] ?? Item.StatusAttribute()
             return Item.status(objectID: $0, attribute: attribute)
         }
@@ -75,7 +68,7 @@ extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
         if let needLoadMiddleIndex = needLoadMiddleIndex, needLoadMiddleIndex < (statusItemList.count - 1) {
             // If yes, insert a `middleLoader` at the index
             var newItems = statusItemList
-            newItems.insert(.homeMiddleLoader(upperTimelineIndexAnchorObjectID: snapshot.itemIdentifiers[needLoadMiddleIndex]), at: (needLoadMiddleIndex + 1))
+            newItems.insert(.homeMiddleLoader(upperTimelineIndexAnchorObjectID: newObjectIDs[needLoadMiddleIndex]), at: (needLoadMiddleIndex + 1))
             newSnapshot.appendItems(newItems, toSection: .main)
         } else {
             newSnapshot.appendItems(statusItemList, toSection: .main)
@@ -112,6 +105,7 @@ extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
         newSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>
     ) -> Difference<T>? {
         guard oldSnapshot.numberOfItems != 0 else { return nil }
+        guard let item = oldSnapshot.itemIdentifiers.first as? Item, case Item.status = item else { return nil }
         
         let oldItemAtBeginning = oldSnapshot.itemIdentifiers(inSection: .main).first!
         
@@ -127,5 +121,4 @@ extension HashtagTimelineViewModel: NSFetchedResultsControllerDelegate {
         }
         return nil
     }
-    
 }

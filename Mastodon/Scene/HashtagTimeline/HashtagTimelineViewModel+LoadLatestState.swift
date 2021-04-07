@@ -73,18 +73,18 @@ extension HashtagTimelineViewModel.LoadLatestState {
                     // 1. is not empty
                     // 2. last status are not recorded
                     // Then we may have middle data to load
-                    if !viewModel.hashtagStatusIDList.isEmpty, let lastNewStatusID = newStatusIDList.last,
-                       !viewModel.hashtagStatusIDList.contains(lastNewStatusID) {
+                    var oldStatusIDs = viewModel.fetchedResultsController.statusIDs.value
+                    if !oldStatusIDs.isEmpty, let lastNewStatusID = newStatusIDList.last,
+                       !oldStatusIDs.contains(lastNewStatusID) {
                         viewModel.needLoadMiddleIndex = (newStatusIDList.count - 1)
                     } else {
                         viewModel.needLoadMiddleIndex = nil
                     }
                     
-                    viewModel.hashtagStatusIDList.insert(contentsOf: newStatusIDList, at: 0)
-                    viewModel.hashtagStatusIDList.removeDuplicates()
+                    oldStatusIDs.insert(contentsOf: newStatusIDList, at: 0)
+                    let newIDs = oldStatusIDs.removingDuplicates()
                     
-                    let newPredicate = Status.predicate(domain: activeMastodonAuthenticationBox.domain, ids: viewModel.hashtagStatusIDList)
-                    viewModel.timelinePredicate.send(newPredicate)
+                    viewModel.fetchedResultsController.statusIDs.value = newIDs
                 }
                 .store(in: &viewModel.disposeBag)
         }
