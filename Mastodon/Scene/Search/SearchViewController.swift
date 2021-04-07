@@ -76,17 +76,39 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // searching
     let searchingTableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .singleLine
-        tableView.backgroundColor = .white
         return tableView
+    }()
+    
+    lazy var searchHeader: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.frame = CGRect(origin: .zero, size: CGSize(width: searchingTableView.frame.width, height: 56))
+        return view
+    }()
+    
+    let recentSearchesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.textColor = Asset.Colors.Label.primary.color
+        label.text = L10n.Scene.Search.Searching.recentSearch
+        return label
+    }()
+    
+    let clearSearchHistoryButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitleColor(Asset.Colors.buttonDefault.color, for: .normal)
+        button.setTitle(L10n.Scene.Search.Searching.clear, for: .normal)
+        return button
     }()
 }
 
 extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Asset.Colors.Background.search.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         navigationItem.hidesBackButton = true
@@ -95,6 +117,7 @@ extension SearchViewController {
         setupAccountsCollectionView()
         setupSearchingTableView()
         setupDataSource()
+        setupSearchHeader()
     }
 
     func setupScrollView() {
@@ -120,7 +143,7 @@ extension SearchViewController {
     func setupDataSource() {
         viewModel.hashTagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashTagCollectionView)
         viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView)
-        viewModel.searchResultDiffableDataSource = SearchResultSection.tableViewDiffableDataSource(for: searchingTableView)
+        viewModel.searchResultDiffableDataSource = SearchResultSection.tableViewDiffableDataSource(for: searchingTableView, dependency: self)
     }
 }
 

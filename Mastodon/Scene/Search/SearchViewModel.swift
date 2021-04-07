@@ -6,13 +6,15 @@
 //
 
 import Combine
+import CoreData
+import CoreDataStack
 import Foundation
 import GameplayKit
 import MastodonSDK
 import OSLog
 import UIKit
 
-final class SearchViewModel {
+final class SearchViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -51,40 +53,78 @@ final class SearchViewModel {
     
     init(context: AppContext) {
         self.context = context
+        super.init()
+        
         guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
         Publishers.CombineLatest(
             searchText
-                .filter { !$0.isEmpty }
                 .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),
-            searchScope)
-            .flatMap { (text, scope) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> in
-                let query = Mastodon.API.Search.Query(accountID: nil,
-                                                      maxID: nil,
-                                                      minID: nil,
-                                                      type: scope,
-                                                      excludeUnreviewed: nil,
-                                                      q: text,
-                                                      resolve: nil,
-                                                      limit: nil,
-                                                      offset: nil,
-                                                      following: nil)
-                return context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-            }
-            .sink { _ in
-            } receiveValue: { [weak self] result in
-                self?.searchResult.value = result.value
-            }
-            .store(in: &disposeBag)
+            searchScope
+        )
+        .filter { text, _ in
+            !text.isEmpty
+        }
+        .flatMap { (text, scope) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> in
+            
+            let query = Mastodon.API.Search.Query(accountID: nil,
+                                                  maxID: nil,
+                                                  minID: nil,
+                                                  type: scope,
+                                                  excludeUnreviewed: nil,
+                                                  q: text,
+                                                  resolve: nil,
+                                                  limit: nil,
+                                                  offset: nil,
+                                                  following: nil)
+            return context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+        }
+        .sink { _ in
+        } receiveValue: { [weak self] result in
+            self?.searchResult.value = result.value
+        }
+        .store(in: &disposeBag)
         
         isSearching
             .sink { [weak self] isSearching in
                 if !isSearching {
                     self?.searchResult.value = nil
+                    self?.searchText.value = ""
                 }
             }
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest3(
+            isSearching,
+            searchText,
+            searchScope
+        )
+        .filter { isSearching, text, _ in
+            isSearching && text.isEmpty
+        }
+        .sink { [weak self] _, _, scope in
+            guard let self = self else { return }
+            guard let searchHistories = self.fetchSearchHistory() else { return }
+            guard let dataSource = self.searchResultDiffableDataSource else { return }
+            var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()
+            snapshot.appendSections([.mixed])
+            
+            searchHistories.forEach { searchHistory in
+                let containsAccount = scope == Mastodon.API.Search.Scope.accounts.rawValue || scope == ""
+                let containsHashTag = scope == Mastodon.API.Search.Scope.hashTags.rawValue || scope == ""
+                if let mastodonUser = searchHistory.account, containsAccount {
+                    let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
+                    snapshot.appendItems([item], toSection: .mixed)
+                }
+                if let tag = searchHistory.hashTag, containsHashTag {
+                    let item = SearchResultItem.hashTagObjectID(hashTagObjectID: tag.objectID)
+                    snapshot.appendItems([item], toSection: .mixed)
+                }
+            }
+            dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+        }
+        .store(in: &disposeBag)
         
         requestRecommendHashTags()
             .receive(on: DispatchQueue.main)
@@ -188,6 +228,69 @@ final class SearchViewModel {
                     self.recommendAccounts = accounts.value
                 }
                 .store(in: &self.disposeBag)
+        }
+    }
+    
+    func saveItemToCoreData(item: SearchResultItem) {
+        _ = context.managedObjectContext.performChanges { [weak self] in
+            guard let self = self else { return }
+            switch item {
+            case .account(let account):
+                guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                // load request mastodon user
+                let requestMastodonUser: MastodonUser? = {
+                    let request = MastodonUser.sortedFetchRequest
+                    request.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, id: activeMastodonAuthenticationBox.userID)
+                    request.fetchLimit = 1
+                    request.returnsObjectsAsFaults = false
+                    do {
+                        return try self.context.managedObjectContext.fetch(request).first
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return nil
+                    }
+                }()
+                let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.context.managedObjectContext, for: requestMastodonUser, in: activeMastodonAuthenticationBox.domain, entity: account, userCache: nil, networkDate: Date(), log: OSLog.api)
+                SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
+            
+            case .hashTag(let tag):
+                let histories = tag.history?[0 ... 2].compactMap { history -> History in
+                    History.insert(into: self.context.managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
+                }
+                let tagInCoreData = Tag.insert(into: self.context.managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
+                SearchHistory.insert(into: self.context.managedObjectContext, hashTag: tagInCoreData)
+
+            default:
+                break
+            }
+        }
+    }
+    
+    func fetchSearchHistory() -> [SearchHistory]? {
+        let searchHistory: [SearchHistory]? = {
+            let request = SearchHistory.sortedFetchRequest
+            request.predicate = nil
+            request.returnsObjectsAsFaults = false
+            do {
+                return try context.managedObjectContext.fetch(request)
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return nil
+            }
+            
+        }()
+        return searchHistory
+    }
+    
+    func deleteSearchHistory() {
+        let result = fetchSearchHistory()
+        _ = context.managedObjectContext.performChanges { [weak self] in
+            result?.forEach { history in
+                self?.context.managedObjectContext.delete(history)
+            }
+            self?.isSearching.value = true
         }
     }
 }

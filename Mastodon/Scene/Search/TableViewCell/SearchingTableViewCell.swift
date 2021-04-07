@@ -5,6 +5,8 @@
 //  Created by sxiaojian on 2021/4/2.
 //
 
+import CoreData
+import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
@@ -12,7 +14,7 @@ import UIKit
 final class SearchingTableViewCell: UITableViewCell {
     let _imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = .black
+        imageView.tintColor = Asset.Colors.Label.primary.color
         return imageView
     }()
     
@@ -50,6 +52,7 @@ final class SearchingTableViewCell: UITableViewCell {
 
 extension SearchingTableViewCell {
     private func configure() {
+        backgroundColor = .clear
         selectionStyle = .none
         contentView.addSubview(_imageView)
         _imageView.pin(toSize: CGSize(width: 42, height: 42))
@@ -75,11 +78,37 @@ extension SearchingTableViewCell {
         _subTitleLabel.text = account.acct
     }
     
+    func config(with account: MastodonUser) {
+        _imageView.af.setImage(
+            withURL: URL(string: account.avatar)!,
+            placeholderImage: UIImage.placeholder(color: .systemFill),
+            imageTransition: .crossDissolve(0.2)
+        )
+        _titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
+        _subTitleLabel.text = account.acct
+    }
+    
     func config(with tag: Mastodon.Entity.Tag) {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
         _titleLabel.text = "# " + tag.name
         guard let historys = tag.history else {
+            _subTitleLabel.text = ""
+            return
+        }
+        let recentHistory = historys[0 ... 2]
+        let peopleAreTalking = recentHistory.compactMap { Int($0.accounts) }.reduce(0, +)
+        let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
+        _subTitleLabel.text = string
+    }
+    
+    func config(with tag: Tag) {
+        let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
+        _imageView.image = image
+        _titleLabel.text = "# " + tag.name
+        guard let historys = tag.histories?.sorted(by: {
+            $0.createAt.compare($1.createAt) == .orderedAscending
+        }) else {
             _subTitleLabel.text = ""
             return
         }

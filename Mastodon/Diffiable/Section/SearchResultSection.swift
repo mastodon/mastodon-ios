@@ -8,16 +8,20 @@
 import Foundation
 import MastodonSDK
 import UIKit
+import CoreData
+import CoreDataStack
 
 enum SearchResultSection: Equatable, Hashable {
     case account
     case hashTag
+    case mixed
     case bottomLoader
 }
 
 extension SearchResultSection {
     static func tableViewDiffableDataSource(
-        for tableView: UITableView
+        for tableView: UITableView,
+        dependency: NeedsDependency
     ) -> UITableViewDiffableDataSource<SearchResultSection, SearchResultItem> {
         UITableViewDiffableDataSource(tableView: tableView) { (tableView, indexPath, result) -> UITableViewCell? in
             switch result {
@@ -28,6 +32,16 @@ extension SearchResultSection {
             case .hashTag(let tag):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
                 cell.config(with: tag)
+                return cell
+            case .hashTagObjectID(let hashTagObjectID):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
+                let tag  = dependency.context.managedObjectContext.object(with: hashTagObjectID) as! Tag
+                cell.config(with: tag)
+                return cell
+            case .accountObjectID(let accountObjectID):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
+                let user  = dependency.context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
+                cell.config(with: user)
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchBottomLoader.self)) as! SearchBottomLoader

@@ -5,8 +5,12 @@
 //  Created by sxiaojian on 2021/4/2.
 //
 
+import Combine
+import CoreData
+import CoreDataStack
 import Foundation
 import MastodonSDK
+import OSLog
 import UIKit
 
 extension SearchViewController {
@@ -20,7 +24,7 @@ extension SearchViewController {
             searchingTableView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchingTableView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             searchingTableView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            searchingTableView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor),
+            searchingTableView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
         searchingTableView.tableFooterView = UIView()
         viewModel.isSearching
@@ -29,6 +33,42 @@ extension SearchViewController {
                 self?.searchingTableView.isHidden = !isSearching
             }
             .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            viewModel.isSearching,
+            viewModel.searchText
+        )
+        .sink { [weak self] isSearching, text in
+            guard let self = self else { return }
+            if isSearching, text.isEmpty {
+                self.searchingTableView.tableHeaderView = self.searchHeader
+            } else {
+                self.searchingTableView.tableHeaderView = nil
+            }
+        }
+        .store(in: &disposeBag)
+    }
+
+    func setupSearchHeader() {
+        searchHeader.addSubview(recentSearchesLabel)
+        recentSearchesLabel.constrain([
+            recentSearchesLabel.constraint(.leading, toView: searchHeader, constant: 16),
+            recentSearchesLabel.constraint(.centerY, toView: searchHeader)
+        ])
+
+        searchHeader.addSubview(clearSearchHistoryButton)
+        recentSearchesLabel.constrain([
+            searchHeader.trailingAnchor.constraint(equalTo: clearSearchHistoryButton.trailingAnchor, constant: 16),
+            clearSearchHistoryButton.constraint(.centerY, toView: searchHeader)
+        ])
+
+        clearSearchHistoryButton.addTarget(self, action: #selector(SearchViewController.clearAction(_:)), for: .touchUpInside)
+    }
+}
+
+extension SearchViewController {
+    @objc func clearAction(_ sender: UIButton) {
+        viewModel.deleteSearchHistory()
     }
 }
 
@@ -43,5 +83,9 @@ extension SearchViewController: UITableViewDelegate {
         66
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.searchResultDiffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        viewModel.saveItemToCoreData(item: item)
+    }
 }

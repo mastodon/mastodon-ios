@@ -18,7 +18,7 @@ class SearchRecommendCollectionHeader: UIView {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightSecondaryText.color
+        label.textColor = Asset.Colors.Label.secondary.color
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping

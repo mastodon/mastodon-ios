@@ -21,6 +21,7 @@
 		18BC7629F65E6DB12CB8416D /* Pods_Mastodon_MastodonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */; };
 		2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */; };
 		2D0B7A0B261D5A5600B44727 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0B7A0A261D5A5600B44727 /* Array.swift */; };
+		2D0B7A1D261D839600B44727 /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0B7A1C261D839600B44727 /* SearchHistory.swift */; };
 		2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A8B25C295CC009AA50C /* StatusView.swift */; };
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
@@ -372,6 +373,7 @@
 		0FB3D33725E6401400AAD544 /* PickServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerCell.swift; sourceTree = "<group>"; };
 		2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+PublicTimeline.swift"; sourceTree = "<group>"; };
 		2D0B7A0A261D5A5600B44727 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		2D0B7A1C261D839600B44727 /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
 		2D152A8B25C295CC009AA50C /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
@@ -1398,6 +1400,7 @@
 			isa = PBXGroup;
 			children = (
 				DB89BA2625C110B4008580ED /* Status.swift */,
+				2D0B7A1C261D839600B44727 /* SearchHistory.swift */,
 				DB8AF52425C131D1002E6C99 /* MastodonUser.swift */,
 				DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */,
 				2D927F0125C7E4F2004F19B8 /* Mention.swift */,
@@ -2333,6 +2336,7 @@
 				2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */,
 				2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */,
 				DB89BA1D25C1107F008580ED /* URL.swift in Sources */,
+				2D0B7A1D261D839600B44727 /* SearchHistory.swift in Sources */,
 				2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
