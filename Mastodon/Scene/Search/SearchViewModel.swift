@@ -19,6 +19,7 @@ final class SearchViewModel: NSObject {
     
     // input
     let context: AppContext
+    weak var coordinator: SceneCoordinator!
     
     // output
     let searchText = CurrentValueSubject<String, Never>("")
@@ -51,7 +52,8 @@ final class SearchViewModel: NSObject {
 
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     
-    init(context: AppContext) {
+    init(context: AppContext,coordinator: SceneCoordinator) {
+        self.coordinator = coordinator
         self.context = context
         super.init()
         
@@ -233,7 +235,7 @@ final class SearchViewModel: NSObject {
         }
     }
     
-    func saveItemToCoreData(item: SearchResultItem) {
+    func searchResultItemDidSelected(item: SearchResultItem,from: UIViewController) {
         let searchHistories = self.fetchSearchHistory()
         _ = context.managedObjectContext.performChanges { [weak self] in
             guard let self = self else { return }
@@ -285,6 +287,8 @@ final class SearchViewModel: NSObject {
                 } else {
                     SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
                 }
+                let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
+                self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
             case .accountObjectID(let accountObjectID):
                 if let searchHistories = searchHistories {
                     let history = searchHistories.first { history -> Bool in
@@ -305,6 +309,9 @@ final class SearchViewModel: NSObject {
                         history.update(updatedAt: Date())
                     }
                 }
+                let tagInCoreData = self.context.managedObjectContext.object(with: hashtagObjectID) as! Tag
+                let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
+                self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
             default:
                 break
             }

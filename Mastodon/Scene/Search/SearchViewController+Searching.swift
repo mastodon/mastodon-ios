@@ -86,6 +86,6 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.searchResultDiffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        viewModel.saveItemToCoreData(item: item)
+        viewModel.searchResultItemDidSelected(item: item, from: self)
     }
 }

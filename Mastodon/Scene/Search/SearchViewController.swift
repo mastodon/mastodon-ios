@@ -15,7 +15,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = SearchViewModel(context: context)
+    private(set) lazy var viewModel = SearchViewModel(context: context, coordinator: coordinator)
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
