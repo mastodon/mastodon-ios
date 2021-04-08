@@ -36,7 +36,7 @@ extension ProfileRelationshipActionButton {
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
         
-        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked {
+        if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
             isEnabled = false
         } else {
             isEnabled = true

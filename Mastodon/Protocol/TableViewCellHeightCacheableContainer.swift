@@ -27,7 +27,7 @@ extension TableViewCellHeightCacheableContainer {
             if case .bottomLoader = item {
                 return TimelineLoaderTableViewCell.cellHeight
             } else {
-                return 200
+                return UITableView.automaticDimension
             }
         }
         

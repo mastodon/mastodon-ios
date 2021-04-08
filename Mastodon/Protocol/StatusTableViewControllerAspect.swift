@@ -8,6 +8,15 @@
 import UIKit
 import AVKit
 
+//   Check List                     Last Updated
+// - FavoriteViewController:            2021/4/8
+// - HashtagTimelineViewController:     2021/4/8
+// - UserTimelineViewController:        2021/4/8
+// * StatusTableViewControllerAspect:   2021/4/7
+
+// (Fake) Aspect protocol to group common protocol extension implementations
+// Needs update related view controller when aspect interface changes
+
 /// Status related operations aspect
 /// Please check the aspect methods (Option+Click) and add hook to implement features
 /// - UI
@@ -17,9 +26,9 @@ protocol StatusTableViewControllerAspect: UIViewController {
     var tableView: UITableView { get }
 }
 
-// MARK: - UIViewController
+// MARK: - UIViewController [A]
 
-// aspectViewWillAppear(_:)
+// [A1] aspectViewWillAppear(_:)
 extension StatusTableViewControllerAspect {
     /// [UI] hook to deselect row in the transitioning for the table view
     func aspectViewWillAppear(_ animated: Bool) {
@@ -31,12 +40,13 @@ extension StatusTableViewControllerAspect where Self: NeedsDependency {
     /// [Media] hook to notify video service
     func aspectViewDidDisappear(_ animated: Bool) {
         context.videoPlaybackService.viewDidDisappear(from: self)
+        context.audioPlaybackService.viewDidDisappear(from: self)
     }
 }
 
-// MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate [B]
 
-// aspectTableView(_:estimatedHeightForRowAt:)
+// [B1] aspectTableView(_:estimatedHeightForRowAt:)
 extension StatusTableViewControllerAspect where Self: LoadMoreConfigurableTableViewContainer {
     /// [Data Source] hook to notify table view bottom loader
     func aspectScrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -44,7 +54,7 @@ extension StatusTableViewControllerAspect where Self: LoadMoreConfigurableTableV
     }
 }
 
-// aspectTableView(_:estimatedHeightForRowAt:)
+// [B2] aspectTableView(_:estimatedHeightForRowAt:)
 extension StatusTableViewControllerAspect where Self: TableViewCellHeightCacheableContainer {
     /// [UI] hook to estimate  table view cell height from cache
     func aspectTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -52,7 +62,14 @@ extension StatusTableViewControllerAspect where Self: TableViewCellHeightCacheab
     }
 }
 
-// StatusTableViewControllerAspect.aspectTableView(_:didEndDisplaying:forRowAt:)
+// [B3] aspectTableView(_:willDisplay:forRowAt:)
+extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
+    func aspectTableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+}
+
+// [B4] StatusTableViewControllerAspect.aspectTableView(_:didEndDisplaying:forRowAt:)
 extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
     /// [Media] hook to notify video service
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -76,9 +93,19 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
     }
 }
 
-// MARK: - AVPlayerViewControllerDelegate & NeedsDependency
+// MARK: - UITableViewDataSourcePrefetching [C]
 
-// aspectPlayerViewController(_:willBeginFullScreenPresentationWithAnimationCoordinator:)
+// [C1] aspectTableView(:prefetchRowsAt)
+extension StatusTableViewControllerAspect where Self: UITableViewDataSourcePrefetching & StatusTableViewCellDelegate & StatusProvider {
+    /// [Data Source] hook to prefetch reply to info for status
+    func aspectTableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        handleTableView(tableView, prefetchRowsAt: indexPaths)
+    }
+}
+
+// MARK: - AVPlayerViewControllerDelegate & NeedsDependency [D]
+
+// [D1] aspectPlayerViewController(_:willBeginFullScreenPresentationWithAnimationCoordinator:)
 extension StatusTableViewControllerAspect where Self: AVPlayerViewControllerDelegate & NeedsDependency {
     /// [Media] hook to mark transitioning to video service
     func aspectPlayerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -86,7 +113,7 @@ extension StatusTableViewControllerAspect where Self: AVPlayerViewControllerDele
     }
 }
 
-// aspectPlayerViewController(_:willEndFullScreenPresentationWithAnimationCoordinator:)
+// [D2] aspectPlayerViewController(_:willEndFullScreenPresentationWithAnimationCoordinator:)
 extension StatusTableViewControllerAspect where Self: AVPlayerViewControllerDelegate & NeedsDependency {
     /// [Media] hook to mark transitioning to video service
     func aspectPlayerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {

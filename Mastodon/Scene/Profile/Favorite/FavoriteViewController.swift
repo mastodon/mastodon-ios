@@ -59,6 +59,7 @@ extension FavoriteViewController {
         ])
 
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
@@ -105,25 +106,35 @@ extension FavoriteViewController: UITableViewDelegate {
         aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
 }
 
+// MARK: - UITableViewDataSourcePrefetching
+extension FavoriteViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        aspectTableView(tableView, prefetchRowsAt: indexPaths)
+    }
+}
+
 // MARK: - AVPlayerViewControllerDelegate
 extension FavoriteViewController: AVPlayerViewControllerDelegate {
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+        aspectPlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
     }
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+        aspectPlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
     }
     
 }
-
 
 // MARK: - TimelinePostTableViewCellDelegate
 extension FavoriteViewController: StatusTableViewCellDelegate {

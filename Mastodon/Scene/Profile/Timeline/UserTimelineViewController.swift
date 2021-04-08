@@ -57,6 +57,7 @@ extension UserTimelineViewController {
         ])
 
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
@@ -115,10 +116,21 @@ extension UserTimelineViewController: UITableViewDelegate {
         aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+    
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+extension UserTimelineViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        aspectTableView(tableView, prefetchRowsAt: indexPaths)
+    }
 }
 
 // MARK: - AVPlayerViewControllerDelegate
@@ -139,10 +151,6 @@ extension UserTimelineViewController: StatusTableViewCellDelegate {
     weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
     func parent() -> UIViewController { return self }
 }
-
-//// MARK: - TimelineHeaderTableViewCellDelegate
-//extension UserTimelineViewController: TimelineHeaderTableViewCellDelegate { }
-
 
 // MARK: - CustomScrollViewContainerController
 extension UserTimelineViewController: ScrollViewContainer {
