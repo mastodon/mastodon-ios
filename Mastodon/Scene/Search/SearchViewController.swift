@@ -99,8 +99,8 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return label
     }()
     
-    let clearSearchHistoryButton: UIButton = {
-        let button = UIButton(type: .custom)
+    let clearSearchHistoryButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton(type: .custom)
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Scene.Search.Searching.clear, for: .normal)
         return button
