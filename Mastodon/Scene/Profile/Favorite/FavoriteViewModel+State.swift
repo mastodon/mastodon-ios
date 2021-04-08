@@ -92,6 +92,9 @@ extension FavoriteViewModel.State {
     }
     
     class Loading: FavoriteViewModel.State {
+        
+        var maxID: String?
+        
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Fail.Type:
@@ -113,8 +116,11 @@ extension FavoriteViewModel.State {
                 stateMachine.enter(Fail.self)
                 return
             }
-            
-            let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
+            if previousState is Reloading {
+                maxID = nil
+            }
+            // prefer use `maxID` token in response header
+            // let maxID = viewModel.statusFetchedResultsController.statusIDs.value.last
             
             viewModel.context.apiService.favoritedStatuses(
                 maxID: maxID,
@@ -139,8 +145,15 @@ extension FavoriteViewModel.State {
                     statusIDs.append(status.id)
                     hasNewStatusesAppend = true
                 }
+                
+                self.maxID = response.link?.maxID
+                
+                let hasNextPage: Bool = {
+                    guard let link = response.link else { return true }     // assert has more when link invalid
+                    return link.maxID != nil
+                }()
 
-                if hasNewStatusesAppend {
+                if hasNewStatusesAppend && hasNextPage {
                     stateMachine.enter(Idle.self)
                 } else {
                     stateMachine.enter(NoMore.self)
