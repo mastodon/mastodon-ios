@@ -115,6 +115,7 @@ extension Mastodon.API {
     public enum Trends { }
     public enum Suggestions { }
     public enum Notifications { }
+    public enum Notification { }
 }
 
 extension Mastodon.API {

@@ -154,6 +154,15 @@
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
         <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
     </entity>
+    <entity name="Setting" representedClassName="Setting" syncable="YES">
+        <attribute name="appearance" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="domain" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="triggerBy" optional="YES" attributeType="String"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="subscription" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="setting" inverseEntity="Subscription"/>
+    </entity>
     <entity name="Status" representedClassName=".Status" syncable="YES">
         <attribute name="content" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -192,6 +201,26 @@
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="statuses" inverseEntity="Tag"/>
     </entity>
+    <entity name="Subscription" representedClassName="Subscription" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="endpoint" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="serverKey" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="alert" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubscriptionAlerts" inverseName="subscription" inverseEntity="SubscriptionAlerts"/>
+        <relationship name="setting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Setting" inverseName="subscription" inverseEntity="Setting"/>
+    </entity>
+    <entity name="SubscriptionAlerts" representedClassName="SubscriptionAlerts" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="favourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="follow" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mention" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="poll" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="reblog" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="subscription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="alert" inverseEntity="Subscription"/>
+    </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES">
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
@@ -207,14 +236,16 @@
         <element name="Emoji" positionX="0" positionY="0" width="128" height="149"/>
         <element name="History" positionX="0" positionY="0" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
-        <element name="MastodonAuthentication" positionX="0" positionY="0" width="128" height="209"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="659"/>
-        <element name="Mention" positionX="0" positionY="0" width="128" height="134"/>
-        <element name="Poll" positionX="0" positionY="0" width="128" height="194"/>
-        <element name="PollOption" positionX="0" positionY="0" width="128" height="134"/>
-        <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
-        <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="629"/>
+        <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
+        <element name="Poll" positionX="72" positionY="162" width="128" height="194"/>
+        <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
+        <element name="PrivateNote" positionX="72" positionY="153" width="128" height="89"/>
+        <element name="Setting" positionX="72" positionY="162" width="128" height="134"/>
         <element name="Status" positionX="0" positionY="0" width="128" height="569"/>
-        <element name="Tag" positionX="0" positionY="0" width="128" height="134"/>
+        <element name="Subscription" positionX="81" positionY="171" width="128" height="149"/>
+        <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="149"/>
+        <element name="Tag" positionX="18" positionY="117" width="128" height="119"/>
     </elements>
 </model>

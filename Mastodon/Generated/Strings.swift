@@ -581,6 +581,62 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm")
       }
     }
+    internal enum Settings {
+      /// Settings
+      internal static let title = L10n.tr("Localizable", "Scene.Settings.Title")
+      internal enum Section {
+        internal enum Appearance {
+          /// Automatic
+          internal static let automatic = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Automatic")
+          /// Always Dark
+          internal static let dark = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Dark")
+          /// Always Light
+          internal static let light = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Light")
+          /// Appearance
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
+        }
+        internal enum BoringZone {
+          /// Privacy Policy
+          internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Privacy")
+          /// Terms of Service
+          internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Terms")
+          /// The Boring zone
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Title")
+        }
+        internal enum Notifications {
+          /// Boosts my post
+          internal static let boosts = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Boosts")
+          /// Favorites my post
+          internal static let favorites = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Favorites")
+          /// Follows me
+          internal static let follows = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Follows")
+          /// Mentions me
+          internal static let mentions = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Mentions")
+          /// Notifications
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Title")
+          internal enum Trigger {
+            /// anyone
+            internal static let anyone = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Anyone")
+            /// anyone I follow
+            internal static let follow = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follow")
+            /// a follower
+            internal static let follower = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follower")
+            /// no one
+            internal static let noOne = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.NoOne")
+            /// Notify me when
+            internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Title")
+          }
+        }
+        internal enum SpicyZone {
+          /// Clear Media Cache
+          internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Clear")
+          /// Sign Out
+          internal static let signOut = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.SignOut")
+          /// The spicy zone
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title")
+        }
+      }
+    }
     internal enum Welcome {
       /// Social networking\nback in your hands.
       internal static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan")

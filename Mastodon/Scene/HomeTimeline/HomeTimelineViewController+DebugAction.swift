@@ -33,6 +33,9 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showProfileAction(action)
                 },
+                UIAction(title: "Settings", image: UIImage(systemName: "escape"), attributes: []) { [weak self] action in
+                    self?.coordinator.present(scene: .settings, from: self, transition: .modal(animated: true, completion: nil))
+                },
                 UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
                     guard let self = self else { return }
                     self.signOutAction(action)
