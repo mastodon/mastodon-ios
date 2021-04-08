@@ -5,6 +5,8 @@
 //  Created by sxiaojian on 2021/3/31.
 //
 
+import CoreData
+import CoreDataStack
 import Foundation
 import MastodonSDK
 import OSLog
@@ -54,6 +56,18 @@ extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", (#file as NSString).lastPathComponent, #line, #function, indexPath.debugDescription)
         collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        switch collectionView {
+        case self.accountsCollectionView:
+            guard let diffableDataSource = viewModel.accountDiffableDataSource else { return }
+            guard let account = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+            viewModel.accountCollectionViewItemDidSelected(account: account, from: self)
+        case self.hashtagCollectionView:
+            guard let diffableDataSource = viewModel.hashtagDiffableDataSource else { return }
+            guard let hashtag = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+            viewModel.hashtagCollectionViewItemDidSelected(hashtag: hashtag, from: self)
+        default:
+            break
+        }
     }
 }
 

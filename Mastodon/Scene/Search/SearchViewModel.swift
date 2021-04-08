@@ -235,6 +235,41 @@ final class SearchViewModel: NSObject {
         }
     }
     
+    func accountCollectionViewItemDidSelected(account: Mastodon.Entity.Account, from: UIViewController) {
+        _ = context.managedObjectContext.performChanges { [weak self] in
+            guard let self = self else { return }
+            guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                return
+            }
+            // load request mastodon user
+            let requestMastodonUser: MastodonUser? = {
+                let request = MastodonUser.sortedFetchRequest
+                request.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, id: activeMastodonAuthenticationBox.userID)
+                request.fetchLimit = 1
+                request.returnsObjectsAsFaults = false
+                do {
+                    return try self.context.managedObjectContext.fetch(request).first
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return nil
+                }
+            }()
+            let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.context.managedObjectContext, for: requestMastodonUser, in: activeMastodonAuthenticationBox.domain, entity: account, userCache: nil, networkDate: Date(), log: OSLog.api)
+            let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: mastodonUser)
+            DispatchQueue.main.async {
+                self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
+            }
+        }
+    }
+    
+    func hashtagCollectionViewItemDidSelected(hashtag: Mastodon.Entity.Tag, from: UIViewController) {
+        let (tagInCoreData,_) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: hashtag)
+        let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
+        }
+    }
+    
     func searchResultItemDidSelected(item: SearchResultItem,from: UIViewController) {
         let searchHistories = self.fetchSearchHistory()
         _ = context.managedObjectContext.performChanges { [weak self] in
@@ -271,6 +306,10 @@ final class SearchViewModel: NSObject {
                 } else {
                     SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
                 }
+                let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: mastodonUser)
+                DispatchQueue.main.async {
+                    self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
+                }
             
             case .hashtag(let tag):
                 let (tagInCoreData,_) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: tag)
@@ -288,7 +327,9 @@ final class SearchViewModel: NSObject {
                     SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
                 }
                 let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
-                self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
+                DispatchQueue.main.async {
+                    self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
+                }
             case .accountObjectID(let accountObjectID):
                 if let searchHistories = searchHistories {
                     let history = searchHistories.first { history -> Bool in
@@ -298,6 +339,11 @@ final class SearchViewModel: NSObject {
                     if let history = history {
                         history.update(updatedAt: Date())
                     }
+                }
+                let mastodonUser = self.context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
+                let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: mastodonUser)
+                DispatchQueue.main.async {
+                    self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
                 }
             case .hashtagObjectID(let hashtagObjectID):
                 if let searchHistories = searchHistories {
@@ -311,7 +357,9 @@ final class SearchViewModel: NSObject {
                 }
                 let tagInCoreData = self.context.managedObjectContext.object(with: hashtagObjectID) as! Tag
                 let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
-                self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
+                DispatchQueue.main.async {
+                    self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
+                }
             default:
                 break
             }
