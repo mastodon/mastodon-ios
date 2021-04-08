@@ -136,19 +136,24 @@ extension ProfileViewController {
         
         navigationItem.titleView = UIView()
         
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
+            viewModel.suspended.eraseToAnyPublisher(),
             viewModel.isMeBarButtonItemsHidden.eraseToAnyPublisher(),
             viewModel.isReplyBarButtonItemHidden.eraseToAnyPublisher(),
             viewModel.isMoreMenuBarButtonItemHidden.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden in
+        .sink { [weak self] suspended, isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden in
             guard let self = self else { return }
             var items: [UIBarButtonItem] = []
             defer {
                 self.navigationItem.rightBarButtonItems = !items.isEmpty ? items : nil
             }
 
+            guard !suspended else {
+                return
+            }
+            
             guard isMeBarButtonItemsHidden else {
                 items.append(self.settingBarButtonItem)
                 items.append(self.shareBarButtonItem)
@@ -345,6 +350,21 @@ extension ProfileViewController {
             }
         }
         .store(in: &disposeBag)
+        Publishers.CombineLatest3(
+            viewModel.isBlocking.eraseToAnyPublisher(),
+            viewModel.isBlockedBy.eraseToAnyPublisher(),
+            viewModel.suspended.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isBlocking, isBlockedBy, suspended in
+            guard let self = self else { return }
+            let isNeedSetHidden = isBlocking || isBlockedBy || suspended
+            self.profileHeaderViewController.needsSetupBottomShadow.value = !isNeedSetHidden
+            self.profileHeaderViewController.profileHeaderView.bioContainerView.isHidden = isNeedSetHidden
+            self.profileHeaderViewController.pageSegmentedControl.isHidden = isNeedSetHidden
+            self.viewModel.needsPagePinToTop.value = isNeedSetHidden
+        }
+        .store(in: &disposeBag)
         viewModel.bioDescription
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] bio in
@@ -411,6 +431,8 @@ extension ProfileViewController {
         viewModel.userID.assign(to: \.value, on: userTimelineViewModel.userID).store(in: &disposeBag)
         viewModel.isBlocking.assign(to: \.value, on: userTimelineViewModel.isBlocking).store(in: &disposeBag)
         viewModel.isBlockedBy.assign(to: \.value, on: userTimelineViewModel.isBlockedBy).store(in: &disposeBag)
+        viewModel.suspended.assign(to: \.value, on: userTimelineViewModel.isSuspended).store(in: &disposeBag)
+        viewModel.name.assign(to: \.value, on: userTimelineViewModel.userDisplayName).store(in: &disposeBag)
     }
     
 }
@@ -476,10 +498,15 @@ extension ProfileViewController: UIScrollViewDelegate {
             contentOffsets.removeAll()
         } else {
             containerScrollView.contentOffset.y = topMaxContentOffsetY
-            if let customScrollViewContainerController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer {
-                let contentOffsetY = scrollView.contentOffset.y - containerScrollView.contentOffset.y
-                customScrollViewContainerController.scrollView.contentOffset.y = contentOffsetY
+            if viewModel.needsPagePinToTop.value {
+                // do nothing
+            } else {
+                if let customScrollViewContainerController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer {
+                    let contentOffsetY = scrollView.contentOffset.y - containerScrollView.contentOffset.y
+                    customScrollViewContainerController.scrollView.contentOffset.y = contentOffsetY
+                }
             }
+            
         }
 
         // elastically banner image
@@ -538,16 +565,14 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
             switch relationshipAction {
             case .none:
                 break
-            case .follow, .following:
+            case .follow, .reqeust, .pending, .following:
                 UserProviderFacade.toggleUserFollowRelationship(provider: self)
                     .sink { _ in
-                        
+                        // TODO: handle error
                     } receiveValue: { _ in
-                        
+                        // do nothing
                     }
                     .store(in: &disposeBag)
-            case .pending:
-                break
             case .muting:
                 guard let mastodonUser = viewModel.mastodonUser.value else { return }
                 let name = mastodonUser.displayNameWithFallback

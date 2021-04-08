@@ -41,7 +41,7 @@ class ProfileViewModel: NSObject {
     let followersCount: CurrentValueSubject<Int?, Never>
 
     let protected: CurrentValueSubject<Bool?, Never>
-    // let suspended: CurrentValueSubject<Bool, Never>
+    let suspended: CurrentValueSubject<Bool, Never>
 
     let relationshipActionOptionSet = CurrentValueSubject<RelationshipActionOptionSet, Never>(.none)
     let isEditing = CurrentValueSubject<Bool, Never>(false)
@@ -55,6 +55,8 @@ class ProfileViewModel: NSObject {
     let isMoreMenuBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
     let isMeBarButtonItemsHidden = CurrentValueSubject<Bool, Never>(true)
     
+    let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
+    
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
         self.mastodonUser = CurrentValueSubject(mastodonUser)
@@ -62,7 +64,6 @@ class ProfileViewModel: NSObject {
         self.userID = CurrentValueSubject(mastodonUser?.id)
         self.bannerImageURL = CurrentValueSubject(mastodonUser?.headerImageURL())
         self.avatarImageURL = CurrentValueSubject(mastodonUser?.avatarImageURL())
-//        self.protected = CurrentValueSubject(twitterUser?.protected)
         self.name = CurrentValueSubject(mastodonUser?.displayNameWithFallback)
         self.username = CurrentValueSubject(mastodonUser?.acctWithDomain)
         self.bioDescription = CurrentValueSubject(mastodonUser?.note)
@@ -71,6 +72,7 @@ class ProfileViewModel: NSObject {
         self.followingCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.followingCount) })
         self.followersCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.followersCount) })
         self.protected = CurrentValueSubject(mastodonUser?.locked)
+        self.suspended = CurrentValueSubject(mastodonUser?.suspended ?? false)
         super.init()
         
         relationshipActionOptionSet
@@ -226,6 +228,7 @@ extension ProfileViewModel {
         self.followingCount.value = mastodonUser.flatMap { Int(truncating: $0.followingCount) }
         self.followersCount.value = mastodonUser.flatMap { Int(truncating: $0.followersCount) }
         self.protected.value = mastodonUser?.locked
+        self.suspended.value = mastodonUser?.suspended ?? false
     }
     
     private func update(mastodonUser: MastodonUser?, currentMastodonUser: MastodonUser?) {
@@ -254,6 +257,14 @@ extension ProfileViewModel {
         } else {
             // set with follow action default
             var relationshipActionSet = RelationshipActionOptionSet([.follow])
+            
+            if mastodonUser.locked {
+                relationshipActionSet.insert(.request)
+            }
+            
+            if mastodonUser.suspended {
+                relationshipActionSet.insert(.suspended)
+            }
             
             let isFollowing = mastodonUser.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
             if isFollowing {
@@ -308,11 +319,13 @@ extension ProfileViewModel {
     enum RelationshipAction: Int, CaseIterable {
         case none       // set hide from UI
         case follow
+        case reqeust
         case pending
         case following
         case muting
         case blocked
         case blocking
+        case suspended
         case edit
         case editing
         
@@ -327,11 +340,13 @@ extension ProfileViewModel {
         
         static let none = RelationshipAction.none.option
         static let follow = RelationshipAction.follow.option
+        static let request = RelationshipAction.reqeust.option
         static let pending = RelationshipAction.pending.option
         static let following = RelationshipAction.following.option
         static let muting = RelationshipAction.muting.option
         static let blocked = RelationshipAction.blocked.option
         static let blocking = RelationshipAction.blocking.option
+        static let suspended = RelationshipAction.suspended.option
         static let edit = RelationshipAction.edit.option
         static let editing = RelationshipAction.editing.option
         
@@ -354,11 +369,13 @@ extension ProfileViewModel {
             switch highPriorityAction {
             case .none: return " "
             case .follow: return L10n.Common.Controls.Firendship.follow
+            case .reqeust: return L10n.Common.Controls.Firendship.request
             case .pending: return L10n.Common.Controls.Firendship.pending
             case .following: return L10n.Common.Controls.Firendship.following
             case .muting: return L10n.Common.Controls.Firendship.muted
             case .blocked: return L10n.Common.Controls.Firendship.follow   // blocked by user
             case .blocking: return L10n.Common.Controls.Firendship.blocked
+            case .suspended: return L10n.Common.Controls.Firendship.follow
             case .edit: return L10n.Common.Controls.Firendship.editInfo
             case .editing: return L10n.Common.Controls.Actions.done
             }
@@ -372,11 +389,13 @@ extension ProfileViewModel {
             switch highPriorityAction {
             case .none: return Asset.Colors.Button.normal.color
             case .follow: return Asset.Colors.Button.normal.color
+            case .reqeust: return Asset.Colors.Button.normal.color
             case .pending: return Asset.Colors.Button.normal.color
             case .following: return Asset.Colors.Button.normal.color
             case .muting: return Asset.Colors.Background.alertYellow.color
-            case .blocked: return Asset.Colors.Button.disabled.color
+            case .blocked: return Asset.Colors.Button.normal.color
             case .blocking: return Asset.Colors.Background.danger.color
+            case .suspended: return Asset.Colors.Button.normal.color
             case .edit: return Asset.Colors.Button.normal.color
             case .editing: return Asset.Colors.Button.normal.color
             }

@@ -25,6 +25,10 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showPublicTimelineAction(action)
                 },
+                UIAction(title: "Show Profile", image: UIImage(systemName: "person.crop.circle"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showProfileAction(action)
+                },
                 UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
                     guard let self = self else { return }
                     self.signOutAction(action)
@@ -275,6 +279,21 @@ extension HomeTimelineViewController {
     
     @objc private func showPublicTimelineAction(_ sender: UIAction) {
         coordinator.present(scene: .publicTimeline, from: self, transition: .show)
+    }
+    
+    @objc private func showProfileAction(_ sender: UIAction) {
+        let alertController = UIAlertController(title: "Enter User ID", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        let showAction = UIAlertAction(title: "Show", style: .default) { [weak self, weak alertController] _ in
+            guard let self = self else { return }
+            guard let textField = alertController?.textFields?.first else { return }
+            let profileViewModel = RemoteProfileViewModel(context: self.context, userID: textField.text ?? "")
+            self.coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
+        }
+        alertController.addAction(showAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
 }

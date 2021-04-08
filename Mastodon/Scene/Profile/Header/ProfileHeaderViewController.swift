@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import Combine
 
 protocol ProfileHeaderViewControllerDelegate: class {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
@@ -21,6 +22,8 @@ final class ProfileHeaderViewController: UIViewController {
     
     weak var delegate: ProfileHeaderViewControllerDelegate?
     
+    var disposeBag = Set<AnyCancellable>()
+    
     let profileHeaderView = ProfileHeaderView()
     let pageSegmentedControl: UISegmentedControl = {
         let segmenetedControl = UISegmentedControl(items: ["A", "B"])
@@ -33,6 +36,8 @@ final class ProfileHeaderViewController: UIViewController {
 
     // private var isAdjustBannerImageViewForSafeAreaInset = false
     private var containerSafeAreaInset: UIEdgeInsets = .zero
+    
+    let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
 
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -67,6 +72,14 @@ extension ProfileHeaderViewController {
         ])
         
         pageSegmentedControl.addTarget(self, action: #selector(ProfileHeaderViewController.pageSegmentedControlValueChanged(_:)), for: .valueChanged)
+        
+        needsSetupBottomShadow
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] needsSetupBottomShadow in
+                guard let self = self else { return }
+                self.setupBottomShadow()
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,7 +98,7 @@ extension ProfileHeaderViewController {
         super.viewDidLayoutSubviews()
         
         delegate?.profileHeaderViewController(self, viewLayoutDidUpdate: view)
-        view.layer.setupShadow(color: UIColor.black.withAlphaComponent(0.12), alpha: Float(bottomShadowAlpha), x: 0, y: 2, blur: 2, spread: 0, roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: .zero)
+        setupBottomShadow()
     }
     
 }
@@ -103,6 +116,15 @@ extension ProfileHeaderViewController {
     
     func updateHeaderContainerSafeAreaInset(_ inset: UIEdgeInsets) {
         containerSafeAreaInset = inset
+    }
+    
+    func setupBottomShadow() {
+        guard needsSetupBottomShadow.value else {
+            view.layer.shadowColor = nil
+            view.layer.shadowRadius = 0
+            return
+        }
+        view.layer.setupShadow(color: UIColor.black.withAlphaComponent(0.12), alpha: Float(bottomShadowAlpha), x: 0, y: 2, blur: 2, spread: 0, roundedRect: view.bounds, byRoundingCorners: .allCorners, cornerRadii: .zero)
     }
     
     private func updateHeaderBottomShadow(progress: CGFloat) {

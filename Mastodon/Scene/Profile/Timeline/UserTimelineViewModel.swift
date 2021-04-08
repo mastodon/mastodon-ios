@@ -27,6 +27,8 @@ final class UserTimelineViewModel {
     
     let isBlocking = CurrentValueSubject<Bool, Never>(false)
     let isBlockedBy = CurrentValueSubject<Bool, Never>(false)
+    let isSuspended = CurrentValueSubject<Bool, Never>(false)
+    let userDisplayName = CurrentValueSubject<String?, Never>(nil)  // for suspended prompt label
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
@@ -59,14 +61,15 @@ final class UserTimelineViewModel {
             .assign(to: \.value, on: statusFetchedResultsController.domain)
             .store(in: &disposeBag)
         
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             statusFetchedResultsController.objectIDs.eraseToAnyPublisher(),
             isBlocking.eraseToAnyPublisher(),
-            isBlockedBy.eraseToAnyPublisher()
+            isBlockedBy.eraseToAnyPublisher(),
+            isSuspended.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
         .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-        .sink { [weak self] objectIDs, isBlocking, isBlockedBy in
+        .sink { [weak self] objectIDs, isBlocking, isBlockedBy, isSuspended in
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }
             
@@ -86,6 +89,12 @@ final class UserTimelineViewModel {
             
             guard !isBlockedBy else {
                 snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocked))], toSection: .main)
+                return
+            }
+            
+            let name = self.userDisplayName.value
+            guard !isSuspended else {
+                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .suspended(name: name)))], toSection: .main)
                 return
             }
             

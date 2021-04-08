@@ -38,6 +38,7 @@ Please check your internet connection.";
 "Common.Controls.Firendship.MuteUser" = "Mute %@";
 "Common.Controls.Firendship.Muted" = "Muted";
 "Common.Controls.Firendship.Pending" = "Pending";
+"Common.Controls.Firendship.Request" = "Request";
 "Common.Controls.Firendship.Unblock" = "Unblock";
 "Common.Controls.Firendship.UnblockUser" = "Unblock %@";
 "Common.Controls.Firendship.Unmute" = "Unmute";
@@ -60,7 +61,8 @@ Please check your internet connection.";
  until you unblock them.
 Your account looks like this to them.";
 "Common.Controls.Timeline.Header.NoStatusFound" = "No Status Found";
-"Common.Controls.Timeline.Header.SuspendedWarning" = "This account is suspended.";
+"Common.Controls.Timeline.Header.SuspendedWarning" = "This account has been suspended.";
+"Common.Controls.Timeline.Header.UserSuspendedWarning" = "%@'s account has been suspended.";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "Load missing posts";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Countable.Photo.Multiple" = "photos";

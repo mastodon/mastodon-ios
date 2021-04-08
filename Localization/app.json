@@ -69,6 +69,7 @@
             "firendship": {
                 "follow": "Follow",
                 "following": "Following",
+                "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
                 "block_user": "Block %s",
@@ -91,7 +92,8 @@
                     "no_status_found": "No Status Found",
                     "blocking_warning": "You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.",
                     "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
-                    "suspended_warning": "This account is suspended."
+                    "suspended_warning": "This account has been suspended.",
+                    "user_suspended_warning": "%s's account has been suspended."
                 }
             }
         },

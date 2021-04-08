@@ -112,6 +112,8 @@ internal enum L10n {
         }
         /// Pending
         internal static let pending = L10n.tr("Localizable", "Common.Controls.Firendship.Pending")
+        /// Request
+        internal static let request = L10n.tr("Localizable", "Common.Controls.Firendship.Request")
         /// Unblock
         internal static let unblock = L10n.tr("Localizable", "Common.Controls.Firendship.Unblock")
         /// Unblock %@
@@ -179,8 +181,12 @@ internal enum L10n {
           internal static let blockingWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockingWarning")
           /// No Status Found
           internal static let noStatusFound = L10n.tr("Localizable", "Common.Controls.Timeline.Header.NoStatusFound")
-          /// This account is suspended.
+          /// This account has been suspended.
           internal static let suspendedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.SuspendedWarning")
+          /// %@'s account has been suspended.
+          internal static func userSuspendedWarning(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserSuspendedWarning", String(describing: p1))
+          }
         }
         internal enum Loader {
           /// Loading missing posts...

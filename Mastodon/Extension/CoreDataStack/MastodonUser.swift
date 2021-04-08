@@ -28,6 +28,7 @@ extension MastodonUser.Property {
             followersCount: entity.followersCount,
             locked: entity.locked,
             bot: entity.bot,
+            suspended: entity.suspended,
             createdAt: entity.createdAt,
             networkDate: networkDate
         )

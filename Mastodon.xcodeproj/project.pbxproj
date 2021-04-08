@@ -757,17 +757,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0F1E2D102615C39800C38565 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		0F2021F5261325ED000C64BF /* HashtagTimeline */ = {
 			isa = PBXGroup;
 			children = (
-				0F1E2D102615C39800C38565 /* View */,
 				0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */,
 				0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */,
 				0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */,

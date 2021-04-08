@@ -82,6 +82,7 @@
         <attribute name="locked" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="statusesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="suspended" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="username" attributeType="String"/>
@@ -199,7 +200,7 @@
         <element name="History" positionX="27" positionY="126" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="18" positionY="162" width="128" height="209"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="659"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="674"/>
         <element name="Mention" positionX="9" positionY="108" width="128" height="134"/>
         <element name="Poll" positionX="72" positionY="162" width="128" height="194"/>
         <element name="PollOption" positionX="81" positionY="171" width="128" height="134"/>
