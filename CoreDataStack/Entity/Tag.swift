@@ -12,25 +12,33 @@ public final class Tag: NSManagedObject {
     public typealias ID = UUID
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var createAt: Date
-    
+    @NSManaged public private(set) var updatedAt: Date
+
     @NSManaged public private(set) var name: String
     @NSManaged public private(set) var url: String
-    
+
     // many-to-many relationship
     @NSManaged public private(set) var statuses: Set<Status>?
-    
+
     // one-to-many relationship
     @NSManaged public private(set) var histories: Set<History>?
 }
 
-extension Tag {
-    public override func awakeFromInsert() {
+public extension Tag {
+    override func awakeFromInsert() {
         super.awakeFromInsert()
         setPrimitiveValue(UUID(), forKey: #keyPath(Tag.identifier))
+        setPrimitiveValue(Date(), forKey: #keyPath(Tag.createAt))
+        setPrimitiveValue(Date(), forKey: #keyPath(Tag.updatedAt))
     }
-    
+
+    override func willSave() {
+        super.willSave()
+        setPrimitiveValue(Date(), forKey: #keyPath(Tag.updatedAt))
+    }
+
     @discardableResult
-    public static func insert(
+    static func insert(
         into context: NSManagedObjectContext,
         property: Property
     ) -> Tag {
@@ -44,8 +52,8 @@ extension Tag {
     }
 }
 
-extension Tag {
-    public struct Property {
+public extension Tag {
+    struct Property {
         public let name: String
         public let url: String
         public let histories: [History]?
@@ -58,8 +66,36 @@ extension Tag {
     }
 }
 
+public extension Tag {
+    func updateHistory(index: Int, day: Date, uses: String, account: String) {
+        guard let histories = self.histories?.sorted(by: {
+            $0.createAt.compare($1.createAt) == .orderedAscending
+        }) else { return }
+        let history = histories[index]
+        history.update(day: day)
+        history.update(uses: uses)
+        history.update(accounts: account)
+    }
+    
+    func appendHistory(history: History) {
+        self.mutableSetValue(forKeyPath: #keyPath(Tag.histories)).add(history)
+    }
+    
+    func update(url: String) {
+        if self.url != url {
+            self.url = url
+        }
+    }
+}
+
 extension Tag: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \Tag.createAt, ascending: false)]
+        [NSSortDescriptor(keyPath: \Tag.createAt, ascending: false)]
+    }
+}
+
+public extension Tag {
+    static func predicate(name: String) -> NSPredicate {
+        NSPredicate(format: "%K == %@", #keyPath(Tag.name), name)
     }
 }

@@ -234,6 +234,7 @@ final class SearchViewModel: NSObject {
     }
     
     func saveItemToCoreData(item: SearchResultItem) {
+        let searchHistories = self.fetchSearchHistory()
         _ = context.managedObjectContext.performChanges { [weak self] in
             guard let self = self else { return }
             switch item {
@@ -255,15 +256,55 @@ final class SearchViewModel: NSObject {
                     }
                 }()
                 let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.context.managedObjectContext, for: requestMastodonUser, in: activeMastodonAuthenticationBox.domain, entity: account, userCache: nil, networkDate: Date(), log: OSLog.api)
-                SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
+                if let searchHistories = searchHistories {
+                    let history = searchHistories.first { history -> Bool in
+                        guard let account = history.account else { return false }
+                        return account.objectID == mastodonUser.objectID
+                    }
+                    if let history = history {
+                        history.update(updatedAt: Date())
+                    } else {
+                        SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
+                    }
+                } else {
+                    SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
+                }
             
             case .hashtag(let tag):
-                let histories = tag.history?[0 ... 2].compactMap { history -> History in
-                    History.insert(into: self.context.managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
+                let (tagInCoreData,_) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: tag)
+                if let searchHistories = searchHistories {
+                    let history = searchHistories.first { history -> Bool in
+                        guard let hashtag = history.hashtag else { return false }
+                        return hashtag.objectID == tagInCoreData.objectID
+                    }
+                    if let history = history {
+                        history.update(updatedAt: Date())
+                    } else {
+                        SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
+                    }
+                } else {
+                    SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
                 }
-                let tagInCoreData = Tag.insert(into: self.context.managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
-                SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
-
+            case .accountObjectID(let accountObjectID):
+                if let searchHistories = searchHistories {
+                    let history = searchHistories.first { history -> Bool in
+                        guard let account = history.account else { return false }
+                        return account.objectID == accountObjectID
+                    }
+                    if let history = history {
+                        history.update(updatedAt: Date())
+                    }
+                }
+            case .hashtagObjectID(let hashtagObjectID):
+                if let searchHistories = searchHistories {
+                    let history = searchHistories.first { history -> Bool in
+                        guard let hashtag = history.hashtag else { return false }
+                        return hashtag.objectID == hashtagObjectID
+                    }
+                    if let history = history {
+                        history.update(updatedAt: Date())
+                    }
+                }
             default:
                 break
             }

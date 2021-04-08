@@ -89,7 +89,8 @@ extension SearchViewModel.LoadOldestState {
                             var newAccounts = [Mastodon.Entity.Account]()
                             newAccounts.append(contentsOf: oldSearchResult.accounts)
                             newAccounts.append(contentsOf: result.value.accounts)
-                            viewModel.searchResult.value = Mastodon.Entity.SearchResult(accounts: newAccounts.removeDuplicate(), statuses: oldSearchResult.statuses, hashtags: oldSearchResult.hashtags)
+                            newAccounts.removeDuplicates()
+                            viewModel.searchResult.value = Mastodon.Entity.SearchResult(accounts: newAccounts, statuses: oldSearchResult.statuses, hashtags: oldSearchResult.hashtags)
                             stateMachine.enter(Idle.self)
                         }
                     case Mastodon.API.Search.SearchType.hashtags:
@@ -99,7 +100,8 @@ extension SearchViewModel.LoadOldestState {
                             var newTags = [Mastodon.Entity.Tag]()
                             newTags.append(contentsOf: oldSearchResult.hashtags)
                             newTags.append(contentsOf: result.value.hashtags)
-                            viewModel.searchResult.value = Mastodon.Entity.SearchResult(accounts: oldSearchResult.accounts, statuses: oldSearchResult.statuses, hashtags: newTags.removeDuplicate())
+                            newTags.removeDuplicates()
+                            viewModel.searchResult.value = Mastodon.Entity.SearchResult(accounts: oldSearchResult.accounts, statuses: oldSearchResult.statuses, hashtags: newTags)
                             stateMachine.enter(Idle.self)
                         }
                     default:

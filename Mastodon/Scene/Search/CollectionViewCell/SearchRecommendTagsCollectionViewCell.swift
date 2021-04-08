@@ -82,7 +82,8 @@ extension SearchRecommendTagsCollectionViewCell {
             peopleLabel.text = ""
             return
         }
-        let recentHistory = historys[0...2]
+        
+        let recentHistory = historys.prefix(2)
         let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         peopleLabel.text = string
