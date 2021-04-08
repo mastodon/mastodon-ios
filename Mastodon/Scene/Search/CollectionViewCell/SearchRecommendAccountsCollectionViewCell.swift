@@ -41,6 +41,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -105,6 +106,8 @@ extension SearchRecommendAccountsCollectionViewCell {
         contentView.addSubview(acctLabel)
         acctLabel.constrain([
             acctLabel.constraint(.top, toView: contentView, constant: 132),
+            acctLabel.constraint(.leading, toView: contentView),
+            acctLabel.constraint(.trailing, toView: contentView),
             acctLabel.constraint(.centerX, toView: contentView)
         ])
         
