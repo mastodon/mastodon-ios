@@ -325,7 +325,8 @@ extension ProfileViewController {
                 }
                 let isMuting = relationshipActionOptionSet.contains(.muting)
                 let isBlocking = relationshipActionOptionSet.contains(.blocking)
-                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(for: mastodonUser, isMuting: isMuting, isBlocking: isBlocking, provider: self)
+                let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
+                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(for: mastodonUser, isMuting: isMuting, isBlocking: isBlocking, needsShareAction: needsShareAction, provider: self, sourceView: nil, barButtonItem: self.moreMenuBarButtonItem)
             }
             .store(in: &disposeBag)
         viewModel.isRelationshipActionButtonHidden
@@ -446,6 +447,17 @@ extension ProfileViewController {
     
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        let activityViewController = UserProviderFacade.createActivityViewControllerForMastodonUser(mastodonUser: mastodonUser, dependency: self)
+        coordinator.present(
+            scene: .activityViewController(
+                activityViewController: activityViewController,
+                sourceView: nil,
+                barButtonItem: sender
+            ),
+            from: self,
+            transition: .activityViewControllerPresent(animated: true, completion: nil)
+        )
     }
     
     @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {

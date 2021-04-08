@@ -63,3 +63,21 @@ extension MastodonUser {
     }
     
 }
+
+extension MastodonUser {
+    
+    var profileURL: URL {
+        if let urlString = self.url,
+           let url = URL(string: urlString) {
+            return url
+        } else {
+            return URL(string: "https://\(self.domain)/@\(username)")!
+        }
+    }
+    
+    var activityItems: [Any] {
+        var items: [Any] = []
+        items.append(profileURL)
+        return items
+    }
+}

@@ -219,6 +219,7 @@
 		DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
+		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
 		DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */; };
@@ -595,6 +596,7 @@
 		DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
+		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
 		DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1142,8 +1144,8 @@
 		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
-				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
 				DB084B5625CBC56C00F898ED /* Status.swift */,
+				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
 				DB9D6C3725E508BE0051B173 /* Attachment.swift */,
 			);
 			path = CoreDataStack;
@@ -1233,6 +1235,7 @@
 				DB9E0D6925EDFFE500CFDD76 /* Helper */,
 				DB8AF56225C138BC002E6C99 /* Extension */,
 				2D5A3D0125CF8640002347D6 /* Vender */,
+				DB73B495261F030D002E9E9F /* Activity */,
 				DB5086CB25CC0DB400C2C187 /* Preference */,
 				2D69CFF225CA9E2200C3A1B2 /* Protocol */,
 				DB98338425C945ED00AD9700 /* Generated */,
@@ -1370,6 +1373,14 @@
 				DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */,
 			);
 			path = ServerRules;
+			sourceTree = "<group>";
+		};
+		DB73B495261F030D002E9E9F /* Activity */ = {
+			isa = PBXGroup;
+			children = (
+				DB73B48F261F030A002E9E9F /* SafariActivity.swift */,
+			);
+			path = Activity;
 			sourceTree = "<group>";
 		};
 		DB789A1025F9F29B0071ACA0 /* Compose */ = {
@@ -2219,6 +2230,7 @@
 				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
 				DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */,
+				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
 				DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,

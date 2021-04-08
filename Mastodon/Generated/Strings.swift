@@ -78,6 +78,12 @@ internal enum L10n {
         internal static let savePhoto = L10n.tr("Localizable", "Common.Controls.Actions.SavePhoto")
         /// See More
         internal static let seeMore = L10n.tr("Localizable", "Common.Controls.Actions.SeeMore")
+        /// Share
+        internal static let share = L10n.tr("Localizable", "Common.Controls.Actions.Share")
+        /// Share %@
+        internal static func shareUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.ShareUser", String(describing: p1))
+        }
         /// Sign In
         internal static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn")
         /// Sign Up
@@ -90,6 +96,10 @@ internal enum L10n {
       internal enum Firendship {
         /// Block
         internal static let block = L10n.tr("Localizable", "Common.Controls.Firendship.Block")
+        /// Block %@
+        internal static func blockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Firendship.BlockDomain", String(describing: p1))
+        }
         /// Blocked
         internal static let blocked = L10n.tr("Localizable", "Common.Controls.Firendship.Blocked")
         /// Block %@
