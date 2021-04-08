@@ -41,7 +41,7 @@ class HashtagTimelineViewController: UIViewController, NeedsDependency {
     
     let refreshControl = UIRefreshControl()
     
-    let titleView = HashtagTimelineNavigationBarTitleView()
+    let titleView = DoubleTitleLabelNavigationBarTitleView()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
@@ -54,7 +54,7 @@ extension HashtagTimelineViewController {
         super.viewDidLoad()
         
         title = "#\(viewModel.hashtag)"
-        titleView.updateTitle(hashtag: viewModel.hashtag, peopleNumber: nil)
+        titleView.update(title: viewModel.hashtag, subtitle: nil)
         navigationItem.titleView = titleView
         
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
@@ -107,9 +107,6 @@ extension HashtagTimelineViewController {
                 self?.updatePromptTitle()
             }
             .store(in: &disposeBag)
-        
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,7 +139,7 @@ extension HashtagTimelineViewController {
     private func updatePromptTitle() {
         var subtitle: String?
         defer {
-            titleView.updateTitle(hashtag: viewModel.hashtag, peopleNumber: subtitle)
+            titleView.update(title: "#" + viewModel.hashtag, subtitle: subtitle)
         }
         guard let histories = viewModel.hashtagEntity.value?.history else {
             return
@@ -158,7 +155,7 @@ extension HashtagTimelineViewController {
                 .prefix(2)
                 .compactMap({ Int($0.accounts) })
                 .reduce(0, +)
-            subtitle = "\(peopleTalkingNumber)"
+            subtitle = L10n.Scene.Hashtag.prompt("\(peopleTalkingNumber)")
         }
     }
 }

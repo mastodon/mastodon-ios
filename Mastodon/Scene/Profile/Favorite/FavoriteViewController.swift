@@ -21,6 +21,8 @@ final class FavoriteViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: FavoriteViewModel!
+    
+    let titleView = DoubleTitleLabelNavigationBarTitleView()
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -44,6 +46,7 @@ extension FavoriteViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        navigationItem.titleView = titleView
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

@@ -102,6 +102,7 @@ uploaded to Mastodon.";
 "Scene.ConfirmEmail.Subtitle" = "We just sent an email to %@,
 tap the link to confirm your account.";
 "Scene.ConfirmEmail.Title" = "One last thing.";
+"Scene.Favorite.Title" = "Your Favorites";
 "Scene.Hashtag.Prompt" = "%@ people talking";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "See new posts";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Offline";

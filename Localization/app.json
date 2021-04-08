@@ -217,7 +217,7 @@
                 "new_posts": "See new posts",
                 "published": "Published!",
                 "Publishing": "Publishing post..."
-            },
+            }
         },
         "public_timeline": {
             "title": "Public"
@@ -288,21 +288,24 @@
                 "cancel": "Cancel"
             },
             "recommend": {
-              "buttonText": "See All",
-              "hash_tag": {
-                  "title": "Trending in your timeline",
-                  "description": "Hashtags that are getting quite a bit of attention among people you follow",
-                  "people_talking": "%s people are talking"
-              },
-              "accounts": {
-                  "title": "Accounts you might like",
-                  "description": "Except for Sam, you will not like his account.",
-                  "follow": "Follow"
-              }
+                "buttonText": "See All",
+                "hash_tag": {
+                    "title": "Trending in your timeline",
+                    "description": "Hashtags that are getting quite a bit of attention among people you follow",
+                    "people_talking": "%s people are talking"
+                },
+                "accounts": {
+                    "title": "Accounts you might like",
+                    "description": "Except for Sam, you will not like his account.",
+                    "follow": "Follow"
+                }
             }
         },
         "hashtag": {
             "prompt": "%s people talking"
+        },
+        "favorite": {
+            "title": "Your Favorites"
         }
     }
 }

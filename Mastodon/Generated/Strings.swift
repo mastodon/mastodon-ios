@@ -299,6 +299,10 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Scene.ConfirmEmail.OpenEmailApp.Title")
       }
     }
+    internal enum Favorite {
+      /// Your Favorites
+      internal static let title = L10n.tr("Localizable", "Scene.Favorite.Title")
+    }
     internal enum Hashtag {
       /// %@ people talking
       internal static func prompt(_ p1: Any) -> String {
