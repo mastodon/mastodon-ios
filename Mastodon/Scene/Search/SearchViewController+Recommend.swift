@@ -1,5 +1,5 @@
 //
-//  SearchViewController+Recomend.swift
+//  SearchViewController+Recommend.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/3/31.
