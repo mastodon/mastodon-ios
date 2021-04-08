@@ -51,6 +51,9 @@ internal enum Asset {
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
     }
+    internal enum Border {
+      internal static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
+    }
     internal enum Button {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
@@ -65,6 +68,9 @@ internal enum Asset {
       internal static let highlight = ColorAsset(name: "Colors/Label/highlight")
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
+    }
+    internal enum Shadow {
+      internal static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
     internal enum Slider {
       internal static let bar = ColorAsset(name: "Colors/Slider/bar")

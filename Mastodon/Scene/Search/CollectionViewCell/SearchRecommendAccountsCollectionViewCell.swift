@@ -12,17 +12,22 @@ import UIKit
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 8.4
         imageView.clipsToBounds = true
         return imageView
     }()
     
     let headerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 8
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
         return imageView
     }()
+    
+    let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
     let displayNameLabel: UILabel = {
         let label = UILabel()
@@ -46,7 +51,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         button.setTitle(L10n.Scene.Search.Recommend.Accounts.follow, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         button.layer.cornerRadius = 12
-        button.layer.borderWidth = 3
+        button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
@@ -55,6 +60,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         headerImageView.af.cancelImageRequest()
         avatarImageView.af.cancelImageRequest()
+        visualEffectView.removeFromSuperview()
     }
     
     override init(frame: CGRect) {
@@ -69,11 +75,17 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
 }
 
 extension SearchRecommendAccountsCollectionViewCell {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerImageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
+    }
+    
     private func configure() {
         headerImageView.backgroundColor = Asset.Colors.brandBlue.color
-        layer.cornerRadius = 8
-        clipsToBounds = true
-        
+        layer.cornerRadius = 10
+        clipsToBounds = false
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
         contentView.addSubview(headerImageView)
         headerImageView.pin(top: 16, left: 0, bottom: 0, right: 0)
         
@@ -115,8 +127,11 @@ extension SearchRecommendAccountsCollectionViewCell {
         headerImageView.af.setImage(
             withURL: URL(string: account.header)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)
-        )
+            imageTransition: .crossDissolve(0.2)) { [weak self] _ in
+            guard let self = self else { return }
+            self.headerImageView.addSubview(self.visualEffectView)
+            self.visualEffectView.pin(top: 0, left: 0, bottom: 0, right: 0)
+        }
     }
 }
 

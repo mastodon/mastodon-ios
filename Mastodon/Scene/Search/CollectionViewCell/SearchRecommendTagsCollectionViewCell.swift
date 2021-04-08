@@ -15,7 +15,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+     
     let hashtagTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -58,10 +58,20 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
 }
 
 extension SearchRecommendTagsCollectionViewCell {
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
+    }
+    
     private func configure() {
         backgroundColor = Asset.Colors.brandBlue.color
-        layer.cornerRadius = 8
-        clipsToBounds = true
+        layer.cornerRadius = 10
+        clipsToBounds = false
+        layer.borderWidth = 2
+        layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
         
         contentView.addSubview(backgroundImageView)
         backgroundImageView.constrain(toSuperviewEdges: nil)
