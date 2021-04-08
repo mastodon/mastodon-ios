@@ -22,7 +22,7 @@ extension TableViewCellHeightCacheableContainer {
     }
 
     func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let item = item(for: nil, indexPath: indexPath) else { return 200 }
+        guard let item = item(for: nil, indexPath: indexPath) else { return UITableView.automaticDimension }
         guard let frame = cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
             if case .bottomLoader = item {
                 return TimelineLoaderTableViewCell.cellHeight
