@@ -17,9 +17,10 @@ final class ProfileHeaderViewModel {
     // input
     let context: AppContext
     let isEditing = CurrentValueSubject<Bool, Never>(false)
-    let viewDidAppear = PassthroughSubject<Void, Never>()
+    let viewDidAppear = CurrentValueSubject<Bool, Never>(false)
     let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
-
+    let isTitleViewContentOffsetSet = CurrentValueSubject<Bool, Never>(false)
+    
     // output
     let displayProfileInfo = ProfileInfo()
     let editProfileInfo = ProfileInfo()

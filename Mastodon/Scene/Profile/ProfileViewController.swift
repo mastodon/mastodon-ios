@@ -88,6 +88,10 @@ final class ProfileViewController: UIViewController, NeedsDependency {
     private var contentOffsets: [Int: CGFloat] = [:]
     var currentPostTimelineTableViewContentSizeObservation: NSKeyValueObservation?
     
+    // title view nested in header
+    var titleView: DoubleTitleLabelNavigationBarTitleView {
+        profileHeaderViewController.titleView
+    }
     
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s: deinit", ((#file as NSString).lastPathComponent), #line, #function)
@@ -144,8 +148,8 @@ extension ProfileViewController {
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
         
-        navigationItem.titleView = UIView()
-        
+        navigationItem.titleView = titleView
+
         let editingAndUpdatingPublisher = Publishers.CombineLatest(
             viewModel.isEditing.eraseToAnyPublisher(),
             viewModel.isUpdating.eraseToAnyPublisher()
@@ -292,6 +296,23 @@ extension ProfileViewController {
         profileSegmentedViewController.pagingViewController.pagingDelegate = self
 
         // bind view model
+        Publishers.CombineLatest(
+            viewModel.name.eraseToAnyPublisher(),
+            viewModel.statusesCount.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] name, statusesCount in
+            guard let self = self else { return }
+            guard let title = name, let statusesCount = statusesCount,
+                  let formattedStatusCount = MastodonMetricFormatter().string(from: statusesCount) else {
+                self.titleView.isHidden = true
+                return
+            }
+            let subtitle = L10n.Scene.Profile.subtitle(formattedStatusCount)
+            self.titleView.update(title: title, subtitle: subtitle)
+            self.titleView.isHidden = false
+        }
+        .store(in: &disposeBag)
         viewModel.name
             .receive(on: DispatchQueue.main)
             .sink { [weak self] name in
@@ -396,6 +417,7 @@ extension ProfileViewController {
                 let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
                 animator.addAnimations {
                     self.profileSegmentedViewController.view.alpha = isEditing ? 0.2 : 1.0
+                    self.profileHeaderViewController.profileHeaderView.statusDashboardView.alpha = isEditing ? 0.2 : 1.0
                 }
                 animator.startAnimation()
             })

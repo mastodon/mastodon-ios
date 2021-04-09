@@ -266,6 +266,7 @@
             }
         },
         "profile": {
+            "subtitle": "%s posts",
             "dashboard": {
                 "posts": "posts",
                 "following": "following",

@@ -124,6 +124,7 @@ tap the link to confirm your account.";
 "Scene.Profile.SegmentedControl.Media" = "Media";
 "Scene.Profile.SegmentedControl.Posts" = "Posts";
 "Scene.Profile.SegmentedControl.Replies" = "Replies";
+"Scene.Profile.Subtitle" = "%@ posts";
 "Scene.PublicTimeline.Title" = "Public";
 "Scene.Register.Error.Item.Agreement" = "Agreement";
 "Scene.Register.Error.Item.Email" = "Email";

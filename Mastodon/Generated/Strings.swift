@@ -340,6 +340,10 @@ internal enum L10n {
       }
     }
     internal enum Profile {
+      /// %@ posts
+      internal static func subtitle(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Profile.Subtitle", String(describing: p1))
+      }
       internal enum Dashboard {
         /// followers
         internal static let followers = L10n.tr("Localizable", "Scene.Profile.Dashboard.Followers")

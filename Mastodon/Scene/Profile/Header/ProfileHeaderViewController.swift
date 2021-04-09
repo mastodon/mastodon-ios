@@ -29,6 +29,16 @@ final class ProfileHeaderViewController: UIViewController {
     
     var viewModel: ProfileHeaderViewModel!
     
+    let titleView: DoubleTitleLabelNavigationBarTitleView = {
+        let titleView = DoubleTitleLabelNavigationBarTitleView()
+        titleView.titleLabel.textColor = .white
+        titleView.titleLabel.alpha = 0
+        titleView.subtitleLabel.textColor = .white
+        titleView.subtitleLabel.alpha = 0
+        titleView.layer.masksToBounds = true
+        return titleView
+    }()
+    
     let profileHeaderView = ProfileHeaderView()
     let pageSegmentedControl: UISegmentedControl = {
         let segmenetedControl = UISegmentedControl(items: ["A", "B"])
@@ -97,6 +107,18 @@ extension ProfileHeaderViewController {
         ])
         
         pageSegmentedControl.addTarget(self, action: #selector(ProfileHeaderViewController.pageSegmentedControlValueChanged(_:)), for: .valueChanged)
+
+        Publishers.CombineLatest(
+            viewModel.viewDidAppear.eraseToAnyPublisher(),
+            viewModel.isTitleViewContentOffsetSet.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] viewDidAppear, isTitleViewContentOffsetDidSetted in
+            guard let self = self else { return }
+            self.titleView.titleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSetted ? 1 : 0
+            self.titleView.subtitleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSetted ? 1 : 0
+        }
+        .store(in: &disposeBag)
         
         viewModel.needsSetupBottomShadow
             .receive(on: DispatchQueue.main)
@@ -176,7 +198,7 @@ extension ProfileHeaderViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.viewDidAppear.send()
+        viewModel.viewDidAppear.value = true
         
         // Deprecated:
         // not needs this tweak due to force layout update in the parent
@@ -281,20 +303,56 @@ extension ProfileHeaderViewController {
         
         let bannerContainerInWindow = profileHeaderView.convert(profileHeaderView.bannerContainerView.frame, to: nil)
         let bannerContainerBottomOffset = bannerContainerInWindow.origin.y + bannerContainerInWindow.height
-        
+    
+        // scroll from bottom to top: 1 -> 2 -> 3
         if bannerContainerInWindow.origin.y > containerSafeAreaInset.top {
+            // 1
+            // banner top pin to window top and expand
             bannerImageView.frame.origin.y = -bannerContainerInWindow.origin.y
             bannerImageView.frame.size.height = bannerContainerInWindow.origin.y + bannerContainerInWindow.size.height
         } else if bannerContainerBottomOffset < containerSafeAreaInset.top {
+            // 3
+            // banner bottom pin to navigation bar bottom and
+            // the `progress` growth to 1 then segemented control pin to top
             bannerImageView.frame.origin.y = -containerSafeAreaInset.top
             let bannerImageHeight = bannerContainerInWindow.size.height + containerSafeAreaInset.top + (containerSafeAreaInset.top - bannerContainerBottomOffset)
             bannerImageView.frame.size.height = bannerImageHeight
         } else {
+            // 2
+            // banner move with scrolling from bottom to top until the
+            // banner bottom higher than navigation bar bottom
             bannerImageView.frame.origin.y = -containerSafeAreaInset.top
             bannerImageView.frame.size.height = bannerContainerInWindow.size.height + containerSafeAreaInset.top
         }
         
-        // TODO: handle titleView
+        // set title view offset
+        let nameTextFieldInWindow = profileHeaderView.nameTextField.superview!.convert(profileHeaderView.nameTextField.frame, to: nil)
+        let nameTextFieldTopToNavigationBarBottomOffset = containerSafeAreaInset.top - nameTextFieldInWindow.origin.y
+        let titleViewContentOffset: CGFloat = titleView.frame.height - nameTextFieldTopToNavigationBarBottomOffset
+        titleView.containerView.transform = CGAffineTransform(translationX: 0, y: max(0, titleViewContentOffset))
+
+        if viewModel.viewDidAppear.value {
+            viewModel.isTitleViewContentOffsetSet.value = true
+        }
+        
+        // set avatar
+        if progress > 0 {
+            setProfileBannerFade(alpha: 0)
+        } else if progress > -0.3 {
+            // y = -(10/3)x
+            let alpha = -10.0 / 3.0 * progress
+            setProfileBannerFade(alpha: alpha)
+        } else {
+            setProfileBannerFade(alpha: 1)
+        }
+    }
+    
+    private func setProfileBannerFade(alpha: CGFloat) {
+        profileHeaderView.avatarImageView.alpha = alpha
+        profileHeaderView.editAvatarBackgroundView.alpha = alpha
+        profileHeaderView.nameTextFieldBackgroundView.alpha = alpha
+        profileHeaderView.nameTextField.alpha = alpha
+        profileHeaderView.usernameLabel.alpha = alpha
     }
     
 }
