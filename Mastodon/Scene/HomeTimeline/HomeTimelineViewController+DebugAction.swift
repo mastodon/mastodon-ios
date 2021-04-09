@@ -21,6 +21,10 @@ extension HomeTimelineViewController {
             children: [
                 moveMenu,
                 dropMenu,
+                UIAction(title: "Show Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showWelcomeAction(action)
+                },
                 UIAction(title: "Show Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showPublicTimelineAction(action)
@@ -275,6 +279,10 @@ extension HomeTimelineViewController {
             }
         }
         .store(in: &disposeBag)
+    }
+    
+    @objc private func showWelcomeAction(_ sender: UIAction) {
+        coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func showPublicTimelineAction(_ sender: UIAction) {

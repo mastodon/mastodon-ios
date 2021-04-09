@@ -66,6 +66,17 @@ extension MastodonPickServerViewController {
         
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
+
+        #if DEBUG
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
+        let children: [UIMenuElement] = [
+            UIAction(title: "Dismiss", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.dismiss(animated: true, completion: nil)
+            })
+        ]
+        navigationItem.rightBarButtonItem?.menu = UIMenu(title: "Debug Tool", image: nil, identifier: nil, options: [], children: children)
+        #endif
         
         view.addSubview(nextStepButton)
         NSLayoutConstraint.activate([

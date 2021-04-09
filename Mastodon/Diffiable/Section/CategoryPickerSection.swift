@@ -16,7 +16,8 @@ extension CategoryPickerSection {
         for collectionView: UICollectionView,
         dependency: NeedsDependency
     ) -> UICollectionViewDiffableDataSource<CategoryPickerSection, CategoryPickerItem> {
-        UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
+        UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak dependency] collectionView, indexPath, item -> UICollectionViewCell? in
+            guard let _ = dependency else { return nil }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PickServerCategoryCollectionViewCell.self), for: indexPath) as! PickServerCategoryCollectionViewCell
             switch item {
             case .all:
