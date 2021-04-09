@@ -106,27 +106,27 @@ final class SearchViewModel: NSObject {
             isSearching
         }
         .sink { [weak self] _, text, scope in
+            guard text.isEmpty else { return }
             guard let self = self else { return }
             guard let searchHistories = self.fetchSearchHistory() else { return }
             guard let dataSource = self.searchResultDiffableDataSource else { return }
             var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()
-            if text.isEmpty {
-                snapshot.appendSections([.mixed])
-                
-                searchHistories.forEach { searchHistory in
-                    let containsAccount = scope == Mastodon.API.Search.SearchType.accounts || scope == Mastodon.API.Search.SearchType.default
-                    let containsHashTag = scope == Mastodon.API.Search.SearchType.hashtags || scope == Mastodon.API.Search.SearchType.default
-                    if let mastodonUser = searchHistory.account, containsAccount {
-                        let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
-                        snapshot.appendItems([item], toSection: .mixed)
-                    }
-                    if let tag = searchHistory.hashtag, containsHashTag {
-                        let item = SearchResultItem.hashtagObjectID(hashtagObjectID: tag.objectID)
-                        snapshot.appendItems([item], toSection: .mixed)
-                    }
+            snapshot.appendSections([.mixed])
+            
+            searchHistories.forEach { searchHistory in
+                let containsAccount = scope == Mastodon.API.Search.SearchType.accounts || scope == Mastodon.API.Search.SearchType.default
+                let containsHashTag = scope == Mastodon.API.Search.SearchType.hashtags || scope == Mastodon.API.Search.SearchType.default
+                if let mastodonUser = searchHistory.account, containsAccount {
+                    let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
+                    snapshot.appendItems([item], toSection: .mixed)
+                }
+                if let tag = searchHistory.hashtag, containsHashTag {
+                    let item = SearchResultItem.hashtagObjectID(hashtagObjectID: tag.objectID)
+                    snapshot.appendItems([item], toSection: .mixed)
                 }
             }
             dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+            
         }
         .store(in: &disposeBag)
         
