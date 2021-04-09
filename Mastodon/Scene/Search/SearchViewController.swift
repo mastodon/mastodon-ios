@@ -150,7 +150,7 @@ extension SearchViewController {
     
     func setupDataSource() {
         viewModel.hashtagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashtagCollectionView)
-        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView, managedObjectContext: context.managedObjectContext)
+        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView, context: context)
         viewModel.searchResultDiffableDataSource = SearchResultSection.tableViewDiffableDataSource(for: searchingTableView, dependency: self)
     }
 }

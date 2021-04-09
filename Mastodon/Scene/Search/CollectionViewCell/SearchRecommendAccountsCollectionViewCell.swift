@@ -9,8 +9,12 @@ import Foundation
 import MastodonSDK
 import UIKit
 import CoreDataStack
+import Combine
 
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
+    
+    var disposeBag = Set<AnyCancellable>()
+    
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 8.4
@@ -123,22 +127,60 @@ extension SearchRecommendAccountsCollectionViewCell {
         ])
     }
     
-    func config(with account: MastodonUser) {
-        displayNameLabel.text = account.displayName.isEmpty ? account.username : account.displayName
-        acctLabel.text = account.acct
+    func config(with mastodonUser: MastodonUser) {
+        displayNameLabel.text = mastodonUser.displayName.isEmpty ? mastodonUser.username : mastodonUser.displayName
+        acctLabel.text = mastodonUser.acct
         avatarImageView.af.setImage(
-            withURL: URL(string: account.avatar)!,
+            withURL: URL(string: mastodonUser.avatar)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)
         )
         headerImageView.af.setImage(
-            withURL: URL(string: account.header)!,
+            withURL: URL(string: mastodonUser.header)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)) { [weak self] _ in
             guard let self = self else { return }
             self.headerImageView.addSubview(self.visualEffectView)
             self.visualEffectView.pin(top: 0, left: 0, bottom: 0, right: 0)
         }
+    }
+    
+    func configFollowButton(with mastodonUser: MastodonUser, currentMastodonUser: MastodonUser) {
+        self._configFollowButton(with: mastodonUser, currentMastodonUser: currentMastodonUser)
+        ManagedObjectObserver.observe(object: currentMastodonUser)
+            .sink { _ in
+                
+            } receiveValue: { change in
+                guard case .update(let object) = change.changeType,
+                      let newUser = object as? MastodonUser else { return }
+                self._configFollowButton(with: mastodonUser, currentMastodonUser: newUser)
+            }
+            .store(in: &disposeBag)
+    }
+    
+    func _configFollowButton(with mastodonUser: MastodonUser, currentMastodonUser: MastodonUser) {
+        var relationshipActionSet = ProfileViewModel.RelationshipActionOptionSet([.follow])
+
+        let isFollowing = mastodonUser.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+        if isFollowing {
+            relationshipActionSet.insert(.following)
+        }
+
+        let isPending = mastodonUser.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+        if isPending {
+            relationshipActionSet.insert(.pending)
+        }
+
+        let isBlocking = mastodonUser.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+        if isBlocking {
+            relationshipActionSet.insert(.blocking)
+        }
+
+        let isBlockedBy = currentMastodonUser.blockingBy.flatMap { $0.contains(mastodonUser) } ?? false
+        if isBlockedBy {
+            relationshipActionSet.insert(.blocked)
+        }
+        self.followButton.setTitle(relationshipActionSet.title, for: .normal)
     }
 }
 
