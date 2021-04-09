@@ -150,7 +150,13 @@ extension ProfileViewController {
             viewModel.isEditing.eraseToAnyPublisher(),
             viewModel.isUpdating.eraseToAnyPublisher()
         )
-        .share()
+        // note: not add .share() here
+        
+        let barButtonItemHiddenPublisher = Publishers.CombineLatest3(
+            viewModel.isMeBarButtonItemsHidden.eraseToAnyPublisher(),
+            viewModel.isReplyBarButtonItemHidden.eraseToAnyPublisher(),
+            viewModel.isMoreMenuBarButtonItemHidden.eraseToAnyPublisher()
+        )
         
         editingAndUpdatingPublisher
             .receive(on: DispatchQueue.main)
@@ -159,13 +165,6 @@ extension ProfileViewController {
                 self.cancelEditingBarButtonItem.isEnabled = !isUpdating
             }
             .store(in: &disposeBag)
-        
-        let barButtonItemHiddenPublisher = Publishers.CombineLatest3(
-            viewModel.isMeBarButtonItemsHidden.eraseToAnyPublisher(),
-            viewModel.isReplyBarButtonItemHidden.eraseToAnyPublisher(),
-            viewModel.isMoreMenuBarButtonItemHidden.eraseToAnyPublisher()
-        )
-        .share()
             
         Publishers.CombineLatest3 (
             viewModel.suspended.eraseToAnyPublisher(),
