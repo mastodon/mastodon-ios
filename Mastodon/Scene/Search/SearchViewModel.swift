@@ -21,6 +21,9 @@ final class SearchViewModel: NSObject {
     let context: AppContext
     weak var coordinator: SceneCoordinator!
     
+    let mastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
+    let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
+    
     // output
     let searchText = CurrentValueSubject<String, Never>("")
     let searchScope = CurrentValueSubject<Mastodon.API.Search.SearchType, Never>(Mastodon.API.Search.SearchType.default)
@@ -60,6 +63,19 @@ final class SearchViewModel: NSObject {
         guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
+        
+        // bind active authentication
+        context.authenticationService.activeMastodonAuthentication
+            .sink { [weak self] activeMastodonAuthentication in
+                guard let self = self else { return }
+                guard let activeMastodonAuthentication = activeMastodonAuthentication else {
+                    self.currentMastodonUser.value = nil
+                    return
+                }
+                self.currentMastodonUser.value = activeMastodonAuthentication.user
+            }
+            .store(in: &disposeBag)
+        
         Publishers.CombineLatest(
             searchText
                 .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),

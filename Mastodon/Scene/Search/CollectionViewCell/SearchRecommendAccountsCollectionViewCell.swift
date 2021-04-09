@@ -5,15 +5,22 @@
 //  Created by sxiaojian on 2021/4/1.
 //
 
+import Combine
+import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import CoreDataStack
-import Combine
+
+protocol SearchRecommendAccountsCollectionViewCellDelegate: NSObject {
+    func followButtonDidPressed(clickedUser: MastodonUser)
+    
+    func configFollowButton(with mastodonUser: MastodonUser, followButton: HighlightDimmableButton)
+}
 
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
-    
     var disposeBag = Set<AnyCancellable>()
+    
+    weak var delegate: SearchRecommendAccountsCollectionViewCellDelegate?
     
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -52,8 +59,8 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let followButton: UIButton = {
-        let button = UIButton(type: .custom)
+    let followButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton(type: .custom)
         button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.Search.Recommend.Accounts.follow, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -138,49 +145,22 @@ extension SearchRecommendAccountsCollectionViewCell {
         headerImageView.af.setImage(
             withURL: URL(string: mastodonUser.header)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)) { [weak self] _ in
+            imageTransition: .crossDissolve(0.2)
+        ) { [weak self] _ in
             guard let self = self else { return }
             self.headerImageView.addSubview(self.visualEffectView)
             self.visualEffectView.pin(top: 0, left: 0, bottom: 0, right: 0)
         }
-    }
-    
-    func configFollowButton(with mastodonUser: MastodonUser, currentMastodonUser: MastodonUser) {
-        self._configFollowButton(with: mastodonUser, currentMastodonUser: currentMastodonUser)
-        ManagedObjectObserver.observe(object: currentMastodonUser)
-            .sink { _ in
-                
-            } receiveValue: { change in
-                guard case .update(let object) = change.changeType,
-                      let newUser = object as? MastodonUser else { return }
-                self._configFollowButton(with: mastodonUser, currentMastodonUser: newUser)
+        delegate?.configFollowButton(with: mastodonUser, followButton: followButton)
+        followButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.followButtonDidPressed(mastodonUser: mastodonUser)
             }
             .store(in: &disposeBag)
     }
     
-    func _configFollowButton(with mastodonUser: MastodonUser, currentMastodonUser: MastodonUser) {
-        var relationshipActionSet = ProfileViewModel.RelationshipActionOptionSet([.follow])
-
-        let isFollowing = mastodonUser.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-        if isFollowing {
-            relationshipActionSet.insert(.following)
-        }
-
-        let isPending = mastodonUser.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-        if isPending {
-            relationshipActionSet.insert(.pending)
-        }
-
-        let isBlocking = mastodonUser.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-        if isBlocking {
-            relationshipActionSet.insert(.blocking)
-        }
-
-        let isBlockedBy = currentMastodonUser.blockingBy.flatMap { $0.contains(mastodonUser) } ?? false
-        if isBlockedBy {
-            relationshipActionSet.insert(.blocked)
-        }
-        self.followButton.setTitle(relationshipActionSet.title, for: .normal)
+    func followButtonDidPressed(mastodonUser: MastodonUser) {
+        delegate?.followButtonDidPressed(clickedUser: mastodonUser)
     }
 }
 

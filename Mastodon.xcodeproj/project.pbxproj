@@ -135,6 +135,7 @@
 		5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1057825F88A1D00D6C0D4 /* PlayerContainerView.swift */; };
 		5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1057E25F88A4100D6C0D4 /* TouchBlockingView.swift */; };
 		5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */; };
+		5DFC35DF262068D20045711D /* SearchViewController+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
@@ -506,6 +507,7 @@
 		5DF1057825F88A1D00D6C0D4 /* PlayerContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerContainerView.swift; sourceTree = "<group>"; };
 		5DF1057E25F88A4100D6C0D4 /* TouchBlockingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBlockingView.swift; sourceTree = "<group>"; };
 		5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NeedsDependency+AVPlayerViewControllerDelegate.swift"; sourceTree = "<group>"; };
+		5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+Follow.swift"; sourceTree = "<group>"; };
 		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
 		9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1613,6 +1615,7 @@
 				DB9D6BE825E4F5340051B173 /* SearchViewController.swift */,
 				2D34D9CA261489930081BFC0 /* SearchViewController+Recommend.swift */,
 				2DFAD5262616F9D300F9EE7C /* SearchViewController+Searching.swift */,
+				5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */,
 				2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */,
 				2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */,
 				2D34D9E026149C550081BFC0 /* CollectionViewCell */,
@@ -2355,6 +2358,7 @@
 				2D42FF6B25C817D2004A627A /* MastodonStatusContent.swift in Sources */,
 				2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */,
 				DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */,
+				5DFC35DF262068D20045711D /* SearchViewController+Follow.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
