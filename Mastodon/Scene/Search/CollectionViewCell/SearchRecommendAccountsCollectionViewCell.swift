@@ -75,6 +75,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         headerImageView.af.cancelImageRequest()
         avatarImageView.af.cancelImageRequest()
         visualEffectView.removeFromSuperview()
+        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {

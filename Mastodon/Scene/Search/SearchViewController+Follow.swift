@@ -24,7 +24,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
         guard let currentMastodonUser = viewModel.currentMastodonUser.value else {
             return
         }
-        let relationshipAction = relationShipActionSet(mastodonUser: clickedUser, currentMastodonUser: currentMastodonUser)
+        guard let relationshipAction = relationShipActionSet(mastodonUser: clickedUser, currentMastodonUser: currentMastodonUser).highPriorityAction(except: .editOptions) else { return }
         switch relationshipAction {
         case .none:
             break
