@@ -8,6 +8,7 @@
 import Foundation
 import MastodonSDK
 import UIKit
+import CoreDataStack
 
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
     let avatarImageView: UIImageView = {
@@ -122,7 +123,7 @@ extension SearchRecommendAccountsCollectionViewCell {
         ])
     }
     
-    func config(with account: Mastodon.Entity.Account) {
+    func config(with account: MastodonUser) {
         displayNameLabel.text = account.displayName.isEmpty ? account.username : account.displayName
         acctLabel.text = account.acct
         avatarImageView.af.setImage(

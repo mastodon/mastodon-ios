@@ -30,10 +30,10 @@ final class SearchViewModel: NSObject {
     let searchResult = CurrentValueSubject<Mastodon.Entity.SearchResult?, Never>(nil)
     
     var recommendHashTags = [Mastodon.Entity.Tag]()
-    var recommendAccounts = [Mastodon.Entity.Account]()
+    var recommendAccounts = [NSManagedObjectID]()
     
     var hashtagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
-    var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account>?
+    var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>?
     var searchResultDiffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>?
 
     // bottom loader
@@ -52,7 +52,7 @@ final class SearchViewModel: NSObject {
 
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     
-    init(context: AppContext,coordinator: SceneCoordinator) {
+    init(context: AppContext, coordinator: SceneCoordinator) {
         self.coordinator = coordinator
         self.context = context
         super.init()
@@ -102,7 +102,7 @@ final class SearchViewModel: NSObject {
             searchText,
             searchScope
         )
-        .filter { isSearching, text, _ in
+        .filter { isSearching, _, _ in
             isSearching
         }
         .sink { [weak self] _, text, scope in
@@ -151,7 +151,7 @@ final class SearchViewModel: NSObject {
                 guard let self = self else { return }
                 if !self.recommendAccounts.isEmpty {
                     guard let dataSource = self.accountDiffableDataSource else { return }
-                    var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, Mastodon.Entity.Account>()
+                    var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
                     snapshot.appendSections([.main])
                     snapshot.appendItems(self.recommendAccounts, toSection: .main)
                     dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
@@ -170,7 +170,7 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.account])
                     let items = accounts.compactMap { SearchResultItem.account(account: $0) }
                     snapshot.appendItems(items, toSection: .account)
-                    if self.searchScope.value == Mastodon.API.Search.SearchType.accounts && !items.isEmpty {
+                    if self.searchScope.value == Mastodon.API.Search.SearchType.accounts, !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .account)
                     }
                 }
@@ -178,7 +178,7 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.hashtag])
                     let items = tags.compactMap { SearchResultItem.hashtag(tag: $0) }
                     snapshot.appendItems(items, toSection: .hashtag)
-                    if self.searchScope.value == Mastodon.API.Search.SearchType.hashtags && !items.isEmpty {
+                    if self.searchScope.value == Mastodon.API.Search.SearchType.hashtags, !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .hashtag)
                     }
                 }
@@ -229,49 +229,45 @@ final class SearchViewModel: NSObject {
                     }
                 } receiveValue: { [weak self] accounts in
                     guard let self = self else { return }
-                    self.recommendAccounts = accounts.value
+                    let ids = accounts.value.compactMap({$0.id})
+                    let userFetchRequest = MastodonUser.sortedFetchRequest
+                    userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
+                    let mastodonUsers: [MastodonUser]? = {
+                        let userFetchRequest = MastodonUser.sortedFetchRequest
+                        userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
+                        userFetchRequest.returnsObjectsAsFaults = false
+                        do {
+                            return try self.context.managedObjectContext.fetch(userFetchRequest)
+                        } catch {
+                            assertionFailure(error.localizedDescription)
+                            return nil
+                        }
+                    }()
+                    if let users = mastodonUsers {
+                        self.recommendAccounts = users.map(\.objectID)
+                    }
                 }
                 .store(in: &self.disposeBag)
         }
     }
     
-    func accountCollectionViewItemDidSelected(account: Mastodon.Entity.Account, from: UIViewController) {
-        _ = context.managedObjectContext.performChanges { [weak self] in
-            guard let self = self else { return }
-            guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                return
-            }
-            // load request mastodon user
-            let requestMastodonUser: MastodonUser? = {
-                let request = MastodonUser.sortedFetchRequest
-                request.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, id: activeMastodonAuthenticationBox.userID)
-                request.fetchLimit = 1
-                request.returnsObjectsAsFaults = false
-                do {
-                    return try self.context.managedObjectContext.fetch(request).first
-                } catch {
-                    assertionFailure(error.localizedDescription)
-                    return nil
-                }
-            }()
-            let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.context.managedObjectContext, for: requestMastodonUser, in: activeMastodonAuthenticationBox.domain, entity: account, userCache: nil, networkDate: Date(), log: OSLog.api)
-            let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: mastodonUser)
-            DispatchQueue.main.async {
-                self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
-            }
+    func accountCollectionViewItemDidSelected(mastodonUser: MastodonUser, from: UIViewController) {
+        let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
         }
     }
     
     func hashtagCollectionViewItemDidSelected(hashtag: Mastodon.Entity.Tag, from: UIViewController) {
-        let (tagInCoreData,_) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: hashtag)
-        let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
+        let (tagInCoreData, _) = APIService.CoreData.createOrMergeTag(into: context.managedObjectContext, entity: hashtag)
+        let viewModel = HashtagTimelineViewModel(context: context, hashtag: tagInCoreData.name)
         DispatchQueue.main.async {
             self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
         }
     }
     
-    func searchResultItemDidSelected(item: SearchResultItem,from: UIViewController) {
-        let searchHistories = self.fetchSearchHistory()
+    func searchResultItemDidSelected(item: SearchResultItem, from: UIViewController) {
+        let searchHistories = fetchSearchHistory()
         _ = context.managedObjectContext.performChanges { [weak self] in
             guard let self = self else { return }
             switch item {
@@ -312,7 +308,7 @@ final class SearchViewModel: NSObject {
                 }
             
             case .hashtag(let tag):
-                let (tagInCoreData,_) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: tag)
+                let (tagInCoreData, _) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: tag)
                 if let searchHistories = searchHistories {
                     let history = searchHistories.first { history -> Bool in
                         guard let hashtag = history.hashtag else { return false }
