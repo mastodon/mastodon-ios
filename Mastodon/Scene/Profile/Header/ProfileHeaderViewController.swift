@@ -8,6 +8,10 @@
 import os.log
 import UIKit
 import Combine
+import PhotosUI
+import AlamofireImage
+import CropViewController
+import TwitterTextEditor
 
 protocol ProfileHeaderViewControllerDelegate: class {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
@@ -20,9 +24,10 @@ final class ProfileHeaderViewController: UIViewController {
     static let segmentedControlMarginHeight: CGFloat = 20
     static let headerMinHeight: CGFloat = segmentedControlHeight + 2 * segmentedControlMarginHeight
     
+    var disposeBag = Set<AnyCancellable>()
     weak var delegate: ProfileHeaderViewControllerDelegate?
     
-    var disposeBag = Set<AnyCancellable>()
+    var viewModel: ProfileHeaderViewModel!
     
     let profileHeaderView = ProfileHeaderView()
     let pageSegmentedControl: UISegmentedControl = {
@@ -37,7 +42,27 @@ final class ProfileHeaderViewController: UIViewController {
     // private var isAdjustBannerImageViewForSafeAreaInset = false
     private var containerSafeAreaInset: UIEdgeInsets = .zero
     
-    let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
+    private(set) lazy var imagePicker: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+
+        let imagePicker = PHPickerViewController(configuration: configuration)
+        imagePicker.delegate = self
+        return imagePicker
+    }()
+    private(set) lazy var imagePickerController: UIImagePickerController = {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .camera
+        imagePickerController.delegate = self
+        return imagePickerController
+    }()
+    
+    private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        documentPickerController.delegate = self
+        return documentPickerController
+    }()
 
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -73,17 +98,85 @@ extension ProfileHeaderViewController {
         
         pageSegmentedControl.addTarget(self, action: #selector(ProfileHeaderViewController.pageSegmentedControlValueChanged(_:)), for: .valueChanged)
         
-        needsSetupBottomShadow
+        viewModel.needsSetupBottomShadow
             .receive(on: DispatchQueue.main)
             .sink { [weak self] needsSetupBottomShadow in
                 guard let self = self else { return }
                 self.setupBottomShadow()
             }
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest4(
+            viewModel.isEditing.eraseToAnyPublisher(),
+            viewModel.displayProfileInfo.avatarImageResource.eraseToAnyPublisher(),
+            viewModel.editProfileInfo.avatarImageResource.eraseToAnyPublisher(),
+            viewModel.viewDidAppear.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isEditing, resource, editingResource, _ in
+            guard let self = self else { return }
+            let url: URL? = {
+                guard case let .url(url) = resource else { return nil }
+                return url
+
+            }()
+            let image: UIImage? = {
+                guard case let .image(image) = editingResource else { return nil }
+                return image
+            }()
+            self.profileHeaderView.configure(
+                with: AvatarConfigurableViewConfiguration(
+                    avatarImageURL: image == nil ? url : nil,       // set only when image empty
+                    placeholderImage: image,
+                    borderColor: .white,
+                    borderWidth: 2
+                )
+            )
+        }
+        .store(in: &disposeBag)
+        Publishers.CombineLatest3(
+            viewModel.isEditing.eraseToAnyPublisher(),
+            viewModel.displayProfileInfo.name.removeDuplicates().eraseToAnyPublisher(),
+            viewModel.editProfileInfo.name.removeDuplicates().eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isEditing, name, editingName in
+            guard let self = self else { return }
+            self.profileHeaderView.nameTextField.text = isEditing ? editingName : name
+        }
+        .store(in: &disposeBag)
+        
+        Publishers.CombineLatest3(
+            viewModel.isEditing.eraseToAnyPublisher(),
+            viewModel.displayProfileInfo.note.removeDuplicates().eraseToAnyPublisher(),
+            viewModel.editProfileInfo.note.removeDuplicates().eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isEditing, note, editingNote in
+            guard let self = self else { return }
+            self.profileHeaderView.bioActiveLabel.configure(note: note ?? "")
+            self.profileHeaderView.bioTextEditorView.text = editingNote ?? ""
+        }
+        .store(in: &disposeBag)
+        
+        profileHeaderView.bioTextEditorView.changeObserver = self
+        NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: profileHeaderView.nameTextField)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notification in
+                guard let self = self else { return }
+                guard let textField = notification.object as? UITextField else { return }
+                self.viewModel.editProfileInfo.name.value = textField.text
+            }
+            .store(in: &disposeBag)
+        
+        profileHeaderView.editAvatarButton.menu = createAvatarContextMenu()
+        profileHeaderView.editAvatarButton.showsMenuAsPrimaryAction = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        viewModel.viewDidAppear.send()
         
         // Deprecated:
         // not needs this tweak due to force layout update in the parent
@@ -104,6 +197,47 @@ extension ProfileHeaderViewController {
 }
 
 extension ProfileHeaderViewController {
+    private func createAvatarContextMenu() -> UIMenu {
+        var children: [UIMenuElement] = []
+        let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibaray", ((#file as NSString).lastPathComponent), #line, #function)
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        children.append(photoLibraryAction)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+                guard let self = self else { return }
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .camera", ((#file as NSString).lastPathComponent), #line, #function)
+                self.present(self.imagePickerController, animated: true, completion: nil)
+            })
+            children.append(cameraAction)
+        }
+        let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .browse", ((#file as NSString).lastPathComponent), #line, #function)
+            self.present(self.documentPickerController, animated: true, completion: nil)
+        }
+        children.append(browseAction)
+        
+        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
+    }
+    
+    private func cropImage(image: UIImage, pickerViewController: UIViewController) {
+        DispatchQueue.main.async {
+            let cropController = CropViewController(croppingStyle: .default, image: image)
+            cropController.delegate = self
+            cropController.setAspectRatioPreset(.presetSquare, animated: true)
+            cropController.aspectRatioPickerButtonHidden = true
+            cropController.aspectRatioLockEnabled = true
+            pickerViewController.dismiss(animated: true, completion: {
+                self.present(cropController, animated: true, completion: nil)
+            })
+        }
+    }
+}
+
+extension ProfileHeaderViewController {
 
     @objc private func pageSegmentedControlValueChanged(_ sender: UISegmentedControl) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: selectedSegmentIndex: %ld", ((#file as NSString).lastPathComponent), #line, #function, sender.selectedSegmentIndex)
@@ -119,7 +253,7 @@ extension ProfileHeaderViewController {
     }
     
     func setupBottomShadow() {
-        guard needsSetupBottomShadow.value else {
+        guard viewModel.needsSetupBottomShadow.value else {
             view.layer.shadowColor = nil
             view.layer.shadowRadius = 0
             return
@@ -164,3 +298,80 @@ extension ProfileHeaderViewController {
     }
     
 }
+
+// MARK: - TextEditorViewChangeObserver
+extension ProfileHeaderViewController: TextEditorViewChangeObserver {
+    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textEditorView.text)
+        guard changeResult.isTextChanged else { return }
+        assert(textEditorView === profileHeaderView.bioTextEditorView)
+        viewModel.editProfileInfo.note.value = textEditorView.text
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension ProfileHeaderViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let result = results.first else { return }
+        PHPickerResultLoader.loadImageData(from: result)
+            .sink { [weak self] completion in
+                guard let _ = self else { return }
+                switch completion {
+                case .failure:
+                    // TODO: handle error
+                    break
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] imageData in
+                guard let self = self else { return }
+                guard let imageData = imageData else { return }
+                guard let image = UIImage(data: imageData) else { return }
+                self.cropImage(image: image, pickerViewController: picker)
+            }
+            .store(in: &disposeBag)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
+extension ProfileHeaderViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+
+        guard let image = info[.originalImage] as? UIImage else { return }
+        cropImage(image: image, pickerViewController: picker)
+    }
+        
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - UIDocumentPickerDelegate
+extension ProfileHeaderViewController: UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+        
+        do {
+            guard url.startAccessingSecurityScopedResource() else { return }
+            defer { url.stopAccessingSecurityScopedResource() }
+            let imageData = try Data(contentsOf: url)
+            guard let image = UIImage(data: imageData) else { return }
+            cropImage(image: image, pickerViewController: controller)
+        } catch {
+            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        }
+    }
+}
+
+// MARK: - CropViewControllerDelegate
+extension ProfileHeaderViewController: CropViewControllerDelegate {
+    public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
+        viewModel.editProfileInfo.avatarImageResource.value = .image(image)
+        cropViewController.dismiss(animated: true, completion: nil)
+    }
+}
+

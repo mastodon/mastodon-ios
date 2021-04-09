@@ -43,8 +43,10 @@ class ProfileViewModel: NSObject {
     let protected: CurrentValueSubject<Bool?, Never>
     let suspended: CurrentValueSubject<Bool, Never>
 
-    let relationshipActionOptionSet = CurrentValueSubject<RelationshipActionOptionSet, Never>(.none)
     let isEditing = CurrentValueSubject<Bool, Never>(false)
+    let isUpdating = CurrentValueSubject<Bool, Never>(false)
+    
+    let relationshipActionOptionSet = CurrentValueSubject<RelationshipActionOptionSet, Never>(.none)
     let isFollowedBy = CurrentValueSubject<Bool, Never>(false)
     let isMuting = CurrentValueSubject<Bool, Never>(false)
     let isBlocking = CurrentValueSubject<Bool, Never>(false)
@@ -328,6 +330,7 @@ extension ProfileViewModel {
         case suspended
         case edit
         case editing
+        case updating
         
         var option: RelationshipActionOptionSet {
             return RelationshipActionOptionSet(rawValue: 1 << rawValue)
@@ -349,8 +352,9 @@ extension ProfileViewModel {
         static let suspended = RelationshipAction.suspended.option
         static let edit = RelationshipAction.edit.option
         static let editing = RelationshipAction.editing.option
+        static let updating = RelationshipAction.updating.option
         
-        static let editOptions: RelationshipActionOptionSet = [.edit, .editing]
+        static let editOptions: RelationshipActionOptionSet = [.edit, .editing, .updating]
         
         func highPriorityAction(except: RelationshipActionOptionSet) -> RelationshipAction? {
             let set = subtracting(except)
@@ -378,6 +382,7 @@ extension ProfileViewModel {
             case .suspended: return L10n.Common.Controls.Firendship.follow
             case .edit: return L10n.Common.Controls.Firendship.editInfo
             case .editing: return L10n.Common.Controls.Actions.done
+            case .updating: return " "
             }
         }
         
@@ -398,6 +403,7 @@ extension ProfileViewModel {
             case .suspended: return Asset.Colors.Button.normal.color
             case .edit: return Asset.Colors.Button.normal.color
             case .editing: return Asset.Colors.Button.normal.color
+            case .updating: return Asset.Colors.Button.normal.color
             }
         }
 

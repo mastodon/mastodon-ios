@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import ActiveLabel
+import TwitterTextEditor
 
 protocol ProfileHeaderViewDelegate: class {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
@@ -25,7 +26,12 @@ final class ProfileHeaderView: UIView {
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
     static let bannerImageViewPlaceholderColor = UIColor.systemGray
     
+    static let bannerImageViewOverlayViewBackgroundNormalColor = UIColor.black.withAlphaComponent(0.5)
+    static let bannerImageViewOverlayViewBackgroundEditingColor = UIColor.black.withAlphaComponent(0.8)
+    
     weak var delegate: ProfileHeaderViewDelegate?
+    
+    var state: State?
     
     let bannerContainerView = UIView()
     let bannerImageView: UIImageView = {
@@ -41,7 +47,7 @@ final class ProfileHeaderView: UIView {
     }()
     let bannerImageViewOverlayView: UIView = {
         let overlayView = UIView()
-        overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        overlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
         return overlayView
     }()
 
@@ -53,16 +59,40 @@ final class ProfileHeaderView: UIView {
         imageView.image = placeholderImage
         return imageView
     }()
+    
+    let editAvatarBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        view.layer.masksToBounds = true
+        view.layer.cornerCurve = .continuous
+        view.layer.cornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
+        return view
+    }()
+    
+    let editAvatarButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton()
+        button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28)), for: .normal)
+        button.tintColor = .white
+        return button
+    }()
 
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.textColor = .white
-        label.text = "Alice"
-        label.applyShadow(color: UIColor.black.withAlphaComponent(0.2), alpha: 0.5, x: 0, y: 2, blur: 2, spread: 0)
-        return label
+    let nameTextFieldBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        view.layer.cornerCurve = .continuous
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
+    let nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        textField.textColor = .white
+        textField.text = "Alice"
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.applyShadow(color: UIColor.black.withAlphaComponent(0.2), alpha: 0.5, x: 0, y: 2, blur: 2, spread: 0)
+        return textField
     }()
 
     let usernameLabel: UILabel = {
@@ -84,9 +114,29 @@ final class ProfileHeaderView: UIView {
     }()
     
     let bioContainerView = UIView()
+    let bioContainerStackView = UIStackView()
     let fieldContainerStackView = UIStackView()
     
+    let bioActiveLabelContainer: UIView = {
+        // use to set margin for active label
+        // the display/edit mode bio transition animation should without flicker with that
+        let view = UIView()
+        // note: comment out to see how it works
+        view.layoutMargins = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5) // magic from TextEditorView
+        return view
+    }()
     let bioActiveLabel = ActiveLabel(style: .default)
+    let bioTextEditorView: TextEditorView = {
+        let textEditorView = TextEditorView()
+        textEditorView.scrollView.isScrollEnabled = false
+        textEditorView.isScrollEnabled = false
+        textEditorView.font = .preferredFont(forTextStyle: .body)
+        textEditorView.backgroundColor = Asset.Profile.Banner.bioEditBackgroundGray.color
+        textEditorView.layer.masksToBounds = true
+        textEditorView.layer.cornerCurve = .continuous
+        textEditorView.layer.cornerRadius = 10
+        return textEditorView
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -137,12 +187,32 @@ extension ProfileHeaderView {
             avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
             avatarImageView.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
         ])
+        
+        editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageView.addSubview(editAvatarBackgroundView)
+        NSLayoutConstraint.activate([
+            editAvatarBackgroundView.topAnchor.constraint(equalTo: avatarImageView.topAnchor),
+            editAvatarBackgroundView.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
+            editAvatarBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor),
+            editAvatarBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
+        ])
+        
+        editAvatarButton.translatesAutoresizingMaskIntoConstraints = false
+        editAvatarBackgroundView.addSubview(editAvatarButton)
+        NSLayoutConstraint.activate([
+            editAvatarButton.topAnchor.constraint(equalTo: editAvatarBackgroundView.topAnchor),
+            editAvatarButton.leadingAnchor.constraint(equalTo: editAvatarBackgroundView.leadingAnchor),
+            editAvatarButton.trailingAnchor.constraint(equalTo: editAvatarBackgroundView.trailingAnchor),
+            editAvatarButton.bottomAnchor.constraint(equalTo: editAvatarBackgroundView.bottomAnchor),
+        ])
+        editAvatarBackgroundView.isUserInteractionEnabled = true
+        avatarImageView.isUserInteractionEnabled = true
 
-        // name container: [display name | username]
+        // name container: [display name container | username]
         let nameContainerStackView = UIStackView()
         nameContainerStackView.preservesSuperviewLayoutMargins = true
         nameContainerStackView.axis = .vertical
-        nameContainerStackView.spacing = 0
+        nameContainerStackView.spacing = 7
         nameContainerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nameContainerStackView)
         NSLayoutConstraint.activate([
@@ -150,7 +220,27 @@ extension ProfileHeaderView {
             nameContainerStackView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
             nameContainerStackView.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
         ])
-        nameContainerStackView.addArrangedSubview(nameLabel)
+        
+        let displayNameStackView = UIStackView()
+        displayNameStackView.axis = .horizontal
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
+        displayNameStackView.addArrangedSubview(nameTextField)
+        NSLayoutConstraint.activate([
+            nameTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+        ])
+        nameTextField.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        nameTextFieldBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        displayNameStackView.addSubview(nameTextFieldBackgroundView)
+        NSLayoutConstraint.activate([
+            nameTextField.topAnchor.constraint(equalTo: nameTextFieldBackgroundView.topAnchor, constant: 5),
+            nameTextField.leadingAnchor.constraint(equalTo: nameTextFieldBackgroundView.leadingAnchor, constant: 5),
+            nameTextFieldBackgroundView.bottomAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 5),
+            nameTextFieldBackgroundView.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor, constant: 5),
+        ])
+        displayNameStackView.bringSubviewToFront(nameTextField)
+        displayNameStackView.addArrangedSubview(UIView())
+        
+        nameContainerStackView.addArrangedSubview(displayNameStackView)
         nameContainerStackView.addArrangedSubview(usernameLabel)
         
         // meta container: [dashboard container | bio container | field container]
@@ -192,14 +282,28 @@ extension ProfileHeaderView {
         
         bioContainerView.preservesSuperviewLayoutMargins = true
         metaContainerStackView.addArrangedSubview(bioContainerView)
-        bioActiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        bioContainerView.addSubview(bioActiveLabel)
+        
+        bioContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        bioContainerView.addSubview(bioContainerStackView)
         NSLayoutConstraint.activate([
-            bioActiveLabel.topAnchor.constraint(equalTo: bioContainerView.topAnchor),
-            bioActiveLabel.leadingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.leadingAnchor),
-            bioActiveLabel.trailingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.trailingAnchor),
-            bioActiveLabel.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor),
+            bioContainerStackView.topAnchor.constraint(equalTo: bioContainerView.topAnchor),
+            bioContainerStackView.leadingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.leadingAnchor),
+            bioContainerStackView.trailingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.trailingAnchor),
+            bioContainerStackView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor),
         ])
+        
+        bioActiveLabel.translatesAutoresizingMaskIntoConstraints = false
+        bioActiveLabelContainer.addSubview(bioActiveLabel)
+        NSLayoutConstraint.activate([
+            bioActiveLabel.topAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.topAnchor),
+            bioActiveLabel.leadingAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.leadingAnchor),
+            bioActiveLabel.trailingAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.trailingAnchor),
+            bioActiveLabel.bottomAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.bottomAnchor),
+        ])
+        
+        bioContainerStackView.axis = .vertical
+        bioContainerStackView.addArrangedSubview(bioActiveLabelContainer)
+        bioContainerStackView.addArrangedSubview(bioTextEditorView)
         
         fieldContainerStackView.preservesSuperviewLayoutMargins = true
         metaContainerStackView.addSubview(fieldContainerStackView)
@@ -210,8 +314,56 @@ extension ProfileHeaderView {
         bioActiveLabel.delegate = self
         
         relationshipActionButton.addTarget(self, action: #selector(ProfileHeaderView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
+        
+        configure(state: .normal)
     }
 
+}
+
+extension ProfileHeaderView {
+    enum State {
+        case normal
+        case editing
+    }
+    
+    func configure(state: State) {
+        guard self.state != state else { return }   // avoid redundant animation
+        self.state = state
+        
+        let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
+        
+        switch state {
+        case .normal:
+            nameTextField.isEnabled = false
+            bioActiveLabelContainer.isHidden = false
+            bioTextEditorView.isHidden = true
+            
+            animator.addAnimations {
+                self.bannerImageViewOverlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
+                self.nameTextFieldBackgroundView.backgroundColor = .clear
+                self.editAvatarBackgroundView.alpha = 0
+            }
+            animator.addCompletion { _ in
+                self.editAvatarBackgroundView.isHidden = true
+            }
+        case .editing:
+            nameTextField.isEnabled = true
+            bioActiveLabelContainer.isHidden = true
+            bioTextEditorView.isHidden = false
+            
+            editAvatarBackgroundView.isHidden = false
+            editAvatarBackgroundView.alpha = 0
+            bioTextEditorView.backgroundColor = .clear
+            animator.addAnimations {
+                self.bannerImageViewOverlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
+                self.nameTextFieldBackgroundView.backgroundColor = Asset.Profile.Banner.nameEditBackgroundGray.color
+                self.editAvatarBackgroundView.alpha = 1
+                self.bioTextEditorView.backgroundColor = Asset.Profile.Banner.bioEditBackgroundGray.color
+            }
+        }
+        
+        animator.startAnimation()
+    }
 }
 
 extension ProfileHeaderView {

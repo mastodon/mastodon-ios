@@ -9,6 +9,12 @@ import UIKit
 
 final class ProfileRelationshipActionButton: RoundedEdgesButton {
     
+    let actvityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.color = .white
+        return activityIndicatorView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -23,7 +29,15 @@ final class ProfileRelationshipActionButton: RoundedEdgesButton {
 
 extension ProfileRelationshipActionButton {
     private func _init() {
-        // do nothing
+        actvityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(actvityIndicatorView)
+        NSLayoutConstraint.activate([
+            actvityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            actvityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
+        
+        actvityIndicatorView.hidesWhenStopped = true
+        actvityIndicatorView.stopAnimating()
     }
 }
 
@@ -36,8 +50,13 @@ extension ProfileRelationshipActionButton {
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
         
+        actvityIndicatorView.stopAnimating()
+        
         if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
             isEnabled = false
+        } else if actionOptionSet.contains(.updating) {
+            isEnabled = false
+            actvityIndicatorView.startAnimating()
         } else {
             isEnabled = true
         }

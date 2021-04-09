@@ -13,6 +13,9 @@ import PhotosUI
 import UIKit
 
 final class MastodonRegisterViewController: UIViewController, NeedsDependency, OnboardingViewControllerAppearance {
+    
+    static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
+    
     var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -684,10 +687,10 @@ extension MastodonRegisterViewController {
                 let displayName: String? = self.viewModel.displayName.value.isEmpty ? nil : self.viewModel.displayName.value
                 let avatar: Mastodon.Query.MediaAttachment? = {
                     guard let avatarImage = self.viewModel.avatarImage.value else { return nil }
-                    guard avatarImage.size.width <= 400 else {
-                        return .jpeg(avatarImage.af.imageScaled(to: CGSize(width: 400, height: 400)).jpegData(compressionQuality: 0.8))
+                    guard avatarImage.size.width <= MastodonRegisterViewController.avatarImageMaxSizeInPixel.width else {
+                        return .png(avatarImage.af.imageScaled(to: MastodonRegisterViewController.avatarImageMaxSizeInPixel).pngData())
                     }
-                    return .jpeg(avatarImage.jpegData(compressionQuality: 0.8))
+                    return .png(avatarImage.pngData())
                 }()
                 return Mastodon.API.Account.UpdateCredentialQuery(
                     displayName: displayName,

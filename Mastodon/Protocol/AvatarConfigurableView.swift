@@ -26,7 +26,7 @@ extension AvatarConfigurableView {
             if Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 {
                 return placeholderImage
                     .af.imageAspectScaled(toFill: Self.configurableAvatarImageSize)
-                    .af.imageRounded(withCornerRadius: 4, divideRadiusByImageScale: true)
+                    .af.imageRounded(withCornerRadius: Self.configurableAvatarImageCornerRadius, divideRadiusByImageScale: true)
             } else {
                 return placeholderImage.af.imageRoundedIntoCircle()
             }
@@ -50,11 +50,20 @@ extension AvatarConfigurableView {
         defer {
             avatarConfigurableView(self, didFinishConfiguration: configuration)
         }
-        
+
+        let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
+
         // set placeholder if no asset
         guard let avatarImageURL = configuration.avatarImageURL else {
             configurableAvatarImageView?.image = placeholderImage
+            configurableAvatarImageView?.layer.masksToBounds = true
+            configurableAvatarImageView?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+            configurableAvatarImageView?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+            
             configurableAvatarButton?.setImage(placeholderImage, for: .normal)
+            configurableAvatarButton?.layer.masksToBounds = true
+            configurableAvatarButton?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+            configurableAvatarButton?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
             return
         }
 
@@ -74,7 +83,6 @@ extension AvatarConfigurableView {
                 avatarImageView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
                     
             default:
-                let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
                 avatarImageView.af.setImage(
                     withURL: avatarImageURL,
                     placeholderImage: placeholderImage,
@@ -103,7 +111,6 @@ extension AvatarConfigurableView {
                 avatarButton.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
                 avatarButton.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous : .circular
             default:
-                let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
                 avatarButton.af.setImage(
                     for: .normal,
                     url: avatarImageURL,
