@@ -283,7 +283,7 @@ extension SettingsViewController: UITableViewDelegate {
         
         
         // logout
-        if indexPath.section == 3, indexPath.row == 2 {
+        if indexPath.section == 3, indexPath.row == 1 {
             signout()
         }
     }
