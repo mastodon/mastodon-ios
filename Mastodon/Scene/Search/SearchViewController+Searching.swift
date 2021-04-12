@@ -20,7 +20,7 @@ extension SearchViewController {
         searchingTableView.register(SearchBottomLoader.self, forCellReuseIdentifier: String(describing: SearchBottomLoader.self))
         view.addSubview(searchingTableView)
         searchingTableView.constrain([
-            searchingTableView.frameLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchingTableView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             searchingTableView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchingTableView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             searchingTableView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),

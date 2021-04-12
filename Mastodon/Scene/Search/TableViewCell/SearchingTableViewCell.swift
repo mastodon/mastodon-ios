@@ -15,6 +15,8 @@ final class SearchingTableViewCell: UITableViewCell {
     let _imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.tintColor = Asset.Colors.Label.primary.color
+        imageView.layer.cornerRadius = 4
+        imageView.clipsToBounds = true
         return imageView
     }()
     

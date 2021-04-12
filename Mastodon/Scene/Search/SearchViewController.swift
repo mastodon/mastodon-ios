@@ -17,6 +17,12 @@ final class SearchViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = SearchViewModel(context: context, coordinator: coordinator)
     
+    let statusBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.Background.navigationBar.color
+        return view
+    }()
+    
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = L10n.Scene.Search.Searchbar.placeholder
@@ -25,7 +31,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
         let micImage = UIImage(systemName: "mic.fill")
         searchBar.setImage(micImage, for: .bookmark, state: .normal)
         searchBar.showsBookmarkButton = true
-        searchBar.showsScopeBar = false
         searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
         searchBar.barTintColor = Asset.Colors.Background.navigationBar.color
         return searchBar
@@ -110,16 +115,15 @@ final class SearchViewController: UIViewController, NeedsDependency {
 extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithTransparentBackground()
-        barAppearance.backgroundColor = Asset.Colors.Background.navigationBar.color
         navigationItem.standardAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
-        searchBar.delegate = self
-        navigationItem.titleView = searchBar
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         navigationItem.hidesBackButton = true
+       
+        setupSearchBar()
         setupScrollView()
         setupHashTagCollectionView()
         setupAccountsCollectionView()
@@ -128,10 +132,28 @@ extension SearchViewController {
         setupSearchHeader()
     }
 
+    func setupSearchBar() {
+        searchBar.delegate = self
+        view.addSubview(searchBar)
+        searchBar.constrain([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
+        view.addSubview(statusBar)
+        
+        statusBar.constrain([
+            statusBar.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statusBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3),
+        ])
+    }
+
     func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.constrain([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
