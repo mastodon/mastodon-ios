@@ -11,11 +11,11 @@ import CoreData
 
 @objc(SubscriptionAlerts)
 public final class SubscriptionAlerts: NSManagedObject {
-    @NSManaged public var follow: Bool
-    @NSManaged public var favourite: Bool
-    @NSManaged public var reblog: Bool
-    @NSManaged public var mention: Bool
-    @NSManaged public var poll: Bool
+    @NSManaged public var follow: NSNumber?
+    @NSManaged public var favourite: NSNumber?
+    @NSManaged public var reblog: NSNumber?
+    @NSManaged public var mention: NSNumber?
+    @NSManaged public var poll: NSNumber?
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
@@ -48,35 +48,35 @@ public extension SubscriptionAlerts {
         return alerts
     }
     
-    func update(favourite: Bool) {
+    func update(favourite: NSNumber?) {
         guard self.favourite != favourite else { return }
         self.favourite = favourite
         
         didUpdate(at: Date())
     }
     
-    func update(follow: Bool) {
+    func update(follow: NSNumber?) {
         guard self.follow != follow else { return }
         self.follow = follow
         
         didUpdate(at: Date())
     }
     
-    func update(mention: Bool) {
+    func update(mention: NSNumber?) {
         guard self.mention != mention else { return }
         self.mention = mention
         
         didUpdate(at: Date())
     }
     
-    func update(poll: Bool) {
+    func update(poll: NSNumber?) {
         guard self.poll != poll else { return }
         self.poll = poll
         
         didUpdate(at: Date())
     }
     
-    func update(reblog: Bool) {
+    func update(reblog: NSNumber?) {
         guard self.reblog != reblog else { return }
         self.reblog = reblog
         
@@ -86,18 +86,18 @@ public extension SubscriptionAlerts {
 
 public extension SubscriptionAlerts {
     struct Property {
-        public let favourite: Bool
-        public let follow: Bool
-        public let mention: Bool
-        public let poll: Bool
-        public let reblog: Bool
+        public let favourite: NSNumber?
+        public let follow: NSNumber?
+        public let mention: NSNumber?
+        public let poll: NSNumber?
+        public let reblog: NSNumber?
 
-        public init(favourite: Bool?, follow: Bool?, mention: Bool?, poll: Bool?, reblog: Bool?) {
-            self.favourite = favourite ?? true
-            self.follow = follow ?? true
-            self.mention = mention ?? true
-            self.poll = poll ?? true
-            self.reblog = reblog ?? true
+        public init(favourite: NSNumber?, follow: NSNumber?, mention: NSNumber?, poll: NSNumber?, reblog: NSNumber?) {
+            self.favourite = favourite
+            self.follow = follow
+            self.mention = mention
+            self.poll = poll
+            self.reblog = reblog
         }
     }
     

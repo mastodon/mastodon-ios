@@ -12,6 +12,8 @@ import ActiveLabel
 import CoreData
 import CoreDataStack
 
+// iTODO: when to ask permission to Use Notifications
+
 class SettingsViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -26,7 +28,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let follow = L10n.Scene.Settings.Section.Notifications.Trigger.follow
         let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noOne
         let menu = UIMenu(
-            image: UIImage(systemName: "escape"),
+            image: nil,
             identifier: nil,
             options: .displayInline,
             children: [
@@ -173,7 +175,9 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupTableView() {
-        viewModel.dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, item) -> UITableViewCell? in
+        viewModel.dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, item) -> UITableViewCell? in
+            guard let self = self else { return nil }
+            
             switch item {
             case .apperance(let item):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsAppearanceTableViewCell") as? SettingsAppearanceTableViewCell else {
@@ -225,6 +229,10 @@ class SettingsViewController: UIViewController, NeedsDependency {
             }
         }
         .store(in: &disposeBag)
+    }
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
     // Mark: - Actions
@@ -306,38 +314,39 @@ extension SettingsViewController {
         guard let settings = self.viewModel.setting.value else { return }
         guard let triggerBy = settings.triggerBy else { return }
         
-        var values: [Bool?]?
-        if let alerts = settings.subscription?.first(where: { (s) -> Bool in
+        guard let alerts = settings.subscription?.first(where: { (s) -> Bool in
             return s.type == settings.triggerBy
-        })?.alert {
-            var items = [Bool?]()
-            items.append(alerts.favourite)
-            items.append(alerts.follow)
-            items.append(alerts.reblog)
-            items.append(alerts.mention)
-            values = items
+        })?.alert else {
+            return
         }
-        guard var alertValues = values else { return }
-        guard alertValues.count >= 4 else { return }
+        var alertValues = [Bool?]()
+        alertValues.append(alerts.favourite?.boolValue)
+        alertValues.append(alerts.follow?.boolValue)
+        alertValues.append(alerts.reblog?.boolValue)
+        alertValues.append(alerts.mention?.boolValue)
         
+        // need to update `alerts` to make update API with correct parameter
         switch title {
         case L10n.Scene.Settings.Section.Notifications.favorites:
             alertValues[0] = isOn
+            alerts.favourite = NSNumber(booleanLiteral: isOn)
         case L10n.Scene.Settings.Section.Notifications.follows:
             alertValues[1] = isOn
+            alerts.follow = NSNumber(booleanLiteral: isOn)
         case L10n.Scene.Settings.Section.Notifications.boosts:
             alertValues[2] = isOn
+            alerts.reblog = NSNumber(booleanLiteral: isOn)
         case L10n.Scene.Settings.Section.Notifications.mentions:
             alertValues[3] = isOn
+            alerts.mention = NSNumber(booleanLiteral: isOn)
         default: break
         }
-        self.viewModel.alertUpdate.send((triggerBy: triggerBy, values: alertValues))
+        self.viewModel.updateSubscriptionSubject.send((triggerBy: triggerBy, values: alertValues))
     }
 }
 
 extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
     func settingsAppearanceCell(_ view: SettingsAppearanceTableViewCell, didSelect: SettingsItem.AppearanceMode) {
-        print("[SettingsViewController]: didSelect \(didSelect)")
         guard let setting = self.viewModel.setting.value else { return }
         
         context.managedObjectContext.performChanges {

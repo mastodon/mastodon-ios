@@ -94,11 +94,12 @@ extension APIService.CoreData {
             type: triggerBy ?? setting.triggerBy ?? "")
         let alertEntity = entity.alerts
         let alert = SubscriptionAlerts.Property(
-            favourite: alertEntity.favourite,
-            follow: alertEntity.follow,
-            mention: alertEntity.mention,
-            poll: alertEntity.poll,
-            reblog: alertEntity.reblog)
+            favourite: alertEntity.favouriteNumber,
+            follow: alertEntity.followNumber,
+            mention: alertEntity.mentionNumber,
+            poll: alertEntity.pollNumber,
+            reblog: alertEntity.reblogNumber
+        )
         if let oldSubscription = oldSubscription {
             oldSubscription.updateIfNeed(property: property)
             if nil == oldSubscription.alert {
@@ -109,9 +110,10 @@ extension APIService.CoreData {
                 oldSubscription.alert?.updateIfNeed(property: alert)
             }
             
-            if oldSubscription.alert?.hasChanges == true {
+            if oldSubscription.alert?.hasChanges == true || oldSubscription.hasChanges {
                 // don't expand subscription if add existed subscription
-                setting.mutableSetValue(forKey: #keyPath(Setting.subscription)).add(oldSubscription)
+                //setting.mutableSetValue(forKey: #keyPath(Setting.subscription)).add(oldSubscription)
+                oldSubscription.didUpdate(at: Date())
             }
             return (oldSubscription, false)
         } else {

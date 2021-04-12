@@ -50,6 +50,7 @@ public extension Subscription {
         setting.id = property.id
         setting.endpoint = property.endpoint
         setting.serverKey = property.serverKey
+        setting.type = property.type
         
         return setting
     }

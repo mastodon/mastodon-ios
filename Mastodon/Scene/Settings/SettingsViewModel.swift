@@ -20,6 +20,9 @@ class SettingsViewModel: NSObject, NeedsDependency {
     
     var dataSource: UITableViewDiffableDataSource<SettingsSection, SettingsItem>!
     var disposeBag = Set<AnyCancellable>()
+    var updateDisposeBag = Set<AnyCancellable>()
+    var createDisposeBag = Set<AnyCancellable>()
+    
     let viewDidLoad = PassthroughSubject<Void, Never>()
     lazy var fetchResultsController: NSFetchedResultsController<Setting> = {
         let fetchRequest = Setting.sortedFetchRequest
@@ -42,10 +45,14 @@ class SettingsViewModel: NSObject, NeedsDependency {
     }()
     let setting = CurrentValueSubject<Setting?, Never>(nil)
     
-    /// trigger when
-    /// - init alerts
-    /// - change subscription status everytime
-    let alertUpdate = PassthroughSubject<(triggerBy: String, values: [Bool?]), Never>()
+    /// create a subscription when:
+    /// - does not has one
+    /// - does not find subscription for selected trigger when change trigger
+    let createSubscriptionSubject = PassthroughSubject<(triggerBy: String, values: [Bool?]), Never>()
+    
+    /// update a subscription when:
+    /// - change switch for specified alerts
+    let updateSubscriptionSubject = PassthroughSubject<(triggerBy: String, values: [Bool?]), Never>()
     
     lazy var notificationDefaultValue: [String: [Bool?]] = {
         let followerSwitchItems: [Bool?] = [true, nil, true, true]
@@ -77,43 +84,91 @@ class SettingsViewModel: NSObject, NeedsDependency {
     }
     
     func transform(input: Input?) -> Output? {
-        //guard let input = input else { return nil }
+        typealias SubscriptionResponse = Mastodon.Response.Content<Mastodon.Entity.Subscription>
+        createSubscriptionSubject
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [weak self] (arg) in
+                let (triggerBy, values) = arg
+                guard let self = self else {
+                    return
+                }
+                guard let activeMastodonAuthenticationBox =
+                        self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                guard values.count >= 4 else {
+                    return
+                }
+                
+                self.createDisposeBag.removeAll()
+                typealias Query = Mastodon.API.Notification.CreateSubscriptionQuery
+                let domain = activeMastodonAuthenticationBox.domain
+                let query = Query(
+                    endpoint: "http://www.google.com",
+                    p256dh: "BLQELIDm-6b9Bl07YrEuXJ4BL_YBVQ0dvt9NQGGJxIQidJWHPNa9YrouvcQ9d7_MqzvGS9Alz60SZNCG3qfpk=",
+                    auth: "4vQK-SvRAN5eo-8ASlrwA==",
+                    favourite: values[0],
+                    follow: values[1],
+                    reblog: values[2],
+                    mention: values[3],
+                    poll: nil)
+                self.context.apiService.changeSubscription(
+                    domain: domain,
+                    mastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                    query: query,
+                    triggerBy: triggerBy
+                )
+                .sink { (_) in
+                } receiveValue: { (_) in
+                }
+                .store(in: &self.createDisposeBag)
+            }
+            .store(in: &disposeBag)
+        
+        updateSubscriptionSubject
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .sink { _ in
+            } receiveValue: { [weak self] (arg) in
+                let (triggerBy, values) = arg
+                guard let self = self else {
+                    return
+                }
+                guard let activeMastodonAuthenticationBox =
+                        self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                guard values.count >= 4 else {
+                    return
+                }
+                
+                self.updateDisposeBag.removeAll()
+                typealias Query = Mastodon.API.Notification.UpdateSubscriptionQuery
+                let domain = activeMastodonAuthenticationBox.domain
+                let query = Query(
+                    favourite: values[0],
+                    follow: values[1],
+                    reblog: values[2],
+                    mention: values[3],
+                    poll: nil)
+                self.context.apiService.updateSubscription(
+                    domain: domain,
+                    mastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                    query: query,
+                    triggerBy: triggerBy
+                )
+                .sink { (_) in
+                } receiveValue: { (_) in
+                }
+                .store(in: &self.updateDisposeBag)
+            }
+            .store(in: &disposeBag)
         
         // build data for table view
         buildDataSource()
         
         // request subsription data for updating or initialization
         requestSubscription()
-        
-        typealias SubscriptionResponse = Mastodon.Response.Content<Mastodon.Entity.Subscription>
-        alertUpdate
-            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-            .flatMap { [weak self] (arg) -> AnyPublisher<SubscriptionResponse, Error> in
-                let (triggerBy, values) = arg
-                guard let self = self else {
-                    return Empty<SubscriptionResponse, Error>().eraseToAnyPublisher()
-                }
-                guard let activeMastodonAuthenticationBox =
-                        self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return Empty<SubscriptionResponse, Error>().eraseToAnyPublisher()
-                }
-                guard values.count >= 4 else {
-                    return Empty<SubscriptionResponse, Error>().eraseToAnyPublisher()
-                }
-                
-                typealias Query = Mastodon.API.Notification.CreateSubscriptionQuery
-                let domain = activeMastodonAuthenticationBox.domain
-                return self.context.apiService.changeSubscription(
-                    domain: domain,
-                    mastodonAuthenticationBox: activeMastodonAuthenticationBox,
-                    query: Query(favourite: values[0], follow: values[1],  reblog: values[2], mention: values[3], poll: nil),
-                    triggerBy: triggerBy)
-            }
-            .sink { _ in
-            } receiveValue: { (subscription) in
-            }
-            .store(in: &disposeBag)
-        
         
         do {
             try fetchResultsController.performFetch()
@@ -141,15 +196,15 @@ class SettingsViewModel: NSObject, NeedsDependency {
             return s.type == settings?.triggerBy
         })?.alert {
             var items = [Bool?]()
-            items.append(alerts.favourite)
-            items.append(alerts.follow)
-            items.append(alerts.reblog)
-            items.append(alerts.mention)
+            items.append(alerts.favourite?.boolValue)
+            items.append(alerts.follow?.boolValue)
+            items.append(alerts.reblog?.boolValue)
+            items.append(alerts.mention?.boolValue)
             switches = items
         } else if let triggerBy = settings?.triggerBy,
                   let values = self.notificationDefaultValue[triggerBy] {
             switches = values
-            self.alertUpdate.send((triggerBy: triggerBy, values: values))
+            self.createSubscriptionSubject.send((triggerBy: triggerBy, values: values))
         } else {
             // fallback a default value
             let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
@@ -178,7 +233,6 @@ class SettingsViewModel: NSObject, NeedsDependency {
                            L10n.Scene.Settings.Section.BoringZone.privacy]
         var boringLinkItems = [SettingsItem]()
         for l in boringLinks {
-            // FIXME: update color in both light and dark mode
             let item = SettingsItem.boringZone(item: SettingsItem.Link(title: l, color: .systemBlue))
             boringLinkItems.append(item)
         }
@@ -191,7 +245,6 @@ class SettingsViewModel: NSObject, NeedsDependency {
                           L10n.Scene.Settings.Section.SpicyZone.signOut]
         var spicyLinkItems = [SettingsItem]()
         for l in spicyLinks {
-            // FIXME: update color in both light and dark mode
             let item = SettingsItem.boringZone(item: SettingsItem.Link(title: l, color: .systemRed))
             spicyLinkItems.append(item)
         }
@@ -203,15 +256,11 @@ class SettingsViewModel: NSObject, NeedsDependency {
     }
     
     private func buildDataSource() {
-        setting.filter({ $0 != nil }).sink { [weak self] (settings) in
+        setting.sink { [weak self] (settings) in
             guard let self = self else { return }
             self.processDataSource(settings)
         }
         .store(in: &disposeBag)
-        
-        // init with no subscription for notification
-        let settings: Setting? = nil
-        self.processDataSource(settings)
     }
     
     private func requestSubscription() {
@@ -229,10 +278,21 @@ class SettingsViewModel: NSObject, NeedsDependency {
                 domain: domain,
                 mastodonAuthenticationBox: activeMastodonAuthenticationBox)
         }
-        .sink { _ in
+        .sink { [weak self] competion in
+            if case .failure(_) = competion {
+                // create a subscription when doesn't has one
+                let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
+                if let values = self?.notificationDefaultValue[anyone] {
+                    self?.createSubscriptionSubject.send((triggerBy: anyone, values: values))
+                }
+            }
         } receiveValue: { (subscription) in
         }
         .store(in: &disposeBag)
+    }
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
 }
 

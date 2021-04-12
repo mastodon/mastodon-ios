@@ -47,9 +47,9 @@ extension Mastodon.API.Notification {
             .eraseToAnyPublisher()
     }
     
-    /// Change types of notifications
+    /// Subscribe to push notifications
     ///
-    /// Using this endpoint to change types of notifications
+    /// Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.
     ///
     /// - Since: 2.4.0
     /// - Version: 3.3.0
@@ -80,6 +80,40 @@ extension Mastodon.API.Notification {
             }
             .eraseToAnyPublisher()
     }
+    
+    /// Change types of notifications
+    ///
+    /// Updates the current push subscription. Only the data part can be updated. To change fundamentals, a new subscription must be created instead.
+    ///
+    /// - Since: 2.4.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/4/9
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/notifications/push/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - authorization: User token. Could be nil if status is public
+    /// - Returns: `AnyPublisher` contains `Poll` nested in the response
+    public static func updateSubscription(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization?,
+        query: UpdateSubscriptionQuery
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error>  {
+        let request = Mastodon.API.put(
+            url: pushEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Subscription.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 extension Mastodon.API.Notification {
@@ -88,27 +122,56 @@ extension Mastodon.API.Notification {
         var contentType: String?
         var body: Data?
         
-        let follow: Bool?
-        let favourite: Bool?
-        let reblog: Bool?
-        let mention: Bool?
-        let poll: Bool?
-        
-        // iTODO: missing parameters
-        // subscription[endpoint]
-        // subscription[keys][p256dh]
-        // subscription[keys][auth]
-        public init(favourite: Bool?,
-                    follow: Bool?,
-                    reblog: Bool?,
-                    mention: Bool?,
-                    poll: Bool?) {
-            self.follow = follow
-            self.favourite = favourite
-            self.reblog = reblog
-            self.mention = mention
-            self.poll = poll
+        public init(
+            endpoint: String,
+            p256dh: String,
+            auth: String,
+            favourite: Bool?,
+            follow: Bool?,
+            reblog: Bool?,
+            mention: Bool?,
+            poll: Bool?
+        ) {
+            queryItems = [URLQueryItem]()
             
+            queryItems?.append(URLQueryItem(name: "subscription[endpoint]", value: endpoint))
+            queryItems?.append(URLQueryItem(name: "subscription[keys][p256dh]", value: p256dh))
+            queryItems?.append(URLQueryItem(name: "subscription[keys][auth]", value: auth))
+            
+            if let followValue = follow?.queryItemValue {
+                let followItem = URLQueryItem(name: "data[alerts][follow]", value: followValue)
+                queryItems?.append(followItem)
+            }
+            
+            if let favouriteValue = favourite?.queryItemValue {
+                let favouriteItem = URLQueryItem(name: "data[alerts][favourite]", value: favouriteValue)
+                queryItems?.append(favouriteItem)
+            }
+            
+            if let reblogValue = reblog?.queryItemValue {
+                let reblogItem = URLQueryItem(name: "data[alerts][reblog]", value: reblogValue)
+                queryItems?.append(reblogItem)
+            }
+            
+            if let mentionValue = mention?.queryItemValue {
+                let mentionItem = URLQueryItem(name: "data[alerts][mention]", value: mentionValue)
+                queryItems?.append(mentionItem)
+            }
+        }
+    }
+    
+    public struct UpdateSubscriptionQuery: PutQuery {
+        var queryItems: [URLQueryItem]?
+        var contentType: String?
+        var body: Data?
+        
+        public init(
+            favourite: Bool?,
+            follow: Bool?,
+            reblog: Bool?,
+            mention: Bool?,
+            poll: Bool?
+        ) {
             queryItems = [URLQueryItem]()
             
             if let followValue = follow?.queryItemValue {

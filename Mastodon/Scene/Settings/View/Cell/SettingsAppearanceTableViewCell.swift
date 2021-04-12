@@ -86,12 +86,7 @@ class AppearanceView: UIView {
 
 class SettingsAppearanceTableViewCell: UITableViewCell {
     weak var delegate: SettingsAppearanceTableViewCellDelegate?
-    var appearance: SettingsItem.AppearanceMode = .automatic {
-        didSet {
-            guard let delegate = self.delegate else { return }
-            delegate.settingsAppearanceCell(self, didSelect: appearance)
-        }
-    }
+    var appearance: SettingsItem.AppearanceMode = .automatic
     
     lazy var stackView: UIStackView = {
         let view = UIStackView()
@@ -203,5 +198,8 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
         if sender == darkTap {
             appearance = .dark
         }
+        
+        guard let delegate = self.delegate else { return }
+        delegate.settingsAppearanceCell(self, didSelect: appearance)
     }
 }
