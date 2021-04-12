@@ -339,6 +339,26 @@ internal enum L10n {
         internal static let publishing = L10n.tr("Localizable", "Scene.HomeTimeline.NavigationBarState.Publishing")
       }
     }
+    internal enum Notification {
+      internal enum Action {
+        /// favorited your toot
+        internal static let favourite = L10n.tr("Localizable", "Scene.Notification.Action.Favourite")
+        /// followed you
+        internal static let follow = L10n.tr("Localizable", "Scene.Notification.Action.Follow")
+        /// mentioned you
+        internal static let mention = L10n.tr("Localizable", "Scene.Notification.Action.Mention")
+        /// Your poll has ended
+        internal static let poll = L10n.tr("Localizable", "Scene.Notification.Action.Poll")
+        /// boosted your toot
+        internal static let reblog = L10n.tr("Localizable", "Scene.Notification.Action.Reblog")
+      }
+      internal enum Title {
+        /// Everything
+        internal static let everything = L10n.tr("Localizable", "Scene.Notification.Title.Everything")
+        /// Mentions
+        internal static let mentions = L10n.tr("Localizable", "Scene.Notification.Title.Mentions")
+      }
+    }
     internal enum Profile {
       /// %@ posts
       internal static func subtitle(_ p1: Any) -> String {

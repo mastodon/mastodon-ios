@@ -1,18 +1,19 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by BradGao on 2021/4/1.
 //
 
-import Foundation
 import Combine
+import Foundation
 
-extension Mastodon.API.Notifications {
-    static func notificationsEndpointURL(domain: String) -> URL {
-        Mastodon.API.endpointV2URL(domain: domain).appendingPathComponent("notifications")
+public extension Mastodon.API.Notifications {
+    internal static func notificationsEndpointURL(domain: String) -> URL {
+        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("notifications")
     }
-    static func getNotificationEndpointURL(domain: String, notificationID: String) -> URL {
+
+    internal static func getNotificationEndpointURL(domain: String, notificationID: String) -> URL {
         notificationsEndpointURL(domain: domain).appendingPathComponent(notificationID)
     }
     
@@ -27,15 +28,15 @@ extension Mastodon.API.Notifications {
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - query: `GetAllNotificationsQuery` with query parameters
+    ///   - query: `NotificationsQuery` with query parameters
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
-    public static func getAll(
+    static func getNotifications(
         session: URLSession,
         domain: String,
-        query: GetAllNotificationsQuery,
-        authorization: Mastodon.API.OAuth.Authorization?
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error>  {
+        query: Mastodon.API.Notifications.Query,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error> {
         let request = Mastodon.API.get(
             url: notificationsEndpointURL(domain: domain),
             query: query,
@@ -63,12 +64,12 @@ extension Mastodon.API.Notifications {
     ///   - notificationID: ID of the notification.
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
-    public static func get(
+    static func getNotification(
         session: URLSession,
         domain: String,
         notificationID: String,
-        authorization: Mastodon.API.OAuth.Authorization?
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error>  {
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> {
         let request = Mastodon.API.get(
             url: getNotificationEndpointURL(domain: domain, notificationID: notificationID),
             query: nil,
@@ -82,12 +83,22 @@ extension Mastodon.API.Notifications {
             .eraseToAnyPublisher()
     }
     
-    public struct GetAllNotificationsQuery: Codable, PagedQueryType, GetQuery {
+    static func allExcludeTypes() -> [Mastodon.Entity.Notification.NotificationType] {
+        [.follow]
+    }
+    
+    static func mentionsExcludeTypes() -> [Mastodon.Entity.Notification.NotificationType] {
+        [.follow, .followRequest, .favourite, .reblog, .poll]
+    }
+}
+
+public extension Mastodon.API.Notifications {
+    struct Query: Codable, PagedQueryType, GetQuery {
         public let maxID: Mastodon.Entity.Status.ID?
         public let sinceID: Mastodon.Entity.Status.ID?
         public let minID: Mastodon.Entity.Status.ID?
         public let limit: Int?
-        public let excludeTypes: [String]?
+        public let excludeTypes: [Mastodon.Entity.Notification.NotificationType]?
         public let accountID: String?
     
         public init(
@@ -95,7 +106,7 @@ extension Mastodon.API.Notifications {
             sinceID: Mastodon.Entity.Status.ID? = nil,
             minID: Mastodon.Entity.Status.ID? = nil,
             limit: Int? = nil,
-            excludeTypes: [String]? = nil,
+            excludeTypes: [Mastodon.Entity.Notification.NotificationType]? = nil,
             accountID: String? = nil
         ) {
             self.maxID = maxID
@@ -114,7 +125,7 @@ extension Mastodon.API.Notifications {
             limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
             if let excludeTypes = excludeTypes {
                 excludeTypes.forEach {
-                    items.append(URLQueryItem(name: "exclude_types[]", value: $0))
+                    items.append(URLQueryItem(name: "exclude_types[]", value: $0.rawValue))
                 }
             }
             accountID.flatMap { items.append(URLQueryItem(name: "account_id", value: $0)) }

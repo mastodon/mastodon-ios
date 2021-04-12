@@ -37,6 +37,7 @@ extension Mastodon.Entity {
 }
 
 extension Mastodon.Entity.Notification {
+    public typealias NotificationType = Type
     public enum `Type`: RawRepresentable, Codable {
         case follow
         case followRequest

@@ -321,6 +321,19 @@
         },
         "favorite": {
             "title": "Your Favorites"
+            },
+        "notification": {
+            "title": {
+                "Everything": "Everything",
+                "Mentions": "Mentions"
+            },
+            "action": {
+                "follow": "followed you",
+                "favourite": "favorited your post",
+                "reblog": "rebloged your post",
+                "poll": "Your poll has ended",
+                "mention": "mentioned you"
+            }
         }
     }
 }
