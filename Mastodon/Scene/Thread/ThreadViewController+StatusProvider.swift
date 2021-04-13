@@ -1,20 +1,18 @@
 //
-//  PublicTimelineViewController+StatusProvider.swift
+//  ThreadViewController+StatusProvider.swift
 //  Mastodon
 //
-//  Created by sxiaojian on 2021/1/27.
+//  Created by MainasuK Cirno on 2021-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import MastodonSDK
 
 // MARK: - StatusProvider
-extension PublicTimelineViewController: StatusProvider {
-
+extension ThreadViewController: StatusProvider {
+    
     func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
@@ -33,10 +31,12 @@ extension PublicTimelineViewController: StatusProvider {
             }
             
             switch item {
-            case .status(let objectID, _):
-                let managedObjectContext = self.viewModel.fetchedResultsController.managedObjectContext
+            case .root(let statusObjectID, _),
+                 .reply(let statusObjectID, _),
+                 .leaf(let statusObjectID, _):
+                let managedObjectContext = self.viewModel.context.managedObjectContext
                 managedObjectContext.perform {
-                    let status = managedObjectContext.object(with: objectID) as? Status
+                    let status = managedObjectContext.object(with: statusObjectID) as? Status
                     promise(.success(status))
                 }
             default:
@@ -50,7 +50,7 @@ extension PublicTimelineViewController: StatusProvider {
     }
     
     var managedObjectContext: NSManagedObjectContext {
-        return viewModel.fetchedResultsController.managedObjectContext
+        return viewModel.context.managedObjectContext
     }
     
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? {
@@ -62,6 +62,7 @@ extension PublicTimelineViewController: StatusProvider {
             assertionFailure()
             return nil
         }
+        
         guard let indexPath = indexPath ?? cell.flatMap({ self.tableView.indexPath(for: $0) }),
               let item = diffableDataSource.itemIdentifier(for: indexPath) else {
             return nil

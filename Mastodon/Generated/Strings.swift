@@ -203,6 +203,8 @@ internal enum L10n {
           internal static let loadingMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadingMissingPosts")
           /// Load missing posts
           internal static let loadMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadMissingPosts")
+          /// Show more replies
+          internal static let showMoreReplies = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.ShowMoreReplies")
         }
       }
     }
@@ -565,6 +567,34 @@ internal enum L10n {
       internal enum Button {
         /// I Agree
         internal static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm")
+      }
+    }
+    internal enum Thread {
+      /// Post
+      internal static let backTitle = L10n.tr("Localizable", "Scene.Thread.BackTitle")
+      /// Post from %@
+      internal static func title(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Thread.Title", String(describing: p1))
+      }
+      internal enum Favorite {
+        /// %@ favorites
+        internal static func multiple(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Thread.Favorite.Multiple", String(describing: p1))
+        }
+        /// %@ favorite
+        internal static func single(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Thread.Favorite.Single", String(describing: p1))
+        }
+      }
+      internal enum Reblog {
+        /// %@ reblogs
+        internal static func multiple(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Thread.Reblog.Multiple", String(describing: p1))
+        }
+        /// %@ reblog
+        internal static func single(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Thread.Reblog.Single", String(describing: p1))
+        }
       }
     }
     internal enum Welcome {

@@ -22,9 +22,16 @@ extension StatusSection {
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
-        timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
+        timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?,
+        threadReplyLoaderTableViewCellDelegate: ThreadReplyLoaderTableViewCellDelegate?
     ) -> UITableViewDiffableDataSource<StatusSection, Item> {
-        UITableViewDiffableDataSource(tableView: tableView) { [weak statusTableViewCellDelegate, weak timelineMiddleLoaderTableViewCellDelegate] tableView, indexPath, item -> UITableViewCell? in
+        UITableViewDiffableDataSource(tableView: tableView) { [
+            weak dependency,
+            weak statusTableViewCellDelegate,
+            weak timelineMiddleLoaderTableViewCellDelegate,
+            weak threadReplyLoaderTableViewCellDelegate
+        ] tableView, indexPath, item -> UITableViewCell? in
+            guard let dependency = dependency else { return UITableViewCell() }
             guard let statusTableViewCellDelegate = statusTableViewCellDelegate else { return UITableViewCell() }
 
             switch item {
@@ -46,7 +53,10 @@ extension StatusSection {
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
-            case .status(let objectID, let attribute):
+            case .status(let objectID, let attribute),
+                 .root(let objectID, let attribute),
+                 .reply(let objectID, let attribute),
+                 .leaf(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
@@ -62,8 +72,30 @@ extension StatusSection {
                         requestUserID: requestUserID,
                         statusItemAttribute: attribute
                     )
+                    
+                    switch item {
+                    case .root:
+                        StatusSection.configureThreadMeta(cell: cell, status: status)
+                        ManagedObjectObserver.observe(object: status.reblog ?? status)
+                            .receive(on: DispatchQueue.main)
+                            .sink { _ in
+                                // do nothing
+                            } receiveValue: { change in
+                                guard case .update(let object) = change.changeType,
+                                      let status = object as? Status else { return }
+                                StatusSection.configureThreadMeta(cell: cell, status: status)
+                            }
+                            .store(in: &cell.disposeBag)
+                    default:
+                        break
+                    }
                 }
                 cell.delegate = statusTableViewCellDelegate
+                
+                return cell
+            case .leafBottomLoader:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ThreadReplyLoaderTableViewCell.self), for: indexPath) as! ThreadReplyLoaderTableViewCell
+                cell.delegate = threadReplyLoaderTableViewCellDelegate
                 return cell
             case .publicMiddleLoader(let upperTimelineStatusID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
@@ -74,6 +106,10 @@ extension StatusSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self), for: indexPath) as! TimelineMiddleLoaderTableViewCell
                 cell.delegate = timelineMiddleLoaderTableViewCellDelegate
                 timelineMiddleLoaderTableViewCellDelegate?.configure(cell: cell, upperTimelineStatusID: nil, timelineIndexobjectID: upperTimelineIndexObjectID)
+                return cell
+            case .topLoader:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                cell.startAnimating()
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
@@ -288,6 +324,9 @@ extension StatusSection {
         // toolbar
         StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
         
+        // separator line
+        cell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
+        
         // set date
         let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
@@ -312,6 +351,41 @@ extension StatusSection {
             }
             .store(in: &cell.disposeBag)
     }
+    
+    static func configureThreadMeta(
+        cell: StatusTableViewCell,
+        status: Status
+    ) {
+        cell.selectionStyle = .none
+        cell.threadMetaView.dateLabel.text = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            return formatter.string(from: status.createdAt)
+        }()
+        let reblogCountTitle: String = {
+            let count = status.reblogsCount.intValue
+            if count > 1 {
+                return L10n.Scene.Thread.Reblog.multiple(String(count))
+            } else {
+                return L10n.Scene.Thread.Reblog.single(String(count))
+            }
+        }()
+        cell.threadMetaView.reblogButton.setTitle(reblogCountTitle, for: .normal)
+        
+        let favoriteCountTitle: String = {
+            let count = status.favouritesCount.intValue
+            if count > 1 {
+                return L10n.Scene.Thread.Favorite.multiple(String(count))
+            } else {
+                return L10n.Scene.Thread.Favorite.single(String(count))
+            }
+        }()
+        cell.threadMetaView.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
+        
+        cell.threadMetaView.isHidden = false
+    }
+    
 
     static func configureHeader(
         cell: StatusTableViewCell,
@@ -325,10 +399,13 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
-        } else if let replyTo = status.replyTo {
+        } else if status.inReplyToID != nil {
             cell.statusView.headerContainerStackView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
             cell.statusView.headerInfoLabel.text = {
+                guard let replyTo = status.replyTo else {
+                    return L10n.Common.Controls.Status.userRepliedTo("-")
+                }
                 let author = replyTo.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)

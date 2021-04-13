@@ -56,14 +56,25 @@ final class StatusTableViewCell: UITableViewCell {
     var observations = Set<NSKeyValueObservation>()
     
     let statusView = StatusView()
-        
+    let threadMetaStackView = UIStackView()
+    let threadMetaView = ThreadMetaView()
+    let separatorLine = UIView.separatorLine
+    
+    var separatorLineToEdgeLeadingLayoutConstraint: NSLayoutConstraint!
+    var separatorLineToEdgeTrailingLayoutConstraint: NSLayoutConstraint!
+    
+    var separatorLineToMarginLeadingLayoutConstraint: NSLayoutConstraint!
+    var separatorLineToMarginTrailingLayoutConstraint: NSLayoutConstraint!
+
     override func prepareForReuse() {
         super.prepareForReuse()
+        selectionStyle = .default
         statusView.isStatusTextSensitive = false
         statusView.cleanUpContentWarning()
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
         statusView.playerContainerView.isHidden = true
+        threadMetaView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
     }
@@ -90,7 +101,6 @@ final class StatusTableViewCell: UITableViewCell {
 extension StatusTableViewCell {
     
     private func _init() {
-        selectionStyle = .none
         backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         
@@ -102,24 +112,74 @@ extension StatusTableViewCell {
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: statusView.trailingAnchor),
         ])
         
-        let bottomPaddingView = UIView()
-        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(bottomPaddingView)
+        threadMetaStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(threadMetaStackView)
         NSLayoutConstraint.activate([
-            bottomPaddingView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
-            bottomPaddingView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            bottomPaddingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            bottomPaddingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomPaddingView.heightAnchor.constraint(equalToConstant: StatusTableViewCell.bottomPaddingHeight).priority(.defaultHigh),
+            threadMetaStackView.topAnchor.constraint(equalTo: statusView.bottomAnchor),
+            threadMetaStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            threadMetaStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            threadMetaStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
-        bottomPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
-                
+        threadMetaStackView.addArrangedSubview(threadMetaView)
+        
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(separatorLine)
+        separatorLineToEdgeLeadingLayoutConstraint = separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        separatorLineToEdgeTrailingLayoutConstraint = separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        separatorLineToMarginLeadingLayoutConstraint = separatorLine.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor)
+        separatorLineToMarginTrailingLayoutConstraint = separatorLine.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor)
+        NSLayoutConstraint.activate([
+            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
+        ])
+        resetSeparatorLineLayout()
+
         statusView.delegate = self
         statusView.pollTableView.delegate = self
         statusView.statusMosaicImageViewContainer.delegate = self
         statusView.actionToolbarContainer.delegate = self
+        
+        // default hidden
+        threadMetaView.isHidden = true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        resetSeparatorLineLayout()
+    }
+    
+}
+
+extension StatusTableViewCell {
+    private func resetSeparatorLineLayout() {
+        separatorLineToEdgeLeadingLayoutConstraint.isActive = false
+        separatorLineToEdgeTrailingLayoutConstraint.isActive = false
+        separatorLineToMarginLeadingLayoutConstraint.isActive = false
+        separatorLineToMarginTrailingLayoutConstraint.isActive = false
+        
+        if traitCollection.userInterfaceIdiom == .phone {
+            // to edge
+            NSLayoutConstraint.activate([
+                separatorLineToEdgeLeadingLayoutConstraint,
+                separatorLineToEdgeTrailingLayoutConstraint,
+            ])
+        } else {
+            if traitCollection.horizontalSizeClass == .compact {
+                // to edge
+                NSLayoutConstraint.activate([
+                    separatorLineToEdgeLeadingLayoutConstraint,
+                    separatorLineToEdgeTrailingLayoutConstraint,
+                ])
+            } else {
+                // to margin
+                NSLayoutConstraint.activate([
+                    separatorLineToMarginLeadingLayoutConstraint,
+                    separatorLineToMarginTrailingLayoutConstraint,
+                ])
+            }
+        }
+    }
 }
 
 // MARK: - UITableViewDelegate

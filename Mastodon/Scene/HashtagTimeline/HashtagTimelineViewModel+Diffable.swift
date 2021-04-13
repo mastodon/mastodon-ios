@@ -28,7 +28,8 @@ extension HashtagTimelineViewModel {
             managedObjectContext: context.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
-            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
+            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
+            threadReplyLoaderTableViewCellDelegate: nil
         )
     }
 }

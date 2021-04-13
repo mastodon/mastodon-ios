@@ -146,3 +146,46 @@ extension Mastodon.API.Statuses {
     }
     
 }
+
+extension Mastodon.API.Statuses {
+
+    static func statusContextEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("statuses/\(statusID)/context")
+    }
+    
+    /// Parent and child statuses
+    ///
+    /// View statuses above and below this status in the thread.
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/4/12
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/statuses/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - statusID: id of status
+    ///   - authorization: User token. Optional for public statuses
+    /// - Returns: `AnyPublisher` contains `Context` nested in the response
+    public static func statusContext(
+        session: URLSession,
+        domain: String,
+        statusID: Mastodon.Entity.Status.ID,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error>  {
+        let request = Mastodon.API.get(
+            url: statusContextEndpointURL(domain: domain, statusID: statusID),
+            query: nil,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Context.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+}

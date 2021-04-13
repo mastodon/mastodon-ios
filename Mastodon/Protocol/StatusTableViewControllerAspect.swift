@@ -9,10 +9,12 @@ import UIKit
 import AVKit
 
 //   Check List                     Last Updated
+// - HomeViewController:                2021/4/13
 // - FavoriteViewController:            2021/4/8
 // - HashtagTimelineViewController:     2021/4/8
-// - UserTimelineViewController:        2021/4/8
-// * StatusTableViewControllerAspect:   2021/4/7
+// - UserTimelineViewController:        2021/4/13
+// - ThreadViewController:              2021/4/13
+// * StatusTableViewControllerAspect:   2021/4/12
 
 // (Fake) Aspect protocol to group common protocol extension implementations
 // Needs update related view controller when aspect interface changes
@@ -69,7 +71,7 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
     }
 }
 
-// [B4] StatusTableViewControllerAspect.aspectTableView(_:didEndDisplaying:forRowAt:)
+// [B4] aspectTableView(_:didEndDisplaying:forRowAt:)
 extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
     /// [Media] hook to notify video service
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -90,6 +92,14 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
         cacheTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+}
+
+// [B5] aspectTableView(_:didSelectRowAt:)
+extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
+    /// [UI] hook to coordinator to thread
+    func aspectTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        handleTableView(tableView, didSelectRowAt: indexPath)
     }
 }
 

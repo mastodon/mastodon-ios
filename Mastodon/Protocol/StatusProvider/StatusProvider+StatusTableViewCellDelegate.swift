@@ -46,9 +46,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard let item = item(for: cell, indexPath: nil) else { return }
             
         switch item {
-        case .homeTimelineIndex(_, let attribute):
-            attribute.isStatusTextSensitive = false
-        case .status(_, let attribute):
+        case .homeTimelineIndex(_, let attribute),
+            .status(_, let attribute),
+            .root(_, let attribute),
+            .reply(_, let attribute),
+            .leaf(_, let attribute):
             attribute.isStatusTextSensitive = false
         default:
             return
@@ -81,9 +83,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard let item = item(for: cell, indexPath: nil) else { return }
         
         switch item {
-        case .homeTimelineIndex(_, let attribute):
-            attribute.isStatusSensitive = false
-        case .status(_, let attribute):
+        case .homeTimelineIndex(_, let attribute),
+            .status(_, let attribute),
+            .root(_, let attribute),
+            .reply(_, let attribute),
+            .leaf(_, let attribute):
             attribute.isStatusSensitive = false
         default:
             return

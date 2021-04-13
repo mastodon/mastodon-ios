@@ -18,11 +18,8 @@ protocol TimelineMiddleLoaderTableViewCellDelegate: class {
 final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
     weak var delegate: TimelineMiddleLoaderTableViewCellDelegate?
     
-    let sawToothView: SawToothView = {
-        let sawToothView = SawToothView()
-        sawToothView.translatesAutoresizingMaskIntoConstraints = false
-        return sawToothView
-    }()
+    let topSawToothView = SawToothView()
+    let bottomSawToothView = SawToothView()
     
     override func _init() {
         super._init()
@@ -34,12 +31,23 @@ final class TimelineMiddleLoaderTableViewCell: TimelineLoaderTableViewCell {
         loadMoreButton.setInsets(forContentPadding: .zero, imageTitlePadding: 4)
         loadMoreButton.addTarget(self, action: #selector(TimelineMiddleLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
         
-        contentView.addSubview(sawToothView)
+        topSawToothView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(topSawToothView)
         NSLayoutConstraint.activate([
-            sawToothView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            sawToothView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            sawToothView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            sawToothView.heightAnchor.constraint(equalToConstant: 3),
+            topSawToothView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            topSawToothView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            topSawToothView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            topSawToothView.heightAnchor.constraint(equalToConstant: 3),
+        ])
+        topSawToothView.transform = CGAffineTransform(scaleX: 1, y: -1) // upside down
+        
+        bottomSawToothView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(bottomSawToothView)
+        NSLayoutConstraint.activate([
+            bottomSawToothView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            bottomSawToothView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            bottomSawToothView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            bottomSawToothView.heightAnchor.constraint(equalToConstant: 3),
         ])
     }
 }

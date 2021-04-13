@@ -10,9 +10,9 @@ import Combine
 
 class TimelineLoaderTableViewCell: UITableViewCell {
     
-    static let buttonHeight: CGFloat = 62
-    static let cellHeight: CGFloat = TimelineLoaderTableViewCell.buttonHeight + 17
-    static let extraTopPadding: CGFloat = 10
+    static let buttonHeight: CGFloat = 44
+    static let buttonMargin: CGFloat = 12
+    static let cellHeight: CGFloat = buttonHeight + 2 * buttonMargin
     static let labelFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .medium))
     
     var disposeBag = Set<AnyCancellable>()
@@ -78,10 +78,10 @@ class TimelineLoaderTableViewCell: UITableViewCell {
         loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(loadMoreButton)
         NSLayoutConstraint.activate([
-            loadMoreButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
+            loadMoreButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TimelineLoaderTableViewCell.buttonMargin),
             loadMoreButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: loadMoreButton.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: 14),
+            contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: TimelineLoaderTableViewCell.buttonMargin),
             loadMoreButton.heightAnchor.constraint(equalToConstant: TimelineLoaderTableViewCell.buttonHeight).priority(.required - 1),
         ])
         

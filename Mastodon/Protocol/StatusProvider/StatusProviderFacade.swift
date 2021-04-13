@@ -60,6 +60,54 @@ extension StatusProviderFacade {
             }
             .store(in: &provider.disposeBag)
     }
+    
+}
+
+extension StatusProviderFacade {
+    
+    static func coordinateToStatusThreadScene(for target: Target, provider: StatusProvider, indexPath: IndexPath) {
+        _coordinateToStatusThreadScene(
+            for: target,
+            provider: provider,
+            status: provider.status(for: nil, indexPath: indexPath)
+        )
+    }
+    
+    static func coordinateToStatusThreadScene(for target: Target, provider: StatusProvider, cell: UITableViewCell) {
+        _coordinateToStatusThreadScene(
+            for: target,
+            provider: provider,
+            status: provider.status(for: cell, indexPath: nil)
+        )
+    }
+    
+    private static func _coordinateToStatusThreadScene(for target: Target, provider: StatusProvider, status: Future<Status?, Never>) {
+        status
+            .sink { [weak provider] status in
+                guard let provider = provider else { return }
+                let _status: Status? = {
+                    switch target {
+                    case .primary:      return status?.reblog ?? status         // original status
+                    case .secondary:    return status                           // reblog or status
+                    }
+                }()
+                guard let status = _status else { return }
+                
+                let threadViewModel = CachedThreadViewModel(context: provider.context, status: status)
+                DispatchQueue.main.async {
+                    if provider.navigationController == nil {
+                        let from = provider.presentingViewController ?? provider
+                        provider.dismiss(animated: true) {
+                            provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
+                        }
+                    } else {
+                        provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: provider, transition: .show)
+                    }
+                }
+            }
+            .store(in: &provider.disposeBag)
+    }
+    
 }
 
 extension StatusProviderFacade {
@@ -339,8 +387,8 @@ extension StatusProviderFacade {
 
 extension StatusProviderFacade {
     enum Target {
-        case primary        // original
-        case secondary      // attachment reblog or reply
+        case primary        // original status
+        case secondary      // wrapper status or reply (when needs. e.g tap header of status view)
     }
 }
  

@@ -89,7 +89,8 @@
             "timeline": {
                 "loader": {
                     "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts..."
+                    "loading_missing_posts": "Loading missing posts...",
+                    "show_more_replies": "Show more replies"
                 },
                 "header": {
                     "no_status_found": "No Status Found",
@@ -198,7 +199,7 @@
         },
         "confirm_email": {
             "title": "One last thing.",
-            "subtitle": "We just sent an email to %@,\ntap the link to confirm your account.",
+            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
                 "open_email_app": "Open Email App",
                 "dont_receive_email": "I never got an email"
@@ -312,6 +313,18 @@
         },
         "favorite": {
             "title": "Your Favorites"
+        },
+        "thread": {
+            "back_title": "Post",
+            "title": "Post from %s",
+            "reblog": {
+                "single": "%s reblog",
+                "multiple": "%s reblogs"
+            },
+            "favorite": {
+                "single": "%s favorite",
+                "multiple": "%s favorites"
+            }
         }
     }
 }
