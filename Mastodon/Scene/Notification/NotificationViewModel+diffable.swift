@@ -65,7 +65,9 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
             var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
             newSnapshot.appendSections([.main])
             newSnapshot.appendItems(notifications.map({NotificationItem.notification(ObjectID: $0.objectID)}), toSection: .main)
-            newSnapshot.appendItems([.bottomLoader], toSection: .main)
+            if !notifications.isEmpty {
+                newSnapshot.appendItems([.bottomLoader], toSection: .main)
+            }
             
             DispatchQueue.main.async {
                 guard let difference = self.calculateReloadSnapshotDifference(navigationBar: navigationBar, tableView: tableView, oldSnapshot: oldSnapshot, newSnapshot: newSnapshot) else {

@@ -28,9 +28,7 @@ extension APIService {
                 let log = OSLog.api
                 return self.backgroundManagedObjectContext.performChanges {
                     response.value.forEach { notification in
-                        let (mastodonUser,isCreated) = APIService.CoreData.createOrMergeMastodonUser(into: self.backgroundManagedObjectContext, for: nil, in: domain, entity: notification.account, userCache: nil, networkDate: Date(), log: log)
-                        let flag = isCreated ? "+" : "-"
-                        os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)%s", (#file as NSString).lastPathComponent, #line, #function, flag, mastodonUser.id, mastodonUser.username)
+                        let (mastodonUser,_) = APIService.CoreData.createOrMergeMastodonUser(into: self.backgroundManagedObjectContext, for: nil, in: domain, entity: notification.account, userCache: nil, networkDate: Date(), log: log)
                         var status: Status?
                         if let statusEntity = notification.status {
                             let (statusInCoreData,_,_) = APIService.CoreData.createOrMergeStatus(
@@ -45,7 +43,8 @@ extension APIService {
                             status = statusInCoreData
                         }
                         // use constrain to avoid repeated save
-                        _ = MastodonNotification.insert(into: self.backgroundManagedObjectContext, domain: domain, property: MastodonNotification.Property(id: notification.id, type: notification.type.rawValue, account: mastodonUser, status: status, createdAt: Date()))
+                        let notification = MastodonNotification.insert(into: self.backgroundManagedObjectContext, domain: domain, property: MastodonNotification.Property(id: notification.id, type: notification.type.rawValue, account: mastodonUser, status: status, createdAt: Date()))
+                        os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)", (#file as NSString).lastPathComponent, #line, #function, notification.type, notification.account.username)
                         
                     }
                 }

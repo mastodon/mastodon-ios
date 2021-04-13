@@ -43,7 +43,7 @@ extension NotificationViewModel.LoadLatestState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            guard let activeMastodonAuthenticationBox = viewModel.activeMastodonAuthenticationBox.value else {
                 // sign out when loading will enter here
                 stateMachine.enter(Fail.self)
                 return

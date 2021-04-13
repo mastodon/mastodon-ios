@@ -70,6 +70,11 @@ internal enum Asset {
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
+    internal enum Notification {
+      internal static let favourite = ColorAsset(name: "Colors/Notification/favourite")
+      internal static let mention = ColorAsset(name: "Colors/Notification/mention")
+      internal static let reblog = ColorAsset(name: "Colors/Notification/reblog")
+    }
     internal enum Shadow {
       internal static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }

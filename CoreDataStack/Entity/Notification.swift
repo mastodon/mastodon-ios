@@ -76,7 +76,7 @@ public extension MastodonNotification {
 }
 
 extension MastodonNotification {
-    static func predicate(domain: String) -> NSPredicate {
+    public static func predicate(domain: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(MastodonNotification.domain), domain)
     }
     
@@ -90,17 +90,7 @@ extension MastodonNotification {
             MastodonNotification.predicate(type: type)
         ])
     }
-    
-    static func predicate(types: [String]) -> NSPredicate {
-        return NSPredicate(format: "%K IN %@", #keyPath(MastodonNotification.type), types)
-    }
-    
-    public static func predicate(domain: String, types: [String]) -> NSPredicate {
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [
-            MastodonNotification.predicate(domain: domain),
-            MastodonNotification.predicate(types: types)
-        ])
-    }
+
 }
 
 extension MastodonNotification: Managed {

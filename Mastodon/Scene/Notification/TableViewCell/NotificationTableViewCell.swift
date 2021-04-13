@@ -12,7 +12,7 @@ import Combine
 
 final class NotificationTableViewCell: UITableViewCell {
     
-    static let actionImageBorderWidth: CGFloat = 3
+    static let actionImageBorderWidth: CGFloat = 2
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -26,13 +26,19 @@ final class NotificationTableViewCell: UITableViewCell {
     
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 4
-        imageView.layer.cornerCurve = .continuous
-        imageView.clipsToBounds = true
-        imageView.layer.borderWidth = NotificationTableViewCell.actionImageBorderWidth
-        imageView.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
         imageView.tintColor = Asset.Colors.Background.searchResult.color
         return imageView
+    }()
+    
+    let actionImageBackground: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = (24 + NotificationTableViewCell.actionImageBorderWidth)/2
+        view.layer.cornerCurve = .continuous
+        view.clipsToBounds = true
+        view.layer.borderWidth = NotificationTableViewCell.actionImageBorderWidth
+        view.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
+        view.tintColor = Asset.Colors.Background.searchResult.color
+        return view
     }()
     
     let actionLabel: UILabel = {
@@ -77,16 +83,21 @@ extension NotificationTableViewCell {
         avatatImageView.pin(toSize: CGSize(width: 35, height: 35))
         avatatImageView.pin(top: 12, left: 12, bottom: nil, right: nil)
         
-        contentView.addSubview(actionImageView)
-        actionImageView.pin(toSize: CGSize(width: 24, height: 24))
-        actionImageView.pin(top: 33, left: 33, bottom: nil, right: nil)
+        contentView.addSubview(actionImageBackground)
+        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
+        actionImageBackground.pin(top: 33, left: 33, bottom: nil, right: nil)
+        
+        actionImageBackground.addSubview(actionImageView)
+        actionImageView.constrainToCenter()
         
         nameLabelTop = nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor)
+        contentView.addSubview(nameLabel)
         nameLabel.constrain([
             nameLabelTop,
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 61)
         ])
         
+        contentView.addSubview(actionLabel)
         actionLabel.constrain([
             actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
             actionLabel.topAnchor.constraint(equalTo: nameLabel.topAnchor),
@@ -104,6 +115,6 @@ extension NotificationTableViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        self.actionImageView.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
+        self.actionImageBackground.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
     }
 }

@@ -341,7 +341,7 @@ internal enum L10n {
     }
     internal enum Notification {
       internal enum Action {
-        /// favorited your toot
+        /// favorited your post
         internal static let favourite = L10n.tr("Localizable", "Scene.Notification.Action.Favourite")
         /// followed you
         internal static let follow = L10n.tr("Localizable", "Scene.Notification.Action.Follow")
@@ -349,7 +349,7 @@ internal enum L10n {
         internal static let mention = L10n.tr("Localizable", "Scene.Notification.Action.Mention")
         /// Your poll has ended
         internal static let poll = L10n.tr("Localizable", "Scene.Notification.Action.Poll")
-        /// boosted your toot
+        /// rebloged your post
         internal static let reblog = L10n.tr("Localizable", "Scene.Notification.Action.Reblog")
       }
       internal enum Title {

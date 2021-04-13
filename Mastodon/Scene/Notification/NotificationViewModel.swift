@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 import CoreDataStack
 import GameplayKit
+import MastodonSDK
 
 final class NotificationViewModel: NSObject  {
     
@@ -19,9 +20,10 @@ final class NotificationViewModel: NSObject  {
     // input
     let context: AppContext
     weak var coordinator: SceneCoordinator!
-    weak var tableView: UITableView!
+    weak var tableView: UITableView?
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
+    let viewDidLoad = PassthroughSubject<Void, Never>()
     
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
@@ -68,7 +70,13 @@ final class NotificationViewModel: NSObject  {
         super.init()
         self.fetchedResultsController.delegate = self
         context.authenticationService.activeMastodonAuthenticationBox
-            .assign(to: \.value, on: activeMastodonAuthenticationBox)
+            .sink(receiveValue: { [weak self] box in
+                guard let self = self else { return }
+                self.activeMastodonAuthenticationBox.value = box
+                if let domain = box?.domain {
+                    self.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
+                }
+            })
             .store(in: &disposeBag)
         
         notificationPredicate
@@ -81,6 +89,15 @@ final class NotificationViewModel: NSObject  {
                 } catch {
                     assertionFailure(error.localizedDescription)
                 }
+            }
+            .store(in: &disposeBag)
+        
+        self.viewDidLoad
+            .sink { [weak self] in
+                
+                guard let domain = self?.activeMastodonAuthenticationBox.value?.domain else { return }
+                self?.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
+                
             }
             .store(in: &disposeBag)
     }

@@ -27,9 +27,10 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
+        tableView.register(SearchBottomLoader.self, forCellReuseIdentifier: String(describing: SearchBottomLoader.self))
         return tableView
     }()
     
@@ -58,7 +59,7 @@ extension NotificationViewController {
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         viewModel.setupDiffableDataSource(for: tableView)
-        
+        viewModel.viewDidLoad.send()
         // bind refresh control
         viewModel.isFetchingLatestNotification
             .receive(on: DispatchQueue.main)
@@ -123,6 +124,10 @@ extension NotificationViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        68
     }
 }
 

@@ -84,7 +84,7 @@ public extension Mastodon.API.Notifications {
     }
     
     static func allExcludeTypes() -> [Mastodon.Entity.Notification.NotificationType] {
-        [.follow]
+        [.followRequest]
     }
     
     static func mentionsExcludeTypes() -> [Mastodon.Entity.Notification.NotificationType] {
