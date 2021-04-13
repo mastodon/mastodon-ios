@@ -44,6 +44,8 @@
                 "sign_up": "Sign Up",
                 "see_more": "See More",
                 "preview": "Preview",
+                "share": "Share",
+                "share_user": "Share %s",
                 "open_in_safari": "Open in Safari"
             },
             "status": {
@@ -69,9 +71,11 @@
             "firendship": {
                 "follow": "Follow",
                 "following": "Following",
+                "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
                 "block_user": "Block %s",
+                "block_domain": "Block %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
@@ -91,7 +95,8 @@
                     "no_status_found": "No Status Found",
                     "blocking_warning": "You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.",
                     "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
-                    "suspended_warning": "This account is suspended."
+                    "suspended_warning": "This account has been suspended.",
+                    "user_suspended_warning": "%s's account has been suspended."
                 }
             }
         },
@@ -217,7 +222,7 @@
                 "new_posts": "See new posts",
                 "published": "Published!",
                 "Publishing": "Publishing post..."
-            },
+            }
         },
         "public_timeline": {
             "title": "Public"
@@ -261,6 +266,7 @@
             }
         },
         "profile": {
+            "subtitle": "%s posts",
             "dashboard": {
                 "posts": "posts",
                 "following": "following",
@@ -288,17 +294,17 @@
                 "cancel": "Cancel"
             },
             "recommend": {
-              "button_text": "See All",
-              "hash_tag": {
-                  "title": "Trending in your timeline",
-                  "description": "Hashtags that are getting quite a bit of attention among people you follow",
-                  "people_talking": "%s people are talking"
-              },
-              "accounts": {
-                  "title": "Accounts you might like",
-                  "description": "Except for Sam, you will not like his account.",
-                  "follow": "Follow"
-              }
+                "button_text": "See All",
+                "hash_tag": {
+                    "title": "Trending in your timeline",
+                    "description": "Hashtags that are getting quite a bit of attention among people you follow",
+                    "people_talking": "%s people are talking"
+                },
+                "accounts": {
+                    "title": "Accounts you might like",
+                    "description": "Except for Sam, you will not like his account.",
+                    "follow": "Follow"
+                }
             },
             "searching": {
                 "segment": {
@@ -312,6 +318,9 @@
         },
         "hashtag": {
             "prompt": "%s people talking"
+        },
+        "favorite": {
+            "title": "Your Favorites"
         }
     }
 }

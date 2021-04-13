@@ -17,7 +17,8 @@ extension CustomEmojiPickerSection {
         for collectionView: UICollectionView,
         dependency: NeedsDependency
     ) -> UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem> {
-        let dataSource = UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>(collectionView: collectionView) { collectionView, indexPath, item -> UICollectionViewCell? in
+        let dataSource = UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>(collectionView: collectionView) { [weak dependency] collectionView, indexPath, item -> UICollectionViewCell? in
+            guard let _ = dependency else { return nil }
             switch item {
             case .emoji(let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomEmojiPickerItemCollectionViewCell.self), for: indexPath) as! CustomEmojiPickerItemCollectionViewCell

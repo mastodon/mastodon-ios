@@ -1,5 +1,5 @@
 //
-//  HashtagTimelineTitleView.swift
+//  DoubleTitleLabelNavigationBarTitleView.swift
 //  Mastodon
 //
 //  Created by BradGao on 2021/4/1.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class HashtagTimelineNavigationBarTitleView: UIView {
+final class DoubleTitleLabelNavigationBarTitleView: UIView {
     
     let containerView = UIStackView()
     
@@ -40,7 +40,7 @@ final class HashtagTimelineNavigationBarTitleView: UIView {
     
 }
 
-extension HashtagTimelineNavigationBarTitleView {
+extension DoubleTitleLabelNavigationBarTitleView {
     private func _init() {
         containerView.axis = .vertical
         containerView.alignment = .center
@@ -58,10 +58,10 @@ extension HashtagTimelineNavigationBarTitleView {
         containerView.addArrangedSubview(subtitleLabel)
     }
     
-    func updateTitle(hashtag: String, peopleNumber: String?) {
-        titleLabel.text = "#\(hashtag)"
-        if let peopleNumebr = peopleNumber {
-            subtitleLabel.text = L10n.Scene.Hashtag.prompt(peopleNumebr)
+    func update(title: String, subtitle: String?) {
+        titleLabel.text = title
+        if let subtitle = subtitle {
+            subtitleLabel.text = subtitle
             subtitleLabel.isHidden = false
         } else {
             subtitleLabel.text = nil
@@ -69,3 +69,21 @@ extension HashtagTimelineNavigationBarTitleView {
         }
     }
 }
+
+#if canImport(SwiftUI) && DEBUG
+
+import SwiftUI
+
+struct DoubleTitleLabelNavigationBarTitleView_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewPreview(width: 375) {
+            DoubleTitleLabelNavigationBarTitleView()
+        }
+        .previewLayout(.fixed(width: 375, height: 100))
+    }
+    
+}
+
+#endif
+

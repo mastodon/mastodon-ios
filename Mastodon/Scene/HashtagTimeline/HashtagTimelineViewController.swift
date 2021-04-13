@@ -41,7 +41,7 @@ class HashtagTimelineViewController: UIViewController, NeedsDependency {
     
     let refreshControl = UIRefreshControl()
     
-    let titleView = HashtagTimelineNavigationBarTitleView()
+    let titleView = DoubleTitleLabelNavigationBarTitleView()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
@@ -54,7 +54,7 @@ extension HashtagTimelineViewController {
         super.viewDidLoad()
         
         title = "#\(viewModel.hashtag)"
-        titleView.updateTitle(hashtag: viewModel.hashtag, peopleNumber: nil)
+        titleView.update(title: viewModel.hashtag, subtitle: nil)
         navigationItem.titleView = titleView
         
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
@@ -107,13 +107,13 @@ extension HashtagTimelineViewController {
                 self?.updatePromptTitle()
             }
             .store(in: &disposeBag)
-        
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        aspectViewWillAppear(animated)
+        
         viewModel.fetchTag()
         guard viewModel.loadLatestStateMachine.currentState is HashtagTimelineViewModel.LoadLatestState.Initial else { return }
 
@@ -123,8 +123,8 @@ extension HashtagTimelineViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        context.videoPlaybackService.viewDidDisappear(from: self)
-        context.audioPlaybackService.viewDidDisappear(from: self)
+        
+        aspectViewDidDisappear(animated)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -142,7 +142,7 @@ extension HashtagTimelineViewController {
     private func updatePromptTitle() {
         var subtitle: String?
         defer {
-            titleView.updateTitle(hashtag: viewModel.hashtag, peopleNumber: subtitle)
+            titleView.update(title: "#" + viewModel.hashtag, subtitle: subtitle)
         }
         guard let histories = viewModel.hashtagEntity.value?.history else {
             return
@@ -158,9 +158,10 @@ extension HashtagTimelineViewController {
                 .prefix(2)
                 .compactMap({ Int($0.accounts) })
                 .reduce(0, +)
-            subtitle = "\(peopleTalkingNumber)"
+            subtitle = L10n.Scene.Hashtag.prompt("\(peopleTalkingNumber)")
         }
     }
+
 }
 
 extension HashtagTimelineViewController {
@@ -179,11 +180,20 @@ extension HashtagTimelineViewController {
     }
 }
 
+// MARK: - StatusTableViewControllerAspect
+extension HashtagTimelineViewController: StatusTableViewControllerAspect { }
+
+// MARK: - TableViewCellHeightCacheableContainer
+extension HashtagTimelineViewController: TableViewCellHeightCacheableContainer {
+    var cellFrameCache: NSCache<NSNumber, NSValue> {
+        return viewModel.cellFrameCache
+    }
+}
+
 // MARK: - UIScrollViewDelegate
 extension HashtagTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        handleScrollViewDidScroll(scrollView)
-//        self.viewModel.homeTimelineNavigationBarState.handleScrollViewDidScroll(scrollView)
+        aspectScrollViewDidScroll(scrollView)
     }
 }
 
@@ -197,25 +207,16 @@ extension HashtagTimelineViewController: LoadMoreConfigurableTableViewContainer 
 // MARK: - UITableViewDelegate
 extension HashtagTimelineViewController: UITableViewDelegate {
     
-    // TODO:
-    // func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    //     guard let diffableDataSource = viewModel.diffableDataSource else { return 100 }
-    //     guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return 100 }
-    //
-    //     guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
-    //         return 200
-    //     }
-    //     // os_log("%{public}s[%{public}ld], %{public}s: cache cell frame %s", ((#file as NSString).lastPathComponent), #line, #function, frame.debugDescription)
-    //
-    //     return ceil(frame.height)
-    // }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
 }
 
@@ -230,7 +231,7 @@ extension HashtagTimelineViewController: ContentOffsetAdjustableTimelineViewCont
 // MARK: - UITableViewDataSourcePrefetching
 extension HashtagTimelineViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        handleTableView(tableView, prefetchRowsAt: indexPaths)
+        aspectTableView(tableView, prefetchRowsAt: indexPaths)
     }
 }
 
@@ -301,11 +302,11 @@ extension HashtagTimelineViewController: TimelineMiddleLoaderTableViewCellDelega
 extension HashtagTimelineViewController: AVPlayerViewControllerDelegate {
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+        aspectPlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
     }
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+        aspectPlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
     }
     
 }

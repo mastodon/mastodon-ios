@@ -75,6 +75,14 @@ class MastodonPickServerViewModel: NSObject {
         configure()
     }
     
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+}
+
+extension MastodonPickServerViewModel {
+    
     private func configure() {
         Publishers.CombineLatest(
             filteredIndexedServers.eraseToAnyPublisher(),

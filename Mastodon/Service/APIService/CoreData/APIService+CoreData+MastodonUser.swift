@@ -95,6 +95,9 @@ extension APIService.CoreData {
         user.update(statusesCount: property.statusesCount)
         user.update(followingCount: property.followingCount)
         user.update(followersCount: property.followersCount)
+        user.update(locked: property.locked)
+        property.bot.flatMap { user.update(bot: $0) }
+        property.suspended.flatMap { user.update(suspended: $0) }
         
         user.didUpdate(at: networkDate)
     }

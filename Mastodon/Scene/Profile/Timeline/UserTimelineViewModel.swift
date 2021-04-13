@@ -12,9 +12,8 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
-import AlamofireImage
 
-class UserTimelineViewModel: NSObject {
+final class UserTimelineViewModel {
     
     var disposeBag = Set<AnyCancellable>()
 
@@ -28,6 +27,8 @@ class UserTimelineViewModel: NSObject {
     
     let isBlocking = CurrentValueSubject<Bool, Never>(false)
     let isBlockedBy = CurrentValueSubject<Bool, Never>(false)
+    let isSuspended = CurrentValueSubject<Bool, Never>(false)
+    let userDisplayName = CurrentValueSubject<String?, Never>(nil)  // for suspended prompt label
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
@@ -37,7 +38,7 @@ class UserTimelineViewModel: NSObject {
             State.Reloading(viewModel: self),
             State.Fail(viewModel: self),
             State.Idle(viewModel: self),
-            State.LoadingMore(viewModel: self),
+            State.Loading(viewModel: self),
             State.NoMore(viewModel: self),
         ])
         stateMachine.enter(State.Initial.self)
@@ -54,20 +55,21 @@ class UserTimelineViewModel: NSObject {
         self.domain = CurrentValueSubject(domain)
         self.userID = CurrentValueSubject(userID)
         self.queryFilter = CurrentValueSubject(queryFilter)
-        super.init()
+        // super.init()
 
         self.domain
             .assign(to: \.value, on: statusFetchedResultsController.domain)
             .store(in: &disposeBag)
         
-        Publishers.CombineLatest3(
+        Publishers.CombineLatest4(
             statusFetchedResultsController.objectIDs.eraseToAnyPublisher(),
             isBlocking.eraseToAnyPublisher(),
-            isBlockedBy.eraseToAnyPublisher()
+            isBlockedBy.eraseToAnyPublisher(),
+            isSuspended.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
         .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-        .sink { [weak self] objectIDs, isBlocking, isBlockedBy in
+        .sink { [weak self] objectIDs, isBlocking, isBlockedBy, isSuspended in
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }
             
@@ -90,6 +92,12 @@ class UserTimelineViewModel: NSObject {
                 return
             }
             
+            let name = self.userDisplayName.value
+            guard !isSuspended else {
+                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .suspended(name: name)))], toSection: .main)
+                return
+            }
+            
             var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
             let oldSnapshot = diffableDataSource.snapshot()
             for item in oldSnapshot.itemIdentifiers {
@@ -105,7 +113,7 @@ class UserTimelineViewModel: NSObject {
             
             if let currentState = self.stateMachine.currentState {
                 switch currentState {
-                case is State.Reloading, is State.LoadingMore, is State.Idle, is State.Fail:
+                case is State.Reloading, is State.Loading, is State.Idle, is State.Fail:
                     snapshot.appendItems([.bottomLoader], toSection: .main)
                 case is State.NoMore:
                     break
@@ -114,8 +122,6 @@ class UserTimelineViewModel: NSObject {
                     break
                 }
             }
-
-
         }
         .store(in: &disposeBag)
     }
@@ -144,4 +150,3 @@ extension UserTimelineViewModel {
     }
 
 }
-

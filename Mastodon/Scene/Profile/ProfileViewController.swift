@@ -18,6 +18,30 @@ final class ProfileViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ProfileViewModel!
     
+    private(set) lazy var cancelEditingBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ProfileViewController.cancelEditingBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
+    private(set) lazy var settingBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(ProfileViewController.settingBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
+    private(set) lazy var shareBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(ProfileViewController.shareBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
+    private(set) lazy var favoriteBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "star"), style: .plain, target: self, action: #selector(ProfileViewController.favoriteBarButtonItemPressed(_:)))
+        barButtonItem.tintColor = .white
+        return barButtonItem
+    }()
+    
     private(set) lazy var replyBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrowshape.turn.up.left"), style: .plain, target: self, action: #selector(ProfileViewController.replyBarButtonItemPressed(_:)))
         barButtonItem.tintColor = .white
@@ -54,12 +78,20 @@ final class ProfileViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var profileSegmentedViewController = ProfileSegmentedViewController()
-    private(set) lazy var profileHeaderViewController = ProfileHeaderViewController()
+    private(set) lazy var profileHeaderViewController: ProfileHeaderViewController = {
+        let viewController = ProfileHeaderViewController()
+        viewController.viewModel = ProfileHeaderViewModel(context: context)
+        return viewController
+    }()
     private var profileBannerImageViewLayoutConstraint: NSLayoutConstraint!
     
     private var contentOffsets: [Int: CGFloat] = [:]
     var currentPostTimelineTableViewContentSizeObservation: NSKeyValueObservation?
     
+    // title view nested in header
+    var titleView: DoubleTitleLabelNavigationBarTitleView {
+        profileHeaderViewController.titleView
+    }
     
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s: deinit", ((#file as NSString).lastPathComponent), #line, #function)
@@ -116,27 +148,66 @@ extension ProfileViewController {
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
         
-        navigationItem.titleView = UIView()
+        navigationItem.titleView = titleView
+
+        let editingAndUpdatingPublisher = Publishers.CombineLatest(
+            viewModel.isEditing.eraseToAnyPublisher(),
+            viewModel.isUpdating.eraseToAnyPublisher()
+        )
+        // note: not add .share() here
         
-        Publishers.CombineLatest(
+        let barButtonItemHiddenPublisher = Publishers.CombineLatest3(
+            viewModel.isMeBarButtonItemsHidden.eraseToAnyPublisher(),
             viewModel.isReplyBarButtonItemHidden.eraseToAnyPublisher(),
             viewModel.isMoreMenuBarButtonItemHidden.eraseToAnyPublisher()
         )
+        
+        editingAndUpdatingPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEditing, isUpdating in
+                guard let self = self else { return }
+                self.cancelEditingBarButtonItem.isEnabled = !isUpdating
+            }
+            .store(in: &disposeBag)
+            
+        Publishers.CombineLatest3 (
+            viewModel.suspended.eraseToAnyPublisher(),
+            editingAndUpdatingPublisher.eraseToAnyPublisher(),
+            barButtonItemHiddenPublisher.eraseToAnyPublisher()
+        )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden in
+        .sink { [weak self] suspended, tuple1, tuple2 in
             guard let self = self else { return }
+            let (isEditing, _) = tuple1
+            let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
+            
             var items: [UIBarButtonItem] = []
+            defer {
+                self.navigationItem.rightBarButtonItems = !items.isEmpty ? items : nil
+            }
+
+            guard !suspended else {
+                return
+            }
+            
+            guard !isEditing else {
+                items.append(self.cancelEditingBarButtonItem)
+                return
+            }
+            
+            guard isMeBarButtonItemsHidden else {
+                items.append(self.settingBarButtonItem)
+                items.append(self.shareBarButtonItem)
+                items.append(self.favoriteBarButtonItem)
+                return
+            }
+            
             if !isReplyBarButtonItemHidden {
                 items.append(self.replyBarButtonItem)
             }
             if !isMoreMenuBarButtonItemHidden {
                 items.append(self.moreMenuBarButtonItem)
             }
-            guard !items.isEmpty else {
-                self.navigationItem.rightBarButtonItems = nil
-                return
-            }
-            self.navigationItem.rightBarButtonItems = items
         }
         .store(in: &disposeBag)
 
@@ -225,6 +296,23 @@ extension ProfileViewController {
         profileSegmentedViewController.pagingViewController.pagingDelegate = self
 
         // bind view model
+        Publishers.CombineLatest(
+            viewModel.name.eraseToAnyPublisher(),
+            viewModel.statusesCount.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] name, statusesCount in
+            guard let self = self else { return }
+            guard let title = name, let statusesCount = statusesCount,
+                  let formattedStatusCount = MastodonMetricFormatter().string(from: statusesCount) else {
+                self.titleView.isHidden = true
+                return
+            }
+            let subtitle = L10n.Scene.Profile.subtitle(formattedStatusCount)
+            self.titleView.update(title: title, subtitle: subtitle)
+            self.titleView.isHidden = false
+        }
+        .store(in: &disposeBag)
         viewModel.name
             .receive(on: DispatchQueue.main)
             .sink { [weak self] name in
@@ -263,22 +351,15 @@ extension ProfileViewController {
             )
         }
         .store(in: &disposeBag)
-        Publishers.CombineLatest(
-            viewModel.avatarImageURL.eraseToAnyPublisher(),
-            viewModel.viewDidAppear.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] avatarImageURL, _ in
-            guard let self = self else { return }
-            self.profileHeaderViewController.profileHeaderView.configure(
-                with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarImageURL, borderColor: .white, borderWidth: 2)
-            )
-        }
-        .store(in: &disposeBag)
-        viewModel.name
-            .map { $0 ?? " " }
+        viewModel.avatarImageURL
             .receive(on: DispatchQueue.main)
-            .assign(to: \.text, on: profileHeaderViewController.profileHeaderView.nameLabel)
+            .map { url in ProfileHeaderViewModel.ProfileInfo.ImageResource.url(url) }
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.avatarImageResource)
+            .store(in: &disposeBag)
+        viewModel.name
+            .map { $0 ?? "" }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.name)
             .store(in: &disposeBag)
         viewModel.username
             .map { username in username.flatMap { "@" + $0 } ?? " " }
@@ -295,7 +376,8 @@ extension ProfileViewController {
                 }
                 let isMuting = relationshipActionOptionSet.contains(.muting)
                 let isBlocking = relationshipActionOptionSet.contains(.blocking)
-                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(for: mastodonUser, isMuting: isMuting, isBlocking: isBlocking, provider: self)
+                let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
+                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(for: mastodonUser, isMuting: isMuting, isBlocking: isBlocking, needsShareAction: needsShareAction, provider: self, sourceView: nil, barButtonItem: self.moreMenuBarButtonItem)
             }
             .store(in: &disposeBag)
         viewModel.isRelationshipActionButtonHidden
@@ -305,27 +387,60 @@ extension ProfileViewController {
                 self.profileHeaderViewController.profileHeaderView.relationshipActionButton.isHidden = isHidden
             }
             .store(in: &disposeBag)
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             viewModel.relationshipActionOptionSet.eraseToAnyPublisher(),
-            viewModel.isEditing.eraseToAnyPublisher()
+            viewModel.isEditing.eraseToAnyPublisher(),
+            viewModel.isUpdating.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] relationshipActionSet, isEditing in
+        .sink { [weak self] relationshipActionSet, isEditing, isUpdating in
             guard let self = self else { return }
             let friendshipButton = self.profileHeaderViewController.profileHeaderView.relationshipActionButton
             if relationshipActionSet.contains(.edit) {
-                friendshipButton.configure(actionOptionSet: isEditing ? .editing : .edit)
+                // check .edit state and set .editing when isEditing
+                friendshipButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
+                self.profileHeaderViewController.profileHeaderView.configure(state: isUpdating || isEditing ? .editing : .normal)
             } else {
                 friendshipButton.configure(actionOptionSet: relationshipActionSet)
             }
         }
         .store(in: &disposeBag)
+        viewModel.isEditing
+            .handleEvents(receiveOutput: { [weak self] isEditing in
+                guard let self = self else { return }
+                // dismiss keyboard if needs
+                if !isEditing { self.view.endEditing(true) }
+                
+                self.profileHeaderViewController.pageSegmentedControl.isEnabled = !isEditing
+                self.profileSegmentedViewController.view.isUserInteractionEnabled = !isEditing
+                
+                let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
+                animator.addAnimations {
+                    self.profileSegmentedViewController.view.alpha = isEditing ? 0.2 : 1.0
+                    self.profileHeaderViewController.profileHeaderView.statusDashboardView.alpha = isEditing ? 0.2 : 1.0
+                }
+                animator.startAnimation()
+            })
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.isEditing)
+            .store(in: &disposeBag)
+        Publishers.CombineLatest3(
+            viewModel.isBlocking.eraseToAnyPublisher(),
+            viewModel.isBlockedBy.eraseToAnyPublisher(),
+            viewModel.suspended.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isBlocking, isBlockedBy, suspended in
+            guard let self = self else { return }
+            let isNeedSetHidden = isBlocking || isBlockedBy || suspended
+            self.profileHeaderViewController.viewModel.needsSetupBottomShadow.value = !isNeedSetHidden
+            self.profileHeaderViewController.profileHeaderView.bioContainerView.isHidden = isNeedSetHidden
+            self.profileHeaderViewController.pageSegmentedControl.isHidden = isNeedSetHidden
+            self.viewModel.needsPagePinToTop.value = isNeedSetHidden
+        }
+        .store(in: &disposeBag)
         viewModel.bioDescription
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] bio in
-                guard let self = self else { return }
-                self.profileHeaderViewController.profileHeaderView.bioActiveLabel.configure(note: bio ?? "")
-            })
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.note)
             .store(in: &disposeBag)
         viewModel.statusesCount
             .sink { [weak self] count in
@@ -374,6 +489,7 @@ extension ProfileViewController {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        
         currentPostTimelineTableViewContentSizeObservation = nil
     }
     
@@ -386,11 +502,44 @@ extension ProfileViewController {
         viewModel.userID.assign(to: \.value, on: userTimelineViewModel.userID).store(in: &disposeBag)
         viewModel.isBlocking.assign(to: \.value, on: userTimelineViewModel.isBlocking).store(in: &disposeBag)
         viewModel.isBlockedBy.assign(to: \.value, on: userTimelineViewModel.isBlockedBy).store(in: &disposeBag)
+        viewModel.suspended.assign(to: \.value, on: userTimelineViewModel.isSuspended).store(in: &disposeBag)
+        viewModel.name.assign(to: \.value, on: userTimelineViewModel.userDisplayName).store(in: &disposeBag)
     }
     
 }
 
 extension ProfileViewController {
+    
+    @objc private func cancelEditingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        viewModel.isEditing.value = false
+    }
+    
+    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+
+    }
+    
+    @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        let activityViewController = UserProviderFacade.createActivityViewControllerForMastodonUser(mastodonUser: mastodonUser, dependency: self)
+        coordinator.present(
+            scene: .activityViewController(
+                activityViewController: activityViewController,
+                sourceView: nil,
+                barButtonItem: sender
+            ),
+            from: self,
+            transition: .activityViewControllerPresent(animated: true, completion: nil)
+        )
+    }
+    
+    @objc private func favoriteBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let favoriteViewModel = FavoriteViewModel(context: context)
+        coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: self, transition: .show)
+    }
     
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -414,11 +563,6 @@ extension ProfileViewController {
             sender.endRefreshing()
         }
     }
-
-//    @objc private func avatarButtonPressed(_ sender: UIButton) {
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-//        coordinator.present(scene: .drawerSidebar, from: self, transition: .custom(transitioningDelegate: drawerSidebarTransitionController))
-//    }
     
 }
 
@@ -436,10 +580,15 @@ extension ProfileViewController: UIScrollViewDelegate {
             contentOffsets.removeAll()
         } else {
             containerScrollView.contentOffset.y = topMaxContentOffsetY
-            if let customScrollViewContainerController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer {
-                let contentOffsetY = scrollView.contentOffset.y - containerScrollView.contentOffset.y
-                customScrollViewContainerController.scrollView.contentOffset.y = contentOffsetY
+            if viewModel.needsPagePinToTop.value {
+                // do nothing
+            } else {
+                if let customScrollViewContainerController = profileSegmentedViewController.pagingViewController.currentViewController as? ScrollViewContainer {
+                    let contentOffsetY = scrollView.contentOffset.y - containerScrollView.contentOffset.y
+                    customScrollViewContainerController.scrollView.contentOffset.y = contentOffsetY
+                }
             }
+            
         }
 
         // elastically banner image
@@ -492,22 +641,42 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
         let relationshipActionSet = viewModel.relationshipActionOptionSet.value
         if relationshipActionSet.contains(.edit) {
-            viewModel.isEditing.value.toggle()
+            guard !viewModel.isUpdating.value else { return }
+            
+            if profileHeaderViewController.viewModel.isProfileInfoEdited() {
+                viewModel.isUpdating.value = true
+                profileHeaderViewController.viewModel.updateProfileInfo()
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self] completion in
+                        guard let self = self else { return }
+                        switch completion {
+                        case .failure(let error):
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update profile info fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        case .finished:
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update profile info success", ((#file as NSString).lastPathComponent), #line, #function)
+                        }
+                        self.viewModel.isUpdating.value = false
+                    } receiveValue: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.viewModel.isEditing.value = false
+                    }
+                    .store(in: &disposeBag)
+            } else {
+                viewModel.isEditing.value.toggle()
+            }
         } else {
             guard let relationshipAction = relationshipActionSet.highPriorityAction(except: .editOptions) else { return }
             switch relationshipAction {
             case .none:
                 break
-            case .follow, .following:
+            case .follow, .reqeust, .pending, .following:
                 UserProviderFacade.toggleUserFollowRelationship(provider: self)
                     .sink { _ in
-                        
+                        // TODO: handle error
                     } receiveValue: { _ in
-                        
+                        // do nothing
                     }
                     .store(in: &disposeBag)
-            case .pending:
-                break
             case .muting:
                 guard let mastodonUser = viewModel.mastodonUser.value else { return }
                 let name = mastodonUser.displayNameWithFallback
@@ -557,9 +726,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
             default:
                 assertionFailure()
             }
-            
         }
-        
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity) {

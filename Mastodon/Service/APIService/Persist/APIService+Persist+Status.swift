@@ -234,8 +234,8 @@ extension APIService.Persist {
                 let newTweetsInTimeLineCount = persistMemos.reduce(0, { result, next in
                     return next.statusProcessType == .create ? result + 1 : result
                 })
-                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: tweet: insert %{public}ldT(%{public}ldTRQ), merge %{public}ldT(%{public}ldTRQ)", ((#file as NSString).lastPathComponent), #line, #function, newTweetsInTimeLineCount, counting.status.create, mergedOldStatusesInTimeline.count, counting.status.merge)
-                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: twitter user: insert %{public}ld, merge %{public}ld", ((#file as NSString).lastPathComponent), #line, #function, counting.user.create, counting.user.merge)
+                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: status: insert %{public}ldT(%{public}ldTRQ), merge %{public}ldT(%{public}ldTRQ)", ((#file as NSString).lastPathComponent), #line, #function, newTweetsInTimeLineCount, counting.status.create, mergedOldStatusesInTimeline.count, counting.status.merge)
+                os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: mastodon user: insert %{public}ld, merge %{public}ld", ((#file as NSString).lastPathComponent), #line, #function, counting.user.create, counting.user.merge)
             }
             #endif
         }

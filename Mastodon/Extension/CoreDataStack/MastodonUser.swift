@@ -28,6 +28,7 @@ extension MastodonUser.Property {
             followersCount: entity.followersCount,
             locked: entity.locked,
             bot: entity.bot,
+            suspended: entity.suspended,
             createdAt: entity.createdAt,
             networkDate: networkDate
         )
@@ -61,4 +62,22 @@ extension MastodonUser {
         return URL(string: avatar)
     }
     
+}
+
+extension MastodonUser {
+    
+    var profileURL: URL {
+        if let urlString = self.url,
+           let url = URL(string: urlString) {
+            return url
+        } else {
+            return URL(string: "https://\(self.domain)/@\(username)")!
+        }
+    }
+    
+    var activityItems: [Any] {
+        var items: [Any] = []
+        items.append(profileURL)
+        return items
+    }
 }

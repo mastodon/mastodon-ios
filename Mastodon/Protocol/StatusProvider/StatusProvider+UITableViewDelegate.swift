@@ -95,7 +95,8 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                         videoPlayerViewModel.didEndDisplaying()
                     }
                 }
-                if let currentAudioAttachment = self.context.audioPlaybackService.attachment, let _ = status?.mediaAttachments?.contains(currentAudioAttachment) {
+                if let currentAudioAttachment = self.context.audioPlaybackService.attachment,
+                   status?.mediaAttachments?.contains(currentAudioAttachment) == true {
                     self.context.audioPlaybackService.pause()
                 }
             }

@@ -84,8 +84,10 @@ extension TimelineHeaderView {
 extension Item.EmptyStateHeaderAttribute.Reason {
     var iconImage: UIImage? {
         switch self {
-        case .noStatusFound, .blocking, .blocked, .suspended:
+        case .noStatusFound, .blocking, .blocked:
             return UIImage(systemName: "nosign", withConfiguration: UIImage.SymbolConfiguration(pointSize: 64, weight: .bold))!
+        case .suspended:
+            return UIImage(systemName: "person.crop.circle.badge.xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 64, weight: .bold))!
         }
     }
     
@@ -97,8 +99,12 @@ extension Item.EmptyStateHeaderAttribute.Reason {
             return L10n.Common.Controls.Timeline.Header.blockingWarning
         case .blocked:
             return L10n.Common.Controls.Timeline.Header.blockedWarning
-        case .suspended:
-            return L10n.Common.Controls.Timeline.Header.suspendedWarning
+        case .suspended(let name):
+            if let name = name {
+                return L10n.Common.Controls.Timeline.Header.userSuspendedWarning(name)
+            } else {
+                return L10n.Common.Controls.Timeline.Header.suspendedWarning
+            }
         }
     }
 }

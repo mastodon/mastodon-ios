@@ -63,11 +63,21 @@ extension Item {
         let id = UUID()
         let reason: Reason
         
-        enum Reason {
+        enum Reason: Equatable {
             case noStatusFound
             case blocking
             case blocked
-            case suspended
+            case suspended(name: String?)
+            
+            static func == (lhs: Item.EmptyStateHeaderAttribute.Reason, rhs: Item.EmptyStateHeaderAttribute.Reason) -> Bool {
+                switch (lhs, rhs) {
+                case (.noStatusFound, noStatusFound): return true
+                case (.blocking, blocking): return true
+                case (.blocked, blocked): return true
+                case (.suspended(let nameLeft), .suspended(let nameRight)):   return nameLeft == nameRight
+                default: return false
+                }
+            }
         }
         
         init(reason: Reason) {

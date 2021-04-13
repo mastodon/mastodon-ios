@@ -93,6 +93,8 @@ internal enum Asset {
   }
   internal enum Profile {
     internal enum Banner {
+      internal static let bioEditBackgroundGray = ColorAsset(name: "Profile/Banner/bio.edit.background.gray")
+      internal static let nameEditBackgroundGray = ColorAsset(name: "Profile/Banner/name.edit.background.gray")
       internal static let usernameGray = ColorAsset(name: "Profile/Banner/username.gray")
     }
   }
