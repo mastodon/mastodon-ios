@@ -41,6 +41,26 @@ public extension History {
 }
 
 public extension History {
+    func update(day: Date) {
+        if self.day != day {
+            self.day = day
+        }
+    }
+    
+    func update(uses: String) {
+        if self.uses != uses {
+            self.uses = uses
+        }
+    }
+    
+    func update(accounts: String) {
+        if self.accounts != accounts {
+            self.accounts = accounts
+        }
+    }
+}
+
+public extension History {
     struct Property {
         public let day: Date
         public let uses: String

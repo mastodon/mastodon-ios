@@ -5,6 +5,8 @@
 //  Created by sxiaojian on 2021/4/1.
 //
 
+import CoreData
+import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
@@ -15,11 +17,15 @@ enum RecommendAccountSection: Equatable, Hashable {
 
 extension RecommendAccountSection {
     static func collectionViewDiffableDataSource(
-        for collectionView: UICollectionView
-    ) -> UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account> {
-        UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, account -> UICollectionViewCell? in
+        for collectionView: UICollectionView,
+        delegate: SearchRecommendAccountsCollectionViewCellDelegate,
+        managedObjectContext: NSManagedObjectContext
+    ) -> UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID> {
+        UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak delegate] collectionView, indexPath, objectID -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: SearchRecommendAccountsCollectionViewCell.self), for: indexPath) as! SearchRecommendAccountsCollectionViewCell
-            cell.config(with: account)
+            let user = managedObjectContext.object(with: objectID) as! MastodonUser
+            cell.delegate = delegate
+            cell.config(with: user)
             return cell
         }
     }

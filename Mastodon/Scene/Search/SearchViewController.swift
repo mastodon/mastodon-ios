@@ -6,6 +6,7 @@
 //
 
 import Combine
+import GameplayKit
 import MastodonSDK
 import UIKit
 
@@ -14,7 +15,13 @@ final class SearchViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = SearchViewModel(context: context)
+    private(set) lazy var viewModel = SearchViewModel(context: context, coordinator: coordinator)
+    
+    let statusBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.Background.navigationBar.color
+        return view
+    }()
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -24,9 +31,12 @@ final class SearchViewController: UIViewController, NeedsDependency {
         let micImage = UIImage(systemName: "mic.fill")
         searchBar.setImage(micImage, for: .bookmark, state: .normal)
         searchBar.showsBookmarkButton = true
+        searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
+        searchBar.barTintColor = Asset.Colors.Background.navigationBar.color
         return searchBar
     }()
     
+    // recommend
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -45,7 +55,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return stackView
     }()
     
-    let hashTagCollectionView: UICollectionView = {
+    let hashtagCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -56,9 +66,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-    var hashTagDiffableDataSource: UICollectionViewDiffableDataSource<RecomendHashTagSection, Mastodon.Entity.Tag>?
-    var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, Mastodon.Entity.Account>?
     
     let accountsCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -71,24 +78,82 @@ final class SearchViewController: UIViewController, NeedsDependency {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    // searching
+    let searchingTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = Asset.Colors.Background.searchResult.color
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .singleLine
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return tableView
+    }()
+    
+    lazy var searchHeader: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.frame = CGRect(origin: .zero, size: CGSize(width: searchingTableView.frame.width, height: 56))
+        return view
+    }()
+    
+    let recentSearchesLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.textColor = Asset.Colors.Label.primary.color
+        label.text = L10n.Scene.Search.Searching.recentSearch
+        return label
+    }()
+    
+    let clearSearchHistoryButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton(type: .custom)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitle(L10n.Scene.Search.Searching.clear, for: .normal)
+        return button
+    }()
 }
 
 extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Asset.Colors.Background.search.color
-        searchBar.delegate = self
-        navigationItem.titleView = searchBar
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         navigationItem.hidesBackButton = true
+       
+        setupSearchBar()
         setupScrollView()
         setupHashTagCollectionView()
         setupAccountsCollectionView()
+        setupSearchingTableView()
+        setupDataSource()
+        setupSearchHeader()
+    }
+
+    func setupSearchBar() {
+        searchBar.delegate = self
+        view.addSubview(searchBar)
+        searchBar.constrain([
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
+        view.addSubview(statusBar)
+        
+        statusBar.constrain([
+            statusBar.topAnchor.constraint(equalTo: view.topAnchor),
+            statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            statusBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3),
+        ])
     }
 
     func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.constrain([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -104,28 +169,68 @@ extension SearchViewController {
             scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
         ])
     }
+    
+    func setupDataSource() {
+        viewModel.hashtagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashtagCollectionView)
+        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView, delegate: self, managedObjectContext: context.managedObjectContext)
+        viewModel.searchResultDiffableDataSource = SearchResultSection.tableViewDiffableDataSource(for: searchingTableView, dependency: self)
+    }
+}
+
+extension SearchViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == searchingTableView {
+            handleScrollViewDidScroll(scrollView)
+        }
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(true, animated: true)
+        searchBar.showsScopeBar = true
+        viewModel.isSearching.value = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.showsScopeBar = false
+        viewModel.isSearching.value = true
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.showsScopeBar = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        viewModel.isSearching.value = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchText.send(searchText)
     }
     
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        switch selectedScope {
+        case 0:
+            viewModel.searchScope.value = Mastodon.API.Search.SearchType.default
+        case 1:
+            viewModel.searchScope.value = Mastodon.API.Search.SearchType.accounts
+        case 2:
+            viewModel.searchScope.value = Mastodon.API.Search.SearchType.hashtags
+        default:
+            break
+        }
+    }
+
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {}
+}
+
+extension SearchViewController: LoadMoreConfigurableTableViewContainer {
+    typealias BottomLoaderTableViewCell = SearchBottomLoader
+    typealias LoadingState = SearchViewModel.LoadOldestState.Loading
+    var loadMoreConfigurableTableView: UITableView { searchingTableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }
 }
 
 #if canImport(SwiftUI) && DEBUG

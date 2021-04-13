@@ -488,7 +488,7 @@ internal enum L10n {
     internal enum Search {
       internal enum Recommend {
         /// See All
-        internal static let buttontext = L10n.tr("Localizable", "Scene.Search.Recommend.Buttontext")
+        internal static let buttonText = L10n.tr("Localizable", "Scene.Search.Recommend.ButtonText")
         internal enum Accounts {
           /// Except for Sam, you will not like his account.
           internal static let description = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Description")
@@ -513,6 +513,20 @@ internal enum L10n {
         internal static let cancel = L10n.tr("Localizable", "Scene.Search.Searchbar.Cancel")
         /// Search hashtags and users
         internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
+      }
+      internal enum Searching {
+        /// clear
+        internal static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear")
+        /// Recent searches
+        internal static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch")
+        internal enum Segment {
+          /// All
+          internal static let all = L10n.tr("Localizable", "Scene.Search.Searching.Segment.All")
+          /// Hashtags
+          internal static let hashtags = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Hashtags")
+          /// People
+          internal static let people = L10n.tr("Localizable", "Scene.Search.Searching.Segment.People")
+        }
       }
     }
     internal enum ServerPicker {
