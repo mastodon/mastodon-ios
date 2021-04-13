@@ -1161,8 +1161,8 @@
 		5B90C455262599800002E742 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5B90C456262599800002E742 /* SettingsViewModel.swift */,
 				5B90C457262599800002E742 /* View */,
+				5B90C456262599800002E742 /* SettingsViewModel.swift */,
 				5B90C45D262599800002E742 /* SettingsViewController.swift */,
 			);
 			path = Settings;

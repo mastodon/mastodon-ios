@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct GroupedTableViewConstraints {
+    static let topMargin: CGFloat = 40
+    static let bottomMargin: CGFloat = 10
+}
+
 /// section header which supports add a custom view blelow the title
 class SettingsSectionHeader: UIView {
     lazy var titleLabel: UILabel = {
@@ -21,7 +26,12 @@ class SettingsSectionHeader: UIView {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isLayoutMarginsRelativeArrangement = true
-        view.layoutMargins = UIEdgeInsets(top: 40, left: 12, bottom: 10, right: 12)
+        view.layoutMargins = UIEdgeInsets(
+            top: GroupedTableViewConstraints.topMargin,
+            left: 0,
+            bottom: GroupedTableViewConstraints.bottomMargin,
+            right: 0
+        )
         view.axis = .vertical
         return view
     }()
@@ -37,8 +47,8 @@ class SettingsSectionHeader: UIView {
         
         addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            stackView.trailingAnchor.constraint(lessThanOrEqualTo: self.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.readableContentGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: self.readableContentGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
         ])
