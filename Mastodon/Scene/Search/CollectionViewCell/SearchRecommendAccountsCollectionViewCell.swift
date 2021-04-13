@@ -33,6 +33,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
+        imageView.layer.cornerCurve = .continuous
         imageView.clipsToBounds = true
         imageView.layer.borderWidth = 2
         imageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
@@ -65,6 +66,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         button.setTitle(L10n.Scene.Search.Recommend.Accounts.follow, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         button.layer.cornerRadius = 12
+        button.layer.cornerCurve = .continuous
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
         return button
@@ -99,6 +101,7 @@ extension SearchRecommendAccountsCollectionViewCell {
     private func configure() {
         headerImageView.backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 10
+        layer.cornerCurve = .continuous
         clipsToBounds = false
         applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
         contentView.addSubview(headerImageView)

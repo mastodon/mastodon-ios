@@ -68,6 +68,7 @@ extension SearchRecommendTagsCollectionViewCell {
     private func configure() {
         backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 10
+        layer.cornerCurve = .continuous
         clipsToBounds = false
         layer.borderWidth = 2
         layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor

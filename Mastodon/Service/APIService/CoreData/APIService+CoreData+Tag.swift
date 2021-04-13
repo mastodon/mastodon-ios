@@ -28,7 +28,7 @@ extension APIService.CoreData {
                 return nil
             }
         }()
-        
+
         if let oldTag = oldTag {
             APIService.CoreData.merge(tag: oldTag, entity: entity, into: managedObjectContext)
             return (oldTag, false)
@@ -40,8 +40,8 @@ extension APIService.CoreData {
             return (tagInCoreData, true)
         }
     }
-    
-    static func merge(tag:Tag,entity:Mastodon.Entity.Tag,into managedObjectContext: NSManagedObjectContext) {
+
+    static func merge(tag: Tag, entity: Mastodon.Entity.Tag, into managedObjectContext: NSManagedObjectContext) {
         tag.update(url: tag.url)
         guard let tagHistories = tag.histories else { return }
         guard let entityHistories = entity.history?.prefix(2) else { return }
@@ -49,7 +49,7 @@ extension APIService.CoreData {
         if entityHistoriesCount == 0 {
             return
         }
-        for n in 0..<tagHistories.count {
+        for n in 0 ..< tagHistories.count {
             if n < entityHistories.count {
                 let entityHistory = entityHistories[n]
                 tag.updateHistory(index: n, day: entityHistory.day, uses: entityHistory.uses, account: entityHistory.accounts)
@@ -58,7 +58,7 @@ extension APIService.CoreData {
         if entityHistoriesCount <= tagHistories.count {
             return
         }
-        for n in 1...(entityHistoriesCount - tagHistories.count) {
+        for n in 1 ... (entityHistoriesCount - tagHistories.count) {
             let entityHistory = entityHistories[entityHistoriesCount - n]
             tag.appendHistory(history: History.insert(into: managedObjectContext, property: History.Property(day: entityHistory.day, uses: entityHistory.uses, accounts: entityHistory.accounts)))
         }
