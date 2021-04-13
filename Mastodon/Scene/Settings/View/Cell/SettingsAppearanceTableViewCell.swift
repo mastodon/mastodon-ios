@@ -29,7 +29,7 @@ class AppearanceView: UIView {
         button.setImage(UIImage(systemName: "circle"), for: .normal)
         button.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         button.imageView?.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
-        button.imageView?.tintColor = Asset.Colors.lightSecondaryText.color
+        button.imageView?.tintColor = Asset.Colors.Label.secondary.color
         button.imageView?.contentMode = .scaleAspectFill
         return button
     }()
@@ -45,9 +45,9 @@ class AppearanceView: UIView {
         didSet {
             checkBox.isSelected = selected
             if selected {
-                checkBox.imageView?.tintColor = Asset.Colors.lightBrandBlue.color
+                checkBox.imageView?.tintColor = Asset.Colors.Label.highlight.color
             } else {
-                checkBox.imageView?.tintColor = Asset.Colors.lightSecondaryText.color
+                checkBox.imageView?.tintColor = Asset.Colors.Label.secondary.color
             }
         }
     }

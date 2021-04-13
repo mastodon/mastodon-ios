@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-extension Mastodon.API.Notification {
+extension Mastodon.API.Subscriptions {
     
     static func pushEndpointURL(domain: String) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("push/subscription")
@@ -116,7 +116,7 @@ extension Mastodon.API.Notification {
     }
 }
 
-extension Mastodon.API.Notification {
+extension Mastodon.API.Subscriptions {
     public struct CreateSubscriptionQuery: Codable, PostQuery {
         let endpoint: String
         let p256dh: String

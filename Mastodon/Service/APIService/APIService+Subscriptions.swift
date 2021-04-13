@@ -18,7 +18,7 @@ extension APIService {
         let authorization = mastodonAuthenticationBox.userAuthorization
         
         
-        return Mastodon.API.Notification.subscription(
+        return Mastodon.API.Subscriptions.subscription(
             session: session,
             domain: domain,
             authorization: authorization)
@@ -38,12 +38,12 @@ extension APIService {
     func changeSubscription(
         domain: String,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
-        query: Mastodon.API.Notification.CreateSubscriptionQuery,
+        query: Mastodon.API.Subscriptions.CreateSubscriptionQuery,
         triggerBy: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         
-        return Mastodon.API.Notification.createSubscription(
+        return Mastodon.API.Subscriptions.createSubscription(
             session: session,
             domain: domain,
             authorization: authorization,
@@ -66,12 +66,12 @@ extension APIService {
     func updateSubscription(
         domain: String,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
-        query: Mastodon.API.Notification.UpdateSubscriptionQuery,
+        query: Mastodon.API.Subscriptions.UpdateSubscriptionQuery,
         triggerBy: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         
-        return Mastodon.API.Notification.updateSubscription(
+        return Mastodon.API.Subscriptions.updateSubscription(
             session: session,
             domain: domain,
             authorization: authorization,

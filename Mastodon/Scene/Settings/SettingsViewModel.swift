@@ -102,7 +102,7 @@ class SettingsViewModel: NSObject, NeedsDependency {
                 }
                 
                 self.createDisposeBag.removeAll()
-                typealias Query = Mastodon.API.Notification.CreateSubscriptionQuery
+                typealias Query = Mastodon.API.Subscriptions.CreateSubscriptionQuery
                 let domain = activeMastodonAuthenticationBox.domain
                 let query = Query(
                     endpoint: "http://www.google.com",
@@ -143,7 +143,7 @@ class SettingsViewModel: NSObject, NeedsDependency {
                 }
                 
                 self.updateDisposeBag.removeAll()
-                typealias Query = Mastodon.API.Notification.UpdateSubscriptionQuery
+                typealias Query = Mastodon.API.Subscriptions.UpdateSubscriptionQuery
                 let domain = activeMastodonAuthenticationBox.domain
                 let query = Query(
                     favourite: values[0],
