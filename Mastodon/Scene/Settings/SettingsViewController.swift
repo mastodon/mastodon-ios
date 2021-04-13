@@ -11,6 +11,8 @@ import Combine
 import ActiveLabel
 import CoreData
 import CoreDataStack
+import AlamofireImage
+import Kingfisher
 
 // iTODO: when to ask permission to Use Notifications
 
@@ -309,8 +311,19 @@ extension SettingsViewController: UITableViewDelegate {
             )
         }
         
-        // iTODO: clear media cache
-        
+        // clear media cache
+        if indexPath.section == 3, indexPath.row == 0 {
+            // clean image cache for AlamofireImage
+            let diskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, diskBytes)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: clean image cache", ((#file as NSString).lastPathComponent), #line, #function)
+            ImageDownloader.defaultURLCache().removeAllCachedResponses()
+            let cleanedDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, cleanedDiskBytes)
+            
+            // clean Kingfisher Cache
+            KingfisherManager.shared.cache.clearDiskCache()
+        }
         
         // logout
         if indexPath.section == 3, indexPath.row == 1 {
