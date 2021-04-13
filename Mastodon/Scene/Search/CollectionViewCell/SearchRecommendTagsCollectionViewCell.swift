@@ -15,8 +15,8 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    let hashTagTitleLabel: UILabel = {
+     
+    let hashtagTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .semibold)
@@ -58,16 +58,27 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
 }
 
 extension SearchRecommendTagsCollectionViewCell {
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
+    }
+    
     private func configure() {
         backgroundColor = Asset.Colors.brandBlue.color
-        layer.cornerRadius = 8
-        clipsToBounds = true
+        layer.cornerRadius = 10
+        layer.cornerCurve = .continuous
+        clipsToBounds = false
+        layer.borderWidth = 2
+        layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
         
         contentView.addSubview(backgroundImageView)
         backgroundImageView.constrain(toSuperviewEdges: nil)
         
-        contentView.addSubview(hashTagTitleLabel)
-        hashTagTitleLabel.pin(top: 16, left: 16, bottom: nil, right: 42)
+        contentView.addSubview(hashtagTitleLabel)
+        hashtagTitleLabel.pin(top: 16, left: 16, bottom: nil, right: 42)
         
         contentView.addSubview(peopleLabel)
         peopleLabel.pinTopLeft(top: 46, left: 16)
@@ -77,19 +88,13 @@ extension SearchRecommendTagsCollectionViewCell {
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
-        hashTagTitleLabel.text = "# " + tag.name
+        hashtagTitleLabel.text = "# " + tag.name
         guard let historys = tag.history else {
             peopleLabel.text = ""
             return
         }
-        var recentHistory = [Mastodon.Entity.History]()
-        for history in historys {
-            if Int(history.uses) == 0 {
-                break
-            } else {
-                recentHistory.append(history)
-            }
-        }
+        
+        let recentHistory = historys.prefix(2)
         let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         peopleLabel.text = string
@@ -105,7 +110,7 @@ struct SearchRecommendTagsCollectionViewCell_Previews: PreviewProvider {
         Group {
             UIViewPreview {
                 let cell = SearchRecommendTagsCollectionViewCell()
-                cell.hashTagTitleLabel.text = "# test"
+                cell.hashtagTitleLabel.text = "# test"
                 cell.peopleLabel.text = "128 people are talking"
                 return cell
             }

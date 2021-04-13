@@ -50,9 +50,6 @@ extension Mastodon.API.Search {
 }
 
 extension Mastodon.API.Search {
-    public enum SearchType: String, Codable {
-        case ccounts, hashtags, statuses
-    }
     
     public struct Query: Codable, GetQuery {
         public init(q: String,
@@ -65,6 +62,7 @@ extension Mastodon.API.Search {
                     limit: Int? = nil,
                     offset: Int? = nil,
                     following: Bool? = nil) {
+
             self.accountID = accountID
             self.maxID = maxID
             self.minID = minID
@@ -103,6 +101,28 @@ extension Mastodon.API.Search {
             following.flatMap { items.append(URLQueryItem(name: "following", value: $0.queryItemValue)) }
             guard !items.isEmpty else { return nil }
             return items
+        }
+    }
+}
+
+public extension Mastodon.API.Search {
+    enum SearchType: String, Codable {
+        case accounts
+        case hashtags
+        case statuses
+        case `default`
+
+        public var rawValue: String {
+            switch self {
+            case .accounts:
+                return "accounts"
+            case .hashtags:
+                return "hashtags"
+            case .statuses:
+                return "statuses"
+            case .default:
+                return ""
+            }
         }
     }
 }

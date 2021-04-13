@@ -42,14 +42,18 @@ internal enum Asset {
       internal static let dangerBorder = ColorAsset(name: "Colors/Background/danger.border")
       internal static let danger = ColorAsset(name: "Colors/Background/danger")
       internal static let mediaTypeIndicotor = ColorAsset(name: "Colors/Background/media.type.indicotor")
+      internal static let navigationBar = ColorAsset(name: "Colors/Background/navigationBar")
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
-      internal static let search = ColorAsset(name: "Colors/Background/search")
+      internal static let searchResult = ColorAsset(name: "Colors/Background/searchResult")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Colors/Background/system.grouped.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
+    }
+    internal enum Border {
+      internal static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
     }
     internal enum Button {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
@@ -65,6 +69,9 @@ internal enum Asset {
       internal static let highlight = ColorAsset(name: "Colors/Label/highlight")
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
+    }
+    internal enum Shadow {
+      internal static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
     internal enum Slider {
       internal static let bar = ColorAsset(name: "Colors/Slider/bar")

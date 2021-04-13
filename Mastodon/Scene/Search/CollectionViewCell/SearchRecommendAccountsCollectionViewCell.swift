@@ -5,28 +5,47 @@
 //  Created by sxiaojian on 2021/4/1.
 //
 
+import Combine
+import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
 
+protocol SearchRecommendAccountsCollectionViewCellDelegate: NSObject {
+    func followButtonDidPressed(clickedUser: MastodonUser)
+    
+    func configFollowButton(with mastodonUser: MastodonUser, followButton: HighlightDimmableButton)
+}
+
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
+    var disposeBag = Set<AnyCancellable>()
+    
+    weak var delegate: SearchRecommendAccountsCollectionViewCellDelegate?
+    
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = 8.4
         imageView.clipsToBounds = true
         return imageView
     }()
     
     let headerImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.layer.cornerRadius = 8
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 10
+        imageView.layer.cornerCurve = .continuous
         imageView.clipsToBounds = true
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
         return imageView
     }()
+    
+    let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
     let displayNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,17 +55,19 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let followButton: UIButton = {
-        let button = UIButton(type: .custom)
+    let followButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton(type: .custom)
         button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.Search.Recommend.Accounts.follow, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         button.layer.cornerRadius = 12
-        button.layer.borderWidth = 3
+        button.layer.cornerCurve = .continuous
+        button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
@@ -55,6 +76,8 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         headerImageView.af.cancelImageRequest()
         avatarImageView.af.cancelImageRequest()
+        visualEffectView.removeFromSuperview()
+        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {
@@ -69,11 +92,18 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
 }
 
 extension SearchRecommendAccountsCollectionViewCell {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        headerImageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
+    }
+    
     private func configure() {
         headerImageView.backgroundColor = Asset.Colors.brandBlue.color
-        layer.cornerRadius = 8
-        clipsToBounds = true
-        
+        layer.cornerRadius = 10
+        layer.cornerCurve = .continuous
+        clipsToBounds = false
+        applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
         contentView.addSubview(headerImageView)
         headerImageView.pin(top: 16, left: 0, bottom: 0, right: 0)
         
@@ -87,12 +117,16 @@ extension SearchRecommendAccountsCollectionViewCell {
         contentView.addSubview(displayNameLabel)
         displayNameLabel.constrain([
             displayNameLabel.constraint(.top, toView: contentView, constant: 108),
+            displayNameLabel.constraint(.leading, toView: contentView),
+            displayNameLabel.constraint(.trailing, toView: contentView),
             displayNameLabel.constraint(.centerX, toView: contentView)
         ])
         
         contentView.addSubview(acctLabel)
         acctLabel.constrain([
             acctLabel.constraint(.top, toView: contentView, constant: 132),
+            acctLabel.constraint(.leading, toView: contentView),
+            acctLabel.constraint(.trailing, toView: contentView),
             acctLabel.constraint(.centerX, toView: contentView)
         ])
         
@@ -104,19 +138,33 @@ extension SearchRecommendAccountsCollectionViewCell {
         ])
     }
     
-    func config(with account: Mastodon.Entity.Account) {
-        displayNameLabel.text = account.displayName.isEmpty ? account.username : account.displayName
-        acctLabel.text = account.acct
+    func config(with mastodonUser: MastodonUser) {
+        displayNameLabel.text = mastodonUser.displayName.isEmpty ? mastodonUser.username : mastodonUser.displayName
+        acctLabel.text = mastodonUser.acct
         avatarImageView.af.setImage(
-            withURL: URL(string: account.avatar)!,
+            withURL: URL(string: mastodonUser.avatar)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)
         )
         headerImageView.af.setImage(
-            withURL: URL(string: account.header)!,
+            withURL: URL(string: mastodonUser.header)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)
-        )
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.headerImageView.addSubview(self.visualEffectView)
+            self.visualEffectView.pin(top: 0, left: 0, bottom: 0, right: 0)
+        }
+        delegate?.configFollowButton(with: mastodonUser, followButton: followButton)
+        followButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.followButtonDidPressed(mastodonUser: mastodonUser)
+            }
+            .store(in: &disposeBag)
+    }
+    
+    func followButtonDidPressed(mastodonUser: MastodonUser) {
+        delegate?.followButtonDidPressed(clickedUser: mastodonUser)
     }
 }
 

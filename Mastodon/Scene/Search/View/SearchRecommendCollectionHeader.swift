@@ -25,10 +25,10 @@ class SearchRecommendCollectionHeader: UIView {
         return label
     }()
     
-    let seeAllButton: UIButton = {
-        let button = UIButton(type: .custom)
+    let seeAllButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton(type: .custom)
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
-        button.setTitle(L10n.Scene.Search.Recommend.buttontext, for: .normal)
+        button.setTitle(L10n.Scene.Search.Recommend.buttonText, for: .normal)
         return button
     }()
     
