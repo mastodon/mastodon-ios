@@ -59,8 +59,9 @@ extension SearchViewController: UICollectionViewDelegate {
         switch collectionView {
         case self.accountsCollectionView:
             guard let diffableDataSource = viewModel.accountDiffableDataSource else { return }
-            guard let account = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-            viewModel.accountCollectionViewItemDidSelected(account: account, from: self)
+            guard let accountObjectID = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+            let user = context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
+            viewModel.accountCollectionViewItemDidSelected(mastodonUser: user, from: self)
         case self.hashtagCollectionView:
             guard let diffableDataSource = viewModel.hashtagDiffableDataSource else { return }
             guard let hashtag = diffableDataSource.itemIdentifier(for: indexPath) else { return }

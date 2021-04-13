@@ -5,11 +5,23 @@
 //  Created by sxiaojian on 2021/4/1.
 //
 
+import Combine
+import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
 
+protocol SearchRecommendAccountsCollectionViewCellDelegate: NSObject {
+    func followButtonDidPressed(clickedUser: MastodonUser)
+    
+    func configFollowButton(with mastodonUser: MastodonUser, followButton: HighlightDimmableButton)
+}
+
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
+    var disposeBag = Set<AnyCancellable>()
+    
+    weak var delegate: SearchRecommendAccountsCollectionViewCellDelegate?
+    
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 8.4
@@ -47,8 +59,8 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let followButton: UIButton = {
-        let button = UIButton(type: .custom)
+    let followButton: HighlightDimmableButton = {
+        let button = HighlightDimmableButton(type: .custom)
         button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.Search.Recommend.Accounts.follow, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -63,6 +75,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         headerImageView.af.cancelImageRequest()
         avatarImageView.af.cancelImageRequest()
         visualEffectView.removeFromSuperview()
+        disposeBag.removeAll()
     }
     
     override init(frame: CGRect) {
@@ -122,22 +135,33 @@ extension SearchRecommendAccountsCollectionViewCell {
         ])
     }
     
-    func config(with account: Mastodon.Entity.Account) {
-        displayNameLabel.text = account.displayName.isEmpty ? account.username : account.displayName
-        acctLabel.text = account.acct
+    func config(with mastodonUser: MastodonUser) {
+        displayNameLabel.text = mastodonUser.displayName.isEmpty ? mastodonUser.username : mastodonUser.displayName
+        acctLabel.text = mastodonUser.acct
         avatarImageView.af.setImage(
-            withURL: URL(string: account.avatar)!,
+            withURL: URL(string: mastodonUser.avatar)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)
         )
         headerImageView.af.setImage(
-            withURL: URL(string: account.header)!,
+            withURL: URL(string: mastodonUser.header)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)) { [weak self] _ in
+            imageTransition: .crossDissolve(0.2)
+        ) { [weak self] _ in
             guard let self = self else { return }
             self.headerImageView.addSubview(self.visualEffectView)
             self.visualEffectView.pin(top: 0, left: 0, bottom: 0, right: 0)
         }
+        delegate?.configFollowButton(with: mastodonUser, followButton: followButton)
+        followButton.publisher(for: .touchUpInside)
+            .sink { [weak self] _ in
+                self?.followButtonDidPressed(mastodonUser: mastodonUser)
+            }
+            .store(in: &disposeBag)
+    }
+    
+    func followButtonDidPressed(mastodonUser: MastodonUser) {
+        delegate?.followButtonDidPressed(clickedUser: mastodonUser)
     }
 }
 
