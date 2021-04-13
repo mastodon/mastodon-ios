@@ -42,7 +42,7 @@ extension MastodonRegisterViewController {
         return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
     }
     
-    private func cropImage(image:UIImage,pickerViewController:UIViewController) {
+    private func cropImage(image: UIImage, pickerViewController: UIViewController) {
         DispatchQueue.main.async {
             let cropController = CropViewController(croppingStyle: .default, image: image)
             cropController.delegate = self

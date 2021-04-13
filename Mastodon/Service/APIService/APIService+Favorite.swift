@@ -16,7 +16,7 @@ import CommonOSLog
 extension APIService {
     
     // make local state change only
-    func like(
+    func favorite(
         statusObjectID: NSManagedObjectID,
         mastodonUserObjectID: NSManagedObjectID,
         favoriteKind: Mastodon.API.Favorites.FavoriteKind
@@ -50,7 +50,7 @@ extension APIService {
     }
     
     // send favorite request to remote
-    func like(
+    func favorite(
         statusID: Mastodon.Entity.Status.ID,
         favoriteKind: Mastodon.API.Favorites.FavoriteKind,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
@@ -128,16 +128,20 @@ extension APIService {
 }
 
 extension APIService {
-    func likeList(
+    func favoritedStatuses(
         limit: Int = onceRequestStatusMaxCount,
-        userID: String,
         maxID: String? = nil,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
 
         let requestMastodonUserID = mastodonAuthenticationBox.userID
-        let query = Mastodon.API.Favorites.ListQuery(limit: limit, minID: nil, maxID: maxID)
-        return Mastodon.API.Favorites.favoritedStatus(domain: mastodonAuthenticationBox.domain, session: session, authorization: mastodonAuthenticationBox.userAuthorization, query: query)
+        let query = Mastodon.API.Favorites.FavoriteStatusesQuery(limit: limit, minID: nil, maxID: maxID)
+        return Mastodon.API.Favorites.favoritedStatus(
+            domain: mastodonAuthenticationBox.domain,
+            session: session,
+            authorization: mastodonAuthenticationBox.userAuthorization,
+            query: query
+        )
             .map { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
                 let log = OSLog.api
                 

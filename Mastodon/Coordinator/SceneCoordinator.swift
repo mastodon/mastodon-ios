@@ -33,8 +33,8 @@ extension SceneCoordinator {
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
-        case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
+        case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
     }
     
     enum Scene {
@@ -56,10 +56,12 @@ extension SceneCoordinator {
       
         // profile
         case profile(viewModel: ProfileViewModel)
+        case favorite(viewModel: FavoriteViewModel)
         
         // misc
-        case alertController(alertController: UIAlertController)
         case safari(url: URL)
+        case alertController(alertController: UIAlertController)
+        case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
         
         #if DEBUG
         case publicTimeline
@@ -169,11 +171,11 @@ extension SceneCoordinator {
             viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
             
-        case .activityViewControllerPresent(let animated, let completion):
+        case .alertController(let animated, let completion):
             viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
             
-        case .alertController(let animated, let completion):
+        case .activityViewControllerPresent(let animated, let completion):
             viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
         }
@@ -232,6 +234,16 @@ private extension SceneCoordinator {
             let _viewController = ProfileViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .favorite(let viewModel):
+            let _viewController = FavoriteViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .safari(let url):
+            guard let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else {
+                return nil
+            }
+            viewController = SFSafariViewController(url: url)
         case .alertController(let alertController):
             if let popoverPresentationController = alertController.popoverPresentationController {
                 assert(
@@ -241,12 +253,10 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
-        case .safari(let url):
-            guard let scheme = url.scheme?.lowercased(),
-                  scheme == "http" || scheme == "https" else {
-                return nil
-            }
-            viewController = SFSafariViewController(url: url)
+        case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
+            activityViewController.popoverPresentationController?.sourceView = sourceView
+            activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
+            viewController = activityViewController
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()

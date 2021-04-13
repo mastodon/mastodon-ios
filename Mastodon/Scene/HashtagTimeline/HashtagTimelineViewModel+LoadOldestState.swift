@@ -35,6 +35,8 @@ extension HashtagTimelineViewModel.LoadOldestState {
     }
     
     class Loading: HashtagTimelineViewModel.LoadOldestState {
+        var maxID: String?
+        
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             return stateClass == Fail.self || stateClass == Idle.self || stateClass == NoMore.self
         }
@@ -54,7 +56,7 @@ extension HashtagTimelineViewModel.LoadOldestState {
             }
             
             // TODO: only set large count when using Wi-Fi
-            let maxID = last.id
+            let maxID = self.maxID ?? last.id
             viewModel.context.apiService.hashtagTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
                 maxID: maxID,
@@ -71,10 +73,19 @@ extension HashtagTimelineViewModel.LoadOldestState {
                         // handle isFetchingLatestTimeline in fetch controller delegate
                         break
                     }
-                } receiveValue: { response in
+                } receiveValue: { [weak self] response in
+                    guard let self = self else { return }
+                    
                     let statuses = response.value
                     // enter no more state when no new statuses
-                    if statuses.isEmpty || (statuses.count == 1 && statuses[0].id == maxID) {
+                    
+                    let hasNextPage: Bool = {
+                        guard let link = response.link else { return true }     // assert has more when link invalid
+                        return link.maxID != nil
+                    }()
+                    self.maxID = response.link?.maxID
+                    
+                    if !hasNextPage || statuses.isEmpty || (statuses.count == 1 && statuses[0].id == maxID) {
                         stateMachine.enter(NoMore.self)
                     } else {
                         stateMachine.enter(Idle.self)

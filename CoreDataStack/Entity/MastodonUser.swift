@@ -31,6 +31,7 @@ final public class MastodonUser: NSManagedObject {
     
     @NSManaged public private(set) var locked: Bool
     @NSManaged public private(set) var bot: Bool
+    @NSManaged public private(set) var suspended: Bool
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
@@ -93,6 +94,7 @@ extension MastodonUser {
         
         user.locked = property.locked
         user.bot = property.bot ?? false
+        user.suspended = property.suspended ?? false
         
         // Mastodon do not provide relationship on the `Account`
         // Update relationship via attribute updating interface
@@ -172,6 +174,11 @@ extension MastodonUser {
     public func update(bot: Bool) {
         if self.bot != bot {
             self.bot = bot
+        }
+    }
+    public func update(suspended: Bool) {
+        if self.suspended != suspended {
+            self.suspended = suspended
         }
     }
     
@@ -268,6 +275,7 @@ extension MastodonUser {
         public let followersCount: Int
         public let locked: Bool
         public let bot: Bool?
+        public let suspended: Bool?
         
         public let createdAt: Date
         public let networkDate: Date
@@ -289,6 +297,7 @@ extension MastodonUser {
             followersCount: Int,
             locked: Bool,
             bot: Bool?,
+            suspended: Bool?,
             createdAt: Date,
             networkDate: Date
         ) {
@@ -309,6 +318,7 @@ extension MastodonUser {
             self.followersCount = followersCount
             self.locked = locked
             self.bot = bot
+            self.suspended = suspended
             self.createdAt = createdAt
             self.networkDate = networkDate
         }
