@@ -14,7 +14,6 @@ protocol SettingsToggleCellDelegate: class {
 class SettingsToggleTableViewCell: UITableViewCell {
     lazy var switchButton: UISwitch = {
         let view = UISwitch(frame:.zero)
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -48,13 +47,7 @@ class SettingsToggleTableViewCell: UITableViewCell {
     // MARK: Private methods
     private func setupUI() {
         selectionStyle = .none
-        textLabel?.font = .systemFont(ofSize: 17, weight: .regular)
-        contentView.addSubview(switchButton)
-        
-        NSLayoutConstraint.activate([
-            switchButton.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            switchButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-        ])
+        accessoryView = switchButton
         
         switchButton.addTarget(self, action: #selector(valueDidChange(sender:)), for: .valueChanged)
     }

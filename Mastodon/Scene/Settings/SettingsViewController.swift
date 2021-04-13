@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
         let follower = L10n.Scene.Settings.Section.Notifications.Trigger.follower
         let follow = L10n.Scene.Settings.Section.Notifications.Trigger.follow
-        let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noOne
+        let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noone
         let menu = UIMenu(
             image: nil,
             identifier: nil,
@@ -206,11 +206,32 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.tableFooterView = footerView
     }
     
+    func alertToSignout() {
+        let alertController = UIAlertController(
+            title: L10n.Common.Alerts.SignOut.title,
+            message: L10n.Common.Alerts.SignOut.message,
+            preferredStyle: .alert
+        )
+        
+        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+        let signOutAction = UIAlertAction(title: L10n.Common.Alerts.SignOut.confirm, style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.signout()
+        }
+        alertController.addAction(cancelAction)
+        alertController.addAction(signOutAction)
+        self.coordinator.present(
+            scene: .alertController(alertController: alertController),
+            from: self,
+            transition: .alertController(animated: true, completion: nil)
+        )
+    }
+    
     func signout() {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-
+        
         context.authenticationService.signOutMastodonUser(
             domain: activeMastodonAuthenticationBox.domain,
             userID: activeMastodonAuthenticationBox.userID
@@ -282,9 +303,10 @@ extension SettingsViewController: UITableViewDelegate {
         
         if indexPath.section == 2 {
             coordinator.present(
-                scene: .webview(url: URL(string: "https://mastodon.online/terms")!),
+                scene: .safari(url: URL(string: "https://mastodon.online/terms")!),
                 from: self,
-                transition: .modal(animated: true, completion: nil))
+                transition: .safariPresent(animated: true, completion: nil)
+            )
         }
         
         // iTODO: clear media cache
@@ -292,7 +314,7 @@ extension SettingsViewController: UITableViewDelegate {
         
         // logout
         if indexPath.section == 3, indexPath.row == 1 {
-            signout()
+            alertToSignout()
         }
     }
 }
@@ -377,9 +399,10 @@ extension SettingsViewController: SettingsToggleCellDelegate {
 extension SettingsViewController: ActiveLabelDelegate {
     func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
         coordinator.present(
-            scene: .webview(url: URL(string: "https://github.com/tootsuite/mastodon")!),
+            scene: .safari(url: URL(string: "https://github.com/tootsuite/mastodon")!),
             from: self,
-            transition: .modal(animated: true, completion: nil))
+            transition: .safariPresent(animated: true, completion: nil)
+        )
     }
 }
 

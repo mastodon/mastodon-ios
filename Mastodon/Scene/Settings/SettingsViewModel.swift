@@ -63,7 +63,7 @@ class SettingsViewModel: NSObject, NeedsDependency {
         let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
         let follower = L10n.Scene.Settings.Section.Notifications.Trigger.follower
         let follow = L10n.Scene.Settings.Section.Notifications.Trigger.follow
-        let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noOne
+        let noOne = L10n.Scene.Settings.Section.Notifications.Trigger.noone
         return [anyone: anyoneSwitchItems,
                 follower: followerSwitchItems,
                 follow: followSwitchItems,
@@ -229,26 +229,26 @@ class SettingsViewModel: NSObject, NeedsDependency {
         snapshot.appendItems(notificationItems)
         
         // boring zone
-        let boringLinks = [L10n.Scene.Settings.Section.BoringZone.terms,
-                           L10n.Scene.Settings.Section.BoringZone.privacy]
+        let boringLinks = [L10n.Scene.Settings.Section.Boringzone.terms,
+                           L10n.Scene.Settings.Section.Boringzone.privacy]
         var boringLinkItems = [SettingsItem]()
         for l in boringLinks {
             let item = SettingsItem.boringZone(item: SettingsItem.Link(title: l, color: .systemBlue))
             boringLinkItems.append(item)
         }
-        let boringSection = SettingsSection.boringZone(title: L10n.Scene.Settings.Section.BoringZone.title, items: boringLinkItems)
+        let boringSection = SettingsSection.boringZone(title: L10n.Scene.Settings.Section.Boringzone.title, items: boringLinkItems)
         snapshot.appendSections([boringSection])
         snapshot.appendItems(boringLinkItems)
         
         // spicy zone
-        let spicyLinks = [L10n.Scene.Settings.Section.SpicyZone.clear,
-                          L10n.Scene.Settings.Section.SpicyZone.signOut]
+        let spicyLinks = [L10n.Scene.Settings.Section.Spicyzone.clear,
+                          L10n.Scene.Settings.Section.Spicyzone.signout]
         var spicyLinkItems = [SettingsItem]()
         for l in spicyLinks {
             let item = SettingsItem.boringZone(item: SettingsItem.Link(title: l, color: .systemRed))
             spicyLinkItems.append(item)
         }
-        let spicySection = SettingsSection.boringZone(title: L10n.Scene.Settings.Section.SpicyZone.title, items: spicyLinkItems)
+        let spicySection = SettingsSection.boringZone(title: L10n.Scene.Settings.Section.Spicyzone.title, items: spicyLinkItems)
         snapshot.appendSections([spicySection])
         snapshot.appendItems(spicyLinkItems)
         

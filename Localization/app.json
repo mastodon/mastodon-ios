@@ -22,6 +22,11 @@
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection."
+            },
+            "sign_out": {
+                "title": "Sign out",
+                "message": "Are you sure you want to sign out?",
+                "confirm": "Sign Out"
             }
         },
         "controls": {
@@ -321,6 +326,41 @@
         },
         "favorite": {
             "title": "Your Favorites"
+        },
+        "settings": {
+            "title": "Settings",
+            "section": {
+                "appearance": {
+                    "title": "Appearance",
+                    "automatic": "Automatic",
+                    "light": "Always Light",
+                    "dark": "Always Dark"
+                },
+                "notifications": {
+                    "title": "Notifications",
+                    "favorites": "Favorites my post",
+                    "follows": "Follows me",
+                    "boosts": "Reblogs my post",
+                    "mentions": "Mentions me",
+                    "trigger": {
+                        "anyone": "anyone",
+                        "follower": "a follower",
+                        "follow": "anyone I follow",
+                        "noone": "no one",
+                        "title": "Notify me when"
+                    }
+                },
+                "boringzone": {
+                    "title": "The Boring zone",
+                    "terms": "Terms of Service",
+                    "privacy": "Privacy Policy"
+                },
+                "spicyzone": {
+                    "title": "The spicy zone",
+                    "clear": "Clear Media Cache",
+                    "signout": "Sign Out"
+                }
+            }
         }
     }
 }
