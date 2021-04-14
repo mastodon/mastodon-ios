@@ -11,6 +11,7 @@ import OSLog
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import GameplayKit
 
 final class NotificationViewController: UIViewController, NeedsDependency {
     
@@ -123,6 +124,7 @@ extension NotificationViewController {
         } else {
             viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, type: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
         }
+        viewModel.selectedIndex.value = sender.selectedSegmentIndex
     }
     
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -179,16 +181,16 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
     
 }
 
-//// MARK: - UIScrollViewDelegate
-//extension NotificationViewController {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        handleScrollViewDidScroll(scrollView)
-//    }
-//}
-//
-//extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
-//    typealias BottomLoaderTableViewCell = SearchBottomLoader
-//    typealias LoadingState = NotificationViewController.LoadOldestState.Loading
-//    var loadMoreConfigurableTableView: UITableView { return tableView }
-//    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
-//}
+// MARK: - UIScrollViewDelegate
+extension NotificationViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        handleScrollViewDidScroll(scrollView)
+    }
+}
+
+extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
+    typealias BottomLoaderTableViewCell = CommonBottomLoader
+    typealias LoadingState = NotificationViewModel.LoadOldestState.Loading
+    var loadMoreConfigurableTableView: UITableView { return tableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+}

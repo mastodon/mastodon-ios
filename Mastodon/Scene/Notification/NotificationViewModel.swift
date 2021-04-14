@@ -23,6 +23,7 @@ final class NotificationViewModel: NSObject  {
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
     let viewDidLoad = PassthroughSubject<Void, Never>()
+    let selectedIndex = CurrentValueSubject<Int,Never>(0)
     
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
@@ -47,6 +48,21 @@ final class NotificationViewModel: NSObject  {
     }()
     
     lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
+    
+    // bottom loader
+    private(set) lazy var loadoldestStateMachine: GKStateMachine = {
+        // exclude timeline middle fetcher state
+        let stateMachine = GKStateMachine(states: [
+            LoadOldestState.Initial(viewModel: self),
+            LoadOldestState.Loading(viewModel: self),
+            LoadOldestState.Fail(viewModel: self),
+            LoadOldestState.Idle(viewModel: self),
+            LoadOldestState.NoMore(viewModel: self),
+        ])
+        stateMachine.enter(LoadOldestState.Initial.self)
+        return stateMachine
+    }()
+    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     
     init(context: AppContext) {
         self.context = context
