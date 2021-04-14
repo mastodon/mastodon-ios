@@ -44,7 +44,7 @@ extension SearchResultSection {
                 cell.config(with: user)
                 return cell
             case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchBottomLoader.self)) as! SearchBottomLoader
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CommonBottomLoader.self)) as! CommonBottomLoader
                 cell.startAnimating()
                 return cell
             }

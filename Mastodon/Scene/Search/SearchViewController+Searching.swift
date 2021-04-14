@@ -17,7 +17,7 @@ extension SearchViewController {
     func setupSearchingTableView() {
         searchingTableView.delegate = self
         searchingTableView.register(SearchingTableViewCell.self, forCellReuseIdentifier: String(describing: SearchingTableViewCell.self))
-        searchingTableView.register(SearchBottomLoader.self, forCellReuseIdentifier: String(describing: SearchBottomLoader.self))
+        searchingTableView.register(CommonBottomLoader.self, forCellReuseIdentifier: String(describing: CommonBottomLoader.self))
         view.addSubview(searchingTableView)
         searchingTableView.constrain([
             searchingTableView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),

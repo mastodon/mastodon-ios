@@ -33,7 +33,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
         tableView.register(NotificationStatusTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationStatusTableViewCell.self))
-        tableView.register(SearchBottomLoader.self, forCellReuseIdentifier: String(describing: SearchBottomLoader.self))
+        tableView.register(CommonBottomLoader.self, forCellReuseIdentifier: String(describing: CommonBottomLoader.self))
         tableView.tableFooterView = UIView()
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
@@ -47,7 +47,7 @@ extension NotificationViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Asset.Colors.Background.searchResult.color
+        view.backgroundColor = Asset.Colors.Background.pure.color
         navigationItem.titleView = segmentControl
         segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
         view.addSubview(tableView)

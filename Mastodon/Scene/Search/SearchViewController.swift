@@ -82,7 +82,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // searching
     let searchingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = Asset.Colors.Background.searchResult.color
+        tableView.backgroundColor = Asset.Colors.Background.pure.color
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -227,7 +227,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 extension SearchViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = SearchBottomLoader
+    typealias BottomLoaderTableViewCell = CommonBottomLoader
     typealias LoadingState = SearchViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { searchingTableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }

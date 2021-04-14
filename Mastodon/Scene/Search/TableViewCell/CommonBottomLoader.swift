@@ -1,5 +1,5 @@
 //
-//  SearchBottomLoader.swift
+//  CommonBottomLoader.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/4/6.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class SearchBottomLoader: UITableViewCell {
+final class CommonBottomLoader: UITableViewCell {
     let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
         activityIndicatorView.tintColor = Asset.Colors.Label.primary.color

@@ -128,7 +128,7 @@ extension NotificationSection {
                     return cell
                 }
             case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchBottomLoader.self)) as! SearchBottomLoader
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CommonBottomLoader.self)) as! CommonBottomLoader
                 cell.startAnimating()
                 return cell
             }
@@ -149,8 +149,11 @@ extension NotificationSection {
     ) {
         // disable interaction
         cell.statusView.isUserInteractionEnabled = false
-        // remove actionToolBar
+        // remove item don't display
         cell.statusView.actionToolbarContainer.removeFromSuperview()
+        cell.statusView.avatarView.removeFromSuperview()
+        
+        
         // setup attribute
         statusItemAttribute.setupForStatus(status: status)
         

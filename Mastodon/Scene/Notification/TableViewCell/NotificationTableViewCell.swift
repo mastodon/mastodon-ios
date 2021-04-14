@@ -35,7 +35,7 @@ final class NotificationTableViewCell: UITableViewCell {
     
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = Asset.Colors.Background.searchResult.color
+        imageView.tintColor = Asset.Colors.Background.pure.color
         return imageView
     }()
     
@@ -45,8 +45,8 @@ final class NotificationTableViewCell: UITableViewCell {
         view.layer.cornerCurve = .continuous
         view.clipsToBounds = true
         view.layer.borderWidth = NotificationTableViewCell.actionImageBorderWidth
-        view.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
-        view.tintColor = Asset.Colors.Background.searchResult.color
+        view.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
+        view.tintColor = Asset.Colors.Background.pure.color
         return view
     }()
     
@@ -116,6 +116,6 @@ extension NotificationTableViewCell {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionImageBackground.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
+        actionImageBackground.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
     }
 }
