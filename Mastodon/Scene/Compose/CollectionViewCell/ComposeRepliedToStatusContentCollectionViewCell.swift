@@ -46,7 +46,7 @@ extension ComposeRepliedToStatusContentCollectionViewCell {
             statusView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             statusView.leadingAnchor.constraint(equalTo:  contentView.readableContentGuide.leadingAnchor),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: statusView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
         ])
         
         statusView.actionToolbarContainer.isHidden = true

@@ -26,10 +26,10 @@ final class ComposeViewModel {
     let isPollComposing = CurrentValueSubject<Bool, Never>(false)
     let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
     let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
-    let selectedStatusVisibility = CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>(.public)
+    let selectedStatusVisibility: CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
-    let traitCollectionDidChangePublisher = PassthroughSubject<Void, Never>()
+    let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make intial event emit
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
@@ -84,6 +84,7 @@ final class ComposeViewModel {
         case .post, .hashtag, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
         case .reply:                          self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
+        self.selectedStatusVisibility = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public)
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
