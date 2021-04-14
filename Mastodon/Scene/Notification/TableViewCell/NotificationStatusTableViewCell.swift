@@ -12,6 +12,7 @@ import UIKit
 final class NotificationStatusTableViewCell: UITableViewCell {
     static let actionImageBorderWidth: CGFloat = 2
     
+    static let statusPadding: UIEdgeInsets = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
     var disposeBag = Set<AnyCancellable>()
     
     var delegate: NotificationTableViewCellDelegate?
@@ -136,7 +137,7 @@ extension NotificationStatusTableViewCell {
         statusContainer.pin(top: 40, left: 63, bottom: 14, right: 14)
         
         contentView.addSubview(statusView)
-        statusView.pin(top: 40 + 12, left: 63 + 12, bottom: 14 + 12, right: 14 + 12)
+        statusView.pin(top: NotificationStatusTableViewCell.statusPadding.top, left: NotificationStatusTableViewCell.statusPadding.left, bottom: NotificationStatusTableViewCell.statusPadding.bottom, right: NotificationStatusTableViewCell.statusPadding.right)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

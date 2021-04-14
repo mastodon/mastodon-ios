@@ -95,6 +95,6 @@ extension MastodonNotification {
 
 extension MastodonNotification: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(keyPath: \MastodonNotification.updatedAt, ascending: false)]
+        return [NSSortDescriptor(keyPath: \MastodonNotification.createAt, ascending: false)]
     }
 }

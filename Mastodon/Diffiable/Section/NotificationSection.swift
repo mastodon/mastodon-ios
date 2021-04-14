@@ -70,9 +70,10 @@ extension NotificationSection {
                 if let status = notification.status {
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationStatusTableViewCell.self), for: indexPath) as! NotificationStatusTableViewCell
                     cell.delegate = delegate
+                    let frame = CGRect(x: 0, y: 0, width: tableView.readableContentGuide.layoutFrame.width - NotificationStatusTableViewCell.statusPadding.left - NotificationStatusTableViewCell.statusPadding.right, height: tableView.readableContentGuide.layoutFrame.height)
                     NotificationSection.configure(cell: cell,
                                                   dependency: dependency,
-                                                  readableLayoutFrame: nil,
+                                                  readableLayoutFrame: frame,
                                                   timestampUpdatePublisher: timestampUpdatePublisher,
                                                   status: status,
                                                   requestUserID: requestUserID,

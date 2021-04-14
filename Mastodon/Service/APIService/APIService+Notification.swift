@@ -43,7 +43,7 @@ extension APIService {
                             status = statusInCoreData
                         }
                         // use constrain to avoid repeated save
-                        let notification = MastodonNotification.insert(into: self.backgroundManagedObjectContext, domain: domain, property: MastodonNotification.Property(id: notification.id, type: notification.type.rawValue, account: mastodonUser, status: status, createdAt: Date()))
+                        let notification = MastodonNotification.insert(into: self.backgroundManagedObjectContext, domain: domain, property: MastodonNotification.Property(id: notification.id, type: notification.type.rawValue, account: mastodonUser, status: status, createdAt: notification.createdAt))
                         os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)", (#file as NSString).lastPathComponent, #line, #function, notification.type, notification.account.username)
                         
                     }

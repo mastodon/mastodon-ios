@@ -35,6 +35,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
         tableView.register(NotificationStatusTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationStatusTableViewCell.self))
         tableView.register(SearchBottomLoader.self, forCellReuseIdentifier: String(describing: SearchBottomLoader.self))
         tableView.tableFooterView = UIView()
+        tableView.rowHeight = UITableView.automaticDimension
         return tableView
     }()
     
@@ -135,9 +136,7 @@ extension NotificationViewController {
 // MARK: - UITableViewDelegate
 extension NotificationViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 68
-    }
+
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate

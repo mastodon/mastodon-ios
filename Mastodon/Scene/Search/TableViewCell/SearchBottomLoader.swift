@@ -43,5 +43,8 @@ final class SearchBottomLoader: UITableViewCell {
         backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         contentView.addSubview(activityIndicatorView)
         activityIndicatorView.constrainToCenter()
+        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
 }
