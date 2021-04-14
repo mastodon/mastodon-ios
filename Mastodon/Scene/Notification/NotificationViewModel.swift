@@ -85,7 +85,12 @@ final class NotificationViewModel: NSObject  {
                 guard let self = self else { return }
                 self.fetchedResultsController.fetchRequest.predicate = predicate
                 do {
+                    self.diffableDataSource?.defaultRowAnimation = .fade
                     try self.fetchedResultsController.performFetch()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                        guard let self = self else { return }
+                        self.diffableDataSource?.defaultRowAnimation = .automatic
+                    }
                 } catch {
                     assertionFailure(error.localizedDescription)
                 }

@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import OSLog
+import CoreData
+import CoreDataStack
 
 final class NotificationViewController: UIViewController, NeedsDependency {
     
@@ -58,7 +60,7 @@ extension NotificationViewController {
         tableView.delegate = self
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
-        viewModel.setupDiffableDataSource(for: tableView)
+        viewModel.setupDiffableDataSource(for: tableView, delegate: self, dependency: self)
         viewModel.viewDidLoad.send()
         // bind refresh control
         viewModel.isFetchingLatestNotification
@@ -125,16 +127,18 @@ extension NotificationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 68
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        68
-    }
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
 extension NotificationViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
     func navigationBar() -> UINavigationBar? {
         return navigationController?.navigationBar
+    }
+}
+
+extension NotificationViewController: NotificationTableViewCellDelegate {
+    func parent() -> UIViewController {
+        self
     }
 }
 

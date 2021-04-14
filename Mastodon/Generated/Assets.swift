@@ -53,6 +53,7 @@ internal enum Asset {
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
     }
     internal enum Border {
+      internal static let notification = ColorAsset(name: "Colors/Border/notification")
       internal static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
     }
     internal enum Button {

@@ -13,17 +13,24 @@ import CoreDataStack
 extension NotificationViewModel {
     
     func setupDiffableDataSource(
-        for tableView: UITableView
+        for tableView: UITableView,
+        delegate: NotificationTableViewCellDelegate,
+        dependency: NeedsDependency
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 30.0, on: .main, in: .common)
             .autoconnect()
             .share()
             .eraseToAnyPublisher()
-        
+        guard let userid = activeMastodonAuthenticationBox.value?.userID else {
+            return
+        }
         diffableDataSource = NotificationSection.tableViewDiffableDataSource(
             for: tableView,
             timestampUpdatePublisher: timestampUpdatePublisher,
-            managedObjectContext: context.managedObjectContext
+            managedObjectContext: context.managedObjectContext,
+            delegate: delegate,
+            dependency: dependency,
+            requestUserID: userid
         )
     }
     
