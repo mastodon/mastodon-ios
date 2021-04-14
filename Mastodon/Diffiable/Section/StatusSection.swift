@@ -393,7 +393,7 @@ extension StatusSection {
     ) {
         if status.reblog != nil {
             cell.statusView.headerContainerStackView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
+            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
             cell.statusView.headerInfoLabel.text = {
                 let author = status.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName

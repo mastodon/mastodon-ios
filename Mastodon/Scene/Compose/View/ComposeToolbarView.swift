@@ -80,8 +80,12 @@ final class ComposeToolbarView: UIView {
 }
 
 extension ComposeToolbarView {
+    
     private func _init() {
-        backgroundColor = .secondarySystemBackground
+        // magic keyboard color (iOS 14):
+        // light with white background: RGB 214 216 222
+        // dark with black background: RGB 43 43 43
+        backgroundColor = Asset.Scene.Compose.toolbarBackground.color
         
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -125,9 +129,18 @@ extension ComposeToolbarView {
         pollButton.addTarget(self, action: #selector(ComposeToolbarView.pollButtonDidPressed(_:)), for: .touchUpInside)
         emojiButton.addTarget(self, action: #selector(ComposeToolbarView.emojiButtonDidPressed(_:)), for: .touchUpInside)
         contentWarningButton.addTarget(self, action: #selector(ComposeToolbarView.contentWarningButtonDidPressed(_:)), for: .touchUpInside)
-        visibilityButton.menu = createVisibilityContextMenu()
+        visibilityButton.menu = createVisibilityContextMenu(interfaceStyle: traitCollection.userInterfaceStyle)
         visibilityButton.showsMenuAsPrimaryAction = true
+        
+        updateToolbarButtonUserInterfaceStyle()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateToolbarButtonUserInterfaceStyle()
+    }
+    
 }
 
 extension ComposeToolbarView {
@@ -152,9 +165,15 @@ extension ComposeToolbarView {
             }
         }
         
-        var image: UIImage {
+        func image(interfaceStyle: UIUserInterfaceStyle) -> UIImage {
             switch self {
-            case .public: return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+            case .public:
+                switch interfaceStyle {
+                case .light:
+                    return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+                default:
+                    return UIImage(systemName: "person.3.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+                }
             case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!
             case .private: return UIImage(systemName: "person.crop.circle.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!
             case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium))!
@@ -180,6 +199,25 @@ extension ComposeToolbarView {
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 5
         button.layer.cornerCurve = .continuous
+    }
+    
+    private func updateToolbarButtonUserInterfaceStyle() {
+        switch traitCollection.userInterfaceStyle {
+        case .light:
+            mediaButton.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
+            emojiButton.setImage(UIImage(systemName: "face.smiling", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
+            contentWarningButton.setImage(UIImage(systemName: "exclamationmark.shield", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
+
+        case .dark:
+            mediaButton.setImage(UIImage(systemName: "photo.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
+            emojiButton.setImage(UIImage(systemName: "face.smiling.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
+            contentWarningButton.setImage(UIImage(systemName: "exclamationmark.shield.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
+
+        default:
+            assertionFailure()
+        }
+        
+        visibilityButton.menu = createVisibilityContextMenu(interfaceStyle: traitCollection.userInterfaceStyle)
     }
     
     private func createMediaContextMenu() -> UIMenu {
@@ -208,9 +246,9 @@ extension ComposeToolbarView {
         return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
     }
     
-    private func createVisibilityContextMenu() -> UIMenu {
+    private func createVisibilityContextMenu(interfaceStyle: UIUserInterfaceStyle) -> UIMenu {
         let children: [UIMenuElement] = VisibilitySelectionType.allCases.map { type in
-            UIAction(title: type.title, image: type.image, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] action in
+            UIAction(title: type.title, image: type.image(interfaceStyle: interfaceStyle), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] action in
                 guard let self = self else { return }
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: visibilitySelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, type.rawValue)
                 self.delegate?.composeToolbarView(self, visibilityButtonDidPressed: self.visibilityButton, visibilitySelectionType: type)

@@ -50,8 +50,15 @@ extension ComposeStatusSection {
             weak composeStatusPollExpiresOptionCollectionViewCellDelegate
         ] collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
-            case .replyTo(let repliedToStatusObjectID):
+            case .replyTo(let replyToStatusObjectID):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToStatusContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToStatusContentCollectionViewCell
+                managedObjectContext.perform {
+                    guard let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
+                        return
+                    }
+                    let status = replyTo.reblog ?? replyTo
+                    cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
+                }
                 return cell
             case .input(let replyToStatusObjectID, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
@@ -63,9 +70,10 @@ extension ComposeStatusSection {
                         return
                     }
                     cell.statusView.headerContainerStackView.isHidden = false
-                    cell.statusView.headerInfoLabel.text = "[TODO] \(replyTo.author.displayName)"
+                    cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+                    cell.statusView.headerInfoLabel.text = L10n.Scene.Compose.replyingToUser(replyTo.author.displayNameWithFallback)
                 }
-                ComposeStatusSection.configure(cell: cell, attribute: attribute)
+                ComposeStatusSection.configureStatusContent(cell: cell, attribute: attribute)
                 cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
                 cell.composeContent
                     .removeDuplicates()
@@ -196,7 +204,7 @@ extension ComposeStatusSection {
 
 extension ComposeStatusSection {
     
-    static func configure(
+    static func configureStatusContent(
         cell: ComposeStatusContentCollectionViewCell,
         attribute: ComposeStatusItem.ComposeStatusAttribute
     ) {

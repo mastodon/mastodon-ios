@@ -224,6 +224,10 @@ internal enum L10n {
       internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
       /// Type or paste what's on your mind
       internal static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder")
+      /// replying to %@
+      internal static func replyingToUser(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Compose.ReplyingToUser", String(describing: p1))
+      }
       internal enum Attachment {
         /// This %@ is broken and can't be\nuploaded to Mastodon.
         internal static func attachmentBroken(_ p1: Any) -> String {
@@ -259,6 +263,10 @@ internal enum L10n {
         internal static let oneDay = L10n.tr("Localizable", "Scene.Compose.Poll.OneDay")
         /// 1 Hour
         internal static let oneHour = L10n.tr("Localizable", "Scene.Compose.Poll.OneHour")
+        /// Option %ld
+        internal static func optionNumber(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Poll.OptionNumber", p1)
+        }
         /// 7 Days
         internal static let sevenDays = L10n.tr("Localizable", "Scene.Compose.Poll.SevenDays")
         /// 6 Hours

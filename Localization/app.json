@@ -240,6 +240,7 @@
             },
             "content_input_placeholder": "Type or paste what's on your mind",
             "compose_action": "Publish",
+            "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",
                 "video": "video",
@@ -254,7 +255,8 @@
                 "six_hours": "6 Hours",
                 "one_day": "1 Day",
                 "three_days": "3 Days",
-                "seven_days": "7 Days"
+                "seven_days": "7 Days",
+                "option_number": "Option %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."

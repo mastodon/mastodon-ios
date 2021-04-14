@@ -91,26 +91,32 @@ internal enum Asset {
   internal enum Connectivity {
     internal static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
-  internal enum Profile {
-    internal enum Banner {
-      internal static let bioEditBackgroundGray = ColorAsset(name: "Profile/Banner/bio.edit.background.gray")
-      internal static let nameEditBackgroundGray = ColorAsset(name: "Profile/Banner/name.edit.background.gray")
-      internal static let usernameGray = ColorAsset(name: "Profile/Banner/username.gray")
+  internal enum Scene {
+    internal enum Compose {
+      internal static let background = ColorAsset(name: "Scene/Compose/background")
+      internal static let toolbarBackground = ColorAsset(name: "Scene/Compose/toolbar.background")
     }
-  }
-  internal enum Welcome {
-    internal enum Illustration {
-      internal static let backgroundCyan = ColorAsset(name: "Welcome/illustration/background.cyan")
-      internal static let cloudBase = ImageAsset(name: "Welcome/illustration/cloud.base")
-      internal static let elephantOnAirplaneWithContrail = ImageAsset(name: "Welcome/illustration/elephant.on.airplane.with.contrail")
-      internal static let elephantThreeOnGrass = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass")
-      internal static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass.with.tree.three")
-      internal static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Welcome/illustration/elephant.three.on.grass.with.tree.two")
+    internal enum Profile {
+      internal enum Banner {
+        internal static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")
+        internal static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")
+        internal static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
+      }
     }
-    internal static let mastodonLogoBlack = ImageAsset(name: "Welcome/mastodon.logo.black")
-    internal static let mastodonLogoBlackLarge = ImageAsset(name: "Welcome/mastodon.logo.black.large")
-    internal static let mastodonLogo = ImageAsset(name: "Welcome/mastodon.logo")
-    internal static let mastodonLogoLarge = ImageAsset(name: "Welcome/mastodon.logo.large")
+    internal enum Welcome {
+      internal enum Illustration {
+        internal static let backgroundCyan = ColorAsset(name: "Scene/Welcome/illustration/background.cyan")
+        internal static let cloudBase = ImageAsset(name: "Scene/Welcome/illustration/cloud.base")
+        internal static let elephantOnAirplaneWithContrail = ImageAsset(name: "Scene/Welcome/illustration/elephant.on.airplane.with.contrail")
+        internal static let elephantThreeOnGrass = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass")
+        internal static let elephantThreeOnGrassWithTreeThree = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.three")
+        internal static let elephantThreeOnGrassWithTreeTwo = ImageAsset(name: "Scene/Welcome/illustration/elephant.three.on.grass.with.tree.two")
+      }
+      internal static let mastodonLogoBlack = ImageAsset(name: "Scene/Welcome/mastodon.logo.black")
+      internal static let mastodonLogoBlackLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.black.large")
+      internal static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
+      internal static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

@@ -31,7 +31,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         button.setTitleColor(.white, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+        button.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 16, bottom: 5.5, right: 16)     // set 28pt height
         button.adjustsImageWhenHighlighted = false
         return button
     }()
@@ -66,18 +66,18 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return view
     }()
     
-    let composeToolbarView: ComposeToolbarView = {
-        let composeToolbarView = ComposeToolbarView()
-        let text = UITextView()
-        let inputView = UIInputView(frame: .init(x: 0, y: 0, width: 40, height: 40), inputViewStyle: .keyboard)
-        text.inputAccessoryView = inputView
-        composeToolbarView.backgroundColor = inputView.backgroundColor
-        return composeToolbarView
-    }()
+    let composeToolbarView = ComposeToolbarView()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
     let composeToolbarBackgroundView: UIView = {
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .secondarySystemBackground
+        // set keyboard background to make the keyboard blurred color fixed
+        backgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
+            // avoid elevated color
+            switch traitCollection.userInterfaceStyle {
+            case .light:        return .white
+            default:            return .black
+            }
+        })
         return backgroundView
     }()
     
@@ -135,7 +135,7 @@ extension ComposeViewController {
                 self.title = title
             }
             .store(in: &disposeBag)
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Scene.Compose.background.color
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
         navigationItem.rightBarButtonItem = publishBarButtonItem
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
@@ -266,13 +266,17 @@ extension ComposeViewController {
             .store(in: &disposeBag)
         
         // bind visibility toolbar UI
-        viewModel.selectedStatusVisibility
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] type in
-                guard let self = self else { return }
-                self.composeToolbarView.visibilityButton.setImage(type.image, for: .normal)
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            viewModel.selectedStatusVisibility,
+            viewModel.traitCollectionDidChangePublisher
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] type, _ in
+            guard let self = self else { return }
+            let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
+            self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
+        }
+        .store(in: &disposeBag)
         
         viewModel.characterCount
             .receive(on: DispatchQueue.main)
@@ -334,6 +338,12 @@ extension ComposeViewController {
             guard let self = self else { return }
             self.markTextEditorViewBecomeFirstResponser()
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        viewModel.traitCollectionDidChangePublisher.send()
     }
     
 }
