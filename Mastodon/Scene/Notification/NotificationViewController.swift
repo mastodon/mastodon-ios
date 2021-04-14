@@ -10,6 +10,7 @@ import Combine
 import OSLog
 import CoreData
 import CoreDataStack
+import MastodonSDK
 
 final class NotificationViewController: UIViewController, NeedsDependency {
     
@@ -22,7 +23,6 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     let segmentControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything,L10n.Scene.Notification.Title.mentions])
         control.selectedSegmentIndex = 0
-        control.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .touchUpInside)
         return control
     }()
     
@@ -33,6 +33,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
         tableView.register(SearchBottomLoader.self, forCellReuseIdentifier: String(describing: SearchBottomLoader.self))
+        tableView.tableFooterView = UIView()
         return tableView
     }()
     
@@ -46,6 +47,7 @@ extension NotificationViewController {
         super.viewDidLoad()
         view.backgroundColor = Asset.Colors.Background.searchResult.color
         navigationItem.titleView = segmentControl
+        segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
         view.addSubview(tableView)
         tableView.constrain([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -111,6 +113,14 @@ extension NotificationViewController {
 extension NotificationViewController {
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         os_log("%{public}s[%{public}ld], %{public}s: select at index: %ld", ((#file as NSString).lastPathComponent), #line, #function, sender.selectedSegmentIndex)
+        guard let domain = viewModel.activeMastodonAuthenticationBox.value?.domain else {
+            return
+        }
+        if sender.selectedSegmentIndex == 0 {
+            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
+        } else {
+            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, type: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
+        }
     }
     
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
