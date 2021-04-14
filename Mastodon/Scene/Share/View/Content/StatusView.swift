@@ -181,7 +181,7 @@ final class StatusView: UIView {
     // do not use visual effect view due to we blur text only without background
     let contentWarningBlurContentImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        imageView.backgroundColor = Asset.Colors.Background.systemBackground.color
         imageView.layer.masksToBounds = false
         return imageView
     }()

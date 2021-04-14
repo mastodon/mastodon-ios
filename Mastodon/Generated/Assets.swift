@@ -44,7 +44,6 @@ internal enum Asset {
       internal static let mediaTypeIndicotor = ColorAsset(name: "Colors/Background/media.type.indicotor")
       internal static let navigationBar = ColorAsset(name: "Colors/Background/navigationBar")
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
-      internal static let searchResult = ColorAsset(name: "Colors/Background/searchResult")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")

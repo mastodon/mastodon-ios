@@ -49,7 +49,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
         collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
         collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
-        collectionView.backgroundColor = Asset.Colors.Background.systemBackground.color
+        collectionView.backgroundColor = Asset.Scene.Compose.background.color
         return collectionView
     }()
     

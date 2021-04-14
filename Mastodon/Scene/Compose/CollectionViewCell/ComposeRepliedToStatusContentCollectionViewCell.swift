@@ -38,7 +38,7 @@ extension ComposeRepliedToStatusContentCollectionViewCell {
     
     private func _init() {
         backgroundColor = .clear
-        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Scene.Compose.background.color
+        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.systemBackground.color
 
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)

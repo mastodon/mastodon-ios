@@ -45,7 +45,7 @@ extension UserTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

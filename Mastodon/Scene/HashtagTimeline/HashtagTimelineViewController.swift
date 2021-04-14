@@ -57,7 +57,7 @@ extension HashtagTimelineViewController {
         titleView.update(title: viewModel.hashtag, subtitle: nil)
         navigationItem.titleView = titleView
         
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         
         navigationItem.rightBarButtonItem = composeBarButtonItem
         

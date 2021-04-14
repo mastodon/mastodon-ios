@@ -47,7 +47,6 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
-        
         return tableView
     }()
     
@@ -71,7 +70,7 @@ extension HomeTimelineViewController {
         super.viewDidLoad()
         
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         navigationItem.leftBarButtonItem = settingBarButtonItem
         navigationItem.titleView = titleView
         titleView.delegate = self
