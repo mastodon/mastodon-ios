@@ -245,10 +245,10 @@ class SettingsViewModel: NSObject, NeedsDependency {
                           L10n.Scene.Settings.Section.Spicyzone.signout]
         var spicyLinkItems = [SettingsItem]()
         for l in spicyLinks {
-            let item = SettingsItem.boringZone(item: SettingsItem.Link(title: l, color: .systemRed))
+            let item = SettingsItem.spicyZone(item: SettingsItem.Link(title: l, color: .systemRed))
             spicyLinkItems.append(item)
         }
-        let spicySection = SettingsSection.boringZone(title: L10n.Scene.Settings.Section.Spicyzone.title, items: spicyLinkItems)
+        let spicySection = SettingsSection.spicyZone(title: L10n.Scene.Settings.Section.Spicyzone.title, items: spicyLinkItems)
         snapshot.appendSections([spicySection])
         snapshot.appendItems(spicyLinkItems)
         
@@ -317,7 +317,7 @@ enum SettingsSection: Hashable {
     case apperance(title: String, selectedMode: SettingsItem)
     case notifications(title: String, items: [SettingsItem])
     case boringZone(title: String, items: [SettingsItem])
-    case spicyZone(tilte: String, items: [SettingsItem])
+    case spicyZone(title: String, items: [SettingsItem])
     
     var title: String {
         switch self {

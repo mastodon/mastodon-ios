@@ -301,33 +301,41 @@ extension SettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.section == 2 || indexPath.section == 3 else { return }
+        let snapshot = self.viewModel.dataSource.snapshot()
+        let sectionIds = snapshot.sectionIdentifiers
+        guard indexPath.section < sectionIds.count else { return }
+        let sectionIdentifier = sectionIds[indexPath.section]
+        let items = snapshot.itemIdentifiers(inSection: sectionIdentifier)
+        guard indexPath.row < items.count else { return }
+        let item = items[indexPath.item]
         
-        if indexPath.section == 2 {
+        switch item {
+        case .boringZone:
             coordinator.present(
                 scene: .safari(url: URL(string: "https://mastodon.online/terms")!),
                 from: self,
                 transition: .safariPresent(animated: true, completion: nil)
             )
-        }
-        
-        // clear media cache
-        if indexPath.section == 3, indexPath.row == 0 {
-            // clean image cache for AlamofireImage
-            let diskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, diskBytes)
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: clean image cache", ((#file as NSString).lastPathComponent), #line, #function)
-            ImageDownloader.defaultURLCache().removeAllCachedResponses()
-            let cleanedDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, cleanedDiskBytes)
-            
-            // clean Kingfisher Cache
-            KingfisherManager.shared.cache.clearDiskCache()
-        }
-        
-        // logout
-        if indexPath.section == 3, indexPath.row == 1 {
-            alertToSignout()
+        case .spicyZone(let link):
+            // clear media cache
+            if link.title == L10n.Scene.Settings.Section.Spicyzone.clear {
+                // clean image cache for AlamofireImage
+                let diskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, diskBytes)
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: clean image cache", ((#file as NSString).lastPathComponent), #line, #function)
+                ImageDownloader.defaultURLCache().removeAllCachedResponses()
+                let cleanedDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, cleanedDiskBytes)
+                
+                // clean Kingfisher Cache
+                KingfisherManager.shared.cache.clearDiskCache()
+            }
+            // logout
+            if link.title == L10n.Scene.Settings.Section.Spicyzone.signout {
+                alertToSignout()
+            }
+        default:
+            break
         }
     }
 }
