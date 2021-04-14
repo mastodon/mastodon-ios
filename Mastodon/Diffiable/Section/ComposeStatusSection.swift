@@ -92,7 +92,12 @@ extension ComposeStatusSection {
                     .receive(on: DispatchQueue.main)
                     .sink { text in
                         // self size input cell
+                        // needs restore content offset to resolve issue #83
+                        let oldContentOffset = collectionView.contentOffset
                         collectionView.collectionViewLayout.invalidateLayout()
+                        collectionView.layoutIfNeeded()
+                        collectionView.contentOffset = oldContentOffset
+                        
                         // bind input data
                         attribute.composeContent.value = text
                     }
@@ -187,6 +192,7 @@ extension ComposeStatusSection {
             case .pollOption(let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusPollOptionCollectionViewCell
                 cell.pollOptionView.optionTextField.text = attribute.option.value
+                cell.pollOptionView.optionTextField.placeholder = L10n.Scene.Compose.Poll.optionNumber(indexPath.item + 1)
                 cell.pollOption
                     .receive(on: DispatchQueue.main)
                     .assign(to: \.value, on: attribute.option)

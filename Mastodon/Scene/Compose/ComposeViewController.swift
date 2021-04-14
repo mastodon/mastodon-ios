@@ -68,18 +68,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     let composeToolbarView = ComposeToolbarView()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-    let composeToolbarBackgroundView: UIView = {
-        let backgroundView = UIView()
-        // set keyboard background to make the keyboard blurred color fixed
-        backgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
-            // avoid elevated color
-            switch traitCollection.userInterfaceStyle {
-            case .light:        return .white
-            default:            return .black
-            }
-        })
-        return backgroundView
-    }()
+    let composeToolbarBackgroundView = UIView()
     
     private(set) lazy var imagePicker: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
@@ -202,14 +191,27 @@ extension ComposeViewController {
         )
         .sink(receiveValue: { [weak self] isShow, state, endFrame, isCustomEmojiComposing in
             guard let self = self else { return }
+                        
+            let extraMargin: CGFloat = {
+                if self.view.safeAreaInsets.bottom == .zero {
+                    // needs extra margin for zero inset device to workaround UIKit issue
+                    return self.composeToolbarView.frame.height
+                } else {
+                    // default some magic 16 extra margin
+                    return 16
+                }
+            }()
+            
+            // update keyboard background color
 
             guard isShow, state == .dock else {
-                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
-                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 UIView.animate(withDuration: 0.3) {
                     self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
+                self.updateKeyboardBackground(isKeyboardDisplay: isShow)
                 return
             }
             // isShow AND dock state
@@ -218,22 +220,23 @@ extension ComposeViewController {
             let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
-                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
-                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 UIView.animate(withDuration: 0.3) {
                     self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
+                self.updateKeyboardBackground(isKeyboardDisplay: false)
                 return
             }
 
-            // add 16pt margin
-            self.collectionView.contentInset.bottom = padding + 16
-            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + 16
+            self.collectionView.contentInset.bottom = padding + extraMargin
+            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + extraMargin
             UIView.animate(withDuration: 0.3) {
                 self.composeToolbarViewBottomLayoutConstraint.constant = padding
                 self.view.layoutIfNeeded()
             }
+            self.updateKeyboardBackground(isKeyboardDisplay: isShow)
         })
         .store(in: &disposeBag)
 
@@ -472,6 +475,20 @@ extension ComposeViewController {
         let imagePicker = PHPickerViewController(configuration: configuration)
         imagePicker.delegate = self
         return imagePicker
+    }
+    
+    private func updateKeyboardBackground(isKeyboardDisplay: Bool) {
+        guard isKeyboardDisplay else {
+            composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
+            return
+        }
+        composeToolbarBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
+            // avoid elevated color
+            switch traitCollection.userInterfaceStyle {
+            case .light:        return .white
+            default:            return .black
+            }
+        })
     }
 
 }
