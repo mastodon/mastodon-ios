@@ -57,7 +57,19 @@ extension ComposeStatusSection {
                         return
                     }
                     let status = replyTo.reblog ?? replyTo
+                    
+                    // set avatar
                     cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
+                    // set name username
+                    cell.statusView.nameLabel.text = {
+                        let author = status.author
+                        return author.displayName.isEmpty ? author.username : author.displayName
+                    }()
+                    cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
+                    // set text
+                    cell.statusView.activeTextLabel.configure(content: status.content)
+                    // set date
+                    cell.statusView.dateLabel.text = status.createdAt.shortTimeAgoSinceNow
                 }
                 return cell
             case .input(let replyToStatusObjectID, let attribute):

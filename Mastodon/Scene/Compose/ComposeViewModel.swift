@@ -87,7 +87,36 @@ final class ComposeViewModel {
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
-        if case let .hashtag(text) = composeKind {
+        if case let .reply(repliedToStatusObjectID) = composeKind {
+            context.managedObjectContext.performAndWait {
+                guard let status = context.managedObjectContext.object(with: repliedToStatusObjectID) as? Status else { return }
+                let composeAuthor: MastodonUser? = {
+                    guard let objectID = self.activeAuthentication.value?.user.objectID else { return nil }
+                    guard let author = context.managedObjectContext.object(with: objectID) as? MastodonUser else { return nil }
+                    return author
+                }()
+                
+                var mentionAccts: [String] = []
+                if composeAuthor?.id != status.author.id {
+                    mentionAccts.append("@" + status.author.acct)
+                }
+                let mentions = (status.mentions ?? Set())
+                    .sorted(by: { $0.index.intValue < $1.index.intValue })
+                    .filter { $0.id != composeAuthor?.id }
+                for mention in mentions {
+                    mentionAccts.append("@" + mention.acct)
+                }
+                for acct in mentionAccts {
+                    UITextChecker.learnWord(acct)
+                }
+                
+                let initialComposeContent = mentionAccts.joined(separator: " ")
+                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
+                self.preInsertedContent = preInsertedContent
+                self.composeStatusAttribute.composeContent.value = preInsertedContent
+            }
+            
+        } else if case let .hashtag(text) = composeKind {
             let initialComposeContent = "#" + text
             UITextChecker.learnWord(initialComposeContent)
             let preInsertedContent = initialComposeContent + " "

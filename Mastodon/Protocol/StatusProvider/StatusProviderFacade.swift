@@ -277,7 +277,6 @@ extension StatusProviderFacade {
 }
 
 extension StatusProviderFacade {
- 
     
     static func responseToStatusReblogAction(provider: StatusProvider) {
         _responseToStatusReblogAction(
@@ -383,6 +382,37 @@ extension StatusProviderFacade {
             .store(in: &provider.disposeBag)
     }
 
+}
+
+extension StatusProviderFacade {
+    
+    static func responseToStatusReplyAction(provider: StatusProvider) {
+        _responseToStatusReplyAction(
+            provider: provider,
+            status: provider.status()
+        )
+    }
+    
+    static func responseToStatusReplyAction(provider: StatusProvider, cell: UITableViewCell) {
+        _responseToStatusReplyAction(
+            provider: provider,
+            status: provider.status(for: cell, indexPath: nil)
+        )
+    }
+    
+    private static func _responseToStatusReplyAction(provider: StatusProvider, status: Future<Status?, Never>) {
+        status
+            .sink { [weak provider] status in
+                guard let provider = provider else { return }
+                guard let status = status?.reblog ?? status else { return }
+                
+                let composeViewModel = ComposeViewModel(context: provider.context, composeKind: .reply(repliedToStatusObjectID: status.objectID))
+                provider.coordinator.present(scene: .compose(viewModel: composeViewModel), from: provider, transition: .modal(animated: true, completion: nil))
+            }
+            .store(in: &provider.context.disposeBag)
+        
+    }
+    
 }
 
 extension StatusProviderFacade {

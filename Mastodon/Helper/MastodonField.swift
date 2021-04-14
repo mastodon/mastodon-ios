@@ -11,7 +11,7 @@ import ActiveLabel
 enum MastodonField {
     
     static func parse(field string: String) -> ParseResult {
-        let mentionMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.]+)?)")
+        let mentionMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?)")
         let hashtagMatches = string.matches(pattern: "(?:#([^\\s.]+))")
         let urlMatches = string.matches(pattern: "(?i)https?://\\S+(?:/|\\b)")
         

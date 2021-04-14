@@ -114,6 +114,10 @@ extension FavoriteViewController: UITableViewDelegate {
         aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aspectTableView(tableView, didSelectRowAt: indexPath)
+    }
+    
 }
 
 // MARK: - UITableViewDataSourcePrefetching

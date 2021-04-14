@@ -88,8 +88,6 @@ extension ThreadViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // force readable layout frame update
-        tableView.reloadData()
         aspectViewWillAppear(animated)
     }
     
@@ -104,7 +102,10 @@ extension ThreadViewController {
 extension ThreadViewController {
     @objc private func replyBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
+        guard let rootItem = viewModel.rootItem.value,
+              case let .root(statusObjectID, _) = rootItem else { return }
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .reply(repliedToStatusObjectID: statusObjectID))
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
 }
 

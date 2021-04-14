@@ -10,7 +10,7 @@ import AVKit
 
 //   Check List                     Last Updated
 // - HomeViewController:                2021/4/13
-// - FavoriteViewController:            2021/4/8
+// - FavoriteViewController:            2021/4/14
 // - HashtagTimelineViewController:     2021/4/8
 // - UserTimelineViewController:        2021/4/13
 // - ThreadViewController:              2021/4/13
