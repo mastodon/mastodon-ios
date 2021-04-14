@@ -31,11 +31,12 @@ extension NotificationSection {
             guard let dependency = dependency else { return nil }
             switch notificationItem {
             case .notification(let objectID):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
-                cell.delegate = delegate
+                
                 let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
                 let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.type)
                 
+                let timeText = notification.createAt.shortTimeAgoSinceNow
+
                 var actionText: String
                 var actionImageName: String
                 var color: UIColor
@@ -66,39 +67,59 @@ extension NotificationSection {
                     color = .clear
                 }
                 
-                timestampUpdatePublisher
-                    .sink { _ in
-                        let timeText = notification.createAt.shortTimeAgoSinceNow
-                        cell.actionLabel.text = actionText + " · " + timeText
-                    }
-                    .store(in: &cell.disposeBag)
-                let timeText = notification.createAt.shortTimeAgoSinceNow
-                cell.actionImageBackground.backgroundColor = color
-                cell.actionLabel.text = actionText + " · " + timeText
-                cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
-                cell.avatatImageView.af.setImage(
-                    withURL: URL(string: notification.account.avatar)!,
-                    placeholderImage: UIImage.placeholder(color: .systemFill),
-                    imageTransition: .crossDissolve(0.2)
-                )
-                
-                if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
-                    cell.actionImageView.image = actionImage
-                }
                 if let status = notification.status {
-                    let frame = CGRect(x: 0, y: 0, width: tableView.readableContentGuide.layoutFrame.width - 61 - 2, height: tableView.readableContentGuide.layoutFrame.height)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationStatusTableViewCell.self), for: indexPath) as! NotificationStatusTableViewCell
+                    cell.delegate = delegate
                     NotificationSection.configure(cell: cell,
                                                   dependency: dependency,
-                                                  readableLayoutFrame: frame,
+                                                  readableLayoutFrame: nil,
                                                   timestampUpdatePublisher: timestampUpdatePublisher,
                                                   status: status,
-                                                  requestUserID: "",
+                                                  requestUserID: requestUserID,
                                                   statusItemAttribute: Item.StatusAttribute(isStatusTextSensitive: false, isStatusSensitive: false))
-                    cell.nameLabelLayoutIn(center: false)
+                    timestampUpdatePublisher
+                        .sink { _ in
+                            let timeText = notification.createAt.shortTimeAgoSinceNow
+                            cell.actionLabel.text = actionText + " · " + timeText
+                        }
+                        .store(in: &cell.disposeBag)
+                    cell.actionImageBackground.backgroundColor = color
+                    cell.actionLabel.text = actionText + " · " + timeText
+                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.avatatImageView.af.setImage(
+                        withURL: URL(string: notification.account.avatar)!,
+                        placeholderImage: UIImage.placeholder(color: .systemFill),
+                        imageTransition: .crossDissolve(0.2)
+                    )
+                    
+                    if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
+                        cell.actionImageView.image = actionImage
+                    }
+                    return cell
+                    
                 } else {
-                    cell.nameLabelLayoutIn(center: true)
+                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
+                    cell.delegate = delegate
+                    timestampUpdatePublisher
+                        .sink { _ in
+                            let timeText = notification.createAt.shortTimeAgoSinceNow
+                            cell.actionLabel.text = actionText + " · " + timeText
+                        }
+                        .store(in: &cell.disposeBag)
+                    cell.actionImageBackground.backgroundColor = color
+                    cell.actionLabel.text = actionText + " · " + timeText
+                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.avatatImageView.af.setImage(
+                        withURL: URL(string: notification.account.avatar)!,
+                        placeholderImage: UIImage.placeholder(color: .systemFill),
+                        imageTransition: .crossDissolve(0.2)
+                    )
+                    
+                    if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
+                        cell.actionImageView.image = actionImage
+                    }
+                    return cell
                 }
-                return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchBottomLoader.self)) as! SearchBottomLoader
                 cell.startAnimating()
@@ -111,7 +132,7 @@ extension NotificationSection {
 
 extension NotificationSection {
     static func configure(
-        cell: NotificationTableViewCell,
+        cell: NotificationStatusTableViewCell,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
@@ -317,7 +338,7 @@ extension NotificationSection {
     }
 
     static func configureHeader(
-        cell: NotificationTableViewCell,
+        cell: NotificationStatusTableViewCell,
         status: Status
     ) {
         if status.reblog != nil {
@@ -343,7 +364,7 @@ extension NotificationSection {
     
     
     static func configurePoll(
-        cell: NotificationTableViewCell,
+        cell: NotificationStatusTableViewCell,
         poll: Poll?,
         requestUserID: String,
         updateProgressAnimated: Bool,

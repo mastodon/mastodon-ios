@@ -1,21 +1,15 @@
 //
-//  NotificationTableViewCell.swift
+//  NotificationStatusTableViewCell.swift
 //  Mastodon
 //
-//  Created by sxiaojian on 2021/4/13.
+//  Created by sxiaojian on 2021/4/14.
 //
 
 import Combine
 import Foundation
 import UIKit
 
-protocol NotificationTableViewCellDelegate: class {
-    var context: AppContext! { get }
-    
-    func parent() -> UIViewController
-}
-
-final class NotificationTableViewCell: UITableViewCell {
+final class NotificationStatusTableViewCell: UITableViewCell {
     static let actionImageBorderWidth: CGFloat = 2
     
     var disposeBag = Set<AnyCancellable>()
@@ -38,10 +32,10 @@ final class NotificationTableViewCell: UITableViewCell {
     
     let actionImageBackground: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = (24 + NotificationTableViewCell.actionImageBorderWidth) / 2
+        view.layer.cornerRadius = (24 + NotificationStatusTableViewCell.actionImageBorderWidth) / 2
         view.layer.cornerCurve = .continuous
         view.clipsToBounds = true
-        view.layer.borderWidth = NotificationTableViewCell.actionImageBorderWidth
+        view.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
         view.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
         view.tintColor = Asset.Colors.Background.searchResult.color
         return view
@@ -63,9 +57,27 @@ final class NotificationTableViewCell: UITableViewCell {
         return label
     }()
     
+    let statusContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = 6
+        view.layer.borderWidth = 2
+        view.layer.cornerCurve = .continuous
+        view.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    let statusView = StatusView()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         avatatImageView.af.cancelImageRequest()
+        statusView.isStatusTextSensitive = false
+        statusView.cleanUpContentWarning()
+        statusView.pollTableView.dataSource = nil
+        statusView.playerContainerView.reset()
+        statusView.playerContainerView.isHidden = true
         disposeBag.removeAll()
     }
     
@@ -78,9 +90,16 @@ final class NotificationTableViewCell: UITableViewCell {
         super.init(coder: coder)
         configure()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        DispatchQueue.main.async {
+            self.statusView.drawContentWarningImageView()
+        }
+    }
 }
 
-extension NotificationTableViewCell {
+extension NotificationStatusTableViewCell {
     func configure() {
         selectionStyle = .none
         
@@ -89,16 +108,15 @@ extension NotificationTableViewCell {
         avatatImageView.pin(top: 12, left: 12, bottom: nil, right: nil)
         
         contentView.addSubview(actionImageBackground)
-        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
+        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationStatusTableViewCell.actionImageBorderWidth, height: 24 + NotificationStatusTableViewCell.actionImageBorderWidth))
         actionImageBackground.pin(top: 33, left: 33, bottom: nil, right: nil)
         
         actionImageBackground.addSubview(actionImageView)
         actionImageView.constrainToCenter()
-
+        
         contentView.addSubview(nameLabel)
         nameLabel.constrain([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
-            contentView.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 24),
+            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 61)
         ])
         
@@ -108,11 +126,22 @@ extension NotificationTableViewCell {
             actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
             contentView.trailingAnchor.constraint(equalTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
         ])
+        
+        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        addStatusAndContainer()
     }
     
+    func addStatusAndContainer() {
+        contentView.addSubview(statusContainer)
+        statusContainer.pin(top: 40, left: 63, bottom: 14, right: 14)
+        
+        contentView.addSubview(statusView)
+        statusView.pin(top: 40 + 12, left: 63 + 12, bottom: 14 + 12, right: 14 + 12)
+    }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        statusContainer.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
         actionImageBackground.layer.borderColor = Asset.Colors.Background.searchResult.color.cgColor
     }
 }

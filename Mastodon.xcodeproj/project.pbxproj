@@ -44,6 +44,7 @@
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
 		2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */; };
 		2D206B9225F60EA700143C56 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B9125F60EA700143C56 /* UIControl.swift */; };
+		2D24E11D2626D8B100A59D4F /* NotificationStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D24E11C2626D8B100A59D4F /* NotificationStatusTableViewCell.swift */; };
 		2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */; };
 		2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAB925CB9B0500C9ED86 /* UIView.swift */; };
 		2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */; };
@@ -431,6 +432,7 @@
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackService.swift; sourceTree = "<group>"; };
 		2D206B9125F60EA700143C56 /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
+		2D24E11C2626D8B100A59D4F /* NotificationStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStatusTableViewCell.swift; sourceTree = "<group>"; };
 		2D32EAAB25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2D32EAB925CB9B0500C9ED86 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
@@ -898,6 +900,7 @@
 			isa = PBXGroup;
 			children = (
 				2D35238026256F690031AF25 /* NotificationTableViewCell.swift */,
+				2D24E11C2626D8B100A59D4F /* NotificationStatusTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -2363,6 +2366,7 @@
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				2D24E11D2626D8B100A59D4F /* NotificationStatusTableViewCell.swift in Sources */,
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				2D61254D262547C200299647 /* APIService+Notification.swift in Sources */,
