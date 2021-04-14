@@ -24,6 +24,7 @@ final class NotificationViewModel: NSObject  {
     
     let viewDidLoad = PassthroughSubject<Void, Never>()
     let selectedIndex = CurrentValueSubject<Int,Never>(0)
+    let noMoreNotification = CurrentValueSubject<Bool,Never>(false)
     
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!

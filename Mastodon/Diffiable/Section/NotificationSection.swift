@@ -147,13 +147,7 @@ extension NotificationSection {
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
     ) {
-        // disable interaction
-        cell.statusView.isUserInteractionEnabled = false
-        // remove item don't display
-        cell.statusView.actionToolbarContainer.removeFromSuperview()
-        cell.statusView.avatarView.removeFromSuperview()
-        
-        
+                
         // setup attribute
         statusItemAttribute.setupForStatus(status: status)
         

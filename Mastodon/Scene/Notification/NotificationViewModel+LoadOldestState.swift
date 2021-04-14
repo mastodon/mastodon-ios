@@ -9,6 +9,7 @@ import os.log
 import Foundation
 import GameplayKit
 import MastodonSDK
+import CoreDataStack
 
 extension NotificationViewModel {
     class LoadOldestState: GKState {
@@ -42,13 +43,24 @@ extension NotificationViewModel.LoadOldestState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-            guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            guard let activeMastodonAuthenticationBox = viewModel.activeMastodonAuthenticationBox.value else {
                 assertionFailure()
                 stateMachine.enter(Fail.self)
                 return
             }
-
-            guard let last = viewModel.fetchedResultsController.fetchedObjects?.last else {
+            let notifications: [MastodonNotification]? = {
+                let request = MastodonNotification.sortedFetchRequest
+                request.predicate = MastodonNotification.predicate(domain: activeMastodonAuthenticationBox.domain)
+                request.returnsObjectsAsFaults = false
+                do {
+                    return try self.viewModel?.context.managedObjectContext.fetch(request)
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return nil
+                }
+            }()
+            
+            guard let last = notifications?.last else {
                 stateMachine.enter(Idle.self)
                 return
             }
@@ -78,6 +90,7 @@ extension NotificationViewModel.LoadOldestState {
                 } receiveValue: { [weak viewModel] response in
                     guard let viewModel = viewModel else { return }
                     if viewModel.selectedIndex.value == 1 {
+                        viewModel.noMoreNotification.value = response.value.isEmpty
                         let list = response.value.filter { $0.type == Mastodon.Entity.Notification.NotificationType.mention }
                         if list.isEmpty {
                             stateMachine.enter(NoMore.self)

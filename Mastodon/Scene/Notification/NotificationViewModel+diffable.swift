@@ -72,7 +72,7 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
             var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
             newSnapshot.appendSections([.main])
             newSnapshot.appendItems(notifications.map({NotificationItem.notification(objectID: $0.objectID)}), toSection: .main)
-            if !notifications.isEmpty {
+            if !notifications.isEmpty && self.noMoreNotification.value == false {
                 newSnapshot.appendItems([.bottomLoader], toSection: .main)
             }
             
@@ -112,6 +112,9 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
         
         guard sourceIndexPath.row < oldSnapshot.itemIdentifiers(inSection: .main).count else { return nil }
         
+        if oldSnapshot.itemIdentifiers.elementsEqual(newSnapshot.itemIdentifiers) {
+            return nil
+        }
         let timelineItem = oldSnapshot.itemIdentifiers(inSection: .main)[sourceIndexPath.row]
         guard let itemIndex = newSnapshot.itemIdentifiers(inSection: .main).firstIndex(of: timelineItem) else { return nil }
         let targetIndexPath = IndexPath(row: itemIndex, section: 0)

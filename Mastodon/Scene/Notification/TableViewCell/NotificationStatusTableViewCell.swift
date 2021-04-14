@@ -79,6 +79,7 @@ final class NotificationStatusTableViewCell: UITableViewCell {
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
         statusView.playerContainerView.isHidden = true
+
         disposeBag.removeAll()
     }
     
@@ -133,6 +134,12 @@ extension NotificationStatusTableViewCell {
     }
     
     func addStatusAndContainer() {
+        statusView.isUserInteractionEnabled = false
+        // remove item don't display
+        statusView.actionToolbarContainer.removeFromSuperview()
+        statusView.avatarView.removeFromSuperview()
+        statusView.usernameLabel.removeFromSuperview()
+        
         contentView.addSubview(statusContainer)
         statusContainer.pin(top: 40, left: 63, bottom: 14, right: 14)
         

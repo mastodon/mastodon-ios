@@ -156,6 +156,19 @@ extension NotificationViewController: UITableViewDelegate {
             break
         }
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .bottomLoader:
+            if !tableView.isDragging && !tableView.isDecelerating {
+                viewModel.loadoldestStateMachine.enter(NotificationViewModel.LoadOldestState.Loading.self)
+            }
+        default:
+            break
+        }
+    }
 
 }
 
