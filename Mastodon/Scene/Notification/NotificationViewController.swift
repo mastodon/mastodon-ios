@@ -18,7 +18,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = NotificationViewModel(context: context, coordinator: coordinator)
+    private(set) lazy var viewModel = NotificationViewModel(context: context)
     
     let segmentControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything,L10n.Scene.Notification.Title.mentions])
@@ -136,6 +136,24 @@ extension NotificationViewController {
 // MARK: - UITableViewDelegate
 extension NotificationViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .notification(let objectID):
+            let notification = context.managedObjectContext.object(with: objectID) as! MastodonNotification
+            if notification.status != nil {
+                // TODO goto status detail vc
+            } else {
+                let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: notification.account)
+                DispatchQueue.main.async {
+                    self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+                }
+            }
+        default:
+            break
+        }
+    }
 
 }
 
@@ -147,9 +165,18 @@ extension NotificationViewController: ContentOffsetAdjustableTimelineViewControl
 }
 
 extension NotificationViewController: NotificationTableViewCellDelegate {
+    func userAvatarDidPressed(notification: MastodonNotification) {
+        let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: notification.account)
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+        }
+    }
+    
     func parent() -> UIViewController {
         self
     }
+    
+    
 }
 
 //// MARK: - UIScrollViewDelegate

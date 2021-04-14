@@ -71,7 +71,7 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
             
             var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
             newSnapshot.appendSections([.main])
-            newSnapshot.appendItems(notifications.map({NotificationItem.notification(ObjectID: $0.objectID)}), toSection: .main)
+            newSnapshot.appendItems(notifications.map({NotificationItem.notification(objectID: $0.objectID)}), toSection: .main)
             if !notifications.isEmpty {
                 newSnapshot.appendItems([.bottomLoader], toSection: .main)
             }

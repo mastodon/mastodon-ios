@@ -10,7 +10,7 @@ import CoreData
 
 enum NotificationItem {
     
-    case notification(ObjectID: NSManagedObjectID)
+    case notification(objectID: NSManagedObjectID)
 
     case bottomLoader
 }

@@ -19,7 +19,6 @@ final class NotificationViewModel: NSObject  {
     
     // input
     let context: AppContext
-    weak var coordinator: SceneCoordinator!
     weak var tableView: UITableView?
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
@@ -49,8 +48,7 @@ final class NotificationViewModel: NSObject  {
     
     lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
     
-    init(context: AppContext,coordinator: SceneCoordinator) {
-        self.coordinator = coordinator
+    init(context: AppContext) {
         self.context = context
         self.activeMastodonAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         self.fetchedResultsController = {

@@ -92,7 +92,10 @@ extension NotificationSection {
                         placeholderImage: UIImage.placeholder(color: .systemFill),
                         imageTransition: .crossDissolve(0.2)
                     )
-                    
+                    cell.avatatImageView.gesture().sink { [weak cell] _ in
+                        cell?.delegate?.userAvatarDidPressed(notification: notification)
+                    }
+                    .store(in: &cell.disposeBag)
                     if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
                         cell.actionImageView.image = actionImage
                     }
@@ -115,7 +118,10 @@ extension NotificationSection {
                         placeholderImage: UIImage.placeholder(color: .systemFill),
                         imageTransition: .crossDissolve(0.2)
                     )
-                    
+                    cell.avatatImageView.gesture().sink { [weak cell] _ in
+                        cell?.delegate?.userAvatarDidPressed(notification: notification)
+                    }
+                    .store(in: &cell.disposeBag)
                     if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
                         cell.actionImageView.image = actionImage
                     }
@@ -399,9 +405,20 @@ extension NotificationSection {
                 }
             }
         }()
-        
-        cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.closed
-
+        if poll.expired {
+            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.closed
+        } else if let expiresAt = poll.expiresAt {
+            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+            cell.pollCountdownSubscription = timestampUpdatePublisher
+                .sink { _ in
+                    cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+                }
+        } else {
+            // assertionFailure()
+            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownLabel.text = "-"
+        }
         
         cell.statusView.pollTableView.allowsSelection = !poll.expired
         

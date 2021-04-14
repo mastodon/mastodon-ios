@@ -8,11 +8,14 @@
 import Combine
 import Foundation
 import UIKit
+import CoreDataStack
 
 protocol NotificationTableViewCellDelegate: class {
     var context: AppContext! { get }
     
     func parent() -> UIViewController
+    
+    func userAvatarDidPressed(notification:MastodonNotification)
 }
 
 final class NotificationTableViewCell: UITableViewCell {

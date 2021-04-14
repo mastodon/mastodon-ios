@@ -14,7 +14,7 @@ final class NotificationStatusTableViewCell: UITableViewCell {
     
     static let statusPadding: UIEdgeInsets = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
     var disposeBag = Set<AnyCancellable>()
-    
+    var pollCountdownSubscription: AnyCancellable?
     var delegate: NotificationTableViewCellDelegate?
     
     let avatatImageView: UIImageView = {
