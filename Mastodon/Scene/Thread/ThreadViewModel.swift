@@ -263,7 +263,7 @@ extension ThreadViewModel {
         ) -> LeafNode? {
             guard let object = objectDict[statusID] else { return nil }
             let replies = (object.replyFrom ?? Set()).sorted(
-                by: { $0.repliesCount?.intValue ?? 0 < $1.repliesCount?.intValue ?? 0 }
+                by: { $0.createdAt > $1.createdAt } // order by date
             )
             let children = replies.compactMap { node(of: $0.id, objectDict: objectDict) }
             return LeafNode(
