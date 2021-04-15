@@ -12,7 +12,7 @@ import UIKit
 final class NotificationStatusTableViewCell: UITableViewCell {
     static let actionImageBorderWidth: CGFloat = 2
     
-    static let statusPadding: UIEdgeInsets = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
+    static let statusPadding = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var delegate: NotificationTableViewCellDelegate?

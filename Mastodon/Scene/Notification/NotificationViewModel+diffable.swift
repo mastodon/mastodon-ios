@@ -5,13 +5,12 @@
 //  Created by sxiaojian on 2021/4/13.
 //
 
-import os.log
-import UIKit
 import CoreData
 import CoreDataStack
+import os.log
+import UIKit
 
 extension NotificationViewModel {
-    
     func setupDiffableDataSource(
         for tableView: UITableView,
         delegate: NotificationTableViewCellDelegate,
@@ -33,19 +32,18 @@ extension NotificationViewModel {
             requestUserID: userid
         )
     }
-    
 }
 
 extension NotificationViewModel: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log("%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
         
         guard let tableView = self.tableView else { return }
-        guard let navigationBar = self.contentOffsetAdjustableTimelineViewControllerDelegate?.navigationBar() else { return }
+        guard let navigationBar = contentOffsetAdjustableTimelineViewControllerDelegate?.navigationBar() else { return }
         
         guard let diffableDataSource = self.diffableDataSource else { return }
         let oldSnapshot = diffableDataSource.snapshot()
@@ -56,7 +54,6 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
         managedObjectContext.parent = parentManagedObjectContext
         
         managedObjectContext.perform {
-            
             let notifications: [MastodonNotification] = {
                 let request = MastodonNotification.sortedFetchRequest
                 request.returnsObjectsAsFaults = false
@@ -71,8 +68,8 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
             
             var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
             newSnapshot.appendSections([.main])
-            newSnapshot.appendItems(notifications.map({NotificationItem.notification(objectID: $0.objectID)}), toSection: .main)
-            if !notifications.isEmpty && self.noMoreNotification.value == false {
+            newSnapshot.appendItems(notifications.map { NotificationItem.notification(objectID: $0.objectID) }, toSection: .main)
+            if !notifications.isEmpty, self.noMoreNotification.value == false {
                 newSnapshot.appendItems([.bottomLoader], toSection: .main)
             }
             

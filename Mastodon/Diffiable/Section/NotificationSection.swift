@@ -5,12 +5,12 @@
 //  Created by sxiaojian on 2021/4/13.
 //
 
+import Combine
 import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import Combine
 
 enum NotificationSection: Equatable, Hashable {
     case main
@@ -25,8 +25,8 @@ extension NotificationSection {
         dependency: NeedsDependency,
         requestUserID: String
     ) -> UITableViewDiffableDataSource<NotificationSection, NotificationItem> {
-        return UITableViewDiffableDataSource(tableView: tableView) {
-            [weak delegate,weak dependency]
+        UITableViewDiffableDataSource(tableView: tableView) {
+            [weak delegate, weak dependency]
             (tableView, indexPath, notificationItem) -> UITableViewCell? in
             guard let dependency = dependency else { return nil }
             switch notificationItem {
@@ -136,7 +136,6 @@ extension NotificationSection {
     }
 }
 
-
 extension NotificationSection {
     static func configure(
         cell: NotificationStatusTableViewCell,
@@ -147,7 +146,6 @@ extension NotificationSection {
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
     ) {
-                
         // setup attribute
         statusItemAttribute.setupForStatus(status: status)
         
@@ -175,7 +173,6 @@ extension NotificationSection {
         cell.statusView.avatarButton.isHidden = false
         cell.statusView.avatarStackedContainerButton.isHidden = true
         cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
-        
         
         // set text
         cell.statusView.activeTextLabel.configure(content: (status.reblog ?? status).content)
@@ -338,7 +335,6 @@ extension NotificationSection {
                 cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
-
     }
 
     static func configureHeader(
@@ -365,7 +361,6 @@ extension NotificationSection {
             cell.statusView.headerContainerStackView.isHidden = true
         }
     }
-    
     
     static func configurePoll(
         cell: NotificationStatusTableViewCell,
@@ -486,7 +481,7 @@ extension NotificationSection {
     }
 }
 
-extension NotificationSection  {
+extension NotificationSection {
     private static func formattedNumberTitleForActionButton(_ number: Int?) -> String {
         guard let number = number, number > 0 else { return "" }
         return String(number)

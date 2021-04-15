@@ -87,7 +87,7 @@ class GestureSubscription<S: Subscriber>: Subscription where S.Input == GestureT
 
 extension UIView {
     func gesture(_ gestureType: GestureType = .tap()) -> GesturePublisher {
-        self.isUserInteractionEnabled = true
+        isUserInteractionEnabled = true
         return GesturePublisher(view: self, gestureType: gestureType)
     }
 }

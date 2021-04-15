@@ -5,11 +5,10 @@
 //  Created by sxiaojian on 2021/4/13.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 enum NotificationItem {
-    
     case notification(objectID: NSManagedObjectID)
 
     case bottomLoader
@@ -20,7 +19,7 @@ extension NotificationItem: Equatable {
         switch (lhs, rhs) {
         case (.bottomLoader, .bottomLoader):
             return true
-        case (.notification(let idLeft),.notification(let idRight)):
+        case (.notification(let idLeft), .notification(let idRight)):
             return idLeft == idRight
         default:
             return false

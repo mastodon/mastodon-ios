@@ -5,16 +5,15 @@
 //  Created by sxiaojian on 2021/4/12.
 //
 
-import Foundation
 import Combine
-import UIKit
 import CoreData
 import CoreDataStack
+import Foundation
 import GameplayKit
 import MastodonSDK
+import UIKit
 
-final class NotificationViewModel: NSObject  {
-    
+final class NotificationViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
     
     // input
@@ -23,8 +22,8 @@ final class NotificationViewModel: NSObject  {
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
     let viewDidLoad = PassthroughSubject<Void, Never>()
-    let selectedIndex = CurrentValueSubject<Int,Never>(0)
-    let noMoreNotification = CurrentValueSubject<Bool,Never>(false)
+    let selectedIndex = CurrentValueSubject<Int, Never>(0)
+    let noMoreNotification = CurrentValueSubject<Bool, Never>(false)
     
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
@@ -33,7 +32,7 @@ final class NotificationViewModel: NSObject  {
     
     let isFetchingLatestNotification = CurrentValueSubject<Bool, Never>(false)
     
-    //output
+    // output
     var diffableDataSource: UITableViewDiffableDataSource<NotificationSection, NotificationItem>!
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
@@ -63,6 +62,7 @@ final class NotificationViewModel: NSObject  {
         stateMachine.enter(LoadOldestState.Initial.self)
         return stateMachine
     }()
+
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     
     init(context: AppContext) {
@@ -71,7 +71,7 @@ final class NotificationViewModel: NSObject  {
         self.fetchedResultsController = {
             let fetchRequest = MastodonNotification.sortedFetchRequest
             fetchRequest.returnsObjectsAsFaults = false
-            fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(MastodonNotification.status),#keyPath(MastodonNotification.account)]
+            fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(MastodonNotification.status), #keyPath(MastodonNotification.account)]
             let controller = NSFetchedResultsController(
                 fetchRequest: fetchRequest,
                 managedObjectContext: context.managedObjectContext,
@@ -83,7 +83,7 @@ final class NotificationViewModel: NSObject  {
         }()
         
         super.init()
-        self.fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self
         context.authenticationService.activeMastodonAuthenticationBox
             .sink(receiveValue: { [weak self] box in
                 guard let self = self else { return }
@@ -95,7 +95,7 @@ final class NotificationViewModel: NSObject  {
             .store(in: &disposeBag)
         
         notificationPredicate
-            .compactMap{ $0 }
+            .compactMap { $0 }
             .sink { [weak self] predicate in
                 guard let self = self else { return }
                 self.fetchedResultsController.fetchRequest.predicate = predicate
@@ -112,12 +112,11 @@ final class NotificationViewModel: NSObject  {
             }
             .store(in: &disposeBag)
         
-        self.viewDidLoad
+        viewDidLoad
             .sink { [weak self] in
                 
                 guard let domain = self?.activeMastodonAuthenticationBox.value?.domain else { return }
                 self?.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
-                
             }
             .store(in: &disposeBag)
     }

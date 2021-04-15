@@ -5,16 +5,15 @@
 //  Created by sxiaojian on 2021/4/12.
 //
 
-import UIKit
 import Combine
-import OSLog
 import CoreData
 import CoreDataStack
-import MastodonSDK
 import GameplayKit
+import MastodonSDK
+import OSLog
+import UIKit
 
 final class NotificationViewController: UIViewController, NeedsDependency {
-    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -22,7 +21,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     private(set) lazy var viewModel = NotificationViewModel(context: context)
     
     let segmentControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything,L10n.Scene.Notification.Title.mentions])
+        let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything, L10n.Scene.Notification.Title.mentions])
         control.selectedSegmentIndex = 0
         return control
     }()
@@ -41,11 +40,9 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     }()
     
     let refreshControl = UIRefreshControl()
-    
 }
 
 extension NotificationViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Asset.Colors.Background.pure.color
@@ -80,7 +77,6 @@ extension NotificationViewController {
                 }
             }
             .store(in: &disposeBag)
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,12 +106,11 @@ extension NotificationViewController {
             self.tableView.reloadData()
         }
     }
-    
 }
 
 extension NotificationViewController {
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        os_log("%{public}s[%{public}ld], %{public}s: select at index: %ld", ((#file as NSString).lastPathComponent), #line, #function, sender.selectedSegmentIndex)
+        os_log("%{public}s[%{public}ld], %{public}s: select at index: %ld", (#file as NSString).lastPathComponent, #line, #function, sender.selectedSegmentIndex)
         guard let domain = viewModel.activeMastodonAuthenticationBox.value?.domain else {
             return
         }
@@ -136,8 +131,8 @@ extension NotificationViewController {
 }
 
 // MARK: - UITableViewDelegate
+
 extension NotificationViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
@@ -145,9 +140,9 @@ extension NotificationViewController: UITableViewDelegate {
         case .notification(let objectID):
             let notification = context.managedObjectContext.object(with: objectID) as! MastodonNotification
             if notification.status != nil {
-                // TODO goto status detail vc
+                // TODO: goto status detail vc
             } else {
-                let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: notification.account)
+                let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
                 DispatchQueue.main.async {
                     self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
                 }
@@ -162,26 +157,26 @@ extension NotificationViewController: UITableViewDelegate {
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .bottomLoader:
-            if !tableView.isDragging && !tableView.isDecelerating {
+            if !tableView.isDragging, !tableView.isDecelerating {
                 viewModel.loadoldestStateMachine.enter(NotificationViewModel.LoadOldestState.Loading.self)
             }
         default:
             break
         }
     }
-
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
+
 extension NotificationViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
     func navigationBar() -> UINavigationBar? {
-        return navigationController?.navigationBar
+        navigationController?.navigationBar
     }
 }
 
 extension NotificationViewController: NotificationTableViewCellDelegate {
     func userAvatarDidPressed(notification: MastodonNotification) {
-        let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: notification.account)
+        let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
         DispatchQueue.main.async {
             self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
         }
@@ -190,11 +185,10 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
     func parent() -> UIViewController {
         self
     }
-    
-    
 }
 
 // MARK: - UIScrollViewDelegate
+
 extension NotificationViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
@@ -204,6 +198,6 @@ extension NotificationViewController {
 extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = CommonBottomLoader
     typealias LoadingState = NotificationViewModel.LoadOldestState.Loading
-    var loadMoreConfigurableTableView: UITableView { return tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+    var loadMoreConfigurableTableView: UITableView { tableView }
+    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }
 }

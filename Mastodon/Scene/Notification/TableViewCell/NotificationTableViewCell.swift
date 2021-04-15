@@ -6,16 +6,16 @@
 //
 
 import Combine
+import CoreDataStack
 import Foundation
 import UIKit
-import CoreDataStack
 
-protocol NotificationTableViewCellDelegate: class {
+protocol NotificationTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }
     
     func parent() -> UIViewController
     
-    func userAvatarDidPressed(notification:MastodonNotification)
+    func userAvatarDidPressed(notification: MastodonNotification)
 }
 
 final class NotificationTableViewCell: UITableViewCell {
@@ -113,7 +113,6 @@ extension NotificationTableViewCell {
         ])
     }
     
-
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         actionImageBackground.layer.borderColor = Asset.Colors.Background.pure.color.cgColor

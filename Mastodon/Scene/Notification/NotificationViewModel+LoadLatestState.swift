@@ -5,13 +5,13 @@
 //  Created by sxiaojian on 2021/4/13.
 //
 
-import os.log
-import func QuartzCore.CACurrentMediaTime
-import Foundation
 import CoreData
 import CoreDataStack
+import Foundation
 import GameplayKit
 import MastodonSDK
+import os.log
+import func QuartzCore.CACurrentMediaTime
 
 extension NotificationViewModel {
     class LoadLatestState: GKState {
@@ -22,7 +22,7 @@ extension NotificationViewModel {
         }
         
         override func didEnter(from previousState: GKState?) {
-            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", ((#file as NSString).lastPathComponent), #line, #function, self.debugDescription, previousState.debugDescription)
+            os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", (#file as NSString).lastPathComponent, #line, #function, debugDescription, previousState.debugDescription)
             viewModel?.loadLatestStateMachinePublisher.send(self)
         }
     }
@@ -31,13 +31,13 @@ extension NotificationViewModel {
 extension NotificationViewModel.LoadLatestState {
     class Initial: NotificationViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self
+            stateClass == Loading.self
         }
     }
     
     class Loading: NotificationViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Fail.self || stateClass == Idle.self
+            stateClass == Fail.self || stateClass == Idle.self
         }
         
         override func didEnter(from previousState: GKState?) {
@@ -63,7 +63,7 @@ extension NotificationViewModel.LoadLatestState {
                     switch completion {
                     case .failure(let error):
                         viewModel.isFetchingLatestNotification.value = false
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                     case .finished:
                         // handle isFetchingLatestTimeline in fetch controller delegate
                         break
@@ -76,21 +76,18 @@ extension NotificationViewModel.LoadLatestState {
                     }
                 }
                 .store(in: &viewModel.disposeBag)
-
-            
         }
     }
     
     class Fail: NotificationViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self || stateClass == Idle.self
+            stateClass == Loading.self || stateClass == Idle.self
         }
     }
     
     class Idle: NotificationViewModel.LoadLatestState {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Loading.self
+            stateClass == Loading.self
         }
     }
-
 }
