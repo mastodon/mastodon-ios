@@ -111,7 +111,7 @@ extension NotificationTableViewCell {
         container.addSubview(nameLabel)
         nameLabel.constrain([
             nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 24),
-            contentView.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 24),
+            container.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 24),
             nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 61)
         ])
         
@@ -119,7 +119,7 @@ extension NotificationTableViewCell {
         actionLabel.constrain([
             actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
             actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            contentView.trailingAnchor.constraint(equalTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
+            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
         ])
     }
     

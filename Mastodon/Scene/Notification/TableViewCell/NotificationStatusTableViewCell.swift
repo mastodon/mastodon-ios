@@ -137,7 +137,7 @@ extension NotificationStatusTableViewCell {
         actionLabel.constrain([
             actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
             actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            contentView.trailingAnchor.constraint(equalTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
+            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
         ])
         
         statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
