@@ -31,7 +31,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         button.setTitleColor(.white, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 5.5, left: 16, bottom: 5.5, right: 16)     // set 28pt height
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.adjustsImageWhenHighlighted = false
         return button
     }()
@@ -50,6 +50,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
         collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
         collectionView.backgroundColor = Asset.Scene.Compose.background.color
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
     
@@ -331,6 +332,24 @@ extension ComposeViewController {
                 }
             })
             .store(in: &disposeBag)
+        
+        // setup snap behavior
+        Publishers.CombineLatest(
+            viewModel.repliedToCellFrame.removeDuplicates().eraseToAnyPublisher(),
+            viewModel.collectionViewState.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] repliedToCellFrame, collectionViewState in
+            guard let self = self else { return }
+            guard repliedToCellFrame != .zero else { return }
+            switch collectionViewState {
+            case .fold:
+                self.collectionView.contentInset.top = -repliedToCellFrame.height
+            case .expand:
+                self.collectionView.contentInset.top = 0
+            }
+        }
+        .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -754,6 +773,32 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     
 }
 
+// MARK: - UIScrollViewDelegate
+extension ComposeViewController {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard scrollView === collectionView else { return }
+
+        let repliedToCellFrame = viewModel.repliedToCellFrame.value
+        guard repliedToCellFrame != .zero else { return }
+        let throttle = viewModel.repliedToCellFrame.value.height - scrollView.adjustedContentInset.top
+        // print("\(throttle) - \(scrollView.contentOffset.y)")
+
+        switch viewModel.collectionViewState.value {
+        case .fold:
+            if scrollView.contentOffset.y < throttle {
+                viewModel.collectionViewState.value = .expand
+            }
+            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
+
+        case .expand:
+            if scrollView.contentOffset.y > -44 {
+                viewModel.collectionViewState.value = .fold
+                os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
+            }
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension ComposeViewController: UICollectionViewDelegate {
     
@@ -790,6 +835,10 @@ extension ComposeViewController: UICollectionViewDelegate {
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .fullScreen
+    }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return viewModel.shouldDismiss.value

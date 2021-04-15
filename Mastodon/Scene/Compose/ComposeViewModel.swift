@@ -30,6 +30,7 @@ final class ComposeViewModel {
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make intial event emit
+    let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
@@ -56,6 +57,7 @@ final class ComposeViewModel {
     let isMediaToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
+    let collectionViewState = CurrentValueSubject<CollectionViewState, Never>(.fold)
     
     // for hashtag: #<hashag>' '
     // for mention: @<mention>' '
@@ -375,6 +377,13 @@ final class ComposeViewModel {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
+}
+
+extension ComposeViewModel {
+    enum CollectionViewState {
+        case fold       // snap to input
+        case expand     // snap to reply
+    }
 }
 
 extension ComposeViewModel {

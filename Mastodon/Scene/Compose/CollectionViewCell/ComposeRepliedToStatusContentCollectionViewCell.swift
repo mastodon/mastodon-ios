@@ -14,6 +14,8 @@ final class ComposeRepliedToStatusContentCollectionViewCell: UICollectionViewCel
     
     let statusView = StatusView()
     
+    let framePublisher = PassthroughSubject<CGRect, Never>()
+
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -30,6 +32,11 @@ final class ComposeRepliedToStatusContentCollectionViewCell: UICollectionViewCel
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        framePublisher.send(bounds)
     }
     
 }

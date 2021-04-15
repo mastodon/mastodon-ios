@@ -34,6 +34,7 @@ extension ComposeStatusSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         composeKind: ComposeKind,
+        repliedToCellFrameSubscriber: CurrentValueSubject<CGRect, Never>,
         customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
@@ -70,6 +71,8 @@ extension ComposeStatusSection {
                     cell.statusView.activeTextLabel.configure(content: status.content)
                     // set date
                     cell.statusView.dateLabel.text = status.createdAt.shortTimeAgoSinceNow
+                    
+                    cell.framePublisher.assign(to: \.value, on: repliedToCellFrameSubscriber).store(in: &cell.disposeBag)
                 }
                 return cell
             case .input(let replyToStatusObjectID, let attribute):
