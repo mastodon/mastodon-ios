@@ -105,24 +105,35 @@ extension NotificationStatusTableViewCell {
     func configure() {
         selectionStyle = .none
         
-        contentView.addSubview(avatatImageView)
+        let container = UIView()
+        container.backgroundColor = .clear
+        contentView.addSubview(container)
+        container.constrain([
+            container.topAnchor.constraint(equalTo: contentView.topAnchor),
+            container.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        container.addSubview(avatatImageView)
         avatatImageView.pin(toSize: CGSize(width: 35, height: 35))
         avatatImageView.pin(top: 12, left: 12, bottom: nil, right: nil)
         
-        contentView.addSubview(actionImageBackground)
-        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationStatusTableViewCell.actionImageBorderWidth, height: 24 + NotificationStatusTableViewCell.actionImageBorderWidth))
+        container.addSubview(actionImageBackground)
+        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
         actionImageBackground.pin(top: 33, left: 33, bottom: nil, right: nil)
         
         actionImageBackground.addSubview(actionImageView)
         actionImageView.constrainToCenter()
-        
-        contentView.addSubview(nameLabel)
+
+        container.addSubview(nameLabel)
         nameLabel.constrain([
-            nameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 61)
+            nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
+            nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 61)
+
         ])
         
-        contentView.addSubview(actionLabel)
+        container.addSubview(actionLabel)
         actionLabel.constrain([
             actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
             actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
@@ -130,20 +141,16 @@ extension NotificationStatusTableViewCell {
         ])
         
         statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
-        addStatusAndContainer()
-    }
-    
-    func addStatusAndContainer() {
         statusView.isUserInteractionEnabled = false
         // remove item don't display
         statusView.actionToolbarContainer.removeFromSuperview()
         statusView.avatarView.removeFromSuperview()
         statusView.usernameLabel.removeFromSuperview()
         
-        contentView.addSubview(statusContainer)
+        container.addSubview(statusContainer)
         statusContainer.pin(top: 40, left: 63, bottom: 14, right: 14)
         
-        contentView.addSubview(statusView)
+        container.addSubview(statusView)
         statusView.pin(top: NotificationStatusTableViewCell.statusPadding.top, left: NotificationStatusTableViewCell.statusPadding.left, bottom: NotificationStatusTableViewCell.statusPadding.bottom, right: NotificationStatusTableViewCell.statusPadding.right)
     }
 
