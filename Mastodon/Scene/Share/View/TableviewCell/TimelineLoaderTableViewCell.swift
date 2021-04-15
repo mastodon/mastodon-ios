@@ -22,7 +22,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
-        button.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        button.backgroundColor = Asset.Colors.Background.systemBackground.color
         button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
         button.setTitle(L10n.Common.Controls.Timeline.Loader.loadMissingPosts, for: .normal)
         button.setTitle("", for: .disabled)

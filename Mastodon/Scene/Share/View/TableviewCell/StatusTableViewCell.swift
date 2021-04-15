@@ -103,7 +103,7 @@ extension StatusTableViewCell {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
-        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.systemBackground.color
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
