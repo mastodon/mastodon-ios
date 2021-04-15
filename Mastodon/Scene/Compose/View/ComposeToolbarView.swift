@@ -41,7 +41,10 @@ final class ComposeToolbarView: UIView {
     let emojiButton: UIButton = {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
-        button.setImage(UIImage(systemName: "face.smiling", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)), for: .normal)
+        let image = Asset.Human.faceSmilingAdaptive.image
+            .af.imageScaled(to: CGSize(width: 20, height: 20))
+            .withRenderingMode(.alwaysTemplate)
+        button.setImage(image, for: .normal)
         return button
     }()
     
@@ -203,12 +206,10 @@ extension ComposeToolbarView {
         switch traitCollection.userInterfaceStyle {
         case .light:
             mediaButton.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
-            emojiButton.setImage(UIImage(systemName: "face.smiling", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
             contentWarningButton.setImage(UIImage(systemName: "exclamationmark.shield", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
 
         case .dark:
             mediaButton.setImage(UIImage(systemName: "photo.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
-            emojiButton.setImage(UIImage(systemName: "face.smiling.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
             contentWarningButton.setImage(UIImage(systemName: "exclamationmark.shield.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
 
         default:

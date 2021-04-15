@@ -90,6 +90,9 @@ internal enum Asset {
   internal enum Connectivity {
     internal static let photoFillSplit = ImageAsset(name: "Connectivity/photo.fill.split")
   }
+  internal enum Human {
+    internal static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
+  }
   internal enum Scene {
     internal enum Compose {
       internal static let background = ColorAsset(name: "Scene/Compose/background")
