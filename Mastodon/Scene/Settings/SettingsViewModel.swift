@@ -105,6 +105,7 @@ class SettingsViewModel: NSObject, NeedsDependency {
                 typealias Query = Mastodon.API.Subscriptions.CreateSubscriptionQuery
                 let domain = activeMastodonAuthenticationBox.domain
                 let query = Query(
+                    // FIXME: to replace the correct endpoint, p256dh, auth
                     endpoint: "http://www.google.com",
                     p256dh: "BLQELIDm-6b9Bl07YrEuXJ4BL_YBVQ0dvt9NQGGJxIQidJWHPNa9YrouvcQ9d7_MqzvGS9Alz60SZNCG3qfpk=",
                     auth: "4vQK-SvRAN5eo-8ASlrwA==",
