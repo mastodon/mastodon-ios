@@ -58,7 +58,7 @@ final class NotificationStatusTableViewCell: UITableViewCell {
         return label
     }()
     
-    let statusContainer: UIView = {
+    let statusBorder: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.layer.cornerRadius = 6
@@ -147,8 +147,8 @@ extension NotificationStatusTableViewCell {
         statusView.avatarView.removeFromSuperview()
         statusView.usernameLabel.removeFromSuperview()
         
-        container.addSubview(statusContainer)
-        statusContainer.pin(top: 40, left: 63, bottom: 14, right: 14)
+        container.addSubview(statusBorder)
+        statusBorder.pin(top: 40, left: 63, bottom: 14, right: 14)
         
         container.addSubview(statusView)
         statusView.pin(top: NotificationStatusTableViewCell.statusPadding.top, left: NotificationStatusTableViewCell.statusPadding.left, bottom: NotificationStatusTableViewCell.statusPadding.bottom, right: NotificationStatusTableViewCell.statusPadding.right)
@@ -156,7 +156,7 @@ extension NotificationStatusTableViewCell {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        statusContainer.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
+        statusBorder.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
         actionImageBackground.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
     }
 }

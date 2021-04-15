@@ -46,7 +46,6 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
         guard let navigationBar = contentOffsetAdjustableTimelineViewControllerDelegate?.navigationBar() else { return }
         
         guard let diffableDataSource = self.diffableDataSource else { return }
-        let oldSnapshot = diffableDataSource.snapshot()
         
         let predicate = fetchedResultsController.fetchRequest.predicate
         let parentManagedObjectContext = fetchedResultsController.managedObjectContext
@@ -66,16 +65,18 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
                 }
             }()
             
-            var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
-            newSnapshot.appendSections([.main])
-            newSnapshot.appendItems(notifications.map { NotificationItem.notification(objectID: $0.objectID) }, toSection: .main)
-            if !notifications.isEmpty, self.noMoreNotification.value == false {
-                newSnapshot.appendItems([.bottomLoader], toSection: .main)
-            }
-            
             DispatchQueue.main.async {
+                let oldSnapshot = diffableDataSource.snapshot()
+                var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
+                newSnapshot.appendSections([.main])
+                newSnapshot.appendItems(notifications.map { NotificationItem.notification(objectID: $0.objectID) }, toSection: .main)
+                if !notifications.isEmpty, self.noMoreNotification.value == false {
+                    newSnapshot.appendItems([.bottomLoader], toSection: .main)
+                }
                 guard let difference = self.calculateReloadSnapshotDifference(navigationBar: navigationBar, tableView: tableView, oldSnapshot: oldSnapshot, newSnapshot: newSnapshot) else {
-                    diffableDataSource.apply(newSnapshot)
+                    diffableDataSource.apply(newSnapshot, animatingDifferences: false) {
+                        tableView.reloadData()
+                    }
                     self.isFetchingLatestNotification.value = false
                     return
                 }
