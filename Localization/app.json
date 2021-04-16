@@ -52,7 +52,8 @@
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
-                "status_content_warning": "content warning",
+                "content_warning": "content warning",
+                "content_warning_text": "cw: %s",
                 "media_content_warning": "Tap to reveal that may be sensitive",
                 "poll": {
                     "vote": "Vote",

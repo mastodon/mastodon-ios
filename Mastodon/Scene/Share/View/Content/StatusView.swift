@@ -14,7 +14,8 @@ import AlamofireImage
 protocol StatusViewDelegate: class {
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
     func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton)
-    func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
@@ -53,7 +54,7 @@ final class StatusView: UIView {
     }
     
     weak var delegate: StatusViewDelegate?
-    var isStatusTextSensitive = false
+    private var needsDrawContentOverlay = false
     var pollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
     var pollTableViewHeightLaoutConstraint: NSLayoutConstraint!
     
@@ -115,25 +116,14 @@ final class StatusView: UIView {
         return label
     }()
     
-    let statusContainerStackView = UIStackView()
-    let statusTextContainerView = UIView()
-    let statusContentWarningContainerStackView = UIStackView()
-    var statusContentWarningContainerStackViewBottomLayoutConstraint: NSLayoutConstraint!
-    
-    let contentWarningTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Common.Controls.Status.statusContentWarning
-        return label
-    }()
-    let contentWarningActionButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .medium))
-        button.setTitleColor(Asset.Colors.Label.highlight.color, for: .normal)
-        button.setTitle(L10n.Common.Controls.Status.showPost, for: .normal)
+    let revealContentWarningButton: UIButton = {
+        let button = HighlightDimmableButton()
+        button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
+        button.tintColor = Asset.Colors.Button.normal.color
         return button
     }()
+    
+    let statusContainerStackView = UIStackView()    
     let statusMosaicImageViewContainer = MosaicImageViewContainer()
     
     let pollTableView: PollTableView = {
@@ -179,11 +169,11 @@ final class StatusView: UIView {
     }()
     
     // do not use visual effect view due to we blur text only without background
-    let contentWarningBlurContentImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.backgroundColor = Asset.Colors.Background.systemBackground.color
-        imageView.layer.masksToBounds = false
-        return imageView
+    let contentWarningOverlayView: ContentWarningOverlayView = {
+        let contentWarningOverlayView = ContentWarningOverlayView()
+        contentWarningOverlayView.layer.masksToBounds = false
+        contentWarningOverlayView.configure(style: .blurContentImageView)
+        return contentWarningOverlayView
     }()
 
     let playerContainerView = PlayerContainerView()
@@ -250,11 +240,12 @@ extension StatusView {
         headerContainerStackView.addArrangedSubview(headerInfoLabel)
         headerIconLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
-        // author container: [avatar | author meta container]
+        // author container: [avatar | author meta container | reveal button]
         let authorContainerStackView = UIStackView()
         containerStackView.addArrangedSubview(authorContainerStackView)
         authorContainerStackView.axis = .horizontal
         authorContainerStackView.spacing = StatusView.avatarToLabelSpacing
+        authorContainerStackView.distribution = .fill
 
         // avatar
         avatarView.translatesAutoresizingMaskIntoConstraints = false
@@ -310,45 +301,44 @@ extension StatusView {
         authorMetaContainerStackView.addArrangedSubview(subtitleContainerStackView)
         subtitleContainerStackView.axis = .horizontal
         subtitleContainerStackView.addArrangedSubview(usernameLabel)
+
+        // reveal button
+        authorContainerStackView.addArrangedSubview(revealContentWarningButton)
+        revealContentWarningButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         
-        // status container: [status | image / video | audio | poll | poll status]
+        // status container: [status | image / video | audio | poll | poll status] (overlay with content warning)
         containerStackView.addArrangedSubview(statusContainerStackView)
         statusContainerStackView.axis = .vertical
         statusContainerStackView.spacing = 10
-        statusContainerStackView.addArrangedSubview(statusTextContainerView)
-        statusTextContainerView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
-        activeTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusTextContainerView.addSubview(activeTextLabel)
-        NSLayoutConstraint.activate([
-            activeTextLabel.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
-            activeTextLabel.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
-            activeTextLabel.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: activeTextLabel.bottomAnchor),
-        ])
-        activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        contentWarningBlurContentImageView.translatesAutoresizingMaskIntoConstraints = false
-        statusTextContainerView.addSubview(contentWarningBlurContentImageView)
-        NSLayoutConstraint.activate([
-            activeTextLabel.topAnchor.constraint(equalTo: contentWarningBlurContentImageView.topAnchor, constant: StatusView.contentWarningBlurRadius),
-            activeTextLabel.leadingAnchor.constraint(equalTo: contentWarningBlurContentImageView.leadingAnchor, constant: StatusView.contentWarningBlurRadius),
-            
-        ])
-        statusContentWarningContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        statusContentWarningContainerStackView.axis = .vertical
-        statusContentWarningContainerStackView.distribution = .fill
-        statusContentWarningContainerStackView.alignment = .center
-        statusTextContainerView.addSubview(statusContentWarningContainerStackView)
-        statusContentWarningContainerStackViewBottomLayoutConstraint = statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: statusContentWarningContainerStackView.bottomAnchor)
-        NSLayoutConstraint.activate([
-            statusContentWarningContainerStackView.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
-            statusContentWarningContainerStackView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
-            statusContentWarningContainerStackView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            statusContentWarningContainerStackViewBottomLayoutConstraint,
-        ])
-        statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
-        statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
         
+        // content warning overlay
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addSubview(contentWarningOverlayView)
+        NSLayoutConstraint.activate([
+            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultLow),
+            statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultLow),
+            // only layout to top-left corner and draw image to fit size
+        ])
+        // avoid overlay clip author view
+        containerStackView.bringSubviewToFront(authorContainerStackView)
+        
+        // status
+        statusContainerStackView.addArrangedSubview(activeTextLabel)
+        activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        
+        // image
         statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)
+        
+        // audio
+        audioView.translatesAutoresizingMaskIntoConstraints = false
+        statusContainerStackView.addArrangedSubview(audioView)
+        NSLayoutConstraint.activate([
+            audioView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
+        ])
+        
+        // video & gifv
+        statusContainerStackView.addArrangedSubview(playerContainerView)
+        
         pollTableView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(pollTableView)
         pollTableViewHeightLaoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
@@ -376,17 +366,6 @@ extension StatusView {
         pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
-        // audio
-        audioView.translatesAutoresizingMaskIntoConstraints = false
-        statusContainerStackView.addArrangedSubview(audioView)
-        NSLayoutConstraint.activate([
-            audioView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
-            audioView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            audioView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
-        ])
-        // video gif
-        statusContainerStackView.addArrangedSubview(playerContainerView)
-        
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
@@ -399,12 +378,11 @@ extension StatusView {
         playerContainerView.isHidden = true
         
         avatarStackedContainerButton.isHidden = true
-        contentWarningBlurContentImageView.isHidden = true
-        statusContentWarningContainerStackView.isHidden = true
-        statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+        contentWarningOverlayView.isHidden = true
         
         activeTextLabel.delegate = self
         playerContainerView.delegate = self
+        contentWarningOverlayView.delegate = self
         
         headerInfoLabelTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerInfoLabelTapGestureRecognizerHandler(_:)))
         headerInfoLabel.isUserInteractionEnabled = true
@@ -412,7 +390,7 @@ extension StatusView {
         
         avatarButton.addTarget(self, action: #selector(StatusView.avatarButtonDidPressed(_:)), for: .touchUpInside)
         avatarStackedContainerButton.addTarget(self, action: #selector(StatusView.avatarStackedContainerButtonDidPressed(_:)), for: .touchUpInside)
-        contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
+        revealContentWarningButton.addTarget(self, action: #selector(StatusView.revealContentWarningButtonDidPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
     }
     
@@ -420,30 +398,64 @@ extension StatusView {
 
 extension StatusView {
     
-    func cleanUpContentWarning() {
-        contentWarningBlurContentImageView.image = nil
+    private func cleanUpContentWarning() {
+        contentWarningOverlayView.blurContentImageView.image = nil
     }
     
     func drawContentWarningImageView() {
-        guard activeTextLabel.frame != .zero,
-              isStatusTextSensitive,
-              let text = activeTextLabel.text, !text.isEmpty else {
-            cleanUpContentWarning()
+        guard window != nil else {
             return
         }
         
-        let image = UIGraphicsImageRenderer(size: activeTextLabel.frame.size).image { context in
-            activeTextLabel.draw(activeTextLabel.bounds)
+        guard needsDrawContentOverlay, statusContainerStackView.frame != .zero else {
+            cleanUpContentWarning()
+            return
+        }
+
+        let format = UIGraphicsImageRendererFormat()
+        format.opaque = false
+        let image = UIGraphicsImageRenderer(size: statusContainerStackView.frame.size, format: format).image { context in
+            statusContainerStackView.drawHierarchy(in: statusContainerStackView.bounds, afterScreenUpdates: true)
+            
+            // always draw the blurhash image
+            statusMosaicImageViewContainer.blurhashOverlayImageViews.forEach { imageView in
+                guard let image = imageView.image else { return }
+                guard let frame = imageView.superview?.convert(imageView.frame, to: statusContainerStackView) else { return }
+                image.draw(in: frame)
+            }
         }
         .blur(radius: StatusView.contentWarningBlurRadius)
-        contentWarningBlurContentImageView.contentScaleFactor = traitCollection.displayScale
-        contentWarningBlurContentImageView.image = image
+        contentWarningOverlayView.blurContentImageView.contentScaleFactor = traitCollection.displayScale
+        contentWarningOverlayView.blurContentImageView.image = image
     }
     
-    func updateContentWarningDisplay(isHidden: Bool) {
-        contentWarningBlurContentImageView.isHidden = isHidden
-        statusContentWarningContainerStackView.isHidden = isHidden
-        statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = !isHidden
+    func updateContentWarningDisplay(isHidden: Bool, animated: Bool) {
+        needsDrawContentOverlay = !isHidden
+        if animated {
+            UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut) { [weak self] in
+                guard let self = self else { return }
+                self.contentWarningOverlayView.alpha = isHidden ? 0 : 1
+            } completion: { _ in
+                // do nothing
+            }
+        } else {
+            contentWarningOverlayView.alpha = isHidden ? 0 : 1
+        }
+        
+        if !isHidden {
+            drawContentWarningImageView()
+        }
+    }
+    
+    func updateRevealContentWarningButton(isRevealing: Bool) {
+        if !isRevealing {
+            let image = traitCollection.userInterfaceStyle == .light ? UIImage(systemName: "eye")! : UIImage(systemName: "eye.fill")
+            revealContentWarningButton.setImage(image, for: .normal)
+        } else {
+            let image = traitCollection.userInterfaceStyle == .light ? UIImage(systemName: "eye.slash")! : UIImage(systemName: "eye.slash.fill")
+            revealContentWarningButton.setImage(image, for: .normal)
+        }
+        // TODO: a11y
     }
     
 }
@@ -465,9 +477,9 @@ extension StatusView {
         delegate?.statusView(self, avatarButtonDidPressed: sender)
     }
     
-    @objc private func contentWarningActionButtonPressed(_ sender: UIButton) {
+    @objc private func revealContentWarningButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.statusView(self, contentWarningActionButtonPressed: sender)
+        delegate?.statusView(self, revealContentWarningButtonDidPressed: sender)
     }
     
     @objc private func pollVoteButtonPressed(_ sender: UIButton) {
@@ -483,6 +495,15 @@ extension StatusView: ActiveLabelDelegate {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
         delegate?.statusView(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
     }
+}
+
+// MARK: - ContentWarningOverlayViewDelegate
+extension StatusView: ContentWarningOverlayViewDelegate {
+    func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView) {
+        assert(contentWarningOverlayView === self.contentWarningOverlayView)
+        delegate?.statusView(self, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
 }
 
 // MARK: - PlayerContainerViewDelegate
@@ -554,13 +575,13 @@ struct StatusView_Previews: PreviewProvider {
                 )
                 statusView.headerContainerStackView.isHidden = false
                 let images = MosaicImageView_Previews.images
-                let imageViews = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
+                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                for (i, mosaic) in mosaics.enumerated() {
+                    let (imageView, _) = mosaic
                     imageView.image = images[i]
                 }
                 statusView.statusMosaicImageViewContainer.isHidden = false
                 statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
-                statusView.isStatusTextSensitive = false
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 380))
@@ -574,14 +595,14 @@ struct StatusView_Previews: PreviewProvider {
                     )
                 )
                 statusView.headerContainerStackView.isHidden = false
-                statusView.isStatusTextSensitive = true
                 statusView.setNeedsLayout()
                 statusView.layoutIfNeeded()
+                statusView.updateContentWarningDisplay(isHidden: false, animated: false)
                 statusView.drawContentWarningImageView()
-                statusView.updateContentWarningDisplay(isHidden: false)
                 let images = MosaicImageView_Previews.images
-                let imageViews = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
+                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                for (i, mosaic) in mosaics.enumerated() {
+                    let (imageView, _) = mosaic
                     imageView.image = images[i]
                 }
                 statusView.statusMosaicImageViewContainer.isHidden = false

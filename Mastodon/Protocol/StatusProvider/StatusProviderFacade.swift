@@ -416,6 +416,54 @@ extension StatusProviderFacade {
 }
 
 extension StatusProviderFacade {
+    
+    static func responseToStatusContentWarningRevealAction(provider: StatusProvider, cell: UITableViewCell) {
+        _responseToStatusContentWarningRevealAction(
+            provider: provider,
+            status: provider.status(for: cell, indexPath: nil)
+        )
+    }
+    
+    private static func _responseToStatusContentWarningRevealAction(provider: StatusProvider, status: Future<Status?, Never>) {
+        status
+            .compactMap { [weak provider] status -> AnyPublisher<Status?, Never>? in
+                guard let provider = provider else { return nil }
+                guard let _status = status else { return nil }
+                return provider.context.managedObjectContext.performChanges {
+                    guard let status = provider.context.managedObjectContext.object(with: _status.objectID) as? Status else { return }
+                    let appStartUpTimestamp = provider.context.documentStore.appStartUpTimestamp
+                    let isRevealing: Bool = {
+                        if provider.context.documentStore.defaultRevealStatusDict[status.id] == true {
+                            return true
+                        }
+                        if status.reblog.flatMap({ provider.context.documentStore.defaultRevealStatusDict[$0.id] }) == true {
+                            return true
+                        }
+                        if let revealedAt = status.revealedAt, revealedAt > appStartUpTimestamp {
+                            return true
+                        }
+                        
+                        return false
+                    }()
+                    // toggle reveal
+                    provider.context.documentStore.defaultRevealStatusDict[status.id] = false
+                    status.update(isReveal: !isRevealing)
+                    status.reblog?.update(isReveal: !isRevealing)
+                }
+                .map { result in
+                    return status
+                }
+                .eraseToAnyPublisher()
+            }
+            .sink { _ in
+                // do nothing
+            }
+            .store(in: &provider.context.disposeBag)
+    }
+    
+}
+
+extension StatusProviderFacade {
     enum Target {
         case primary        // original status
         case secondary      // wrapper status or reply (when needs. e.g tap header of status view)

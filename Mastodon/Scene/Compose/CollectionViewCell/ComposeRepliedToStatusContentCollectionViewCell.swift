@@ -19,8 +19,7 @@ final class ComposeRepliedToStatusContentCollectionViewCell: UICollectionViewCel
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        statusView.isStatusTextSensitive = false
-        statusView.cleanUpContentWarning()
+        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         disposeBag.removeAll()
     }
     
@@ -45,7 +44,6 @@ extension ComposeRepliedToStatusContentCollectionViewCell {
     
     private func _init() {
         backgroundColor = .clear
-        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.systemBackground.color
 
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)

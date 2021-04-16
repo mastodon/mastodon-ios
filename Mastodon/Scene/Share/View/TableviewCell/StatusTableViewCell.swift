@@ -22,7 +22,8 @@ protocol StatusTableViewCellDelegate: class {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarButtonDidPressed button: UIButton)
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
     
@@ -55,6 +56,7 @@ final class StatusTableViewCell: UITableViewCell {
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
+    private var selectionBackgroundViewObservation: NSKeyValueObservation?
     
     let statusView = StatusView()
     let threadMetaStackView = UIStackView()
@@ -70,8 +72,7 @@ final class StatusTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         selectionStyle = .default
-        statusView.isStatusTextSensitive = false
-        statusView.cleanUpContentWarning()
+        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
         statusView.playerContainerView.isHidden = true
@@ -92,8 +93,9 @@ final class StatusTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         DispatchQueue.main.async {
-            self.statusView.drawContentWarningImageView()            
+            self.statusView.drawContentWarningImageView()
         }
     }
     
@@ -103,7 +105,6 @@ extension StatusTableViewCell {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
-        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.systemBackground.color
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
@@ -150,9 +151,22 @@ extension StatusTableViewCell {
         resetSeparatorLineLayout()
     }
     
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        resetContentOverlayBlurImageBackgroundColor(selected: highlighted)
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        resetContentOverlayBlurImageBackgroundColor(selected: selected)
+    }
+    
 }
 
 extension StatusTableViewCell {
+    
     private func resetSeparatorLineLayout() {
         separatorLineToEdgeLeadingLayoutConstraint.isActive = false
         separatorLineToEdgeTrailingLayoutConstraint.isActive = false
@@ -180,6 +194,11 @@ extension StatusTableViewCell {
                 ])
             }
         }
+    }
+    
+    private func resetContentOverlayBlurImageBackgroundColor(selected: Bool) {
+        let imageViewBackgroundColor: UIColor? = selected ? selectedBackgroundView?.backgroundColor : backgroundColor
+        statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = imageViewBackgroundColor
     }
 }
 
@@ -270,8 +289,12 @@ extension StatusTableViewCell: StatusViewDelegate {
         delegate?.statusTableViewCell(self, statusView: statusView, avatarButtonDidPressed: button)
     }
     
-    func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
-        delegate?.statusTableViewCell(self, statusView: statusView, contentWarningActionButtonPressed: button)
+    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
+        delegate?.statusTableViewCell(self, statusView: statusView, revealContentWarningButtonDidPressed: button)
+    }
+    
+    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusTableViewCell(self, statusView: statusView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
     }
     
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {

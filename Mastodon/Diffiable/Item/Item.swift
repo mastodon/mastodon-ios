@@ -5,6 +5,7 @@
 //  Created by sxiaojian on 2021/1/27.
 //
 
+import Combine
 import CoreData
 import CoreDataStack
 import Foundation
@@ -33,59 +34,18 @@ enum Item {
     case emptyStateHeader(attribute: EmptyStateHeaderAttribute)
 }
 
-protocol StatusContentWarningAttribute {
-    var isStatusTextSensitive: Bool? { get set }
-    var isStatusSensitive: Bool? { get set }
-}
-
 extension Item {
-    class StatusAttribute: StatusContentWarningAttribute {
-        var isStatusTextSensitive: Bool?
-        var isStatusSensitive: Bool?
+    class StatusAttribute {
         var isSeparatorLineHidden: Bool
+        
+        let isImageLoaded = CurrentValueSubject<Bool, Never>(false)
+        let isMediaRevealing = CurrentValueSubject<Bool, Never>(false)
 
-        init(
-            isStatusTextSensitive: Bool? = nil,
-            isStatusSensitive: Bool? = nil,
-            isSeparatorLineHidden: Bool = false
-        ) {
-            self.isStatusTextSensitive = isStatusTextSensitive
-            self.isStatusSensitive = isStatusSensitive
+        init(isSeparatorLineHidden: Bool = false) {
             self.isSeparatorLineHidden = isSeparatorLineHidden
         }
-        
-        // delay attribute init
-        func setupForStatus(status: Status) {
-            if isStatusTextSensitive == nil {
-                isStatusTextSensitive = {
-                    guard let spoilerText = status.spoilerText, !spoilerText.isEmpty else { return false }
-                    return true
-                }()
-            }
-            
-            if isStatusSensitive == nil {
-                isStatusSensitive = status.sensitive
-            }
-        }
     }
-    
-//    class LeafAttribute {
-//        let identifier = UUID()
-//        let statusID: Status.ID
-//        var level: Int = 0
-//        var hasReply: Bool = true
-//
-//        init(
-//            statusID: Status.ID,
-//            level: Int,
-//            hasReply: Bool = true
-//        ) {
-//            self.statusID = statusID
-//            self.level = level
-//            self.hasReply = hasReply
-//        }
-//    }
-    
+        
     class EmptyStateHeaderAttribute: Hashable {
         let id = UUID()
         let reason: Reason

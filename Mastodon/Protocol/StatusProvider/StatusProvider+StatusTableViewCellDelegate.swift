@@ -28,6 +28,14 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         StatusProviderFacade.responseToStatusActiveLabelAction(provider: self, cell: cell, activeLabel: activeLabel, didTapEntity: entity)
     }
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
+    }
+    
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
+    }
+    
 }
 
 // MARK: - ActionToolbarContainerDelegate
@@ -43,25 +51,6 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, likeButtonDidPressed sender: UIButton) {
         StatusProviderFacade.responseToStatusLikeAction(provider: self, cell: cell)
-    }
-    
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningActionButtonPressed button: UIButton) {
-        guard let diffableDataSource = self.tableViewDiffableDataSource else { return }
-        guard let item = item(for: cell, indexPath: nil) else { return }
-            
-        switch item {
-        case .homeTimelineIndex(_, let attribute),
-            .status(_, let attribute),
-            .root(_, let attribute),
-            .reply(_, let attribute),
-            .leaf(_, let attribute):
-            attribute.isStatusTextSensitive = false
-        default:
-            return
-        }
-        var snapshot = diffableDataSource.snapshot()
-        snapshot.reloadItems([item])
-        diffableDataSource.apply(snapshot)
     }
     
 }
@@ -83,28 +72,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        guard let diffableDataSource = self.tableViewDiffableDataSource else { return }
-        guard let item = item(for: cell, indexPath: nil) else { return }
-        
-        switch item {
-        case .homeTimelineIndex(_, let attribute),
-            .status(_, let attribute),
-            .root(_, let attribute),
-            .reply(_, let attribute),
-            .leaf(_, let attribute):
-            attribute.isStatusSensitive = false
-        default:
-            return
-        }
-        contentWarningOverlayView.isUserInteractionEnabled = false
-        var snapshot = diffableDataSource.snapshot()
-        snapshot.reloadItems([item])
-        UIView.animate(withDuration: 0.33) {
-            contentWarningOverlayView.blurVisualEffectView.effect = nil
-            contentWarningOverlayView.vibrancyVisualEffectView.alpha = 0.0
-        } completion: { _ in
-            diffableDataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-        }
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
     }
     
 }
