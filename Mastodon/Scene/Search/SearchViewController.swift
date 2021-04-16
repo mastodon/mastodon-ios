@@ -227,7 +227,7 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 extension SearchViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = CommonBottomLoader
+    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
     typealias LoadingState = SearchViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { searchingTableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }

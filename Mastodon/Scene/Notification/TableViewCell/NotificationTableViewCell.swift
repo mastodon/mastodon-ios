@@ -85,7 +85,6 @@ final class NotificationTableViewCell: UITableViewCell {
 
 extension NotificationTableViewCell {
     func configure() {
-        selectionStyle = .none
         
         let container = UIView()
         container.backgroundColor = .clear
@@ -99,7 +98,7 @@ extension NotificationTableViewCell {
         
         container.addSubview(avatatImageView)
         avatatImageView.pin(toSize: CGSize(width: 35, height: 35))
-        avatatImageView.pin(top: 12, left: 12, bottom: nil, right: nil)
+        avatatImageView.pin(top: 12, left: 0, bottom: nil, right: nil)
         
         container.addSubview(actionImageBackground)
         actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
@@ -119,7 +118,7 @@ extension NotificationTableViewCell {
         actionLabel.constrain([
             actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
             actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
+            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4)
         ])
     }
     

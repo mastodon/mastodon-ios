@@ -33,7 +33,7 @@ extension NotificationSection {
             case .notification(let objectID):
                 
                 let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
-                let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.type)
+                let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw)
                 
                 let timeText = notification.createAt.shortTimeAgoSinceNow
 
@@ -128,7 +128,7 @@ extension NotificationSection {
                     return cell
                 }
             case .bottomLoader:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CommonBottomLoader.self)) as! CommonBottomLoader
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self)) as! TimelineBottomLoaderTableViewCell
                 cell.startAnimating()
                 return cell
             }

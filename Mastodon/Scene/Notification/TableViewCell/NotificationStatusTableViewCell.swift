@@ -103,7 +103,6 @@ final class NotificationStatusTableViewCell: UITableViewCell {
 
 extension NotificationStatusTableViewCell {
     func configure() {
-        selectionStyle = .none
         
         let container = UIView()
         container.backgroundColor = .clear
@@ -117,11 +116,11 @@ extension NotificationStatusTableViewCell {
         
         container.addSubview(avatatImageView)
         avatatImageView.pin(toSize: CGSize(width: 35, height: 35))
-        avatatImageView.pin(top: 12, left: 12, bottom: nil, right: nil)
+        avatatImageView.pin(top: 12, left: 0, bottom: nil, right: nil)
         
         container.addSubview(actionImageBackground)
         actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
-        actionImageBackground.pin(top: 33, left: 33, bottom: nil, right: nil)
+        actionImageBackground.pin(top: 33, left: 21, bottom: nil, right: nil)
         
         actionImageBackground.addSubview(actionImageView)
         actionImageView.constrainToCenter()
@@ -130,22 +129,21 @@ extension NotificationStatusTableViewCell {
         nameLabel.constrain([
             nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
             nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 61)
-
         ])
         
         container.addSubview(actionLabel)
         actionLabel.constrain([
             actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
             actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4).priority(.defaultLow)
+            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4)
         ])
         
         statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         statusView.isUserInteractionEnabled = false
         // remove item don't display
-        statusView.actionToolbarContainer.removeFromSuperview()
-        statusView.avatarView.removeFromSuperview()
-        statusView.usernameLabel.removeFromSuperview()
+        statusView.actionToolbarContainer.isHidden = true
+        statusView.avatarView.isHidden = true
+        statusView.usernameLabel.isHidden = true
         
         container.addSubview(statusBorder)
         statusBorder.pin(top: 40, left: 63, bottom: 14, right: 14)

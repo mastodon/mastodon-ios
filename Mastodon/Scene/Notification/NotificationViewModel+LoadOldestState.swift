@@ -50,7 +50,7 @@ extension NotificationViewModel.LoadOldestState {
             }
             let notifications: [MastodonNotification]? = {
                 let request = MastodonNotification.sortedFetchRequest
-                request.predicate = MastodonNotification.predicate(domain: activeMastodonAuthenticationBox.domain)
+                request.predicate = MastodonNotification.predicate(domain: activeMastodonAuthenticationBox.domain, userID: activeMastodonAuthenticationBox.userID)
                 request.returnsObjectsAsFaults = false
                 do {
                     return try self.viewModel?.context.managedObjectContext.fetch(request)
@@ -71,12 +71,13 @@ extension NotificationViewModel.LoadOldestState {
                 sinceID: nil,
                 minID: nil,
                 limit: nil,
-                excludeTypes: Mastodon.API.Notifications.allExcludeTypes(),
+                excludeTypes: [.followRequest],
                 accountID: nil)
             viewModel.context.apiService.allNotifications(
                 domain: activeMastodonAuthenticationBox.domain,
                 query: query,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+                mastodonAuthenticationBox: activeMastodonAuthenticationBox
+            )
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
@@ -89,16 +90,17 @@ extension NotificationViewModel.LoadOldestState {
                     stateMachine.enter(Idle.self)
                 } receiveValue: { [weak viewModel] response in
                     guard let viewModel = viewModel else { return }
-                    if viewModel.selectedIndex.value == 1 {
-                        viewModel.noMoreNotification.value = response.value.isEmpty
-                        let list = response.value.filter { $0.type == Mastodon.Entity.Notification.NotificationType.mention }
-                        if list.isEmpty {
+                    switch viewModel.selectedIndex.value {
+                    case .EveryThing:
+                        if response.value.isEmpty {
                             stateMachine.enter(NoMore.self)
                         } else {
                             stateMachine.enter(Idle.self)
                         }
-                    } else {
-                        if response.value.isEmpty {
+                    case .Mentions:
+                        viewModel.noMoreNotification.value = response.value.isEmpty
+                        let list = response.value.filter { $0.type == Mastodon.Entity.Notification.NotificationType.mention }
+                        if list.isEmpty {
                             stateMachine.enter(NoMore.self)
                         } else {
                             stateMachine.enter(Idle.self)

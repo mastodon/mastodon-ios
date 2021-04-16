@@ -22,7 +22,7 @@ final class NotificationViewModel: NSObject {
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
     let viewDidLoad = PassthroughSubject<Void, Never>()
-    let selectedIndex = CurrentValueSubject<Int, Never>(0)
+    let selectedIndex = CurrentValueSubject<NotificationSegment, Never>(.EveryThing)
     let noMoreNotification = CurrentValueSubject<Bool, Never>(false)
     
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
@@ -88,8 +88,8 @@ final class NotificationViewModel: NSObject {
             .sink(receiveValue: { [weak self] box in
                 guard let self = self else { return }
                 self.activeMastodonAuthenticationBox.value = box
-                if let domain = box?.domain {
-                    self.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
+                if let domain = box?.domain, let userID = box?.userID {
+                    self.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
                 }
             })
             .store(in: &disposeBag)
@@ -115,9 +115,16 @@ final class NotificationViewModel: NSObject {
         viewDidLoad
             .sink { [weak self] in
                 
-                guard let domain = self?.activeMastodonAuthenticationBox.value?.domain else { return }
-                self?.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
+                guard let domain = self?.activeMastodonAuthenticationBox.value?.domain, let userID = self?.activeMastodonAuthenticationBox.value?.userID else { return }
+                self?.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
             }
             .store(in: &disposeBag)
+    }
+}
+
+extension NotificationViewModel {
+    enum NotificationSegment: Int {
+        case EveryThing
+        case Mentions
     }
 }

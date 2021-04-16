@@ -174,8 +174,9 @@ extension UIView {
         guard superview != nil else { assert(false, "Superview cannot be nil when adding contraints"); return }
         translatesAutoresizingMaskIntoConstraints = false
         constrain([
-            widthAnchor.constraint(equalToConstant: toSize.width),
-            heightAnchor.constraint(equalToConstant: toSize.height)])
+            widthAnchor.constraint(equalToConstant: toSize.width).priority(.required - 1),
+            heightAnchor.constraint(equalToConstant: toSize.height).priority(.required - 1)
+        ])
     }
 
     func pin(top: CGFloat?,left: CGFloat?,bottom: CGFloat?, right: CGFloat?) {

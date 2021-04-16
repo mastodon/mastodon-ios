@@ -53,12 +53,14 @@ extension NotificationViewModel.LoadLatestState {
                 sinceID: nil,
                 minID: nil,
                 limit: nil,
-                excludeTypes: Mastodon.API.Notifications.allExcludeTypes(),
-                accountID: nil)
+                excludeTypes: [.followRequest],
+                accountID: nil
+            )
             viewModel.context.apiService.allNotifications(
                 domain: activeMastodonAuthenticationBox.domain,
                 query: query,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+                mastodonAuthenticationBox: activeMastodonAuthenticationBox
+            )
                 .sink { completion in
                     switch completion {
                     case .failure(let error):

@@ -17,10 +17,10 @@ enum NotificationItem {
 extension NotificationItem: Equatable {
     static func == (lhs: NotificationItem, rhs: NotificationItem) -> Bool {
         switch (lhs, rhs) {
-        case (.bottomLoader, .bottomLoader):
-            return true
         case (.notification(let idLeft), .notification(let idRight)):
             return idLeft == idRight
+        case (.bottomLoader, .bottomLoader):
+            return true
         default:
             return false
         }

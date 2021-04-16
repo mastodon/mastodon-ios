@@ -12,13 +12,14 @@ public final class MastodonNotification: NSManagedObject {
     public typealias ID = UUID
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var id: String
-    @NSManaged public private(set) var domain: String
     @NSManaged public private(set) var createAt: Date
     @NSManaged public private(set) var updatedAt: Date
-    @NSManaged public private(set) var type: String
+    @NSManaged public private(set) var typeRaw: String
     @NSManaged public private(set) var account: MastodonUser
     @NSManaged public private(set) var status: Status?
 
+    @NSManaged public private(set) var domain: String
+    @NSManaged public private(set) var userID: String
 }
 
 extension MastodonNotification {
@@ -26,12 +27,6 @@ extension MastodonNotification {
         super.awakeFromInsert()
         setPrimitiveValue(UUID(), forKey: #keyPath(MastodonNotification.identifier))
     }
-    
-    public override func willSave() {
-        super.willSave()
-        setPrimitiveValue(Date(), forKey: #keyPath(MastodonNotification.updatedAt))
-    }
-
 }
 
 public extension MastodonNotification {
@@ -39,16 +34,19 @@ public extension MastodonNotification {
     static func insert(
         into context: NSManagedObjectContext,
         domain: String,
+        userID: String,
+        networkDate: Date,
         property: Property
     ) -> MastodonNotification {
         let notification: MastodonNotification = context.insertObject()
         notification.id = property.id
         notification.createAt = property.createdAt
-        notification.updatedAt = property.createdAt
-        notification.type = property.type
+        notification.updatedAt = networkDate
+        notification.typeRaw = property.typeRaw
         notification.account = property.account
         notification.status = property.status
         notification.domain = domain
+        notification.userID = userID
         return notification
     }
 }
@@ -56,19 +54,20 @@ public extension MastodonNotification {
 public extension MastodonNotification {
     struct Property {
         public init(id: String,
-                    type: String,
+                    typeRaw: String,
                     account: MastodonUser,
                     status: Status?,
-                    createdAt: Date) {
+                    createdAt: Date
+        ) {
             self.id = id
-            self.type = type
+            self.typeRaw = typeRaw
             self.account = account
             self.status = status
             self.createdAt = createdAt
         }
         
         public let id: String
-        public let type: String
+        public let typeRaw: String
         public let account: MastodonUser
         public let status: Status?
         public let createdAt: Date
@@ -76,19 +75,31 @@ public extension MastodonNotification {
 }
 
 extension MastodonNotification {
-    public static func predicate(domain: String) -> NSPredicate {
+    static func predicate(domain: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(MastodonNotification.domain), domain)
     }
     
-    static func predicate(type: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(MastodonNotification.type), type)
+    static func predicate(userID: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonNotification.userID), userID)
     }
     
-    public static func predicate(domain: String, type: String) -> NSPredicate {
-        return NSCompoundPredicate(andPredicateWithSubpredicates: [
-            MastodonNotification.predicate(domain: domain),
-            MastodonNotification.predicate(type: type)
-        ])
+    static func predicate(typeRaw: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonNotification.typeRaw), typeRaw)
+    }
+    
+    public static func predicate(domain: String, userID: String, typeRaw: String? = nil) -> NSPredicate {
+        if let typeRaw = typeRaw {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: [
+                MastodonNotification.predicate(domain: domain),
+                MastodonNotification.predicate(typeRaw: typeRaw),
+                MastodonNotification.predicate(userID: userID),
+            ])
+        } else {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: [
+                MastodonNotification.predicate(domain: domain),
+                MastodonNotification.predicate(userID: userID)
+            ])
+        }
     }
 
 }

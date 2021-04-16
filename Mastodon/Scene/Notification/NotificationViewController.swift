@@ -33,7 +33,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
         tableView.register(NotificationStatusTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationStatusTableViewCell.self))
-        tableView.register(CommonBottomLoader.self, forCellReuseIdentifier: String(describing: CommonBottomLoader.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.tableFooterView = UIView()
         tableView.rowHeight = UITableView.automaticDimension
         return tableView
@@ -111,15 +111,15 @@ extension NotificationViewController {
 extension NotificationViewController {
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         os_log("%{public}s[%{public}ld], %{public}s: select at index: %ld", (#file as NSString).lastPathComponent, #line, #function, sender.selectedSegmentIndex)
-        guard let domain = viewModel.activeMastodonAuthenticationBox.value?.domain else {
+        guard let domain = viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = viewModel.activeMastodonAuthenticationBox.value?.userID else {
             return
         }
         if sender.selectedSegmentIndex == 0 {
-            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain)
+            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
         } else {
-            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, type: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
+            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain,userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
         }
-        viewModel.selectedIndex.value = sender.selectedSegmentIndex
+        viewModel.selectedIndex.value = NotificationViewModel.NotificationSegment.init(rawValue: sender.selectedSegmentIndex)!
     }
     
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -196,7 +196,7 @@ extension NotificationViewController {
 }
 
 extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = CommonBottomLoader
+    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
     typealias LoadingState = NotificationViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { tableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }

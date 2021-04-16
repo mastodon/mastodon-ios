@@ -70,8 +70,9 @@
         <attribute name="domain" attributeType="String"/>
         <attribute name="id" attributeType="String"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="type" attributeType="String"/>
+        <attribute name="typeRaw" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userID" attributeType="String"/>
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status"/>
         <uniquenessConstraints>
@@ -223,7 +224,7 @@
         <element name="History" positionX="0" positionY="0" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="0" positionY="0" width="128" height="209"/>
-        <element name="MastodonNotification" positionX="9" positionY="162" width="128" height="149"/>
+        <element name="MastodonNotification" positionX="9" positionY="162" width="128" height="164"/>
         <element name="MastodonUser" positionX="0" positionY="0" width="128" height="659"/>
         <element name="Mention" positionX="0" positionY="0" width="128" height="134"/>
         <element name="Poll" positionX="0" positionY="0" width="128" height="194"/>

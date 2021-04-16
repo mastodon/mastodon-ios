@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-public extension Mastodon.API.Notifications {
+extension Mastodon.API.Notifications {
     internal static func notificationsEndpointURL(domain: String) -> URL {
         Mastodon.API.endpointURL(domain: domain).appendingPathComponent("notifications")
     }
@@ -31,7 +31,7 @@ public extension Mastodon.API.Notifications {
     ///   - query: `NotificationsQuery` with query parameters
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
-    static func getNotifications(
+    public static func getNotifications(
         session: URLSession,
         domain: String,
         query: Mastodon.API.Notifications.Query,
@@ -64,7 +64,7 @@ public extension Mastodon.API.Notifications {
     ///   - notificationID: ID of the notification.
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
-    static func getNotification(
+    public static func getNotification(
         session: URLSession,
         domain: String,
         notificationID: String,
@@ -82,18 +82,10 @@ public extension Mastodon.API.Notifications {
             }
             .eraseToAnyPublisher()
     }
-    
-    static func allExcludeTypes() -> [Mastodon.Entity.Notification.NotificationType] {
-        [.followRequest]
-    }
-    
-    static func mentionsExcludeTypes() -> [Mastodon.Entity.Notification.NotificationType] {
-        [.follow, .followRequest, .favourite, .reblog, .poll]
-    }
 }
 
-public extension Mastodon.API.Notifications {
-    struct Query: Codable, PagedQueryType, GetQuery {
+extension Mastodon.API.Notifications {
+    public struct Query: PagedQueryType, GetQuery {
         public let maxID: Mastodon.Entity.Status.ID?
         public let sinceID: Mastodon.Entity.Status.ID?
         public let minID: Mastodon.Entity.Status.ID?
