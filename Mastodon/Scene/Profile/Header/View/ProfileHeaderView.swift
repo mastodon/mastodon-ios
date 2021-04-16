@@ -100,7 +100,7 @@ final class ProfileHeaderView: UIView {
         label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
-        label.textColor = Asset.Profile.Banner.usernameGray.color
+        label.textColor = Asset.Scene.Profile.Banner.usernameGray.color
         label.text = "@alice"
         label.applyShadow(color: UIColor.black.withAlphaComponent(0.2), alpha: 0.5, x: 0, y: 2, blur: 2, spread: 0)
         return label
@@ -131,7 +131,7 @@ final class ProfileHeaderView: UIView {
         textEditorView.scrollView.isScrollEnabled = false
         textEditorView.isScrollEnabled = false
         textEditorView.font = .preferredFont(forTextStyle: .body)
-        textEditorView.backgroundColor = Asset.Profile.Banner.bioEditBackgroundGray.color
+        textEditorView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
         textEditorView.layer.masksToBounds = true
         textEditorView.layer.cornerCurve = .continuous
         textEditorView.layer.cornerRadius = 10
@@ -356,9 +356,9 @@ extension ProfileHeaderView {
             bioTextEditorView.backgroundColor = .clear
             animator.addAnimations {
                 self.bannerImageViewOverlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
-                self.nameTextFieldBackgroundView.backgroundColor = Asset.Profile.Banner.nameEditBackgroundGray.color
+                self.nameTextFieldBackgroundView.backgroundColor = Asset.Scene.Profile.Banner.nameEditBackgroundGray.color
                 self.editAvatarBackgroundView.alpha = 1
-                self.bioTextEditorView.backgroundColor = Asset.Profile.Banner.bioEditBackgroundGray.color
+                self.bioTextEditorView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
             }
         }
         

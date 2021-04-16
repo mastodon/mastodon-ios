@@ -51,6 +51,9 @@ extension SceneCoordinator {
         // compose
         case compose(viewModel: ComposeViewModel)
         
+        // thread
+        case thread(viewModel: ThreadViewModel)
+        
         // Hashtag Timeline
         case hashtagTimeline(viewModel: HashtagTimelineViewModel)
       
@@ -224,6 +227,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .compose(let viewModel):
             let _viewController = ComposeViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .thread(let viewModel):
+            let _viewController = ThreadViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .hashtagTimeline(let viewModel):

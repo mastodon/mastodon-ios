@@ -625,6 +625,11 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
     func profilePagingViewController(_ viewController: ProfilePagingViewController, didScrollToPostCustomScrollViewContainerController postTimelineViewController: ScrollViewContainer, atIndex index: Int) {
         os_log("%{public}s[%{public}ld], %{public}s: select at index: %ld", ((#file as NSString).lastPathComponent), #line, #function, index)
         
+        // update segemented control
+        if index < profileHeaderViewController.pageSegmentedControl.numberOfSegments {
+            profileHeaderViewController.pageSegmentedControl.selectedSegmentIndex = index
+        }
+        
         // save content offset
         overlayScrollView.contentOffset.y = contentOffsets[index] ?? containerScrollView.contentOffset.y
         

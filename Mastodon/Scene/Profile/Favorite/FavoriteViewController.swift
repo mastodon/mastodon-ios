@@ -45,7 +45,7 @@ extension FavoriteViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         navigationItem.titleView = titleView
         titleView.update(title: L10n.Scene.Favorite.title, subtitle: nil)
         
@@ -112,6 +112,10 @@ extension FavoriteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aspectTableView(tableView, didSelectRowAt: indexPath)
     }
     
 }

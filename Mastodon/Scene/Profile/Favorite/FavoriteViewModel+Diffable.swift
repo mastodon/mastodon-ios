@@ -25,7 +25,8 @@ extension FavoriteViewModel {
             managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
-            timelineMiddleLoaderTableViewCellDelegate: nil
+            timelineMiddleLoaderTableViewCellDelegate: nil,
+            threadReplyLoaderTableViewCellDelegate: nil
         )
         
         // set empty section to make update animation top-to-bottom style

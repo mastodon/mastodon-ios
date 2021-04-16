@@ -1,5 +1,5 @@
 //
-//  ComposeStatusAttachmentTableViewCell.swift
+//  ComposeStatusAttachmentCollectionViewCell.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-3-17.

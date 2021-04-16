@@ -8,6 +8,7 @@
 import os.log
 import Foundation
 import Combine
+import CoreDataStack
 import GameplayKit
 import MastodonSDK
 
@@ -64,6 +65,15 @@ extension ComposeViewModel.PublishState {
                 guard viewModel.isPollComposing.value else { return nil }
                 return viewModel.pollExpiresOptionAttribute.expiresOption.value.seconds
             }()
+            let inReplyToID: Mastodon.Entity.Status.ID? = {
+                guard case let .reply(repliedToStatusObjectID) = viewModel.composeKind else { return nil }
+                var id: Mastodon.Entity.Status.ID?
+                viewModel.context.managedObjectContext.performAndWait {
+                    guard let replyTo = viewModel.context.managedObjectContext.object(with: repliedToStatusObjectID) as? Status else { return }
+                    id = replyTo.id
+                }
+                return id
+            }()
             let sensitive: Bool = viewModel.isContentWarningComposing.value
             let spoilerText: String? = {
                 let text = viewModel.composeStatusAttribute.contentWarningContent.value.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -105,6 +115,7 @@ extension ComposeViewModel.PublishState {
                         mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
                         pollOptions: pollOptions,
                         pollExpiresIn: pollExpiresIn,
+                        inReplyToID: inReplyToID,
                         sensitive: sensitive,
                         spoilerText: spoilerText,
                         visibility: visibility

@@ -13,7 +13,7 @@ import CoreDataStack
 protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewController {
     // async
     func status() -> Future<Status?, Never>
-    func status(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Status?, Never>
+    func status(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<Status?, Never>
     func status(for cell: UICollectionViewCell) -> Future<Status?, Never>
     
     // sync

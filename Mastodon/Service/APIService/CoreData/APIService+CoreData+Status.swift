@@ -86,8 +86,8 @@ extension APIService.CoreData {
                 let object = Poll.insert(into: managedObjectContext, property: Poll.Property(id: poll.id, expiresAt: poll.expiresAt, expired: poll.expired, multiple: poll.multiple, votesCount: poll.votesCount, votersCount: poll.votersCount, networkDate: networkDate), votedBy: votedBy, options: options)
                 return object
             }
-            let metions = entity.mentions?.compactMap { mention -> Mention in
-                Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url))
+            let metions = entity.mentions?.enumerated().compactMap { index, mention -> Mention in
+                Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url), index: index)
             }
             let emojis = entity.emojis?.compactMap { emoji -> Emoji in
                 Emoji.insert(into: managedObjectContext, property: Emoji.Property(shortcode: emoji.shortcode, url: emoji.url, staticURL: emoji.staticURL, visibleInPicker: emoji.visibleInPicker, category: emoji.category))

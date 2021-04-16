@@ -98,6 +98,7 @@ extension Mastodon.API.Statuses {
         public let mediaIDs: [String]?
         public let pollOptions: [String]?
         public let pollExpiresIn: Int?
+        public let inReplyToID: Mastodon.Entity.Status.ID?
         public let sensitive: Bool?
         public let spoilerText: String?
         public let visibility: Mastodon.Entity.Status.Visibility?
@@ -107,6 +108,7 @@ extension Mastodon.API.Statuses {
             mediaIDs: [String]?,
             pollOptions: [String]?,
             pollExpiresIn: Int?,
+            inReplyToID: Mastodon.Entity.Status.ID?,
             sensitive: Bool?,
             spoilerText: String?,
             visibility: Mastodon.Entity.Status.Visibility?
@@ -115,10 +117,10 @@ extension Mastodon.API.Statuses {
             self.mediaIDs = mediaIDs
             self.pollOptions = pollOptions
             self.pollExpiresIn = pollExpiresIn
+            self.inReplyToID = inReplyToID
             self.sensitive = sensitive
             self.spoilerText = spoilerText
             self.visibility = visibility
-            
         }
         
         var contentType: String? {
@@ -136,6 +138,7 @@ extension Mastodon.API.Statuses {
                 data.append(Data.multipart(key: "poll[options][]", value: pollOption))
             }
             pollExpiresIn.flatMap { data.append(Data.multipart(key: "poll[expires_in]", value: $0)) }
+            inReplyToID.flatMap { data.append(Data.multipart(key: "in_reply_to_id", value: $0)) }
             sensitive.flatMap { data.append(Data.multipart(key: "sensitive", value: $0)) }
             spoilerText.flatMap { data.append(Data.multipart(key: "spoiler_text", value: $0)) }
             visibility.flatMap { data.append(Data.multipart(key: "visibility", value: $0.rawValue)) }
@@ -143,6 +146,49 @@ extension Mastodon.API.Statuses {
             data.append(Data.multipartEnd())
             return data
         }
+    }
+    
+}
+
+extension Mastodon.API.Statuses {
+
+    static func statusContextEndpointURL(domain: String, statusID: Mastodon.Entity.Status.ID) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("statuses/\(statusID)/context")
+    }
+    
+    /// Parent and child statuses
+    ///
+    /// View statuses above and below this status in the thread.
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/4/12
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/statuses/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - statusID: id of status
+    ///   - authorization: User token. Optional for public statuses
+    /// - Returns: `AnyPublisher` contains `Context` nested in the response
+    public static func statusContext(
+        session: URLSession,
+        domain: String,
+        statusID: Mastodon.Entity.Status.ID,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error>  {
+        let request = Mastodon.API.get(
+            url: statusContextEndpointURL(domain: domain, statusID: statusID),
+            query: nil,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Context.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
     }
     
 }

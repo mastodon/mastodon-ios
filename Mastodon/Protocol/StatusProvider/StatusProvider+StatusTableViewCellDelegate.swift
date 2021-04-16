@@ -33,6 +33,10 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
 // MARK: - ActionToolbarContainerDelegate
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
+    func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, replyButtonDidPressed sender: UIButton) {
+        StatusProviderFacade.responseToStatusReplyAction(provider: self, cell: cell)
+    }
+    
     func statusTableViewCell(_ cell: StatusTableViewCell, actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton) {
         StatusProviderFacade.responseToStatusReblogAction(provider: self, cell: cell)
     }
@@ -46,9 +50,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard let item = item(for: cell, indexPath: nil) else { return }
             
         switch item {
-        case .homeTimelineIndex(_, let attribute):
-            attribute.isStatusTextSensitive = false
-        case .status(_, let attribute):
+        case .homeTimelineIndex(_, let attribute),
+            .status(_, let attribute),
+            .root(_, let attribute),
+            .reply(_, let attribute),
+            .leaf(_, let attribute):
             attribute.isStatusTextSensitive = false
         default:
             return
@@ -81,9 +87,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard let item = item(for: cell, indexPath: nil) else { return }
         
         switch item {
-        case .homeTimelineIndex(_, let attribute):
-            attribute.isStatusSensitive = false
-        case .status(_, let attribute):
+        case .homeTimelineIndex(_, let attribute),
+            .status(_, let attribute),
+            .root(_, let attribute),
+            .reply(_, let attribute),
+            .leaf(_, let attribute):
             attribute.isStatusSensitive = false
         default:
             return

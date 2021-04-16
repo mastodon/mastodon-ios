@@ -59,7 +59,7 @@ extension UIImage {
     }
 }
 
-public extension UIImage {
+extension UIImage {
     func withRoundedCorners(radius: CGFloat? = nil) -> UIImage? {
         let maxRadius = min(size.width, size.height) / 2
         let cornerRadius: CGFloat = {
@@ -73,5 +73,20 @@ public extension UIImage {
             UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius).addClip()
             draw(in: rect)
         }
+    }
+}
+
+extension UIImage {
+    static func adaptiveUserInterfaceStyleImage(lightImage: UIImage, darkImage: UIImage) -> UIImage {
+        let imageAsset = UIImageAsset()
+        imageAsset.register(lightImage, with: UITraitCollection(traitsFrom: [
+            UITraitCollection(displayScale: 1.0),
+            UITraitCollection(userInterfaceStyle: .light)
+        ]))
+        imageAsset.register(darkImage, with: UITraitCollection(traitsFrom: [
+            UITraitCollection(displayScale: 1.0),
+            UITraitCollection(userInterfaceStyle: .dark)
+        ]))
+        return imageAsset.image(with: UITraitCollection.current)
     }
 }

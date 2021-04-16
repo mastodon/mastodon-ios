@@ -28,7 +28,8 @@ extension PublicTimelineViewModel {
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
-            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
+            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
+            threadReplyLoaderTableViewCellDelegate: nil
         )
         items.value = []
         stateMachine.enter(PublicTimelineViewModel.State.Loading.self)
