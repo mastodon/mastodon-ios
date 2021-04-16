@@ -416,13 +416,6 @@ extension StatusView {
         format.opaque = false
         let image = UIGraphicsImageRenderer(size: statusContainerStackView.frame.size, format: format).image { context in
             statusContainerStackView.drawHierarchy(in: statusContainerStackView.bounds, afterScreenUpdates: true)
-            
-            // always draw the blurhash image
-            statusMosaicImageViewContainer.blurhashOverlayImageViews.forEach { imageView in
-                guard let image = imageView.image else { return }
-                guard let frame = imageView.superview?.convert(imageView.frame, to: statusContainerStackView) else { return }
-                image.draw(in: frame)
-            }
         }
         .blur(radius: StatusView.contentWarningBlurRadius)
         contentWarningOverlayView.blurContentImageView.contentScaleFactor = traitCollection.displayScale
@@ -431,6 +424,11 @@ extension StatusView {
     
     func updateContentWarningDisplay(isHidden: Bool, animated: Bool) {
         needsDrawContentOverlay = !isHidden
+        
+        if !isHidden {
+            drawContentWarningImageView()
+        }
+        
         if animated {
             UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut) { [weak self] in
                 guard let self = self else { return }
@@ -442,9 +440,8 @@ extension StatusView {
             contentWarningOverlayView.alpha = isHidden ? 0 : 1
         }
         
-        if !isHidden {
-            drawContentWarningImageView()
-        }
+        contentWarningOverlayView.blurContentWarningTitleLabel.isHidden = isHidden
+        contentWarningOverlayView.blurContentWarningLabel.isHidden = isHidden
     }
     
     func updateRevealContentWarningButton(isRevealing: Bool) {

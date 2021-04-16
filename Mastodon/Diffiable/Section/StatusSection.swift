@@ -245,11 +245,16 @@ extension StatusSection {
                     return
                 }
                 
-                let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
-                animator.addAnimations {
-                    blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
+                blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
+                if isMediaRevealing {
+                    let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
+                    animator.addAnimations {
+                        blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
+                    }
+                    animator.startAnimation()
+                } else {
+                    cell.statusView.drawContentWarningImageView()
                 }
-                animator.startAnimation()
             }
             .store(in: &cell.disposeBag)
         }
@@ -406,7 +411,7 @@ extension StatusSection {
         animated: Bool
     ) {
         statusView.contentWarningOverlayView.blurContentWarningTitleLabel.text = {
-            let spoilerText = status.spoilerText ?? ""
+            let spoilerText = (status.reblog ?? status).spoilerText ?? ""
             if spoilerText.isEmpty {
                 return L10n.Common.Controls.Status.contentWarning
             } else {
