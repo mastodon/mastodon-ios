@@ -50,6 +50,11 @@ final class NotificationTableViewCell: UITableViewCell {
         return view
     }()
     
+    let avatarContainer: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
     let actionLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.secondary.color
@@ -86,40 +91,67 @@ final class NotificationTableViewCell: UITableViewCell {
 extension NotificationTableViewCell {
     func configure() {
         
-        let container = UIView()
-        container.backgroundColor = .clear
-        contentView.addSubview(container)
-        container.constrain([
-            container.topAnchor.constraint(equalTo: contentView.topAnchor),
-            container.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.alignment = .center
+        containerStackView.spacing = 4
+        containerStackView.layoutMargins = UIEdgeInsets(top: 14, left: 0, bottom: 12, right: 0)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
         ])
-        
-        container.addSubview(avatatImageView)
-        avatatImageView.pin(toSize: CGSize(width: 35, height: 35))
-        avatatImageView.pin(top: 12, left: 0, bottom: nil, right: nil)
-        
-        container.addSubview(actionImageBackground)
-        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
-        actionImageBackground.pin(top: 33, left: 33, bottom: nil, right: nil)
-        
-        actionImageBackground.addSubview(actionImageView)
-        actionImageView.constrainToCenter()
 
-        container.addSubview(nameLabel)
-        nameLabel.constrain([
-            nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 24),
-            container.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 24),
-            nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 61)
+        containerStackView.addArrangedSubview(avatarContainer)
+        avatarContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarContainer.heightAnchor.constraint(equalToConstant: 47).priority(.required - 1),
+            avatarContainer.widthAnchor.constraint(equalToConstant: 47).priority(.required - 1)
         ])
+
+        avatarContainer.addSubview(avatatImageView)
+        avatatImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatatImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatatImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatatImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
+            avatatImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor)
+        ])
+
+        avatarContainer.addSubview(actionImageBackground)
+        actionImageBackground.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            actionImageBackground.heightAnchor.constraint(equalToConstant: 24 + NotificationTableViewCell.actionImageBorderWidth).priority(.required - 1),
+            actionImageBackground.widthAnchor.constraint(equalToConstant: 24 + NotificationTableViewCell.actionImageBorderWidth).priority(.required - 1),
+            actionImageBackground.bottomAnchor.constraint(equalTo: avatarContainer.bottomAnchor),
+            actionImageBackground.trailingAnchor.constraint(equalTo: avatarContainer.trailingAnchor)
+        ])
+
+        avatarContainer.addSubview(actionImageView)
+        actionImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            actionImageView.centerXAnchor.constraint(equalTo: actionImageBackground.centerXAnchor),
+            actionImageView.centerYAnchor.constraint(equalTo: actionImageBackground.centerYAnchor)
+        ])
+
+
+        let actionStackView = UIStackView()
+        actionStackView.axis = .horizontal
+        actionStackView.distribution = .fillProportionally
+        actionStackView.spacing = 4
+        actionStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        container.addSubview(actionLabel)
-        actionLabel.constrain([
-            actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
-            actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4)
-        ])
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(nameLabel)
+        actionLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(actionLabel)
+        nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        containerStackView.addArrangedSubview(actionStackView)
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

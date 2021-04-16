@@ -11,7 +11,6 @@ import UIKit
 
 final class NotificationStatusTableViewCell: UITableViewCell {
     static let actionImageBorderWidth: CGFloat = 2
-    
     static let statusPadding = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
@@ -39,6 +38,11 @@ final class NotificationStatusTableViewCell: UITableViewCell {
         view.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
         view.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
         view.tintColor = Asset.Colors.Background.pure.color
+        return view
+    }()
+    
+    let avatarContainer: UIView = {
+        let view = UIView()
         return view
     }()
     
@@ -103,53 +107,99 @@ final class NotificationStatusTableViewCell: UITableViewCell {
 
 extension NotificationStatusTableViewCell {
     func configure() {
-        
-        let container = UIView()
-        container.backgroundColor = .clear
-        contentView.addSubview(container)
-        container.constrain([
-            container.topAnchor.constraint(equalTo: contentView.topAnchor),
-            container.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.alignment = .top
+        containerStackView.spacing = 4
+        containerStackView.layoutMargins = UIEdgeInsets(top: 14, left: 0, bottom: 12, right: 0)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
         ])
-        
-        container.addSubview(avatatImageView)
-        avatatImageView.pin(toSize: CGSize(width: 35, height: 35))
-        avatatImageView.pin(top: 12, left: 0, bottom: nil, right: nil)
-        
-        container.addSubview(actionImageBackground)
-        actionImageBackground.pin(toSize: CGSize(width: 24 + NotificationTableViewCell.actionImageBorderWidth, height: 24 + NotificationTableViewCell.actionImageBorderWidth))
-        actionImageBackground.pin(top: 33, left: 21, bottom: nil, right: nil)
-        
-        actionImageBackground.addSubview(actionImageView)
-        actionImageView.constrainToCenter()
 
-        container.addSubview(nameLabel)
-        nameLabel.constrain([
-            nameLabel.topAnchor.constraint(equalTo: container.topAnchor, constant: 12),
-            nameLabel.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 61)
+        containerStackView.addArrangedSubview(avatarContainer)
+        avatarContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarContainer.heightAnchor.constraint(equalToConstant: 47).priority(.required - 1),
+            avatarContainer.widthAnchor.constraint(equalToConstant: 47).priority(.required - 1)
+        ])
+
+        avatarContainer.addSubview(avatatImageView)
+        avatatImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatatImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatatImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatatImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
+            avatatImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor)
+        ])
+
+        avatarContainer.addSubview(actionImageBackground)
+        actionImageBackground.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            actionImageBackground.heightAnchor.constraint(equalToConstant: 24 + NotificationTableViewCell.actionImageBorderWidth).priority(.required - 1),
+            actionImageBackground.widthAnchor.constraint(equalToConstant: 24 + NotificationTableViewCell.actionImageBorderWidth).priority(.required - 1),
+            actionImageBackground.bottomAnchor.constraint(equalTo: avatarContainer.bottomAnchor),
+            actionImageBackground.trailingAnchor.constraint(equalTo: avatarContainer.trailingAnchor)
+        ])
+
+        avatarContainer.addSubview(actionImageView)
+        actionImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            actionImageView.centerXAnchor.constraint(equalTo: actionImageBackground.centerXAnchor),
+            actionImageView.centerYAnchor.constraint(equalTo: actionImageBackground.centerYAnchor)
+        ])
+
+
+        let actionStackView = UIStackView()
+        actionStackView.axis = .horizontal
+        actionStackView.distribution = .fillProportionally
+        actionStackView.spacing = 4
+        actionStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        actionStackView.addArrangedSubview(nameLabel)
+        actionLabel.translatesAutoresizingMaskIntoConstraints = false
+        actionStackView.addArrangedSubview(actionLabel)
+        nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+
+        let statusStackView = UIStackView()
+        statusStackView.axis = .vertical
+    
+        statusStackView.distribution = .fill
+        statusStackView.spacing = 4
+        statusStackView.translatesAutoresizingMaskIntoConstraints = false
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusStackView.addArrangedSubview(actionStackView)
+        
+        statusBorder.translatesAutoresizingMaskIntoConstraints = false
+        statusView.translatesAutoresizingMaskIntoConstraints = false
+        statusBorder.addSubview(statusView)
+        NSLayoutConstraint.activate([
+            statusView.topAnchor.constraint(equalTo: statusBorder.topAnchor, constant: 12),
+            statusView.leadingAnchor.constraint(equalTo: statusBorder.leadingAnchor, constant: 12),
+            statusBorder.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 12),
+            statusBorder.trailingAnchor.constraint(equalTo: statusView.trailingAnchor, constant: 12),
         ])
         
-        container.addSubview(actionLabel)
-        actionLabel.constrain([
-            actionLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 4),
-            actionLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
-            container.trailingAnchor.constraint(greaterThanOrEqualTo: actionLabel.trailingAnchor, constant: 4)
-        ])
+        
+        statusStackView.addArrangedSubview(statusBorder)
+
+        containerStackView.addArrangedSubview(statusStackView)
         
         statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         statusView.isUserInteractionEnabled = false
         // remove item don't display
-        statusView.actionToolbarContainer.isHidden = true
-        statusView.avatarView.isHidden = true
-        statusView.usernameLabel.isHidden = true
-        
-        container.addSubview(statusBorder)
-        statusBorder.pin(top: 40, left: 63, bottom: 14, right: 14)
-        
-        container.addSubview(statusView)
-        statusView.pin(top: NotificationStatusTableViewCell.statusPadding.top, left: NotificationStatusTableViewCell.statusPadding.left, bottom: NotificationStatusTableViewCell.statusPadding.bottom, right: NotificationStatusTableViewCell.statusPadding.right)
+        statusView.actionToolbarContainer.removeFromStackView()
+        // it affect stackView's height
+        statusView.avatarView.removeFromStackView()
+        statusView.usernameLabel.removeFromStackView()
+        statusView.nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        statusView.activeTextLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

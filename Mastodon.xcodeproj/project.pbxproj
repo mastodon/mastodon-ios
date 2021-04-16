@@ -136,6 +136,7 @@
 		5D0393902612D259007FE196 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D03938F2612D259007FE196 /* WebViewController.swift */; };
 		5D0393962612D266007FE196 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0393952612D266007FE196 /* WebViewModel.swift */; };
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
+		5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA732CB2629CEF500A92342 /* UIView+Remove.swift */; };
 		5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1922617442700311060 /* Mastodon+Entity+Account.swift */; };
 		5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */; };
 		5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */; };
@@ -525,6 +526,7 @@
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5D03938F2612D259007FE196 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		5D0393952612D266007FE196 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
+		5DA732CB2629CEF500A92342 /* UIView+Remove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Remove.swift"; sourceTree = "<group>"; };
 		5DDDF1922617442700311060 /* Mastodon+Entity+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Account.swift"; sourceTree = "<group>"; };
 		5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Tag.swift"; sourceTree = "<group>"; };
 		5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+History.swift"; sourceTree = "<group>"; };
@@ -1614,6 +1616,7 @@
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
 				DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */,
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
+				5DA732CB2629CEF500A92342 /* UIView+Remove.swift */,
 				2DFF41882614A4DC00F776A4 /* UIView+Constraint.swift */,
 				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */,
@@ -2329,6 +2332,7 @@
 				DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
+				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
