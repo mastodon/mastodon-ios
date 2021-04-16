@@ -26,7 +26,7 @@ final class NotificationStatusTableViewCell: UITableViewCell {
     
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = Asset.Colors.Background.pure.color
+        imageView.tintColor = Asset.Colors.Background.systemBackground.color
         return imageView
     }()
     
@@ -36,8 +36,8 @@ final class NotificationStatusTableViewCell: UITableViewCell {
         view.layer.cornerCurve = .continuous
         view.clipsToBounds = true
         view.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
-        view.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
-        view.tintColor = Asset.Colors.Background.pure.color
+        view.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
+        view.tintColor = Asset.Colors.Background.systemBackground.color
         return view
     }()
     
@@ -157,7 +157,7 @@ extension NotificationStatusTableViewCell {
 
         let actionStackView = UIStackView()
         actionStackView.axis = .horizontal
-        actionStackView.distribution = .fillProportionally
+        actionStackView.distribution = .fill
         actionStackView.spacing = 4
         actionStackView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -166,7 +166,8 @@ extension NotificationStatusTableViewCell {
         actionLabel.translatesAutoresizingMaskIntoConstraints = false
         actionStackView.addArrangedSubview(actionLabel)
         nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-
+        nameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        actionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         let statusStackView = UIStackView()
         statusStackView.axis = .vertical
     
@@ -205,6 +206,6 @@ extension NotificationStatusTableViewCell {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         statusBorder.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
-        actionImageBackground.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
+        actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
     }
 }

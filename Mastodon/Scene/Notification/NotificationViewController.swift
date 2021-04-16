@@ -45,7 +45,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
 extension NotificationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Asset.Colors.Background.pure.color
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         navigationItem.titleView = segmentControl
         segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
         view.addSubview(tableView)

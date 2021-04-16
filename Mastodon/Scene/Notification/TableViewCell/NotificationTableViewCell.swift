@@ -35,7 +35,7 @@ final class NotificationTableViewCell: UITableViewCell {
     
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = Asset.Colors.Background.pure.color
+        imageView.tintColor = Asset.Colors.Background.systemBackground.color
         return imageView
     }()
     
@@ -45,8 +45,8 @@ final class NotificationTableViewCell: UITableViewCell {
         view.layer.cornerCurve = .continuous
         view.clipsToBounds = true
         view.layer.borderWidth = NotificationTableViewCell.actionImageBorderWidth
-        view.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
-        view.tintColor = Asset.Colors.Background.pure.color
+        view.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
+        view.tintColor = Asset.Colors.Background.systemBackground.color
         return view
     }()
     
@@ -137,25 +137,19 @@ extension NotificationTableViewCell {
             actionImageView.centerXAnchor.constraint(equalTo: actionImageBackground.centerXAnchor),
             actionImageView.centerYAnchor.constraint(equalTo: actionImageBackground.centerYAnchor)
         ])
-
-
-        let actionStackView = UIStackView()
-        actionStackView.axis = .horizontal
-        actionStackView.distribution = .fillProportionally
-        actionStackView.spacing = 4
-        actionStackView.translatesAutoresizingMaskIntoConstraints = false
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(nameLabel)
         actionLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(actionLabel)
         nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        containerStackView.addArrangedSubview(actionStackView)
+        nameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        actionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        actionImageBackground.layer.borderColor = Asset.Colors.Background.pure.color.cgColor
+        actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
     }
 }
