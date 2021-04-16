@@ -31,7 +31,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         button.setTitleColor(.white, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 3, left: 16, bottom: 3, right: 16)
+        button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
         button.adjustsImageWhenHighlighted = false
         return button
     }()
@@ -49,7 +49,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
         collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
         collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
-        collectionView.backgroundColor = Asset.Colors.Background.systemBackground.color
+        collectionView.backgroundColor = Asset.Scene.Compose.background.color
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
     
@@ -66,20 +67,9 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return view
     }()
     
-    let composeToolbarView: ComposeToolbarView = {
-        let composeToolbarView = ComposeToolbarView()
-        let text = UITextView()
-        let inputView = UIInputView(frame: .init(x: 0, y: 0, width: 40, height: 40), inputViewStyle: .keyboard)
-        text.inputAccessoryView = inputView
-        composeToolbarView.backgroundColor = inputView.backgroundColor
-        return composeToolbarView
-    }()
+    let composeToolbarView = ComposeToolbarView()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-    let composeToolbarBackgroundView: UIView = {
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .secondarySystemBackground
-        return backgroundView
-    }()
+    let composeToolbarBackgroundView = UIView()
     
     private(set) lazy var imagePicker: PHPickerViewController = {
         var configuration = PHPickerConfiguration()
@@ -135,7 +125,7 @@ extension ComposeViewController {
                 self.title = title
             }
             .store(in: &disposeBag)
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Scene.Compose.background.color
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
         navigationItem.rightBarButtonItem = publishBarButtonItem
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
@@ -202,14 +192,27 @@ extension ComposeViewController {
         )
         .sink(receiveValue: { [weak self] isShow, state, endFrame, isCustomEmojiComposing in
             guard let self = self else { return }
+                        
+            let extraMargin: CGFloat = {
+                if self.view.safeAreaInsets.bottom == .zero {
+                    // needs extra margin for zero inset device to workaround UIKit issue
+                    return self.composeToolbarView.frame.height
+                } else {
+                    // default some magic 16 extra margin
+                    return 16
+                }
+            }()
+            
+            // update keyboard background color
 
             guard isShow, state == .dock else {
-                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
-                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 UIView.animate(withDuration: 0.3) {
                     self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
+                self.updateKeyboardBackground(isKeyboardDisplay: isShow)
                 return
             }
             // isShow AND dock state
@@ -218,22 +221,23 @@ extension ComposeViewController {
             let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
-                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom
-                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom
+                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 UIView.animate(withDuration: 0.3) {
                     self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
                     self.view.layoutIfNeeded()
                 }
+                self.updateKeyboardBackground(isKeyboardDisplay: false)
                 return
             }
 
-            // add 16pt margin
-            self.collectionView.contentInset.bottom = padding + 16
-            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + 16
+            self.collectionView.contentInset.bottom = padding + extraMargin
+            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + extraMargin
             UIView.animate(withDuration: 0.3) {
                 self.composeToolbarViewBottomLayoutConstraint.constant = padding
                 self.view.layoutIfNeeded()
             }
+            self.updateKeyboardBackground(isKeyboardDisplay: isShow)
         })
         .store(in: &disposeBag)
 
@@ -266,13 +270,17 @@ extension ComposeViewController {
             .store(in: &disposeBag)
         
         // bind visibility toolbar UI
-        viewModel.selectedStatusVisibility
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] type in
-                guard let self = self else { return }
-                self.composeToolbarView.visibilityButton.setImage(type.image, for: .normal)
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            viewModel.selectedStatusVisibility,
+            viewModel.traitCollectionDidChangePublisher
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] type, _ in
+            guard let self = self else { return }
+            let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
+            self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
+        }
+        .store(in: &disposeBag)
         
         viewModel.characterCount
             .receive(on: DispatchQueue.main)
@@ -324,6 +332,24 @@ extension ComposeViewController {
                 }
             })
             .store(in: &disposeBag)
+        
+        // setup snap behavior
+        Publishers.CombineLatest(
+            viewModel.repliedToCellFrame.removeDuplicates().eraseToAnyPublisher(),
+            viewModel.collectionViewState.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] repliedToCellFrame, collectionViewState in
+            guard let self = self else { return }
+            guard repliedToCellFrame != .zero else { return }
+            switch collectionViewState {
+            case .fold:
+                self.collectionView.contentInset.top = -repliedToCellFrame.height
+            case .expand:
+                self.collectionView.contentInset.top = 0
+            }
+        }
+        .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -334,6 +360,12 @@ extension ComposeViewController {
             guard let self = self else { return }
             self.markTextEditorViewBecomeFirstResponser()
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        viewModel.traitCollectionDidChangePublisher.send()
     }
     
 }
@@ -463,6 +495,20 @@ extension ComposeViewController {
         imagePicker.delegate = self
         return imagePicker
     }
+    
+    private func updateKeyboardBackground(isKeyboardDisplay: Bool) {
+        guard isKeyboardDisplay else {
+            composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
+            return
+        }
+        composeToolbarBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
+            // avoid elevated color
+            switch traitCollection.userInterfaceStyle {
+            case .light:        return .white
+            default:            return .black
+            }
+        })
+    }
 
 }
 
@@ -538,7 +584,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
 
             let stringRange = NSRange(location: 0, length: string.length)
-            let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.]+)?|#([^\\s.]+))")
+            let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))")
             // accept ^\B: or \s: but not accept \B: to force user input a space to make emoji take effect
             // precondition :\B with following space 
             let emojiMatches = string.matches(pattern: "(?:(^\\B:|\\s:)([a-zA-Z0-9_]+)(:\\B(?=\\s)))")
@@ -727,6 +773,32 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     
 }
 
+// MARK: - UIScrollViewDelegate
+extension ComposeViewController {
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard scrollView === collectionView else { return }
+
+        let repliedToCellFrame = viewModel.repliedToCellFrame.value
+        guard repliedToCellFrame != .zero else { return }
+        let throttle = viewModel.repliedToCellFrame.value.height - scrollView.adjustedContentInset.top
+        // print("\(throttle) - \(scrollView.contentOffset.y)")
+
+        switch viewModel.collectionViewState.value {
+        case .fold:
+            if scrollView.contentOffset.y < throttle {
+                viewModel.collectionViewState.value = .expand
+            }
+            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
+
+        case .expand:
+            if scrollView.contentOffset.y > -44 {
+                viewModel.collectionViewState.value = .fold
+                os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
+            }
+        }
+    }
+}
+
 // MARK: - UITableViewDelegate
 extension ComposeViewController: UICollectionViewDelegate {
     
@@ -763,6 +835,10 @@ extension ComposeViewController: UICollectionViewDelegate {
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .fullScreen
+    }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
         return viewModel.shouldDismiss.value

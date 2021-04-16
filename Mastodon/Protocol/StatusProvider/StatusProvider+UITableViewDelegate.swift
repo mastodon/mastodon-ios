@@ -12,9 +12,6 @@ import os.log
 import UIKit
 
 extension StatusTableViewCellDelegate where Self: StatusProvider {
-    // TODO:
-    // func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    // }
     
     func handleTableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // update poll when status appear
@@ -102,6 +99,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             }
             .store(in: &disposeBag)
     }
+    
+    func handleTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        StatusProviderFacade.coordinateToStatusThreadScene(for: .primary, provider: self, indexPath: indexPath)
+    }
+    
 }
 
 extension StatusTableViewCellDelegate where Self: StatusProvider {}

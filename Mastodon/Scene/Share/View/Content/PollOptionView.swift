@@ -27,7 +27,7 @@ final class PollOptionView: UIView {
     
     let checkmarkBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
         return view
     }()
     
@@ -81,6 +81,7 @@ final class PollOptionView: UIView {
 
 extension PollOptionView {
     private func _init() {
+        // default color in the timeline
         roundedBackgroundView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         roundedBackgroundView.translatesAutoresizingMaskIntoConstraints = false

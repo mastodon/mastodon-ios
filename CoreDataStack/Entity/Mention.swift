@@ -10,6 +10,9 @@ import Foundation
 
 public final class Mention: NSManagedObject {
     public typealias ID = UUID
+    
+    @NSManaged public private(set) var index: NSNumber
+    
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var id: String
     @NSManaged public private(set) var createAt: Date
@@ -32,9 +35,11 @@ public extension Mention {
     @discardableResult
     static func insert(
         into context: NSManagedObjectContext,
-        property: Property
+        property: Property,
+        index: Int
     ) -> Mention {
         let mention: Mention = context.insertObject()
+        mention.index = NSNumber(value: index)
         mention.id = property.id
         mention.username = property.username
         mention.acct = property.acct

@@ -34,6 +34,7 @@ extension ComposeStatusSection {
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         composeKind: ComposeKind,
+        repliedToCellFrameSubscriber: CurrentValueSubject<CGRect, Never>,
         customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
@@ -50,8 +51,29 @@ extension ComposeStatusSection {
             weak composeStatusPollExpiresOptionCollectionViewCellDelegate
         ] collectionView, indexPath, item -> UICollectionViewCell? in
             switch item {
-            case .replyTo(let repliedToStatusObjectID):
+            case .replyTo(let replyToStatusObjectID):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToStatusContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToStatusContentCollectionViewCell
+                managedObjectContext.perform {
+                    guard let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
+                        return
+                    }
+                    let status = replyTo.reblog ?? replyTo
+                    
+                    // set avatar
+                    cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
+                    // set name username
+                    cell.statusView.nameLabel.text = {
+                        let author = status.author
+                        return author.displayName.isEmpty ? author.username : author.displayName
+                    }()
+                    cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
+                    // set text
+                    cell.statusView.activeTextLabel.configure(content: status.content)
+                    // set date
+                    cell.statusView.dateLabel.text = status.createdAt.shortTimeAgoSinceNow
+                    
+                    cell.framePublisher.assign(to: \.value, on: repliedToCellFrameSubscriber).store(in: &cell.disposeBag)
+                }
                 return cell
             case .input(let replyToStatusObjectID, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
@@ -63,16 +85,22 @@ extension ComposeStatusSection {
                         return
                     }
                     cell.statusView.headerContainerStackView.isHidden = false
-                    cell.statusView.headerInfoLabel.text = "[TODO] \(replyTo.author.displayName)"
+                    cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+                    cell.statusView.headerInfoLabel.text = L10n.Scene.Compose.replyingToUser(replyTo.author.displayNameWithFallback)
                 }
-                ComposeStatusSection.configure(cell: cell, attribute: attribute)
+                ComposeStatusSection.configureStatusContent(cell: cell, attribute: attribute)
                 cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
                 cell.composeContent
                     .removeDuplicates()
                     .receive(on: DispatchQueue.main)
                     .sink { text in
                         // self size input cell
+                        // needs restore content offset to resolve issue #83
+                        let oldContentOffset = collectionView.contentOffset
                         collectionView.collectionViewLayout.invalidateLayout()
+                        collectionView.layoutIfNeeded()
+                        collectionView.contentOffset = oldContentOffset
+                        
                         // bind input data
                         attribute.composeContent.value = text
                     }
@@ -167,6 +195,7 @@ extension ComposeStatusSection {
             case .pollOption(let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self), for: indexPath) as! ComposeStatusPollOptionCollectionViewCell
                 cell.pollOptionView.optionTextField.text = attribute.option.value
+                cell.pollOptionView.optionTextField.placeholder = L10n.Scene.Compose.Poll.optionNumber(indexPath.item + 1)
                 cell.pollOption
                     .receive(on: DispatchQueue.main)
                     .assign(to: \.value, on: attribute.option)
@@ -196,7 +225,7 @@ extension ComposeStatusSection {
 
 extension ComposeStatusSection {
     
-    static func configure(
+    static func configureStatusContent(
         cell: ComposeStatusContentCollectionViewCell,
         attribute: ComposeStatusItem.ComposeStatusAttribute
     ) {

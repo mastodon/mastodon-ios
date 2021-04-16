@@ -57,7 +57,7 @@ extension HashtagTimelineViewController {
         titleView.update(title: viewModel.hashtag, subtitle: nil)
         navigationItem.titleView = titleView
         
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         
         navigationItem.rightBarButtonItem = composeBarButtonItem
         
@@ -217,6 +217,10 @@ extension HashtagTimelineViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aspectTableView(tableView, didSelectRowAt: indexPath)
     }
 }
 

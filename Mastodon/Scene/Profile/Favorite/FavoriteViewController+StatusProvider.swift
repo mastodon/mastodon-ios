@@ -18,14 +18,14 @@ extension FavoriteViewController: StatusProvider {
         return Future { promise in promise(.success(nil)) }
     }
     
-    func status(for cell: UITableViewCell, indexPath: IndexPath?) -> Future<Status?, Never> {
+    func status(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<Status?, Never> {
         return Future { promise in
             guard let diffableDataSource = self.viewModel.diffableDataSource else {
                 assertionFailure()
                 promise(.success(nil))
                 return
             }
-            guard let indexPath = indexPath ?? self.tableView.indexPath(for: cell),
+            guard let indexPath = indexPath ?? cell.flatMap({ self.tableView.indexPath(for: $0) }),
                   let item = diffableDataSource.itemIdentifier(for: indexPath) else {
                 promise(.success(nil))
                 return

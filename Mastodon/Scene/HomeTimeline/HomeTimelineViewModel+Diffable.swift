@@ -29,7 +29,8 @@ extension HomeTimelineViewModel {
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
-            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
+            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
+            threadReplyLoaderTableViewCellDelegate: nil
         )
         
 //        var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
@@ -88,6 +89,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
                 let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusAttribute()
+                attribute.isSeparatorLineHidden = false
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))
@@ -96,6 +98,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                 switch (isLast, timelineIndex.hasMore) {
                 case (false, true):
                     newTimelineItems.append(.homeMiddleLoader(upperTimelineIndexAnchorObjectID: timelineIndex.objectID))
+                    attribute.isSeparatorLineHidden = true
                 case (true, true):
                     shouldAddBottomLoader = true
                 default:
