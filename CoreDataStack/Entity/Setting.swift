@@ -8,11 +8,11 @@
 import CoreData
 import Foundation
 
-@objc(Setting)
 public final class Setting: NSManagedObject {
     @NSManaged public var appearance: String?
     @NSManaged public var triggerBy: String?
     @NSManaged public var domain: String?
+    @NSManaged public var userID: String?
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
@@ -40,6 +40,7 @@ public extension Setting {
         setting.appearance = property.appearance
         setting.triggerBy = property.triggerBy
         setting.domain = property.domain
+        setting.userID = property.userID
         return setting
     }
     
@@ -61,11 +62,13 @@ public extension Setting {
         public let appearance: String
         public let triggerBy: String
         public let domain: String
+        public let userID: String
 
-        public init(appearance: String, triggerBy: String, domain: String) {
+        public init(appearance: String, triggerBy: String, domain: String, userID: String) {
             self.appearance = appearance
             self.triggerBy = triggerBy
             self.domain = domain
+            self.userID = userID
         }
     }
 }
@@ -77,8 +80,11 @@ extension Setting: Managed {
 }
 
 extension Setting {
-    public static func predicate(domain: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Setting.domain), domain)
+    public static func predicate(domain: String, userID: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@ AND %K == %@",
+                           #keyPath(Setting.domain), domain,
+                           #keyPath(Setting.userID), userID
+        )
     }
     
 }

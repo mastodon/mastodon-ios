@@ -16,11 +16,12 @@ extension APIService.CoreData {
     static func createOrMergeSetting(
         into managedObjectContext: NSManagedObjectContext,
         domain: String,
+        userID: String,
         property: Setting.Property
     ) -> (Subscription: Setting, isCreated: Bool) {
         let oldSetting: Setting? = {
             let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: property.domain)
+            request.predicate = Setting.predicate(domain: property.domain, userID: userID)
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             do {
@@ -45,38 +46,12 @@ extension APIService.CoreData {
         into managedObjectContext: NSManagedObjectContext,
         entity: Mastodon.Entity.Subscription,
         domain: String,
-        triggerBy: String? = nil
+        triggerBy: String,
+        setting: Setting
     ) -> (Subscription: Subscription, isCreated: Bool) {
-        // create setting entity if possible
-        let oldSetting: Setting? = {
-            let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: domain)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            do {
-                return try managedObjectContext.fetch(request).first
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
-            }
-        }()
-        var setting: Setting!
-        if let oldSetting = oldSetting {
-            setting = oldSetting
-        } else {
-            let property = Setting.Property(
-                appearance: "automatic",
-                triggerBy: "anyone",
-                domain: domain)
-            (setting, _) = createOrMergeSetting(
-                into: managedObjectContext,
-                domain: domain,
-                property: property)
-        }
-        
         let oldSubscription: Subscription? = {
             let request = Subscription.sortedFetchRequest
-            request.predicate = Subscription.predicate(id: entity.id)
+            request.predicate = Subscription.predicate(type: triggerBy)
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             do {
@@ -91,7 +66,8 @@ extension APIService.CoreData {
             endpoint: entity.endpoint,
             id: entity.id,
             serverKey: entity.serverKey,
-            type: triggerBy ?? setting.triggerBy ?? "")
+            type: triggerBy
+        )
         let alertEntity = entity.alerts
         let alert = SubscriptionAlerts.Property(
             favourite: alertEntity.favouriteNumber,
@@ -105,7 +81,8 @@ extension APIService.CoreData {
             if nil == oldSubscription.alert {
                 oldSubscription.alert = SubscriptionAlerts.insert(
                     into: managedObjectContext,
-                    property: alert)
+                    property: alert
+                )
             } else {
                 oldSubscription.alert?.updateIfNeed(property: alert)
             }

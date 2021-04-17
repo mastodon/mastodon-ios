@@ -29,7 +29,7 @@ class SettingsViewModel: NSObject, NeedsDependency {
         if let box =
             self.context.authenticationService.activeMastodonAuthenticationBox.value {
             let domain = box.domain
-            fetchRequest.predicate = Setting.predicate(domain: domain)
+            fetchRequest.predicate = Setting.predicate(domain: domain, userID: box.userID)
         }
         
         fetchRequest.fetchLimit = 1
@@ -78,6 +78,9 @@ class SettingsViewModel: NSObject, NeedsDependency {
         return Mastodon.API.privacyURL(domain: box.domain)
     }()
     
+    /// to store who trigger the notification.
+    var triggerBy: String?
+    
     struct Input {
     }
 
@@ -121,12 +124,14 @@ class SettingsViewModel: NSObject, NeedsDependency {
                     follow: values[1],
                     reblog: values[2],
                     mention: values[3],
-                    poll: nil)
+                    poll: nil
+                )
                 self.context.apiService.changeSubscription(
                     domain: domain,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox,
                     query: query,
-                    triggerBy: triggerBy
+                    triggerBy: triggerBy,
+                    userID: activeMastodonAuthenticationBox.userID
                 )
                 .sink { (_) in
                 } receiveValue: { (_) in
@@ -164,7 +169,8 @@ class SettingsViewModel: NSObject, NeedsDependency {
                     domain: domain,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox,
                     query: query,
-                    triggerBy: triggerBy
+                    triggerBy: triggerBy,
+                    userID: activeMastodonAuthenticationBox.userID
                 )
                 .sink { (_) in
                 } receiveValue: { (_) in
@@ -178,13 +184,6 @@ class SettingsViewModel: NSObject, NeedsDependency {
         
         // request subsription data for updating or initialization
         requestSubscription()
-        
-        do {
-            try fetchResultsController.performFetch()
-            setting.value = fetchResultsController.fetchedObjects?.first
-        } catch {
-            assertionFailure(error.localizedDescription)
-        }
         return nil
     }
     
@@ -213,12 +212,12 @@ class SettingsViewModel: NSObject, NeedsDependency {
         } else if let triggerBy = settings?.triggerBy,
                   let values = self.notificationDefaultValue[triggerBy] {
             switches = values
-            self.createSubscriptionSubject.send((triggerBy: triggerBy, values: values))
         } else {
             // fallback a default value
             let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
             switches = self.notificationDefaultValue[anyone]
         }
+        
         let notifications = [L10n.Scene.Settings.Section.Notifications.favorites,
                              L10n.Scene.Settings.Section.Notifications.follows,
                              L10n.Scene.Settings.Section.Notifications.boosts,
@@ -273,31 +272,61 @@ class SettingsViewModel: NSObject, NeedsDependency {
     }
     
     private func requestSubscription() {
-        // request subscription of notifications
-        typealias SubscriptionResponse = Mastodon.Response.Content<Mastodon.Entity.Subscription>
-        viewDidLoad.flatMap { [weak self] (_) -> AnyPublisher<SubscriptionResponse, Error> in
-            guard let self = self,
-                  let activeMastodonAuthenticationBox =
-                    self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                return Empty<SubscriptionResponse, Error>().eraseToAnyPublisher()
+        setting.sink { [weak self] (settings) in
+            guard let self = self else { return }
+            guard settings != nil else { return }
+            guard self.triggerBy != settings?.triggerBy else { return }
+            self.triggerBy = settings?.triggerBy
+            
+            var switches: [Bool?]?
+            var who: String?
+            if let alerts = settings?.subscription?.first(where: { (s) -> Bool in
+                return s.type == settings?.triggerBy
+            })?.alert {
+                var items = [Bool?]()
+                items.append(alerts.favourite?.boolValue)
+                items.append(alerts.follow?.boolValue)
+                items.append(alerts.reblog?.boolValue)
+                items.append(alerts.mention?.boolValue)
+                switches = items
+                who = settings?.triggerBy
+            } else if let triggerBy = settings?.triggerBy,
+                      let values = self.notificationDefaultValue[triggerBy] {
+                switches = values
+                who = triggerBy
+            } else {
+                // fallback a default value
+                let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
+                switches = self.notificationDefaultValue[anyone]
+                who = anyone
             }
             
-            let domain = activeMastodonAuthenticationBox.domain
-            return self.context.apiService.subscription(
-                domain: domain,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-        }
-        .sink { [weak self] competion in
-            if case .failure(_) = competion {
-                // create a subscription when doesn't has one
-                let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
-                if let values = self?.notificationDefaultValue[anyone] {
-                    self?.createSubscriptionSubject.send((triggerBy: anyone, values: values))
-                }
+            // should create a subscription whenever change trigger
+            if let values = switches, let triggerBy = who {
+                self.createSubscriptionSubject.send((triggerBy: triggerBy, values: values))
             }
-        } receiveValue: { (subscription) in
         }
         .store(in: &disposeBag)
+        
+        guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let domain = activeMastodonAuthenticationBox.domain
+        let userId = activeMastodonAuthenticationBox.userID
+        
+        do {
+            try fetchResultsController.performFetch()
+            if nil == fetchResultsController.fetchedObjects?.first {
+                let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
+                setting.value =  self.context.apiService.createSettingIfNeed(domain: domain,
+                                                                             userId: userId,
+                                                                             triggerBy: anyone)
+            } else {
+                setting.value = fetchResultsController.fetchedObjects?.first
+            }
+        } catch {
+            assertionFailure(error.localizedDescription)
+        }
     }
     
     deinit {

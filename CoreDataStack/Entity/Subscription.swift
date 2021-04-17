@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-@objc(Subscription)
 public final class Subscription: NSManagedObject {
     @NSManaged public var id: String
     @NSManaged public var endpoint: String
@@ -95,8 +94,8 @@ extension Subscription: Managed {
 
 extension Subscription {
     
-    public static func predicate(id: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Subscription.id), id)
+    public static func predicate(type: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Subscription.type), type)
     }
     
 }

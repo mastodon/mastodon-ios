@@ -20,7 +20,7 @@ public final class SubscriptionAlerts: NSManagedObject {
     @NSManaged public private(set) var updatedAt: Date
     
     // MARK: - relationships
-    @NSManaged public var pushSubscription: Subscription?
+    @NSManaged public var subscription: Subscription?
 }
 
 public extension SubscriptionAlerts {

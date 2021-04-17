@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
                 UIAction(title: noOne, image: UIImage(systemName: "nosign"), attributes: []) { [weak self] action in
                     self?.updateTrigger(by: noOne)
                 },
-            ].reversed()
+            ]
         )
         return menu
     }
@@ -344,10 +344,15 @@ extension SettingsViewController: UITableViewDelegate {
 // Update setting into core data
 extension SettingsViewController {
     func updateTrigger(by who: String) {
+        guard self.viewModel.triggerBy != who else { return }
         guard let setting = self.viewModel.setting.value else { return }
         
-        _ = context.managedObjectContext.performChanges {
-            setting.update(triggerBy: who)
+        setting.update(triggerBy: who)
+        // trigger to call `subscription` API with POST method
+        // confirm the local data is correct even if request failed
+        // The asynchronous execution is to solve the problem of dropped frames for animations.
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel.setting.value = setting
         }
     }
     
@@ -356,34 +361,35 @@ extension SettingsViewController {
         guard let settings = self.viewModel.setting.value else { return }
         guard let triggerBy = settings.triggerBy else { return }
         
-        guard let alerts = settings.subscription?.first(where: { (s) -> Bool in
+        if let alerts = settings.subscription?.first(where: { (s) -> Bool in
             return s.type == settings.triggerBy
-        })?.alert else {
-            return
+        })?.alert {
+            var alertValues = [Bool?]()
+            alertValues.append(alerts.favourite?.boolValue)
+            alertValues.append(alerts.follow?.boolValue)
+            alertValues.append(alerts.reblog?.boolValue)
+            alertValues.append(alerts.mention?.boolValue)
+            
+            // need to update `alerts` to make update API with correct parameter
+            switch title {
+            case L10n.Scene.Settings.Section.Notifications.favorites:
+                alertValues[0] = isOn
+                alerts.favourite = NSNumber(booleanLiteral: isOn)
+            case L10n.Scene.Settings.Section.Notifications.follows:
+                alertValues[1] = isOn
+                alerts.follow = NSNumber(booleanLiteral: isOn)
+            case L10n.Scene.Settings.Section.Notifications.boosts:
+                alertValues[2] = isOn
+                alerts.reblog = NSNumber(booleanLiteral: isOn)
+            case L10n.Scene.Settings.Section.Notifications.mentions:
+                alertValues[3] = isOn
+                alerts.mention = NSNumber(booleanLiteral: isOn)
+            default: break
+            }
+            self.viewModel.updateSubscriptionSubject.send((triggerBy: triggerBy, values: alertValues))
+        } else if let alertValues = self.viewModel.notificationDefaultValue[triggerBy] {
+            self.viewModel.updateSubscriptionSubject.send((triggerBy: triggerBy, values: alertValues))
         }
-        var alertValues = [Bool?]()
-        alertValues.append(alerts.favourite?.boolValue)
-        alertValues.append(alerts.follow?.boolValue)
-        alertValues.append(alerts.reblog?.boolValue)
-        alertValues.append(alerts.mention?.boolValue)
-        
-        // need to update `alerts` to make update API with correct parameter
-        switch title {
-        case L10n.Scene.Settings.Section.Notifications.favorites:
-            alertValues[0] = isOn
-            alerts.favourite = NSNumber(booleanLiteral: isOn)
-        case L10n.Scene.Settings.Section.Notifications.follows:
-            alertValues[1] = isOn
-            alerts.follow = NSNumber(booleanLiteral: isOn)
-        case L10n.Scene.Settings.Section.Notifications.boosts:
-            alertValues[2] = isOn
-            alerts.reblog = NSNumber(booleanLiteral: isOn)
-        case L10n.Scene.Settings.Section.Notifications.mentions:
-            alertValues[3] = isOn
-            alerts.mention = NSNumber(booleanLiteral: isOn)
-        default: break
-        }
-        self.viewModel.updateSubscriptionSubject.send((triggerBy: triggerBy, values: alertValues))
     }
 }
 
@@ -435,7 +441,7 @@ extension SettingsViewController {
         guard let setting: Setting? = {
             let domain = box.domain
             let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: domain)
+            request.predicate = Setting.predicate(domain: domain, userID: box.userID)
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             do {
