@@ -16,14 +16,14 @@ final class WelcomeIllustrationView: UIView {
     let leftHillImageView = UIImageView()
     let centerHillImageView = UIImageView()
     
-    private let cloudBaseImage = Asset.Welcome.Illustration.cloudBase.image
-    private let elephantThreeOnGrassWithTreeTwoImage = Asset.Welcome.Illustration.elephantThreeOnGrassWithTreeTwo.image
-    private let elephantThreeOnGrassWithTreeThreeImage = Asset.Welcome.Illustration.elephantThreeOnGrassWithTreeThree.image
-    private let elephantThreeOnGrassImage = Asset.Welcome.Illustration.elephantThreeOnGrass.image
+    private let cloudBaseImage = Asset.Scene.Welcome.Illustration.cloudBase.image
+    private let elephantThreeOnGrassWithTreeTwoImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeTwo.image
+    private let elephantThreeOnGrassWithTreeThreeImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrassWithTreeThree.image
+    private let elephantThreeOnGrassImage = Asset.Scene.Welcome.Illustration.elephantThreeOnGrass.image
     
     // layout outside
     let elephantOnAirplaneWithContrailImageView: UIImageView = {
-        let imageView = UIImageView(image: Asset.Welcome.Illustration.elephantOnAirplaneWithContrail.image)
+        let imageView = UIImageView(image: Asset.Scene.Welcome.Illustration.elephantOnAirplaneWithContrail.image)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -43,7 +43,7 @@ final class WelcomeIllustrationView: UIView {
 extension WelcomeIllustrationView {
     
     private func _init() {
-        backgroundColor = Asset.Welcome.Illustration.backgroundCyan.color
+        backgroundColor = Asset.Scene.Welcome.Illustration.backgroundCyan.color
         
         let topPaddingView = UIView()
         

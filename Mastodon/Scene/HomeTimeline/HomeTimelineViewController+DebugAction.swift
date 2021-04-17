@@ -33,8 +33,9 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showProfileAction(action)
                 },
-                UIAction(title: "Settings", image: UIImage(systemName: "escape"), attributes: []) { [weak self] action in
-                    self?.coordinator.present(scene: .settings, from: self, transition: .modal(animated: true, completion: nil))
+                UIAction(title: "Show Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showThreadAction(action)
                 },
                 UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
                     guard let self = self else { return }
@@ -300,6 +301,21 @@ extension HomeTimelineViewController {
             guard let textField = alertController?.textFields?.first else { return }
             let profileViewModel = RemoteProfileViewModel(context: self.context, userID: textField.text ?? "")
             self.coordinator.present(scene: .profile(viewModel: profileViewModel), from: self, transition: .show)
+        }
+        alertController.addAction(showAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+    }
+    
+    @objc private func showThreadAction(_ sender: UIAction) {
+        let alertController = UIAlertController(title: "Enter Status ID", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        let showAction = UIAlertAction(title: "Show", style: .default) { [weak self, weak alertController] _ in
+            guard let self = self else { return }
+            guard let textField = alertController?.textFields?.first else { return }
+            let threadViewModel = RemoteThreadViewModel(context: self.context, statusID: textField.text ?? "")
+            self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: self, transition: .show)
         }
         alertController.addAction(showAction)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

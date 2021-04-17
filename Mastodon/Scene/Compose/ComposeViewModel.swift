@@ -26,9 +26,11 @@ final class ComposeViewModel {
     let isPollComposing = CurrentValueSubject<Bool, Never>(false)
     let isCustomEmojiComposing = CurrentValueSubject<Bool, Never>(false)
     let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
-    let selectedStatusVisibility = CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>(.public)
+    let selectedStatusVisibility: CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
+    let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make intial event emit
+    let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
@@ -55,6 +57,7 @@ final class ComposeViewModel {
     let isMediaToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let isPollToolbarButtonEnabled = CurrentValueSubject<Bool, Never>(true)
     let characterCount = CurrentValueSubject<Int, Never>(0)
+    let collectionViewState = CurrentValueSubject<CollectionViewState, Never>(.fold)
     
     // for hashtag: #<hashag>' '
     // for mention: @<mention>' '
@@ -83,10 +86,40 @@ final class ComposeViewModel {
         case .post, .hashtag, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
         case .reply:                          self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
+        self.selectedStatusVisibility = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public)
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
-        if case let .hashtag(text) = composeKind {
+        if case let .reply(repliedToStatusObjectID) = composeKind {
+            context.managedObjectContext.performAndWait {
+                guard let status = context.managedObjectContext.object(with: repliedToStatusObjectID) as? Status else { return }
+                let composeAuthor: MastodonUser? = {
+                    guard let objectID = self.activeAuthentication.value?.user.objectID else { return nil }
+                    guard let author = context.managedObjectContext.object(with: objectID) as? MastodonUser else { return nil }
+                    return author
+                }()
+                
+                var mentionAccts: [String] = []
+                if composeAuthor?.id != status.author.id {
+                    mentionAccts.append("@" + status.author.acct)
+                }
+                let mentions = (status.mentions ?? Set())
+                    .sorted(by: { $0.index.intValue < $1.index.intValue })
+                    .filter { $0.id != composeAuthor?.id }
+                for mention in mentions {
+                    mentionAccts.append("@" + mention.acct)
+                }
+                for acct in mentionAccts {
+                    UITextChecker.learnWord(acct)
+                }
+                
+                let initialComposeContent = mentionAccts.joined(separator: " ")
+                let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "
+                self.preInsertedContent = preInsertedContent
+                self.composeStatusAttribute.composeContent.value = preInsertedContent
+            }
+            
+        } else if case let .hashtag(text) = composeKind {
             let initialComposeContent = "#" + text
             UITextChecker.learnWord(initialComposeContent)
             let preInsertedContent = initialComposeContent + " "
@@ -344,6 +377,13 @@ final class ComposeViewModel {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
+}
+
+extension ComposeViewModel {
+    enum CollectionViewState {
+        case fold       // snap to input
+        case expand     // snap to reply
+    }
 }
 
 extension ComposeViewModel {

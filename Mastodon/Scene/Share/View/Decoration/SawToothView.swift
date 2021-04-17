@@ -22,7 +22,7 @@ final class SawToothView: UIView {
     }
 
     func _init() {
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
     }
 
     override func draw(_ rect: CGRect) {
@@ -37,7 +37,7 @@ final class SawToothView: UIView {
         }
         bezierPath.addLine(to: CGPoint(x: 0, y: bottomY))
         bezierPath.close()
-        Asset.Colors.Background.secondaryGroupedSystemBackground.color.setFill()
+        Asset.Colors.Background.systemBackground.color.setFill()
         bezierPath.fill()
         bezierPath.lineWidth = 0
         bezierPath.stroke()

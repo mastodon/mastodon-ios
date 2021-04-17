@@ -91,7 +91,7 @@ extension ComposeStatusContentCollectionViewCell {
         
         statusContentWarningEditorView.containerView.isHidden = true
     }
-    
+
 }
 
 // MARK: - TextEditorViewChangeObserver

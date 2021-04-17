@@ -12,8 +12,8 @@ import MastodonSDK
 
 final class RemoteProfileViewModel: ProfileViewModel {
     
-    convenience init(context: AppContext, userID: Mastodon.Entity.Account.ID) {
-        self.init(context: context, optionalMastodonUser: nil)
+    init(context: AppContext, userID: Mastodon.Entity.Account.ID) {
+        super.init(context: context, optionalMastodonUser: nil)
         
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
@@ -47,8 +47,6 @@ final class RemoteProfileViewModel: ProfileViewModel {
             self.mastodonUser.value = mastodonUser
         }
         .store(in: &disposeBag)
-        
     }
-
     
 }

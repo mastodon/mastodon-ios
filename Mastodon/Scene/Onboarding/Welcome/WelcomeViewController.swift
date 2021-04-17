@@ -17,7 +17,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
     
     private(set) lazy var logoImageView: UIImageView = {
-        let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Welcome.mastodonLogo.image : Asset.Welcome.mastodonLogoBlackLarge.image
+        let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Scene.Welcome.mastodonLogo.image : Asset.Scene.Welcome.mastodonLogoBlackLarge.image
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

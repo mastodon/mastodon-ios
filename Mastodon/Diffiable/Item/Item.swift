@@ -14,6 +14,12 @@ import MastodonSDK
 enum Item {
     // timeline
     case homeTimelineIndex(objectID: NSManagedObjectID, attribute: StatusAttribute)
+    
+    // thread
+    case root(statusObjectID: NSManagedObjectID, attribute: StatusAttribute)
+    case reply(statusObjectID: NSManagedObjectID, attribute: StatusAttribute)
+    case leaf(statusObjectID: NSManagedObjectID, attribute: StatusAttribute)
+    case leafBottomLoader(statusObjectID: NSManagedObjectID)
 
     // normal list
     case status(objectID: NSManagedObjectID, attribute: StatusAttribute)
@@ -21,6 +27,7 @@ enum Item {
     // loader
     case homeMiddleLoader(upperTimelineIndexAnchorObjectID: NSManagedObjectID)
     case publicMiddleLoader(statusID: String)
+    case topLoader
     case bottomLoader
     
     case emptyStateHeader(attribute: EmptyStateHeaderAttribute)
@@ -35,13 +42,16 @@ extension Item {
     class StatusAttribute: StatusContentWarningAttribute {
         var isStatusTextSensitive: Bool?
         var isStatusSensitive: Bool?
+        var isSeparatorLineHidden: Bool
 
         init(
             isStatusTextSensitive: Bool? = nil,
-            isStatusSensitive: Bool? = nil
+            isStatusSensitive: Bool? = nil,
+            isSeparatorLineHidden: Bool = false
         ) {
             self.isStatusTextSensitive = isStatusTextSensitive
             self.isStatusSensitive = isStatusSensitive
+            self.isSeparatorLineHidden = isSeparatorLineHidden
         }
         
         // delay attribute init
@@ -58,6 +68,23 @@ extension Item {
             }
         }
     }
+    
+//    class LeafAttribute {
+//        let identifier = UUID()
+//        let statusID: Status.ID
+//        var level: Int = 0
+//        var hasReply: Bool = true
+//
+//        init(
+//            statusID: Status.ID,
+//            level: Int,
+//            hasReply: Bool = true
+//        ) {
+//            self.statusID = statusID
+//            self.level = level
+//            self.hasReply = hasReply
+//        }
+//    }
     
     class EmptyStateHeaderAttribute: Hashable {
         let id = UUID()
@@ -99,12 +126,22 @@ extension Item: Equatable {
         switch (lhs, rhs) {
         case (.homeTimelineIndex(let objectIDLeft, _), .homeTimelineIndex(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
+        case (.root(let objectIDLeft, _), .root(let objectIDRight, _)):
+            return objectIDLeft == objectIDRight
+        case (.reply(let objectIDLeft, _), .reply(let objectIDRight, _)):
+            return objectIDLeft == objectIDRight
+        case (.leaf(let objectIDLeft, _), .leaf(let objectIDRight, _)):
+            return objectIDLeft == objectIDRight
+        case (.leafBottomLoader(let objectIDLeft), .leafBottomLoader(let objectIDRight)):
+            return objectIDLeft == objectIDRight
         case (.status(let objectIDLeft, _), .status(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
         case (.homeMiddleLoader(let upperLeft), .homeMiddleLoader(let upperRight)):
             return upperLeft == upperRight
         case (.publicMiddleLoader(let upperLeft), .publicMiddleLoader(let upperRight)):
             return upperLeft == upperRight
+        case (.topLoader, .topLoader):
+            return true
         case (.bottomLoader, .bottomLoader):
             return true
         case (.emptyStateHeader(let attributeLeft), .emptyStateHeader(let attributeRight)):
@@ -120,6 +157,14 @@ extension Item: Hashable {
         switch self {
         case .homeTimelineIndex(let objectID, _):
             hasher.combine(objectID)
+        case .root(let objectID, _):
+            hasher.combine(objectID)
+        case .reply(let objectID, _):
+            hasher.combine(objectID)
+        case .leaf(let objectID, _):
+            hasher.combine(objectID)
+        case .leafBottomLoader(let objectID):
+            hasher.combine(objectID)
         case .status(let objectID, _):
             hasher.combine(objectID)
         case .homeMiddleLoader(upperTimelineIndexAnchorObjectID: let upper):
@@ -128,6 +173,8 @@ extension Item: Hashable {
         case .publicMiddleLoader(let upper):
             hasher.combine(String(describing: Item.publicMiddleLoader.self))
             hasher.combine(upper)
+        case .topLoader:
+            hasher.combine(String(describing: Item.topLoader.self))
         case .bottomLoader:
             hasher.combine(String(describing: Item.bottomLoader.self))
         case .emptyStateHeader(let attribute):

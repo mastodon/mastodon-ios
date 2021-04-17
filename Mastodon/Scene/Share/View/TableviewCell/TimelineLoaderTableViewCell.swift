@@ -10,9 +10,9 @@ import Combine
 
 class TimelineLoaderTableViewCell: UITableViewCell {
     
-    static let buttonHeight: CGFloat = 62
-    static let cellHeight: CGFloat = TimelineLoaderTableViewCell.buttonHeight + 17
-    static let extraTopPadding: CGFloat = 10
+    static let buttonHeight: CGFloat = 44
+    static let buttonMargin: CGFloat = 12
+    static let cellHeight: CGFloat = buttonHeight + 2 * buttonMargin
     static let labelFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .medium))
     
     var disposeBag = Set<AnyCancellable>()
@@ -22,7 +22,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
-        button.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        button.backgroundColor = Asset.Colors.Background.systemBackground.color
         button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
         button.setTitle(L10n.Common.Controls.Timeline.Loader.loadMissingPosts, for: .normal)
         button.setTitle("", for: .disabled)
@@ -73,15 +73,15 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     
     func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        backgroundColor = .clear
         
         loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(loadMoreButton)
         NSLayoutConstraint.activate([
-            loadMoreButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7),
+            loadMoreButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: TimelineLoaderTableViewCell.buttonMargin),
             loadMoreButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: loadMoreButton.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: 14),
+            contentView.bottomAnchor.constraint(equalTo: loadMoreButton.bottomAnchor, constant: TimelineLoaderTableViewCell.buttonMargin),
             loadMoreButton.heightAnchor.constraint(equalToConstant: TimelineLoaderTableViewCell.buttonHeight).priority(.required - 1),
         ])
         

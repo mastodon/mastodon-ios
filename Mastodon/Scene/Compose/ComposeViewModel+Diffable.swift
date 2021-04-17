@@ -27,6 +27,7 @@ extension ComposeViewModel {
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
             composeKind: composeKind,
+            repliedToCellFrameSubscriber: repliedToCellFrame,
             customEmojiPickerInputViewModel: customEmojiPickerInputViewModel,
             textEditorViewTextAttributesDelegate: textEditorViewTextAttributesDelegate,
             composeStatusAttachmentTableViewCellDelegate: composeStatusAttachmentTableViewCellDelegate,

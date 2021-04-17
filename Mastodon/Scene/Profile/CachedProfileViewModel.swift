@@ -10,8 +10,8 @@ import CoreDataStack
 
 final class CachedProfileViewModel: ProfileViewModel {
     
-    convenience init(context: AppContext, mastodonUser: MastodonUser) {
-        self.init(context: context, optionalMastodonUser: mastodonUser)
+    init(context: AppContext, mastodonUser: MastodonUser) {
+        super.init(context: context, optionalMastodonUser: mastodonUser)
     }
     
 }

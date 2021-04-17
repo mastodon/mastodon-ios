@@ -29,6 +29,8 @@ final class ProfileRelationshipActionButton: RoundedEdgesButton {
 
 extension ProfileRelationshipActionButton {
     private func _init() {
+        titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        
         actvityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(actvityIndicatorView)
         NSLayoutConstraint.activate([

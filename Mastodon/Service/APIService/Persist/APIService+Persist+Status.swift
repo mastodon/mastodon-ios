@@ -221,6 +221,13 @@ extension APIService.Persist {
                 break
             }
             
+            // reply relationship link
+            for (_, status) in statusCache.dictionary {
+                guard let replyToID = status.inReplyToID, status.replyTo == nil else { continue }
+                guard let replyTo = statusCache.dictionary[replyToID] else { continue }
+                status.update(replyTo: replyTo)
+            }
+            
             // print working record tree map
             #if DEBUG
             DispatchQueue.global(qos: .utility).async {

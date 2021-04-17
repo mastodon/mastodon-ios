@@ -26,7 +26,7 @@ extension CGImage {
               let pointer = CFDataGetBytePtr(data) else { return nil }
         
         let length = CFDataGetLength(data)
-        guard length > 0 else { return nil}
+        guard length > 0 else { return nil }
         
         var luma: CGFloat = 0.0
         for i in stride(from: 0, to: length, by: 4) {

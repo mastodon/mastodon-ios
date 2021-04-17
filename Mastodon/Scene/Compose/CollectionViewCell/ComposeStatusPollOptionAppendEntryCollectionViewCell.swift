@@ -29,7 +29,7 @@ final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionVi
     
     override var isHighlighted: Bool {
         didSet {
-            pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? Asset.Colors.Background.secondarySystemBackground.color : Asset.Colors.Background.systemBackground.color
+            pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? Asset.Colors.Background.tertiarySystemBackground.color : Asset.Colors.Background.secondarySystemBackground.color
             pollOptionView.plusCircleImageView.tintColor = isHighlighted ? Asset.Colors.Button.normal.color.withAlphaComponent(0.5) : Asset.Colors.Button.normal.color
         }
     }
@@ -82,7 +82,7 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
         pollOptionView.optionTextField.isHidden = true
         pollOptionView.plusCircleImageView.isHidden = false
         
-        pollOptionView.roundedBackgroundView.backgroundColor = Asset.Colors.Background.systemBackground.color
+        pollOptionView.roundedBackgroundView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         setupBorderColor()
         
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)

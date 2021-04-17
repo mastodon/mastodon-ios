@@ -29,7 +29,7 @@ final class StatusView: UIView {
     static let avatarToLabelSpacing: CGFloat = 5
     static let contentWarningBlurRadius: CGFloat = 12
     
-    static let boostIconImage: UIImage = {
+    static let reblogIconImage: UIImage = {
         let font = UIFont.systemFont(ofSize: 13, weight: .medium)
         let configuration = UIImage.SymbolConfiguration(font: font)
         let image = UIImage(systemName: "arrow.2.squarepath", withConfiguration: configuration)!.withTintColor(Asset.Colors.Label.secondary.color)
@@ -61,7 +61,7 @@ final class StatusView: UIView {
     
     let headerIconLabel: UILabel = {
         let label = UILabel()
-        label.attributedText = StatusView.iconAttributedString(image: StatusView.boostIconImage)
+        label.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
         return label
     }()
     
@@ -181,7 +181,7 @@ final class StatusView: UIView {
     // do not use visual effect view due to we blur text only without background
     let contentWarningBlurContentImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        imageView.backgroundColor = Asset.Colors.Background.systemBackground.color
         imageView.layer.masksToBounds = false
         return imageView
     }()
