@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-@objc(SubscriptionAlerts)
 public final class SubscriptionAlerts: NSManagedObject {
     @NSManaged public var follow: NSNumber?
     @NSManaged public var favourite: NSNumber?

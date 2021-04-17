@@ -28,7 +28,7 @@ extension Mastodon.API.Subscriptions {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - authorization: User token. Could be nil if status is public
-    /// - Returns: `AnyPublisher` contains `Poll` nested in the response
+    /// - Returns: `AnyPublisher` contains `Subscription` nested in the response
     public static func subscription(
         session: URLSession,
         domain: String,
@@ -61,7 +61,7 @@ extension Mastodon.API.Subscriptions {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - authorization: User token. Could be nil if status is public
-    /// - Returns: `AnyPublisher` contains `Poll` nested in the response
+    /// - Returns: `AnyPublisher` contains `Subscription` nested in the response
     public static func createSubscription(
         session: URLSession,
         domain: String,
@@ -95,7 +95,7 @@ extension Mastodon.API.Subscriptions {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - authorization: User token. Could be nil if status is public
-    /// - Returns: `AnyPublisher` contains `Poll` nested in the response
+    /// - Returns: `AnyPublisher` contains `Subscription` nested in the response
     public static func updateSubscription(
         session: URLSession,
         domain: String,

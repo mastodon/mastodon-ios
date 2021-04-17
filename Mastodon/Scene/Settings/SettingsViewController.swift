@@ -311,8 +311,9 @@ extension SettingsViewController: UITableViewDelegate {
         
         switch item {
         case .boringZone:
+            guard let url = viewModel.privacyURL else { break }
             coordinator.present(
-                scene: .safari(url: URL(string: "https://mastodon.online/terms")!),
+                scene: .safari(url: url),
                 from: self,
                 transition: .safariPresent(animated: true, completion: nil)
             )
@@ -345,11 +346,9 @@ extension SettingsViewController {
     func updateTrigger(by who: String) {
         guard let setting = self.viewModel.setting.value else { return }
         
-        context.managedObjectContext.performChanges {
+        _ = context.managedObjectContext.performChanges {
             setting.update(triggerBy: who)
         }
-        .sink { (_) in
-        }.store(in: &disposeBag)
     }
     
     func updateAlert(title: String?, isOn: Bool) {

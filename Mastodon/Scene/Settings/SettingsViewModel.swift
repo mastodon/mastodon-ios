@@ -70,6 +70,14 @@ class SettingsViewModel: NSObject, NeedsDependency {
                 noOne: noOneSwitchItems]
     }()
     
+    lazy var privacyURL: URL? = {
+        guard let box = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value else {
+            return nil
+        }
+        
+        return Mastodon.API.privacyURL(domain: box.domain)
+    }()
+    
     struct Input {
     }
 
