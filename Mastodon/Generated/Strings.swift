@@ -35,6 +35,14 @@ internal enum L10n {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
       }
+      internal enum SignOut {
+        /// Sign Out
+        internal static let confirm = L10n.tr("Localizable", "Common.Alerts.SignOut.Confirm")
+        /// Are you sure you want to sign out?
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.SignOut.Message")
+        /// Sign out
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.SignOut.Title")
+      }
       internal enum SignUpFailure {
         /// Sign Up Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
@@ -589,6 +597,62 @@ internal enum L10n {
       internal enum Button {
         /// I Agree
         internal static let confirm = L10n.tr("Localizable", "Scene.ServerRules.Button.Confirm")
+      }
+    }
+    internal enum Settings {
+      /// Settings
+      internal static let title = L10n.tr("Localizable", "Scene.Settings.Title")
+      internal enum Section {
+        internal enum Appearance {
+          /// Automatic
+          internal static let automatic = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Automatic")
+          /// Always Dark
+          internal static let dark = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Dark")
+          /// Always Light
+          internal static let light = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Light")
+          /// Appearance
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
+        }
+        internal enum Boringzone {
+          /// Privacy Policy
+          internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Privacy")
+          /// Terms of Service
+          internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Terms")
+          /// The Boring zone
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Title")
+        }
+        internal enum Notifications {
+          /// Reblogs my post
+          internal static let boosts = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Boosts")
+          /// Favorites my post
+          internal static let favorites = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Favorites")
+          /// Follows me
+          internal static let follows = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Follows")
+          /// Mentions me
+          internal static let mentions = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Mentions")
+          /// Notifications
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Title")
+          internal enum Trigger {
+            /// anyone
+            internal static let anyone = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Anyone")
+            /// anyone I follow
+            internal static let follow = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follow")
+            /// a follower
+            internal static let follower = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Follower")
+            /// no one
+            internal static let noone = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Noone")
+            /// Notify me when
+            internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Title")
+          }
+        }
+        internal enum Spicyzone {
+          /// Clear Media Cache
+          internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Clear")
+          /// Sign Out
+          internal static let signout = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Signout")
+          /// The spicy zone
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Title")
+        }
       }
     }
     internal enum Thread {
