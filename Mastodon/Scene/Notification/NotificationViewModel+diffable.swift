@@ -76,6 +76,7 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
                 guard let difference = self.calculateReloadSnapshotDifference(navigationBar: navigationBar, tableView: tableView, oldSnapshot: oldSnapshot, newSnapshot: newSnapshot) else {
                     diffableDataSource.apply(newSnapshot, animatingDifferences: false)
                     self.isFetchingLatestNotification.value = false
+                    tableView.reloadData()
                     return
                 }
                 

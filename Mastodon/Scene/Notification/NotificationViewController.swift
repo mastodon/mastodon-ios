@@ -16,16 +16,16 @@ import UIKit
 final class NotificationViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
+
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = NotificationViewModel(context: context)
-    
+
     let segmentControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything, L10n.Scene.Notification.Title.mentions])
         control.selectedSegmentIndex = 0
         return control
     }()
-    
+
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -38,7 +38,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
         tableView.estimatedRowHeight = UITableView.automaticDimension
         return tableView
     }()
-    
+
     let refreshControl = UIRefreshControl()
 }
 
@@ -55,10 +55,10 @@ extension NotificationViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
+
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(NotificationViewController.refreshControlValueChanged(_:)), for: .valueChanged)
-        
+
         tableView.delegate = self
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
@@ -78,10 +78,10 @@ extension NotificationViewController {
             }
             .store(in: &disposeBag)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -96,7 +96,7 @@ extension NotificationViewController {
             }
         }
     }
-    
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
@@ -117,11 +117,11 @@ extension NotificationViewController {
         if sender.selectedSegmentIndex == 0 {
             viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
         } else {
-            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain,userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
+            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
         }
-        viewModel.selectedIndex.value = NotificationViewModel.NotificationSegment.init(rawValue: sender.selectedSegmentIndex)!
+        viewModel.selectedIndex.value = NotificationViewModel.NotificationSegment(rawValue: sender.selectedSegmentIndex)!
     }
-    
+
     @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
         guard viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self) else {
             sender.endRefreshing()
@@ -134,24 +134,24 @@ extension NotificationViewController {
 
 extension NotificationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .notification(let objectID):
             let notification = context.managedObjectContext.object(with: objectID) as! MastodonNotification
-            if notification.status != nil {
-                // TODO: goto status detail vc
+            if let status = notification.status {
+                let viewModel = ThreadViewModel(context: context, optionalStatus: status)
+                coordinator.present(scene: .thread(viewModel: viewModel), from: self, transition: .show)
             } else {
                 let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
-                DispatchQueue.main.async {
-                    self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
-                }
+                coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
             }
         default:
             break
         }
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
@@ -181,7 +181,7 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
             self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
         }
     }
-    
+
     func parent() -> UIViewController {
         self
     }
