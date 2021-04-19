@@ -51,7 +51,8 @@
                 "preview": "Preview",
                 "share": "Share",
                 "share_user": "Share %s",
-                "open_in_safari": "Open in Safari"
+                "open_in_safari": "Open in Safari",
+                "skip": "Skip"
             },
             "status": {
                 "user_reblogged": "%s reblogged",
@@ -329,7 +330,7 @@
         },
         "favorite": {
             "title": "Your Favorites"
-            },
+        },
         "notification": {
             "title": {
                 "Everything": "Everything",
@@ -341,6 +342,7 @@
                 "reblog": "rebloged your post",
                 "poll": "Your poll has ended",
                 "mention": "mentioned you"
+            }
         },
         "thread": {
             "back_title": "Post",
@@ -388,6 +390,17 @@
                     "signout": "Sign Out"
                 }
             }
+        },
+        "report": {
+            "title": "Report %s",
+            "step1": "Step 1 of 2",
+            "step2": "Step 2 of 2",
+            "content1": "Are there any other posts you’d like to add to the report?",
+            "content2": "Is there anything the moderators should know about this report?",
+            "send": "Send Report",
+            "skipToSend": "Send without comment",
+            "textPlaceHolder": "|Type or paste additional comments"
         }
     }
 }
+

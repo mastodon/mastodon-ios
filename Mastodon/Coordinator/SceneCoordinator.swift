@@ -65,10 +65,10 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        
+        case settings
+        case report(userId: String, statusId: String?)
         #if DEBUG
         case publicTimeline
-        case settings
         #endif
         
         var isOnboarding: Bool {
@@ -265,14 +265,27 @@ private extension SceneCoordinator {
             activityViewController.popoverPresentationController?.sourceView = sourceView
             activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
             viewController = activityViewController
+        case .settings:
+            let _viewController = SettingsViewController()
+            _viewController.viewModel = SettingsViewModel(context: appContext, coordinator: self)
+            viewController = _viewController
+        case .report(let userId, let statusId):
+            guard let authenticationBox = appContext.authenticationService.activeMastodonAuthenticationBox.value else {
+                return nil
+            }
+            let _viewController = ReportViewController()
+            _viewController.viewModel = ReportViewModel(
+                context: appContext,
+                coordinator: self,
+                domain: authenticationBox.domain,
+                userId: userId,
+                statusId: statusId
+            )
+            viewController = _viewController
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()
             _viewController.viewModel = PublicTimelineViewModel(context: appContext)
-            viewController = _viewController
-        case .settings:
-            let _viewController = SettingsViewController()
-            _viewController.viewModel = SettingsViewModel(context: appContext, coordinator: self)
             viewController = _viewController
         #endif
         }

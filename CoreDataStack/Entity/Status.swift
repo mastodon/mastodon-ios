@@ -337,4 +337,8 @@ extension Status {
     public static func deleted() -> NSPredicate {
         return NSPredicate(format: "%K != nil", #keyPath(Status.deletedAt))
     }
+    
+    public static func author(author: MastodonUser) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Status.author), author)
+    }
 }

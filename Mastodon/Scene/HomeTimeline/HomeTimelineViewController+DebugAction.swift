@@ -41,6 +41,10 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showSettings(action)
                 },
+                UIAction(title: "Report", image: UIImage(systemName: "exclamationmark.bubble"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showReportAction(action)
+                },
                 UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
                     guard let self = self else { return }
                     self.signOutAction(action)
@@ -330,5 +334,35 @@ extension HomeTimelineViewController {
     @objc private func showSettings(_ sender: UIAction) {
         coordinator.present(scene: .settings, from: self, transition: .modal(animated: true, completion: nil))
     }
+    
+    @objc private func showReportAction(_ sender: UIAction) {
+        let alertController = UIAlertController(title: "Enter User ID", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        alertController.addTextField()
+        guard let accountTextField = alertController.textFields?.first else { return }
+        guard let statusTextField = alertController.textFields?.last else { return }
+        accountTextField.placeholder = "User ID"
+        statusTextField.placeholder = "Status ID"
+        accountTextField.text = "212477"
+        statusTextField.text = "106103767536113615"
+        let showAction = UIAlertAction(title: "Show", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            
+            guard let userId = accountTextField.text else { return }
+            guard let statusId = statusTextField.text else { return }
+            
+            // itodo: delete them
+            // 31803
+            // 106093402888557459
+            self.coordinator.present(
+                scene: .report(userId: userId, statusId: statusId),
+                from: self, transition: .modal(animated: true, completion: nil))
+        }
+        alertController.addAction(showAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+    }
+    
 }
 #endif

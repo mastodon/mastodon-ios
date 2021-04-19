@@ -148,7 +148,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupView() {
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         setupNavigation()
         setupTableView()
         
