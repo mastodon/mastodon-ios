@@ -525,7 +525,7 @@ extension StatusSection {
         status: Status
     ) {
         if status.reblog != nil {
-            cell.statusView.headerContainerStackView.isHidden = false
+            cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
             cell.statusView.headerInfoLabel.text = {
                 let author = status.author
@@ -533,7 +533,7 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
         } else if status.inReplyToID != nil {
-            cell.statusView.headerContainerStackView.isHidden = false
+            cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
             cell.statusView.headerInfoLabel.text = {
                 guard let replyTo = status.replyTo else {
@@ -544,7 +544,7 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
         } else {
-            cell.statusView.headerContainerStackView.isHidden = true
+            cell.statusView.headerContainerView.isHidden = true
         }
     }
     

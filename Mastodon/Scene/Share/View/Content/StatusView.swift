@@ -29,6 +29,16 @@ final class StatusView: UIView {
     static let avatarImageCornerRadius: CGFloat = 4
     static let avatarToLabelSpacing: CGFloat = 5
     static let contentWarningBlurRadius: CGFloat = 12
+    static let containerStackViewSpacing: CGFloat = 10
+    
+    weak var delegate: StatusViewDelegate?
+    private var needsDrawContentOverlay = false
+    var pollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
+    var pollTableViewHeightLaoutConstraint: NSLayoutConstraint!
+    
+    let containerStackView = UIStackView()
+    let headerContainerView = UIView()
+    let authorContainerView = UIView()
     
     static let reblogIconImage: UIImage = {
         let font = UIFont.systemFont(ofSize: 13, weight: .medium)
@@ -52,13 +62,6 @@ final class StatusView: UIView {
         attributedString.append(imageAttribute)
         return attributedString
     }
-    
-    weak var delegate: StatusViewDelegate?
-    private var needsDrawContentOverlay = false
-    var pollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
-    var pollTableViewHeightLaoutConstraint: NSLayoutConstraint!
-    
-    let headerContainerStackView = UIStackView()
     
     let headerIconLabel: UILabel = {
         let label = UILabel()
@@ -221,9 +224,9 @@ extension StatusView {
     
     func _init() {
         // container: [reblog | author | status | action toolbar]
-        let containerStackView = UIStackView()
+        // note: do not set spacing for nested stackView to avoid SDK layout conflict issue
         containerStackView.axis = .vertical
-        containerStackView.spacing = 10
+        // containerStackView.spacing = 10
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
         NSLayoutConstraint.activate([
@@ -232,17 +235,27 @@ extension StatusView {
             trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
         ])
+        containerStackView.setContentHuggingPriority(.required - 1, for: .vertical)
         
         // header container: [icon | info]
-        containerStackView.addArrangedSubview(headerContainerStackView)
-        headerContainerStackView.spacing = 4
+        let headerContainerStackView = UIStackView()
+        headerContainerStackView.axis = .horizontal
         headerContainerStackView.addArrangedSubview(headerIconLabel)
         headerContainerStackView.addArrangedSubview(headerInfoLabel)
         headerIconLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
+        headerContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        headerContainerView.addSubview(headerContainerStackView)
+        NSLayoutConstraint.activate([
+            headerContainerStackView.topAnchor.constraint(equalTo: headerContainerView.topAnchor),
+            headerContainerStackView.leadingAnchor.constraint(equalTo: headerContainerView.leadingAnchor),
+            headerContainerStackView.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor),
+            headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+        ])
+        containerStackView.addArrangedSubview(headerContainerView)
+        
         // author container: [avatar | author meta container | reveal button]
         let authorContainerStackView = UIStackView()
-        containerStackView.addArrangedSubview(authorContainerStackView)
         authorContainerStackView.axis = .horizontal
         authorContainerStackView.spacing = StatusView.avatarToLabelSpacing
         authorContainerStackView.distribution = .fill
@@ -305,6 +318,16 @@ extension StatusView {
         // reveal button
         authorContainerStackView.addArrangedSubview(revealContentWarningButton)
         revealContentWarningButton.setContentHuggingPriority(.required - 2, for: .horizontal)
+        
+        authorContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        authorContainerView.addSubview(authorContainerStackView)
+        NSLayoutConstraint.activate([
+            authorContainerStackView.topAnchor.constraint(equalTo: authorContainerView.topAnchor),
+            authorContainerStackView.leadingAnchor.constraint(equalTo: authorContainerView.leadingAnchor),
+            authorContainerStackView.trailingAnchor.constraint(equalTo: authorContainerView.trailingAnchor),
+            authorContainerView.bottomAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+        ])
+        containerStackView.addArrangedSubview(authorContainerView)
         
         // status container: [status | image / video | audio | poll | poll status] (overlay with content warning)
         containerStackView.addArrangedSubview(statusContainerStackView)
@@ -370,7 +393,7 @@ extension StatusView {
         containerStackView.addArrangedSubview(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
-        headerContainerStackView.isHidden = true
+        headerContainerView.isHidden = true
         statusMosaicImageViewContainer.isHidden = true
         pollTableView.isHidden = true
         pollStatusStackView.isHidden = true
@@ -543,7 +566,7 @@ struct StatusView_Previews: PreviewProvider {
             .previewDisplayName("Normal")
             UIViewPreview(width: 375) {
                 let statusView = StatusView()
-                statusView.headerContainerStackView.isHidden = false
+                statusView.headerContainerView.isHidden = false
                 statusView.avatarButton.isHidden = true
                 statusView.avatarStackedContainerButton.isHidden = false
                 statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(
@@ -570,7 +593,7 @@ struct StatusView_Previews: PreviewProvider {
                         placeholderImage: avatarFlora
                     )
                 )
-                statusView.headerContainerStackView.isHidden = false
+                statusView.headerContainerView.isHidden = false
                 let images = MosaicImageView_Previews.images
                 let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
                 for (i, mosaic) in mosaics.enumerated() {
@@ -591,7 +614,7 @@ struct StatusView_Previews: PreviewProvider {
                         placeholderImage: avatarFlora
                     )
                 )
-                statusView.headerContainerStackView.isHidden = false
+                statusView.headerContainerView.isHidden = false
                 statusView.setNeedsLayout()
                 statusView.layoutIfNeeded()
                 statusView.updateContentWarningDisplay(isHidden: false, animated: false)

@@ -5,6 +5,7 @@
 //  Created by xiaojian sun on 2021/3/10.
 //
 
+import os.log
 import AVKit
 import UIKit
 
@@ -93,6 +94,7 @@ extension PlayerContainerView {
 // MARK: - ContentWarningOverlayViewDelegate
 extension PlayerContainerView: ContentWarningOverlayViewDelegate {
     func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.playerContainerView(self, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
     }
 }
