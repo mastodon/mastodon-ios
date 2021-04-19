@@ -15,17 +15,18 @@ import UIKit
 
 extension SearchViewController {
     func setupSearchingTableView() {
-        searchingTableView.delegate = self
         searchingTableView.register(SearchingTableViewCell.self, forCellReuseIdentifier: String(describing: SearchingTableViewCell.self))
         searchingTableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+        searchingTableView.estimatedRowHeight = 66
+        searchingTableView.rowHeight = 66
         view.addSubview(searchingTableView)
+        searchingTableView.delegate = self
         searchingTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            searchingTableView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            searchingTableView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            searchingTableView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            searchingTableView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            searchingTableView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor)
+            searchingTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            searchingTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchingTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            searchingTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
         searchingTableView.tableFooterView = UIView()
         viewModel.isSearching
@@ -81,13 +82,6 @@ extension SearchViewController {
 // MARK: - UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        66
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        66
-    }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

@@ -86,6 +86,7 @@ extension SearchingTableViewCell {
         textStackView.addArrangedSubview(_titleLabel)
         _subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         textStackView.addArrangedSubview(_subTitleLabel)
+        _subTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         
         containerStackView.addArrangedSubview(textStackView)
     }
