@@ -273,8 +273,8 @@ extension StatusSection {
                 let statusTableViewCell = cell as! StatusTableViewCell
                 parent = statusTableViewCell.delegate?.parent()
                 playerViewControllerDelegate = statusTableViewCell.delegate?.playerViewControllerDelegate
-            case is NotificationTableViewCell:
-                let notificationTableViewCell = cell as! NotificationTableViewCell
+            case is NotificationStatusTableViewCell:
+                let notificationTableViewCell = cell as! NotificationStatusTableViewCell
                 parent = notificationTableViewCell.delegate?.parent()
             default:
                 parent = nil
