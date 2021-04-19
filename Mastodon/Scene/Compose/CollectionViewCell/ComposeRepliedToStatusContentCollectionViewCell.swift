@@ -46,6 +46,7 @@ extension ComposeRepliedToStatusContentCollectionViewCell {
         backgroundColor = .clear
 
         statusView.actionToolbarContainer.isHidden = true
+        statusView.revealContentWarningButton.isHidden = true
         
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
