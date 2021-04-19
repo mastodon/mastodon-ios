@@ -27,6 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sceneCoordinator.setup()
         sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
+        
+        // update `overrideUserInterfaceStyle` with current setting
+        SettingsViewController.updateOverrideUserInterfaceStyle(window: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
