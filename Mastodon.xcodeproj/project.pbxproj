@@ -120,6 +120,7 @@
 		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
 		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
+		2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */; };
 		2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */; };
 		2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */; };
 		2DE0FAC82615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC72615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift */; };
@@ -518,6 +519,7 @@
 		2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2DA7D05625CA693F00804E11 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Notification+Type.swift"; sourceTree = "<group>"; };
 		2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendCollectionHeader.swift; sourceTree = "<group>"; };
 		2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendHashTagSection.swift; sourceTree = "<group>"; };
 		2DE0FAC72615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendAccountsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1450,6 +1452,7 @@
 				5DDDF1982617447F00311060 /* Mastodon+Entity+Tag.swift */,
 				5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */,
 				2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */,
+				2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */,
 			);
 			path = MastodonSDK;
 			sourceTree = "<group>";
@@ -2455,6 +2458,7 @@
 				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				2D24E12D2626FD2E00A59D4F /* NotificationViewModel+LoadOldestState.swift in Sources */,
+				2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */,
 				DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */,
 				DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,

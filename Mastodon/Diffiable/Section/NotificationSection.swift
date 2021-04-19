@@ -33,39 +33,15 @@ extension NotificationSection {
             case .notification(let objectID):
                 
                 let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
-                let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw)
-                
+                guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw) else {
+                    assertionFailure()
+                    return nil
+                }
                 let timeText = notification.createAt.shortTimeAgoSinceNow
 
-                var actionText: String
-                var actionImageName: String
-                var color: UIColor
-                switch type {
-                case .follow:
-                    actionText = L10n.Scene.Notification.Action.follow
-                    actionImageName = "person.crop.circle.badge.checkmark"
-                    color = Asset.Colors.brandBlue.color
-                case .favourite:
-                    actionText = L10n.Scene.Notification.Action.favourite
-                    actionImageName = "star.fill"
-                    color = Asset.Colors.Notification.favourite.color
-                case .reblog:
-                    actionText = L10n.Scene.Notification.Action.reblog
-                    actionImageName = "arrow.2.squarepath"
-                    color = Asset.Colors.Notification.reblog.color
-                case .mention:
-                    actionText = L10n.Scene.Notification.Action.mention
-                    actionImageName = "at"
-                    color = Asset.Colors.Notification.mention.color
-                case .poll:
-                    actionText = L10n.Scene.Notification.Action.poll
-                    actionImageName = "list.bullet"
-                    color = Asset.Colors.brandBlue.color
-                default:
-                    actionText = ""
-                    actionImageName = ""
-                    color = .clear
-                }
+                let actionText = type.actionText
+                let actionImageName = type.actionImageName
+                let color = type.color
                 
                 if let status = notification.status {
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationStatusTableViewCell.self), for: indexPath) as! NotificationStatusTableViewCell
@@ -87,11 +63,13 @@ extension NotificationSection {
                     cell.actionImageBackground.backgroundColor = color
                     cell.actionLabel.text = actionText + " · " + timeText
                     cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
-                    cell.avatatImageView.af.setImage(
-                        withURL: URL(string: notification.account.avatar)!,
-                        placeholderImage: UIImage.placeholder(color: .systemFill),
-                        imageTransition: .crossDissolve(0.2)
-                    )
+                    if let url = notification.account.avatarImageURL() {
+                        cell.avatatImageView.af.setImage(
+                            withURL: url,
+                            placeholderImage: UIImage.placeholder(color: .systemFill),
+                            imageTransition: .crossDissolve(0.2)
+                        )
+                    }
                     cell.avatatImageView.gesture().sink { [weak cell] _ in
                         cell?.delegate?.userAvatarDidPressed(notification: notification)
                     }
@@ -113,11 +91,13 @@ extension NotificationSection {
                     cell.actionImageBackground.backgroundColor = color
                     cell.actionLabel.text = actionText + " · " + timeText
                     cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
-                    cell.avatatImageView.af.setImage(
-                        withURL: URL(string: notification.account.avatar)!,
-                        placeholderImage: UIImage.placeholder(color: .systemFill),
-                        imageTransition: .crossDissolve(0.2)
-                    )
+                    if let url = notification.account.avatarImageURL() {
+                        cell.avatatImageView.af.setImage(
+                            withURL: url,
+                            placeholderImage: UIImage.placeholder(color: .systemFill),
+                            imageTransition: .crossDissolve(0.2)
+                        )
+                    }
                     cell.avatatImageView.gesture().sink { [weak cell] _ in
                         cell?.delegate?.userAvatarDidPressed(notification: notification)
                     }

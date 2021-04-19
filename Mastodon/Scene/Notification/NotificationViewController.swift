@@ -22,7 +22,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
 
     let segmentControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything, L10n.Scene.Notification.Title.mentions])
-        control.selectedSegmentIndex = 0
+        control.selectedSegmentIndex = NotificationViewModel.NotificationSegment.EveryThing.rawValue
         return control
     }()
 
@@ -45,7 +45,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
 extension NotificationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         navigationItem.titleView = segmentControl
         segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +115,7 @@ extension NotificationViewController {
         guard let domain = viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = viewModel.activeMastodonAuthenticationBox.value?.userID else {
             return
         }
-        if sender.selectedSegmentIndex == 0 {
+        if sender.selectedSegmentIndex == NotificationViewModel.NotificationSegment.EveryThing.rawValue {
             viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
         } else {
             viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)

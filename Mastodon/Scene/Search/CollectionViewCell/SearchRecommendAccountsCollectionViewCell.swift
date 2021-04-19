@@ -62,6 +62,7 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
     
     let followButton: HighlightDimmableButton = {
         let button = HighlightDimmableButton(type: .custom)
+        button.setInsets(forContentPadding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16), imageTitlePadding: 0)
         button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.Search.Recommend.Accounts.follow, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
@@ -97,7 +98,10 @@ extension SearchRecommendAccountsCollectionViewCell {
         headerImageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
         applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
     }
-    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        followButton.layer.cornerRadius = followButton.frame.height/2
+    }
     private func configure() {
         headerImageView.backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 10
@@ -149,8 +153,8 @@ extension SearchRecommendAccountsCollectionViewCell {
         followButton.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(followButton)
         NSLayoutConstraint.activate([
-            followButton.widthAnchor.constraint(equalToConstant: 76),
-            followButton.heightAnchor.constraint(equalToConstant: 24)
+            followButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 76),
+            followButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
         ])
         containerStackView.addArrangedSubview(followButton)
     }

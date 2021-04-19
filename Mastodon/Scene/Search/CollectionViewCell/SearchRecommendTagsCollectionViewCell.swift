@@ -91,8 +91,7 @@ extension SearchRecommendTagsCollectionViewCell {
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
         
         
@@ -111,17 +110,9 @@ extension SearchRecommendTagsCollectionViewCell {
         
 
         containerStackView.addArrangedSubview(horizontalStackView)
-        
-        let peopleHorizontalStackView = UIStackView()
-        peopleHorizontalStackView.axis = .horizontal
-        peopleHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-        peopleHorizontalStackView.distribution = .fill
-        peopleHorizontalStackView.alignment = .top
         peopleLabel.translatesAutoresizingMaskIntoConstraints = false
         peopleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
-        peopleHorizontalStackView.addArrangedSubview(peopleLabel)
-        
-        containerStackView.addArrangedSubview(peopleHorizontalStackView)
+        containerStackView.addArrangedSubview(peopleLabel)
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
