@@ -80,6 +80,7 @@ internal enum Asset {
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
+    internal static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
     internal static let brandBlue = ColorAsset(name: "Colors/brand.blue")
     internal static let danger = ColorAsset(name: "Colors/danger")
     internal static let disabled = ColorAsset(name: "Colors/disabled")
@@ -119,6 +120,11 @@ internal enum Asset {
       internal static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
       internal static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
     }
+  }
+  internal enum Settings {
+    internal static let appearanceAutomatic = ImageAsset(name: "Settings/appearance.automatic")
+    internal static let appearanceDark = ImageAsset(name: "Settings/appearance.dark")
+    internal static let appearanceLight = ImageAsset(name: "Settings/appearance.light")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
