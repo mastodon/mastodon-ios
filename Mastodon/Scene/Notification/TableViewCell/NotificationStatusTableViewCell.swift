@@ -196,11 +196,9 @@ extension NotificationStatusTableViewCell {
         statusView.isUserInteractionEnabled = false
         // remove item don't display
         statusView.actionToolbarContainer.removeFromStackView()
-        // it affect stackView's height
+        // it affect stackView's height,need remove
         statusView.avatarView.removeFromStackView()
         statusView.usernameLabel.removeFromStackView()
-        statusView.nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        statusView.activeTextLabel.setContentCompressionResistancePriority(.required, for: .vertical)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
