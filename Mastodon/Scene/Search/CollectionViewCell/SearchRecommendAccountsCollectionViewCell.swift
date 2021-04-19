@@ -104,43 +104,60 @@ extension SearchRecommendAccountsCollectionViewCell {
         layer.cornerCurve = .continuous
         clipsToBounds = false
         applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
+        
+        headerImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(headerImageView)
-        headerImageView.pin(top: 16, left: 0, bottom: 0, right: 0)
+        NSLayoutConstraint.activate([
+            headerImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            headerImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            headerImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            headerImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
         
+        let containerStackView = UIStackView()
+        containerStackView.axis = .vertical
+        containerStackView.distribution = .fill
+        containerStackView.alignment = .center
+        containerStackView.spacing = 6
+        containerStackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+        ])
+        
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarImageView)
-        avatarImageView.pin(toSize: CGSize(width: 88, height: 88))
-        avatarImageView.constrain([
-            avatarImageView.constraint(.top, toView: contentView),
-            avatarImageView.constraint(.centerX, toView: contentView)
+        NSLayoutConstraint.activate([
+            avatarImageView.widthAnchor.constraint(equalToConstant: 88),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 88)
         ])
+        containerStackView.addArrangedSubview(avatarImageView)
+        containerStackView.setCustomSpacing(20, after: avatarImageView)
+        displayNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(displayNameLabel)
+        containerStackView.setCustomSpacing(0, after: displayNameLabel)
         
-        contentView.addSubview(displayNameLabel)
-        displayNameLabel.constrain([
-            displayNameLabel.constraint(.top, toView: contentView, constant: 108),
-            displayNameLabel.constraint(.leading, toView: contentView),
-            displayNameLabel.constraint(.trailing, toView: contentView),
-            displayNameLabel.constraint(.centerX, toView: contentView)
-        ])
+        acctLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(acctLabel)
+        containerStackView.setCustomSpacing(7, after: acctLabel)
         
-        contentView.addSubview(acctLabel)
-        acctLabel.constrain([
-            acctLabel.constraint(.top, toView: contentView, constant: 132),
-            acctLabel.constraint(.leading, toView: contentView),
-            acctLabel.constraint(.trailing, toView: contentView),
-            acctLabel.constraint(.centerX, toView: contentView)
+        followButton.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(followButton)
+        NSLayoutConstraint.activate([
+            followButton.widthAnchor.constraint(equalToConstant: 76),
+            followButton.heightAnchor.constraint(equalToConstant: 24)
         ])
-        
-        contentView.addSubview(followButton)
-        followButton.pin(toSize: CGSize(width: 76, height: 24))
-        followButton.constrain([
-            followButton.constraint(.top, toView: contentView, constant: 159),
-            followButton.constraint(.centerX, toView: contentView)
-        ])
+        containerStackView.addArrangedSubview(followButton)
     }
     
     func config(with mastodonUser: MastodonUser) {
         displayNameLabel.text = mastodonUser.displayName.isEmpty ? mastodonUser.username : mastodonUser.displayName
-        acctLabel.text = mastodonUser.acct
+        acctLabel.text = "@" + mastodonUser.acct
         avatarImageView.af.setImage(
             withURL: URL(string: mastodonUser.avatar)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
@@ -153,7 +170,13 @@ extension SearchRecommendAccountsCollectionViewCell {
         ) { [weak self] _ in
             guard let self = self else { return }
             self.headerImageView.addSubview(self.visualEffectView)
-            self.visualEffectView.pin(top: 0, left: 0, bottom: 0, right: 0)
+            self.visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                self.visualEffectView.topAnchor.constraint(equalTo: self.headerImageView.topAnchor),
+                self.visualEffectView.leadingAnchor.constraint(equalTo: self.headerImageView.leadingAnchor),
+                self.visualEffectView.trailingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor),
+                self.visualEffectView.bottomAnchor.constraint(equalTo: self.headerImageView.bottomAnchor)
+            ])
         }
         delegate?.configFollowButton(with: mastodonUser, followButton: followButton)
         followButton.publisher(for: .touchUpInside)

@@ -135,14 +135,16 @@ extension SearchViewController {
     func setupSearchBar() {
         searchBar.delegate = self
         view.addSubview(searchBar)
-        searchBar.constrain([
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
-        view.addSubview(statusBar)
         
-        statusBar.constrain([
+        statusBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(statusBar)
+        NSLayoutConstraint.activate([
             statusBar.topAnchor.constraint(equalTo: view.topAnchor),
             statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -151,8 +153,9 @@ extension SearchViewController {
     }
 
     func setupScrollView() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
-        scrollView.constrain([
+        NSLayoutConstraint.activate([
             scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -160,8 +163,9 @@ extension SearchViewController {
             scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor),
         ])
         
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
-        stackView.constrain([
+        NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),

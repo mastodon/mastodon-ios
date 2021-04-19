@@ -12,7 +12,6 @@ import UIKit
 class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
     let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
      
@@ -20,7 +19,6 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -29,7 +27,6 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -38,7 +35,6 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         let image = UIImage(systemName: "flame.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))!.withRenderingMode(.alwaysTemplate)
         imageView.image = image
         imageView.tintColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
@@ -74,17 +70,58 @@ extension SearchRecommendTagsCollectionViewCell {
         layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
         applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
         
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(backgroundImageView)
-        backgroundImageView.constrain(toSuperviewEdges: nil)
+        NSLayoutConstraint.activate([
+            backgroundImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
         
-        contentView.addSubview(hashtagTitleLabel)
-        hashtagTitleLabel.pin(top: 16, left: 16, bottom: nil, right: 42)
         
-        contentView.addSubview(peopleLabel)
-        peopleLabel.pinTopLeft(top: 46, left: 16)
+        let containerStackView = UIStackView()
+        containerStackView.axis = .vertical
+        containerStackView.distribution = .fill
+        containerStackView.spacing = 6
+        containerStackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
         
-        contentView.addSubview(flameIconView)
-        flameIconView.pinTopRight(padding: 16)
+        
+        let horizontalStackView = UIStackView()
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.distribution = .fill
+
+        hashtagTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        hashtagTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        horizontalStackView.addArrangedSubview(hashtagTitleLabel)
+        horizontalStackView.setContentHuggingPriority(.required - 1, for: .vertical)
+        
+        flameIconView.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.addArrangedSubview(flameIconView)
+        
+
+        containerStackView.addArrangedSubview(horizontalStackView)
+        
+        let peopleHorizontalStackView = UIStackView()
+        peopleHorizontalStackView.axis = .horizontal
+        peopleHorizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        peopleHorizontalStackView.distribution = .fill
+        peopleHorizontalStackView.alignment = .top
+        peopleLabel.translatesAutoresizingMaskIntoConstraints = false
+        peopleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
+        peopleHorizontalStackView.addArrangedSubview(peopleLabel)
+        
+        containerStackView.addArrangedSubview(peopleHorizontalStackView)
     }
     
     func config(with tag: Mastodon.Entity.Tag) {

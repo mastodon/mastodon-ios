@@ -19,7 +19,8 @@ extension SearchViewController {
         searchingTableView.register(SearchingTableViewCell.self, forCellReuseIdentifier: String(describing: SearchingTableViewCell.self))
         searchingTableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         view.addSubview(searchingTableView)
-        searchingTableView.constrain([
+        searchingTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
             searchingTableView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             searchingTableView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             searchingTableView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -50,18 +51,23 @@ extension SearchViewController {
     }
 
     func setupSearchHeader() {
-        searchHeader.addSubview(recentSearchesLabel)
-        recentSearchesLabel.constrain([
-            recentSearchesLabel.constraint(.leading, toView: searchHeader, constant: 16),
-            recentSearchesLabel.constraint(.centerY, toView: searchHeader)
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.distribution = .fill
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        searchHeader.addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: searchHeader.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: searchHeader.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: searchHeader.trailingAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: searchHeader.bottomAnchor)
         ])
-
-        searchHeader.addSubview(clearSearchHistoryButton)
-        recentSearchesLabel.constrain([
-            searchHeader.trailingAnchor.constraint(equalTo: clearSearchHistoryButton.trailingAnchor, constant: 16),
-            clearSearchHistoryButton.constraint(.centerY, toView: searchHeader)
-        ])
-
+        recentSearchesLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(recentSearchesLabel)
+        clearSearchHistoryButton.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(clearSearchHistoryButton)
         clearSearchHistoryButton.addTarget(self, action: #selector(SearchViewController.clearAction(_:)), for: .touchUpInside)
     }
 }
@@ -84,6 +90,7 @@ extension SearchViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let diffableDataSource = viewModel.searchResultDiffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         viewModel.searchResultItemDidSelected(item: item, from: self)
