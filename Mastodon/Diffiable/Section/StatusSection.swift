@@ -10,6 +10,12 @@ import CoreData
 import CoreDataStack
 import os.log
 import UIKit
+import AVKit
+
+protocol StatusCell : DisposeBagCollectable {
+    var statusView: StatusView { get }
+    var pollCountdownSubscription: AnyCancellable? { get set }
+}
 
 enum StatusSection: Equatable, Hashable {
     case main
@@ -127,7 +133,7 @@ extension StatusSection {
 extension StatusSection {
     
     static func configure(
-        cell: StatusTableViewCell,
+        cell: StatusCell,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
@@ -260,14 +266,27 @@ extension StatusSection {
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
            let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
         {
-            let parent = cell.delegate?.parent()
+            var parent: UIViewController?
+            var playerViewControllerDelegate: AVPlayerViewControllerDelegate? = nil
+            switch cell {
+            case is StatusTableViewCell:
+                let statusTableViewCell = cell as! StatusTableViewCell
+                parent = statusTableViewCell.delegate?.parent()
+                playerViewControllerDelegate = statusTableViewCell.delegate?.playerViewControllerDelegate
+            case is NotificationTableViewCell:
+                let notificationTableViewCell = cell as! NotificationTableViewCell
+                parent = notificationTableViewCell.delegate?.parent()
+            default:
+                parent = nil
+                assertionFailure("unknown cell")
+            }
             let playerContainerView = cell.statusView.playerContainerView
             let playerViewController = playerContainerView.setupPlayer(
                 aspectRatio: videoPlayerViewModel.videoSize,
                 maxSize: playerViewMaxSize,
                 parent: parent
             )
-            playerViewController.delegate = cell.delegate?.playerViewControllerDelegate
+            playerViewController.delegate = playerViewControllerDelegate
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
             playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
@@ -325,7 +344,9 @@ extension StatusSection {
         StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
         
         // separator line
-        cell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
+        if let statusTableViewCell = cell as? StatusTableViewCell {
+            statusTableViewCell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
+        }
         
         // set date
         let createdAt = (status.reblog ?? status).createdAt
@@ -388,7 +409,7 @@ extension StatusSection {
     
 
     static func configureHeader(
-        cell: StatusTableViewCell,
+        cell: StatusCell,
         status: Status
     ) {
         if status.reblog != nil {
@@ -416,7 +437,7 @@ extension StatusSection {
     }
     
     static func configureActionToolBar(
-        cell: StatusTableViewCell,
+        cell: StatusCell,
         status: Status,
         requestUserID: String
     ) {
@@ -447,7 +468,7 @@ extension StatusSection {
     }
     
     static func configurePoll(
-        cell: StatusTableViewCell,
+        cell: StatusCell,
         poll: Poll?,
         requestUserID: String,
         updateProgressAnimated: Bool,

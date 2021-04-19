@@ -23,8 +23,9 @@ extension SearchViewController {
         hashtagCollectionView.register(SearchRecommendTagsCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SearchRecommendTagsCollectionViewCell.self))
         hashtagCollectionView.delegate = self
 
+        hashtagCollectionView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(hashtagCollectionView)
-        hashtagCollectionView.constrain([
+        NSLayoutConstraint.activate([
             hashtagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 130)
         ])
     }
@@ -39,8 +40,9 @@ extension SearchViewController {
         accountsCollectionView.register(SearchRecommendAccountsCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SearchRecommendAccountsCollectionViewCell.self))
         accountsCollectionView.delegate = self
 
+        accountsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(accountsCollectionView)
-        accountsCollectionView.constrain([
+        NSLayoutConstraint.activate([
             accountsCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 202)
         ])
     }

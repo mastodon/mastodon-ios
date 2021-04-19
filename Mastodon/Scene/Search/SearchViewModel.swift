@@ -237,10 +237,10 @@ final class SearchViewModel: NSObject {
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendHashTags request fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                         promise(.failure(error))
                     case .finished:
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendHashTags request success", (#file as NSString).lastPathComponent, #line, #function)
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request success", (#file as NSString).lastPathComponent, #line, #function)
                         promise(.success(()))
                     }
                 } receiveValue: { [weak self] accounts in
