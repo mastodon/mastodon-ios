@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import UIKit
 
-final class NotificationStatusTableViewCell: UITableViewCell {
+final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     static let actionImageBorderWidth: CGFloat = 2
     static let statusPadding = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
     var disposeBag = Set<AnyCancellable>()

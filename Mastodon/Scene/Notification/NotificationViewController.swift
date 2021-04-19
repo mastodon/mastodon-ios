@@ -131,9 +131,33 @@ extension NotificationViewController {
     }
 }
 
+extension NotificationViewController {
+    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        let key = item.hashValue
+        let frame = cell.frame
+        viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
+    }
+
+    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
+        guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
+            if case .bottomLoader = item {
+                return TimelineLoaderTableViewCell.cellHeight
+            } else {
+                return UITableView.automaticDimension
+            }
+        }
+
+        return ceil(frame.height)
+    }
+}
 // MARK: - UITableViewDelegate
 
 extension NotificationViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
