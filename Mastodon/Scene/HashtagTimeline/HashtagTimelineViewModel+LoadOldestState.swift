@@ -123,9 +123,11 @@ extension HashtagTimelineViewModel.LoadOldestState {
                 assertionFailure()
                 return
             }
-            var snapshot = diffableDataSource.snapshot()
-            snapshot.deleteItems([.bottomLoader])
-            diffableDataSource.apply(snapshot)
+            DispatchQueue.main.async {
+                var snapshot = diffableDataSource.snapshot()
+                snapshot.deleteItems([.bottomLoader])
+                diffableDataSource.apply(snapshot)
+            }
         }
     }
 }

@@ -47,7 +47,7 @@ extension StatusTableViewCellDelegate {
     }
 }
 
-final class StatusTableViewCell: UITableViewCell {
+final class StatusTableViewCell: UITableViewCell, StatusCell {
     
     static let bottomPaddingHeight: CGFloat = 10
     

@@ -68,6 +68,7 @@ extension SceneCoordinator {
         
         #if DEBUG
         case publicTimeline
+        case settings
         #endif
         
         var isOnboarding: Bool {
@@ -268,6 +269,10 @@ private extension SceneCoordinator {
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()
             _viewController.viewModel = PublicTimelineViewModel(context: appContext)
+            viewController = _viewController
+        case .settings:
+            let _viewController = SettingsViewController()
+            _viewController.viewModel = SettingsViewModel(context: appContext, coordinator: self)
             viewController = _viewController
         #endif
         }

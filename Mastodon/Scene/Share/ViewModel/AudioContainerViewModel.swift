@@ -11,7 +11,7 @@ import UIKit
 
 class AudioContainerViewModel {
     static func configure(
-        cell: StatusTableViewCell,
+        cell: StatusCell,
         audioAttachment: Attachment,
         audioService: AudioPlaybackService
     ) {
@@ -51,7 +51,7 @@ class AudioContainerViewModel {
     }
 
     static func observePlayer(
-        cell: StatusTableViewCell,
+        cell: StatusCell,
         audioAttachment: Attachment,
         audioService: AudioPlaybackService
     ) {

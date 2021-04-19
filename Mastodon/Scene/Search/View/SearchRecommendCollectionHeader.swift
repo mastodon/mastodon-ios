@@ -47,14 +47,35 @@ extension SearchRecommendCollectionHeader {
     private func configure() {
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
-        titleLabel.pinTopLeft(top: 31, left: 16)
         
-        addSubview(descriptionLabel)
-        descriptionLabel.constrain(toSuperviewEdges: UIEdgeInsets(top: 60, left: 16, bottom: 16, right: 16))
+        let containerStackView = UIStackView()
+        containerStackView.axis = .vertical
+        containerStackView.layoutMargins = UIEdgeInsets(top: 31, left: 16, bottom: 16, right: 16)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
         
-        addSubview(seeAllButton)
-        seeAllButton.pinTopRight(top: 26, right: 16)
+        let horizontalStackView = UIStackView()
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.alignment = .center
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.distribution = .fill
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        horizontalStackView.addArrangedSubview(titleLabel)
+        seeAllButton.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.addArrangedSubview(seeAllButton)
+        
+        containerStackView.addArrangedSubview(horizontalStackView)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(descriptionLabel)
+
     }
 }
 

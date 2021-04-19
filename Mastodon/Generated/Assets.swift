@@ -52,6 +52,7 @@ internal enum Asset {
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
     }
     internal enum Border {
+      internal static let notification = ColorAsset(name: "Colors/Border/notification")
       internal static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
     }
     internal enum Button {
@@ -69,6 +70,11 @@ internal enum Asset {
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
     }
+    internal enum Notification {
+      internal static let favourite = ColorAsset(name: "Colors/Notification/favourite")
+      internal static let mention = ColorAsset(name: "Colors/Notification/mention")
+      internal static let reblog = ColorAsset(name: "Colors/Notification/reblog")
+    }
     internal enum Shadow {
       internal static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
@@ -80,6 +86,7 @@ internal enum Asset {
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
+    internal static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
     internal static let brandBlue = ColorAsset(name: "Colors/brand.blue")
     internal static let danger = ColorAsset(name: "Colors/danger")
     internal static let disabled = ColorAsset(name: "Colors/disabled")
@@ -119,6 +126,11 @@ internal enum Asset {
       internal static let mastodonLogo = ImageAsset(name: "Scene/Welcome/mastodon.logo")
       internal static let mastodonLogoLarge = ImageAsset(name: "Scene/Welcome/mastodon.logo.large")
     }
+  }
+  internal enum Settings {
+    internal static let appearanceAutomatic = ImageAsset(name: "Settings/appearance.automatic")
+    internal static let appearanceDark = ImageAsset(name: "Settings/appearance.dark")
+    internal static let appearanceLight = ImageAsset(name: "Settings/appearance.light")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

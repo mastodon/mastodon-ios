@@ -37,6 +37,10 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showThreadAction(action)
                 },
+                UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showSettings(action)
+                },
                 UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
                     guard let self = self else { return }
                     self.signOutAction(action)
@@ -323,5 +327,8 @@ extension HomeTimelineViewController {
         coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
+    @objc private func showSettings(_ sender: UIAction) {
+        coordinator.present(scene: .settings, from: self, transition: .modal(animated: true, completion: nil))
+    }
 }
 #endif

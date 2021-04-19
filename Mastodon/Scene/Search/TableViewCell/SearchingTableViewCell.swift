@@ -55,19 +55,40 @@ final class SearchingTableViewCell: UITableViewCell {
 extension SearchingTableViewCell {
     private func configure() {
         backgroundColor = .clear
-        selectionStyle = .none
-        contentView.addSubview(_imageView)
-        _imageView.pin(toSize: CGSize(width: 42, height: 42))
-        _imageView.constrain([
-            _imageView.constraint(.leading, toView: contentView, constant: 21),
-            _imageView.constraint(.centerY, toView: contentView)
+        
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.distribution = .fill
+        containerStackView.spacing = 12
+        containerStackView.layoutMargins = UIEdgeInsets(top: 12, left: 21, bottom: 12, right: 12)
+        containerStackView.isLayoutMarginsRelativeArrangement = true
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(containerStackView)
+        NSLayoutConstraint.activate([
+            containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
-        contentView.addSubview(_titleLabel)
-        _titleLabel.pin(top: 12, left: 75, bottom: nil, right: 0)
+        _imageView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(_imageView)
+        NSLayoutConstraint.activate([
+            _imageView.widthAnchor.constraint(equalToConstant: 42),
+            _imageView.heightAnchor.constraint(equalToConstant: 42),
+        ])
         
-        contentView.addSubview(_subTitleLabel)
-        _subTitleLabel.pin(top: 34, left: 75, bottom: nil, right: 0)
+        let textStackView = UIStackView()
+        textStackView.axis = .vertical
+        textStackView.distribution = .fill
+        textStackView.translatesAutoresizingMaskIntoConstraints = false
+        _titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        textStackView.addArrangedSubview(_titleLabel)
+        _subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        textStackView.addArrangedSubview(_subTitleLabel)
+        _subTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
+        
+        containerStackView.addArrangedSubview(textStackView)
     }
     
     func config(with account: Mastodon.Entity.Account) {
