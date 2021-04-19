@@ -235,7 +235,7 @@ extension StatusSection {
             }
             Publishers.CombineLatest(
                 statusItemAttribute.isImageLoaded,
-                statusItemAttribute.isMediaRevealing
+                statusItemAttribute.isRevealing
             )
             .receive(on: DispatchQueue.main)
             .sink { isImageLoaded, isMediaRevealing in
@@ -430,15 +430,16 @@ extension StatusSection {
             statusView.revealContentWarningButton.isHidden = false
             statusView.contentWarningOverlayView.isHidden = false
             statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
+            statusView.playerContainerView.contentWarningOverlayView.isHidden = true
             
             if let revealedAt = status.revealedAt, revealedAt > appStartUpTimestamp {
                 statusView.updateRevealContentWarningButton(isRevealing: true)
                 statusView.updateContentWarningDisplay(isHidden: true, animated: animated)
-                attribute.isMediaRevealing.value = true
+                attribute.isRevealing.value = true
             } else {
                 statusView.updateRevealContentWarningButton(isRevealing: false)
                 statusView.updateContentWarningDisplay(isHidden: false, animated: animated)
-                attribute.isMediaRevealing.value = false
+                attribute.isRevealing.value = false
             }
         case .media(let isSensitive):
             if !isSensitive, documentStore.defaultRevealStatusDict[status.id] == nil {
@@ -460,17 +461,15 @@ extension StatusSection {
                     
                     return false
                 }()
-                attribute.isMediaRevealing.value = needsReveal
+                attribute.isRevealing.value = needsReveal
                 if needsReveal {
                     statusView.updateRevealContentWarningButton(isRevealing: true)
-                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = nil
-                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = 0.0
-                    statusView.statusMosaicImageViewContainer.isUserInteractionEnabled = false
+                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: true, style: .visualEffectView)
+                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: true, style: .visualEffectView)
                 } else {
                     statusView.updateRevealContentWarningButton(isRevealing: false)
-                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = ContentWarningOverlayView.blurVisualEffect
-                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = 1.0
-                    statusView.statusMosaicImageViewContainer.isUserInteractionEnabled = true
+                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: false, style: .visualEffectView)
+                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: false, style: .visualEffectView)
                 }
             }
             if animated {

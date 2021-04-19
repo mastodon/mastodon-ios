@@ -70,7 +70,7 @@ class ContentWarningOverlayView: UIView {
 extension ContentWarningOverlayView {
     private func _init() {
         backgroundColor = .clear
-        translatesAutoresizingMaskIntoConstraints = false
+        isUserInteractionEnabled = true
         
         // visual effect style
         // add blur visual effect view in the setup method
@@ -166,6 +166,18 @@ extension ContentWarningOverlayView {
             blurVisualEffectView.isHidden = true
             vibrancyVisualEffectView.isHidden = true
             blurContentImageView.isHidden = false
+        }
+    }
+    
+    func update(isRevealing: Bool, style: Style) {
+        switch style {
+        case .visualEffectView:
+            blurVisualEffectView.effect = isRevealing ? nil : ContentWarningOverlayView.blurVisualEffect
+            vibrancyVisualEffectView.alpha = isRevealing ? 0 : 1
+            isUserInteractionEnabled = !isRevealing
+        case .blurContentImageView:
+            assertionFailure("not handle here")
+            break
         }
     }
     

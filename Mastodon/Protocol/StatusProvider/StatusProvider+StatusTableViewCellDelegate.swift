@@ -63,12 +63,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        statusTableViewCell(cell, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
     }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        contentWarningOverlayView.isUserInteractionEnabled = false
-        statusTableViewCell(cell, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
     }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {

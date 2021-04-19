@@ -39,7 +39,7 @@ extension Item {
         var isSeparatorLineHidden: Bool
         
         let isImageLoaded = CurrentValueSubject<Bool, Never>(false)
-        let isMediaRevealing = CurrentValueSubject<Bool, Never>(false)
+        let isRevealing = CurrentValueSubject<Bool, Never>(false)
 
         init(isSeparatorLineHidden: Bool = false) {
             self.isSeparatorLineHidden = isSeparatorLineHidden

@@ -150,6 +150,7 @@ extension MosaicImageViewContainer {
             blurhashOverlayImageView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
         ])
         
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: imageView.topAnchor),
@@ -281,6 +282,7 @@ extension MosaicImageViewContainer {
             ])
         }
         
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: container.topAnchor),

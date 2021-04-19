@@ -449,6 +449,12 @@ extension StatusProviderFacade {
                     provider.context.documentStore.defaultRevealStatusDict[status.id] = false
                     status.update(isReveal: !isRevealing)
                     status.reblog?.update(isReveal: !isRevealing)
+                    
+                    // pause video playback if isRevealing before toggle
+                    if isRevealing, let attachment = (status.reblog ?? status).mediaAttachments?.first,
+                       let playerViewModel = provider.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: attachment), playerViewModel.videoKind == .video {
+                        playerViewModel.pause()
+                    }
                 }
                 .map { result in
                     return status

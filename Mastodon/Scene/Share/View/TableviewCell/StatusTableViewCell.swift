@@ -73,8 +73,10 @@ final class StatusTableViewCell: UITableViewCell {
         super.prepareForReuse()
         selectionStyle = .default
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
+        statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
+        statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = true
         statusView.playerContainerView.isHidden = true
         threadMetaView.isHidden = true
         disposeBag.removeAll()
@@ -94,6 +96,8 @@ final class StatusTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        // precondition: app is active 
+        guard UIApplication.shared.applicationState == .active else { return }
         DispatchQueue.main.async {
             self.statusView.drawContentWarningImageView()
         }

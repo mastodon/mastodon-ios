@@ -71,6 +71,7 @@ extension PlayerContainerView {
             mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
         ])
         
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: topAnchor),
