@@ -77,6 +77,7 @@ extension ComposeStatusSection {
                 return cell
             case .input(let replyToStatusObjectID, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
+                cell.statusContentWarningEditorView.textView.text = attribute.contentWarningContent.value
                 cell.textEditorView.text = attribute.composeContent.value ?? ""
                 managedObjectContext.perform {
                     guard let replyToStatusObjectID = replyToStatusObjectID,
