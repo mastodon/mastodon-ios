@@ -16,6 +16,11 @@ protocol NotificationTableViewCellDelegate: AnyObject {
     func parent() -> UIViewController
     
     func userAvatarDidPressed(notification: MastodonNotification)
+    
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    
 }
 
 final class NotificationTableViewCell: UITableViewCell {

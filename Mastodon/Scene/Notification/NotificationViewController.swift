@@ -36,6 +36,7 @@ final class NotificationViewController: UIViewController, NeedsDependency {
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = UITableView.automaticDimension
+        tableView.backgroundColor = .clear
         return tableView
     }()
 
@@ -45,13 +46,14 @@ final class NotificationViewController: UIViewController, NeedsDependency {
 extension NotificationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         navigationItem.titleView = segmentControl
         segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -65,6 +67,7 @@ extension NotificationViewController {
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         viewModel.setupDiffableDataSource(for: tableView, delegate: self, dependency: self)
         viewModel.viewDidLoad.send()
+        
         // bind refresh control
         viewModel.isFetchingLatestNotification
             .receive(on: DispatchQueue.main)
@@ -83,6 +86,8 @@ extension NotificationViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
+        
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -159,11 +164,10 @@ extension NotificationViewController {
 extension NotificationViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
-        case .notification(let objectID):
+        case .notification(let objectID, _):
             let notification = context.managedObjectContext.object(with: objectID) as! MastodonNotification
             if let status = notification.status {
                 let viewModel = ThreadViewModel(context: context, optionalStatus: status)
@@ -199,6 +203,7 @@ extension NotificationViewController: ContentOffsetAdjustableTimelineViewControl
     }
 }
 
+// MARK: - NotificationTableViewCellDelegate
 extension NotificationViewController: NotificationTableViewCellDelegate {
     func userAvatarDidPressed(notification: MastodonNotification) {
         let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
@@ -209,6 +214,18 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
 
     func parent() -> UIViewController {
         self
+    }
+    
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: self, cell: cell)
+    }
+    
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: self, cell: cell)
+    }
+    
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: self, cell: cell)
     }
 }
 
