@@ -469,6 +469,7 @@ extension StatusSection {
             statusView.revealContentWarningButton.isHidden = false
             statusView.contentWarningOverlayView.isHidden = true
             statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = false
+            statusView.playerContainerView.contentWarningOverlayView.isHidden = false
             statusView.updateContentWarningDisplay(isHidden: true, animated: false)
             
             func updateContentOverlay() {

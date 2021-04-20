@@ -181,6 +181,10 @@ extension ContentWarningOverlayView {
         }
     }
     
+    func update(cornerRadius: CGFloat) {
+        blurVisualEffectView.layer.cornerRadius = cornerRadius
+    }
+    
 }
 
 extension ContentWarningOverlayView {

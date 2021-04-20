@@ -417,26 +417,52 @@ extension StatusProviderFacade {
 
 extension StatusProviderFacade {
     
+    static func responseToStatusContentWarningRevealAction(dependency: NotificationViewController, cell: UITableViewCell) {
+        let status = Future<Status?, Never> { promise in
+            guard let diffableDataSource = dependency.viewModel.diffableDataSource,
+                  let indexPath = dependency.tableView.indexPath(for: cell),
+                  let item = diffableDataSource.itemIdentifier(for: indexPath) else {
+                promise(.success(nil))
+                return
+            }
+            
+            switch item {
+            case .notification(let objectID, _):
+                dependency.viewModel.fetchedResultsController.managedObjectContext.perform {
+                    let notification = dependency.viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! MastodonNotification
+                    promise(.success(notification.status))
+                }
+            default:
+                promise(.success(nil))
+            }
+        }
+        
+        _responseToStatusContentWarningRevealAction(
+            dependency: dependency,
+            status: status
+        )
+    }
+    
     static func responseToStatusContentWarningRevealAction(provider: StatusProvider, cell: UITableViewCell) {
         _responseToStatusContentWarningRevealAction(
-            provider: provider,
+            dependency: provider,
             status: provider.status(for: cell, indexPath: nil)
         )
     }
     
-    private static func _responseToStatusContentWarningRevealAction(provider: StatusProvider, status: Future<Status?, Never>) {
+    private static func _responseToStatusContentWarningRevealAction(dependency: NeedsDependency, status: Future<Status?, Never>) {
         status
-            .compactMap { [weak provider] status -> AnyPublisher<Status?, Never>? in
-                guard let provider = provider else { return nil }
+            .compactMap { [weak dependency] status -> AnyPublisher<Status?, Never>? in
+                guard let dependency = dependency else { return nil }
                 guard let _status = status else { return nil }
-                return provider.context.managedObjectContext.performChanges {
-                    guard let status = provider.context.managedObjectContext.object(with: _status.objectID) as? Status else { return }
-                    let appStartUpTimestamp = provider.context.documentStore.appStartUpTimestamp
+                return dependency.context.managedObjectContext.performChanges {
+                    guard let status = dependency.context.managedObjectContext.object(with: _status.objectID) as? Status else { return }
+                    let appStartUpTimestamp = dependency.context.documentStore.appStartUpTimestamp
                     let isRevealing: Bool = {
-                        if provider.context.documentStore.defaultRevealStatusDict[status.id] == true {
+                        if dependency.context.documentStore.defaultRevealStatusDict[status.id] == true {
                             return true
                         }
-                        if status.reblog.flatMap({ provider.context.documentStore.defaultRevealStatusDict[$0.id] }) == true {
+                        if status.reblog.flatMap({ dependency.context.documentStore.defaultRevealStatusDict[$0.id] }) == true {
                             return true
                         }
                         if let revealedAt = status.revealedAt, revealedAt > appStartUpTimestamp {
@@ -446,14 +472,19 @@ extension StatusProviderFacade {
                         return false
                     }()
                     // toggle reveal
-                    provider.context.documentStore.defaultRevealStatusDict[status.id] = false
+                    dependency.context.documentStore.defaultRevealStatusDict[status.id] = false
                     status.update(isReveal: !isRevealing)
                     status.reblog?.update(isReveal: !isRevealing)
                     
                     // pause video playback if isRevealing before toggle
                     if isRevealing, let attachment = (status.reblog ?? status).mediaAttachments?.first,
-                       let playerViewModel = provider.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: attachment), playerViewModel.videoKind == .video {
+                       let playerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: attachment) {
                         playerViewModel.pause()
+                    }
+                    // resume GIF playback if NOT isRevealing before toggle
+                    if !isRevealing, let attachment = (status.reblog ?? status).mediaAttachments?.first,
+                       let playerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: attachment), playerViewModel.videoKind == .gif {
+                        playerViewModel.play()
                     }
                 }
                 .map { result in
@@ -464,7 +495,7 @@ extension StatusProviderFacade {
             .sink { _ in
                 // do nothing
             }
-            .store(in: &provider.context.disposeBag)
+            .store(in: &dependency.context.disposeBag)
     }
     
 }

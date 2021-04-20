@@ -22,6 +22,7 @@ final class PlayerContainerView: UIView {
     
     let contentWarningOverlayView: ContentWarningOverlayView = {
         let contentWarningOverlayView = ContentWarningOverlayView()
+        contentWarningOverlayView.update(cornerRadius: PlayerContainerView.cornerRadius)
         return contentWarningOverlayView
     }()
     
