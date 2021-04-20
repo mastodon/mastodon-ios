@@ -329,7 +329,7 @@
         },
         "favorite": {
             "title": "Your Favorites"
-            },
+        },
         "notification": {
             "title": {
                 "Everything": "Everything",
@@ -341,6 +341,7 @@
                 "reblog": "rebloged your post",
                 "poll": "Your poll has ended",
                 "mention": "mentioned you"
+            },
         },
         "thread": {
             "back_title": "Post",
