@@ -17,21 +17,22 @@ extension APIService {
         domain: String,
         query: Mastodon.API.Suggestions.Query?,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 
-        return Mastodon.API.Suggestions.get(session: session, domain: domain, query: query, authorization: authorization)
-            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> in
+        return Mastodon.API.V2.Suggestions.get(session: session, domain: domain, query: query, authorization: authorization)
+            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]>, Error> in
                 let log = OSLog.api
                 return self.backgroundManagedObjectContext.performChanges {
-                    response.value.forEach { user in
+                    response.value.forEach { suggestionAccount in
+                        let user = suggestionAccount.account
                         let (mastodonUser,isCreated) = APIService.CoreData.createOrMergeMastodonUser(into: self.backgroundManagedObjectContext, for: nil, in: domain, entity: user, userCache: nil, networkDate: Date(), log: log)
                         let flag = isCreated ? "+" : "-"
                         os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: fetch mastodon user [%s](%s)%s", (#file as NSString).lastPathComponent, #line, #function, flag, mastodonUser.id, mastodonUser.username)
                     }
                 }
                 .setFailureType(to: Error.self)
-                .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.Account]> in
+                .tryMap { result -> Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]> in
                     switch result {
                     case .success:
                         return response

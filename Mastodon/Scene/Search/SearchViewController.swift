@@ -217,11 +217,11 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         switch selectedScope {
         case 0:
-            viewModel.searchScope.value = Mastodon.API.Search.SearchType.default
+            viewModel.searchScope.value = Mastodon.API.V2.Search.SearchType.default
         case 1:
-            viewModel.searchScope.value = Mastodon.API.Search.SearchType.accounts
+            viewModel.searchScope.value = Mastodon.API.V2.Search.SearchType.accounts
         case 2:
-            viewModel.searchScope.value = Mastodon.API.Search.SearchType.hashtags
+            viewModel.searchScope.value = Mastodon.API.V2.Search.SearchType.hashtags
         default:
             break
         }

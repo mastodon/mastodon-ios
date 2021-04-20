@@ -53,14 +53,14 @@ extension SearchViewModel.LoadOldestState {
             }
             var offset = 0
             switch viewModel.searchScope.value {
-            case Mastodon.API.Search.SearchType.accounts:
+            case Mastodon.API.V2.Search.SearchType.accounts:
                 offset = oldSearchResult.accounts.count
-            case Mastodon.API.Search.SearchType.hashtags:
+            case Mastodon.API.V2.Search.SearchType.hashtags:
                 offset = oldSearchResult.hashtags.count
             default:
                 return
             }
-            let query = Mastodon.API.Search.Query(q: viewModel.searchText.value,
+            let query = Mastodon.API.V2.Search.Query(q: viewModel.searchText.value,
                                                   type: viewModel.searchScope.value,
                                                   accountID: nil,
                                                   maxID: nil,
@@ -82,7 +82,7 @@ extension SearchViewModel.LoadOldestState {
                     }
                 } receiveValue: { result in
                     switch viewModel.searchScope.value {
-                    case Mastodon.API.Search.SearchType.accounts:
+                    case Mastodon.API.V2.Search.SearchType.accounts:
                         if result.value.accounts.isEmpty {
                             stateMachine.enter(NoMore.self)
                         } else {
@@ -93,7 +93,7 @@ extension SearchViewModel.LoadOldestState {
                             viewModel.searchResult.value = Mastodon.Entity.SearchResult(accounts: newAccounts, statuses: oldSearchResult.statuses, hashtags: oldSearchResult.hashtags)
                             stateMachine.enter(Idle.self)
                         }
-                    case Mastodon.API.Search.SearchType.hashtags:
+                    case Mastodon.API.V2.Search.SearchType.hashtags:
                         if result.value.hashtags.isEmpty {
                             stateMachine.enter(NoMore.self)
                         } else {

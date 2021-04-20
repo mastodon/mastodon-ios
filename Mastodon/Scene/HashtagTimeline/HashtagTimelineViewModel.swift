@@ -84,7 +84,7 @@ final class HashtagTimelineViewModel: NSObject {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-        let query = Mastodon.API.Search.Query(q: hashtag, type: .hashtags)
+        let query = Mastodon.API.V2.Search.Query(q: hashtag, type: .hashtags)
         context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
             .sink { _ in
                 

@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-extension Mastodon.API.Search {
+extension Mastodon.API.V2.Search {
     static func searchURL(domain: String) -> URL {
         Mastodon.API.endpointV2URL(domain: domain).appendingPathComponent("search")
     }
@@ -32,7 +32,7 @@ extension Mastodon.API.Search {
     public static func search(
         session: URLSession,
         domain: String,
-        query: Mastodon.API.Search.Query,
+        query: Mastodon.API.V2.Search.Query,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> {
         let request = Mastodon.API.get(
@@ -49,7 +49,7 @@ extension Mastodon.API.Search {
     }
 }
 
-extension Mastodon.API.Search {
+extension Mastodon.API.V2.Search {
     
     public struct Query: Codable, GetQuery {
         public init(q: String,
@@ -105,7 +105,7 @@ extension Mastodon.API.Search {
     }
 }
 
-public extension Mastodon.API.Search {
+public extension Mastodon.API.V2.Search {
     enum SearchType: String, Codable {
         case accounts
         case hashtags
