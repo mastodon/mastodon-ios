@@ -51,15 +51,6 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         if let minusImage = UIImage(systemName: "minus.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))?.withRenderingMode(.alwaysTemplate) {
             button.setImage(minusImage, for: .selected)
         }
-        button.publisher(for: \.isSelected)
-            .sink { isSelected in
-                if isSelected {
-                    button.tintColor = Asset.Colors.danger.color
-                } else {
-                    button.tintColor = Asset.Colors.Label.secondary.color
-                }
-            }
-            .store(in: &self.disposeBag)
         return button
     }()
 
@@ -142,5 +133,14 @@ extension SuggestionAccountTableViewCell {
                 self.delegate?.accountButtonPressed(objectID: account.objectID, sender: self.button)
             }
             .store(in: &disposeBag)
+        button.publisher(for: \.isSelected)
+            .sink { [weak self] isSelected in
+                if isSelected {
+                    self?.button.tintColor = Asset.Colors.danger.color
+                } else {
+                    self?.button.tintColor = Asset.Colors.Label.secondary.color
+                }
+            }
+            .store(in: &self.disposeBag)
     }
 }
