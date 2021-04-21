@@ -23,6 +23,15 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
     
+    lazy var emptyView: UIStackView = {
+        let emptyView = UIStackView()
+        emptyView.axis = .vertical
+        emptyView.distribution = .fill
+        emptyView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 54, right: 20)
+        emptyView.isLayoutMarginsRelativeArrangement = true
+        return emptyView
+    }()
+    
     let titleView = HomeTimelineNavigationBarTitleView()
     
     let settingBarButtonItem: UIBarButtonItem = {
@@ -142,6 +151,13 @@ extension HomeTimelineViewController {
                     UIView.animate(withDuration: 0.5) { [weak self] in
                         guard let self = self else { return }
                         self.refreshControl.endRefreshing()
+                    } completion: { [weak self] _ in
+                        guard let self = self else { return }
+                        if (self.viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty {
+                            self.showEmptyView()
+                        } else {
+                            self.emptyView.removeFromSuperview()
+                        }
                     }
                 }
             }
@@ -217,6 +233,54 @@ extension HomeTimelineViewController {
 }
 
 extension HomeTimelineViewController {
+    func showEmptyView() {
+        if emptyView.superview != nil {
+            return
+        }
+        view.addSubview(emptyView)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emptyView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor)
+        ])
+        
+        let findPeopleButton: PrimaryActionButton = {
+            let button = PrimaryActionButton()
+            button.setTitle(L10n.Common.Controls.Actions.findPeople, for: .normal)
+            button.addTarget(self, action: #selector(HomeTimelineViewController.findPeopleButtonPressed(_:)), for: .touchUpInside)
+            return button
+        }()
+        NSLayoutConstraint.activate([
+            findPeopleButton.heightAnchor.constraint(equalToConstant: 46)
+        ])
+        
+        let manuallySearchButton: HighlightDimmableButton = {
+            let button = HighlightDimmableButton()
+            button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
+            button.setTitle(L10n.Common.Controls.Actions.manuallySearch, for: .normal)
+            button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+            button.addTarget(self, action: #selector(HomeTimelineViewController.manuallySearchButtonPressed(_:)), for: .touchUpInside)
+            return button
+        }()
+        
+        emptyView.addArrangedSubview(findPeopleButton)
+        emptyView.setCustomSpacing(17, after: findPeopleButton)
+        emptyView.addArrangedSubview(manuallySearchButton)
+        
+    }
+}
+
+extension HomeTimelineViewController {
+    
+    @objc private func findPeopleButtonPressed(_ sender: PrimaryActionButton) {
+        let viewModel = SuggestionAccountViewModel(context: context)
+        coordinator.present(scene: .suggestionAccount(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func manuallySearchButtonPressed(_ sender: UIButton) {
+        coordinator.switchToTabBar(tab: .search)
+    }
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)

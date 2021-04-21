@@ -120,6 +120,9 @@
 		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
 		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
+		2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */; };
+		2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */; };
+		2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */; };
 		2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */; };
 		2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */; };
 		2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */; };
@@ -530,6 +533,9 @@
 		2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2DA7D05625CA693F00804E11 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountViewController.swift; sourceTree = "<group>"; };
+		2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountViewModel.swift; sourceTree = "<group>"; };
+		2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountTableViewCell.swift; sourceTree = "<group>"; };
 		2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Notification+Type.swift"; sourceTree = "<group>"; };
 		2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendCollectionHeader.swift; sourceTree = "<group>"; };
 		2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendHashTagSection.swift; sourceTree = "<group>"; };
@@ -1182,6 +1188,24 @@
 			path = Decoration;
 			sourceTree = "<group>";
 		};
+		2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */ = {
+			isa = PBXGroup;
+			children = (
+				2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */,
+				2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */,
+				2DAC9E43262FC9DE0062E1A6 /* TableViewCell */,
+			);
+			path = SuggestionAccount;
+			sourceTree = "<group>";
+		};
+		2DAC9E43262FC9DE0062E1A6 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 		2DE0FAC62615F5D200CDF649 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1669,6 +1693,7 @@
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
 				0F2021F5261325ED000C64BF /* HashtagTimeline */,
+				2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */,
 				DB9D6BEE25E4F5370051B173 /* Search */,
 				5B90C455262599800002E742 /* Settings */,
 				DB9D6BFD25E4F57B0051B173 /* Notification */,
@@ -2385,6 +2410,7 @@
 				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
 				DB71FD4C25F8C80E00512AE1 /* StatusPrefetchingService.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
+				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
 				DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */,
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D79E701261EA5550011E398 /* APIService+CoreData+Tag.swift in Sources */,
@@ -2425,6 +2451,7 @@
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
+				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,
 				DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
@@ -2503,6 +2530,7 @@
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
+				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,

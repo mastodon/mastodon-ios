@@ -13,6 +13,7 @@ final public class SceneCoordinator {
     private weak var scene: UIScene!
     private weak var sceneDelegate: SceneDelegate!
     private weak var appContext: AppContext!
+    private weak var tabBarController: MainTabBarController!
     
     let id = UUID().uuidString
     
@@ -61,6 +62,8 @@ extension SceneCoordinator {
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
         
+        // suggestion account
+        case suggestionAccount(viewModel: SuggestionAccountViewModel)
         // misc
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
@@ -93,6 +96,7 @@ extension SceneCoordinator {
     func setup() {
         let viewController = MainTabBarController(context: appContext, coordinator: self)
         sceneDelegate.window?.rootViewController = viewController
+        tabBarController = viewController
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
@@ -187,6 +191,9 @@ extension SceneCoordinator {
         return viewController
     }
 
+    func switchToTabBar(tab: MainTabBarController.Tab) {
+        tabBarController.selectedIndex = tab.rawValue
+    }
 }
 
 private extension SceneCoordinator {
@@ -244,6 +251,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .favorite(let viewModel):
             let _viewController = FavoriteViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .suggestionAccount(let viewModel):
+            let _viewController = SuggestionAccountViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .safari(let url):
