@@ -159,6 +159,8 @@ extension HomeTimelineViewController {
                             self.emptyView.removeFromSuperview()
                         }
                     }
+                } else {
+                    self.emptyView.removeFromSuperview()
                 }
             }
             .store(in: &disposeBag)
@@ -245,6 +247,9 @@ extension HomeTimelineViewController {
             emptyView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor)
         ])
         
+        if emptyView.arrangedSubviews.count > 0 {
+            return
+        }
         let findPeopleButton: PrimaryActionButton = {
             let button = PrimaryActionButton()
             button.setTitle(L10n.Common.Controls.Actions.findPeople, for: .normal)

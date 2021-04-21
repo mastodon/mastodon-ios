@@ -101,5 +101,11 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 extension SearchViewController {
     @objc func hashtagSeeAllButtonPressed(_ sender: UIButton) {}
 
-    @objc func accountSeeAllButtonPressed(_ sender: UIButton) {}
+    @objc func accountSeeAllButtonPressed(_ sender: UIButton) {
+        if self.viewModel.recommendAccounts.isEmpty {
+            return
+        }
+        let viewModel = SuggestionAccountViewModel(context: context, accounts: self.viewModel.recommendAccounts)
+        coordinator.present(scene: .suggestionAccount(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
+    }
 }

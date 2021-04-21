@@ -15,11 +15,11 @@ import UIKit
 class SuggestionAccountViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
-    
+
     var disposeBag = Set<AnyCancellable>()
-    
+
     var viewModel: SuggestionAccountViewModel!
-    
+
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(SuggestionAccountTableViewCell.self, forCellReuseIdentifier: String(describing: SuggestionAccountTableViewCell.self))
@@ -29,14 +29,14 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return tableView
     }()
-    
+
     lazy var tableHeader: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         view.frame = CGRect(origin: .zero, size: CGSize(width: tableView.frame.width, height: 156))
         return view
     }()
-    
+
     let followExplainLabel: UILabel = {
         let label = UILabel()
         label.text = L10n.Scene.SuggestionAccount.followExplain
@@ -45,7 +45,7 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         label.numberOfLines = 0
         return label
     }()
-    
+
     let avatarStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -84,7 +84,7 @@ extension SuggestionAccountViewController {
             viewModel: viewModel,
             delegate: self
         )
-        
+
         viewModel.accounts
             .receive(on: DispatchQueue.main)
             .sink { [weak self] accounts in
@@ -105,7 +105,7 @@ extension SuggestionAccountViewController {
             followExplainLabel.leadingAnchor.constraint(equalTo: tableHeader.leadingAnchor, constant: 20),
             tableHeader.trailingAnchor.constraint(equalTo: followExplainLabel.trailingAnchor, constant: 20),
         ])
-        
+
         avatarStackView.translatesAutoresizingMaskIntoConstraints = false
         tableHeader.addSubview(avatarStackView)
         NSLayoutConstraint.activate([
@@ -136,7 +136,7 @@ extension SuggestionAccountViewController {
             }
             avatarStackView.addArrangedSubview(imageView)
         }
-        
+
         tableView.tableHeaderView = tableHeader
     }
 }

@@ -5,8 +5,6 @@
 //  Created by sxiaojian on 2021/4/21.
 //
 
-import Foundation
-import UIKit
 import Combine
 import CoreData
 import CoreDataStack
@@ -19,7 +17,6 @@ protocol SuggestionAccountTableViewCellDelegate: AnyObject {
 }
 
 final class SuggestionAccountTableViewCell: UITableViewCell {
-    
     var disposeBag = Set<AnyCancellable>()
     weak var delegate: SuggestionAccountTableViewCellDelegate?
     
@@ -65,6 +62,7 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
             .store(in: &self.disposeBag)
         return button
     }()
+
     override func prepareForReuse() {
         super.prepareForReuse()
         _imageView.af.cancelImageRequest()
@@ -139,11 +137,10 @@ extension SuggestionAccountTableViewCell {
         subTitleLabel.text = account.acct
         button.isSelected = isSelected
         button.publisher(for: .touchUpInside)
-            .sink { [weak self] sender in
+            .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.delegate?.accountButtonPressed(objectID: account.objectID, sender: self.button)
             }
             .store(in: &disposeBag)
     }
-    
 }
