@@ -49,6 +49,8 @@ Please check your internet connection.";
 "Common.Controls.Firendship.UnblockUser" = "Unblock %@";
 "Common.Controls.Firendship.Unmute" = "Unmute";
 "Common.Controls.Firendship.UnmuteUser" = "Unmute %@";
+"Common.Controls.Status.ContentWarning" = "content warning";
+"Common.Controls.Status.ContentWarningText" = "cw: %@";
 "Common.Controls.Status.MediaContentWarning" = "Tap to reveal that may be sensitive";
 "Common.Controls.Status.Poll.Closed" = "Closed";
 "Common.Controls.Status.Poll.TimeLeft" = "%@ left";
@@ -58,7 +60,6 @@ Please check your internet connection.";
 "Common.Controls.Status.Poll.VoterCount.Multiple" = "%d voters";
 "Common.Controls.Status.Poll.VoterCount.Single" = "%d voter";
 "Common.Controls.Status.ShowPost" = "Show Post";
-"Common.Controls.Status.StatusContentWarning" = "content warning";
 "Common.Controls.Status.UserReblogged" = "%@ reblogged";
 "Common.Controls.Status.UserRepliedTo" = "Replied to %@";
 "Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view Artbot’s profile

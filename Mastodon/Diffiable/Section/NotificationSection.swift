@@ -22,15 +22,14 @@ extension NotificationSection {
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
         managedObjectContext: NSManagedObjectContext,
         delegate: NotificationTableViewCellDelegate,
-        dependency: NeedsDependency,
-        requestUserID: String
+        dependency: NeedsDependency
     ) -> UITableViewDiffableDataSource<NotificationSection, NotificationItem> {
         UITableViewDiffableDataSource(tableView: tableView) {
             [weak delegate, weak dependency]
             (tableView, indexPath, notificationItem) -> UITableViewCell? in
             guard let dependency = dependency else { return nil }
             switch notificationItem {
-            case .notification(let objectID):
+            case .notification(let objectID, let attribute):
                 
                 let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
                 guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw) else {
@@ -46,14 +45,18 @@ extension NotificationSection {
                 if let status = notification.status {
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationStatusTableViewCell.self), for: indexPath) as! NotificationStatusTableViewCell
                     cell.delegate = delegate
+                    let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
+                    let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
                     let frame = CGRect(x: 0, y: 0, width: tableView.readableContentGuide.layoutFrame.width - NotificationStatusTableViewCell.statusPadding.left - NotificationStatusTableViewCell.statusPadding.right, height: tableView.readableContentGuide.layoutFrame.height)
-                    StatusSection.configure(cell: cell,
-                                                  dependency: dependency,
-                                                  readableLayoutFrame: frame,
-                                                  timestampUpdatePublisher: timestampUpdatePublisher,
-                                                  status: status,
-                                                  requestUserID: requestUserID,
-                                                  statusItemAttribute: Item.StatusAttribute(isStatusTextSensitive: false, isStatusSensitive: false))
+                    StatusSection.configure(
+                        cell: cell,
+                        dependency: dependency,
+                        readableLayoutFrame: frame,
+                        timestampUpdatePublisher: timestampUpdatePublisher,
+                        status: status,
+                        requestUserID: requestUserID,
+                        statusItemAttribute: attribute
+                    )
                     timestampUpdatePublisher
                         .sink { _ in
                             let timeText = notification.createAt.shortTimeAgoSinceNow

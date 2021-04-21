@@ -229,6 +229,8 @@
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
 		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
+		DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D170262832380062B7A1 /* BlurHashDecode.swift */; };
+		DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D171262832380062B7A1 /* BlurHashEncode.swift */; };
 		DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */; };
 		DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */; };
 		DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */; };
@@ -649,6 +651,8 @@
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
+		DB51D170262832380062B7A1 /* BlurHashDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
+		DB51D171262832380062B7A1 /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashEncode.swift; sourceTree = "<group>"; };
 		DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TwitterTextEditor+String.swift"; sourceTree = "<group>"; };
 		DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeightCacheableContainer.swift; sourceTree = "<group>"; };
@@ -1030,6 +1034,8 @@
 				DB2B3AE825E38850007045F9 /* UIViewPreview.swift */,
 				DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */,
 				DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */,
+				DB51D170262832380062B7A1 /* BlurHashDecode.swift */,
+				DB51D171262832380062B7A1 /* BlurHashEncode.swift */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -2577,6 +2583,7 @@
 				0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */,
 				DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */,
 				DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */,
+				DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */,
 				DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */,
 				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
@@ -2600,6 +2607,7 @@
 				5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
+				DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */,
 				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */,

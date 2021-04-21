@@ -64,7 +64,7 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
                 guard let spoilerText = targetStatus.spoilerText, !spoilerText.isEmpty else { return false }
                 return true
             }()
-            let attribute = oldSnapshotAttributeDict[status.objectID] ?? Item.StatusAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: targetStatus.sensitive)
+            let attribute = oldSnapshotAttributeDict[status.objectID] ?? Item.StatusAttribute()
             items.append(Item.status(objectID: status.objectID, attribute: attribute))
             if statusIDsWhichHasGap.contains(status.id) {
                 items.append(Item.publicMiddleLoader(statusID: status.id))

@@ -194,6 +194,7 @@
         <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="reblogsCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="repliesCount" optional="YES" attributeType="Integer 64" usesScalarValueType="NO"/>
+        <attribute name="revealedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="sensitive" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="spoilerText" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
@@ -263,7 +264,7 @@
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
         <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
         <element name="Setting" positionX="72" positionY="162" width="128" height="149"/>
-        <element name="Status" positionX="0" positionY="0" width="128" height="569"/>
+        <element name="Status" positionX="0" positionY="0" width="128" height="584"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="149"/>
         <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="149"/>
         <element name="Tag" positionX="0" positionY="0" width="128" height="134"/>

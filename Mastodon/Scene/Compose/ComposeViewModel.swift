@@ -112,6 +112,10 @@ final class ComposeViewModel {
                 for acct in mentionAccts {
                     UITextChecker.learnWord(acct)
                 }
+                if let spoilerText = status.spoilerText, !spoilerText.isEmpty {
+                    self.isContentWarningComposing.value = true
+                    self.composeStatusAttribute.contentWarningContent.value = spoilerText
+                }
                 
                 let initialComposeContent = mentionAccts.joined(separator: " ")
                 let preInsertedContent: String? = initialComposeContent.isEmpty ? nil : initialComposeContent + " "

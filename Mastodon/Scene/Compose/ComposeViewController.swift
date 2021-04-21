@@ -182,7 +182,7 @@ extension ComposeViewController {
         )
         
         // respond scrollView overlap change
-        view.layoutIfNeeded()
+        //view.layoutIfNeeded()
         // update layout when keyboard show/dismiss
         Publishers.CombineLatest4(
             KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
@@ -210,7 +210,9 @@ extension ComposeViewController {
                 self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 UIView.animate(withDuration: 0.3) {
                     self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
-                    self.view.layoutIfNeeded()
+                    if self.view.window != nil {
+                        self.view.layoutIfNeeded()
+                    }
                 }
                 self.updateKeyboardBackground(isKeyboardDisplay: isShow)
                 return

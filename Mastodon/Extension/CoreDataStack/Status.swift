@@ -32,3 +32,34 @@ extension Status.Property {
         )
     }
 }
+
+extension Status {
+    
+    enum SensitiveType {
+        case none
+        case all
+        case media(isSensitive: Bool)
+    }
+    
+    var sensitiveType: SensitiveType {
+        let spoilerText = self.spoilerText ?? ""
+        
+        // cast .all sensitive when has spoiter text
+        if !spoilerText.isEmpty {
+            return .all
+        }
+        
+        if let firstAttachment = mediaAttachments?.first {
+            // cast .media when has non audio media
+            if firstAttachment.type != .audio {
+                return .media(isSensitive: sensitive)
+            } else {
+                return .none
+            }
+        }
+        
+        // not sensitive
+        return .none
+    }
+    
+}

@@ -8,6 +8,7 @@
 import Combine
 import Foundation
 import UIKit
+import ActiveLabel
 
 final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     static let actionImageBorderWidth: CGFloat = 2
@@ -78,8 +79,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         avatatImageView.af.cancelImageRequest()
-        statusView.isStatusTextSensitive = false
-        statusView.cleanUpContentWarning()
+        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
         statusView.playerContainerView.isHidden = true
@@ -99,6 +99,9 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        // precondition: app is active
+        guard UIApplication.shared.applicationState == .active else { return }
         DispatchQueue.main.async {
             self.statusView.drawContentWarningImageView()
         }
@@ -107,6 +110,8 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
 
 extension NotificationStatusTableViewCell {
     func configure() {
+        backgroundColor = Asset.Colors.Background.systemBackground.color
+        
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
         containerStackView.alignment = .top
@@ -154,7 +159,6 @@ extension NotificationStatusTableViewCell {
             actionImageView.centerYAnchor.constraint(equalTo: actionImageBackground.centerYAnchor)
         ])
 
-
         let actionStackView = UIStackView()
         actionStackView.axis = .horizontal
         actionStackView.distribution = .fill
@@ -187,13 +191,12 @@ extension NotificationStatusTableViewCell {
             statusBorder.trailingAnchor.constraint(equalTo: statusView.trailingAnchor, constant: 12),
         ])
         
+        statusView.delegate = self
         
         statusStackView.addArrangedSubview(statusBorder)
 
         containerStackView.addArrangedSubview(statusStackView)
         
-        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
-        statusView.isUserInteractionEnabled = false
         // remove item don't display
         statusView.actionToolbarContainer.removeFromStackView()
         // it affect stackView's height,need remove
@@ -206,4 +209,54 @@ extension NotificationStatusTableViewCell {
         statusBorder.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
         actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
     }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        resetContentOverlayBlurImageBackgroundColor(selected: highlighted)
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        resetContentOverlayBlurImageBackgroundColor(selected: selected)
+    }
+    
+    private func resetContentOverlayBlurImageBackgroundColor(selected: Bool) {
+        let imageViewBackgroundColor: UIColor? = selected ? selectedBackgroundView?.backgroundColor : backgroundColor
+        statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = imageViewBackgroundColor
+    }
+}
+
+// MARK: - StatusViewDelegate
+extension NotificationStatusTableViewCell: StatusViewDelegate {
+    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
+        // do nothing
+    }
+    
+    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+        // do nothing
+    }
+    
+    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
+        delegate?.notificationStatusTableViewCell(self, statusView: statusView, revealContentWarningButtonDidPressed: button)
+    }
+    
+    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.notificationStatusTableViewCell(self, statusView: statusView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.notificationStatusTableViewCell(self, statusView: statusView, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+        // do nothing
+    }
+    
+    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        // do nothing
+    }
+    
+    
 }

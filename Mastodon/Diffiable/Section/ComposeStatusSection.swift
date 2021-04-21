@@ -77,14 +77,15 @@ extension ComposeStatusSection {
                 return cell
             case .input(let replyToStatusObjectID, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
+                cell.statusContentWarningEditorView.textView.text = attribute.contentWarningContent.value
                 cell.textEditorView.text = attribute.composeContent.value ?? ""
                 managedObjectContext.perform {
                     guard let replyToStatusObjectID = replyToStatusObjectID,
                           let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
-                        cell.statusView.headerContainerStackView.isHidden = true
+                        cell.statusView.headerContainerView.isHidden = true
                         return
                     }
-                    cell.statusView.headerContainerStackView.isHidden = false
+                    cell.statusView.headerContainerView.isHidden = false
                     cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
                     cell.statusView.headerInfoLabel.text = L10n.Scene.Compose.replyingToUser(replyTo.author.displayNameWithFallback)
                 }
