@@ -200,6 +200,10 @@ extension HomeTimelineViewController {
         
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
+        
+        if (viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty {
+            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -280,6 +284,7 @@ extension HomeTimelineViewController {
     
     @objc private func findPeopleButtonPressed(_ sender: PrimaryActionButton) {
         let viewModel = SuggestionAccountViewModel(context: context)
+        viewModel.delegate = self.viewModel
         coordinator.present(scene: .suggestionAccount(viewModel: viewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     

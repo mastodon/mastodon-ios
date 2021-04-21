@@ -129,3 +129,9 @@ final class HomeTimelineViewModel: NSObject {
     }
     
 }
+
+extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate {
+    func homeTimelineNeedRefresh() {
+        loadLatestStateMachine.enter(LoadLatestState.Loading.self)
+    }
+}

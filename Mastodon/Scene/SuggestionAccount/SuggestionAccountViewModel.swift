@@ -13,12 +13,16 @@ import MastodonSDK
 import os.log
 import UIKit
     
+protocol SuggestionAccountViewModelDelegate: AnyObject {
+    func homeTimelineNeedRefresh()
+}
 final class SuggestionAccountViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
     
     // input
     let context: AppContext
     
+    weak var delegate: SuggestionAccountViewModelDelegate?
     // output
     let accounts = CurrentValueSubject<[NSManagedObjectID], Never>([])
     var selectedAccounts = [NSManagedObjectID]()
@@ -137,7 +141,7 @@ final class SuggestionAccountViewModel: NSObject {
                 case .failure(let error):
                     os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                 case .finished:
-                    // handle isFetchingLatestTimeline in fetch controller delegate
+                    self.delegate?.homeTimelineNeedRefresh()
                     break
                 }
             } receiveValue: { _ in
