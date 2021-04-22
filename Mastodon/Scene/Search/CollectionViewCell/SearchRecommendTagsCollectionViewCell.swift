@@ -83,7 +83,6 @@ extension SearchRecommendTagsCollectionViewCell {
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical
         containerStackView.distribution = .fill
-        containerStackView.spacing = 6
         containerStackView.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 0, right: 16)
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +112,7 @@ extension SearchRecommendTagsCollectionViewCell {
         peopleLabel.translatesAutoresizingMaskIntoConstraints = false
         peopleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         containerStackView.addArrangedSubview(peopleLabel)
+        containerStackView.setCustomSpacing(SearchViewController.hashtagPeopleTalkingLabelTop, after: horizontalStackView)
     }
     
     func config(with tag: Mastodon.Entity.Tag) {

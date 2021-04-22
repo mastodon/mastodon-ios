@@ -26,7 +26,7 @@ extension SearchViewController {
         hashtagCollectionView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(hashtagCollectionView)
         NSLayoutConstraint.activate([
-            hashtagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 130)
+            hashtagCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: CGFloat(SearchViewController.hashtagCardHeight))
         ])
     }
 
@@ -43,7 +43,7 @@ extension SearchViewController {
         accountsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(accountsCollectionView)
         NSLayoutConstraint.activate([
-            accountsCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 202)
+            accountsCollectionView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: CGFloat(SearchViewController.accountCardHeight))
         ])
     }
 
@@ -91,9 +91,9 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == hashtagCollectionView {
-            return CGSize(width: 228, height: 130)
+            return CGSize(width: 228, height: SearchViewController.hashtagCardHeight)
         } else {
-            return CGSize(width: 257, height: 202)
+            return CGSize(width: 257, height: SearchViewController.accountCardHeight)
         }
     }
 }
