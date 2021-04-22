@@ -48,10 +48,11 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         checked = false
-        statusView.isStatusTextSensitive = false
-        statusView.cleanUpContentWarning()
+        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
+        statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
+        statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = true
         statusView.playerContainerView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
@@ -90,7 +91,6 @@ extension ReportedStatusTableViewCell {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
-        statusView.contentWarningBlurContentImageView.backgroundColor = Asset.Colors.Background.systemBackground.color
         
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(checkbox)
