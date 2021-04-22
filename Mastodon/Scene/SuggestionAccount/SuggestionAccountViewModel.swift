@@ -14,7 +14,7 @@ import os.log
 import UIKit
     
 protocol SuggestionAccountViewModelDelegate: AnyObject {
-    func homeTimelineNeedRefresh()
+    var homeTimelineNeedRefresh: PassthroughSubject<Void, Never> { get }
 }
 final class SuggestionAccountViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
@@ -141,7 +141,7 @@ final class SuggestionAccountViewModel: NSObject {
                 case .failure(let error):
                     os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                 case .finished:
-                    self.delegate?.homeTimelineNeedRefresh()
+                    self.delegate?.homeTimelineNeedRefresh.send()
                     break
                 }
             } receiveValue: { _ in

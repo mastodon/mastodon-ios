@@ -34,6 +34,7 @@ final class HomeTimelineViewModel: NSObject {
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
+    let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
     // output
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
@@ -122,6 +123,13 @@ final class HomeTimelineViewModel: NSObject {
             }
             .store(in: &disposeBag)
         
+        homeTimelineNeedRefresh
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
+            }
+            .store(in: &disposeBag)
+        
     }
     
     deinit {
@@ -130,8 +138,4 @@ final class HomeTimelineViewModel: NSObject {
     
 }
 
-extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate {
-    func homeTimelineNeedRefresh() {
-        loadLatestStateMachine.enter(LoadLatestState.Loading.self)
-    }
-}
+extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate { }
