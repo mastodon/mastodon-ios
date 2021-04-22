@@ -26,7 +26,7 @@ extension SelectedAccountSection {
             case .accountObjectID(let objectID):
                 let user = managedObjectContext.object(with: objectID) as! MastodonUser
                 cell.config(with: user)
-            case .placeHolder( _):
+            case .placeHolder:
                 cell.configAsPlaceHolder()
             }
             return cell

@@ -23,6 +23,7 @@ final class SuggestionAccountViewModel: NSObject {
     // input
     let context: AppContext
     
+    let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
     weak var delegate: SuggestionAccountViewModelDelegate?
     // output
     let accounts = CurrentValueSubject<[NSManagedObjectID], Never>([])
@@ -60,11 +61,23 @@ final class SuggestionAccountViewModel: NSObject {
         
         selectedAccountsDidChange
             .sink { [weak self] _ in
-                if let selectedAccout = self?.selectedAccounts {
-                    self?.applySelectedCollectionViewDataSource(accounts: selectedAccout)
-                }
+                guard let self = self else { return }
+                self.applyTableViewDataSource(accounts: self.accounts.value)
+                self.applySelectedCollectionViewDataSource(accounts: self.selectedAccounts)
             }
             .store(in: &disposeBag)
+        
+        context.authenticationService.activeMastodonAuthentication
+            .sink { [weak self] activeMastodonAuthentication in
+                guard let self = self else { return }
+                guard let activeMastodonAuthentication = activeMastodonAuthentication else {
+                    self.currentMastodonUser.value = nil
+                    return
+                }
+                self.currentMastodonUser.value = activeMastodonAuthentication.user
+            }
+            .store(in: &disposeBag)
+        
         if accounts == nil || (accounts ?? []).isEmpty {
             guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
 
@@ -173,5 +186,18 @@ final class SuggestionAccountViewModel: NSObject {
             activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
             needFeedback: false
         )
+    }
+    
+    func checkAccountsFollowState() {
+        guard let currentMastodonUser = currentMastodonUser.value else {
+            return
+        }
+        let users = accounts.value.compactMap { context.managedObjectContext.object(with: $0) as? MastodonUser }
+        let followingUsers = users.filter { user -> Bool in
+            let isFollowing = user.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            return isFollowing
+        }.map(\.objectID)
+        selectedAccounts = followingUsers
+        selectedAccountsDidChange.send()
     }
 }

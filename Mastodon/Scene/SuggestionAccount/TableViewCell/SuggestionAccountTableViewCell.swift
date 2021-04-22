@@ -101,14 +101,14 @@ extension SuggestionAccountTableViewCell {
             containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
         
         _imageView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(_imageView)
         NSLayoutConstraint.activate([
             _imageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
-            _imageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1)
+            _imageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
         ])
         
         let textStackView = UIStackView()
@@ -178,7 +178,6 @@ extension SuggestionAccountTableViewCell {
                 self?.button.isHidden = !isHidden
             }
             .store(in: &disposeBag)
-
     }
     
     func startAnimating() {

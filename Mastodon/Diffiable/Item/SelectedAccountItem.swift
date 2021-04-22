@@ -5,8 +5,8 @@
 //  Created by sxiaojian on 2021/4/22.
 //
 
-import Foundation
 import CoreData
+import Foundation
 
 enum SelectedAccountItem {
     case accountObjectID(accountObjectID: NSManagedObjectID)

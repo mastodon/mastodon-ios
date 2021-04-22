@@ -90,7 +90,7 @@ extension SuggestionAccountViewController {
         )
 
         viewModel.collectionDiffableDataSource = SelectedAccountSection.collectionViewDiffableDataSource(for: selectedCollectionView, managedObjectContext: context.managedObjectContext)
-    
+
         viewModel.accounts
             .receive(on: DispatchQueue.main)
             .sink { [weak self] accounts in
@@ -103,7 +103,9 @@ extension SuggestionAccountViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
+        viewModel.checkAccountsFollowState()
     }
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let avatarImageViewHeight: Double = 56
@@ -111,6 +113,7 @@ extension SuggestionAccountViewController {
         viewModel.headerPlaceholderCount = avatarImageViewCount
         viewModel.applySelectedCollectionViewDataSource(accounts: [])
     }
+
     func setupHeader(accounts: [NSManagedObjectID]) {
         if accounts.isEmpty {
             return
@@ -138,15 +141,14 @@ extension SuggestionAccountViewController {
 }
 
 extension SuggestionAccountViewController: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
+        15
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 56, height: 56)
+        CGSize(width: 56, height: 56)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.collectionDiffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
@@ -195,7 +197,7 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
                     cell.button.isSelected = selected
                     self.viewModel.selectedAccountsDidChange.send()
                 }
-            }, receiveValue: { relationShip in
+            }, receiveValue: { _ in
             })
             .store(in: &disposeBag)
     }

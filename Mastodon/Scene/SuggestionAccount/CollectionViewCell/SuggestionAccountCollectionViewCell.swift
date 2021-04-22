@@ -5,9 +5,9 @@
 //  Created by sxiaojian on 2021/4/22.
 //
 
+import CoreDataStack
 import Foundation
 import UIKit
-import CoreDataStack
 
 class SuggestionAccountCollectionViewCell: UICollectionViewCell {
     let imageView: UIImageView = {
@@ -18,11 +18,12 @@ class SuggestionAccountCollectionViewCell: UICollectionViewCell {
         imageView.image = UIImage.placeholder(color: .systemFill)
         return imageView
     }()
-    
+
     func configAsPlaceHolder() {
         imageView.tintColor = Asset.Colors.Label.tertiary.color
         imageView.image = UIImage.placeholder(color: .systemFill)
     }
+
     func config(with mastodonUser: MastodonUser) {
         imageView.af.setImage(
             withURL: URL(string: mastodonUser.avatar)!,
@@ -30,15 +31,16 @@ class SuggestionAccountCollectionViewCell: UICollectionViewCell {
             imageTransition: .crossDissolve(0.2)
         )
     }
+
     override func prepareForReuse() {
         super.prepareForReuse()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
         configure()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configure()
@@ -46,7 +48,6 @@ class SuggestionAccountCollectionViewCell: UICollectionViewCell {
 }
 
 extension SuggestionAccountCollectionViewCell {
-    
     private func configure() {
         contentView.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
