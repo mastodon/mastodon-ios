@@ -65,8 +65,8 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        case settings
-        case report(userId: String, statusId: String?)
+        case settings(viewModel: SettingsViewModel)
+        case report(viewModel: ReportViewModel)
         #if DEBUG
         case publicTimeline
         #endif
@@ -265,22 +265,13 @@ private extension SceneCoordinator {
             activityViewController.popoverPresentationController?.sourceView = sourceView
             activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
             viewController = activityViewController
-        case .settings:
+        case .settings(let viewModel):
             let _viewController = SettingsViewController()
-            _viewController.viewModel = SettingsViewModel(context: appContext, coordinator: self)
+            _viewController.viewModel = viewModel
             viewController = _viewController
-        case .report(let userId, let statusId):
-            guard let authenticationBox = appContext.authenticationService.activeMastodonAuthenticationBox.value else {
-                return nil
-            }
+        case .report(let viewModel):
             let _viewController = ReportViewController()
-            _viewController.viewModel = ReportViewModel(
-                context: appContext,
-                coordinator: self,
-                domain: authenticationBox.domain,
-                userId: userId,
-                statusId: statusId
-            )
+            _viewController.viewModel = viewModel
             viewController = _viewController
         #if DEBUG
         case .publicTimeline:

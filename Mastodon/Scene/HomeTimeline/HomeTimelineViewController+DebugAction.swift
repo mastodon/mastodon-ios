@@ -332,7 +332,12 @@ extension HomeTimelineViewController {
     }
     
     @objc private func showSettings(_ sender: UIAction) {
-        coordinator.present(scene: .settings, from: self, transition: .modal(animated: true, completion: nil))
+        let viewModel = SettingsViewModel(context: context)
+        coordinator.present(
+            scene: .settings(viewModel: viewModel),
+            from: self,
+            transition: .modal(animated: true, completion: nil)
+        )
     }
     
     @objc private func showReportAction(_ sender: UIAction) {
@@ -350,12 +355,20 @@ extension HomeTimelineViewController {
             
             guard let userId = accountTextField.text else { return }
             guard let statusId = statusTextField.text else { return }
+            guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
             
             // itodo: delete them
             // 31803
             // 106093402888557459
+            let viewModel = ReportViewModel(
+                context: self.context,
+                coordinator: self.coordinator,
+                domain: authenticationBox.domain,
+                userId: userId,
+                statusId: statusId
+            )
             self.coordinator.present(
-                scene: .report(userId: userId, statusId: statusId),
+                scene: .report(viewModel: viewModel),
                 from: self, transition: .modal(animated: true, completion: nil))
         }
         alertController.addAction(showAction)
