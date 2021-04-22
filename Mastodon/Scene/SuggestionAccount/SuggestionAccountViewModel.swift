@@ -16,6 +16,7 @@ import UIKit
 protocol SuggestionAccountViewModelDelegate: AnyObject {
     var homeTimelineNeedRefresh: PassthroughSubject<Void, Never> { get }
 }
+
 final class SuggestionAccountViewModel: NSObject {
     var disposeBag = Set<AnyCancellable>()
     
@@ -110,20 +111,27 @@ final class SuggestionAccountViewModel: NSObject {
     }
 
     func receiveAccounts(ids: [String]) {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        let users: [MastodonUser]? = {
-            let request = MastodonUser.sortedFetchRequest
-            request.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
-            request.returnsObjectsAsFaults = false
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let userFetchRequest = MastodonUser.sortedFetchRequest
+        userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
+        let mastodonUsers: [MastodonUser]? = {
+            let userFetchRequest = MastodonUser.sortedFetchRequest
+            userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
+            userFetchRequest.returnsObjectsAsFaults = false
             do {
-                return try context.managedObjectContext.fetch(request)
+                return try self.context.managedObjectContext.fetch(userFetchRequest)
             } catch {
                 assertionFailure(error.localizedDescription)
                 return nil
             }
         }()
-        if let accounts = users?.map(\.objectID) {
-            self.accounts.value = accounts
+        if let users = mastodonUsers {
+            let sortedUsers = users.sorted { (user1, user2) -> Bool in
+                (ids.firstIndex(of: user1.id) ?? 0) < (ids.firstIndex(of: user2.id) ?? 0)
+            }
+            accounts.value = sortedUsers.map(\.objectID)
         }
     }
 
@@ -142,7 +150,6 @@ final class SuggestionAccountViewModel: NSObject {
                     os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                 case .finished:
                     self.delegate?.homeTimelineNeedRefresh.send()
-                    break
                 }
             } receiveValue: { _ in
             }

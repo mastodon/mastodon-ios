@@ -320,7 +320,10 @@ final class SearchViewModel: NSObject {
             }
         }()
         if let users = mastodonUsers {
-            recommendAccounts = users.map(\.objectID)
+            let sortedUsers = users.sorted { (user1, user2) -> Bool in
+                (ids.firstIndex(of: user1.id) ?? 0) < (ids.firstIndex(of: user2.id) ?? 0)
+            }
+            recommendAccounts = sortedUsers.map(\.objectID)
         }
     }
 
