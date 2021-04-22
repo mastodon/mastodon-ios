@@ -137,6 +137,7 @@
 		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
 		5B24BBDC262DB14800A9381B /* ReportViewModel+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD9262DB14800A9381B /* ReportViewModel+Provider.swift */; };
 		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
+		5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E055726319E47006E3C53 /* ReportFooterView.swift */; };
 		5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C456262599800002E742 /* SettingsViewModel.swift */; };
 		5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */; };
 		5B90C460262599800002E742 /* SettingsAppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */; };
@@ -149,7 +150,7 @@
 		5B90C48526259BF10002E742 /* APIService+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C48426259BF10002E742 /* APIService+Subscriptions.swift */; };
 		5B90C48B26259C120002E742 /* APIService+CoreData+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C48A26259C120002E742 /* APIService+CoreData+Subscriptions.swift */; };
 		5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */; };
-		5BB04FDB262EA3070043BFF6 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FDA262EA3070043BFF6 /* ReportView.swift */; };
+		5BB04FDB262EA3070043BFF6 /* ReportHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */; };
 		5BB04FE9262EFC300043BFF6 /* ReportedStatusTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FE8262EFC300043BFF6 /* ReportedStatusTableviewCell.swift */; };
 		5BB04FEF262F0DCB0043BFF6 /* ReportViewModel+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */; };
 		5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */; };
@@ -562,6 +563,7 @@
 		5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		5B24BBD9262DB14800A9381B /* ReportViewModel+Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Provider.swift"; sourceTree = "<group>"; };
 		5B24BBE1262DB19100A9381B /* APIService+Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Report.swift"; sourceTree = "<group>"; };
+		5B8E055726319E47006E3C53 /* ReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportFooterView.swift; sourceTree = "<group>"; };
 		5B90C456262599800002E742 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsToggleTableViewCell.swift; sourceTree = "<group>"; };
 		5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceTableViewCell.swift; sourceTree = "<group>"; };
@@ -574,7 +576,7 @@
 		5B90C48426259BF10002E742 /* APIService+Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Subscriptions.swift"; sourceTree = "<group>"; };
 		5B90C48A26259C120002E742 /* APIService+CoreData+Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Subscriptions.swift"; sourceTree = "<group>"; };
 		5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
-		5BB04FDA262EA3070043BFF6 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportHeaderView.swift; sourceTree = "<group>"; };
 		5BB04FE8262EFC300043BFF6 /* ReportedStatusTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportedStatusTableviewCell.swift; sourceTree = "<group>"; };
 		5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Data.swift"; sourceTree = "<group>"; };
 		5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSection.swift; sourceTree = "<group>"; };
@@ -1250,7 +1252,8 @@
 				5B24BBD9262DB14800A9381B /* ReportViewModel+Provider.swift */,
 				5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */,
 				5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */,
-				5BB04FDA262EA3070043BFF6 /* ReportView.swift */,
+				5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */,
+				5B8E055726319E47006E3C53 /* ReportFooterView.swift */,
 				5BB04FE8262EFC300043BFF6 /* ReportedStatusTableviewCell.swift */,
 			);
 			path = Report;
@@ -2369,6 +2372,7 @@
 				2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */,
 				DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */,
 				5BB04FEF262F0DCB0043BFF6 /* ReportViewModel+Data.swift in Sources */,
+				5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */,
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
 				0FB3D33225E5F50E00AAD544 /* PickServerSearchCell.swift in Sources */,
 				DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */,
@@ -2542,7 +2546,7 @@
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
-				5BB04FDB262EA3070043BFF6 /* ReportView.swift in Sources */,
+				5BB04FDB262EA3070043BFF6 /* ReportHeaderView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,

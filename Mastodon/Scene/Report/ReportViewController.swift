@@ -30,14 +30,14 @@ class ReportViewController: UIViewController, NeedsDependency {
     let cancel = PassthroughSubject<Void, Never>()
     
     // MAKK: - UI
-    lazy var header: ReportViewHeader = {
-        let view = ReportViewHeader()
+    lazy var header: ReportHeaderView = {
+        let view = ReportHeaderView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    lazy var footer: ReportViewFooter = {
-        let view = ReportViewFooter()
+    lazy var footer: ReportFooterView = {
+        let view = ReportFooterView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -74,7 +74,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         let textView = UITextView()
         textView.font = .preferredFont(forTextStyle: .body)
         textView.isScrollEnabled = false
-        textView.placeholder = L10n.Scene.Report.textplaceholder
+        textView.placeholder = L10n.Scene.Report.textPlaceholder
         textView.backgroundColor = .clear
         textView.delegate = self
         return textView
@@ -194,7 +194,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         }()
         
         navigationItem.title = L10n.Scene.Report.title(
-            "\(beReportedUser?.displayName ?? "@\(beReportedUser?.acct ?? "")")"
+            beReportedUser?.displayNameWithFallback ?? ""
         )
     }
     

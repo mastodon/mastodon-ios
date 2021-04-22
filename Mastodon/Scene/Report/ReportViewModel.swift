@@ -29,14 +29,14 @@ class ReportViewModel: NSObject, NeedsDependency {
     var selectedItems = [Item]()
     var comment: String?
     
-    internal var reportQuery: FileReportQuery
-    internal var disposeBag = Set<AnyCancellable>()
-    internal let currentStep = CurrentValueSubject<Step, Never>(.one)
-    internal let statusFetchedResultsController: StatusFetchedResultsController
-    internal var diffableDataSource: UITableViewDiffableDataSource<ReportSection, Item>?
-    internal let continueEnableSubject = CurrentValueSubject<Bool, Never>(false)
-    internal let sendEnableSubject = CurrentValueSubject<Bool, Never>(false)
-    internal let reportSuccess = PassthroughSubject<Void, Never>()
+    var reportQuery: FileReportQuery
+    var disposeBag = Set<AnyCancellable>()
+    let currentStep = CurrentValueSubject<Step, Never>(.one)
+    let statusFetchedResultsController: StatusFetchedResultsController
+    var diffableDataSource: UITableViewDiffableDataSource<ReportSection, Item>?
+    let continueEnableSubject = CurrentValueSubject<Bool, Never>(false)
+    let sendEnableSubject = CurrentValueSubject<Bool, Never>(false)
+    let reportSuccess = PassthroughSubject<Void, Never>()
     
     struct Input {
         let didToggleSelected: AnyPublisher<Item, Never>
