@@ -399,8 +399,8 @@
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "send": "Send Report",
-            "skipToSend": "Send without comment",
-            "textPlaceHolder": "|Type or paste additional comments"
+            "skip_to_send": "Send without comment",
+            "text_placeholder": "Type or paste additional comments"
         }
     }
 }

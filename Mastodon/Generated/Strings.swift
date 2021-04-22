@@ -537,13 +537,13 @@ internal enum L10n {
       /// Send Report
       internal static let send = L10n.tr("Localizable", "Scene.Report.Send")
       /// Send without comment
-      internal static let skiptosend = L10n.tr("Localizable", "Scene.Report.Skiptosend")
+      internal static let skipToSend = L10n.tr("Localizable", "Scene.Report.SkipToSend")
       /// Step 1 of 2
       internal static let step1 = L10n.tr("Localizable", "Scene.Report.Step1")
       /// Step 2 of 2
       internal static let step2 = L10n.tr("Localizable", "Scene.Report.Step2")
-      /// |Type or paste additional comments
-      internal static let textplaceholder = L10n.tr("Localizable", "Scene.Report.Textplaceholder")
+      /// Type or paste additional comments
+      internal static let textPlaceholder = L10n.tr("Localizable", "Scene.Report.TextPlaceholder")
       /// Report %@
       internal static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Report.Title", String(describing: p1))
