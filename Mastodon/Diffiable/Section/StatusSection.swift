@@ -140,10 +140,7 @@ extension StatusSection {
         status: Status,
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
-    ) {
-        // setup attribute
-        statusItemAttribute.setupForStatus(status: status.reblog ?? status)
-        
+    ) { 
         // set header
         StatusSection.configureHeader(cell: cell, status: status)
         ManagedObjectObserver.observe(object: status)
@@ -178,19 +175,6 @@ extension StatusSection {
         // set text
         cell.statusView.activeTextLabel.configure(content: (status.reblog ?? status).content)
         
-        // set status text content warning
-        let isStatusTextSensitive = statusItemAttribute.isStatusTextSensitive ?? false
-        let spoilerText = (status.reblog ?? status).spoilerText ?? ""
-        cell.statusView.isStatusTextSensitive = isStatusTextSensitive
-        cell.statusView.updateContentWarningDisplay(isHidden: !isStatusTextSensitive)
-        cell.statusView.contentWarningTitle.text = {
-            if spoilerText.isEmpty {
-                return L10n.Common.Controls.Status.statusContentWarning
-            } else {
-                return L10n.Common.Controls.Status.statusContentWarning + ": \(spoilerText)"
-            }
-        }()
-        
         // prepare media attachments
         let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
         
@@ -214,30 +198,73 @@ extension StatusSection {
             }()
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
-        if mosiacImageViewModel.metas.count == 1 {
-            let meta = mosiacImageViewModel.metas[0]
-            let imageView = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+        let blurhashImageCache = dependency.context.documentStore.blurhashImageCache
+        let mosaics: [MosaicImageViewContainer.ConfigurableMosaic] = {
+            if mosiacImageViewModel.metas.count == 1 {
+                let meta = mosiacImageViewModel.metas[0]
+                let mosaic = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+                return [mosaic]
+            } else {
+                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+                return mosaics
+            }
+        }()
+        for (i, mosiac) in mosaics.enumerated() {
+            let (imageView, blurhashOverlayImageView) = mosiac
+            let meta = mosiacImageViewModel.metas[i]
+            let blurhashImageDataKey = meta.url.absoluteString as NSString
+            if let blurhashImageData = blurhashImageCache.object(forKey: meta.url.absoluteString as NSString),
+               let image = UIImage(data: blurhashImageData as Data) {
+                blurhashOverlayImageView.image = image
+            } else {
+                meta.blurhashImagePublisher()
+                    .receive(on: DispatchQueue.main)
+                    .sink { image in
+                        blurhashOverlayImageView.image = image
+                        image?.pngData().flatMap {
+                            blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)
+                        }
+                    }
+                    .store(in: &cell.disposeBag)
+            }
             imageView.af.setImage(
                 withURL: meta.url,
                 placeholderImage: UIImage.placeholder(color: .systemFill),
                 imageTransition: .crossDissolve(0.2)
-            )
-        } else {
-            let imageViews = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
-            for (i, imageView) in imageViews.enumerated() {
-                let meta = mosiacImageViewModel.metas[i]
-                imageView.af.setImage(
-                    withURL: meta.url,
-                    placeholderImage: UIImage.placeholder(color: .systemFill),
-                    imageTransition: .crossDissolve(0.2)
-                )
+            ) { response in
+                switch response.result {
+                case .success:
+                    statusItemAttribute.isImageLoaded.value = true
+                case .failure:
+                    break
+                }
             }
+            Publishers.CombineLatest(
+                statusItemAttribute.isImageLoaded,
+                statusItemAttribute.isRevealing
+            )
+            .receive(on: DispatchQueue.main)
+            .sink { isImageLoaded, isMediaRevealing in
+                guard isImageLoaded else {
+                    blurhashOverlayImageView.alpha = 1
+                    blurhashOverlayImageView.isHidden = false
+                    return
+                }
+                
+                blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
+                if isMediaRevealing {
+                    let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
+                    animator.addAnimations {
+                        blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
+                    }
+                    animator.startAnimation()
+                } else {
+                    cell.statusView.drawContentWarningImageView()
+                }
+            }
+            .store(in: &cell.disposeBag)
         }
         cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
-        let isStatusSensitive = statusItemAttribute.isStatusSensitive ?? false
-        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
-        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
-        cell.statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
@@ -258,10 +285,6 @@ extension StatusSection {
             let scale: CGFloat = 1.3
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
-        
-        cell.statusView.playerContainerView.contentWarningOverlayView.blurVisualEffectView.effect = isStatusSensitive ? ContentWarningOverlayView.blurVisualEffect : nil
-        cell.statusView.playerContainerView.contentWarningOverlayView.vibrancyVisualEffectView.alpha = isStatusSensitive ? 1.0 : 0.0
-        cell.statusView.playerContainerView.contentWarningOverlayView.isUserInteractionEnabled = isStatusSensitive
         
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
            let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
@@ -313,6 +336,34 @@ extension StatusSection {
             cell.statusView.playerContainerView.playerViewController.player?.pause()
             cell.statusView.playerContainerView.playerViewController.player = nil
         }
+        
+        // set text content warning
+        StatusSection.configureContentWarningOverlay(
+            statusView: cell.statusView,
+            status: status,
+            attribute: statusItemAttribute,
+            documentStore: dependency.context.documentStore,
+            animated: false
+        )
+        // observe model change
+        ManagedObjectObserver.observe(object: status)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { [weak dependency] change in
+                guard let dependency = dependency else { return }
+                guard case .update(let object) = change.changeType,
+                      let status = object as? Status else { return }
+                StatusSection.configureContentWarningOverlay(
+                    statusView: cell.statusView,
+                    status: status,
+                    attribute: statusItemAttribute,
+                    documentStore: dependency.context.documentStore,
+                    animated: true
+                )
+            }
+            .store(in: &cell.disposeBag)
+        
         // set poll
         let poll = (status.reblog ?? status).poll
         StatusSection.configurePoll(
@@ -373,6 +424,88 @@ extension StatusSection {
             .store(in: &cell.disposeBag)
     }
     
+    static func configureContentWarningOverlay(
+        statusView: StatusView,
+        status: Status,
+        attribute: Item.StatusAttribute,
+        documentStore: DocumentStore,
+        animated: Bool
+    ) {
+        statusView.contentWarningOverlayView.blurContentWarningTitleLabel.text = {
+            let spoilerText = (status.reblog ?? status).spoilerText ?? ""
+            if spoilerText.isEmpty {
+                return L10n.Common.Controls.Status.contentWarning
+            } else {
+                return L10n.Common.Controls.Status.contentWarningText(spoilerText)
+            }
+        }()
+        let appStartUpTimestamp = documentStore.appStartUpTimestamp
+        
+        switch (status.reblog ?? status).sensitiveType {
+        case .none:
+            statusView.revealContentWarningButton.isHidden = true
+            statusView.contentWarningOverlayView.isHidden = true
+            statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
+            statusView.updateContentWarningDisplay(isHidden: true, animated: false)
+        case .all:
+            statusView.revealContentWarningButton.isHidden = false
+            statusView.contentWarningOverlayView.isHidden = false
+            statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
+            statusView.playerContainerView.contentWarningOverlayView.isHidden = true
+            
+            if let revealedAt = status.revealedAt, revealedAt > appStartUpTimestamp {
+                statusView.updateRevealContentWarningButton(isRevealing: true)
+                statusView.updateContentWarningDisplay(isHidden: true, animated: animated)
+                attribute.isRevealing.value = true
+            } else {
+                statusView.updateRevealContentWarningButton(isRevealing: false)
+                statusView.updateContentWarningDisplay(isHidden: false, animated: animated)
+                attribute.isRevealing.value = false
+            }
+        case .media(let isSensitive):
+            if !isSensitive, documentStore.defaultRevealStatusDict[status.id] == nil {
+                documentStore.defaultRevealStatusDict[status.id] = true
+            }
+            statusView.revealContentWarningButton.isHidden = false
+            statusView.contentWarningOverlayView.isHidden = true
+            statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = false
+            statusView.playerContainerView.contentWarningOverlayView.isHidden = false
+            statusView.updateContentWarningDisplay(isHidden: true, animated: false)
+            
+            func updateContentOverlay() {
+                let needsReveal: Bool = {
+                    if documentStore.defaultRevealStatusDict[status.id] == true {
+                        return true
+                    }
+                    if let revealedAt = status.revealedAt, revealedAt > appStartUpTimestamp {
+                        return true
+                    }
+                    
+                    return false
+                }()
+                attribute.isRevealing.value = needsReveal
+                if needsReveal {
+                    statusView.updateRevealContentWarningButton(isRevealing: true)
+                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: true, style: .visualEffectView)
+                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: true, style: .visualEffectView)
+                } else {
+                    statusView.updateRevealContentWarningButton(isRevealing: false)
+                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: false, style: .visualEffectView)
+                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: false, style: .visualEffectView)
+                }
+            }
+            if animated {
+                UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut) {
+                    updateContentOverlay()
+                } completion: { _ in
+                    // do nothing
+                }
+            } else {
+                updateContentOverlay()
+            }
+        }
+    }
+    
     static func configureThreadMeta(
         cell: StatusTableViewCell,
         status: Status
@@ -413,7 +546,7 @@ extension StatusSection {
         status: Status
     ) {
         if status.reblog != nil {
-            cell.statusView.headerContainerStackView.isHidden = false
+            cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
             cell.statusView.headerInfoLabel.text = {
                 let author = status.author
@@ -421,7 +554,7 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
         } else if status.inReplyToID != nil {
-            cell.statusView.headerContainerStackView.isHidden = false
+            cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
             cell.statusView.headerInfoLabel.text = {
                 guard let replyTo = status.replyTo else {
@@ -432,7 +565,7 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
         } else {
-            cell.statusView.headerContainerStackView.isHidden = true
+            cell.statusView.headerContainerView.isHidden = true
         }
     }
     

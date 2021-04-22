@@ -284,13 +284,13 @@ struct ComposeToolbarView_Previews: PreviewProvider {
     
     static var previews: some View {
         UIViewPreview(width: 375) {
-            let tootbarView = ComposeToolbarView()
-            tootbarView.translatesAutoresizingMaskIntoConstraints = false
+            let toolbarView = ComposeToolbarView()
+            toolbarView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                tootbarView.widthAnchor.constraint(equalToConstant: 375).priority(.defaultHigh),
-                tootbarView.heightAnchor.constraint(equalToConstant: 64).priority(.defaultHigh),
+                toolbarView.widthAnchor.constraint(equalToConstant: 375).priority(.defaultHigh),
+                toolbarView.heightAnchor.constraint(equalToConstant: 64).priority(.defaultHigh),
             ])
-            return tootbarView
+            return toolbarView
         }
         .previewLayout(.fixed(width: 375, height: 100))
     }

@@ -20,16 +20,13 @@ extension NotificationViewModel {
             .autoconnect()
             .share()
             .eraseToAnyPublisher()
-        guard let userid = activeMastodonAuthenticationBox.value?.userID else {
-            return
-        }
+        
         diffableDataSource = NotificationSection.tableViewDiffableDataSource(
             for: tableView,
             timestampUpdatePublisher: timestampUpdatePublisher,
             managedObjectContext: context.managedObjectContext,
             delegate: delegate,
-            dependency: dependency,
-            requestUserID: userid
+            dependency: dependency
         )
     }
 }
@@ -67,9 +64,31 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
             
             DispatchQueue.main.async {
                 let oldSnapshot = diffableDataSource.snapshot()
+                var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
+                for item in oldSnapshot.itemIdentifiers {
+                    guard case let .notification(objectID, attribute) = item else { continue }
+                    oldSnapshotAttributeDict[objectID] = attribute
+                }
                 var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
                 newSnapshot.appendSections([.main])
-                newSnapshot.appendItems(notifications.map { NotificationItem.notification(objectID: $0.objectID) }, toSection: .main)
+                let items: [NotificationItem] = notifications.map { notification in
+                    let attribute: Item.StatusAttribute = oldSnapshotAttributeDict[notification.objectID] ?? Item.StatusAttribute()
+
+//                    let attribute: Item.StatusAttribute = {
+//                        if let attribute = oldSnapshotAttributeDict[notification.objectID] {
+//                            return attribute
+//                        } else if let status = notification.status {
+//                            let attribute = Item.StatusAttribute()
+//                            let isSensitive = status.sensitive || !(status.spoilerText ?? "").isEmpty
+//                            attribute.isRevealing.value = !isSensitive
+//                            return attribute
+//                        } else {
+//                            return Item.StatusAttribute()
+//                        }
+//                    }()
+                    return NotificationItem.notification(objectID: notification.objectID, attribute: attribute)
+                }
+                newSnapshot.appendItems(items, toSection: .main)
                 if !notifications.isEmpty, self.noMoreNotification.value == false {
                     newSnapshot.appendItems([.bottomLoader], toSection: .main)
                 }

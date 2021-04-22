@@ -90,6 +90,7 @@ extension ComposeStatusContentCollectionViewCell {
         textEditorView.changeObserver = self
         
         statusContentWarningEditorView.containerView.isHidden = true
+        statusView.revealContentWarningButton.isHidden = true
     }
 
 }

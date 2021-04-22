@@ -52,7 +52,7 @@ extension HomeTimelineIndex {
         }
     }
     
-    // internal method for Toot call
+    // internal method for status call
     func softDelete() {
         deletedAt = Date()
     }

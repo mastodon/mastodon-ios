@@ -34,9 +34,11 @@ final class MosaicImageViewContainer: UIView {
             }
         }
     }
+    var blurhashOverlayImageViews: [UIImageView] = []
     
     let contentWarningOverlayView: ContentWarningOverlayView = {
         let contentWarningOverlayView = ContentWarningOverlayView()
+        contentWarningOverlayView.configure(style: .visualEffectView)
         return contentWarningOverlayView
     }()
     
@@ -96,11 +98,14 @@ extension MosaicImageViewContainer {
         contentWarningOverlayView.vibrancyVisualEffectView.alpha = 1.0
         contentWarningOverlayView.isUserInteractionEnabled = true
         imageViews = []
+        blurhashOverlayImageViews = []
         
         container.spacing = 1
     }
     
-    func setupImageView(aspectRatio: CGSize, maxSize: CGSize) -> UIImageView {
+    typealias ConfigurableMosaic = (imageView: UIImageView, blurhashOverlayImageView: UIImageView)
+    
+    func setupImageView(aspectRatio: CGSize, maxSize: CGSize) -> ConfigurableMosaic {
         reset()
                 
         let contentView = UIView()
@@ -130,6 +135,22 @@ extension MosaicImageViewContainer {
         containerHeightLayoutConstraint.constant = floor(rect.height)
         containerHeightLayoutConstraint.isActive = true
         
+        let blurhashOverlayImageView = UIImageView()
+        blurhashOverlayImageView.layer.masksToBounds = true
+        blurhashOverlayImageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
+        blurhashOverlayImageView.layer.cornerCurve = .continuous
+        blurhashOverlayImageView.contentMode = .scaleAspectFill
+        blurhashOverlayImageViews.append(blurhashOverlayImageView)
+        blurhashOverlayImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(blurhashOverlayImageView)
+        NSLayoutConstraint.activate([
+            blurhashOverlayImageView.topAnchor.constraint(equalTo: imageView.topAnchor),
+            blurhashOverlayImageView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            blurhashOverlayImageView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+            blurhashOverlayImageView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+        ])
+        
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: imageView.topAnchor),
@@ -137,11 +158,11 @@ extension MosaicImageViewContainer {
             contentWarningOverlayView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
         ])
-
-        return imageView
+    
+        return (imageView, blurhashOverlayImageView)
     }
     
-    func setupImageViews(count: Int, maxHeight: CGFloat) -> [UIImageView] {
+    func setupImageViews(count: Int, maxHeight: CGFloat) -> [ConfigurableMosaic] {
         reset()
         guard count > 1 else {
             return []
@@ -161,11 +182,20 @@ extension MosaicImageViewContainer {
         container.addArrangedSubview(contentRightStackView)
         
         var imageViews: [UIImageView] = []
+        var blurhashOverlayImageViews: [UIImageView] = []
         for _ in 0..<count {
             imageViews.append(UIImageView())
+            blurhashOverlayImageViews.append(UIImageView())
         }
         self.imageViews.append(contentsOf: imageViews)
+        self.blurhashOverlayImageViews.append(contentsOf: blurhashOverlayImageViews)
         imageViews.forEach { imageView in
+            imageView.layer.masksToBounds = true
+            imageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
+            imageView.layer.cornerCurve = .continuous
+            imageView.contentMode = .scaleAspectFill
+        }
+        blurhashOverlayImageViews.forEach { imageView in
             imageView.layer.masksToBounds = true
             imageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
             imageView.layer.cornerCurve = .continuous
@@ -178,9 +208,16 @@ extension MosaicImageViewContainer {
             case .rightToLeft:
                 imageViews[1].layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
                 imageViews[0].layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                
+                blurhashOverlayImageViews[1].layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+                blurhashOverlayImageViews[0].layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                
             default:
                 imageViews[0].layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
                 imageViews[1].layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                
+                blurhashOverlayImageViews[0].layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+                blurhashOverlayImageViews[1].layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
             }
             
         } else if count == 3 {
@@ -192,10 +229,18 @@ extension MosaicImageViewContainer {
                 imageViews[0].layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
                 imageViews[1].layer.maskedCorners = [.layerMinXMinYCorner]
                 imageViews[2].layer.maskedCorners = [.layerMinXMaxYCorner]
+                
+                blurhashOverlayImageViews[0].layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                blurhashOverlayImageViews[1].layer.maskedCorners = [.layerMinXMinYCorner]
+                blurhashOverlayImageViews[2].layer.maskedCorners = [.layerMinXMaxYCorner]
             default:
                 imageViews[0].layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
                 imageViews[1].layer.maskedCorners = [.layerMaxXMinYCorner]
                 imageViews[2].layer.maskedCorners = [.layerMaxXMaxYCorner]
+                
+                blurhashOverlayImageViews[0].layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+                blurhashOverlayImageViews[1].layer.maskedCorners = [.layerMaxXMinYCorner]
+                blurhashOverlayImageViews[2].layer.maskedCorners = [.layerMaxXMaxYCorner]
             }
         } else if count == 4 {
             contentLeftStackView.addArrangedSubview(imageViews[0])
@@ -208,14 +253,36 @@ extension MosaicImageViewContainer {
                 imageViews[1].layer.maskedCorners = [.layerMinXMinYCorner]
                 imageViews[2].layer.maskedCorners = [.layerMaxXMaxYCorner]
                 imageViews[3].layer.maskedCorners = [.layerMinXMaxYCorner]
+                
+                blurhashOverlayImageViews[0].layer.maskedCorners = [.layerMaxXMinYCorner]
+                blurhashOverlayImageViews[1].layer.maskedCorners = [.layerMinXMinYCorner]
+                blurhashOverlayImageViews[2].layer.maskedCorners = [.layerMaxXMaxYCorner]
+                blurhashOverlayImageViews[3].layer.maskedCorners = [.layerMinXMaxYCorner]
             default:
                 imageViews[0].layer.maskedCorners = [.layerMinXMinYCorner]
                 imageViews[1].layer.maskedCorners = [.layerMaxXMinYCorner]
                 imageViews[2].layer.maskedCorners = [.layerMinXMaxYCorner]
                 imageViews[3].layer.maskedCorners = [.layerMaxXMaxYCorner]
+                
+                blurhashOverlayImageViews[0].layer.maskedCorners = [.layerMinXMinYCorner]
+                blurhashOverlayImageViews[1].layer.maskedCorners = [.layerMaxXMinYCorner]
+                blurhashOverlayImageViews[2].layer.maskedCorners = [.layerMinXMaxYCorner]
+                blurhashOverlayImageViews[3].layer.maskedCorners = [.layerMaxXMaxYCorner]
             }
         }
         
+        for (imageView, blurhashOverlayImageView) in zip(imageViews, blurhashOverlayImageViews) {
+            blurhashOverlayImageView.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(blurhashOverlayImageView)
+            NSLayoutConstraint.activate([
+                blurhashOverlayImageView.topAnchor.constraint(equalTo: imageView.topAnchor),
+                blurhashOverlayImageView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+                blurhashOverlayImageView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+                blurhashOverlayImageView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
+            ])
+        }
+        
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: container.topAnchor),
@@ -224,7 +291,7 @@ extension MosaicImageViewContainer {
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
         ])
         
-        return imageViews
+        return zip(imageViews, blurhashOverlayImageViews).map { ($0, $1) }
     }
     
 }
@@ -260,7 +327,7 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let image = images[3]
-                let imageView = view.setupImageView(
+                let (imageView, _) = view.setupImageView(
                     aspectRatio: image.size,
                     maxSize: CGSize(width: 375, height: 400)
                 )
@@ -272,7 +339,7 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let image = images[1]
-                let imageView = view.setupImageView(
+                let (imageView, _) = view.setupImageView(
                     aspectRatio: image.size,
                     maxSize: CGSize(width: 375, height: 400)
                 )
@@ -287,8 +354,9 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(2)
-                let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
+                let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
+                for (i, mosiac) in mosaics.enumerated() {
+                    let (imageView, blurhashOverlayImageView) = mosiac
                     imageView.image = images[i]
                 }
                 return view
@@ -298,8 +366,9 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(3)
-                let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
+                let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
+                for (i, mosiac) in mosaics.enumerated() {
+                    let (imageView, blurhashOverlayImageView) = mosiac
                     imageView.image = images[i]
                 }
                 return view
@@ -309,8 +378,9 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(4)
-                let imageViews = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
+                let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
+                for (i, mosiac) in mosaics.enumerated() {
+                    let (imageView, blurhashOverlayImageView) = mosiac
                     imageView.image = images[i]
                 }
                 return view

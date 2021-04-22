@@ -5,6 +5,7 @@
 //  Created by xiaojian sun on 2021/3/10.
 //
 
+import os.log
 import AVKit
 import UIKit
 
@@ -21,6 +22,7 @@ final class PlayerContainerView: UIView {
     
     let contentWarningOverlayView: ContentWarningOverlayView = {
         let contentWarningOverlayView = ContentWarningOverlayView()
+        contentWarningOverlayView.update(cornerRadius: PlayerContainerView.cornerRadius)
         return contentWarningOverlayView
     }()
     
@@ -70,6 +72,7 @@ extension PlayerContainerView {
             mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
         ])
         
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
             contentWarningOverlayView.topAnchor.constraint(equalTo: topAnchor),
@@ -93,6 +96,7 @@ extension PlayerContainerView {
 // MARK: - ContentWarningOverlayViewDelegate
 extension PlayerContainerView: ContentWarningOverlayViewDelegate {
     func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.playerContainerView(self, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
     }
 }

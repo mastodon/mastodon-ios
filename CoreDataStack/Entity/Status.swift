@@ -1,5 +1,5 @@
 //
-//  Toot.swift
+//  Status.swift
 //  CoreDataStack
 //
 //  Created by MainasuK Cirno on 2021/1/27.
@@ -62,11 +62,13 @@ public final class Status: NSManagedObject {
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
+    @NSManaged public private(set) var revealedAt: Date?
 }
 
-public extension Status {
+extension Status {
+
     @discardableResult
-    static func insert(
+    public static func insert(
         into context: NSManagedObjectContext,
         property: Property,
         author: MastodonUser,
@@ -84,81 +86,81 @@ public extension Status {
         bookmarkedBy: MastodonUser?,
         pinnedBy: MastodonUser?
     ) -> Status {
-        let toot: Status = context.insertObject()
+        let status: Status = context.insertObject()
         
-        toot.identifier = property.identifier
-        toot.domain = property.domain
+        status.identifier = property.identifier
+        status.domain = property.domain
        
-        toot.id = property.id
-        toot.uri = property.uri
-        toot.createdAt = property.createdAt
-        toot.content = property.content
+        status.id = property.id
+        status.uri = property.uri
+        status.createdAt = property.createdAt
+        status.content = property.content
         
-        toot.visibility = property.visibility
-        toot.sensitive = property.sensitive
-        toot.spoilerText = property.spoilerText
-        toot.application = application
+        status.visibility = property.visibility
+        status.sensitive = property.sensitive
+        status.spoilerText = property.spoilerText
+        status.application = application
 
-        toot.reblogsCount = property.reblogsCount
-        toot.favouritesCount = property.favouritesCount
-        toot.repliesCount = property.repliesCount
+        status.reblogsCount = property.reblogsCount
+        status.favouritesCount = property.favouritesCount
+        status.repliesCount = property.repliesCount
         
-        toot.url = property.url
-        toot.inReplyToID = property.inReplyToID
-        toot.inReplyToAccountID = property.inReplyToAccountID
+        status.url = property.url
+        status.inReplyToID = property.inReplyToID
+        status.inReplyToAccountID = property.inReplyToAccountID
         
-        toot.language = property.language
-        toot.text = property.text
+        status.language = property.language
+        status.text = property.text
         
-        toot.author = author
-        toot.reblog = reblog
+        status.author = author
+        status.reblog = reblog
         
-        toot.pinnedBy = pinnedBy
-        toot.poll = poll
+        status.pinnedBy = pinnedBy
+        status.poll = poll
         
         if let mentions = mentions {
-            toot.mutableSetValue(forKey: #keyPath(Status.mentions)).addObjects(from: mentions)
+            status.mutableSetValue(forKey: #keyPath(Status.mentions)).addObjects(from: mentions)
         }
         if let emojis = emojis {
-            toot.mutableSetValue(forKey: #keyPath(Status.emojis)).addObjects(from: emojis)
+            status.mutableSetValue(forKey: #keyPath(Status.emojis)).addObjects(from: emojis)
         }
         if let tags = tags {
-            toot.mutableSetValue(forKey: #keyPath(Status.tags)).addObjects(from: tags)
+            status.mutableSetValue(forKey: #keyPath(Status.tags)).addObjects(from: tags)
         }
         if let mediaAttachments = mediaAttachments {
-            toot.mutableSetValue(forKey: #keyPath(Status.mediaAttachments)).addObjects(from: mediaAttachments)
+            status.mutableSetValue(forKey: #keyPath(Status.mediaAttachments)).addObjects(from: mediaAttachments)
         }
         if let favouritedBy = favouritedBy {
-            toot.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(favouritedBy)
+            status.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(favouritedBy)
         }
         if let rebloggedBy = rebloggedBy {
-            toot.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(rebloggedBy)
+            status.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(rebloggedBy)
         }
         if let mutedBy = mutedBy {
-            toot.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mutedBy)
+            status.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mutedBy)
         }
         if let bookmarkedBy = bookmarkedBy {
-            toot.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(bookmarkedBy)
+            status.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(bookmarkedBy)
         }
         
-        toot.updatedAt = property.networkDate
+        status.updatedAt = property.networkDate
         
-        return toot
+        return status
     }
     
-    func update(reblogsCount: NSNumber) {
+    public func update(reblogsCount: NSNumber) {
         if self.reblogsCount.intValue != reblogsCount.intValue {
             self.reblogsCount = reblogsCount
         }
     }
     
-    func update(favouritesCount: NSNumber) {
+    public func update(favouritesCount: NSNumber) {
         if self.favouritesCount.intValue != favouritesCount.intValue {
             self.favouritesCount = favouritesCount
         }
     }
     
-    func update(repliesCount: NSNumber?) {
+    public func update(repliesCount: NSNumber?) {
         guard let count = repliesCount else {
             return
         }
@@ -167,13 +169,13 @@ public extension Status {
         }
     }
     
-    func update(replyTo: Status?) {
+    public func update(replyTo: Status?) {
         if self.replyTo != replyTo {
             self.replyTo = replyTo
         }
     }
     
-    func update(liked: Bool, by mastodonUser: MastodonUser) {
+    public func update(liked: Bool, by mastodonUser: MastodonUser) {
         if liked {
             if !(self.favouritedBy ?? Set()).contains(mastodonUser) {
                 self.mutableSetValue(forKey: #keyPath(Status.favouritedBy)).add(mastodonUser)
@@ -185,7 +187,7 @@ public extension Status {
         }
     }
     
-    func update(reblogged: Bool, by mastodonUser: MastodonUser) {
+    public func update(reblogged: Bool, by mastodonUser: MastodonUser) {
         if reblogged {
             if !(self.rebloggedBy ?? Set()).contains(mastodonUser) {
                 self.mutableSetValue(forKey: #keyPath(Status.rebloggedBy)).add(mastodonUser)
@@ -197,7 +199,7 @@ public extension Status {
         }
     }
     
-    func update(muted: Bool, by mastodonUser: MastodonUser) {
+    public func update(muted: Bool, by mastodonUser: MastodonUser) {
         if muted {
             if !(self.mutedBy ?? Set()).contains(mastodonUser) {
                 self.mutableSetValue(forKey: #keyPath(Status.mutedBy)).add(mastodonUser)
@@ -209,7 +211,7 @@ public extension Status {
         }
     }
     
-    func update(bookmarked: Bool, by mastodonUser: MastodonUser) {
+    public func update(bookmarked: Bool, by mastodonUser: MastodonUser) {
         if bookmarked {
             if !(self.bookmarkedBy ?? Set()).contains(mastodonUser) {
                 self.mutableSetValue(forKey: #keyPath(Status.bookmarkedBy)).add(mastodonUser)
@@ -221,14 +223,18 @@ public extension Status {
         }
     }
     
-    func didUpdate(at networkDate: Date) {
+    public func update(isReveal: Bool) {
+        revealedAt = isReveal ? Date() : nil
+    }
+    
+    public func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
     }
 
 }
 
-public extension Status {
-    struct Property {
+extension Status {
+    public struct Property {
         
         public let identifier: ID
         public let domain: String
@@ -338,7 +344,4 @@ extension Status {
         return NSPredicate(format: "%K != nil", #keyPath(Status.deletedAt))
     }
     
-    public static func author(author: MastodonUser) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Status.author), author)
-    }
 }
