@@ -46,13 +46,16 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
         return label
     }()
 
-    let avatarStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .equalSpacing
-        stackView.alignment = .center
-        stackView.spacing = 15
-        return stackView
+    let selectedCollectionView: UICollectionView = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .horizontal
+        let view = ControlContainableCollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        view.register(SuggestionAccountCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SuggestionAccountCollectionViewCell.self))
+        view.backgroundColor = .clear
+        view.showsHorizontalScrollIndicator = false
+        view.showsVerticalScrollIndicator = false
+        view.layer.masksToBounds = false
+        return view
     }()
 
     deinit {
@@ -70,6 +73,7 @@ extension SuggestionAccountViewController {
                               target: self,
                               action: #selector(SuggestionAccountViewController.doneButtonDidClick(_:)))
 
+        tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -85,6 +89,8 @@ extension SuggestionAccountViewController {
             delegate: self
         )
 
+        viewModel.collectionDiffableDataSource = SelectedAccountSection.collectionViewDiffableDataSource(for: selectedCollectionView, managedObjectContext: context.managedObjectContext)
+    
         viewModel.accounts
             .receive(on: DispatchQueue.main)
             .sink { [weak self] accounts in
@@ -94,6 +100,17 @@ extension SuggestionAccountViewController {
             .store(in: &disposeBag)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.deselectRow(with: transitionCoordinator, animated: animated)
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let avatarImageViewHeight: Double = 56
+        let avatarImageViewCount = Int(floor((Double(view.frame.width) - 20) / (avatarImageViewHeight + 15)))
+        viewModel.headerPlaceholderCount = avatarImageViewCount
+        viewModel.applySelectedCollectionViewDataSource(accounts: [])
+    }
     func setupHeader(accounts: [NSManagedObjectID]) {
         if accounts.isEmpty {
             return
@@ -106,56 +123,89 @@ extension SuggestionAccountViewController {
             tableHeader.trailingAnchor.constraint(equalTo: followExplainLabel.trailingAnchor, constant: 20),
         ])
 
-        avatarStackView.translatesAutoresizingMaskIntoConstraints = false
-        tableHeader.addSubview(avatarStackView)
+        selectedCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        tableHeader.addSubview(selectedCollectionView)
         NSLayoutConstraint.activate([
-            avatarStackView.topAnchor.constraint(equalTo: followExplainLabel.topAnchor, constant: 20),
-            avatarStackView.leadingAnchor.constraint(equalTo: tableHeader.leadingAnchor, constant: 20),
-            avatarStackView.trailingAnchor.constraint(equalTo: tableHeader.trailingAnchor),
-            avatarStackView.bottomAnchor.constraint(equalTo: tableHeader.bottomAnchor),
+            selectedCollectionView.frameLayoutGuide.topAnchor.constraint(equalTo: followExplainLabel.topAnchor, constant: 20),
+            selectedCollectionView.frameLayoutGuide.leadingAnchor.constraint(equalTo: tableHeader.leadingAnchor, constant: 20),
+            selectedCollectionView.frameLayoutGuide.trailingAnchor.constraint(equalTo: tableHeader.trailingAnchor),
+            selectedCollectionView.frameLayoutGuide.bottomAnchor.constraint(equalTo: tableHeader.bottomAnchor),
         ])
-        let avatarImageViewHeight: Double = 56
-        let avatarImageViewCount = Int(floor((Double(tableView.frame.width) - 20) / (avatarImageViewHeight + 15)))
-        let count = min(avatarImageViewCount, accounts.count)
-        for i in 0 ..< count {
-            let account = context.managedObjectContext.object(with: accounts[i]) as! MastodonUser
-            let imageView = UIImageView()
-            imageView.layer.cornerRadius = 6
-            imageView.clipsToBounds = true
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                imageView.widthAnchor.constraint(equalToConstant: CGFloat(avatarImageViewHeight)),
-                imageView.heightAnchor.constraint(equalToConstant: CGFloat(avatarImageViewHeight)),
-            ])
-            if let url = account.avatarImageURL() {
-                imageView.af.setImage(
-                    withURL: url,
-                    placeholderImage: UIImage.placeholder(color: .systemFill),
-                    imageTransition: .crossDissolve(0.2)
-                )
-            }
-            avatarStackView.addArrangedSubview(imageView)
-        }
+        selectedCollectionView.delegate = self
 
         tableView.tableHeaderView = tableHeader
     }
 }
 
-extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate {
-    func accountButtonPressed(objectID: NSManagedObjectID, sender: UIButton) {
-        let selected = !sender.isSelected
-        sender.isSelected = !sender.isSelected
-        if selected {
-            viewModel.selectedAccounts.append(objectID)
-        } else {
-            viewModel.selectedAccounts.removeAll { $0 == objectID }
+extension SuggestionAccountViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 15
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 56, height: 56)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.collectionDiffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .accountObjectID(let accountObjectID):
+            let mastodonUser = context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
+            let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
+            DispatchQueue.main.async {
+                self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+            }
+        default:
+            break
         }
+    }
+}
+
+extension SuggestionAccountViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let objectID = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        let mastodonUser = context.managedObjectContext.object(with: objectID) as! MastodonUser
+        let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+        }
+    }
+}
+
+extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate {
+    func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell) {
+        let selected = !viewModel.selectedAccounts.contains(objectID)
+        cell.startAnimating()
+        viewModel.followAction(objectID: objectID)?
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                cell.stopAnimating()
+                switch completion {
+                case .failure(let error):
+                    os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                case .finished:
+                    if selected {
+                        self.viewModel.selectedAccounts.append(objectID)
+                    } else {
+                        self.viewModel.selectedAccounts.removeAll { $0 == objectID }
+                    }
+                    cell.button.isSelected = selected
+                    self.viewModel.selectedAccountsDidChange.send()
+                }
+            }, receiveValue: { relationShip in
+            })
+            .store(in: &disposeBag)
     }
 }
 
 extension SuggestionAccountViewController {
     @objc func doneButtonDidClick(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-        viewModel.followAction()
+        if viewModel.selectedAccounts.count > 0 {
+            viewModel.delegate?.homeTimelineNeedRefresh.send()
+        }
     }
 }

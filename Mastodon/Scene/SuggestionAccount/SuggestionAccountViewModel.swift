@@ -27,15 +27,19 @@ final class SuggestionAccountViewModel: NSObject {
     // output
     let accounts = CurrentValueSubject<[NSManagedObjectID], Never>([])
     var selectedAccounts = [NSManagedObjectID]()
+    let selectedAccountsDidChange = PassthroughSubject<Void, Never>()
+    var headerPlaceholderCount: Int?
     var suggestionAccountsFallback = PassthroughSubject<Void, Never>()
     
     var diffableDataSource: UITableViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>? {
         didSet(value) {
             if !accounts.value.isEmpty {
-                applyDataSource(accounts: accounts.value)
+                applyTableViewDataSource(accounts: accounts.value)
             }
         }
     }
+    
+    var collectionDiffableDataSource: UICollectionViewDiffableDataSource<SelectedAccountSection, SelectedAccountItem>?
     
     init(context: AppContext, accounts: [NSManagedObjectID]? = nil) {
         self.context = context
@@ -45,7 +49,8 @@ final class SuggestionAccountViewModel: NSObject {
         self.accounts
             .receive(on: DispatchQueue.main)
             .sink { [weak self] accounts in
-                self?.applyDataSource(accounts: accounts)
+                self?.applyTableViewDataSource(accounts: accounts)
+                self?.applySelectedCollectionViewDataSource(accounts: [])
             }
             .store(in: &disposeBag)
         
@@ -53,6 +58,13 @@ final class SuggestionAccountViewModel: NSObject {
             self.accounts.value = accounts
         }
         
+        selectedAccountsDidChange
+            .sink { [weak self] _ in
+                if let selectedAccout = self?.selectedAccounts {
+                    self?.applySelectedCollectionViewDataSource(accounts: selectedAccout)
+                }
+            }
+            .store(in: &disposeBag)
         if accounts == nil || (accounts ?? []).isEmpty {
             guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
 
@@ -102,11 +114,28 @@ final class SuggestionAccountViewModel: NSObject {
             .store(in: &disposeBag)
     }
     
-    func applyDataSource(accounts: [NSManagedObjectID]) {
+    func applyTableViewDataSource(accounts: [NSManagedObjectID]) {
         guard let dataSource = diffableDataSource else { return }
         var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
         snapshot.appendSections([.main])
         snapshot.appendItems(accounts, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+    }
+    
+    func applySelectedCollectionViewDataSource(accounts: [NSManagedObjectID]) {
+        guard let count = headerPlaceholderCount else { return }
+        guard let dataSource = collectionDiffableDataSource else { return }
+        var snapshot = NSDiffableDataSourceSnapshot<SelectedAccountSection, SelectedAccountItem>()
+        snapshot.appendSections([.main])
+        let placeholderCount = count - accounts.count
+        let accountItems = accounts.map { SelectedAccountItem.accountObjectID(accountObjectID: $0) }
+        snapshot.appendItems(accountItems, toSection: .main)
+        
+        if placeholderCount > 0 {
+            for _ in 0 ..< placeholderCount {
+                snapshot.appendItems([SelectedAccountItem.placeHolder(uuid: UUID())], toSection: .main)
+            }
+        }
         dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
     }
 
@@ -135,25 +164,14 @@ final class SuggestionAccountViewModel: NSObject {
         }
     }
 
-    func followAction() {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        for objectID in selectedAccounts {
-            let mastodonUser = context.managedObjectContext.object(with: objectID) as! MastodonUser
-            context.apiService.toggleFollow(
-                for: mastodonUser,
-                activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
-                needFeedback: false
-            )
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                case .finished:
-                    self.delegate?.homeTimelineNeedRefresh.send()
-                }
-            } receiveValue: { _ in
-            }
-            .store(in: &disposeBag)
-        }
+    func followAction(objectID: NSManagedObjectID) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error>? {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
+
+        let mastodonUser = context.managedObjectContext.object(with: objectID) as! MastodonUser
+        return context.apiService.toggleFollow(
+            for: mastodonUser,
+            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+            needFeedback: false
+        )
     }
 }

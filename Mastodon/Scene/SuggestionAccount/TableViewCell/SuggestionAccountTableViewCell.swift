@@ -13,7 +13,7 @@ import MastodonSDK
 import UIKit
 
 protocol SuggestionAccountTableViewCellDelegate: AnyObject {
-    func accountButtonPressed(objectID: NSManagedObjectID, sender: UIButton)
+    func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell)
 }
 
 final class SuggestionAccountTableViewCell: UITableViewCell {
@@ -43,7 +43,13 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         return label
     }()
     
-    lazy var button: HighlightDimmableButton = {
+    let buttonContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    let button: HighlightDimmableButton = {
         let button = HighlightDimmableButton(type: .custom)
         if let plusImage = UIImage(systemName: "plus.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22, weight: .regular))?.withRenderingMode(.alwaysTemplate) {
             button.setImage(plusImage, for: .normal)
@@ -52,6 +58,13 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
             button.setImage(minusImage, for: .selected)
         }
         return button
+    }()
+    
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.color = .white
+        activityIndicatorView.hidesWhenStopped = true
+        return activityIndicatorView
     }()
 
     override func prepareForReuse() {
@@ -112,8 +125,25 @@ extension SuggestionAccountTableViewCell {
         containerStackView.addArrangedSubview(textStackView)
         textStackView.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(buttonContainer)
+        NSLayoutConstraint.activate([
+            buttonContainer.widthAnchor.constraint(equalToConstant: 24).priority(.required - 1),
+            buttonContainer.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+        ])
+        buttonContainer.setContentHuggingPriority(.required - 1, for: .horizontal)
+        
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(button)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addSubview(button)
+        buttonContainer.addSubview(activityIndicatorView)
+        NSLayoutConstraint.activate([
+            buttonContainer.centerXAnchor.constraint(equalTo: activityIndicatorView.centerXAnchor),
+            buttonContainer.centerYAnchor.constraint(equalTo: activityIndicatorView.centerYAnchor),
+            buttonContainer.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+            buttonContainer.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+        ])
     }
     
     func config(with account: MastodonUser, isSelected: Bool) {
@@ -130,7 +160,7 @@ extension SuggestionAccountTableViewCell {
         button.publisher(for: .touchUpInside)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.delegate?.accountButtonPressed(objectID: account.objectID, sender: self.button)
+                self.delegate?.accountButtonPressed(objectID: account.objectID, cell: self)
             }
             .store(in: &disposeBag)
         button.publisher(for: \.isSelected)
@@ -141,6 +171,23 @@ extension SuggestionAccountTableViewCell {
                     self?.button.tintColor = Asset.Colors.Label.secondary.color
                 }
             }
-            .store(in: &self.disposeBag)
+            .store(in: &disposeBag)
+        activityIndicatorView.publisher(for: \.isHidden)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isHidden in
+                self?.button.isHidden = !isHidden
+            }
+            .store(in: &disposeBag)
+
+    }
+    
+    func startAnimating() {
+        activityIndicatorView.isHidden = false
+        activityIndicatorView.startAnimating()
+    }
+
+    func stopAnimating() {
+        activityIndicatorView.stopAnimating()
+        activityIndicatorView.isHidden = true
     }
 }

@@ -74,6 +74,9 @@
 		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
 		2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
+		2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */; };
+		2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */; };
+		2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */; };
 		2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */; };
 		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
@@ -489,6 +492,9 @@
 		2D42FF8E25C8228A004A627A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
+		2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountCollectionViewCell.swift; sourceTree = "<group>"; };
+		2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAccountSection.swift; sourceTree = "<group>"; };
+		2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAccountItem.swift; sourceTree = "<group>"; };
 		2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProgressView.swift; sourceTree = "<group>"; };
 		2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
@@ -1020,6 +1026,14 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
+		2D4AD89A2631659400613EFC /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
 		2D59819925E4A55C000FB903 /* ConfirmEmail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1116,6 +1130,7 @@
 				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
 				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
 				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
 				2D35237926256D920031AF25 /* NotificationSection.swift */,
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
@@ -1170,6 +1185,7 @@
 			children = (
 				2D7631B225C159F700929FB9 /* Item.swift */,
 				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
+				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
 				2D7867182625B77500211898 /* NotificationItem.swift */,
 				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
 				DB1E347725F519300079D7DF /* PickServerItem.swift */,
@@ -1193,6 +1209,7 @@
 			children = (
 				2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */,
 				2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */,
+				2D4AD89A2631659400613EFC /* CollectionViewCell */,
 				2DAC9E43262FC9DE0062E1A6 /* TableViewCell */,
 			);
 			path = SuggestionAccount;
@@ -2427,6 +2444,7 @@
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
+				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
 				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */,
@@ -2554,6 +2572,7 @@
 				DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Status.swift in Sources */,
+				2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */,
 				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
@@ -2618,6 +2637,7 @@
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
+				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,

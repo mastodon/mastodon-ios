@@ -125,7 +125,6 @@ final class HomeTimelineViewModel: NSObject {
             .store(in: &disposeBag)
         
         homeTimelineNeedRefresh
-            .debounce(for: 0.3, scheduler: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
             }
