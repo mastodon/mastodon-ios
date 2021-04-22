@@ -19,7 +19,7 @@ extension Mastodon.API.Reports {
     /// 1.1 - added
     /// 2.3.0 - add forward parameter
     /// # Reference
-    ///   [Document](https://docs.joinmastodon.org/methods/search/)
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/reports/)
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
