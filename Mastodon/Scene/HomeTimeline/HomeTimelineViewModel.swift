@@ -34,6 +34,7 @@ final class HomeTimelineViewModel: NSObject {
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
+    let timelineIsEmpty = CurrentValueSubject<Bool, Never>(false)
     let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
     // output
     // top loader

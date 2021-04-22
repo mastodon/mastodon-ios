@@ -151,16 +151,7 @@ extension HomeTimelineViewController {
                     UIView.animate(withDuration: 0.5) { [weak self] in
                         guard let self = self else { return }
                         self.refreshControl.endRefreshing()
-                    } completion: { [weak self] _ in
-                        guard let self = self else { return }
-                        if (self.viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty {
-                            self.showEmptyView()
-                        } else {
-                            self.emptyView.removeFromSuperview()
-                        }
-                    }
-                } else {
-                    self.emptyView.removeFromSuperview()
+                    } completion: { _ in }
                 }
             }
             .store(in: &disposeBag)
@@ -189,6 +180,17 @@ extension HomeTimelineViewController {
                 }
                 
                 self.publishProgressView.setProgress(progress, animated: true)
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.timelineIsEmpty
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEmpty in
+                if isEmpty {
+                    self?.showEmptyView()
+                } else {
+                    self?.emptyView.removeFromSuperview()
+                }
             }
             .store(in: &disposeBag)
     }

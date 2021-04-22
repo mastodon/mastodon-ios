@@ -36,7 +36,7 @@ extension RecommendAccountSection {
         viewModel: SuggestionAccountViewModel,
         delegate: SuggestionAccountTableViewCellDelegate
     ) -> UITableViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID> {
-        UITableViewDiffableDataSource(tableView: tableView) { [weak viewModel,weak delegate] (tableView, indexPath, objectID) -> UITableViewCell? in
+        UITableViewDiffableDataSource(tableView: tableView) { [weak viewModel, weak delegate] (tableView, indexPath, objectID) -> UITableViewCell? in
             guard let viewModel = viewModel else { return nil }
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
             let user = managedObjectContext.object(with: objectID) as! MastodonUser

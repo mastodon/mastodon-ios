@@ -107,6 +107,7 @@ extension HomeTimelineViewModel.LoadLatestState {
                                 viewModel.homeTimelineNavigationBarTitleViewModel.newPostsIncoming()
                             }
                         }
+                        viewModel.timelineIsEmpty.value = latestStatusIDs.isEmpty && statuses.isEmpty
                     }
                     .store(in: &viewModel.disposeBag)
             }
