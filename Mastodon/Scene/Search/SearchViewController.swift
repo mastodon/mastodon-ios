@@ -11,6 +11,26 @@ import MastodonSDK
 import UIKit
 
 final class SearchViewController: UIViewController, NeedsDependency {
+    
+    public static var hashtagCardHeight: CGFloat {
+        get {
+            if UIScreen.main.bounds.size.height > 736 {
+                return 186
+            }
+            return 130
+        }
+    }
+    
+    public static var hashtagPeopleTalkingLabelTop: CGFloat {
+        get {
+            if UIScreen.main.bounds.size.height > 736 {
+                return 18
+            }
+            return 6
+        }
+    }
+    public static let accountCardHeight = 202
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -49,9 +69,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 0
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 68, right: 0)
-        stackView.isLayoutMarginsRelativeArrangement = true
         return stackView
     }()
     
@@ -130,6 +147,8 @@ extension SearchViewController {
         setupSearchingTableView()
         setupDataSource()
         setupSearchHeader()
+        view.bringSubviewToFront(searchBar)
+        view.bringSubviewToFront(statusBar)
     }
 
     func setupSearchBar() {
@@ -148,23 +167,27 @@ extension SearchViewController {
             statusBar.topAnchor.constraint(equalTo: view.topAnchor),
             statusBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            statusBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 3),
+            statusBar.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 3),
         ])
     }
 
     func setupScrollView() {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // scrollView
         view.addSubview(scrollView)
         NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.contentLayoutGuide.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: searchBar.frame.height),
+            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
+            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
         ])
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+
+        // stackview
         scrollView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
