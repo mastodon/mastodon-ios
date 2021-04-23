@@ -23,8 +23,7 @@ extension ReportSection {
         for tableView: UITableView,
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>,
-        reportdStatusDelegate: ReportedStatusTableViewCellDelegate
+        timestampUpdatePublisher: AnyPublisher<Date, Never>
     ) -> UITableViewDiffableDataSource<ReportSection, Item> {
         UITableViewDiffableDataSource(tableView: tableView) {[
             weak dependency
@@ -32,7 +31,7 @@ extension ReportSection {
             guard let dependency = dependency else { return UITableViewCell() }
 
             switch item {
-            case .status(let objectID, let attribute):
+            case .reportStatus(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportedStatusTableViewCell.self), for: indexPath) as! ReportedStatusTableViewCell
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
@@ -49,8 +48,7 @@ extension ReportSection {
                     )
                 }
                 
-                let isSelected = reportdStatusDelegate.reportedStatus(cell: cell, isSelected: indexPath)
-                cell.setupSelected(isSelected)
+                cell.setupSelected(attribute.isSelected)
                 return cell
             default:
                 return nil

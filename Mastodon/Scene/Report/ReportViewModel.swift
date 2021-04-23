@@ -26,8 +26,6 @@ class ReportViewModel: NSObject, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(coordinator == nil) } }
     var userId: String
     var statusId: String?
-    var selectedItems = [Item]()
-    var comment: String?
     
     var reportQuery: FileReportQuery
     var disposeBag = Set<AnyCancellable>()
@@ -74,7 +72,7 @@ class ReportViewModel: NSObject, NeedsDependency {
         
         self.reportQuery = FileReportQuery(
             accountId: userId,
-            statusIds: nil,
+            statusIds: [],
             comment: nil,
             forward: nil
         )
@@ -90,8 +88,7 @@ class ReportViewModel: NSObject, NeedsDependency {
         
         setupDiffableDataSource(
             for: input.tableView,
-            dependency: self,
-            reportdStatusDelegate: self
+            dependency: self
         )
         
         // data binding
@@ -125,38 +122,31 @@ class ReportViewModel: NSObject, NeedsDependency {
     func bindData(input: Input) {
         input.didToggleSelected.sink { [weak self] (item) in
             guard let self = self else { return }
-            guard case let .status(objectID, attribute) = item else { return }
+            guard case let .reportStatus(objectID, attribute) = item else { return }
             guard var snapshot = self.diffableDataSource?.snapshot() else { return }
             let managedObjectContext = self.statusFetchedResultsController.fetchedResultsController.managedObjectContext
             guard let status = managedObjectContext.object(with: objectID) as? Status else {
                 return
             }
             
-            var items = [Item]()
-            if let index = self.selectedItems.firstIndex(of: item) {
-                self.selectedItems.remove(at: index)
-                items.append(.status(objectID: objectID, attribute: attribute))
-                
-                if let index = self.reportQuery.statusIds?.firstIndex(of: status.id) {
-                    self.reportQuery.statusIds?.remove(at: index)
-                }
+            attribute.isSelected = !attribute.isSelected
+            if attribute.isSelected {
+                self.reportQuery.append(statusId: status.id)
             } else {
-                self.selectedItems.append(item)
-                items.append(.status(objectID: objectID, attribute: attribute))
-                self.reportQuery.statusIds?.append(status.id)
+                self.reportQuery.remove(statusId: status.id)
             }
             
             snapshot.reloadItems([item])
             self.diffableDataSource?.apply(snapshot, animatingDifferences: false)
             
-            let continueEnable = self.selectedItems.count > 0
+            let continueEnable = (self.reportQuery.statusIds?.count ?? 0) > 0
             self.continueEnableSubject.send(continueEnable)
         }
         .store(in: &disposeBag)
         
         input.comment.assign(
             to: \.comment,
-            on: self
+            on: self.reportQuery
         )
         .store(in: &disposeBag)
         input.comment.sink { [weak self] (comment) in
@@ -170,7 +160,7 @@ class ReportViewModel: NSObject, NeedsDependency {
     func bindForStep1(input: Input) {
         let skip = input.step1Skip.map { [weak self] value -> Void in
             guard let self = self else { return value }
-            self.selectedItems.removeAll()
+            self.reportQuery.statusIds?.removeAll()
             return value
         }
         
@@ -185,29 +175,13 @@ class ReportViewModel: NSObject, NeedsDependency {
     func bindForStep2(input: Input, domain: String, activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox) {
         let skip = input.step2Skip.map { [weak self] value -> Void in
             guard let self = self else { return value }
-            self.comment = nil
+            self.reportQuery.comment = nil
             return value
         }
         
         Publishers.Merge(skip, input.step2Continue)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                let managedObjectContext = self.statusFetchedResultsController.fetchedResultsController.managedObjectContext
-                
-                self.reportQuery.comment = self.comment
-                
-                var selectedStatusIds = [String]()
-                self.selectedItems.forEach { (item) in
-                    guard case .status(let objectId, _) = item else {
-                        return
-                    }
-                    guard let status = managedObjectContext.object(with: objectId) as? Status else {
-                        return
-                    }
-                    selectedStatusIds.append(status.id)
-                }
-                self.reportQuery.statusIds = selectedStatusIds
-                
                 self.context.apiService.report(
                     domain: domain,
                     query: self.reportQuery,
@@ -235,15 +209,5 @@ class ReportViewModel: NSObject, NeedsDependency {
                 .store(in: &self.disposeBag)
             }
             .store(in: &disposeBag)
-    }
-}
-
-extension ReportViewModel: ReportedStatusTableViewCellDelegate {
-    func reportedStatus(cell: ReportedStatusTableViewCell, isSelected indexPath: IndexPath) -> Bool {
-        guard let item = diffableDataSource?.itemIdentifier(for: indexPath) else {
-            return false
-        }
-        
-        return selectedItems.contains(item)
     }
 }

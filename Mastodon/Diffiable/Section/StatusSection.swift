@@ -125,6 +125,8 @@ extension StatusSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineHeaderTableViewCell.self), for: indexPath) as! TimelineHeaderTableViewCell
                 StatusSection.configureEmptyStateHeader(cell: cell, attribute: attribute)
                 return cell
+            case .reportStatus:
+                return UITableViewCell()
             }
         }
     }

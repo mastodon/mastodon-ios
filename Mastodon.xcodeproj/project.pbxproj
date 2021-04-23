@@ -135,7 +135,6 @@
 		2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */; };
 		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
 		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
-		5B24BBDC262DB14800A9381B /* ReportViewModel+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD9262DB14800A9381B /* ReportViewModel+Provider.swift */; };
 		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
 		5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E055726319E47006E3C53 /* ReportFooterView.swift */; };
 		5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C456262599800002E742 /* SettingsViewModel.swift */; };
@@ -561,7 +560,6 @@
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5B24BBD7262DB14800A9381B /* ReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		5B24BBD9262DB14800A9381B /* ReportViewModel+Provider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Provider.swift"; sourceTree = "<group>"; };
 		5B24BBE1262DB19100A9381B /* APIService+Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Report.swift"; sourceTree = "<group>"; };
 		5B8E055726319E47006E3C53 /* ReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportFooterView.swift; sourceTree = "<group>"; };
 		5B90C456262599800002E742 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -1249,7 +1247,6 @@
 			children = (
 				5B24BBD7262DB14800A9381B /* ReportViewModel.swift */,
 				5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */,
-				5B24BBD9262DB14800A9381B /* ReportViewModel+Provider.swift */,
 				5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */,
 				5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */,
 				5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */,
@@ -2569,7 +2566,6 @@
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */,
 				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
-				5B24BBDC262DB14800A9381B /* ReportViewModel+Provider.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				2D24E12D2626FD2E00A59D4F /* NotificationViewModel+LoadOldestState.swift in Sources */,
 				2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */,

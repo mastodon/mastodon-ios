@@ -13,8 +13,7 @@ import CoreDataStack
 extension ReportViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
-        dependency: NeedsDependency,
-        reportdStatusDelegate: ReportedStatusTableViewCellDelegate
+        dependency: NeedsDependency
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
@@ -25,8 +24,7 @@ extension ReportViewModel {
             for: tableView,
             dependency: dependency,
             managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher,
-            reportdStatusDelegate: reportdStatusDelegate
+            timestampUpdatePublisher: timestampUpdatePublisher
         )
         
         // set empty section to make update animation top-to-bottom style

@@ -71,23 +71,24 @@ extension ReportViewModel {
                     diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
                 }
                 
-                var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
+                var oldSnapshotAttributeDict: [NSManagedObjectID : Item.ReportStatusAttribute] = [:]
                 let oldSnapshot = diffableDataSource.snapshot()
                 for item in oldSnapshot.itemIdentifiers {
-                    guard case let .status(objectID, attribute) = item else { continue }
+                    guard case let .reportStatus(objectID, attribute) = item else { continue }
                     oldSnapshotAttributeDict[objectID] = attribute
                 }
                 
                 for objectID in objectIDs {
-                    let attribute = oldSnapshotAttributeDict[objectID] ?? Item.StatusAttribute()
-                    let item = Item.status(objectID: objectID, attribute: attribute)
+                    let attribute = oldSnapshotAttributeDict[objectID] ?? Item.ReportStatusAttribute()
+                    let item = Item.reportStatus(objectID: objectID, attribute: attribute)
                     items.append(item)
                     
                     guard let status = managedObjectContext.object(with: objectID) as? Status else {
                         continue
                     }
                     if status.id == self.statusId {
-                        self.selectedItems.append(item)
+                        attribute.isSelected = true
+                        self.reportQuery.append(statusId: status.id)
                         self.continueEnableSubject.send(true)
                     }
                 }

@@ -13,15 +13,10 @@ import CoreData
 import CoreDataStack
 import ActiveLabel
 
-protocol ReportedStatusTableViewCellDelegate: class {
-    func reportedStatus(cell: ReportedStatusTableViewCell, isSelected indexPath: IndexPath) -> Bool
-}
-
 final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     
     static let bottomPaddingHeight: CGFloat = 10
     
-    weak var delegate: ReportedStatusTableViewCellDelegate?
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
