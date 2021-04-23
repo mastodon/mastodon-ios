@@ -46,7 +46,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow, for: .vertical)
-        view.backgroundColor = Asset.Colors.Background.elevatedPrimary.color
+        view.backgroundColor = Asset.Colors.Background.systemElevatedBackground.color
         return view
     }()
     
