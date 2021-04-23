@@ -27,10 +27,12 @@ final class SuggestionAccountViewModel: NSObject {
     weak var delegate: SuggestionAccountViewModelDelegate?
     // output
     let accounts = CurrentValueSubject<[NSManagedObjectID], Never>([])
-    var selectedAccounts = [NSManagedObjectID]()
-    let selectedAccountsDidChange = PassthroughSubject<Void, Never>()
-    var headerPlaceholderCount: Int?
+    var selectedAccounts = CurrentValueSubject<[NSManagedObjectID], Never>([])
+
+    var headerPlaceholderCount = CurrentValueSubject<Int?, Never>(nil)
     var suggestionAccountsFallback = PassthroughSubject<Void, Never>()
+    
+    var viewWillAppear = PassthroughSubject<Void, Never>()
     
     var diffableDataSource: UITableViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>? {
         didSet(value) {
@@ -47,25 +49,28 @@ final class SuggestionAccountViewModel: NSObject {
 
         super.init()
         
-        self.accounts
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] accounts in
+        Publishers.CombineLatest(self.accounts,self.selectedAccounts)
+            .sink { [weak self] accounts,selectedAccounts in
                 self?.applyTableViewDataSource(accounts: accounts)
-                self?.applySelectedCollectionViewDataSource(accounts: [])
+                self?.applySelectedCollectionViewDataSource(accounts: selectedAccounts)
+            }
+            .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(self.selectedAccounts,self.headerPlaceholderCount)
+            .sink { [weak self] selectedAccount,count in
+                self?.applySelectedCollectionViewDataSource(accounts: selectedAccount)
+            }
+            .store(in: &disposeBag)
+        
+        viewWillAppear
+            .sink { [weak self] _ in
+                self?.checkAccountsFollowState()
             }
             .store(in: &disposeBag)
         
         if let accounts = accounts {
             self.accounts.value = accounts
         }
-        
-        selectedAccountsDidChange
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.applyTableViewDataSource(accounts: self.accounts.value)
-                self.applySelectedCollectionViewDataSource(accounts: self.selectedAccounts)
-            }
-            .store(in: &disposeBag)
         
         context.authenticationService.activeMastodonAuthentication
             .sink { [weak self] activeMastodonAuthentication in
@@ -136,7 +141,7 @@ final class SuggestionAccountViewModel: NSObject {
     }
     
     func applySelectedCollectionViewDataSource(accounts: [NSManagedObjectID]) {
-        guard let count = headerPlaceholderCount else { return }
+        guard let count = headerPlaceholderCount.value else { return }
         guard let dataSource = collectionDiffableDataSource else { return }
         var snapshot = NSDiffableDataSourceSnapshot<SelectedAccountSection, SelectedAccountItem>()
         snapshot.appendSections([.main])
@@ -192,12 +197,26 @@ final class SuggestionAccountViewModel: NSObject {
         guard let currentMastodonUser = currentMastodonUser.value else {
             return
         }
-        let users = accounts.value.compactMap { context.managedObjectContext.object(with: $0) as? MastodonUser }
+        let users: [MastodonUser] = accounts.value.compactMap {
+            guard let user = context.managedObjectContext.object(with: $0) as? MastodonUser else {
+                return nil
+            }
+            let isBlock = user.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            let isDomainBlock = user.domainBlockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            if isBlock || isDomainBlock {
+                return nil
+            } else {
+                return user
+            }
+        }
+        accounts.value = users.map(\.objectID)
+        
         let followingUsers = users.filter { user -> Bool in
             let isFollowing = user.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-            return isFollowing
+            let isPending = user.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
+            return isFollowing || isPending
         }.map(\.objectID)
-        selectedAccounts = followingUsers
-        selectedAccountsDidChange.send()
+        
+        selectedAccounts.value = followingUsers
     }
 }

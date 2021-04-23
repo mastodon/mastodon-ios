@@ -40,7 +40,7 @@ extension RecommendAccountSection {
             guard let viewModel = viewModel else { return nil }
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SuggestionAccountTableViewCell.self)) as! SuggestionAccountTableViewCell
             let user = managedObjectContext.object(with: objectID) as! MastodonUser
-            let isSelected = viewModel.selectedAccounts.contains(objectID)
+            let isSelected = viewModel.selectedAccounts.value.contains(objectID)
             cell.delegate = delegate
             cell.config(with: user, isSelected: isSelected)
             return cell

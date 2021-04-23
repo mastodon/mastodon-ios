@@ -110,8 +110,7 @@ extension SuggestionAccountViewController {
         super.viewWillLayoutSubviews()
         let avatarImageViewHeight: Double = 56
         let avatarImageViewCount = Int(floor((Double(view.frame.width) - 20) / (avatarImageViewHeight + 15)))
-        viewModel.headerPlaceholderCount = avatarImageViewCount
-        viewModel.applySelectedCollectionViewDataSource(accounts: [])
+        viewModel.headerPlaceholderCount.value = avatarImageViewCount
     }
 
     func setupHeader(accounts: [NSManagedObjectID]) {
@@ -179,7 +178,7 @@ extension SuggestionAccountViewController: UITableViewDelegate {
 
 extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegate {
     func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell) {
-        let selected = !viewModel.selectedAccounts.contains(objectID)
+        let selected = !viewModel.selectedAccounts.value.contains(objectID)
         cell.startAnimating()
         viewModel.followAction(objectID: objectID)?
             .sink(receiveCompletion: { [weak self] completion in
@@ -189,13 +188,14 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
                 case .failure(let error):
                     os_log("%{public}s[%{public}ld], %{public}s: follow failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                 case .finished:
+                    var selectedAccounts = self.viewModel.selectedAccounts.value
                     if selected {
-                        self.viewModel.selectedAccounts.append(objectID)
+                        selectedAccounts.append(objectID)
                     } else {
-                        self.viewModel.selectedAccounts.removeAll { $0 == objectID }
+                        selectedAccounts.removeAll { $0 == objectID }
                     }
                     cell.button.isSelected = selected
-                    self.viewModel.selectedAccountsDidChange.send()
+                    self.viewModel.selectedAccounts.value = selectedAccounts
                 }
             }, receiveValue: { _ in
             })
@@ -206,7 +206,7 @@ extension SuggestionAccountViewController: SuggestionAccountTableViewCellDelegat
 extension SuggestionAccountViewController {
     @objc func doneButtonDidClick(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
-        if viewModel.selectedAccounts.count > 0 {
+        if viewModel.selectedAccounts.value.count > 0 {
             viewModel.delegate?.homeTimelineNeedRefresh.send()
         }
     }
