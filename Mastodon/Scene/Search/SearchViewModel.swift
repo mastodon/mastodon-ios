@@ -162,7 +162,6 @@ final class SearchViewModel: NSObject {
             .store(in: &disposeBag)
         
         requestRecommendAccountsV2()
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if !self.recommendAccounts.isEmpty {
@@ -176,7 +175,6 @@ final class SearchViewModel: NSObject {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.requestRecommendAccounts()
-                    .receive(on: DispatchQueue.main)
                     .sink { [weak self] _ in
                         guard let self = self else { return }
                         if !self.recommendAccounts.isEmpty {
@@ -295,11 +293,13 @@ final class SearchViewModel: NSObject {
     }
     
     func applyDataSource() {
-        guard let dataSource = accountDiffableDataSource else { return }
-        var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(recommendAccounts, toSection: .main)
-        dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+        DispatchQueue.main.async {
+            guard let dataSource = self.accountDiffableDataSource else { return }
+            var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(self.recommendAccounts, toSection: .main)
+            dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+        }
     }
     
     func receiveAccounts(ids: [String]) {

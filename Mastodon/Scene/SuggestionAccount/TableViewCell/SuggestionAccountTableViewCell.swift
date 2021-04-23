@@ -62,7 +62,6 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
     
     let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
-        activityIndicatorView.color = .white
         activityIndicatorView.hidesWhenStopped = true
         return activityIndicatorView
     }()
