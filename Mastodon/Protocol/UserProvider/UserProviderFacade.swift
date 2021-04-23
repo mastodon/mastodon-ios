@@ -44,7 +44,8 @@ extension UserProviderFacade {
                 
                 return context.apiService.toggleFollow(
                     for: mastodonUser,
-                    activeMastodonAuthenticationBox: activeMastodonAuthenticationBox
+                    activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                    needFeedback: true
                 )
             }
             .switchToLatest()

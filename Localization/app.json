@@ -51,7 +51,9 @@
                 "preview": "Preview",
                 "share": "Share",
                 "share_user": "Share %s",
-                "open_in_safari": "Open in Safari"
+                "open_in_safari": "Open in Safari",
+                "find_people": "Find people to follow",
+                "manually_search": "Manually search instead"
             },
             "status": {
                 "user_reblogged": "%s reblogged",
@@ -231,6 +233,10 @@
                 "Publishing": "Publishing post..."
             }
         },
+        "suggestion_account": {
+            "title": "Find People to Follow",
+            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+        },
         "public_timeline": {
             "title": "Public"
         },
@@ -330,7 +336,7 @@
         },
         "favorite": {
             "title": "Your Favorites"
-            },
+        },
         "notification": {
             "title": {
                 "Everything": "Everything",
@@ -342,6 +348,7 @@
                 "reblog": "rebloged your post",
                 "poll": "Your poll has ended",
                 "mention": "mentioned you"
+            },
         },
         "thread": {
             "back_title": "Post",

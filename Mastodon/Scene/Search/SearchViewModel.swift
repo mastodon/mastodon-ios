@@ -26,7 +26,7 @@ final class SearchViewModel: NSObject {
     
     // output
     let searchText = CurrentValueSubject<String, Never>("")
-    let searchScope = CurrentValueSubject<Mastodon.API.Search.SearchType, Never>(Mastodon.API.Search.SearchType.default)
+    let searchScope = CurrentValueSubject<Mastodon.API.V2.Search.SearchType, Never>(Mastodon.API.V2.Search.SearchType.default)
     
     let isSearching = CurrentValueSubject<Bool, Never>(false)
     
@@ -34,6 +34,7 @@ final class SearchViewModel: NSObject {
     
     var recommendHashTags = [Mastodon.Entity.Tag]()
     var recommendAccounts = [NSManagedObjectID]()
+    var recommendAccountsFallback = PassthroughSubject<Void, Never>()
     
     var hashtagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>?
@@ -86,16 +87,16 @@ final class SearchViewModel: NSObject {
         }
         .flatMap { (text, scope) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> in
             
-            let query = Mastodon.API.Search.Query(q: text,
-                                                  type: scope,
-                                                  accountID: nil,
-                                                  maxID: nil,
-                                                  minID: nil,
-                                                  excludeUnreviewed: nil,
-                                                  resolve: nil,
-                                                  limit: nil,
-                                                  offset: nil,
-                                                  following: nil)
+            let query = Mastodon.API.V2.Search.Query(q: text,
+                                                     type: scope,
+                                                     accountID: nil,
+                                                     maxID: nil,
+                                                     minID: nil,
+                                                     excludeUnreviewed: nil,
+                                                     resolve: nil,
+                                                     limit: nil,
+                                                     offset: nil,
+                                                     following: nil)
             return context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
         }
         .sink { _ in
@@ -130,8 +131,8 @@ final class SearchViewModel: NSObject {
             snapshot.appendSections([.mixed])
             
             searchHistories.forEach { searchHistory in
-                let containsAccount = scope == Mastodon.API.Search.SearchType.accounts || scope == Mastodon.API.Search.SearchType.default
-                let containsHashTag = scope == Mastodon.API.Search.SearchType.hashtags || scope == Mastodon.API.Search.SearchType.default
+                let containsAccount = scope == Mastodon.API.V2.Search.SearchType.accounts || scope == Mastodon.API.V2.Search.SearchType.default
+                let containsHashTag = scope == Mastodon.API.V2.Search.SearchType.hashtags || scope == Mastodon.API.V2.Search.SearchType.default
                 if let mastodonUser = searchHistory.account, containsAccount {
                     let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
                     snapshot.appendItems([item], toSection: .mixed)
@@ -142,7 +143,6 @@ final class SearchViewModel: NSObject {
                 }
             }
             dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-            
         }
         .store(in: &disposeBag)
         
@@ -161,18 +161,28 @@ final class SearchViewModel: NSObject {
             }
             .store(in: &disposeBag)
         
-        requestRecommendAccounts()
-            .receive(on: DispatchQueue.main)
+        requestRecommendAccountsV2()
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if !self.recommendAccounts.isEmpty {
-                    guard let dataSource = self.accountDiffableDataSource else { return }
-                    var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
-                    snapshot.appendSections([.main])
-                    snapshot.appendItems(self.recommendAccounts, toSection: .main)
-                    dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+                    self.applyDataSource()
                 }
             } receiveValue: { _ in
+            }
+            .store(in: &disposeBag)
+        
+        recommendAccountsFallback
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.requestRecommendAccounts()
+                    .sink { [weak self] _ in
+                        guard let self = self else { return }
+                        if !self.recommendAccounts.isEmpty {
+                            self.applyDataSource()
+                        }
+                    } receiveValue: { _ in
+                    }
+                    .store(in: &self.disposeBag)
             }
             .store(in: &disposeBag)
         
@@ -186,7 +196,7 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.account])
                     let items = accounts.compactMap { SearchResultItem.account(account: $0) }
                     snapshot.appendItems(items, toSection: .account)
-                    if self.searchScope.value == Mastodon.API.Search.SearchType.accounts, !items.isEmpty {
+                    if self.searchScope.value == Mastodon.API.V2.Search.SearchType.accounts, !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .account)
                     }
                 }
@@ -194,7 +204,7 @@ final class SearchViewModel: NSObject {
                     snapshot.appendSections([.hashtag])
                     let items = tags.compactMap { SearchResultItem.hashtag(tag: $0) }
                     snapshot.appendItems(items, toSection: .hashtag)
-                    if self.searchScope.value == Mastodon.API.Search.SearchType.hashtags, !items.isEmpty {
+                    if self.searchScope.value == Mastodon.API.V2.Search.SearchType.hashtags, !items.isEmpty {
                         snapshot.appendItems([.bottomLoader], toSection: .hashtag)
                     }
                 }
@@ -227,13 +237,43 @@ final class SearchViewModel: NSObject {
         }
     }
 
+    func requestRecommendAccountsV2() -> Future<Void, Error> {
+        Future { promise in
+            guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                promise(.failure(APIService.APIError.implicit(APIService.APIError.ErrorReason.authenticationMissing)))
+                return
+            }
+            self.context.apiService.suggestionAccountV2(domain: activeMastodonAuthenticationBox.domain, query: nil, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+                .sink { [weak self] completion in
+                    switch completion {
+                    case .failure(let error):
+                        if let apiError = error as? Mastodon.API.Error {
+                            if apiError.httpResponseStatus == .notFound {
+                                self?.recommendAccountsFallback.send()
+                            }
+                        }
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                        promise(.failure(error))
+                    case .finished:
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request success", (#file as NSString).lastPathComponent, #line, #function)
+                        promise(.success(()))
+                    }
+                } receiveValue: { [weak self] accounts in
+                    guard let self = self else { return }
+                    let ids = accounts.value.compactMap({$0.account.id})
+                    self.receiveAccounts(ids: ids)
+                }
+                .store(in: &self.disposeBag)
+        }
+    }
+    
     func requestRecommendAccounts() -> Future<Void, Error> {
         Future { promise in
             guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 promise(.failure(APIService.APIError.implicit(APIService.APIError.ErrorReason.authenticationMissing)))
                 return
             }
-            self.context.apiService.recommendAccount(domain: activeMastodonAuthenticationBox.domain, query: nil, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+            self.context.apiService.suggestionAccount(domain: activeMastodonAuthenticationBox.domain, query: nil, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
@@ -246,27 +286,47 @@ final class SearchViewModel: NSObject {
                 } receiveValue: { [weak self] accounts in
                     guard let self = self else { return }
                     let ids = accounts.value.compactMap({$0.id})
-                    let userFetchRequest = MastodonUser.sortedFetchRequest
-                    userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
-                    let mastodonUsers: [MastodonUser]? = {
-                        let userFetchRequest = MastodonUser.sortedFetchRequest
-                        userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
-                        userFetchRequest.returnsObjectsAsFaults = false
-                        do {
-                            return try self.context.managedObjectContext.fetch(userFetchRequest)
-                        } catch {
-                            assertionFailure(error.localizedDescription)
-                            return nil
-                        }
-                    }()
-                    if let users = mastodonUsers {
-                        self.recommendAccounts = users.map(\.objectID)
-                    }
+                    self.receiveAccounts(ids: ids)
                 }
                 .store(in: &self.disposeBag)
         }
     }
     
+    func applyDataSource() {
+        DispatchQueue.main.async {
+            guard let dataSource = self.accountDiffableDataSource else { return }
+            var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(self.recommendAccounts, toSection: .main)
+            dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
+        }
+    }
+    
+    func receiveAccounts(ids: [String]) {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let userFetchRequest = MastodonUser.sortedFetchRequest
+        userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
+        let mastodonUsers: [MastodonUser]? = {
+            let userFetchRequest = MastodonUser.sortedFetchRequest
+            userFetchRequest.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, ids: ids)
+            userFetchRequest.returnsObjectsAsFaults = false
+            do {
+                return try self.context.managedObjectContext.fetch(userFetchRequest)
+            } catch {
+                assertionFailure(error.localizedDescription)
+                return nil
+            }
+        }()
+        if let users = mastodonUsers {
+            let sortedUsers = users.sorted { (user1, user2) -> Bool in
+                (ids.firstIndex(of: user1.id) ?? 0) < (ids.firstIndex(of: user2.id) ?? 0)
+            }
+            recommendAccounts = sortedUsers.map(\.objectID)
+        }
+    }
+
     func accountCollectionViewItemDidSelected(mastodonUser: MastodonUser, from: UIViewController) {
         let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
         DispatchQueue.main.async {
