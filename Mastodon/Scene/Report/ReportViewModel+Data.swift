@@ -88,7 +88,7 @@ extension ReportViewModel {
                     }
                     if status.id == self.statusId {
                         attribute.isSelected = true
-                        self.reportQuery.append(statusID: status.id)
+                        self.append(statusID: status.id)
                         self.continueEnableSubject.send(true)
                     }
                 }

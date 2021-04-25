@@ -87,19 +87,5 @@ public extension Mastodon.API.Reports {
             self.comment = comment
             self.forward = forward
         }
-        
-        public func append(statusID: Mastodon.Entity.Status.ID) {
-            guard self.statusIDs?.contains(statusID) != true else { return }
-            if self.statusIDs == nil {
-                self.statusIDs = []
-            }
-            
-            self.statusIDs?.append(statusID)
-        }
-        
-        public func remove(statusID: String) {
-            guard let index = self.statusIDs?.firstIndex(of: statusID) else { return }
-            self.statusIDs?.remove(at: index)
-        }
     }
 }

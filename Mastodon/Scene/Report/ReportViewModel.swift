@@ -26,6 +26,9 @@ class ReportViewModel: NSObject {
     var userId: String
     var statusId: String?
     
+    var statusIDs = [Mastodon.Entity.Status.ID]()
+    var comment: String?
+    
     var reportQuery: FileReportQuery
     var disposeBag = Set<AnyCancellable>()
     let currentStep = CurrentValueSubject<Step, Never>(.one)
@@ -120,19 +123,19 @@ class ReportViewModel: NSObject {
             
             attribute.isSelected = !attribute.isSelected
             if attribute.isSelected {
-                self.reportQuery.append(statusID: status.id)
+                self.append(statusID: status.id)
             } else {
-                self.reportQuery.remove(statusID: status.id)
+                self.remove(statusID: status.id)
             }
             
-            let continueEnable = (self.reportQuery.statusIDs?.count ?? 0) > 0
+            let continueEnable = self.statusIDs.count > 0
             self.continueEnableSubject.send(continueEnable)
         }
         .store(in: &disposeBag)
         
         input.comment.assign(
             to: \.comment,
-            on: self.reportQuery
+            on: self
         )
         .store(in: &disposeBag)
         input.comment.sink { [weak self] (comment) in
@@ -150,7 +153,13 @@ class ReportViewModel: NSObject {
             return value
         }
         
-        Publishers.Merge(skip, input.step1Continue)
+        let step1Continue = input.step1Continue.map { [weak self] value -> Void in
+            guard let self = self else { return value }
+            self.reportQuery.statusIDs = self.statusIDs
+            return value
+        }
+        
+        Publishers.Merge(skip, step1Continue)
             .sink { [weak self] _ in
                 self?.currentStep.value = .two
                 self?.sendEnableSubject.send(false)
@@ -164,8 +173,14 @@ class ReportViewModel: NSObject {
             self.reportQuery.comment = nil
             return value
         }
+        
+        let step2Continue = input.step2Continue.map { [weak self] value -> Void in
+            guard let self = self else { return value }
+            self.reportQuery.comment = self.comment
+            return value
+        }
 
-        return Publishers.Merge(skip, input.step2Continue)
+        return Publishers.Merge(skip, step2Continue)
             .flatMap { [weak self] (_) -> AnyPublisher<(Bool, Error?), Never> in
                 guard let self = self else {
                     return Empty(completeImmediately: true).eraseToAnyPublisher()
@@ -188,5 +203,15 @@ class ReportViewModel: NSObject {
                 .eraseToAnyPublisher()
             }
             .eraseToAnyPublisher()
+    }
+    
+    func append(statusID: Mastodon.Entity.Status.ID) {
+        guard self.statusIDs.contains(statusID) != true else { return }
+        self.statusIDs.append(statusID)
+    }
+    
+    func remove(statusID: String) {
+        guard let index = self.statusIDs.firstIndex(of: statusID) else { return }
+        self.statusIDs.remove(at: index)
     }
 }
