@@ -65,40 +65,41 @@ extension Mastodon.API.Reports {
 
 public extension Mastodon.API.Reports {
     class FileReportQuery: Codable, PostQuery {
-        public let accountId: String
-        public var statusIds: [String]?
+        public let accountID: Mastodon.Entity.Account.ID
+        public var statusIDs: [Mastodon.Entity.Status.ID]?
         public var comment: String?
         public let forward: Bool?
         
         enum CodingKeys: String, CodingKey {
-            case accountId = "account_id"
-            case statusIds = "status_ids"
+            case accountID = "account_id"
+            case statusIDs = "status_ids"
             case comment
             case forward
         }
         
-        public init(accountId: String,
-             statusIds: [String]?,
-             comment: String?,
-             forward: Bool?) {
-            self.accountId = accountId
-            self.statusIds = statusIds
+        public init(
+            accountID: Mastodon.Entity.Account.ID,
+            statusIDs: [Mastodon.Entity.Status.ID]?,
+            comment: String?,
+            forward: Bool?) {
+            self.accountID = accountID
+            self.statusIDs = statusIDs
             self.comment = comment
             self.forward = forward
         }
         
-        public func append(statusId: String) {
-            guard self.statusIds?.contains(statusId) != true else { return }
-            if self.statusIds == nil {
-                self.statusIds = []
+        public func append(statusID: Mastodon.Entity.Status.ID) {
+            guard self.statusIDs?.contains(statusID) != true else { return }
+            if self.statusIDs == nil {
+                self.statusIDs = []
             }
             
-            self.statusIds?.append(statusId)
+            self.statusIDs?.append(statusID)
         }
         
-        public func remove(statusId: String) {
-            guard let index = self.statusIds?.firstIndex(of: statusId) else { return }
-            self.statusIds?.remove(at: index)
+        public func remove(statusID: String) {
+            guard let index = self.statusIDs?.firstIndex(of: statusID) else { return }
+            self.statusIDs?.remove(at: index)
         }
     }
 }

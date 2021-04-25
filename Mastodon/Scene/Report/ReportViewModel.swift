@@ -66,8 +66,8 @@ class ReportViewModel: NSObject {
         )
         
         self.reportQuery = FileReportQuery(
-            accountId: userId,
-            statusIds: [],
+            accountID: userId,
+            statusIDs: [],
             comment: nil,
             forward: nil
         )
@@ -121,15 +121,15 @@ class ReportViewModel: NSObject {
             
             attribute.isSelected = !attribute.isSelected
             if attribute.isSelected {
-                self.reportQuery.append(statusId: status.id)
+                self.reportQuery.append(statusID: status.id)
             } else {
-                self.reportQuery.remove(statusId: status.id)
+                self.reportQuery.remove(statusID: status.id)
             }
             
             snapshot.reloadItems([item])
             self.diffableDataSource?.apply(snapshot, animatingDifferences: false)
             
-            let continueEnable = (self.reportQuery.statusIds?.count ?? 0) > 0
+            let continueEnable = (self.reportQuery.statusIDs?.count ?? 0) > 0
             self.continueEnableSubject.send(continueEnable)
         }
         .store(in: &disposeBag)
@@ -150,7 +150,7 @@ class ReportViewModel: NSObject {
     func bindForStep1(input: Input) {
         let skip = input.step1Skip.map { [weak self] value -> Void in
             guard let self = self else { return value }
-            self.reportQuery.statusIds?.removeAll()
+            self.reportQuery.statusIDs?.removeAll()
             return value
         }
         
