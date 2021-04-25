@@ -41,13 +41,9 @@ final class MastodonResendEmailViewController: UIViewController, NeedsDependency
     
 extension MastodonResendEmailViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupOnboardingAppearance()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MastodonResendEmailViewController.cancelBarButtonItemPressed(_:)))
         
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,3 +68,6 @@ extension MastodonResendEmailViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - OnboardingViewControllerAppearance
+extension MastodonResendEmailViewController: OnboardingViewControllerAppearance { }

@@ -206,12 +206,19 @@ import SwiftUI
 
 struct MastodonConfirmEmailViewController_Previews: PreviewProvider {
     
-    static var previews: some View {
+    static var controls: some View {
         UIViewControllerPreview {
             let viewController = MastodonConfirmEmailViewController()
             return viewController
         }
         .previewLayout(.fixed(width: 375, height: 800))
+    }
+    
+    static var previews: some View {
+            Group {
+                controls.colorScheme(.light)
+                controls.colorScheme(.dark)
+            }
     }
     
 }

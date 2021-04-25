@@ -238,10 +238,6 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
 
 extension MastodonRegisterViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
