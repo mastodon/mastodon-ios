@@ -17,7 +17,7 @@ class PickServerSearchCell: UITableViewCell {
     
     private var bgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.maskedCorners = [
             .layerMinXMinYCorner,
@@ -30,7 +30,7 @@ class PickServerSearchCell: UITableViewCell {
     
     private var textFieldBgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color.withAlphaComponent(0.6)
+        view.backgroundColor = Asset.Colors.TextField.background.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 6

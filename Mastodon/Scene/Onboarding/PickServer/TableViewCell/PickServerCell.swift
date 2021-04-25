@@ -27,7 +27,7 @@ class PickServerCell: UITableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

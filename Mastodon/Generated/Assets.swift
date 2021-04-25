@@ -84,6 +84,7 @@ internal enum Asset {
       internal static let bar = ColorAsset(name: "Colors/Slider/bar")
     }
     internal enum TextField {
+      internal static let background = ColorAsset(name: "Colors/TextField/background")
       internal static let highlight = ColorAsset(name: "Colors/TextField/highlight")
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
