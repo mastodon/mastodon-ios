@@ -84,15 +84,6 @@ extension MastodonPickServerViewController {
             nextStepButton.heightAnchor.constraint(equalToConstant: MastodonPickServerViewController.actionButtonHeight).priority(.defaultHigh),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
         ])
-        
-        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emptyStateView)
-        NSLayoutConstraint.activate([
-            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyStateView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
-            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
-        ])
     
         // fix AutoLayout warning when observe before view appear
         viewModel.viewWillAppear
@@ -124,6 +115,16 @@ extension MastodonPickServerViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             nextStepButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 7),
         ])
+        
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyStateView)
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: tableView.readableContentGuide.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: tableView.readableContentGuide.trailingAnchor),
+            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
+        ])
+        view.sendSubviewToBack(emptyStateView)
         
         switch viewModel.mode {
         case .signIn:
