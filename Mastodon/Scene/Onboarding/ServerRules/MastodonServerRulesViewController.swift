@@ -48,7 +48,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let bottomContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         return view
     }()
     
@@ -58,7 +58,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         textView.textColor = .label
         textView.isSelectable = true
         textView.isEditable = false
-        textView.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        textView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         return textView
     }()
     
@@ -84,10 +84,6 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
 }
 
 extension MastodonServerRulesViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

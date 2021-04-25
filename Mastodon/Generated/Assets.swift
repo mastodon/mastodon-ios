@@ -63,7 +63,6 @@ internal enum Asset {
       internal static let normal = ColorAsset(name: "Colors/Button/normal")
     }
     internal enum Icon {
-      internal static let photo = ColorAsset(name: "Colors/Icon/photo")
       internal static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
     internal enum Label {
