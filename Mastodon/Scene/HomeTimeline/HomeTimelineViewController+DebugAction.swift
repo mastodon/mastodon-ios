@@ -362,7 +362,6 @@ extension HomeTimelineViewController {
             // 106093402888557459
             let viewModel = ReportViewModel(
                 context: self.context,
-                coordinator: self.coordinator,
                 domain: authenticationBox.domain,
                 userId: userId,
                 statusId: statusId

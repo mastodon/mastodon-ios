@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import enum NIOHTTP1.HTTPResponseStatus
 
 extension Mastodon.API.Reports {
     static func reportsEndpointURL(domain: String) -> URL {
@@ -39,13 +40,23 @@ extension Mastodon.API.Reports {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                if let response = response as? HTTPURLResponse {
+                guard let response = response as? HTTPURLResponse else {
+                    assertionFailure()
+                    throw NSError()
+                }
+                
+                if response.statusCode == 200 {
                     return Mastodon.Response.Content(
-                        value: response.statusCode == 200,
+                        value: true,
                         response: response
                     )
+                } else {
+                    let httpResponseStatus = HTTPResponseStatus(statusCode: response.statusCode)
+                    throw Mastodon.API.Error(
+                        httpResponseStatus: httpResponseStatus,
+                        mastodonError: nil
+                    )
                 }
-                return Mastodon.Response.Content(value: false, response: response)
             }
             .eraseToAnyPublisher()
     }

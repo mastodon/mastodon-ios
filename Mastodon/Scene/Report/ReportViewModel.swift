@@ -13,7 +13,7 @@ import MastodonSDK
 import UIKit
 import os.log
 
-class ReportViewModel: NSObject, NeedsDependency {
+class ReportViewModel: NSObject {
     typealias FileReportQuery = Mastodon.API.Reports.FileReportQuery
     
     enum Step: Int {
@@ -23,7 +23,6 @@ class ReportViewModel: NSObject, NeedsDependency {
     
     // confirm set only once
     weak var context: AppContext! { willSet { precondition(context == nil) } }
-    weak var coordinator: SceneCoordinator! { willSet { precondition(coordinator == nil) } }
     var userId: String
     var statusId: String?
     
@@ -34,7 +33,6 @@ class ReportViewModel: NSObject, NeedsDependency {
     var diffableDataSource: UITableViewDiffableDataSource<ReportSection, Item>?
     let continueEnableSubject = CurrentValueSubject<Bool, Never>(false)
     let sendEnableSubject = CurrentValueSubject<Bool, Never>(false)
-    let reportSuccess = PassthroughSubject<Void, Never>()
     
     struct Input {
         let didToggleSelected: AnyPublisher<Item, Never>
@@ -44,24 +42,21 @@ class ReportViewModel: NSObject, NeedsDependency {
         let step2Continue: AnyPublisher<Void, Never>
         let step2Skip: AnyPublisher<Void, Never>
         let cancel: AnyPublisher<Void, Never>
-        let tableView: UITableView
     }
 
     struct Output {
         let currentStep: AnyPublisher<Step, Never>
         let continueEnableSubject: AnyPublisher<Bool, Never>
         let sendEnableSubject: AnyPublisher<Bool, Never>
-        let reportSuccess: AnyPublisher<Void, Never>
+        let reportResult: AnyPublisher<(Bool, Error?), Never>
     }
     
     init(context: AppContext,
-         coordinator: SceneCoordinator,
          domain: String,
          userId: String,
          statusId: String?
     ) {
         self.context = context
-        self.coordinator = coordinator
         self.userId = userId
         self.statusId = statusId
         self.statusFetchedResultsController = StatusFetchedResultsController(
@@ -86,17 +81,12 @@ class ReportViewModel: NSObject, NeedsDependency {
         }
         let domain = activeMastodonAuthenticationBox.domain
         
-        setupDiffableDataSource(
-            for: input.tableView,
-            dependency: self
-        )
-        
         // data binding
         bindData(input: input)
         
         // step1 and step2 binding
         bindForStep1(input: input)
-        bindForStep2(
+        let reportResult = bindForStep2(
             input: input,
             domain: domain,
             activeMastodonAuthenticationBox: activeMastodonAuthenticationBox
@@ -114,7 +104,7 @@ class ReportViewModel: NSObject, NeedsDependency {
             currentStep: currentStep.eraseToAnyPublisher(),
             continueEnableSubject: continueEnableSubject.eraseToAnyPublisher(),
             sendEnableSubject: sendEnableSubject.eraseToAnyPublisher(),
-            reportSuccess: reportSuccess.eraseToAnyPublisher()
+            reportResult: reportResult
         )
     }
     
@@ -172,42 +162,35 @@ class ReportViewModel: NSObject, NeedsDependency {
             .store(in: &disposeBag)
     }
     
-    func bindForStep2(input: Input, domain: String, activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox) {
+    func bindForStep2(input: Input, domain: String, activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox) -> AnyPublisher<(Bool, Error?), Never> {
         let skip = input.step2Skip.map { [weak self] value -> Void in
             guard let self = self else { return value }
             self.reportQuery.comment = nil
             return value
         }
-        
-        Publishers.Merge(skip, input.step2Continue)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.context.apiService.report(
+
+        return Publishers.Merge(skip, input.step2Continue)
+            .flatMap { [weak self] (_) -> AnyPublisher<(Bool, Error?), Never> in
+                guard let self = self else {
+                    return Empty(completeImmediately: true).eraseToAnyPublisher()
+                }
+                
+                return self.context.apiService.report(
                     domain: domain,
                     query: self.reportQuery,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox
                 )
-                .sink { [weak self](data) in
-                    switch data {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fail to file a report : %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                        
-                        let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alertController.addAction(okAction)
-                        self?.coordinator.present(
-                            scene: .alertController(alertController: alertController),
-                            from: nil,
-                            transition: .alertController(animated: true, completion: nil)
-                        )
-                    case .finished:
-                        self?.reportSuccess.send()
-                    }
-                    
-                } receiveValue: { (data) in
-                }
-                .store(in: &self.disposeBag)
+                .map({ (content) -> (Bool, Error?) in
+                    return (true, nil)
+                })
+                .eraseToAnyPublisher()
+                .tryCatch({ (error) -> AnyPublisher<(Bool, Error?), Never> in
+                    return Just((false, error)).eraseToAnyPublisher()
+                })
+                // to covert to AnyPublisher<(Bool, Error?), Never>
+                .replaceError(with: (false, nil))
+                .eraseToAnyPublisher()
             }
-            .store(in: &disposeBag)
+            .eraseToAnyPublisher()
     }
 }

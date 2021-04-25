@@ -12,6 +12,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import TwitterTextEditor
+import MastodonSDK
 
 class ReportViewController: UIViewController, NeedsDependency {
     static let kAnimationDuration: TimeInterval = 0.33
@@ -84,6 +85,12 @@ class ReportViewController: UIViewController, NeedsDependency {
         super.viewDidLoad()
         
         setupView()
+        
+        viewModel.setupDiffableDataSource(
+            for: tableView,
+            dependency: self
+        )
+        
         bindViewModel()
         bindActions()
     }
@@ -127,8 +134,7 @@ class ReportViewController: UIViewController, NeedsDependency {
             step1Skip: step1Skip.eraseToAnyPublisher(),
             step2Continue: step2Continue.eraseToAnyPublisher(),
             step2Skip: step2Skip.eraseToAnyPublisher(),
-            cancel: cancel.eraseToAnyPublisher(),
-            tableView: tableView
+            cancel: cancel.eraseToAnyPublisher()
         )
         let output = viewModel.transform(input: input)
         output?.currentStep
@@ -161,12 +167,28 @@ class ReportViewController: UIViewController, NeedsDependency {
             .assign(to: \.nextStepButton.isEnabled, on: footer)
             .store(in: &disposeBag)
         
-        output?.reportSuccess
+        output?.reportResult
+            .print()
             .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { [weak self] (_) in
-            self?.dismiss(animated: true, completion: nil)
-        })
-        .store(in: &disposeBag)
+            .sink(receiveCompletion: { _ in
+            }, receiveValue: { [weak self] data in
+                let (success, error) = data
+                if success {
+                    self?.dismiss(animated: true, completion: nil)
+                } else if let error = error {
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fail to file a report : %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+
+                    let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    self?.coordinator.present(
+                        scene: .alertController(alertController: alertController),
+                        from: nil,
+                        transition: .alertController(animated: true, completion: nil)
+                    )
+                }
+            })
+            .store(in: &disposeBag)
     }
     
     private func setupNavigation() {
