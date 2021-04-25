@@ -360,6 +360,14 @@ extension MastodonRegisterViewController {
         // password
         stackView.setCustomSpacing(6, after: passwordTextField)
         stackView.setCustomSpacing(32, after: passwordCheckLabel)
+        
+        //return
+        if viewModel.approvalRequired {
+            passwordTextField.returnKeyType = .continue
+        } else {
+            passwordTextField.returnKeyType = .done
+        }
+        reasonTextField.returnKeyType = .done
 
         // button
         stackView.addArrangedSubview(buttonContainer)
@@ -619,6 +627,28 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         }
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case usernameTextField:
+            displayNameTextField.becomeFirstResponder()
+        case displayNameTextField:
+            emailTextField.becomeFirstResponder()
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            if viewModel.approvalRequired {
+                reasonTextField.becomeFirstResponder()
+            } else {
+                passwordTextField.resignFirstResponder()
+            }
+        case reasonTextField:
+            reasonTextField.resignFirstResponder()
+        default:
+            break
+        }
+        return true
+    }
+    
     func showShadowWithColor(color: UIColor, textField: UITextField) {
         // To apply Shadow
         textField.layer.shadowOpacity = 1
