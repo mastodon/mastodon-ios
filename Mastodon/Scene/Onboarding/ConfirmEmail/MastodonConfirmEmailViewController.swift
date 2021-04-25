@@ -36,6 +36,13 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         label.numberOfLines = 0
         return label
     }()
+    
+    let emailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Asset.email.image
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
 
     let openEmailButton: UIButton = {
         let button = UIButton(type: .system)
@@ -66,19 +73,10 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 }
 
 extension MastodonConfirmEmailViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
 
     override func viewDidLoad() {
 
         setupOnboardingAppearance()
-        
-        // resizedView
-        let resizedView = UIView()
-        resizedView.translatesAutoresizingMaskIntoConstraints = false
-        resizedView.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         // stackView
         let stackView = UIStackView()
@@ -89,7 +87,9 @@ extension MastodonConfirmEmailViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(self.largeTitleLabel)
         stackView.addArrangedSubview(self.subtitleLabel)
-        stackView.addArrangedSubview(resizedView)
+        stackView.addArrangedSubview(self.emailImageView)
+        emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        emailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         stackView.addArrangedSubview(self.openEmailButton)
         stackView.addArrangedSubview(self.dontReceiveButton)
 
@@ -200,3 +200,20 @@ extension MastodonConfirmEmailViewController {
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonConfirmEmailViewController: OnboardingViewControllerAppearance { }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct MastodonConfirmEmailViewController_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UIViewControllerPreview {
+            let viewController = MastodonConfirmEmailViewController()
+            return viewController
+        }
+        .previewLayout(.fixed(width: 375, height: 800))
+    }
+    
+}
+
+#endif
