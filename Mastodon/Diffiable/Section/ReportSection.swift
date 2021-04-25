@@ -21,7 +21,7 @@ enum ReportSection: Equatable, Hashable {
 extension ReportSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
-        dependency: NeedsDependency,
+        dependency: ReportViewController,
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>
     ) -> UITableViewDiffableDataSource<ReportSection, Item> {
@@ -33,6 +33,7 @@ extension ReportSection {
             switch item {
             case .reportStatus(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ReportedStatusTableViewCell.self), for: indexPath) as! ReportedStatusTableViewCell
+                cell.dependency = dependency
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
                 managedObjectContext.performAndWait {

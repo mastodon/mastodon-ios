@@ -17,6 +17,7 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     
     static let bottomPaddingHeight: CGFloat = 10
     
+    var dependency: ReportViewController?
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
@@ -63,6 +64,9 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        // precondition: app is active
+        guard UIApplication.shared.applicationState == .active else { return }
         DispatchQueue.main.async {
             self.statusView.drawContentWarningImageView()
         }
@@ -127,8 +131,10 @@ extension ReportedStatusTableViewCell {
         resetSeparatorLineLayout()
 
         selectionStyle = .none
+        statusView.delegate = self
+        statusView.statusMosaicImageViewContainer.delegate = self
         statusView.actionToolbarContainer.isHidden = true
-        statusView.isUserInteractionEnabled = false
+        statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = backgroundColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -166,5 +172,46 @@ extension ReportedStatusTableViewCell {
                 ])
             }
         }
+    }
+}
+
+extension ReportedStatusTableViewCell: MosaicImageViewContainerDelegate {
+    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int) {
+        
+    }
+    
+    func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        
+        guard let dependency = self.dependency else { return }
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+    }
+}
+
+extension ReportedStatusTableViewCell: StatusViewDelegate {
+    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
+    }
+    
+    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+    }
+    
+    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
+        guard let dependency = self.dependency else { return }
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+    }
+    
+    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        guard let dependency = self.dependency else { return }
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+    }
+    
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        guard let dependency = self.dependency else { return }
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)
+    }
+    
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
+    }
+    
+    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
     }
 }

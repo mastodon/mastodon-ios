@@ -13,7 +13,7 @@ import CoreDataStack
 extension ReportViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
-        dependency: NeedsDependency
+        dependency: ReportViewController
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
