@@ -113,7 +113,6 @@ class ReportViewModel: NSObject {
         input.didToggleSelected.sink { [weak self] (item) in
             guard let self = self else { return }
             guard case let .reportStatus(objectID, attribute) = item else { return }
-            guard var snapshot = self.diffableDataSource?.snapshot() else { return }
             let managedObjectContext = self.statusFetchedResultsController.fetchedResultsController.managedObjectContext
             guard let status = managedObjectContext.object(with: objectID) as? Status else {
                 return
@@ -125,9 +124,6 @@ class ReportViewModel: NSObject {
             } else {
                 self.reportQuery.remove(statusID: status.id)
             }
-            
-            snapshot.reloadItems([item])
-            self.diffableDataSource?.apply(snapshot, animatingDifferences: false)
             
             let continueEnable = (self.reportQuery.statusIDs?.count ?? 0) > 0
             self.continueEnableSubject.send(continueEnable)

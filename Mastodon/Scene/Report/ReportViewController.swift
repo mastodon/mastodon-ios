@@ -68,6 +68,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
+        tableView.allowsMultipleSelection = true
         return tableView
     }()
     
@@ -277,7 +278,13 @@ extension ReportViewController: UITableViewDelegate {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
             return
         }
-        
+        didToggleSelected.send(item)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
+            return
+        }
         didToggleSelected.send(item)
     }
 }

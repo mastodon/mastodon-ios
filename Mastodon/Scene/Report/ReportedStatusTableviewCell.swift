@@ -20,7 +20,6 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
-    var checked: Bool = false
     
     let statusView = StatusView()
     let separatorLine = UIView.separatorLine
@@ -42,7 +41,6 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        checked = false
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
         statusView.pollTableView.dataSource = nil
@@ -75,10 +73,21 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
         if highlighted {
             checkbox.image = UIImage(systemName: "checkmark.circle.fill")
             checkbox.tintColor = Asset.Colors.Label.highlight.color
-        } else if !checked {
+        } else if !isSelected {
             checkbox.image = UIImage(systemName: "circle")
             checkbox.tintColor = Asset.Colors.Label.secondary.color
         }
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        if isSelected {
+            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
+        } else {
+            checkbox.image = UIImage(systemName: "circle")
+        }
+        checkbox.tintColor = Asset.Colors.Label.secondary.color
     }
 }
 
@@ -126,16 +135,6 @@ extension ReportedStatusTableViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         
         resetSeparatorLineLayout()
-    }
-    
-    func setupSelected(_ selected: Bool) {
-        checked = selected
-        if selected {
-            checkbox.image = UIImage(systemName: "checkmark.circle.fill")
-        } else {
-            checkbox.image = UIImage(systemName: "circle")
-        }
-        checkbox.tintColor = Asset.Colors.Label.secondary.color
     }
 }
 

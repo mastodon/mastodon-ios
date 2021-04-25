@@ -48,7 +48,13 @@ extension ReportSection {
                     )
                 }
                 
-                cell.setupSelected(attribute.isSelected)
+                // defalut to select the report status
+                if attribute.isSelected {
+                    tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+                } else {
+                    tableView.deselectRow(at: indexPath, animated: false)
+                }
+                
                 return cell
             default:
                 return nil
