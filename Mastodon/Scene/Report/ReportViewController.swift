@@ -79,8 +79,18 @@ class ReportViewController: UIViewController, NeedsDependency {
         textView.placeholder = L10n.Scene.Report.textPlaceholder
         textView.backgroundColor = .clear
         textView.delegate = self
+        textView.isScrollEnabled = true
+        textView.keyboardDismissMode = .onDrag
         return textView
     }()
+    
+    lazy var bottomSpacing: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var bottomConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,6 +114,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         stackview.addArrangedSubview(header)
         stackview.addArrangedSubview(contentView)
         stackview.addArrangedSubview(footer)
+        stackview.addArrangedSubview(bottomSpacing)
         
         contentView.addSubview(tableView)
         
@@ -116,9 +127,12 @@ class ReportViewController: UIViewController, NeedsDependency {
             tableView.topAnchor.constraint(equalTo: contentView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
         
+        self.bottomConstraint = bottomSpacing.heightAnchor.constraint(equalToConstant: 0)
+        bottomConstraint.isActive = true
+                
         header.step = .one
     }
     
@@ -190,6 +204,29 @@ class ReportViewController: UIViewController, NeedsDependency {
                 }
             })
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            KeyboardResponderService.shared.state.eraseToAnyPublisher(),
+            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
+        )
+        .sink(receiveValue: { [weak self] state, endFrame in
+            guard let self = self else { return }
+            
+            guard state == .dock else {
+                self.bottomConstraint.constant = 0.0
+                return
+            }
+            
+            let contentFrame = self.view.convert(self.view.frame, to: nil)
+            let padding = contentFrame.maxY - endFrame.minY
+            guard padding > 0 else {
+                self.bottomConstraint.constant = 0.0
+                return
+            }
+            
+            self.bottomConstraint.constant = padding
+        })
+        .store(in: &disposeBag)
     }
     
     private func setupNavigation() {
@@ -231,9 +268,9 @@ class ReportViewController: UIViewController, NeedsDependency {
                 constant: ReportView.horizontalMargin
             ),
             self.textView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            self.textView.trailingAnchor.constraint(
-                equalTo: self.contentView.safeAreaLayoutGuide.trailingAnchor,
-                constant: -1 * ReportView.horizontalMargin
+            self.contentView.trailingAnchor.constraint(
+                equalTo: self.textView.trailingAnchor,
+                constant: ReportView.horizontalMargin
             ),
         ])
         self.textView.layoutIfNeeded()
