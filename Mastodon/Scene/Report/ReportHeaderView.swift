@@ -70,7 +70,7 @@ final class ReportHeaderView: UIView {
         
         stackview.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackview.safeAreaLayoutGuide.topAnchor.constraint(
+            stackview.topAnchor.constraint(
                 equalTo: self.topAnchor,
                 constant: ReportView.verticalMargin
             ),
@@ -78,13 +78,13 @@ final class ReportHeaderView: UIView {
                 equalTo: self.readableContentGuide.leadingAnchor,
                 constant: ReportView.horizontalMargin
             ),
-            stackview.bottomAnchor.constraint(
-                equalTo: self.bottomAnchor,
-                constant: -1 * ReportView.verticalMargin
+            self.bottomAnchor.constraint(
+                equalTo: stackview.bottomAnchor,
+                constant: ReportView.verticalMargin
             ),
-            stackview.trailingAnchor.constraint(
-                equalTo: self.readableContentGuide.trailingAnchor,
-                constant: -1 * ReportView.horizontalMargin
+            self.readableContentGuide.trailingAnchor.constraint(
+                equalTo: stackview.trailingAnchor,
+                constant: ReportView.horizontalMargin
             )
         ])
     }
