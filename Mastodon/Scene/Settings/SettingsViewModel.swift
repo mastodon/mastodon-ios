@@ -96,49 +96,49 @@ class SettingsViewModel: NSObject, NeedsDependency {
     
     func transform(input: Input?) -> Output? {
         typealias SubscriptionResponse = Mastodon.Response.Content<Mastodon.Entity.Subscription>
-        createSubscriptionSubject
-            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-            .sink { _ in
-            } receiveValue: { [weak self] (arg) in
-                let (triggerBy, values) = arg
-                guard let self = self else {
-                    return
-                }
-                guard let activeMastodonAuthenticationBox =
-                        self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return
-                }
-                guard values.count >= 4 else {
-                    return
-                }
-                
-                self.createDisposeBag.removeAll()
-                typealias Query = Mastodon.API.Subscriptions.CreateSubscriptionQuery
-                let domain = activeMastodonAuthenticationBox.domain
-                let query = Query(
-                    // FIXME: to replace the correct endpoint, p256dh, auth
-                    endpoint: "http://www.google.com",
-                    p256dh: "BLQELIDm-6b9Bl07YrEuXJ4BL_YBVQ0dvt9NQGGJxIQidJWHPNa9YrouvcQ9d7_MqzvGS9Alz60SZNCG3qfpk=",
-                    auth: "4vQK-SvRAN5eo-8ASlrwA==",
-                    favourite: values[0],
-                    follow: values[1],
-                    reblog: values[2],
-                    mention: values[3],
-                    poll: nil
-                )
-                self.context.apiService.changeSubscription(
-                    domain: domain,
-                    mastodonAuthenticationBox: activeMastodonAuthenticationBox,
-                    query: query,
-                    triggerBy: triggerBy,
-                    userID: activeMastodonAuthenticationBox.userID
-                )
-                .sink { (_) in
-                } receiveValue: { (_) in
-                }
-                .store(in: &self.createDisposeBag)
-            }
-            .store(in: &disposeBag)
+//        createSubscriptionSubject
+//            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+//            .sink { _ in
+//            } receiveValue: { [weak self] (arg) in
+//                let (triggerBy, values) = arg
+//                guard let self = self else {
+//                    return
+//                }
+//                guard let activeMastodonAuthenticationBox =
+//                        self.context.authenticationService.activeMastodonAuthenticationBox.value else {
+//                    return
+//                }
+//                guard values.count >= 4 else {
+//                    return
+//                }
+//                
+//                self.createDisposeBag.removeAll()
+//                typealias Query = Mastodon.API.Subscriptions.CreateSubscriptionQuery
+//                let domain = activeMastodonAuthenticationBox.domain
+//                let query = Query(
+//                    // FIXME: to replace the correct endpoint, p256dh, auth
+//                    endpoint: "http://www.google.com",
+//                    p256dh: "BLQELIDm-6b9Bl07YrEuXJ4BL_YBVQ0dvt9NQGGJxIQidJWHPNa9YrouvcQ9d7_MqzvGS9Alz60SZNCG3qfpk=",
+//                    auth: "4vQK-SvRAN5eo-8ASlrwA==",
+//                    favourite: values[0],
+//                    follow: values[1],
+//                    reblog: values[2],
+//                    mention: values[3],
+//                    poll: nil
+//                )
+//                self.context.apiService.changeSubscription(
+//                    domain: domain,
+//                    mastodonAuthenticationBox: activeMastodonAuthenticationBox,
+//                    query: query,
+//                    triggerBy: triggerBy,
+//                    userID: activeMastodonAuthenticationBox.userID
+//                )
+//                .sink { (_) in
+//                } receiveValue: { (_) in
+//                }
+//                .store(in: &self.createDisposeBag)
+//            }
+//            .store(in: &disposeBag)
         
         updateSubscriptionSubject
             .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
@@ -160,11 +160,16 @@ class SettingsViewModel: NSObject, NeedsDependency {
                 typealias Query = Mastodon.API.Subscriptions.UpdateSubscriptionQuery
                 let domain = activeMastodonAuthenticationBox.domain
                 let query = Query(
-                    favourite: values[0],
-                    follow: values[1],
-                    reblog: values[2],
-                    mention: values[3],
-                    poll: nil)
+                    data: Mastodon.API.Subscriptions.QueryData(
+                        alerts: Mastodon.API.Subscriptions.QueryData.Alerts(
+                            favourite: values[0],
+                            follow: values[1],
+                            reblog: values[2],
+                            mention: values[3],
+                            poll: nil
+                        )
+                    )
+                )
                 self.context.apiService.updateSubscription(
                     domain: domain,
                     mastodonAuthenticationBox: activeMastodonAuthenticationBox,

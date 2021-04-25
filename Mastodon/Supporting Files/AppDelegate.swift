@@ -5,6 +5,7 @@
 //  Created by MainasuK Cirno on 2021/1/22.
 //
 
+import os.log
 import UIKit
 
 @main
@@ -17,6 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
         UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
+        
+//        UNUserNotificationCenter.current().delegate = self
+        application.registerForRemoteNotifications()
         
         return true
     }
@@ -38,13 +42,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-
 extension AppDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {        
         return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
     }
 }
 
+extension AppDelegate {
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        appContext.notificationService.deviceToken.value = deviceToken
+    }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+}
 
 extension AppContext {
     static var shared: AppContext {

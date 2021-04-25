@@ -117,110 +117,75 @@ extension Mastodon.API.Subscriptions {
 }
 
 extension Mastodon.API.Subscriptions {
-    public struct CreateSubscriptionQuery: Codable, PostQuery {
+    
+    public struct QuerySubscription: Codable {
         let endpoint: String
-        let p256dh: String
-        let auth: String
-        let favourite: Bool?
-        let follow: Bool?
-        let reblog: Bool?
-        let mention: Bool?
-        let poll: Bool?
-        
-        var queryItems: [URLQueryItem]? {
-            var items = [URLQueryItem]()
-            
-            items.append(URLQueryItem(name: "subscription[endpoint]", value: endpoint))
-            items.append(URLQueryItem(name: "subscription[keys][p256dh]", value: p256dh))
-            items.append(URLQueryItem(name: "subscription[keys][auth]", value: auth))
-            
-            if let followValue = follow?.queryItemValue {
-                let followItem = URLQueryItem(name: "data[alerts][follow]", value: followValue)
-                items.append(followItem)
-            }
-            
-            if let favouriteValue = favourite?.queryItemValue {
-                let favouriteItem = URLQueryItem(name: "data[alerts][favourite]", value: favouriteValue)
-                items.append(favouriteItem)
-            }
-            
-            if let reblogValue = reblog?.queryItemValue {
-                let reblogItem = URLQueryItem(name: "data[alerts][reblog]", value: reblogValue)
-                items.append(reblogItem)
-            }
-            
-            if let mentionValue = mention?.queryItemValue {
-                let mentionItem = URLQueryItem(name: "data[alerts][mention]", value: mentionValue)
-                items.append(mentionItem)
-            }
-            return items
-        }
+        let keys: Keys
         
         public init(
             endpoint: String,
-            p256dh: String,
-            auth: String,
-            favourite: Bool?,
-            follow: Bool?,
-            reblog: Bool?,
-            mention: Bool?,
-            poll: Bool?
+            keys: Keys
         ) {
             self.endpoint = endpoint
-            self.p256dh = p256dh
-            self.auth = auth
-            self.favourite = favourite
-            self.follow = follow
-            self.reblog = reblog
-            self.mention = mention
-            self.poll = poll
+            self.keys = keys
+        }
+        
+        public struct Keys: Codable {
+            let p256dh: String
+            let auth: String
+            
+            public init(p256dh: Data, auth: Data) {
+                self.p256dh = p256dh.base64UrlEncodedString()
+                self.auth = auth.base64UrlEncodedString()
+            }
+        }
+    }
+    
+    public struct QueryData: Codable {
+        let alerts: Alerts
+        
+        public init(alerts: Mastodon.API.Subscriptions.QueryData.Alerts) {
+            self.alerts = alerts
+        }
+        
+        public struct Alerts: Codable {
+            let favourite: Bool?
+            let follow: Bool?
+            let reblog: Bool?
+            let mention: Bool?
+            let poll: Bool?
+
+            public init(favourite: Bool?, follow: Bool?, reblog: Bool?, mention: Bool?, poll: Bool?) {
+                self.favourite = favourite
+                self.follow = follow
+                self.reblog = reblog
+                self.mention = mention
+                self.poll = poll
+            }
+        }
+    }
+    
+    public struct CreateSubscriptionQuery: Codable, PostQuery {
+        let subscription: QuerySubscription
+        let data: QueryData
+
+        public init(
+            subscription: Mastodon.API.Subscriptions.QuerySubscription,
+            data: Mastodon.API.Subscriptions.QueryData
+        ) {
+            self.subscription = subscription
+            self.data = data
         }
     }
     
     public struct UpdateSubscriptionQuery: Codable, PutQuery {
-        let favourite: Bool?
-        let follow: Bool?
-        let reblog: Bool?
-        let mention: Bool?
-        let poll: Bool?
         
-        var queryItems: [URLQueryItem]? {
-            var items = [URLQueryItem]()
-            
-            if let followValue = follow?.queryItemValue {
-                let followItem = URLQueryItem(name: "data[alerts][follow]", value: followValue)
-                items.append(followItem)
-            }
-            
-            if let favouriteValue = favourite?.queryItemValue {
-                let favouriteItem = URLQueryItem(name: "data[alerts][favourite]", value: favouriteValue)
-                items.append(favouriteItem)
-            }
-            
-            if let reblogValue = reblog?.queryItemValue {
-                let reblogItem = URLQueryItem(name: "data[alerts][reblog]", value: reblogValue)
-                items.append(reblogItem)
-            }
-            
-            if let mentionValue = mention?.queryItemValue {
-                let mentionItem = URLQueryItem(name: "data[alerts][mention]", value: mentionValue)
-                items.append(mentionItem)
-            }
-            return items
+        let data: QueryData
+                
+        public init(data: Mastodon.API.Subscriptions.QueryData) {
+            self.data = data
         }
         
-        public init(
-            favourite: Bool?,
-            follow: Bool?,
-            reblog: Bool?,
-            mention: Bool?,
-            poll: Bool?
-        ) {
-            self.favourite = favourite
-            self.follow = follow
-            self.reblog = reblog
-            self.mention = mention
-            self.poll = poll
-        }
+        var queryItems: [URLQueryItem]? { nil }
     }
 }

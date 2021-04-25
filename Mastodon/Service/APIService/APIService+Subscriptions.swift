@@ -14,11 +14,11 @@ import MastodonSDK
 extension APIService {
  
     func subscription(
-        domain: String,
-        userID: String,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
+        let domain = mastodonAuthenticationBox.domain
+        let userID = mastodonAuthenticationBox.userID
         
         let findSettings: Setting? = {
             let request = Setting.sortedFetchRequest
@@ -58,18 +58,21 @@ extension APIService {
         }.eraseToAnyPublisher()
     }
     
-    func changeSubscription(
-        domain: String,
+    func createSubscription(
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
         query: Mastodon.API.Subscriptions.CreateSubscriptionQuery,
         triggerBy: String,
         userID: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
+        let domain = mastodonAuthenticationBox.domain
+        let userID = mastodonAuthenticationBox.userID
         
-        let setting = self.createSettingIfNeed(domain: domain,
-                                          userId: userID,
-                                          triggerBy: triggerBy)
+        let setting = self.createSettingIfNeed(
+            domain: domain,
+            userId: userID,
+            triggerBy: triggerBy
+        )
         return Mastodon.API.Subscriptions.createSubscription(
             session: session,
             domain: domain,

@@ -55,7 +55,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isLayoutMarginsRelativeArrangement = true
-        view.layoutMargins = UIEdgeInsets(top: 15, left: 4, bottom: 5, right: 4)
+        //view.layoutMargins = UIEdgeInsets(top: 15, left: 4, bottom: 5, right: 4)
         view.axis = .horizontal
         view.alignment = .fill
         view.distribution = .equalSpacing
@@ -270,8 +270,9 @@ extension SettingsViewController: UITableViewDelegate {
         guard section < sections.count else { return nil }
         let sectionData = sections[section]
         
+        let header: SettingsSectionHeader
         if section == 1 {
-            let header = SettingsSectionHeader(
+            header = SettingsSectionHeader(
                 frame: CGRect(x: 0, y: 0, width: 375, height: 66),
                 customView: notifySectionHeader)
             header.update(title: sectionData.title)
@@ -282,16 +283,19 @@ extension SettingsViewController: UITableViewDelegate {
                 let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
                 whoButton.setTitle(anyone, for: .normal)
             }
-            return header
         } else {
-            let header = SettingsSectionHeader(frame: CGRect(x: 0, y: 0, width: 375, height: 66))
+            header = SettingsSectionHeader(frame: CGRect(x: 0, y: 0, width: 375, height: 66))
             header.update(title: sectionData.title)
-            return header
         }
+        
+        header.preservesSuperviewLayoutMargins = true
+        
+        return header
     }
     
     // remove the gap of table's footer
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
         return UIView()
     }
     

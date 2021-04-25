@@ -28,6 +28,7 @@ class AppContext: ObservableObject {
     let videoPlaybackService = VideoPlaybackService()
     let statusPrefetchingService: StatusPrefetchingService
     let statusPublishService = StatusPublishService()
+    let notificationService: NotificationService
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
@@ -45,17 +46,22 @@ class AppContext: ObservableObject {
         let _apiService = APIService(backgroundManagedObjectContext: _backgroundManagedObjectContext)
         apiService = _apiService
         
-        authenticationService = AuthenticationService(
+        let _authenticationService = AuthenticationService(
             managedObjectContext: _managedObjectContext,
             backgroundManagedObjectContext: _backgroundManagedObjectContext,
             apiService: _apiService
         )
+        authenticationService = _authenticationService
         
         emojiService = EmojiService(
             apiService: apiService
         )
         statusPrefetchingService = StatusPrefetchingService(
             apiService: _apiService
+        )
+        notificationService = NotificationService(
+            apiService: _apiService,
+            authenticationService: _authenticationService
         )
         
         documentStore = DocumentStore()

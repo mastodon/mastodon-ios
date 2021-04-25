@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "Base85",
+        "repositoryURL": "https://github.com/MainasuK/Base85.git",
+        "state": {
+          "branch": null,
+          "revision": "626be96816618689627f806b5c875b5adb6346ef",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "CommonOSLog",
         "repositoryURL": "https://github.com/MainasuK/CommonOSLog",
         "state": {

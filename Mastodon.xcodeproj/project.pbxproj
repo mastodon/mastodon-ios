@@ -16,7 +16,7 @@
 		0F202227261411BB000C64BF /* HashtagTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */; };
 		0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */; };
 		0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */; };
-		0F20223926146553000C64BF /* Array+removeDuplicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array+removeDuplicates.swift */; };
+		0F20223926146553000C64BF /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array.swift */; };
 		0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */; };
 		0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101125E105390017CCDE /* PrimaryActionButton.swift */; };
 		0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAA101B25E10E760017CCDE /* UIFont.swift */; };
@@ -160,7 +160,9 @@
 		5DFC35DF262068D20045711D /* SearchViewController+Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */; };
 		5E0DEC05797A7E6933788DDB /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */; };
 		5E44BF88AD33646E64727BCF /* Pods_MastodonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */; };
+		7D603B3DC600BB75956FAD7D /* Pods_Mastodon_NotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D7EB88A6A8B34DFDFC96FC /* Pods_Mastodon_NotificationService.framework */; };
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
+		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
 		DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */; };
 		DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */; };
 		DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */; };
@@ -173,6 +175,7 @@
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
+		DB1E05E1263180F500201847 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E05E0263180F500201847 /* AppSecret.swift */; };
 		DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */; };
 		DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E347725F519300079D7DF /* PickServerItem.swift */; };
 		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
@@ -220,6 +223,7 @@
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
 		DB482A45261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A44261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift */; };
 		DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */; };
+		DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4924E126312AB200E9DB22 /* NotificationService.swift */; };
 		DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61325FF2C5600B98345 /* EmojiService.swift */; };
 		DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */; };
 		DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */; };
@@ -246,6 +250,10 @@
 		DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */; };
 		DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */; };
 		DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */; };
+		DB6D9F232635195E008423CD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F222635195E008423CD /* String.swift */; };
+		DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */; };
+		DB6D9F3B26352019008423CD /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E05E0263180F500201847 /* AppSecret.swift */; };
+		DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB6D9F41263527CE008423CD /* AlamofireImage */; };
 		DB71FD2C25F86A5100512AE1 /* AvatarStackContainerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD2B25F86A5100512AE1 /* AvatarStackContainerButton.swift */; };
 		DB71FD3625F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD3525F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift */; };
 		DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD3B25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift */; };
@@ -367,6 +375,10 @@
 		DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */; };
 		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
 		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
+		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DBF8AE862632992800C9C23C /* Base85 in Frameworks */ = {isa = PBXBuildFile; productRef = DBF8AE852632992800C9C23C /* Base85 */; };
+		DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -405,6 +417,13 @@
 			remoteGlobalIDString = DB89B9ED25C10FD0008580ED;
 			remoteInfo = CoreDataStack;
 		};
+		DBF8AE18263293E400C9C23C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DBF8AE12263293E400C9C23C;
+			remoteInfo = NotificationService;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -420,6 +439,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBF8AE1B263293E400C9C23C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -432,7 +462,7 @@
 		0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
 		0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
 		0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
-		0F20223826146553000C64BF /* Array+removeDuplicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+removeDuplicates.swift"; sourceTree = "<group>"; };
+		0F20223826146553000C64BF /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		0FAA0FDE25E0B57E0017CCDE /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0FAA101125E105390017CCDE /* PrimaryActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryActionButton.swift; sourceTree = "<group>"; };
 		0FAA101B25E10E760017CCDE /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
@@ -574,8 +604,11 @@
 		5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NeedsDependency+AVPlayerViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+Follow.swift"; sourceTree = "<group>"; };
 		75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.release.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.release.xcconfig"; sourceTree = "<group>"; };
+		79D7EB88A6A8B34DFDFC96FC /* Pods_Mastodon_NotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_NotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.release.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B44342AC2B6585F8295F1DDF /* Pods-Mastodon-NotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-NotificationService.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-NotificationService/Pods-Mastodon-NotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewController.swift; sourceTree = "<group>"; };
@@ -589,6 +622,7 @@
 		DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightDimmableButton.swift; sourceTree = "<group>"; };
 		DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollTableView.swift; sourceTree = "<group>"; };
+		DB1E05E0263180F500201847 /* AppSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSecret.swift; sourceTree = "<group>"; };
 		DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB1E347725F519300079D7DF /* PickServerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickServerItem.swift; sourceTree = "<group>"; };
 		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
@@ -643,6 +677,7 @@
 		DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		DB482A44261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
 		DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+UserTimeline.swift"; sourceTree = "<group>"; };
+		DB4924E126312AB200E9DB22 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		DB49A61325FF2C5600B98345 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
 		DB49A61E25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel.swift"; sourceTree = "<group>"; };
 		DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel+LoadState.swift"; sourceTree = "<group>"; };
@@ -668,6 +703,8 @@
 		DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAttachmentService.swift; sourceTree = "<group>"; };
 		DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error.swift"; sourceTree = "<group>"; };
+		DB6D9F222635195E008423CD /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService+Decrypt.swift"; sourceTree = "<group>"; };
 		DB71FD2B25F86A5100512AE1 /* AvatarStackContainerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarStackContainerButton.swift; sourceTree = "<group>"; };
 		DB71FD3525F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+PersistMemo.swift"; sourceTree = "<group>"; };
 		DB71FD3B25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+PersistCache.swift"; sourceTree = "<group>"; };
@@ -790,6 +827,10 @@
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
+		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF8AE15263293E400C9C23C /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		DBF8AE17263293E400C9C23C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -806,6 +847,7 @@
 				DBB525082611EAC0002F1F29 /* Tabman in Frameworks */,
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
+				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
 				DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */,
@@ -843,6 +885,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DBF8AE10263293E400C9C23C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */,
+				DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */,
+				DBF8AE862632992800C9C23C /* Base85 in Frameworks */,
+				7D603B3DC600BB75956FAD7D /* Pods_Mastodon_NotificationService.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -924,6 +977,8 @@
 				BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */,
 				EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */,
 				9780A4C98FFC65B32B50D1C0 /* Pods-MastodonTests.release.xcconfig */,
+				8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */,
+				B44342AC2B6585F8295F1DDF /* Pods-Mastodon-NotificationService.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1053,6 +1108,7 @@
 				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
 				DB71FD4B25F8C80E00512AE1 /* StatusPrefetchingService.swift */,
 				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
+				DB4924E126312AB200E9DB22 /* NotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1216,9 +1272,11 @@
 		3FE14AD363ED19AE7FF210A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */,
 				A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */,
 				3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */,
 				452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */,
+				79D7EB88A6A8B34DFDFC96FC /* Pods_Mastodon_NotificationService.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1318,6 +1376,7 @@
 			children = (
 				DB427DD525BAA00100D1B89D /* AppDelegate.swift */,
 				DB427DD725BAA00100D1B89D /* SceneDelegate.swift */,
+				DB1E05E0263180F500201847 /* AppSecret.swift */,
 				DB427DDB25BAA00100D1B89D /* Main.storyboard */,
 				DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */,
 				DB68A05C25E9055900CFDF14 /* Settings.bundle */,
@@ -1347,6 +1406,7 @@
 				DB427DF625BAA00100D1B89D /* MastodonUITests */,
 				DB89B9EF25C10FD0008580ED /* CoreDataStack */,
 				DB89B9FC25C10FD0008580ED /* CoreDataStackTests */,
+				DBF8AE14263293E400C9C23C /* NotificationService */,
 				DB427DD325BAA00100D1B89D /* Products */,
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
@@ -1362,6 +1422,7 @@
 				DB427DF325BAA00100D1B89D /* MastodonUITests.xctest */,
 				DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */,
 				DB89B9F625C10FD0008580ED /* CoreDataStackTests.xctest */,
+				DBF8AE13263293E400C9C23C /* NotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1514,6 +1575,14 @@
 				2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */,
 			);
 			path = MastodonSDK;
+			sourceTree = "<group>";
+		};
+		DB6D9F2926351961008423CD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DB6D9F222635195E008423CD /* String.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		DB72602125E36A2500235243 /* ServerRules */ = {
@@ -1715,7 +1784,7 @@
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
-				0F20223826146553000C64BF /* Array+removeDuplicates.swift */,
+				0F20223826146553000C64BF /* Array.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
 			);
@@ -1951,6 +2020,17 @@
 			path = Favorite;
 			sourceTree = "<group>";
 		};
+		DBF8AE14263293E400C9C23C /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				DBF8AE15263293E400C9C23C /* NotificationService.swift */,
+				DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */,
+				DB6D9F2926351961008423CD /* Extension */,
+				DBF8AE17263293E400C9C23C /* Info.plist */,
+			);
+			path = NotificationService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1976,11 +2056,13 @@
 				DB427DD025BAA00100D1B89D /* Resources */,
 				5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */,
 				DB89BA0825C10FD0008580ED /* Embed Frameworks */,
+				DBF8AE1B263293E400C9C23C /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				DB89BA0225C10FD0008580ED /* PBXTargetDependency */,
+				DBF8AE19263293E400C9C23C /* PBXTargetDependency */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
@@ -2076,6 +2158,29 @@
 			productReference = DB89B9F625C10FD0008580ED /* CoreDataStackTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DBF8AE12263293E400C9C23C /* NotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DBF8AE1E263293E400C9C23C /* Build configuration list for PBXNativeTarget "NotificationService" */;
+			buildPhases = (
+				0DC740704503CA6BED56F5C8 /* [CP] Check Pods Manifest.lock */,
+				DBF8AE0F263293E400C9C23C /* Sources */,
+				DBF8AE10263293E400C9C23C /* Frameworks */,
+				DBF8AE11263293E400C9C23C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationService;
+			packageProductDependencies = (
+				DBF8AE852632992800C9C23C /* Base85 */,
+				DB00CA962632DDB600A54956 /* CommonOSLog */,
+				DB6D9F41263527CE008423CD /* AlamofireImage */,
+			);
+			productName = NotificationService;
+			productReference = DBF8AE13263293E400C9C23C /* NotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2105,6 +2210,9 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = DB427DD125BAA00100D1B89D;
 					};
+					DBF8AE12263293E400C9C23C = {
+						CreatedOnToolsVersion = 12.4;
+					};
 				};
 			};
 			buildConfigurationList = DB427DCD25BAA00100D1B89D /* Build configuration list for PBXProject "Mastodon" */;
@@ -2127,6 +2235,7 @@
 				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
 				DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
+				DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -2137,6 +2246,7 @@
 				DB427DF225BAA00100D1B89D /* MastodonUITests */,
 				DB89B9ED25C10FD0008580ED /* CoreDataStack */,
 				DB89B9F525C10FD0008580ED /* CoreDataStackTests */,
+				DBF8AE12263293E400C9C23C /* NotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -2184,9 +2294,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBF8AE11263293E400C9C23C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0DC740704503CA6BED56F5C8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Mastodon-NotificationService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5532CB85BBE168B25B20720B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2551,7 +2690,7 @@
 				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
 				5B90C48526259BF10002E742 /* APIService+Subscriptions.swift in Sources */,
-				0F20223926146553000C64BF /* Array+removeDuplicates.swift in Sources */,
+				0F20223926146553000C64BF /* Array.swift in Sources */,
 				5B90C460262599800002E742 /* SettingsAppearanceTableViewCell.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */,
@@ -2594,6 +2733,7 @@
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
+				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
@@ -2609,6 +2749,7 @@
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */,
 				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,
+				DB1E05E1263180F500201847 /* AppSecret.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */,
 				DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */,
@@ -2675,6 +2816,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DBF8AE0F263293E400C9C23C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB6D9F232635195E008423CD /* String.swift in Sources */,
+				DB6D9F3B26352019008423CD /* AppSecret.swift in Sources */,
+				DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */,
+				DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -2702,6 +2854,11 @@
 			isa = PBXTargetDependency;
 			target = DB89B9ED25C10FD0008580ED /* CoreDataStack */;
 			targetProxy = DB89BA0125C10FD0008580ED /* PBXContainerItemProxy */;
+		};
+		DBF8AE19263293E400C9C23C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DBF8AE12263293E400C9C23C /* NotificationService */;
+			targetProxy = DBF8AE18263293E400C9C23C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2861,6 +3018,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -2888,6 +3046,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -3089,6 +3248,48 @@
 			};
 			name = Release;
 		};
+		DBF8AE1C263293E400C9C23C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8ED8C4B1F1BA2DCFF2926BB1 /* Pods-Mastodon-NotificationService.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LFDZ96332;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.Mastodon.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DBF8AE1D263293E400C9C23C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B44342AC2B6585F8295F1DDF /* Pods-Mastodon-NotificationService.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LFDZ96332;
+				INFOPLIST_FILE = NotificationService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.Mastodon.NotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3142,6 +3343,15 @@
 			buildConfigurations = (
 				DB89BA0A25C10FD0008580ED /* Debug */,
 				DB89BA0B25C10FD0008580ED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DBF8AE1E263293E400C9C23C /* Build configuration list for PBXNativeTarget "NotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DBF8AE1C263293E400C9C23C /* Debug */,
+				DBF8AE1D263293E400C9C23C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -3229,6 +3439,14 @@
 				kind = branch;
 			};
 		};
+		DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MainasuK/Base85.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3256,6 +3474,11 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = MastodonSDK;
 		};
+		DB00CA962632DDB600A54956 /* CommonOSLog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
+			productName = CommonOSLog;
+		};
 		DB0140BC25C40D7500F9F3CF /* CommonOSLog */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
@@ -3271,6 +3494,11 @@
 			package = DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
+		DB6D9F41263527CE008423CD /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
 		DB9A487D2603456B008B817C /* UITextView+Placeholder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
@@ -3285,6 +3513,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
 			productName = TwitterTextEditor;
+		};
+		DBF8AE852632992800C9C23C /* Base85 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */;
+			productName = Base85;
 		};
 /* End XCSwiftPackageProductDependency section */
 

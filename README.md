@@ -48,6 +48,7 @@ arch -x86_64 pod install
 - [AlamofireNetworkActivityIndicator](https://github.com/Alamofire/AlamofireNetworkActivityIndicator)
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [CommonOSLog](https://github.com/mainasuk/CommonOSLog)
+- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 - [DateToolSwift](https://github.com/MatthewYork/DateTools)
 - [Kanna](https://github.com/tid-kijyun/Kanna)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
