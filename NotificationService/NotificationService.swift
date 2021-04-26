@@ -59,6 +59,9 @@ class NotificationService: UNNotificationServiceExtension {
             bestAttemptContent.subtitle = ""
             bestAttemptContent.body = notification.body
             
+            UserDefaults.shared.notificationBadgeCount += 1
+            bestAttemptContent.badge = NSNumber(integerLiteral: UserDefaults.shared.notificationBadgeCount)
+            
             if let urlString = notification.icon, let url = URL(string: urlString) {
                 let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("notification-attachments")
                 try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true, attributes: nil)

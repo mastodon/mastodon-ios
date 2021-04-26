@@ -392,6 +392,10 @@
 		DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */; };
 		DBE3CE0D261D767100430CC6 /* FavoriteViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */; };
 		DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */; };
+		DBE54AB92636C87B004E7C0B /* AppSharedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B2A2636852000ACB481 /* AppSharedName.swift */; };
+		DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B23263684C600ACB481 /* UserDefaults.swift */; };
+		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
+		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
 		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
@@ -862,6 +866,7 @@
 		DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+StatusProvider.swift"; sourceTree = "<group>"; };
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
+		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1605,6 +1610,7 @@
 			children = (
 				DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */,
 				DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */,
+				DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -2795,6 +2801,7 @@
 				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
 				DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
+				DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
 				2D42FF6B25C817D2004A627A /* MastodonStatusContent.swift in Sources */,
@@ -2918,7 +2925,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */,
 				DB6D9F232635195E008423CD /* String.swift in Sources */,
+				DBE54AB92636C87B004E7C0B /* AppSharedName.swift in Sources */,
+				DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */,
 				DB6D9F3B26352019008423CD /* AppSecret.swift in Sources */,
 				DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */,
 				DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */,
