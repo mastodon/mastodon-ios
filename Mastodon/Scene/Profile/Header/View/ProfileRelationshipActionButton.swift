@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileRelationshipActionButton: RoundedEdgesButton {
     
-    let actvityIndicatorView: UIActivityIndicatorView = {
+    let activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView(style: .medium)
         activityIndicatorView.color = .white
         return activityIndicatorView
@@ -31,15 +31,15 @@ extension ProfileRelationshipActionButton {
     private func _init() {
         titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
         
-        actvityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(actvityIndicatorView)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(activityIndicatorView)
         NSLayoutConstraint.activate([
-            actvityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            actvityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            activityIndicatorView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
         
-        actvityIndicatorView.hidesWhenStopped = true
-        actvityIndicatorView.stopAnimating()
+        activityIndicatorView.hidesWhenStopped = true
+        activityIndicatorView.stopAnimating()
     }
 }
 
@@ -52,13 +52,13 @@ extension ProfileRelationshipActionButton {
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
         
-        actvityIndicatorView.stopAnimating()
+        activityIndicatorView.stopAnimating()
         
         if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {
             isEnabled = false
         } else if actionOptionSet.contains(.updating) {
             isEnabled = false
-            actvityIndicatorView.startAnimating()
+            activityIndicatorView.startAnimating()
         } else {
             isEnabled = true
         }

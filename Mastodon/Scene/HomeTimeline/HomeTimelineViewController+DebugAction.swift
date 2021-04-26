@@ -25,6 +25,14 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showWelcomeAction(action)
                 },
+                UIAction(title: "Show Or Remove EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    if self.emptyView.superview != nil {
+                        self.emptyView.removeFromSuperview()
+                    } else {
+                        self.showEmptyView()
+                    }
+                },
                 UIAction(title: "Show Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showPublicTimelineAction(action)

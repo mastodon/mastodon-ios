@@ -74,6 +74,9 @@
 		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
 		2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */; };
 		2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */; };
+		2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */; };
+		2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */; };
+		2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */; };
 		2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */; };
 		2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */; };
 		2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */; };
@@ -120,6 +123,9 @@
 		2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04325CA52B200804E11 /* TimelineLoaderTableViewCell.swift */; };
 		2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */; };
 		2DA7D05725CA693F00804E11 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA7D05625CA693F00804E11 /* Application.swift */; };
+		2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */; };
+		2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */; };
+		2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */; };
 		2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */; };
 		2DCB73FD2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */; };
 		2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */; };
@@ -531,6 +537,9 @@
 		2D42FF8E25C8228A004A627A /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		2D45E5BE25C9549700A6D639 /* PublicTimelineViewModel+State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+State.swift"; sourceTree = "<group>"; };
 		2D46975D25C2A54100CF4AA9 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
+		2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountCollectionViewCell.swift; sourceTree = "<group>"; };
+		2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAccountSection.swift; sourceTree = "<group>"; };
+		2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedAccountItem.swift; sourceTree = "<group>"; };
 		2D571B2E26004EC000540450 /* NavigationBarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarProgressView.swift; sourceTree = "<group>"; };
 		2D59819A25E4A581000FB903 /* MastodonConfirmEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewController.swift; sourceTree = "<group>"; };
 		2D5981A025E4A593000FB903 /* MastodonConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonConfirmEmailViewModel.swift; sourceTree = "<group>"; };
@@ -575,6 +584,9 @@
 		2DA7D04925CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		2DA7D05025CA545E00804E11 /* LoadMoreConfigurableTableViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreConfigurableTableViewContainer.swift; sourceTree = "<group>"; };
 		2DA7D05625CA693F00804E11 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
+		2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountViewController.swift; sourceTree = "<group>"; };
+		2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountViewModel.swift; sourceTree = "<group>"; };
+		2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionAccountTableViewCell.swift; sourceTree = "<group>"; };
 		2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Notification+Type.swift"; sourceTree = "<group>"; };
 		2DCB73FC2615C13900EC03D4 /* SearchRecommendCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendCollectionHeader.swift; sourceTree = "<group>"; };
 		2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendHashTagSection.swift; sourceTree = "<group>"; };
@@ -1098,6 +1110,14 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
+		2D4AD89A2631659400613EFC /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2D4AD89B263165B500613EFC /* SuggestionAccountCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
 		2D59819925E4A55C000FB903 /* ConfirmEmail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1198,6 +1218,7 @@
 				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
 				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
 				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
 				2D35237926256D920031AF25 /* NotificationSection.swift */,
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
@@ -1253,6 +1274,7 @@
 			children = (
 				2D7631B225C159F700929FB9 /* Item.swift */,
 				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
+				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
 				2D7867182625B77500211898 /* NotificationItem.swift */,
 				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
 				DB1E347725F519300079D7DF /* PickServerItem.swift */,
@@ -1270,6 +1292,25 @@
 				2DA504682601ADE7008F4E6C /* SawToothView.swift */,
 			);
 			path = Decoration;
+			sourceTree = "<group>";
+		};
+		2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */ = {
+			isa = PBXGroup;
+			children = (
+				2DAC9E37262FC2320062E1A6 /* SuggestionAccountViewController.swift */,
+				2DAC9E3D262FC2400062E1A6 /* SuggestionAccountViewModel.swift */,
+				2D4AD89A2631659400613EFC /* CollectionViewCell */,
+				2DAC9E43262FC9DE0062E1A6 /* TableViewCell */,
+			);
+			path = SuggestionAccount;
+			sourceTree = "<group>";
+		};
+		2DAC9E43262FC9DE0062E1A6 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2DAC9E45262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		2DE0FAC62615F5D200CDF649 /* View */ = {
@@ -1779,6 +1820,7 @@
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
 				0F2021F5261325ED000C64BF /* HashtagTimeline */,
+				2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */,
 				DB9D6BEE25E4F5370051B173 /* Search */,
 				5B90C455262599800002E742 /* Settings */,
 				DB9D6BFD25E4F57B0051B173 /* Notification */,
@@ -2567,6 +2609,7 @@
 				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
 				DB71FD4C25F8C80E00512AE1 /* StatusPrefetchingService.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
+				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
 				DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */,
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D79E701261EA5550011E398 /* APIService+CoreData+Tag.swift in Sources */,
@@ -2583,6 +2626,7 @@
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
+				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
 				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
 				2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */,
@@ -2608,6 +2652,7 @@
 				DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
+				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,
 				DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
@@ -2690,6 +2735,7 @@
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
+				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
@@ -2714,6 +2760,7 @@
 				DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Status.swift in Sources */,
+				2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */,
 				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
@@ -2784,6 +2831,7 @@
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
+				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,

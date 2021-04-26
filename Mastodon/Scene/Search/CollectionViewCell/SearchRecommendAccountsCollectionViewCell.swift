@@ -98,10 +98,7 @@ extension SearchRecommendAccountsCollectionViewCell {
         headerImageView.layer.borderColor = Asset.Colors.Border.searchCard.color.cgColor
         applyShadow(color: Asset.Colors.Shadow.searchCard.color, alpha: 0.1, x: 0, y: 3, blur: 12, spread: 0)
     }
-    override open func layoutSubviews() {
-        super.layoutSubviews()
-        followButton.layer.cornerRadius = followButton.frame.height/2
-    }
+
     private func configure() {
         headerImageView.backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 10

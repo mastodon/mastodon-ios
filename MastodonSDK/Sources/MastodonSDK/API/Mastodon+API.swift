@@ -99,6 +99,7 @@ extension Mastodon.API {
 }
 
 extension Mastodon.API {
+    public enum V2 { }
     public enum Account { }
     public enum App { }
     public enum CustomEmojis { }
@@ -111,11 +112,15 @@ extension Mastodon.API {
     public enum Reblog { }
     public enum Statuses { }
     public enum Timeline { }
-    public enum Search { }
     public enum Trends { }
     public enum Suggestions { }
     public enum Notifications { }
     public enum Subscriptions { }
+}
+
+extension Mastodon.API.V2 {
+    public enum Search { }
+    public enum Suggestions { }
 }
 
 extension Mastodon.API {

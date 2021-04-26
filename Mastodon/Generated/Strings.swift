@@ -72,6 +72,10 @@ internal enum L10n {
         internal static let done = L10n.tr("Localizable", "Common.Controls.Actions.Done")
         /// Edit
         internal static let edit = L10n.tr("Localizable", "Common.Controls.Actions.Edit")
+        /// Find people to follow
+        internal static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople")
+        /// Manually search instead
+        internal static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch")
         /// OK
         internal static let ok = L10n.tr("Localizable", "Common.Controls.Actions.Ok")
         /// Open in Safari
@@ -678,6 +682,12 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Title")
         }
       }
+    }
+    internal enum SuggestionAccount {
+      /// When you follow someone, you’ll see their posts in your home feed.
+      internal static let followExplain = L10n.tr("Localizable", "Scene.SuggestionAccount.FollowExplain")
+      /// Find People to Follow
+      internal static let title = L10n.tr("Localizable", "Scene.SuggestionAccount.Title")
     }
     internal enum Thread {
       /// Post
