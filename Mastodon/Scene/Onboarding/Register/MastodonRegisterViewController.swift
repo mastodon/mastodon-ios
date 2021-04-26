@@ -79,9 +79,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let image = UIImage(systemName: "person.fill.viewfinder", withConfiguration: configuration)
 
         button.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: UIControl.State.normal)
-        button.imageView?.tintColor = Asset.Colors.Icon.photo.color
-        button.backgroundColor = .white
-        button.layer.cornerRadius = 45
+        button.imageView?.tintColor = Asset.Colors.Label.secondary.color
+        button.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        button.layer.cornerRadius = 10
         button.clipsToBounds = true
         
         return button
@@ -93,7 +93,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
         icon.image = image
         icon.tintColor = Asset.Colors.Icon.plus.color
-        icon.backgroundColor = .white
+        icon.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         return icon
     }()
     
@@ -109,7 +109,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.backgroundColor = .white
+        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -132,7 +132,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let textField = UITextField()
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.backgroundColor = .white
+        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -149,7 +149,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
-        textField.backgroundColor = .white
+        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -174,7 +174,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocorrectionType = .no
         textField.keyboardType = .asciiCapable
         textField.isSecureTextEntry = true
-        textField.backgroundColor = .white
+        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -204,7 +204,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let textField = UITextField()
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.backgroundColor = .white
+        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -237,10 +237,6 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
 }
 
 extension MastodonRegisterViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -336,8 +332,8 @@ extension MastodonRegisterViewController {
         ])
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            avatarButton.heightAnchor.constraint(equalToConstant: 90).priority(.defaultHigh),
-            avatarButton.widthAnchor.constraint(equalToConstant: 90).priority(.defaultHigh),
+            avatarButton.heightAnchor.constraint(equalToConstant: 92).priority(.defaultHigh),
+            avatarButton.widthAnchor.constraint(equalToConstant: 92).priority(.defaultHigh),
             avatarButton.centerXAnchor.constraint(equalTo: avatarView.centerXAnchor),
             avatarButton.centerYAnchor.constraint(equalTo: avatarView.centerYAnchor),
         ])
@@ -345,8 +341,8 @@ extension MastodonRegisterViewController {
         plusIconImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.addSubview(plusIconImageView)
         NSLayoutConstraint.activate([
-            plusIconImageView.trailingAnchor.constraint(equalTo: avatarButton.trailingAnchor),
-            plusIconImageView.bottomAnchor.constraint(equalTo: avatarButton.bottomAnchor),
+            plusIconImageView.centerXAnchor.constraint(equalTo: avatarButton.trailingAnchor),
+            plusIconImageView.centerYAnchor.constraint(equalTo: avatarButton.bottomAnchor),
         ])
 
         // textfield
@@ -360,6 +356,14 @@ extension MastodonRegisterViewController {
         // password
         stackView.setCustomSpacing(6, after: passwordTextField)
         stackView.setCustomSpacing(32, after: passwordCheckLabel)
+        
+        //return
+        if viewModel.approvalRequired {
+            passwordTextField.returnKeyType = .continue
+        } else {
+            passwordTextField.returnKeyType = .done
+        }
+        reasonTextField.returnKeyType = .done
 
         // button
         stackView.addArrangedSubview(buttonContainer)
@@ -619,6 +623,28 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         }
     }
 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case usernameTextField:
+            displayNameTextField.becomeFirstResponder()
+        case displayNameTextField:
+            emailTextField.becomeFirstResponder()
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            if viewModel.approvalRequired {
+                reasonTextField.becomeFirstResponder()
+            } else {
+                passwordTextField.resignFirstResponder()
+            }
+        case reasonTextField:
+            reasonTextField.resignFirstResponder()
+        default:
+            break
+        }
+        return true
+    }
+    
     func showShadowWithColor(color: UIColor, textField: UITextField) {
         // To apply Shadow
         textField.layer.shadowOpacity = 1

@@ -48,7 +48,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let bottomContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         return view
     }()
     
@@ -58,7 +58,8 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         textView.textColor = .label
         textView.isSelectable = true
         textView.isEditable = false
-        textView.backgroundColor = Asset.Colors.Background.onboardingBackground.color
+        textView.isScrollEnabled = false
+        textView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         return textView
     }()
     
@@ -84,10 +85,6 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
 }
 
 extension MastodonServerRulesViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +121,6 @@ extension MastodonServerRulesViewController {
             bottomPromptTextView.frameLayoutGuide.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 20),
             bottomPromptTextView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor),
             bottomPromptTextView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.trailingAnchor),
-            bottomPromptTextView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 50),
             confirmButton.topAnchor.constraint(equalTo: bottomPromptTextView.frameLayoutGuide.bottomAnchor, constant: 20),
         ])
         

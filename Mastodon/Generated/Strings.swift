@@ -502,7 +502,7 @@ internal enum L10n {
       }
       internal enum Input {
         internal enum Avatar {
-          /// delete
+          /// Delete
           internal static let delete = L10n.tr("Localizable", "Scene.Register.Input.Avatar.Delete")
         }
         internal enum DisplayName {
