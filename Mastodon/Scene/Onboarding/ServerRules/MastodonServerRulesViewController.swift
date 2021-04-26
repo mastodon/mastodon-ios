@@ -58,6 +58,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         textView.textColor = .label
         textView.isSelectable = true
         textView.isEditable = false
+        textView.isScrollEnabled = false
         textView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         return textView
     }()
@@ -120,7 +121,6 @@ extension MastodonServerRulesViewController {
             bottomPromptTextView.frameLayoutGuide.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 20),
             bottomPromptTextView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor),
             bottomPromptTextView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.trailingAnchor),
-            bottomPromptTextView.frameLayoutGuide.heightAnchor.constraint(equalToConstant: 50),
             confirmButton.topAnchor.constraint(equalTo: bottomPromptTextView.frameLayoutGuide.bottomAnchor, constant: 20),
         ])
         

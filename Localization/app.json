@@ -146,7 +146,7 @@
             "title": "Tell us about you.",
             "input": {
                 "avatar": {
-                    "delete": "delete"
+                    "delete": "Delete"
                 },
                 "username": {
                     "placeholder": "username",
