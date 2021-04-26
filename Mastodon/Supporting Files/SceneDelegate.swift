@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Combine
 import CoreDataStack
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    var observations = Set<NSKeyValueObservation>()
+    
     var window: UIWindow?
     var coordinator: SceneCoordinator?
 
@@ -28,8 +31,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
         
-        // update `overrideUserInterfaceStyle` with current setting
-        SettingsViewController.updateOverrideUserInterfaceStyle(window: window)
+        UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak self] defaults, _ in
+            guard let self = self else { return }
+            self.window?.overrideUserInterfaceStyle = defaults.customUserInterfaceStyle
+        }
+        .store(in: &observations)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -11,10 +11,9 @@ import Combine
 import ActiveLabel
 import CoreData
 import CoreDataStack
+import MastodonSDK
 import AlamofireImage
 import Kingfisher
-
-// iTODO: when to ask permission to Use Notifications
 
 class SettingsViewController: UIViewController, NeedsDependency {
     
@@ -23,6 +22,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
     
     var viewModel: SettingsViewModel! { willSet { precondition(!isViewLoaded) } }
     var disposeBag = Set<AnyCancellable>()
+    var notificationPolicySubscription: AnyCancellable?
     
     var triggerMenu: UIMenu {
         let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
@@ -35,23 +35,23 @@ class SettingsViewController: UIViewController, NeedsDependency {
             options: .displayInline,
             children: [
                 UIAction(title: anyone, image: UIImage(systemName: "person.3"), attributes: []) { [weak self] action in
-                    self?.updateTrigger(by: anyone)
+                    self?.updateTrigger(policy: .all)
                 },
                 UIAction(title: follower, image: UIImage(systemName: "person.crop.circle.badge.plus"), attributes: []) { [weak self] action in
-                    self?.updateTrigger(by: follower)
+                    self?.updateTrigger(policy: .follower)
                 },
                 UIAction(title: follow, image: UIImage(systemName: "person.crop.circle.badge.checkmark"), attributes: []) { [weak self] action in
-                    self?.updateTrigger(by: follow)
+                    self?.updateTrigger(policy: .followed)
                 },
                 UIAction(title: noOne, image: UIImage(systemName: "nosign"), attributes: []) { [weak self] action in
-                    self?.updateTrigger(by: noOne)
+                    self?.updateTrigger(policy: .none)
                 },
             ]
         )
         return menu
     }
     
-    lazy var notifySectionHeader: UIView = {
+    private(set) lazy var notifySectionHeader: UIView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isLayoutMarginsRelativeArrangement = true
@@ -71,15 +71,12 @@ class SettingsViewController: UIViewController, NeedsDependency {
         return view
     }()
     
-    lazy var whoButton: UIButton = {
+    private(set) lazy var whoButton: UIButton = {
         let whoButton = UIButton(type: .roundedRect)
         whoButton.menu = triggerMenu
         whoButton.showsMenuAsPrimaryAction = true
         whoButton.setBackgroundColor(Asset.Colors.battleshipGrey.color, for: .normal)
         whoButton.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
-        if let setting = self.viewModel.setting.value, let trigger = setting.triggerBy {
-            whoButton.setTitle(trigger, for: .normal)
-        }
         whoButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         whoButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         whoButton.layer.cornerRadius = 10
@@ -87,7 +84,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         return whoButton
     }()
     
-    lazy var tableView: UITableView = {
+    private(set) lazy var tableView: UITableView = {
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Width' UIStackView:0x7f8c2b6c0590.width == 0)
         let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,13 +92,13 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
-        tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: "SettingsAppearanceTableViewCell")
-        tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: "SettingsToggleTableViewCell")
-        tableView.register(SettingsLinkTableViewCell.self, forCellReuseIdentifier: "SettingsLinkTableViewCell")
+        tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsAppearanceTableViewCell.self))
+        tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsToggleTableViewCell.self))
+        tableView.register(SettingsLinkTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsLinkTableViewCell.self))
         return tableView
     }()
     
-    lazy var footerView: UIView = {
+    lazy var tableFooterView: UIView = {
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
         let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
         view.isLayoutMarginsRelativeArrangement = true
@@ -143,14 +140,30 @@ class SettingsViewController: UIViewController, NeedsDependency {
     
     // MAKR: - Private methods
     private func bindViewModel() {
-        let input = SettingsViewModel.Input()
-        _ = viewModel.transform(input: input)
+        self.whoButton.setTitle(viewModel.setting.value.activeSubscription?.policy.title, for: .normal)
+        viewModel.setting
+            .sink { [weak self] setting in
+                guard let self = self else { return }
+                self.notificationPolicySubscription = ManagedObjectObserver.observe(object: setting)
+                    .sink { _ in
+                        // do nothing
+                    } receiveValue: { [weak self] change in
+                        guard let self = self else { return }
+                        guard case let .update(object) = change.changeType,
+                              let setting = object as? Setting else { return }
+                        if let activeSubscription = setting.activeSubscription {
+                            self.whoButton.setTitle(activeSubscription.policy.title, for: .normal)
+                        } else {
+                            assertionFailure()
+                        }
+                    }
+            }
+            .store(in: &disposeBag)
     }
     
     private func setupView() {
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         setupNavigation()
-        setupTableView()
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -159,6 +172,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        setupTableView()
     }
     
     private func setupNavigation() {
@@ -177,35 +191,12 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupTableView() {
-        viewModel.dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, item) -> UITableViewCell? in
-            guard let self = self else { return nil }
-            
-            switch item {
-            case .apperance(let item):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsAppearanceTableViewCell") as? SettingsAppearanceTableViewCell else {
-                    assertionFailure()
-                    return nil
-                }
-                cell.update(with: item, delegate: self)
-                return cell
-            case .notification(let item):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsToggleTableViewCell") as? SettingsToggleTableViewCell else {
-                    assertionFailure()
-                    return nil
-                }
-                cell.update(with: item, delegate: self)
-                return cell
-            case .boringZone(let item), .spicyZone(let item):
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsLinkTableViewCell") as? SettingsLinkTableViewCell else {
-                    assertionFailure()
-                    return nil
-                }
-                cell.update(with: item)
-                return cell
-            }
-        })
-        
-        tableView.tableFooterView = footerView
+        viewModel.setupDiffableDataSource(
+            for: tableView,
+            settingsAppearanceTableViewCellDelegate: self,
+            settingsToggleCellDelegate: self
+        )
+        tableView.tableFooterView = tableFooterView
     }
     
     func alertToSignout() {
@@ -218,7 +209,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
         let signOutAction = UIAlertAction(title: L10n.Common.Alerts.SignOut.confirm, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.signout()
+            self.signOut()
         }
         alertController.addAction(cancelAction)
         alertController.addAction(signOutAction)
@@ -229,7 +220,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         )
     }
     
-    func signout() {
+    func signOut() {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
@@ -258,8 +249,11 @@ class SettingsViewController: UIViewController, NeedsDependency {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
-    // Mark: - Actions
-    @objc func doneButtonDidClick() {
+}
+
+// Mark: - Actions
+extension SettingsViewController {
+    @objc private func doneButtonDidClick() {
         dismiss(animated: true, completion: nil)
     }
 }
@@ -268,51 +262,39 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sections = viewModel.dataSource.snapshot().sectionIdentifiers
         guard section < sections.count else { return nil }
-        let sectionData = sections[section]
+        
+        let sectionIdentifier = sections[section]
         
         let header: SettingsSectionHeader
-        if section == 1 {
+        switch sectionIdentifier {
+        case .notifications:
             header = SettingsSectionHeader(
                 frame: CGRect(x: 0, y: 0, width: 375, height: 66),
                 customView: notifySectionHeader)
-            header.update(title: sectionData.title)
-            
-            if let setting = self.viewModel.setting.value, let trigger = setting.triggerBy {
-                whoButton.setTitle(trigger, for: .normal)
-            } else {
-                let anyone = L10n.Scene.Settings.Section.Notifications.Trigger.anyone
-                whoButton.setTitle(anyone, for: .normal)
-            }
-        } else {
+            header.update(title: sectionIdentifier.title)
+        default:
             header = SettingsSectionHeader(frame: CGRect(x: 0, y: 0, width: 375, height: 66))
-            header.update(title: sectionData.title)
+            header.update(title: sectionIdentifier.title)
         }
-        
         header.preservesSuperviewLayoutMargins = true
-        
+
         return header
     }
-    
+
     // remove the gap of table's footer
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        
         return UIView()
     }
-    
+
     // remove the gap of table's footer
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+        return CGFloat.leastNonzeroMagnitude
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let snapshot = self.viewModel.dataSource.snapshot()
-        let sectionIds = snapshot.sectionIdentifiers
-        guard indexPath.section < sectionIds.count else { return }
-        let sectionIdentifier = sectionIds[indexPath.section]
-        let items = snapshot.itemIdentifiers(inSection: sectionIdentifier)
-        guard indexPath.row < items.count else { return }
-        let item = items[indexPath.item]
-        
+        guard let dataSource = viewModel.dataSource else { return }
+        let item = dataSource.itemIdentifier(for: indexPath)
+
         switch item {
         case .boringZone:
             guard let url = viewModel.privacyURL else { break }
@@ -331,7 +313,7 @@ extension SettingsViewController: UITableViewDelegate {
                 ImageDownloader.defaultURLCache().removeAllCachedResponses()
                 let cleanedDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, cleanedDiskBytes)
-                
+
                 // clean Kingfisher Cache
                 KingfisherManager.shared.cache.clearDiskCache()
             }
@@ -347,82 +329,77 @@ extension SettingsViewController: UITableViewDelegate {
 
 // Update setting into core data
 extension SettingsViewController {
-    func updateTrigger(by who: String) {
-        guard self.viewModel.triggerBy != who else { return }
-        guard let setting = self.viewModel.setting.value else { return }
+    func updateTrigger(policy: Mastodon.API.Subscriptions.Policy) {
+        let objectID = self.viewModel.setting.value.objectID
+        let managedObjectContext = context.backgroundManagedObjectContext
         
-        setting.update(triggerBy: who)
-        // trigger to call `subscription` API with POST method
-        // confirm the local data is correct even if request failed
-        // The asynchronous execution is to solve the problem of dropped frames for animations.
-        DispatchQueue.main.async { [weak self] in
-            self?.viewModel.setting.value = setting
+        managedObjectContext.performChanges {
+            let setting = managedObjectContext.object(with: objectID) as! Setting
+            let (subscription, _) = APIService.CoreData.createOrFetchSubscription(
+                into: managedObjectContext,
+                setting: setting,
+                policy: policy
+            )
+            let now = Date()
+            subscription.update(activedAt: now)
+            setting.didUpdate(at: now)
         }
-    }
-    
-    func updateAlert(title: String?, isOn: Bool) {
-        guard let title = title else { return }
-        guard let settings = self.viewModel.setting.value else { return }
-        guard let triggerBy = settings.triggerBy else { return }
-        
-        if let alerts = settings.subscription?.first(where: { (s) -> Bool in
-            return s.type == settings.triggerBy
-        })?.alert {
-            var alertValues = [Bool?]()
-            alertValues.append(alerts.favourite?.boolValue)
-            alertValues.append(alerts.follow?.boolValue)
-            alertValues.append(alerts.reblog?.boolValue)
-            alertValues.append(alerts.mention?.boolValue)
-            
-            // need to update `alerts` to make update API with correct parameter
-            switch title {
-            case L10n.Scene.Settings.Section.Notifications.favorites:
-                alertValues[0] = isOn
-                alerts.favourite = NSNumber(booleanLiteral: isOn)
-            case L10n.Scene.Settings.Section.Notifications.follows:
-                alertValues[1] = isOn
-                alerts.follow = NSNumber(booleanLiteral: isOn)
-            case L10n.Scene.Settings.Section.Notifications.boosts:
-                alertValues[2] = isOn
-                alerts.reblog = NSNumber(booleanLiteral: isOn)
-            case L10n.Scene.Settings.Section.Notifications.mentions:
-                alertValues[3] = isOn
-                alerts.mention = NSNumber(booleanLiteral: isOn)
-            default: break
-            }
-            self.viewModel.updateSubscriptionSubject.send((triggerBy: triggerBy, values: alertValues))
-        } else if let alertValues = self.viewModel.notificationDefaultValue[triggerBy] {
-            self.viewModel.updateSubscriptionSubject.send((triggerBy: triggerBy, values: alertValues))
+        .sink { _ in
+            // do nothing
+        } receiveValue: { _ in
+            // do nohting
         }
+        .store(in: &disposeBag)
     }
 }
 
+// MARK: - SettingsAppearanceTableViewCellDelegate
 extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
-    func settingsAppearanceCell(_ view: SettingsAppearanceTableViewCell, didSelect: SettingsItem.AppearanceMode) {
-        guard let setting = self.viewModel.setting.value else { return }
-        
+    func settingsAppearanceCell(_ cell: SettingsAppearanceTableViewCell, didSelectAppearanceMode appearanceMode: SettingsItem.AppearanceMode) {
+        guard let dataSource = viewModel.dataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let item = dataSource.itemIdentifier(for: indexPath)
+        guard case let .apperance(settingObjectID) = item else { return }
+
         context.managedObjectContext.performChanges {
-            setting.update(appearance: didSelect.rawValue)
+            let setting = self.context.managedObjectContext.object(with: settingObjectID) as! Setting
+            setting.update(appearanceRaw: appearanceMode.rawValue)
         }
-        .sink { (_) in
-            // change light / dark mode
-            var overrideUserInterfaceStyle: UIUserInterfaceStyle!
-            switch didSelect {
-            case .automatic:
-                overrideUserInterfaceStyle = .unspecified
-            case .light:
-                overrideUserInterfaceStyle = .light
-            case .dark:
-                overrideUserInterfaceStyle = .dark
-            }
-            view.window?.overrideUserInterfaceStyle = overrideUserInterfaceStyle
+        .sink { _ in
+            // do nothing
         }.store(in: &disposeBag)
     }
 }
 
 extension SettingsViewController: SettingsToggleCellDelegate {
-    func settingsToggleCell(_ cell: SettingsToggleTableViewCell, didChangeStatus: Bool) {
-        updateAlert(title: cell.data?.title, isOn: didChangeStatus)
+    func settingsToggleCell(_ cell: SettingsToggleTableViewCell, switchValueDidChange switch: UISwitch) {
+        guard let dataSource = viewModel.dataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let item = dataSource.itemIdentifier(for: indexPath)
+        switch item {
+        case .notification(let settingObjectID, let switchMode):
+            let isOn = `switch`.isOn
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                guard let subscription = setting.activeSubscription else { return }
+                let alert = subscription.alert
+                switch switchMode {
+                case .favorite:     alert.update(favourite: isOn)
+                case .follow:       alert.update(follow: isOn)
+                case .reblog:       alert.update(reblog: isOn)
+                case .mention:      alert.update(mention: isOn)
+                }
+                // trigger setting update
+                alert.subscription.setting?.didUpdate(at: Date())
+            }
+            .sink { _ in
+                // do nothing
+            }
+            .store(in: &disposeBag)
+        default:
+            break
+        }
     }
 }
 
@@ -433,43 +410,6 @@ extension SettingsViewController: ActiveLabelDelegate {
             from: self,
             transition: .safariPresent(animated: true, completion: nil)
         )
-    }
-}
-
-extension SettingsViewController {
-    static func updateOverrideUserInterfaceStyle(window: UIWindow?) {
-        guard let box = AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-            
-        guard let setting: Setting? = {
-            let domain = box.domain
-            let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: domain, userID: box.userID)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            do {
-                return try AppContext.shared.managedObjectContext.fetch(request).first
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
-            }
-        }() else { return }
-        
-        guard let didSelect = SettingsItem.AppearanceMode(rawValue: setting?.appearance ?? "") else {
-            return
-        }
-        
-        var overrideUserInterfaceStyle: UIUserInterfaceStyle!
-        switch didSelect {
-        case .automatic:
-            overrideUserInterfaceStyle = .unspecified
-        case .light:
-            overrideUserInterfaceStyle = .light
-        case .dark:
-            overrideUserInterfaceStyle = .dark
-        }
-        window?.overrideUserInterfaceStyle = overrideUserInterfaceStyle
     }
 }
 

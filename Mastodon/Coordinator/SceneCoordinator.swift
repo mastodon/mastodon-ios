@@ -61,6 +61,9 @@ extension SceneCoordinator {
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
         
+        // setting
+        case settings(viewModel: SettingsViewModel)
+        
         // misc
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
@@ -68,7 +71,6 @@ extension SceneCoordinator {
         
         #if DEBUG
         case publicTimeline
-        case settings
         #endif
         
         var isOnboarding: Bool {
@@ -246,6 +248,10 @@ private extension SceneCoordinator {
             let _viewController = FavoriteViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .settings(let viewModel):
+            let _viewController = SettingsViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .safari(let url):
             guard let scheme = url.scheme?.lowercased(),
                   scheme == "http" || scheme == "https" else {
@@ -269,10 +275,6 @@ private extension SceneCoordinator {
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()
             _viewController.viewModel = PublicTimelineViewModel(context: appContext)
-            viewController = _viewController
-        case .settings:
-            let _viewController = SettingsViewController()
-            _viewController.viewModel = SettingsViewModel(context: appContext, coordinator: self)
             viewController = _viewController
         #endif
         }

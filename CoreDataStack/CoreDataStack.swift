@@ -18,7 +18,7 @@ public final class CoreDataStack {
     }
     
     public convenience init(databaseName: String = "shared") {
-        let storeURL = URL.storeURL(for: "group.org.joinmastodon.mastodon-temp", databaseName: databaseName)
+        let storeURL = URL.storeURL(for: AppSharedName.groupID, databaseName: databaseName)
         let storeDescription = NSPersistentStoreDescription(url: storeURL)
         self.init(persistentStoreDescriptions: [storeDescription])
     }

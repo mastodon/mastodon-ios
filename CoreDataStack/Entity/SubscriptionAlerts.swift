@@ -10,117 +10,165 @@ import Foundation
 import CoreData
 
 public final class SubscriptionAlerts: NSManagedObject {
-    @NSManaged public var follow: NSNumber?
-    @NSManaged public var favourite: NSNumber?
-    @NSManaged public var reblog: NSNumber?
-    @NSManaged public var mention: NSNumber?
-    @NSManaged public var poll: NSNumber?
+    @NSManaged public var favouriteRaw: NSNumber?
+    @NSManaged public var followRaw: NSNumber?
+    @NSManaged public var followRequestRaw: NSNumber?
+    @NSManaged public var mentionRaw: NSNumber?
+    @NSManaged public var pollRaw: NSNumber?
+    @NSManaged public var reblogRaw: NSNumber?
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
-    // MARK: - relationships
-    @NSManaged public var subscription: Subscription?
+    // MARK: one-to-one relationships
+    @NSManaged public var subscription: Subscription
 }
 
-public extension SubscriptionAlerts {
-    override func awakeFromInsert() {
-        super.awakeFromInsert()
-        setPrimitiveValue(Date(), forKey: #keyPath(SubscriptionAlerts.createdAt))
-    }
+extension SubscriptionAlerts {
     
-    func didUpdate(at networkDate: Date) {
-        self.updatedAt = networkDate
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        let now = Date()
+        setPrimitiveValue(now, forKey: #keyPath(SubscriptionAlerts.createdAt))
+        setPrimitiveValue(now, forKey: #keyPath(SubscriptionAlerts.updatedAt))
     }
     
     @discardableResult
-    static func insert(
+    public static func insert(
         into context: NSManagedObjectContext,
-        property: Property
+        property: Property,
+        subscription: Subscription
     ) -> SubscriptionAlerts {
         let alerts: SubscriptionAlerts = context.insertObject()
-        alerts.favourite = property.favourite
-        alerts.follow = property.follow
-        alerts.mention = property.mention
-        alerts.poll = property.poll
-        alerts.reblog = property.reblog
+        
+        alerts.favouriteRaw = property.favouriteRaw
+        alerts.followRaw = property.followRaw
+        alerts.followRequestRaw = property.followRequestRaw
+        alerts.mentionRaw = property.mentionRaw
+        alerts.pollRaw = property.pollRaw
+        alerts.reblogRaw = property.reblogRaw
+        
+        alerts.subscription = subscription
+        
         return alerts
     }
     
-    func update(favourite: NSNumber?) {
+    public func update(favourite: Bool?) {
         guard self.favourite != favourite else { return }
         self.favourite = favourite
         
         didUpdate(at: Date())
     }
     
-    func update(follow: NSNumber?) {
+    public func update(follow: Bool?) {
         guard self.follow != follow else { return }
         self.follow = follow
         
         didUpdate(at: Date())
     }
     
-    func update(mention: NSNumber?) {
+    public func update(followRequest: Bool?) {
+        guard self.followRequest != followRequest else { return }
+        self.followRequest = followRequest
+        
+        didUpdate(at: Date())
+    }
+    
+    public func update(mention: Bool?) {
         guard self.mention != mention else { return }
         self.mention = mention
         
         didUpdate(at: Date())
     }
     
-    func update(poll: NSNumber?) {
+    public func update(poll: Bool?) {
         guard self.poll != poll else { return }
         self.poll = poll
         
         didUpdate(at: Date())
     }
     
-    func update(reblog: NSNumber?) {
+    public func update(reblog: Bool?) {
         guard self.reblog != reblog else { return }
         self.reblog = reblog
         
         didUpdate(at: Date())
     }
+    
+    public func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
+    }
+    
 }
 
-public extension SubscriptionAlerts {
-    struct Property {
-        public let favourite: NSNumber?
-        public let follow: NSNumber?
-        public let mention: NSNumber?
-        public let poll: NSNumber?
-        public let reblog: NSNumber?
+extension SubscriptionAlerts {
+    
+    private func boolean(from number: NSNumber?) -> Bool? {
+        return number.flatMap { $0.intValue == 1 }
+    }
+    
+    private func number(from boolean: Bool?) -> NSNumber? {
+        return boolean.flatMap { NSNumber(integerLiteral: $0 ? 1 : 0) }
+    }
+    
+    public var favourite: Bool? {
+        get { boolean(from: favouriteRaw) }
+        set { favouriteRaw = number(from: newValue) }
+    }
+    
+    public var follow: Bool? {
+        get { boolean(from: followRaw) }
+        set { followRaw = number(from: newValue) }
+    }
+    
+    public var followRequest: Bool? {
+        get { boolean(from: followRequestRaw) }
+        set { followRequestRaw = number(from: newValue) }
+    }
+    
+    public var mention: Bool? {
+        get { boolean(from: mentionRaw) }
+        set { mentionRaw = number(from: newValue) }
+    }
+    
+    public var poll: Bool? {
+        get { boolean(from: pollRaw) }
+        set { pollRaw = number(from: newValue) }
+    }
+    
+    public var reblog: Bool? {
+        get { boolean(from: reblogRaw) }
+        set { reblogRaw = number(from: newValue) }
+    }
+    
+}
 
-        public init(favourite: NSNumber?, follow: NSNumber?, mention: NSNumber?, poll: NSNumber?, reblog: NSNumber?) {
-            self.favourite = favourite
-            self.follow = follow
-            self.mention = mention
-            self.poll = poll
-            self.reblog = reblog
+extension SubscriptionAlerts {
+    public struct Property {
+        public let favouriteRaw: NSNumber?
+        public let followRaw: NSNumber?
+        public let followRequestRaw: NSNumber?
+        public let mentionRaw: NSNumber?
+        public let pollRaw: NSNumber?
+        public let reblogRaw: NSNumber?
+
+        public init(
+            favourite: Bool?,
+            follow: Bool?,
+            followRequest: Bool?,
+            mention: Bool?,
+            poll: Bool?,
+            reblog: Bool?
+        ) {
+            self.favouriteRaw = favourite.flatMap { NSNumber(value: $0 ? 1 : 0) }
+            self.followRaw = follow.flatMap { NSNumber(value: $0 ? 1 : 0) }
+            self.followRequestRaw = followRequest.flatMap { NSNumber(value: $0 ? 1 : 0) }
+            self.mentionRaw = mention.flatMap { NSNumber(value: $0 ? 1 : 0) }
+            self.pollRaw = poll.flatMap { NSNumber(value: $0 ? 1 : 0) }
+            self.reblogRaw = reblog.flatMap { NSNumber(value: $0 ? 1 : 0) }
         }
     }
     
-    func updateIfNeed(property: Property) {
-        if self.follow != property.follow {
-            self.follow = property.follow
-        }
-        
-        if self.favourite != property.favourite {
-            self.favourite = property.favourite
-        }
-        
-        if self.reblog != property.reblog {
-            self.reblog = property.reblog
-        }
-        
-        if self.mention != property.mention {
-            self.mention = property.mention
-        }
-        
-        if self.poll != property.poll {
-            self.poll = property.poll
-        }
-    }
 }
 
 extension SubscriptionAlerts: Managed {

@@ -88,14 +88,8 @@ extension HomeTimelineViewController {
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
         #else
-        // settingBarButtonItem.target = self
-        // settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
-        settingBarButtonItem.menu = UIMenu(title: "Settings", image: nil, identifier: nil, options: .displayInline, children: [
-            UIAction(title: "Sign Out", image: UIImage(systemName: "escape"), attributes: .destructive) { [weak self] action in
-                guard let self = self else { return }
-                self.signOutAction(action)
-            }
-        ])
+        settingBarButtonItem.target = self
+        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
         
         navigationItem.rightBarButtonItem = composeBarButtonItem
@@ -220,7 +214,9 @@ extension HomeTimelineViewController {
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
+        guard let setting = context.settingService.currentSetting.value else { return }
+        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
+        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func composeBarButtonItemPressed(_ sender: UIBarButtonItem) {

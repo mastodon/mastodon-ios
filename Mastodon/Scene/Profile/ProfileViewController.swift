@@ -517,7 +517,9 @@ extension ProfileViewController {
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
+        guard let setting = context.settingService.currentSetting.value else { return }
+        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
+        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func shareBarButtonItemPressed(_ sender: UIBarButtonItem) {

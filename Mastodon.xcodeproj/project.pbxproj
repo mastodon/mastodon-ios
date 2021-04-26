@@ -138,7 +138,6 @@
 		5B90C460262599800002E742 /* SettingsAppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */; };
 		5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C45B262599800002E742 /* SettingsLinkTableViewCell.swift */; };
 		5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C45C262599800002E742 /* SettingsSectionHeader.swift */; };
-		5B90C463262599800002E742 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C45D262599800002E742 /* SettingsViewController.swift */; };
 		5B90C46E26259B2C0002E742 /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C46C26259B2C0002E742 /* Subscription.swift */; };
 		5B90C46F26259B2C0002E742 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C46D26259B2C0002E742 /* Setting.swift */; };
 		5B90C47F26259BA90002E742 /* SubscriptionAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C47E26259BA90002E742 /* SubscriptionAlerts.swift */; };
@@ -250,10 +249,24 @@
 		DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */; };
 		DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */; };
 		DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */; };
+		DB6D1B24263684C600ACB481 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B23263684C600ACB481 /* UserDefaults.swift */; };
+		DB6D1B2B2636852000ACB481 /* AppSharedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B2A2636852000ACB481 /* AppSharedName.swift */; };
+		DB6D1B312636853100ACB481 /* AppSharedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B2A2636852000ACB481 /* AppSharedName.swift */; };
+		DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */; };
+		DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B43263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift */; };
 		DB6D9F232635195E008423CD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F222635195E008423CD /* String.swift */; };
 		DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */; };
 		DB6D9F3B26352019008423CD /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E05E0263180F500201847 /* AppSecret.swift */; };
 		DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB6D9F41263527CE008423CD /* AlamofireImage */; };
+		DB6D9F4926353FD7008423CD /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F4826353FD6008423CD /* Subscription.swift */; };
+		DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F4F2635761F008423CD /* SubscriptionAlerts.swift */; };
+		DB6D9F57263577D2008423CD /* APIService+CoreData+Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F56263577D2008423CD /* APIService+CoreData+Setting.swift */; };
+		DB6D9F6326357848008423CD /* SettingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F6226357848008423CD /* SettingService.swift */; };
+		DB6D9F6F2635807F008423CD /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F6E2635807F008423CD /* Setting.swift */; };
+		DB6D9F76263587C7008423CD /* SettingFetchedResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */; };
+		DB6D9F7D26358ED4008423CD /* SettingsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F7C26358ED4008423CD /* SettingsSection.swift */; };
+		DB6D9F8426358EEC008423CD /* SettingsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F8326358EEC008423CD /* SettingsItem.swift */; };
+		DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D9F9626367249008423CD /* SettingsViewController.swift */; };
 		DB71FD2C25F86A5100512AE1 /* AvatarStackContainerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD2B25F86A5100512AE1 /* AvatarStackContainerButton.swift */; };
 		DB71FD3625F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD3525F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift */; };
 		DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD3B25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift */; };
@@ -584,7 +597,6 @@
 		5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceTableViewCell.swift; sourceTree = "<group>"; };
 		5B90C45B262599800002E742 /* SettingsLinkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLinkTableViewCell.swift; sourceTree = "<group>"; };
 		5B90C45C262599800002E742 /* SettingsSectionHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionHeader.swift; sourceTree = "<group>"; };
-		5B90C45D262599800002E742 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5B90C46C26259B2C0002E742 /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		5B90C46D26259B2C0002E742 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		5B90C47E26259BA90002E742 /* SubscriptionAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionAlerts.swift; sourceTree = "<group>"; };
@@ -703,8 +715,21 @@
 		DB6B35172601FA3400DC1E11 /* MastodonAttachmentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAttachmentService.swift; sourceTree = "<group>"; };
 		DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB6C8C0E25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Error.swift"; sourceTree = "<group>"; };
+		DB6D1B23263684C600ACB481 /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		DB6D1B2A2636852000ACB481 /* AppSharedName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSharedName.swift; sourceTree = "<group>"; };
+		DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearancePreference.swift; sourceTree = "<group>"; };
+		DB6D1B43263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+API+Subscriptions+Policy.swift"; sourceTree = "<group>"; };
 		DB6D9F222635195E008423CD /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationService+Decrypt.swift"; sourceTree = "<group>"; };
+		DB6D9F4826353FD6008423CD /* Subscription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
+		DB6D9F4F2635761F008423CD /* SubscriptionAlerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionAlerts.swift; sourceTree = "<group>"; };
+		DB6D9F56263577D2008423CD /* APIService+CoreData+Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Setting.swift"; sourceTree = "<group>"; };
+		DB6D9F6226357848008423CD /* SettingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingService.swift; sourceTree = "<group>"; };
+		DB6D9F6E2635807F008423CD /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFetchedResultController.swift; sourceTree = "<group>"; };
+		DB6D9F7C26358ED4008423CD /* SettingsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSection.swift; sourceTree = "<group>"; };
+		DB6D9F8326358EEC008423CD /* SettingsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItem.swift; sourceTree = "<group>"; };
+		DB6D9F9626367249008423CD /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DB71FD2B25F86A5100512AE1 /* AvatarStackContainerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarStackContainerButton.swift; sourceTree = "<group>"; };
 		DB71FD3525F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+PersistMemo.swift"; sourceTree = "<group>"; };
 		DB71FD3B25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Persist+PersistCache.swift"; sourceTree = "<group>"; };
@@ -1109,6 +1134,7 @@
 				DB71FD4B25F8C80E00512AE1 /* StatusPrefetchingService.swift */,
 				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
 				DB4924E126312AB200E9DB22 /* NotificationService.swift */,
+				DB6D9F6226357848008423CD /* SettingService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1176,6 +1202,7 @@
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
 				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
+				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -1232,6 +1259,7 @@
 				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
 				DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */,
+				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
 			);
 			path = Item;
 			sourceTree = "<group>";
@@ -1285,8 +1313,8 @@
 			isa = PBXGroup;
 			children = (
 				5B90C457262599800002E742 /* View */,
+				DB6D9F9626367249008423CD /* SettingsViewController.swift */,
 				5B90C456262599800002E742 /* SettingsViewModel.swift */,
-				5B90C45D262599800002E742 /* SettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1350,6 +1378,9 @@
 				DB084B5625CBC56C00F898ED /* Status.swift */,
 				DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */,
 				DB9D6C3725E508BE0051B173 /* Attachment.swift */,
+				DB6D9F6E2635807F008423CD /* Setting.swift */,
+				DB6D9F4826353FD6008423CD /* Subscription.swift */,
+				DB6D9F4F2635761F008423CD /* SubscriptionAlerts.swift */,
 			);
 			path = CoreDataStack;
 			sourceTree = "<group>";
@@ -1377,6 +1408,7 @@
 				DB427DD525BAA00100D1B89D /* AppDelegate.swift */,
 				DB427DD725BAA00100D1B89D /* SceneDelegate.swift */,
 				DB1E05E0263180F500201847 /* AppSecret.swift */,
+				DB6D1B2A2636852000ACB481 /* AppSharedName.swift */,
 				DB427DDB25BAA00100D1B89D /* Main.storyboard */,
 				DB427DE025BAA00100D1B89D /* LaunchScreen.storyboard */,
 				DB68A05C25E9055900CFDF14 /* Settings.bundle */,
@@ -1511,6 +1543,7 @@
 				DB45FADC25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift */,
 				DB45FAF825CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift */,
 				2D79E700261EA5550011E398 /* APIService+CoreData+Tag.swift */,
+				DB6D9F56263577D2008423CD /* APIService+CoreData+Setting.swift */,
 				5B90C48A26259C120002E742 /* APIService+CoreData+Subscriptions.swift */,
 			);
 			path = CoreData;
@@ -1530,6 +1563,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */,
+				DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -1573,6 +1607,7 @@
 				5DDDF1A82617489F00311060 /* Mastodon+Entity+History.swift */,
 				2D650FAA25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift */,
 				2DB72C8B262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift */,
+				DB6D1B43263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift */,
 			);
 			path = MastodonSDK;
 			sourceTree = "<group>";
@@ -1787,6 +1822,7 @@
 				0F20223826146553000C64BF /* Array.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
+				DB6D1B23263684C600ACB481 /* UserDefaults.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1994,6 +2030,7 @@
 			isa = PBXGroup;
 			children = (
 				DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */,
+				DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */,
 			);
 			path = FetchedResultsController;
 			sourceTree = "<group>";
@@ -2555,6 +2592,7 @@
 				DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
+				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DBE3CE0D261D767100430CC6 /* FavoriteViewController+StatusProvider.swift in Sources */,
@@ -2566,8 +2604,8 @@
 				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
 				DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */,
-				5B90C463262599800002E742 /* SettingsViewController.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
+				DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
 				DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */,
@@ -2599,6 +2637,7 @@
 				5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */,
+				DB6D9F76263587C7008423CD /* SettingFetchedResultController.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
@@ -2624,9 +2663,11 @@
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				2D084B8D26258EA3003AA3AF /* NotificationViewModel+diffable.swift in Sources */,
+				DB6D1B24263684C600ACB481 /* UserDefaults.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
+				DB6D9F7D26358ED4008423CD /* SettingsSection.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
@@ -2645,6 +2686,7 @@
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
+				DB6D9F8426358EEC008423CD /* SettingsItem.swift in Sources */,
 				2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
@@ -2664,6 +2706,7 @@
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */,
 				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
+				DB6D9F6326357848008423CD /* SettingService.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				2D24E12D2626FD2E00A59D4F /* NotificationViewModel+LoadOldestState.swift in Sources */,
 				2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */,
@@ -2678,11 +2721,13 @@
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
 				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
+				DB6D9F57263577D2008423CD /* APIService+CoreData+Setting.swift in Sources */,
 				DB9D6C0E25E4F9780051B173 /* MosaicImageViewContainer.swift in Sources */,
 				DB71FD3625F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift in Sources */,
 				DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
 				2D7867192625B77500211898 /* NotificationItem.swift in Sources */,
+				DB6D1B2B2636852000ACB481 /* AppSharedName.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */,
@@ -2701,6 +2746,7 @@
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
 				0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */,
 				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
+				DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				2D5A3D2825CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift in Sources */,
 				DB98339C25C96DE600AD9700 /* APIService+Account.swift in Sources */,
@@ -2734,17 +2780,20 @@
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
+				DB6D9F6F2635807F008423CD /* Setting.swift in Sources */,
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
+				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				DB938F25262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift in Sources */,
 				DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
 				5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */,
+				DB6D9F4926353FD7008423CD /* Subscription.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */,
@@ -2794,6 +2843,7 @@
 				2D152A9225C2980C009AA50C /* UIFont.swift in Sources */,
 				DB4481B325EE16D000BEFB67 /* PollOption.swift in Sources */,
 				DB89BA4425C1165F008580ED /* Managed.swift in Sources */,
+				DB6D1B312636853100ACB481 /* AppSharedName.swift in Sources */,
 				2D6125472625436B00299647 /* Notification.swift in Sources */,
 				DB89BA4325C1165F008580ED /* NetworkUpdatable.swift in Sources */,
 				DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */,

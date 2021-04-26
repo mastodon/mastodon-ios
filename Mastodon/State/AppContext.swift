@@ -29,6 +29,7 @@ class AppContext: ObservableObject {
     let statusPrefetchingService: StatusPrefetchingService
     let statusPublishService = StatusPublishService()
     let notificationService: NotificationService
+    let settingService: SettingService
     
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
@@ -59,9 +60,15 @@ class AppContext: ObservableObject {
         statusPrefetchingService = StatusPrefetchingService(
             apiService: _apiService
         )
-        notificationService = NotificationService(
-            apiService: _apiService,
+        let _notificationService = NotificationService(
             authenticationService: _authenticationService
+        )
+        notificationService = _notificationService
+        
+        settingService = SettingService(
+            apiService: _apiService,
+            authenticationService: _authenticationService,
+            notificationService: _notificationService
         )
         
         documentStore = DocumentStore()

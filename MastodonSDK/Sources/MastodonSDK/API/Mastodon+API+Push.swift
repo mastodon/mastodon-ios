@@ -21,7 +21,7 @@ extension Mastodon.API.Subscriptions {
     /// - Since: 2.4.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/4/9
+    ///   2021/4/25
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/notifications/push/)
     /// - Parameters:
@@ -54,7 +54,7 @@ extension Mastodon.API.Subscriptions {
     /// - Since: 2.4.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/4/9
+    ///   2021/4/25
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/notifications/push/)
     /// - Parameters:
@@ -88,7 +88,7 @@ extension Mastodon.API.Subscriptions {
     /// - Since: 2.4.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/4/9
+    ///   2021/4/25
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/notifications/push/)
     /// - Parameters:
@@ -114,9 +114,44 @@ extension Mastodon.API.Subscriptions {
             }
             .eraseToAnyPublisher()
     }
+    
+    /// Remove current subscription
+    ///
+    /// Removes the current Web Push API subscription.
+    ///
+    /// - Since: 2.4.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/4/26
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/notifications/push/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - authorization: User token. Could be nil if status is public
+    /// - Returns: `AnyPublisher` contains `Subscription` nested in the response
+    public static func removeSubscription(
+        session: URLSession,
+        domain: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.EmptySubscription>, Error> {
+        let request = Mastodon.API.delete(
+            url: pushEndpointURL(domain: domain),
+            query: nil,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.EmptySubscription.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 extension Mastodon.API.Subscriptions {
+    
+    public typealias Policy = QueryData.Policy
     
     public struct QuerySubscription: Codable {
         let endpoint: String
@@ -142,9 +177,14 @@ extension Mastodon.API.Subscriptions {
     }
     
     public struct QueryData: Codable {
+        let policy: Policy?
         let alerts: Alerts
         
-        public init(alerts: Mastodon.API.Subscriptions.QueryData.Alerts) {
+        public init(
+            policy: Policy?,
+            alerts: Mastodon.API.Subscriptions.QueryData.Alerts
+        ) {
+            self.policy = policy
             self.alerts = alerts
         }
         
@@ -163,7 +203,38 @@ extension Mastodon.API.Subscriptions {
                 self.poll = poll
             }
         }
+        
+        public enum Policy: RawRepresentable, Codable {
+            case all
+            case followed
+            case follower
+            case none
+            
+            case _other(String)
+            
+            public init?(rawValue: String) {
+                switch rawValue {
+                case "all":             self = .all
+                case "followed":        self = .followed
+                case "follower":        self = .follower
+                case "none":            self = .none
+
+                default:                self = ._other(rawValue)
+                }
+            }
+            
+            public var rawValue: String {
+                switch self {
+                case .all:                      return "all"
+                case .followed:                 return "followed"
+                case .follower:                 return "follower"
+                case .none:                     return "none"
+                case ._other(let value):        return value
+                }
+            }
+        }
     }
+    
     
     public struct CreateSubscriptionQuery: Codable, PostQuery {
         let subscription: QuerySubscription

@@ -58,3 +58,5 @@ protocol PatchQuery: RequestQuery { }
 // PUT
 protocol PutQuery: RequestQuery { }
 
+// DELETE
+protocol DeleteQuery: RequestQuery { }
