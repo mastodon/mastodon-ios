@@ -17,7 +17,7 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     
     static let bottomPaddingHeight: CGFloat = 10
     
-    var dependency: ReportViewController?
+    weak var dependency: ReportViewController?
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()

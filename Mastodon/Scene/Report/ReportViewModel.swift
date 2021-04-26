@@ -133,13 +133,11 @@ class ReportViewModel: NSObject {
         }
         .store(in: &disposeBag)
         
-        input.comment.assign(
-            to: \.comment,
-            on: self
-        )
-        .store(in: &disposeBag)
         input.comment.sink { [weak self] (comment) in
             guard let self = self else { return }
+            
+            self.comment = comment
+            
             let sendEnable = (comment?.length ?? 0) > 0
             self.sendEnableSubject.send(sendEnable)
         }

@@ -36,7 +36,8 @@ extension ReportSection {
                 cell.dependency = dependency
                 let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
                 let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
-                managedObjectContext.performAndWait {
+                managedObjectContext.performAndWait { [weak dependency] in
+                    guard let dependency = dependency else { return }
                     let status = managedObjectContext.object(with: objectID) as! Status
                     StatusSection.configure(
                         cell: cell,

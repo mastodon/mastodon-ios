@@ -149,7 +149,8 @@ extension StatusSection {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { change in
+            } receiveValue: { [weak cell] change in
+                guard let cell = cell else { return }
                 guard case .update(let object) = change.changeType,
                       let newStatus = object as? Status else { return }
                 StatusSection.configureHeader(cell: cell, status: newStatus)
@@ -221,7 +222,8 @@ extension StatusSection {
             } else {
                 meta.blurhashImagePublisher()
                     .receive(on: DispatchQueue.main)
-                    .sink { image in
+                    .sink { [weak cell] image in
+                        guard let cell = cell else { return }
                         blurhashOverlayImageView.image = image
                         image?.pngData().flatMap {
                             blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)
@@ -246,7 +248,8 @@ extension StatusSection {
                 statusItemAttribute.isRevealing
             )
             .receive(on: DispatchQueue.main)
-            .sink { isImageLoaded, isMediaRevealing in
+            .sink { [weak cell] isImageLoaded, isMediaRevealing in
+                guard let cell = cell else { return }
                 guard isImageLoaded else {
                     blurhashOverlayImageView.alpha = 1
                     blurhashOverlayImageView.isHidden = false
@@ -355,7 +358,8 @@ extension StatusSection {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { [weak dependency] change in
+            } receiveValue: { [weak dependency, weak cell] change in
+                guard let cell = cell else { return }
                 guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
@@ -382,7 +386,8 @@ extension StatusSection {
             ManagedObjectObserver.observe(object: poll)
                 .sink { _ in
                     // do nothing
-                } receiveValue: { change in
+                } receiveValue: { [weak cell] change in
+                    guard let cell = cell else { return }
                     guard case .update(let object) = change.changeType,
                           let newPoll = object as? Poll else { return }
                     StatusSection.configurePoll(
@@ -413,7 +418,8 @@ extension StatusSection {
         let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
         timestampUpdatePublisher
-            .sink { _ in
+            .sink { [weak cell] _ in
+                guard let cell = cell else { return }
                 cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
@@ -423,7 +429,9 @@ extension StatusSection {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { change in
+            } receiveValue: { [weak dependency, weak cell] change in
+                guard let cell = cell else { return }
+                guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
                 StatusSection.configureActionToolBar(
@@ -759,7 +767,9 @@ extension StatusSection {
         }
         var children: [UIMenuElement] = []
         let name = author.displayNameWithFallback
-        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { _ in
+        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) {
+            [weak dependency] _ in
+            guard let dependency = dependency else { return }
             let viewModel = ReportViewModel(
                 context: dependency.context,
                 domain: authenticationBox.domain,
