@@ -52,6 +52,8 @@
                 "share": "Share",
                 "share_user": "Share %s",
                 "open_in_safari": "Open in Safari",
+                "find_people": "Find people to follow",
+                "manually_search": "Manually search instead",
                 "skip": "Skip",
                 "report_user": "Report %s"
             },
@@ -233,6 +235,10 @@
                 "Publishing": "Publishing post..."
             }
         },
+        "suggestion_account": {
+            "title": "Find People to Follow",
+            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+        },
         "public_timeline": {
             "title": "Public"
         },
@@ -405,4 +411,3 @@
         }
     }
 }
-
