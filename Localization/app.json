@@ -52,7 +52,8 @@
                 "share": "Share",
                 "share_user": "Share %s",
                 "open_in_safari": "Open in Safari",
-                "skip": "Skip"
+                "skip": "Skip",
+                "report_user": "Report %s"
             },
             "status": {
                 "user_reblogged": "%s reblogged",

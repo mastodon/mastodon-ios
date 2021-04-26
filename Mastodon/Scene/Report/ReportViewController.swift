@@ -242,7 +242,7 @@ class ReportViewController: UIViewController, NeedsDependency {
                 return nil
             }
             let request = MastodonUser.sortedFetchRequest
-            request.predicate = MastodonUser.predicate(domain: domain, id: viewModel.userId)
+            request.predicate = MastodonUser.predicate(domain: domain, id: viewModel.user.id)
             request.fetchLimit = 1
             request.returnsObjectsAsFaults = false
             do {

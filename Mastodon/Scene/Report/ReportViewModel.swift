@@ -23,8 +23,8 @@ class ReportViewModel: NSObject {
     
     // confirm set only once
     weak var context: AppContext! { willSet { precondition(context == nil) } }
-    var userId: String
-    var statusId: String?
+    var user: MastodonUser
+    var status: Status?
     
     var statusIDs = [Mastodon.Entity.Status.ID]()
     var comment: String?
@@ -56,12 +56,12 @@ class ReportViewModel: NSObject {
     
     init(context: AppContext,
          domain: String,
-         userId: String,
-         statusId: String?
+         user: MastodonUser,
+         status: Status?
     ) {
         self.context = context
-        self.userId = userId
-        self.statusId = statusId
+        self.user = user
+        self.status = status
         self.statusFetchedResultsController = StatusFetchedResultsController(
             managedObjectContext: context.managedObjectContext,
             domain: domain,
@@ -69,7 +69,7 @@ class ReportViewModel: NSObject {
         )
         
         self.reportQuery = FileReportQuery(
-            accountID: userId,
+            accountID: user.id,
             statusIDs: [],
             comment: nil,
             forward: nil
@@ -97,7 +97,7 @@ class ReportViewModel: NSObject {
         
         requestRecentStatus(
             domain: domain,
-            accountId: self.userId,
+            accountId: self.user.id,
             authorizationBox: activeMastodonAuthenticationBox
         )
         

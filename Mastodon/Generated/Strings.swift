@@ -80,6 +80,10 @@ internal enum L10n {
         internal static let preview = L10n.tr("Localizable", "Common.Controls.Actions.Preview")
         /// Remove
         internal static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove")
+        /// Report %@
+        internal static func reportUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.ReportUser", String(describing: p1))
+        }
         /// Save
         internal static let save = L10n.tr("Localizable", "Common.Controls.Actions.Save")
         /// Save photo

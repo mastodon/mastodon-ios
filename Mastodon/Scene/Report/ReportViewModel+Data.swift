@@ -22,6 +22,7 @@ extension ReportViewModel {
         context.apiService.userTimeline(
             domain: domain,
             accountID: accountId,
+            excludeReblogs: true,
             authorizationBox: authorizationBox
         )
         .receive(on: DispatchQueue.main)
@@ -30,7 +31,7 @@ extension ReportViewModel {
             case .failure(let error):
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch user timeline fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                 guard let self = self else { return }
-                guard let reportStatusId = self.statusId else { return }
+                guard let reportStatusId = self.status?.id else { return }
                 var statusIDs = self.statusFetchedResultsController.statusIDs.value
                 guard statusIDs.contains(reportStatusId) else { return }
                 
@@ -44,7 +45,7 @@ extension ReportViewModel {
             guard let self = self else { return }
             
             var statusIDs = response.value.map { $0.id }
-            if let reportStatusId = self.statusId, !statusIDs.contains(reportStatusId) {
+            if let reportStatusId = self.status?.id, !statusIDs.contains(reportStatusId) {
                 statusIDs.append(reportStatusId)
             }
             
@@ -86,7 +87,7 @@ extension ReportViewModel {
                     guard let status = managedObjectContext.object(with: objectID) as? Status else {
                         continue
                     }
-                    if status.id == self.statusId {
+                    if status.id == self.status?.id {
                         attribute.isSelected = true
                         self.append(statusID: status.id)
                         self.continueEnableSubject.send(true)

@@ -218,6 +218,24 @@ extension UserProviderFacade {
             children.append(shareAction)
         }
         
+        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+            guard let provider = provider else { return }
+            guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                return
+            }
+            let viewModel = ReportViewModel(
+                context: provider.context,
+                domain: authenticationBox.domain,
+                user: mastodonUser,
+                status: nil)
+            provider.coordinator.present(
+                scene: .report(viewModel: viewModel),
+                from: provider,
+                transition: .modal(animated: true, completion: nil)
+            )
+        }
+        children.append(reportAction)
+        
         return UIMenu(title: "", options: [], children: children)
     }
     

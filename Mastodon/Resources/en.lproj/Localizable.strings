@@ -24,6 +24,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.OpenInSafari" = "Open in Safari";
 "Common.Controls.Actions.Preview" = "Preview";
 "Common.Controls.Actions.Remove" = "Remove";
+"Common.Controls.Actions.ReportUser" = "Report %@";
 "Common.Controls.Actions.Save" = "Save";
 "Common.Controls.Actions.SavePhoto" = "Save photo";
 "Common.Controls.Actions.SeeMore" = "See More";

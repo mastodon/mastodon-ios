@@ -301,6 +301,9 @@ extension StatusSection {
             case is NotificationStatusTableViewCell:
                 let notificationTableViewCell = cell as! NotificationStatusTableViewCell
                 parent = notificationTableViewCell.delegate?.parent()
+            case is ReportedStatusTableViewCell:
+                let reportTableViewCell = cell as! ReportedStatusTableViewCell
+                parent = reportTableViewCell.dependency
             default:
                 parent = nil
                 assertionFailure("unknown cell")
@@ -394,7 +397,12 @@ extension StatusSection {
         }
         
         // toolbar
-        StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
+        StatusSection.configureActionToolBar(
+            cell: cell,
+            dependency: dependency,
+            status: status,
+            requestUserID: requestUserID
+        )
         
         // separator line
         if let statusTableViewCell = cell as? StatusTableViewCell {
@@ -418,7 +426,12 @@ extension StatusSection {
             } receiveValue: { change in
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
-                StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
+                StatusSection.configureActionToolBar(
+                    cell: cell,
+                    dependency: dependency,
+                    status: status,
+                    requestUserID: requestUserID
+                )
                 
                 os_log("%{public}s[%{public}ld], %{public}s: reblog count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.reblogsCount.intValue)
                 os_log("%{public}s[%{public}ld], %{public}s: like count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.favouritesCount.intValue)
@@ -573,6 +586,7 @@ extension StatusSection {
     
     static func configureActionToolBar(
         cell: StatusCell,
+        dependency: NeedsDependency,
         status: Status,
         requestUserID: String
     ) {
@@ -600,6 +614,8 @@ extension StatusSection {
         }()
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
+        
+        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
     
     static func configurePoll(
@@ -725,5 +741,38 @@ extension StatusSection {
     private static func formattedNumberTitleForActionButton(_ number: Int?) -> String {
         guard let number = number, number > 0 else { return "" }
         return String(number)
+    }
+    
+    private static func setupStatusMoreButtonMenu(
+        cell: StatusCell,
+        dependency: NeedsDependency,
+        status: Status) {
+        
+        cell.statusView.actionToolbarContainer.moreButton.menu = nil
+        
+        guard let authenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let author = (status.reblog ?? status).author
+        guard authenticationBox.userID != author.id else {
+            return
+        }
+        var children: [UIMenuElement] = []
+        let name = author.displayNameWithFallback
+        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { _ in
+            let viewModel = ReportViewModel(
+                context: dependency.context,
+                domain: authenticationBox.domain,
+                user: status.author,
+                status: status)
+            dependency.coordinator.present(
+                scene: .report(viewModel: viewModel),
+                from: nil,
+                transition: .modal(animated: true, completion: nil)
+            )
+        }
+        children.append(reportAction)
+        cell.statusView.actionToolbarContainer.moreButton.menu = UIMenu(title: "", options: [], children: children)
+        cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
     }
 }
