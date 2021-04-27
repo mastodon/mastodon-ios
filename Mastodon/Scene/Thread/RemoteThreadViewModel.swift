@@ -47,4 +47,43 @@ final class RemoteThreadViewModel: ThreadViewModel {
         }
         .store(in: &disposeBag)
     }
+    
+    // FIXME: multiple account supports
+    init(context: AppContext, notificationID: Mastodon.Entity.Notification.ID) {
+        super.init(context: context, optionalStatus: nil)
+        
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let domain = activeMastodonAuthenticationBox.domain
+        context.apiService.notification(
+            notificationID: notificationID,
+            mastodonAuthenticationBox: activeMastodonAuthenticationBox
+        )
+        .retry(3)
+        .sink { completion in
+            switch completion {
+            case .failure(let error):
+                // TODO: handle error
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote notification %s fetch failed: %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID, error.localizedDescription)
+            case .finished:
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: remote notification %s fetched", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+            }
+        } receiveValue: { [weak self] response in
+            guard let self = self else { return }
+            guard let statusID = response.value.status?.id else { return }
+            
+            let managedObjectContext = context.managedObjectContext
+            let request = Status.sortedFetchRequest
+            request.fetchLimit = 1
+            request.predicate = Status.predicate(domain: domain, id: statusID)
+            guard let status = managedObjectContext.safeFetch(request).first else {
+                assertionFailure()
+                return
+            }
+            self.rootItem.value = .root(statusObjectID: status.objectID, attribute: Item.StatusAttribute())
+        }
+        .store(in: &disposeBag)
+    }
+    
 }

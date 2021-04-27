@@ -167,6 +167,16 @@ extension MainTabBarController {
                 notificationViewController.navigationController?.tabBarItem.image = image
             }
             .store(in: &disposeBag)
+        
+        context.notificationService.requestRevealNotificationPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notificationID in
+                guard let self = self else { return }
+                self.coordinator.switchToTabBar(tab: .notification)
+                let threadViewModel = RemoteThreadViewModel(context: self.context, notificationID: notificationID)
+                self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+            }
+            .store(in: &disposeBag)
     }
         
 }

@@ -61,6 +61,8 @@ extension AppDelegate {
 
 // MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    // notification present in the foreground
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
@@ -78,6 +80,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.sound])
     }
     
+    // response to user action for notification
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse,
@@ -93,7 +96,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let notificationID = String(mastodonPushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
         appContext.notificationService.handlePushNotification(notificationID: notificationID)
-        
+        appContext.notificationService.requestRevealNotificationPublisher.send(notificationID)
         completionHandler()
     }
     
@@ -105,6 +108,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         return mastodonPushNotification
     }
+    
 }
 
 extension AppContext {

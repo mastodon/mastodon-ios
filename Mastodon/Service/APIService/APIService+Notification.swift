@@ -78,6 +78,34 @@ extension APIService {
             notificationID: notificationID,
             authorization: authorization
         )
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> in
+            guard let status = response.value.status else {
+                return Just(response)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            }
+            
+            return APIService.Persist.persistStatus(
+                managedObjectContext: self.backgroundManagedObjectContext,
+                domain: domain,
+                query: nil,
+                response: response.map { _ in [status] },
+                persistType: .lookUp,
+                requestMastodonUserID: nil,
+                log: OSLog.api
+            )
+            .setFailureType(to: Error.self)
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Notification> in
+                switch result {
+                case .success:
+                    return response
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
 
 }
