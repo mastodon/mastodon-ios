@@ -84,6 +84,10 @@ internal enum L10n {
         internal static let preview = L10n.tr("Localizable", "Common.Controls.Actions.Preview")
         /// Remove
         internal static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove")
+        /// Report %@
+        internal static func reportUser(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.ReportUser", String(describing: p1))
+        }
         /// Save
         internal static let save = L10n.tr("Localizable", "Common.Controls.Actions.Save")
         /// Save photo
@@ -100,6 +104,8 @@ internal enum L10n {
         internal static let signIn = L10n.tr("Localizable", "Common.Controls.Actions.SignIn")
         /// Sign Up
         internal static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp")
+        /// Skip
+        internal static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip")
         /// Take photo
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
         /// Try Again
@@ -531,6 +537,26 @@ internal enum L10n {
           /// username
           internal static let placeholder = L10n.tr("Localizable", "Scene.Register.Input.Username.Placeholder")
         }
+      }
+    }
+    internal enum Report {
+      /// Are there any other posts you’d like to add to the report?
+      internal static let content1 = L10n.tr("Localizable", "Scene.Report.Content1")
+      /// Is there anything the moderators should know about this report?
+      internal static let content2 = L10n.tr("Localizable", "Scene.Report.Content2")
+      /// Send Report
+      internal static let send = L10n.tr("Localizable", "Scene.Report.Send")
+      /// Send without comment
+      internal static let skipToSend = L10n.tr("Localizable", "Scene.Report.SkipToSend")
+      /// Step 1 of 2
+      internal static let step1 = L10n.tr("Localizable", "Scene.Report.Step1")
+      /// Step 2 of 2
+      internal static let step2 = L10n.tr("Localizable", "Scene.Report.Step2")
+      /// Type or paste additional comments
+      internal static let textPlaceholder = L10n.tr("Localizable", "Scene.Report.TextPlaceholder")
+      /// Report %@
+      internal static func title(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Report.Title", String(describing: p1))
       }
     }
     internal enum Search {

@@ -498,6 +498,34 @@ extension StatusProviderFacade {
             .store(in: &dependency.context.disposeBag)
     }
     
+    static func responseToStatusContentWarningRevealAction(dependency: ReportViewController, cell: UITableViewCell) {
+        let status = Future<Status?, Never> { promise in
+            guard let diffableDataSource = dependency.viewModel.diffableDataSource,
+                  let indexPath = dependency.tableView.indexPath(for: cell),
+                  let item = diffableDataSource.itemIdentifier(for: indexPath) else {
+                promise(.success(nil))
+                return
+            }
+            let managedObjectContext = dependency.viewModel.statusFetchedResultsController
+                .fetchedResultsController
+                .managedObjectContext
+            
+            switch item {
+            case .reportStatus(let objectID, _):
+                managedObjectContext.perform {
+                    let status = managedObjectContext.object(with: objectID) as! Status
+                    promise(.success(status))
+                }
+            default:
+                promise(.success(nil))
+            }
+        }
+        
+        _responseToStatusContentWarningRevealAction(
+            dependency: dependency,
+            status: status
+        )
+    }
 }
 
 extension StatusProviderFacade {

@@ -140,6 +140,10 @@
 		2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */; };
 		2DFAD5272616F9D300F9EE7C /* SearchViewController+Searching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5262616F9D300F9EE7C /* SearchViewController+Searching.swift */; };
 		2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */; };
+		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
+		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
+		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
+		5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8E055726319E47006E3C53 /* ReportFooterView.swift */; };
 		5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C456262599800002E742 /* SettingsViewModel.swift */; };
 		5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */; };
 		5B90C460262599800002E742 /* SettingsAppearanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */; };
@@ -151,6 +155,11 @@
 		5B90C47F26259BA90002E742 /* SubscriptionAlerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C47E26259BA90002E742 /* SubscriptionAlerts.swift */; };
 		5B90C48526259BF10002E742 /* APIService+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C48426259BF10002E742 /* APIService+Subscriptions.swift */; };
 		5B90C48B26259C120002E742 /* APIService+CoreData+Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B90C48A26259C120002E742 /* APIService+CoreData+Subscriptions.swift */; };
+		5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */; };
+		5BB04FDB262EA3070043BFF6 /* ReportHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */; };
+		5BB04FE9262EFC300043BFF6 /* ReportedStatusTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FE8262EFC300043BFF6 /* ReportedStatusTableviewCell.swift */; };
+		5BB04FEF262F0DCB0043BFF6 /* ReportViewModel+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */; };
+		5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */; };
 		5D0393902612D259007FE196 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D03938F2612D259007FE196 /* WebViewController.swift */; };
 		5D0393962612D266007FE196 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0393952612D266007FE196 /* WebViewModel.swift */; };
 		5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 5D526FE125BE9AC400460CB9 /* MastodonSDK */; };
@@ -563,6 +572,10 @@
 		3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5B24BBD7262DB14800A9381B /* ReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
+		5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		5B24BBE1262DB19100A9381B /* APIService+Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Report.swift"; sourceTree = "<group>"; };
+		5B8E055726319E47006E3C53 /* ReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportFooterView.swift; sourceTree = "<group>"; };
 		5B90C456262599800002E742 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		5B90C459262599800002E742 /* SettingsToggleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsToggleTableViewCell.swift; sourceTree = "<group>"; };
 		5B90C45A262599800002E742 /* SettingsAppearanceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceTableViewCell.swift; sourceTree = "<group>"; };
@@ -574,6 +587,11 @@
 		5B90C47E26259BA90002E742 /* SubscriptionAlerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionAlerts.swift; sourceTree = "<group>"; };
 		5B90C48426259BF10002E742 /* APIService+Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Subscriptions.swift"; sourceTree = "<group>"; };
 		5B90C48A26259C120002E742 /* APIService+CoreData+Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Subscriptions.swift"; sourceTree = "<group>"; };
+		5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportHeaderView.swift; sourceTree = "<group>"; };
+		5BB04FE8262EFC300043BFF6 /* ReportedStatusTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportedStatusTableviewCell.swift; sourceTree = "<group>"; };
+		5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Data.swift"; sourceTree = "<group>"; };
+		5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSection.swift; sourceTree = "<group>"; };
 		5D03938F2612D259007FE196 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		5D0393952612D266007FE196 /* WebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		5DA732CB2629CEF500A92342 /* UIView+Remove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Remove.swift"; sourceTree = "<group>"; };
@@ -1143,6 +1161,7 @@
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
 				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
+				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -1264,6 +1283,20 @@
 				452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B24BBD6262DB14800A9381B /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				5B24BBD7262DB14800A9381B /* ReportViewModel.swift */,
+				5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */,
+				5BB04FEE262F0DCB0043BFF6 /* ReportViewModel+Data.swift */,
+				5BB04FD4262E7AFF0043BFF6 /* ReportViewController.swift */,
+				5BB04FDA262EA3070043BFF6 /* ReportHeaderView.swift */,
+				5B8E055726319E47006E3C53 /* ReportFooterView.swift */,
+				5BB04FE8262EFC300043BFF6 /* ReportedStatusTableviewCell.swift */,
+			);
+			path = Report;
 			sourceTree = "<group>";
 		};
 		5B90C455262599800002E742 /* Settings */ = {
@@ -1478,6 +1511,7 @@
 				2D34D9DA261494120081BFC0 /* APIService+Search.swift */,
 				0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */,
 				DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */,
+				5B24BBE1262DB19100A9381B /* APIService+Report.swift */,
 				DBAE3F932616E28B004B8251 /* APIService+Follow.swift */,
 				2D8FCA072637EABB00137F46 /* APIService+FollowRequest.swift */,
 				DBAE3F8D2616E0B1004B8251 /* APIService+Block.swift */,
@@ -1718,6 +1752,7 @@
 				DB01409B25C40BB600F9F3CF /* Onboarding */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
+				5B24BBD6262DB14800A9381B /* Report */,
 				0F2021F5261325ED000C64BF /* HashtagTimeline */,
 				2DAC9E36262FC20B0062E1A6 /* SuggestionAccount */,
 				DB9D6BEE25E4F5370051B173 /* Search */,
@@ -2378,10 +2413,13 @@
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */,
 				DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */,
+				5BB04FEF262F0DCB0043BFF6 /* ReportViewModel+Data.swift in Sources */,
+				5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */,
 				DBB525502611ED6D002F1F29 /* ProfileHeaderView.swift in Sources */,
 				0FB3D33225E5F50E00AAD544 /* PickServerSearchCell.swift in Sources */,
 				DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */,
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,
+				5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
@@ -2494,6 +2532,7 @@
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
+				5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */,
 				DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
@@ -2545,6 +2584,7 @@
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				2D61254D262547C200299647 /* APIService+Notification.swift in Sources */,
 				DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */,
+				5BB04FE9262EFC300043BFF6 /* ReportedStatusTableviewCell.swift in Sources */,
 				DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */,
 				DB938EED2623F79B00E5B6C1 /* ThreadViewModel.swift in Sources */,
 				DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */,
@@ -2552,6 +2592,7 @@
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
+				5BB04FDB262EA3070043BFF6 /* ReportHeaderView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
@@ -2653,6 +2694,8 @@
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
+				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
+				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DB938F25262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift in Sources */,
 				DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
@@ -2664,6 +2707,7 @@
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */,
 				DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */,
+				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
 				DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -5,6 +5,8 @@
 //  Created by MainasuK Cirno on 2021-4-6.
 //
 
+import UIKit
+
 final class TimelineHeaderView: UIView {
         
     let iconImageView: UIImageView = {
