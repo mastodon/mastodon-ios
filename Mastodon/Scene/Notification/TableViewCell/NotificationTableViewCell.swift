@@ -21,6 +21,10 @@ protocol NotificationTableViewCellDelegate: AnyObject {
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     
+//    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton)
+//    
+//    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, denyButtonDidPressed button: UIButton)
+    
 }
 
 final class NotificationTableViewCell: UITableViewCell {
@@ -76,6 +80,24 @@ final class NotificationTableViewCell: UITableViewCell {
         return label
     }()
     
+    let acceptButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let actionImage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold))?.withRenderingMode(.alwaysTemplate)
+        button.setImage(actionImage, for: .normal)
+        button.tintColor = Asset.Colors.Label.secondary.color
+        return button
+    }()
+    
+    let rejectButton: UIButton = {
+        let button = UIButton(type: .custom)
+        let actionImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28, weight: .semibold))?.withRenderingMode(.alwaysTemplate)
+        button.setImage(actionImage, for: .normal)
+        button.tintColor = Asset.Colors.Label.secondary.color
+        return button
+    }()
+    
+    let buttonStackView = UIStackView()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         avatatImageView.af.cancelImageRequest()
@@ -97,9 +119,8 @@ extension NotificationTableViewCell {
     func configure() {
         
         let containerStackView = UIStackView()
-        containerStackView.axis = .horizontal
-        containerStackView.alignment = .center
-        containerStackView.spacing = 4
+        containerStackView.axis = .vertical
+        containerStackView.alignment = .fill
         containerStackView.layoutMargins = UIEdgeInsets(top: 14, left: 0, bottom: 12, right: 0)
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -110,8 +131,13 @@ extension NotificationTableViewCell {
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
         ])
+        
+        let horizontalStackView = UIStackView()
+        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
+        horizontalStackView.axis = .horizontal
+        horizontalStackView.spacing = 6
 
-        containerStackView.addArrangedSubview(avatarContainer)
+        horizontalStackView.addArrangedSubview(avatarContainer)
         avatarContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             avatarContainer.heightAnchor.constraint(equalToConstant: 47).priority(.required - 1),
@@ -144,13 +170,23 @@ extension NotificationTableViewCell {
         ])
         
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(nameLabel)
+        horizontalStackView.addArrangedSubview(nameLabel)
         actionLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(actionLabel)
-        nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        nameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        horizontalStackView.addArrangedSubview(actionLabel)
+        nameLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        nameLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
         actionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
+        containerStackView.addArrangedSubview(horizontalStackView)
+        
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.axis = .horizontal
+        buttonStackView.distribution = .fillEqually
+        acceptButton.translatesAutoresizingMaskIntoConstraints = false
+        denyButton.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.addArrangedSubview(acceptButton)
+        buttonStackView.addArrangedSubview(rejectButton)
+        containerStackView.addArrangedSubview(buttonStackView)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

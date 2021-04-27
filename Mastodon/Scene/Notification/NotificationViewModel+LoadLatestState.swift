@@ -53,7 +53,7 @@ extension NotificationViewModel.LoadLatestState {
                 sinceID: nil,
                 minID: nil,
                 limit: nil,
-                excludeTypes: [.followRequest],
+                excludeTypes: [],
                 accountID: nil
             )
             viewModel.context.apiService.allNotifications(

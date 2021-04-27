@@ -108,6 +108,7 @@ extension NotificationSection {
                     if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
                         cell.actionImageView.image = actionImage
                     }
+                    cell.buttonStackView.isHidden = (type != .followRequest)
                     return cell
                 }
             case .bottomLoader:
