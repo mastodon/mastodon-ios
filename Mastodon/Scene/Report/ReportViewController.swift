@@ -68,6 +68,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         tableView.allowsMultipleSelection = true
         return tableView
     }()
@@ -310,6 +311,7 @@ class ReportViewController: UIViewController, NeedsDependency {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension ReportViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let item = viewModel.diffableDataSource?.itemIdentifier(for: indexPath) else {
@@ -326,6 +328,14 @@ extension ReportViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - UITableViewDataSourcePrefetching
+extension ReportViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        viewModel.prefetchData(prefetchRowsAt: indexPaths)
+    }
+}
+
+// MARK: - UITextViewDelegate
 extension ReportViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.comment.send(textView.text)

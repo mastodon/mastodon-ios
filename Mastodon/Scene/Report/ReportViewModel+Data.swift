@@ -97,4 +97,42 @@ extension ReportViewModel {
             }
             .store(in: &disposeBag)
     }
+    
+    func prefetchData(prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let diffableDataSource = diffableDataSource else { return }
+        
+        // prefetch reply status
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let domain = activeMastodonAuthenticationBox.domain
+        
+        var statusObjectIDs: [NSManagedObjectID] = []
+        for indexPath in indexPaths {
+            let item = diffableDataSource.itemIdentifier(for: indexPath)
+            switch item {
+            case .reportStatus(let objectID, _):
+                statusObjectIDs.append(objectID)
+            default:
+                continue
+            }
+        }
+        
+        let backgroundManagedObjectContext = context.backgroundManagedObjectContext
+        backgroundManagedObjectContext.perform { [weak self] in
+            guard let self = self else { return }
+            for objectID in statusObjectIDs {
+                let status = backgroundManagedObjectContext.object(with: objectID) as! Status
+                guard let replyToID = status.inReplyToID, status.replyTo == nil else {
+                    // skip
+                    continue
+                }
+                self.context.statusPrefetchingService.prefetchReplyTo(
+                    domain: domain,
+                    statusObjectID: status.objectID,
+                    statusID: status.id,
+                    replyToStatusID: replyToID,
+                    authorizationBox: activeMastodonAuthenticationBox
+                )
+            }
+        }
+    }
 }
