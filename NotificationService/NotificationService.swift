@@ -58,6 +58,7 @@ class NotificationService: UNNotificationServiceExtension {
             bestAttemptContent.title = notification.title
             bestAttemptContent.subtitle = ""
             bestAttemptContent.body = notification.body
+            bestAttemptContent.sound = .default
             bestAttemptContent.userInfo["plaintext"] = plaintextData
             
             UserDefaults.shared.notificationBadgeCount += 1
