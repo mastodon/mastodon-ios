@@ -21,9 +21,9 @@ protocol NotificationTableViewCellDelegate: AnyObject {
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     
-//    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton)
-//    
-//    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, denyButtonDidPressed button: UIButton)
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton)
+    
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton)
     
 }
 
