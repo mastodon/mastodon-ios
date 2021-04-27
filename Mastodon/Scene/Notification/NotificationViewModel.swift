@@ -140,7 +140,7 @@ final class NotificationViewModel: NSObject {
     
     func rejectFollowRequest(notification: MastodonNotification) {
         guard let activeMastodonAuthenticationBox = self.activeMastodonAuthenticationBox.value else { return }
-        context.apiService.acceptFollowRequest(mastodonUserID: notification.account.id, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
+        context.apiService.rejectFollowRequest(mastodonUserID: notification.account.id, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
             .sink { [weak self] completion in
                 switch completion {
                 case .failure(let error):

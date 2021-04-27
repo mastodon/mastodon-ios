@@ -100,7 +100,7 @@ extension NotificationSection {
                     cell.rejectButton.publisher(for: .touchUpInside)
                         .sink { [weak cell] _ in
                             guard let cell = cell else { return }
-                            cell.delegate?.notificationTableViewCell(cell, notification: notification, rejectButtonDidPressed: cell.acceptButton)
+                            cell.delegate?.notificationTableViewCell(cell, notification: notification, rejectButtonDidPressed: cell.rejectButton)
                         }
                         .store(in: &cell.disposeBag)
                     cell.actionImageBackground.backgroundColor = color
