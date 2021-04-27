@@ -27,16 +27,16 @@ target 'Mastodon' do
 
   end
 
+  target 'AppShared' do 
+
+  end
+
 end
 
 plugin 'cocoapods-keys', {
   :project => "Mastodon",
   :keys => [
     "notification_endpoint",
-    "notification_endpoint_debug",
-    "notification_key_nonce",
-    "notification_key_nonce_debug",
-    "notification_key_auth",
-    "notification_key_auth_debug"
+    "notification_endpoint_debug"
   ]
 }

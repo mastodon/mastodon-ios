@@ -29,7 +29,7 @@ extension APIService {
             query: query
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: create subscription successful ", ((#file as NSString).lastPathComponent), #line, #function)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: create subscription successful %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.endpoint)
 
             let managedObjectContext = self.backgroundManagedObjectContext
             return managedObjectContext.performChanges {
@@ -45,7 +45,8 @@ extension APIService {
             .setFailureType(to: Error.self)
             .map { _ in return response }
             .eraseToAnyPublisher()
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
     
     func cancelSubscription(

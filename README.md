@@ -51,6 +51,7 @@ arch -x86_64 pod install
 - [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 - [DateToolSwift](https://github.com/MatthewYork/DateTools)
 - [Kanna](https://github.com/tid-kijyun/Kanna)
+- [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess.git)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [SwiftGen](https://github.com/SwiftGen/SwiftGen)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)

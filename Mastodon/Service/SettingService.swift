@@ -5,6 +5,7 @@
 //  Created by MainasuK Cirno on 2021-4-25.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -108,16 +109,17 @@ final class SettingService {
             }
             .store(in: &disposeBag)
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             notificationService.deviceToken,
-            currentSetting
+            currentSetting.eraseToAnyPublisher(),
+            authenticationService.activeMastodonAuthenticationBox
         )
-        .compactMap { [weak self] deviceToken, setting -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error>? in
+        .compactMap { [weak self] deviceToken, setting, activeMastodonAuthenticationBox -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error>? in
             guard let self = self else { return nil }
-            guard let apiService = self.apiService else { return nil }
             guard let deviceToken = deviceToken else { return nil }
-            guard let authenticationBox = self.authenticationService?.activeMastodonAuthenticationBox.value else { return nil }
             guard let setting = setting else { return nil }
+            guard let authenticationBox = activeMastodonAuthenticationBox else { return nil }
+            
             guard let subscription = setting.activeSubscription else { return nil }
             
             guard setting.domain == authenticationBox.domain,
@@ -142,21 +144,30 @@ final class SettingService {
                 queryData: queryData,
                 mastodonAuthenticationBox: authenticationBox
             )
-            
+    
             return apiService.createSubscription(
                 subscriptionObjectID: subscription.objectID,
                 query: query,
                 mastodonAuthenticationBox: authenticationBox
             )
         }
-        .switchToLatest()
-        .sink { _ in
-            // do nothing
-        } receiveValue: { _ in
-            // do nothing
-        }
+        .debounce(for: .seconds(3), scheduler: DispatchQueue.main)      // limit subscribe request emit time interval
+        .sink(receiveValue: { [weak self] publisher in
+            guard let self = self else { return }
+            publisher
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe failure: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    case .finished:
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe success", ((#file as NSString).lastPathComponent), #line, #function)
+                    }
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &self.disposeBag)
+        })
         .store(in: &disposeBag)
-        
     }
     
 }

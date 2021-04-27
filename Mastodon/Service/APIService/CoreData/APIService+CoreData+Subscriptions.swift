@@ -27,6 +27,7 @@ extension APIService.CoreData {
         }()
         
         if let oldSubscription = oldSubscription {
+            oldSubscription.setting = setting
             return (oldSubscription, false)
         } else {
             let subscriptionProperty = Subscription.Property(policyRaw: policy.rawValue)

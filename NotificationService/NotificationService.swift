@@ -10,7 +10,7 @@ import CommonOSLog
 import CryptoKit
 import AlamofireImage
 import Base85
-import Keys
+import AppShared
 
 class NotificationService: UNNotificationServiceExtension {
 
@@ -25,7 +25,8 @@ class NotificationService: UNNotificationServiceExtension {
             // Modify the notification content here...
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
-            let privateKey = AppSecret.default.notificationPrivateKey!
+            let privateKey = AppSecret.default.notificationPrivateKey
+            let auth = AppSecret.default.notificationAuth
             
             guard let encodedPayload = bestAttemptContent.userInfo["p"] as? String,
                   let payload = Data(base85Encoded: encodedPayload, options: [], encoding: .z85) else {
@@ -48,9 +49,8 @@ class NotificationService: UNNotificationServiceExtension {
                 return
             }
             
-            let auth = AppSecret.default.notificationAuth
             guard let plaintextData = NotificationService.decrypt(payload: payload, salt: salt, auth: auth, privateKey: privateKey, publicKey: publicKey),
-                  let notification = try? JSONDecoder().decode(MastodonNotification.self, from: plaintextData) else {
+                  let notification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintextData) else {
                 contentHandler(bestAttemptContent)
                 return
             }
@@ -58,6 +58,7 @@ class NotificationService: UNNotificationServiceExtension {
             bestAttemptContent.title = notification.title
             bestAttemptContent.subtitle = ""
             bestAttemptContent.body = notification.body
+            bestAttemptContent.userInfo["plaintext"] = plaintextData
             
             UserDefaults.shared.notificationBadgeCount += 1
             bestAttemptContent.badge = NSNumber(integerLiteral: UserDefaults.shared.notificationBadgeCount)

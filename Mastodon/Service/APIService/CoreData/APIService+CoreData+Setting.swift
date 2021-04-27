@@ -27,35 +27,50 @@ extension APIService.CoreData {
         }()
         
         if let oldSetting = oldSetting {
+            setupSettingSubscriptions(managedObjectContext: managedObjectContext, setting: oldSetting)
             return (oldSetting, false)
         } else {
             let setting = Setting.insert(
                 into: managedObjectContext,
                 property: property
             )
-            let policies: [Mastodon.API.Subscriptions.Policy] = [
-                .all,
-                .followed,
-                .follower,
-                .none
-            ]
-            let now = Date()
-            policies.forEach { policy in
-                let (subscription, _) = createOrFetchSubscription(
-                    into: managedObjectContext,
-                    setting: setting,
-                    policy: policy
-                )
-                if policy == .all {
-                    subscription.update(activedAt: now)
-                } else {
-                    subscription.update(activedAt: now.addingTimeInterval(-10))
-                }
-            }
-            
-            
+            setupSettingSubscriptions(managedObjectContext: managedObjectContext, setting: setting)
             return (setting, true)
         }
     }
 
+}
+
+extension APIService.CoreData {
+
+    static func setupSettingSubscriptions(
+        managedObjectContext: NSManagedObjectContext,
+        setting: Setting
+    ) {
+        guard (setting.subscriptions ?? Set()).isEmpty else { return }
+        
+        let now = Date()
+        let policies: [Mastodon.API.Subscriptions.Policy] = [
+            .all,
+            .followed,
+            .follower,
+            .none
+        ]
+        policies.forEach { policy in
+            let (subscription, _) = createOrFetchSubscription(
+                into: managedObjectContext,
+                setting: setting,
+                policy: policy
+            )
+            if policy == .all {
+                subscription.update(activedAt: now)
+            } else {
+                subscription.update(activedAt: now.addingTimeInterval(-10))
+            }
+        }
+        
+        // trigger setting update
+        setting.didUpdate(at: now)
+    }
+    
 }

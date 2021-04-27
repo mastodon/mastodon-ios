@@ -32,7 +32,13 @@ extension NotificationService {
             return nil
         }
         
-        guard let plaintext = try? AES.GCM.open(sealedBox, using: key) else {
+        var _plaintext: Data?
+        do {
+            _plaintext = try AES.GCM.open(sealedBox, using: key)
+        } catch {
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sealedBox open fail %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        }
+        guard let plaintext = _plaintext else {
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: failed to open sealedBox", ((#file as NSString).lastPathComponent), #line, #function)
             return nil
         }
@@ -63,34 +69,5 @@ extension NotificationService {
         info.append(serverPublicKey)
 
         return info
-    }
-}
-
-extension NotificationService {
-    struct MastodonNotification: Codable {
-        
-        private let _accessToken: String
-        var accessToken: String {
-            return String.normalize(base64String: _accessToken)
-        }
-
-        let notificationID: Int
-        let notificationType: String
-        
-        let preferredLocale: String?
-        let icon: String?
-        let title: String
-        let body: String
-        
-        enum CodingKeys: String, CodingKey {
-            case _accessToken = "access_token"
-            case notificationID = "notification_id"
-            case notificationType = "notification_type"
-            case preferredLocale = "preferred_locale"
-            case icon
-            case title
-            case body
-        }
-        
     }
 }

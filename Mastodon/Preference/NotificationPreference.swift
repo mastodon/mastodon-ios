@@ -14,7 +14,7 @@ extension UserDefaults {
             register(defaults: [#function: 0])
             return integer(forKey: #function)
         }
-        set { UserDefaults.shared[#function] = newValue }
+        set { self[#function] = newValue }
     }
 
 }

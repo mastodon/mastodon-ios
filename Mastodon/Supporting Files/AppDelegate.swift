@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import AppShared
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,11 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        AppSecret.default.register()
+        
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
         UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
         
-//        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
         
         return true
@@ -57,7 +60,28 @@ extension AppDelegate {
 
 // MARK: - UNUserNotificationCenterDelegate
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
+        if let plaintext = notification.request.content.userInfo["plaintext"] as? Data,
+           let mastodonPushNotification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintext) {
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] present", ((#file as NSString).lastPathComponent), #line, #function)
+
+        }
+        completionHandler(.banner)
+    }
     
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
+        
+    }
 }
 
 extension AppContext {

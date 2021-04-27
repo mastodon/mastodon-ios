@@ -11,6 +11,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import AppShared
 
 final class NotificationService {
     
@@ -31,6 +32,16 @@ final class NotificationService {
         authenticationService: AuthenticationService
     ) {
         self.authenticationService = authenticationService
+        
+        authenticationService.mastodonAuthentications
+            .sink(receiveValue: { [weak self] mastodonAuthentications in
+                guard let self = self else { return }
+                
+                // request permission when sign-in
+                guard !mastodonAuthentications.isEmpty else { return }
+                self.requestNotificationPermission()
+            })
+            .store(in: &disposeBag)
         
         deviceToken
             .receive(on: DispatchQueue.main)
@@ -83,13 +94,7 @@ extension NotificationService {
         }
         return _notificationSubscription
     }
-    
-    static func createRandomAuthBytes() -> Data {
-        let byteCount = 16
-        var bytes = Data(count: byteCount)
-        _ = bytes.withUnsafeMutableBytes { SecRandomCopyBytes(kSecRandomDefault, byteCount, $0.baseAddress!) }
-        return bytes
-    }
+
 }
 
 extension NotificationService {
@@ -120,7 +125,7 @@ extension NotificationService.NotificationViewModel {
         
         let appSecret = AppSecret.default
         let endpoint = appSecret.notificationEndpoint + "/" + deviceToken
-        let p256dh = appSecret.uncompressionNotificationPublicKeyData
+        let p256dh = appSecret.notificationPublicKey.x963Representation
         let auth = appSecret.notificationAuth
 
         let query = Mastodon.API.Subscriptions.CreateSubscriptionQuery(

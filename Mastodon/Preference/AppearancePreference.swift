@@ -14,7 +14,7 @@ extension UserDefaults {
             register(defaults: [#function: UIUserInterfaceStyle.unspecified.rawValue])
             return UIUserInterfaceStyle(rawValue: integer(forKey: #function)) ?? .unspecified
         }
-        set { UserDefaults.shared[#function] = newValue.rawValue }
+        set { self[#function] = newValue.rawValue }
     }
 
 }

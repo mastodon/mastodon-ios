@@ -8,6 +8,7 @@
 import os
 import Foundation
 import CoreData
+import AppShared
 
 public final class CoreDataStack {
     
@@ -18,7 +19,7 @@ public final class CoreDataStack {
     }
     
     public convenience init(databaseName: String = "shared") {
-        let storeURL = URL.storeURL(for: AppSharedName.groupID, databaseName: databaseName)
+        let storeURL = URL.storeURL(for: AppName.groupID, databaseName: databaseName)
         let storeDescription = NSPersistentStoreDescription(url: storeURL)
         self.init(persistentStoreDescriptions: [storeDescription])
     }
