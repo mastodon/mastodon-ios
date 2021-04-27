@@ -125,6 +125,8 @@ extension StatusSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineHeaderTableViewCell.self), for: indexPath) as! TimelineHeaderTableViewCell
                 StatusSection.configureEmptyStateHeader(cell: cell, attribute: attribute)
                 return cell
+            case .reportStatus:
+                return UITableViewCell()
             }
         }
     }
@@ -147,7 +149,8 @@ extension StatusSection {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { change in
+            } receiveValue: { [weak cell] change in
+                guard let cell = cell else { return }
                 guard case .update(let object) = change.changeType,
                       let newStatus = object as? Status else { return }
                 StatusSection.configureHeader(cell: cell, status: newStatus)
@@ -219,7 +222,8 @@ extension StatusSection {
             } else {
                 meta.blurhashImagePublisher()
                     .receive(on: DispatchQueue.main)
-                    .sink { image in
+                    .sink { [weak cell] image in
+                        guard let cell = cell else { return }
                         blurhashOverlayImageView.image = image
                         image?.pngData().flatMap {
                             blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)
@@ -244,7 +248,8 @@ extension StatusSection {
                 statusItemAttribute.isRevealing
             )
             .receive(on: DispatchQueue.main)
-            .sink { isImageLoaded, isMediaRevealing in
+            .sink { [weak cell] isImageLoaded, isMediaRevealing in
+                guard let cell = cell else { return }
                 guard isImageLoaded else {
                     blurhashOverlayImageView.alpha = 1
                     blurhashOverlayImageView.isHidden = false
@@ -299,6 +304,9 @@ extension StatusSection {
             case is NotificationStatusTableViewCell:
                 let notificationTableViewCell = cell as! NotificationStatusTableViewCell
                 parent = notificationTableViewCell.delegate?.parent()
+            case is ReportedStatusTableViewCell:
+                let reportTableViewCell = cell as! ReportedStatusTableViewCell
+                parent = reportTableViewCell.dependency
             default:
                 parent = nil
                 assertionFailure("unknown cell")
@@ -350,7 +358,8 @@ extension StatusSection {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { [weak dependency] change in
+            } receiveValue: { [weak dependency, weak cell] change in
+                guard let cell = cell else { return }
                 guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
@@ -377,7 +386,8 @@ extension StatusSection {
             ManagedObjectObserver.observe(object: poll)
                 .sink { _ in
                     // do nothing
-                } receiveValue: { change in
+                } receiveValue: { [weak cell] change in
+                    guard let cell = cell else { return }
                     guard case .update(let object) = change.changeType,
                           let newPoll = object as? Poll else { return }
                     StatusSection.configurePoll(
@@ -392,7 +402,12 @@ extension StatusSection {
         }
         
         // toolbar
-        StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
+        StatusSection.configureActionToolBar(
+            cell: cell,
+            dependency: dependency,
+            status: status,
+            requestUserID: requestUserID
+        )
         
         // separator line
         if let statusTableViewCell = cell as? StatusTableViewCell {
@@ -403,7 +418,8 @@ extension StatusSection {
         let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
         timestampUpdatePublisher
-            .sink { _ in
+            .sink { [weak cell] _ in
+                guard let cell = cell else { return }
                 cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
@@ -413,10 +429,17 @@ extension StatusSection {
             .receive(on: DispatchQueue.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { change in
+            } receiveValue: { [weak dependency, weak cell] change in
+                guard let cell = cell else { return }
+                guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
-                StatusSection.configureActionToolBar(cell: cell, status: status, requestUserID: requestUserID)
+                StatusSection.configureActionToolBar(
+                    cell: cell,
+                    dependency: dependency,
+                    status: status,
+                    requestUserID: requestUserID
+                )
                 
                 os_log("%{public}s[%{public}ld], %{public}s: reblog count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.reblogsCount.intValue)
                 os_log("%{public}s[%{public}ld], %{public}s: like count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.favouritesCount.intValue)
@@ -571,6 +594,7 @@ extension StatusSection {
     
     static func configureActionToolBar(
         cell: StatusCell,
+        dependency: NeedsDependency,
         status: Status,
         requestUserID: String
     ) {
@@ -598,6 +622,8 @@ extension StatusSection {
         }()
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
+        
+        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
     
     static func configurePoll(
@@ -723,5 +749,40 @@ extension StatusSection {
     private static func formattedNumberTitleForActionButton(_ number: Int?) -> String {
         guard let number = number, number > 0 else { return "" }
         return String(number)
+    }
+    
+    private static func setupStatusMoreButtonMenu(
+        cell: StatusCell,
+        dependency: NeedsDependency,
+        status: Status) {
+        
+        cell.statusView.actionToolbarContainer.moreButton.menu = nil
+        
+        guard let authenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+        let author = (status.reblog ?? status).author
+        guard authenticationBox.userID != author.id else {
+            return
+        }
+        var children: [UIMenuElement] = []
+        let name = author.displayNameWithFallback
+        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) {
+            [weak dependency] _ in
+            guard let dependency = dependency else { return }
+            let viewModel = ReportViewModel(
+                context: dependency.context,
+                domain: authenticationBox.domain,
+                user: status.author,
+                status: status)
+            dependency.coordinator.present(
+                scene: .report(viewModel: viewModel),
+                from: nil,
+                transition: .modal(animated: true, completion: nil)
+            )
+        }
+        children.append(reportAction)
+        cell.statusView.actionToolbarContainer.moreButton.menu = UIMenu(title: "", options: [], children: children)
+        cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
     }
 }

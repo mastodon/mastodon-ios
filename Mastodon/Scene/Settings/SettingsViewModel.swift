@@ -13,10 +13,9 @@ import MastodonSDK
 import UIKit
 import os.log
 
-class SettingsViewModel: NSObject, NeedsDependency {
+class SettingsViewModel: NSObject {
     // confirm set only once
     weak var context: AppContext! { willSet { precondition(context == nil) } }
-    weak var coordinator: SceneCoordinator! { willSet { precondition(coordinator == nil) } }
     
     var dataSource: UITableViewDiffableDataSource<SettingsSection, SettingsItem>!
     var disposeBag = Set<AnyCancellable>()
@@ -87,9 +86,8 @@ class SettingsViewModel: NSObject, NeedsDependency {
     struct Output {
     }
     
-    init(context: AppContext, coordinator: SceneCoordinator) {
+    init(context: AppContext) {
         self.context = context
-        self.coordinator = coordinator
         
         super.init()
     }

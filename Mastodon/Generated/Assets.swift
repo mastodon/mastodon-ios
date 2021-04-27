@@ -48,6 +48,7 @@ internal enum Asset {
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
       internal static let systemBackground = ColorAsset(name: "Colors/Background/system.background")
+      internal static let systemElevatedBackground = ColorAsset(name: "Colors/Background/system.elevated.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Colors/Background/system.grouped.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Colors/Background/tertiary.system.background")
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
