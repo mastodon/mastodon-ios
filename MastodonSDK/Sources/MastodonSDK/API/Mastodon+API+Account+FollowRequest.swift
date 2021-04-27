@@ -35,13 +35,13 @@ extension Mastodon.API.Account {
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - userID: ID of the account in the database
     ///   - authorization: App token
-    /// - Returns: `AnyPublisher` contains `Account` nested in the response
+    /// - Returns: `AnyPublisher` contains `Relationship` nested in the response
     public static func acceptFollowRequest(
         session: URLSession,
         domain: String,
         userID: String,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let request = Mastodon.API.post(
             url: acceptFollowRequestEndpointURL(domain: domain, userID: userID),
             query: nil,
@@ -49,7 +49,7 @@ extension Mastodon.API.Account {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
@@ -67,13 +67,13 @@ extension Mastodon.API.Account {
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - userID: ID of the account in the database
     ///   - authorization: App token
-    /// - Returns: `AnyPublisher` contains `Account` nested in the response
+    /// - Returns: `AnyPublisher` contains `Relationship` nested in the response
     public static func rejectFollowRequest(
         session: URLSession,
         domain: String,
         userID: String,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let request = Mastodon.API.post(
             url: rejectFollowRequestEndpointURL(domain: domain, userID: userID),
             query: nil,
@@ -81,7 +81,7 @@ extension Mastodon.API.Account {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Relationship.self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
