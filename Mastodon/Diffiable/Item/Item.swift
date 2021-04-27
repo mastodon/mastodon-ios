@@ -32,6 +32,9 @@ enum Item {
     case bottomLoader
     
     case emptyStateHeader(attribute: EmptyStateHeaderAttribute)
+    
+    // reports
+    case reportStatus(objectID: NSManagedObjectID, attribute: ReportStatusAttribute)
 }
 
 extension Item {
@@ -79,6 +82,15 @@ extension Item {
             hasher.combine(id)
         }
     }
+    
+    class ReportStatusAttribute: StatusAttribute {
+        var isSelected: Bool
+        
+        init(isSeparatorLineHidden: Bool = false, isSelected: Bool = false) {
+            self.isSelected = isSelected
+            super.init(isSeparatorLineHidden: isSeparatorLineHidden)
+        }
+    }
 }
 
 extension Item: Equatable {
@@ -106,6 +118,8 @@ extension Item: Equatable {
             return true
         case (.emptyStateHeader(let attributeLeft), .emptyStateHeader(let attributeRight)):
             return attributeLeft == attributeRight
+        case (.reportStatus(let objectIDLeft, _), .reportStatus(let objectIDRight, _)):
+            return objectIDLeft == objectIDRight
         default:
             return false
         }
@@ -139,6 +153,8 @@ extension Item: Hashable {
             hasher.combine(String(describing: Item.bottomLoader.self))
         case .emptyStateHeader(let attribute):
             hasher.combine(attribute)
+        case .reportStatus(let objectID, _):
+            hasher.combine(objectID)
         }
     }
 }

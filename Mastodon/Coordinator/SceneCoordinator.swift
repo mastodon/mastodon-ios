@@ -64,6 +64,9 @@ extension SceneCoordinator {
         
         // setting
         case settings(viewModel: SettingsViewModel)
+        
+        // report
+        case report(viewModel: ReportViewModel)
 
         // suggestion account
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
@@ -72,7 +75,6 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        
         #if DEBUG
         case publicTimeline
         #endif
@@ -283,6 +285,14 @@ private extension SceneCoordinator {
             activityViewController.popoverPresentationController?.sourceView = sourceView
             activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
             viewController = activityViewController
+        case .settings(let viewModel):
+            let _viewController = SettingsViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .report(let viewModel):
+            let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()
