@@ -88,6 +88,11 @@ extension NotificationViewController {
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
+        // fetch latest if has unread push notification
+        if context.notificationService.hasUnreadPushNotification.value {
+            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
+        }
+        
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
     }

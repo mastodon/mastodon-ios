@@ -64,4 +64,20 @@ extension APIService {
         }
         .eraseToAnyPublisher()
     }
+    
+    func notification(
+        notificationID: Mastodon.Entity.Notification.ID,
+        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> {
+        let domain = mastodonAuthenticationBox.domain
+        let authorization = mastodonAuthenticationBox.userAuthorization
+        
+        return Mastodon.API.Notifications.getNotification(
+            session: session,
+            domain: domain,
+            notificationID: notificationID,
+            authorization: authorization
+        )
+    }
+
 }

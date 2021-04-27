@@ -20,6 +20,7 @@ final class NotificationService {
     let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.NotificationService.working-queue")
     
     // input
+    weak var apiService: APIService?
     weak var authenticationService: AuthenticationService?
     let isNotificationPermissionGranted = CurrentValueSubject<Bool, Never>(false)
     let deviceToken = CurrentValueSubject<Data?, Never>(nil)
@@ -27,10 +28,13 @@ final class NotificationService {
     // output
     /// [Token: UserID]
     let notificationSubscriptionDict: [String: NotificationViewModel] = [:]
+    let hasUnreadPushNotification = CurrentValueSubject<Bool, Never>(false)
     
     init(
+        apiService: APIService,
         authenticationService: AuthenticationService
     ) {
+        self.apiService = apiService
         self.authenticationService = authenticationService
         
         authenticationService.mastodonAuthentications
@@ -94,8 +98,14 @@ extension NotificationService {
         }
         return _notificationSubscription
     }
-
+    
+    func handlePushNotification(notificationID: Mastodon.Entity.Notification.ID) {
+        hasUnreadPushNotification.value = true
+    }
+    
 }
+
+// MARK: - NotificationViewModel
 
 extension NotificationService {
     final class NotificationViewModel {
@@ -141,4 +151,5 @@ extension NotificationService.NotificationViewModel {
 
         return query
     }
+    
 }

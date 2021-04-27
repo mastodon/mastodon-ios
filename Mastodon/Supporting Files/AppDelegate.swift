@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import UserNotifications
 import AppShared
 
 @main
@@ -66,12 +67,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
-        if let plaintext = notification.request.content.userInfo["plaintext"] as? Data,
-           let mastodonPushNotification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintext) {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] present", ((#file as NSString).lastPathComponent), #line, #function)
-
+        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
+            completionHandler([])
+            return
         }
-        completionHandler(.banner)
+        
+        let notificationID = String(mastodonPushNotification.notificationID)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+        appContext.notificationService.handlePushNotification(notificationID: notificationID)
+        completionHandler([.sound])
     }
     
     func userNotificationCenter(
@@ -81,6 +85,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     ) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
         
+        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
+            completionHandler()
+            return
+        }
+        
+        let notificationID = String(mastodonPushNotification.notificationID)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+        appContext.notificationService.handlePushNotification(notificationID: notificationID)
+        
+        completionHandler()
+    }
+    
+    private static func mastodonPushNotification(from notification: UNNotification) -> MastodonPushNotification? {
+        guard let plaintext = notification.request.content.userInfo["plaintext"] as? Data,
+              let mastodonPushNotification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintext) else {
+            return nil
+        }
+        
+        return mastodonPushNotification
     }
 }
 

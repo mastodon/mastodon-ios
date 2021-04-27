@@ -61,6 +61,7 @@ class AppContext: ObservableObject {
             apiService: _apiService
         )
         let _notificationService = NotificationService(
+            apiService: _apiService,
             authenticationService: _authenticationService
         )
         notificationService = _notificationService
