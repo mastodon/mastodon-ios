@@ -1,0 +1,89 @@
+//
+//  Mastodon+API+Account+FollowRequest.swift
+//  
+//
+//  Created by sxiaojian on 2021/4/27.
+//
+
+import Foundation
+import Combine
+
+// MARK: - Account credentials
+extension Mastodon.API.Account {
+    
+    static func acceptFollowRequestEndpointURL(domain: String, userID: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("follow_requests")
+            .appendingPathComponent(userID)
+            .appendingPathComponent("authorize")
+    }
+    
+    static func rejectFollowRequestEndpointURL(domain: String, userID: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("follow_requests")
+            .appendingPathComponent(userID)
+            .appendingPathComponent("reject")
+    }
+
+    /// Accept Follow
+    ///
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.0.0
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - userID: ID of the account in the database
+    ///   - authorization: App token
+    /// - Returns: `AnyPublisher` contains `Account` nested in the response
+    public static func acceptFollowRequest(
+        session: URLSession,
+        domain: String,
+        userID: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        let request = Mastodon.API.post(
+            url: acceptFollowRequestEndpointURL(domain: domain, userID: userID),
+            query: nil,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    /// Reject Follow
+    ///
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.0.0
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - userID: ID of the account in the database
+    ///   - authorization: App token
+    /// - Returns: `AnyPublisher` contains `Account` nested in the response
+    public static func rejectFollowRequest(
+        session: URLSession,
+        domain: String,
+        userID: String,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        let request = Mastodon.API.post(
+            url: rejectFollowRequestEndpointURL(domain: domain, userID: userID),
+            query: nil,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+}

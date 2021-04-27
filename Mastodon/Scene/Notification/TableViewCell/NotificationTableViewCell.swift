@@ -183,7 +183,7 @@ extension NotificationTableViewCell {
         buttonStackView.axis = .horizontal
         buttonStackView.distribution = .fillEqually
         acceptButton.translatesAutoresizingMaskIntoConstraints = false
-        denyButton.translatesAutoresizingMaskIntoConstraints = false
+        rejectButton.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.addArrangedSubview(acceptButton)
         buttonStackView.addArrangedSubview(rejectButton)
         containerStackView.addArrangedSubview(buttonStackView)
