@@ -32,7 +32,7 @@ extension MastodonRegisterViewController {
         }
         children.append(browseAction)
         if self.viewModel.avatarImage.value != nil {
-            let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) { [weak self] _ in
                 guard let self = self else { return }
                 self.viewModel.avatarImage.value = nil
             }

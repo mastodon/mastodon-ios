@@ -23,6 +23,7 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
   internal enum Asset {
+    internal static let email = ImageAsset(name: "Asset/email")
     internal static let mastodonTextLogo = ImageAsset(name: "Asset/mastodon.text.logo")
   }
   internal enum Circles {
@@ -62,7 +63,6 @@ internal enum Asset {
       internal static let normal = ColorAsset(name: "Colors/Button/normal")
     }
     internal enum Icon {
-      internal static let photo = ColorAsset(name: "Colors/Icon/photo")
       internal static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
     internal enum Label {
@@ -83,6 +83,7 @@ internal enum Asset {
       internal static let bar = ColorAsset(name: "Colors/Slider/bar")
     }
     internal enum TextField {
+      internal static let background = ColorAsset(name: "Colors/TextField/background")
       internal static let highlight = ColorAsset(name: "Colors/TextField/highlight")
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")

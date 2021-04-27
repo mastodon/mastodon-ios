@@ -64,10 +64,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
 
 extension WelcomeViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

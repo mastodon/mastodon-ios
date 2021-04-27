@@ -22,7 +22,6 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     private var expandServerDomainSet = Set<String>()
     
     private let emptyStateView = PickServerEmptyStateView()
-    private let emptyStateViewHPadding: CGFloat = 4 // UIView's readableContentGuide is 4pt smaller then UITableViewCell's
     let tableViewTopPaddingView = UIView()      // fix empty state view background display when tableView bounce scrolling
     var tableViewTopPaddingViewHeightLayoutConstraint: NSLayoutConstraint!
     
@@ -57,9 +56,6 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
 
 extension MastodonPickServerViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .darkContent
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,15 +80,6 @@ extension MastodonPickServerViewController {
             view.readableContentGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
             nextStepButton.heightAnchor.constraint(equalToConstant: MastodonPickServerViewController.actionButtonHeight).priority(.defaultHigh),
             view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
-        ])
-        
-        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emptyStateView)
-        NSLayoutConstraint.activate([
-            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyStateView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: emptyStateViewHPadding),
-            emptyStateView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor, constant: -emptyStateViewHPadding),
-            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
     
         // fix AutoLayout warning when observe before view appear
@@ -125,6 +112,16 @@ extension MastodonPickServerViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             nextStepButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 7),
         ])
+        
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyStateView)
+        NSLayoutConstraint.activate([
+            emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
+            emptyStateView.leadingAnchor.constraint(equalTo: tableView.readableContentGuide.leadingAnchor),
+            emptyStateView.trailingAnchor.constraint(equalTo: tableView.readableContentGuide.trailingAnchor),
+            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
+        ])
+        view.sendSubviewToBack(emptyStateView)
         
         switch viewModel.mode {
         case .signIn:
