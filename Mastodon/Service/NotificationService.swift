@@ -100,8 +100,56 @@ extension NotificationService {
         return _notificationSubscription
     }
     
-    func handlePushNotification(notificationID: Mastodon.Entity.Notification.ID) {
+    func handle(mastodonPushNotification: MastodonPushNotification) {
         hasUnreadPushNotification.value = true
+        
+        // Subscription maybe failed to cancel when sign-out
+        // Try cancel again if receive that kind push notification
+        guard let managedObjectContext = authenticationService?.managedObjectContext else { return }
+        guard let apiService = apiService else { return }
+
+        managedObjectContext.perform {
+            let subscriptionRequest = NotificationSubscription.sortedFetchRequest
+            subscriptionRequest.predicate = NotificationSubscription.predicate(userToken: mastodonPushNotification.accessToken)
+            let subscriptions = managedObjectContext.safeFetch(subscriptionRequest)
+            
+            // note: assert setting remove after cancel subscription
+            guard let subscription = subscriptions.first else { return }
+            guard let setting = subscription.setting else { return }
+            let domain = setting.domain
+            let userID = setting.userID
+            
+            let authenticationRequest = MastodonAuthentication.sortedFetchRequest
+            authenticationRequest.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
+            let authentication = managedObjectContext.safeFetch(authenticationRequest).first
+            
+            guard authentication == nil else {
+                // do nothing if still sign-in
+                return
+            }
+            
+            // cancel subscription if sign-out
+            let accessToken = mastodonPushNotification.accessToken
+            let mastodonAuthenticationBox = AuthenticationService.MastodonAuthenticationBox(
+                domain: domain,
+                userID: userID,
+                appAuthorization: .init(accessToken: accessToken),
+                userAuthorization: .init(accessToken: accessToken)
+            )
+            apiService
+                .cancelSubscription(mastodonAuthenticationBox: mastodonAuthenticationBox)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] failed to cancel sign-out user subscription: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    case .finished:
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] cancel sign-out user subscription", ((#file as NSString).lastPathComponent), #line, #function)
+                    }
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &self.disposeBag)
+        }
     }
     
 }

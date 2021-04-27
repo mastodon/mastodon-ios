@@ -80,4 +80,8 @@ extension Subscription {
         return NSPredicate(format: "%K == %@", #keyPath(Subscription.policyRaw), policyRaw)
     }
     
+    public static func predicate(userToken: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Subscription.userToken), userToken)
+    }
+    
 }
