@@ -13,7 +13,7 @@ class MediaPreviewImageViewModel {
     // input
     let item: ImagePreviewItem
         
-    init(meta: StatusImagePreviewMeta) {
+    init(meta: RemoteImagePreviewMeta) {
         self.item = .status(meta)
     }
     
@@ -25,11 +25,11 @@ class MediaPreviewImageViewModel {
 
 extension MediaPreviewImageViewModel {
     enum ImagePreviewItem {
-        case status(StatusImagePreviewMeta)
+        case status(RemoteImagePreviewMeta)
         case local(LocalImagePreviewMeta)
     }
     
-    struct StatusImagePreviewMeta {
+    struct RemoteImagePreviewMeta {
         let url: URL
         let thumbnail: UIImage?
     }

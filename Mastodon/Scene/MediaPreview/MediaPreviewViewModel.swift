@@ -36,7 +36,7 @@ final class MediaPreviewViewModel: NSObject {
                 switch entity.type {
                 case .image:
                     guard let url = URL(string: entity.url) else { continue }
-                    let meta = MediaPreviewImageViewModel.StatusImagePreviewMeta(url: url, thumbnail: thumbnail)
+                    let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: url, thumbnail: thumbnail)
                     let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
                     let mediaPreviewImageViewController = MediaPreviewImageViewController()
                     mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
@@ -52,12 +52,33 @@ final class MediaPreviewViewModel: NSObject {
         super.init()
     }
     
+    init(context: AppContext, meta: ProfileAvatarImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
+        self.context = context
+        self.initialItem = .profileAvatar(meta)
+        var viewControllers: [UIViewController] = []
+        let managedObjectContext = self.context.managedObjectContext
+        managedObjectContext.performAndWait {
+            let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
+            let avatarURL = account.avatarImageURL() ?? URL(string: "https://example.com")!     // assert URL exist
+            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage)
+            let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
+            let mediaPreviewImageViewController = MediaPreviewImageViewController()
+            mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
+            viewControllers.append(mediaPreviewImageViewController)
+        }
+        self.viewControllers = viewControllers
+        self.currentPage = CurrentValueSubject(0)
+        self.pushTransitionItem = pushTransitionItem
+        super.init()
+    }
+    
 }
 
 extension MediaPreviewViewModel {
     
     enum PreviewItem {
         case status(StatusImagePreviewMeta)
+        case profileAvatar(ProfileAvatarImagePreviewMeta)
         case local(LocalImagePreviewMeta)
     }
     
@@ -65,6 +86,11 @@ extension MediaPreviewViewModel {
         let statusObjectID: NSManagedObjectID
         let initialIndex: Int
         let preloadThumbnailImages: [UIImage?]
+    }
+    
+    struct ProfileAvatarImagePreviewMeta {
+        let accountObjectID: NSManagedObjectID
+        let preloadThumbnailImage: UIImage?
     }
     
     struct LocalImagePreviewMeta {

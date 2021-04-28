@@ -10,13 +10,15 @@ import UIKit
 import Combine
 import ActiveLabel
 
-final class ProfileViewController: UIViewController, NeedsDependency {
+final class ProfileViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ProfileViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     private(set) lazy var cancelEditingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ProfileViewController.cancelEditingBarButtonItemPressed(_:)))
@@ -644,6 +646,38 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileViewController: ProfileHeaderViewDelegate {
+    
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView) {
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        guard let avatar = imageView.image else { return }
+        
+        let meta = MediaPreviewViewModel.ProfileAvatarImagePreviewMeta(
+            accountObjectID: mastodonUser.objectID,
+            preloadThumbnailImage: avatar
+        )
+        let pushTransitionItem = MediaPreviewTransitionItem(
+            source: .profileAvatar(profileHeaderView),
+            previewableViewController: self
+        )
+        pushTransitionItem.aspectRatio = CGSize(width: 100, height: 100)
+        pushTransitionItem.sourceImageView = imageView
+        pushTransitionItem.sourceImageViewCornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
+        pushTransitionItem.initialFrame = {
+            let initialFrame = imageView.superview!.convert(imageView.frame, to: nil)
+            assert(initialFrame != .zero)
+            return initialFrame
+        }()
+        pushTransitionItem.image = avatar
+        
+        let mediaPreviewViewModel = MediaPreviewViewModel(
+            context: context,
+            meta: meta,
+            pushTransitionItem: pushTransitionItem
+        )
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .mediaPreview(viewModel: mediaPreviewViewModel), from: self, transition: .custom(transitioningDelegate: self.mediaPreviewTransitionController))
+        }
+    }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
         let relationshipActionSet = viewModel.relationshipActionOptionSet.value

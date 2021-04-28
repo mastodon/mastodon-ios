@@ -58,10 +58,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         // set to image hidden
         toVC.pagingViewConttroller.view.alpha = 0
         // set from image hidden. update hidden when paging. seealso: `MediaPreviewViewController`
-        switch transitionItem.source {
-        case .mosaic(let mosaicImageViewContainer):
-            mosaicImageViewContainer.setImageView(alpha: 0, index: toVC.viewModel.currentPage.value)
-        }
+        transitionItem.source.updateAppearance(position: .start, index: toVC.viewModel.currentPage.value)
         
         // Set transition image view
         assert(transitionItem.initialFrame != nil)
@@ -143,16 +140,14 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             } else {
                 fromView.alpha = 0
             }
+            self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
             fromVC.closeButtonBackground.alpha = 0
             fromVC.visualEffectView.effect = nil
         }
 
         animator.addCompletion { position in
             self.transitionItem.snapshotTransitioning?.removeFromSuperview()
-            switch self.transitionItem.source {
-            case .mosaic(let mosaicImageViewContainer):
-                mosaicImageViewContainer.setImageViews(alpha: 1)
-            }
+            self.transitionItem.source.updateAppearance(position: position, index: nil)
             transitionContext.completeTransition(position == .end)
         }
 
@@ -222,6 +217,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         animator.addAnimations {
             fromVC.closeButtonBackground.alpha = 0
             fromVC.visualEffectView.effect = nil
+            self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
         }
 
         animator.addCompletion { position in
@@ -231,10 +227,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
             self.transitionItem.snapshotTransitioning?.removeFromSuperview()
             if position == .end {
-                switch self.transitionItem.source {
-                case .mosaic(let mosaicImageViewContainer):
-                    mosaicImageViewContainer.setImageViews(alpha: 1)
-                }
+                // reset appearance
+                self.transitionItem.source.updateAppearance(position: position, index: nil)
             }
             fromVC.visualEffectView.effect = position == .end ? nil : blurEffect
             transitionContext.completeTransition(position == .end)

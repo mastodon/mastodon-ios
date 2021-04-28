@@ -150,8 +150,7 @@ extension ProfileHeaderViewController {
                 with: AvatarConfigurableViewConfiguration(
                     avatarImageURL: image == nil ? url : nil,       // set only when image empty
                     placeholderImage: image,
-                    borderColor: .white,
-                    borderWidth: 2
+                    keepImageCorner: true                           // fit preview transitioning
                 )
             )
         }

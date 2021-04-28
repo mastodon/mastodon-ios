@@ -10,7 +10,8 @@ import UIKit
 import ActiveLabel
 import TwitterTextEditor
 
-protocol ProfileHeaderViewDelegate: class {
+protocol ProfileHeaderViewDelegate: AnyObject {
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity)
 
@@ -23,6 +24,8 @@ final class ProfileHeaderView: UIView {
     
     static let avatarImageViewSize = CGSize(width: 56, height: 56)
     static let avatarImageViewCornerRadius: CGFloat = 6
+    static let avatarImageViewBorderColor = UIColor.white
+    static let avatarImageViewBorderWidth: CGFloat = 2
     static let friendshipActionButtonSize = CGSize(width: 108, height: 34)
     static let bannerImageViewPlaceholderColor = UIColor.systemGray
     
@@ -51,6 +54,16 @@ final class ProfileHeaderView: UIView {
         return overlayView
     }()
 
+    let avatarImageViewBackgroundView: UIView = {
+        let view = UIView()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
+        view.layer.cornerCurve = .continuous
+        view.layer.borderColor = ProfileHeaderView.avatarImageViewBorderColor.cgColor
+        view.layer.borderWidth = ProfileHeaderView.avatarImageViewBorderWidth
+        return view
+    }()
+    
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         let placeholderImage = UIImage
@@ -188,6 +201,15 @@ extension ProfileHeaderView {
             avatarImageView.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
         ])
         
+        avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        bannerContainerView.insertSubview(avatarImageViewBackgroundView, belowSubview: avatarImageView)
+        NSLayoutConstraint.activate([
+            avatarImageView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+        ])
+        
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.addSubview(editAvatarBackgroundView)
         NSLayoutConstraint.activate([
@@ -313,6 +335,9 @@ extension ProfileHeaderView {
         
         bioActiveLabel.delegate = self
         
+        let avatarImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        avatarImageView.addGestureRecognizer(avatarImageViewSingleTapGestureRecognizer)
+        avatarImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.avatarImageViewDidPressed(_:)))
         relationshipActionButton.addTarget(self, action: #selector(ProfileHeaderView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
         
         configure(state: .normal)
@@ -371,6 +396,11 @@ extension ProfileHeaderView {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         assert(sender === relationshipActionButton)
         delegate?.profileHeaderView(self, relationshipButtonDidPressed: relationshipActionButton)
+    }
+    
+    @objc private func avatarImageViewDidPressed(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.profileHeaderView(self, avatarImageViewDidPressed: avatarImageView)
     }
 }
 

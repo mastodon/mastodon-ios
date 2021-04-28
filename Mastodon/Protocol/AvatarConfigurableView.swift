@@ -51,7 +51,10 @@ extension AvatarConfigurableView {
             avatarConfigurableView(self, didFinishConfiguration: configuration)
         }
 
-        let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
+        let filter = ScaledToSizeWithRoundedCornersFilter(
+            size: Self.configurableAvatarImageSize,
+            radius: configuration.keepImageCorner ? 0 : Self.configurableAvatarImageCornerRadius
+        )
 
         // set placeholder if no asset
         guard let avatarImageURL = configuration.avatarImageURL else {
@@ -91,6 +94,12 @@ extension AvatarConfigurableView {
                     runImageTransitionIfCached: false,
                     completion: nil
                 )
+                
+                if Self.configurableAvatarImageCornerRadius > 0, configuration.keepImageCorner {
+                    configurableAvatarImageView?.layer.masksToBounds = true
+                    configurableAvatarImageView?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+                    configurableAvatarImageView?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+                }
             }
             
             configureLayerBorder(view: avatarImageView, configuration: configuration)
@@ -148,16 +157,20 @@ struct AvatarConfigurableViewConfiguration {
     let borderColor: UIColor?
     let borderWidth: CGFloat?
     
+    let keepImageCorner: Bool
+    
     init(
         avatarImageURL: URL?,
         placeholderImage: UIImage? = nil,
         borderColor: UIColor? = nil,
-        borderWidth: CGFloat? = nil
+        borderWidth: CGFloat? = nil,
+        keepImageCorner: Bool = true
     ) {
         self.avatarImageURL = avatarImageURL
         self.placeholderImage = placeholderImage
         self.borderColor = borderColor
         self.borderWidth = borderWidth
+        self.keepImageCorner = keepImageCorner
     }
     
 }

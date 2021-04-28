@@ -19,6 +19,8 @@ extension MediaPreviewableViewController {
             guard index < mosaicImageViewContainer.imageViews.count else { return nil }
             let imageView = mosaicImageViewContainer.imageViews[index]
             return imageView.superview!.convert(imageView.frame, to: nil)
+        case .profileAvatar(let profileHeaderView):
+            return profileHeaderView.avatarImageView.superview!.convert(profileHeaderView.avatarImageView.frame, to: nil)
         }
     }
 }

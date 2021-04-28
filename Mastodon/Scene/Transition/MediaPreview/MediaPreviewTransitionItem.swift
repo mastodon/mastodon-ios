@@ -20,6 +20,7 @@ class MediaPreviewTransitionItem: Identifiable {
     var aspectRatio: CGSize?
     var initialFrame: CGRect? = nil
     var sourceImageView: UIImageView?
+    var sourceImageViewCornerRadius: CGFloat?
 
     // target
     var targetFrame: CGRect? = nil
@@ -41,5 +42,20 @@ class MediaPreviewTransitionItem: Identifiable {
 extension MediaPreviewTransitionItem {
     enum Source {
         case mosaic(MosaicImageViewContainer)
+        case profileAvatar(ProfileHeaderView)
+        
+        func updateAppearance(position: UIViewAnimatingPosition, index: Int?) {
+            let alpha: CGFloat = position == .end ? 1 : 0
+            switch self {
+            case .mosaic(let mosaicImageViewContainer):
+                if let index = index {
+                    mosaicImageViewContainer.setImageView(alpha: 0, index: index)
+                } else {
+                    mosaicImageViewContainer.setImageViews(alpha: alpha)
+                }
+            case .profileAvatar(let profileHeaderView):
+                profileHeaderView.avatarImageView.alpha = alpha
+            }
+        }
     }
 }
