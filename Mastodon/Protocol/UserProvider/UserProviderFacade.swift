@@ -202,24 +202,7 @@ extension UserProviderFacade {
             children.append(blockMenu)
         }
         
-        if needsShareAction {
-            let shareAction = UIAction(title: L10n.Common.Controls.Actions.shareUser(name), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
-                guard let provider = provider else { return }
-                let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: mastodonUser, dependency: provider)
-                provider.coordinator.present(
-                    scene: .activityViewController(
-                        activityViewController: activityViewController,
-                        sourceView: sourceView,
-                        barButtonItem: barButtonItem
-                    ),
-                    from: provider,
-                    transition: .activityViewControllerPresent(animated: true, completion: nil)
-                )
-            }
-            children.append(shareAction)
-        }
-        
-        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "flag"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
             guard let provider = provider else { return }
             guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 return
@@ -236,6 +219,23 @@ extension UserProviderFacade {
             )
         }
         children.append(reportAction)
+        
+        if needsShareAction {
+            let shareAction = UIAction(title: L10n.Common.Controls.Actions.shareUser(name), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                guard let provider = provider else { return }
+                let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: mastodonUser, dependency: provider)
+                provider.coordinator.present(
+                    scene: .activityViewController(
+                        activityViewController: activityViewController,
+                        sourceView: sourceView,
+                        barButtonItem: barButtonItem
+                    ),
+                    from: provider,
+                    transition: .activityViewControllerPresent(animated: true, completion: nil)
+                )
+            }
+            children.append(shareAction)
+        }
         
         return UIMenu(title: "", options: [], children: children)
     }

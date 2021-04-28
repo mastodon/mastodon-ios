@@ -1,5 +1,5 @@
 //
-//  HomeTimelineViewController+StatusProvider.swift
+//  HomeTimelineViewController+Provider.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/2/5.
@@ -85,3 +85,5 @@ extension HomeTimelineViewController: StatusProvider {
     }
     
 }
+
+extension HomeTimelineViewController: UserProvider {}

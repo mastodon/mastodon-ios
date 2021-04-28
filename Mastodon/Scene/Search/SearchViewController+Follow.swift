@@ -11,6 +11,13 @@ import Foundation
 import UIKit
 
 extension SearchViewController: UserProvider {
+    
+    func mastodonUser(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<MastodonUser?, Never> {
+        return Future { promise in
+            promise(.success(nil))
+        }
+    }
+    
     func mastodonUser() -> Future<MastodonUser?, Never> {
         Future { promise in
             promise(.success(self.viewModel.mastodonUser.value))

@@ -1,19 +1,18 @@
 //
-//  FavoriteViewController+StatusProvider.swift
+//  ThreadViewController+Provider.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-4-7.
+//  Created by MainasuK Cirno on 2021-4-12.
 //
 
-import os.log
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
 
 // MARK: - StatusProvider
-extension FavoriteViewController: StatusProvider {
-
+extension ThreadViewController: StatusProvider {
+    
     func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
@@ -32,10 +31,12 @@ extension FavoriteViewController: StatusProvider {
             }
             
             switch item {
-            case .status(let objectID, _):
-                let managedObjectContext = self.viewModel.statusFetchedResultsController.fetchedResultsController.managedObjectContext
+            case .root(let statusObjectID, _),
+                 .reply(let statusObjectID, _),
+                 .leaf(let statusObjectID, _):
+                let managedObjectContext = self.viewModel.context.managedObjectContext
                 managedObjectContext.perform {
-                    let status = managedObjectContext.object(with: objectID) as? Status
+                    let status = managedObjectContext.object(with: statusObjectID) as? Status
                     promise(.success(status))
                 }
             default:
@@ -49,7 +50,7 @@ extension FavoriteViewController: StatusProvider {
     }
     
     var managedObjectContext: NSManagedObjectContext {
-        return viewModel.statusFetchedResultsController.fetchedResultsController.managedObjectContext
+        return viewModel.context.managedObjectContext
     }
     
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? {
@@ -85,3 +86,5 @@ extension FavoriteViewController: StatusProvider {
     }
     
 }
+
+extension ThreadViewController: UserProvider {}
