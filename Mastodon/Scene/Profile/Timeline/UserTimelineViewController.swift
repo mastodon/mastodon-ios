@@ -13,7 +13,7 @@ import CoreDataStack
 import GameplayKit
 
 // TODO: adopt MediaPreviewableViewController
-final class UserTimelineViewController: UIViewController, NeedsDependency {
+final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -21,7 +21,7 @@ final class UserTimelineViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var viewModel: UserTimelineViewModel!
     
-    // let mediaPreviewTransitionController = MediaPreviewTransitionController()
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()

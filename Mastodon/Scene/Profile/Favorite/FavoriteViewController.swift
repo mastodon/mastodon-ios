@@ -14,13 +14,15 @@ import AVKit
 import Combine
 import GameplayKit
 
-final class FavoriteViewController: UIViewController, NeedsDependency {
+final class FavoriteViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: FavoriteViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     let titleView = DoubleTitleLabelNavigationBarTitleView()
 

@@ -71,6 +71,9 @@ extension SceneCoordinator {
         // suggestion account
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
         
+        // media preview
+        case mediaPreview(viewModel: MediaPreviewViewModel)
+        
         // misc
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
@@ -264,6 +267,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .suggestionAccount(let viewModel):
             let _viewController = SuggestionAccountViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mediaPreview(let viewModel):
+            let _viewController = MediaPreviewViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .safari(let url):

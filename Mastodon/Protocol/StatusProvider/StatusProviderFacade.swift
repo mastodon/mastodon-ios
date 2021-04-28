@@ -529,6 +529,27 @@ extension StatusProviderFacade {
 }
 
 extension StatusProviderFacade {
+    static func coordinateToStatusMediaPreviewScene(provider: StatusProvider & MediaPreviewableViewController, cell: UITableViewCell, mosaicImageView: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int) {
+        provider.status(for: cell, indexPath: nil)
+            .sink { [weak provider] status in
+                guard let provider = provider else { return }
+                guard let status = status?.reblog ?? status else { return }
+                
+                let meta = MediaPreviewViewModel.StatusImagePreviewMeta(
+                    statusObjectID: status.objectID,
+                    initialIndex: index,
+                    preloadThumbnailImages: mosaicImageView.imageViews.map { $0.image }
+                )
+                let mediaPreviewViewModel = MediaPreviewViewModel(context: provider.context, meta: meta)
+                DispatchQueue.main.async {
+                    provider.coordinator.present(scene: .mediaPreview(viewModel: mediaPreviewViewModel), from: provider, transition: .custom(transitioningDelegate: provider.mediaPreviewTransitionController))
+                }
+            }
+            .store(in: &provider.disposeBag)
+    }
+}
+
+extension StatusProviderFacade {
     enum Target {
         case primary        // original status
         case secondary      // wrapper status or reply (when needs. e.g tap header of status view)

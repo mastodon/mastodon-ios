@@ -15,13 +15,15 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
-final class HomeTimelineViewController: UIViewController, NeedsDependency {
+final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     lazy var emptyView: UIStackView = {
         let emptyView = UIStackView()

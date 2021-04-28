@@ -12,13 +12,15 @@ import Combine
 import GameplayKit
 import CoreData
 
-class HashtagTimelineViewController: UIViewController, NeedsDependency {
+class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     
     var viewModel: HashtagTimelineViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
