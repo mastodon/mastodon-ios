@@ -204,7 +204,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionItem.imageView = imageView
         transitionItem.snapshotTransitioning = snapshot
         transitionItem.initialFrame = snapshot.frame
-        transitionItem.targetFrame = targetFrame
+        transitionItem.targetFrame = targetFrame ?? snapshot.frame
 
         // disable interaction
         fromVC.pagingViewConttroller.isUserInteractionEnabled = false
@@ -215,6 +215,12 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         self.transitionItem.snapshotRaw?.alpha = 0.0
         
         animator.addAnimations {
+            switch self.transitionItem.source {
+            case .profileBanner:
+                self.transitionItem.snapshotTransitioning?.alpha = 0.4
+            default:
+                break
+            }
             fromVC.closeButtonBackground.alpha = 0
             fromVC.visualEffectView.effect = nil
             self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
@@ -310,11 +316,18 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
 
         itemAnimator.addAnimations {
             if toPosition == .end {
-                if let targetFrame = self.transitionItem.targetFrame {
-                    self.transitionItem.snapshotTransitioning?.frame = targetFrame
-                } else {
+                switch self.transitionItem.source {
+                case .profileBanner where toPosition == .end:
+                    // fade transition for banner
                     self.transitionItem.snapshotTransitioning?.alpha = 0
+                default:
+                    if let targetFrame = self.transitionItem.targetFrame {
+                        self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                    } else {
+                        self.transitionItem.snapshotTransitioning?.alpha = 0
+                    }
                 }
+                
             } else {
                 if let initialFrame = self.transitionItem.initialFrame {
                     self.transitionItem.snapshotTransitioning?.frame = initialFrame

@@ -43,6 +43,7 @@ extension MediaPreviewTransitionItem {
     enum Source {
         case mosaic(MosaicImageViewContainer)
         case profileAvatar(ProfileHeaderView)
+        case profileBanner(ProfileHeaderView)
         
         func updateAppearance(position: UIViewAnimatingPosition, index: Int?) {
             let alpha: CGFloat = position == .end ? 1 : 0
@@ -55,6 +56,8 @@ extension MediaPreviewTransitionItem {
                 }
             case .profileAvatar(let profileHeaderView):
                 profileHeaderView.avatarImageView.alpha = alpha
+            case .profileBanner:
+                break    // keep source
             }
         }
     }

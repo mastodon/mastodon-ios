@@ -106,7 +106,7 @@ extension MediaPreviewViewController {
                         mosaicImageViewContainer.setImageViews(alpha: 1)
                         mosaicImageViewContainer.setImageView(alpha: 0, index: index)
                     }
-                case .profileAvatar:
+                case .profileAvatar, .profileBanner:
                     break
                 }
             }

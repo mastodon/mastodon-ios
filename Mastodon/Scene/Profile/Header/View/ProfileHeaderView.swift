@@ -12,6 +12,7 @@ import TwitterTextEditor
 
 protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity)
 
@@ -43,6 +44,7 @@ final class ProfileHeaderView: UIView {
         imageView.image = .placeholder(color: ProfileHeaderView.bannerImageViewPlaceholderColor)
         imageView.backgroundColor = ProfileHeaderView.bannerImageViewPlaceholderColor
         imageView.layer.masksToBounds = true
+        imageView.isUserInteractionEnabled = true
         // #if DEBUG
         // imageView.image = .placeholder(color: .red)
         // #endif
@@ -338,6 +340,11 @@ extension ProfileHeaderView {
         let avatarImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         avatarImageView.addGestureRecognizer(avatarImageViewSingleTapGestureRecognizer)
         avatarImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.avatarImageViewDidPressed(_:)))
+        
+        let bannerImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        bannerImageView.addGestureRecognizer(bannerImageViewSingleTapGestureRecognizer)
+        bannerImageViewSingleTapGestureRecognizer.addTarget(self, action: #selector(ProfileHeaderView.bannerImageViewDidPressed(_:)))
+        
         relationshipActionButton.addTarget(self, action: #selector(ProfileHeaderView.relationshipActionButtonDidPressed(_:)), for: .touchUpInside)
         
         configure(state: .normal)
@@ -401,6 +408,11 @@ extension ProfileHeaderView {
     @objc private func avatarImageViewDidPressed(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileHeaderView(self, avatarImageViewDidPressed: avatarImageView)
+    }
+    
+    @objc private func bannerImageViewDidPressed(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.profileHeaderView(self, bannerImageViewDidPressed: bannerImageView)
     }
 }
 

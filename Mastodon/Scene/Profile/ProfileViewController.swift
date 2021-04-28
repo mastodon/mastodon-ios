@@ -679,6 +679,37 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
         }
     }
     
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        guard let header = imageView.image else { return }
+        
+        let meta = MediaPreviewViewModel.ProfileBannerImagePreviewMeta(
+            accountObjectID: mastodonUser.objectID,
+            preloadThumbnailImage: header
+        )
+        let pushTransitionItem = MediaPreviewTransitionItem(
+            source: .profileBanner(profileHeaderView),
+            previewableViewController: self
+        )
+        pushTransitionItem.aspectRatio = header.size
+        pushTransitionItem.sourceImageView = imageView
+        pushTransitionItem.initialFrame = {
+            let initialFrame = imageView.superview!.convert(imageView.frame, to: nil)
+            assert(initialFrame != .zero)
+            return initialFrame
+        }()
+        pushTransitionItem.image = header
+        
+        let mediaPreviewViewModel = MediaPreviewViewModel(
+            context: context,
+            meta: meta,
+            pushTransitionItem: pushTransitionItem
+        )
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .mediaPreview(viewModel: mediaPreviewViewModel), from: self, transition: .custom(transitioningDelegate: self.mediaPreviewTransitionController))
+        }
+    }
+    
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
         let relationshipActionSet = viewModel.relationshipActionOptionSet.value
         if relationshipActionSet.contains(.edit) {

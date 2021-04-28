@@ -164,7 +164,7 @@ struct AvatarConfigurableViewConfiguration {
         placeholderImage: UIImage? = nil,
         borderColor: UIColor? = nil,
         borderWidth: CGFloat? = nil,
-        keepImageCorner: Bool = true
+        keepImageCorner: Bool = false       // default clip corner on image
     ) {
         self.avatarImageURL = avatarImageURL
         self.placeholderImage = placeholderImage
