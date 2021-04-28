@@ -296,6 +296,25 @@ extension MosaicImageViewContainer {
     
 }
 
+// FIXME: set imageView source from blurhash and image
+extension MosaicImageViewContainer {
+
+    func setImageViews(alpha: CGFloat) {
+        // blurhashOverlayImageViews.forEach { $0.alpha = alpha }
+        imageViews.forEach { $0.alpha = alpha }
+    }
+    
+    func setImageView(alpha: CGFloat, index: Int) {
+        // if index < blurhashOverlayImageViews.count {
+        //     blurhashOverlayImageViews[index].alpha = alpha
+        // }
+        if index < imageViews.count {
+            imageViews[index].alpha = alpha
+        }
+    }
+    
+}
+
 extension MosaicImageViewContainer {
     
     @objc private func visualEffectViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {

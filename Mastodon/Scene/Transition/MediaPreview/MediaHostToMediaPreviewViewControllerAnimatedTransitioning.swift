@@ -7,9 +7,9 @@
 
 import os.log
 import UIKit
+import func AVFoundation.AVMakeRect
 
 final class MediaHostToMediaPreviewViewControllerAnimatedTransitioning: ViewControllerAnimatedTransitioning {
-    
     
     let transitionItem: MediaPreviewTransitionItem
     let panGestureRecognizer: UIPanGestureRecognizer
@@ -32,7 +32,6 @@ final class MediaHostToMediaPreviewViewControllerAnimatedTransitioning: ViewCont
     
 }
 
-
 // MARK: - UIViewControllerAnimatedTransitioning
 extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     
@@ -51,19 +50,48 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
               let toView = transitionContext.view(forKey: .to) else {
             fatalError()
         }
-        
+
         let toViewEndFrame = transitionContext.finalFrame(for: toVC)
         toView.frame = toViewEndFrame
         toView.alpha = 0
         transitionContext.containerView.addSubview(toView)
-
-        let animator = UIViewPropertyAnimator(duration: transitionDuration(using: transitionContext), curve: curve)
+        // set to image hidden
+        toVC.pagingViewConttroller.view.alpha = 0
+        // set from image hidden. update hidden when paging. seealso: `MediaPreviewViewController`
+        switch transitionItem.source {
+        case .mosaic(let mosaicImageViewContainer):
+            mosaicImageViewContainer.setImageView(alpha: 0, index: toVC.viewModel.currentPage.value)
+        }
+        
+        // Set transition image view
+        assert(transitionItem.initialFrame != nil)
+        let initialFrame = transitionItem.initialFrame ?? toViewEndFrame
+        let transitionTargetFrame: CGRect = {
+            let aspectRatio = transitionItem.aspectRatio ?? CGSize(width: initialFrame.width, height: initialFrame.height)
+            return AVMakeRect(aspectRatio: aspectRatio, insideRect: toView.bounds)
+        }()
+        let transitionImageView: UIImageView = {
+            let imageView = UIImageView(frame: transitionContext.containerView.convert(initialFrame, from: nil))
+            imageView.clipsToBounds = true
+            imageView.contentMode = .scaleAspectFill
+            imageView.isUserInteractionEnabled = false
+            imageView.image = transitionItem.image
+            return imageView
+        }()
+        transitionItem.targetFrame = transitionTargetFrame
+        transitionItem.imageView = transitionImageView
+        transitionContext.containerView.addSubview(transitionImageView)
+        
+        let animator = MediaHostToMediaPreviewViewControllerAnimatedTransitioning.animator(initialVelocity: .zero)
 
         animator.addAnimations {
+            transitionImageView.frame = transitionTargetFrame
             toView.alpha = 1
         }
 
         animator.addCompletion { position in
+            toVC.pagingViewConttroller.view.alpha = 1
+            transitionImageView.removeFromSuperview()
             transitionContext.completeTransition(position == .end)
         }
 
@@ -72,17 +100,59 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     
     private func popTransition(using transitionContext: UIViewControllerContextTransitioning, curve: UIView.AnimationCurve = .easeInOut) -> UIViewPropertyAnimator {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-              let fromView = transitionContext.view(forKey: .from) else {
+              let fromView = transitionContext.view(forKey: .from),
+              let mediaPreviewImageViewController = fromVC.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController,
+              let index = fromVC.pagingViewConttroller.currentIndex else {
             fatalError()
         }
+        
+        // assert view hierarchy not change
+        let toVC = transitionItem.previewableViewController
+        let targetFrame = toVC.sourceFrame(transitionItem: transitionItem, index: index)
+        
+        let imageView = mediaPreviewImageViewController.previewImageView.imageView
+        let _snapshot: UIView? = {
+            transitionItem.snapshotRaw = imageView
+            let snapshot = imageView.snapshotView(afterScreenUpdates: false)
+            snapshot?.clipsToBounds = true
+            snapshot?.contentMode = .scaleAspectFill
+            return snapshot
+        }()
+        guard let snapshot = _snapshot else {
+            transitionContext.completeTransition(false)
+            fatalError()
+        }
+        mediaPreviewImageViewController.view.insertSubview(snapshot, aboveSubview: mediaPreviewImageViewController.previewImageView)
+                    
+        snapshot.center = transitionContext.containerView.center
 
-        let animator = UIViewPropertyAnimator(duration: transitionDuration(using: transitionContext), curve: curve)
+        transitionItem.imageView = imageView
+        transitionItem.snapshotTransitioning = snapshot
+        transitionItem.initialFrame = snapshot.frame
+        transitionItem.targetFrame = targetFrame
 
+        // disable interaction
+        fromVC.pagingViewConttroller.isUserInteractionEnabled = false
+        
+        let animator = popInteractiveTransitionAnimator
+
+        self.transitionItem.snapshotRaw?.alpha = 0.0
         animator.addAnimations {
-            fromView.alpha = 0
+            if let targetFrame = targetFrame {
+                self.transitionItem.snapshotTransitioning?.frame = targetFrame
+            } else {
+                fromView.alpha = 0
+            }
+            fromVC.closeButtonBackground.alpha = 0
+            fromVC.visualEffectView.effect = nil
         }
 
         animator.addCompletion { position in
+            self.transitionItem.snapshotTransitioning?.removeFromSuperview()
+            switch self.transitionItem.source {
+            case .mosaic(let mosaicImageViewContainer):
+                mosaicImageViewContainer.setImageViews(alpha: 1)
+            }
             transitionContext.completeTransition(position == .end)
         }
 
@@ -99,35 +169,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
      
         switch operation {
         case .pop:
-            guard let mediaPreviewViewController =  transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-                  let mediaPreviewImageViewController = mediaPreviewViewController.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController else {
-                transitionContext.completeTransition(false)
-                return
-            }
-            
-            let imageView = mediaPreviewImageViewController.previewImageView.imageView
-            let _snapshot: UIView? = {
-//                if imageView.image == nil {
-//                    transitionItem.snapshotRaw = mediaPreviewImageViewController.progressBarView
-//                    return mediaPreviewImageViewController.progressBarView.snapshotView(afterScreenUpdates: false)
-//                } else {
-                    transitionItem.snapshotRaw = imageView
-                    return imageView.snapshotView(afterScreenUpdates: false)
-//                }
-            }()
-            guard let snapshot = _snapshot else {
-                transitionContext.completeTransition(false)
-                return
-            }
-            mediaPreviewImageViewController.view.insertSubview(snapshot, aboveSubview: mediaPreviewImageViewController.previewImageView)
-            
-            snapshot.center = transitionContext.containerView.center
-
-            transitionItem.imageView = imageView
-            transitionItem.snapshotTransitioning = snapshot
-            transitionItem.initialFrame = snapshot.frame
-            transitionItem.targetFrame = snapshot.frame
-            
+            // Note: change item.imageView transform via pan gesture
             panGestureRecognizer.addTarget(self, action: #selector(MediaHostToMediaPreviewViewControllerAnimatedTransitioning.updatePanGestureInteractive(_:)))
             popInteractiveTransition(using: transitionContext)
         default:
@@ -138,27 +180,62 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     
     private func popInteractiveTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-              let fromView = transitionContext.view(forKey: .from) else {
+              let fromView = transitionContext.view(forKey: .from),
+              let mediaPreviewImageViewController = fromVC.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController,
+                    let index = fromVC.pagingViewConttroller.currentIndex else {
             fatalError()
         }
+        
+        // assert view hierarchy not change
+        let toVC = transitionItem.previewableViewController
+        let targetFrame = toVC.sourceFrame(transitionItem: transitionItem, index: index)
+        
+        let imageView = mediaPreviewImageViewController.previewImageView.imageView
+        let _snapshot: UIView? = {
+            transitionItem.snapshotRaw = imageView
+            let snapshot = imageView.snapshotView(afterScreenUpdates: false)
+            snapshot?.clipsToBounds = true
+            snapshot?.contentMode = .scaleAspectFill
+            return snapshot
+        }()
+        guard let snapshot = _snapshot else {
+            transitionContext.completeTransition(false)
+            return
+        }
+        mediaPreviewImageViewController.view.insertSubview(snapshot, aboveSubview: mediaPreviewImageViewController.previewImageView)
+                    
+        snapshot.center = transitionContext.containerView.center
 
+        transitionItem.imageView = imageView
+        transitionItem.snapshotTransitioning = snapshot
+        transitionItem.initialFrame = snapshot.frame
+        transitionItem.targetFrame = targetFrame
+
+        // disable interaction
+        fromVC.pagingViewConttroller.isUserInteractionEnabled = false
+        
         let animator = popInteractiveTransitionAnimator
 
         let blurEffect = fromVC.visualEffectView.effect
-        self.transitionItem.imageView?.isHidden = true
         self.transitionItem.snapshotRaw?.alpha = 0.0
+        
         animator.addAnimations {
-            self.transitionItem.snapshotTransitioning?.alpha = 0.4
-//            fromVC.mediaInfoDescriptionView.alpha = 0
-//            fromVC.closeButtonBackground.alpha = 0
-//            fromVC.pageControl.alpha = 0
+            fromVC.closeButtonBackground.alpha = 0
             fromVC.visualEffectView.effect = nil
         }
 
         animator.addCompletion { position in
+            fromVC.pagingViewConttroller.isUserInteractionEnabled = true
+            fromVC.closeButtonBackground.alpha = position == .end ? 0 : 1
             self.transitionItem.imageView?.isHidden = position == .end
             self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
             self.transitionItem.snapshotTransitioning?.removeFromSuperview()
+            if position == .end {
+                switch self.transitionItem.source {
+                case .mosaic(let mosaicImageViewContainer):
+                    mosaicImageViewContainer.setImageViews(alpha: 1)
+                }
+            }
             fromVC.visualEffectView.effect = position == .end ? nil : blurEffect
             transitionContext.completeTransition(position == .end)
         }
@@ -184,10 +261,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         case .ended, .cancelled:
             let targetPosition = completionPosition()
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: target position: %s", ((#file as NSString).lastPathComponent), #line, #function, targetPosition == .end ? "end" : "start")
-            targetPosition == .end ? transitionContext.finishInteractiveTransition() : transitionContext.cancelInteractiveTransition()
             isTransitionContextFinish = true
             animate(targetPosition)
 
+            targetPosition == .end ? transitionContext.finishInteractiveTransition() : transitionContext.cancelInteractiveTransition()
         default:
             return
         }
@@ -239,10 +316,17 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
 
         itemAnimator.addAnimations {
             if toPosition == .end {
-                self.transitionItem.snapshotTransitioning?.alpha = 0
+                if let targetFrame = self.transitionItem.targetFrame {
+                    self.transitionItem.snapshotTransitioning?.frame = targetFrame
+                } else {
+                    self.transitionItem.snapshotTransitioning?.alpha = 0
+                }
             } else {
-                self.transitionItem.snapshotTransitioning?.alpha = 1
-                self.transitionItem.snapshotTransitioning?.frame = self.transitionItem.initialFrame!
+                if let initialFrame = self.transitionItem.initialFrame {
+                    self.transitionItem.snapshotTransitioning?.frame = initialFrame
+                } else {
+                    self.transitionItem.snapshotTransitioning?.alpha = 1
+                }
             }
         }
 

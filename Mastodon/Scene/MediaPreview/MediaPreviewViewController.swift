@@ -12,6 +12,8 @@ import Pageboy
 
 final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
+    static let closeButtonSize = CGSize(width: 30, height: 30)
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -20,6 +22,23 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let pagingViewConttroller = MediaPreviewPagingViewController()
+    
+    let closeButtonBackground: UIVisualEffectView = {
+        let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+        backgroundView.alpha = 0.9
+        backgroundView.layer.masksToBounds = true
+        backgroundView.layer.cornerRadius = MediaPreviewViewController.closeButtonSize.width * 0.5
+        return backgroundView
+    }()
+    
+    let closeButtonBackgroundVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial)))
+    
+    let closeButton: UIButton = {
+        let button = HitTestExpandedButton()
+        button.imageView?.tintColor = .label
+        button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
+        return button
+    }()
 
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -48,11 +67,57 @@ extension MediaPreviewViewController {
         ])
         pagingViewConttroller.didMove(toParent: self)
         
+        closeButtonBackground.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(closeButtonBackground)
+        NSLayoutConstraint.activate([
+            closeButtonBackground.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 12),
+            closeButtonBackground.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor)
+        ])
+        closeButtonBackgroundVisualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        closeButtonBackground.contentView.addSubview(closeButtonBackgroundVisualEffectView)
+
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButtonBackgroundVisualEffectView.contentView.addSubview(closeButton)
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: closeButtonBackgroundVisualEffectView.topAnchor),
+            closeButton.leadingAnchor.constraint(equalTo: closeButtonBackgroundVisualEffectView.leadingAnchor),
+            closeButtonBackgroundVisualEffectView.trailingAnchor.constraint(equalTo: closeButton.trailingAnchor),
+            closeButtonBackgroundVisualEffectView.bottomAnchor.constraint(equalTo: closeButton.bottomAnchor),
+            closeButton.heightAnchor.constraint(equalToConstant: MediaPreviewViewController.closeButtonSize.height).priority(.defaultHigh),
+            closeButton.widthAnchor.constraint(equalToConstant: MediaPreviewViewController.closeButtonSize.width).priority(.defaultHigh),
+        ])
+        
         viewModel.mediaPreviewImageViewControllerDelegate = self
 
         pagingViewConttroller.interPageSpacing = 10
         pagingViewConttroller.delegate = self
         pagingViewConttroller.dataSource = viewModel
+        
+        closeButton.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
+        
+        // bind view model
+        viewModel.currentPage
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] index in
+                guard let self = self else { return }
+                switch self.viewModel.pushTransitionItem.source {
+                case .mosaic(let mosaicImageViewContainer):
+                    UIView.animate(withDuration: 0.3) {
+                        mosaicImageViewContainer.setImageViews(alpha: 1)
+                        mosaicImageViewContainer.setImageView(alpha: 0, index: index)
+                    }
+                }
+            }
+            .store(in: &disposeBag)
+    }
+    
+}
+
+extension MediaPreviewViewController {
+    
+    @objc private func closeButtonPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        dismiss(animated: true, completion: nil)
     }
     
 }
@@ -61,20 +126,19 @@ extension MediaPreviewViewController {
 extension MediaPreviewViewController: MediaPreviewingViewController {
     
     func isInteractiveDismissable() -> Bool {
-        return true
-//        if let mediaPreviewImageViewController = pagingViewConttroller.currentViewController as? MediaPreviewImageViewController {
-//            let previewImageView = mediaPreviewImageViewController.previewImageView
-//            // TODO: allow zooming pan dismiss
-//            guard previewImageView.zoomScale == previewImageView.minimumZoomScale else {
-//                return false
-//            }
-//
-//            let safeAreaInsets = previewImageView.safeAreaInsets
-//            let statusBarFrameHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-//            return previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight)
-//        }
-//
-//        return false
+        if let mediaPreviewImageViewController = pagingViewConttroller.currentViewController as? MediaPreviewImageViewController {
+            let previewImageView = mediaPreviewImageViewController.previewImageView
+            // TODO: allow zooming pan dismiss
+            guard previewImageView.zoomScale == previewImageView.minimumZoomScale else {
+                return false
+            }
+
+            let safeAreaInsets = previewImageView.safeAreaInsets
+            let statusBarFrameHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+            return previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight)
+        }
+
+        return false
     }
     
 }
@@ -107,6 +171,7 @@ extension MediaPreviewViewController: PageboyViewControllerDelegate {
     ) {
         // update page control
         // pageControl.currentPage = index
+        viewModel.currentPage.value = index
     }
     
     func pageboyViewController(

@@ -17,11 +17,13 @@ final class MediaPreviewViewModel: NSObject {
     let context: AppContext
     let initialItem: PreviewItem
     weak var mediaPreviewImageViewControllerDelegate: MediaPreviewImageViewControllerDelegate?
-
+    let currentPage: CurrentValueSubject<Int, Never>
+    
     // output
+    let pushTransitionItem: MediaPreviewTransitionItem
     let viewControllers: [UIViewController]
     
-    init(context: AppContext, meta: StatusImagePreviewMeta) {
+    init(context: AppContext, meta: StatusImagePreviewMeta, pushTransitionItem: MediaPreviewTransitionItem) {
         self.context = context
         self.initialItem = .status(meta)
         var viewControllers: [UIViewController] = []
@@ -45,6 +47,8 @@ final class MediaPreviewViewModel: NSObject {
             }
         }
         self.viewControllers = viewControllers
+        self.currentPage = CurrentValueSubject(meta.initialIndex)
+        self.pushTransitionItem = pushTransitionItem
         super.init()
     }
     

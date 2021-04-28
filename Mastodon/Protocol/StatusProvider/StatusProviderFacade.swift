@@ -533,14 +533,51 @@ extension StatusProviderFacade {
         provider.status(for: cell, indexPath: nil)
             .sink { [weak provider] status in
                 guard let provider = provider else { return }
-                guard let status = status?.reblog ?? status else { return }
+                guard let source = status else { return }
+                
+                let status = source.reblog ?? source
                 
                 let meta = MediaPreviewViewModel.StatusImagePreviewMeta(
                     statusObjectID: status.objectID,
                     initialIndex: index,
                     preloadThumbnailImages: mosaicImageView.imageViews.map { $0.image }
                 )
-                let mediaPreviewViewModel = MediaPreviewViewModel(context: provider.context, meta: meta)
+                let pushTransitionItem = MediaPreviewTransitionItem(
+                    source: .mosaic(mosaicImageView),
+                    previewableViewController: provider
+                )
+                pushTransitionItem.aspectRatio = {
+                    if let image = imageView.image {
+                        return image.size
+                    }
+                    guard let media = status.mediaAttachments?.sorted(by: { $0.index.compare($1.index) == .orderedAscending }) else { return nil }
+                    guard index < media.count else { return nil }
+                    let meta = media[index].meta
+                    guard let width = meta?.original?.width, let height = meta?.original?.height else { return nil }
+                    return CGSize(width: width, height: height)
+                }()
+                pushTransitionItem.sourceImageView = imageView
+                pushTransitionItem.initialFrame = {
+                    let initialFrame = imageView.superview!.convert(imageView.frame, to: nil)
+                    assert(initialFrame != .zero)
+                    return initialFrame
+                }()
+                pushTransitionItem.image = {
+                    if let image = imageView.image {
+                        return image
+                    }
+                    if index < mosaicImageView.blurhashOverlayImageViews.count {
+                        return mosaicImageView.blurhashOverlayImageViews[index].image
+                    }
+                    
+                    return nil 
+                }()
+                
+                let mediaPreviewViewModel = MediaPreviewViewModel(
+                    context: provider.context,
+                    meta: meta,
+                    pushTransitionItem: pushTransitionItem
+                )
                 DispatchQueue.main.async {
                     provider.coordinator.present(scene: .mediaPreview(viewModel: mediaPreviewViewModel), from: provider, transition: .custom(transitioningDelegate: provider.mediaPreviewTransitionController))
                 }

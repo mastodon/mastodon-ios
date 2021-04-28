@@ -45,7 +45,7 @@ extension MediaPreviewImageView {
         isUserInteractionEnabled = true
         showsVerticalScrollIndicator = false
         showsHorizontalScrollIndicator = false
-
+        
         bouncesZoom = true
         minimumZoomScale = 1.0
         maximumZoomScale = 4.0
@@ -139,6 +139,9 @@ extension MediaPreviewImageView: UIScrollViewDelegate {
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         centerScrollViewContents()
+        
+        // set bounce when zoom in
+        alwaysBounceVertical = zoomScale > minimumZoomScale
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
