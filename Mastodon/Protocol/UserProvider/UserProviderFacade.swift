@@ -57,19 +57,28 @@ extension UserProviderFacade {
 extension UserProviderFacade {
     
     static func toggleUserBlockRelationship(
-        provider: UserProvider
+        provider: UserProvider,
+        cell: UITableViewCell?,
+        indexPath: IndexPath?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
-
-        return _toggleUserBlockRelationship(
-            context: provider.context,
-            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
-            mastodonUser: provider.mastodonUser().eraseToAnyPublisher()
-        )
+        if let cell = cell, let indexPath = indexPath {
+            return _toggleUserBlockRelationship(
+                context: provider.context,
+                activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                mastodonUser: provider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
+            )
+        } else {
+            return _toggleUserBlockRelationship(
+                context: provider.context,
+                activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                mastodonUser: provider.mastodonUser().eraseToAnyPublisher()
+            )
+        }
     }
     
     private static func _toggleUserBlockRelationship(
@@ -97,19 +106,28 @@ extension UserProviderFacade {
 extension UserProviderFacade {
     
     static func toggleUserMuteRelationship(
-        provider: UserProvider
+        provider: UserProvider,
+        cell: UITableViewCell?,
+        indexPath: IndexPath?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
-
-        return _toggleUserMuteRelationship(
-            context: provider.context,
-            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
-            mastodonUser: provider.mastodonUser().eraseToAnyPublisher()
-        )
+        if let cell = cell, let indexPath = indexPath {
+            return _toggleUserMuteRelationship(
+                context: provider.context,
+                activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                mastodonUser: provider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
+            )
+        } else {
+            return _toggleUserMuteRelationship(
+                context: provider.context,
+                activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+                mastodonUser: provider.mastodonUser().eraseToAnyPublisher()
+            )
+        }
     }
     
     private static func _toggleUserMuteRelationship(
@@ -140,10 +158,14 @@ extension UserProviderFacade {
         for mastodonUser: MastodonUser,
         isMuting: Bool,
         isBlocking: Bool,
-        needsShareAction: Bool,
+        canReport: Bool,
         provider: UserProvider,
+        cell: UITableViewCell?,
+        indexPath: IndexPath?,
         sourceView: UIView?,
-        barButtonItem: UIBarButtonItem?
+        barButtonItem: UIBarButtonItem?,
+        shareUser: MastodonUser?,
+        shareStatus: Status?
     ) -> UIMenu {
         var children: [UIMenuElement] = []
         let name = mastodonUser.displayNameWithFallback
@@ -159,7 +181,9 @@ extension UserProviderFacade {
             guard let provider = provider else { return }
 
             UserProviderFacade.toggleUserMuteRelationship(
-                provider: provider
+                provider: provider,
+                cell: cell,
+                indexPath: indexPath
             )
             .sink { _ in
                 // do nothing
@@ -186,7 +210,9 @@ extension UserProviderFacade {
             guard let provider = provider else { return }
 
             UserProviderFacade.toggleUserBlockRelationship(
-                provider: provider
+                provider: provider,
+                cell: cell,
+                indexPath: indexPath
             )
             .sink { _ in
                 // do nothing
@@ -201,29 +227,30 @@ extension UserProviderFacade {
             let blockMenu = UIMenu(title: L10n.Common.Controls.Firendship.blockUser(name), image: UIImage(systemName: "hand.raised"), options: [], children: [blockAction])
             children.append(blockMenu)
         }
-        
-        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "flag"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
-            guard let provider = provider else { return }
-            guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                return
+        if canReport {
+            let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "flag"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                guard let provider = provider else { return }
+                guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
+                    return
+                }
+                let viewModel = ReportViewModel(
+                    context: provider.context,
+                    domain: authenticationBox.domain,
+                    user: mastodonUser,
+                    status: nil)
+                provider.coordinator.present(
+                    scene: .report(viewModel: viewModel),
+                    from: provider,
+                    transition: .modal(animated: true, completion: nil)
+                )
             }
-            let viewModel = ReportViewModel(
-                context: provider.context,
-                domain: authenticationBox.domain,
-                user: mastodonUser,
-                status: nil)
-            provider.coordinator.present(
-                scene: .report(viewModel: viewModel),
-                from: provider,
-                transition: .modal(animated: true, completion: nil)
-            )
+            children.append(reportAction)
         }
-        children.append(reportAction)
         
-        if needsShareAction {
+        if let shareUser = shareUser {
             let shareAction = UIAction(title: L10n.Common.Controls.Actions.shareUser(name), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
                 guard let provider = provider else { return }
-                let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: mastodonUser, dependency: provider)
+                let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: shareUser, dependency: provider)
                 provider.coordinator.present(
                     scene: .activityViewController(
                         activityViewController: activityViewController,

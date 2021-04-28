@@ -377,7 +377,18 @@ extension ProfileViewController {
                 let isMuting = relationshipActionOptionSet.contains(.muting)
                 let isBlocking = relationshipActionOptionSet.contains(.blocking)
                 let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
-                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(for: mastodonUser, isMuting: isMuting, isBlocking: isBlocking, needsShareAction: needsShareAction, provider: self, sourceView: nil, barButtonItem: self.moreMenuBarButtonItem)
+                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(
+                    for: mastodonUser,
+                    isMuting: isMuting,
+                    isBlocking: isBlocking,
+                    canReport: true,
+                    provider: self,
+                    cell: nil,
+                    indexPath: nil,
+                    sourceView: nil,
+                    barButtonItem: self.moreMenuBarButtonItem,
+                    shareUser: needsShareAction ? mastodonUser : nil,
+                    shareStatus: nil)
             }
             .store(in: &disposeBag)
         viewModel.isRelationshipActionButtonHidden
@@ -692,7 +703,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 )
                 let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unmute, style: .default) { [weak self] _ in
                     guard let self = self else { return }
-                    UserProviderFacade.toggleUserMuteRelationship(provider: self)
+                    UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil, indexPath: nil)
                         .sink { _ in
                             // do nothing
                         } receiveValue: { _ in
@@ -714,7 +725,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 )
                 let unblockAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unblock, style: .default) { [weak self] _ in
                     guard let self = self else { return }
-                    UserProviderFacade.toggleUserBlockRelationship(provider: self)
+                    UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil, indexPath: nil)
                         .sink { _ in
                             // do nothing
                         } receiveValue: { _ in

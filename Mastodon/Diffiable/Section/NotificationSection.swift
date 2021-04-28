@@ -50,6 +50,7 @@ extension NotificationSection {
                     let frame = CGRect(x: 0, y: 0, width: tableView.readableContentGuide.layoutFrame.width - NotificationStatusTableViewCell.statusPadding.left - NotificationStatusTableViewCell.statusPadding.right, height: tableView.readableContentGuide.layoutFrame.height)
                     StatusSection.configure(
                         cell: cell,
+                        indexPath: indexPath,
                         dependency: dependency,
                         readableLayoutFrame: frame,
                         timestampUpdatePublisher: timestampUpdatePublisher,

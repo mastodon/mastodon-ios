@@ -41,6 +41,7 @@ extension ReportSection {
                     let status = managedObjectContext.object(with: objectID) as! Status
                     StatusSection.configure(
                         cell: cell,
+                        indexPath: indexPath,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,

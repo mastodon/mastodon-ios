@@ -49,6 +49,7 @@ extension StatusSection {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
                     StatusSection.configure(
                         cell: cell,
+                        indexPath: indexPath,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
@@ -71,6 +72,7 @@ extension StatusSection {
                     let status = managedObjectContext.object(with: objectID) as! Status
                     StatusSection.configure(
                         cell: cell,
+                        indexPath: indexPath,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
@@ -136,6 +138,7 @@ extension StatusSection {
     
     static func configure(
         cell: StatusCell,
+        indexPath: IndexPath,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
@@ -223,7 +226,6 @@ extension StatusSection {
                 meta.blurhashImagePublisher()
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell] image in
-                        guard let cell = cell else { return }
                         blurhashOverlayImageView.image = image
                         image?.pngData().flatMap {
                             blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)
@@ -401,16 +403,16 @@ extension StatusSection {
                 .store(in: &cell.disposeBag)
         }
         
-        // toolbar
-        StatusSection.configureActionToolBar(
-            cell: cell,
-            dependency: dependency,
-            status: status,
-            requestUserID: requestUserID
-        )
-        
-        // separator line
         if let statusTableViewCell = cell as? StatusTableViewCell {
+            // toolbar
+            StatusSection.configureActionToolBar(
+                cell: statusTableViewCell,
+                indexPath: indexPath,
+                dependency: dependency,
+                status: status,
+                requestUserID: requestUserID
+            )
+            // separator line
             statusTableViewCell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
         }
         
@@ -434,8 +436,10 @@ extension StatusSection {
                 guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
+                guard let cell = cell as? StatusTableViewCell else { return }
                 StatusSection.configureActionToolBar(
                     cell: cell,
+                    indexPath: indexPath,
                     dependency: dependency,
                     status: status,
                     requestUserID: requestUserID
@@ -593,7 +597,8 @@ extension StatusSection {
     }
     
     static func configureActionToolBar(
-        cell: StatusCell,
+        cell: StatusTableViewCell,
+        indexPath: IndexPath,
         dependency: NeedsDependency,
         status: Status,
         requestUserID: String
@@ -623,7 +628,7 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
         
-        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+        self.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
     }
     
     static func configurePoll(
@@ -752,37 +757,35 @@ extension StatusSection {
     }
     
     private static func setupStatusMoreButtonMenu(
-        cell: StatusCell,
+        cell: StatusTableViewCell,
+        indexPath: IndexPath,
         dependency: NeedsDependency,
         status: Status) {
         
-        cell.statusView.actionToolbarContainer.moreButton.menu = nil
+        guard let userProvider = dependency as? UserProvider else { fatalError() }
         
         guard let authenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
         let author = (status.reblog ?? status).author
-        guard authenticationBox.userID != author.id else {
-            return
-        }
-        var children: [UIMenuElement] = []
-        let name = author.displayNameWithFallback
-        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) {
-            [weak dependency] _ in
-            guard let dependency = dependency else { return }
-            let viewModel = ReportViewModel(
-                context: dependency.context,
-                domain: authenticationBox.domain,
-                user: status.author,
-                status: status)
-            dependency.coordinator.present(
-                scene: .report(viewModel: viewModel),
-                from: nil,
-                transition: .modal(animated: true, completion: nil)
-            )
-        }
-        children.append(reportAction)
-        cell.statusView.actionToolbarContainer.moreButton.menu = UIMenu(title: "", options: [], children: children)
+        let canReport = authenticationBox.userID != author.id
+        
+        let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
+        let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
+        
         cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
+        cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
+            for: author,
+            isMuting: isMuting,
+            isBlocking: isBlocking,
+            canReport: canReport,
+            provider: userProvider,
+            cell: cell,
+            indexPath: indexPath,
+            sourceView: cell.statusView.actionToolbarContainer.moreButton,
+            barButtonItem: nil,
+            shareUser: nil,
+            shareStatus: status
+        )
     }
 }

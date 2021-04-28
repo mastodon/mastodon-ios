@@ -54,7 +54,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unmute, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserMuteRelationship(provider: self)
+                UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil, indexPath: nil)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in
@@ -76,7 +76,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unblock, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserBlockRelationship(provider: self)
+                UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil, indexPath: nil)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in
