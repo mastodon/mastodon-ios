@@ -680,6 +680,9 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
+        // not preview header banner     when editing
+        guard !viewModel.isEditing.value else { return }
+        
         guard let mastodonUser = viewModel.mastodonUser.value else { return }
         guard let header = imageView.image else { return }
         
