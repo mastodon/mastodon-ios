@@ -96,6 +96,8 @@ internal enum L10n {
         internal static let seeMore = L10n.tr("Localizable", "Common.Controls.Actions.SeeMore")
         /// Share
         internal static let share = L10n.tr("Localizable", "Common.Controls.Actions.Share")
+        /// Share post
+        internal static let sharePost = L10n.tr("Localizable", "Common.Controls.Actions.SharePost")
         /// Share %@
         internal static func shareUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.ShareUser", String(describing: p1))

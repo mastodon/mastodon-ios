@@ -70,3 +70,16 @@ extension Status {
         return author
     }
 }
+
+extension Status {
+    
+    var statusURL: URL {
+        return URL(string: "https://\(self.domain)/web/statuses/\(self.id)")!
+    }
+    
+    var activityItems: [Any] {
+        var items: [Any] = []
+        items.append(statusURL)
+        return items
+    }
+}

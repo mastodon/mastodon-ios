@@ -264,12 +264,37 @@ extension UserProviderFacade {
             children.append(shareAction)
         }
         
+        if let shareStatus = shareStatus {
+            let shareAction = UIAction(title: L10n.Common.Controls.Actions.sharePost, image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                guard let provider = provider else { return }
+                let activityViewController = createActivityViewControllerForMastodonUser(status: shareStatus, dependency: provider)
+                provider.coordinator.present(
+                    scene: .activityViewController(
+                        activityViewController: activityViewController,
+                        sourceView: sourceView,
+                        barButtonItem: barButtonItem
+                    ),
+                    from: provider,
+                    transition: .activityViewControllerPresent(animated: true, completion: nil)
+                )
+            }
+            children.append(shareAction)
+        }
+        
         return UIMenu(title: "", options: [], children: children)
     }
     
     static func createActivityViewControllerForMastodonUser(mastodonUser: MastodonUser, dependency: NeedsDependency) -> UIActivityViewController {
         let activityViewController = UIActivityViewController(
             activityItems: mastodonUser.activityItems,
+            applicationActivities: [SafariActivity(sceneCoordinator: dependency.coordinator)]
+        )
+        return activityViewController
+    }
+    
+    static func createActivityViewControllerForMastodonUser(status: Status, dependency: NeedsDependency) -> UIActivityViewController {
+        let activityViewController = UIActivityViewController(
+            activityItems: status.activityItems,
             applicationActivities: [SafariActivity(sceneCoordinator: dependency.coordinator)]
         )
         return activityViewController
