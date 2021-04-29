@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Mastodon+Entity+Subscription.swift
 //  
 //
 //  Created by ihugo on 2021/4/9.
@@ -14,7 +14,7 @@ extension Mastodon.Entity {
     /// - Since: 2.4.0
     /// - Version: 3.3.0
     /// # Last Update
-    ///   2021/4/9
+    ///   2021/4/26
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/pushsubscription/)
     public struct Subscription: Codable {
@@ -33,30 +33,19 @@ extension Mastodon.Entity {
         
         public struct Alerts: Codable {
             public let follow: Bool?
+            public let followRequest: Bool?
             public let favourite: Bool?
             public let reblog: Bool?
             public let mention: Bool?
             public let poll: Bool?
             
-            public var followNumber: NSNumber? {
-                guard let value = follow else { return nil }
-                return NSNumber(booleanLiteral: value)
-            }
-            public var favouriteNumber: NSNumber? {
-                guard let value = favourite else { return nil }
-                return NSNumber(booleanLiteral: value)
-            }
-            public var reblogNumber: NSNumber? {
-                guard let value = reblog else { return nil }
-                return NSNumber(booleanLiteral: value)
-            }
-            public var mentionNumber: NSNumber? {
-                guard let value = mention else { return nil }
-                return NSNumber(booleanLiteral: value)
-            }
-            public var pollNumber: NSNumber? {
-                guard let value = poll else { return nil }
-                return NSNumber(booleanLiteral: value)
+            enum CodingKeys: String, CodingKey {
+                case follow
+                case followRequest = "follow_request"
+                case favourite
+                case reblog
+                case mention
+                case poll
             }
         }
         
@@ -73,5 +62,9 @@ extension Mastodon.Entity {
             alerts = try container.decode(Alerts.self, forKey: .alerts)
             serverKey = try container.decode(String.self, forKey: .serverKey)
         }
+    }
+    
+    public struct EmptySubscription: Codable {
+        
     }
 }

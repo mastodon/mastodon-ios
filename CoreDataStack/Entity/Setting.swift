@@ -9,66 +9,61 @@ import CoreData
 import Foundation
 
 public final class Setting: NSManagedObject {
-    @NSManaged public var appearance: String?
-    @NSManaged public var triggerBy: String?
-    @NSManaged public var domain: String?
-    @NSManaged public var userID: String?
+    
+    @NSManaged public var appearanceRaw: String
+    @NSManaged public var domain: String
+    @NSManaged public var userID: String
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
-    // relationships
-    @NSManaged public var subscription: Set<Subscription>?
+    // one-to-many relationships
+    @NSManaged public var subscriptions: Set<Subscription>?
 }
 
-public extension Setting {
-    override func awakeFromInsert() {
-        super.awakeFromInsert()
-        setPrimitiveValue(Date(), forKey: #keyPath(Setting.createdAt))
-    }
+extension Setting {
     
-    func didUpdate(at networkDate: Date) {
-        self.updatedAt = networkDate
+    public override func awakeFromInsert() {
+        super.awakeFromInsert()
+        let now = Date()
+        setPrimitiveValue(now, forKey: #keyPath(Setting.createdAt))
+        setPrimitiveValue(now, forKey: #keyPath(Setting.updatedAt))
     }
     
     @discardableResult
-    static func insert(
+    public static func insert(
         into context: NSManagedObjectContext,
         property: Property
     ) -> Setting {
         let setting: Setting = context.insertObject()
-        setting.appearance = property.appearance
-        setting.triggerBy = property.triggerBy
+        setting.appearanceRaw = property.appearanceRaw
         setting.domain = property.domain
         setting.userID = property.userID
         return setting
     }
     
-    func update(appearance: String?) {
-        guard appearance != self.appearance else { return }
-        self.appearance = appearance
+    public func update(appearanceRaw: String) {
+        guard appearanceRaw != self.appearanceRaw else { return }
+        self.appearanceRaw = appearanceRaw
         didUpdate(at: Date())
     }
     
-    func update(triggerBy: String?) {
-        guard triggerBy != self.triggerBy else { return }
-        self.triggerBy = triggerBy
-        didUpdate(at: Date())
+    public func didUpdate(at networkDate: Date) {
+        self.updatedAt = networkDate
     }
+    
 }
 
-public extension Setting {
-    struct Property {
-        public let appearance: String
-        public let triggerBy: String
+extension Setting {
+    public struct Property {
         public let domain: String
         public let userID: String
+        public let appearanceRaw: String
 
-        public init(appearance: String, triggerBy: String, domain: String, userID: String) {
-            self.appearance = appearance
-            self.triggerBy = triggerBy
+        public init(domain: String, userID: String, appearanceRaw: String) {
             self.domain = domain
             self.userID = userID
+            self.appearanceRaw = appearanceRaw
         }
     }
 }

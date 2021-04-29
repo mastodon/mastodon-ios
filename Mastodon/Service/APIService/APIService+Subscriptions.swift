@@ -5,6 +5,7 @@
 //  Created by ihugo on 2021/4/9.
 //
 
+import os.log
 import Combine
 import CoreData
 import CoreDataStack
@@ -13,63 +14,14 @@ import MastodonSDK
 
 extension APIService {
  
-    func subscription(
-        domain: String,
-        userID: String,
+    func createSubscription(
+        subscriptionObjectID: NSManagedObjectID,
+        query: Mastodon.API.Subscriptions.CreateSubscriptionQuery,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
+        let domain = mastodonAuthenticationBox.domain
         
-        let findSettings: Setting? = {
-            let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: domain, userID: userID)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            do {
-                return try self.backgroundManagedObjectContext.fetch(request).first
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
-            }
-        }()
-        let triggerBy = findSettings?.triggerBy ?? "anyone"
-        let setting = self.createSettingIfNeed(
-            domain: domain,
-            userId: userID,
-            triggerBy: triggerBy
-        )
-        return Mastodon.API.Subscriptions.subscription(
-            session: session,
-            domain: domain,
-            authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> in
-            return self.backgroundManagedObjectContext.performChanges {
-                _ = APIService.CoreData.createOrMergeSubscription(
-                    into: self.backgroundManagedObjectContext,
-                    entity: response.value,
-                    domain: domain,
-                    triggerBy: triggerBy,
-                    setting: setting)
-            }
-            .setFailureType(to: Error.self)
-            .map { _ in return response }
-            .eraseToAnyPublisher()
-        }.eraseToAnyPublisher()
-    }
-    
-    func changeSubscription(
-        domain: String,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
-        query: Mastodon.API.Subscriptions.CreateSubscriptionQuery,
-        triggerBy: String,
-        userID: String
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-        
-        let setting = self.createSettingIfNeed(domain: domain,
-                                          userId: userID,
-                                          triggerBy: triggerBy)
         return Mastodon.API.Subscriptions.createSubscription(
             session: session,
             domain: domain,
@@ -77,87 +29,42 @@ extension APIService {
             query: query
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> in
-            return self.backgroundManagedObjectContext.performChanges {
-                _ = APIService.CoreData.createOrMergeSubscription(
-                    into: self.backgroundManagedObjectContext,
-                    entity: response.value,
-                    domain: domain,
-                    triggerBy: triggerBy,
-                    setting: setting
-                )
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: create subscription successful %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.endpoint)
+
+            let managedObjectContext = self.backgroundManagedObjectContext
+            return managedObjectContext.performChanges {
+                guard let subscription = managedObjectContext.object(with: subscriptionObjectID) as? NotificationSubscription else {
+                    assertionFailure()
+                    return
+                }
+                subscription.endpoint = response.value.endpoint
+                subscription.serverKey = response.value.serverKey
+                subscription.userToken = authorization.accessToken
+                subscription.didUpdate(at: response.networkDate)
             }
             .setFailureType(to: Error.self)
             .map { _ in return response }
             .eraseToAnyPublisher()
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
     
-    func updateSubscription(
-        domain: String,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
-        query: Mastodon.API.Subscriptions.UpdateSubscriptionQuery,
-        triggerBy: String,
-        userID: String
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
+    func cancelSubscription(
+        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.EmptySubscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
-        
-        let setting = self.createSettingIfNeed(domain: domain,
-                                               userId: userID,
-                                               triggerBy: triggerBy)
-        
-        return Mastodon.API.Subscriptions.updateSubscription(
+        let domain = mastodonAuthenticationBox.domain
+
+        return Mastodon.API.Subscriptions.removeSubscription(
             session: session,
             domain: domain,
-            authorization: authorization,
-            query: query
+            authorization: authorization
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> in
-            return self.backgroundManagedObjectContext.performChanges {
-                _ = APIService.CoreData.createOrMergeSubscription(
-                    into: self.backgroundManagedObjectContext,
-                    entity: response.value,
-                    domain: domain,
-                    triggerBy: triggerBy,
-                    setting: setting
-                )
-            }
-            .setFailureType(to: Error.self)
-            .map { _ in return response }
-            .eraseToAnyPublisher()
-        }.eraseToAnyPublisher()
+        .handleEvents(receiveOutput: { _ in
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: cancel subscription successful", ((#file as NSString).lastPathComponent), #line, #function)
+        })
+        .eraseToAnyPublisher()
     }
-    
-    func createSettingIfNeed(domain: String, userId: String, triggerBy: String) -> Setting {
-        // create setting entity if possible
-        let oldSetting: Setting? = {
-            let request = Setting.sortedFetchRequest
-            request.predicate = Setting.predicate(domain: domain, userID: userId)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            do {
-                return try backgroundManagedObjectContext.fetch(request).first
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
-            }
-        }()
-        var setting: Setting!
-        if let oldSetting = oldSetting {
-            setting = oldSetting
-        } else {
-            let property = Setting.Property(
-                appearance: "automatic",
-                triggerBy: triggerBy,
-                domain: domain,
-                userID: userId)
-            (setting, _) = APIService.CoreData.createOrMergeSetting(
-                into: backgroundManagedObjectContext,
-                domain: domain,
-                userID: userId,
-                property: property
-            )
-        }
-        return setting
-    }
+
 }
 

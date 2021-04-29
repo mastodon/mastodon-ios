@@ -5,7 +5,10 @@
 //  Created by MainasuK Cirno on 2021/1/22.
 //
 
+import os.log
 import UIKit
+import UserNotifications
+import AppShared
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,9 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        AppSecret.default.register()
+        
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
         UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
+        
+        UNUserNotificationCenter.current().delegate = self
+        application.registerForRemoteNotifications()
         
         return true
     }
@@ -38,13 +46,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-
 extension AppDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {        
         return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
     }
 }
 
+extension AppDelegate {
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        appContext.notificationService.deviceToken.value = deviceToken
+    }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    // notification present in the foreground
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: notification) else {
+            completionHandler([])
+            return
+        }
+        
+        let notificationID = String(mastodonPushNotification.notificationID)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+        appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
+        completionHandler([.sound])
+    }
+    
+    // response to user action for notification
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification]", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        guard let mastodonPushNotification = AppDelegate.mastodonPushNotification(from: response.notification) else {
+            completionHandler()
+            return
+        }
+        
+        let notificationID = String(mastodonPushNotification.notificationID)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+        appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
+        appContext.notificationService.requestRevealNotificationPublisher.send(notificationID)
+        completionHandler()
+    }
+    
+    private static func mastodonPushNotification(from notification: UNNotification) -> MastodonPushNotification? {
+        guard let plaintext = notification.request.content.userInfo["plaintext"] as? Data,
+              let mastodonPushNotification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintext) else {
+            return nil
+        }
+        
+        return mastodonPushNotification
+    }
+    
+}
 
 extension AppContext {
     static var shared: AppContext {

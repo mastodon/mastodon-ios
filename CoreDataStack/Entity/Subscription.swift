@@ -10,30 +10,35 @@ import Foundation
 import CoreData
 
 public final class Subscription: NSManagedObject {
-    @NSManaged public var id: String
-    @NSManaged public var endpoint: String
-    @NSManaged public var serverKey: String
     
-    /// four types:
-    /// - anyone
-    /// - a follower
-    /// - anyone I follow
-    /// - no one
-    @NSManaged public var type: String
+    @NSManaged public var id: String?
+    @NSManaged public var endpoint: String?
+    @NSManaged public var policyRaw: String
+    @NSManaged public var serverKey: String?
+    @NSManaged public var userToken: String?
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
+    @NSManaged public private(set) var activedAt: Date
+
+    // MARK: one-to-one relationships
+    @NSManaged public var alert: SubscriptionAlerts
     
-    // MARK: - relationships
-    @NSManaged public var alert: SubscriptionAlerts?
-    // MARK: holder
+    // MARK: many-to-one relationships
     @NSManaged public var setting: Setting?
 }
 
 public extension Subscription {
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        setPrimitiveValue(Date(), forKey: #keyPath(Subscription.createdAt))
+        let now = Date()
+        setPrimitiveValue(now, forKey: #keyPath(Subscription.createdAt))
+        setPrimitiveValue(now, forKey: #keyPath(Subscription.updatedAt))
+        setPrimitiveValue(now, forKey: #keyPath(Subscription.activedAt))
+    }
+    
+    func update(activedAt: Date) {
+        self.activedAt = activedAt
     }
     
     func didUpdate(at networkDate: Date) {
@@ -43,45 +48,22 @@ public extension Subscription {
     @discardableResult
     static func insert(
         into context: NSManagedObjectContext,
-        property: Property
+        property: Property,
+        setting: Setting
     ) -> Subscription {
-        let setting: Subscription = context.insertObject()
-        setting.id = property.id
-        setting.endpoint = property.endpoint
-        setting.serverKey = property.serverKey
-        setting.type = property.type
-        
-        return setting
+        let subscription: Subscription = context.insertObject()
+        subscription.policyRaw = property.policyRaw
+        subscription.setting = setting
+        return subscription
     }
 }
 
 public extension Subscription {
     struct Property {
-        public let endpoint: String
-        public let id: String
-        public let serverKey: String
-        public let type: String
+        public let policyRaw: String
 
-        public init(endpoint: String, id: String, serverKey: String, type: String) {
-            self.endpoint = endpoint
-            self.id = id
-            self.serverKey = serverKey
-            self.type = type
-        }
-    }
-    
-    func updateIfNeed(property: Property) {
-        if self.endpoint != property.endpoint {
-            self.endpoint = property.endpoint
-        }
-        if self.id != property.id {
-            self.id = property.id
-        }
-        if self.serverKey != property.serverKey {
-            self.serverKey = property.serverKey
-        }
-        if self.type != property.type {
-            self.type = property.type
+        public init(policyRaw: String) {
+            self.policyRaw = policyRaw
         }
     }
 }
@@ -94,8 +76,12 @@ extension Subscription: Managed {
 
 extension Subscription {
     
-    public static func predicate(type: String) -> NSPredicate {
-        return NSPredicate(format: "%K == %@", #keyPath(Subscription.type), type)
+    public static func predicate(policyRaw: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Subscription.policyRaw), policyRaw)
+    }
+    
+    public static func predicate(userToken: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(Subscription.userToken), userToken)
     }
     
 }

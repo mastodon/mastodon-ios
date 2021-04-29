@@ -67,7 +67,7 @@ extension Mastodon.API.Notifications {
     public static func getNotification(
         session: URLSession,
         domain: String,
-        notificationID: String,
+        notificationID: Mastodon.Entity.Notification.ID,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> {
         let request = Mastodon.API.get(

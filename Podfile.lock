@@ -1,12 +1,14 @@
 PODS:
   - DateToolsSwift (5.0.0)
   - Kanna (5.2.4)
+  - Keys (1.0.1)
   - SwiftGen (6.4.0)
   - "UITextField+Shake (1.2.1)"
 
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
   - Kanna (~> 5.2.2)
+  - Keys (from `Pods/CocoaPodsKeys`)
   - SwiftGen (~> 6.4.0)
   - "UITextField+Shake (~> 1.2)"
 
@@ -17,12 +19,17 @@ SPEC REPOS:
     - SwiftGen
     - "UITextField+Shake"
 
+EXTERNAL SOURCES:
+  Keys:
+    :path: Pods/CocoaPodsKeys
+
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   Kanna: b9d00d7c11428308c7f95e1f1f84b8205f567a8f
+  Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
 
-PODFILE CHECKSUM: 30e8e3a555251a512e7b5e91183747152f126e7a
+PODFILE CHECKSUM: a8dbae22e6e0bfb84f7db59aef1aa1716793d287
 
 COCOAPODS: 1.10.1
