@@ -63,3 +63,10 @@ extension Status {
     }
     
 }
+
+extension Status {
+    var authorForUserProvider: MastodonUser {
+        let author = (reblog ?? self).author
+        return author
+    }
+}

@@ -23,7 +23,7 @@ extension UserProvider where Self: StatusProvider {
             guard let self = self else { return }
             self.status(for: cell, indexPath: indexPath)
                 .sink { status in
-                    promise(.success(status?.author))
+                    promise(.success(status?.authorForUserProvider))
                 }
                 .store(in: &self.disposeBag)
         }

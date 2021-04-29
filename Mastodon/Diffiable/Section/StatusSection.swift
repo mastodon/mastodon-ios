@@ -628,6 +628,18 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
         
+        ManagedObjectObserver.observe(object: status.authorForUserProvider)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { [weak dependency, weak cell] change in
+                guard let cell = cell else { return }
+                guard let dependency = dependency else { return }
+                if case .update( _) = change.changeType {
+                   StatusSection.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
+                }
+            }
+            .store(in: &cell.disposeBag)
         self.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
     }
     
@@ -767,7 +779,7 @@ extension StatusSection {
         guard let authenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-        let author = (status.reblog ?? status).author
+        let author = status.authorForUserProvider
         let canReport = authenticationBox.userID != author.id
         
         let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
