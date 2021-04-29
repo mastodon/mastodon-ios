@@ -91,7 +91,7 @@ final class MastodonRegisterViewModel {
                 let query = Mastodon.API.Account.AccountLookupQuery(acct: text)
                 return context.apiService.accountLookup(domain: domain, query: query, authorization: self.applicationAuthorization)
                     .map {
-                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>in
+                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
                         Result.success(response)
                     }
                     .catch { error in
@@ -100,9 +100,7 @@ final class MastodonRegisterViewModel {
                     .eraseToAnyPublisher()
             }
             .switchToLatest()
-            .sink(receiveCompletion: { _ in
-                
-            }, receiveValue: { [weak self] result in
+            .sink { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success:
@@ -111,7 +109,7 @@ final class MastodonRegisterViewModel {
                 case .failure:
                     break
                 }
-            })
+            }
             .store(in: &disposeBag)
         
         usernameValidateState
