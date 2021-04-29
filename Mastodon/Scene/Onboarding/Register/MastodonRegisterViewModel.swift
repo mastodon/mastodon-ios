@@ -82,10 +82,36 @@ final class MastodonRegisterViewModel {
             .assign(to: \.value, on: usernameValidateState)
             .store(in: &disposeBag)
         
-        username.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates()
-            .sink { [weak self] text in
-                self?.lookupAccount(by: text)
+        username
+            .filter { !$0.isEmpty }
+            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .compactMap { [weak self] text -> AnyPublisher<Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>, Never>? in
+                guard let self = self else { return nil }
+                let query = Mastodon.API.Account.AccountLookupQuery(acct: text)
+                return context.apiService.accountLookup(domain: domain, query: query, authorization: self.applicationAuthorization)
+                    .map {
+                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>in
+                        Result.success(response)
+                    }
+                    .catch { error in
+                        Just(Result.failure(error))
+                    }
+                    .eraseToAnyPublisher()
             }
+            .switchToLatest()
+            .sink(receiveCompletion: { _ in
+                
+            }, receiveValue: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success:
+                    let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
+                    self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
+                case .failure:
+                    break
+                }
+            })
             .store(in: &disposeBag)
         
         usernameValidateState
@@ -133,7 +159,8 @@ final class MastodonRegisterViewModel {
                 let error = error as? Mastodon.API.Error
                 let mastodonError = error?.mastodonError
                 if case let .generic(genericMastodonError) = mastodonError,
-                   let details = genericMastodonError.details {
+                   let details = genericMastodonError.details
+                {
                     self.usernameErrorPrompt.value = details.usernameErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
                     self.emailErrorPrompt.value = details.emailErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
                     self.passwordErrorPrompt.value = details.passwordErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
@@ -157,28 +184,11 @@ final class MastodonRegisterViewModel {
         
         Publishers.CombineLatest(
             publisherOne,
-            approvalRequired ? reasonValidateState.map {$0 == .valid}.eraseToAnyPublisher() : Just(true).eraseToAnyPublisher()
+            approvalRequired ? reasonValidateState.map { $0 == .valid }.eraseToAnyPublisher() : Just(true).eraseToAnyPublisher()
         )
         .map { $0 && $1 }
         .assign(to: \.value, on: isAllValid)
         .store(in: &disposeBag)
-    }
-    
-    func lookupAccount(by acct: String) {
-        if acct.isEmpty {
-            return
-        }
-        let query = Mastodon.API.Account.AccountLookupQuery(acct: acct)
-        context.apiService.accountLookup(domain: domain, query: query, authorization: applicationAuthorization)
-            .sink { _ in
-
-            } receiveValue: { [weak self] account in
-                guard let self = self else { return }
-                let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
-                self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
-            }
-            .store(in: &disposeBag)
-
     }
 }
 
@@ -191,7 +201,6 @@ extension MastodonRegisterViewModel {
 }
 
 extension MastodonRegisterViewModel {
-    
     static func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
 
@@ -241,5 +250,4 @@ extension MastodonRegisterViewModel {
         
         return attributeString
     }
-    
 }

@@ -161,7 +161,7 @@ extension Mastodon.API.Account {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - query: `AccountInfoQuery` with account query information,
-    ///   - authorization: user token
+    ///   - authorization: app token
     /// - Returns: `AnyPublisher` contains `Account` nested in the response
     public static func lookupAccount(
         session: URLSession,
