@@ -19,7 +19,7 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: MediaPreviewViewModel!
-    
+        
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let pagingViewConttroller = MediaPreviewPagingViewController()
     
@@ -191,11 +191,38 @@ extension MediaPreviewViewController: PageboyViewControllerDelegate {
 extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer) {
-        
+        // do nothing
     }
     
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        // delegate?.mediaPreviewViewController(self, longPressGestureRecognizerTriggered: longPressGestureRecognizer)
+        // do nothing
+    }
+    
+    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction) {
+        switch action {
+        case .savePhoto:
+            switch viewController.viewModel.item {
+            case .status(let meta):
+                context.photoLibraryService.saveImage(url: meta.url).sink { _ in
+                    // do nothing
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &context.disposeBag)
+            case .local(let meta):
+                context.photoLibraryService.save(image: meta.image, withNotificationFeedback: true)
+            }
+        case .share:
+            let applicationActivities: [UIActivity] = [
+                SafariActivity(sceneCoordinator: self.coordinator)
+            ]
+            let activityViewController = UIActivityViewController(
+                activityItems: viewController.viewModel.item.activityItems,
+                applicationActivities: applicationActivities
+            )
+            activityViewController.popoverPresentationController?.sourceView = viewController.previewImageView.imageView
+            self.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
 }

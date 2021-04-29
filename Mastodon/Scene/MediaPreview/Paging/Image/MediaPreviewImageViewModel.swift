@@ -27,6 +27,19 @@ extension MediaPreviewImageViewModel {
     enum ImagePreviewItem {
         case status(RemoteImagePreviewMeta)
         case local(LocalImagePreviewMeta)
+        
+        var activityItems: [Any] {
+            var items: [Any] = []
+            
+            switch self {
+            case .status(let meta):
+                items.append(meta.url)
+            case .local(let meta):
+                items.append(meta.image)
+            }
+            
+            return items
+        }
     }
     
     struct RemoteImagePreviewMeta {

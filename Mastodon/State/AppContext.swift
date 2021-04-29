@@ -30,7 +30,8 @@ class AppContext: ObservableObject {
     let statusPublishService = StatusPublishService()
     let notificationService: NotificationService
     let settingService: SettingService
-    
+    let photoLibraryService = PhotoLibraryService()
+
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
     

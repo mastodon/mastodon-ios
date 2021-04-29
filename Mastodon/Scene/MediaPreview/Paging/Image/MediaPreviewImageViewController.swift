@@ -9,9 +9,10 @@ import os.log
 import UIKit
 import Combine
 
-protocol MediaPreviewImageViewControllerDelegate: class {
+protocol MediaPreviewImageViewControllerDelegate: AnyObject {
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer)
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, longPressGestureRecognizerDidTrigger longPressGestureRecognizer: UILongPressGestureRecognizer)
+    func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction)
 }
 
 final class MediaPreviewImageViewController: UIViewController {
@@ -63,6 +64,9 @@ extension MediaPreviewImageViewController {
         previewImageView.addGestureRecognizer(tapGestureRecognizer)
         previewImageView.addGestureRecognizer(longPressGestureRecognizer)
         
+        let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
+        previewImageView.addInteraction(previewImageViewContextMenuInteraction)
+        
         switch viewModel.item {
         case .status(let meta):
 //            progressBarView.isHidden = meta.thumbnail != nil
@@ -112,4 +116,51 @@ extension MediaPreviewImageViewController {
         delegate?.mediaPreviewImageViewController(self, longPressGestureRecognizerDidTrigger: sender)
     }
     
+}
+
+// MARK: - UIContextMenuInteractionDelegate
+extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        
+        let previewProvider: UIContextMenuContentPreviewProvider = { () -> UIViewController? in
+            return nil
+        }
+        
+        let saveAction = UIAction(
+            title: L10n.Common.Controls.Actions.savePhoto, image: UIImage(systemName: "square.and.arrow.down")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: save photo", ((#file as NSString).lastPathComponent), #line, #function)
+            guard let self = self else { return }
+            self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .savePhoto)
+        }
+        
+        let shareAction = UIAction(
+            title: L10n.Common.Controls.Actions.share, image: UIImage(systemName: "square.and.arrow.up")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: share", ((#file as NSString).lastPathComponent), #line, #function)
+            guard let self = self else { return }
+            self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .share)
+        }
+        
+        let actionProvider: UIContextMenuActionProvider = { elements -> UIMenu?  in
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
+                saveAction,
+                shareAction
+            ])
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: previewProvider, actionProvider: actionProvider)
+    }
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        // set preview view
+        return UITargetedPreview(view: previewImageView.imageView)
+    }
+
+}
+
+extension MediaPreviewImageViewController {
+    enum ContextMenuAction {
+        case savePhoto
+        case share
+    }
 }
