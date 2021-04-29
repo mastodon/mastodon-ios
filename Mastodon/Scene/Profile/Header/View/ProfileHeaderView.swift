@@ -206,10 +206,10 @@ extension ProfileHeaderView {
         avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         bannerContainerView.insertSubview(avatarImageViewBackgroundView, belowSubview: avatarImageView)
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
-            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
         ])
         
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
