@@ -117,6 +117,9 @@
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		2D939AC825EE14620076FA61 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* CropViewController */; };
 		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
+		2D9DB967263A76FB007C1D71 /* BlockDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DB966263A76FB007C1D71 /* BlockDomainService.swift */; };
+		2D9DB969263A833E007C1D71 /* DomainBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DB968263A833E007C1D71 /* DomainBlock.swift */; };
+		2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */; };
 		2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA504682601ADE7008F4E6C /* SawToothView.swift */; };
 		2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6054625F716A2006356F9 /* PlaybackState.swift */; };
 		2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */; };
@@ -543,6 +546,9 @@
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		2D939AB425EDD8A90076FA61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewController+Avatar.swift"; sourceTree = "<group>"; };
+		2D9DB966263A76FB007C1D71 /* BlockDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDomainService.swift; sourceTree = "<group>"; };
+		2D9DB968263A833E007C1D71 /* DomainBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainBlock.swift; sourceTree = "<group>"; };
+		2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+DomainBlock.swift"; sourceTree = "<group>"; };
 		2DA504682601ADE7008F4E6C /* SawToothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SawToothView.swift; sourceTree = "<group>"; };
 		2DA6054625F716A2006356F9 /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerViewModel.swift; sourceTree = "<group>"; };
@@ -1091,6 +1097,7 @@
 				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
 				DB71FD4B25F8C80E00512AE1 /* StatusPrefetchingService.swift */,
 				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
+				2D9DB966263A76FB007C1D71 /* BlockDomainService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1494,6 +1501,7 @@
 				DB98336A25C9420100AD9700 /* APIService+App.swift */,
 				DB98337025C9443200AD9700 /* APIService+Authentication.swift */,
 				DB98339B25C96DE600AD9700 /* APIService+Account.swift */,
+				2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */,
 				2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */,
 				DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */,
 				DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */,
@@ -1683,6 +1691,7 @@
 			isa = PBXGroup;
 			children = (
 				DB89BA2625C110B4008580ED /* Status.swift */,
+				2D9DB968263A833E007C1D71 /* DomainBlock.swift */,
 				2D6125462625436B00299647 /* Notification.swift */,
 				2D0B7A1C261D839600B44727 /* SearchHistory.swift */,
 				DB8AF52425C131D1002E6C99 /* MastodonUser.swift */,
@@ -2405,6 +2414,7 @@
 				DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
+				2D9DB967263A76FB007C1D71 /* BlockDomainService.swift in Sources */,
 				DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
@@ -2535,6 +2545,7 @@
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+Provider.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
+				2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */,
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
@@ -2752,6 +2763,7 @@
 				2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */,
 				2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */,
 				DB89BA1D25C1107F008580ED /* URL.swift in Sources */,
+				2D9DB969263A833E007C1D71 /* DomainBlock.swift in Sources */,
 				2D0B7A1D261D839600B44727 /* SearchHistory.swift in Sources */,
 				2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */,
 				5B90C46E26259B2C0002E742 /* Subscription.swift in Sources */,

@@ -13,6 +13,14 @@ internal enum L10n {
 
   internal enum Common {
     internal enum Alerts {
+      internal enum BlockDomain {
+        /// Block entire domain
+        internal static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain")
+        /// Are you really, really sure you want to block the entire %@ ? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
+        internal static func message(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Message", String(describing: p1))
+        }
+      }
       internal enum Common {
         /// Please try again.
         internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")
@@ -60,6 +68,10 @@ internal enum L10n {
         internal static let add = L10n.tr("Localizable", "Common.Controls.Actions.Add")
         /// Back
         internal static let back = L10n.tr("Localizable", "Common.Controls.Actions.Back")
+        /// Block %@
+        internal static func blockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.BlockDomain", String(describing: p1))
+        }
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "Common.Controls.Actions.Cancel")
         /// Confirm

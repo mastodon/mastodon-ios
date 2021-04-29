@@ -310,7 +310,7 @@ extension Status: Managed {
 
 extension Status {
     
-    static func predicate(domain: String) -> NSPredicate {
+    public static func predicate(domain: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(Status.domain), domain)
     }
     

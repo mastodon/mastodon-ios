@@ -159,6 +159,7 @@ extension UserProviderFacade {
         isMuting: Bool,
         isBlocking: Bool,
         canReport: Bool,
+        canBlockDomain: Bool,
         provider: UserProvider,
         cell: UITableViewCell?,
         indexPath: IndexPath?,
@@ -245,6 +246,23 @@ extension UserProviderFacade {
                 )
             }
             children.append(reportAction)
+        }
+        
+        if canBlockDomain {
+            let blockDomainAction = UIAction(title: L10n.Common.Controls.Actions.blockDomain(mastodonUser.domain), image: UIImage(systemName: "nosign"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                guard let provider = provider else { return }
+                let alertController = UIAlertController(title: "", message: L10n.Common.Alerts.BlockDomain.message(mastodonUser.domain), preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in
+
+                }
+                alertController.addAction(cancelAction)
+                let blockDomainAction = UIAlertAction(title: L10n.Common.Alerts.BlockDomain.blockEntireDomain, style: .destructive) { _ in
+                    BlockDomainService(context: provider.context).blockDomain(domain: mastodonUser.domain)
+                }
+                alertController.addAction(blockDomainAction)
+                provider.present(alertController, animated: true, completion: nil)
+            }
+            children.append(blockDomainAction)
         }
         
         if let shareUser = shareUser {

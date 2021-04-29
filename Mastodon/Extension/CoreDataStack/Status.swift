@@ -74,7 +74,12 @@ extension Status {
 extension Status {
     
     var statusURL: URL {
-        return URL(string: "https://\(self.domain)/web/statuses/\(self.id)")!
+        if let urlString = self.url,
+           let url = URL(string: urlString) {
+            return url
+        } else {
+            return URL(string: "https://\(self.domain)/web/statuses/\(self.id)")!
+        }
     }
     
     var activityItems: [Any] {

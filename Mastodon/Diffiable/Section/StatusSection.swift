@@ -781,7 +781,7 @@ extension StatusSection {
         }
         let author = status.authorForUserProvider
         let canReport = authenticationBox.userID != author.id
-        
+        let canBlockDomain = authenticationBox.domain != author.domain
         let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         
@@ -791,6 +791,7 @@ extension StatusSection {
             isMuting: isMuting,
             isBlocking: isBlocking,
             canReport: canReport,
+            canBlockDomain: canBlockDomain,
             provider: userProvider,
             cell: cell,
             indexPath: indexPath,

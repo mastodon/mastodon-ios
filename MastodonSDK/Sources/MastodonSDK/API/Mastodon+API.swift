@@ -117,6 +117,7 @@ extension Mastodon.API {
     public enum Notifications { }
     public enum Subscriptions { }
     public enum Reports { }
+    public enum DomainBlock { }
 }
 
 extension Mastodon.API.V2 {
@@ -140,6 +141,14 @@ extension Mastodon.API {
         authorization: OAuth.Authorization?
     ) -> URLRequest {
         return buildRequest(url: url, method: .POST, query: query, authorization: authorization)
+    }
+    
+    static func delete(
+        url: URL,
+        query: PostQuery?,
+        authorization: OAuth.Authorization?
+    ) -> URLRequest {
+        return buildRequest(url: url, method: .DELETE, query: query, authorization: authorization)
     }
 
     static func patch(

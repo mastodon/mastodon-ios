@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20D75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -23,6 +23,18 @@
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" optional="YES" attributeType="String"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="mediaAttachments" inverseEntity="Status"/>
+    </entity>
+    <entity name="DomainBlock" representedClassName=".DomainBlock" syncable="YES">
+        <attribute name="blockedDomain" attributeType="String"/>
+        <attribute name="domain" attributeType="String"/>
+        <attribute name="userID" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="userID"/>
+                <constraint value="domain"/>
+                <constraint value="blockedDomain"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Emoji" representedClassName=".Emoji" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -252,6 +264,7 @@
     <elements>
         <element name="Application" positionX="0" positionY="0" width="128" height="104"/>
         <element name="Attachment" positionX="0" positionY="0" width="128" height="254"/>
+        <element name="DomainBlock" positionX="45" positionY="162" width="128" height="74"/>
         <element name="Emoji" positionX="0" positionY="0" width="128" height="149"/>
         <element name="History" positionX="0" positionY="0" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
