@@ -27,7 +27,7 @@ extension Mastodon.API.Account {
     ///
     ///
     /// - Since: 0.0.0
-    /// - Version: 3.0.0
+    /// - Version: 3.3.0
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/)
     /// - Parameters:
@@ -59,7 +59,7 @@ extension Mastodon.API.Account {
     ///
     ///
     /// - Since: 0.0.0
-    /// - Version: 3.0.0
+    /// - Version: 3.3.0
     /// # Reference
     ///   [Document](https://docs.joinmastodon.org/methods/accounts/follow_requests/)
     /// - Parameters:
