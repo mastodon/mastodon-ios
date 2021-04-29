@@ -28,15 +28,15 @@ extension APIService {
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error> in
             let log = OSLog.api
-            if query.maxID == nil {
-                let requestMastodonNotificationRequest = MastodonNotification.sortedFetchRequest
-                requestMastodonNotificationRequest.predicate = MastodonNotification.predicate(domain: domain, userID: userID)
-                let oldNotifications = self.backgroundManagedObjectContext.safeFetch(requestMastodonNotificationRequest)
-                oldNotifications.forEach { notification in
-                    self.backgroundManagedObjectContext.delete(notification)
-                }
-            }
             return self.backgroundManagedObjectContext.performChanges {
+                if query.maxID == nil {
+                    let requestMastodonNotificationRequest = MastodonNotification.sortedFetchRequest
+                    requestMastodonNotificationRequest.predicate = MastodonNotification.predicate(domain: domain, userID: userID)
+                    let oldNotifications = self.backgroundManagedObjectContext.safeFetch(requestMastodonNotificationRequest)
+                    oldNotifications.forEach { notification in
+                        self.backgroundManagedObjectContext.delete(notification)
+                    }
+                }
                 response.value.forEach { notification in
                     let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.backgroundManagedObjectContext, for: nil, in: domain, entity: notification.account, userCache: nil, networkDate: Date(), log: log)
                     var status: Status?

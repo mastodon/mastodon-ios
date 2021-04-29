@@ -11,13 +11,13 @@ import Combine
 // MARK: - Account credentials
 extension Mastodon.API.Account {
     
-    static func acceptFollowRequestEndpointURL(domain: String, userID: String) -> URL {
+    static func acceptFollowRequestEndpointURL(domain: String, userID: Mastodon.Entity.Account.ID) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("follow_requests")
             .appendingPathComponent(userID)
             .appendingPathComponent("authorize")
     }
     
-    static func rejectFollowRequestEndpointURL(domain: String, userID: String) -> URL {
+    static func rejectFollowRequestEndpointURL(domain: String, userID: Mastodon.Entity.Account.ID) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("follow_requests")
             .appendingPathComponent(userID)
             .appendingPathComponent("reject")
@@ -34,12 +34,12 @@ extension Mastodon.API.Account {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - userID: ID of the account in the database
-    ///   - authorization: App token
+    ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Relationship` nested in the response
     public static func acceptFollowRequest(
         session: URLSession,
         domain: String,
-        userID: String,
+        userID: Mastodon.Entity.Account.ID,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let request = Mastodon.API.post(
@@ -66,12 +66,12 @@ extension Mastodon.API.Account {
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
     ///   - userID: ID of the account in the database
-    ///   - authorization: App token
+    ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Relationship` nested in the response
     public static func rejectFollowRequest(
         session: URLSession,
         domain: String,
-        userID: String,
+        userID: Mastodon.Entity.Account.ID,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let request = Mastodon.API.post(
