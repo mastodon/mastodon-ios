@@ -172,13 +172,14 @@ extension ProfileViewController {
             }
             .store(in: &disposeBag)
             
-        Publishers.CombineLatest3 (
+        Publishers.CombineLatest4 (
             viewModel.suspended.eraseToAnyPublisher(),
+            profileHeaderViewController.viewModel.isTitleViewDisplaying.eraseToAnyPublisher(),
             editingAndUpdatingPublisher.eraseToAnyPublisher(),
             barButtonItemHiddenPublisher.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] suspended, tuple1, tuple2 in
+        .sink { [weak self] suspended, isTitleViewDisplaying, tuple1, tuple2 in
             guard let self = self else { return }
             let (isEditing, _) = tuple1
             let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
@@ -194,6 +195,10 @@ extension ProfileViewController {
             
             guard !isEditing else {
                 items.append(self.cancelEditingBarButtonItem)
+                return
+            }
+            
+            guard !isTitleViewDisplaying else {
                 return
             }
             

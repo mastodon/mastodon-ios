@@ -328,7 +328,9 @@ extension ProfileHeaderViewController {
         let nameTextFieldInWindow = profileHeaderView.nameTextField.superview!.convert(profileHeaderView.nameTextField.frame, to: nil)
         let nameTextFieldTopToNavigationBarBottomOffset = containerSafeAreaInset.top - nameTextFieldInWindow.origin.y
         let titleViewContentOffset: CGFloat = titleView.frame.height - nameTextFieldTopToNavigationBarBottomOffset
-        titleView.containerView.transform = CGAffineTransform(translationX: 0, y: max(0, titleViewContentOffset))
+        let transformY = max(0, titleViewContentOffset)
+        titleView.containerView.transform = CGAffineTransform(translationX: 0, y: transformY)
+        viewModel.isTitleViewDisplaying.value = transformY < titleView.containerView.frame.height
 
         if viewModel.viewDidAppear.value {
             viewModel.isTitleViewContentOffsetSet.value = true
@@ -347,6 +349,7 @@ extension ProfileHeaderViewController {
     }
     
     private func setProfileBannerFade(alpha: CGFloat) {
+        profileHeaderView.avatarImageViewBackgroundView.alpha = alpha
         profileHeaderView.avatarImageView.alpha = alpha
         profileHeaderView.editAvatarBackgroundView.alpha = alpha
         profileHeaderView.nameTextFieldBackgroundView.alpha = alpha
