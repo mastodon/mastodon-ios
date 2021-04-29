@@ -91,6 +91,18 @@ extension NotificationSection {
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)
+                    cell.acceptButton.publisher(for: .touchUpInside)
+                        .sink { [weak cell] _ in
+                            guard let cell = cell else { return }
+                            cell.delegate?.notificationTableViewCell(cell, notification: notification, acceptButtonDidPressed: cell.acceptButton)
+                        }
+                        .store(in: &cell.disposeBag)
+                    cell.rejectButton.publisher(for: .touchUpInside)
+                        .sink { [weak cell] _ in
+                            guard let cell = cell else { return }
+                            cell.delegate?.notificationTableViewCell(cell, notification: notification, rejectButtonDidPressed: cell.rejectButton)
+                        }
+                        .store(in: &cell.disposeBag)
                     cell.actionImageBackground.backgroundColor = color
                     cell.actionLabel.text = actionText + " · " + timeText
                     cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
@@ -108,6 +120,7 @@ extension NotificationSection {
                     if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
                         cell.actionImageView.image = actionImage
                     }
+                    cell.buttonStackView.isHidden = (type != .followRequest)
                     return cell
                 }
             case .bottomLoader:

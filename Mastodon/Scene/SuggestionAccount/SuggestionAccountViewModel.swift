@@ -188,8 +188,7 @@ final class SuggestionAccountViewModel: NSObject {
         let mastodonUser = context.managedObjectContext.object(with: objectID) as! MastodonUser
         return context.apiService.toggleFollow(
             for: mastodonUser,
-            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
-            needFeedback: false
+            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox
         )
     }
     
