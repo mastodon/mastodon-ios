@@ -5,16 +5,15 @@
 //  Created by MainasuK Cirno on 2021-4-1.
 //
 
-import UIKit
 import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import UIKit
 
-enum UserProviderFacade { }
+enum UserProviderFacade {}
 
 extension UserProviderFacade {
-    
     static func toggleUserFollowRelationship(
         provider: UserProvider
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
@@ -50,11 +49,9 @@ extension UserProviderFacade {
             .switchToLatest()
             .eraseToAnyPublisher()
     }
-    
 }
 
 extension UserProviderFacade {
-    
     static func toggleUserBlockRelationship(
         provider: UserProvider,
         cell: UITableViewCell?,
@@ -99,11 +96,9 @@ extension UserProviderFacade {
             .switchToLatest()
             .eraseToAnyPublisher()
     }
-    
 }
 
 extension UserProviderFacade {
-    
     static func toggleUserMuteRelationship(
         provider: UserProvider,
         cell: UITableViewCell?,
@@ -148,11 +143,9 @@ extension UserProviderFacade {
             .switchToLatest()
             .eraseToAnyPublisher()
     }
-    
 }
 
 extension UserProviderFacade {
-    
     static func createProfileActionMenu(
         for mastodonUser: MastodonUser,
         isMuting: Bool,
@@ -238,7 +231,8 @@ extension UserProviderFacade {
                     context: provider.context,
                     domain: authenticationBox.domain,
                     user: mastodonUser,
-                    status: nil)
+                    status: nil
+                )
                 provider.coordinator.present(
                     scene: .report(viewModel: viewModel),
                     from: provider,
@@ -252,11 +246,7 @@ extension UserProviderFacade {
             if isDomainBlocking {
                 let unblockDomainAction = UIAction(title: L10n.Common.Controls.Actions.unblockDomain(mastodonUser.domainFromAcct), image: UIImage(systemName: "nosign"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
                     guard let provider = provider else { return }
-                    BlockDomainService(userProvider: provider,
-                                       cell: cell,
-                                       indexPath: indexPath
-                    )
-                        .unblockDomain()
+                    provider.context.blockDomainService.unblockDomain(userProvider: provider, cell: cell, indexPath: indexPath)
                 }
                 children.append(unblockDomainAction)
             } else {
@@ -264,15 +254,10 @@ extension UserProviderFacade {
                     guard let provider = provider else { return }
                     let alertController = UIAlertController(title: "", message: L10n.Common.Alerts.BlockDomain.message(mastodonUser.domainFromAcct), preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in
-
                     }
                     alertController.addAction(cancelAction)
                     let blockDomainAction = UIAlertAction(title: L10n.Common.Alerts.BlockDomain.blockEntireDomain, style: .destructive) { _ in
-                        BlockDomainService(userProvider: provider,
-                                           cell: cell,
-                                           indexPath: indexPath
-                        )
-                            .blockDomain()
+                        provider.context.blockDomainService.blockDomain(userProvider: provider, cell: cell, indexPath: indexPath)
                     }
                     alertController.addAction(blockDomainAction)
                     provider.present(alertController, animated: true, completion: nil)
@@ -333,5 +318,4 @@ extension UserProviderFacade {
         )
         return activityViewController
     }
-
 }

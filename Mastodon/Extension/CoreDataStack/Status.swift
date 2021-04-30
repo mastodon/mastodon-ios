@@ -5,8 +5,8 @@
 //  Created by MainasuK Cirno on 2021/2/4.
 //
 
-import Foundation
 import CoreDataStack
+import Foundation
 import MastodonSDK
 
 extension Status.Property {
@@ -34,7 +34,6 @@ extension Status.Property {
 }
 
 extension Status {
-    
     enum SensitiveType {
         case none
         case all
@@ -61,7 +60,6 @@ extension Status {
         // not sensitive
         return .none
     }
-    
 }
 
 extension Status {
@@ -72,10 +70,10 @@ extension Status {
 }
 
 extension Status {
-    
     var statusURL: URL {
         if let urlString = self.url,
-           let url = URL(string: urlString) {
+           let url = URL(string: urlString)
+        {
             return url
         } else {
             return URL(string: "https://\(self.domain)/web/statuses/\(self.id)")!
@@ -84,7 +82,7 @@ extension Status {
     
     var activityItems: [Any] {
         var items: [Any] = []
-        items.append(statusURL)
+        items.append(self.statusURL)
         return items
     }
 }

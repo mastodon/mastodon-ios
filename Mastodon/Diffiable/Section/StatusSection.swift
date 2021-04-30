@@ -628,18 +628,18 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
         
-        ManagedObjectObserver.observe(object: status.authorForUserProvider)
-            .receive(on: DispatchQueue.main)
-            .sink { _ in
-                // do nothing
-            } receiveValue: { [weak dependency, weak cell] change in
-                guard let cell = cell else { return }
-                guard let dependency = dependency else { return }
-                if case .update( _) = change.changeType {
-                   StatusSection.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
-                }
-            }
-            .store(in: &cell.disposeBag)
+        Publishers.CombineLatest(
+            dependency.context.blockDomainService.blockedDomains,
+            ManagedObjectObserver.observe(object: status.authorForUserProvider)
+                .assertNoFailure()
+            )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak dependency, weak cell] domains,change in
+            guard let cell = cell else { return }
+            guard let dependency = dependency else { return }
+            StatusSection.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
+        }
+        .store(in: &cell.disposeBag)
         self.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
     }
     
@@ -784,40 +784,22 @@ extension StatusSection {
         let isInSameDomain = authenticationBox.domain == author.domainFromAcct
         let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
-        
+        let isDomainBlocking = dependency.context.blockDomainService.blockedDomains.value.contains(author.domainFromAcct)
         cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
-        let managedObjectContext = userProvider.context.backgroundManagedObjectContext
-        managedObjectContext.perform {
-            let blockedDomain: DomainBlock? = {
-                    let request = DomainBlock.sortedFetchRequest
-                    request.predicate = DomainBlock.predicate(domain: authenticationBox.domain, userID: authenticationBox.userID, blockedDomain: author.domainFromAcct)
-                    request.fetchLimit = 1
-                    request.returnsObjectsAsFaults = false
-                    do {
-                        return try managedObjectContext.fetch(request).first
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return nil
-                    }
-            }()
-            let isDomainBlocking = blockedDomain != nil
-            DispatchQueue.main.async {
-                cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
-                    for: author,
-                    isMuting: isMuting,
-                    isBlocking: isBlocking,
-                    canReport: canReport,
-                    isInSameDomain: isInSameDomain,
-                    isDomainBlocking: isDomainBlocking,
-                    provider: userProvider,
-                    cell: cell,
-                    indexPath: indexPath,
-                    sourceView: cell.statusView.actionToolbarContainer.moreButton,
-                    barButtonItem: nil,
-                    shareUser: nil,
-                    shareStatus: status
-                )
-            }
-        }
+        cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
+            for: author,
+            isMuting: isMuting,
+            isBlocking: isBlocking,
+            canReport: canReport,
+            isInSameDomain: isInSameDomain,
+            isDomainBlocking: isDomainBlocking,
+            provider: userProvider,
+            cell: cell,
+            indexPath: indexPath,
+            sourceView: cell.statusView.actionToolbarContainer.moreButton,
+            barButtonItem: nil,
+            shareUser: nil,
+            shareStatus: status
+        )
     }
 }

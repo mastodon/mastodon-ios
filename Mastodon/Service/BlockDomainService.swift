@@ -5,34 +5,56 @@
 //  Created by sxiaojian on 2021/4/29.
 //
 
+import Combine
 import CoreData
 import CoreDataStack
 import Foundation
-import Combine
 import MastodonSDK
 import OSLog
 import UIKit
 
 final class BlockDomainService {
-    let userProvider: UserProvider
-    let cell: UITableViewCell?
-    let indexPath: IndexPath?
-    init(userProvider: UserProvider,
-         cell: UITableViewCell?,
-         indexPath: IndexPath?
+    // input
+    weak var backgroundManagedObjectContext: NSManagedObjectContext?
+    weak var authenticationService: AuthenticationService?
+
+    // output
+    let blockedDomains = CurrentValueSubject<[String], Never>([])
+
+    init(
+        backgroundManagedObjectContext: NSManagedObjectContext,
+        authenticationService: AuthenticationService
     ) {
-        self.userProvider = userProvider
-        self.cell = cell
-        self.indexPath = indexPath
+        self.backgroundManagedObjectContext = backgroundManagedObjectContext
+        self.authenticationService = authenticationService
+        guard let authorizationBox = authenticationService.activeMastodonAuthenticationBox.value else { return }
+        backgroundManagedObjectContext.perform {
+            let _blockedDomains: [DomainBlock] = {
+                let request = DomainBlock.sortedFetchRequest
+                request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID)
+                request.returnsObjectsAsFaults = false
+                do {
+                    return try backgroundManagedObjectContext.fetch(request)
+                } catch {
+                    assertionFailure(error.localizedDescription)
+                    return []
+                }
+            }()
+            self.blockedDomains.value = _blockedDomains.map(\.blockedDomain)
+        }
     }
 
-    func blockDomain() {
-        guard let activeMastodonAuthenticationBox = self.userProvider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        guard let context = self.userProvider.context  else {
+    func blockDomain(
+        userProvider: UserProvider,
+        cell: UITableViewCell?,
+        indexPath: IndexPath?
+    ) {
+        guard let activeMastodonAuthenticationBox = userProvider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        guard let context = userProvider.context else {
             return
         }
         var mastodonUser: AnyPublisher<MastodonUser?, Never>
-        if let cell = self.cell, let indexPath = self.indexPath {
+        if let cell = cell, let indexPath = indexPath {
             mastodonUser = userProvider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
         } else {
             mastodonUser = userProvider.mastodonUser().eraseToAnyPublisher()
@@ -45,8 +67,8 @@ final class BlockDomainService {
                 return context.apiService.blockDomain(user: mastodonUser, authorizationBox: activeMastodonAuthenticationBox)
             }
             .switchToLatest()
-            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[String]>, Error>  in
-                return context.apiService.getDomainblocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
+            .flatMap { _ -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
+                context.apiService.getDomainblocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
             }
             .sink { completion in
                 switch completion {
@@ -55,19 +77,23 @@ final class BlockDomainService {
                 case .failure(let error):
                     print(error)
                 }
-            } receiveValue: { response in
-                print(response)
+            } receiveValue: { [weak self] response in
+                self?.blockedDomains.value = response.value
             }
             .store(in: &userProvider.disposeBag)
     }
-    
-    func unblockDomain() {
-        guard let activeMastodonAuthenticationBox = self.userProvider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        guard let context = self.userProvider.context  else {
+
+    func unblockDomain(
+        userProvider: UserProvider,
+        cell: UITableViewCell?,
+        indexPath: IndexPath?
+    ) {
+        guard let activeMastodonAuthenticationBox = userProvider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        guard let context = userProvider.context else {
             return
         }
         var mastodonUser: AnyPublisher<MastodonUser?, Never>
-        if let cell = self.cell, let indexPath = self.indexPath {
+        if let cell = cell, let indexPath = indexPath {
             mastodonUser = userProvider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
         } else {
             mastodonUser = userProvider.mastodonUser().eraseToAnyPublisher()
@@ -80,8 +106,8 @@ final class BlockDomainService {
                 return context.apiService.unblockDomain(user: mastodonUser, authorizationBox: activeMastodonAuthenticationBox)
             }
             .switchToLatest()
-            .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[String]>, Error>  in
-                return context.apiService.getDomainblocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
+            .flatMap { _ -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
+                context.apiService.getDomainblocks(domain: activeMastodonAuthenticationBox.domain, authorizationBox: activeMastodonAuthenticationBox)
             }
             .sink { completion in
                 switch completion {
@@ -90,13 +116,9 @@ final class BlockDomainService {
                 case .failure(let error):
                     print(error)
                 }
-            } receiveValue: { response in
-                print(response)
+            } receiveValue: { [weak self] response in
+                self?.blockedDomains.value = response.value
             }
             .store(in: &userProvider.disposeBag)
-    }
-    
-    deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
 }

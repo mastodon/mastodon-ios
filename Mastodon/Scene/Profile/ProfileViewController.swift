@@ -366,36 +366,40 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.text, on: profileHeaderViewController.profileHeaderView.usernameLabel)
             .store(in: &disposeBag)
-        viewModel.relationshipActionOptionSet
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] relationshipActionOptionSet in
-                guard let self = self else { return }
-                guard let mastodonUser = self.viewModel.mastodonUser.value else {
-                    self.moreMenuBarButtonItem.menu = nil
-                    return
-                }
-                guard let currentDomain = self.viewModel.domain.value else { return }
-                let isMuting = relationshipActionOptionSet.contains(.muting)
-                let isBlocking = relationshipActionOptionSet.contains(.blocking)
-                let isDomainBlocking = relationshipActionOptionSet.contains(.domainBlocking)
-                let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
-                let isInSameDomain = mastodonUser.domainFromAcct == currentDomain
-                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(
-                    for: mastodonUser,
-                    isMuting: isMuting,
-                    isBlocking: isBlocking,
-                    canReport: true,
-                    isInSameDomain: isInSameDomain,
-                    isDomainBlocking: isDomainBlocking,
-                    provider: self,
-                    cell: nil,
-                    indexPath: nil,
-                    sourceView: nil,
-                    barButtonItem: self.moreMenuBarButtonItem,
-                    shareUser: needsShareAction ? mastodonUser : nil,
-                    shareStatus: nil)
+        Publishers.CombineLatest(
+            viewModel.relationshipActionOptionSet,
+            viewModel.context.blockDomainService.blockedDomains
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] relationshipActionOptionSet,domains in
+            guard let self = self else { return }
+            guard let mastodonUser = self.viewModel.mastodonUser.value else {
+                self.moreMenuBarButtonItem.menu = nil
+                return
             }
-            .store(in: &disposeBag)
+            guard let currentDomain = self.viewModel.domain.value else { return }
+            let isMuting = relationshipActionOptionSet.contains(.muting)
+            let isBlocking = relationshipActionOptionSet.contains(.blocking)
+            let isDomainBlocking = domains.contains(mastodonUser.domainFromAcct)
+            let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
+            let isInSameDomain = mastodonUser.domainFromAcct == currentDomain
+            self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(
+                for: mastodonUser,
+                isMuting: isMuting,
+                isBlocking: isBlocking,
+                canReport: true,
+                isInSameDomain: isInSameDomain,
+                isDomainBlocking: isDomainBlocking,
+                provider: self,
+                cell: nil,
+                indexPath: nil,
+                sourceView: nil,
+                barButtonItem: self.moreMenuBarButtonItem,
+                shareUser: needsShareAction ? mastodonUser : nil,
+                shareStatus: nil)
+        }
+        .store(in: &disposeBag)
+        
         viewModel.isRelationshipActionButtonHidden
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isHidden in

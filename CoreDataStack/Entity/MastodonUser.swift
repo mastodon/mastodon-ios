@@ -333,7 +333,7 @@ extension MastodonUser: Managed {
 
 extension MastodonUser {
     
-    public static  func predicate(domain: String) -> NSPredicate {
+    static func predicate(domain: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(MastodonUser.domain), domain)
     }
     
@@ -369,4 +369,5 @@ extension MastodonUser {
             MastodonUser.predicate(username: username)
         ])
     }
+    
 }

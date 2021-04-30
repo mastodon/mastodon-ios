@@ -85,7 +85,7 @@ extension Mastodon.API.DomainBlock {
         session: URLSession,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
-        let query = Mastodon.API.DomainBlock.BlockQuery(domain: blockDomain)
+        let query = Mastodon.API.DomainBlock.BlockDeleteQuery(domain: blockDomain)
         let request = Mastodon.API.delete(
             url: domainBlockEndpointURL(domain: domain),
             query: query,
@@ -126,7 +126,17 @@ extension Mastodon.API.DomainBlock {
         }
     }
     
+    public struct BlockDeleteQuery: Codable, DeleteQuery {
+        
+        public let domain: String
+        
+        public init(domain: String) {
+            self.domain = domain
+        }
+    }
+    
     public struct BlockQuery: Codable, PostQuery {
+        
         public let domain: String
         
         public init(domain: String) {

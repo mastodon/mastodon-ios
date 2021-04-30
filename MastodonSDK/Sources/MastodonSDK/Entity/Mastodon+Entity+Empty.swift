@@ -11,5 +11,4 @@ extension Mastodon.Entity {
     public struct Empty: Codable {
         
     }
-    
 }

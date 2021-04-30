@@ -51,7 +51,7 @@ extension DomainBlock {
     static func predicate(userID: String) -> NSPredicate {
         NSPredicate(format: "%K == %@", #keyPath(DomainBlock.userID), userID)
     }
-    
+
     static func predicate(blockedDomain: String) -> NSPredicate {
         NSPredicate(format: "%K == %@", #keyPath(DomainBlock.blockedDomain), blockedDomain)
     }
@@ -62,12 +62,12 @@ extension DomainBlock {
             DomainBlock.predicate(userID: userID)
         ])
     }
-    
+
     public static func predicate(domain: String, userID: String, blockedDomain: String) -> NSPredicate {
         NSCompoundPredicate(andPredicateWithSubpredicates: [
             DomainBlock.predicate(domain: domain),
             DomainBlock.predicate(userID: userID),
-            DomainBlock.predicate(blockedDomain:blockedDomain)
+            DomainBlock.predicate(blockedDomain: blockedDomain)
         ])
     }
 }

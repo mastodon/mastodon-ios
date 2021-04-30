@@ -32,6 +32,19 @@ extension APIService {
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
             self.backgroundManagedObjectContext.performChanges {
+                let blockedDomains: [DomainBlock] = {
+                    let request = DomainBlock.sortedFetchRequest
+                    request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID)
+                    request.returnsObjectsAsFaults = false
+                    do {
+                        return try self.backgroundManagedObjectContext.fetch(request)
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return []
+                    }
+                }()
+                blockedDomains.forEach { self.backgroundManagedObjectContext.delete($0) }
+                
                 response.value.forEach { domain in
                     // use constrain to avoid repeated save
                     _ = DomainBlock.insert(
@@ -74,12 +87,6 @@ extension APIService {
                 requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: authorizationBox.domain, id: authorizationBox.userID)
                 requestMastodonUserRequest.fetchLimit = 1
                 guard let requestMastodonUser = self.backgroundManagedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
-                _ = DomainBlock.insert(
-                    into: self.backgroundManagedObjectContext,
-                    blockedDomain: user.domainFromAcct,
-                    domain: authorizationBox.domain,
-                    userID: authorizationBox.userID
-                )
                 user.update(isDomainBlocking: true, by: requestMastodonUser)
             }
             .setFailureType(to: Error.self)
@@ -110,21 +117,6 @@ extension APIService {
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> in
             self.backgroundManagedObjectContext.performChanges {
-                let blockedDomain: DomainBlock? = {
-                    let request = DomainBlock.sortedFetchRequest
-                    request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID, blockedDomain: user.domainFromAcct)
-                    request.fetchLimit = 1
-                    request.returnsObjectsAsFaults = false
-                    do {
-                        return try self.backgroundManagedObjectContext.fetch(request).first
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return nil
-                    }
-                }()
-                if let blockedDomain = blockedDomain {
-                    self.backgroundManagedObjectContext.delete(blockedDomain)
-                }
                 let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
                 requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: authorizationBox.domain, id: authorizationBox.userID)
                 requestMastodonUserRequest.fetchLimit = 1
