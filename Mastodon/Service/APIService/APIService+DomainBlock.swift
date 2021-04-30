@@ -5,16 +5,15 @@
 //  Created by sxiaojian on 2021/4/29.
 //
 
-import Foundation
 import Combine
+import CommonOSLog
 import CoreData
 import CoreDataStack
-import CommonOSLog
 import DateToolsSwift
+import Foundation
 import MastodonSDK
 
 extension APIService {
-    
     func getDomainblocks(
         domain: String,
         limit: Int = onceRequestDomainBlocksMaxCount,
@@ -32,10 +31,10 @@ extension APIService {
             query: query
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> in
-            return self.backgroundManagedObjectContext.performChanges {
+            self.backgroundManagedObjectContext.performChanges {
                 response.value.forEach { domain in
                     // use constrain to avoid repeated save
-                    let _ = DomainBlock.insert(
+                    _ = DomainBlock.insert(
                         into: self.backgroundManagedObjectContext,
                         blockedDomain: domain,
                         domain: authorizationBox.domain,
@@ -58,28 +57,33 @@ extension APIService {
     }
  
     func blockDomain(
-        domain: String,
+        user: MastodonUser,
         authorizationBox: AuthenticationService.MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<String>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
         let authorization = authorizationBox.userAuthorization
 
         return Mastodon.API.DomainBlock.blockDomain(
             domain: authorizationBox.domain,
-            blockDomain: domain,
+            blockDomain: user.domainFromAcct,
             session: session,
             authorization: authorization
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<String>, Error> in
-            return self.backgroundManagedObjectContext.performChanges {
-                let _ = DomainBlock.insert(
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> in
+            self.backgroundManagedObjectContext.performChanges {
+                let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
+                requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: authorizationBox.domain, id: authorizationBox.userID)
+                requestMastodonUserRequest.fetchLimit = 1
+                guard let requestMastodonUser = self.backgroundManagedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
+                _ = DomainBlock.insert(
                     into: self.backgroundManagedObjectContext,
-                    blockedDomain: domain,
+                    blockedDomain: user.domainFromAcct,
                     domain: authorizationBox.domain,
                     userID: authorizationBox.userID
                 )
+                user.update(isDomainBlocking: true, by: requestMastodonUser)
             }
             .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<String> in
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Empty> in
                 switch result {
                 case .success:
                     return response
@@ -93,28 +97,42 @@ extension APIService {
     }
     
     func unblockDomain(
-        domain: String,
+        user: MastodonUser,
         authorizationBox: AuthenticationService.MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<String>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
         let authorization = authorizationBox.userAuthorization
         
         return Mastodon.API.DomainBlock.unblockDomain(
             domain: authorizationBox.domain,
-            blockDomain: domain,
+            blockDomain: user.domainFromAcct,
             session: session,
             authorization: authorization
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<String>, Error> in
-            return self.backgroundManagedObjectContext.performChanges {
-//                let _ = DomainBlock.insert(
-//                    into: self.backgroundManagedObjectContext,
-//                    blockedDomain: domain,
-//                    domain: authorizationBox.domain,
-//                    userID: authorizationBox.userID
-//                )
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> in
+            self.backgroundManagedObjectContext.performChanges {
+                let blockedDomain: DomainBlock? = {
+                    let request = DomainBlock.sortedFetchRequest
+                    request.predicate = DomainBlock.predicate(domain: authorizationBox.domain, userID: authorizationBox.userID, blockedDomain: user.domainFromAcct)
+                    request.fetchLimit = 1
+                    request.returnsObjectsAsFaults = false
+                    do {
+                        return try self.backgroundManagedObjectContext.fetch(request).first
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return nil
+                    }
+                }()
+                if let blockedDomain = blockedDomain {
+                    self.backgroundManagedObjectContext.delete(blockedDomain)
+                }
+                let requestMastodonUserRequest = MastodonUser.sortedFetchRequest
+                requestMastodonUserRequest.predicate = MastodonUser.predicate(domain: authorizationBox.domain, id: authorizationBox.userID)
+                requestMastodonUserRequest.fetchLimit = 1
+                guard let requestMastodonUser = self.backgroundManagedObjectContext.safeFetch(requestMastodonUserRequest).first else { return }
+                user.update(isDomainBlocking: false, by: requestMastodonUser)
             }
             .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<String> in
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Empty> in
                 switch result {
                 case .success:
                     return response

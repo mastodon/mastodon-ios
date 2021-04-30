@@ -54,7 +54,7 @@ extension Mastodon.API.DomainBlock {
         blockDomain:String,
         session: URLSession,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<String>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
         let query = Mastodon.API.DomainBlock.BlockQuery(domain: blockDomain)
         let request = Mastodon.API.post(
             url: domainBlockEndpointURL(domain: domain),
@@ -63,7 +63,7 @@ extension Mastodon.API.DomainBlock {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: String.self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Empty.self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()
@@ -84,7 +84,7 @@ extension Mastodon.API.DomainBlock {
         blockDomain:String,
         session: URLSession,
         authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<String>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
         let query = Mastodon.API.DomainBlock.BlockQuery(domain: blockDomain)
         let request = Mastodon.API.delete(
             url: domainBlockEndpointURL(domain: domain),
@@ -93,7 +93,7 @@ extension Mastodon.API.DomainBlock {
         )
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: String.self, from: data, response: response)
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Empty.self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
             .eraseToAnyPublisher()

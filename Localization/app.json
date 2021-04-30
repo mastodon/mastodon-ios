@@ -61,7 +61,8 @@
                 "manually_search": "Manually search instead",
                 "skip": "Skip",
                 "report_user": "Report %s",
-                "block_domain": "Block %s"
+                "block_domain": "Block %s",
+                "unblock_domain": "Unblock %s"
             },
             "status": {
                 "user_reblogged": "%s reblogged",
@@ -91,7 +92,7 @@
                 "pending": "Pending",
                 "block": "Block",
                 "block_user": "Block %s",
-                "block_domain": "Block %s",
+                "block_domain": "Domain Blocked",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",

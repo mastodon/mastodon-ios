@@ -26,6 +26,7 @@
     </entity>
     <entity name="DomainBlock" representedClassName=".DomainBlock" syncable="YES">
         <attribute name="blockedDomain" attributeType="String"/>
+        <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
         <attribute name="userID" attributeType="String"/>
         <uniquenessConstraints>
@@ -264,7 +265,7 @@
     <elements>
         <element name="Application" positionX="0" positionY="0" width="128" height="104"/>
         <element name="Attachment" positionX="0" positionY="0" width="128" height="254"/>
-        <element name="DomainBlock" positionX="45" positionY="162" width="128" height="74"/>
+        <element name="DomainBlock" positionX="45" positionY="162" width="128" height="89"/>
         <element name="Emoji" positionX="0" positionY="0" width="128" height="149"/>
         <element name="History" positionX="0" positionY="0" width="128" height="119"/>
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>

@@ -781,24 +781,43 @@ extension StatusSection {
         }
         let author = status.authorForUserProvider
         let canReport = authenticationBox.userID != author.id
-        let canBlockDomain = authenticationBox.domain != author.domain
+        let isInSameDomain = authenticationBox.domain == author.domainFromAcct
         let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         
         cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
-        cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
-            for: author,
-            isMuting: isMuting,
-            isBlocking: isBlocking,
-            canReport: canReport,
-            canBlockDomain: canBlockDomain,
-            provider: userProvider,
-            cell: cell,
-            indexPath: indexPath,
-            sourceView: cell.statusView.actionToolbarContainer.moreButton,
-            barButtonItem: nil,
-            shareUser: nil,
-            shareStatus: status
-        )
+        let managedObjectContext = userProvider.context.backgroundManagedObjectContext
+        managedObjectContext.perform {
+            let blockedDomain: DomainBlock? = {
+                    let request = DomainBlock.sortedFetchRequest
+                    request.predicate = DomainBlock.predicate(domain: authenticationBox.domain, userID: authenticationBox.userID, blockedDomain: author.domainFromAcct)
+                    request.fetchLimit = 1
+                    request.returnsObjectsAsFaults = false
+                    do {
+                        return try managedObjectContext.fetch(request).first
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return nil
+                    }
+            }()
+            let isDomainBlocking = blockedDomain != nil
+            DispatchQueue.main.async {
+                cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
+                    for: author,
+                    isMuting: isMuting,
+                    isBlocking: isBlocking,
+                    canReport: canReport,
+                    isInSameDomain: isInSameDomain,
+                    isDomainBlocking: isDomainBlocking,
+                    provider: userProvider,
+                    cell: cell,
+                    indexPath: indexPath,
+                    sourceView: cell.statusView.actionToolbarContainer.moreButton,
+                    barButtonItem: nil,
+                    shareUser: nil,
+                    shareStatus: status
+                )
+            }
+        }
     }
 }

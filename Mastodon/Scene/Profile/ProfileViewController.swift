@@ -377,14 +377,16 @@ extension ProfileViewController {
                 guard let currentDomain = self.viewModel.domain.value else { return }
                 let isMuting = relationshipActionOptionSet.contains(.muting)
                 let isBlocking = relationshipActionOptionSet.contains(.blocking)
+                let isDomainBlocking = relationshipActionOptionSet.contains(.domainBlocking)
                 let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
-                let canBlockDomain = mastodonUser.domain != currentDomain
+                let isInSameDomain = mastodonUser.domainFromAcct == currentDomain
                 self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(
                     for: mastodonUser,
                     isMuting: isMuting,
                     isBlocking: isBlocking,
                     canReport: true,
-                    canBlockDomain: canBlockDomain,
+                    isInSameDomain: isInSameDomain,
+                    isDomainBlocking: isDomainBlocking,
                     provider: self,
                     cell: nil,
                     indexPath: nil,
