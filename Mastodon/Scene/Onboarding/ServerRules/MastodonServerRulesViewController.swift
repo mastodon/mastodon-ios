@@ -204,7 +204,7 @@ extension MastodonServerRulesViewController {
     @objc private func confirmButtonPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
 
-        let viewModel = MastodonRegisterViewModel(domain: self.viewModel.domain, authenticateInfo: self.viewModel.authenticateInfo, instance: self.viewModel.instance, applicationToken: self.viewModel.applicationToken)
+        let viewModel = MastodonRegisterViewModel(domain: self.viewModel.domain, context: self.context, authenticateInfo: self.viewModel.authenticateInfo, instance: self.viewModel.instance, applicationToken: self.viewModel.applicationToken)
         self.coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
     }
 }

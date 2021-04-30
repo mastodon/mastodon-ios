@@ -132,3 +132,54 @@ extension Mastodon.API.Account {
     }
     
 }
+
+extension Mastodon.API.Account {
+    static func accountsLookupEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/lookup")
+    }
+
+    public struct AccountLookupQuery: GetQuery {
+
+        public var acct: String
+        
+        public init(acct: String) {
+            self.acct = acct
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "acct", value: acct))
+            return items
+        }
+    }
+    
+    /// lookup account by acct.
+    ///
+    /// - Version: 3.3.1
+
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `AccountInfoQuery` with account query information,
+    ///   - authorization: app token
+    /// - Returns: `AnyPublisher` contains `Account` nested in the response
+    public static func lookupAccount(
+        session: URLSession,
+        domain: String,
+        query: AccountLookupQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        let request = Mastodon.API.get(
+            url: accountsLookupEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+}

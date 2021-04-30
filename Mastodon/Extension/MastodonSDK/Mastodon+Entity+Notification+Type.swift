@@ -24,6 +24,8 @@ extension Mastodon.Entity.Notification.NotificationType {
                 color = Asset.Colors.Notification.mention.color
             case .poll:
                 color = Asset.Colors.brandBlue.color
+            case .followRequest:
+                color = Asset.Colors.brandBlue.color
             default:
                 color = .clear
             }
@@ -45,6 +47,8 @@ extension Mastodon.Entity.Notification.NotificationType {
                 actionText = L10n.Scene.Notification.Action.mention
             case .poll:
                 actionText = L10n.Scene.Notification.Action.poll
+            case .followRequest:
+                actionText = L10n.Scene.Notification.Action.followRequest
             default:
                 actionText = ""
             }
@@ -66,6 +70,8 @@ extension Mastodon.Entity.Notification.NotificationType {
                 actionImageName = "at"
             case .poll:
                 actionImageName = "list.bullet"
+            case .followRequest:
+                actionImageName = "person.crop.circle"
             default:
                 actionImageName = ""
             }
