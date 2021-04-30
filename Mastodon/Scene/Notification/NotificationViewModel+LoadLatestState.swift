@@ -53,7 +53,7 @@ extension NotificationViewModel.LoadLatestState {
                 sinceID: nil,
                 minID: nil,
                 limit: nil,
-                excludeTypes: [.followRequest],
+                excludeTypes: [],
                 accountID: nil
             )
             viewModel.context.apiService.allNotifications(
@@ -61,23 +61,25 @@ extension NotificationViewModel.LoadLatestState {
                 query: query,
                 mastodonAuthenticationBox: activeMastodonAuthenticationBox
             )
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        viewModel.isFetchingLatestNotification.value = false
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                    case .finished:
-                        // handle isFetchingLatestTimeline in fetch controller delegate
-                        break
-                    }
-                    
-                    stateMachine.enter(Idle.self)
-                } receiveValue: { response in
-                    if response.value.isEmpty {
-                        viewModel.isFetchingLatestNotification.value = false
-                    }
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    viewModel.isFetchingLatestNotification.value = false
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                case .finished:
+                    // toggle unread state 
+                    viewModel.context.notificationService.hasUnreadPushNotification.value = false
+                    // handle isFetchingLatestTimeline in fetch controller delegate
+                    break
                 }
-                .store(in: &viewModel.disposeBag)
+                
+                stateMachine.enter(Idle.self)
+            } receiveValue: { response in
+                if response.value.isEmpty {
+                    viewModel.isFetchingLatestNotification.value = false
+                }
+            }
+            .store(in: &viewModel.disposeBag)
         }
     }
     

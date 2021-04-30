@@ -393,6 +393,8 @@ internal enum L10n {
         internal static let favourite = L10n.tr("Localizable", "Scene.Notification.Action.Favourite")
         /// followed you
         internal static let follow = L10n.tr("Localizable", "Scene.Notification.Action.Follow")
+        /// request to follow you
+        internal static let followRequest = L10n.tr("Localizable", "Scene.Notification.Action.FollowRequest")
         /// mentioned you
         internal static let mention = L10n.tr("Localizable", "Scene.Notification.Action.Mention")
         /// Your poll has ended

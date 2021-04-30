@@ -356,7 +356,8 @@
                 "favourite": "favorited your post",
                 "reblog": "rebloged your post",
                 "poll": "Your poll has ended",
-                "mention": "mentioned you"
+                "mention": "mentioned you",
+                "follow_request": "request to follow you"
             }
         },
         "thread": {

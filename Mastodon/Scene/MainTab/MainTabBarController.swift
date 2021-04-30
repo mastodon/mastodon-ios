@@ -85,7 +85,6 @@ class MainTabBarController: UITabBarController {
 
 extension MainTabBarController {
     
-    
     open override var childForStatusBarStyle: UIViewController? {
         return selectedViewController
     }
@@ -156,9 +155,36 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
                 
-        #if DEBUG
-        // selectedIndex = 3
-        #endif
+        // handle push notification. toggle entry when finish fetch latest notification
+        context.notificationService.hasUnreadPushNotification
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] hasUnreadPushNotification in
+                guard let self = self else { return }
+                guard let notificationViewController = self.notificationViewController else { return }
+                
+                let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
+                notificationViewController.tabBarItem.image = image
+                notificationViewController.navigationController?.tabBarItem.image = image
+            }
+            .store(in: &disposeBag)
+        
+        context.notificationService.requestRevealNotificationPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] notificationID in
+                guard let self = self else { return }
+                self.coordinator.switchToTabBar(tab: .notification)
+                let threadViewModel = RemoteThreadViewModel(context: self.context, notificationID: notificationID)
+                self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+            }
+            .store(in: &disposeBag)
     }
         
+}
+
+extension MainTabBarController {
+
+    var notificationViewController: NotificationViewController? {
+        return viewController(of: NotificationViewController.self)
+    }
+    
 }

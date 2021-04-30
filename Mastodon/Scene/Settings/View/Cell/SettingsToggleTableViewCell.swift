@@ -6,18 +6,21 @@
 //
 
 import UIKit
+import Combine
 
 protocol SettingsToggleCellDelegate: class {
-    func settingsToggleCell(_ cell: SettingsToggleTableViewCell, didChangeStatus: Bool)
+    func settingsToggleCell(_ cell: SettingsToggleTableViewCell, switchValueDidChange switch: UISwitch)
 }
 
 class SettingsToggleTableViewCell: UITableViewCell {
-    lazy var switchButton: UISwitch = {
+    
+    var disposeBag = Set<AnyCancellable>()
+    
+    private(set) lazy var switchButton: UISwitch = {
         let view = UISwitch(frame:.zero)
         return view
     }()
     
-    var data: SettingsItem.NotificationSwitch?
     weak var delegate: SettingsToggleCellDelegate?
     
     // MARK: - Methods
@@ -27,21 +30,8 @@ class SettingsToggleTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func update(with data: SettingsItem.NotificationSwitch, delegate: SettingsToggleCellDelegate?) {
-        self.delegate = delegate
-        self.data = data
-        textLabel?.text = data.title
-        switchButton.isOn = data.isOn
-        setup(enable: data.enable)
-    }
-    
-    // MARK: Actions
-    @objc func valueDidChange(sender: UISwitch) {
-        guard let delegate = delegate else { return }
-        delegate.settingsToggleCell(self, didChangeStatus: sender.isOn)
+        super.init(coder: coder)
+        setupUI()
     }
     
     // MARK: Private methods
@@ -49,15 +39,27 @@ class SettingsToggleTableViewCell: UITableViewCell {
         selectionStyle = .none
         accessoryView = switchButton
         
-        switchButton.addTarget(self, action: #selector(valueDidChange(sender:)), for: .valueChanged)
+        switchButton.addTarget(self, action: #selector(switchValueDidChange(sender:)), for: .valueChanged)
+    }
+
+}
+
+// MARK: - Actions
+extension SettingsToggleTableViewCell {
+    
+    @objc private func switchValueDidChange(sender: UISwitch) {
+        guard let delegate = delegate else { return }
+        delegate.settingsToggleCell(self, switchValueDidChange: sender)
     }
     
-    private func setup(enable: Bool) {
-        if enable {
-            textLabel?.textColor = Asset.Colors.Label.primary.color
-        } else {
-            textLabel?.textColor = Asset.Colors.Label.secondary.color
-        }
-        switchButton.isEnabled = enable
+}
+
+extension SettingsToggleTableViewCell {
+    
+    func update(enabled: Bool?) {
+        switchButton.isEnabled = enabled != nil
+        textLabel?.textColor = enabled != nil ? Asset.Colors.Label.primary.color : Asset.Colors.Label.secondary.color
+        switchButton.isOn = enabled ?? false
     }
+    
 }

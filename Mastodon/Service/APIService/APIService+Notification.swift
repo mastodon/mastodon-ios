@@ -29,6 +29,14 @@ extension APIService {
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error> in
             let log = OSLog.api
             return self.backgroundManagedObjectContext.performChanges {
+                if query.maxID == nil {
+                    let requestMastodonNotificationRequest = MastodonNotification.sortedFetchRequest
+                    requestMastodonNotificationRequest.predicate = MastodonNotification.predicate(domain: domain, userID: userID)
+                    let oldNotifications = self.backgroundManagedObjectContext.safeFetch(requestMastodonNotificationRequest)
+                    oldNotifications.forEach { notification in
+                        self.backgroundManagedObjectContext.delete(notification)
+                    }
+                }
                 response.value.forEach { notification in
                     let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.backgroundManagedObjectContext, for: nil, in: domain, entity: notification.account, userCache: nil, networkDate: Date(), log: log)
                     var status: Status?
@@ -64,4 +72,48 @@ extension APIService {
         }
         .eraseToAnyPublisher()
     }
+    
+    func notification(
+        notificationID: Mastodon.Entity.Notification.ID,
+        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> {
+        let domain = mastodonAuthenticationBox.domain
+        let authorization = mastodonAuthenticationBox.userAuthorization
+        
+        return Mastodon.API.Notifications.getNotification(
+            session: session,
+            domain: domain,
+            notificationID: notificationID,
+            authorization: authorization
+        )
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> in
+            guard let status = response.value.status else {
+                return Just(response)
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+            }
+            
+            return APIService.Persist.persistStatus(
+                managedObjectContext: self.backgroundManagedObjectContext,
+                domain: domain,
+                query: nil,
+                response: response.map { _ in [status] },
+                persistType: .lookUp,
+                requestMastodonUserID: nil,
+                log: OSLog.api
+            )
+            .setFailureType(to: Error.self)
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Notification> in
+                switch result {
+                case .success:
+                    return response
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+
 }

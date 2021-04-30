@@ -15,6 +15,7 @@ import MastodonSDK
 final class AuthenticationService: NSObject {
 
     var disposeBag = Set<AnyCancellable>()
+    
     // input
     weak var apiService: APIService?
     let managedObjectContext: NSManagedObjectContext    // read-only
@@ -23,6 +24,7 @@ final class AuthenticationService: NSObject {
 
     // output
     let mastodonAuthentications = CurrentValueSubject<[MastodonAuthentication], Never>([])
+    let mastodonAuthenticationBoxes = CurrentValueSubject<[AuthenticationService.MastodonAuthenticationBox], Never>([])
     let activeMastodonAuthentication = CurrentValueSubject<MastodonAuthentication?, Never>(nil)
     let activeMastodonAuthenticationBox = CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>(nil)
 
@@ -58,16 +60,24 @@ final class AuthenticationService: NSObject {
             .assign(to: \.value, on: activeMastodonAuthentication)
             .store(in: &disposeBag)
         
-        activeMastodonAuthentication
-            .map { authentication -> AuthenticationService.MastodonAuthenticationBox? in
-                guard let authentication = authentication else { return nil }
-                return AuthenticationService.MastodonAuthenticationBox(
-                    domain: authentication.domain,
-                    userID: authentication.userID,
-                    appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
-                    userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
-                )
+        mastodonAuthentications
+            .map { authentications -> [AuthenticationService.MastodonAuthenticationBox] in
+                return authentications
+                    .sorted(by: { $0.activedAt > $1.activedAt })
+                    .compactMap { authentication -> AuthenticationService.MastodonAuthenticationBox? in
+                        return AuthenticationService.MastodonAuthenticationBox(
+                            domain: authentication.domain,
+                            userID: authentication.userID,
+                            appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
+                            userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
+                        )
+                    }
             }
+            .assign(to: \.value, on: mastodonAuthenticationBoxes)
+            .store(in: &disposeBag)
+        
+        mastodonAuthenticationBoxes
+            .map { $0.first }
             .assign(to: \.value, on: activeMastodonAuthenticationBox)
             .store(in: &disposeBag)
 
@@ -114,15 +124,36 @@ extension AuthenticationService {
     func signOutMastodonUser(domain: String, userID: MastodonUser.ID) -> AnyPublisher<Result<Bool, Error>, Never> {
         var isSignOut = false
         
-        return backgroundManagedObjectContext.performChanges {
+        var _mastodonAutenticationBox: MastodonAuthenticationBox?
+        let managedObjectContext = backgroundManagedObjectContext
+        return managedObjectContext.performChanges {
             let request = MastodonAuthentication.sortedFetchRequest
             request.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
             request.fetchLimit = 1
-            guard let mastodonAutentication = try? self.backgroundManagedObjectContext.fetch(request).first else {
+            guard let mastodonAutentication = try? managedObjectContext.fetch(request).first else {
                 return
             }
-            self.backgroundManagedObjectContext.delete(mastodonAutentication)
+            _mastodonAutenticationBox = AuthenticationService.MastodonAuthenticationBox(
+                domain: mastodonAutentication.domain,
+                userID: mastodonAutentication.userID,
+                appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAutentication.appAccessToken),
+                userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAutentication.userAccessToken)
+            )
+            managedObjectContext.delete(mastodonAutentication)
             isSignOut = true
+        }
+        .flatMap { result -> AnyPublisher<Result<Void, Error>, Never> in
+            guard let apiService = self.apiService,
+                  let mastodonAuthenticationBox = _mastodonAutenticationBox else {
+                return Just(result).eraseToAnyPublisher()
+            }
+            
+            return apiService.cancelSubscription(
+                mastodonAuthenticationBox: mastodonAuthenticationBox
+            )
+            .map { _ in result }
+            .catch { _ in Just(result).eraseToAnyPublisher() }
+            .eraseToAnyPublisher()
         }
         .map { result in
             return result.map { isSignOut }

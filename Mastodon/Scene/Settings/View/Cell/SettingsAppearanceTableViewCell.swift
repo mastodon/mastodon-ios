@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Combine
 
 protocol SettingsAppearanceTableViewCellDelegate: class {
-    func settingsAppearanceCell(_ view: SettingsAppearanceTableViewCell, didSelect: SettingsItem.AppearanceMode)
+    func settingsAppearanceCell(_ cell: SettingsAppearanceTableViewCell, didSelectAppearanceMode appearanceMode: SettingsItem.AppearanceMode)
 }
 
 class AppearanceView: UIView {
@@ -85,6 +86,9 @@ class AppearanceView: UIView {
 }
 
 class SettingsAppearanceTableViewCell: UITableViewCell {
+    
+    var disposeBag = Set<AnyCancellable>()
+    
     weak var delegate: SettingsAppearanceTableViewCellDelegate?
     var appearance: SettingsItem.AppearanceMode = .automatic
     
@@ -123,6 +127,12 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
         tapGestureRecognizer.addTarget(self, action: #selector(appearanceDidTap(sender:)))
         return tapGestureRecognizer
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag.removeAll()
+    }
         
     // MARK: - Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -145,9 +155,8 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
         }
     }
     
-    func update(with data: SettingsItem.AppearanceMode, delegate: SettingsAppearanceTableViewCellDelegate?) {
+    func update(with data: SettingsItem.AppearanceMode) {
         appearance = data
-        self.delegate = delegate
         
         automatic.selected = false
         light.selected = false
@@ -200,6 +209,6 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
         }
         
         guard let delegate = self.delegate else { return }
-        delegate.settingsAppearanceCell(self, didSelect: appearance)
+        delegate.settingsAppearanceCell(self, didSelectAppearanceMode: appearance)
     }
 }

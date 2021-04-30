@@ -185,14 +185,12 @@
         <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
     </entity>
     <entity name="Setting" representedClassName=".Setting" syncable="YES">
-        <attribute name="appearance" optional="YES" attributeType="String"/>
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="domain" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="triggerBy" optional="YES" attributeType="String"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="userID" optional="YES" attributeType="String"/>
-        <relationship name="subscription" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="setting" inverseEntity="Subscription"/>
+        <attribute name="appearanceRaw" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="domain" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userID" attributeType="String"/>
+        <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="setting" inverseEntity="Subscription"/>
     </entity>
     <entity name="Status" representedClassName=".Status" syncable="YES">
         <attribute name="content" attributeType="String"/>
@@ -234,24 +232,27 @@
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="statuses" inverseEntity="Tag"/>
     </entity>
     <entity name="Subscription" representedClassName=".Subscription" syncable="YES">
-        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="activedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="endpoint" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="policyRaw" attributeType="String"/>
         <attribute name="serverKey" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="alert" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubscriptionAlerts" inverseName="subscription" inverseEntity="SubscriptionAlerts"/>
-        <relationship name="setting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Setting" inverseName="subscription" inverseEntity="Setting"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userToken" optional="YES" attributeType="String"/>
+        <relationship name="alert" maxCount="1" deletionRule="Cascade" destinationEntity="SubscriptionAlerts" inverseName="subscription" inverseEntity="SubscriptionAlerts"/>
+        <relationship name="setting" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Setting" inverseName="subscriptions" inverseEntity="Setting"/>
     </entity>
     <entity name="SubscriptionAlerts" representedClassName=".SubscriptionAlerts" syncable="YES">
         <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="favourite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="follow" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="mention" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="poll" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="reblog" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="favouriteRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="followRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="followRequestRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mentionRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="pollRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="reblogRaw" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="subscription" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="alert" inverseEntity="Subscription"/>
+        <relationship name="subscription" maxCount="1" deletionRule="Nullify" destinationEntity="Subscription" inverseName="alert" inverseEntity="Subscription"/>
     </entity>
     <entity name="Tag" representedClassName=".Tag" syncable="YES">
         <attribute name="createAt" attributeType="Date" defaultDateTimeInterval="631123200" usesScalarValueType="NO"/>
@@ -277,10 +278,10 @@
         <element name="PollOption" positionX="0" positionY="0" width="128" height="134"/>
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
         <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
-        <element name="Setting" positionX="72" positionY="162" width="128" height="149"/>
+        <element name="Setting" positionX="72" positionY="162" width="128" height="119"/>
         <element name="Status" positionX="0" positionY="0" width="128" height="584"/>
-        <element name="Subscription" positionX="81" positionY="171" width="128" height="149"/>
-        <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="149"/>
+        <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
+        <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="14"/>
         <element name="Tag" positionX="0" positionY="0" width="128" height="134"/>
     </elements>
 </model>

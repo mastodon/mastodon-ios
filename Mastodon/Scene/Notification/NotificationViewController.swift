@@ -88,6 +88,11 @@ extension NotificationViewController {
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
+        // fetch latest if has unread push notification
+        if context.notificationService.hasUnreadPushNotification.value {
+            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
+        }
+        
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -205,6 +210,14 @@ extension NotificationViewController: ContentOffsetAdjustableTimelineViewControl
 
 // MARK: - NotificationTableViewCellDelegate
 extension NotificationViewController: NotificationTableViewCellDelegate {
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton) {
+        viewModel.acceptFollowRequest(notification: notification)
+    }
+    
+    func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton) {
+        viewModel.rejectFollowRequest(notification: notification)
+    }
+    
     func userAvatarDidPressed(notification: MastodonNotification) {
         let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
         DispatchQueue.main.async {

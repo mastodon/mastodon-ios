@@ -336,9 +336,10 @@ extension HomeTimelineViewController {
     }
     
     @objc private func showSettings(_ sender: UIAction) {
-        let viewModel = SettingsViewModel(context: context)
+        guard let currentSetting = context.settingService.currentSetting.value else { return }
+        let settingsViewModel = SettingsViewModel(context: context, setting: currentSetting)
         coordinator.present(
-            scene: .settings(viewModel: viewModel),
+            scene: .settings(viewModel: settingsViewModel),
             from: self,
             transition: .modal(animated: true, completion: nil)
         )

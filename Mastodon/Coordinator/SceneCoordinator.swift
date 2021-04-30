@@ -62,14 +62,19 @@ extension SceneCoordinator {
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
         
+        // setting
+        case settings(viewModel: SettingsViewModel)
+        
+        // report
+        case report(viewModel: ReportViewModel)
+
         // suggestion account
         case suggestionAccount(viewModel: SuggestionAccountViewModel)
+        
         // misc
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
-        case settings(viewModel: SettingsViewModel)
-        case report(viewModel: ReportViewModel)
         #if DEBUG
         case publicTimeline
         #endif
@@ -251,6 +256,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .favorite(let viewModel):
             let _viewController = FavoriteViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .settings(let viewModel):
+            let _viewController = SettingsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .suggestionAccount(let viewModel):

@@ -8,6 +8,7 @@
 import UIKit
 
 class SettingsLinkTableViewCell: UITableViewCell {
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -22,10 +23,13 @@ class SettingsLinkTableViewCell: UITableViewCell {
         super.setHighlighted(highlighted, animated: animated)
         textLabel?.alpha = highlighted ? 0.6 : 1.0
     }
-    
-    // MARK: - Methods
-    func update(with data: SettingsItem.Link) {
-        textLabel?.text = data.title
-        textLabel?.textColor = data.color
+        
+}
+
+// MARK: - Methods
+extension SettingsLinkTableViewCell {
+    func update(with link: SettingsItem.Link) {
+        textLabel?.text = link.title
+        textLabel?.textColor = link.textColor
     }
 }

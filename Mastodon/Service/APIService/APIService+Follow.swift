@@ -24,15 +24,12 @@ extension APIService {
     /// - Returns: publisher for `Relationship`
     func toggleFollow(
         for mastodonUser: MastodonUser,
-        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
-        needFeedback: Bool
+        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
-        var impactFeedbackGenerator: UIImpactFeedbackGenerator?
-        var notificationFeedbackGenerator: UINotificationFeedbackGenerator?
-        if needFeedback {
-            impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-            notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-        }
+        
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+        
         
         return followUpdateLocal(
             mastodonUserObjectID: mastodonUser.objectID,
@@ -40,9 +37,9 @@ extension APIService {
         )
         .receive(on: DispatchQueue.main)
         .handleEvents { _ in
-            impactFeedbackGenerator?.prepare()
+            impactFeedbackGenerator.prepare()
         } receiveOutput: { _ in
-            impactFeedbackGenerator?.impactOccurred()
+            impactFeedbackGenerator.impactOccurred()
         } receiveCompletion: { completion in
             switch completion {
             case .failure(let error):
@@ -79,13 +76,13 @@ extension APIService {
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Friendship] rollback finish", ((#file as NSString).lastPathComponent), #line, #function)
                 } receiveValue: { _ in
                     // do nothing
-                    notificationFeedbackGenerator?.prepare()
-                    notificationFeedbackGenerator?.notificationOccurred(.error)
+                    notificationFeedbackGenerator.prepare()
+                    notificationFeedbackGenerator.notificationOccurred(.error)
                 }
                 .store(in: &self.disposeBag)
 
             case .finished:
-                notificationFeedbackGenerator?.notificationOccurred(.success)
+                notificationFeedbackGenerator.notificationOccurred(.success)
                 os_log("%{public}s[%{public}ld], %{public}s: [Friendship] remote friendship update success", ((#file as NSString).lastPathComponent), #line, #function)
             }
         })
