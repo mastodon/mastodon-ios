@@ -360,7 +360,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let progress = progressStep(for: translation)
 
         let initialSize = transitionItem.initialFrame!.size
-        assert(initialSize != .zero)
+        guard initialSize != .zero else { return }
+        // assert(initialSize != .zero)
 
         guard let snapshot = transitionItem.snapshotTransitioning,
         let finalSize = transitionItem.targetFrame?.size else {

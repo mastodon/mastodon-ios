@@ -224,6 +224,23 @@ extension HashtagTimelineViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didSelectRowAt: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+    }
+    
+    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+
+    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+    }
+    
+    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
+    }
+    
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate

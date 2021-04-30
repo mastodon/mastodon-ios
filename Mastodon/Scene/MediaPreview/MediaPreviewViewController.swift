@@ -137,9 +137,12 @@ extension MediaPreviewViewController: MediaPreviewingViewController {
 
             let safeAreaInsets = previewImageView.safeAreaInsets
             let statusBarFrameHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            return previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight)
+            let dismissable = previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissable %s", ((#file as NSString).lastPathComponent), #line, #function, dismissable ? "true" : "false")
+            return dismissable
         }
 
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissable false", ((#file as NSString).lastPathComponent), #line, #function)
         return false
     }
     
@@ -203,12 +206,13 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
         case .savePhoto:
             switch viewController.viewModel.item {
             case .status(let meta):
-                context.photoLibraryService.saveImage(url: meta.url).sink { _ in
-                    // do nothing
-                } receiveValue: { _ in
-                    // do nothing
-                }
-                .store(in: &context.disposeBag)
+                context.photoLibraryService.saveImage(url: meta.url)
+                    .sink { _ in
+                        // do nothing
+                    } receiveValue: { _ in
+                        // do nothing
+                    }
+                    .store(in: &context.disposeBag)
             case .local(let meta):
                 context.photoLibraryService.save(image: meta.image, withNotificationFeedback: true)
             }

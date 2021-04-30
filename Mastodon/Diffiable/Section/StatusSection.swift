@@ -12,7 +12,7 @@ import os.log
 import UIKit
 import AVKit
 
-protocol StatusCell : DisposeBagCollectable {
+protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
     var pollCountdownSubscription: AnyCancellable? { get set }
 }
@@ -142,7 +142,7 @@ extension StatusSection {
         status: Status,
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
-    ) { 
+    ) {
         // set header
         StatusSection.configureHeader(cell: cell, status: status)
         ManagedObjectObserver.observe(object: status)

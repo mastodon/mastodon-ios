@@ -194,6 +194,8 @@ final class StatusView: UIView {
     let activeTextLabel = ActiveLabel(style: .default)
     
     private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+    
+    var isRevealing = true
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -468,6 +470,8 @@ extension StatusView {
     }
     
     func updateRevealContentWarningButton(isRevealing: Bool) {
+        self.isRevealing = isRevealing
+        
         if !isRevealing {
             let image = traitCollection.userInterfaceStyle == .light ? UIImage(systemName: "eye")! : UIImage(systemName: "eye.fill")
             revealContentWarningButton.setImage(image, for: .normal)

@@ -46,7 +46,7 @@ extension MediaPreviewTransitionController {
 extension MediaPreviewTransitionController: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer === panGestureRecognizer {
+        if gestureRecognizer === panGestureRecognizer || otherGestureRecognizer === panGestureRecognizer {
             // FIXME: should enable zoom up pan dismiss
             return false
         }

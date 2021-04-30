@@ -18,6 +18,8 @@ protocol MediaPreviewImageViewControllerDelegate: AnyObject {
 final class MediaPreviewImageViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
+    var observations = Set<NSKeyValueObservation>()
+    
     var viewModel: MediaPreviewImageViewModel!
     weak var delegate: MediaPreviewImageViewControllerDelegate?
 
@@ -56,7 +58,7 @@ extension MediaPreviewImageViewController {
             previewImageView.frameLayoutGuide.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             previewImageView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
+
         tapGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageViewController.tapGestureRecognizerHandler(_:)))
         longPressGestureRecognizer.addTarget(self, action: #selector(MediaPreviewImageViewController.longPressGestureRecognizerHandler(_:)))
         tapGestureRecognizer.require(toFail: previewImageView.doubleTapGestureRecognizer)
@@ -67,39 +69,15 @@ extension MediaPreviewImageViewController {
         let previewImageViewContextMenuInteraction = UIContextMenuInteraction(delegate: self)
         previewImageView.addInteraction(previewImageViewContextMenuInteraction)
         
-        switch viewModel.item {
-        case .status(let meta):
-//            progressBarView.isHidden = meta.thumbnail != nil
-            previewImageView.imageView.af.setImage(
-                withURL: meta.url,
-                placeholderImage: meta.thumbnail,
-                filter: nil,
-                progress: { [weak self] progress in
-                    guard let self = self else { return }
-                    // self.progressBarView.progress.value = CGFloat(progress.fractionCompleted)
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: load %s progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, meta.url.debugDescription, progress.fractionCompleted)
-                },
-                imageTransition: .crossDissolve(0.3),
-                runImageTransitionIfCached: false,
-                completion: { [weak self] response in
-                    guard let self = self else { return }
-                    switch response.result {
-                    case .success(let image):
-                        //self.progressBarView.isHidden = true
-                        self.previewImageView.imageView.image = image
-                        self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
-                    case .failure(let error):
-                        // TODO:
-                        break
-                    }
-                }
-            )
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setImage url: %s", ((#file as NSString).lastPathComponent), #line, #function, meta.url.debugDescription)
-        case .local(let meta):
-            // progressBarView.isHidden = true
-            previewImageView.imageView.image = meta.image
-            self.previewImageView.setup(image: meta.image, container: self.previewImageView, forceUpdate: true)
-        }
+        viewModel.image
+            .receive(on: RunLoop.main)      // use RunLoop prevent set image during zooming (TODO: handle transitioning state)
+            .sink { [weak self] image in
+                guard let self = self else { return }
+                guard let image = image else { return }
+                self.previewImageView.imageView.image = image
+                self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
+            }
+            .store(in: &disposeBag)
     }
     
 }
@@ -128,14 +106,16 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
         }
         
         let saveAction = UIAction(
-            title: L10n.Common.Controls.Actions.savePhoto, image: UIImage(systemName: "square.and.arrow.down")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            title: L10n.Common.Controls.Actions.savePhoto, image: UIImage(systemName: "square.and.arrow.down")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
+        ) { [weak self] _ in
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: save photo", ((#file as NSString).lastPathComponent), #line, #function)
             guard let self = self else { return }
             self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .savePhoto)
         }
         
         let shareAction = UIAction(
-            title: L10n.Common.Controls.Actions.share, image: UIImage(systemName: "square.and.arrow.up")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
+            title: L10n.Common.Controls.Actions.share, image: UIImage(systemName: "square.and.arrow.up")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
+        ) { [weak self] _ in
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: share", ((#file as NSString).lastPathComponent), #line, #function)
             guard let self = self else { return }
             self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .share)

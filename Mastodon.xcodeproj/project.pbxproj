@@ -315,6 +315,7 @@
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
+		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
 		DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */; };
@@ -381,6 +382,9 @@
 		DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */; };
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */; };
+		DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */; };
+		DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */; };
+		DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7AA263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F672615DD60004B8251 /* UserProvider.swift */; };
 		DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */; };
@@ -869,6 +873,7 @@
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
+		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
 		DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -937,6 +942,9 @@
 		DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedEdgesButton.swift; sourceTree = "<group>"; };
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
+		DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewModel.swift; sourceTree = "<group>"; };
+		DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewController.swift; sourceTree = "<group>"; };
+		DBA5E7AA263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewCellContextMenuConfiguration.swift; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBAE3F672615DD60004B8251 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+UserProvider.swift"; sourceTree = "<group>"; };
@@ -1272,6 +1280,7 @@
 				DB51D170262832380062B7A1 /* BlurHashDecode.swift */,
 				DB51D171262832380062B7A1 /* BlurHashEncode.swift */,
 				DB6180EC26391C6C0018D199 /* TransitioningMath.swift */,
+				DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -1372,6 +1381,7 @@
 				DB68A04F25E9028800CFDF14 /* NavigationController */,
 				DB9D6C2025E502C60051B173 /* ViewModel */,
 				2D7631A525C1532D00929FB9 /* View */,
+				DBA5E7A6263BD298004598BB /* ContextMenu */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -2201,6 +2211,24 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		DBA5E7A6263BD298004598BB /* ContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				DBA5E7A7263BD29F004598BB /* ImagePreview */,
+			);
+			path = ContextMenu;
+			sourceTree = "<group>";
+		};
+		DBA5E7A7263BD29F004598BB /* ImagePreview */ = {
+			isa = PBXGroup;
+			children = (
+				DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */,
+				DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */,
+				DBA5E7AA263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift */,
+			);
+			path = ImagePreview;
+			sourceTree = "<group>";
+		};
 		DBA9B90325F1D4420012E7B6 /* Control */ = {
 			isa = PBXGroup;
 			children = (
@@ -2883,6 +2911,7 @@
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
+				DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */,
 				0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */,
 				DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */,
 				DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */,
@@ -2943,6 +2972,7 @@
 				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
 				DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */,
+				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
@@ -2957,6 +2987,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */,
+				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
 				DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */,
@@ -3036,6 +3067,7 @@
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
+				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,

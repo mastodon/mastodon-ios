@@ -540,7 +540,7 @@ extension StatusProviderFacade {
                 let meta = MediaPreviewViewModel.StatusImagePreviewMeta(
                     statusObjectID: status.objectID,
                     initialIndex: index,
-                    preloadThumbnailImages: mosaicImageView.imageViews.map { $0.image }
+                    preloadThumbnailImages: mosaicImageView.thumbnails()
                 )
                 let pushTransitionItem = MediaPreviewTransitionItem(
                     source: .mosaic(mosaicImageView),
