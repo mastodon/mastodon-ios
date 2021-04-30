@@ -34,7 +34,8 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     let closeButtonBackgroundVisualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .systemUltraThinMaterial)))
     
     let closeButton: UIButton = {
-        let button = HitTestExpandedButton()
+        let button = HighlightDimmableButton()
+        button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
         button.imageView?.tintColor = .label
         button.setImage(UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 16, weight: .bold))!, for: .normal)
         return button
