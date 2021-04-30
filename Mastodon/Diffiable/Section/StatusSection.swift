@@ -634,9 +634,17 @@ extension StatusSection {
                 .assertNoFailure()
             )
         .receive(on: DispatchQueue.main)
-        .sink { [weak dependency, weak cell] domains,change in
+        .sink { [weak dependency, weak cell] _,change in
             guard let cell = cell else { return }
             guard let dependency = dependency else { return }
+            switch change.changeType {
+            case .delete:
+                return
+            case .update(_):
+                break
+            case .none:
+                break
+            }
             StatusSection.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
         }
         .store(in: &cell.disposeBag)

@@ -43,7 +43,7 @@ Please check your internet connection.";
 "Common.Controls.Actions.TryAgain" = "Try Again";
 "Common.Controls.Actions.UnblockDomain" = "Unblock %@";
 "Common.Controls.Firendship.Block" = "Block";
-"Common.Controls.Firendship.BlockDomain" = "Domain Blocked";
+"Common.Controls.Firendship.BlockDomain" = "Block %@";
 "Common.Controls.Firendship.BlockUser" = "Block %@";
 "Common.Controls.Firendship.Blocked" = "Blocked";
 "Common.Controls.Firendship.EditInfo" = "Edit info";

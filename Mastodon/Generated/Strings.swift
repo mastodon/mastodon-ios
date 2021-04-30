@@ -132,8 +132,10 @@ internal enum L10n {
       internal enum Firendship {
         /// Block
         internal static let block = L10n.tr("Localizable", "Common.Controls.Firendship.Block")
-        /// Domain Blocked
-        internal static let blockDomain = L10n.tr("Localizable", "Common.Controls.Firendship.BlockDomain")
+        /// Block %@
+        internal static func blockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Firendship.BlockDomain", String(describing: p1))
+        }
         /// Blocked
         internal static let blocked = L10n.tr("Localizable", "Common.Controls.Firendship.Blocked")
         /// Block %@

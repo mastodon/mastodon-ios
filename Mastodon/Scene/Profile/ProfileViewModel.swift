@@ -327,7 +327,6 @@ extension ProfileViewModel {
         case muting
         case blocked
         case blocking
-        case domainBlocking
         case suspended
         case edit
         case editing
@@ -350,7 +349,6 @@ extension ProfileViewModel {
         static let muting = RelationshipAction.muting.option
         static let blocked = RelationshipAction.blocked.option
         static let blocking = RelationshipAction.blocking.option
-        static let domainBlocking = RelationshipAction.domainBlocking.option
         static let suspended = RelationshipAction.suspended.option
         static let edit = RelationshipAction.edit.option
         static let editing = RelationshipAction.editing.option
@@ -381,7 +379,6 @@ extension ProfileViewModel {
             case .muting: return L10n.Common.Controls.Firendship.muted
             case .blocked: return L10n.Common.Controls.Firendship.follow   // blocked by user
             case .blocking: return L10n.Common.Controls.Firendship.blocked
-            case .domainBlocking: return L10n.Common.Controls.Firendship.blockDomain
             case .suspended: return L10n.Common.Controls.Firendship.follow
             case .edit: return L10n.Common.Controls.Firendship.editInfo
             case .editing: return L10n.Common.Controls.Actions.done
@@ -403,7 +400,6 @@ extension ProfileViewModel {
             case .muting: return Asset.Colors.Background.alertYellow.color
             case .blocked: return Asset.Colors.Button.normal.color
             case .blocking: return Asset.Colors.Background.danger.color
-            case .domainBlocking: return Asset.Colors.Button.normal.color
             case .suspended: return Asset.Colors.Button.normal.color
             case .edit: return Asset.Colors.Button.normal.color
             case .editing: return Asset.Colors.Button.normal.color
