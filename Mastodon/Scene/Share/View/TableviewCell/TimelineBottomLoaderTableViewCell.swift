@@ -15,6 +15,13 @@ final class TimelineBottomLoaderTableViewCell: TimelineLoaderTableViewCell {
         activityIndicatorView.isHidden = false
         
         startAnimating()
+        
+        separatorInset = UIEdgeInsets(top: 0, left: bounds.size.width, bottom: 0, right: 0)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        separatorInset = UIEdgeInsets(top: 0, left: bounds.size.width, bottom: 0, right: 0)
     }
 }
 
