@@ -12,7 +12,7 @@ import UIKit
 
 extension SearchViewController: UserProvider {
     
-    func mastodonUser(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<MastodonUser?, Never> {
+    func mastodonUser(for cell: UITableViewCell?) -> Future<MastodonUser?, Never> {
         return Future { promise in
             promise(.success(nil))
         }
@@ -54,7 +54,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unmute, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil, indexPath: nil)
+                UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in
@@ -76,7 +76,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unblock, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil, indexPath: nil)
+                UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in

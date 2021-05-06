@@ -49,7 +49,6 @@ extension StatusSection {
                     let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
                     StatusSection.configure(
                         cell: cell,
-                        indexPath: indexPath,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
@@ -72,7 +71,6 @@ extension StatusSection {
                     let status = managedObjectContext.object(with: objectID) as! Status
                     StatusSection.configure(
                         cell: cell,
-                        indexPath: indexPath,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
@@ -138,7 +136,6 @@ extension StatusSection {
     
     static func configure(
         cell: StatusCell,
-        indexPath: IndexPath,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
@@ -407,7 +404,6 @@ extension StatusSection {
             // toolbar
             StatusSection.configureActionToolBar(
                 cell: statusTableViewCell,
-                indexPath: indexPath,
                 dependency: dependency,
                 status: status,
                 requestUserID: requestUserID
@@ -438,7 +434,6 @@ extension StatusSection {
                 guard let statusTableViewCell = cell as? StatusTableViewCell else { return }
                 StatusSection.configureActionToolBar(
                     cell: statusTableViewCell,
-                    indexPath: indexPath,
                     dependency: dependency,
                     status: status,
                     requestUserID: requestUserID
@@ -597,7 +592,6 @@ extension StatusSection {
     
     static func configureActionToolBar(
         cell: StatusTableViewCell,
-        indexPath: IndexPath,
         dependency: NeedsDependency,
         status: Status,
         requestUserID: String
@@ -644,10 +638,10 @@ extension StatusSection {
             case .none:
                 break
             }
-            StatusSection.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
+            StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
         }
         .store(in: &cell.disposeBag)
-        self.setupStatusMoreButtonMenu(cell: cell, indexPath: indexPath, dependency: dependency, status: status)
+        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
     
     static func configurePoll(
@@ -777,7 +771,6 @@ extension StatusSection {
     
     private static func setupStatusMoreButtonMenu(
         cell: StatusTableViewCell,
-        indexPath: IndexPath,
         dependency: NeedsDependency,
         status: Status) {
         
@@ -802,7 +795,6 @@ extension StatusSection {
             isDomainBlocking: isDomainBlocking,
             provider: userProvider,
             cell: cell,
-            indexPath: indexPath,
             sourceView: cell.statusView.actionToolbarContainer.moreButton,
             barButtonItem: nil,
             shareUser: nil,

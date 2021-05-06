@@ -11,7 +11,7 @@ import CoreDataStack
 import UIKit
 
 extension ProfileViewController: UserProvider {
-    func mastodonUser(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<MastodonUser?, Never> {
+    func mastodonUser(for cell: UITableViewCell?) -> Future<MastodonUser?, Never> {
         return Future { promise in
             promise(.success(nil))
         }

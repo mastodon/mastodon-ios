@@ -14,14 +14,14 @@ protocol UserProvider: NeedsDependency & DisposeBagCollectable & UIViewControlle
     // async
     func mastodonUser() -> Future<MastodonUser?, Never>
 
-    func mastodonUser(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<MastodonUser?, Never>
+    func mastodonUser(for cell: UITableViewCell?) -> Future<MastodonUser?, Never>
 }
 
 extension UserProvider where Self: StatusProvider {
-    func mastodonUser(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<MastodonUser?, Never> {
+    func mastodonUser(for cell: UITableViewCell?) -> Future<MastodonUser?, Never> {
         Future { [weak self] promise in
             guard let self = self else { return }
-            self.status(for: cell, indexPath: indexPath)
+            self.status(for: cell, indexPath: nil)
                 .sink { status in
                     promise(.success(status?.authorForUserProvider))
                 }

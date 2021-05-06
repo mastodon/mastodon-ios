@@ -46,16 +46,15 @@ final class BlockDomainService {
 
     func blockDomain(
         userProvider: UserProvider,
-        cell: UITableViewCell?,
-        indexPath: IndexPath?
+        cell: UITableViewCell?
     ) {
         guard let activeMastodonAuthenticationBox = userProvider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let context = userProvider.context else {
             return
         }
         var mastodonUser: AnyPublisher<MastodonUser?, Never>
-        if let cell = cell, let indexPath = indexPath {
-            mastodonUser = userProvider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
+        if let cell = cell {
+            mastodonUser = userProvider.mastodonUser(for: cell).eraseToAnyPublisher()
         } else {
             mastodonUser = userProvider.mastodonUser().eraseToAnyPublisher()
         }
@@ -85,16 +84,15 @@ final class BlockDomainService {
 
     func unblockDomain(
         userProvider: UserProvider,
-        cell: UITableViewCell?,
-        indexPath: IndexPath?
+        cell: UITableViewCell?
     ) {
         guard let activeMastodonAuthenticationBox = userProvider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         guard let context = userProvider.context else {
             return
         }
         var mastodonUser: AnyPublisher<MastodonUser?, Never>
-        if let cell = cell, let indexPath = indexPath {
-            mastodonUser = userProvider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
+        if let cell = cell {
+            mastodonUser = userProvider.mastodonUser(for: cell).eraseToAnyPublisher()
         } else {
             mastodonUser = userProvider.mastodonUser().eraseToAnyPublisher()
         }

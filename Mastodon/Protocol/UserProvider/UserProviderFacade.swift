@@ -54,19 +54,18 @@ extension UserProviderFacade {
 extension UserProviderFacade {
     static func toggleUserBlockRelationship(
         provider: UserProvider,
-        cell: UITableViewCell?,
-        indexPath: IndexPath?
+        cell: UITableViewCell?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
-        if let cell = cell, let indexPath = indexPath {
+        if let cell = cell {
             return _toggleUserBlockRelationship(
                 context: provider.context,
                 activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
-                mastodonUser: provider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
+                mastodonUser: provider.mastodonUser(for: cell).eraseToAnyPublisher()
             )
         } else {
             return _toggleUserBlockRelationship(
@@ -101,19 +100,18 @@ extension UserProviderFacade {
 extension UserProviderFacade {
     static func toggleUserMuteRelationship(
         provider: UserProvider,
-        cell: UITableViewCell?,
-        indexPath: IndexPath?
+        cell: UITableViewCell?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
             assertionFailure()
             return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
         }
-        if let cell = cell, let indexPath = indexPath {
+        if let cell = cell {
             return _toggleUserMuteRelationship(
                 context: provider.context,
                 activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
-                mastodonUser: provider.mastodonUser(for: cell, indexPath: indexPath).eraseToAnyPublisher()
+                mastodonUser: provider.mastodonUser(for: cell).eraseToAnyPublisher()
             )
         } else {
             return _toggleUserMuteRelationship(
@@ -155,7 +153,6 @@ extension UserProviderFacade {
         isDomainBlocking: Bool,
         provider: UserProvider,
         cell: UITableViewCell?,
-        indexPath: IndexPath?,
         sourceView: UIView?,
         barButtonItem: UIBarButtonItem?,
         shareUser: MastodonUser?,
@@ -176,8 +173,7 @@ extension UserProviderFacade {
 
             UserProviderFacade.toggleUserMuteRelationship(
                 provider: provider,
-                cell: cell,
-                indexPath: indexPath
+                cell: cell
             )
             .sink { _ in
                 // do nothing
@@ -205,8 +201,7 @@ extension UserProviderFacade {
 
             UserProviderFacade.toggleUserBlockRelationship(
                 provider: provider,
-                cell: cell,
-                indexPath: indexPath
+                cell: cell
             )
             .sink { _ in
                 // do nothing
@@ -246,7 +241,7 @@ extension UserProviderFacade {
             if isDomainBlocking {
                 let unblockDomainAction = UIAction(title: L10n.Common.Controls.Actions.unblockDomain(mastodonUser.domainFromAcct), image: UIImage(systemName: "nosign"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
                     guard let provider = provider else { return }
-                    provider.context.blockDomainService.unblockDomain(userProvider: provider, cell: cell, indexPath: indexPath)
+                    provider.context.blockDomainService.unblockDomain(userProvider: provider, cell: cell)
                 }
                 children.append(unblockDomainAction)
             } else {
@@ -257,7 +252,7 @@ extension UserProviderFacade {
                     }
                     alertController.addAction(cancelAction)
                     let blockDomainAction = UIAlertAction(title: L10n.Common.Alerts.BlockDomain.blockEntireDomain, style: .destructive) { _ in
-                        provider.context.blockDomainService.blockDomain(userProvider: provider, cell: cell, indexPath: indexPath)
+                        provider.context.blockDomainService.blockDomain(userProvider: provider, cell: cell)
                     }
                     alertController.addAction(blockDomainAction)
                     provider.present(alertController, animated: true, completion: nil)
