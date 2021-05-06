@@ -1,5 +1,5 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "Block entire domain";
-"Common.Alerts.BlockDomain.Message" = "Are you really, really sure you want to block the entire %@ ? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.";
+"Common.Alerts.BlockDomain.Message" = "Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.";
 "Common.Alerts.Common.PleaseTryAgain" = "Please try again.";
 "Common.Alerts.Common.PleaseTryAgainLater" = "Please try again later.";
 "Common.Alerts.DiscardPostContent.Message" = "Confirm discard composed post content.";

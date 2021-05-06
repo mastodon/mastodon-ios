@@ -16,7 +16,7 @@ internal enum L10n {
       internal enum BlockDomain {
         /// Block entire domain
         internal static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain")
-        /// Are you really, really sure you want to block the entire %@ ? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
+        /// Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
         internal static func message(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Message", String(describing: p1))
         }

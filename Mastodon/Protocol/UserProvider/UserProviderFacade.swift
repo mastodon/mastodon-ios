@@ -146,9 +146,9 @@ extension UserProviderFacade {
 extension UserProviderFacade {
     static func createProfileActionMenu(
         for mastodonUser: MastodonUser,
+        isMyself: Bool,
         isMuting: Bool,
         isBlocking: Bool,
-        canReport: Bool,
         isInSameDomain: Bool,
         isDomainBlocking: Bool,
         provider: UserProvider,
@@ -161,62 +161,67 @@ extension UserProviderFacade {
         var children: [UIMenuElement] = []
         let name = mastodonUser.displayNameWithFallback
         
-        // mute
-        let muteAction = UIAction(
-            title: isMuting ? L10n.Common.Controls.Firendship.unmuteUser(name) : L10n.Common.Controls.Firendship.mute,
-            image: isMuting ? UIImage(systemName: "speaker") : UIImage(systemName: "speaker.slash"),
-            discoverabilityTitle: isMuting ? nil : L10n.Common.Controls.Firendship.muteUser(name),
-            attributes: isMuting ? [] : .destructive,
-            state: .off
-        ) { [weak provider] _ in
-            guard let provider = provider else { return }
+        if !isMyself {
+            // mute
+            let muteAction = UIAction(
+                title: isMuting ? L10n.Common.Controls.Firendship.unmuteUser(name) : L10n.Common.Controls.Firendship.mute,
+                image: isMuting ? UIImage(systemName: "speaker") : UIImage(systemName: "speaker.slash"),
+                discoverabilityTitle: isMuting ? nil : L10n.Common.Controls.Firendship.muteUser(name),
+                attributes: isMuting ? [] : .destructive,
+                state: .off
+            ) { [weak provider] _ in
+                guard let provider = provider else { return }
 
-            UserProviderFacade.toggleUserMuteRelationship(
-                provider: provider,
-                cell: cell
-            )
-            .sink { _ in
-                // do nothing
-            } receiveValue: { _ in
-                // do nothing
+                UserProviderFacade.toggleUserMuteRelationship(
+                    provider: provider,
+                    cell: cell
+                )
+                .sink { _ in
+                    // do nothing
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &provider.context.disposeBag)
             }
-            .store(in: &provider.context.disposeBag)
-        }
-        if isMuting {
-            children.append(muteAction)
-        } else {
-            let muteMenu = UIMenu(title: L10n.Common.Controls.Firendship.muteUser(name), image: UIImage(systemName: "speaker.slash"), options: [], children: [muteAction])
-            children.append(muteMenu)
+            if isMuting {
+                children.append(muteAction)
+            } else {
+                let muteMenu = UIMenu(title: L10n.Common.Controls.Firendship.muteUser(name), image: UIImage(systemName: "speaker.slash"), options: [], children: [muteAction])
+                children.append(muteMenu)
+            }
         }
         
-        // block
-        let blockAction = UIAction(
-            title: isBlocking ? L10n.Common.Controls.Firendship.unblockUser(name) : L10n.Common.Controls.Firendship.block,
-            image: isBlocking ? UIImage(systemName: "hand.raised.slash") : UIImage(systemName: "hand.raised"),
-            discoverabilityTitle: isBlocking ? nil : L10n.Common.Controls.Firendship.blockUser(name),
-            attributes: isBlocking ? [] : .destructive,
-            state: .off
-        ) { [weak provider] _ in
-            guard let provider = provider else { return }
+        if !isMyself {
+            // block
+            let blockAction = UIAction(
+                title: isBlocking ? L10n.Common.Controls.Firendship.unblockUser(name) : L10n.Common.Controls.Firendship.block,
+                image: isBlocking ? UIImage(systemName: "hand.raised.slash") : UIImage(systemName: "hand.raised"),
+                discoverabilityTitle: isBlocking ? nil : L10n.Common.Controls.Firendship.blockUser(name),
+                attributes: isBlocking ? [] : .destructive,
+                state: .off
+            ) { [weak provider] _ in
+                guard let provider = provider else { return }
 
-            UserProviderFacade.toggleUserBlockRelationship(
-                provider: provider,
-                cell: cell
-            )
-            .sink { _ in
-                // do nothing
-            } receiveValue: { _ in
-                // do nothing
+                UserProviderFacade.toggleUserBlockRelationship(
+                    provider: provider,
+                    cell: cell
+                )
+                .sink { _ in
+                    // do nothing
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &provider.context.disposeBag)
             }
-            .store(in: &provider.context.disposeBag)
+            if isBlocking {
+                children.append(blockAction)
+            } else {
+                let blockMenu = UIMenu(title: L10n.Common.Controls.Firendship.blockUser(name), image: UIImage(systemName: "hand.raised"), options: [], children: [blockAction])
+                children.append(blockMenu)
+            }
         }
-        if isBlocking {
-            children.append(blockAction)
-        } else {
-            let blockMenu = UIMenu(title: L10n.Common.Controls.Firendship.blockUser(name), image: UIImage(systemName: "hand.raised"), options: [], children: [blockAction])
-            children.append(blockMenu)
-        }
-        if canReport {
+        
+        if !isMyself {
             let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "flag"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
                 guard let provider = provider else { return }
                 guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {

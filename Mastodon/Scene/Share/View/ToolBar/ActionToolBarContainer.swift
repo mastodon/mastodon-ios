@@ -12,7 +12,6 @@ protocol ActionToolbarContainerDelegate: class {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton)
-    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton)
 }
 
 
@@ -63,7 +62,6 @@ extension ActionToolbarContainer {
         replyButton.addTarget(self, action: #selector(ActionToolbarContainer.replyButtonDidPressed(_:)), for: .touchUpInside)
         reblogButton.addTarget(self, action: #selector(ActionToolbarContainer.reblogButtonDidPressed(_:)), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(ActionToolbarContainer.favoriteButtonDidPressed(_:)), for: .touchUpInside)
-        moreButton.addTarget(self, action: #selector(ActionToolbarContainer.moreButtonDidPressed(_:)), for: .touchUpInside)
     }
     
 }
@@ -192,11 +190,6 @@ extension ActionToolbarContainer {
     @objc private func favoriteButtonDidPressed(_ sender: UIButton) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.actionToolbarContainer(self, starButtonDidPressed: sender)
-    }
-    
-    @objc private func moreButtonDidPressed(_ sender: UIButton) {
-        os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.actionToolbarContainer(self, moreButtonDidPressed: sender)
     }
     
 }

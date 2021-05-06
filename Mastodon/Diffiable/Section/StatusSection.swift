@@ -780,7 +780,8 @@ extension StatusSection {
             return
         }
         let author = status.authorForUserProvider
-        let canReport = authenticationBox.userID != author.id
+        let isMyself = authenticationBox.userID == author.id
+        let canReport = !isMyself
         let isInSameDomain = authenticationBox.domain == author.domainFromAcct
         let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
@@ -788,9 +789,9 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
         cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
             for: author,
+            isMyself: isMyself,
             isMuting: isMuting,
             isBlocking: isBlocking,
-            canReport: canReport,
             isInSameDomain: isInSameDomain,
             isDomainBlocking: isDomainBlocking,
             provider: userProvider,

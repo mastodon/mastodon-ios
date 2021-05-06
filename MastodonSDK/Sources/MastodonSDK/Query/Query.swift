@@ -62,6 +62,6 @@ protocol PutQuery: RequestQuery { }
 protocol DeleteQuery: RequestQuery { }
 
 extension DeleteQuery {
-    // By default a `PostQuery` does not has query items
+    // By default a `DeleteQuery` does not has query items
     var queryItems: [URLQueryItem]? { nil }
 }
