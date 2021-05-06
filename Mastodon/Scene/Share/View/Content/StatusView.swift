@@ -340,9 +340,10 @@ extension StatusView {
         contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
-            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultLow),
-            statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultLow),
-            // only layout to top-left corner and draw image to fit size
+            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultHigh),
+            statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultHigh),
+            contentWarningOverlayView.rightAnchor.constraint(equalTo: statusContainerStackView.rightAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultHigh),
+            // only layout to top and left & right then draw image to fit size
         ])
         // avoid overlay clip author view
         containerStackView.bringSubviewToFront(authorContainerStackView)
