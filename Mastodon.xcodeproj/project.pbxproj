@@ -202,6 +202,8 @@
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
 		DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2FF50F260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift */; };
+		DB35B0B32643D821006AC73B /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DB35B0B22643D821006AC73B /* TwitterTextEditor */; };
+		DB35B0B42643D821006AC73B /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DB35B0B22643D821006AC73B /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */; };
 		DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC242612FD7A006193C9 /* ProfileFieldView.swift */; };
 		DB35FC2F26130172006193C9 /* MastodonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC2E26130172006193C9 /* MastodonField.swift */; };
@@ -434,8 +436,6 @@
 		DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B23263684C600ACB481 /* UserDefaults.swift */; };
 		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
-		DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; };
-		DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */ = {isa = PBXBuildFile; productRef = DBE64A8A260C49D200E6359A /* TwitterTextEditor */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
 		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBF8AE862632992800C9C23C /* Base85 in Frameworks */ = {isa = PBXBuildFile; productRef = DBF8AE852632992800C9C23C /* Base85 */; };
@@ -545,8 +545,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */,
-				DBE64A8C260C49D200E6359A /* TwitterTextEditor in Embed Frameworks */,
 				DB89BA0425C10FD0008580ED /* CoreDataStack.framework in Embed Frameworks */,
+				DB35B0B42643D821006AC73B /* TwitterTextEditor in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1006,6 +1006,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB35B0B32643D821006AC73B /* TwitterTextEditor in Frameworks */,
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
@@ -1018,7 +1019,6 @@
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
-				DBE64A8B260C49D200E6359A /* TwitterTextEditor in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */,
@@ -2408,8 +2408,8 @@
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
-				DBE64A8A260C49D200E6359A /* TwitterTextEditor */,
 				DBB525072611EAC0002F1F29 /* Tabman */,
+				DB35B0B22643D821006AC73B /* TwitterTextEditor */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2596,10 +2596,10 @@
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
-				DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
 				DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */,
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				DB35B0B12643D821006AC73B /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3937,6 +3937,14 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		DB35B0B12643D821006AC73B /* XCRemoteSwiftPackageReference "TwitterTextEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twitter/TwitterTextEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
@@ -3975,14 +3983,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.11.0;
-			};
-		};
-		DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MainasuK/TwitterTextEditor";
-			requirement = {
-				branch = "feature/input-view";
-				kind = branch;
 			};
 		};
 		DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */ = {
@@ -4030,6 +4030,11 @@
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
 			productName = CommonOSLog;
 		};
+		DB35B0B22643D821006AC73B /* TwitterTextEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB35B0B12643D821006AC73B /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
+			productName = TwitterTextEditor;
+		};
 		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
@@ -4059,11 +4064,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
-		};
-		DBE64A8A260C49D200E6359A /* TwitterTextEditor */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBE64A89260C49D200E6359A /* XCRemoteSwiftPackageReference "TwitterTextEditor" */;
-			productName = TwitterTextEditor;
 		};
 		DBF8AE852632992800C9C23C /* Base85 */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -41,7 +41,7 @@ extension EmojiService.CustomEmojiViewModel.LoadState {
             guard let viewModel = viewModel, let apiService = viewModel.service?.apiService, let stateMachine = stateMachine else { return }
             
             apiService.customEmoji(domain: viewModel.domain)
-                .receive(on: DispatchQueue.main)
+                // .receive(on: DispatchQueue.main)
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
