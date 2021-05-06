@@ -208,8 +208,17 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
             switch viewController.viewModel.item {
             case .status(let meta):
                 context.photoLibraryService.saveImage(url: meta.url)
-                    .sink { _ in
-                        // do nothing
+                    .sink { [weak self] completion in
+                        guard let self = self else { return }
+                        switch completion {
+                        case .failure(let error):
+                            guard let error = error as? PhotoLibraryService.PhotoLibraryError,
+                                  case .noPermission = error else { return }
+                            let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
+                            self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+                        case .finished:
+                            break
+                        }
                     } receiveValue: { _ in
                         // do nothing
                     }

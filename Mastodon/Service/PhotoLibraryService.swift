@@ -8,9 +8,18 @@
 import os.log
 import UIKit
 import Combine
+import Photos
 import AlamofireImage
 
 final class PhotoLibraryService: NSObject {
+
+}
+
+extension PhotoLibraryService {
+    
+    enum PhotoLibraryError: Error {
+        case noPermission
+    }
 
 }
 
@@ -21,6 +30,11 @@ extension PhotoLibraryService {
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
         
         return Future<UIImage, Error> { promise in
+            guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
+                promise(.failure(PhotoLibraryError.noPermission))
+                return
+            }
+            
             ImageDownloader.default.download(URLRequest(url: url), completion: { [weak self] response in
                 guard let self = self else { return }
                 switch response.result {

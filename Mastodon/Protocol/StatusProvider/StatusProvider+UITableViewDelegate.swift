@@ -171,8 +171,18 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                             guard let attachment = attachment, let url = URL(string: attachment.url) else { return nil }
                             return self.context.photoLibraryService.saveImage(url: url)
                         }
-                        .sink(receiveCompletion: { _ in
-                            // do nothing
+                        .switchToLatest()
+                        .sink(receiveCompletion: { [weak self] completion in
+                            guard let self = self else { return }
+                            switch completion {
+                            case .failure(let error):
+                                guard let error = error as? PhotoLibraryService.PhotoLibraryError,
+                                      case .noPermission = error else { return }
+                                let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
+                                self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+                            case .finished:
+                                break
+                            }
                         }, receiveValue: { _ in
                             // do nothing
                         })
