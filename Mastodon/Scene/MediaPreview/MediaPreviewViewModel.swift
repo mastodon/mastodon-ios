@@ -59,7 +59,7 @@ final class MediaPreviewViewModel: NSObject {
         let managedObjectContext = self.context.managedObjectContext
         managedObjectContext.performAndWait {
             let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
-            let avatarURL = account.headerImageURL() ?? URL(string: "https://example.com")!     // assert URL exist
+            let avatarURL = account.headerImageURLWithFallback(domain: account.domain)
             let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage)
             let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
             let mediaPreviewImageViewController = MediaPreviewImageViewController()
@@ -79,7 +79,7 @@ final class MediaPreviewViewModel: NSObject {
         let managedObjectContext = self.context.managedObjectContext
         managedObjectContext.performAndWait {
             let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
-            let avatarURL = account.avatarImageURL() ?? URL(string: "https://example.com")!     // assert URL exist
+            let avatarURL = account.avatarImageURLWithFallback(domain: account.domain)
             let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage)
             let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
             let mediaPreviewImageViewController = MediaPreviewImageViewController()
