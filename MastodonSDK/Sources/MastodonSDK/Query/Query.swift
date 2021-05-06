@@ -60,3 +60,8 @@ protocol PutQuery: RequestQuery { }
 
 // DELETE
 protocol DeleteQuery: RequestQuery { }
+
+extension DeleteQuery {
+    // By default a `DeleteQuery` does not has query items
+    var queryItems: [URLQueryItem]? { nil }
+}

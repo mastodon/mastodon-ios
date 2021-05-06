@@ -1,8 +1,8 @@
 //
-//  PublicTimelineViewController+StatusProvider.swift
+//  UserTimelineViewController+Provider.swift
 //  Mastodon
 //
-//  Created by sxiaojian on 2021/1/27.
+//  Created by MainasuK Cirno on 2021-3-30.
 //
 
 import os.log
@@ -10,10 +10,9 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import MastodonSDK
 
 // MARK: - StatusProvider
-extension PublicTimelineViewController: StatusProvider {
+extension UserTimelineViewController: StatusProvider {
 
     func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
@@ -34,7 +33,7 @@ extension PublicTimelineViewController: StatusProvider {
             
             switch item {
             case .status(let objectID, _):
-                let managedObjectContext = self.viewModel.fetchedResultsController.managedObjectContext
+                let managedObjectContext = self.viewModel.statusFetchedResultsController.fetchedResultsController.managedObjectContext
                 managedObjectContext.perform {
                     let status = managedObjectContext.object(with: objectID) as? Status
                     promise(.success(status))
@@ -50,7 +49,7 @@ extension PublicTimelineViewController: StatusProvider {
     }
     
     var managedObjectContext: NSManagedObjectContext {
-        return viewModel.fetchedResultsController.managedObjectContext
+        return viewModel.statusFetchedResultsController.fetchedResultsController.managedObjectContext
     }
     
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? {
@@ -62,6 +61,7 @@ extension PublicTimelineViewController: StatusProvider {
             assertionFailure()
             return nil
         }
+        
         guard let indexPath = indexPath ?? cell.flatMap({ self.tableView.indexPath(for: $0) }),
               let item = diffableDataSource.itemIdentifier(for: indexPath) else {
             return nil
@@ -85,3 +85,5 @@ extension PublicTimelineViewController: StatusProvider {
     }
     
 }
+
+extension UserTimelineViewController: UserProvider {}

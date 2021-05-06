@@ -1,8 +1,8 @@
 //
-//  HashtagTimelineViewController+StatusProvider.swift
+//  FavoriteViewController+StatusProvider.swift
 //  Mastodon
 //
-//  Created by BradGao on 2021/3/31.
+//  Created by MainasuK Cirno on 2021-4-7.
 //
 
 import os.log
@@ -12,7 +12,7 @@ import CoreData
 import CoreDataStack
 
 // MARK: - StatusProvider
-extension HashtagTimelineViewController: StatusProvider {
+extension FavoriteViewController: StatusProvider {
 
     func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
@@ -33,7 +33,7 @@ extension HashtagTimelineViewController: StatusProvider {
             
             switch item {
             case .status(let objectID, _):
-                let managedObjectContext = self.viewModel.context.managedObjectContext
+                let managedObjectContext = self.viewModel.statusFetchedResultsController.fetchedResultsController.managedObjectContext
                 managedObjectContext.perform {
                     let status = managedObjectContext.object(with: objectID) as? Status
                     promise(.success(status))
@@ -49,7 +49,7 @@ extension HashtagTimelineViewController: StatusProvider {
     }
     
     var managedObjectContext: NSManagedObjectContext {
-        return viewModel.context.managedObjectContext
+        return viewModel.statusFetchedResultsController.fetchedResultsController.managedObjectContext
     }
     
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? {
@@ -86,3 +86,4 @@ extension HashtagTimelineViewController: StatusProvider {
     
 }
 
+extension FavoriteViewController: UserProvider {}

@@ -30,6 +30,8 @@ class AppContext: ObservableObject {
     let statusPublishService = StatusPublishService()
     let notificationService: NotificationService
     let settingService: SettingService
+
+    let blockDomainService: BlockDomainService    
     let photoLibraryService = PhotoLibraryService()
 
     let documentStore: DocumentStore
@@ -71,6 +73,11 @@ class AppContext: ObservableObject {
             apiService: _apiService,
             authenticationService: _authenticationService,
             notificationService: _notificationService
+        )
+        
+        blockDomainService = BlockDomainService(
+            backgroundManagedObjectContext: _backgroundManagedObjectContext,
+            authenticationService: _authenticationService
         )
         
         documentStore = DocumentStore()
