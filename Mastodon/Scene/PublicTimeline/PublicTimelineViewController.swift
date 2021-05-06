@@ -13,12 +13,14 @@ import GameplayKit
 import os.log
 import UIKit
 
-final class PublicTimelineViewController: UIViewController, NeedsDependency {
+final class PublicTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: PublicTimelineViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     let refreshControl = UIRefreshControl()
     

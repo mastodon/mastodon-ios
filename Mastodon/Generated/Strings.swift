@@ -31,6 +31,12 @@ internal enum L10n {
         /// Publish Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Title")
       }
+      internal enum SavePhotoFailure {
+        /// Please enable photo libaray access permission to save photo.
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.SavePhotoFailure.Message")
+        /// Save Photo Failure
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.SavePhotoFailure.Title")
+      }
       internal enum ServerError {
         /// Server Error
         internal static let title = L10n.tr("Localizable", "Common.Alerts.ServerError.Title")
@@ -94,6 +100,8 @@ internal enum L10n {
         internal static let savePhoto = L10n.tr("Localizable", "Common.Controls.Actions.SavePhoto")
         /// See More
         internal static let seeMore = L10n.tr("Localizable", "Common.Controls.Actions.SeeMore")
+        /// Settings
+        internal static let settings = L10n.tr("Localizable", "Common.Controls.Actions.Settings")
         /// Share
         internal static let share = L10n.tr("Localizable", "Common.Controls.Actions.Share")
         /// Share %@

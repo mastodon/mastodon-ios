@@ -171,3 +171,19 @@ final class SettingService {
     }
     
 }
+
+extension SettingService {
+    
+    static func openSettingsAlertController(title: String, message: String) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let settingAction = UIAlertAction(title: L10n.Common.Controls.Actions.settings, style: .default) { _ in
+            guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        alertController.addAction(settingAction)
+        let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        return alertController
+    }
+    
+}

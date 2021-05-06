@@ -255,6 +255,19 @@
 		DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */; };
 		DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */; };
 		DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F11725EFA35B001F1DAB /* StripProgressView.swift */; };
+		DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */; };
+		DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */; };
+		DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */; };
+		DB6180E626391B550018D199 /* MediaPreviewTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180E526391B550018D199 /* MediaPreviewTransitionController.swift */; };
+		DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180E826391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift */; };
+		DB6180EB26391C140018D199 /* MediaPreviewTransitionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180EA26391C140018D199 /* MediaPreviewTransitionItem.swift */; };
+		DB6180ED26391C6C0018D199 /* TransitioningMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180EC26391C6C0018D199 /* TransitioningMath.swift */; };
+		DB6180EF26391CA50018D199 /* MediaPreviewImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180EE26391CA50018D199 /* MediaPreviewImageViewController.swift */; };
+		DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F126391CF40018D199 /* MediaPreviewImageViewModel.swift */; };
+		DB6180F426391D110018D199 /* MediaPreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F326391D110018D199 /* MediaPreviewImageView.swift */; };
+		DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F526391D580018D199 /* MediaPreviewableViewController.swift */; };
+		DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */; };
+		DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */; };
 		DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */; };
 		DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729525F9F91600D60309 /* ComposeStatusSection.swift */; };
 		DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */; };
@@ -303,6 +316,7 @@
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
+		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
 		DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */; };
@@ -368,6 +382,10 @@
 		DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */; };
 		DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */; };
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
+		DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */; };
+		DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */; };
+		DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */; };
+		DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7AA263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
 		DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F672615DD60004B8251 /* UserProvider.swift */; };
 		DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */; };
@@ -680,9 +698,9 @@
 		3C030226D3C73DCC23D67452 /* Pods_Mastodon_MastodonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_MastodonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		452147B2903DF38070FE56A2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		459EA4F43058CAB47719E963 /* Pods-Mastodon-MastodonUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		46531DECCAB422F507B2274D /* Pods_Mastodon_AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B24BBD7262DB14800A9381B /* ReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ReportViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		46531DECCAB422F507B2274D /* Pods_Mastodon_AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mastodon_AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B24BBE1262DB19100A9381B /* APIService+Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "APIService+Report.swift"; sourceTree = "<group>"; };
 		5B8E055726319E47006E3C53 /* ReportFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportFooterView.swift; sourceTree = "<group>"; };
 		5B90C456262599800002E742 /* SettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -804,6 +822,19 @@
 		DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeightCacheableContainer.swift; sourceTree = "<group>"; };
 		DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Poll.swift"; sourceTree = "<group>"; };
 		DB59F11725EFA35B001F1DAB /* StripProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripProgressView.swift; sourceTree = "<group>"; };
+		DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewController.swift; sourceTree = "<group>"; };
+		DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewPagingViewController.swift; sourceTree = "<group>"; };
+		DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		DB6180E526391B550018D199 /* MediaPreviewTransitionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewTransitionController.swift; sourceTree = "<group>"; };
+		DB6180E826391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		DB6180EA26391C140018D199 /* MediaPreviewTransitionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewTransitionItem.swift; sourceTree = "<group>"; };
+		DB6180EC26391C6C0018D199 /* TransitioningMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitioningMath.swift; sourceTree = "<group>"; };
+		DB6180EE26391CA50018D199 /* MediaPreviewImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewImageViewController.swift; sourceTree = "<group>"; };
+		DB6180F126391CF40018D199 /* MediaPreviewImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewImageViewModel.swift; sourceTree = "<group>"; };
+		DB6180F326391D110018D199 /* MediaPreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewImageView.swift; sourceTree = "<group>"; };
+		DB6180F526391D580018D199 /* MediaPreviewableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewableViewController.swift; sourceTree = "<group>"; };
+		DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewingViewController.swift; sourceTree = "<group>"; };
+		DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
 		DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB66729525F9F91600D60309 /* ComposeStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusSection.swift; sourceTree = "<group>"; };
 		DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusItem.swift; sourceTree = "<group>"; };
@@ -844,6 +875,7 @@
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
+		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
 		DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -911,6 +943,10 @@
 		DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterpolatingMotionEffect.swift; sourceTree = "<group>"; };
 		DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedEdgesButton.swift; sourceTree = "<group>"; };
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
+		DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
+		DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewModel.swift; sourceTree = "<group>"; };
+		DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewController.swift; sourceTree = "<group>"; };
+		DBA5E7AA263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTableViewCellContextMenuConfiguration.swift; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBAE3F672615DD60004B8251 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+UserProvider.swift"; sourceTree = "<group>"; };
@@ -1245,6 +1281,8 @@
 				DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */,
 				DB51D170262832380062B7A1 /* BlurHashDecode.swift */,
 				DB51D171262832380062B7A1 /* BlurHashEncode.swift */,
+				DB6180EC26391C6C0018D199 /* TransitioningMath.swift */,
+				DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -1264,6 +1302,7 @@
 				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
 				DB4924E126312AB200E9DB22 /* NotificationService.swift */,
 				DB6D9F6226357848008423CD /* SettingService.swift */,
+				DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1344,6 +1383,7 @@
 				DB68A04F25E9028800CFDF14 /* NavigationController */,
 				DB9D6C2025E502C60051B173 /* ViewModel */,
 				2D7631A525C1532D00929FB9 /* View */,
+				DBA5E7A6263BD298004598BB /* ContextMenu */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -1750,6 +1790,56 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DB6180DE263919350018D199 /* MediaPreview */ = {
+			isa = PBXGroup;
+			children = (
+				DB6180E1263919780018D199 /* Paging */,
+				DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */,
+				DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */,
+			);
+			path = MediaPreview;
+			sourceTree = "<group>";
+		};
+		DB6180E1263919780018D199 /* Paging */ = {
+			isa = PBXGroup;
+			children = (
+				DB6180F026391CAB0018D199 /* Image */,
+				DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */,
+			);
+			path = Paging;
+			sourceTree = "<group>";
+		};
+		DB6180E426391A500018D199 /* Transition */ = {
+			isa = PBXGroup;
+			children = (
+				DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */,
+				DB6180E726391B580018D199 /* MediaPreview */,
+			);
+			path = Transition;
+			sourceTree = "<group>";
+		};
+		DB6180E726391B580018D199 /* MediaPreview */ = {
+			isa = PBXGroup;
+			children = (
+				DB6180E526391B550018D199 /* MediaPreviewTransitionController.swift */,
+				DB6180E826391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift */,
+				DB6180EA26391C140018D199 /* MediaPreviewTransitionItem.swift */,
+				DB6180F526391D580018D199 /* MediaPreviewableViewController.swift */,
+				DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */,
+			);
+			path = MediaPreview;
+			sourceTree = "<group>";
+		};
+		DB6180F026391CAB0018D199 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				DB6180EE26391CA50018D199 /* MediaPreviewImageViewController.swift */,
+				DB6180F126391CF40018D199 /* MediaPreviewImageViewModel.swift */,
+				DB6180F326391D110018D199 /* MediaPreviewImageView.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		DB6804802637CD4C00430867 /* AppShared */ = {
 			isa = PBXGroup;
 			children = (
@@ -1947,6 +2037,7 @@
 			children = (
 				5D03938E2612D200007FE196 /* Webview */,
 				2D7631A425C1532200929FB9 /* Share */,
+				DB6180E426391A500018D199 /* Transition */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
 				DB01409B25C40BB600F9F3CF /* Onboarding */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
@@ -1960,6 +2051,7 @@
 				DB9D6C0825E4F5A60051B173 /* Profile */,
 				DB789A1025F9F29B0071ACA0 /* Compose */,
 				DB938EEB2623F52600E5B6C1 /* Thread */,
+				DB6180DE263919350018D199 /* MediaPreview */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -2120,6 +2212,24 @@
 				DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		DBA5E7A6263BD298004598BB /* ContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				DBA5E7A7263BD29F004598BB /* ImagePreview */,
+			);
+			path = ContextMenu;
+			sourceTree = "<group>";
+		};
+		DBA5E7A7263BD29F004598BB /* ImagePreview */ = {
+			isa = PBXGroup;
+			children = (
+				DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */,
+				DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */,
+				DBA5E7AA263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift */,
+			);
+			path = ImagePreview;
 			sourceTree = "<group>";
 		};
 		DBA9B90325F1D4420012E7B6 /* Control */ = {
@@ -2736,6 +2846,7 @@
 			files = (
 				DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */,
 				DB35FC2F26130172006193C9 /* MastodonField.swift in Sources */,
+				DB6180EB26391C140018D199 /* MediaPreviewTransitionItem.swift in Sources */,
 				DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */,
 				DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */,
 				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
@@ -2764,8 +2875,10 @@
 				5D0393962612D266007FE196 /* WebViewModel.swift in Sources */,
 				5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */,
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
+				DB6180EF26391CA50018D199 /* MediaPreviewImageViewController.swift in Sources */,
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
+				DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */,
 				2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
@@ -2784,6 +2897,8 @@
 				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,
+				DB6180F226391CF40018D199 /* MediaPreviewImageViewModel.swift in Sources */,
+				DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */,
 				5DDDF1932617442700311060 /* Mastodon+Entity+Account.swift in Sources */,
 				DBAE3F882615DDF4004B8251 /* UserProviderFacade.swift in Sources */,
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,
@@ -2800,6 +2915,7 @@
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
+				DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */,
 				0FAA102725E1126A0017CCDE /* MastodonPickServerViewController.swift in Sources */,
 				DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */,
 				DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */,
@@ -2823,8 +2939,10 @@
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D79E701261EA5550011E398 /* APIService+CoreData+Tag.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
+				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
 				DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */,
+				DB6180F426391D110018D199 /* MediaPreviewImageView.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
 				2D35238126256F690031AF25 /* NotificationTableViewCell.swift in Sources */,
@@ -2832,6 +2950,7 @@
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
+				DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */,
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
@@ -2857,12 +2976,14 @@
 				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
 				DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */,
+				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */,
 				DB9A48962603685D008B817C /* MastodonAttachmentService+UploadState.swift in Sources */,
 				2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */,
 				2DAC9E38262FC2320062E1A6 /* SuggestionAccountViewController.swift in Sources */,
 				DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */,
+				DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
 				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
@@ -2870,6 +2991,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */,
+				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
 				2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */,
 				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
 				DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */,
@@ -2939,6 +3061,7 @@
 				DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */,
 				DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */,
 				0FB3D30F25E525CD00AAD544 /* PickServerCategoryView.swift in Sources */,
+				DB6180E626391B550018D199 /* MediaPreviewTransitionController.swift in Sources */,
 				5BB04FDB262EA3070043BFF6 /* ReportHeaderView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
@@ -2948,12 +3071,14 @@
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
+				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
 				2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */,
 				0F20220D26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
 				DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */,
+				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
 				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
 				2D34D9CB261489930081BFC0 /* SearchViewController+Recommend.swift in Sources */,
@@ -3017,6 +3142,7 @@
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
+				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
 				2D198655261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift in Sources */,
 				0F202227261411BB000C64BF /* HashtagTimelineViewController+StatusProvider.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
@@ -3054,10 +3180,12 @@
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DB938F25262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift in Sources */,
 				DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */,
+				DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
 				5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */,
 				DB6D9F4926353FD7008423CD /* Subscription.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
+				DB6180ED26391C6C0018D199 /* TransitioningMath.swift in Sources */,
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */,
 				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,

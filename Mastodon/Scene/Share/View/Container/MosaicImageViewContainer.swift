@@ -9,14 +9,14 @@ import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
 
-protocol MosaicImageViewContainerPresentable: class {
+protocol MosaicImageViewContainerPresentable: AnyObject {
     var mosaicImageViewContainer: MosaicImageViewContainer { get }
+    var isRevealing: Bool { get }
 }
 
-protocol MosaicImageViewContainerDelegate: class {
+protocol MosaicImageViewContainerDelegate: AnyObject {
     func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
     func mosaicImageViewContainer(_ mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
-
 }
 
 final class MosaicImageViewContainer: UIView {
@@ -292,6 +292,41 @@ extension MosaicImageViewContainer {
         ])
         
         return zip(imageViews, blurhashOverlayImageViews).map { ($0, $1) }
+    }
+    
+}
+
+// FIXME: refactor blurhash image and preview image
+extension MosaicImageViewContainer {
+
+    func setImageViews(alpha: CGFloat) {
+        // blurhashOverlayImageViews.forEach { $0.alpha = alpha }
+        imageViews.forEach { $0.alpha = alpha }
+    }
+    
+    func setImageView(alpha: CGFloat, index: Int) {
+        // if index < blurhashOverlayImageViews.count {
+        //     blurhashOverlayImageViews[index].alpha = alpha
+        // }
+        if index < imageViews.count {
+            imageViews[index].alpha = alpha
+        }
+    }
+    
+    func thumbnail(at index: Int) -> UIImage? {
+        guard blurhashOverlayImageViews.count == imageViews.count else { return nil }
+        let tuples = Array(zip(blurhashOverlayImageViews, imageViews))
+        guard index < tuples.count else { return nil }
+        let tuple = tuples[index]
+        return tuple.1.image ?? tuple.0.image
+    }
+    
+    func thumbnails() -> [UIImage?] {
+        guard blurhashOverlayImageViews.count == imageViews.count else { return [] }
+        let tuples = Array(zip(blurhashOverlayImageViews, imageViews))
+        return tuples.map { blurhashOverlayImageView, imageView -> UIImage? in
+            return imageView.image ?? blurhashOverlayImageView.image
+        }
     }
     
 }
