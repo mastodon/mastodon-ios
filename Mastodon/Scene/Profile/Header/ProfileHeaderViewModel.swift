@@ -24,6 +24,7 @@ final class ProfileHeaderViewModel {
     // output
     let displayProfileInfo = ProfileInfo()
     let editProfileInfo = ProfileInfo()
+    let isTitleViewDisplaying = CurrentValueSubject<Bool, Never>(false)
     
     init(context: AppContext) {
         self.context = context

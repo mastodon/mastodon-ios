@@ -13,7 +13,7 @@ import CoreData
 import CoreDataStack
 import ActiveLabel
 
-protocol StatusTableViewCellDelegate: class {
+protocol StatusTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }
     var managedObjectContext: NSManagedObjectContext { get }
     
@@ -48,7 +48,7 @@ extension StatusTableViewCellDelegate {
 }
 
 final class StatusTableViewCell: UITableViewCell, StatusCell {
-    
+        
     static let bottomPaddingHeight: CGFloat = 10
     
     weak var delegate: StatusTableViewCellDelegate?
@@ -62,7 +62,7 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
     let threadMetaStackView = UIStackView()
     let threadMetaView = ThreadMetaView()
     let separatorLine = UIView.separatorLine
-    
+        
     var separatorLineToEdgeLeadingLayoutConstraint: NSLayoutConstraint!
     var separatorLineToEdgeTrailingLayoutConstraint: NSLayoutConstraint!
     
@@ -204,6 +204,19 @@ extension StatusTableViewCell {
         let imageViewBackgroundColor: UIColor? = selected ? selectedBackgroundView?.backgroundColor : backgroundColor
         statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = imageViewBackgroundColor
     }
+}
+
+// MARK: - MosaicImageViewContainerPresentable
+extension StatusTableViewCell: MosaicImageViewContainerPresentable {
+    
+    var mosaicImageViewContainer: MosaicImageViewContainer {
+        return statusView.statusMosaicImageViewContainer
+    }
+    
+    var isRevealing: Bool {
+        return statusView.isRevealing
+    }
+    
 }
 
 // MARK: - UITableViewDelegate

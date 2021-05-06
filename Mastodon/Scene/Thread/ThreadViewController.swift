@@ -11,13 +11,15 @@ import Combine
 import CoreData
 import AVKit
 
-final class ThreadViewController: UIViewController, NeedsDependency {
+final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
         
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ThreadViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     let titleView = DoubleTitleLabelNavigationBarTitleView()
     
@@ -147,6 +149,22 @@ extension ThreadViewController: UITableViewDelegate {
         default:
             return indexPath
         }
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+    }
+    
+    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+
+    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+    }
+    
+    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
     
 }

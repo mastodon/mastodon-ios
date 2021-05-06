@@ -12,7 +12,7 @@ import os.log
 import UIKit
 import AVKit
 
-protocol StatusCell : DisposeBagCollectable {
+protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
     var pollCountdownSubscription: AnyCancellable? { get set }
 }
@@ -145,7 +145,7 @@ extension StatusSection {
         status: Status,
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
-    ) { 
+    ) {
         // set header
         StatusSection.configureHeader(cell: cell, status: status)
         ManagedObjectObserver.observe(object: status)
@@ -432,13 +432,12 @@ extension StatusSection {
             .sink { _ in
                 // do nothing
             } receiveValue: { [weak dependency, weak cell] change in
-                guard let cell = cell else { return }
                 guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
-                guard let cell = cell as? StatusTableViewCell else { return }
+                guard let statusTableViewCell = cell as? StatusTableViewCell else { return }
                 StatusSection.configureActionToolBar(
-                    cell: cell,
+                    cell: statusTableViewCell,
                     indexPath: indexPath,
                     dependency: dependency,
                     status: status,

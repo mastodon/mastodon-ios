@@ -67,8 +67,16 @@ extension MastodonUser {
         return URL(string: header)
     }
     
+    public func headerImageURLWithFallback(domain: String) -> URL {
+        return URL(string: header) ?? URL(string: "https://\(domain)/headers/original/missing.png")!
+    }
+    
     public func avatarImageURL() -> URL? {
         return URL(string: avatar)
+    }
+    
+    public func avatarImageURLWithFallback(domain: String) -> URL {
+        return URL(string: avatar) ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
     }
     
 }

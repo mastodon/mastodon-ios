@@ -13,7 +13,7 @@ import CoreDataStack
 import GameplayKit
 
 // TODO: adopt MediaPreviewableViewController
-final class UserTimelineViewController: UIViewController, NeedsDependency {
+final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -21,7 +21,7 @@ final class UserTimelineViewController: UIViewController, NeedsDependency {
     var disposeBag = Set<AnyCancellable>()
     var viewModel: UserTimelineViewModel!
     
-    // let mediaPreviewTransitionController = MediaPreviewTransitionController()
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -126,6 +126,22 @@ extension UserTimelineViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         aspectTableView(tableView, didSelectRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+    }
+    
+    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+
+    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+    }
+    
+    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
     
 }

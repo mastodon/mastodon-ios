@@ -10,13 +10,15 @@ import UIKit
 import Combine
 import ActiveLabel
 
-final class ProfileViewController: UIViewController, NeedsDependency {
+final class ProfileViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ProfileViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     private(set) lazy var cancelEditingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ProfileViewController.cancelEditingBarButtonItemPressed(_:)))
@@ -170,13 +172,14 @@ extension ProfileViewController {
             }
             .store(in: &disposeBag)
             
-        Publishers.CombineLatest3 (
+        Publishers.CombineLatest4 (
             viewModel.suspended.eraseToAnyPublisher(),
+            profileHeaderViewController.viewModel.isTitleViewDisplaying.eraseToAnyPublisher(),
             editingAndUpdatingPublisher.eraseToAnyPublisher(),
             barButtonItemHiddenPublisher.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] suspended, tuple1, tuple2 in
+        .sink { [weak self] suspended, isTitleViewDisplaying, tuple1, tuple2 in
             guard let self = self else { return }
             let (isEditing, _) = tuple1
             let (isMeBarButtonItemsHidden, isReplyBarButtonItemHidden, isMoreMenuBarButtonItemHidden) = tuple2
@@ -192,6 +195,10 @@ extension ProfileViewController {
             
             guard !isEditing else {
                 items.append(self.cancelEditingBarButtonItem)
+                return
+            }
+            
+            guard !isTitleViewDisplaying else {
                 return
             }
             
@@ -664,6 +671,72 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileViewController: ProfileHeaderViewDelegate {
+    
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView) {
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        guard let avatar = imageView.image else { return }
+        
+        let meta = MediaPreviewViewModel.ProfileAvatarImagePreviewMeta(
+            accountObjectID: mastodonUser.objectID,
+            preloadThumbnailImage: avatar
+        )
+        let pushTransitionItem = MediaPreviewTransitionItem(
+            source: .profileAvatar(profileHeaderView),
+            previewableViewController: self
+        )
+        pushTransitionItem.aspectRatio = CGSize(width: 100, height: 100)
+        pushTransitionItem.sourceImageView = imageView
+        pushTransitionItem.sourceImageViewCornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
+        pushTransitionItem.initialFrame = {
+            let initialFrame = imageView.superview!.convert(imageView.frame, to: nil)
+            assert(initialFrame != .zero)
+            return initialFrame
+        }()
+        pushTransitionItem.image = avatar
+        
+        let mediaPreviewViewModel = MediaPreviewViewModel(
+            context: context,
+            meta: meta,
+            pushTransitionItem: pushTransitionItem
+        )
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .mediaPreview(viewModel: mediaPreviewViewModel), from: self, transition: .custom(transitioningDelegate: self.mediaPreviewTransitionController))
+        }
+    }
+    
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView) {
+        // not preview header banner     when editing
+        guard !viewModel.isEditing.value else { return }
+        
+        guard let mastodonUser = viewModel.mastodonUser.value else { return }
+        guard let header = imageView.image else { return }
+        
+        let meta = MediaPreviewViewModel.ProfileBannerImagePreviewMeta(
+            accountObjectID: mastodonUser.objectID,
+            preloadThumbnailImage: header
+        )
+        let pushTransitionItem = MediaPreviewTransitionItem(
+            source: .profileBanner(profileHeaderView),
+            previewableViewController: self
+        )
+        pushTransitionItem.aspectRatio = header.size
+        pushTransitionItem.sourceImageView = imageView
+        pushTransitionItem.initialFrame = {
+            let initialFrame = imageView.superview!.convert(imageView.frame, to: nil)
+            assert(initialFrame != .zero)
+            return initialFrame
+        }()
+        pushTransitionItem.image = header
+        
+        let mediaPreviewViewModel = MediaPreviewViewModel(
+            context: context,
+            meta: meta,
+            pushTransitionItem: pushTransitionItem
+        )
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .mediaPreview(viewModel: mediaPreviewViewModel), from: self, transition: .custom(transitioningDelegate: self.mediaPreviewTransitionController))
+        }
+    }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
         let relationshipActionSet = viewModel.relationshipActionOptionSet.value

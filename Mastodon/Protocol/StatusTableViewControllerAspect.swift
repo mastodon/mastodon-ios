@@ -9,12 +9,12 @@ import UIKit
 import AVKit
 
 //   Check List                     Last Updated
-// - HomeViewController:                2021/4/13
-// - FavoriteViewController:            2021/4/14
-// - HashtagTimelineViewController:     2021/4/8
-// - UserTimelineViewController:        2021/4/13
-// - ThreadViewController:              2021/4/13
-// * StatusTableViewControllerAspect:   2021/4/12
+// - HomeViewController:                2021/4/30
+// - FavoriteViewController:            2021/4/30
+// - HashtagTimelineViewController:     2021/4/30
+// - UserTimelineViewController:        2021/4/30
+// - ThreadViewController:              2021/4/30
+// * StatusTableViewControllerAspect:   2021/4/30
 
 // (Fake) Aspect protocol to group common protocol extension implementations
 // Needs update related view controller when aspect interface changes
@@ -100,6 +100,38 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
     /// [UI] hook to coordinator to thread
     func aspectTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleTableView(tableView, didSelectRowAt: indexPath)
+    }
+}
+
+// [B6] aspectTableView(_:contextMenuConfigurationForRowAt:point:)
+extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
+    // [UI] hook to display context menu for images
+    func aspectTableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return handleTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+    }
+}
+
+// [B7] aspectTableView(_:contextMenuConfigurationForRowAt:point:)
+extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
+    // [UI] hook to configure context menu for images
+    func aspectTableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return handleTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+}
+
+// [B8] aspectTableView(_:previewForDismissingContextMenuWithConfiguration:)
+extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
+    // [UI] hook to configure context menu for images
+    func aspectTableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return handleTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+    }
+}
+
+// [B9] aspectTableView(_:willPerformPreviewActionForMenuWith:animator:)
+extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & StatusProvider {
+    // [UI] hook to configure context menu preview action
+    func aspectTableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        handleTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
 }
 
