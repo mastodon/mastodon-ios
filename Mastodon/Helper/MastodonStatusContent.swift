@@ -65,7 +65,7 @@ enum MastodonStatusContent {
         
         var trimmed = text
         for activeEntity in activeEntities {
-            MastodonStatusContent.trimEntity(toot: &trimmed, activeEntity: activeEntity, activeEntities: activeEntities)
+            MastodonStatusContent.trimEntity(status: &trimmed, activeEntity: activeEntity, activeEntities: activeEntities)
         }
 
         return ParseResult(
@@ -76,7 +76,7 @@ enum MastodonStatusContent {
         )
     }
     
-    static func trimEntity(toot: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
+    static func trimEntity(status: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
         let text: String
         let trimmed: String
         switch activeEntity.type {
@@ -91,8 +91,8 @@ enum MastodonStatusContent {
         }
 
         guard let index = activeEntities.firstIndex(where: { $0.range == activeEntity.range }) else { return }
-        guard let range = Range(activeEntity.range, in: toot) else { return }
-        toot.replaceSubrange(range, with: trimmed)
+        guard let range = Range(activeEntity.range, in: status) else { return }
+        status.replaceSubrange(range, with: trimmed)
         
         let offset = trimmed.count - text.count
         activeEntity.range.length += offset
