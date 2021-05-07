@@ -223,7 +223,6 @@ extension StatusSection {
                 meta.blurhashImagePublisher()
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell] image in
-                        guard let cell = cell else { return }
                         blurhashOverlayImageView.image = image
                         image?.pngData().flatMap {
                             blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)
@@ -401,16 +400,15 @@ extension StatusSection {
                 .store(in: &cell.disposeBag)
         }
         
-        // toolbar
-        StatusSection.configureActionToolBar(
-            cell: cell,
-            dependency: dependency,
-            status: status,
-            requestUserID: requestUserID
-        )
-        
-        // separator line
         if let statusTableViewCell = cell as? StatusTableViewCell {
+            // toolbar
+            StatusSection.configureActionToolBar(
+                cell: statusTableViewCell,
+                dependency: dependency,
+                status: status,
+                requestUserID: requestUserID
+            )
+            // separator line
             statusTableViewCell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
         }
         
@@ -430,12 +428,12 @@ extension StatusSection {
             .sink { _ in
                 // do nothing
             } receiveValue: { [weak dependency, weak cell] change in
-                guard let cell = cell else { return }
                 guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status else { return }
+                guard let statusTableViewCell = cell as? StatusTableViewCell else { return }
                 StatusSection.configureActionToolBar(
-                    cell: cell,
+                    cell: statusTableViewCell,
                     dependency: dependency,
                     status: status,
                     requestUserID: requestUserID
@@ -593,7 +591,7 @@ extension StatusSection {
     }
     
     static func configureActionToolBar(
-        cell: StatusCell,
+        cell: StatusTableViewCell,
         dependency: NeedsDependency,
         status: Status,
         requestUserID: String
@@ -623,6 +621,26 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
         
+        Publishers.CombineLatest(
+            dependency.context.blockDomainService.blockedDomains,
+            ManagedObjectObserver.observe(object: status.authorForUserProvider)
+                .assertNoFailure()
+            )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak dependency, weak cell] _,change in
+            guard let cell = cell else { return }
+            guard let dependency = dependency else { return }
+            switch change.changeType {
+            case .delete:
+                return
+            case .update(_):
+                break
+            case .none:
+                break
+            }
+            StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+        }
+        .store(in: &cell.disposeBag)
         self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
     
@@ -752,37 +770,36 @@ extension StatusSection {
     }
     
     private static func setupStatusMoreButtonMenu(
-        cell: StatusCell,
+        cell: StatusTableViewCell,
         dependency: NeedsDependency,
         status: Status) {
         
-        cell.statusView.actionToolbarContainer.moreButton.menu = nil
+        guard let userProvider = dependency as? UserProvider else { fatalError() }
         
         guard let authenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
-        let author = (status.reblog ?? status).author
-        guard authenticationBox.userID != author.id else {
-            return
-        }
-        var children: [UIMenuElement] = []
-        let name = author.displayNameWithFallback
-        let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "exclamationmark.bubble"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) {
-            [weak dependency] _ in
-            guard let dependency = dependency else { return }
-            let viewModel = ReportViewModel(
-                context: dependency.context,
-                domain: authenticationBox.domain,
-                user: status.author,
-                status: status)
-            dependency.coordinator.present(
-                scene: .report(viewModel: viewModel),
-                from: nil,
-                transition: .modal(animated: true, completion: nil)
-            )
-        }
-        children.append(reportAction)
-        cell.statusView.actionToolbarContainer.moreButton.menu = UIMenu(title: "", options: [], children: children)
+        let author = status.authorForUserProvider
+        let isMyself = authenticationBox.userID == author.id
+        let canReport = !isMyself
+        let isInSameDomain = authenticationBox.domain == author.domainFromAcct
+        let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
+        let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
+        let isDomainBlocking = dependency.context.blockDomainService.blockedDomains.value.contains(author.domainFromAcct)
         cell.statusView.actionToolbarContainer.moreButton.showsMenuAsPrimaryAction = true
+        cell.statusView.actionToolbarContainer.moreButton.menu = UserProviderFacade.createProfileActionMenu(
+            for: author,
+            isMyself: isMyself,
+            isMuting: isMuting,
+            isBlocking: isBlocking,
+            isInSameDomain: isInSameDomain,
+            isDomainBlocking: isDomainBlocking,
+            provider: userProvider,
+            cell: cell,
+            sourceView: cell.statusView.actionToolbarContainer.moreButton,
+            barButtonItem: nil,
+            shareUser: nil,
+            shareStatus: status
+        )
     }
 }

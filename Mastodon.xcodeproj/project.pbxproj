@@ -13,7 +13,7 @@
 		0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */; };
 		0F20220D26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20220C26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift */; };
 		0F202213261351F5000C64BF /* APIService+HashtagTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */; };
-		0F202227261411BB000C64BF /* HashtagTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */; };
+		0F202227261411BB000C64BF /* HashtagTimelineViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F202226261411BA000C64BF /* HashtagTimelineViewController+Provider.swift */; };
 		0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */; };
 		0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */; };
 		0F20223926146553000C64BF /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F20223826146553000C64BF /* Array.swift */; };
@@ -59,7 +59,7 @@
 		2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */; };
 		2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */; };
 		2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */; };
-		2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1DE25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift */; };
+		2D38F1DF25CD46A400561493 /* HomeTimelineViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1DE25CD46A400561493 /* HomeTimelineViewController+Provider.swift */; };
 		2D38F1E525CD46C100561493 /* HomeTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1E425CD46C100561493 /* HomeTimelineViewModel.swift */; };
 		2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1EA25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift */; };
 		2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1F025CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift */; };
@@ -98,7 +98,7 @@
 		2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */; };
 		2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */; };
 		2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */; };
-		2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */; };
+		2D76317D25C14DF500929FB9 /* PublicTimelineViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76317C25C14DF400929FB9 /* PublicTimelineViewController+Provider.swift */; };
 		2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76318225C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift */; };
 		2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D76319E25C1521200929FB9 /* StatusSection.swift */; };
 		2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7631A725C1535600929FB9 /* StatusTableViewCell.swift */; };
@@ -118,6 +118,9 @@
 		2D939AB525EDD8A90076FA61 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		2D939AC825EE14620076FA61 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 2D939AC725EE14620076FA61 /* CropViewController */; };
 		2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */; };
+		2D9DB967263A76FB007C1D71 /* BlockDomainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DB966263A76FB007C1D71 /* BlockDomainService.swift */; };
+		2D9DB969263A833E007C1D71 /* DomainBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DB968263A833E007C1D71 /* DomainBlock.swift */; };
+		2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */; };
 		2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA504682601ADE7008F4E6C /* SawToothView.swift */; };
 		2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6054625F716A2006356F9 /* PlaybackState.swift */; };
 		2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */; };
@@ -238,7 +241,7 @@
 		DB45FB1D25CA9D23005A8AC7 /* APIService+HomeTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */; };
 		DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */; };
 		DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */; };
-		DB482A45261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A44261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift */; };
+		DB482A45261335BA008AE74C /* UserTimelineViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A44261335BA008AE74C /* UserTimelineViewController+Provider.swift */; };
 		DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */; };
 		DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4924E126312AB200E9DB22 /* NotificationService.swift */; };
 		DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A61325FF2C5600B98345 /* EmojiService.swift */; };
@@ -360,7 +363,7 @@
 		DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */; };
 		DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F1426241FDF00E5B6C1 /* APIService+Thread.swift */; };
 		DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */; };
-		DB938F25262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F24262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift */; };
+		DB938F25262438D600E5B6C1 /* ThreadViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F24262438D600E5B6C1 /* ThreadViewController+Provider.swift */; };
 		DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938F3226243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift */; };
 		DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98336A25C9420100AD9700 /* APIService+App.swift */; };
 		DB98337125C9443200AD9700 /* APIService+Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337025C9443200AD9700 /* APIService+Authentication.swift */; };
@@ -431,7 +434,7 @@
 		DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */; };
 		DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */; };
 		DBE3CE07261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */; };
-		DBE3CE0D261D767100430CC6 /* FavoriteViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */; };
+		DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */; };
 		DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */; };
 		DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B23263684C600ACB481 /* UserDefaults.swift */; };
 		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
@@ -571,7 +574,7 @@
 		0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		0F20220C26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadLatestState.swift"; sourceTree = "<group>"; };
 		0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HashtagTimeline.swift"; sourceTree = "<group>"; };
-		0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		0F202226261411BA000C64BF /* HashtagTimelineViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewController+Provider.swift"; sourceTree = "<group>"; };
 		0F20222C261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
 		0F20223226145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HashtagTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
 		0F20223826146553000C64BF /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -616,7 +619,7 @@
 		2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewModel.swift; sourceTree = "<group>"; };
 		2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOffsetAdjustableTimelineViewControllerDelegate.swift; sourceTree = "<group>"; };
 		2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewController.swift; sourceTree = "<group>"; };
-		2D38F1DE25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		2D38F1DE25CD46A400561493 /* HomeTimelineViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewController+Provider.swift"; sourceTree = "<group>"; };
 		2D38F1E425CD46C100561493 /* HomeTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineViewModel.swift; sourceTree = "<group>"; };
 		2D38F1EA25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+LoadLatestState.swift"; sourceTree = "<group>"; };
 		2D38F1F025CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTimelineViewModel+LoadMiddleState.swift"; sourceTree = "<group>"; };
@@ -652,7 +655,7 @@
 		2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewController.swift; sourceTree = "<group>"; };
 		2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicTimelineViewModel.swift; sourceTree = "<group>"; };
-		2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		2D76317C25C14DF400929FB9 /* PublicTimelineViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewController+Provider.swift"; sourceTree = "<group>"; };
 		2D76318225C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PublicTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		2D76319E25C1521200929FB9 /* StatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSection.swift; sourceTree = "<group>"; };
 		2D7631A725C1535600929FB9 /* StatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewCell.swift; sourceTree = "<group>"; };
@@ -671,6 +674,9 @@
 		2D927F1325C7EDD9004F19B8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		2D939AB425EDD8A90076FA61 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		2D939AE725EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonRegisterViewController+Avatar.swift"; sourceTree = "<group>"; };
+		2D9DB966263A76FB007C1D71 /* BlockDomainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDomainService.swift; sourceTree = "<group>"; };
+		2D9DB968263A833E007C1D71 /* DomainBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainBlock.swift; sourceTree = "<group>"; };
+		2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+DomainBlock.swift"; sourceTree = "<group>"; };
 		2DA504682601ADE7008F4E6C /* SawToothView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SawToothView.swift; sourceTree = "<group>"; };
 		2DA6054625F716A2006356F9 /* PlaybackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackState.swift; sourceTree = "<group>"; };
 		2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerViewModel.swift; sourceTree = "<group>"; };
@@ -804,7 +810,7 @@
 		DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+HomeTimeline.swift"; sourceTree = "<group>"; };
 		DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+State.swift"; sourceTree = "<group>"; };
-		DB482A44261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		DB482A44261335BA008AE74C /* UserTimelineViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewController+Provider.swift"; sourceTree = "<group>"; };
 		DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+UserTimeline.swift"; sourceTree = "<group>"; };
 		DB4924E126312AB200E9DB22 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		DB49A61325FF2C5600B98345 /* EmojiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiService.swift; sourceTree = "<group>"; };
@@ -919,7 +925,7 @@
 		DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+LoadThreadState.swift"; sourceTree = "<group>"; };
 		DB938F1426241FDF00E5B6C1 /* APIService+Thread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Thread.swift"; sourceTree = "<group>"; };
 		DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DB938F24262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		DB938F24262438D600E5B6C1 /* ThreadViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThreadViewController+Provider.swift"; sourceTree = "<group>"; };
 		DB938F3226243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTopLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB98336A25C9420100AD9700 /* APIService+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+App.swift"; sourceTree = "<group>"; };
 		DB98337025C9443200AD9700 /* APIService+Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Authentication.swift"; sourceTree = "<group>"; };
@@ -989,7 +995,7 @@
 		DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+State.swift"; sourceTree = "<group>"; };
 		DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewModel+Diffable.swift"; sourceTree = "<group>"; };
-		DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+Provider.swift"; sourceTree = "<group>"; };
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
@@ -1086,7 +1092,7 @@
 			isa = PBXGroup;
 			children = (
 				0F2021FA2613262F000C64BF /* HashtagTimelineViewController.swift */,
-				0F202226261411BA000C64BF /* HashtagTimelineViewController+StatusProvider.swift */,
+				0F202226261411BA000C64BF /* HashtagTimelineViewController+Provider.swift */,
 				0F202200261326E6000C64BF /* HashtagTimelineViewModel.swift */,
 				0F20220626134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift */,
 				0F20220C26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift */,
@@ -1212,7 +1218,7 @@
 			children = (
 				DB1F239626117C360057430E /* View */,
 				2D38F1D425CD465300561493 /* HomeTimelineViewController.swift */,
-				2D38F1DE25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift */,
+				2D38F1DE25CD46A400561493 /* HomeTimelineViewController+Provider.swift */,
 				2D5A3D6125CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift */,
 				2D38F1E425CD46C100561493 /* HomeTimelineViewModel.swift */,
 				2D5A3D2725CF8BC9002347D6 /* HomeTimelineViewModel+Diffable.swift */,
@@ -1300,6 +1306,7 @@
 				5DF1054025F886D400D6C0D4 /* ViedeoPlaybackService.swift */,
 				DB71FD4B25F8C80E00512AE1 /* StatusPrefetchingService.swift */,
 				DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */,
+				2D9DB966263A76FB007C1D71 /* BlockDomainService.swift */,
 				DB4924E126312AB200E9DB22 /* NotificationService.swift */,
 				DB6D9F6226357848008423CD /* SettingService.swift */,
 				DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */,
@@ -1338,7 +1345,7 @@
 			isa = PBXGroup;
 			children = (
 				2D76316425C14BD100929FB9 /* PublicTimelineViewController.swift */,
-				2D76317C25C14DF400929FB9 /* PublicTimelineViewController+StatusProvider.swift */,
+				2D76317C25C14DF400929FB9 /* PublicTimelineViewController+Provider.swift */,
 				2D76316A25C14D4C00929FB9 /* PublicTimelineViewModel.swift */,
 				2D32EAD925CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift */,
 				2D76318225C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift */,
@@ -1719,6 +1726,7 @@
 				DB98336A25C9420100AD9700 /* APIService+App.swift */,
 				DB98337025C9443200AD9700 /* APIService+Authentication.swift */,
 				DB98339B25C96DE600AD9700 /* APIService+Account.swift */,
+				2D9DB96A263A91D1007C1D71 /* APIService+DomainBlock.swift */,
 				2D04F42425C255B9003F936F /* APIService+PublicTimeline.swift */,
 				DB45FB1C25CA9D23005A8AC7 /* APIService+HomeTimeline.swift */,
 				DB482A4A261340A7008AE74C /* APIService+UserTimeline.swift */,
@@ -1975,6 +1983,7 @@
 			isa = PBXGroup;
 			children = (
 				DB89BA2625C110B4008580ED /* Status.swift */,
+				2D9DB968263A833E007C1D71 /* DomainBlock.swift */,
 				2D6125462625436B00299647 /* Notification.swift */,
 				2D0B7A1C261D839600B44727 /* SearchHistory.swift */,
 				DB8AF52425C131D1002E6C99 /* MastodonUser.swift */,
@@ -2098,7 +2107,7 @@
 			isa = PBXGroup;
 			children = (
 				DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */,
-				DB938F24262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift */,
+				DB938F24262438D600E5B6C1 /* ThreadViewController+Provider.swift */,
 				DB938EEC2623F79B00E5B6C1 /* ThreadViewModel.swift */,
 				DB938F1E2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift */,
 				DB938F0E2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift */,
@@ -2281,7 +2290,7 @@
 			isa = PBXGroup;
 			children = (
 				DBB525352611ECEB002F1F29 /* UserTimelineViewController.swift */,
-				DB482A44261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift */,
+				DB482A44261335BA008AE74C /* UserTimelineViewController+Provider.swift */,
 				DBB525552611EDCA002F1F29 /* UserTimelineViewModel.swift */,
 				DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */,
 				DB482A3E261331E8008AE74C /* UserTimelineViewModel+State.swift */,
@@ -2334,7 +2343,7 @@
 			isa = PBXGroup;
 			children = (
 				DBE3CDEB261C6B2900430CC6 /* FavoriteViewController.swift */,
-				DBE3CE0C261D767100430CC6 /* FavoriteViewController+StatusProvider.swift */,
+				DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */,
 				DBE3CDFA261C6CA500430CC6 /* FavoriteViewModel.swift */,
 				DBE3CE06261D6A0E00430CC6 /* FavoriteViewModel+Diffable.swift */,
 				DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */,
@@ -2862,6 +2871,7 @@
 				DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */,
 				0FB3D2F725E4C24D00AAD544 /* MastodonPickServerViewModel.swift in Sources */,
 				2D61335E25C1894B00CAE157 /* APIService.swift in Sources */,
+				2D9DB967263A76FB007C1D71 /* BlockDomainService.swift in Sources */,
 				DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
@@ -2967,7 +2977,7 @@
 				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
-				DBE3CE0D261D767100430CC6 /* FavoriteViewController+StatusProvider.swift in Sources */,
+				DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */,
 				2D084B9326259545003AA3AF /* NotificationViewModel+LoadLatestState.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
@@ -3003,8 +3013,9 @@
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
-				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+StatusProvider.swift in Sources */,
+				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+Provider.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
+				2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */,
 				2D46975E25C2A54100CF4AA9 /* NSLayoutConstraint.swift in Sources */,
 				2D45E5BF25C9549700A6D639 /* PublicTimelineViewModel+State.swift in Sources */,
 				DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */,
@@ -3083,7 +3094,7 @@
 				DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */,
 				2D34D9CB261489930081BFC0 /* SearchViewController+Recommend.swift in Sources */,
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
-				DB482A45261335BA008AE74C /* UserTimelineViewController+StatusProvider.swift in Sources */,
+				DB482A45261335BA008AE74C /* UserTimelineViewController+Provider.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
 				DB9A485C2603010E008B817C /* PHPickerResultLoader.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
@@ -3127,7 +3138,7 @@
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D34D9E226149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift in Sources */,
-				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+StatusProvider.swift in Sources */,
+				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+Provider.swift in Sources */,
 				0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */,
 				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
 				DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */,
@@ -3144,7 +3155,7 @@
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
 				2D198655261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift in Sources */,
-				0F202227261411BB000C64BF /* HashtagTimelineViewController+StatusProvider.swift in Sources */,
+				0F202227261411BB000C64BF /* HashtagTimelineViewController+Provider.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */,
 				DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */,
@@ -3178,7 +3189,7 @@
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
-				DB938F25262438D600E5B6C1 /* ThreadViewController+StatusProvider.swift in Sources */,
+				DB938F25262438D600E5B6C1 /* ThreadViewController+Provider.swift in Sources */,
 				DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */,
 				DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
@@ -3251,6 +3262,7 @@
 				2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */,
 				2D927F0225C7E4F2004F19B8 /* Mention.swift in Sources */,
 				DB89BA1D25C1107F008580ED /* URL.swift in Sources */,
+				2D9DB969263A833E007C1D71 /* DomainBlock.swift in Sources */,
 				2D0B7A1D261D839600B44727 /* SearchHistory.swift in Sources */,
 				2D927F0825C7E9A8004F19B8 /* Tag.swift in Sources */,
 				5B90C46E26259B2C0002E742 /* Subscription.swift in Sources */,

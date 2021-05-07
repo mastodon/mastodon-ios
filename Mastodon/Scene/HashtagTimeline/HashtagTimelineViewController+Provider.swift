@@ -1,18 +1,19 @@
 //
-//  ThreadViewController+StatusProvider.swift
+//  HashtagTimelineViewController+Provider.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-4-12.
+//  Created by BradGao on 2021/3/31.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
 
 // MARK: - StatusProvider
-extension ThreadViewController: StatusProvider {
-    
+extension HashtagTimelineViewController: StatusProvider {
+
     func status() -> Future<Status?, Never> {
         return Future { promise in promise(.success(nil)) }
     }
@@ -31,12 +32,10 @@ extension ThreadViewController: StatusProvider {
             }
             
             switch item {
-            case .root(let statusObjectID, _),
-                 .reply(let statusObjectID, _),
-                 .leaf(let statusObjectID, _):
+            case .status(let objectID, _):
                 let managedObjectContext = self.viewModel.context.managedObjectContext
                 managedObjectContext.perform {
-                    let status = managedObjectContext.object(with: statusObjectID) as? Status
+                    let status = managedObjectContext.object(with: objectID) as? Status
                     promise(.success(status))
                 }
             default:
@@ -86,3 +85,5 @@ extension ThreadViewController: StatusProvider {
     }
     
 }
+
+extension HashtagTimelineViewController: UserProvider {}

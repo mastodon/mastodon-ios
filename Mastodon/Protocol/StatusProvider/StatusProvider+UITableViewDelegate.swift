@@ -114,7 +114,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard let imagePreviewPresentableCell = tableView.cellForRow(at: indexPath) as? ImagePreviewPresentableCell else { return nil }
         guard imagePreviewPresentableCell.isRevealing else { return nil }
         
-        let status = status(for: nil, indexPath: indexPath)
+        let status = self.status(for: nil, indexPath: indexPath)
         
         return contextMenuConfiguration(tableView, status: status, imagePreviewPresentableCell: imagePreviewPresentableCell, contextMenuConfigurationForRowAt: indexPath, point: point)
     }
@@ -260,7 +260,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         guard index < imageViews.count else { return }
         let imageView = imageViews[index]
         
-        let status = status(for: nil, indexPath: indexPath)
+        let status = self.status(for: nil, indexPath: indexPath)
         let initialFrame: CGRect? = {
             guard let previewViewController = animator.previewViewController else { return nil }
             return UIView.findContextMenuPreviewFrameInWindow(previewController: previewViewController)

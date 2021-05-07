@@ -373,20 +373,45 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.text, on: profileHeaderViewController.profileHeaderView.usernameLabel)
             .store(in: &disposeBag)
-        viewModel.relationshipActionOptionSet
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] relationshipActionOptionSet in
-                guard let self = self else { return }
-                guard let mastodonUser = self.viewModel.mastodonUser.value else {
-                    self.moreMenuBarButtonItem.menu = nil
-                    return
-                }
-                let isMuting = relationshipActionOptionSet.contains(.muting)
-                let isBlocking = relationshipActionOptionSet.contains(.blocking)
-                let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
-                self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(for: mastodonUser, isMuting: isMuting, isBlocking: isBlocking, needsShareAction: needsShareAction, provider: self, sourceView: nil, barButtonItem: self.moreMenuBarButtonItem)
+        Publishers.CombineLatest(
+            viewModel.relationshipActionOptionSet,
+            viewModel.context.blockDomainService.blockedDomains
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] relationshipActionOptionSet,domains in
+            guard let self = self else { return }
+            guard let mastodonUser = self.viewModel.mastodonUser.value else {
+                self.moreMenuBarButtonItem.menu = nil
+                return
             }
-            .store(in: &disposeBag)
+            guard let currentMastodonUser = self.viewModel.currentMastodonUser.value else {
+                self.moreMenuBarButtonItem.menu = nil
+                return
+            }
+            guard let currentDomain = self.viewModel.domain.value else { return }
+            let isMuting = relationshipActionOptionSet.contains(.muting)
+            let isBlocking = relationshipActionOptionSet.contains(.blocking)
+            let isDomainBlocking = domains.contains(mastodonUser.domainFromAcct)
+            let needsShareAction = self.viewModel.isMeBarButtonItemsHidden.value
+            let isInSameDomain = mastodonUser.domainFromAcct == currentDomain
+            let isMyself = currentMastodonUser.id == mastodonUser.id
+
+            self.moreMenuBarButtonItem.menu = UserProviderFacade.createProfileActionMenu(
+                for: mastodonUser,
+                isMyself: isMyself,
+                isMuting: isMuting,
+                isBlocking: isBlocking,
+                isInSameDomain: isInSameDomain,
+                isDomainBlocking: isDomainBlocking,
+                provider: self,
+                cell: nil,
+                sourceView: nil,
+                barButtonItem: self.moreMenuBarButtonItem,
+                shareUser: needsShareAction ? mastodonUser : nil,
+                shareStatus: nil)
+        }
+        .store(in: &disposeBag)
+        
         viewModel.isRelationshipActionButtonHidden
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isHidden in
@@ -767,7 +792,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 )
                 let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unmute, style: .default) { [weak self] _ in
                     guard let self = self else { return }
-                    UserProviderFacade.toggleUserMuteRelationship(provider: self)
+                    UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil)
                         .sink { _ in
                             // do nothing
                         } receiveValue: { _ in
@@ -789,7 +814,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 )
                 let unblockAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unblock, style: .default) { [weak self] _ in
                     guard let self = self else { return }
-                    UserProviderFacade.toggleUserBlockRelationship(provider: self)
+                    UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil)
                         .sink { _ in
                             // do nothing
                         } receiveValue: { _ in

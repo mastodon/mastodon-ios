@@ -28,6 +28,10 @@
                 "message": "Are you sure you want to sign out?",
                 "confirm": "Sign Out"
             },
+            "block_domain": {
+                "message": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.",
+                "block_entire_domain": "Block entire domain"
+            },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
                 "message": "Please enable photo libaray access permission to save photo."
@@ -55,11 +59,14 @@
                 "preview": "Preview",
                 "share": "Share",
                 "share_user": "Share %s",
+                "share_post": "Share post",
                 "open_in_safari": "Open in Safari",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
                 "skip": "Skip",
                 "report_user": "Report %s",
+                "block_domain": "Block %s",
+                "unblock_domain": "Unblock %s",
                 "settings": "Settings"
             },
             "status": {

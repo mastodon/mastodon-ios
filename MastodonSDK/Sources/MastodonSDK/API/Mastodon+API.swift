@@ -117,6 +117,7 @@ extension Mastodon.API {
     public enum Notifications { }
     public enum Subscriptions { }
     public enum Reports { }
+    public enum DomainBlock { }
 }
 
 extension Mastodon.API.V2 {

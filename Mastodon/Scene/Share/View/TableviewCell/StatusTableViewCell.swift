@@ -356,8 +356,4 @@ extension StatusTableViewCell: ActionToolbarContainerDelegate {
         delegate?.statusTableViewCell(self, actionToolbarContainer: actionToolbarContainer, likeButtonDidPressed: sender)
     }
     
-    func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, moreButtonDidPressed sender: UIButton) {
-        
-    }
-    
 }

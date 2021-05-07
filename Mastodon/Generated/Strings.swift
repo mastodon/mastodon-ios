@@ -13,6 +13,14 @@ internal enum L10n {
 
   internal enum Common {
     internal enum Alerts {
+      internal enum BlockDomain {
+        /// Block entire domain
+        internal static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain")
+        /// Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
+        internal static func message(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Message", String(describing: p1))
+        }
+      }
       internal enum Common {
         /// Please try again.
         internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")
@@ -66,6 +74,10 @@ internal enum L10n {
         internal static let add = L10n.tr("Localizable", "Common.Controls.Actions.Add")
         /// Back
         internal static let back = L10n.tr("Localizable", "Common.Controls.Actions.Back")
+        /// Block %@
+        internal static func blockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.BlockDomain", String(describing: p1))
+        }
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "Common.Controls.Actions.Cancel")
         /// Confirm
@@ -104,6 +116,8 @@ internal enum L10n {
         internal static let settings = L10n.tr("Localizable", "Common.Controls.Actions.Settings")
         /// Share
         internal static let share = L10n.tr("Localizable", "Common.Controls.Actions.Share")
+        /// Share post
+        internal static let sharePost = L10n.tr("Localizable", "Common.Controls.Actions.SharePost")
         /// Share %@
         internal static func shareUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.ShareUser", String(describing: p1))
@@ -118,6 +132,10 @@ internal enum L10n {
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
         /// Try Again
         internal static let tryAgain = L10n.tr("Localizable", "Common.Controls.Actions.TryAgain")
+        /// Unblock %@
+        internal static func unblockDomain(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Controls.Actions.UnblockDomain", String(describing: p1))
+        }
       }
       internal enum Firendship {
         /// Block

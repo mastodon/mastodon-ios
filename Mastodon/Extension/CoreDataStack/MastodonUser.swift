@@ -50,6 +50,15 @@ extension MastodonUser {
         }
     }
     
+    var domainFromAcct: String {
+        if !acct.contains("@") {
+            return domain
+        } else {
+            let domain = acct.split(separator: "@").last
+            return String(domain!)
+        }
+    }
+    
 }
 
 extension MastodonUser {
