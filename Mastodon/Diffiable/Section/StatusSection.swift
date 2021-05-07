@@ -781,7 +781,6 @@ extension StatusSection {
         }
         let author = status.authorForUserProvider
         let isMyself = authenticationBox.userID == author.id
-        let canReport = !isMyself
         let isInSameDomain = authenticationBox.domain == author.domainFromAcct
         let isMuting = (author.mutingBy ?? Set()).map(\.id).contains(authenticationBox.userID)
         let isBlocking = (author.blockingBy ?? Set()).map(\.id).contains(authenticationBox.userID)

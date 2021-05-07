@@ -300,6 +300,35 @@ extension UserProviderFacade {
             children.append(shareAction)
         }
         
+        if let status = shareStatus, isMyself {
+            let deleteAction = UIAction(title: L10n.Common.Controls.Actions.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) {
+                [weak provider] _ in
+                guard let provider = provider else { return }
+                
+                let alertController = UIAlertController(title: "", message: L10n.Common.Alerts.DeletePost.message, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in
+                }
+                alertController.addAction(cancelAction)
+                let deleteAction = UIAlertAction(title: L10n.Common.Alerts.DeletePost.delete, style: .destructive) { _ in
+                    guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+                    provider.context.apiService.deleteStatus(domain: activeMastodonAuthenticationBox.domain,
+                                                             statusID: status.id,
+                                                             authorizationBox: activeMastodonAuthenticationBox
+                    )
+                    .sink { _ in
+                        // do nothing
+                    } receiveValue: { _ in
+                        // do nothing
+                    }
+                    .store(in: &provider.context.disposeBag)
+                }
+                alertController.addAction(deleteAction)
+                provider.present(alertController, animated: true, completion: nil)
+                
+            }
+            children.append(deleteAction)
+        }
+        
         return UIMenu(title: "", options: [], children: children)
     }
     

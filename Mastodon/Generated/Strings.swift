@@ -27,6 +27,12 @@ internal enum L10n {
         /// Please try again later.
         internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
       }
+      internal enum DeletePost {
+        /// DELETE
+        internal static let delete = L10n.tr("Localizable", "Common.Alerts.DeletePost.Delete")
+        /// Are you sure you want to delete this post?
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.DeletePost.Message")
+      }
       internal enum DiscardPostContent {
         /// Confirm discard composed post content.
         internal static let message = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Message")
@@ -84,6 +90,8 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm")
         /// Continue
         internal static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue")
+        /// Delete
+        internal static let delete = L10n.tr("Localizable", "Common.Controls.Actions.Delete")
         /// Discard
         internal static let discard = L10n.tr("Localizable", "Common.Controls.Actions.Discard")
         /// Done

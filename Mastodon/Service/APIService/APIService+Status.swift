@@ -88,4 +88,59 @@ extension APIService {
         .eraseToAnyPublisher()
     }
     
+    func deleteStatus(
+        domain: String,
+        statusID: Mastodon.Entity.Status.ID,
+        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
+        let authorization = authorizationBox.userAuthorization
+        let query = Mastodon.API.Statuses.DeleteStatusQuery(id: statusID)
+        return Mastodon.API.Statuses.deleteStatus(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        )
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+            return self.backgroundManagedObjectContext.performChanges{
+                // fetch old Status
+                let oldStatus: Status? = {
+                    let request = Status.sortedFetchRequest
+                    request.predicate = Status.predicate(domain: domain, id: response.value.id)
+                    request.fetchLimit = 1
+                    request.returnsObjectsAsFaults = false
+                    do {
+                        return try self.backgroundManagedObjectContext.fetch(request).first
+                    } catch {
+                        assertionFailure(error.localizedDescription)
+                        return nil
+                    }
+                }()
+                if let status = oldStatus {
+                    if let timelineIndex = status.homeTimelineIndexes?.filter({ $0.userID == status.author.id }).first {
+                        self.backgroundManagedObjectContext.delete(timelineIndex)
+                    }
+                    if let poll = status.poll {
+                        self.backgroundManagedObjectContext.delete(poll)
+                    }
+                    if let pollOptions = status.poll?.options {
+                        pollOptions.forEach({ self.backgroundManagedObjectContext.delete($0) })
+                    }
+                    self.backgroundManagedObjectContext.delete(status)
+                }
+            }
+            .setFailureType(to: Error.self)
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
+                switch result {
+                case .success:
+                    return response
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
+    }
+    
 }
