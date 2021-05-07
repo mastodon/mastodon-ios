@@ -42,6 +42,10 @@ extension CategoryPickerSection {
                 }
             }
             .store(in: &cell.observations)
+            
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = item.accessibilityDescription
+            
             return cell
         }
     }

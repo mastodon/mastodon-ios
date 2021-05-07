@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import MastodonSDK
 
-protocol PickServerCategoriesCellDelegate: class {
+protocol PickServerCategoriesCellDelegate: AnyObject {
     func pickServerCategoriesCell(_ cell: PickServerCategoriesCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
 }
 
@@ -107,6 +107,20 @@ extension PickServerCategoriesCell: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 60, height: 80)
+    }
+    
+}
+
+extension PickServerCategoriesCell {
+
+    override func accessibilityElementCount() -> Int {
+        guard let diffableDataSource = diffableDataSource else { return 0 }
+        return diffableDataSource.snapshot().itemIdentifiers.count
+    }
+    
+    override func accessibilityElement(at index: Int) -> Any? {
+        guard let item = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
+        return item
     }
     
 }

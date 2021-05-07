@@ -638,8 +638,34 @@ internal enum L10n {
         /// See More
         internal static let seeMore = L10n.tr("Localizable", "Scene.ServerPicker.Button.SeeMore")
         internal enum Category {
+          /// academia
+          internal static let academia = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Academia")
+          /// activism
+          internal static let activism = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Activism")
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.All")
+          /// Category: All
+          internal static let allAccessiblityDescription = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.AllAccessiblityDescription")
+          /// art
+          internal static let art = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Art")
+          /// food
+          internal static let food = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Food")
+          /// furry
+          internal static let furry = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Furry")
+          /// games
+          internal static let games = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Games")
+          /// general
+          internal static let general = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.General")
+          /// journalism
+          internal static let journalism = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Journalism")
+          /// lgbt
+          internal static let lgbt = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Lgbt")
+          /// music
+          internal static let music = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Music")
+          /// regional
+          internal static let regional = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Regional")
+          /// tech
+          internal static let tech = L10n.tr("Localizable", "Scene.ServerPicker.Button.Category.Tech")
         }
       }
       internal enum EmptyState {

@@ -138,7 +138,20 @@
             "title": "Pick a Server,\nany server.",
             "button": {
                 "category": {
-                    "All": "All"
+                    "all": "All",
+                    "all_accessiblity_description": "Category: All",
+                    "academia": "academia",
+                    "activism": "activism",
+                    "food": "food",
+                    "furry": "furry",
+                    "games": "games",
+                    "general": "general",
+                    "journalism": "journalism",
+                    "lgbt": "lgbt",
+                    "regional": "regional",
+                    "art": "art",
+                    "music": "music",
+                    "tech": "tech"
                 },
                 "see_less": "See Less",
                 "see_more": "See More"
