@@ -24,6 +24,8 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var spoilerText: String?
     @NSManaged public private(set) var application: Application?
     
+    @NSManaged public private(set) var emojisData: Data?
+    
     // Informational
     @NSManaged public private(set) var reblogsCount: NSNumber
     @NSManaged public private(set) var favouritesCount: NSNumber
@@ -54,7 +56,6 @@ public final class Status: NSManagedObject {
     // one-to-many relationship
     @NSManaged public private(set) var reblogFrom: Set<Status>?
     @NSManaged public private(set) var mentions: Set<Mention>?
-    @NSManaged public private(set) var emojis: Set<Emoji>?
     @NSManaged public private(set) var tags: Set<Tag>?
     @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
     @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
@@ -77,7 +78,6 @@ extension Status {
         replyTo: Status?,
         poll: Poll?,
         mentions: [Mention]?,
-        emojis: [Emoji]?,
         tags: [Tag]?,
         mediaAttachments: [Attachment]?,
         favouritedBy: MastodonUser?,
@@ -100,6 +100,8 @@ extension Status {
         status.sensitive = property.sensitive
         status.spoilerText = property.spoilerText
         status.application = application
+        
+        status.emojisData = property.emojisData
 
         status.reblogsCount = property.reblogsCount
         status.favouritesCount = property.favouritesCount
@@ -120,9 +122,6 @@ extension Status {
         
         if let mentions = mentions {
             status.mutableSetValue(forKey: #keyPath(Status.mentions)).addObjects(from: mentions)
-        }
-        if let emojis = emojis {
-            status.mutableSetValue(forKey: #keyPath(Status.emojis)).addObjects(from: emojis)
         }
         if let tags = tags {
             status.mutableSetValue(forKey: #keyPath(Status.tags)).addObjects(from: tags)
@@ -146,6 +145,12 @@ extension Status {
         status.updatedAt = property.networkDate
         
         return status
+    }
+    
+    public func update(emojisData: Data?) {
+        if self.emojisData != emojisData {
+            self.emojisData = emojisData
+        }
     }
     
     public func update(reblogsCount: NSNumber) {
@@ -248,6 +253,8 @@ extension Status {
         public let sensitive: Bool
         public let spoilerText: String?
         
+        public let emojisData: Data?
+        
         public let reblogsCount: NSNumber
         public let favouritesCount: NSNumber
         public let repliesCount: NSNumber?
@@ -269,6 +276,7 @@ extension Status {
             visibility: String?,
             sensitive: Bool,
             spoilerText: String?,
+            emojisData: Data?,
             reblogsCount: NSNumber,
             favouritesCount: NSNumber,
             repliesCount: NSNumber?,
@@ -288,6 +296,7 @@ extension Status {
             self.visibility = visibility
             self.sensitive = sensitive
             self.spoilerText = spoilerText
+            self.emojisData = emojisData
             self.reblogsCount = reblogsCount
             self.favouritesCount = favouritesCount
             self.repliesCount = repliesCount

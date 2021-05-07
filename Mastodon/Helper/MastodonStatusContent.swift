@@ -11,9 +11,21 @@ import ActiveLabel
 
 enum MastodonStatusContent {
     
-    static func parse(status: String) throws -> MastodonStatusContent.ParseResult {
-        let status = status.replacingOccurrences(of: "<br/>", with: "\n")
-        let rootNode = try Node.parse(document: status)
+    typealias EmojiShortcode = String
+    typealias EmojiDict = [EmojiShortcode: URL]
+    
+    static func parse(content: String, emojiDict: EmojiDict) throws -> MastodonStatusContent.ParseResult {
+        let document: String = {
+            var content = content
+            content = content.replacingOccurrences(of: "<br/>", with: "\n")
+            for (shortcode, url) in emojiDict {
+                let emojiNode = "<span class=\"emoji\" href=\"\(url.absoluteString)\">\(shortcode)</span>"
+                let pattern = ":\(shortcode):"
+                content = content.replacingOccurrences(of: pattern, with: emojiNode)
+            }
+            return content
+        }()
+        let rootNode = try Node.parse(document: document)
         let text = String(rootNode.text)
         
         var activeEntities: [ActiveEntity] = []
@@ -25,7 +37,7 @@ enum MastodonStatusContent {
             case .url:
                 guard let href = entity.href else { continue }
                 let text = String(entity.text)
-                activeEntities.append(ActiveEntity(range: range, type: .url(text, trimmed: entity.hrefEllipsis ?? text, url: href)))
+                activeEntities.append(ActiveEntity(range: range, type: .url(text, trimmed: entity.hrefEllipsis ?? text, url: href, userInfo: nil)))
             case .hashtag:
                 var userInfo: [AnyHashable: Any] = [:]
                 entity.href.flatMap { href in
@@ -40,30 +52,47 @@ enum MastodonStatusContent {
                 }
                 let mention = String(entity.text).deletingPrefix("@")
                 activeEntities.append(ActiveEntity(range: range, type: .mention(mention, userInfo: userInfo)))
-            default:
+            case .emoji:
+                var userInfo: [AnyHashable: Any] = [:]
+                guard let href = entity.href else { continue }
+                userInfo["href"] = href
+                let emoji = String(entity.text)
+                activeEntities.append(ActiveEntity(range: range, type: .emoji(emoji, url: href, userInfo: userInfo)))
+            case .none:
                 continue
             }
         }
         
         var trimmed = text
         for activeEntity in activeEntities {
-            guard case .url = activeEntity.type else { continue }
-            MastodonStatusContent.trimEntity(status: &trimmed, activeEntity: activeEntity, activeEntities: activeEntities)
+            MastodonStatusContent.trimEntity(toot: &trimmed, activeEntity: activeEntity, activeEntities: activeEntities)
         }
 
         return ParseResult(
-            document: status,
+            document: document,
             original: text,
             trimmed: trimmed,
-            activeEntities: validate(text: trimmed, activeEntities: activeEntities) ? activeEntities : []
+            activeEntities: activeEntities
         )
     }
     
-    static func trimEntity(status: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
-        guard case let .url(text, trimmed, _, _) = activeEntity.type else { return }
+    static func trimEntity(toot: inout String, activeEntity: ActiveEntity, activeEntities: [ActiveEntity]) {
+        let text: String
+        let trimmed: String
+        switch activeEntity.type {
+        case .url(let _text, let _trimmed, _, _):
+            text = _text
+            trimmed = _trimmed
+        case .emoji(let _text, _, _):
+            text = _text
+            trimmed = " "
+        default:
+            return
+        }
+
         guard let index = activeEntities.firstIndex(where: { $0.range == activeEntity.range }) else { return }
-        guard let range = Range(activeEntity.range, in: status) else { return }
-        status.replaceSubrange(range, with: trimmed)
+        guard let range = Range(activeEntity.range, in: toot) else { return }
+        toot.replaceSubrange(range, with: trimmed)
         
         let offset = trimmed.count - text.count
         activeEntity.range.length += offset
@@ -72,19 +101,6 @@ enum MastodonStatusContent {
         for moveActiveEntity in moveActiveEntities {
             moveActiveEntity.range.location += offset
         }
-    }
-    
-    private static func validate(text: String, activeEntities: [ActiveEntity]) -> Bool {
-        for activeEntity in activeEntities {
-            let count = text.utf16.count
-            let endIndex = activeEntity.range.location + activeEntity.range.length
-            guard endIndex <= count else {
-                assertionFailure("Please file issue")
-                return false
-            }
-        }
-        
-        return true
     }
         
 }
@@ -105,6 +121,7 @@ extension MastodonStatusContent {
         let activeEntities: [ActiveEntity]
     }
 }
+
 
 extension MastodonStatusContent {
     
@@ -152,6 +169,10 @@ extension MastodonStatusContent {
                     } else if _classNames.contains("hashtag") {
                         return .hashtag
                     }
+                }
+                
+                if _classNames.contains("emoji") {
+                    return .emoji
                 }
                 
                 return nil
@@ -257,6 +278,7 @@ extension MastodonStatusContent.Node {
         case url
         case mention
         case hashtag
+        case emoji
     }
     
     static func entities(in node: MastodonStatusContent.Node) -> [MastodonStatusContent.Node] {

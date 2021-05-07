@@ -158,10 +158,11 @@ extension StatusSection {
             .store(in: &cell.disposeBag)
         
         // set name username
-        cell.statusView.nameLabel.text = {
+        let nameText: String = {
             let author = (status.reblog ?? status).author
             return author.displayName.isEmpty ? author.username : author.displayName
         }()
+        cell.statusView.nameLabel.configure(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
         cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
         // set avatar
         if let reblog = status.reblog {
@@ -176,7 +177,10 @@ extension StatusSection {
         }
         
         // set text
-        cell.statusView.activeTextLabel.configure(content: (status.reblog ?? status).content)
+        cell.statusView.activeTextLabel.configure(
+            content: (status.reblog ?? status).content,
+            emojiDict: (status.reblog ?? status).emojiDict
+        )
         
         // prepare media attachments
         let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
@@ -569,15 +573,16 @@ extension StatusSection {
         if status.reblog != nil {
             cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
-            cell.statusView.headerInfoLabel.text = {
+            let headerText: String = {
                 let author = status.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
+            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.author.emojiDict)
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
-            cell.statusView.headerInfoLabel.text = {
+            let headerText: String = {
                 guard let replyTo = status.replyTo else {
                     return L10n.Common.Controls.Status.userRepliedTo("-")
                 }
@@ -585,6 +590,7 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
+            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
         } else {
             cell.statusView.headerContainerView.isHidden = true
         }

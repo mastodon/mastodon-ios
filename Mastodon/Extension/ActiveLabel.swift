@@ -14,6 +14,8 @@ extension ActiveLabel {
     
     enum Style {
         case `default`
+        case statusHeader
+        case statusName
         case profileField
     }
     
@@ -25,6 +27,7 @@ extension ActiveLabel {
         mentionColor = Asset.Colors.Label.highlight.color
         hashtagColor = Asset.Colors.Label.highlight.color
         URLColor = Asset.Colors.Label.highlight.color
+        emojiPlaceholderColor = .systemFill
         #if DEBUG
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         #endif
@@ -33,6 +36,14 @@ extension ActiveLabel {
         case .default:
             font = .preferredFont(forTextStyle: .body)
             textColor = Asset.Colors.Label.primary.color
+        case .statusHeader:
+            font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
+            textColor = Asset.Colors.Label.secondary.color
+            numberOfLines = 1
+        case .statusName:
+            font = .systemFont(ofSize: 17, weight: .semibold)
+            textColor = Asset.Colors.Label.primary.color
+            numberOfLines = 1
         case .profileField:
             font = .preferredFont(forTextStyle: .body)
             textColor = Asset.Colors.Label.primary.color
@@ -44,9 +55,10 @@ extension ActiveLabel {
 
 extension ActiveLabel {
     /// status content
-    func configure(content: String) {
+    func configure(content: String, emojiDict: MastodonStatusContent.EmojiDict) {
         activeEntities.removeAll()
-        if let parseResult = try? MastodonStatusContent.parse(status: content) {
+        
+        if let parseResult = try? MastodonStatusContent.parse(content: content, emojiDict: emojiDict) {
             text = parseResult.trimmed
             activeEntities = parseResult.activeEntities
         } else {
@@ -55,8 +67,8 @@ extension ActiveLabel {
     }
     
     /// account note
-    func configure(note: String) {
-        configure(content: note)
+    func configure(note: String, emojiDict: MastodonStatusContent.EmojiDict) {
+        configure(content: note, emojiDict: emojiDict)
     }
 }
 

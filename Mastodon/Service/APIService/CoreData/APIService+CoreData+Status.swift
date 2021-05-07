@@ -89,9 +89,6 @@ extension APIService.CoreData {
             let metions = entity.mentions?.enumerated().compactMap { index, mention -> Mention in
                 Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url), index: index)
             }
-            let emojis = entity.emojis?.compactMap { emoji -> Emoji in
-                Emoji.insert(into: managedObjectContext, property: Emoji.Property(shortcode: emoji.shortcode, url: emoji.url, staticURL: emoji.staticURL, visibleInPicker: emoji.visibleInPicker, category: emoji.category))
-            }
             let tags = entity.tags?.compactMap { tag -> Tag in
                 let histories = tag.history?.compactMap { history -> History in
                     History.insert(into: managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
@@ -121,7 +118,6 @@ extension APIService.CoreData {
                 replyTo: replyTo,
                 poll: poll,
                 mentions: metions,
-                emojis: emojis,
                 tags: tags,
                 mediaAttachments: mediaAttachments,
                 favouritedBy: (entity.favourited ?? false) ? requestMastodonUser : nil,
