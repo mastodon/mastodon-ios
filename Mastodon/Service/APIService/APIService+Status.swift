@@ -117,15 +117,6 @@ extension APIService {
                     }
                 }()
                 if let status = oldStatus {
-                    if let timelineIndex = status.homeTimelineIndexes?.filter({ $0.userID == status.author.id }).first {
-                        self.backgroundManagedObjectContext.delete(timelineIndex)
-                    }
-                    if let poll = status.poll {
-                        self.backgroundManagedObjectContext.delete(poll)
-                    }
-                    if let pollOptions = status.poll?.options {
-                        pollOptions.forEach({ self.backgroundManagedObjectContext.delete($0) })
-                    }
                     self.backgroundManagedObjectContext.delete(status)
                 }
             }

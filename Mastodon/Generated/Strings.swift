@@ -28,7 +28,7 @@ internal enum L10n {
         internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
       }
       internal enum DeletePost {
-        /// DELETE
+        /// Delete
         internal static let delete = L10n.tr("Localizable", "Common.Alerts.DeletePost.Delete")
         /// Are you sure you want to delete this post?
         internal static let message = L10n.tr("Localizable", "Common.Alerts.DeletePost.Message")

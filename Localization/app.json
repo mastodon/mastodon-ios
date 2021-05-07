@@ -38,7 +38,7 @@
             },
             "delete_post": {
                 "message": "Are you sure you want to delete this post?",
-                "delete": "DELETE"
+                "delete": "Delete"
             }
         },
         "controls": {
