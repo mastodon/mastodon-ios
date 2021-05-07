@@ -138,11 +138,11 @@
       },
       {
         "package": "TwitterTextEditor",
-        "repositoryURL": "https://github.com/MainasuK/TwitterTextEditor",
+        "repositoryURL": "https://github.com/twitter/TwitterTextEditor",
         "state": {
-          "branch": "feature/input-view",
-          "revision": "1e565d13e3c26fc2bedeb418890df42f80d6e3d5",
-          "version": null
+          "branch": null,
+          "revision": "dfe0edc3bcb6703ee2fd0e627f95e726b63e732a",
+          "version": "1.1.0"
         }
       },
       {

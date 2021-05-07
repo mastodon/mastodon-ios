@@ -32,10 +32,31 @@ extension EmojiService {
             return stateMachine
         }()
         let emojis = CurrentValueSubject<[Mastodon.Entity.Emoji], Never>([])
+        let emojiDict = CurrentValueSubject<[String: [Mastodon.Entity.Emoji]], Never>([:])
+        
+        private var learnedEmoji: Set<String> = Set()
         
         init(domain: String, service: EmojiService) {
             self.domain = domain
             self.service = service
+            
+            emojis
+                .map { Dictionary(grouping: $0, by: { $0.shortcode }) }
+                .assign(to: \.value, on: emojiDict)
+                .store(in: &disposeBag)
+        }
+        
+        func emoji(shortcode: String) -> Mastodon.Entity.Emoji? {
+            if !learnedEmoji.contains(shortcode) {
+                learnedEmoji.insert(shortcode)
+                
+                DispatchQueue.global().async {
+                    UITextChecker.learnWord(shortcode)
+                    UITextChecker.learnWord(":" + shortcode + ":")
+                }
+            }
+
+            return emojiDict.value[shortcode]?.first
         }
         
     }

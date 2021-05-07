@@ -415,6 +415,6 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
 extension ComposeViewModel: ComposePollAttributeDelegate {
     func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?) {
         // trigger update
-        // pollOptionAttributes.value = pollOptionAttributes.value
+        pollOptionAttributes.value = pollOptionAttributes.value
     }
 }

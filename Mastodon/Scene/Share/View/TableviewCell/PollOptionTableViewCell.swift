@@ -129,14 +129,16 @@ struct PollTableViewCell_Previews: PreviewProvider {
             }
             .previewLayout(.fixed(width: 375, height: 44 + 10))
         }
+        .background(Color(.systemBackground))
     }
     
     static var previews: some View {
         Group {
-            controls.colorScheme(.light)
-            controls.colorScheme(.dark)
+            controls
+                .colorScheme(.light)
+            controls
+                .colorScheme(.dark)
         }
-        .background(Color.gray)
     }
     
 }

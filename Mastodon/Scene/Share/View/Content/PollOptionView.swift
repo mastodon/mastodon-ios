@@ -82,7 +82,7 @@ final class PollOptionView: UIView {
 extension PollOptionView {
     private func _init() {
         // default color in the timeline
-        roundedBackgroundView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        roundedBackgroundView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         
         roundedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(roundedBackgroundView)
@@ -192,6 +192,11 @@ struct PollOptionView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 PollOptionView()
             }
+            .previewLayout(.fixed(width: 375, height: 100))
+            UIViewPreview(width: 375) {
+                PollOptionView()
+            }
+            .preferredColorScheme(.dark)
             .previewLayout(.fixed(width: 375, height: 100))
         }
     }

@@ -300,24 +300,9 @@ extension ComposeViewController {
                 }
             }
             .store(in: &disposeBag)
-        
-        // bind text editor for custom emojis update event
-        viewModel.customEmojiViewModel
-            .compactMap { $0?.emojis }
-            .switchToLatest()
-            .sink(receiveValue: { [weak self] emojis in
-                guard let self = self else { return }
-                for emoji in emojis {
-                    UITextChecker.learnWord(emoji.shortcode)
-                    UITextChecker.learnWord(":" + emoji.shortcode + ":")
-                }
-                self.textEditorView()?.setNeedsUpdateTextAttributes()
-            })
-            .store(in: &disposeBag)
 
         // bind custom emoji picker UI
         viewModel.customEmojiViewModel
-            .receive(on: DispatchQueue.main)
             .map { viewModel -> AnyPublisher<[Mastodon.Entity.Emoji], Never> in
                 guard let viewModel = viewModel else {
                     return Just([]).eraseToAnyPublisher()
@@ -325,6 +310,7 @@ extension ComposeViewController {
                 return viewModel.emojis.eraseToAnyPublisher()
             }
             .switchToLatest()
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] emojis in
                 guard let self = self else { return }
                 if emojis.isEmpty {
@@ -581,6 +567,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
         updateAttributedString attributedString: NSAttributedString,
         completion: @escaping (NSAttributedString?) -> Void
     ) {
+        // FIXME: needs O(1) update completion to fix profermance issue
         DispatchQueue.global().async {
             let string = attributedString.string
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
@@ -631,11 +618,10 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                 }
                 
                 // emoji
-                let emojis = customEmojiViewModel?.emojis.value ?? []
-                if !emojis.isEmpty {
+                if let customEmojiViewModel = customEmojiViewModel, !customEmojiViewModel.emojiDict.value.isEmpty {
                     for match in emojiMatches {
                         guard let name = string.substring(with: match, at: 2) else { continue }
-                        guard let emoji = emojis.first(where: { $0.shortcode == name }) else { continue }
+                        guard let emoji = customEmojiViewModel.emoji(shortcode: name) else { continue }
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
                         
                         // set emoji token invisiable (without upper bounce space)
