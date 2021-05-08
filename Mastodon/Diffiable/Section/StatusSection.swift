@@ -143,6 +143,21 @@ extension StatusSection {
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
     ) {
+        // safely cancel the listenser when deleted
+        ManagedObjectObserver.observe(object: status.reblog ?? status)
+            .receive(on: DispatchQueue.main)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { [weak cell] change in
+                guard let cell = cell else { return }
+                guard let changeType = change.changeType else { return }
+                if case .delete = changeType {
+                    cell.disposeBag.removeAll()
+                }
+            }
+            .store(in: &cell.disposeBag)
+        
+        
         // set header
         StatusSection.configureHeader(cell: cell, status: status)
         ManagedObjectObserver.observe(object: status)
