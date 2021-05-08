@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import Combine
 
-protocol ComposeStatusPollOptionCollectionViewCellDelegate: class {
+protocol ComposeStatusPollOptionCollectionViewCellDelegate: AnyObject {
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField)
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?)
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField)

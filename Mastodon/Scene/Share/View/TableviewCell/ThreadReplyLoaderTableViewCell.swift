@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import Combine
 
-protocol ThreadReplyLoaderTableViewCellDelegate: class {
+protocol ThreadReplyLoaderTableViewCellDelegate: AnyObject {
     func threadReplyLoaderTableViewCell(_ cell: ThreadReplyLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)
 }
 

@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 
-protocol ActionToolbarContainerDelegate: class {
+protocol ActionToolbarContainerDelegate: AnyObject {
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, replayButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, reblogButtonDidPressed sender: UIButton)
     func actionToolbarContainer(_ actionToolbarContainer: ActionToolbarContainer, starButtonDidPressed sender: UIButton)

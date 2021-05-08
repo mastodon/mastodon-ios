@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import Combine
 
-protocol ComposeStatusPollExpiresOptionCollectionViewCellDelegate: class {
+protocol ComposeStatusPollExpiresOptionCollectionViewCellDelegate: AnyObject {
     func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption)
 }
 

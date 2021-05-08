@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import MastodonSDK
 
-protocol ComposeToolbarViewDelegate: class {
+protocol ComposeToolbarViewDelegate: AnyObject {
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton)

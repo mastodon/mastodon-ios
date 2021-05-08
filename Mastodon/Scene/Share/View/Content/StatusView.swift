@@ -11,7 +11,7 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 
-protocol StatusViewDelegate: class {
+protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
     func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)

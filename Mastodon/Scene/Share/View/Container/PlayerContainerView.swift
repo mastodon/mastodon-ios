@@ -9,7 +9,7 @@ import os.log
 import AVKit
 import UIKit
 
-protocol PlayerContainerViewDelegate: class {
+protocol PlayerContainerViewDelegate: AnyObject {
     func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
 }
 

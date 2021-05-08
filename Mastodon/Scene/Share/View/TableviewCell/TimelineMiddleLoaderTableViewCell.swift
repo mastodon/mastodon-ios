@@ -10,7 +10,7 @@ import CoreData
 import os.log
 import UIKit
 
-protocol TimelineMiddleLoaderTableViewCellDelegate: class {
+protocol TimelineMiddleLoaderTableViewCellDelegate: AnyObject {
     func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID:NSManagedObjectID?)
     func timelineMiddleLoaderTableViewCell(_ cell: TimelineMiddleLoaderTableViewCell, loadMoreButtonDidPressed button: UIButton)
 }

@@ -8,6 +8,6 @@
 import Foundation
 import Combine
 
-protocol DisposeBagCollectable: class {
+protocol DisposeBagCollectable: AnyObject {
     var disposeBag: Set<AnyCancellable> { get set }
 }
