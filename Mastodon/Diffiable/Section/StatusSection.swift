@@ -178,6 +178,20 @@ extension StatusSection {
         // set text
         cell.statusView.activeTextLabel.configure(content: (status.reblog ?? status).content)
         
+        // set visibility
+        if let visibility = (status.reblog ?? status).visibility {
+            cell.statusView.updateVisibility(visibility: visibility)
+            
+            cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] isHidden in
+                    cell?.statusView.visibilityImageView.isHidden = !isHidden
+                }
+                .store(in: &cell.disposeBag)
+        } else {
+            cell.statusView.visibilityImageView.isHidden = true
+        }
+        
         // prepare media attachments
         let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
         
