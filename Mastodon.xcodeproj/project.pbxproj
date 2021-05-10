@@ -936,7 +936,6 @@
 		DB98339B25C96DE600AD9700 /* APIService+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Account.swift"; sourceTree = "<group>"; };
 		DB9A485B2603010E008B817C /* PHPickerResultLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerResultLoader.swift; sourceTree = "<group>"; };
 		DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttachmentContainerView+EmptyStateView.swift"; sourceTree = "<group>"; };
-		DB9A488326034BD7008B817C /* APIService+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status.swift"; sourceTree = "<group>"; };
 		DB9A488926034D40008B817C /* ComposeViewModel+PublishState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+PublishState.swift"; sourceTree = "<group>"; };
 		DB9A488F26035963008B817C /* APIService+Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Media.swift"; sourceTree = "<group>"; };
 		DB9A48952603685D008B817C /* MastodonAttachmentService+UploadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonAttachmentService+UploadState.swift"; sourceTree = "<group>"; };
@@ -1738,7 +1737,6 @@
 				DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */,
 				DB938F1426241FDF00E5B6C1 /* APIService+Thread.swift */,
 				DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */,
-				DB9A488326034BD7008B817C /* APIService+Status.swift */,
 				2D61254C262547C200299647 /* APIService+Notification.swift */,
 				DB9A488F26035963008B817C /* APIService+Media.swift */,
 				2D34D9D026148D9E0081BFC0 /* APIService+Recommend.swift */,

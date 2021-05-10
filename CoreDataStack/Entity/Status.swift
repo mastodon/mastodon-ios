@@ -61,6 +61,8 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
     @NSManaged public private(set) var replyFrom: Set<Status>?
     
+    @NSManaged public private(set) var inNotifications: Set<MastodonNotification>?
+    
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
     @NSManaged public private(set) var revealedAt: Date?

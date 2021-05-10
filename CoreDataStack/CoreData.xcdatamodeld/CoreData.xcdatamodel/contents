@@ -86,7 +86,7 @@
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userID" attributeType="String"/>
         <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
-        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status"/>
+        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="inNotifications" inverseEntity="Status"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
                 <constraint value="id"/>
@@ -158,7 +158,7 @@
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="votersCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="votesCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="options" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="poll" inverseEntity="PollOption"/>
+        <relationship name="options" toMany="YES" deletionRule="Cascade" destinationEntity="PollOption" inverseName="poll" inverseEntity="PollOption"/>
         <relationship name="status" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="poll" inverseEntity="Status"/>
         <relationship name="votedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="votePolls" inverseEntity="MastodonUser"/>
     </entity>
@@ -218,14 +218,15 @@
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="statuses" inverseEntity="MastodonUser"/>
         <relationship name="bookmarkedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="bookmarked" inverseEntity="MastodonUser"/>
         <relationship name="favouritedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="favourite" inverseEntity="MastodonUser"/>
-        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="HomeTimelineIndex" inverseName="status" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="homeTimelineIndexes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="HomeTimelineIndex" inverseName="status" inverseEntity="HomeTimelineIndex"/>
+        <relationship name="inNotifications" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MastodonNotification" inverseName="status" inverseEntity="MastodonNotification"/>
         <relationship name="mediaAttachments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Attachment" inverseName="status" inverseEntity="Attachment"/>
         <relationship name="mentions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Mention" inverseName="status" inverseEntity="Mention"/>
         <relationship name="mutedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muted" inverseEntity="MastodonUser"/>
         <relationship name="pinnedBy" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="pinnedStatus" inverseEntity="MastodonUser"/>
         <relationship name="poll" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Poll" inverseName="status" inverseEntity="Poll"/>
         <relationship name="reblog" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="reblogFrom" inverseEntity="Status"/>
-        <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="reblog" inverseEntity="Status"/>
+        <relationship name="reblogFrom" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Status" inverseName="reblog" inverseEntity="Status"/>
         <relationship name="rebloggedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
         <relationship name="replyFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="replyTo" inverseEntity="Status"/>
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
@@ -279,7 +280,7 @@
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
         <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
         <element name="Setting" positionX="72" positionY="162" width="128" height="119"/>
-        <element name="Status" positionX="0" positionY="0" width="128" height="584"/>
+        <element name="Status" positionX="0" positionY="0" width="128" height="599"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
         <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="14"/>
         <element name="Tag" positionX="0" positionY="0" width="128" height="134"/>

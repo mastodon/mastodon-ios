@@ -16,7 +16,7 @@ extension Status.Property {
             id: entity.id,
             uri: entity.uri,
             createdAt: entity.createdAt,
-            content: entity.content,
+            content: entity.content!,
             visibility: entity.visibility?.rawValue,
             sensitive: entity.sensitive ?? false,
             spoilerText: entity.spoilerText,
