@@ -65,6 +65,9 @@ extension MosaicImageViewContainer: ContentWarningOverlayViewDelegate {
 extension MosaicImageViewContainer {
     
     private func _init() {
+        // accessibility
+        accessibilityIgnoresInvertColors = true
+        
         container.translatesAutoresizingMaskIntoConstraints = false
         container.axis = .horizontal
         container.distribution = .fillEqually

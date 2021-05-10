@@ -73,6 +73,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             imageView.contentMode = .scaleAspectFill
             imageView.isUserInteractionEnabled = false
             imageView.image = transitionItem.image
+            // accessibility
+            imageView.accessibilityIgnoresInvertColors = true
             return imageView
         }()
         transitionItem.targetFrame = transitionTargetFrame

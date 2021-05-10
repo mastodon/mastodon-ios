@@ -16,6 +16,8 @@ final class MediaPreviewImageView: UIScrollView {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
+        // accessibility
+        imageView.accessibilityIgnoresInvertColors = true
         return imageView
     }()
     

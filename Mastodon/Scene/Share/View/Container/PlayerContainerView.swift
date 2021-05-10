@@ -46,6 +46,9 @@ final class PlayerContainerView: UIView {
 
 extension PlayerContainerView {
     private func _init() {
+        // accessibility
+        accessibilityIgnoresInvertColors = true
+        
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         containerHeightLayoutConstraint = container.heightAnchor.constraint(equalToConstant: 162).priority(.required - 1)

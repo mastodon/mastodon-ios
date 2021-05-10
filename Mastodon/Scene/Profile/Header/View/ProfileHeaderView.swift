@@ -45,9 +45,8 @@ final class ProfileHeaderView: UIView {
         imageView.backgroundColor = ProfileHeaderView.bannerImageViewPlaceholderColor
         imageView.layer.masksToBounds = true
         imageView.isUserInteractionEnabled = true
-        // #if DEBUG
-        // imageView.image = .placeholder(color: .red)
-        // #endif
+        // accessibility
+        imageView.accessibilityIgnoresInvertColors = true
         return imageView
     }()
     let bannerImageViewOverlayView: UIView = {

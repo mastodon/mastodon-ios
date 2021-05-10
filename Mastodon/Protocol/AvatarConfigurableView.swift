@@ -47,6 +47,10 @@ extension AvatarConfigurableView {
         configurableAvatarButton?.layer.cornerRadius = 0
         configurableAvatarButton?.layer.cornerCurve = .circular
         
+        // accessibility
+        configurableAvatarImageView?.accessibilityIgnoresInvertColors = true
+        configurableAvatarButton?.accessibilityIgnoresInvertColors = true
+        
         defer {
             avatarConfigurableView(self, didFinishConfiguration: configuration)
         }
