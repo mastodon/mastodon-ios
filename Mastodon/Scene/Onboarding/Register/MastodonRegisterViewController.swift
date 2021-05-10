@@ -63,6 +63,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Register.title
+        label.numberOfLines = 0
         return label
     }()
     
@@ -99,7 +100,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
         label.textColor = Asset.Colors.Label.primary.color
         return label
     }()
@@ -113,7 +114,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
+                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -136,7 +137,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
+                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -153,7 +154,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
+                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -178,7 +179,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
+                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -208,7 +209,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline)])
+                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView

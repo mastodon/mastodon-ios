@@ -71,7 +71,7 @@ final class StatusView: UIView {
     
     let headerInfoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
+        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium), maximumPointSize: 17)
         label.textColor = Asset.Colors.Label.secondary.color
         label.text = "Bob reblogged"
         return label

@@ -67,7 +67,7 @@ final class NotificationTableViewCell: UITableViewCell {
     let actionLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.secondary.color
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
@@ -75,7 +75,7 @@ final class NotificationTableViewCell: UITableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.brandBlue.color
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
         label.lineBreakMode = .byTruncatingTail
         return label
     }()

@@ -51,21 +51,27 @@ class SettingsViewController: UIViewController, NeedsDependency {
         return menu
     }
     
-    private(set) lazy var notifySectionHeader: UIView = {
+    private let notifySectionHeaderStackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isLayoutMarginsRelativeArrangement = true
-        //view.layoutMargins = UIEdgeInsets(top: 15, left: 4, bottom: 5, right: 4)
         view.axis = .horizontal
         view.alignment = .fill
         view.distribution = .equalSpacing
         view.spacing = 4
+        return view
+    }()
+    
+    private(set) lazy var notifySectionHeader: UIView = {
+        let view = notifySectionHeaderStackView
         
         let notifyLabel = UILabel()
         notifyLabel.translatesAutoresizingMaskIntoConstraints = false
-        notifyLabel.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
+        notifyLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         notifyLabel.textColor = Asset.Colors.Label.primary.color
         notifyLabel.text = L10n.Scene.Settings.Section.Notifications.Trigger.title
+        // accessibility
+        notifyLabel.numberOfLines = 0
         view.addArrangedSubview(notifyLabel)
         view.addArrangedSubview(whoButton)
         return view
@@ -138,7 +144,22 @@ class SettingsViewController: UIViewController, NeedsDependency {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        updateSectionHeaderStackViewLayout()
+    }
+    
+    
     // MAKR: - Private methods
+    private func updateSectionHeaderStackViewLayout() {
+        if traitCollection.preferredContentSizeCategory < .accessibilityMedium {
+            notifySectionHeaderStackView.axis = .horizontal
+        } else {
+            notifySectionHeaderStackView.axis = .vertical
+        }
+    }
+    
     private func bindViewModel() {
         self.whoButton.setTitle(viewModel.setting.value.activeSubscription?.policy.title, for: .normal)
         viewModel.setting
@@ -173,6 +194,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         setupTableView()
+        
+        updateSectionHeaderStackViewLayout()
     }
     
     private func setupNavigation() {

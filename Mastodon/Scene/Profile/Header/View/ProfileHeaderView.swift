@@ -100,7 +100,7 @@ final class ProfileHeaderView: UIView {
     
     let nameTextField: UITextField = {
         let textField = UITextField()
-        textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28)
         textField.textColor = .white
         textField.text = "Alice"
         textField.autocorrectionType = .no
@@ -111,7 +111,7 @@ final class ProfileHeaderView: UIView {
 
     let usernameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.textColor = Asset.Scene.Profile.Banner.usernameGray.color

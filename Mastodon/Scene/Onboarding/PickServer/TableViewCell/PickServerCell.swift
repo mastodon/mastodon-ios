@@ -34,7 +34,7 @@ class PickServerCell: UITableViewCell {
     
     let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
         label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class PickServerCell: UITableViewCell {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.numberOfLines = 0
         label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
@@ -106,7 +106,7 @@ class PickServerCell: UITableViewCell {
     let langValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +116,7 @@ class PickServerCell: UITableViewCell {
     let usersValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -126,7 +126,7 @@ class PickServerCell: UITableViewCell {
     let categoryValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -136,7 +136,7 @@ class PickServerCell: UITableViewCell {
     let langTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.language
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -147,7 +147,7 @@ class PickServerCell: UITableViewCell {
     let usersTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.users
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -158,7 +158,7 @@ class PickServerCell: UITableViewCell {
     let categoryTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.category
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true

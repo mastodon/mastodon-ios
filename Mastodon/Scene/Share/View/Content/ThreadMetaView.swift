@@ -34,6 +34,14 @@ final class ThreadMetaView: UIView {
         return button
     }()
     
+    let containerStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        return stackView
+    }()
+    let actionButtonStackView = UIStackView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -48,27 +56,48 @@ final class ThreadMetaView: UIView {
 
 extension ThreadMetaView {
     private func _init() {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = 20
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 12),
+            containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
         ])
         
-        stackView.addArrangedSubview(dateLabel)
-        stackView.addArrangedSubview(reblogButton)
-        stackView.addArrangedSubview(favoriteButton)
+        containerStackView.addArrangedSubview(dateLabel)
+        containerStackView.addArrangedSubview(actionButtonStackView)
+        
+        actionButtonStackView.axis = .horizontal
+        actionButtonStackView.addArrangedSubview(reblogButton)
+        actionButtonStackView.addArrangedSubview(favoriteButton)
         
         dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         reblogButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         favoriteButton.setContentHuggingPriority(.required - 1, for: .horizontal)
+        
+        updateContainerLayout()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateContainerLayout()
+    }
+    
+    private func updateContainerLayout() {
+        if traitCollection.preferredContentSizeCategory < .accessibilityMedium {
+            containerStackView.axis = .horizontal
+            containerStackView.spacing = 20
+            dateLabel.numberOfLines = 1
+        } else {
+            containerStackView.axis = .vertical
+            containerStackView.spacing = 4
+            dateLabel.numberOfLines = 0
+        }
+    }
+    
 }
 
 #if canImport(SwiftUI) && DEBUG

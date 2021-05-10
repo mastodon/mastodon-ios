@@ -36,7 +36,7 @@ class ContentWarningOverlayView: UIView {
     }()
     let blurContentWarningTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17))
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17), maximumPointSize: 23)
         label.text = L10n.Common.Controls.Status.mediaContentWarning
         label.textColor = Asset.Colors.Label.primary.color
         label.textAlignment = .center
@@ -44,7 +44,7 @@ class ContentWarningOverlayView: UIView {
     }()
     let blurContentWarningLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15))
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15), maximumPointSize: 20)
         label.text = L10n.Common.Controls.Status.mediaContentWarning
         label.textColor = Asset.Colors.Label.secondary.color
         label.textAlignment = .center

@@ -223,7 +223,7 @@ extension MastodonRegisterViewModel {
     }
     
     static func attributeStringForPassword(validateState: ValidateState) -> NSAttributedString {
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 18)
         let attributeString = NSMutableAttributedString()
 
         let image = MastodonRegisterViewModel.checkmarkImage(font: font)
@@ -236,7 +236,7 @@ extension MastodonRegisterViewModel {
     }
     
     static func errorPromptAttributedString(for prompt: String) -> NSAttributedString {
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .regular), maximumPointSize: 18)
         let attributeString = NSMutableAttributedString()
 
         let image = MastodonRegisterViewModel.xmarkImage(font: font)
