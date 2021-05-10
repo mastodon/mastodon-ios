@@ -20,7 +20,7 @@ final class ProfileFieldView: UIView {
     
     let valueActiveLabel: ActiveLabel = {
         let label = ActiveLabel(style: .profileField)
-        label.configure(content: "value")
+        label.configure(content: "value", emojiDict: [:])
         return label
     }()
     

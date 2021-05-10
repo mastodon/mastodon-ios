@@ -29,12 +29,16 @@
                 "confirm": "Sign Out"
             },
             "block_domain": {
-                "message": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.",
+                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.",
                 "block_entire_domain": "Block entire domain"
             },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
                 "message": "Please enable photo libaray access permission to save photo."
+            },
+            "delete_post": {
+                "title": "Are you sure you want to delete this post?",
+                "delete": "Delete"
             }
         },
         "controls": {
@@ -67,7 +71,8 @@
                 "report_user": "Report %s",
                 "block_domain": "Block %s",
                 "unblock_domain": "Unblock %s",
-                "settings": "Settings"
+                "settings": "Settings",
+                "delete": "Delete"
             },
             "status": {
                 "user_reblogged": "%s reblogged",

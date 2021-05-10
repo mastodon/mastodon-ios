@@ -25,6 +25,9 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var headerStatic: String?
     @NSManaged public private(set) var note: String?
     @NSManaged public private(set) var url: String?
+    
+    @NSManaged public private(set) var emojisData: Data?
+    
     @NSManaged public private(set) var statusesCount: NSNumber
     @NSManaged public private(set) var followingCount: NSNumber
     @NSManaged public private(set) var followersCount: NSNumber
@@ -88,6 +91,8 @@ extension MastodonUser {
         user.headerStatic = property.headerStatic
         user.note = property.note
         user.url = property.url
+        user.emojisData = property.emojisData
+        
         user.statusesCount = NSNumber(value: property.statusesCount)
         user.followingCount = NSNumber(value: property.followingCount)
         user.followersCount = NSNumber(value: property.followersCount)
@@ -149,6 +154,11 @@ extension MastodonUser {
     public func update(url: String?) {
         if self.url != url {
             self.url = url
+        }
+    }
+    public func update(emojisData: Data?) {
+        if self.emojisData != emojisData {
+            self.emojisData = emojisData
         }
     }
     public func update(statusesCount: Int) {
@@ -270,6 +280,7 @@ extension MastodonUser {
         public let headerStatic: String?
         public let note: String?
         public let url: String?
+        public let emojisData: Data?
         public let statusesCount: Int
         public let followingCount: Int
         public let followersCount: Int
@@ -292,6 +303,7 @@ extension MastodonUser {
             headerStatic: String?,
             note: String?,
             url: String?,
+            emojisData: Data?,
             statusesCount: Int,
             followingCount: Int,
             followersCount: Int,
@@ -313,6 +325,7 @@ extension MastodonUser {
             self.headerStatic = headerStatic
             self.note = note
             self.url = url
+            self.emojisData = emojisData
             self.statusesCount = statusesCount
             self.followingCount = followingCount
             self.followersCount = followersCount

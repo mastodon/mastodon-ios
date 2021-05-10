@@ -11,7 +11,7 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 
-protocol StatusViewDelegate: class {
+protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
     func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton)
     func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
@@ -69,10 +69,8 @@ final class StatusView: UIView {
         return label
     }()
     
-    let headerInfoLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium), maximumPointSize: 17)
-        label.textColor = Asset.Colors.Label.secondary.color
+    let headerInfoLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusHeader)
         label.text = "Bob reblogged"
         return label
     }()
@@ -87,10 +85,8 @@ final class StatusView: UIView {
     }()
     let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = Asset.Colors.Label.primary.color
+    let nameLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusName)
         label.text = "Alice"
         return label
     }()

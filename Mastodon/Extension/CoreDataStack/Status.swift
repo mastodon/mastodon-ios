@@ -16,10 +16,11 @@ extension Status.Property {
             id: entity.id,
             uri: entity.uri,
             createdAt: entity.createdAt,
-            content: entity.content,
+            content: entity.content!,
             visibility: entity.visibility?.rawValue,
             sensitive: entity.sensitive ?? false,
             spoilerText: entity.spoilerText,
+            emojisData: entity.emojis.flatMap { Status.encode(emojis: $0) },
             reblogsCount: NSNumber(value: entity.reblogsCount),
             favouritesCount: NSNumber(value: entity.favouritesCount),
             repliesCount: entity.repliesCount.flatMap { NSNumber(value: $0) },
@@ -86,3 +87,5 @@ extension Status {
         return items
     }
 }
+
+extension Status: EmojiContinaer { }
