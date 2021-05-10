@@ -17,8 +17,8 @@ internal enum L10n {
         /// Block entire domain
         internal static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain")
         /// Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
-        internal static func message(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Message", String(describing: p1))
+        internal static func title(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1))
         }
       }
       internal enum Common {
@@ -31,7 +31,7 @@ internal enum L10n {
         /// Delete
         internal static let delete = L10n.tr("Localizable", "Common.Alerts.DeletePost.Delete")
         /// Are you sure you want to delete this post?
-        internal static let message = L10n.tr("Localizable", "Common.Alerts.DeletePost.Message")
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.DeletePost.Title")
       }
       internal enum DiscardPostContent {
         /// Confirm discard composed post content.
