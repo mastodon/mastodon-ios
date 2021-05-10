@@ -108,7 +108,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         
         let label = ActiveLabel(style: .default)
         label.textAlignment = .center
-        label.configure(content: "Mastodon is open source software. You can contribute or report issues on GitHub at <a href=\"https://github.com/tootsuite/mastodon\">tootsuite/mastodon</a> (v3.3.0).")
+        label.configure(content: "Mastodon is open source software. You can contribute or report issues on GitHub at <a href=\"https://github.com/tootsuite/mastodon\">tootsuite/mastodon</a> (v3.3.0).", emojiDict: [:])
         label.delegate = self
         
         view.addArrangedSubview(label)

@@ -23,6 +23,7 @@ extension MastodonUser.Property {
             headerStatic: entity.headerStatic,
             note: entity.note,
             url: entity.url,
+            emojisData: entity.emojis.flatMap { Status.encode(emojis: $0) },
             statusesCount: entity.statusesCount,
             followingCount: entity.followingCount,
             followersCount: entity.followersCount,
@@ -98,3 +99,5 @@ extension MastodonUser {
         return items
     }
 }
+
+extension MastodonUser: EmojiContinaer { }

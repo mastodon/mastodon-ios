@@ -68,7 +68,8 @@ extension ComposeStatusSection {
                     }()
                     cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
                     // set text
-                    cell.statusView.activeTextLabel.configure(content: status.content)
+                    //status.emoji
+                    cell.statusView.activeTextLabel.configure(content: status.content, emojiDict: [:])
                     // set date
                     cell.statusView.dateLabel.text = status.createdAt.shortTimeAgoSinceNow
                     
