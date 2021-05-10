@@ -17,8 +17,8 @@ internal enum L10n {
         /// Block entire domain
         internal static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain")
         /// Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
-        internal static func message(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Message", String(describing: p1))
+        internal static func title(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1))
         }
       }
       internal enum Common {
@@ -26,6 +26,12 @@ internal enum L10n {
         internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")
         /// Please try again later.
         internal static let pleaseTryAgainLater = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgainLater")
+      }
+      internal enum DeletePost {
+        /// Delete
+        internal static let delete = L10n.tr("Localizable", "Common.Alerts.DeletePost.Delete")
+        /// Are you sure you want to delete this post?
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.DeletePost.Title")
       }
       internal enum DiscardPostContent {
         /// Confirm discard composed post content.
@@ -84,6 +90,8 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm")
         /// Continue
         internal static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue")
+        /// Delete
+        internal static let delete = L10n.tr("Localizable", "Common.Controls.Actions.Delete")
         /// Discard
         internal static let discard = L10n.tr("Localizable", "Common.Controls.Actions.Discard")
         /// Done
