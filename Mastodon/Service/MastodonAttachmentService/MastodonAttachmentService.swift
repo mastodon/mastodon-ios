@@ -12,7 +12,7 @@ import Kingfisher
 import GameplayKit
 import MastodonSDK
 
-protocol MastodonAttachmentServiceDelegate: class {
+protocol MastodonAttachmentServiceDelegate: AnyObject {
     func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?)
 }
 

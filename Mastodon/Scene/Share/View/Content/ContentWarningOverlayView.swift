@@ -9,7 +9,7 @@ import os.log
 import Foundation
 import UIKit
 
-protocol ContentWarningOverlayViewDelegate: class {
+protocol ContentWarningOverlayViewDelegate: AnyObject {
     func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView)
 }
 

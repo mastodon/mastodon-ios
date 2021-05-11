@@ -13,7 +13,7 @@ import AlamofireImage
 import CropViewController
 import TwitterTextEditor
 
-protocol ProfileHeaderViewControllerDelegate: class {
+protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, pageSegmentedControlValueChanged segmentedControl: UISegmentedControl, selectedSegmentIndex index: Int)
 }

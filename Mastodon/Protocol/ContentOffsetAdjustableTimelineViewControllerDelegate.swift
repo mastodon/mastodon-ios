@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ContentOffsetAdjustableTimelineViewControllerDelegate: class {
+protocol ContentOffsetAdjustableTimelineViewControllerDelegate: AnyObject {
     func navigationBar() -> UINavigationBar?
 }
 

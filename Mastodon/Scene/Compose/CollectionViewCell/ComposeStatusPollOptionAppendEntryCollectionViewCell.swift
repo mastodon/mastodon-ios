@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 
-protocol ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate: class {
+protocol ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate: AnyObject {
     func composeStatusPollOptionAppendEntryCollectionViewCellDidPressed(_ cell: ComposeStatusPollOptionAppendEntryCollectionViewCell)
 }
 

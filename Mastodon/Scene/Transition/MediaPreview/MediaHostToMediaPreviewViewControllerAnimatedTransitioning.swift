@@ -81,16 +81,28 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionItem.imageView = transitionImageView
         transitionContext.containerView.addSubview(transitionImageView)
         
-        let animator = MediaHostToMediaPreviewViewControllerAnimatedTransitioning.animator(initialVelocity: .zero)
+        toVC.closeButtonBackground.alpha = 0
+        
+        if UIAccessibility.isReduceTransparencyEnabled {
+            toVC.visualEffectView.alpha = 0
+        }
 
+        let animator = MediaHostToMediaPreviewViewControllerAnimatedTransitioning.animator(initialVelocity: .zero)
+                
         animator.addAnimations {
             transitionImageView.frame = transitionTargetFrame
             toView.alpha = 1
+            if UIAccessibility.isReduceTransparencyEnabled {
+                toVC.visualEffectView.alpha = 1
+            }
         }
 
         animator.addCompletion { position in
             toVC.pagingViewConttroller.view.alpha = 1
             transitionImageView.removeFromSuperview()
+            UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
+                toVC.closeButtonBackground.alpha = 1
+            }
             transitionContext.completeTransition(position == .end)
         }
 
@@ -121,9 +133,20 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(false)
             fatalError()
         }
-        mediaPreviewImageViewController.view.insertSubview(snapshot, aboveSubview: mediaPreviewImageViewController.previewImageView)
-                    
-        snapshot.center = transitionContext.containerView.center
+        
+        let transitionMaskView = UIView(frame: transitionContext.containerView.bounds)
+        transitionMaskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        transitionContext.containerView.addSubview(transitionMaskView)
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = transitionMaskView.bounds
+        let maskLayerFromPath = UIBezierPath(rect: maskLayer.bounds).cgPath
+        maskLayer.path = maskLayerFromPath
+        transitionMaskView.layer.mask = maskLayer
+        
+        transitionMaskView.addSubview(snapshot)
+        snapshot.center = transitionMaskView.center
+        fromVC.view.bringSubviewToFront(fromVC.closeButtonBackground)
 
         transitionItem.imageView = imageView
         transitionItem.snapshotTransitioning = snapshot
@@ -136,6 +159,38 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let animator = popInteractiveTransitionAnimator
 
         self.transitionItem.snapshotRaw?.alpha = 0.0
+        
+        var needsMaskWithAnimation = true
+        let maskLayerToRect: CGRect? = {
+            guard case .mosaic = transitionItem.source else { return nil }
+            guard let navigationBar = toVC.navigationController?.navigationBar else { return nil }
+            let navigationBarFrameInWindow = toVC.view.convert(navigationBar.frame, to: nil)
+            var rect = transitionMaskView.frame
+            rect.origin.y = navigationBarFrameInWindow.maxY + UIView.separatorLineHeight(of: toVC.view)     // extra hairline
+            
+            if rect.minY < snapshot.frame.minY {
+                needsMaskWithAnimation = false
+            }
+            
+            return rect
+        }()
+        let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+        let maskLayerToFinalRect: CGRect? = {
+            guard case .mosaic = transitionItem.source else { return nil }
+            guard let tabBarController = toVC.tabBarController else { return nil }
+            let tabBarFrameInWindow = toVC.view.convert(tabBarController.tabBar.frame, to: nil)
+            var rect = maskLayerToRect ?? transitionMaskView.frame
+            let offset = rect.maxY - tabBarFrameInWindow.minY
+            guard offset > 0 else { return rect }
+            rect.size.height -= offset
+            return rect
+        }()
+        let maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+        
+        if !needsMaskWithAnimation, let maskLayerToPath = maskLayerToPath {
+            maskLayer.path = maskLayerToPath
+        }
+
         animator.addAnimations {
             if let targetFrame = targetFrame {
                 self.transitionItem.snapshotTransitioning?.frame = targetFrame
@@ -145,6 +200,12 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
             fromVC.closeButtonBackground.alpha = 0
             fromVC.visualEffectView.effect = nil
+            if let maskLayerToFinalPath = maskLayerToFinalPath {
+                maskLayer.path = maskLayerToFinalPath
+            }
+            if UIAccessibility.isReduceTransparencyEnabled {
+                fromVC.visualEffectView.alpha = 0
+            }
         }
 
         animator.addCompletion { position in
@@ -199,9 +260,21 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(false)
             return
         }
-        mediaPreviewImageViewController.view.insertSubview(snapshot, aboveSubview: mediaPreviewImageViewController.previewImageView)
-                    
-        snapshot.center = transitionContext.containerView.center
+        
+        let transitionMaskView = UIView(frame: transitionContext.containerView.bounds)
+        transitionMaskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        transitionContext.containerView.addSubview(transitionMaskView)
+        transitionItem.interactiveTransitionMaskView = transitionMaskView
+        
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = transitionMaskView.bounds
+        maskLayer.path = UIBezierPath(rect: maskLayer.bounds).cgPath
+        transitionMaskView.layer.mask = maskLayer
+        transitionItem.interactiveTransitionMaskLayer = maskLayer
+        
+        transitionMaskView.addSubview(snapshot)
+        snapshot.center = transitionMaskView.center
+        fromVC.view.bringSubviewToFront(fromVC.closeButtonBackground)
 
         transitionItem.imageView = imageView
         transitionItem.snapshotTransitioning = snapshot
@@ -216,6 +289,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let blurEffect = fromVC.visualEffectView.effect
         self.transitionItem.snapshotRaw?.alpha = 0.0
         
+        UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
+            fromVC.closeButtonBackground.alpha = 0
+        }
+        
         animator.addAnimations {
             switch self.transitionItem.source {
             case .profileBanner:
@@ -223,9 +300,11 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             default:
                 break
             }
-            fromVC.closeButtonBackground.alpha = 0
             fromVC.visualEffectView.effect = nil
             self.transitionItem.sourceImageViewCornerRadius.flatMap { self.transitionItem.snapshotTransitioning?.layer.cornerRadius = $0 }
+            if UIAccessibility.isReduceTransparencyEnabled {
+                fromVC.visualEffectView.alpha = 0
+            }
         }
 
         animator.addCompletion { position in
@@ -239,6 +318,13 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
                 self.transitionItem.source.updateAppearance(position: position, index: nil)
             }
             fromVC.visualEffectView.effect = position == .end ? nil : blurEffect
+            transitionMaskView.removeFromSuperview()
+            UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
+                fromVC.closeButtonBackground.alpha = position == .end ? 0 : 1
+            }
+            if UIAccessibility.isReduceTransparencyEnabled {
+                fromVC.visualEffectView.alpha = position == .end ? 0 : 1
+            }
             transitionContext.completeTransition(position == .end)
         }
     }
@@ -315,8 +401,51 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let gestureVelocity = panGestureRecognizer.velocity(in: transitionContext.containerView)
         let velocity = convert(gestureVelocity, for: transitionItem)
         let itemAnimator = MediaHostToMediaPreviewViewControllerAnimatedTransitioning.animator(initialVelocity: velocity)
+        
+        var maskLayerToFinalPath: CGPath?
+        if toPosition == .end,
+           let transitionMaskView = transitionItem.interactiveTransitionMaskView,
+           let snapshot = transitionItem.snapshotTransitioning {
+            let toVC = transitionItem.previewableViewController
+            
+            var needsMaskWithAnimation = true
+            let maskLayerToRect: CGRect? = {
+                guard case .mosaic = transitionItem.source else { return nil }
+                guard let navigationBar = toVC.navigationController?.navigationBar else { return nil }
+                let navigationBarFrameInWindow = toVC.view.convert(navigationBar.frame, to: nil)
+                var rect = transitionMaskView.frame
+                rect.origin.y = navigationBarFrameInWindow.maxY
+                
+                if rect.minY < snapshot.frame.minY {
+                    needsMaskWithAnimation = false
+                }
+                
+                return rect
+            }()
+            let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+
+            if let maskLayer = transitionItem.interactiveTransitionMaskLayer, !needsMaskWithAnimation {
+                maskLayer.path = maskLayerToPath
+            }
+            
+            let maskLayerToFinalRect: CGRect? = {
+                guard case .mosaic = transitionItem.source else { return nil }
+                guard let tabBarController = toVC.tabBarController else { return nil }
+                let tabBarFrameInWindow = toVC.view.convert(tabBarController.tabBar.frame, to: nil)
+                var rect = maskLayerToRect ?? transitionMaskView.frame
+                let offset = rect.maxY - tabBarFrameInWindow.minY
+                guard offset > 0 else { return rect }
+                rect.size.height -= offset
+                return rect
+            }()
+            maskLayerToFinalPath = maskLayerToFinalRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
+        }
 
         itemAnimator.addAnimations {
+            if let maskLayer = self.transitionItem.interactiveTransitionMaskLayer,
+               let maskLayerToFinalPath = maskLayerToFinalPath {
+                maskLayer.path = maskLayerToFinalPath
+            }
             if toPosition == .end {
                 switch self.transitionItem.source {
                 case .profileBanner where toPosition == .end:

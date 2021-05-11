@@ -122,6 +122,13 @@ final class StatusView: UIView {
         return button
     }()
     
+    let visibilityImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = Asset.Colors.Label.secondary.color
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    
     let statusContainerStackView = UIStackView()    
     let statusMosaicImageViewContainer = MosaicImageViewContainer()
     
@@ -317,6 +324,10 @@ extension StatusView {
         authorContainerStackView.addArrangedSubview(revealContentWarningButton)
         revealContentWarningButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         
+        // visibility ImageView
+        authorContainerStackView.addArrangedSubview(visibilityImageView)
+        visibilityImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
+        
         authorContainerStackView.translatesAutoresizingMaskIntoConstraints = false
         authorContainerView.addSubview(authorContainerStackView)
         NSLayoutConstraint.activate([
@@ -477,6 +488,11 @@ extension StatusView {
             revealContentWarningButton.setImage(image, for: .normal)
         }
         // TODO: a11y
+    }
+    
+    func updateVisibility(visibility: String) {
+        guard let visibility = ComposeToolbarView.VisibilitySelectionType(rawValue: visibility) else { return }
+        visibilityImageView.image = UIImage(systemName: visibility.imageNameForTimeline(), withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
     }
     
 }

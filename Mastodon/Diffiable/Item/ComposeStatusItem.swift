@@ -50,7 +50,7 @@ extension ComposeStatusItem {
     }
 }
 
-protocol ComposePollAttributeDelegate: class {
+protocol ComposePollAttributeDelegate: AnyObject {
     func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?)
 }
 

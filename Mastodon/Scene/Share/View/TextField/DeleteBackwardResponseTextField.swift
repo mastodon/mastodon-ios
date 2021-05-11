@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol DeleteBackwardResponseTextFieldDelegate: class {
+protocol DeleteBackwardResponseTextFieldDelegate: AnyObject {
     func deleteBackwardResponseTextField(_ textField: DeleteBackwardResponseTextField, textBeforeDelete: String?)
 }
 
