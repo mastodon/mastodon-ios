@@ -449,7 +449,8 @@ extension StatusSection {
             } receiveValue: { [weak dependency, weak cell] change in
                 guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
-                      let status = object as? Status else { return }
+                      let status = object as? Status,
+                      !status.isDeleted else { return }
                 guard let statusTableViewCell = cell as? StatusTableViewCell else { return }
                 StatusSection.configureActionToolBar(
                     cell: statusTableViewCell,
@@ -648,7 +649,7 @@ extension StatusSection {
                 .assertNoFailure()
             )
         .receive(on: DispatchQueue.main)
-        .sink { [weak dependency, weak cell] _,change in
+        .sink { [weak dependency, weak cell] _, change in
             guard let cell = cell else { return }
             guard let dependency = dependency else { return }
             switch change.changeType {
