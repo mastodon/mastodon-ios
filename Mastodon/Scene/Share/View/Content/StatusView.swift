@@ -295,7 +295,7 @@ extension StatusView {
         authorMetaContainerStackView.axis = .vertical
         authorMetaContainerStackView.spacing = 4
         
-        // title container: [display name | "·" | date]
+        // title container: [display name | "·" | date | padding | visibility]
         let titleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(titleContainerStackView)
         titleContainerStackView.axis = .horizontal
@@ -308,12 +308,15 @@ extension StatusView {
         titleContainerStackView.alignment = .firstBaseline
         titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
+        titleContainerStackView.addArrangedSubview(UIView()) // padding
+        titleContainerStackView.addArrangedSubview(visibilityImageView)
         nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        
+        visibilityImageView.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(subtitleContainerStackView)
@@ -323,10 +326,6 @@ extension StatusView {
         // reveal button
         authorContainerStackView.addArrangedSubview(revealContentWarningButton)
         revealContentWarningButton.setContentHuggingPriority(.required - 2, for: .horizontal)
-        
-        // visibility ImageView
-        authorContainerStackView.addArrangedSubview(visibilityImageView)
-        visibilityImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
         
         authorContainerStackView.translatesAutoresizingMaskIntoConstraints = false
         authorContainerView.addSubview(authorContainerStackView)
