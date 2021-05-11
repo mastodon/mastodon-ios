@@ -70,6 +70,7 @@ extension ThreadMetaView {
         containerStackView.addArrangedSubview(actionButtonStackView)
         
         actionButtonStackView.axis = .horizontal
+        actionButtonStackView.spacing = 20
         actionButtonStackView.addArrangedSubview(reblogButton)
         actionButtonStackView.addArrangedSubview(favoriteButton)
         
