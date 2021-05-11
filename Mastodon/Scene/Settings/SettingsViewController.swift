@@ -56,24 +56,22 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isLayoutMarginsRelativeArrangement = true
         view.axis = .horizontal
-        view.alignment = .fill
-        view.distribution = .equalSpacing
         view.spacing = 4
         return view
     }()
     
+    let notifyLabel = UILabel()
     private(set) lazy var notifySectionHeader: UIView = {
         let view = notifySectionHeaderStackView
-        
-        let notifyLabel = UILabel()
         notifyLabel.translatesAutoresizingMaskIntoConstraints = false
+        notifyLabel.adjustsFontForContentSizeCategory = true
         notifyLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         notifyLabel.textColor = Asset.Colors.Label.primary.color
         notifyLabel.text = L10n.Scene.Settings.Section.Notifications.Trigger.title
-        // accessibility
-        notifyLabel.numberOfLines = 0
         view.addArrangedSubview(notifyLabel)
         view.addArrangedSubview(whoButton)
+        whoButton.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        whoButton.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
         return view
     }()
     
@@ -83,6 +81,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         whoButton.showsMenuAsPrimaryAction = true
         whoButton.setBackgroundColor(Asset.Colors.battleshipGrey.color, for: .normal)
         whoButton.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        whoButton.titleLabel?.adjustsFontForContentSizeCategory = true
         whoButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         whoButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         whoButton.layer.cornerRadius = 10
@@ -113,6 +112,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.alignment = .center
         
         let label = ActiveLabel(style: .default)
+        label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.configure(content: "Mastodon is open source software. You can contribute or report issues on GitHub at <a href=\"https://github.com/tootsuite/mastodon\">tootsuite/mastodon</a> (v3.3.0).", emojiDict: [:])
         label.delegate = self
@@ -153,10 +153,13 @@ class SettingsViewController: UIViewController, NeedsDependency {
     
     // MAKR: - Private methods
     private func updateSectionHeaderStackViewLayout() {
+        // accessibility
         if traitCollection.preferredContentSizeCategory < .accessibilityMedium {
             notifySectionHeaderStackView.axis = .horizontal
+            notifyLabel.numberOfLines = 1
         } else {
             notifySectionHeaderStackView.axis = .vertical
+            notifyLabel.numberOfLines = 0
         }
     }
     
