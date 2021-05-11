@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import MastodonSDK
 
-protocol PickServerCategoriesCellDelegate: class {
+protocol PickServerCategoriesCellDelegate: AnyObject {
     func pickServerCategoriesCell(_ cell: PickServerCategoriesCell, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
 }
 

@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import Combine
 
-protocol ComposeStatusAttachmentCollectionViewCellDelegate: class {
+protocol ComposeStatusAttachmentCollectionViewCellDelegate: AnyObject {
     func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton)
 }
 

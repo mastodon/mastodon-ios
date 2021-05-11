@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 
-protocol HomeTimelineNavigationBarTitleViewDelegate: class {
+protocol HomeTimelineNavigationBarTitleViewDelegate: AnyObject {
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton)
 }
 

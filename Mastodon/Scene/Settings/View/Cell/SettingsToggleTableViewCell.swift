@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-protocol SettingsToggleCellDelegate: class {
+protocol SettingsToggleCellDelegate: AnyObject {
     func settingsToggleCell(_ cell: SettingsToggleTableViewCell, switchValueDidChange switch: UISwitch)
 }
 

@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-protocol SettingsAppearanceTableViewCellDelegate: class {
+protocol SettingsAppearanceTableViewCellDelegate: AnyObject {
     func settingsAppearanceCell(_ cell: SettingsAppearanceTableViewCell, didSelectAppearanceMode appearanceMode: SettingsItem.AppearanceMode)
 }
 

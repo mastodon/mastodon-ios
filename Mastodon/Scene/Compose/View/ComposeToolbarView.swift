@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import MastodonSDK
 
-protocol ComposeToolbarViewDelegate: class {
+protocol ComposeToolbarViewDelegate: AnyObject {
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton)
@@ -178,6 +178,15 @@ extension ComposeToolbarView {
             case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
             case .private: return UIImage(systemName: "person.crop.circle.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
             case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .regular))!
+            }
+        }
+        
+        func imageNameForTimeline() -> String {
+            switch self {
+            case .public: return "person.3"
+            case .unlisted: return "eye.slash"
+            case .private: return "person.crop.circle.badge.plus"
+            case .direct: return "at"
             }
         }
         

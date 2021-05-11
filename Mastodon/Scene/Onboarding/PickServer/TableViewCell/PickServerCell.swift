@@ -12,7 +12,7 @@ import MastodonSDK
 import AlamofireImage
 import Kanna
 
-protocol PickServerCellDelegate: class {
+protocol PickServerCellDelegate: AnyObject {
     func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)
 }
 

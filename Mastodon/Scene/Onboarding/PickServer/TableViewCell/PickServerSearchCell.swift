@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol PickServerSearchCellDelegate: class {
+protocol PickServerSearchCellDelegate: AnyObject {
     func pickServerSearchCell(_ cell: PickServerSearchCell, searchTextDidChange searchText: String?)
 }
 
