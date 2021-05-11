@@ -16,6 +16,9 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
     
+    static let textFieldLabelFont = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
+    static let errorPromptLabelFont = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .semibold), maximumPointSize: 18)
+    
     var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -100,7 +103,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
+        label.font = MastodonRegisterViewController.textFieldLabelFont
         label.textColor = Asset.Colors.Label.primary.color
         return label
     }()
@@ -114,7 +117,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
+                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -125,7 +128,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     let usernameErrorPromptLabel: UILabel = {
         let label = UILabel()
         let color = Asset.Colors.danger.color
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let font = MastodonRegisterViewController.errorPromptLabelFont
         return label
     }()
     
@@ -137,7 +140,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
+                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -154,7 +157,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
+                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -165,7 +168,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     let emailErrorPromptLabel: UILabel = {
         let label = UILabel()
         let color = Asset.Colors.danger.color
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let font = MastodonRegisterViewController.errorPromptLabelFont
         return label
     }()
     
@@ -179,7 +182,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
+                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -196,7 +199,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     let passwordErrorPromptLabel: UILabel = {
         let label = UILabel()
         let color = Asset.Colors.danger.color
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let font = MastodonRegisterViewController.errorPromptLabelFont
         return label
     }()
     
@@ -209,7 +212,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)])
+                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
@@ -220,7 +223,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     let reasonErrorPromptLabel: UILabel = {
         let label = UILabel()
         let color = Asset.Colors.danger.color
-        let font = UIFont.preferredFont(forTextStyle: .caption1)
+        let font = MastodonRegisterViewController.errorPromptLabelFont
         return label
     }()
     
