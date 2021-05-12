@@ -79,6 +79,10 @@ extension ThreadMetaView {
         favoriteButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         
         updateContainerLayout()
+        
+        // TODO: 
+        reblogButton.isAccessibilityElement = false
+        favoriteButton.isAccessibilityElement = false
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

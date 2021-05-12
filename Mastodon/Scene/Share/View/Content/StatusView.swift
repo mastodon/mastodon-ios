@@ -96,6 +96,7 @@ final class StatusView: UIView {
         label.textColor = Asset.Colors.Label.secondary.color
         label.font = .systemFont(ofSize: 17)
         label.text = "·"
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -104,6 +105,7 @@ final class StatusView: UIView {
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textColor = Asset.Colors.Label.secondary.color
         label.text = "@alice"
+        label.isAccessibilityElement = false
         return label
     }()
     

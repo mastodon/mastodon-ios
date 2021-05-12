@@ -31,6 +31,7 @@ final class MosaicImageViewContainer: UIView {
                 let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
                 tapGesture.addTarget(self, action: #selector(MosaicImageViewContainer.photoTapGestureRecognizerHandler(_:)))
                 imageView.addGestureRecognizer(tapGesture)
+                imageView.isAccessibilityElement = true
             }
         }
     }

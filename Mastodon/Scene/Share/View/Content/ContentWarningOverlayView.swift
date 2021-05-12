@@ -26,6 +26,7 @@ class ContentWarningOverlayView: UIView {
         label.text = L10n.Common.Controls.Status.mediaContentWarning
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -40,6 +41,7 @@ class ContentWarningOverlayView: UIView {
         label.text = L10n.Common.Controls.Status.mediaContentWarning
         label.textColor = Asset.Colors.Label.primary.color
         label.textAlignment = .center
+        label.isAccessibilityElement = false
         return label
     }()
     let blurContentWarningLabel: UILabel = {
@@ -49,6 +51,7 @@ class ContentWarningOverlayView: UIView {
         label.textColor = Asset.Colors.Label.secondary.color
         label.textAlignment = .center
         label.layer.setupShadow()
+        label.isAccessibilityElement = false
         return label
     }()
     

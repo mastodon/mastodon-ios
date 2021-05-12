@@ -93,6 +93,22 @@
                     },
                     "time_left": "%s left",
                     "closed": "Closed"
+                },
+                "actions": {
+                    "reply": "Reply",
+                    "reblog": "Reblog",
+                    "unreblog": "Unreblog",
+                    "favorite": "Favorite",
+                    "unfavorite": "Unfavorite",
+                    "menu": "Menu"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Mention",
+                    "link": "Link",
+                    "hashtag": "Hashtag",
+                    "email": "Email",
+                    "emoji": "Emoji"
                 }
             },
             "firendship": {
@@ -125,6 +141,11 @@
                     "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
                     "suspended_warning": "This account has been suspended.",
                     "user_suspended_warning": "%s's account has been suspended."
+                },
+                "accessibility": {
+                    "count_replies": "%s replies",
+                    "count_reblogs": "%s reblogs",
+                    "count_favorites": "%s favorites"
                 }
             }
         },

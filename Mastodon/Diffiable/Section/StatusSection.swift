@@ -58,6 +58,7 @@ extension StatusSection {
                     )
                 }
                 cell.delegate = statusTableViewCellDelegate
+                cell.isAccessibilityElement = true
                 return cell
             case .status(let objectID, let attribute),
                  .root(let objectID, let attribute),
@@ -97,7 +98,22 @@ extension StatusSection {
                     }
                 }
                 cell.delegate = statusTableViewCellDelegate
-                
+                switch item {
+                case .root:
+                    cell.statusView.activeTextLabel.isAccessibilityElement = false
+                    var accessibilityElements: [Any] = []
+                    accessibilityElements.append(cell.statusView.nameLabel)
+                    accessibilityElements.append(cell.statusView.dateLabel)
+                    accessibilityElements.append(contentsOf: cell.statusView.activeTextLabel.createAccessibilityElements())
+                    accessibilityElements.append(contentsOf: cell.statusView.statusMosaicImageViewContainer.imageViews)
+                    accessibilityElements.append(cell.statusView.playerContainerView)
+                    accessibilityElements.append(cell.statusView.actionToolbarContainer)
+                    accessibilityElements.append(cell.threadMetaView)
+                    cell.accessibilityElements = accessibilityElements
+                default:
+                    cell.isAccessibilityElement = true
+                    cell.accessibilityElements = nil
+                }
                 return cell
             case .leafBottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ThreadReplyLoaderTableViewCell.self), for: indexPath) as! ThreadReplyLoaderTableViewCell
@@ -179,6 +195,7 @@ extension StatusSection {
         }()
         cell.statusView.nameLabel.configure(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
         cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
+        
         // set avatar
         if let reblog = status.reblog {
             cell.statusView.avatarButton.isHidden = true
@@ -196,6 +213,7 @@ extension StatusSection {
             content: (status.reblog ?? status).content,
             emojiDict: (status.reblog ?? status).emojiDict
         )
+        cell.statusView.activeTextLabel.accessibilityLanguage = (status.reblog ?? status).language
         
         // set visibility
         if let visibility = (status.reblog ?? status).visibility {
@@ -275,6 +293,7 @@ extension StatusSection {
                     break
                 }
             }
+            imageView.accessibilityLabel = meta.altText
             Publishers.CombineLatest(
                 statusItemAttribute.isImageLoaded,
                 statusItemAttribute.isRevealing
@@ -452,6 +471,7 @@ extension StatusSection {
             .sink { [weak cell] _ in
                 guard let cell = cell else { return }
                 cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+                cell.statusView.dateLabel.accessibilityLabel = createdAt.timeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
 
@@ -572,6 +592,7 @@ extension StatusSection {
             formatter.timeStyle = .short
             return formatter.string(from: status.createdAt)
         }()
+        cell.threadMetaView.dateLabel.accessibilityLabel = DateFormatter.localizedString(from: status.createdAt, dateStyle: .medium, timeStyle: .short)
         let reblogCountTitle: String = {
             let count = status.reblogsCount.intValue
             if count > 1 {
@@ -609,6 +630,7 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
             cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.author.emojiDict)
+            cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
             cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
@@ -621,8 +643,10 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
             cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
+            cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else {
             cell.statusView.headerContainerView.isHidden = true
+            cell.statusView.headerInfoLabel.isAccessibilityElement = false
         }
     }
     
@@ -640,6 +664,9 @@ extension StatusSection {
             return StatusSection.formattedNumberTitleForActionButton(count)
         }()
         cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.replyButton.accessibilityValue = status.repliesCount.flatMap {
+            L10n.Common.Controls.Timeline.Accessibility.countReplies($0.intValue)
+        } ?? nil
         // set reblog
         let isReblogged = status.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let reblogCountTitle: String = {
@@ -648,6 +675,11 @@ extension StatusSection {
         }()
         cell.statusView.actionToolbarContainer.reblogButton.setTitle(reblogCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isReblogButtonHighlight = isReblogged
+        cell.statusView.actionToolbarContainer.reblogButton.accessibilityLabel = isReblogged ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog
+        cell.statusView.actionToolbarContainer.reblogButton.accessibilityValue = {
+            guard status.reblogsCount.intValue > 0 else { return nil }
+            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
+        }()
         // set like
         let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {
@@ -656,7 +688,11 @@ extension StatusSection {
         }()
         cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
-        
+        cell.statusView.actionToolbarContainer.favoriteButton.accessibilityLabel = isLike ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite
+        cell.statusView.actionToolbarContainer.favoriteButton.accessibilityValue = {
+            guard status.favouritesCount.intValue > 0 else { return nil }
+            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.favouritesCount.intValue)
+        }()
         Publishers.CombineLatest(
             dependency.context.blockDomainService.blockedDomains,
             ManagedObjectObserver.observe(object: status.authorForUserProvider)

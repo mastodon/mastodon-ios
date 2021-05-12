@@ -208,6 +208,20 @@ internal enum L10n {
         internal static func userRepliedTo(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserRepliedTo", String(describing: p1))
         }
+        internal enum Actions {
+          /// Favorite
+          internal static let favorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Favorite")
+          /// Menu
+          internal static let menu = L10n.tr("Localizable", "Common.Controls.Status.Actions.Menu")
+          /// Reblog
+          internal static let reblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reblog")
+          /// Reply
+          internal static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply")
+          /// Unfavorite
+          internal static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite")
+          /// Unreblog
+          internal static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog")
+        }
         internal enum Poll {
           /// Closed
           internal static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed")
@@ -238,8 +252,36 @@ internal enum L10n {
             }
           }
         }
+        internal enum Tag {
+          /// Email
+          internal static let email = L10n.tr("Localizable", "Common.Controls.Status.Tag.Email")
+          /// Emoji
+          internal static let emoji = L10n.tr("Localizable", "Common.Controls.Status.Tag.Emoji")
+          /// Hashtag
+          internal static let hashtag = L10n.tr("Localizable", "Common.Controls.Status.Tag.Hashtag")
+          /// Link
+          internal static let link = L10n.tr("Localizable", "Common.Controls.Status.Tag.Link")
+          /// Mention
+          internal static let mention = L10n.tr("Localizable", "Common.Controls.Status.Tag.Mention")
+          /// URL
+          internal static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url")
+        }
       }
       internal enum Timeline {
+        internal enum Accessibility {
+          /// %@ favorites
+          internal static func countFavorites(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Timeline.Accessibility.CountFavorites", String(describing: p1))
+          }
+          /// %@ reblogs
+          internal static func countReblogs(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Timeline.Accessibility.CountReblogs", String(describing: p1))
+          }
+          /// %@ replies
+          internal static func countReplies(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Timeline.Accessibility.CountReplies", String(describing: p1))
+          }
+        }
         internal enum Header {
           /// You can’t view Artbot’s profile\n until they unblock you.
           internal static let blockedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockedWarning")

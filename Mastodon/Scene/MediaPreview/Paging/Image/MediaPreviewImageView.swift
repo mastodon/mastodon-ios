@@ -18,6 +18,7 @@ final class MediaPreviewImageView: UIScrollView {
         imageView.isUserInteractionEnabled = true
         // accessibility
         imageView.accessibilityIgnoresInvertColors = true
+        imageView.isAccessibilityElement = true
         return imageView
     }()
     

@@ -59,7 +59,6 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     
 
-    
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
         StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
     }
@@ -76,7 +75,11 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
 
 extension StatusTableViewCellDelegate where Self: StatusProvider & MediaPreviewableViewController {
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int) {
-        StatusProviderFacade.coordinateToStatusMediaPreviewScene(provider: self, cell: cell, mosaicImageView: mosaicImageViewContainer, didTapImageView: imageView, atIndex: index)
+        if UIAccessibility.isVoiceOverRunning, !(self is ThreadViewController) {
+            StatusProviderFacade.coordinateToStatusThreadScene(for: .primary, provider: self, cell: cell)
+        } else {
+            StatusProviderFacade.coordinateToStatusMediaPreviewScene(provider: self, cell: cell, mosaicImageView: mosaicImageViewContainer, didTapImageView: imageView, atIndex: index)
+        }
     }
 }
 
