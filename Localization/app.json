@@ -74,10 +74,17 @@
                 "settings": "Settings",
                 "delete": "Delete"
             },
+            "tabs": {
+                "home": "Home",
+                "search": "Search",
+                "notification": "Notification",
+                "profile": "Profile"
+            },
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
+                "show_user_profile": "Show user profile",
                 "content_warning": "content warning",
                 "content_warning_text": "cw: %s",
                 "media_content_warning": "Tap to reveal that may be sensitive",
@@ -331,6 +338,17 @@
                 "unlisted": "Unlisted",
                 "private": "Followers only",
                 "direct": "Only people I mention"
+            },
+            "accessibility": {
+                "append_attachment": "Append attachment",
+                "append_poll": "Append poll",
+                "remove_poll": "Remove poll",
+                "custom_emoji_picker": "Custom emoji picker",
+                "enable_content_warning": "Enable content warning",
+                "disable_content_warning": "Disable content warning",
+                "post_visibility_menu": "Post visibility menu",
+                "input_limit_remains_count": "Input limit remains %ld",
+                "input_limit_exceeds_count": "Input limit exceeds %ld"
             }
         },
         "profile": {
@@ -338,7 +356,12 @@
             "dashboard": {
                 "posts": "posts",
                 "following": "following",
-                "followers": "followers"
+                "followers": "followers",
+                "accessibility": {
+                    "count_posts": "%ld posts",
+                    "count_following": "%ld following",
+                    "count_followers": "%ld followers"
+                }
             },
             "segmented_control": {
                 "posts": "Posts",

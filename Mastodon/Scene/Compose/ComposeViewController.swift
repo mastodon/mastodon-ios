@@ -260,6 +260,21 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.isEnabled, on: composeToolbarView.pollButton)
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            viewModel.isPollComposing,
+            viewModel.isPollToolbarButtonEnabled
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isPollComposing, isPollToolbarButtonEnabled in
+            guard let self = self else { return }
+            guard isPollToolbarButtonEnabled else {
+                self.composeToolbarView.pollButton.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+                return
+            }
+            self.composeToolbarView.pollButton.accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+        }
+        .store(in: &disposeBag)
 
         // bind image picker toolbar state
         viewModel.attachmentServices
@@ -268,6 +283,15 @@ extension ComposeViewController {
                 guard let self = self else { return }
                 self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
                 self.resetImagePicker()
+            }
+            .store(in: &disposeBag)
+        
+        // bind content warning button state
+        viewModel.isContentWarningComposing
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isContentWarningComposing in
+                guard let self = self else { return }
+                self.composeToolbarView.contentWarningButton.accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
             }
             .store(in: &disposeBag)
         
@@ -294,9 +318,11 @@ extension ComposeViewController {
                 case _ where count < 0:
                     self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 24, weight: .bold)
                     self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
+                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitExceedsCount(abs(count))
                 default:
                     self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 15, weight: .regular)
                     self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
+                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(count)
                 }
             }
             .store(in: &disposeBag)

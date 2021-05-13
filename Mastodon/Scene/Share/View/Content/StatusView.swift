@@ -75,7 +75,13 @@ final class StatusView: UIView {
         return label
     }()
     
-    let avatarView = UIView()
+    let avatarView: UIView = {
+        let view = UIView()
+        view.isAccessibilityElement = true
+        view.accessibilityTraits = .button
+        view.accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
+        return view
+    }()
     let avatarButton: UIButton = {
         let button = HighlightDimmableButton(type: .custom)
         let placeholderImage = UIImage.placeholder(size: avatarImageSize, color: .systemFill)

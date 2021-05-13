@@ -479,6 +479,8 @@ extension ProfileViewController {
                 guard let self = self else { return }
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"
                 self.profileHeaderViewController.profileHeaderView.statusDashboardView.postDashboardMeterView.numberLabel.text = text
+                self.profileHeaderViewController.profileHeaderView.statusDashboardView.postDashboardMeterView.isAccessibilityElement = true
+                self.profileHeaderViewController.profileHeaderView.statusDashboardView.postDashboardMeterView.accessibilityLabel = L10n.Scene.Profile.Dashboard.Accessibility.countPosts(count ?? 0)
             }
             .store(in: &disposeBag)
         viewModel.followingCount
@@ -486,6 +488,8 @@ extension ProfileViewController {
                 guard let self = self else { return }
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"
                 self.profileHeaderViewController.profileHeaderView.statusDashboardView.followingDashboardMeterView.numberLabel.text = text
+                self.profileHeaderViewController.profileHeaderView.statusDashboardView.followingDashboardMeterView.isAccessibilityElement = true
+                self.profileHeaderViewController.profileHeaderView.statusDashboardView.followingDashboardMeterView.accessibilityLabel = L10n.Scene.Profile.Dashboard.Accessibility.countFollowing(count ?? 0)
             }
             .store(in: &disposeBag)
         viewModel.followersCount
@@ -493,6 +497,8 @@ extension ProfileViewController {
                 guard let self = self else { return }
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"
                 self.profileHeaderViewController.profileHeaderView.statusDashboardView.followersDashboardMeterView.numberLabel.text = text
+                self.profileHeaderViewController.profileHeaderView.statusDashboardView.followersDashboardMeterView.isAccessibilityElement = true
+                self.profileHeaderViewController.profileHeaderView.statusDashboardView.followersDashboardMeterView.accessibilityLabel = L10n.Scene.Profile.Dashboard.Accessibility.countFollowers(count ?? 0)
             }
             .store(in: &disposeBag)
         

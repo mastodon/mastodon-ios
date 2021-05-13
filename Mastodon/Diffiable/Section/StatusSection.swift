@@ -102,6 +102,7 @@ extension StatusSection {
                 case .root:
                     cell.statusView.activeTextLabel.isAccessibilityElement = false
                     var accessibilityElements: [Any] = []
+                    accessibilityElements.append(cell.statusView.avatarView)
                     accessibilityElements.append(cell.statusView.nameLabel)
                     accessibilityElements.append(cell.statusView.dateLabel)
                     accessibilityElements.append(contentsOf: cell.statusView.activeTextLabel.createAccessibilityElements())

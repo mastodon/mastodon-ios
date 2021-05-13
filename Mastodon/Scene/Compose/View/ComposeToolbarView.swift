@@ -28,6 +28,7 @@ final class ComposeToolbarView: UIView {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
         button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)), for: .normal)
+        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendAttachment
         return button
     }()
     
@@ -35,6 +36,7 @@ final class ComposeToolbarView: UIView {
         let button = HighlightDimmableButton(type: .custom)
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
         button.setImage(UIImage(systemName: "list.bullet", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)), for: .normal)
+        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
         return button
     }()
     
@@ -45,6 +47,7 @@ final class ComposeToolbarView: UIView {
             .af.imageScaled(to: CGSize(width: 20, height: 20))
             .withRenderingMode(.alwaysTemplate)
         button.setImage(image, for: .normal)
+        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.customEmojiPicker
         return button
     }()
     
@@ -52,6 +55,7 @@ final class ComposeToolbarView: UIView {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
         button.setImage(UIImage(systemName: "exclamationmark.shield", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)), for: .normal)
+        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.enableContentWarning
         return button
     }()
     
@@ -59,6 +63,7 @@ final class ComposeToolbarView: UIView {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
         button.setImage(UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium)), for: .normal)
+        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.postVisibilityMenu
         return button
     }()
     
@@ -67,6 +72,7 @@ final class ComposeToolbarView: UIView {
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.text = "500"
         label.textColor = Asset.Colors.Label.secondary.color
+        label.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(500)
         return label
     }()
     

@@ -200,6 +200,8 @@ internal enum L10n {
         internal static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning")
         /// Show Post
         internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")
+        /// Show user profile
+        internal static let showUserProfile = L10n.tr("Localizable", "Common.Controls.Status.ShowUserProfile")
         /// %@ reblogged
         internal static func userReblogged(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Status.UserReblogged", String(describing: p1))
@@ -267,6 +269,16 @@ internal enum L10n {
           internal static let url = L10n.tr("Localizable", "Common.Controls.Status.Tag.Url")
         }
       }
+      internal enum Tabs {
+        /// Home
+        internal static let home = L10n.tr("Localizable", "Common.Controls.Tabs.Home")
+        /// Notification
+        internal static let notification = L10n.tr("Localizable", "Common.Controls.Tabs.Notification")
+        /// Profile
+        internal static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile")
+        /// Search
+        internal static let search = L10n.tr("Localizable", "Common.Controls.Tabs.Search")
+      }
       internal enum Timeline {
         internal enum Accessibility {
           /// %@ favorites
@@ -325,6 +337,30 @@ internal enum L10n {
       /// replying to %@
       internal static func replyingToUser(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Compose.ReplyingToUser", String(describing: p1))
+      }
+      internal enum Accessibility {
+        /// Append attachment
+        internal static let appendAttachment = L10n.tr("Localizable", "Scene.Compose.Accessibility.AppendAttachment")
+        /// Append poll
+        internal static let appendPoll = L10n.tr("Localizable", "Scene.Compose.Accessibility.AppendPoll")
+        /// Custom emoji picker
+        internal static let customEmojiPicker = L10n.tr("Localizable", "Scene.Compose.Accessibility.CustomEmojiPicker")
+        /// Disable content warning
+        internal static let disableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.DisableContentWarning")
+        /// Enable content warning
+        internal static let enableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.EnableContentWarning")
+        /// Input limit exceeds %ld
+        internal static func inputLimitExceedsCount(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Accessibility.InputLimitExceedsCount", p1)
+        }
+        /// Input limit remains %ld
+        internal static func inputLimitRemainsCount(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Accessibility.InputLimitRemainsCount", p1)
+        }
+        /// Post visibility menu
+        internal static let postVisibilityMenu = L10n.tr("Localizable", "Scene.Compose.Accessibility.PostVisibilityMenu")
+        /// Remove poll
+        internal static let removePoll = L10n.tr("Localizable", "Scene.Compose.Accessibility.RemovePoll")
       }
       internal enum Attachment {
         /// This %@ is broken and can't be\nuploaded to Mastodon.
@@ -481,6 +517,20 @@ internal enum L10n {
         internal static let following = L10n.tr("Localizable", "Scene.Profile.Dashboard.Following")
         /// posts
         internal static let posts = L10n.tr("Localizable", "Scene.Profile.Dashboard.Posts")
+        internal enum Accessibility {
+          /// %ld followers
+          internal static func countFollowers(_ p1: Int) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Dashboard.Accessibility.CountFollowers", p1)
+          }
+          /// %ld following
+          internal static func countFollowing(_ p1: Int) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Dashboard.Accessibility.CountFollowing", p1)
+          }
+          /// %ld posts
+          internal static func countPosts(_ p1: Int) -> String {
+            return L10n.tr("Localizable", "Scene.Profile.Dashboard.Accessibility.CountPosts", p1)
+          }
+        }
       }
       internal enum RelationshipActionAlert {
         internal enum ConfirmUnblockUsre {
