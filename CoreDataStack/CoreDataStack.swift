@@ -8,6 +8,7 @@
 import os
 import Foundation
 import CoreData
+import AppShared
 
 public final class CoreDataStack {
     
@@ -18,7 +19,7 @@ public final class CoreDataStack {
     }
     
     public convenience init(databaseName: String = "shared") {
-        let storeURL = URL.storeURL(for: "group.org.joinmastodon.mastodon-temp", databaseName: databaseName)
+        let storeURL = URL.storeURL(for: AppName.groupID, databaseName: databaseName)
         let storeDescription = NSPersistentStoreDescription(url: storeURL)
         self.init(persistentStoreDescriptions: [storeDescription])
     }
@@ -38,7 +39,7 @@ public final class CoreDataStack {
     }()
 
     static func persistentContainer() -> NSPersistentContainer {
-        let bundles = [Bundle(for: Toot.self)]
+        let bundles = [Bundle(for: Status.self)]
         guard let managedObjectModel = NSManagedObjectModel.mergedModel(from: bundles) else {
             fatalError("cannot locate bundles")
         }

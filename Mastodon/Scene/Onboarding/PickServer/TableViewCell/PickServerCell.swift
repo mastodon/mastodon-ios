@@ -5,60 +5,64 @@
 //  Created by BradGao on 2021/2/24.
 //
 
+import os.log
 import UIKit
+import Combine
 import MastodonSDK
-import Kingfisher
+import AlamofireImage
+import Kanna
 
-protocol PickServerCellDelegate: class {
-    func pickServerCell(modeChange server: Mastodon.Entity.Server, newMode: PickServerCell.Mode, updates: (() -> Void))
+protocol PickServerCellDelegate: AnyObject {
+    func pickServerCell(_ cell: PickServerCell, expandButtonPressed button: UIButton)
 }
 
 class PickServerCell: UITableViewCell {
     
     weak var delegate: PickServerCellDelegate?
     
-    enum Mode {
-        case collapse
-        case expand
-    }
+    var disposeBag = Set<AnyCancellable>()
     
-    private var containerView: UIView = {
+    let expandMode = CurrentValueSubject<ExpandMode, Never>(.collapse)
+    
+    let containerView: UIView = {
         let view = UIView()
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
-        view.backgroundColor = Asset.Colors.lightWhite.color
+        view.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var domainLabel: UILabel = {
+    let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
+        label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var checkbox: UIImageView = {
+    let checkbox: UIImageView = {
         let imageView = UIImageView()
         imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(textStyle: .body)
-        imageView.tintColor = Asset.Colors.lightSecondaryText.color
+        imageView.tintColor = Asset.Colors.Label.secondary.color
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private var descriptionLabel: UILabel = {
+    let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.numberOfLines = 0
-        label.textColor = Asset.Colors.lightDarkGray.color
+        label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var thumbImageView: UIImageView = {
+    let thumbnailActivityIdicator = UIActivityIndicatorView(style: .medium)
+    
+    let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
@@ -66,7 +70,7 @@ class PickServerCell: UITableViewCell {
         return imageView
     }()
     
-    private var infoStackView: UIStackView = {
+    let infoStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .fill
@@ -75,64 +79,67 @@ class PickServerCell: UITableViewCell {
         return stackView
     }()
     
-    private var expandBox: UIView = {
+    let expandBox: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var expandButton: UIButton = {
+    let expandButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seemore, for: .normal)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seeless, for: .selected)
-        button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
+        button.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+        button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        button.titleLabel?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        button.transform = CGAffineTransform(scaleX: -1, y: 1)
         return button
     }()
     
-    private var seperator: UIView = {
+    let seperator: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.lightBackground.color
+        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var langValueLabel: UILabel = {
+    let langValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.textColor = Asset.Colors.Label.primary.color
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var usersValueLabel: UILabel = {
+    let usersValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.textColor = Asset.Colors.Label.primary.color
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var categoryValueLabel: UILabel = {
+    let categoryValueLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.textColor = Asset.Colors.Label.primary.color
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var langTitleLabel: UILabel = {
+    let langTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.textColor = Asset.Colors.Label.primary.color
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.language
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -140,10 +147,10 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var usersTitleLabel: UILabel = {
+    let usersTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.textColor = Asset.Colors.Label.primary.color
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.users
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -151,10 +158,10 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    private var categoryTitleLabel: UILabel = {
+    let categoryTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = Asset.Colors.lightDarkGray.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.textColor = Asset.Colors.Label.primary.color
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.category
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -165,16 +172,13 @@ class PickServerCell: UITableViewCell {
     private var collapseConstraints: [NSLayoutConstraint] = []
     private var expandConstraints: [NSLayoutConstraint] = []
     
-    var mode: PickServerCell.Mode = .collapse {
-        didSet {
-            updateMode()
-        }
-    }
-    
-    var server: Mastodon.Entity.Server? {
-        didSet {
-            updateServerInfo()
-        }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        thumbnailImageView.isHidden = false
+        thumbnailImageView.af.cancelImageRequest()
+        thumbnailActivityIdicator.stopAnimating()
+        disposeBag.removeAll()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -186,6 +190,7 @@ class PickServerCell: UITableViewCell {
         super.init(coder: coder)
         _init()
     }
+    
 }
 
 // MARK: - Methods to configure appearance
@@ -204,7 +209,7 @@ extension PickServerCell {
         
         // Always add the expandbox which contains elements only visible in expand mode
         containerView.addSubview(expandBox)
-        expandBox.addSubview(thumbImageView)
+        expandBox.addSubview(thumbnailImageView)
         expandBox.addSubview(infoStackView)
         expandBox.isHidden = true
         
@@ -215,7 +220,7 @@ extension PickServerCell {
         infoStackView.addArrangedSubview(verticalInfoStackViewUsers)
         infoStackView.addArrangedSubview(verticalInfoStackViewCategory)
         
-        let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12).priority(.required)
+        let expandButtonTopConstraintInCollapse = expandButton.topAnchor.constraint(equalTo: descriptionLabel.lastBaselineAnchor, constant: 12).priority(.required - 1)
         collapseConstraints.append(expandButtonTopConstraintInCollapse)
         
         let expandButtonTopConstraintInExpand = expandButton.topAnchor.constraint(equalTo: expandBox.bottomAnchor, constant: 8).priority(.defaultHigh)
@@ -231,7 +236,7 @@ extension PickServerCell {
             // Set bottom separator
             seperator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: seperator.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: seperator.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: seperator.topAnchor),
             seperator.heightAnchor.constraint(equalToConstant: 1).priority(.defaultHigh),
             
             domainLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
@@ -253,19 +258,28 @@ extension PickServerCell {
             expandBox.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             expandBox.bottomAnchor.constraint(equalTo: infoStackView.bottomAnchor).priority(.defaultHigh),
             
-            thumbImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
-            thumbImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
-            expandBox.trailingAnchor.constraint(equalTo: thumbImageView.trailingAnchor),
-            thumbImageView.heightAnchor.constraint(equalTo: thumbImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
+            thumbnailImageView.topAnchor.constraint(equalTo: expandBox.topAnchor),
+            thumbnailImageView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
+            expandBox.trailingAnchor.constraint(equalTo: thumbnailImageView.trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalTo: thumbnailImageView.widthAnchor, multiplier: 151.0 / 303.0).priority(.defaultHigh),
             
             infoStackView.leadingAnchor.constraint(equalTo: expandBox.leadingAnchor),
             expandBox.trailingAnchor.constraint(equalTo: infoStackView.trailingAnchor),
-            infoStackView.topAnchor.constraint(equalTo: thumbImageView.bottomAnchor, constant: 16),
+            infoStackView.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 16),
             
             expandButton.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
             containerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: expandButton.trailingAnchor),
             containerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: expandButton.bottomAnchor),
         ])
+        
+        thumbnailActivityIdicator.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageView.addSubview(thumbnailActivityIdicator)
+        NSLayoutConstraint.activate([
+            thumbnailActivityIdicator.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
+            thumbnailActivityIdicator.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
+        ])
+        thumbnailActivityIdicator.hidesWhenStopped = true
+        thumbnailActivityIdicator.stopAnimating()
         
         NSLayoutConstraint.activate(collapseConstraints)
         
@@ -274,7 +288,7 @@ extension PickServerCell {
         descriptionLabel.setContentHuggingPriority(.required - 2, for: .vertical)
         descriptionLabel.setContentCompressionResistancePriority(.required - 2, for: .vertical)
         
-        expandButton.addTarget(self, action: #selector(expandButtonDidClicked(_:)), for: .touchUpInside)
+        expandButton.addTarget(self, action: #selector(expandButtonDidPressed(_:)), for: .touchUpInside)
     }
     
     private func makeVerticalInfoStackView(arrangedView: UIView...) -> UIStackView {
@@ -287,22 +301,7 @@ extension PickServerCell {
         arrangedView.forEach { stackView.addArrangedSubview($0) }
         return stackView
     }
-    
-    private func updateMode() {
-        switch mode {
-        case .collapse:
-            expandBox.isHidden = true
-            expandButton.isSelected = false
-            NSLayoutConstraint.deactivate(expandConstraints)
-            NSLayoutConstraint.activate(collapseConstraints)
-        case .expand:
-            expandBox.isHidden = false
-            expandButton.isSelected = true
-            NSLayoutConstraint.activate(expandConstraints)
-            NSLayoutConstraint.deactivate(collapseConstraints)
-        }
-    }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
@@ -313,39 +312,38 @@ extension PickServerCell {
     }
     
     @objc
-    private func expandButtonDidClicked(_ sender: UIButton) {
-        let newMode: Mode = mode == .collapse ? .expand : .collapse
-        delegate?.pickServerCell(modeChange: server!, newMode: newMode, updates: { [weak self] in
-            self?.mode = newMode
-        })
+    private func expandButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.pickServerCell(self, expandButtonPressed: sender)
     }
 }
 
-// MARK: - Methods to update data
 extension PickServerCell {
-    private func updateServerInfo() {
-        guard let serverInfo = server else { return }
-        domainLabel.text = serverInfo.domain
-        descriptionLabel.text = serverInfo.description
-        let processor =  RoundCornerImageProcessor(cornerRadius: 3)
-        thumbImageView.kf.indicatorType = .activity
-        thumbImageView.kf.setImage(with: URL(string: serverInfo.proxiedThumbnail ?? "")!, placeholder: UIImage.placeholder(color: Asset.Colors.lightBackground.color), options: [
-            .processor(processor),
-            .scaleFactor(UIScreen.main.scale),
-            .transition(.fade(1))
-        ])
-        langValueLabel.text = serverInfo.language.uppercased()
-        usersValueLabel.text = parseUsersCount(serverInfo.totalUsers)
-        categoryValueLabel.text = serverInfo.category.uppercased()
+    
+    enum ExpandMode {
+        case collapse
+        case expand
     }
     
-    private func parseUsersCount(_ usersCount: Int) -> String {
-        switch usersCount {
-        case 0..<1000:
-            return "\(usersCount)"
-        default:
-            let usersCountInThousand = Float(usersCount) / 1000.0
-            return String(format: "%.1fK", usersCountInThousand)
+    func updateExpandMode(mode: ExpandMode) {
+        switch mode {
+        case .collapse:
+            expandButton.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+            expandButton.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
+            expandBox.isHidden = true
+            expandButton.isSelected = false
+            NSLayoutConstraint.deactivate(expandConstraints)
+            NSLayoutConstraint.activate(collapseConstraints)
+        case .expand:
+            expandButton.setImage(UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+            expandButton.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .normal)
+            expandBox.isHidden = false
+            expandButton.isSelected = true
+            NSLayoutConstraint.activate(expandConstraints)
+            NSLayoutConstraint.deactivate(collapseConstraints)
         }
+        
+        expandMode.value = mode
     }
+    
 }

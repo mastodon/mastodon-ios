@@ -14,18 +14,18 @@ import os.log
 extension PublicTimelineViewModel {
     class LoadMiddleState: GKState {
         weak var viewModel: PublicTimelineViewModel?
-        let upperTimelineTootID: String
+        let upperTimelineStatusID: String
         
-        init(viewModel: PublicTimelineViewModel, upperTimelineTootID: String) {
+        init(viewModel: PublicTimelineViewModel, upperTimelineStatusID: String) {
             self.viewModel = viewModel
-            self.upperTimelineTootID = upperTimelineTootID
+            self.upperTimelineStatusID = upperTimelineStatusID
         }
         
         override func didEnter(from previousState: GKState?) {
             os_log("%{public}s[%{public}ld], %{public}s: enter %s, previous: %s", (#file as NSString).lastPathComponent, #line, #function, self.debugDescription, previousState.debugDescription)
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
             var dict = viewModel.loadMiddleSateMachineList.value
-            dict[self.upperTimelineTootID] = stateMachine
+            dict[self.upperTimelineStatusID] = stateMachine
             viewModel.loadMiddleSateMachineList.value = dict // trigger value change
         }
     }
@@ -54,42 +54,42 @@ extension PublicTimelineViewModel.LoadMiddleState {
             }
             viewModel.context.apiService.publicTimeline(
                 domain: activeMastodonAuthenticationBox.domain,
-                maxID: upperTimelineTootID
+                maxID: upperTimelineStatusID
             )
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 switch completion {
                     case .failure(let error):
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                        os_log("%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                         stateMachine.enter(Fail.self)
                     case .finished:
                         break
                 }
             } receiveValue: { response in
-                let toots = response.value
-                let addedToots = toots.filter { !viewModel.tootIDs.value.contains($0.id) }
+                let statuses = response.value
+                let addedStatuses = statuses.filter { !viewModel.statusIDs.value.contains($0.id) }
                 
-                guard let gapIndex = viewModel.tootIDs.value.firstIndex(of: self.upperTimelineTootID) else { return }
-                let upToots = Array(viewModel.tootIDs.value[...gapIndex])
-                let downToots = Array(viewModel.tootIDs.value[(gapIndex + 1)...])
+                guard let gapIndex = viewModel.statusIDs.value.firstIndex(of: self.upperTimelineStatusID) else { return }
+                let upStatuses = Array(viewModel.statusIDs.value[...gapIndex])
+                let downStatuses = Array(viewModel.statusIDs.value[(gapIndex + 1)...])
                 
-                // construct newTootIDs
-                var newTootIDs = upToots
-                newTootIDs.append(contentsOf: addedToots.map { $0.id })
-                newTootIDs.append(contentsOf: downToots)
+                // construct newStatusIDs
+                var newStatusIDs = upStatuses
+                newStatusIDs.append(contentsOf: addedStatuses.map { $0.id })
+                newStatusIDs.append(contentsOf: downStatuses)
                 // remove old gap from viewmodel
-                if let index = viewModel.tootIDsWhichHasGap.firstIndex(of: self.upperTimelineTootID) {
-                    viewModel.tootIDsWhichHasGap.remove(at: index)
+                if let index = viewModel.statusIDsWhichHasGap.firstIndex(of: self.upperTimelineStatusID) {
+                    viewModel.statusIDsWhichHasGap.remove(at: index)
                 }
                 // add new gap from viewmodel if need
-                let intersection = toots.filter { downToots.contains($0.id) }
+                let intersection = statuses.filter { downStatuses.contains($0.id) }
                 if intersection.isEmpty {
-                    addedToots.last.flatMap { viewModel.tootIDsWhichHasGap.append($0.id) }
+                    addedStatuses.last.flatMap { viewModel.statusIDsWhichHasGap.append($0.id) }
                 }
                 
-                viewModel.tootIDs.value = newTootIDs
-                os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld toots, %{public}%ld new toots", (#file as NSString).lastPathComponent, #line, #function, toots.count, addedToots.count)
-                if addedToots.isEmpty {
+                viewModel.statusIDs.value = newStatusIDs
+                os_log("%{public}s[%{public}ld], %{public}s: load %{public}ld statuses, %{public}%ld new statues", (#file as NSString).lastPathComponent, #line, #function, statuses.count, addedStatuses.count)
+                if addedStatuses.isEmpty {
                     stateMachine.enter(Fail.self)
                 } else {
                     stateMachine.enter(Success.self)

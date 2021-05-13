@@ -15,7 +15,7 @@ extension HomeTimelineViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        timelinePostTableViewCellDelegate: StatusTableViewCellDelegate,
+        statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
         let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
@@ -28,9 +28,14 @@ extension HomeTimelineViewModel {
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,
-            timelinePostTableViewCellDelegate: timelinePostTableViewCellDelegate,
-            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate
+            statusTableViewCellDelegate: statusTableViewCellDelegate,
+            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
+            threadReplyLoaderTableViewCellDelegate: nil
         )
+        
+//        var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
+//        snapshot.appendSections([.main])
+//        diffableDataSource?.apply(snapshot)
     }
     
 }
@@ -73,7 +78,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             
             // that's will be the most fastest fetch because of upstream just update and no modify needs consider
             
-            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusTimelineAttribute] = [:]
+            var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
             
             for item in oldSnapshot.itemIdentifiers {
                 guard case let .homeTimelineIndex(objectID, attribute) = item else { continue }
@@ -83,12 +88,8 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
             var newTimelineItems: [Item] = []
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
-                let toot = timelineIndex.toot.reblog ?? timelineIndex.toot
-                let isStatusTextSensitive: Bool = {
-                    guard let spoilerText = toot.spoilerText, !spoilerText.isEmpty else { return false }
-                    return true
-                }()
-                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusTimelineAttribute(isStatusTextSensitive: isStatusTextSensitive, isStatusSensitive: toot.sensitive)
+                let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusAttribute()
+                attribute.isSeparatorLineHidden = false
                 
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))
@@ -97,6 +98,7 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                 switch (isLast, timelineIndex.hasMore) {
                 case (false, true):
                     newTimelineItems.append(.homeMiddleLoader(upperTimelineIndexAnchorObjectID: timelineIndex.objectID))
+                    attribute.isSeparatorLineHidden = true
                 case (true, true):
                     shouldAddBottomLoader = true
                 default:

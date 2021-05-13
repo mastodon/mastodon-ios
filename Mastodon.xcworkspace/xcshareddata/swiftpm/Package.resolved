@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/TwidereProject/ActiveLabel.swift",
         "state": {
           "branch": null,
-          "revision": "d6cf96e0ca4f2269021bcf8f11381ab57897f84a",
-          "version": "4.0.0"
+          "revision": "2132a7bf8da2bea74bb49b0b815950ea4d8f6a7e",
+          "version": "5.0.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "eaf6e622dd41b07b251d8f01752eab31bc811493",
-          "version": "5.4.1"
+          "revision": "4d19ad82f80cc71ff829b941ded114c56f4f604c",
+          "version": "5.4.2"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/Alamofire/AlamofireImage.git",
         "state": {
           "branch": null,
-          "revision": "3e8edbeb75227f8542aa87f90240cf0424d6362f",
-          "version": "4.1.0"
+          "revision": "98cbb00ce0ec5fc8e52a5b50a6bfc08d3e5aee10",
+          "version": "4.2.0"
         }
       },
       {
@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "Base85",
+        "repositoryURL": "https://github.com/MainasuK/Base85.git",
+        "state": {
+          "branch": null,
+          "revision": "626be96816618689627f806b5c875b5adb6346ef",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "CommonOSLog",
         "repositoryURL": "https://github.com/MainasuK/CommonOSLog",
         "state": {
@@ -47,12 +56,30 @@
         }
       },
       {
+        "package": "KeychainAccess",
+        "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
+        "state": {
+          "branch": null,
+          "revision": "84e546727d66f1adc5439debad16270d0fdd04e7",
+          "version": "4.2.2"
+        }
+      },
+      {
         "package": "Kingfisher",
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "daebf8ddf974164d1b9a050c8231e263f3106b09",
-          "version": "6.1.0"
+          "revision": "bbc4bc4def7eb05a7ba8e1219f80ee9be327334e",
+          "version": "6.2.1"
+        }
+      },
+      {
+        "package": "Pageboy",
+        "repositoryURL": "https://github.com/uias/Pageboy",
+        "state": {
+          "branch": null,
+          "revision": "34ecb6e7c4e0e07494960ab2f7cc9a02293915a6",
+          "version": "3.6.2"
         }
       },
       {
@@ -78,8 +105,17 @@
         "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {
           "branch": null,
-          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
-          "version": "5.0.0"
+          "revision": "b3dcd7dbd0d488e1a7077cb33b00f2083e382f07",
+          "version": "5.0.1"
+        }
+      },
+      {
+        "package": "Tabman",
+        "repositoryURL": "https://github.com/uias/Tabman",
+        "state": {
+          "branch": null,
+          "revision": "f43489cdd743ba7ad86a422ebb5fcbf34e333df4",
+          "version": "2.11.1"
         }
       },
       {
@@ -89,6 +125,33 @@
           "branch": null,
           "revision": "923c60ee7588da47db8cfc4e0f5b96e5e605ef84",
           "version": "1.7.1"
+        }
+      },
+      {
+        "package": "TOCropViewController",
+        "repositoryURL": "https://github.com/TimOliver/TOCropViewController.git",
+        "state": {
+          "branch": null,
+          "revision": "dad97167bf1be16aeecd109130900995dd01c515",
+          "version": "2.6.0"
+        }
+      },
+      {
+        "package": "TwitterTextEditor",
+        "repositoryURL": "https://github.com/twitter/TwitterTextEditor",
+        "state": {
+          "branch": null,
+          "revision": "dfe0edc3bcb6703ee2fd0e627f95e726b63e732a",
+          "version": "1.1.0"
+        }
+      },
+      {
+        "package": "UITextView+Placeholder",
+        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
+        "state": {
+          "branch": null,
+          "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
+          "version": "1.4.1"
         }
       }
     ]

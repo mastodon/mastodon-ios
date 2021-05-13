@@ -47,6 +47,7 @@ private func map(language: String) -> String? {
     case "ja_JP":   return "ja"
     case "de_DE":   return "de"
     case "pt_BR":   return "pt-BR"
+    case "ar_SA":   return "ar"
     default:        return nil
     }
 }

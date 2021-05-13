@@ -82,5 +82,6 @@ extension Mastodon.Entity {
             case muteExpiresAt = "mute_expires_at"
         }
     }
+
     
 }

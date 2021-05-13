@@ -19,7 +19,7 @@ extension APIService {
         domain: String,
         sinceID: Mastodon.Entity.Status.ID? = nil,
         maxID: Mastodon.Entity.Status.ID? = nil,
-        limit: Int = onceRequestTootMaxCount,
+        limit: Int = onceRequestStatusMaxCount,
         local: Bool? = nil,
         authorizationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
@@ -40,7 +40,7 @@ extension APIService {
             authorization: authorization
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
-            return APIService.Persist.persistTimeline(
+            return APIService.Persist.persistStatus(
                 managedObjectContext: self.backgroundManagedObjectContext,
                 domain: domain,
                 query: query,

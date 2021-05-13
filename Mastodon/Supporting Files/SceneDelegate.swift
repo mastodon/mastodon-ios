@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Combine
 import CoreDataStack
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    var observations = Set<NSKeyValueObservation>()
+    
     var window: UIWindow?
     var coordinator: SceneCoordinator?
 
@@ -27,6 +30,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sceneCoordinator.setup()
         sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
+        
+        UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak self] defaults, _ in
+            guard let self = self else { return }
+            self.window?.overrideUserInterfaceStyle = defaults.customUserInterfaceStyle
+        }
+        .store(in: &observations)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -39,6 +48,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+
+        // reset notification badge
+        UserDefaults.shared.notificationBadgeCount = 0
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

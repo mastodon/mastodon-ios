@@ -48,10 +48,15 @@ arch -x86_64 pod install
 - [AlamofireNetworkActivityIndicator](https://github.com/Alamofire/AlamofireNetworkActivityIndicator)
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [CommonOSLog](https://github.com/mainasuk/CommonOSLog)
+- [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift)
 - [DateToolSwift](https://github.com/MatthewYork/DateTools)
 - [Kanna](https://github.com/tid-kijyun/Kanna)
+- [KeychainAccess](https://github.com/kishikawakatsumi/KeychainAccess.git)
 - [Kingfisher](https://github.com/onevcat/Kingfisher)
 - [SwiftGen](https://github.com/SwiftGen/SwiftGen)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
+- [TwitterTextEditor](https://github.com/twitter/TwitterTextEditor)
+- [TwitterProfile](https://github.com/OfTheWolf/TwitterProfile)
+- [UITextView-Placeholder](https://github.com/devxoul/UITextView-Placeholder)
 
 ## License

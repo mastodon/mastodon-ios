@@ -28,11 +28,14 @@ final class HomeTimelineViewModel: NSObject {
     let fetchedResultsController: NSFetchedResultsController<HomeTimelineIndex>
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let viewDidAppear = PassthroughSubject<Void, Never>()
+    let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
+    let timelineIsEmpty = CurrentValueSubject<Bool, Never>(false)
+    let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
     // output
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
@@ -73,7 +76,7 @@ final class HomeTimelineViewModel: NSObject {
             let fetchRequest = HomeTimelineIndex.sortedFetchRequest
             fetchRequest.fetchBatchSize = 20
             fetchRequest.returnsObjectsAsFaults = false
-            fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(HomeTimelineIndex.toot)]
+            fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(HomeTimelineIndex.status)]
             let controller = NSFetchedResultsController(
                 fetchRequest: fetchRequest,
                 managedObjectContext: context.managedObjectContext,
@@ -83,6 +86,7 @@ final class HomeTimelineViewModel: NSObject {
             
             return controller
         }()
+        self.homeTimelineNavigationBarTitleViewModel = HomeTimelineNavigationBarTitleViewModel(context: context)
         super.init()
         
         fetchedResultsController.delegate = self
@@ -110,13 +114,19 @@ final class HomeTimelineViewModel: NSObject {
         context.authenticationService.activeMastodonAuthentication
             .sink { [weak self] activeMastodonAuthentication in
                 guard let self = self else { return }
-                guard let twitterAuthentication = activeMastodonAuthentication else { return }
-                let activeTwitterUserID = twitterAuthentication.userID
+                guard let mastodonAuthentication = activeMastodonAuthentication else { return }
+                let activeMastodonUserID = mastodonAuthentication.userID
                 let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    HomeTimelineIndex.predicate(userID: activeTwitterUserID),
+                    HomeTimelineIndex.predicate(userID: activeMastodonUserID),
                     HomeTimelineIndex.notDeleted()
                 ])
                 self.timelinePredicate.value = predicate
+            }
+            .store(in: &disposeBag)
+        
+        homeTimelineNeedRefresh
+            .sink { [weak self] _ in
+                self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
             }
             .store(in: &disposeBag)
         
@@ -127,3 +137,5 @@ final class HomeTimelineViewModel: NSObject {
     }
     
 }
+
+extension HomeTimelineViewModel: SuggestionAccountViewModelDelegate { }

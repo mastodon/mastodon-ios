@@ -38,9 +38,8 @@ extension PrimaryActionButton {
     private func _init() {
         titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         setTitleColor(.white, for: .normal)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.highlight.color), for: .normal)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.highlight.color.withAlphaComponent(0.5)), for: .highlighted)
-        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+        setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
+        setupButtonBackground()
         applyCornerRadius(radius: 10)
     }
     
@@ -67,5 +66,22 @@ extension PrimaryActionButton {
         }
         isEnabled = true
         self.setTitle(originalButtonTitle, for: .disabled)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        setupButtonBackground()
+    }
+    
+    func setupButtonBackground() {
+        if UIScreen.main.traitCollection.userInterfaceStyle == .light {
+            setTitleColor(.white, for: .disabled)
+            setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
+            setBackgroundImage(UIImage.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
+
+        } else {
+            setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .disabled)
+            setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color.withAlphaComponent(0.5)), for: .highlighted)
+            setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color.withAlphaComponent(0.5)), for: .disabled)
+        }
     }
 }

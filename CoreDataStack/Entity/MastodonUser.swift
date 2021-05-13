@@ -21,22 +21,51 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var displayName: String
     @NSManaged public private(set) var avatar: String
     @NSManaged public private(set) var avatarStatic: String?
+    @NSManaged public private(set) var header: String
+    @NSManaged public private(set) var headerStatic: String?
+    @NSManaged public private(set) var note: String?
+    @NSManaged public private(set) var url: String?
+    
+    @NSManaged public private(set) var emojisData: Data?
+    
+    @NSManaged public private(set) var statusesCount: NSNumber
+    @NSManaged public private(set) var followingCount: NSNumber
+    @NSManaged public private(set) var followersCount: NSNumber
+    
+    @NSManaged public private(set) var locked: Bool
+    @NSManaged public private(set) var bot: Bool
+    @NSManaged public private(set) var suspended: Bool
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
     
     // one-to-one relationship
-    @NSManaged public private(set) var pinnedToot: Toot?
+    @NSManaged public private(set) var pinnedStatus: Status?
     @NSManaged public private(set) var mastodonAuthentication: MastodonAuthentication?
     
     // one-to-many relationship
-    @NSManaged public private(set) var toots: Set<Toot>?
+    @NSManaged public private(set) var statuses: Set<Status>?
     
     // many-to-many relationship
-    @NSManaged public private(set) var favourite: Set<Toot>?
-    @NSManaged public private(set) var reblogged: Set<Toot>?
-    @NSManaged public private(set) var muted: Set<Toot>?
-    @NSManaged public private(set) var bookmarked: Set<Toot>?
+    @NSManaged public private(set) var favourite: Set<Status>?
+    @NSManaged public private(set) var reblogged: Set<Status>?
+    @NSManaged public private(set) var muted: Set<Status>?
+    @NSManaged public private(set) var bookmarked: Set<Status>?
+    @NSManaged public private(set) var votePollOptions: Set<PollOption>?
+    @NSManaged public private(set) var votePolls: Set<Poll>?
+    // relationships
+    @NSManaged public private(set) var following: Set<MastodonUser>?
+    @NSManaged public private(set) var followingBy: Set<MastodonUser>?
+    @NSManaged public private(set) var followRequested: Set<MastodonUser>?
+    @NSManaged public private(set) var followRequestedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var muting: Set<MastodonUser>?
+    @NSManaged public private(set) var mutingBy: Set<MastodonUser>?
+    @NSManaged public private(set) var blocking: Set<MastodonUser>?
+    @NSManaged public private(set) var blockingBy: Set<MastodonUser>?
+    @NSManaged public private(set) var endorsed: Set<MastodonUser>?
+    @NSManaged public private(set) var endorsedBy: Set<MastodonUser>?
+    @NSManaged public private(set) var domainBlocking: Set<MastodonUser>?
+    @NSManaged public private(set) var domainBlockingBy: Set<MastodonUser>?
         
 }
 
@@ -58,6 +87,22 @@ extension MastodonUser {
         user.displayName = property.displayName
         user.avatar = property.avatar
         user.avatarStatic = property.avatarStatic
+        user.header = property.header
+        user.headerStatic = property.headerStatic
+        user.note = property.note
+        user.url = property.url
+        user.emojisData = property.emojisData
+        
+        user.statusesCount = NSNumber(value: property.statusesCount)
+        user.followingCount = NSNumber(value: property.followingCount)
+        user.followersCount = NSNumber(value: property.followersCount)
+        
+        user.locked = property.locked
+        user.bot = property.bot ?? false
+        user.suspended = property.suspended ?? false
+        
+        // Mastodon do not provide relationship on the `Account`
+        // Update relationship via attribute updating interface
         
         user.createdAt = property.createdAt
         user.updatedAt = property.networkDate
@@ -91,6 +136,128 @@ extension MastodonUser {
             self.avatarStatic = avatarStatic
         }
     }
+    public func update(header: String) {
+        if self.header != header {
+            self.header = header
+        }
+    }
+    public func update(headerStatic: String?) {
+        if self.headerStatic != headerStatic {
+            self.headerStatic = headerStatic
+        }
+    }
+    public func update(note: String?) {
+        if self.note != note {
+            self.note = note
+        }
+    }
+    public func update(url: String?) {
+        if self.url != url {
+            self.url = url
+        }
+    }
+    public func update(emojisData: Data?) {
+        if self.emojisData != emojisData {
+            self.emojisData = emojisData
+        }
+    }
+    public func update(statusesCount: Int) {
+        if self.statusesCount.intValue != statusesCount {
+            self.statusesCount = NSNumber(value: statusesCount)
+        }
+    }
+    public func update(followingCount: Int) {
+        if self.followingCount.intValue != followingCount {
+            self.followingCount = NSNumber(value: followingCount)
+        }
+    }
+    public func update(followersCount: Int) {
+        if self.followersCount.intValue != followersCount {
+            self.followersCount = NSNumber(value: followersCount)
+        }
+    }
+    public func update(locked: Bool) {
+        if self.locked != locked {
+            self.locked = locked
+        }
+    }
+    public func update(bot: Bool) {
+        if self.bot != bot {
+            self.bot = bot
+        }
+    }
+    public func update(suspended: Bool) {
+        if self.suspended != suspended {
+            self.suspended = suspended
+        }
+    }
+    
+    public func update(isFollowing: Bool, by mastodonUser: MastodonUser) {
+        if isFollowing {
+            if !(self.followingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.followingBy)).add(mastodonUser)
+            }
+        } else {
+            if (self.followingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.followingBy)).remove(mastodonUser)
+            }
+        }
+    }
+    public func update(isFollowRequested: Bool, by mastodonUser: MastodonUser) {
+        if isFollowRequested {
+            if !(self.followRequestedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.followRequestedBy)).add(mastodonUser)
+            }
+        } else {
+            if (self.followRequestedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.followRequestedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    public func update(isMuting: Bool, by mastodonUser: MastodonUser) {
+        if isMuting {
+            if !(self.mutingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.mutingBy)).add(mastodonUser)
+            }
+        } else {
+            if (self.mutingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.mutingBy)).remove(mastodonUser)
+            }
+        }
+    }
+    public func update(isBlocking: Bool, by mastodonUser: MastodonUser) {
+        if isBlocking {
+            if !(self.blockingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.blockingBy)).add(mastodonUser)
+            }
+        } else {
+            if (self.blockingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.blockingBy)).remove(mastodonUser)
+            }
+        }
+    }
+    public func update(isEndorsed: Bool, by mastodonUser: MastodonUser) {
+        if isEndorsed {
+            if !(self.endorsedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.endorsedBy)).add(mastodonUser)
+            }
+        } else {
+            if (self.endorsedBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.endorsedBy)).remove(mastodonUser)
+            }
+        }
+    }
+    public func update(isDomainBlocking: Bool, by mastodonUser: MastodonUser) {
+        if isDomainBlocking {
+            if !(self.domainBlockingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.domainBlockingBy)).add(mastodonUser)
+            }
+        } else {
+            if (self.domainBlockingBy ?? Set()).contains(mastodonUser) {
+                self.mutableSetValue(forKey: #keyPath(MastodonUser.domainBlockingBy)).remove(mastodonUser)
+            }
+        }
+    }
     
     public func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
@@ -98,8 +265,8 @@ extension MastodonUser {
     
 }
 
-public extension MastodonUser {
-    struct Property {
+extension MastodonUser {
+    public struct Property {
         public let identifier: String
         public let domain: String
         
@@ -109,6 +276,17 @@ public extension MastodonUser {
         public let displayName: String
         public let avatar: String
         public let avatarStatic: String?
+        public let header: String
+        public let headerStatic: String?
+        public let note: String?
+        public let url: String?
+        public let emojisData: Data?
+        public let statusesCount: Int
+        public let followingCount: Int
+        public let followersCount: Int
+        public let locked: Bool
+        public let bot: Bool?
+        public let suspended: Bool?
         
         public let createdAt: Date
         public let networkDate: Date
@@ -121,6 +299,17 @@ public extension MastodonUser {
             displayName: String,
             avatar: String,
             avatarStatic: String?,
+            header: String,
+            headerStatic: String?,
+            note: String?,
+            url: String?,
+            emojisData: Data?,
+            statusesCount: Int,
+            followingCount: Int,
+            followersCount: Int,
+            locked: Bool,
+            bot: Bool?,
+            suspended: Bool?,
             createdAt: Date,
             networkDate: Date
         ) {
@@ -132,6 +321,17 @@ public extension MastodonUser {
             self.displayName = displayName
             self.avatar = avatar
             self.avatarStatic = avatarStatic
+            self.header = header
+            self.headerStatic = headerStatic
+            self.note = note
+            self.url = url
+            self.emojisData = emojisData
+            self.statusesCount = statusesCount
+            self.followingCount = followingCount
+            self.followersCount = followersCount
+            self.locked = locked
+            self.bot = bot
+            self.suspended = suspended
             self.createdAt = createdAt
             self.networkDate = networkDate
         }

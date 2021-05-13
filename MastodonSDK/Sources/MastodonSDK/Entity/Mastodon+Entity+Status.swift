@@ -1,5 +1,5 @@
 //
-//  Mastodon+Entity+Toot.swift
+//  Mastodon+Entity+Status.swift
 //  
 //
 //  Created by MainasuK Cirno on 2021/1/27.
@@ -26,7 +26,7 @@ extension Mastodon.Entity {
         public let uri: String
         public let createdAt: Date
         public let account: Account
-        public let content: String
+        public let content: String? // will be optional when delete status
         
         public let visibility: Visibility?
         public let sensitive: Bool?

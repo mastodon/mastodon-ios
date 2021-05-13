@@ -53,22 +53,23 @@ extension HomeTimelineViewModel.LoadOldestState {
             }
             
             // TODO: only set large count when using Wi-Fi
-            let maxID = last.toot.id
+            let maxID = last.status.id
             viewModel.context.apiService.homeTimeline(domain: activeMastodonAuthenticationBox.domain, maxID: maxID, authorizationBox: activeMastodonAuthenticationBox)
                 .delay(for: .seconds(1), scheduler: DispatchQueue.main)
                 .receive(on: DispatchQueue.main)
                 .sink { completion in
+                    viewModel.homeTimelineNavigationBarTitleViewModel.receiveLoadingStateCompletion(completion)
                     switch completion {
                     case .failure(let error):
-                        os_log("%{public}s[%{public}ld], %{public}s: fetch toots failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log("%{public}s[%{public}ld], %{public}s: fetch statuses failed. %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                     case .finished:
                         // handle isFetchingLatestTimeline in fetch controller delegate
                         break
                     }
                 } receiveValue: { response in
-                    let toots = response.value
-                    // enter no more state when no new toots
-                    if toots.isEmpty || (toots.count == 1 && toots[0].id == maxID) {
+                    let statuses = response.value
+                    // enter no more state when no new statuses
+                    if statuses.isEmpty || (statuses.count == 1 && statuses[0].id == maxID) {
                         stateMachine.enter(NoMore.self)
                     } else {
                         stateMachine.enter(Idle.self)
@@ -102,9 +103,11 @@ extension HomeTimelineViewModel.LoadOldestState {
                 assertionFailure()
                 return
             }
-            var snapshot = diffableDataSource.snapshot()
-            snapshot.deleteItems([.bottomLoader])
-            diffableDataSource.apply(snapshot)
+            DispatchQueue.main.async {
+                var snapshot = diffableDataSource.snapshot()
+                snapshot.deleteItems([.bottomLoader])
+                diffableDataSource.apply(snapshot)
+            }
         }
     }
 }

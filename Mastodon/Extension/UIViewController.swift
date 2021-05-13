@@ -47,6 +47,53 @@ extension UIViewController {
 }
 
 extension UIViewController {
+
+    func viewController<T: UIViewController>(of type: T.Type) -> T? {
+        if let viewController = self as? T {
+            return viewController
+        }
+        
+        // UITabBarController
+        if let tabBarController = self as? UITabBarController {
+            for tab in tabBarController.viewControllers ?? [] {
+                if let viewController = tab.viewController(of: type) {
+                    return viewController
+                }
+            }
+        }
+        
+        // UINavigationController
+        if let navigationController = self as? UINavigationController {
+            for page in navigationController.viewControllers {
+                if let viewController = page.viewController(of: type) {
+                    return viewController
+                }
+            }
+        }
+        
+        // UIPageController
+        if let pageViewController = self as? UIPageViewController {
+            for page in pageViewController.viewControllers ?? [] {
+                if let viewController = page.viewController(of: type) {
+                    return viewController
+                }
+            }
+        }
+        
+        // child view controller
+        for subview in self.view?.subviews ?? [] {
+            if let childViewController = subview.next as? UIViewController,
+               let viewController = childViewController.viewController(of: type) {
+                return viewController
+            }
+        }
+        
+        return nil
+    }
+    
+}
+
+extension UIViewController {
     
     /// https://bluelemonbits.com/2018/08/26/inserting-cells-at-the-top-of-a-uitableview-with-no-scrolling/
     static func topVisibleTableViewCellIndexPath(in tableView: UITableView, navigationBar: UINavigationBar) -> IndexPath? {

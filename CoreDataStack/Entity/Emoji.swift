@@ -20,13 +20,13 @@ public final class Emoji: NSManagedObject {
     @NSManaged public private(set) var category: String?
     
     // many-to-one relationship
-    @NSManaged public private(set) var toot: Toot?
+    @NSManaged public private(set) var status: Status?
 }
 
 public extension Emoji {
     override func awakeFromInsert() {
         super.awakeFromInsert()
-        identifier = UUID()
+        setPrimitiveValue(UUID(), forKey: #keyPath(Emoji.identifier))
     }
 
     @discardableResult

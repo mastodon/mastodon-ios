@@ -23,7 +23,13 @@ extension AvatarConfigurableView {
     public func configure(with configuration: AvatarConfigurableViewConfiguration) {
         let placeholderImage: UIImage = {
             let placeholderImage = configuration.placeholderImage ?? UIImage.placeholder(size: Self.configurableAvatarImageSize, color: .systemFill)
-            return placeholderImage.af.imageRoundedIntoCircle()
+            if Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 {
+                return placeholderImage
+                    .af.imageAspectScaled(toFill: Self.configurableAvatarImageSize)
+                    .af.imageRounded(withCornerRadius: Self.configurableAvatarImageCornerRadius, divideRadiusByImageScale: false)
+            } else {
+                return placeholderImage.af.imageRoundedIntoCircle()
+            }
         }()
         
         // cancel previous task
@@ -41,14 +47,30 @@ extension AvatarConfigurableView {
         configurableAvatarButton?.layer.cornerRadius = 0
         configurableAvatarButton?.layer.cornerCurve = .circular
         
+        // accessibility
+        configurableAvatarImageView?.accessibilityIgnoresInvertColors = true
+        configurableAvatarButton?.accessibilityIgnoresInvertColors = true
+        
         defer {
             avatarConfigurableView(self, didFinishConfiguration: configuration)
         }
-        
+
+        let filter = ScaledToSizeWithRoundedCornersFilter(
+            size: Self.configurableAvatarImageSize,
+            radius: configuration.keepImageCorner ? 0 : Self.configurableAvatarImageCornerRadius
+        )
+
         // set placeholder if no asset
         guard let avatarImageURL = configuration.avatarImageURL else {
             configurableAvatarImageView?.image = placeholderImage
+            configurableAvatarImageView?.layer.masksToBounds = true
+            configurableAvatarImageView?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+            configurableAvatarImageView?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+            
             configurableAvatarButton?.setImage(placeholderImage, for: .normal)
+            configurableAvatarButton?.layer.masksToBounds = true
+            configurableAvatarButton?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+            configurableAvatarButton?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
             return
         }
 
@@ -65,9 +87,9 @@ extension AvatarConfigurableView {
                 )
                 avatarImageView.layer.masksToBounds = true
                 avatarImageView.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                avatarImageView.layer.cornerCurve = .circular
+                avatarImageView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+                    
             default:
-                let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
                 avatarImageView.af.setImage(
                     withURL: avatarImageURL,
                     placeholderImage: placeholderImage,
@@ -76,7 +98,15 @@ extension AvatarConfigurableView {
                     runImageTransitionIfCached: false,
                     completion: nil
                 )
+                
+                if Self.configurableAvatarImageCornerRadius > 0, configuration.keepImageCorner {
+                    configurableAvatarImageView?.layer.masksToBounds = true
+                    configurableAvatarImageView?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+                    configurableAvatarImageView?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+                }
             }
+            
+            configureLayerBorder(view: avatarImageView, configuration: configuration)
         }
         
         if let avatarButton = configurableAvatarButton {
@@ -92,9 +122,8 @@ extension AvatarConfigurableView {
                 )
                 avatarButton.layer.masksToBounds = true
                 avatarButton.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                avatarButton.layer.cornerCurve = .continuous
+                avatarButton.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous : .circular
             default:
-                let filter = ScaledToSizeWithRoundedCornersFilter(size: Self.configurableAvatarImageSize, radius: Self.configurableAvatarImageCornerRadius)
                 avatarButton.af.setImage(
                     for: .normal,
                     url: avatarImageURL,
@@ -103,7 +132,22 @@ extension AvatarConfigurableView {
                     completion: nil
                 )
             }
+            
+            configureLayerBorder(view: avatarButton, configuration: configuration)
         }
+    }
+    
+    func configureLayerBorder(view: UIView, configuration: AvatarConfigurableViewConfiguration) {
+        guard let borderWidth = configuration.borderWidth, borderWidth > 0,
+              let borderColor = configuration.borderColor else {
+            return
+        }
+        
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+        view.layer.cornerCurve = .continuous
+        view.layer.borderColor = borderColor.cgColor
+        view.layer.borderWidth = borderWidth
     }
     
     func avatarConfigurableView(_ avatarConfigurableView: AvatarConfigurableView, didFinishConfiguration configuration: AvatarConfigurableViewConfiguration) { }
@@ -114,10 +158,23 @@ struct AvatarConfigurableViewConfiguration {
     
     let avatarImageURL: URL?
     let placeholderImage: UIImage?
+    let borderColor: UIColor?
+    let borderWidth: CGFloat?
     
-    init(avatarImageURL: URL?, placeholderImage: UIImage? = nil) {
+    let keepImageCorner: Bool
+    
+    init(
+        avatarImageURL: URL?,
+        placeholderImage: UIImage? = nil,
+        borderColor: UIColor? = nil,
+        borderWidth: CGFloat? = nil,
+        keepImageCorner: Bool = false       // default clip corner on image
+    ) {
         self.avatarImageURL = avatarImageURL
         self.placeholderImage = placeholderImage
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
+        self.keepImageCorner = keepImageCorner
     }
     
 }

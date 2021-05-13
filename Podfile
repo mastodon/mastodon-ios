@@ -23,4 +23,20 @@ target 'Mastodon' do
     # Pods for testing
   end
 
+  target 'NotificationService' do 
+
+  end
+
+  target 'AppShared' do 
+
+  end
+
 end
+
+plugin 'cocoapods-keys', {
+  :project => "Mastodon",
+  :keys => [
+    "notification_endpoint",
+    "notification_endpoint_debug"
+  ]
+}

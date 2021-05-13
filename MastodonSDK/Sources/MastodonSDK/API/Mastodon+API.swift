@@ -5,6 +5,7 @@
 //  Created by xiaojian sun on 2021/1/25.
 //
 
+import os.log
 import Foundation
 import enum NIOHTTP1.HTTPResponseStatus
 
@@ -49,6 +50,9 @@ extension Mastodon.API {
                 if let date = fullDatePreciseISO8601Formatter.date(from: string) {
                     return date
                 }
+                if let timestamp = TimeInterval(string) {
+                    return Date(timeIntervalSince1970: timestamp)
+                }
             } catch {
                 // do nothing
             }
@@ -85,16 +89,40 @@ extension Mastodon.API {
         return URL(string: "https://" + domain + "/auth/confirmation/new")!
     }
     
+    public static func serverRulesURL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/about/more")!
+    }
+    
+    public static func privacyURL(domain: String) -> URL {
+        return URL(string: "https://" + domain + "/terms")!
+    }
 }
 
 extension Mastodon.API {
+    public enum V2 { }
     public enum Account { }
     public enum App { }
+    public enum CustomEmojis { }
+    public enum Favorites { }
     public enum Instance { }
+    public enum Media { }
     public enum OAuth { }
     public enum Onboarding { }
+    public enum Polls { }
+    public enum Reblog { }
+    public enum Statuses { }
     public enum Timeline { }
-    public enum Favorites { }
+    public enum Trends { }
+    public enum Suggestions { }
+    public enum Notifications { }
+    public enum Subscriptions { }
+    public enum Reports { }
+    public enum DomainBlock { }
+}
+
+extension Mastodon.API.V2 {
+    public enum Search { }
+    public enum Suggestions { }
 }
 
 extension Mastodon.API {
@@ -122,6 +150,22 @@ extension Mastodon.API {
     ) -> URLRequest {
         return buildRequest(url: url, method: .PATCH, query: query, authorization: authorization)
     }
+    
+    static func put(
+        url: URL,
+        query: PutQuery?,
+        authorization: OAuth.Authorization?
+    ) -> URLRequest {
+        return buildRequest(url: url, method: .PUT, query: query, authorization: authorization)
+    }
+    
+    static func delete(
+        url: URL,
+        query: DeleteQuery?,
+        authorization: OAuth.Authorization?
+    ) -> URLRequest {
+        return buildRequest(url: url, method: .DELETE, query: query, authorization: authorization)
+    }
 
     private static func buildRequest(
         url: URL,
@@ -138,8 +182,13 @@ extension Mastodon.API {
             timeoutInterval: Mastodon.API.timeoutInterval
         )
         request.httpMethod = method.rawValue
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = query?.body
+        if let contentType = query?.contentType {
+            request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        }
+        if let body = query?.body {
+            request.httpBody = body
+            request.setValue("\(body.count)", forHTTPHeaderField: "Content-Length")
+        }
         if let authorization = authorization {
             request.setValue(
                 "Bearer \(authorization.accessToken)",
@@ -155,6 +204,7 @@ extension Mastodon.API {
             return try Mastodon.API.decoder.decode(type, from: data)
         } catch let decodeError {
             #if DEBUG
+            os_log(.info, "%{public}s[%{public}ld], %{public}s: decode fail. content %s", ((#file as NSString).lastPathComponent), #line, #function, String(data: data, encoding: .utf8) ?? "<nil>")
             debugPrint(decodeError)
             #endif
             

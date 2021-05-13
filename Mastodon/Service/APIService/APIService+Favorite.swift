@@ -16,30 +16,30 @@ import CommonOSLog
 extension APIService {
     
     // make local state change only
-    func like(
-        tootObjectID: NSManagedObjectID,
+    func favorite(
+        statusObjectID: NSManagedObjectID,
         mastodonUserObjectID: NSManagedObjectID,
         favoriteKind: Mastodon.API.Favorites.FavoriteKind
-    ) -> AnyPublisher<Toot.ID, Error> {
-        var _targetTootID: Toot.ID?
+    ) -> AnyPublisher<Status.ID, Error> {
+        var _targetStatusID: Status.ID?
         let managedObjectContext = backgroundManagedObjectContext
         return managedObjectContext.performChanges {
-            let toot = managedObjectContext.object(with: tootObjectID) as! Toot
+            let status = managedObjectContext.object(with: statusObjectID) as! Status
             let mastodonUser = managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
-            let targetToot = toot.reblog ?? toot
-            let targetTootID = targetToot.id
-            _targetTootID = targetTootID
+            let targetStatus = status.reblog ?? status
+            let targetStatusID = targetStatus.id
+            _targetStatusID = targetStatusID
             
-            targetToot.update(liked: favoriteKind == .create, mastodonUser: mastodonUser)
+            targetStatus.update(liked: favoriteKind == .create, by: mastodonUser)
 
         }
         .tryMap { result in
             switch result {
             case .success:
-                guard let targetTootID = _targetTootID else {
+                guard let targetStatusID = _targetStatusID else {
                     throw APIError.implicit(.badRequest)
                 }
-                return targetTootID
+                return targetStatusID
                 
             case .failure(let error):
                 assertionFailure(error.localizedDescription)
@@ -50,7 +50,7 @@ extension APIService {
     }
     
     // send favorite request to remote
-    func like(
+    func favorite(
         statusID: Mastodon.Entity.Status.ID,
         favoriteKind: Mastodon.API.Favorites.FavoriteKind,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
@@ -76,11 +76,12 @@ extension APIService {
                             return nil
                         }
                     }()
-                    let _oldToot: Toot? = {
-                        let request = Toot.sortedFetchRequest
-                        request.predicate = Toot.predicate(domain: mastodonAuthenticationBox.domain, id: entity.id)
+                    let _oldStatus: Status? = {
+                        let request = Status.sortedFetchRequest
+                        request.predicate = Status.predicate(domain: mastodonAuthenticationBox.domain, id: statusID)
+                        request.fetchLimit = 1
                         request.returnsObjectsAsFaults = false
-                        request.relationshipKeyPathsForPrefetching = [#keyPath(Toot.reblog)]
+                        request.relationshipKeyPathsForPrefetching = [#keyPath(Status.reblog)]
                         do {
                             return try managedObjectContext.fetch(request).first
                         } catch {
@@ -90,12 +91,15 @@ extension APIService {
                     }()
                     
                     guard let requestMastodonUser = _requestMastodonUser,
-                          let oldToot = _oldToot else {
+                          let oldStatus = _oldStatus else {
                         assertionFailure()
                         return
                     }
-                    APIService.CoreData.mergeToot(for: requestMastodonUser, old: oldToot, in: mastodonAuthenticationBox.domain, entity: entity, networkDate: response.networkDate)
-                    os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update toot %{public}s like status to: %{public}s. now %ld likes", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.favourited.flatMap { $0 ? "like" : "unlike" } ?? "<nil>", entity.favouritesCount )
+                    APIService.CoreData.merge(status: oldStatus, entity: entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
+                    if favoriteKind == .destroy {
+                        oldStatus.update(favouritesCount: NSNumber(value: max(0, oldStatus.favouritesCount.intValue - 1)))
+                    }
+                    os_log(.info, log: log, "%{public}s[%{public}ld], %{public}s: did update status %{public}s like status to: %{public}s. now %ld likes", ((#file as NSString).lastPathComponent), #line, #function, entity.id, entity.favourited.flatMap { $0 ? "like" : "unlike" } ?? "<nil>", entity.favouritesCount )
                 }
                 .setFailureType(to: Error.self)
                 .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
@@ -112,7 +116,8 @@ extension APIService {
             .handleEvents(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
-                    print(error)
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: error:", ((#file as NSString).lastPathComponent), #line, #function)
+                    debugPrint(error)
                 case .finished:
                     break
                 }
@@ -123,20 +128,24 @@ extension APIService {
 }
 
 extension APIService {
-    func likeList(
-        limit: Int = onceRequestTootMaxCount,
-        userID: String,
+    func favoritedStatuses(
+        limit: Int = onceRequestStatusMaxCount,
         maxID: String? = nil,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
 
         let requestMastodonUserID = mastodonAuthenticationBox.userID
-        let query = Mastodon.API.Favorites.ListQuery(limit: limit, minID: nil, maxID: maxID)
-        return Mastodon.API.Favorites.getFavoriteStatus(domain: mastodonAuthenticationBox.domain, session: session, authorization: mastodonAuthenticationBox.userAuthorization, query: query)
+        let query = Mastodon.API.Favorites.FavoriteStatusesQuery(limit: limit, minID: nil, maxID: maxID)
+        return Mastodon.API.Favorites.favoritedStatus(
+            domain: mastodonAuthenticationBox.domain,
+            session: session,
+            authorization: mastodonAuthenticationBox.userAuthorization,
+            query: query
+        )
             .map { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> in
                 let log = OSLog.api
                 
-                return APIService.Persist.persistTimeline(
+                return APIService.Persist.persistStatus(
                     managedObjectContext: self.backgroundManagedObjectContext,
                     domain: mastodonAuthenticationBox.domain,
                     query: query,

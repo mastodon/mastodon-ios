@@ -23,7 +23,17 @@ class AppContext: ObservableObject {
     
     let apiService: APIService
     let authenticationService: AuthenticationService
-    
+    let emojiService: EmojiService
+    let audioPlaybackService = AudioPlaybackService()
+    let videoPlaybackService = VideoPlaybackService()
+    let statusPrefetchingService: StatusPrefetchingService
+    let statusPublishService = StatusPublishService()
+    let notificationService: NotificationService
+    let settingService: SettingService
+
+    let blockDomainService: BlockDomainService    
+    let photoLibraryService = PhotoLibraryService()
+
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!
     
@@ -40,10 +50,34 @@ class AppContext: ObservableObject {
         let _apiService = APIService(backgroundManagedObjectContext: _backgroundManagedObjectContext)
         apiService = _apiService
         
-        authenticationService = AuthenticationService(
+        let _authenticationService = AuthenticationService(
             managedObjectContext: _managedObjectContext,
             backgroundManagedObjectContext: _backgroundManagedObjectContext,
             apiService: _apiService
+        )
+        authenticationService = _authenticationService
+        
+        emojiService = EmojiService(
+            apiService: apiService
+        )
+        statusPrefetchingService = StatusPrefetchingService(
+            apiService: _apiService
+        )
+        let _notificationService = NotificationService(
+            apiService: _apiService,
+            authenticationService: _authenticationService
+        )
+        notificationService = _notificationService
+        
+        settingService = SettingService(
+            apiService: _apiService,
+            authenticationService: _authenticationService,
+            notificationService: _notificationService
+        )
+        
+        blockDomainService = BlockDomainService(
+            backgroundManagedObjectContext: _backgroundManagedObjectContext,
+            authenticationService: _authenticationService
         )
         
         documentStore = DocumentStore()

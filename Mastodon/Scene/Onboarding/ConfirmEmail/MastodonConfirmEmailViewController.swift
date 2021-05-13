@@ -36,11 +36,18 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
         label.numberOfLines = 0
         return label
     }()
+    
+    let emailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Asset.email.image
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
 
     let openEmailButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.lightBrandBlue.color), for: .normal)
+        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
         button.layer.masksToBounds = true
@@ -53,7 +60,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     let dontReceiveButton: UIButton = {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.boldSystemFont(ofSize: 15))
-        button.setTitleColor(Asset.Colors.lightBrandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.dontReceiveEmail, for: .normal)
         button.addTarget(self, action: #selector(dontReceiveButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         return button
@@ -70,11 +77,6 @@ extension MastodonConfirmEmailViewController {
     override func viewDidLoad() {
 
         setupOnboardingAppearance()
-        
-        // resizedView
-        let resizedView = UIView()
-        resizedView.translatesAutoresizingMaskIntoConstraints = false
-        resizedView.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         // stackView
         let stackView = UIStackView()
@@ -85,7 +87,9 @@ extension MastodonConfirmEmailViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(self.largeTitleLabel)
         stackView.addArrangedSubview(self.subtitleLabel)
-        stackView.addArrangedSubview(resizedView)
+        stackView.addArrangedSubview(self.emailImageView)
+        emailImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        emailImageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         stackView.addArrangedSubview(self.openEmailButton)
         stackView.addArrangedSubview(self.dontReceiveButton)
 
@@ -111,7 +115,24 @@ extension MastodonConfirmEmailViewController {
                         case .failure(let error):
                             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: swap user access token swap fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                         case .finished:
-                            break
+                            // upload avatar and set display name in the background
+                            self.context.apiService.accountUpdateCredentials(
+                                domain: self.viewModel.authenticateInfo.domain,
+                                query: self.viewModel.updateCredentialQuery,
+                                authorization: Mastodon.API.OAuth.Authorization(accessToken: self.viewModel.userToken.accessToken)
+                            )
+                            .retry(3)
+                            .sink { completion in
+                                switch completion {
+                                case .failure(let error):
+                                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                                case .finished:
+                                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: setup avatar & display name success", ((#file as NSString).lastPathComponent), #line, #function)
+                                }
+                            } receiveValue: { _ in
+                                // do nothing
+                            }
+                            .store(in: &self.context.disposeBag)    // execute in the background
                         }
                     } receiveValue: { response in
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
@@ -179,3 +200,27 @@ extension MastodonConfirmEmailViewController {
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonConfirmEmailViewController: OnboardingViewControllerAppearance { }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+struct MastodonConfirmEmailViewController_Previews: PreviewProvider {
+    
+    static var controls: some View {
+        UIViewControllerPreview {
+            let viewController = MastodonConfirmEmailViewController()
+            return viewController
+        }
+        .previewLayout(.fixed(width: 375, height: 800))
+    }
+    
+    static var previews: some View {
+            Group {
+                controls.colorScheme(.light)
+                controls.colorScheme(.dark)
+            }
+    }
+    
+}
+
+#endif

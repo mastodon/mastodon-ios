@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol PickServerSearchCellDelegate: class {
-    func pickServerSearchCell(didChange searchText: String?)
+protocol PickServerSearchCellDelegate: AnyObject {
+    func pickServerSearchCell(_ cell: PickServerSearchCell, searchTextDidChange searchText: String?)
 }
 
 class PickServerSearchCell: UITableViewCell {
@@ -17,20 +17,20 @@ class PickServerSearchCell: UITableViewCell {
     
     private var bgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.lightWhite.color
+        view.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.maskedCorners = [
             .layerMinXMinYCorner,
             .layerMaxXMinYCorner
         ]
         view.layer.cornerCurve = .continuous
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
         return view
     }()
     
     private var textFieldBgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.lightBackground.color.withAlphaComponent(0.6)
+        view.backgroundColor = Asset.Colors.TextField.background.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 6
@@ -38,22 +38,28 @@ class PickServerSearchCell: UITableViewCell {
         return view
     }()
     
-    private var searchTextField: UITextField = {
+    let searchTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = .preferredFont(forTextStyle: .headline)
-        textField.tintColor = Asset.Colors.lightDarkGray.color
-        textField.textColor = Asset.Colors.lightDarkGray.color
+        textField.tintColor = Asset.Colors.Label.primary.color
+        textField.textColor = Asset.Colors.Label.primary.color
         textField.adjustsFontForContentSizeCategory = true
         textField.attributedPlaceholder =
             NSAttributedString(string: L10n.Scene.ServerPicker.Input.placeholder,
                                attributes: [.font: UIFont.preferredFont(forTextStyle: .headline),
-                                            .foregroundColor: Asset.Colors.lightSecondaryText.color.withAlphaComponent(0.6)])
+                                            .foregroundColor: Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)])
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         return textField
     }()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        delegate = nil
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,8 +74,8 @@ class PickServerSearchCell: UITableViewCell {
 
 extension PickServerSearchCell {
     private func _init() {
-        self.selectionStyle = .none
-        backgroundColor = .clear
+        selectionStyle = .none
+        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
@@ -97,7 +103,7 @@ extension PickServerSearchCell {
 }
 
 extension PickServerSearchCell {
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        delegate?.pickServerSearchCell(didChange: textField.text)
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        delegate?.pickServerSearchCell(self, searchTextDidChange: textField.text)
     }
 }

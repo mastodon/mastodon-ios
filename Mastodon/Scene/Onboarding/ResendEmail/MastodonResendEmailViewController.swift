@@ -40,9 +40,10 @@ final class MastodonResendEmailViewController: UIViewController, NeedsDependency
 }
     
 extension MastodonResendEmailViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupOnboardingAppearance()
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MastodonResendEmailViewController.cancelBarButtonItemPressed(_:)))
         
         webView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,6 +60,7 @@ extension MastodonResendEmailViewController {
         webView.load(request)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: resendEmail via: %s", (#file as NSString).lastPathComponent, #line, #function, viewModel.resendEmailURL.debugDescription)
     }
+    
 }
 
 extension MastodonResendEmailViewController {
@@ -66,3 +68,6 @@ extension MastodonResendEmailViewController {
         dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - OnboardingViewControllerAppearance
+extension MastodonResendEmailViewController: OnboardingViewControllerAppearance { }

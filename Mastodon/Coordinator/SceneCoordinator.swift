@@ -13,6 +13,7 @@ final public class SceneCoordinator {
     private weak var scene: UIScene!
     private weak var sceneDelegate: SceneDelegate!
     private weak var appContext: AppContext!
+    private weak var tabBarController: MainTabBarController!
     
     let id = UUID().uuidString
     
@@ -33,8 +34,8 @@ extension SceneCoordinator {
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
-        case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
         case alertController(animated: Bool, completion: (() -> Void)? = nil)
+        case activityViewControllerPresent(animated: Bool, completion: (() -> Void)? = nil)
     }
     
     enum Scene {
@@ -46,10 +47,37 @@ extension SceneCoordinator {
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
+        case mastodonWebView(viewModel:WebViewModel)
+        
+        // compose
+        case compose(viewModel: ComposeViewModel)
+        
+        // thread
+        case thread(viewModel: ThreadViewModel)
+        
+        // Hashtag Timeline
+        case hashtagTimeline(viewModel: HashtagTimelineViewModel)
+      
+        // profile
+        case profile(viewModel: ProfileViewModel)
+        case favorite(viewModel: FavoriteViewModel)
+        
+        // setting
+        case settings(viewModel: SettingsViewModel)
+        
+        // report
+        case report(viewModel: ReportViewModel)
+
+        // suggestion account
+        case suggestionAccount(viewModel: SuggestionAccountViewModel)
+        
+        // media preview
+        case mediaPreview(viewModel: MediaPreviewViewModel)
         
         // misc
+        case safari(url: URL)
         case alertController(alertController: UIAlertController)
-        
+        case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
         #if DEBUG
         case publicTimeline
         #endif
@@ -76,13 +104,14 @@ extension SceneCoordinator {
     func setup() {
         let viewController = MainTabBarController(context: appContext, coordinator: self)
         sceneDelegate.window?.rootViewController = viewController
+        tabBarController = viewController
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
         // Check user authentication status and show onboarding if needs
         do {
             let request = MastodonAuthentication.sortedFetchRequest
-            if try appContext.managedObjectContext.fetch(request).isEmpty {
+            if try appContext.managedObjectContext.count(for: request) == 0 {
                 DispatchQueue.main.async {
                     self.present(
                         scene: .welcome,
@@ -104,6 +133,17 @@ extension SceneCoordinator {
         guard var presentingViewController = sender ?? sceneDelegate.window?.rootViewController?.topMost else {
             return nil
         }
+        // adapt for child controller
+        if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
+            switch viewController {
+            case is ProfileViewController:
+                let barButtonItem = UIBarButtonItem(title: navigationControllerVisibleViewController.navigationItem.title, style: .plain, target: nil, action: nil)
+                barButtonItem.tintColor = .white
+                navigationControllerVisibleViewController.navigationItem.backBarButtonItem = barButtonItem
+            default:
+                navigationControllerVisibleViewController.navigationItem.backBarButtonItem = nil
+            }
+        }
         
         if let mainTabBarController = presentingViewController as? MainTabBarController,
            let navigationController = mainTabBarController.selectedViewController as? UINavigationController,
@@ -116,17 +156,18 @@ extension SceneCoordinator {
             presentingViewController.show(viewController, sender: sender)
             
         case .showDetail:
-            let navigationController = UINavigationController(rootViewController: viewController)
+            let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
             presentingViewController.showDetailViewController(navigationController, sender: sender)
             
         case .modal(let animated, let completion):
             let modalNavigationController: UINavigationController = {
                 if scene.isOnboarding {
-                    return DarkContentStatusBarStyleNavigationController(rootViewController: viewController)
+                    return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
                 } else {
                     return UINavigationController(rootViewController: viewController)
                 }
             }()
+            modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
             if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
                 modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
             }
@@ -143,18 +184,24 @@ extension SceneCoordinator {
             sender?.navigationController?.pushViewController(viewController, animated: true)
             
         case .safariPresent(let animated, let completion):
-            presentingViewController.present(viewController, animated: animated, completion: completion)
-            
-        case .activityViewControllerPresent(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
             
         case .alertController(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
+            presentingViewController.present(viewController, animated: animated, completion: completion)
+            
+        case .activityViewControllerPresent(let animated, let completion):
+            viewController.modalPresentationCapturesStatusBarAppearance = true
             presentingViewController.present(viewController, animated: animated, completion: completion)
         }
         
         return viewController
     }
 
+    func switchToTabBar(tab: MainTabBarController.Tab) {
+        tabBarController.selectedIndex = tab.rawValue
+    }
 }
 
 private extension SceneCoordinator {
@@ -190,6 +237,48 @@ private extension SceneCoordinator {
             let _viewController = MastodonResendEmailViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
+        case .mastodonWebView(let viewModel):
+            let _viewController = WebViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .compose(let viewModel):
+            let _viewController = ComposeViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .thread(let viewModel):
+            let _viewController = ThreadViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .hashtagTimeline(let viewModel):
+            let _viewController = HashtagTimelineViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .profile(let viewModel):
+            let _viewController = ProfileViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .favorite(let viewModel):
+            let _viewController = FavoriteViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .settings(let viewModel):
+            let _viewController = SettingsViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .suggestionAccount(let viewModel):
+            let _viewController = SuggestionAccountViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .mediaPreview(let viewModel):
+            let _viewController = MediaPreviewViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .safari(let url):
+            guard let scheme = url.scheme?.lowercased(),
+                  scheme == "http" || scheme == "https" else {
+                return nil
+            }
+            viewController = SFSafariViewController(url: url)
         case .alertController(let alertController):
             if let popoverPresentationController = alertController.popoverPresentationController {
                 assert(
@@ -199,6 +288,18 @@ private extension SceneCoordinator {
                 )
             }
             viewController = alertController
+        case .activityViewController(let activityViewController, let sourceView, let barButtonItem):
+            activityViewController.popoverPresentationController?.sourceView = sourceView
+            activityViewController.popoverPresentationController?.barButtonItem = barButtonItem
+            viewController = activityViewController
+        case .settings(let viewModel):
+            let _viewController = SettingsViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .report(let viewModel):
+            let _viewController = ReportViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         #if DEBUG
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()

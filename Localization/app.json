@@ -1,13 +1,45 @@
 {
     "common": {
         "alerts": {
+            "common": {
+                "please_try_again": "Please try again.",
+                "please_try_again_later": "Please try again later."
+            },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
                 "title": "Server Error"
+            },
+            "vote_failure": {
+                "title": "Vote Failure",
+                "poll_expired": "The poll has expired"
+            },
+            "discard_post_content": {
+                "title": "Discard Publish",
+                "message": "Confirm discard composed post content."
+            },
+            "publish_post_failure": {
+                "title": "Publish Failure",
+                "message": "Failed to publish the post.\nPlease check your internet connection."
+            },
+            "sign_out": {
+                "title": "Sign out",
+                "message": "Are you sure you want to sign out?",
+                "confirm": "Sign Out"
+            },
+            "block_domain": {
+                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.",
+                "block_entire_domain": "Block entire domain"
+            },
+            "save_photo_failure": {
+                "title": "Save Photo Failure",
+                "message": "Please enable photo libaray access permission to save photo."
+            },
+            "delete_post": {
+                "title": "Are you sure you want to delete this post?",
+                "delete": "Delete"
             }
-            
         },
         "controls": {
             "actions": {
@@ -17,25 +49,111 @@
                 "edit": "Edit",
                 "save": "Save",
                 "ok": "OK",
+                "done": "Done",
                 "confirm": "Confirm",
                 "continue": "Continue",
                 "cancel": "Cancel",
+                "discard": "Discard",
+                "try_again": "Try Again",
                 "take_photo": "Take photo",
                 "save_photo": "Save photo",
                 "sign_in": "Sign In",
                 "sign_up": "Sign Up",
                 "see_more": "See More",
                 "preview": "Preview",
-                "open_in_safari": "Open in Safari"
+                "share": "Share",
+                "share_user": "Share %s",
+                "share_post": "Share post",
+                "open_in_safari": "Open in Safari",
+                "find_people": "Find people to follow",
+                "manually_search": "Manually search instead",
+                "skip": "Skip",
+                "report_user": "Report %s",
+                "block_domain": "Block %s",
+                "unblock_domain": "Unblock %s",
+                "settings": "Settings",
+                "delete": "Delete"
+            },
+            "tabs": {
+                "home": "Home",
+                "search": "Search",
+                "notification": "Notification",
+                "profile": "Profile"
             },
             "status": {
-                "user_boosted": "%s boosted",
+                "user_reblogged": "%s reblogged",
+                "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
-                "status_content_warning": "content warning",
-                "media_content_warning": "Tap to reveal that may be sensitive"
+                "show_user_profile": "Show user profile",
+                "content_warning": "content warning",
+                "content_warning_text": "cw: %s",
+                "media_content_warning": "Tap to reveal that may be sensitive",
+                "poll": {
+                    "vote": "Vote",
+                    "vote_count": {
+                        "single": "%d vote",
+                        "multiple": "%d votes"
+                    },
+                    "voter_count": {
+                        "single": "%d voter",
+                        "multiple": "%d voters"
+                    },
+                    "time_left": "%s left",
+                    "closed": "Closed"
+                },
+                "actions": {
+                    "reply": "Reply",
+                    "reblog": "Reblog",
+                    "unreblog": "Unreblog",
+                    "favorite": "Favorite",
+                    "unfavorite": "Unfavorite",
+                    "menu": "Menu"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Mention",
+                    "link": "Link",
+                    "hashtag": "Hashtag",
+                    "email": "Email",
+                    "emoji": "Emoji"
+                }
+            },
+            "firendship": {
+                "follow": "Follow",
+                "following": "Following",
+                "request": "Request",
+                "pending": "Pending",
+                "block": "Block",
+                "block_user": "Block %s",
+                "block_domain": "Block %s",
+                "unblock": "Unblock",
+                "unblock_user": "Unblock %s",
+                "blocked": "Blocked",
+                "mute": "Mute",
+                "mute_user": "Mute %s",
+                "unmute": "Unmute",
+                "unmute_user": "Unmute %s",
+                "muted": "Muted",
+                "edit_info": "Edit info"
             },
             "timeline": {
-                "load_more": "Load More"
+                "loader": {
+                    "load_missing_posts": "Load missing posts",
+                    "loading_missing_posts": "Loading missing posts...",
+                    "show_more_replies": "Show more replies"
+                },
+                "header": {
+                    "no_status_found": "No Status Found",
+                    "blocking_warning": "You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.",
+                    "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
+                    "suspended_warning": "This account has been suspended.",
+                    "user_suspended_warning": "%s's account has been suspended."
+                },
+                "accessibility": {
+                    "count_replies": "%s replies",
+                    "count_reblogs": "%s reblogs",
+                    "count_favorites": "%s favorites"
+                }
             }
         },
         "countable": {
@@ -51,25 +169,46 @@
         },
         "server_picker": {
             "title": "Pick a Server,\nany server.",
-            "Button": {
-                "Category": {
-                    "All": "All"
+            "button": {
+                "category": {
+                    "all": "All",
+                    "all_accessiblity_description": "Category: All",
+                    "academia": "academia",
+                    "activism": "activism",
+                    "food": "food",
+                    "furry": "furry",
+                    "games": "games",
+                    "general": "general",
+                    "journalism": "journalism",
+                    "lgbt": "lgbt",
+                    "regional": "regional",
+                    "art": "art",
+                    "music": "music",
+                    "tech": "tech"
                 },
-                "SeeLess": "See Less",
-                "SeeMore": "See More"
+                "see_less": "See Less",
+                "see_more": "See More"
             },
-            "Label": {
-                "Language": "LANGUAGE",
-                "Users": "USERS",
-                "Category": "CATEGORY"
+            "label": {
+                "language": "LANGUAGE",
+                "users": "USERS",
+                "category": "CATEGORY"
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
+            },
+            "empty_state": {
+                "finding_servers": "Finding available servers...",
+                "bad_network": "Something went wrong while loading data. Check your internet connection.",
+                "no_results": "No results"
             }
         },
         "register": {
             "title": "Tell us about you.",
             "input": {
+                "avatar": {
+                    "delete": "Delete"
+                },
                 "username": {
                     "placeholder": "username",
                     "duplicate_prompt": "This username is taken."
@@ -82,27 +221,54 @@
                 },
                 "password": {
                     "placeholder": "password",
-                    "prompt": "Your password needs at least:",
-                    "prompt_eight_characters": "Eight characters"
+                    "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
-                  "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Why do you want to join?"
                 }
             },
-            "success": "Success",
-            "check_email": "Regsiter request sent. Please check your email."
+            "error": {
+                "item": {
+                    "username": "Username",
+                    "email": "Email",
+                    "password": "Password",
+                    "agreement": "Agreement",
+                    "locale": "Locale",
+                    "reason": "Reason"
+                },
+                "reason": {
+                    "blocked": "%s contains a disallowed e-mail provider",
+                    "unreachable": "%s does not seem to exist",
+                    "taken": "%s is already in use",
+                    "reserved": "%s is a reserved keyword",
+                    "accepted": "%s must be accepted",
+                    "blank": "%s is required",
+                    "invalid": "%s is invalid",
+                    "too_long": "%s is too long",
+                    "too_short": "%s is too short",
+                    "inclusion": "%s is not a supported value"
+                },
+                "special": {
+                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_too_long": "Username is too long (can't be longer than 30 characters)",
+                    "email_invalid": "This is not a valid e-mail address",
+                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                }
+            }
         },
         "server_rules": {
             "title": "Some ground rules.",
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
+            "terms_of_service": "terms of service",
+            "privacy_policy": "privacy policy",
             "button": {
                 "confirm": "I Agree"
             }
         },
         "confirm_email": {
             "title": "One last thing.",
-            "subtitle": "We just sent an email to %@,\ntap the link to confirm your account.",
+            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
                 "open_email_app": "Open Email App",
                 "dont_receive_email": "I never got an email"
@@ -120,10 +286,204 @@
             }
         },
         "home_timeline": {
-            "title": "Home"
+            "title": "Home",
+            "navigation_bar_state": {
+                "offline": "Offline",
+                "new_posts": "See new posts",
+                "published": "Published!",
+                "Publishing": "Publishing post..."
+            }
+        },
+        "suggestion_account": {
+            "title": "Find People to Follow",
+            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
         },
         "public_timeline": {
             "title": "Public"
+        },
+        "compose": {
+            "title": {
+                "new_post": "New Post",
+                "new_reply": "New Reply"
+            },
+            "media_selection": {
+                "camera": "Take Photo",
+                "photo_library": "Photo Library",
+                "browse": "Browse"
+            },
+            "content_input_placeholder": "Type or paste what's on your mind",
+            "compose_action": "Publish",
+            "replying_to_user": "replying to %s",
+            "attachment": {
+                "photo": "photo",
+                "video": "video",
+                "attachment_broken": "This %s is broken and can't be\nuploaded to Mastodon.",
+                "description_photo": "Describe photo for low vision people...",
+                "description_video": "Describe what’s happening for low vision people..."
+            },
+            "poll": {
+                "duration_time": "Duration: %s",
+                "thirty_minutes": "30 minutes",
+                "one_hour": "1 Hour",
+                "six_hours": "6 Hours",
+                "one_day": "1 Day",
+                "three_days": "3 Days",
+                "seven_days": "7 Days",
+                "option_number": "Option %ld"
+            },
+            "content_warning": {
+                "placeholder": "Write an accurate warning here..."
+            },
+            "visibility": {
+                "public": "Public",
+                "unlisted": "Unlisted",
+                "private": "Followers only",
+                "direct": "Only people I mention"
+            },
+            "accessibility": {
+                "append_attachment": "Append attachment",
+                "append_poll": "Append poll",
+                "remove_poll": "Remove poll",
+                "custom_emoji_picker": "Custom emoji picker",
+                "enable_content_warning": "Enable content warning",
+                "disable_content_warning": "Disable content warning",
+                "post_visibility_menu": "Post visibility menu",
+                "input_limit_remains_count": "Input limit remains %ld",
+                "input_limit_exceeds_count": "Input limit exceeds %ld"
+            }
+        },
+        "profile": {
+            "subtitle": "%s posts",
+            "dashboard": {
+                "posts": "posts",
+                "following": "following",
+                "followers": "followers",
+                "accessibility": {
+                    "count_posts": "%ld posts",
+                    "count_following": "%ld following",
+                    "count_followers": "%ld followers"
+                }
+            },
+            "segmented_control": {
+                "posts": "Posts",
+                "replies": "Replies",
+                "media": "Media"
+            },
+            "relationship_action_alert": {
+                "confirm_unmute_user": {
+                    "title": "Unmute Account",
+                    "message": "Confirm unmute %s"
+                },
+                "confirm_unblock_usre": {
+                    "title": "Unblock Account",
+                    "message": "Confirm unblock %s"
+                }
+            }
+        },
+        "search": {
+            "searchBar": {
+                "placeholder": "Search hashtags and users",
+                "cancel": "Cancel"
+            },
+            "recommend": {
+                "button_text": "See All",
+                "hash_tag": {
+                    "title": "Trending in your timeline",
+                    "description": "Hashtags that are getting quite a bit of attention among people you follow",
+                    "people_talking": "%s people are talking"
+                },
+                "accounts": {
+                    "title": "Accounts you might like",
+                    "description": "You may like to follow these accounts",
+                    "follow": "Follow"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "All",
+                    "people": "People",
+                    "hashtags": "Hashtags"
+                },
+                "recent_search": "Recent searches",
+                "clear": "clear"
+            }
+        },
+        "hashtag": {
+            "prompt": "%s people talking"
+        },
+        "favorite": {
+            "title": "Your Favorites"
+        },
+        "notification": {
+            "title": {
+                "Everything": "Everything",
+                "Mentions": "Mentions"
+            },
+            "action": {
+                "follow": "followed you",
+                "favourite": "favorited your post",
+                "reblog": "rebloged your post",
+                "poll": "Your poll has ended",
+                "mention": "mentioned you",
+                "follow_request": "request to follow you"
+            }
+        },
+        "thread": {
+            "back_title": "Post",
+            "title": "Post from %s",
+            "reblog": {
+                "single": "%s reblog",
+                "multiple": "%s reblogs"
+            },
+            "favorite": {
+                "single": "%s favorite",
+                "multiple": "%s favorites"
+            }
+        },
+        "settings": {
+            "title": "Settings",
+            "section": {
+                "appearance": {
+                    "title": "Appearance",
+                    "automatic": "Automatic",
+                    "light": "Always Light",
+                    "dark": "Always Dark"
+                },
+                "notifications": {
+                    "title": "Notifications",
+                    "favorites": "Favorites my post",
+                    "follows": "Follows me",
+                    "boosts": "Reblogs my post",
+                    "mentions": "Mentions me",
+                    "trigger": {
+                        "anyone": "anyone",
+                        "follower": "a follower",
+                        "follow": "anyone I follow",
+                        "noone": "no one",
+                        "title": "Notify me when"
+                    }
+                },
+                "boringzone": {
+                    "title": "The Boring zone",
+                    "terms": "Terms of Service",
+                    "privacy": "Privacy Policy"
+                },
+                "spicyzone": {
+                    "title": "The spicy zone",
+                    "clear": "Clear Media Cache",
+                    "signout": "Sign Out"
+                }
+            }
+        },
+        "report": {
+            "title": "Report %s",
+            "step1": "Step 1 of 2",
+            "step2": "Step 2 of 2",
+            "content1": "Are there any other posts you’d like to add to the report?",
+            "content2": "Is there anything the moderators should know about this report?",
+            "send": "Send Report",
+            "skip_to_send": "Send without comment",
+            "text_placeholder": "Type or paste additional comments"
         }
     }
 }

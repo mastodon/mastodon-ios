@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NeedsDependency: class {
+protocol NeedsDependency: AnyObject {
     var context: AppContext! { get set }
     var coordinator: SceneCoordinator! { get set }
 }

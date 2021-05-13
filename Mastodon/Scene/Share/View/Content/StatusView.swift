@@ -11,43 +11,77 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 
-protocol StatusViewDelegate: class {
-    func statusView(_ statusView: StatusView, contentWarningActionButtonPressed button: UIButton)
+protocol StatusViewDelegate: AnyObject {
+    func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
+    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
+    func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
+    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
 }
 
 final class StatusView: UIView {
     
+    var statusPollTableViewHeightObservation: NSKeyValueObservation?
+    
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
+    static let avatarToLabelSpacing: CGFloat = 5
     static let contentWarningBlurRadius: CGFloat = 12
+    static let containerStackViewSpacing: CGFloat = 10
     
     weak var delegate: StatusViewDelegate?
-    var isStatusTextSensitive = false
+    private var needsDrawContentOverlay = false
+    var pollTableViewDataSource: UITableViewDiffableDataSource<PollSection, PollItem>?
+    var pollTableViewHeightLaoutConstraint: NSLayoutConstraint!
     
-    let headerContainerStackView = UIStackView()
+    let containerStackView = UIStackView()
+    let headerContainerView = UIView()
+    let authorContainerView = UIView()
+    
+    static let reblogIconImage: UIImage = {
+        let font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        let configuration = UIImage.SymbolConfiguration(font: font)
+        let image = UIImage(systemName: "arrow.2.squarepath", withConfiguration: configuration)!.withTintColor(Asset.Colors.Label.secondary.color)
+        return image
+    }()
+    
+    static let replyIconImage: UIImage = {
+        let font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        let configuration = UIImage.SymbolConfiguration(font: font)
+        let image = UIImage(systemName: "arrowshape.turn.up.left.fill", withConfiguration: configuration)!.withTintColor(Asset.Colors.Label.secondary.color)
+        return image
+    }()
+    
+    static func iconAttributedString(image: UIImage) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString()
+        let imageTextAttachment = NSTextAttachment()
+        let imageAttribute = NSAttributedString(attachment: imageTextAttachment)
+        imageTextAttachment.image = image
+        attributedString.append(imageAttribute)
+        return attributedString
+    }
     
     let headerIconLabel: UILabel = {
         let label = UILabel()
-        let attributedString = NSMutableAttributedString()
-        let imageTextAttachment = NSTextAttachment()
-        let font = UIFont.systemFont(ofSize: 13, weight: .medium)
-        let configuration = UIImage.SymbolConfiguration(font: font)
-        imageTextAttachment.image = UIImage(systemName: "arrow.2.squarepath", withConfiguration: configuration)?.withTintColor(Asset.Colors.Label.secondary.color)
-        let imageAttribute = NSAttributedString(attachment: imageTextAttachment)
-        attributedString.append(imageAttribute)
-        label.attributedText = attributedString
+        label.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
         return label
     }()
     
-    let headerInfoLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
-        label.textColor = Asset.Colors.Label.secondary.color
-        label.text = "Bob boosted"
+    let headerInfoLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusHeader)
+        label.text = "Bob reblogged"
         return label
     }()
     
-    let avatarView = UIView()
+    let avatarView: UIView = {
+        let view = UIView()
+        view.isAccessibilityElement = true
+        view.accessibilityTraits = .button
+        view.accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
+        return view
+    }()
     let avatarButton: UIButton = {
         let button = HighlightDimmableButton(type: .custom)
         let placeholderImage = UIImage.placeholder(size: avatarImageSize, color: .systemFill)
@@ -55,12 +89,20 @@ final class StatusView: UIView {
         button.setImage(placeholderImage, for: .normal)
         return button
     }()
+    let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = Asset.Colors.Label.primary.color
+    let nameLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusName)
         label.text = "Alice"
+        return label
+    }()
+    
+    let nameTrialingDotLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.font = .systemFont(ofSize: 17)
+        label.text = "·"
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -69,6 +111,7 @@ final class StatusView: UIView {
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textColor = Asset.Colors.Label.secondary.color
         label.text = "@alice"
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -80,43 +123,90 @@ final class StatusView: UIView {
         return label
     }()
     
-    let statusContainerStackView = UIStackView()
-    let statusTextContainerView = UIView()
-    let statusContentWarningContainerStackView = UIStackView()
-    var statusContentWarningContainerStackViewBottomLayoutConstraint: NSLayoutConstraint!
-    
-    let contentWarningTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Common.Controls.Status.statusContentWarning
-        return label
-    }()
-    let contentWarningActionButton: UIButton = {
-        let button = UIButton()
-        button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .medium))
-        button.setTitleColor(Asset.Colors.Label.highlight.color, for: .normal)
-        button.setTitle(L10n.Common.Controls.Status.showPost, for: .normal)
+    let revealContentWarningButton: UIButton = {
+        let button = HighlightDimmableButton()
+        button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
+        button.tintColor = Asset.Colors.Button.normal.color
         return button
     }()
-    let statusMosaicImageView = MosaicImageViewContainer()
     
-    // do not use visual effect view due to we blur text only without background
-    let contentWarningBlurContentImageView: UIImageView = {
+    let visibilityImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
-        imageView.layer.masksToBounds = false
+        imageView.tintColor = Asset.Colors.Label.secondary.color
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
+    let statusContainerStackView = UIStackView()    
+    let statusMosaicImageViewContainer = MosaicImageViewContainer()
+    
+    let pollTableView: PollTableView = {
+        let tableView = PollTableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
+        tableView.isScrollEnabled = false
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        return tableView
+    }()
+    
+    let pollStatusStackView = UIStackView()
+    let pollVoteCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Status.Poll.VoteCount.single(0)
+        return label
+    }()
+    let pollStatusDotLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = " · "
+        return label
+    }()
+    let pollCountdownLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Status.Poll.timeLeft("6 hours")
+        return label
+    }()
+    let pollVoteButton: UIButton = {
+        let button = HitTestExpandedButton()
+        button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
+        button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
+        button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
+        button.setTitleColor(Asset.Colors.Button.normal.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
+        button.isEnabled = false
+        return button
+    }()
+    
+    // do not use visual effect view due to we blur text only without background
+    let contentWarningOverlayView: ContentWarningOverlayView = {
+        let contentWarningOverlayView = ContentWarningOverlayView()
+        contentWarningOverlayView.layer.masksToBounds = false
+        contentWarningOverlayView.configure(style: .blurContentImageView)
+        return contentWarningOverlayView
+    }()
 
+    let playerContainerView = PlayerContainerView()
+    
+    let audioView: AudioContainerView = {
+        let audioView = AudioContainerView()
+        return audioView
+    }()
     let actionToolbarContainer: ActionToolbarContainer = {
         let actionToolbarContainer = ActionToolbarContainer()
         actionToolbarContainer.configure(for: .inline)
         return actionToolbarContainer
     }()
     
-    
     let activeTextLabel = ActiveLabel(style: .default)
+    
+    private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+    
+    var isRevealing = true
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -136,16 +226,20 @@ final class StatusView: UIView {
             drawContentWarningImageView()
         }
     }
+    
+    deinit {
+        statusPollTableViewHeightObservation = nil
+    }
 
 }
 
 extension StatusView {
     
     func _init() {
-        // container: [retoot | author | status | action toolbar]
-        let containerStackView = UIStackView()
+        // container: [reblog | author | status | action toolbar]
+        // note: do not set spacing for nested stackView to avoid SDK layout conflict issue
         containerStackView.axis = .vertical
-        containerStackView.spacing = 10
+        // containerStackView.spacing = 10
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(containerStackView)
         NSLayoutConstraint.activate([
@@ -154,19 +248,30 @@ extension StatusView {
             trailingAnchor.constraint(equalTo: containerStackView.trailingAnchor),
             bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor),
         ])
+        containerStackView.setContentHuggingPriority(.required - 1, for: .vertical)
         
         // header container: [icon | info]
-        containerStackView.addArrangedSubview(headerContainerStackView)
-        headerContainerStackView.spacing = 4
+        let headerContainerStackView = UIStackView()
+        headerContainerStackView.axis = .horizontal
         headerContainerStackView.addArrangedSubview(headerIconLabel)
         headerContainerStackView.addArrangedSubview(headerInfoLabel)
         headerIconLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         
-        // author container: [avatar | author meta container]
+        headerContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        headerContainerView.addSubview(headerContainerStackView)
+        NSLayoutConstraint.activate([
+            headerContainerStackView.topAnchor.constraint(equalTo: headerContainerView.topAnchor),
+            headerContainerStackView.leadingAnchor.constraint(equalTo: headerContainerView.leadingAnchor),
+            headerContainerStackView.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor),
+            headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+        ])
+        containerStackView.addArrangedSubview(headerContainerView)
+        
+        // author container: [avatar | author meta container | reveal button]
         let authorContainerStackView = UIStackView()
-        containerStackView.addArrangedSubview(authorContainerStackView)
         authorContainerStackView.axis = .horizontal
-        authorContainerStackView.spacing = 5
+        authorContainerStackView.spacing = StatusView.avatarToLabelSpacing
+        authorContainerStackView.distribution = .fill
 
         // avatar
         avatarView.translatesAutoresizingMaskIntoConstraints = false
@@ -183,6 +288,14 @@ extension StatusView {
             avatarButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
             avatarButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
         ])
+        avatarStackedContainerButton.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.addSubview(avatarStackedContainerButton)
+        NSLayoutConstraint.activate([
+            avatarStackedContainerButton.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            avatarStackedContainerButton.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
+            avatarStackedContainerButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
+            avatarStackedContainerButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
+        ])
         
         // author meta container: [title container | subtitle container]
         let authorMetaContainerStackView = UIStackView()
@@ -190,7 +303,7 @@ extension StatusView {
         authorMetaContainerStackView.axis = .vertical
         authorMetaContainerStackView.spacing = 4
         
-        // title container: [display name | "·" | date]
+        // title container: [display name | "·" | date | padding | visibility]
         let titleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(titleContainerStackView)
         titleContainerStackView.axis = .horizontal
@@ -201,125 +314,256 @@ extension StatusView {
             nameLabel.heightAnchor.constraint(equalToConstant: 22).priority(.defaultHigh),
         ])
         titleContainerStackView.alignment = .firstBaseline
-        let dotLabel: UILabel = {
-            let label = UILabel()
-            label.textColor = Asset.Colors.Label.secondary.color
-            label.font = .systemFont(ofSize: 17)
-            label.text = "·"
-            return label
-        }()
-        titleContainerStackView.addArrangedSubview(dotLabel)
+        titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
+        titleContainerStackView.addArrangedSubview(UIView()) // padding
+        titleContainerStackView.addArrangedSubview(visibilityImageView)
         nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
-        dotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
-        dotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
+        nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        
+        visibilityImageView.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(subtitleContainerStackView)
         subtitleContainerStackView.axis = .horizontal
         subtitleContainerStackView.addArrangedSubview(usernameLabel)
+
+        // reveal button
+        authorContainerStackView.addArrangedSubview(revealContentWarningButton)
+        revealContentWarningButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         
-        // status container: [status | image / video | audio]
+        authorContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        authorContainerView.addSubview(authorContainerStackView)
+        NSLayoutConstraint.activate([
+            authorContainerStackView.topAnchor.constraint(equalTo: authorContainerView.topAnchor),
+            authorContainerStackView.leadingAnchor.constraint(equalTo: authorContainerView.leadingAnchor),
+            authorContainerStackView.trailingAnchor.constraint(equalTo: authorContainerView.trailingAnchor),
+            authorContainerView.bottomAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+        ])
+        containerStackView.addArrangedSubview(authorContainerView)
+        
+        // status container: [status | image / video | audio | poll | poll status] (overlay with content warning)
         containerStackView.addArrangedSubview(statusContainerStackView)
         statusContainerStackView.axis = .vertical
         statusContainerStackView.spacing = 10
-        statusContainerStackView.addArrangedSubview(statusTextContainerView)
-        statusTextContainerView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
-        activeTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        statusTextContainerView.addSubview(activeTextLabel)
-        NSLayoutConstraint.activate([
-            activeTextLabel.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
-            activeTextLabel.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
-            activeTextLabel.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: activeTextLabel.bottomAnchor),
-        ])
-        contentWarningBlurContentImageView.translatesAutoresizingMaskIntoConstraints = false
-        statusTextContainerView.addSubview(contentWarningBlurContentImageView)
-        NSLayoutConstraint.activate([
-            activeTextLabel.topAnchor.constraint(equalTo: contentWarningBlurContentImageView.topAnchor, constant: StatusView.contentWarningBlurRadius),
-            activeTextLabel.leadingAnchor.constraint(equalTo: contentWarningBlurContentImageView.leadingAnchor, constant: StatusView.contentWarningBlurRadius),
-            
-        ])
-        statusContentWarningContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        statusContentWarningContainerStackView.axis = .vertical
-        statusContentWarningContainerStackView.distribution = .fill
-        statusContentWarningContainerStackView.alignment = .center
-        statusTextContainerView.addSubview(statusContentWarningContainerStackView)
-        statusContentWarningContainerStackViewBottomLayoutConstraint = statusTextContainerView.bottomAnchor.constraint(greaterThanOrEqualTo: statusContentWarningContainerStackView.bottomAnchor)
-        NSLayoutConstraint.activate([
-            statusContentWarningContainerStackView.topAnchor.constraint(equalTo: statusTextContainerView.topAnchor),
-            statusContentWarningContainerStackView.leadingAnchor.constraint(equalTo: statusTextContainerView.leadingAnchor),
-            statusContentWarningContainerStackView.trailingAnchor.constraint(equalTo: statusTextContainerView.trailingAnchor),
-            statusContentWarningContainerStackViewBottomLayoutConstraint,
-        ])
-        statusContentWarningContainerStackView.addArrangedSubview(contentWarningTitle)
-        statusContentWarningContainerStackView.addArrangedSubview(contentWarningActionButton)
-        statusContainerStackView.addArrangedSubview(statusMosaicImageView)
         
+        // content warning overlay
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addSubview(contentWarningOverlayView)
+        NSLayoutConstraint.activate([
+            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultHigh),
+            statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultHigh),
+            contentWarningOverlayView.rightAnchor.constraint(equalTo: statusContainerStackView.rightAnchor, constant: StatusView.contentWarningBlurRadius).priority(.defaultHigh),
+            // only layout to top and left & right then draw image to fit size
+        ])
+        // avoid overlay clip author view
+        containerStackView.bringSubviewToFront(authorContainerView)
+        
+        // status
+        statusContainerStackView.addArrangedSubview(activeTextLabel)
+        activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        
+        // image
+        statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)
+        
+        // audio
+        audioView.translatesAutoresizingMaskIntoConstraints = false
+        statusContainerStackView.addArrangedSubview(audioView)
+        NSLayoutConstraint.activate([
+            audioView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
+        ])
+        
+        // video & gifv
+        statusContainerStackView.addArrangedSubview(playerContainerView)
+        
+        pollTableView.translatesAutoresizingMaskIntoConstraints = false
+        statusContainerStackView.addArrangedSubview(pollTableView)
+        pollTableViewHeightLaoutConstraint = pollTableView.heightAnchor.constraint(equalToConstant: 44.0).priority(.required - 1)
+        NSLayoutConstraint.activate([
+            pollTableViewHeightLaoutConstraint,
+        ])
+        
+        statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
+            guard let self = self else { return }
+            guard self.pollTableView.contentSize.height != .zero else {
+                self.pollTableViewHeightLaoutConstraint.constant = 44
+                return
+            }
+            self.pollTableViewHeightLaoutConstraint.constant = self.pollTableView.contentSize.height
+        })
+        
+        statusContainerStackView.addArrangedSubview(pollStatusStackView)
+        pollStatusStackView.axis = .horizontal
+        pollStatusStackView.addArrangedSubview(pollVoteCountLabel)
+        pollStatusStackView.addArrangedSubview(pollStatusDotLabel)
+        pollStatusStackView.addArrangedSubview(pollCountdownLabel)
+        pollStatusStackView.addArrangedSubview(pollVoteButton)
+        pollVoteCountLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
+        pollStatusDotLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        pollCountdownLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        pollVoteButton.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
         
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
-        headerContainerStackView.isHidden = true
-        statusMosaicImageView.isHidden = true
-        contentWarningBlurContentImageView.isHidden = true
-        statusContentWarningContainerStackView.isHidden = true
-        statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = false
+        headerContainerView.isHidden = true
+        statusMosaicImageViewContainer.isHidden = true
+        pollTableView.isHidden = true
+        pollStatusStackView.isHidden = true
+        audioView.isHidden = true
+        playerContainerView.isHidden = true
         
-        contentWarningActionButton.addTarget(self, action: #selector(StatusView.contentWarningActionButtonPressed(_:)), for: .touchUpInside)
+        avatarStackedContainerButton.isHidden = true
+        contentWarningOverlayView.isHidden = true
+        
+        activeTextLabel.delegate = self
+        playerContainerView.delegate = self
+        contentWarningOverlayView.delegate = self
+        
+        headerInfoLabelTapGestureRecognizer.addTarget(self, action: #selector(StatusView.headerInfoLabelTapGestureRecognizerHandler(_:)))
+        headerInfoLabel.isUserInteractionEnabled = true
+        headerInfoLabel.addGestureRecognizer(headerInfoLabelTapGestureRecognizer)
+        
+        avatarButton.addTarget(self, action: #selector(StatusView.avatarButtonDidPressed(_:)), for: .touchUpInside)
+        avatarStackedContainerButton.addTarget(self, action: #selector(StatusView.avatarStackedContainerButtonDidPressed(_:)), for: .touchUpInside)
+        revealContentWarningButton.addTarget(self, action: #selector(StatusView.revealContentWarningButtonDidPressed(_:)), for: .touchUpInside)
+        pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
     }
     
 }
 
 extension StatusView {
     
-    func cleanUpContentWarning() {
-        contentWarningBlurContentImageView.image = nil
+    private func cleanUpContentWarning() {
+        contentWarningOverlayView.blurContentImageView.image = nil
     }
     
     func drawContentWarningImageView() {
-        guard activeTextLabel.frame != .zero,
-              isStatusTextSensitive,
-              let text = activeTextLabel.text, !text.isEmpty else {
-            cleanUpContentWarning()
+        guard window != nil else {
             return
         }
         
-        let image = UIGraphicsImageRenderer(size: activeTextLabel.frame.size).image { context in
-            activeTextLabel.draw(activeTextLabel.bounds)
+        guard needsDrawContentOverlay, statusContainerStackView.frame != .zero else {
+            cleanUpContentWarning()
+            return
+        }
+
+        let format = UIGraphicsImageRendererFormat()
+        format.opaque = false
+        let image = UIGraphicsImageRenderer(size: statusContainerStackView.frame.size, format: format).image { context in
+            statusContainerStackView.drawHierarchy(in: statusContainerStackView.bounds, afterScreenUpdates: true)
         }
         .blur(radius: StatusView.contentWarningBlurRadius)
-        contentWarningBlurContentImageView.contentScaleFactor = traitCollection.displayScale
-        contentWarningBlurContentImageView.image = image
+        contentWarningOverlayView.blurContentImageView.contentScaleFactor = traitCollection.displayScale
+        contentWarningOverlayView.blurContentImageView.image = image
     }
     
-    func updateContentWarningDisplay(isHidden: Bool) {
-        contentWarningBlurContentImageView.isHidden = isHidden
-        statusContentWarningContainerStackView.isHidden = isHidden
-        statusContentWarningContainerStackViewBottomLayoutConstraint.isActive = !isHidden
+    func updateContentWarningDisplay(isHidden: Bool, animated: Bool) {
+        needsDrawContentOverlay = !isHidden
+        
+        if !isHidden {
+            drawContentWarningImageView()
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut) { [weak self] in
+                guard let self = self else { return }
+                self.contentWarningOverlayView.alpha = isHidden ? 0 : 1
+            } completion: { _ in
+                // do nothing
+            }
+        } else {
+            contentWarningOverlayView.alpha = isHidden ? 0 : 1
+        }
+        
+        contentWarningOverlayView.blurContentWarningTitleLabel.isHidden = isHidden
+        contentWarningOverlayView.blurContentWarningLabel.isHidden = isHidden
+    }
+    
+    func updateRevealContentWarningButton(isRevealing: Bool) {
+        self.isRevealing = isRevealing
+        
+        if !isRevealing {
+            let image = traitCollection.userInterfaceStyle == .light ? UIImage(systemName: "eye")! : UIImage(systemName: "eye.fill")
+            revealContentWarningButton.setImage(image, for: .normal)
+        } else {
+            let image = traitCollection.userInterfaceStyle == .light ? UIImage(systemName: "eye.slash")! : UIImage(systemName: "eye.slash.fill")
+            revealContentWarningButton.setImage(image, for: .normal)
+        }
+        // TODO: a11y
+    }
+    
+    func updateVisibility(visibility: String) {
+        guard let visibility = ComposeToolbarView.VisibilitySelectionType(rawValue: visibility) else { return }
+        visibilityImageView.image = UIImage(systemName: visibility.imageNameForTimeline(), withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
     }
     
 }
 
 extension StatusView {
-    @objc private func contentWarningActionButtonPressed(_ sender: UIButton) {
+    
+    @objc private func headerInfoLabelTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.statusView(self, contentWarningActionButtonPressed: sender)
+        delegate?.statusView(self, headerInfoLabelDidPressed: headerInfoLabel)
+    }
+    
+    @objc private func avatarButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, avatarButtonDidPressed: sender)
+    }
+    
+    @objc private func avatarStackedContainerButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, avatarButtonDidPressed: sender)
+    }
+    
+    @objc private func revealContentWarningButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, revealContentWarningButtonDidPressed: sender)
+    }
+    
+    @objc private func pollVoteButtonPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.statusView(self, pollVoteButtonPressed: sender)
+    }
+    
+}
+
+// MARK: - ActiveLabelDelegate
+extension StatusView: ActiveLabelDelegate {
+    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
+        delegate?.statusView(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
     }
 }
 
+// MARK: - ContentWarningOverlayViewDelegate
+extension StatusView: ContentWarningOverlayViewDelegate {
+    func contentWarningOverlayViewDidPressed(_ contentWarningOverlayView: ContentWarningOverlayView) {
+        assert(contentWarningOverlayView === self.contentWarningOverlayView)
+        delegate?.statusView(self, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+    
+}
+
+// MARK: - PlayerContainerViewDelegate
+extension StatusView: PlayerContainerViewDelegate {
+    func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
+        delegate?.statusView(self, playerContainerView: playerContainerView, contentWarningOverlayViewDidPressed: contentWarningOverlayView)
+    }
+}
+
+// MARK: - AvatarConfigurableView
 extension StatusView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { return Self.avatarImageSize }
     static var configurableAvatarImageCornerRadius: CGFloat { return 4 }
     var configurableAvatarImageView: UIImageView? { return nil }
     var configurableAvatarButton: UIButton? { return avatarButton }
     var configurableVerifiedBadgeImageView: UIImageView? { nil }
-    
-    
 }
 
 #if canImport(SwiftUI) && DEBUG
@@ -328,6 +572,7 @@ import SwiftUI
 struct StatusView_Previews: PreviewProvider {
     
     static let avatarFlora = UIImage(named: "tiraya-adam")
+    static let avatarMarkus = UIImage(named: "markus-spiske")
     
     static var previews: some View {
         Group {
@@ -342,6 +587,28 @@ struct StatusView_Previews: PreviewProvider {
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 200))
+            .previewDisplayName("Normal")
+            UIViewPreview(width: 375) {
+                let statusView = StatusView()
+                statusView.headerContainerView.isHidden = false
+                statusView.avatarButton.isHidden = true
+                statusView.avatarStackedContainerButton.isHidden = false
+                statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarFlora
+                    )
+                )
+                statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarMarkus
+                    )
+                )
+                return statusView
+            }
+            .previewLayout(.fixed(width: 375, height: 200))
+            .previewDisplayName("Reblog")
             UIViewPreview(width: 375) {
                 let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
                 statusView.configure(
@@ -350,21 +617,43 @@ struct StatusView_Previews: PreviewProvider {
                         placeholderImage: avatarFlora
                     )
                 )
-                statusView.headerContainerStackView.isHidden = false
-                statusView.isStatusTextSensitive = true
-                statusView.setNeedsLayout()
-                statusView.layoutIfNeeded()
-                statusView.drawContentWarningImageView()
-                statusView.updateContentWarningDisplay(isHidden: false)
+                statusView.headerContainerView.isHidden = false
                 let images = MosaicImageView_Previews.images
-                let imageViews = statusView.statusMosaicImageView.setupImageViews(count: 4, maxHeight: 162)
-                for (i, imageView) in imageViews.enumerated() {
+                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                for (i, mosaic) in mosaics.enumerated() {
+                    let (imageView, _) = mosaic
                     imageView.image = images[i]
                 }
-                statusView.statusMosaicImageView.isHidden = false
+                statusView.statusMosaicImageViewContainer.isHidden = false
+                statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
                 return statusView
             }
             .previewLayout(.fixed(width: 375, height: 380))
+            .previewDisplayName("Image Meida")
+            UIViewPreview(width: 375) {
+                let statusView = StatusView(frame: CGRect(x: 0, y: 0, width: 375, height: 500))
+                statusView.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: nil,
+                        placeholderImage: avatarFlora
+                    )
+                )
+                statusView.headerContainerView.isHidden = false
+                statusView.setNeedsLayout()
+                statusView.layoutIfNeeded()
+                statusView.updateContentWarningDisplay(isHidden: false, animated: false)
+                statusView.drawContentWarningImageView()
+                let images = MosaicImageView_Previews.images
+                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                for (i, mosaic) in mosaics.enumerated() {
+                    let (imageView, _) = mosaic
+                    imageView.image = images[i]
+                }
+                statusView.statusMosaicImageViewContainer.isHidden = false
+                return statusView
+            }
+            .previewLayout(.fixed(width: 375, height: 380))
+            .previewDisplayName("Content Sensitive")
         }
     }
     

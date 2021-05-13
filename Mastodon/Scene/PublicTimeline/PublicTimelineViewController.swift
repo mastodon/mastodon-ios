@@ -13,12 +13,14 @@ import GameplayKit
 import os.log
 import UIKit
 
-final class PublicTimelineViewController: UIViewController, NeedsDependency {
+final class PublicTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: PublicTimelineViewModel!
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
     
     let refreshControl = UIRefreshControl()
     
@@ -73,14 +75,20 @@ extension PublicTimelineViewController {
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         viewModel.setupDiffableDataSource(
             for: tableView,
             dependency: self,
-            timelinePostTableViewCellDelegate: self,
+            statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        context.videoPlaybackService.viewDidDisappear(from: self)
+        context.audioPlaybackService.viewDidDisappear(from: self)
+    }
 }
 
 // MARK: - UIScrollViewDelegate
@@ -114,14 +122,24 @@ extension PublicTimelineViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        handleTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         
         let key = item.hashValue
         let frame = cell.frame
         viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+extension PublicTimelineViewController: UITableViewDataSourcePrefetching {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        handleTableView(tableView, prefetchRowsAt: indexPaths)
     }
 }
 
@@ -143,13 +161,13 @@ extension PublicTimelineViewController: LoadMoreConfigurableTableViewContainer {
 
 // MARK: - TimelineMiddleLoaderTableViewCellDelegate
 extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate {
-    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineTootID: String?, timelineIndexobjectID: NSManagedObjectID?) {
-        guard let upperTimelineTootID = upperTimelineTootID else {return}
+    func configure(cell: TimelineMiddleLoaderTableViewCell, upperTimelineStatusID: String?, timelineIndexobjectID: NSManagedObjectID?) {
+        guard let upperTimelineStatusID = upperTimelineStatusID else {return}
         viewModel.loadMiddleSateMachineList
             .receive(on: DispatchQueue.main)
             .sink { [weak self] ids in
                 guard let _ = self else { return }
-                if let stateMachine = ids[upperTimelineTootID] {
+                if let stateMachine = ids[upperTimelineStatusID] {
                     guard let state = stateMachine.currentState else {
                         assertionFailure()
                         return
@@ -157,31 +175,29 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
 
                     // make success state same as loading due to snapshot updating delay
                     let isLoading = state is PublicTimelineViewModel.LoadMiddleState.Loading || state is PublicTimelineViewModel.LoadMiddleState.Success
-                    cell.loadMoreButton.isHidden = isLoading
                     if isLoading {
-                        cell.activityIndicatorView.startAnimating()
+                        cell.startAnimating()
                     } else {
-                        cell.activityIndicatorView.stopAnimating()
+                        cell.stopAnimating()
                     }
                 } else {
-                    cell.loadMoreButton.isHidden = false
-                    cell.activityIndicatorView.stopAnimating()
+                    cell.stopAnimating()
                 }
             }
             .store(in: &cell.disposeBag)
         
         var dict = viewModel.loadMiddleSateMachineList.value
-        if let _ = dict[upperTimelineTootID] {
+        if let _ = dict[upperTimelineStatusID] {
             // do nothing
         } else {
             let stateMachine = GKStateMachine(states: [
-                PublicTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
-                PublicTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
-                PublicTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
-                PublicTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperTimelineTootID: upperTimelineTootID),
+                PublicTimelineViewModel.LoadMiddleState.Initial(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
+                PublicTimelineViewModel.LoadMiddleState.Loading(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
+                PublicTimelineViewModel.LoadMiddleState.Fail(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
+                PublicTimelineViewModel.LoadMiddleState.Success(viewModel: viewModel, upperTimelineStatusID: upperTimelineStatusID),
             ])
             stateMachine.enter(PublicTimelineViewModel.LoadMiddleState.Initial.self)
-            dict[upperTimelineTootID] = stateMachine
+            dict[upperTimelineStatusID] = stateMachine
             viewModel.loadMiddleSateMachineList.value = dict
         }
     }
@@ -204,5 +220,21 @@ extension PublicTimelineViewController: TimelineMiddleLoaderTableViewCellDelegat
     }
 }
 
+// MARK: - AVPlayerViewControllerDelegate
+extension PublicTimelineViewController: AVPlayerViewControllerDelegate {
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+}
+
 // MARK: - StatusTableViewCellDelegate
-extension PublicTimelineViewController: StatusTableViewCellDelegate { }
+extension PublicTimelineViewController: StatusTableViewCellDelegate {
+    weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
+    func parent() -> UIViewController { return self }
+}

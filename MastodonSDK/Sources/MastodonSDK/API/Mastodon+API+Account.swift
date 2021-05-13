@@ -8,119 +8,17 @@
 import Foundation
 import Combine
 
+// MARK: - Retrieve information
 extension Mastodon.API.Account {
-    
-    static func verifyCredentialsEndpointURL(domain: String) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/verify_credentials") 
-    }
-    static func accountsEndpointURL(domain: String) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts")
-    }
+
     static func accountsInfoEndpointURL(domain: String, id: String) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts")
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("accounts")
             .appendingPathComponent(id)
     }
-    static func updateCredentialsEndpointURL(domain: String) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/update_credentials")
-    }
 
-    /// Test to make sure that the user token works.
+    /// Retrieve information
     ///
-    /// - Since: 0.0.0
-    /// - Version: 3.3.0
-    /// # Last Update
-    ///   2021/2/9
-    /// # Reference
-    ///   [Document](https://docs.joinmastodon.org/methods/accounts/)
-    /// - Parameters:
-    ///   - session: `URLSession`
-    ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - authorization: App token
-    /// - Returns: `AnyPublisher` contains `Account` nested in the response
-    public static func verifyCredentials(
-        session: URLSession,
-        domain: String,
-        authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        let request = Mastodon.API.get(
-            url: verifyCredentialsEndpointURL(domain: domain),
-            query: nil,
-            authorization: authorization
-        )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
-    }
-
-    /// Creates a user and account records.
-    ///
-    /// - Since: 2.7.0
-    /// - Version: 3.3.0
-    /// # Last Update
-    ///   2021/2/9
-    /// # Reference
-    ///   [Document](https://docs.joinmastodon.org/methods/accounts/)
-    /// - Parameters:
-    ///   - session: `URLSession`
-    ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - query: `RegisterQuery` with account registration information
-    ///   - authorization: App token
-    /// - Returns: `AnyPublisher` contains `Token` nested in the response
-    public static func register(
-        session: URLSession,
-        domain: String,
-        query: RegisterQuery,
-        authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> {
-        let request = Mastodon.API.post(
-            url: accountsEndpointURL(domain: domain),
-            query: query,
-            authorization: authorization
-        )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Token.self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
-    }
-
-    /// Update the user's display and preferences.
-    ///
-    /// - Since: 1.1.1
-    /// - Version: 3.3.0
-    /// # Last Update
-    ///   2021/2/9
-    /// # Reference
-    ///   [Document](https://docs.joinmastodon.org/methods/accounts/)
-    /// - Parameters:
-    ///   - session: `URLSession`
-    ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - query: `CredentialQuery` with update credential information
-    ///   - authorization: user token
-    /// - Returns: `AnyPublisher` contains updated `Account` nested in the response
-    public static func updateCredentials(
-        session: URLSession,
-        domain: String,
-        query: UpdateCredentialQuery,
-        authorization: Mastodon.API.OAuth.Authorization
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
-        let request = Mastodon.API.patch(
-            url: updateCredentialsEndpointURL(domain: domain),
-            query: query,
-            authorization: authorization
-        )
-        return session.dataTaskPublisher(for: request)
-            .tryMap { data, response in
-                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
-                return Mastodon.Response.Content(value: value, response: response)
-            }
-            .eraseToAnyPublisher()
-    }
-
     /// View information about a profile.
     ///
     /// - Since: 0.0.0
@@ -138,11 +36,11 @@ extension Mastodon.API.Account {
     public static func accountInfo(
         session: URLSession,
         domain: String,
-        query: AccountInfoQuery,
+        userID: Mastodon.Entity.Account.ID,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
         let request = Mastodon.API.get(
-            url: accountsInfoEndpointURL(domain: domain, id: query.id),
+            url: accountsInfoEndpointURL(domain: domain, id: userID),
             query: nil,
             authorization: authorization
         )
@@ -158,76 +56,130 @@ extension Mastodon.API.Account {
 
 extension Mastodon.API.Account {
     
-    public struct RegisterQuery: Codable, PostQuery {
-        public let reason: String?
-        public let username: String
-        public let email: String
-        public let password: String
-        public let agreement: Bool
-        public let locale: String
+    static func accountStatusesEndpointURL(domain: String, accountID: Mastodon.Entity.Account.ID) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/\(accountID)/statuses")
+    }
+    
+    /// View statuses from followed users.
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.3.0
+    /// # Last Update
+    ///   2021/3/30
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/accounts/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `AccountStatuseseQuery` with query parameters
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Token` nested in the response
+    public static func statuses(
+        session: URLSession,
+        domain: String,
+        accountID: Mastodon.Entity.Account.ID,
+        query: AccountStatuseseQuery,
+        authorization: Mastodon.API.OAuth.Authorization
+    ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
+        let request = Mastodon.API.get(
+            url: accountStatusesEndpointURL(domain: domain, accountID: accountID),
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: [Mastodon.Entity.Status].self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    public struct AccountStatuseseQuery: GetQuery {
+        public let maxID: Mastodon.Entity.Status.ID?
+        public let sinceID: Mastodon.Entity.Status.ID?
+        public let excludeReplies: Bool?    // undocumented
+        public let excludeReblogs: Bool?
+        public let onlyMedia: Bool?
+        public let limit: Int?
         
-        public init(reason: String? = nil, username: String, email: String, password: String, agreement: Bool, locale: String) {
-            self.reason = reason
-            self.username = username
-            self.email = email
-            self.password = password
-            self.agreement = agreement
-            self.locale = locale
-        }
-    }
-
-    public struct UpdateCredentialQuery: Codable, PatchQuery {
-
-        public var discoverable: Bool?
-        public var bot: Bool?
-        public var displayName: String?
-        public var note: String?
-        public var avatar: String?
-        public var header: String?
-        public var locked: Bool?
-        public var source: Mastodon.Entity.Source?
-        public var fieldsAttributes: [Mastodon.Entity.Field]?
-
-        enum CodingKeys: String, CodingKey {
-            case discoverable
-            case bot
-            case displayName = "display_name"
-            case note
-
-            case avatar
-            case header
-            case locked
-            case source
-            case fieldsAttributes = "fields_attributes"
-        }
-
         public init(
-            discoverable: Bool? = nil,
-            bot: Bool? = nil,
-            displayName: String? = nil,
-            note: String? = nil,
-            avatar: Mastodon.Entity.MediaAttachment? = nil,
-            header: Mastodon.Entity.MediaAttachment? = nil,
-            locked: Bool? = nil,
-            source: Mastodon.Entity.Source? = nil,
-            fieldsAttributes: [Mastodon.Entity.Field]? = nil
+            maxID: Mastodon.Entity.Status.ID?,
+            sinceID: Mastodon.Entity.Status.ID?,
+            excludeReplies: Bool?,
+            excludeReblogs: Bool?,
+            onlyMedia: Bool?,
+            limit: Int?
         ) {
-            self.discoverable = discoverable
-            self.bot = bot
-            self.displayName = displayName
-            self.note = note
-            self.avatar = avatar?.base64EncondedString
-            self.header = header?.base64EncondedString
-            self.locked = locked
-            self.source = source
-            self.fieldsAttributes = fieldsAttributes
+            self.maxID = maxID
+            self.sinceID = sinceID
+            self.excludeReplies = excludeReplies
+            self.excludeReblogs = excludeReblogs
+            self.onlyMedia = onlyMedia
+            self.limit = limit
+        }
+
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            maxID.flatMap { items.append(URLQueryItem(name: "max_id", value: $0)) }
+            sinceID.flatMap { items.append(URLQueryItem(name: "since_id", value: $0)) }
+            excludeReplies.flatMap { items.append(URLQueryItem(name: "exclude_replies", value: $0.queryItemValue)) }
+            excludeReblogs.flatMap { items.append(URLQueryItem(name: "exclude_reblogs", value: $0.queryItemValue)) }
+            onlyMedia.flatMap { items.append(URLQueryItem(name: "only_media", value: $0.queryItemValue)) }
+            limit.flatMap { items.append(URLQueryItem(name: "limit", value: String($0))) }
+            guard !items.isEmpty else { return nil }
+            return items
         }
     }
+    
+}
 
-    public struct AccountInfoQuery: GetQuery {
-
-        public let id: String
-
-        var queryItems: [URLQueryItem]? { nil }
+extension Mastodon.API.Account {
+    static func accountsLookupEndpointURL(domain: String) -> URL {
+        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("accounts/lookup")
     }
+
+    public struct AccountLookupQuery: GetQuery {
+
+        public var acct: String
+        
+        public init(acct: String) {
+            self.acct = acct
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            var items: [URLQueryItem] = []
+            items.append(URLQueryItem(name: "acct", value: acct))
+            return items
+        }
+    }
+    
+    /// lookup account by acct.
+    ///
+    /// - Version: 3.3.1
+
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - query: `AccountInfoQuery` with account query information,
+    ///   - authorization: app token
+    /// - Returns: `AnyPublisher` contains `Account` nested in the response
+    public static func lookupAccount(
+        session: URLSession,
+        domain: String,
+        query: AccountLookupQuery,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        let request = Mastodon.API.get(
+            url: accountsLookupEndpointURL(domain: domain),
+            query: query,
+            authorization: authorization
+        )
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Account.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+    
 }

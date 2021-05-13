@@ -22,7 +22,7 @@ final public class HomeTimelineIndex: NSManagedObject {
 
     
     // many-to-one relationship
-    @NSManaged public private(set) var toot: Toot
+    @NSManaged public private(set) var status: Status
     
 }
 
@@ -32,16 +32,16 @@ extension HomeTimelineIndex {
     public static func insert(
         into context: NSManagedObjectContext,
         property: Property,
-        toot: Toot
+        status: Status
     ) -> HomeTimelineIndex {
         let index: HomeTimelineIndex = context.insertObject()
         
         index.identifier = property.identifier
         index.domain = property.domain
         index.userID = property.userID
-        index.createdAt = toot.createdAt
+        index.createdAt = status.createdAt
         
-        index.toot = toot
+        index.status = status
         
         return index
     }
@@ -52,7 +52,7 @@ extension HomeTimelineIndex {
         }
     }
     
-    // internal method for Toot call
+    // internal method for status call
     func softDelete() {
         deletedAt = Date()
     }

@@ -10,45 +10,41 @@ import Combine
 import MastodonSDK
 
 final class MastodonServerRulesViewModel {
-    
     // input
-    let context: AppContext
+
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let rules: [Mastodon.Entity.Instance.Rule]
-    let registerQuery: Mastodon.API.Account.RegisterQuery
-    let applicationAuthorization: Mastodon.API.OAuth.Authorization
-
-    // output
-    let isRegistering = CurrentValueSubject<Bool, Never>(false)
-    let error = CurrentValueSubject<Error?, Never>(nil)
+    let instance: Mastodon.Entity.Instance
+    let applicationToken: Mastodon.Entity.Token
 
     
     init(
-        context: AppContext,
         domain: String,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
         rules: [Mastodon.Entity.Instance.Rule],
-        registerQuery: Mastodon.API.Account.RegisterQuery,
-        applicationAuthorization: Mastodon.API.OAuth.Authorization
+        instance: Mastodon.Entity.Instance,
+        applicationToken: Mastodon.Entity.Token
     ) {
-        self.context = context
         self.domain = domain
         self.authenticateInfo = authenticateInfo
         self.rules = rules
-        self.registerQuery = registerQuery
-        self.applicationAuthorization = applicationAuthorization
+        self.instance = instance
+        self.applicationToken = applicationToken
     }
     
     var rulesAttributedString: NSAttributedString {
         let attributedString = NSMutableAttributedString(string: "\n")
+        let configuration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .title3))
         for (i, rule) in rules.enumerated() {
-            let index = String(i + 1)
-            let indexString = NSAttributedString(string: index + ". ", attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel
-            ])
-            let ruleString = NSAttributedString(string: rule.text + "\n\n")
-            attributedString.append(indexString)
+            let imageName = String(i + 1) + ".circle.fill"
+            let image = UIImage(systemName: imageName, withConfiguration: configuration)!
+            let attachment = NSTextAttachment()
+            attachment.image = image.withTintColor(Asset.Colors.Label.primary.color)
+            let imageAttribute = NSAttributedString(attachment: attachment)
+
+            let ruleString = NSAttributedString(string: "  " + rule.text + "\n\n")
+            attributedString.append(imageAttribute)
             attributedString.append(ruleString)
         }
         return attributedString
