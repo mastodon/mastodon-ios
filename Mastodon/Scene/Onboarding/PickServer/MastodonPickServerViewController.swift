@@ -31,6 +31,7 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         tableView.register(PickServerCategoriesCell.self, forCellReuseIdentifier: String(describing: PickServerCategoriesCell.self))
         tableView.register(PickServerSearchCell.self, forCellReuseIdentifier: String(describing: PickServerSearchCell.self))
         tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
+        tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear

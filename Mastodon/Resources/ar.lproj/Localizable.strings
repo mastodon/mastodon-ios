@@ -257,6 +257,7 @@ tap the link to confirm your account.";
 "Scene.ServerPicker.Button.SeeMore" = "See More";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "Something went wrong while loading data. Check your internet connection.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Finding available servers...";
+"Scene.ServerPicker.EmptyState.NoResults" = "No results";
 "Scene.ServerPicker.Input.Placeholder" = "Find a server or join your own...";
 "Scene.ServerPicker.Label.Category" = "CATEGORY";
 "Scene.ServerPicker.Label.Language" = "LANGUAGE";

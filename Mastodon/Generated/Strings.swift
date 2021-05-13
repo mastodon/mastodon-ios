@@ -773,6 +773,8 @@ internal enum L10n {
         internal static let badNetwork = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.BadNetwork")
         /// Finding available servers...
         internal static let findingServers = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.FindingServers")
+        /// No results
+        internal static let noResults = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.NoResults")
       }
       internal enum Input {
         /// Find a server or join your own...

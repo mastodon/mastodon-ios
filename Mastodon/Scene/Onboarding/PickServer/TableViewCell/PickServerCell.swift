@@ -88,11 +88,14 @@ class PickServerCell: UITableViewCell {
     
     let expandButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .selected)
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
+        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        button.titleLabel?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        button.transform = CGAffineTransform(scaleX: -1, y: 1)
         return button
     }()
     
@@ -325,11 +328,15 @@ extension PickServerCell {
     func updateExpandMode(mode: ExpandMode) {
         switch mode {
         case .collapse:
+            expandButton.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+            expandButton.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
             expandBox.isHidden = true
             expandButton.isSelected = false
             NSLayoutConstraint.deactivate(expandConstraints)
             NSLayoutConstraint.activate(collapseConstraints)
         case .expand:
+            expandButton.setImage(UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+            expandButton.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .normal)
             expandBox.isHidden = false
             expandButton.isSelected = true
             NSLayoutConstraint.activate(expandConstraints)

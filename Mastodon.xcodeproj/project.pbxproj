@@ -191,6 +191,7 @@
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
+		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
@@ -758,6 +759,7 @@
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0F814D264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightDimmableButton.swift; sourceTree = "<group>"; };
 		DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollTableView.swift; sourceTree = "<group>"; };
@@ -1136,6 +1138,7 @@
 				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
 				0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */,
 				0FB3D33725E6401400AAD544 /* PickServerCell.swift */,
+				DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1390,6 +1393,7 @@
 		2D7631A425C1532200929FB9 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				5D03938E2612D200007FE196 /* Webview */,
 				DB68A04F25E9028800CFDF14 /* NavigationController */,
 				DB9D6C2025E502C60051B173 /* ViewModel */,
 				2D7631A525C1532D00929FB9 /* View */,
@@ -2047,7 +2051,6 @@
 		DB8AF55525C1379F002E6C99 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				5D03938E2612D200007FE196 /* Webview */,
 				2D7631A425C1532200929FB9 /* Share */,
 				DB6180E426391A500018D199 /* Transition */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
@@ -2983,6 +2986,7 @@
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */,
 				2D084B9326259545003AA3AF /* NotificationViewModel+LoadLatestState.swift in Sources */,
+				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */,
