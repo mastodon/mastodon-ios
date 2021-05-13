@@ -225,7 +225,7 @@ tap the link to confirm your account.";
 "Scene.Report.Step2" = "Step 2 of 2";
 "Scene.Report.TextPlaceholder" = "Type or paste additional comments";
 "Scene.Report.Title" = "Report %@";
-"Scene.Search.Recommend.Accounts.Description" = "Except for Sam, you will not like his account.";
+"Scene.Search.Recommend.Accounts.Description" = "You may like to follow these accounts";
 "Scene.Search.Recommend.Accounts.Follow" = "Follow";
 "Scene.Search.Recommend.Accounts.Title" = "Accounts you might like";
 "Scene.Search.Recommend.ButtonText" = "See All";

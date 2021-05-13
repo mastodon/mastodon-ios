@@ -690,7 +690,7 @@ internal enum L10n {
         /// See All
         internal static let buttonText = L10n.tr("Localizable", "Scene.Search.Recommend.ButtonText")
         internal enum Accounts {
-          /// Except for Sam, you will not like his account.
+          /// You may like to follow these accounts
           internal static let description = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Description")
           /// Follow
           internal static let follow = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Follow")
