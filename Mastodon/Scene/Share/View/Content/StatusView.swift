@@ -360,7 +360,7 @@ extension StatusView {
             // only layout to top and left & right then draw image to fit size
         ])
         // avoid overlay clip author view
-        containerStackView.bringSubviewToFront(authorContainerStackView)
+        containerStackView.bringSubviewToFront(authorContainerView)
         
         // status
         statusContainerStackView.addArrangedSubview(activeTextLabel)
