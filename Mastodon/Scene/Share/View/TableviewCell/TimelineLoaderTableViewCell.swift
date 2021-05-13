@@ -16,9 +16,9 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     static let labelFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .medium))
     
     var disposeBag = Set<AnyCancellable>()
-    
-    var stateBindDispose: AnyCancellable?
-    
+        
+    let stackView = UIStackView()
+
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
@@ -86,7 +86,6 @@ class TimelineLoaderTableViewCell: UITableViewCell {
         ])
         
         // use stack view to alignlment content center
-        let stackView = UIStackView()
         stackView.spacing = 4
         stackView.axis = .horizontal
         stackView.alignment = .center

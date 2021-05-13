@@ -30,6 +30,8 @@ class MediaPreviewTransitionItem: Identifiable {
     var snapshotRaw: UIView?
     var snapshotTransitioning: UIView?
     var touchOffset: CGVector = CGVector.zero
+    var interactiveTransitionMaskView: UIView?
+    var interactiveTransitionMaskLayer: CAShapeLayer?
 
     init(id: UUID = UUID(), source: Source, previewableViewController: MediaPreviewableViewController) {
         self.id = id

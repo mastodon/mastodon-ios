@@ -26,7 +26,7 @@ extension AvatarConfigurableView {
             if Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 {
                 return placeholderImage
                     .af.imageAspectScaled(toFill: Self.configurableAvatarImageSize)
-                    .af.imageRounded(withCornerRadius: Self.configurableAvatarImageCornerRadius, divideRadiusByImageScale: true)
+                    .af.imageRounded(withCornerRadius: Self.configurableAvatarImageCornerRadius, divideRadiusByImageScale: false)
             } else {
                 return placeholderImage.af.imageRoundedIntoCircle()
             }
@@ -46,6 +46,10 @@ extension AvatarConfigurableView {
         configurableAvatarButton?.layer.masksToBounds = false
         configurableAvatarButton?.layer.cornerRadius = 0
         configurableAvatarButton?.layer.cornerCurve = .circular
+        
+        // accessibility
+        configurableAvatarImageView?.accessibilityIgnoresInvertColors = true
+        configurableAvatarButton?.accessibilityIgnoresInvertColors = true
         
         defer {
             avatarConfigurableView(self, didFinishConfiguration: configuration)

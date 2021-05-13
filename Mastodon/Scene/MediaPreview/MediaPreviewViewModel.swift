@@ -36,7 +36,7 @@ final class MediaPreviewViewModel: NSObject {
                 switch entity.type {
                 case .image:
                     guard let url = URL(string: entity.url) else { continue }
-                    let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: url, thumbnail: thumbnail)
+                    let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: url, thumbnail: thumbnail, altText: entity.descriptionString)
                     let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
                     let mediaPreviewImageViewController = MediaPreviewImageViewController()
                     mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
@@ -60,7 +60,7 @@ final class MediaPreviewViewModel: NSObject {
         managedObjectContext.performAndWait {
             let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
             let avatarURL = account.headerImageURLWithFallback(domain: account.domain)
-            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage)
+            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage, altText: nil)
             let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
             let mediaPreviewImageViewController = MediaPreviewImageViewController()
             mediaPreviewImageViewController.viewModel = mediaPreviewImageModel
@@ -80,7 +80,7 @@ final class MediaPreviewViewModel: NSObject {
         managedObjectContext.performAndWait {
             let account = managedObjectContext.object(with: meta.accountObjectID) as! MastodonUser
             let avatarURL = account.avatarImageURLWithFallback(domain: account.domain)
-            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage)
+            let meta = MediaPreviewImageViewModel.RemoteImagePreviewMeta(url: avatarURL, thumbnail: meta.preloadThumbnailImage, altText: nil)
             let mediaPreviewImageModel = MediaPreviewImageViewModel(meta: meta)
             let mediaPreviewImageViewController = MediaPreviewImageViewController()
             mediaPreviewImageViewController.viewModel = mediaPreviewImageModel

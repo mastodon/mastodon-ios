@@ -39,7 +39,7 @@ class MastodonPickServerViewModel: NSObject {
     let selectCategoryItem = CurrentValueSubject<CategoryPickerItem, Never>(.all)
     let searchText = CurrentValueSubject<String, Never>("")
     let indexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
-    let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server], Never>([])
+    let unindexedServers = CurrentValueSubject<[Mastodon.Entity.Server]?, Never>([])    // set nil when loading
     let viewWillAppear = PassthroughSubject<Void, Never>()
     
     // output
@@ -85,8 +85,8 @@ extension MastodonPickServerViewModel {
     
     private func configure() {
         Publishers.CombineLatest(
-            filteredIndexedServers.eraseToAnyPublisher(),
-            unindexedServers.eraseToAnyPublisher()
+            filteredIndexedServers,
+            unindexedServers
         )
         .receive(on: DispatchQueue.main)
         .sink(receiveValue: { [weak self] indexedServers, unindexedServers in
@@ -114,14 +114,29 @@ extension MastodonPickServerViewModel {
                 guard !serverItems.contains(item) else { continue }
                 serverItems.append(item)
             }
-            for server in unindexedServers {
-                let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
-                attribute.isLast = false
-                let item = PickServerItem.server(server: server, attribute: attribute)
-                guard !serverItems.contains(item) else { continue }
-                serverItems.append(item)
+            
+            if let unindexedServers = unindexedServers {
+                if !unindexedServers.isEmpty {
+                    for server in unindexedServers {
+                        let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
+                        attribute.isLast = false
+                        let item = PickServerItem.server(server: server, attribute: attribute)
+                        guard !serverItems.contains(item) else { continue }
+                        serverItems.append(item)
+                    }
+                } else {
+                    if indexedServers.isEmpty && !self.isLoadingIndexedServers.value {
+                        serverItems.append(.loader(attribute: PickServerItem.LoaderItemAttribute(isLast: false, isEmptyResult: true)))
+                    }
+                }
+            } else {
+                serverItems.append(.loader(attribute: PickServerItem.LoaderItemAttribute(isLast: false, isEmptyResult: false)))
             }
+            
             if case let .server(_, attribute) = serverItems.last {
+                attribute.isLast = true
+            }
+            if case let .loader(attribute) = serverItems.last {
                 attribute.isLast = true
             }
             snapshot.appendItems(serverItems, toSection: .servers)
@@ -168,6 +183,7 @@ extension MastodonPickServerViewModel {
                 guard let domain = AuthenticationViewModel.parseDomain(from: searchText) else {
                     return Just(Result.failure(APIService.APIError.implicit(.badRequest))).eraseToAnyPublisher()
                 }
+                self.unindexedServers.value = nil
                 return self.context.apiService.instance(domain: domain)
                     .map { response -> Result<Mastodon.Response.Content<[Mastodon.Entity.Server]>, Error>in
                         let newResponse = response.map { [Mastodon.Entity.Server(instance: $0)] }
@@ -184,9 +200,14 @@ extension MastodonPickServerViewModel {
                 switch result {
                 case .success(let response):
                     self.unindexedServers.send(response.value)
-                case .failure:
-                    // TODO: What should be presented when user inputs invalid search text?
-                    self.unindexedServers.send([])
+                case .failure(let error):
+                    if let error = error as? APIService.APIError,
+                       case let .implicit(reason) = error,
+                       case .badRequest = reason {
+                        self.unindexedServers.send([])
+                    } else {
+                        self.unindexedServers.send(nil)
+                    }
                 }
             })
             .store(in: &disposeBag)

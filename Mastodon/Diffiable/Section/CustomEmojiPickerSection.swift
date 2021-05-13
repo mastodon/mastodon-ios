@@ -32,6 +32,7 @@ extension CustomEmojiPickerSection {
                     ],
                     completionHandler: nil
                 )
+                cell.accessibilityLabel = attribute.emoji.shortcode
                 return cell
             }
         }

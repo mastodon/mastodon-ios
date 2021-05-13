@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol MediaPreviewableViewController: AnyObject {
+protocol MediaPreviewableViewController: UIViewController {
     var mediaPreviewTransitionController: MediaPreviewTransitionController { get }
     func sourceFrame(transitionItem: MediaPreviewTransitionItem, index: Int) -> CGRect?
 }

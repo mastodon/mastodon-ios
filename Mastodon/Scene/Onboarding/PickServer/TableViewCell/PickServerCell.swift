@@ -34,7 +34,7 @@ class PickServerCell: UITableViewCell {
     
     let domainLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
         label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class PickServerCell: UITableViewCell {
     
     let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.numberOfLines = 0
         label.textColor = Asset.Colors.Label.primary.color
         label.adjustsFontForContentSizeCategory = true
@@ -88,11 +88,14 @@ class PickServerCell: UITableViewCell {
     
     let expandButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
-        button.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .selected)
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .footnote)
+        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .regular)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        button.titleLabel?.transform = CGAffineTransform(scaleX: -1, y: 1)
+        button.transform = CGAffineTransform(scaleX: -1, y: 1)
         return button
     }()
     
@@ -106,7 +109,7 @@ class PickServerCell: UITableViewCell {
     let langValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -116,7 +119,7 @@ class PickServerCell: UITableViewCell {
     let usersValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -126,7 +129,7 @@ class PickServerCell: UITableViewCell {
     let categoryValueLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: UIFont.systemFont(ofSize: 22, weight: .semibold))
+        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 22, weight: .semibold), maximumPointSize: 27)
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -136,7 +139,7 @@ class PickServerCell: UITableViewCell {
     let langTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.language
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -147,7 +150,7 @@ class PickServerCell: UITableViewCell {
     let usersTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.users
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -158,7 +161,7 @@ class PickServerCell: UITableViewCell {
     let categoryTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
-        label.font = .preferredFont(forTextStyle: .caption2)
+        label.font = UIFontMetrics(forTextStyle: .subheadline).scaledFont(for: .systemFont(ofSize: 11, weight: .regular), maximumPointSize: 16)
         label.text = L10n.Scene.ServerPicker.Label.category
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
@@ -325,11 +328,15 @@ extension PickServerCell {
     func updateExpandMode(mode: ExpandMode) {
         switch mode {
         case .collapse:
+            expandButton.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+            expandButton.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
             expandBox.isHidden = true
             expandButton.isSelected = false
             NSLayoutConstraint.deactivate(expandConstraints)
             NSLayoutConstraint.activate(collapseConstraints)
         case .expand:
+            expandButton.setImage(UIImage(systemName: "chevron.up", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
+            expandButton.setTitle(L10n.Scene.ServerPicker.Button.seeLess, for: .normal)
             expandBox.isHidden = false
             expandButton.isSelected = true
             NSLayoutConstraint.activate(expandConstraints)

@@ -75,7 +75,13 @@ final class StatusView: UIView {
         return label
     }()
     
-    let avatarView = UIView()
+    let avatarView: UIView = {
+        let view = UIView()
+        view.isAccessibilityElement = true
+        view.accessibilityTraits = .button
+        view.accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
+        return view
+    }()
     let avatarButton: UIButton = {
         let button = HighlightDimmableButton(type: .custom)
         let placeholderImage = UIImage.placeholder(size: avatarImageSize, color: .systemFill)
@@ -96,6 +102,7 @@ final class StatusView: UIView {
         label.textColor = Asset.Colors.Label.secondary.color
         label.font = .systemFont(ofSize: 17)
         label.text = "·"
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -104,6 +111,7 @@ final class StatusView: UIView {
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.textColor = Asset.Colors.Label.secondary.color
         label.text = "@alice"
+        label.isAccessibilityElement = false
         return label
     }()
     
@@ -295,7 +303,7 @@ extension StatusView {
         authorMetaContainerStackView.axis = .vertical
         authorMetaContainerStackView.spacing = 4
         
-        // title container: [display name | "·" | date]
+        // title container: [display name | "·" | date | padding | visibility]
         let titleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(titleContainerStackView)
         titleContainerStackView.axis = .horizontal
@@ -308,12 +316,15 @@ extension StatusView {
         titleContainerStackView.alignment = .firstBaseline
         titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
+        titleContainerStackView.addArrangedSubview(UIView()) // padding
+        titleContainerStackView.addArrangedSubview(visibilityImageView)
         nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        
+        visibilityImageView.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(subtitleContainerStackView)
@@ -323,10 +334,6 @@ extension StatusView {
         // reveal button
         authorContainerStackView.addArrangedSubview(revealContentWarningButton)
         revealContentWarningButton.setContentHuggingPriority(.required - 2, for: .horizontal)
-        
-        // visibility ImageView
-        authorContainerStackView.addArrangedSubview(visibilityImageView)
-        visibilityImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
         
         authorContainerStackView.translatesAutoresizingMaskIntoConstraints = false
         authorContainerView.addSubview(authorContainerStackView)
@@ -353,7 +360,7 @@ extension StatusView {
             // only layout to top and left & right then draw image to fit size
         ])
         // avoid overlay clip author view
-        containerStackView.bringSubviewToFront(authorContainerStackView)
+        containerStackView.bringSubviewToFront(authorContainerView)
         
         // status
         statusContainerStackView.addArrangedSubview(activeTextLabel)

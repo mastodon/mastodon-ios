@@ -25,10 +25,10 @@ class MainTabBarController: UITabBarController {
         
         var title: String {
             switch self {
-            case .home:             return "Home"
-            case .search:           return "Search"
-            case .notification:     return "Notification"
-            case .me:               return "Me"
+            case .home:             return L10n.Common.Controls.Tabs.home
+            case .search:           return L10n.Common.Controls.Tabs.search
+            case .notification:     return L10n.Common.Controls.Tabs.notification
+            case .me:               return L10n.Common.Controls.Tabs.profile
             }
         }
         
@@ -99,6 +99,7 @@ extension MainTabBarController {
             let viewController = tab.viewController(context: context, coordinator: coordinator)
             viewController.tabBarItem.title = "" // set text to empty string for image only style (SDK failed to layout when set to nil)
             viewController.tabBarItem.image = tab.image
+            viewController.tabBarItem.accessibilityLabel = tab.title
             return viewController
         }
         setViewControllers(viewControllers, animated: false)

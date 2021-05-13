@@ -57,6 +57,10 @@ extension PickServerSection {
                 PickServerSection.configure(cell: cell, server: server, attribute: attribute)
                 cell.delegate = pickServerCellDelegate
                 return cell
+            case .loader(let attribute):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerLoaderTableViewCell.self), for: indexPath) as! PickServerLoaderTableViewCell
+                PickServerSection.configure(cell: cell, attribute: attribute)
+                return cell
             }
         }
     }
@@ -134,6 +138,26 @@ extension PickServerSection {
             let usersCountInThousand = Float(usersCount) / 1000.0
             return String(format: "%.1fK", usersCountInThousand)
         }
+    }
+    
+}
+
+extension PickServerSection {
+    
+    static func configure(cell: PickServerLoaderTableViewCell, attribute: PickServerItem.LoaderItemAttribute) {
+        if attribute.isLast {
+            cell.containerView.layer.maskedCorners = [
+                .layerMinXMaxYCorner,
+                .layerMaxXMaxYCorner
+            ]
+            cell.containerView.layer.cornerCurve = .continuous
+            cell.containerView.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
+        } else {
+            cell.containerView.layer.cornerRadius = 0
+        }
+        
+        attribute.isNoResult ? cell.stopAnimating() : cell.startAnimating()
+        cell.emptyStatusLabel.isHidden = !attribute.isNoResult
     }
     
 }

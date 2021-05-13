@@ -110,3 +110,17 @@ extension PickServerCategoriesCell: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+extension PickServerCategoriesCell {
+
+    override func accessibilityElementCount() -> Int {
+        guard let diffableDataSource = diffableDataSource else { return 0 }
+        return diffableDataSource.snapshot().itemIdentifiers.count
+    }
+    
+    override func accessibilityElement(at index: Int) -> Any? {
+        guard let item = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) else { return nil }
+        return item
+    }
+    
+}

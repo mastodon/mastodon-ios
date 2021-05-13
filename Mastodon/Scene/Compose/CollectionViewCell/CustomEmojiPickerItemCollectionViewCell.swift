@@ -47,6 +47,10 @@ extension CustomEmojiPickerItemCollectionViewCell {
             emojiImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             emojiImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+        
+        isAccessibilityElement = true
+        accessibilityTraits = .button
+        accessibilityHint = "emoji"
     }
     
 }

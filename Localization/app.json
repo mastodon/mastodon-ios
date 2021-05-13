@@ -74,10 +74,17 @@
                 "settings": "Settings",
                 "delete": "Delete"
             },
+            "tabs": {
+                "home": "Home",
+                "search": "Search",
+                "notification": "Notification",
+                "profile": "Profile"
+            },
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
+                "show_user_profile": "Show user profile",
                 "content_warning": "content warning",
                 "content_warning_text": "cw: %s",
                 "media_content_warning": "Tap to reveal that may be sensitive",
@@ -93,6 +100,22 @@
                     },
                     "time_left": "%s left",
                     "closed": "Closed"
+                },
+                "actions": {
+                    "reply": "Reply",
+                    "reblog": "Reblog",
+                    "unreblog": "Unreblog",
+                    "favorite": "Favorite",
+                    "unfavorite": "Unfavorite",
+                    "menu": "Menu"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Mention",
+                    "link": "Link",
+                    "hashtag": "Hashtag",
+                    "email": "Email",
+                    "emoji": "Emoji"
                 }
             },
             "firendship": {
@@ -125,6 +148,11 @@
                     "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
                     "suspended_warning": "This account has been suspended.",
                     "user_suspended_warning": "%s's account has been suspended."
+                },
+                "accessibility": {
+                    "count_replies": "%s replies",
+                    "count_reblogs": "%s reblogs",
+                    "count_favorites": "%s favorites"
                 }
             }
         },
@@ -143,7 +171,20 @@
             "title": "Pick a Server,\nany server.",
             "button": {
                 "category": {
-                    "All": "All"
+                    "all": "All",
+                    "all_accessiblity_description": "Category: All",
+                    "academia": "academia",
+                    "activism": "activism",
+                    "food": "food",
+                    "furry": "furry",
+                    "games": "games",
+                    "general": "general",
+                    "journalism": "journalism",
+                    "lgbt": "lgbt",
+                    "regional": "regional",
+                    "art": "art",
+                    "music": "music",
+                    "tech": "tech"
                 },
                 "see_less": "See Less",
                 "see_more": "See More"
@@ -158,7 +199,8 @@
             },
             "empty_state": {
                 "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading data. Check your internet connection."
+                "bad_network": "Something went wrong while loading data. Check your internet connection.",
+                "no_results": "No results"
             }
         },
         "register": {
@@ -297,6 +339,17 @@
                 "unlisted": "Unlisted",
                 "private": "Followers only",
                 "direct": "Only people I mention"
+            },
+            "accessibility": {
+                "append_attachment": "Append attachment",
+                "append_poll": "Append poll",
+                "remove_poll": "Remove poll",
+                "custom_emoji_picker": "Custom emoji picker",
+                "enable_content_warning": "Enable content warning",
+                "disable_content_warning": "Disable content warning",
+                "post_visibility_menu": "Post visibility menu",
+                "input_limit_remains_count": "Input limit remains %ld",
+                "input_limit_exceeds_count": "Input limit exceeds %ld"
             }
         },
         "profile": {
@@ -304,7 +357,12 @@
             "dashboard": {
                 "posts": "posts",
                 "following": "following",
-                "followers": "followers"
+                "followers": "followers",
+                "accessibility": {
+                    "count_posts": "%ld posts",
+                    "count_following": "%ld following",
+                    "count_followers": "%ld followers"
+                }
             },
             "segmented_control": {
                 "posts": "Posts",
@@ -336,7 +394,7 @@
                 },
                 "accounts": {
                     "title": "Accounts you might like",
-                    "description": "Except for Sam, you will not like his account.",
+                    "description": "You may like to follow these accounts",
                     "follow": "Follow"
                 }
             },

@@ -105,6 +105,11 @@ extension ActionToolbarContainer {
         let starImage = UIImage(systemName: "star.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .bold))!.withRenderingMode(.alwaysTemplate)
         let moreImage = UIImage(systemName: "ellipsis", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .bold))!.withRenderingMode(.alwaysTemplate)
         
+        replyButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reply
+        reblogButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.reblog    // needs update to follow state
+        favoriteButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.favorite    // needs update to follow state
+        moreButton.accessibilityLabel = L10n.Common.Controls.Status.Actions.menu
+        
         switch style {
         case .inline:
             buttons.forEach { button in
@@ -192,6 +197,14 @@ extension ActionToolbarContainer {
         delegate?.actionToolbarContainer(self, starButtonDidPressed: sender)
     }
     
+}
+
+extension ActionToolbarContainer {
+
+    override var accessibilityElements: [Any]? {
+        get { [replyButton, reblogButton, favoriteButton, moreButton] }
+        set { }
+    }
 }
 
 #if DEBUG

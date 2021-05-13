@@ -76,6 +76,7 @@ extension MediaPreviewImageViewController {
                 guard let image = image else { return }
                 self.previewImageView.imageView.image = image
                 self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
+                self.previewImageView.imageView.accessibilityLabel = self.viewModel.altText
             }
             .store(in: &disposeBag)
     }

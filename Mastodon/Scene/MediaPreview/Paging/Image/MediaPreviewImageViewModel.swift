@@ -17,10 +17,12 @@ class MediaPreviewImageViewModel {
     
     // output
     let image: CurrentValueSubject<UIImage?, Never>
+    let altText: String?
         
     init(meta: RemoteImagePreviewMeta) {
         self.item = .status(meta)
         self.image = CurrentValueSubject(meta.thumbnail)
+        self.altText = meta.altText
         
         let url = meta.url
         ImageDownloader.default.download(URLRequest(url: url), completion:  { [weak self] response in
@@ -38,6 +40,7 @@ class MediaPreviewImageViewModel {
     init(meta: LocalImagePreviewMeta) {
         self.item = .local(meta)
         self.image = CurrentValueSubject(meta.image)
+        self.altText = nil
     }
     
 }
@@ -64,6 +67,7 @@ extension MediaPreviewImageViewModel {
     struct RemoteImagePreviewMeta {
         let url: URL
         let thumbnail: UIImage?
+        let altText: String?
     }
     
     struct LocalImagePreviewMeta {

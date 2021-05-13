@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/TwidereProject/ActiveLabel.swift",
         "state": {
           "branch": null,
-          "revision": "40e104063d825d1125ef4b8eeb6460eba8a57483",
-          "version": "5.0.1"
+          "revision": "2132a7bf8da2bea74bb49b0b815950ea4d8f6a7e",
+          "version": "5.0.2"
         }
       },
       {
@@ -69,7 +69,7 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "15d199e84677303a7004ed2c5ecaa1a90f3863f8",
+          "revision": "bbc4bc4def7eb05a7ba8e1219f80ee9be327334e",
           "version": "6.2.1"
         }
       },

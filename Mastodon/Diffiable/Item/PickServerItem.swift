@@ -14,6 +14,7 @@ enum PickServerItem {
     case categoryPicker(items: [CategoryPickerItem])
     case search
     case server(server: Mastodon.Entity.Server, attribute: ServerItemAttribute)
+    case loader(attribute: LoaderItemAttribute)
 }
 
 extension PickServerItem {
@@ -34,6 +35,26 @@ extension PickServerItem {
             hasher.combine(isExpand)
         }
     }
+    
+    final class LoaderItemAttribute: Equatable, Hashable {
+        let id = UUID()
+        
+        var isLast: Bool
+        var isNoResult: Bool
+        
+        init(isLast: Bool, isEmptyResult: Bool) {
+            self.isLast = isLast
+            self.isNoResult = isEmptyResult
+        }
+        
+        static func == (lhs: PickServerItem.LoaderItemAttribute, rhs: PickServerItem.LoaderItemAttribute) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
 }
 
 extension PickServerItem: Equatable {
@@ -47,6 +68,8 @@ extension PickServerItem: Equatable {
             return true
         case (.server(let serverLeft, _), .server(let serverRight, _)):
             return serverLeft.domain == serverRight.domain
+        case (.loader(let attributeLeft), loader(let attributeRight)):
+            return attributeLeft == attributeRight
         default:
             return false
         }
@@ -64,6 +87,8 @@ extension PickServerItem: Hashable {
             hasher.combine(String(describing: PickServerItem.search.self))
         case .server(let server, _):
             hasher.combine(server.domain)
+        case .loader(let attribute):
+            hasher.combine(attribute)
         }
     }
 }

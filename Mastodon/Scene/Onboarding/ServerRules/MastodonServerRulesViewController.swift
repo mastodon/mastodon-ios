@@ -25,6 +25,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = .label
         label.text = L10n.Scene.ServerRules.title
+        label.numberOfLines = 0
         return label
     }()
     
@@ -54,7 +55,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     private(set) lazy var bottomPromptTextView: UITextView = {
         let textView = UITextView()
-        textView.font = .preferredFont(forTextStyle: .body)
+        textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
         textView.textColor = .label
         textView.isSelectable = true
         textView.isEditable = false
@@ -181,7 +182,7 @@ extension MastodonServerRulesViewController {
         let str = NSString(string: L10n.Scene.ServerRules.prompt(viewModel.domain))
         let termsOfServiceRange = str.range(of: L10n.Scene.ServerRules.termsOfService)
         let privacyRange = str.range(of: L10n.Scene.ServerRules.privacyPolicy)
-        let attributeString = NSMutableAttributedString(string: L10n.Scene.ServerRules.prompt(viewModel.domain), attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .body), NSAttributedString.Key.foregroundColor: UIColor.label])
+        let attributeString = NSMutableAttributedString(string: L10n.Scene.ServerRules.prompt(viewModel.domain), attributes: [NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22), NSAttributedString.Key.foregroundColor: UIColor.label])
         attributeString.addAttribute(.link, value: Mastodon.API.serverRulesURL(domain: viewModel.domain), range: termsOfServiceRange)
         attributeString.addAttribute(.link, value: Mastodon.API.privacyURL(domain: viewModel.domain), range: privacyRange)
         let linkAttributes = [NSAttributedString.Key.foregroundColor:linkColor]

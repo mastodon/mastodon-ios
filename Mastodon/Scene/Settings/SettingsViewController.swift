@@ -51,23 +51,27 @@ class SettingsViewController: UIViewController, NeedsDependency {
         return menu
     }
     
-    private(set) lazy var notifySectionHeader: UIView = {
+    private let notifySectionHeaderStackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isLayoutMarginsRelativeArrangement = true
-        //view.layoutMargins = UIEdgeInsets(top: 15, left: 4, bottom: 5, right: 4)
         view.axis = .horizontal
-        view.alignment = .fill
-        view.distribution = .equalSpacing
         view.spacing = 4
-        
-        let notifyLabel = UILabel()
+        return view
+    }()
+    
+    let notifyLabel = UILabel()
+    private(set) lazy var notifySectionHeader: UIView = {
+        let view = notifySectionHeaderStackView
         notifyLabel.translatesAutoresizingMaskIntoConstraints = false
-        notifyLabel.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
+        notifyLabel.adjustsFontForContentSizeCategory = true
+        notifyLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         notifyLabel.textColor = Asset.Colors.Label.primary.color
         notifyLabel.text = L10n.Scene.Settings.Section.Notifications.Trigger.title
         view.addArrangedSubview(notifyLabel)
         view.addArrangedSubview(whoButton)
+        whoButton.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        whoButton.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
         return view
     }()
     
@@ -77,6 +81,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         whoButton.showsMenuAsPrimaryAction = true
         whoButton.setBackgroundColor(Asset.Colors.battleshipGrey.color, for: .normal)
         whoButton.setTitleColor(Asset.Colors.Label.primary.color, for: .normal)
+        whoButton.titleLabel?.adjustsFontForContentSizeCategory = true
         whoButton.titleLabel?.font = UIFontMetrics(forTextStyle: .title3).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         whoButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         whoButton.layer.cornerRadius = 10
@@ -107,6 +112,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.alignment = .center
         
         let label = ActiveLabel(style: .default)
+        label.adjustsFontForContentSizeCategory = true
         label.textAlignment = .center
         label.configure(content: "Mastodon is open source software. You can contribute or report issues on GitHub at <a href=\"https://github.com/tootsuite/mastodon\">tootsuite/mastodon</a> (v3.3.0).", emojiDict: [:])
         label.delegate = self
@@ -138,7 +144,25 @@ class SettingsViewController: UIViewController, NeedsDependency {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        updateSectionHeaderStackViewLayout()
+    }
+    
+    
     // MAKR: - Private methods
+    private func updateSectionHeaderStackViewLayout() {
+        // accessibility
+        if traitCollection.preferredContentSizeCategory < .accessibilityMedium {
+            notifySectionHeaderStackView.axis = .horizontal
+            notifyLabel.numberOfLines = 1
+        } else {
+            notifySectionHeaderStackView.axis = .vertical
+            notifyLabel.numberOfLines = 0
+        }
+    }
+    
     private func bindViewModel() {
         self.whoButton.setTitle(viewModel.setting.value.activeSubscription?.policy.title, for: .normal)
         viewModel.setting
@@ -173,6 +197,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         setupTableView()
+        
+        updateSectionHeaderStackViewLayout()
     }
     
     private func setupNavigation() {

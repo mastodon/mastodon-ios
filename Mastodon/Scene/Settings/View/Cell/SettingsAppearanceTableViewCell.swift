@@ -15,6 +15,8 @@ protocol SettingsAppearanceTableViewCellDelegate: AnyObject {
 class AppearanceView: UIView {
     lazy var imageView: UIImageView = {
         let view = UIImageView()
+        // accessibility
+        view.accessibilityIgnoresInvertColors = true
         return view
     }()
     lazy var titleLabel: UILabel = {

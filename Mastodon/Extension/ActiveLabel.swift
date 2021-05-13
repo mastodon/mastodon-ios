@@ -32,12 +32,14 @@ extension ActiveLabel {
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         #endif
         
+        accessibilityContainerType = .semanticGroup
+        
         switch style {
         case .default:
             font = .preferredFont(forTextStyle: .body)
             textColor = Asset.Colors.Label.primary.color
         case .statusHeader:
-            font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium))
+            font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: .systemFont(ofSize: 13, weight: .medium), maximumPointSize: 17)
             textColor = Asset.Colors.Label.secondary.color
             numberOfLines = 1
         case .statusName:
@@ -61,8 +63,10 @@ extension ActiveLabel {
         if let parseResult = try? MastodonStatusContent.parse(content: content, emojiDict: emojiDict) {
             text = parseResult.trimmed
             activeEntities = parseResult.activeEntities
+            accessibilityLabel = parseResult.original
         } else {
             text = ""
+            accessibilityLabel = nil
         }
     }
     
@@ -79,5 +83,110 @@ extension ActiveLabel {
         let parseResult = MastodonField.parse(field: field)
         text = parseResult.value
         activeEntities = parseResult.activeEntities
+        accessibilityLabel = parseResult.value
     }
+}
+
+extension ActiveEntity {
+    
+    var accessibilityLabelDescription: String {
+        switch self.type {
+        case .email:    return L10n.Common.Controls.Status.Tag.email
+        case .hashtag:  return L10n.Common.Controls.Status.Tag.hashtag
+        case .mention:  return L10n.Common.Controls.Status.Tag.mention
+        case .url:      return L10n.Common.Controls.Status.Tag.url
+        case .emoji:    return L10n.Common.Controls.Status.Tag.emoji
+        }
+    }
+    
+    var accessibilityValueDescription: String {
+        switch self.type {
+        case .email(let text, _):           return text
+        case .hashtag(let text, _):         return text
+        case .mention(let text, _):         return text
+        case .url(_, let trimmed, _, _):    return trimmed
+        case .emoji(let text, _, _):        return text
+        }
+    }
+    
+    func accessibilityElement(in accessibilityContainer: Any) -> ActiveLabelAccessibilityElement? {
+        if case .emoji = self.type {
+            return nil
+        }
+        
+        let element = ActiveLabelAccessibilityElement(accessibilityContainer: accessibilityContainer)
+        element.accessibilityTraits = .button
+        element.accessibilityLabel = accessibilityLabelDescription
+        element.accessibilityValue = accessibilityValueDescription
+        return element
+    }
+}
+
+final class ActiveLabelAccessibilityElement: UIAccessibilityElement {
+    var index: Int!
+}
+
+// MARK: - UIAccessibilityContainer
+extension ActiveLabel {
+    
+    func createAccessibilityElements() -> [UIAccessibilityElement] {
+        var elements: [UIAccessibilityElement] = []
+        
+        let element = ActiveLabelAccessibilityElement(accessibilityContainer: self)
+        element.accessibilityTraits = .staticText
+        element.accessibilityLabel = accessibilityLabel
+        element.accessibilityFrame = superview!.convert(frame, to: nil)
+        element.accessibilityLanguage = accessibilityLanguage
+        elements.append(element)
+        
+        for eneity in activeEntities {
+            guard let element = eneity.accessibilityElement(in: self) else { continue }
+            var glyphRange = NSRange()
+            layoutManager.characterRange(forGlyphRange: eneity.range, actualGlyphRange: &glyphRange)
+            let rect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+            element.accessibilityFrame = self.convert(rect, to: nil)
+            element.accessibilityContainer = self
+            elements.append(element)
+        }
+        
+        return elements
+    }
+    
+//    public override func accessibilityElementCount() -> Int {
+//        return 1 + activeEntities.count
+//    }
+//
+//    public override func accessibilityElement(at index: Int) -> Any? {
+//        if index == 0 {
+//            let element = ActiveLabelAccessibilityElement(accessibilityContainer: self)
+//            element.accessibilityTraits = .staticText
+//            element.accessibilityLabel = accessibilityLabel
+//            element.accessibilityFrame = superview!.convert(frame, to: nil)
+//            element.index = index
+//            return element
+//        }
+//
+//        let index = index - 1
+//        guard index < activeEntities.count else { return nil }
+//        let eneity = activeEntities[index]
+//        guard let element = eneity.accessibilityElement(in: self) else { return nil }
+//
+//        var glyphRange = NSRange()
+//        layoutManager.characterRange(forGlyphRange: eneity.range, actualGlyphRange: &glyphRange)
+//        let rect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+//        element.accessibilityFrame = self.convert(rect, to: nil)
+//        element.accessibilityContainer = self
+//
+//        return element
+//    }
+//
+//    public override func index(ofAccessibilityElement element: Any) -> Int {
+//        guard let element = element as? ActiveLabelAccessibilityElement,
+//              let index = element.index else {
+//            return NSNotFound
+//        }
+//
+//        return index
+//    }
+    
 }

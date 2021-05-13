@@ -31,6 +31,7 @@ final class MosaicImageViewContainer: UIView {
                 let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
                 tapGesture.addTarget(self, action: #selector(MosaicImageViewContainer.photoTapGestureRecognizerHandler(_:)))
                 imageView.addGestureRecognizer(tapGesture)
+                imageView.isAccessibilityElement = true
             }
         }
     }
@@ -65,6 +66,9 @@ extension MosaicImageViewContainer: ContentWarningOverlayViewDelegate {
 extension MosaicImageViewContainer {
     
     private func _init() {
+        // accessibility
+        accessibilityIgnoresInvertColors = true
+        
         container.translatesAutoresizingMaskIntoConstraints = false
         container.axis = .horizontal
         container.distribution = .fillEqually

@@ -28,7 +28,8 @@ struct MosaicImageViewModel {
             let mosaicMeta = MosaicMeta(
                 url: url,
                 size: CGSize(width: width, height: height),
-                blurhash: element.blurhash
+                blurhash: element.blurhash,
+                altText: element.descriptionString
             )
             metas.append(mosaicMeta)
         }
@@ -43,6 +44,7 @@ struct MosaicMeta {
     let url: URL
     let size: CGSize
     let blurhash: String?
+    let altText: String?
     
     let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.MosaicMeta.working-queue", qos: .userInitiated, attributes: .concurrent)
 

@@ -191,6 +191,7 @@
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
+		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
@@ -284,13 +285,11 @@
 		DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB6804922637CD8700430867 /* AppName.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804912637CD8700430867 /* AppName.swift */; };
 		DB6804A52637CDCC00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
-		DB6804A62637CDCC00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
 		DB6804D12637CE4700430867 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804D02637CE4700430867 /* UserDefaults.swift */; };
 		DB6804FD2637CFEC00430867 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804FC2637CFEC00430867 /* AppSecret.swift */; };
 		DB6805102637D0F800430867 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DB68050F2637D0F800430867 /* KeychainAccess */; };
 		DB6805262637D7DD00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
-		DB6805272637D7DD00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB68586425E619B700F0A850 /* NSKeyValueObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */; };
 		DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68A04925E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift */; };
 		DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DB68A05C25E9055900CFDF14 /* Settings.bundle */; };
@@ -520,28 +519,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DB6804A92637CDCC00430867 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DB6804A62637CDCC00430867 /* AppShared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DB68052A2637D7DD00430867 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DB6805272637D7DD00430867 /* AppShared.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		DB89BA0825C10FD0008580ED /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -756,6 +733,9 @@
 		DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveUserInterfaceStyleBarButtonItem.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
+		DB0F814D264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightDimmableButton.swift; sourceTree = "<group>"; };
 		DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollTableView.swift; sourceTree = "<group>"; };
@@ -1134,6 +1114,7 @@
 				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
 				0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */,
 				0FB3D33725E6401400AAD544 /* PickServerCell.swift */,
+				DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1388,6 +1369,7 @@
 		2D7631A425C1532200929FB9 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				5D03938E2612D200007FE196 /* Webview */,
 				DB68A04F25E9028800CFDF14 /* NavigationController */,
 				DB9D6C2025E502C60051B173 /* ViewModel */,
 				2D7631A525C1532D00929FB9 /* View */,
@@ -2045,7 +2027,6 @@
 		DB8AF55525C1379F002E6C99 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				5D03938E2612D200007FE196 /* Webview */,
 				2D7631A425C1532200929FB9 /* Share */,
 				DB6180E426391A500018D199 /* Transition */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
@@ -2494,7 +2475,6 @@
 				DB89B9EA25C10FD0008580ED /* Sources */,
 				DB89B9EB25C10FD0008580ED /* Frameworks */,
 				DB89B9EC25C10FD0008580ED /* Resources */,
-				DB68052A2637D7DD00430867 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2533,7 +2513,6 @@
 				DBF8AE0F263293E400C9C23C /* Sources */,
 				DBF8AE10263293E400C9C23C /* Frameworks */,
 				DBF8AE11263293E400C9C23C /* Resources */,
-				DB6804A92637CDCC00430867 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2595,6 +2574,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -2980,6 +2960,7 @@
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */,
 				2D084B9326259545003AA3AF /* NotificationViewModel+LoadLatestState.swift in Sources */,
+				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */,
@@ -3353,6 +3334,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DB2B3ABD25E37E15007045F9 /* en */,
+				DB0F814E264CFFD300F2A12B /* ar */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -3361,6 +3343,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				DB3D100E25BAA75E00EAA174 /* en */,
+				DB0F814D264CFFD300F2A12B /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -3388,6 +3371,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3449,6 +3433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -3509,7 +3494,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 7LFDZ96332;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -3517,7 +3502,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.Mastodon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3536,7 +3521,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 7LFDZ96332;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -3544,7 +3529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.Mastodon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3639,6 +3624,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3669,6 +3655,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B31D44635FCF6452F7E1B865 /* Pods-Mastodon-AppShared.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -3916,7 +3903,7 @@
 			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
 			requirement = {
 				kind = exactVersion;
-				version = 5.0.1;
+				version = 5.0.2;
 			};
 		};
 		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {

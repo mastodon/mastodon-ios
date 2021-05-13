@@ -81,6 +81,7 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
         threadMetaView.isHidden = true
         disposeBag.removeAll()
         observations.removeAll()
+        isAccessibilityElement = false      // reset behavior
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -356,4 +357,11 @@ extension StatusTableViewCell: ActionToolbarContainerDelegate {
         delegate?.statusTableViewCell(self, actionToolbarContainer: actionToolbarContainer, likeButtonDidPressed: sender)
     }
     
+}
+
+extension StatusTableViewCell {
+    override var accessibilityActivationPoint: CGPoint {
+        get { return .zero }
+        set { }
+    }
 }

@@ -46,6 +46,9 @@ final class PlayerContainerView: UIView {
 
 extension PlayerContainerView {
     private func _init() {
+        // accessibility
+        accessibilityIgnoresInvertColors = true
+        
         container.translatesAutoresizingMaskIntoConstraints = false
         addSubview(container)
         containerHeightLayoutConstraint = container.heightAnchor.constraint(equalToConstant: 162).priority(.required - 1)
@@ -72,16 +75,6 @@ extension PlayerContainerView {
             mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
         ])
         
-        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(contentWarningOverlayView)
-        NSLayoutConstraint.activate([
-            contentWarningOverlayView.topAnchor.constraint(equalTo: topAnchor),
-            contentWarningOverlayView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentWarningOverlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentWarningOverlayView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
-        contentWarningOverlayView.delegate = self
-        
         mediaTypeIndicotorViewInContentWarningOverlay.translatesAutoresizingMaskIntoConstraints = false
         contentWarningOverlayView.addSubview(mediaTypeIndicotorViewInContentWarningOverlay)
         NSLayoutConstraint.activate([
@@ -90,6 +83,8 @@ extension PlayerContainerView {
             mediaTypeIndicotorViewInContentWarningOverlay.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.required - 1),
             mediaTypeIndicotorViewInContentWarningOverlay.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
         ])
+        
+        contentWarningOverlayView.delegate = self
     }
 }
 
@@ -143,6 +138,16 @@ extension PlayerContainerView {
         ])
         containerHeightLayoutConstraint.constant = floor(rect.height)
         containerHeightLayoutConstraint.isActive = true
+        
+        contentWarningOverlayView.removeFromSuperview()
+        contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(contentWarningOverlayView)
+        NSLayoutConstraint.activate([
+            contentWarningOverlayView.topAnchor.constraint(equalTo: touchBlockingView.topAnchor),
+            contentWarningOverlayView.leadingAnchor.constraint(equalTo: touchBlockingView.leadingAnchor),
+            contentWarningOverlayView.trailingAnchor.constraint(equalTo: touchBlockingView.trailingAnchor),
+            contentWarningOverlayView.bottomAnchor.constraint(equalTo: touchBlockingView.bottomAnchor)
+        ])
         
         bringSubviewToFront(mediaTypeIndicotorView)
         

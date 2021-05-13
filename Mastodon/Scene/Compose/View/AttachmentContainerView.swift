@@ -47,7 +47,7 @@ final class AttachmentContainerView: UIView {
         textView.showsVerticalScrollIndicator = false
         textView.backgroundColor = .clear
         textView.textColor = .white
-        textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15))
+        textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15), maximumPointSize: 20)
         textView.placeholder = L10n.Scene.Compose.Attachment.descriptionPhoto
         textView.placeholderColor = UIColor.white.withAlphaComponent(0.6)   // force white with alpha for Light/Dark mode
         textView.returnKeyType = .done
