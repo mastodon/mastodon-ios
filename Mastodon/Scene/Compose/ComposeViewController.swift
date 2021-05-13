@@ -578,6 +578,7 @@ extension ComposeViewController {
             collectionView.updateInteractiveMovementTargetPosition(position)
         case .ended:
             collectionView.endInteractiveMovement()
+            collectionView.reloadData()
         default:
             collectionView.cancelInteractiveMovement()
         }
