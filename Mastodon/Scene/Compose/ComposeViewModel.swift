@@ -31,6 +31,8 @@ final class ComposeViewModel {
     let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make intial event emit
     let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
+    let autoCompleteRetryLayoutTimes = CurrentValueSubject<Int, Never>(0)
+    let autoCompletion = CurrentValueSubject<ComposeViewController.AutoCompletion?, Never>(nil)
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!

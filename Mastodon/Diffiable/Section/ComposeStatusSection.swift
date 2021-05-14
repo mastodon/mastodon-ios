@@ -37,6 +37,7 @@ extension ComposeStatusSection {
         repliedToCellFrameSubscriber: CurrentValueSubject<CGRect, Never>,
         customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel,
         textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
+        textEditorViewChangeObserver: TextEditorViewChangeObserver,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
         composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
         composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate,
@@ -45,6 +46,7 @@ extension ComposeStatusSection {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { [
             weak customEmojiPickerInputViewModel,
             weak textEditorViewTextAttributesDelegate,
+            weak textEditorViewChangeObserver,
             weak composeStatusAttachmentTableViewCellDelegate,
             weak composeStatusPollOptionCollectionViewCellDelegate,
             weak composeStatusNewPollOptionCollectionViewCellDelegate,
@@ -92,6 +94,7 @@ extension ComposeStatusSection {
                 }
                 ComposeStatusSection.configureStatusContent(cell: cell, attribute: attribute)
                 cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
+                cell.textEditorViewChangeObserver = textEditorViewChangeObserver    // relay
                 cell.composeContent
                     .removeDuplicates()
                     .receive(on: DispatchQueue.main)

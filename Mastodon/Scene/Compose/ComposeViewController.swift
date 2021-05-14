@@ -15,6 +15,8 @@ import TwitterTextEditor
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
+    static let minAutoCompletionVisibleHeight: CGFloat = 100
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -93,6 +95,12 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         return documentPickerController
     }()
     
+    private(set) lazy var autoCompletionViewController: AutoCompletionViewController = {
+        let viewController = AutoCompletionViewController()
+        viewController.context = context
+        return viewController
+    }()
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -166,6 +174,7 @@ extension ComposeViewController {
             dependency: self,
             customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
             textEditorViewTextAttributesDelegate: self,
+            textEditorViewChangeObserver: self,
             composeStatusAttachmentTableViewCellDelegate: self,
             composeStatusPollOptionCollectionViewCellDelegate: self,
             composeStatusNewPollOptionCollectionViewCellDelegate: self,
@@ -181,26 +190,27 @@ extension ComposeViewController {
             dependency: self
         )
         
-        // respond scrollView overlap change
-        //view.layoutIfNeeded()
         // update layout when keyboard show/dismiss
-        Publishers.CombineLatest4(
-            KeyboardResponderService.shared.isShow.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.state.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher(),
-            viewModel.isCustomEmojiComposing.eraseToAnyPublisher()
+        let keyboardEventPublishers = Publishers.CombineLatest3(
+            KeyboardResponderService.shared.isShow,
+            KeyboardResponderService.shared.state,
+            KeyboardResponderService.shared.endFrame
         )
-        .sink(receiveValue: { [weak self] isShow, state, endFrame, isCustomEmojiComposing in
+        Publishers.CombineLatest3(
+            keyboardEventPublishers,
+            viewModel.isCustomEmojiComposing,
+            viewModel.autoCompletion
+        )
+        .sink(receiveValue: { [weak self] keyboardEvents, isCustomEmojiComposing, autoCompletion in
             guard let self = self else { return }
-                        
+
+            let (isShow, state, endFrame) = keyboardEvents
             let extraMargin: CGFloat = {
-                if self.view.safeAreaInsets.bottom == .zero {
-                    // needs extra margin for zero inset device to workaround UIKit issue
-                    return self.composeToolbarView.frame.height
-                } else {
-                    // default some magic 16 extra margin
-                    return 16
+                var margin = self.composeToolbarView.frame.height
+                if autoCompletion != nil {
+                    margin += ComposeViewController.minAutoCompletionVisibleHeight
                 }
+                return margin
             }()
             
             // update keyboard background color
@@ -221,27 +231,44 @@ extension ComposeViewController {
             self.systemKeyboardHeight = endFrame.height
 
             let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
-            let padding = contentFrame.maxY - endFrame.minY
+            let padding = contentFrame.maxY + extraMargin - endFrame.minY
             guard padding > 0 else {
                 self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
-                UIView.animate(withDuration: 0.3) {
-                    self.composeToolbarViewBottomLayoutConstraint.constant = self.view.safeAreaInsets.bottom
-                    self.view.layoutIfNeeded()
-                }
+
                 self.updateKeyboardBackground(isKeyboardDisplay: false)
                 return
             }
 
-            self.collectionView.contentInset.bottom = padding + extraMargin
-            self.collectionView.verticalScrollIndicatorInsets.bottom = padding + extraMargin
+            self.collectionView.contentInset.bottom = padding
+            self.collectionView.verticalScrollIndicatorInsets.bottom = padding
             UIView.animate(withDuration: 0.3) {
-                self.composeToolbarViewBottomLayoutConstraint.constant = padding
+                self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
                 self.view.layoutIfNeeded()
             }
             self.updateKeyboardBackground(isKeyboardDisplay: isShow)
         })
         .store(in: &disposeBag)
+        
+        // bind auto-complete
+        viewModel.autoCompletion
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] autoCompletion in
+                guard let self = self else { return }
+                guard let textEditorView = self.textEditorView() else { return }
+                if self.autoCompletionViewController.view.superview == nil {
+                    self.autoCompletionViewController.view.frame = self.view.bounds
+                    self.autoCompletionViewController.willMove(toParent: self)
+                    // add to container view. seealso: `viewDidLayoutSubviews()`
+                    textEditorView.superview!.addSubview(self.autoCompletionViewController.view)
+                    self.autoCompletionViewController.didMove(toParent: self)
+                    self.autoCompletionViewController.view.isHidden = true
+                }
+                self.autoCompletionViewController.view.isHidden = autoCompletion == nil
+                guard let autoCompletion = autoCompletion else { return }
+                self.autoCompletionViewController.view.frame.origin.y = autoCompletion.textBoundingRect.maxY
+            }
+            .store(in: &disposeBag)
 
         // bind publish bar button state
         viewModel.isPublishBarButtonItemEnabled
@@ -380,6 +407,18 @@ extension ComposeViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         viewModel.traitCollectionDidChangePublisher.send()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // pin autoCompletionViewController frame to window
+        if let containerView = autoCompletionViewController.view.superview {
+            let viewFrameInWindow = containerView.convert(autoCompletionViewController.view.frame, to: nil)
+            if viewFrameInWindow.origin.x != 0 {
+                autoCompletionViewController.view.frame.origin.x = -viewFrameInWindow.origin.x
+            }
+        }
     }
     
 }
@@ -600,10 +639,8 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
 
             let stringRange = NSRange(location: 0, length: string.length)
-            let highlightMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))")
-            // accept ^\B: or \s: but not accept \B: to force user input a space to make emoji take effect
-            // precondition :\B with following space 
-            let emojiMatches = string.matches(pattern: "(?:(^\\B:|\\s:)([a-zA-Z0-9_]+)(:\\B(?=\\s)))")
+            let highlightMatches = string.matches(pattern: MastodonRegex.highlightPattern)
+            let emojiMatches = string.matches(pattern: MastodonRegex.emojiPattern)
             // only accept http/https scheme
             let urlMatches = string.matches(pattern: "(?i)https?://\\S+(?:/|\\b)")
 
@@ -725,6 +762,97 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                 completion(attributedString)
             }
         }
+    }
+    
+}
+
+// MARK: - TextEditorViewChangeObserver
+extension ComposeViewController: TextEditorViewChangeObserver {
+    
+    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
+        guard var autoCompeletion = ComposeViewController.scanAutoCompletion(textEditorView: textEditorView) else {
+            viewModel.autoCompletion.value = nil
+            return
+        }
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompeletion.toHighlightEndString), String(autoCompeletion.toCursorString))
+
+        var glyphRange = NSRange()
+        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompeletion.toCursorRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
+        let textContainer = textEditorView.layoutManager.textContainers[0]
+        let textBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+        let textBoundingRectInWindow = textEditorView.convert(textBoundingRect, to: nil)
+        
+        let retryLayoutTimes = viewModel.autoCompleteRetryLayoutTimes.value
+        guard textBoundingRectInWindow.size != .zero else {
+            viewModel.autoCompleteRetryLayoutTimes.value += 1
+            // avoid infinite loop
+            guard retryLayoutTimes < 3 else { return }
+            // needs retry calculate layout when the rect position changing
+            DispatchQueue.main.async {
+                self.textEditorView(textEditorView, didChangeWithChangeResult: changeResult)
+            }
+            return
+        }
+        viewModel.autoCompleteRetryLayoutTimes.value = 0
+
+        // set bounding rect and trigger layout
+        autoCompeletion.textBoundingRect = textBoundingRect
+        viewModel.autoCompletion.value = autoCompeletion
+    }
+    
+    struct AutoCompletion {
+        let toCursorRange: Range<String.Index>
+        let toCursorString: Substring
+        let toHighlightEndRange: Range<String.Index>
+        let toHighlightEndString: Substring
+        
+        var textBoundingRect: CGRect = .zero
+    }
+    
+    private static func scanAutoCompletion(textEditorView: TextEditorView) -> AutoCompletion? {
+        let text = textEditorView.text
+        let cursorLocation = textEditorView.selectedRange.location
+        let cursorIndex = text.index(text.startIndex, offsetBy: cursorLocation)
+        guard cursorLocation > 0, !text.isEmpty else { return nil }
+        
+        let _highlighStartIndex: String.Index? = {
+            var index = text.index(text.startIndex, offsetBy: cursorLocation - 1)
+            while index > text.startIndex {
+                let char = text[index]
+                if char == "@" || char == "#" {
+                    return index
+                }
+                index = text.index(before: index)
+            }
+            assert(index == text.startIndex)
+            let char = text[index]
+            if char == "@" || char == "#" {
+                return index
+            } else {
+                return nil
+            }
+        }()
+        
+        guard let highlighStartIndex = _highlighStartIndex else { return nil }
+        let scanRange = NSRange(highlighStartIndex..<text.endIndex, in: text)
+        
+        guard let match = text.firstMatch(pattern: MastodonRegex.highlightPattern, options: [], range: scanRange) else { return nil }
+        let matchRange = match.range(at: 0)
+        let matchStartIndex = text.index(text.startIndex, offsetBy: matchRange.location)
+        let matchEndIndex = text.index(matchStartIndex, offsetBy: matchRange.length)
+        
+        guard matchStartIndex == highlighStartIndex, matchEndIndex >= cursorIndex else { return nil }
+        let toCursorRange = highlighStartIndex..<cursorIndex
+        let toCursorString = text[toCursorRange]
+        let toHighlightEndRange = matchStartIndex..<matchEndIndex
+        let toHighlightEndString = text[toHighlightEndRange]
+        let autoCompletion = AutoCompletion(
+            toCursorRange: toCursorRange,
+            toCursorString: toCursorString,
+            toHighlightEndRange: toHighlightEndRange,
+            toHighlightEndString: toHighlightEndString
+        )
+        return autoCompletion
     }
     
 }

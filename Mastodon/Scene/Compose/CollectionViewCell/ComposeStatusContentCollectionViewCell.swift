@@ -18,6 +18,7 @@ final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
     
     let statusContentWarningEditorView = StatusContentWarningEditorView()
     
+    let textEditorViewContainerView = UIView()
     let textEditorView: TextEditorView = {
         let textEditorView = TextEditorView()
         textEditorView.font = .preferredFont(forTextStyle: .body)
@@ -27,6 +28,9 @@ final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
         textEditorView.keyboardType = .twitter
         return textEditorView
     }()
+
+    // input
+    weak var textEditorViewChangeObserver: TextEditorViewChangeObserver?
     
     // output
     let composeContent = PassthroughSubject<String, Never>()
@@ -75,13 +79,23 @@ extension ComposeStatusContentCollectionViewCell {
         statusView.setContentHuggingPriority(.defaultHigh, for: .vertical)
         statusView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         
-        textEditorView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(textEditorView)
+        textEditorViewContainerView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(textEditorViewContainerView)
         NSLayoutConstraint.activate([
-            textEditorView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
-            textEditorView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            textEditorView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: textEditorView.bottomAnchor, constant: 10),
+            textEditorViewContainerView.topAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10),
+            textEditorViewContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            textEditorViewContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor, constant: 10),
+        ])
+        textEditorViewContainerView.preservesSuperviewLayoutMargins = true
+        
+        textEditorView.translatesAutoresizingMaskIntoConstraints = false
+        textEditorViewContainerView.addSubview(textEditorView)
+        NSLayoutConstraint.activate([
+            textEditorView.topAnchor.constraint(equalTo: textEditorViewContainerView.topAnchor),
+            textEditorView.leadingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.leadingAnchor),
+            textEditorView.trailingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.trailingAnchor),
+            textEditorView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor),
             textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         textEditorView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
@@ -98,6 +112,10 @@ extension ComposeStatusContentCollectionViewCell {
 // MARK: - TextEditorViewChangeObserver
 extension ComposeStatusContentCollectionViewCell: TextEditorViewChangeObserver {
     func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
+        defer {
+            textEditorViewChangeObserver?.textEditorView(textEditorView, didChangeWithChangeResult: changeResult)
+        }
+        
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textEditorView.text)
         guard changeResult.isTextChanged else { return }
         composeContent.send(textEditorView.text)
