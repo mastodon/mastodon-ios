@@ -33,6 +33,7 @@ extension EmojiService {
         }()
         let emojis = CurrentValueSubject<[Mastodon.Entity.Emoji], Never>([])
         let emojiDict = CurrentValueSubject<[String: [Mastodon.Entity.Emoji]], Never>([:])
+        let emojiTrie = CurrentValueSubject<Trie<Character>?, Never>(nil)
         
         private var learnedEmoji: Set<String> = Set()
         
@@ -43,6 +44,19 @@ extension EmojiService {
             emojis
                 .map { Dictionary(grouping: $0, by: { $0.shortcode }) }
                 .assign(to: \.value, on: emojiDict)
+                .store(in: &disposeBag)
+            
+            emojis
+                .map { emojis -> Trie<Character>? in
+                    guard !emojis.isEmpty else { return nil }
+                    var trie: Trie<Character> = Trie()
+                    for emoji in emojis {
+                        let key = emoji.shortcode.lowercased()
+                        trie.inserted(Array(key).slice, value: emoji)
+                    }
+                    return trie
+                }
+                .assign(to: \.value, on: emojiTrie)
                 .store(in: &disposeBag)
         }
         

@@ -340,6 +340,10 @@
                 "private": "Followers only",
                 "direct": "Only people I mention"
             },
+            "auto_complete": {
+                "single_people_talking": "%ld people talking",
+                "multiple_people_talking": "%ld people talking"
+            },
             "accessibility": {
                 "append_attachment": "Append attachment",
                 "append_poll": "Append poll",

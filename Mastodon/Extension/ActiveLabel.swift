@@ -152,41 +152,4 @@ extension ActiveLabel {
         return elements
     }
     
-//    public override func accessibilityElementCount() -> Int {
-//        return 1 + activeEntities.count
-//    }
-//
-//    public override func accessibilityElement(at index: Int) -> Any? {
-//        if index == 0 {
-//            let element = ActiveLabelAccessibilityElement(accessibilityContainer: self)
-//            element.accessibilityTraits = .staticText
-//            element.accessibilityLabel = accessibilityLabel
-//            element.accessibilityFrame = superview!.convert(frame, to: nil)
-//            element.index = index
-//            return element
-//        }
-//
-//        let index = index - 1
-//        guard index < activeEntities.count else { return nil }
-//        let eneity = activeEntities[index]
-//        guard let element = eneity.accessibilityElement(in: self) else { return nil }
-//
-//        var glyphRange = NSRange()
-//        layoutManager.characterRange(forGlyphRange: eneity.range, actualGlyphRange: &glyphRange)
-//        let rect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-//        element.accessibilityFrame = self.convert(rect, to: nil)
-//        element.accessibilityContainer = self
-//
-//        return element
-//    }
-//
-//    public override func index(ofAccessibilityElement element: Any) -> Int {
-//        guard let element = element as? ActiveLabelAccessibilityElement,
-//              let index = element.index else {
-//            return NSNotFound
-//        }
-//
-//        return index
-//    }
-    
 }
