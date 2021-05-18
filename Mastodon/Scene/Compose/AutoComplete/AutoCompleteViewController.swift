@@ -38,6 +38,7 @@ final class AutoCompleteViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.contentInset.top = AutoCompleteViewController.chevronViewHeight
         tableView.verticalScrollIndicatorInsets.top = AutoCompleteViewController.chevronViewHeight
+        tableView.showsVerticalScrollIndicator = false  // avoid duplicate to the compose collection view indicator 
         return tableView
     }()
     
