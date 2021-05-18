@@ -30,7 +30,7 @@ extension CustomEmojiPickerInputViewModel {
         })
     }
     
-    func append(customEmojiReplacableTextInput textInput: CustomEmojiReplacableTextInput) {
+    func append(customEmojiReplacableTextInput textInput: CustomEmojiReplaceableTextInput) {
         removeEmptyReferences()
         
         let isContains = customEmojiReplacableTextInputReferences.contains(where: { element in

@@ -17,4 +17,9 @@ enum MastodonRegex {
     /// accept ^\B: or \s: but not accept \B: to force user input a space to make emoji take effect
     /// precondition :\B with following space
     static let emojiPattern = "(?:(^\\B:|\\s:)([a-zA-Z0-9_]+)(:\\B(?=\\s)))"
+    /// mention, hashtag, emoji
+    /// @…
+    /// #…
+    /// :…
+    static let autoCompletePattern = "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?|#([^\\s.]+))|(^\\B:|\\s:)([a-zA-Z0-9_]+)"
 }

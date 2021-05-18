@@ -32,7 +32,7 @@ final class ComposeViewModel {
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make intial event emit
     let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
     let autoCompleteRetryLayoutTimes = CurrentValueSubject<Int, Never>(0)
-    let autoCompletion = CurrentValueSubject<ComposeViewController.AutoCompletion?, Never>(nil)
+    let autoCompleteInfo = CurrentValueSubject<ComposeViewController.AutoCompleteInfo?, Never>(nil)
     
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
@@ -61,8 +61,8 @@ final class ComposeViewModel {
     let characterCount = CurrentValueSubject<Int, Never>(0)
     let collectionViewState = CurrentValueSubject<CollectionViewState, Never>(.fold)
     
-    // for hashtag: #<hashag>' '
-    // for mention: @<mention>' '
+    // for hashtag: "#<hashag> "
+    // for mention: "@<mention> "
     private(set) var preInsertedContent: String?
     
     // custom emojis

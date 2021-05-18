@@ -376,6 +376,16 @@ internal enum L10n {
         /// video
         internal static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
       }
+      internal enum AutoComplete {
+        /// %ld people talking
+        internal static func multiplePeopleTalking(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.AutoComplete.MultiplePeopleTalking", p1)
+        }
+        /// %ld people talking
+        internal static func singlePeopleTalking(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.AutoComplete.SinglePeopleTalking", p1)
+        }
+      }
       internal enum ContentWarning {
         /// Write an accurate warning here...
         internal static let placeholder = L10n.tr("Localizable", "Scene.Compose.ContentWarning.Placeholder")

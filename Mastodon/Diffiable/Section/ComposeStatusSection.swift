@@ -262,7 +262,7 @@ extension ComposeStatusSection {
     
 }
 
-protocol CustomEmojiReplacableTextInput: AnyObject {
+protocol CustomEmojiReplaceableTextInput: AnyObject {
     var inputView: UIView? { get set }
     func reloadInputViews()
     
@@ -273,14 +273,14 @@ protocol CustomEmojiReplacableTextInput: AnyObject {
 }
 
 class CustomEmojiReplacableTextInputReference {
-    weak var value: CustomEmojiReplacableTextInput?
+    weak var value: CustomEmojiReplaceableTextInput?
 
-    init(value: CustomEmojiReplacableTextInput? = nil) {
+    init(value: CustomEmojiReplaceableTextInput? = nil) {
         self.value = value
     }
 }
 
-extension TextEditorView: CustomEmojiReplacableTextInput {
+extension TextEditorView: CustomEmojiReplaceableTextInput {
     func insertText(_ text: String) {
         try? updateByReplacing(range: selectedRange, with: text, selectedRange: nil)
     }
@@ -290,14 +290,14 @@ extension TextEditorView: CustomEmojiReplacableTextInput {
     }
 
 }
-extension UITextField: CustomEmojiReplacableTextInput { }
-extension UITextView: CustomEmojiReplacableTextInput { }
+extension UITextField: CustomEmojiReplaceableTextInput { }
+extension UITextView: CustomEmojiReplaceableTextInput { }
 
 extension ComposeStatusSection {
 
     static func configureCustomEmojiPicker(
         viewModel: CustomEmojiPickerInputViewModel?,
-        customEmojiReplacableTextInput: CustomEmojiReplacableTextInput,
+        customEmojiReplacableTextInput: CustomEmojiReplaceableTextInput,
         disposeBag: inout Set<AnyCancellable>
     ) {
         guard let viewModel = viewModel else { return }
