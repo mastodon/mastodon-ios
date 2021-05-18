@@ -9,12 +9,18 @@ import os.log
 import UIKit
 import Combine
 
+protocol AutoCompleteViewControllerDelegate: AnyObject {
+    func autoCompleteViewController(_ viewController: AutoCompleteViewController, didSelectItem item: AutoCompleteItem)
+}
+
 final class AutoCompleteViewController: UIViewController {
 
     static let chevronViewHeight: CGFloat = 24
     
     var viewModel: AutoCompleteViewModel!
     var disposeBag = Set<AnyCancellable>()
+    
+    weak var delegate: AutoCompleteViewControllerDelegate?
 
     let chevronView = AutoCompleteTopChevronView()
     let containerBackgroundView: UIView = {
@@ -26,6 +32,7 @@ final class AutoCompleteViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
         tableView.register(AutoCompleteTableViewCell.self, forCellReuseIdentifier: String(describing: AutoCompleteTableViewCell.self))
+        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -96,6 +103,10 @@ extension AutoCompleteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription)
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        delegate?.autoCompleteViewController(self, didSelectItem: item)
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {

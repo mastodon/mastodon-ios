@@ -99,9 +99,9 @@ extension AutoCompleteViewModel.State {
             let searchPattern = ArraySlice(String(searchText.dropFirst()))
             let passthroughs = emojiTrie.passthrough(searchPattern)
             let matchingEmojis = passthroughs
-                .map { $0.values }      // [Set<Emoji>]
+                .map { $0.values }                                              // [Set<Emoji>]
                 .map { set in set.compactMap { $0 as? Mastodon.Entity.Emoji } } // [[Emoji]]
-                .flatMap { $0 } // [Emoji]
+                .flatMap { $0 }                                                 // [Emoji]
             let items: [AutoCompleteItem] = matchingEmojis.map { emoji in
                 AutoCompleteItem.emoji(emoji: emoji)
             }

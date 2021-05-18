@@ -98,6 +98,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     private(set) lazy var autoCompleteViewController: AutoCompleteViewController = {
         let viewController = AutoCompleteViewController()
         viewController.viewModel = AutoCompleteViewModel(context: context)
+        viewController.delegate = self
         viewModel.customEmojiViewModel
             .assign(to: \.value, on: viewController.viewModel.customEmojiViewModel)
             .store(in: &disposeBag)
@@ -1219,5 +1220,40 @@ extension ComposeViewController: ComposeStatusPollOptionAppendEntryCollectionVie
 extension ComposeViewController: ComposeStatusPollExpiresOptionCollectionViewCellDelegate {
     func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption) {
         viewModel.pollExpiresOptionAttribute.expiresOption.value = expiresOption
+    }
+}
+
+// MARK: - AutoCompleteViewControllerDelegate
+extension ComposeViewController: AutoCompleteViewControllerDelegate {
+    func autoCompleteViewController(_ viewController: AutoCompleteViewController, didSelectItem item: AutoCompleteItem) {
+        guard let info = viewModel.autoCompleteInfo.value else { return }
+        let _replacedText: String? = {
+            var text: String
+            switch item {
+            case .hashtag(let hashtag):
+                text = "#" + hashtag.name
+            case .hashtagV1(let hashtagName):
+                text = "#" + hashtagName
+            case .account(let account):
+                text = "@" + account.acct
+            case .emoji(let emoji):
+                text = ":" + emoji.shortcode + ":"
+            case .bottomLoader:
+                return nil
+            }
+            text.append(" ")
+            return text
+        }()
+        guard let replacedText = _replacedText else { return }
+
+        guard let textEditorView = textEditorView() else { return }
+        let text = textEditorView.text
+        
+        do {
+            try textEditorView.updateByReplacing(range: NSRange(info.toHighlightEndRange, in: text), with: replacedText)
+            viewModel.autoCompleteInfo.value = nil
+        } catch {
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete fail %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        }
     }
 }

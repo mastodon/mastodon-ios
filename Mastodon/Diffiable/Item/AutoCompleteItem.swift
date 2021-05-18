@@ -47,6 +47,7 @@ extension AutoCompleteItem: Hashable {
             hasher.combine(account.id)
         case .emoji(let emoji):
             hasher.combine(emoji.shortcode)
+            hasher.combine(emoji.url)
         case .bottomLoader:
             hasher.combine(String(describing: AutoCompleteItem.bottomLoader.self))
         }
