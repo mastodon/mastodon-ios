@@ -189,3 +189,29 @@ extension MainTabBarController {
     }
     
 }
+
+
+extension MainTabBarController {
+    
+    override var keyCommands: [UIKeyCommand]? {
+        var commands: [UIKeyCommand] = []
+        for (i, tab) in Tab.allCases.enumerated() {
+            let title = L10n.Common.Controls.Tabs.Keyboard.switchToTab(tab.title)
+            let input = String(i + 1)
+            let command = UIKeyCommand(title: title, image: nil, action: #selector(MainTabBarController.switchToTab(_:)), input: input, modifierFlags: .control, propertyList: tab.rawValue, alternates: [], discoverabilityTitle: nil, attributes: [], state: .off)
+            commands.append(command)
+        
+        }
+        return commands
+    }
+    
+    @objc private func switchToTab(_ sender: UIKeyCommand) {
+        guard let rawValue = sender.propertyList as? Int,
+              let tab = Tab(rawValue: rawValue) else { return }
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, tab.title)
+        
+        guard let index = Tab.allCases.firstIndex(of: tab) else { return }
+        selectedIndex = index
+    }
+    
+}

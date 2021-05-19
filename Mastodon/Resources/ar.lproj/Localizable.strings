@@ -91,6 +91,7 @@ Please check your internet connection.";
 "Common.Controls.Status.UserReblogged" = "%@ reblogged";
 "Common.Controls.Status.UserRepliedTo" = "Replied to %@";
 "Common.Controls.Tabs.Home" = "Home";
+"Common.Controls.Tabs.Keyboard.SwitchToTab" = "Switch to %@";
 "Common.Controls.Tabs.Notification" = "Notification";
 "Common.Controls.Tabs.Profile" = "Profile";
 "Common.Controls.Tabs.Search" = "Search";

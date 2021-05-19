@@ -278,6 +278,12 @@ internal enum L10n {
         internal static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile")
         /// Search
         internal static let search = L10n.tr("Localizable", "Common.Controls.Tabs.Search")
+        internal enum Keyboard {
+          /// Switch to %@
+          internal static func switchToTab(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Tabs.Keyboard.SwitchToTab", String(describing: p1))
+          }
+        }
       }
       internal enum Timeline {
         internal enum Accessibility {
