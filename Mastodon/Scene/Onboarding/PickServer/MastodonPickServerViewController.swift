@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import GameController
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -47,6 +48,7 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    var nextStepButtonBottomLayoutConstraint: NSLayoutConstraint!
     
     deinit {
         tableViewObservation = nil
@@ -76,11 +78,13 @@ extension MastodonPickServerViewController {
         #endif
         
         view.addSubview(nextStepButton)
+        nextStepButtonBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: 0).priority(.defaultHigh)
         NSLayoutConstraint.activate([
             nextStepButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
             view.readableContentGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
             nextStepButton.heightAnchor.constraint(equalToConstant: MastodonPickServerViewController.actionButtonHeight).priority(.defaultHigh),
-            view.layoutMarginsGuide.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
+            nextStepButtonBottomLayoutConstraint,
         ])
     
         // fix AutoLayout warning when observe before view appear
@@ -123,6 +127,37 @@ extension MastodonPickServerViewController {
             nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
         view.sendSubviewToBack(emptyStateView)
+        
+        // update layout when keyboard show/dismiss
+        let keyboardEventPublishers = Publishers.CombineLatest3(
+            KeyboardResponderService.shared.isShow,
+            KeyboardResponderService.shared.state,
+            KeyboardResponderService.shared.endFrame
+        )
+        
+        keyboardEventPublishers
+            .sink { [weak self] keyboardEvents in
+                guard let self = self else { return }
+                let (isShow, state, endFrame) = keyboardEvents
+                
+                // guard external keyboard connected
+                guard isShow, state == .dock, GCKeyboard.coalesced != nil else {
+                    self.nextStepButtonBottomLayoutConstraint.constant = WelcomeViewController.viewBottomPaddingHeight
+                    return
+                }
+                
+                let externalKeyboardToolbarHeight = self.view.frame.maxY - endFrame.minY
+                guard externalKeyboardToolbarHeight > 0 else {
+                    self.nextStepButtonBottomLayoutConstraint.constant = WelcomeViewController.viewBottomPaddingHeight
+                    return
+                }
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.nextStepButtonBottomLayoutConstraint.constant = externalKeyboardToolbarHeight + 16
+                    self.view.layoutIfNeeded()
+                }
+            }
+            .store(in: &disposeBag)
         
         switch viewModel.mode {
         case .signIn:
