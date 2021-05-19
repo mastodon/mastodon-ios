@@ -78,9 +78,13 @@
                 "home": "Home",
                 "search": "Search",
                 "notification": "Notification",
-                "profile": "Profile",
-                "keyboard": {
-                    "switch_to_tab": "Switch to %s"
+                "profile": "Profile"
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "Switch to %s",
+                    "show_favorites": "Show Favorites",
+                    "open_settings": "Open Settings"
                 }
             },
             "status": {
@@ -480,6 +484,9 @@
                     "clear": "Clear Media Cache",
                     "signout": "Sign Out"
                 }
+            },
+            "keyboard": {
+                "close_settings_window": "Close Settings Window"
             }
         },
         "report": {

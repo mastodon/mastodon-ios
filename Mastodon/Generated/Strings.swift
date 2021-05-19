@@ -189,6 +189,18 @@ internal enum L10n {
           return L10n.tr("Localizable", "Common.Controls.Firendship.UnmuteUser", String(describing: p1))
         }
       }
+      internal enum Keyboard {
+        internal enum Common {
+          /// Open Settings
+          internal static let openSettings = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.OpenSettings")
+          /// Show Favorites
+          internal static let showFavorites = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ShowFavorites")
+          /// Switch to %@
+          internal static func switchToTab(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Keyboard.Common.SwitchToTab", String(describing: p1))
+          }
+        }
+      }
       internal enum Status {
         /// content warning
         internal static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning")
@@ -278,12 +290,6 @@ internal enum L10n {
         internal static let profile = L10n.tr("Localizable", "Common.Controls.Tabs.Profile")
         /// Search
         internal static let search = L10n.tr("Localizable", "Common.Controls.Tabs.Search")
-        internal enum Keyboard {
-          /// Switch to %@
-          internal static func switchToTab(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Tabs.Keyboard.SwitchToTab", String(describing: p1))
-          }
-        }
       }
       internal enum Timeline {
         internal enum Accessibility {
@@ -828,6 +834,10 @@ internal enum L10n {
     internal enum Settings {
       /// Settings
       internal static let title = L10n.tr("Localizable", "Scene.Settings.Title")
+      internal enum Keyboard {
+        /// Close Settings Window
+        internal static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow")
+      }
       internal enum Section {
         internal enum Appearance {
           /// Automatic
