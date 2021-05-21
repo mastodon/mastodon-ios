@@ -439,6 +439,41 @@ extension SettingsViewController: ActiveLabelDelegate {
     }
 }
 
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension SettingsViewController: UIAdaptivePresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .formSheet
+    }
+}
+
+extension SettingsViewController {
+    
+    var closeKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Scene.Settings.Keyboard.closeSettingsWindow,
+            image: nil,
+            action: #selector(SettingsViewController.closeSettingsWindowKeyCommandHandler(_:)),
+            input: "w",
+            modifierFlags: .command,
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        return [closeKeyCommand]
+    }
+    
+    @objc private func closeSettingsWindowKeyCommandHandler(_ sender: UIKeyCommand) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
+
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 

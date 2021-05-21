@@ -7,8 +7,9 @@
 
 import UIKit
 import AVKit
+import GameController
 
-//   Check List                     Last Updated
+//   Check List                         Last Updated
 // - HomeViewController:                2021/4/30
 // - FavoriteViewController:            2021/4/30
 // - HashtagTimelineViewController:     2021/4/30
@@ -34,6 +35,12 @@ protocol StatusTableViewControllerAspect: UIViewController {
 extension StatusTableViewControllerAspect {
     /// [UI] hook to deselect row in the transitioning for the table view
     func aspectViewWillAppear(_ animated: Bool) {
+        if GCKeyboard.coalesced != nil, let backKeyCommandPressDate = UserDefaults.shared.backKeyCommandPressDate {
+            guard backKeyCommandPressDate.timeIntervalSinceNow <= -0.5 else {
+                // break if interval greater than 0.5s
+                return
+            }
+        }
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
 }
@@ -79,14 +86,14 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
     }
 }
 
-extension StatusTableViewControllerAspect where Self: TableViewCellHeightCacheableContainer & StatusProvider {
+extension StatusTableViewControllerAspect where Self: TableViewCellHeightCacheableContainer {
     /// [UI] hook to cache table view cell height
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cacheTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
 }
 
-extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & TableViewCellHeightCacheableContainer & StatusProvider {
+extension StatusTableViewControllerAspect where Self: StatusProvider & StatusTableViewCellDelegate & TableViewCellHeightCacheableContainer {
     /// [Media] hook to notify video service
     /// [UI] hook to cache table view cell height
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {

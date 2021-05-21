@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import MastodonSDK
 
 /// Note: update Equatable when change case
@@ -19,11 +20,11 @@ enum PickServerItem {
 
 extension PickServerItem {
     final class ServerItemAttribute: Equatable, Hashable {
-        var isLast: Bool
+        var isLast: CurrentValueSubject<Bool, Never>
         var isExpand: Bool
         
         init(isLast: Bool, isExpand: Bool) {
-            self.isLast = isLast
+            self.isLast = CurrentValueSubject(isLast)
             self.isExpand = isExpand
         }
         

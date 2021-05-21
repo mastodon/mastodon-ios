@@ -7,11 +7,13 @@
 
 import UIKit
 
-protocol TableViewCellHeightCacheableContainer: StatusProvider {
+protocol TableViewCellHeightCacheableContainer {
     var cellFrameCache: NSCache<NSNumber, NSValue> { get }
+    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
 }
 
-extension TableViewCellHeightCacheableContainer {
+extension TableViewCellHeightCacheableContainer where Self: StatusProvider {
     
     func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let item = item(for: nil, indexPath: indexPath) else { return }

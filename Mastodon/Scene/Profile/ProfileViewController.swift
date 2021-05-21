@@ -440,6 +440,13 @@ extension ProfileViewController {
         viewModel.isEditing
             .handleEvents(receiveOutput: { [weak self] isEditing in
                 guard let self = self else { return }
+                // set firset responder for key command
+                if !isEditing {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.profileSegmentedViewController.pagingViewController.becomeFirstResponder()
+                    }
+                }
+                
                 // dismiss keyboard if needs
                 if !isEditing { self.view.endEditing(true) }
                 
@@ -852,7 +859,6 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dwingDashboardMeterView: ProfileStatusDashboardMeterView) {
@@ -860,7 +866,6 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed dwersDashboardMeterView: ProfileStatusDashboardMeterView) {
-        
     }
 
 }
@@ -868,4 +873,27 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
 // MARK: - ScrollViewContainer
 extension ProfileViewController: ScrollViewContainer {
     var scrollView: UIScrollView { return overlayScrollView }
+}
+
+extension ProfileViewController {
+    
+    override var keyCommands: [UIKeyCommand]? {
+        if !viewModel.isEditing.value {
+            return segmentedControlNavigateKeyCommands
+        }
+        
+        return nil
+    }
+    
+}
+
+// MARK: - SegmentedControlNavigateable
+extension ProfileViewController: SegmentedControlNavigateable {
+    var navigateableSegmentedControl: UISegmentedControl {
+        profileHeaderViewController.pageSegmentedControl
+    }
+    
+    @objc func segmentedControlNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        segmentedControlNavigateKeyCommandHandler(sender)
+    }
 }

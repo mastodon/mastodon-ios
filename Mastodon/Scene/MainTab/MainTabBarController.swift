@@ -189,3 +189,153 @@ extension MainTabBarController {
     }
     
 }
+
+// HIG: keyboard UX
+// https://developer.apple.com/design/human-interface-guidelines/macos/user-interaction/keyboard/
+extension MainTabBarController {
+    
+    var switchToTabKeyCommands: [UIKeyCommand] {
+        var commands: [UIKeyCommand] = []
+        for (i, tab) in Tab.allCases.enumerated() {
+            let title = L10n.Common.Controls.Keyboard.Common.switchToTab(tab.title)
+            let input = String(i + 1)
+            let command = UIKeyCommand(
+                title: title,
+                image: nil,
+                action: #selector(MainTabBarController.switchToTabKeyCommandHandler(_:)),
+                input: input,
+                modifierFlags: .command,
+                propertyList: tab.rawValue,
+                alternates: [],
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            )
+            commands.append(command)
+        }
+        return commands
+    }
+    
+    var showFavoritesKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Common.Controls.Keyboard.Common.showFavorites,
+            image: nil,
+            action: #selector(MainTabBarController.showFavoritesKeyCommandHandler(_:)),
+            input: "f",
+            modifierFlags: .command,
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    var openSettingsKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Common.Controls.Keyboard.Common.openSettings,
+            image: nil,
+            action: #selector(MainTabBarController.openSettingsKeyCommandHandler(_:)),
+            input: ",",
+            modifierFlags: .command,
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    var composeNewPostKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Common.Controls.Keyboard.Common.composeNewPost,
+            image: nil,
+            action: #selector(MainTabBarController.composeNewPostKeyCommandHandler(_:)),
+            input: "n",
+            modifierFlags: .command,
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    override var keyCommands: [UIKeyCommand]? {
+        guard let topMost = self.topMost else {
+            return []
+        }
+        
+        var commands: [UIKeyCommand] = []
+        
+        if topMost.isModal {
+            
+        } else {
+            // switch tabs
+            commands.append(contentsOf: switchToTabKeyCommands)
+            
+            // show compose
+            if !(self.topMost is ComposeViewController) {
+                commands.append(composeNewPostKeyCommand)
+            }
+            
+            // show favorites
+            if !(self.topMost is FavoriteViewController) {
+                commands.append(showFavoritesKeyCommand)
+            }
+            
+            // open settings
+            if context.settingService.currentSetting.value != nil {
+                commands.append(openSettingsKeyCommand)
+            }
+        }
+
+        return commands
+    }
+    
+    @objc private func switchToTabKeyCommandHandler(_ sender: UIKeyCommand) {
+        guard let rawValue = sender.propertyList as? Int,
+              let tab = Tab(rawValue: rawValue) else { return }
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, tab.title)
+        
+        guard let index = Tab.allCases.firstIndex(of: tab) else { return }
+        let previousTab = Tab(rawValue: selectedIndex)
+        selectedIndex = index
+        
+        if let previousTab = previousTab {
+            switch (tab, previousTab) {
+            case (.home, .home):
+                guard let navigationController = topMost?.navigationController else { return }
+                if navigationController.viewControllers.count > 1 {
+                    // pop to top when previous tab position already is home
+                    navigationController.popToRootViewController(animated: true)
+                } else if let homeTimelineViewController = topMost as? HomeTimelineViewController {
+                    // trigger scrollToTop if topMost is home timeline
+                    homeTimelineViewController.scrollToTop(animated: true)
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    @objc private func showFavoritesKeyCommandHandler(_ sender: UIKeyCommand) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let favoriteViewModel = FavoriteViewModel(context: context)
+        coordinator.present(scene: .favorite(viewModel: favoriteViewModel), from: nil, transition: .show)
+    }
+    
+    @objc private func openSettingsKeyCommandHandler(_ sender: UIKeyCommand) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let setting = context.settingService.currentSetting.value else { return }
+        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
+        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func composeNewPostKeyCommandHandler(_ sender: UIKeyCommand) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+    }
+    
+}

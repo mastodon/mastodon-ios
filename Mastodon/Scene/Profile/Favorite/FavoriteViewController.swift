@@ -173,3 +173,20 @@ extension FavoriteViewController: LoadMoreConfigurableTableViewContainer {
     var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
 }
 
+
+extension FavoriteViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension FavoriteViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
+}
