@@ -199,8 +199,12 @@ internal enum L10n {
       }
       internal enum Keyboard {
         internal enum Common {
+          /// Next Section
+          internal static let nextSection = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.NextSection")
           /// Open Settings
           internal static let openSettings = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.OpenSettings")
+          /// Previous Section
+          internal static let previousSection = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.PreviousSection")
           /// Show Favorites
           internal static let showFavorites = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ShowFavorites")
           /// Switch to %@

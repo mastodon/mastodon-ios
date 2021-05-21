@@ -202,6 +202,7 @@
 		DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842F26566512000346B3 /* KeyboardPreference.swift */; };
 		DB1D843426579931000346B3 /* TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */; };
 		DB1D843626579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */; };
+		DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */; };
 		DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */; };
 		DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E347725F519300079D7DF /* PickServerItem.swift */; };
 		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
@@ -762,6 +763,7 @@
 		DB1D842F26566512000346B3 /* KeyboardPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPreference.swift; sourceTree = "<group>"; };
 		DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerNavigateable.swift; sourceTree = "<group>"; };
 		DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
+		DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlNavigateable.swift; sourceTree = "<group>"; };
 		DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB1E347725F519300079D7DF /* PickServerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickServerItem.swift; sourceTree = "<group>"; };
 		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
@@ -1353,6 +1355,7 @@
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
 				5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */,
 				DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */,
+				DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */,
 				DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */,
 				DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */,
 			);
@@ -3197,6 +3200,7 @@
 				5B90C460262599800002E742 /* SettingsAppearanceTableViewCell.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */,
+				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
 				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,

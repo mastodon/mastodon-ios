@@ -859,7 +859,6 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dwingDashboardMeterView: ProfileStatusDashboardMeterView) {
@@ -876,3 +875,25 @@ extension ProfileViewController: ScrollViewContainer {
     var scrollView: UIScrollView { return overlayScrollView }
 }
 
+extension ProfileViewController {
+    
+    override var keyCommands: [UIKeyCommand]? {
+        if !viewModel.isEditing.value {
+            return segmentedControlNavigateKeyCommands
+        }
+        
+        return nil
+    }
+    
+}
+
+// MARK: - SegmentedControlNavigateable
+extension ProfileViewController: SegmentedControlNavigateable {
+    var navigateableSegmentedControl: UISegmentedControl {
+        profileHeaderViewController.pageSegmentedControl
+    }
+    
+    @objc func segmentedControlNavigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        segmentedControlNavigateKeyCommandHandler(sender)
+    }
+}
