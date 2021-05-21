@@ -550,6 +550,12 @@ internal enum L10n {
         /// rebloged your post
         internal static let reblog = L10n.tr("Localizable", "Scene.Notification.Action.Reblog")
       }
+      internal enum Keyobard {
+        /// Show Everything
+        internal static let showEverything = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowEverything")
+        /// Show Mentions
+        internal static let showMentions = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowMentions")
+      }
       internal enum Title {
         /// Everything
         internal static let everything = L10n.tr("Localizable", "Scene.Notification.Title.Everything")

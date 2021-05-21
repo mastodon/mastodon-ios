@@ -81,6 +81,25 @@ extension NotificationViewController {
                 }
             }
             .store(in: &disposeBag)
+        
+        viewModel.selectedIndex
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] segment in
+                guard let self = self else { return }
+                self.segmentControl.selectedSegmentIndex = segment.rawValue
+                
+                guard let domain = self.viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = self.viewModel.activeMastodonAuthenticationBox.value?.userID else {
+                    return
+                }
+                switch segment {
+                case .EveryThing:
+                    self.viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
+                case .Mentions:
+                    self.viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
+                }
+            }
+            .store(in: &disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -122,14 +141,7 @@ extension NotificationViewController {
 extension NotificationViewController {
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         os_log("%{public}s[%{public}ld], %{public}s: select at index: %ld", (#file as NSString).lastPathComponent, #line, #function, sender.selectedSegmentIndex)
-        guard let domain = viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = viewModel.activeMastodonAuthenticationBox.value?.userID else {
-            return
-        }
-        if sender.selectedSegmentIndex == NotificationViewModel.NotificationSegment.EveryThing.rawValue {
-            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
-        } else {
-            viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
-        }
+
         viewModel.selectedIndex.value = NotificationViewModel.NotificationSegment(rawValue: sender.selectedSegmentIndex)!
     }
 
@@ -273,8 +285,70 @@ extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
 }
 
 extension NotificationViewController {
+    
+    enum CategorySwitch: String, CaseIterable {
+        case showEverything
+        case showMentions
+        
+        var title: String {
+            switch self {
+            case .showEverything:       return L10n.Scene.Notification.Keyobard.showEverything
+            case .showMentions:         return L10n.Scene.Notification.Keyobard.showMentions
+            }
+        }
+        
+        // UIKeyCommand input
+        var input: String {
+            switch self {
+            case .showEverything:       return "["  // + shift + command
+            case .showMentions:         return "]"  // + shift + command
+            }
+        }
+        
+        var modifierFlags: UIKeyModifierFlags {
+            switch self {
+            case .showEverything:       return [.shift, .command]
+            case .showMentions:         return [.shift, .command]
+            }
+        }
+        
+        var propertyList: Any {
+            return rawValue
+        }
+    }
+    
+    var categorySwitchKeyCommands: [UIKeyCommand] {
+        CategorySwitch.allCases.map { category in
+            UIKeyCommand(
+                title: category.title,
+                image: nil,
+                action: #selector(NotificationViewController.showCategory(_:)),
+                input: category.input,
+                modifierFlags: category.modifierFlags,
+                propertyList: category.propertyList,
+                alternates: [],
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            )
+        }
+    }
+
+    @objc private func showCategory(_ sender: UIKeyCommand) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let rawValue = sender.propertyList as? String,
+              let category = CategorySwitch(rawValue: rawValue) else { return }
+        
+        switch category {
+        case .showEverything:
+            viewModel.selectedIndex.value = .EveryThing
+        case .showMentions:
+            viewModel.selectedIndex.value = .Mentions
+        }
+    }
+    
     override var keyCommands: [UIKeyCommand]? {
-        return navigationKeyCommands
+        return categorySwitchKeyCommands + navigationKeyCommands
     }
 }
 

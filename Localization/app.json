@@ -453,6 +453,10 @@
                 "poll": "Your poll has ended",
                 "mention": "mentioned you",
                 "follow_request": "request to follow you"
+            },
+            "keyobard": {
+                "show_everything": "Show Everything",
+                "show_mentions": "Show Mentions"
             }
         },
         "thread": {

@@ -190,6 +190,8 @@ tap the link to confirm your account.";
 "Scene.Notification.Action.Mention" = "mentioned you";
 "Scene.Notification.Action.Poll" = "Your poll has ended";
 "Scene.Notification.Action.Reblog" = "rebloged your post";
+"Scene.Notification.Keyobard.ShowEverything" = "Show Everything";
+"Scene.Notification.Keyobard.ShowMentions" = "Show Mentions";
 "Scene.Notification.Title.Everything" = "Everything";
 "Scene.Notification.Title.Mentions" = "Mentions";
 "Scene.Preview.Keyboard.ClosePreview" = "Close Preview";

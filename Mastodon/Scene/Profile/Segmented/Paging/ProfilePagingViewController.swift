@@ -58,13 +58,19 @@ extension ProfilePagingViewController {
 
 }
 
+// workaround to fix tab man responder chain issue
 extension ProfilePagingViewController {
-    
+
     override var keyCommands: [UIKeyCommand]? {
         return currentViewController?.keyCommands
     }
     
-    @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        (currentViewController as? StatusTableViewControllerNavigateable)?.navigateKeyCommandHandlerRelay(sender)
+
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
         (currentViewController as? StatusTableViewControllerNavigateable)?.statusKeyCommandHandlerRelay(sender)
     }
         
