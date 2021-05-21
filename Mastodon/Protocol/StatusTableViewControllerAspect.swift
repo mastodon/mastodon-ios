@@ -86,14 +86,14 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
     }
 }
 
-extension StatusTableViewControllerAspect where Self: TableViewCellHeightCacheableContainer & StatusProvider {
+extension StatusTableViewControllerAspect where Self: TableViewCellHeightCacheableContainer {
     /// [UI] hook to cache table view cell height
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cacheTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
     }
 }
 
-extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegate & TableViewCellHeightCacheableContainer & StatusProvider {
+extension StatusTableViewControllerAspect where Self: StatusProvider & StatusTableViewCellDelegate & TableViewCellHeightCacheableContainer {
     /// [Media] hook to notify video service
     /// [UI] hook to cache table view cell height
     func aspectTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {

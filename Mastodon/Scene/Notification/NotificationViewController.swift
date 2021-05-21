@@ -141,7 +141,15 @@ extension NotificationViewController {
     }
 }
 
-extension NotificationViewController {
+// MARK: - StatusTableViewControllerAspect
+extension NotificationViewController: StatusTableViewControllerAspect { }
+
+// MARK: - TableViewCellHeightCacheableContainer
+extension NotificationViewController: TableViewCellHeightCacheableContainer {
+    var cellFrameCache: NSCache<NSNumber, NSValue> {
+        viewModel.cellFrameCache
+    }
+    
     func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
@@ -171,6 +179,13 @@ extension NotificationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        open(item: item)
+    }
+
+}
+
+extension NotificationViewController {
+    private func open(item: NotificationItem) {
         switch item {
         case .notification(let objectID, _):
             let notification = context.managedObjectContext.object(with: objectID) as! MastodonNotification
@@ -255,4 +270,93 @@ extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
     typealias LoadingState = NotificationViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { tableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }
+}
+
+extension NotificationViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands
+    }
+}
+
+extension NotificationViewController: TableViewControllerNavigateable {
+    
+    func navigate(direction: TableViewNavigationDirection) {
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+            // navigate up/down on the current selected item
+            navigateToStatus(direction: direction, indexPath: indexPathForSelectedRow)
+        } else {
+            // set first visible item selected
+            navigateToFirstVisibleStatus()
+        }
+    }
+    
+    private func navigateToStatus(direction: TableViewNavigationDirection, indexPath: IndexPath) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        let items = diffableDataSource.snapshot().itemIdentifiers
+        guard let selectedItem = diffableDataSource.itemIdentifier(for: indexPath),
+              let selectedItemIndex = items.firstIndex(of: selectedItem) else {
+            return
+        }
+
+        let _navigateToItem: NotificationItem? = {
+            var index = selectedItemIndex
+            while 0..<items.count ~= index {
+                index = {
+                    switch direction {
+                    case .up:   return index - 1
+                    case .down: return index + 1
+                    }
+                }()
+                guard 0..<items.count ~= index else { return nil }
+                let item = items[index]
+                
+                guard Self.validNavigateableItem(item) else { continue }
+                return item
+            }
+            return nil
+        }()
+        
+        guard let item = _navigateToItem, let indexPath = diffableDataSource.indexPath(for: item) else { return }
+        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
+    }
+    
+    private func navigateToFirstVisibleStatus() {
+        guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        
+        var visibleItems: [NotificationItem] = indexPathsForVisibleRows.sorted().compactMap { indexPath in
+            guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
+            guard Self.validNavigateableItem(item) else { return nil }
+            return item
+        }
+        if indexPathsForVisibleRows.first?.row != 0, visibleItems.count > 1 {
+            // drop first when visible not the first cell of table
+            visibleItems.removeFirst()
+        }
+        guard let item = visibleItems.first, let indexPath = diffableDataSource.indexPath(for: item) else { return }
+        let scrollPosition: UITableView.ScrollPosition = overrideNavigationScrollPosition ?? Self.navigateScrollPosition(tableView: tableView, indexPath: indexPath)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: scrollPosition)
+    }
+    
+    static func validNavigateableItem(_ item: NotificationItem) -> Bool {
+        switch item {
+        case .notification:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func open() {
+        guard let indexPathForSelectedRow = tableView.indexPathForSelectedRow else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPathForSelectedRow) else { return }
+        open(item: item)
+    }
+    
+    func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+
 }

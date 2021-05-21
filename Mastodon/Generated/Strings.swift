@@ -102,12 +102,18 @@ internal enum L10n {
         internal static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople")
         /// Manually search instead
         internal static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch")
+        /// Next
+        internal static let next = L10n.tr("Localizable", "Common.Controls.Actions.Next")
         /// OK
         internal static let ok = L10n.tr("Localizable", "Common.Controls.Actions.Ok")
+        /// Open
+        internal static let `open` = L10n.tr("Localizable", "Common.Controls.Actions.Open")
         /// Open in Safari
         internal static let openInSafari = L10n.tr("Localizable", "Common.Controls.Actions.OpenInSafari")
         /// Preview
         internal static let preview = L10n.tr("Localizable", "Common.Controls.Actions.Preview")
+        /// Previous
+        internal static let previous = L10n.tr("Localizable", "Common.Controls.Actions.Previous")
         /// Remove
         internal static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove")
         /// Reply

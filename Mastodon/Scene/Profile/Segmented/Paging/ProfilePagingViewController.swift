@@ -65,7 +65,7 @@ extension ProfilePagingViewController {
     }
     
     @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        (currentViewController as? StatusTableViewControllerNavigateable)?.keyCommandHandlerRelay(sender)
+        (currentViewController as? StatusTableViewControllerNavigateable)?.statusKeyCommandHandlerRelay(sender)
     }
         
 }

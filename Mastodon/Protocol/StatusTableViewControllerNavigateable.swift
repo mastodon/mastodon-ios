@@ -10,10 +10,9 @@ import UIKit
 
 typealias StatusTableViewControllerNavigateable = StatusTableViewControllerNavigateableCore & StatusTableViewControllerNavigateableRelay
 
-protocol StatusTableViewControllerNavigateableCore: AnyObject {
-    var tableView: UITableView { get }
-    var overrideNavigationScrollPosition: UITableView.ScrollPosition? { get set }
-    func keyCommandHandler(_ sender: UIKeyCommand)
+protocol StatusTableViewControllerNavigateableCore: TableViewControllerNavigateableCore {
+    var statusNavigationKeyCommands: [UIKeyCommand] { get }
+    func statusKeyCommandHandler(_ sender: UIKeyCommand)
 }
 
 extension StatusTableViewControllerNavigateableCore {
@@ -23,21 +22,11 @@ extension StatusTableViewControllerNavigateableCore {
     }
 }
 
-@objc protocol StatusTableViewControllerNavigateableRelay: AnyObject {
-    func keyCommandHandlerRelay(_ sender: UIKeyCommand)
+@objc protocol StatusTableViewControllerNavigateableRelay: TableViewControllerNavigateableRelay {
+    func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand)
 }
-
-enum StatusTableViewNavigationDirection {
-    case up
-    case down
-}
-
     
 enum StatusTableViewNavigation: String, CaseIterable {
-    case up
-    case down
-    case back                   // pop
-    case openStatus
     case openAuthorProfile
     case openRebloggerProfile
     case replyStatus
@@ -48,10 +37,6 @@ enum StatusTableViewNavigation: String, CaseIterable {
     
     var title: String {
         switch self {
-        case .up:                   return L10n.Common.Controls.Keyboard.Timeline.previousStatus
-        case .down:                 return L10n.Common.Controls.Keyboard.Timeline.nextStatus
-        case .back:                 return L10n.Common.Controls.Actions.back
-        case .openStatus:           return L10n.Common.Controls.Keyboard.Timeline.openStatus
         case .openAuthorProfile:    return L10n.Common.Controls.Keyboard.Timeline.openAuthorProfile
         case .openRebloggerProfile: return L10n.Common.Controls.Keyboard.Timeline.openRebloggerProfile
         case .replyStatus:          return L10n.Common.Controls.Keyboard.Timeline.replyStatus
@@ -65,10 +50,6 @@ enum StatusTableViewNavigation: String, CaseIterable {
     // UIKeyCommand input
     var input: String {
         switch self {
-        case .up:                   return "k"
-        case .down:                 return "j"
-        case .back:                 return "h"
-        case .openStatus:           return "l"  // little "L"
         case .openAuthorProfile:    return "p"
         case .openRebloggerProfile: return "p"  // + option
         case .replyStatus:          return "n"  // + shift + command
@@ -81,10 +62,6 @@ enum StatusTableViewNavigation: String, CaseIterable {
     
     var modifierFlags: UIKeyModifierFlags {
         switch self {
-        case .up:                   return []
-        case .down:                 return []
-        case .back:                 return []
-        case .openStatus:           return []
         case .openAuthorProfile:    return []
         case .openRebloggerProfile: return [.alternate]
         case .replyStatus:          return [.shift, .alternate]

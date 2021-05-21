@@ -44,6 +44,9 @@
         "controls": {
             "actions": {
                 "back": "Back",
+                "next": "Next",
+                "previous": "Previous",
+                "open": "Open",
                 "add": "Add",
                 "remove": "Remove",
                 "edit": "Edit",

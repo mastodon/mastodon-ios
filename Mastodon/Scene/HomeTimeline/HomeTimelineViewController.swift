@@ -540,13 +540,17 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
 
 extension HomeTimelineViewController {
     override var keyCommands: [UIKeyCommand]? {
-        return statusNavigationKeyCommands
+        return navigationKeyCommands + statusNavigationKeyCommands
     }
 }
 
 // MARK: - StatusTableViewControllerNavigateable
-extension HomeTimelineViewController: StatusTableViewControllerNavigateable {    
-    @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        keyCommandHandler(sender)
+extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
     }
 }

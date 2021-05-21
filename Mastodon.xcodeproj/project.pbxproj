@@ -200,6 +200,8 @@
 		DB1D842C26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842B26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift */; };
 		DB1D842E26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */; };
 		DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842F26566512000346B3 /* KeyboardPreference.swift */; };
+		DB1D843426579931000346B3 /* TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */; };
+		DB1D843626579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */; };
 		DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */; };
 		DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E347725F519300079D7DF /* PickServerItem.swift */; };
 		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
@@ -758,6 +760,8 @@
 		DB1D842B26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+StatusTableViewKeyCommandNavigateable.swift"; sourceTree = "<group>"; };
 		DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerNavigateable.swift; sourceTree = "<group>"; };
 		DB1D842F26566512000346B3 /* KeyboardPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPreference.swift; sourceTree = "<group>"; };
+		DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerNavigateable.swift; sourceTree = "<group>"; };
+		DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+TableViewControllerNavigateable.swift"; sourceTree = "<group>"; };
 		DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB1E347725F519300079D7DF /* PickServerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickServerItem.swift; sourceTree = "<group>"; };
 		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
@@ -1247,6 +1251,7 @@
 				2DF75BA025D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift */,
 				DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */,
 				DB71FD4525F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift */,
+				DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */,
 				DB1D842B26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift */,
 			);
 			path = StatusProvider;
@@ -1348,6 +1353,7 @@
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
 				5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */,
 				DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */,
+				DB1D843326579931000346B3 /* TableViewControllerNavigateable.swift */,
 				DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */,
 			);
 			path = Protocol;
@@ -2907,6 +2913,7 @@
 				DBE3CDCF261C42ED00430CC6 /* TimelineHeaderView.swift in Sources */,
 				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
 				5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */,
+				DB1D843426579931000346B3 /* TableViewControllerNavigateable.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
@@ -3256,6 +3263,7 @@
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
 				DB1D842C26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift in Sources */,
 				5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */,
+				DB1D843626579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift in Sources */,
 				DB6D9F4926353FD7008423CD /* Subscription.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,
 				DB6180ED26391C6C0018D199 /* TransitioningMath.swift in Sources */,

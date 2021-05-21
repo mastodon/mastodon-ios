@@ -230,13 +230,17 @@ extension ThreadViewController: ThreadReplyLoaderTableViewCellDelegate {
 
 extension ThreadViewController {
     override var keyCommands: [UIKeyCommand]? {
-        return statusNavigationKeyCommands
+        return navigationKeyCommands + statusNavigationKeyCommands
     }
 }
 
 // MARK: - StatusTableViewControllerNavigateable
 extension ThreadViewController: StatusTableViewControllerNavigateable {
-    @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        keyCommandHandler(sender)
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
     }
 }

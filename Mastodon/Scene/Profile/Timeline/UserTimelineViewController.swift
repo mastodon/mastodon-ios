@@ -190,19 +190,17 @@ extension UserTimelineViewController: LoadMoreConfigurableTableViewContainer {
 
 extension UserTimelineViewController {
     override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(title: "Test", image: nil, action: #selector(UserTimelineViewController.test(_:)), input: "t", modifierFlags: [], propertyList: nil, alternates: [], discoverabilityTitle: nil, attributes: [], state: .off)
-        ] + statusNavigationKeyCommands
-    }
-
-    @objc private func test(_ sender: UIKeyCommand) {
-        
+        return navigationKeyCommands + statusNavigationKeyCommands
     }
 }
 
 // MARK: - StatusTableViewControllerNavigateable
 extension UserTimelineViewController: StatusTableViewControllerNavigateable {
-    @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
-        keyCommandHandler(sender)
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
     }
 }
