@@ -52,6 +52,7 @@ extension ComposeStatusContentCollectionViewCell {
     
     private func _init() {
         // selectionStyle = .none
+        layer.zPosition = 999
         preservesSuperviewLayoutMargins = true
         
         statusContentWarningEditorView.translatesAutoresizingMaskIntoConstraints = false

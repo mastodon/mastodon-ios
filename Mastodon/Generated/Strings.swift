@@ -102,14 +102,22 @@ internal enum L10n {
         internal static let findPeople = L10n.tr("Localizable", "Common.Controls.Actions.FindPeople")
         /// Manually search instead
         internal static let manuallySearch = L10n.tr("Localizable", "Common.Controls.Actions.ManuallySearch")
+        /// Next
+        internal static let next = L10n.tr("Localizable", "Common.Controls.Actions.Next")
         /// OK
         internal static let ok = L10n.tr("Localizable", "Common.Controls.Actions.Ok")
+        /// Open
+        internal static let `open` = L10n.tr("Localizable", "Common.Controls.Actions.Open")
         /// Open in Safari
         internal static let openInSafari = L10n.tr("Localizable", "Common.Controls.Actions.OpenInSafari")
         /// Preview
         internal static let preview = L10n.tr("Localizable", "Common.Controls.Actions.Preview")
+        /// Previous
+        internal static let previous = L10n.tr("Localizable", "Common.Controls.Actions.Previous")
         /// Remove
         internal static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove")
+        /// Reply
+        internal static let reply = L10n.tr("Localizable", "Common.Controls.Actions.Reply")
         /// Report %@
         internal static func reportUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.ReportUser", String(describing: p1))
@@ -187,6 +195,48 @@ internal enum L10n {
         /// Unmute %@
         internal static func unmuteUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Firendship.UnmuteUser", String(describing: p1))
+        }
+      }
+      internal enum Keyboard {
+        internal enum Common {
+          /// Compose New Post
+          internal static let composeNewPost = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ComposeNewPost")
+          /// Open Settings
+          internal static let openSettings = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.OpenSettings")
+          /// Show Favorites
+          internal static let showFavorites = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ShowFavorites")
+          /// Switch to %@
+          internal static func switchToTab(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Keyboard.Common.SwitchToTab", String(describing: p1))
+          }
+        }
+        internal enum SegmentedControl {
+          /// Next Section
+          internal static let nextSection = L10n.tr("Localizable", "Common.Controls.Keyboard.SegmentedControl.NextSection")
+          /// Previous Section
+          internal static let previousSection = L10n.tr("Localizable", "Common.Controls.Keyboard.SegmentedControl.PreviousSection")
+        }
+        internal enum Timeline {
+          /// Next Status
+          internal static let nextStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.NextStatus")
+          /// Open Author Profile
+          internal static let openAuthorProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenAuthorProfile")
+          /// Open Reblogger Profile
+          internal static let openRebloggerProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenRebloggerProfile")
+          /// Open Status
+          internal static let openStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenStatus")
+          /// Preview Image
+          internal static let previewImage = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.PreviewImage")
+          /// Previous Status
+          internal static let previousStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.PreviousStatus")
+          /// Reply Status
+          internal static let replyStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ReplyStatus")
+          /// Toggle Content Warning
+          internal static let toggleContentWarning = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleContentWarning")
+          /// Toggle Status Favorite
+          internal static let toggleFavorite = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleFavorite")
+          /// Toggle Status Reblog
+          internal static let toggleReblog = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleReblog")
         }
       }
       internal enum Status {
@@ -390,6 +440,24 @@ internal enum L10n {
         /// Write an accurate warning here...
         internal static let placeholder = L10n.tr("Localizable", "Scene.Compose.ContentWarning.Placeholder")
       }
+      internal enum Keyboard {
+        /// Append Attachment - %@
+        internal static func appendAttachmentEntry(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Keyboard.AppendAttachmentEntry", String(describing: p1))
+        }
+        /// Discard Post
+        internal static let discardPost = L10n.tr("Localizable", "Scene.Compose.Keyboard.DiscardPost")
+        /// Publish Post
+        internal static let publishPost = L10n.tr("Localizable", "Scene.Compose.Keyboard.PublishPost")
+        /// Select Visibility - %@
+        internal static func selectVisibilityEntry(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Keyboard.SelectVisibilityEntry", String(describing: p1))
+        }
+        /// Toggle Content Warning
+        internal static let toggleContentWarning = L10n.tr("Localizable", "Scene.Compose.Keyboard.ToggleContentWarning")
+        /// Toggle Poll
+        internal static let togglePoll = L10n.tr("Localizable", "Scene.Compose.Keyboard.TogglePoll")
+      }
       internal enum MediaSelection {
         /// Browse
         internal static let browse = L10n.tr("Localizable", "Scene.Compose.MediaSelection.Browse")
@@ -508,11 +576,27 @@ internal enum L10n {
         /// rebloged your post
         internal static let reblog = L10n.tr("Localizable", "Scene.Notification.Action.Reblog")
       }
+      internal enum Keyobard {
+        /// Show Everything
+        internal static let showEverything = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowEverything")
+        /// Show Mentions
+        internal static let showMentions = L10n.tr("Localizable", "Scene.Notification.Keyobard.ShowMentions")
+      }
       internal enum Title {
         /// Everything
         internal static let everything = L10n.tr("Localizable", "Scene.Notification.Title.Everything")
         /// Mentions
         internal static let mentions = L10n.tr("Localizable", "Scene.Notification.Title.Mentions")
+      }
+    }
+    internal enum Preview {
+      internal enum Keyboard {
+        /// Close Preview
+        internal static let closePreview = L10n.tr("Localizable", "Scene.Preview.Keyboard.ClosePreview")
+        /// Show Next
+        internal static let showNext = L10n.tr("Localizable", "Scene.Preview.Keyboard.ShowNext")
+        /// Show Previous
+        internal static let showPrevious = L10n.tr("Localizable", "Scene.Preview.Keyboard.ShowPrevious")
       }
     }
     internal enum Profile {
@@ -822,6 +906,10 @@ internal enum L10n {
     internal enum Settings {
       /// Settings
       internal static let title = L10n.tr("Localizable", "Scene.Settings.Title")
+      internal enum Keyboard {
+        /// Close Settings Window
+        internal static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow")
+      }
       internal enum Section {
         internal enum Appearance {
           /// Automatic

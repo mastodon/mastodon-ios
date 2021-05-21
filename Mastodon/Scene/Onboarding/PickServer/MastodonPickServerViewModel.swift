@@ -109,7 +109,7 @@ extension MastodonPickServerViewModel {
             var serverItems: [PickServerItem] = []
             for server in indexedServers {
                 let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
-                attribute.isLast = false
+                attribute.isLast.value = false
                 let item = PickServerItem.server(server: server, attribute: attribute)
                 guard !serverItems.contains(item) else { continue }
                 serverItems.append(item)
@@ -119,7 +119,7 @@ extension MastodonPickServerViewModel {
                 if !unindexedServers.isEmpty {
                     for server in unindexedServers {
                         let attribute = oldSnapshotServerItemAttributeDict[server.domain] ?? PickServerItem.ServerItemAttribute(isLast: false, isExpand: false)
-                        attribute.isLast = false
+                        attribute.isLast.value = false
                         let item = PickServerItem.server(server: server, attribute: attribute)
                         guard !serverItems.contains(item) else { continue }
                         serverItems.append(item)
@@ -134,7 +134,7 @@ extension MastodonPickServerViewModel {
             }
             
             if case let .server(_, attribute) = serverItems.last {
-                attribute.isLast = true
+                attribute.isLast.value = true
             }
             if case let .loader(attribute) = serverItems.last {
                 attribute.isLast = true

@@ -83,16 +83,24 @@ extension PickServerSection {
         
         cell.updateExpandMode(mode: attribute.isExpand ? .expand : .collapse)
         
-        if attribute.isLast {
-            cell.containerView.layer.maskedCorners = [
-                .layerMinXMaxYCorner,
-                .layerMaxXMaxYCorner
-            ]
-            cell.containerView.layer.cornerCurve = .continuous
-            cell.containerView.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
-        } else {
-            cell.containerView.layer.cornerRadius = 0
-        }
+        attribute.isLast
+            .receive(on: DispatchQueue.main)
+            .sink { [weak cell] isLast in
+                guard let cell = cell else { return }
+                if isLast {
+                    cell.containerView.layer.maskedCorners = [
+                        .layerMinXMaxYCorner,
+                        .layerMaxXMaxYCorner
+                    ]
+                    cell.containerView.layer.cornerCurve = .continuous
+                    cell.containerView.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
+                    cell.containerView.layer.masksToBounds = true
+                } else {
+                    cell.containerView.layer.cornerRadius = 0
+                    cell.containerView.layer.masksToBounds = false
+                }
+            }
+            .store(in: &cell.disposeBag)
         
         cell.expandMode
             .receive(on: DispatchQueue.main)
@@ -152,8 +160,10 @@ extension PickServerSection {
             ]
             cell.containerView.layer.cornerCurve = .continuous
             cell.containerView.layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
+            cell.containerView.layer.masksToBounds = true
         } else {
             cell.containerView.layer.cornerRadius = 0
+            cell.containerView.layer.masksToBounds = false
         }
         
         attribute.isNoResult ? cell.stopAnimating() : cell.startAnimating()

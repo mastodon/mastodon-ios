@@ -14,7 +14,7 @@ import GameplayKit
 
 // TODO: adopt MediaPreviewableViewController
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
-    
+        
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -34,6 +34,8 @@ final class UserTimelineViewController: UIViewController, NeedsDependency, Media
         return tableView
     }()
     
+    var overrideNavigationScrollPosition: UITableView.ScrollPosition? = nil
+
     deinit {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -184,4 +186,21 @@ extension UserTimelineViewController: LoadMoreConfigurableTableViewContainer {
     
     var loadMoreConfigurableTableView: UITableView { return tableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
+}
+
+extension UserTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return navigationKeyCommands + statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension UserTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        navigateKeyCommandHandler(sender)
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        statusKeyCommandHandler(sender)
+    }
 }

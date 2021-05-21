@@ -56,7 +56,6 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
-    private var selectionBackgroundViewObservation: NSKeyValueObservation?
     
     let statusView = StatusView()
     let threadMetaStackView = UIStackView()

@@ -9,15 +9,6 @@ import UIKit
 
 extension UITableView {
     
-    // static let groupedTableViewPaddingHeaderViewHeight: CGFloat = 16
-    // static var groupedTableViewPaddingHeaderView: UIView {
-    //     return UIView(frame: CGRect(x: 0, y: 0, width: 100, height: groupedTableViewPaddingHeaderViewHeight))
-    // }
-    
-}
-
-extension UITableView {
-    
     func deselectRow(with transitionCoordinator: UIViewControllerTransitionCoordinator?, animated: Bool) {
         guard let indexPathForSelectedRow = indexPathForSelectedRow else { return }
         

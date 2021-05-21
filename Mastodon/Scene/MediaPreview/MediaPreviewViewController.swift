@@ -240,3 +240,74 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     }
     
 }
+
+extension MediaPreviewViewController {
+    
+    var closeKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Scene.Preview.Keyboard.closePreview,
+            image: nil,
+            action: #selector(MediaPreviewViewController.closePreviewKeyCommandHandler(_:)),
+            input: "i",
+            modifierFlags: [],
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    var showNextKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Scene.Preview.Keyboard.closePreview,
+            image: nil,
+            action: #selector(MediaPreviewViewController.showNextKeyCommandHandler(_:)),
+            input: "j",
+            modifierFlags: [],
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    
+    var showPreviousKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Scene.Preview.Keyboard.closePreview,
+            image: nil,
+            action: #selector(MediaPreviewViewController.showPreviousKeyCommandHandler(_:)),
+            input: "k",
+            modifierFlags: [],
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
+    
+    override var keyCommands: [UIKeyCommand] {
+        return [
+            closeKeyCommand,
+            showNextKeyCommand,
+            showPreviousKeyCommand,
+        ]
+    }
+    
+    @objc private func closePreviewKeyCommandHandler(_ sender: UIKeyCommand) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func showNextKeyCommandHandler(_ sender: UIKeyCommand) {
+        pagingViewConttroller.scrollToPage(.next, animated: true, completion: nil)
+    }
+    
+    @objc private func showPreviousKeyCommandHandler(_ sender: UIKeyCommand) {
+        pagingViewConttroller.scrollToPage(.previous, animated: true, completion: nil)
+    }
+}
+

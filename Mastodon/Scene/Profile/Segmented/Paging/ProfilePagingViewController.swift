@@ -26,7 +26,13 @@ final class ProfilePagingViewController: TabmanViewController {
         super.pageboyViewController(pageboyViewController, didScrollToPageAt: index, direction: direction, animated: animated)
         
         let viewController = viewModel.viewControllers[index]
+        (viewController as? StatusTableViewControllerNavigateable)?.overrideNavigationScrollPosition = .top
         pagingDelegate?.profilePagingViewController(self, didScrollToPostCustomScrollViewContainerController: viewController, atIndex: index)
+    }
+    
+    // make key commands works
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     deinit {
@@ -43,5 +49,29 @@ extension ProfilePagingViewController {
         view.backgroundColor = .clear
         dataSource = viewModel
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        becomeFirstResponder()
+    }
 
+}
+
+// workaround to fix tab man responder chain issue
+extension ProfilePagingViewController {
+
+    override var keyCommands: [UIKeyCommand]? {
+        return currentViewController?.keyCommands
+    }
+    
+    @objc func navigateKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        (currentViewController as? StatusTableViewControllerNavigateable)?.navigateKeyCommandHandlerRelay(sender)
+
+    }
+    
+    @objc func statusKeyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        (currentViewController as? StatusTableViewControllerNavigateable)?.statusKeyCommandHandlerRelay(sender)
+    }
+        
 }
