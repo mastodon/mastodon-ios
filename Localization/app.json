@@ -87,10 +87,9 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Switch to %s",
+                    "compose_new_post": "Compose New Post",
                     "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings",
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "open_settings": "Open Settings"
                 },
                 "timeline": {
                     "previous_status": "Previous Status",
@@ -103,6 +102,10 @@
                     "toggle_favorite": "Toggle Status Favorite",
                     "toggle_content_warning": "Toggle Content Warning",
                     "preview_image": "Preview Image"
+                },
+                "segmented_control": {
+                    "previous_section": "Previous Section",
+                    "next_section": "Next Section"
                 }
             },
             "status": {
@@ -379,6 +382,14 @@
                 "post_visibility_menu": "Post visibility menu",
                 "input_limit_remains_count": "Input limit remains %ld",
                 "input_limit_exceeds_count": "Input limit exceeds %ld"
+            },
+            "keyboard": {
+                "discard_post": "Discard Post",
+                "publish_post": "Publish Post",
+                "toggle_poll": "Toggle Poll",
+                "toggle_content_warning": "Toggle Content Warning",
+                "append_attachment_entry": "Append Attachment - %s",
+                "select_visibility_entry": "Select Visibility - %s"
             }
         },
         "profile": {

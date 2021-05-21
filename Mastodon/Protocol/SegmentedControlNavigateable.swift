@@ -27,8 +27,8 @@ enum SegmentedControlNavigationDirection: String, CaseIterable {
 
     var title: String {
         switch self {
-        case .previous:             return L10n.Common.Controls.Keyboard.Common.previousSection
-        case .next:                 return L10n.Common.Controls.Keyboard.Common.nextSection
+        case .previous:             return L10n.Common.Controls.Keyboard.SegmentedControl.previousSection
+        case .next:                 return L10n.Common.Controls.Keyboard.SegmentedControl.nextSection
         }
     }
     

@@ -199,18 +199,22 @@ internal enum L10n {
       }
       internal enum Keyboard {
         internal enum Common {
-          /// Next Section
-          internal static let nextSection = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.NextSection")
+          /// Compose New Post
+          internal static let composeNewPost = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ComposeNewPost")
           /// Open Settings
           internal static let openSettings = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.OpenSettings")
-          /// Previous Section
-          internal static let previousSection = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.PreviousSection")
           /// Show Favorites
           internal static let showFavorites = L10n.tr("Localizable", "Common.Controls.Keyboard.Common.ShowFavorites")
           /// Switch to %@
           internal static func switchToTab(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Keyboard.Common.SwitchToTab", String(describing: p1))
           }
+        }
+        internal enum SegmentedControl {
+          /// Next Section
+          internal static let nextSection = L10n.tr("Localizable", "Common.Controls.Keyboard.SegmentedControl.NextSection")
+          /// Previous Section
+          internal static let previousSection = L10n.tr("Localizable", "Common.Controls.Keyboard.SegmentedControl.PreviousSection")
         }
         internal enum Timeline {
           /// Next Status
@@ -435,6 +439,24 @@ internal enum L10n {
       internal enum ContentWarning {
         /// Write an accurate warning here...
         internal static let placeholder = L10n.tr("Localizable", "Scene.Compose.ContentWarning.Placeholder")
+      }
+      internal enum Keyboard {
+        /// Append Attachment - %@
+        internal static func appendAttachmentEntry(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Keyboard.AppendAttachmentEntry", String(describing: p1))
+        }
+        /// Discard Post
+        internal static let discardPost = L10n.tr("Localizable", "Scene.Compose.Keyboard.DiscardPost")
+        /// Publish Post
+        internal static let publishPost = L10n.tr("Localizable", "Scene.Compose.Keyboard.PublishPost")
+        /// Select Visibility - %@
+        internal static func selectVisibilityEntry(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Compose.Keyboard.SelectVisibilityEntry", String(describing: p1))
+        }
+        /// Toggle Content Warning
+        internal static let toggleContentWarning = L10n.tr("Localizable", "Scene.Compose.Keyboard.ToggleContentWarning")
+        /// Toggle Poll
+        internal static let togglePoll = L10n.tr("Localizable", "Scene.Compose.Keyboard.TogglePoll")
       }
       internal enum MediaSelection {
         /// Browse

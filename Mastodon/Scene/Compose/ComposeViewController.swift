@@ -37,6 +37,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.adjustsImageWhenHighlighted = false
         return button
     }()
+    
+    private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(customView: publishButton)
         return barButtonItem
@@ -138,7 +140,7 @@ extension ComposeViewController {
             }
             .store(in: &disposeBag)
         view.backgroundColor = Asset.Scene.Compose.background.color
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
+        navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = publishBarButtonItem
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         
@@ -247,7 +249,8 @@ extension ComposeViewController {
             
             // adjust inset for auto-complete
             let autoCompleteTableViewBottomInset: CGFloat = {
-                let tableViewFrameInWindow = self.autoCompleteViewController.tableView.superview!.convert(self.autoCompleteViewController.tableView.frame, to: nil)
+                guard let superview = self.autoCompleteViewController.tableView.superview else { return .zero }
+                let tableViewFrameInWindow = superview.convert(self.autoCompleteViewController.tableView.frame, to: nil)
                 let padding = tableViewFrameInWindow.maxY + self.composeToolbarView.frame.height + AutoCompleteViewController.chevronViewHeight - endFrame.minY
                 return max(0, padding)
             }()
@@ -1256,4 +1259,131 @@ extension ComposeViewController: AutoCompleteViewControllerDelegate {
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete fail %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
         }
     }
+}
+
+extension ComposeViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        composeKeyCommands
+    }
+}
+
+extension ComposeViewController {
+    
+    enum ComposeKeyCommand: String, CaseIterable {
+        case discardPost
+        case publishPost
+        case mediaBrowse
+        case mediaPhotoLibrary
+        case mediaCamera
+        case togglePoll
+        case toggleContentWarning
+        case selectVisibilityPublic
+        case selectVisibilityUnlisted
+        case selectVisibilityPrivate
+        case selectVisibilityDirect
+
+        var title: String {
+            switch self {
+            case .discardPost:              return L10n.Scene.Compose.Keyboard.discardPost
+            case .publishPost:              return L10n.Scene.Compose.Keyboard.publishPost
+            case .mediaBrowse:              return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.browse)
+            case .mediaPhotoLibrary:        return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.photoLibrary)
+            case .mediaCamera:              return L10n.Scene.Compose.Keyboard.appendAttachmentEntry(L10n.Scene.Compose.MediaSelection.camera)
+            case .togglePoll:               return L10n.Scene.Compose.Keyboard.togglePoll
+            case .toggleContentWarning:     return L10n.Scene.Compose.Keyboard.toggleContentWarning
+            case .selectVisibilityPublic:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.public)
+            case .selectVisibilityUnlisted: return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.unlisted)
+            case .selectVisibilityPrivate:  return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.private)
+            case .selectVisibilityDirect:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.direct)
+            }
+        }
+        
+        // UIKeyCommand input
+        var input: String {
+            switch self {
+            case .discardPost:              return "w"      // + command
+            case .publishPost:              return "\r"     // (enter) + command
+            case .mediaBrowse:              return "b"      // + option + command
+            case .mediaPhotoLibrary:        return "p"      // + option + command
+            case .mediaCamera:              return "c"      // + option + command
+            case .togglePoll:               return "p"      // + shift + command
+            case .toggleContentWarning:     return "c"      // + shift + command
+            case .selectVisibilityPublic:   return "1"      // + command
+            case .selectVisibilityUnlisted: return "2"      // + command
+            case .selectVisibilityPrivate:  return "3"      // + command
+            case .selectVisibilityDirect:   return "4"      // + command
+            }
+        }
+        
+        var modifierFlags: UIKeyModifierFlags {
+            switch self {
+            case .discardPost:              return [.command]
+            case .publishPost:              return [.command]
+            case .mediaBrowse:              return [.alternate, .command]
+            case .mediaPhotoLibrary:        return [.alternate, .command]
+            case .mediaCamera:              return [.alternate, .command]
+            case .togglePoll:               return [.shift, .command]
+            case .toggleContentWarning:     return [.shift, .command]
+            case .selectVisibilityPublic:   return [.command]
+            case .selectVisibilityUnlisted: return [.command]
+            case .selectVisibilityPrivate:  return [.command]
+            case .selectVisibilityDirect:   return [.command]
+            }
+        }
+        
+        var propertyList: Any {
+            return rawValue
+        }
+    }
+    
+    var composeKeyCommands: [UIKeyCommand]? {
+        ComposeKeyCommand.allCases.map { command in
+            UIKeyCommand(
+                title: command.title,
+                image: nil,
+                action: #selector(Self.composeKeyCommandHandler(_:)),
+                input: command.input,
+                modifierFlags: command.modifierFlags,
+                propertyList: command.propertyList,
+                alternates: [],
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            )
+        }
+    }
+    
+    @objc private func composeKeyCommandHandler(_ sender: UIKeyCommand) {
+        guard let rawValue = sender.propertyList as? String,
+              let command = ComposeKeyCommand(rawValue: rawValue) else { return }
+        
+        switch command {
+        case .discardPost:
+            cancelBarButtonItemPressed(cancelBarButtonItem)
+        case .publishPost:
+            publishBarButtonItemPressed(publishBarButtonItem)
+        case .mediaBrowse:
+            present(documentPickerController, animated: true, completion: nil)
+        case .mediaPhotoLibrary:
+            present(imagePicker, animated: true, completion: nil)
+        case .mediaCamera:
+            guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+                return
+            }
+            present(imagePickerController, animated: true, completion: nil)
+        case .togglePoll:
+            composeToolbarView.pollButton.sendActions(for: .touchUpInside)
+        case .toggleContentWarning:
+            composeToolbarView.contentWarningButton.sendActions(for: .touchUpInside)
+        case .selectVisibilityPublic:
+            viewModel.selectedStatusVisibility.value = .public
+        case .selectVisibilityUnlisted:
+            viewModel.selectedStatusVisibility.value = .unlisted
+        case .selectVisibilityPrivate:
+            viewModel.selectedStatusVisibility.value = .private
+        case .selectVisibilityDirect:
+            viewModel.selectedStatusVisibility.value = .direct
+        }
+    }
+    
 }

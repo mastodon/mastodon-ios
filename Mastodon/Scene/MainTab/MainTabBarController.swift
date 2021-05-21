@@ -246,6 +246,21 @@ extension MainTabBarController {
         )
     }
     
+    var composeNewPostKeyCommand: UIKeyCommand {
+        UIKeyCommand(
+            title: L10n.Common.Controls.Keyboard.Common.composeNewPost,
+            image: nil,
+            action: #selector(MainTabBarController.composeNewPostKeyCommandHandler(_:)),
+            input: "n",
+            modifierFlags: .command,
+            propertyList: nil,
+            alternates: [],
+            discoverabilityTitle: nil,
+            attributes: [],
+            state: .off
+        )
+    }
+    
     override var keyCommands: [UIKeyCommand]? {
         guard let topMost = self.topMost else {
             return []
@@ -258,6 +273,11 @@ extension MainTabBarController {
         } else {
             // switch tabs
             commands.append(contentsOf: switchToTabKeyCommands)
+            
+            // show compose
+            if !(self.topMost is ComposeViewController) {
+                commands.append(composeNewPostKeyCommand)
+            }
             
             // show favorites
             if !(self.topMost is FavoriteViewController) {
@@ -310,6 +330,12 @@ extension MainTabBarController {
         guard let setting = context.settingService.currentSetting.value else { return }
         let settingsViewModel = SettingsViewModel(context: context, setting: setting)
         coordinator.present(scene: .settings(viewModel: settingsViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func composeNewPostKeyCommandHandler(_ sender: UIKeyCommand) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let composeViewModel = ComposeViewModel(context: context, composeKind: .post)
+        coordinator.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
 }
