@@ -227,3 +227,16 @@ extension ThreadViewController: ThreadReplyLoaderTableViewCellDelegate {
         }
     }
 }
+
+extension ThreadViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension ThreadViewController: StatusTableViewControllerNavigateable {
+    @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        keyCommandHandler(sender)
+    }
+}

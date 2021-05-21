@@ -197,6 +197,9 @@
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
+		DB1D842C26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842B26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift */; };
+		DB1D842E26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */; };
+		DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D842F26566512000346B3 /* KeyboardPreference.swift */; };
 		DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */; };
 		DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E347725F519300079D7DF /* PickServerItem.swift */; };
 		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
@@ -752,6 +755,9 @@
 		DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightDimmableButton.swift; sourceTree = "<group>"; };
 		DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollTableView.swift; sourceTree = "<group>"; };
+		DB1D842B26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+StatusTableViewKeyCommandNavigateable.swift"; sourceTree = "<group>"; };
+		DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerNavigateable.swift; sourceTree = "<group>"; };
+		DB1D842F26566512000346B3 /* KeyboardPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPreference.swift; sourceTree = "<group>"; };
 		DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB1E347725F519300079D7DF /* PickServerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickServerItem.swift; sourceTree = "<group>"; };
 		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
@@ -1241,6 +1247,7 @@
 				2DF75BA025D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift */,
 				DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */,
 				DB71FD4525F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift */,
+				DB1D842B26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift */,
 			);
 			path = StatusProvider;
 			sourceTree = "<group>";
@@ -1341,6 +1348,7 @@
 				2D38F20725CD491300561493 /* DisposeBagCollectable.swift */,
 				5DF1058425F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift */,
 				DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */,
+				DB1D842D26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1789,6 +1797,7 @@
 				DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */,
 				DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */,
 				DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */,
+				DB1D842F26566512000346B3 /* KeyboardPreference.swift */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -3054,6 +3063,7 @@
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+Provider.swift in Sources */,
+				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
 				2D9DB96B263A91D1007C1D71 /* APIService+DomainBlock.swift in Sources */,
 				DBBF1DC92652538500E5B703 /* AutoCompleteSection.swift in Sources */,
@@ -3205,6 +3215,7 @@
 				0F202227261411BB000C64BF /* HashtagTimelineViewController+Provider.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */,
+				DB1D842E26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift in Sources */,
 				DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */,
 				2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */,
 				DB040ECD26526EA600BEE9D8 /* ComposeCollectionView.swift in Sources */,
@@ -3243,6 +3254,7 @@
 				DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */,
 				DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */,
 				0FB3D31E25E534C700AAD544 /* PickServerCategoryCollectionViewCell.swift in Sources */,
+				DB1D842C26551A1C000346B3 /* StatusProvider+StatusTableViewKeyCommandNavigateable.swift in Sources */,
 				5DF1057925F88A1D00D6C0D4 /* PlayerContainerView.swift in Sources */,
 				DB6D9F4926353FD7008423CD /* Subscription.swift in Sources */,
 				DB45FB0F25CA87D0005A8AC7 /* AuthenticationService.swift in Sources */,

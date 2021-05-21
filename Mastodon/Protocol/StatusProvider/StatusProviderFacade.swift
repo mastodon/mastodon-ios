@@ -25,6 +25,14 @@ extension StatusProviderFacade {
         )
     }
     
+    static func coordinateToStatusAuthorProfileScene(for target: Target, provider: StatusProvider, indexPath: IndexPath) {
+        _coordinateToStatusAuthorProfileScene(
+            for: target,
+            provider: provider,
+            status: provider.status(for: nil, indexPath: indexPath)
+        )
+    }
+    
     static func coordinateToStatusAuthorProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell) {
         _coordinateToStatusAuthorProfileScene(
             for: target,
@@ -189,6 +197,13 @@ extension StatusProviderFacade {
         )
     }
     
+    static func responseToStatusLikeAction(provider: StatusProvider, indexPath: IndexPath) {
+        _responseToStatusLikeAction(
+            provider: provider,
+            status: provider.status(for: nil, indexPath: indexPath)
+        )
+    }
+    
     private static func _responseToStatusLikeAction(provider: StatusProvider, status: Future<Status?, Never>) {
         // prepare authentication
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
@@ -289,6 +304,13 @@ extension StatusProviderFacade {
         _responseToStatusReblogAction(
             provider: provider,
             status: provider.status(for: cell, indexPath: nil)
+        )
+    }
+    
+    static func responseToStatusReblogAction(provider: StatusProvider, indexPath: IndexPath) {
+        _responseToStatusReblogAction(
+            provider: provider,
+            status: provider.status(for: nil, indexPath: indexPath)
         )
     }
     
@@ -400,6 +422,13 @@ extension StatusProviderFacade {
         )
     }
     
+    static func responseToStatusReplyAction(provider: StatusProvider, indexPath: IndexPath) {
+        _responseToStatusReplyAction(
+            provider: provider,
+            status: provider.status(for: nil, indexPath: indexPath)
+        )
+    }
+    
     private static func _responseToStatusReplyAction(provider: StatusProvider, status: Future<Status?, Never>) {
         status
             .sink { [weak provider] status in
@@ -447,6 +476,13 @@ extension StatusProviderFacade {
         _responseToStatusContentWarningRevealAction(
             dependency: provider,
             status: provider.status(for: cell, indexPath: nil)
+        )
+    }
+    
+    static func responseToStatusContentWarningRevealAction(provider: StatusProvider, indexPath: IndexPath) {
+        _responseToStatusContentWarningRevealAction(
+            dependency: provider,
+            status: provider.status(for: nil, indexPath: indexPath)
         )
     }
     

@@ -339,3 +339,16 @@ extension HashtagTimelineViewController: StatusTableViewCellDelegate {
     weak var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { return self }
     func parent() -> UIViewController { return self }
 }
+
+extension HashtagTimelineViewController {
+    override var keyCommands: [UIKeyCommand]? {
+        return statusNavigationKeyCommands
+    }
+}
+
+// MARK: - StatusTableViewControllerNavigateable
+extension HashtagTimelineViewController: StatusTableViewControllerNavigateable {
+    @objc func keyCommandHandlerRelay(_ sender: UIKeyCommand) {
+        keyCommandHandler(sender)
+    }
+}

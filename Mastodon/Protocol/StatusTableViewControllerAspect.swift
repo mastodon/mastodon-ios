@@ -7,8 +7,9 @@
 
 import UIKit
 import AVKit
+import GameController
 
-//   Check List                     Last Updated
+//   Check List                         Last Updated
 // - HomeViewController:                2021/4/30
 // - FavoriteViewController:            2021/4/30
 // - HashtagTimelineViewController:     2021/4/30
@@ -34,6 +35,12 @@ protocol StatusTableViewControllerAspect: UIViewController {
 extension StatusTableViewControllerAspect {
     /// [UI] hook to deselect row in the transitioning for the table view
     func aspectViewWillAppear(_ animated: Bool) {
+        if GCKeyboard.coalesced != nil, let backKeyCommandPressDate = UserDefaults.shared.backKeyCommandPressDate {
+            guard backKeyCommandPressDate.timeIntervalSinceNow <= -0.5 else {
+                // break if interval greater than 0.5s
+                return
+            }
+        }
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
     }
 }

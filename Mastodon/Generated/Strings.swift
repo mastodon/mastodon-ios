@@ -110,6 +110,8 @@ internal enum L10n {
         internal static let preview = L10n.tr("Localizable", "Common.Controls.Actions.Preview")
         /// Remove
         internal static let remove = L10n.tr("Localizable", "Common.Controls.Actions.Remove")
+        /// Reply
+        internal static let reply = L10n.tr("Localizable", "Common.Controls.Actions.Reply")
         /// Report %@
         internal static func reportUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Actions.ReportUser", String(describing: p1))
@@ -199,6 +201,28 @@ internal enum L10n {
           internal static func switchToTab(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Keyboard.Common.SwitchToTab", String(describing: p1))
           }
+        }
+        internal enum Timeline {
+          /// Next Status
+          internal static let nextStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.NextStatus")
+          /// Open Author Profile
+          internal static let openAuthorProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenAuthorProfile")
+          /// Open Reblogger Profile
+          internal static let openRebloggerProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenRebloggerProfile")
+          /// Open Status
+          internal static let openStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenStatus")
+          /// Preview Image
+          internal static let previewImage = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.PreviewImage")
+          /// Previous Status
+          internal static let previousStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.PreviousStatus")
+          /// Reply Status
+          internal static let replyStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ReplyStatus")
+          /// Toggle Content Warning
+          internal static let toggleContentWarning = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleContentWarning")
+          /// Toggle Status Favorite
+          internal static let toggleFavorite = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleFavorite")
+          /// Toggle Status Reblog
+          internal static let toggleReblog = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleReblog")
         }
       }
       internal enum Status {
@@ -525,6 +549,16 @@ internal enum L10n {
         internal static let everything = L10n.tr("Localizable", "Scene.Notification.Title.Everything")
         /// Mentions
         internal static let mentions = L10n.tr("Localizable", "Scene.Notification.Title.Mentions")
+      }
+    }
+    internal enum Preview {
+      internal enum Keyboard {
+        /// Close Preview
+        internal static let closePreview = L10n.tr("Localizable", "Scene.Preview.Keyboard.ClosePreview")
+        /// Show Next
+        internal static let showNext = L10n.tr("Localizable", "Scene.Preview.Keyboard.ShowNext")
+        /// Show Previous
+        internal static let showPrevious = L10n.tr("Localizable", "Scene.Preview.Keyboard.ShowPrevious")
       }
     }
     internal enum Profile {

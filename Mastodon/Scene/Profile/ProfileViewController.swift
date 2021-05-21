@@ -440,6 +440,13 @@ extension ProfileViewController {
         viewModel.isEditing
             .handleEvents(receiveOutput: { [weak self] isEditing in
                 guard let self = self else { return }
+                // set firset responder for key command
+                if !isEditing {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        self.profileSegmentedViewController.pagingViewController.becomeFirstResponder()
+                    }
+                }
+                
                 // dismiss keyboard if needs
                 if !isEditing { self.view.endEditing(true) }
                 
@@ -860,7 +867,6 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed dwersDashboardMeterView: ProfileStatusDashboardMeterView) {
-        
     }
 
 }
@@ -869,3 +875,4 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
 extension ProfileViewController: ScrollViewContainer {
     var scrollView: UIScrollView { return overlayScrollView }
 }
+

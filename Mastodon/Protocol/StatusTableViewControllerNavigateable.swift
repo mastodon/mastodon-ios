@@ -1,0 +1,101 @@
+//
+//  StatusTableViewControllerNavigateable.swift
+//  Mastodon
+//
+//  Created by MainasuK Cirno on 2021-5-19.
+//
+
+import os.log
+import UIKit
+
+typealias StatusTableViewControllerNavigateable = StatusTableViewControllerNavigateableCore & StatusTableViewControllerNavigateableRelay
+
+protocol StatusTableViewControllerNavigateableCore: AnyObject {
+    var tableView: UITableView { get }
+    var overrideNavigationScrollPosition: UITableView.ScrollPosition? { get set }
+    func keyCommandHandler(_ sender: UIKeyCommand)
+}
+
+extension StatusTableViewControllerNavigateableCore {
+    var overrideNavigationScrollPosition: UITableView.ScrollPosition? {
+        get { return nil }
+        set { }
+    }
+}
+
+@objc protocol StatusTableViewControllerNavigateableRelay: AnyObject {
+    func keyCommandHandlerRelay(_ sender: UIKeyCommand)
+}
+
+enum StatusTableViewNavigationDirection {
+    case up
+    case down
+}
+
+    
+enum StatusTableViewNavigation: String, CaseIterable {
+    case up
+    case down
+    case back                   // pop
+    case openStatus
+    case openAuthorProfile
+    case openRebloggerProfile
+    case replyStatus
+    case toggleReblog
+    case toggleFavorite
+    case toggleContentWarning
+    case previewImage
+    
+    var title: String {
+        switch self {
+        case .up:                   return L10n.Common.Controls.Keyboard.Timeline.previousStatus
+        case .down:                 return L10n.Common.Controls.Keyboard.Timeline.nextStatus
+        case .back:                 return L10n.Common.Controls.Actions.back
+        case .openStatus:           return L10n.Common.Controls.Keyboard.Timeline.openStatus
+        case .openAuthorProfile:    return L10n.Common.Controls.Keyboard.Timeline.openAuthorProfile
+        case .openRebloggerProfile: return L10n.Common.Controls.Keyboard.Timeline.openRebloggerProfile
+        case .replyStatus:          return L10n.Common.Controls.Keyboard.Timeline.replyStatus
+        case .toggleReblog:         return L10n.Common.Controls.Keyboard.Timeline.toggleReblog
+        case .toggleFavorite:       return L10n.Common.Controls.Keyboard.Timeline.toggleFavorite
+        case .toggleContentWarning: return L10n.Common.Controls.Keyboard.Timeline.toggleContentWarning
+        case .previewImage:         return L10n.Common.Controls.Keyboard.Timeline.previewImage
+        }
+    }
+    
+    // UIKeyCommand input
+    var input: String {
+        switch self {
+        case .up:                   return "k"
+        case .down:                 return "j"
+        case .back:                 return "h"
+        case .openStatus:           return "l"  // little "L"
+        case .openAuthorProfile:    return "p"
+        case .openRebloggerProfile: return "p"  // + option
+        case .replyStatus:          return "n"  // + shift + command
+        case .toggleReblog:         return "r"
+        case .toggleFavorite:       return "f"
+        case .toggleContentWarning: return "o"
+        case .previewImage:         return "i"
+        }
+    }
+    
+    var modifierFlags: UIKeyModifierFlags {
+        switch self {
+        case .up:                   return []
+        case .down:                 return []
+        case .back:                 return []
+        case .openStatus:           return []
+        case .openAuthorProfile:    return []
+        case .openRebloggerProfile: return [.alternate]
+        case .replyStatus:          return [.shift, .alternate]
+        case .toggleReblog:         return []
+        case .toggleFavorite:       return []
+        case .toggleContentWarning: return []
+        case .previewImage:         return []
+        }
+    }
+    
+    var propertyList: Any {
+        return rawValue
+    }
+}

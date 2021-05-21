@@ -68,6 +68,7 @@
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
                 "skip": "Skip",
+                "reply": "Reply",
                 "report_user": "Report %s",
                 "block_domain": "Block %s",
                 "unblock_domain": "Unblock %s",
@@ -85,6 +86,18 @@
                     "switch_to_tab": "Switch to %s",
                     "show_favorites": "Show Favorites",
                     "open_settings": "Open Settings"
+                },
+                "timeline": {
+                    "previous_status": "Previous Status",
+                    "next_status": "Next Status",
+                    "open_status": "Open Status",
+                    "open_author_profile": "Open Author Profile",
+                    "open_reblogger_profile": "Open Reblogger Profile",
+                    "reply_status": "Reply Status",
+                    "toggle_reblog": "Toggle Status Reblog",
+                    "toggle_favorite": "Toggle Status Favorite",
+                    "toggle_content_warning": "Toggle Content Warning",
+                    "preview_image": "Preview Image"
                 }
             },
             "status": {
@@ -498,6 +511,13 @@
             "send": "Send Report",
             "skip_to_send": "Send without comment",
             "text_placeholder": "Type or paste additional comments"
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "Close Preview",
+                "show_next": "Show Next",
+                "show_previous": "Show Previous"
+            }
         }
     }
 }
