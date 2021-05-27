@@ -44,6 +44,7 @@ final class ProfileFieldCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    var separatorLineToMarginLeadingLayoutConstraint: NSLayoutConstraint!
     var separatorLineToEdgeTrailingLayoutConstraint: NSLayoutConstraint!
     var separatorLineToMarginTrailingLayoutConstraint: NSLayoutConstraint!
     let bottomSeparatorLine = UIView.separatorLine
@@ -76,11 +77,12 @@ extension ProfileFieldCollectionViewCell {
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             containerStackView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
+        containerStackView.isLayoutMarginsRelativeArrangement = true
         
         containerStackView.addArrangedSubview(editButton)
         containerStackView.addArrangedSubview(fieldView)
@@ -92,13 +94,14 @@ extension ProfileFieldCollectionViewCell {
         reorderBarImageView.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         
         bottomSeparatorLine.translatesAutoresizingMaskIntoConstraints = false
+        separatorLineToMarginLeadingLayoutConstraint = bottomSeparatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         separatorLineToEdgeTrailingLayoutConstraint = bottomSeparatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        separatorLineToMarginTrailingLayoutConstraint = bottomSeparatorLine.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
+        separatorLineToMarginTrailingLayoutConstraint = bottomSeparatorLine.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor)
 
         addSubview(bottomSeparatorLine)
         NSLayoutConstraint.activate([
+            separatorLineToMarginLeadingLayoutConstraint,
             bottomSeparatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bottomSeparatorLine.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
             bottomSeparatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)).priority(.defaultHigh),
         ])
         
