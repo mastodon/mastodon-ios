@@ -16,7 +16,8 @@ extension ActiveLabel {
         case `default`
         case statusHeader
         case statusName
-        case profileField
+        case profileFieldName
+        case profileFieldValue
     }
     
     convenience init(style: Style) {
@@ -46,7 +47,11 @@ extension ActiveLabel {
             font = .systemFont(ofSize: 17, weight: .semibold)
             textColor = Asset.Colors.Label.primary.color
             numberOfLines = 1
-        case .profileField:
+        case .profileFieldName:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
+            textColor = Asset.Colors.Label.primary.color
+            numberOfLines = 1
+        case .profileFieldValue:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 20)
             textColor = Asset.Colors.Label.primary.color
             numberOfLines = 1

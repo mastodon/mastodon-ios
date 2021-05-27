@@ -96,8 +96,13 @@ extension ProfileFieldAddEntryCollectionViewCell {
             bottomSeparatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)).priority(.defaultHigh),
         ])
         
-        fieldView.titleTextField.text = L10n.Scene.Profile.Fields.addRow
+        fieldView.titleActiveLabel.isHidden = false
+        fieldView.titleActiveLabel.configure(field: L10n.Scene.Profile.Fields.addRow, emojiDict: [:])
+        fieldView.titleTextField.isHidden = true
+        
+        fieldView.valueActiveLabel.isHidden = false
         fieldView.valueActiveLabel.configure(field: " ", emojiDict: [:])
+        fieldView.valueTextField.isHidden = true
         
         addGestureRecognizer(singleTagGestureRecognizer)
         singleTagGestureRecognizer.addTarget(self, action: #selector(ProfileFieldAddEntryCollectionViewCell.singleTapGestureRecognizerHandler(_:)))

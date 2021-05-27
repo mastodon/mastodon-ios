@@ -33,18 +33,24 @@ extension ProfileFieldSection {
                 cell.separatorLineToMarginLeadingLayoutConstraint.constant = margin
                 
                 // set key
+                cell.fieldView.titleActiveLabel.configure(field: field.name.value, emojiDict: attribute.emojiDict.value)
                 cell.fieldView.titleTextField.text = field.name.value
-                field.name
-                    .removeDuplicates()
-                    .receive(on: RunLoop.main)
-                    .sink { [weak cell] name in
-                        guard let cell = cell else { return }
-                        cell.fieldView.titleTextField.text = name
-                    }
-                    .store(in: &cell.disposeBag)
+                Publishers.CombineLatest(
+                    field.name.removeDuplicates(),
+                    attribute.emojiDict.removeDuplicates()
+                )
+                .receive(on: RunLoop.main)
+                .sink { [weak cell] name, emojiDict in
+                    guard let cell = cell else { return }
+                    cell.fieldView.titleActiveLabel.configure(field: name, emojiDict: emojiDict)
+                    cell.fieldView.titleTextField.text = name
+                }
+                .store(in: &cell.disposeBag)
+                
                 
                 // set value
                 cell.fieldView.valueActiveLabel.configure(field: field.value.value, emojiDict: attribute.emojiDict.value)
+                cell.fieldView.valueTextField.text = field.value.value
                 Publishers.CombineLatest(
                     field.value.removeDuplicates(),
                     attribute.emojiDict.removeDuplicates()
@@ -72,9 +78,10 @@ extension ProfileFieldSection {
                 }
 
                 // setup editing state
-                cell.fieldView.titleTextField.isEnabled = attribute.isEditing
-                cell.fieldView.valueActiveLabel.isHidden = attribute.isEditing
+                cell.fieldView.titleTextField.isHidden = !attribute.isEditing
                 cell.fieldView.valueTextField.isHidden = !attribute.isEditing
+                cell.fieldView.titleActiveLabel.isHidden = attribute.isEditing
+                cell.fieldView.valueActiveLabel.isHidden = attribute.isEditing
                 
                 // set control hidden
                 let isHidden = !attribute.isEditing

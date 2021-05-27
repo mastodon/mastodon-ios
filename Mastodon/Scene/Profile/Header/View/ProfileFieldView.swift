@@ -17,6 +17,14 @@ final class ProfileFieldView: UIView {
     let name = PassthroughSubject<String, Never>()
     let value = PassthroughSubject<String, Never>()
     
+    // for custom emoji display
+    let titleActiveLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .profileFieldName)
+        label.configure(content: "title", emojiDict: [:])
+        return label
+    }()
+    
+    // for editing
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
@@ -28,7 +36,7 @@ final class ProfileFieldView: UIView {
     
     // for custom emoji display
     let valueActiveLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .profileField)
+        let label = ActiveLabel(style: .profileFieldValue)
         label.configure(content: "value", emojiDict: [:])
         return label
     }()
@@ -73,6 +81,12 @@ extension ProfileFieldView {
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+        titleActiveLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(titleActiveLabel)
+        NSLayoutConstraint.activate([
+            titleActiveLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+        ])
+        titleTextField.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(titleTextField)
         NSLayoutConstraint.activate([
@@ -92,6 +106,7 @@ extension ProfileFieldView {
             valueTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         
+        titleTextField.isHidden = true
         valueTextField.isHidden = true
         
         NotificationCenter.default
