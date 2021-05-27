@@ -151,7 +151,19 @@ extension ProfileHeaderViewModel {
         guard editProfileInfo.name.value == displayProfileInfo.name.value else { return true }
         guard case let .image(image) =  editProfileInfo.avatarImageResource.value, image == nil else { return true }
         guard editProfileInfo.note.value == ProfileHeaderViewModel.normalize(note: displayProfileInfo.note.value) else { return true }
-        guard editProfileInfo.fields.value == displayProfileInfo.fields.value else { return true }
+        let isFieldsEqual: Bool = {
+            let editFields = editProfileInfo.fields.value
+            let displayFields = displayProfileInfo.fields.value
+            guard editFields.count == displayFields.count else { return false }
+            for (editField, displayField) in zip(editFields, displayFields) {
+                guard editField.name.value == displayField.name.value,
+                      editField.value.value == displayField.value.value else {
+                    return false
+                }
+            }
+            return true
+        }()
+        guard isFieldsEqual else { return true }
         
         return false
     }
