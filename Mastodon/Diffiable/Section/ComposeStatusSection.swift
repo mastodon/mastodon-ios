@@ -55,7 +55,10 @@ extension ComposeStatusSection {
             switch item {
             case .replyTo(let replyToStatusObjectID):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeRepliedToStatusContentCollectionViewCell.self), for: indexPath) as! ComposeRepliedToStatusContentCollectionViewCell
-                managedObjectContext.perform {
+                // set empty text before retrieve real data to fix pseudo-text display issue
+                cell.statusView.nameLabel.text = " "
+                cell.statusView.usernameLabel.text = " "
+                managedObjectContext.performAndWait {
                     guard let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
                         return
                     }
@@ -82,7 +85,7 @@ extension ComposeStatusSection {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
                 cell.statusContentWarningEditorView.textView.text = attribute.contentWarningContent.value
                 cell.textEditorView.text = attribute.composeContent.value ?? ""
-                managedObjectContext.perform {
+                managedObjectContext.performAndWait {
                     guard let replyToStatusObjectID = replyToStatusObjectID,
                           let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
                         cell.statusView.headerContainerView.isHidden = true
