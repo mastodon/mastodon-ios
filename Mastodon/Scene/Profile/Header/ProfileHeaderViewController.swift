@@ -228,14 +228,6 @@ extension ProfileHeaderViewController {
         super.viewDidAppear(animated)
         
         viewModel.viewDidAppear.value = true
-        
-        // Deprecated:
-        // not needs this tweak due to force layout update in the parent
-        // if !isAdjustBannerImageViewForSafeAreaInset {
-        //     isAdjustBannerImageViewForSafeAreaInset = true
-        //     profileHeaderView.bannerImageView.frame.origin.y = -containerSafeAreaInset.top
-        //     profileHeaderView.bannerImageView.frame.size.height += containerSafeAreaInset.top
-        // }
     }
     
     override func viewDidLayoutSubviews() {

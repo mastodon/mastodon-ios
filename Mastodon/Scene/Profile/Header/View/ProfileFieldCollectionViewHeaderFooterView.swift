@@ -32,8 +32,9 @@ extension ProfileFieldCollectionViewHeaderFooterView {
         addSubview(separatorLine)
         NSLayoutConstraint.activate([
             separatorLine.topAnchor.constraint(equalTo: topAnchor),
-            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
+            // workaround SDK supplementariesFollowContentInsets not works issue
+            separatorLine.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -9999),
+            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 9999),
             separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)).priority(.defaultHigh),
         ])
