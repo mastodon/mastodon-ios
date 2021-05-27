@@ -17,8 +17,8 @@ protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity)
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dwingDashboardMeterView: ProfileStatusDashboardMeterView)
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed dwersDashboardMeterView: ProfileStatusDashboardMeterView)
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed followingDashboardMeterView: ProfileStatusDashboardMeterView)
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed followersDashboardMeterView: ProfileStatusDashboardMeterView)
 }
 
 final class ProfileHeaderView: UIView {
@@ -80,6 +80,7 @@ final class ProfileHeaderView: UIView {
         view.layer.masksToBounds = true
         view.layer.cornerCurve = .continuous
         view.layer.cornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
+        view.alpha = 0 // set initial state invisible
         return view
     }()
     
@@ -152,6 +153,37 @@ final class ProfileHeaderView: UIView {
         return textEditorView
     }()
     
+    static func createFieldCollectionViewLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        // note: manually set layout inset to workaround header footer layout issue
+        // section.contentInsetsReference = .readableContent
+        
+        let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1))
+        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
+        section.boundarySupplementaryItems = [header, footer]
+        
+        return UICollectionViewCompositionalLayout(section: section)
+    }
+    
+    let fieldCollectionView: UICollectionView = {
+        let collectionViewLayout = ProfileHeaderView.createFieldCollectionViewLayout()
+        let collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: collectionViewLayout)
+        collectionView.register(ProfileFieldCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldCollectionViewCell.self))
+        collectionView.register(ProfileFieldAddEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldAddEntryCollectionViewCell.self))
+        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer)
+        collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
+        collectionView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        collectionView.isScrollEnabled = false
+        return collectionView
+    }()
+    var fieldCollectionViewHeightLaoutConstraint: NSLayoutConstraint!
+    var fieldCollectionViewHeightObservation: NSKeyValueObservation?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -160,6 +192,10 @@ final class ProfileHeaderView: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
+    }
+    
+    deinit {
+        fieldCollectionViewHeightObservation = nil
     }
     
 }
@@ -193,24 +229,24 @@ extension ProfileHeaderView {
         ])
 
         // avatar
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        bannerContainerView.addSubview(avatarImageView)
+        avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        bannerContainerView.addSubview(avatarImageViewBackgroundView)
         NSLayoutConstraint.activate([
-            avatarImageView.leadingAnchor.constraint(equalTo: bannerContainerView.readableContentGuide.leadingAnchor),
-            bannerContainerView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
-            avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
-            avatarImageView.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
+            avatarImageViewBackgroundView.leadingAnchor.constraint(equalTo: bannerContainerView.readableContentGuide.leadingAnchor),
+            bannerContainerView.bottomAnchor.constraint(equalTo: avatarImageViewBackgroundView.bottomAnchor, constant: 20),
         ])
         
-        avatarImageViewBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        bannerContainerView.insertSubview(avatarImageViewBackgroundView, belowSubview: avatarImageView)
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageViewBackgroundView.addSubview(avatarImageView)
         NSLayoutConstraint.activate([
             avatarImageView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
             avatarImageView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
             avatarImageViewBackgroundView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
             avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
+            avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
+            avatarImageView.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
         ])
-        
+    
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         avatarImageView.addSubview(editAvatarBackgroundView)
         NSLayoutConstraint.activate([
@@ -328,8 +364,20 @@ extension ProfileHeaderView {
         bioContainerStackView.addArrangedSubview(bioActiveLabelContainer)
         bioContainerStackView.addArrangedSubview(bioTextEditorView)
         
-        fieldContainerStackView.preservesSuperviewLayoutMargins = true
-        metaContainerStackView.addSubview(fieldContainerStackView)
+        fieldCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        metaContainerStackView.addArrangedSubview(fieldCollectionView)
+        fieldCollectionViewHeightLaoutConstraint = fieldCollectionView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
+        NSLayoutConstraint.activate([
+            fieldCollectionViewHeightLaoutConstraint,
+        ])
+        fieldCollectionViewHeightObservation = fieldCollectionView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
+            guard let self = self else { return }
+            guard self.fieldCollectionView.contentSize.height != .zero else {
+                self.fieldCollectionViewHeightLaoutConstraint.constant = 44
+                return
+            }
+            self.fieldCollectionViewHeightLaoutConstraint.constant = self.fieldCollectionView.contentSize.height
+        })
         
         bringSubviewToFront(bannerContainerView)
         bringSubviewToFront(nameContainerStackView)

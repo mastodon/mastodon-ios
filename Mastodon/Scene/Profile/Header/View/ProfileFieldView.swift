@@ -6,26 +6,50 @@
 //
 
 import UIKit
+import Combine
 import ActiveLabel
 
 final class ProfileFieldView: UIView {
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = "Title"
+    var disposeBag = Set<AnyCancellable>()
+    
+    // output
+    let name = PassthroughSubject<String, Never>()
+    let value = PassthroughSubject<String, Never>()
+    
+    // for custom emoji display
+    let titleActiveLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .profileFieldName)
+        label.configure(content: "title", emojiDict: [:])
         return label
     }()
     
+    // for editing
+    let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
+        textField.textColor = Asset.Colors.Label.primary.color
+        textField.placeholder = L10n.Scene.Profile.Fields.Placeholder.label
+        textField.isEnabled = false
+        return textField
+    }()
+    
+    // for custom emoji display
     let valueActiveLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .profileField)
+        let label = ActiveLabel(style: .profileFieldValue)
         label.configure(content: "value", emojiDict: [:])
         return label
     }()
     
-    let topSeparatorLine = UIView.separatorLine
-    let bottomSeparatorLine = UIView.separatorLine
+    // for editing
+    let valueTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 20)
+        textField.textColor = Asset.Colors.Label.primary.color
+        textField.placeholder = L10n.Scene.Profile.Fields.Placeholder.content
+        textField.textAlignment = .right
+        return textField
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,42 +65,67 @@ final class ProfileFieldView: UIView {
 
 extension ProfileFieldView {
     private func _init() {
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titleLabel)
+        
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.alignment = .center
+        
+        // note:
+        // do not use readable layout guide to workaround SDK issue
+        // otherwise, the `ProfileFieldCollectionViewCell` cannot display edit button and reorder icon
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
+            containerStackView.topAnchor.constraint(equalTo: topAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-        titleLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        titleActiveLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(titleActiveLabel)
+        NSLayoutConstraint.activate([
+            titleActiveLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+        ])
+        titleTextField.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(titleTextField)
+        NSLayoutConstraint.activate([
+            titleTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+        ])
+        titleTextField.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         
         valueActiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(valueActiveLabel)
+        containerStackView.addArrangedSubview(valueActiveLabel)
         NSLayoutConstraint.activate([
-            valueActiveLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            valueActiveLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            valueActiveLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+            valueActiveLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
-        valueActiveLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
-        topSeparatorLine.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(topSeparatorLine)
+        valueActiveLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        valueTextField.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(valueTextField)
         NSLayoutConstraint.activate([
-            topSeparatorLine.topAnchor.constraint(equalTo: topAnchor),
-            topSeparatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
-            topSeparatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            topSeparatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)).priority(.defaultHigh),
+            valueTextField.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         
-        bottomSeparatorLine.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(bottomSeparatorLine)
-        NSLayoutConstraint.activate([
-            bottomSeparatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bottomSeparatorLine.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            bottomSeparatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomSeparatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)).priority(.defaultHigh),
-        ])
+        titleTextField.isHidden = true
+        valueTextField.isHidden = true
+        
+        NotificationCenter.default
+            .publisher(for: UITextField.textDidChangeNotification, object: titleTextField)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.name.send(self.titleTextField.text ?? "")
+            }
+            .store(in: &disposeBag)
+        
+        NotificationCenter.default
+            .publisher(for: UITextField.textDidChangeNotification, object: valueTextField)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.value.send(self.valueTextField.text ?? "")
+            }
+            .store(in: &disposeBag)
     }
 }
 
@@ -88,7 +137,7 @@ struct ProfileFieldView_Previews: PreviewProvider {
     static var previews: some View {
         UIViewPreview(width: 375) {
             let filedView = ProfileFieldView()
-            filedView.valueActiveLabel.configure(field: "https://mastodon.online")
+            filedView.valueActiveLabel.configure(field: "https://mastodon.online", emojiDict: [:])
             return filedView
         }
         .previewLayout(.fixed(width: 375, height: 100))

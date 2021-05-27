@@ -626,6 +626,16 @@ internal enum L10n {
           }
         }
       }
+      internal enum Fields {
+        /// Add Row
+        internal static let addRow = L10n.tr("Localizable", "Scene.Profile.Fields.AddRow")
+        internal enum Placeholder {
+          /// Content
+          internal static let content = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Content")
+          /// Label
+          internal static let label = L10n.tr("Localizable", "Scene.Profile.Fields.Placeholder.Label")
+        }
+      }
       internal enum RelationshipActionAlert {
         internal enum ConfirmUnblockUsre {
           /// Confirm unblock %@

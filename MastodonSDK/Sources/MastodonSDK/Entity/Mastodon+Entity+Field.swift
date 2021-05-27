@@ -27,5 +27,11 @@ extension Mastodon.Entity {
             case value
             case verifiedAt = "verified_at"
         }
+        
+        public init(name: String, value: String, verifiedAt: Date? = nil) {
+            self.name = name
+            self.value = value
+            self.verifiedAt = verifiedAt
+        }
     }
 }

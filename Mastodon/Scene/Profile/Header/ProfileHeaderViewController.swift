@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
+import ActiveLabel
 import AlamofireImage
 import CropViewController
 import TwitterTextEditor
@@ -16,6 +17,7 @@ import TwitterTextEditor
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, pageSegmentedControlValueChanged segmentedControl: UISegmentedControl, selectedSegmentIndex index: Int)
+    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
 }
 
 final class ProfileHeaderViewController: UIViewController {
@@ -95,6 +97,15 @@ extension ProfileHeaderViewController {
             profileHeaderView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
         profileHeaderView.preservesSuperviewLayoutMargins = true
+        
+        profileHeaderView.fieldCollectionView.delegate = self
+        viewModel.setupProfileFieldCollectionViewDiffableDataSource(
+            collectionView: profileHeaderView.fieldCollectionView,
+            profileFieldCollectionViewCellDelegate: self,
+            profileFieldAddEntryCollectionViewCellDelegate: self
+        )
+        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ProfileHeaderViewController.longPressReorderGestureHandler(_:)))
+        profileHeaderView.fieldCollectionView.addGestureRecognizer(longPressReorderGesture)
         
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pageSegmentedControl)
@@ -190,6 +201,25 @@ extension ProfileHeaderViewController {
             }
             .store(in: &disposeBag)
         
+        Publishers.CombineLatest(
+            viewModel.isEditing,
+            viewModel.displayProfileInfo.fields
+        )
+        .receive(on: RunLoop.main)
+        .sink { [weak self] isEditing, fields in
+            guard let self = self else { return }
+            self.profileHeaderView.fieldCollectionView.isHidden = isEditing ? false : fields.isEmpty
+        }
+        .store(in: &disposeBag)
+        
+        viewModel.isEditing
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isEditing in
+                guard let self = self else { return }
+                // self.profileHeaderView.fieldCollectionView.
+            }
+            .store(in: &disposeBag)
+        
         profileHeaderView.editAvatarButton.menu = createAvatarContextMenu()
         profileHeaderView.editAvatarButton.showsMenuAsPrimaryAction = true
     }
@@ -265,6 +295,48 @@ extension ProfileHeaderViewController {
         delegate?.profileHeaderViewController(self, pageSegmentedControlValueChanged: sender, selectedSegmentIndex: sender.selectedSegmentIndex)
     }
     
+    // seealso: ProfileHeaderViewModel.setupProfileFieldCollectionViewDiffableDataSource(…)
+    @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.view === profileHeaderView.fieldCollectionView else {
+            assertionFailure()
+            return
+        }
+        let collectionView = profileHeaderView.fieldCollectionView
+        switch(sender.state) {
+        case .began:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
+                  let cell = collectionView.cellForItem(at: selectedIndexPath) as? ProfileFieldCollectionViewCell else {
+                break
+            }
+            // check if pressing reorder bar no not
+            let locationInCell = sender.location(in: cell.reorderBarImageView)
+            guard cell.reorderBarImageView.bounds.contains(locationInCell) else {
+                return
+            }
+
+            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+        case .changed:
+            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
+                  let diffableDataSource = viewModel.fieldDiffableDataSource else {
+                break
+            }
+            guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
+                  case .field = item else {
+                collectionView.cancelInteractiveMovement()
+                return
+            }
+
+            var position = sender.location(in: collectionView)
+            position.x = collectionView.frame.width * 0.5
+            collectionView.updateInteractiveMovementTargetPosition(position)
+        case .ended:
+            collectionView.endInteractiveMovement()
+            collectionView.reloadData()
+        default:
+            collectionView.cancelInteractiveMovement()
+        }
+    }
+    
 }
 
 extension ProfileHeaderViewController {
@@ -290,7 +362,7 @@ extension ProfileHeaderViewController {
         }
     }
     
-    func updateHeaderScrollProgress(_ progress: CGFloat) {
+    func updateHeaderScrollProgress(_ progress: CGFloat, throttle: CGFloat) {
         // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
         updateHeaderBottomShadow(progress: progress)
                 
@@ -336,12 +408,12 @@ extension ProfileHeaderViewController {
             viewModel.isTitleViewContentOffsetSet.value = true
         }
         
-        // set avatar
+        // set avatar fade
         if progress > 0 {
             setProfileBannerFade(alpha: 0)
-        } else if progress > -0.3 {
-            // y = -(10/3)x
-            let alpha = -10.0 / 3.0 * progress
+        } else if progress > -abs(throttle) {
+            // y = -(1/0.8T)x
+            let alpha = -1 / abs(0.8 * throttle) * progress
             setProfileBannerFade(alpha: alpha)
         } else {
             setProfileBannerFade(alpha: 1)
@@ -435,3 +507,28 @@ extension ProfileHeaderViewController: CropViewControllerDelegate {
     }
 }
 
+// MARK: - UICollectionViewDelegate
+extension ProfileHeaderViewController: UICollectionViewDelegate {
+
+}
+
+// MARK: - ProfileFieldCollectionViewCellDelegate
+extension ProfileHeaderViewController: ProfileFieldCollectionViewCellDelegate {
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, editButtonDidPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.fieldDiffableDataSource else { return }
+        guard let indexPath = profileHeaderView.fieldCollectionView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        viewModel.removeFieldItem(item: item)
+    }
+
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        delegate?.profileHeaderViewController(self, profileFieldCollectionViewCell: cell, activeLabel: activeLabel, didSelectActiveEntity: entity)
+    }
+}
+
+// MARK: - ProfileFieldAddEntryCollectionViewCellDelegate
+extension ProfileHeaderViewController: ProfileFieldAddEntryCollectionViewCellDelegate {
+    func ProfileFieldAddEntryCollectionViewCellDidPressed(_ cell: ProfileFieldAddEntryCollectionViewCell) {
+        viewModel.appendFieldItem()
+    }
+}

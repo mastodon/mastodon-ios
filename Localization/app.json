@@ -404,6 +404,13 @@
                     "count_followers": "%ld followers"
                 }
             },
+            "fields": {
+                "add_row": "Add Row",
+                "placeholder": {
+                    "label": "Label",
+                    "content": "Content"
+                }
+            },
             "segmented_control": {
                 "posts": "Posts",
                 "replies": "Replies",
