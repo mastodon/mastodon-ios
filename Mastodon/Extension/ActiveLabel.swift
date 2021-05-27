@@ -47,7 +47,7 @@ extension ActiveLabel {
             textColor = Asset.Colors.Label.primary.color
             numberOfLines = 1
         case .profileField:
-            font = .preferredFont(forTextStyle: .body)
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 20)
             textColor = Asset.Colors.Label.primary.color
             numberOfLines = 1
         }
@@ -78,10 +78,10 @@ extension ActiveLabel {
 
 extension ActiveLabel {
     /// account field
-    func configure(field: String) {
+    func configure(field: String, emojiDict: MastodonStatusContent.EmojiDict) {
         activeEntities.removeAll()
-        let parseResult = MastodonField.parse(field: field)
-        text = parseResult.value
+        let parseResult = MastodonField.parse(field: field, emojiDict: emojiDict)
+        text = parseResult.trimmed
         activeEntities = parseResult.activeEntities
         accessibilityLabel = parseResult.value
     }

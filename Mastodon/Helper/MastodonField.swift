@@ -10,12 +10,25 @@ import ActiveLabel
 
 enum MastodonField {
     
-    static func parse(field string: String) -> ParseResult {
+    static func parse(field string: String, emojiDict: MastodonStatusContent.EmojiDict) -> ParseResult {
+        // use content parser get emoji entities
+        let value = string
+        
+        var string = string
+        var entities: [ActiveEntity] = []
+
+        do {
+            let contentParseresult = try MastodonStatusContent.parse(content: string, emojiDict: emojiDict)
+            string = contentParseresult.trimmed
+            entities.append(contentsOf: contentParseresult.activeEntities)
+        } catch {
+            // assertionFailure(error.localizedDescription)
+        }
+        
         let mentionMatches = string.matches(pattern: "(?:@([a-zA-Z0-9_]+)(@[a-zA-Z0-9_.-]+)?)")
         let hashtagMatches = string.matches(pattern: "(?:#([^\\s.]+))")
         let urlMatches = string.matches(pattern: "(?i)https?://\\S+(?:/|\\b)")
         
-        var entities: [ActiveEntity] = []
         
         for match in mentionMatches {
             guard let text = string.substring(with: match, at: 0) else { continue }
@@ -35,7 +48,7 @@ enum MastodonField {
             entities.append(entity)
         }
         
-        return ParseResult(value: string, activeEntities: entities)
+        return ParseResult(value: value, trimmed: string, activeEntities: entities)
     }
     
 }
@@ -43,6 +56,7 @@ enum MastodonField {
 extension MastodonField {
     struct ParseResult {
         let value: String
+        let trimmed: String
         let activeEntities: [ActiveEntity]
     }
 }

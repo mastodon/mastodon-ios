@@ -27,6 +27,7 @@ final public class MastodonUser: NSManagedObject {
     @NSManaged public private(set) var url: String?
     
     @NSManaged public private(set) var emojisData: Data?
+    @NSManaged public private(set) var fieldsData: Data?
     
     @NSManaged public private(set) var statusesCount: NSNumber
     @NSManaged public private(set) var followingCount: NSNumber
@@ -92,6 +93,7 @@ extension MastodonUser {
         user.note = property.note
         user.url = property.url
         user.emojisData = property.emojisData
+        user.fieldsData = property.fieldsData
         
         user.statusesCount = NSNumber(value: property.statusesCount)
         user.followingCount = NSNumber(value: property.followingCount)
@@ -159,6 +161,11 @@ extension MastodonUser {
     public func update(emojisData: Data?) {
         if self.emojisData != emojisData {
             self.emojisData = emojisData
+        }
+    }
+    public func update(fieldsData: Data?) {
+        if self.fieldsData != fieldsData {
+            self.fieldsData = fieldsData
         }
     }
     public func update(statusesCount: Int) {
@@ -281,6 +288,7 @@ extension MastodonUser {
         public let note: String?
         public let url: String?
         public let emojisData: Data?
+        public let fieldsData: Data?
         public let statusesCount: Int
         public let followingCount: Int
         public let followersCount: Int
@@ -304,6 +312,7 @@ extension MastodonUser {
             note: String?,
             url: String?,
             emojisData: Data?,
+            fieldsData: Data?,
             statusesCount: Int,
             followingCount: Int,
             followersCount: Int,
@@ -326,6 +335,7 @@ extension MastodonUser {
             self.note = note
             self.url = url
             self.emojisData = emojisData
+            self.fieldsData = fieldsData
             self.statusesCount = statusesCount
             self.followingCount = followingCount
             self.followersCount = followersCount

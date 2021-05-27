@@ -39,6 +39,8 @@ class ProfileViewModel: NSObject {
     let statusesCount: CurrentValueSubject<Int?, Never>
     let followingCount: CurrentValueSubject<Int?, Never>
     let followersCount: CurrentValueSubject<Int?, Never>
+    let fileds: CurrentValueSubject<[Mastodon.Entity.Field], Never>
+    let emojiDict: CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>
 
     let protected: CurrentValueSubject<Bool?, Never>
     let suspended: CurrentValueSubject<Bool, Never>
@@ -75,6 +77,8 @@ class ProfileViewModel: NSObject {
         self.followersCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.followersCount) })
         self.protected = CurrentValueSubject(mastodonUser?.locked)
         self.suspended = CurrentValueSubject(mastodonUser?.suspended ?? false)
+        self.fileds = CurrentValueSubject(mastodonUser?.fields ?? [])
+        self.emojiDict = CurrentValueSubject(mastodonUser?.emojiDict ?? [:])
         super.init()
         
         relationshipActionOptionSet
@@ -231,6 +235,8 @@ extension ProfileViewModel {
         self.followersCount.value = mastodonUser.flatMap { Int(truncating: $0.followersCount) }
         self.protected.value = mastodonUser?.locked
         self.suspended.value = mastodonUser?.suspended ?? false
+        self.fileds.value = mastodonUser?.fields ?? []
+        self.emojiDict.value = mastodonUser?.emojiDict ?? [:]
     }
     
     private func update(mastodonUser: MastodonUser?, currentMastodonUser: MastodonUser?) {

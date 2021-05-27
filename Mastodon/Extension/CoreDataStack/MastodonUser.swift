@@ -23,7 +23,8 @@ extension MastodonUser.Property {
             headerStatic: entity.headerStatic,
             note: entity.note,
             url: entity.url,
-            emojisData: entity.emojis.flatMap { Status.encode(emojis: $0) },
+            emojisData: entity.emojis.flatMap { MastodonUser.encode(emojis: $0) },
+            fieldsData: entity.fields.flatMap { MastodonUser.encode(fields: $0) },
             statusesCount: entity.statusesCount,
             followingCount: entity.followingCount,
             followersCount: entity.followersCount,
@@ -101,3 +102,4 @@ extension MastodonUser {
 }
 
 extension MastodonUser: EmojiContinaer { }
+extension MastodonUser: FieldContinaer { }

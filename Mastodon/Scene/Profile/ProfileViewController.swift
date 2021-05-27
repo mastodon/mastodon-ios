@@ -368,6 +368,18 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.name)
             .store(in: &disposeBag)
+        viewModel.fileds
+            .removeDuplicates()
+            .map { fields -> [ProfileFieldItem.FieldValue] in
+                fields.map { ProfileFieldItem.FieldValue(name: $0.name, value: $0.value) }
+            }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.fields)
+            .store(in: &disposeBag)
+        viewModel.emojiDict
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.emojiDict)
+            .store(in: &disposeBag)
         viewModel.username
             .map { username in username.flatMap { "@" + $0 } ?? " " }
             .receive(on: DispatchQueue.main)
@@ -664,6 +676,19 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
         )
     }
     
+    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        switch entity.type {
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url) else { return }
+            coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+        case .hashtag(let hashtag, _):
+            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag)
+            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
+        default:
+            break
+        }
+    }
+    
 }
 
 // MARK: - ProfilePagingViewControllerDelegate
@@ -852,20 +877,27 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }
             coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+        case .mention(_, let userInfo):
+            guard let href = userInfo?["href"] as? String,
+                let url = URL(string: href) else { return }
+            coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+        case .hashtag(let hashtag, _):
+            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag)
+            coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
         default:
-            // TODO:
             break
         }
     }
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-    }
-    
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dwingDashboardMeterView: ProfileStatusDashboardMeterView) {
         
     }
     
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed dwersDashboardMeterView: ProfileStatusDashboardMeterView) {
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed followingDashboardMeterView: ProfileStatusDashboardMeterView) {
+        
+    }
+    
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed followersDashboardMeterView: ProfileStatusDashboardMeterView) {
     }
 
 }
