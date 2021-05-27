@@ -652,7 +652,8 @@ extension ProfileViewController: UIScrollViewDelegate {
 
         // elastically banner image
         let headerScrollProgress = containerScrollView.contentOffset.y / topMaxContentOffsetY
-        profileHeaderViewController.updateHeaderScrollProgress(headerScrollProgress)
+        let throttle = ProfileHeaderViewController.headerMinHeight / topMaxContentOffsetY
+        profileHeaderViewController.updateHeaderScrollProgress(headerScrollProgress, throttle: throttle)
     }
 
 }

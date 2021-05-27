@@ -362,7 +362,7 @@ extension ProfileHeaderViewController {
         }
     }
     
-    func updateHeaderScrollProgress(_ progress: CGFloat) {
+    func updateHeaderScrollProgress(_ progress: CGFloat, throttle: CGFloat) {
         // os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: progress: %.2f", ((#file as NSString).lastPathComponent), #line, #function, progress)
         updateHeaderBottomShadow(progress: progress)
                 
@@ -408,12 +408,12 @@ extension ProfileHeaderViewController {
             viewModel.isTitleViewContentOffsetSet.value = true
         }
         
-        // set avatar
+        // set avatar fade
         if progress > 0 {
             setProfileBannerFade(alpha: 0)
-        } else if progress > -0.3 {
-            // y = -(10/3)x
-            let alpha = -10.0 / 3.0 * progress
+        } else if progress > -abs(throttle) {
+            // y = -(1/0.8T)x
+            let alpha = -1 / abs(0.8 * throttle) * progress
             setProfileBannerFade(alpha: alpha)
         } else {
             setProfileBannerFade(alpha: 1)
