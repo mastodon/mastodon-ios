@@ -26,7 +26,12 @@ extension Data {
             data.append("Content-Type: \(contentType)\r\n".data(using: .utf8)!)
         }
         data.append("\r\n".data(using: .utf8)!)
-        data.append(value.multipartValue)
+        if value.multipartStreamValue == nil {
+            data.append(value.multipartValue)
+        } else {
+            // needs append stream multipart value outside
+            // seealso: SerialStream
+        }
         return data
     }
     

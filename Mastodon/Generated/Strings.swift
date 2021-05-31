@@ -44,6 +44,12 @@ internal enum L10n {
         internal static let message = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Message")
         /// Publish Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Title")
+        internal enum AttchmentsMessage {
+          /// Cannot attach more than one video.
+          internal static let moreThanOneVideo = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.MoreThanOneVideo")
+          /// Cannot attach a video to a status that already contains images.
+          internal static let videoAttachWithPhoto = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.VideoAttachWithPhoto")
+        }
       }
       internal enum SavePhotoFailure {
         /// Please enable photo libaray access permission to save photo.

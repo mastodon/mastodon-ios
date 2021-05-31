@@ -21,7 +21,11 @@
             },
             "publish_post_failure": {
                 "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection."
+                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "attchments_message": {
+                    "video_attach_with_photo": "Cannot attach a video to a status that already contains images.",
+                    "more_than_one_video": "Cannot attach more than one video."
+                }
             },
             "sign_out": {
                 "title": "Sign out",

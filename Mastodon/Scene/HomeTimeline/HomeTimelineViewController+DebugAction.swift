@@ -11,6 +11,8 @@ import CoreData
 import CoreDataStack
 
 #if DEBUG
+import FLEX
+
 extension HomeTimelineViewController {
     var debugMenu: UIMenu {
         let menu = UIMenu(
@@ -19,6 +21,10 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: .displayInline,
             children: [
+                UIAction(title: "Show FLEX", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.showFLEXAction(action)
+                }),
                 moveMenu,
                 dropMenu,
                 UIAction(title: "Show Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
@@ -114,6 +120,10 @@ extension HomeTimelineViewController {
 }
 
 extension HomeTimelineViewController {
+    
+    @objc private func showFLEXAction(_ sender: UIAction) {
+        FLEXManager.shared.showExplorer()
+    }
     
     @objc private func moveToTopGapAction(_ sender: UIAction) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }

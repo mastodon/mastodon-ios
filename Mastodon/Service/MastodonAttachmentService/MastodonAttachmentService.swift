@@ -5,11 +5,13 @@
 //  Created by MainasuK Cirno on 2021-3-17.
 //
 
+import os.log
 import UIKit
 import Combine
 import PhotosUI
 import Kingfisher
 import GameplayKit
+import MobileCoreServices
 import MastodonSDK
 
 protocol MastodonAttachmentServiceDelegate: AnyObject {
@@ -26,12 +28,12 @@ final class MastodonAttachmentService {
     // input
     let context: AppContext
     var authenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    let file = CurrentValueSubject<Mastodon.Query.MediaAttachment?, Never>(nil)
+    let description = CurrentValueSubject<String?, Never>(nil)
     
     // output
-    // TODO: handle video/GIF/Audio data
-    let imageData = CurrentValueSubject<Data?, Never>(nil)
+    let thumbnailImage = CurrentValueSubject<UIImage?, Never>(nil)
     let attachment = CurrentValueSubject<Mastodon.Entity.Attachment?, Never>(nil)
-    let description = CurrentValueSubject<String?, Never>(nil)
     let error = CurrentValueSubject<Error?, Never>(nil)
     
     private(set) lazy var uploadStateMachine: GKStateMachine = {
@@ -58,7 +60,16 @@ final class MastodonAttachmentService {
         
         setupServiceObserver()
         
-        PHPickerResultLoader.loadImageData(from: pickerResult)
+        Just(pickerResult)
+            .flatMap { result -> AnyPublisher<Mastodon.Query.MediaAttachment?, Error> in
+                if result.itemProvider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: []) {
+                    return PHPickerResultLoader.loadImageData(from: result).eraseToAnyPublisher()
+                }
+                if result.itemProvider.hasRepresentationConforming(toTypeIdentifier: UTType.movie.identifier, fileOptions: []) {
+                    return PHPickerResultLoader.loadVideoData(from: result).eraseToAnyPublisher()
+                }
+                return Fail(error: AttachmentError.invalidAttachmentType).eraseToAnyPublisher()
+            }
             .sink { [weak self] completion in
                 guard let self = self else { return }
                 switch completion {
@@ -68,11 +79,41 @@ final class MastodonAttachmentService {
                 case .finished:
                     break
                 }
-            } receiveValue: { [weak self] imageData in
+            } receiveValue: { [weak self] file in
                 guard let self = self else { return }
-                self.imageData.value = imageData
+                self.file.value = file
                 self.uploadStateMachine.enter(UploadState.Initial.self)
             }
+            .store(in: &disposeBag)
+        
+        file
+            .map { file -> UIImage? in
+                guard let file = file else {
+                    return nil
+                }
+                
+                switch file {
+                case .jpeg(let data), .png(let data):
+                    return data.flatMap { UIImage(data: $0) }
+                case .gif:
+                    // TODO:
+                    return nil
+                case .other(let url, _, _):
+                    guard let url = url, FileManager.default.fileExists(atPath: url.path) else { return nil }
+                    let asset = AVURLAsset(url: url)
+                    let assetImageGenerator = AVAssetImageGenerator(asset: asset)
+                    assetImageGenerator.appliesPreferredTrackTransform = true   // fix orientation
+                    do {
+                        let cgImage = try assetImageGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
+                        let image = UIImage(cgImage: cgImage)
+                        return image
+                    } catch {
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: thumbnail generate fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        return nil
+                    }
+                }
+            }
+            .assign(to: \.value, on: thumbnailImage)
             .store(in: &disposeBag)
     }
     
@@ -87,7 +128,7 @@ final class MastodonAttachmentService {
         
         setupServiceObserver()
         
-        imageData.value = image.jpegData(compressionQuality: 0.75)
+        file.value = .jpeg(image.jpegData(compressionQuality: 0.75))
         uploadStateMachine.enter(UploadState.Initial.self)
     }
     
@@ -102,7 +143,7 @@ final class MastodonAttachmentService {
         
         setupServiceObserver()
         
-        self.imageData.value = imageData
+        self.file.value = .jpeg(imageData)
         uploadStateMachine.enter(UploadState.Initial.self)
     }
     
@@ -113,6 +154,18 @@ final class MastodonAttachmentService {
                 self.delegate?.mastodonAttachmentService(self, uploadStateDidChange: state)
             }
             .store(in: &disposeBag)
+    }
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
+}
+
+extension MastodonAttachmentService {
+    enum AttachmentError: Error {
+        case invalidAttachmentType
+        case attachmentTooLarge
     }
     
 }

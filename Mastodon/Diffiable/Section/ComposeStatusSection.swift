@@ -149,13 +149,12 @@ extension ComposeStatusSection {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self), for: indexPath) as! ComposeStatusAttachmentCollectionViewCell
                 cell.attachmentContainerView.descriptionTextView.text = attachmentService.description.value
                 cell.delegate = composeStatusAttachmentTableViewCellDelegate
-                attachmentService.data
+                attachmentService.thumbnailImage
                     .receive(on: DispatchQueue.main)
-                    .sink { [weak cell] imageData in
+                    .sink { [weak cell] thumbnailImage in
                         guard let cell = cell else { return }
                         let size = cell.attachmentContainerView.previewImageView.frame.size != .zero ? cell.attachmentContainerView.previewImageView.frame.size : CGSize(width: 1, height: 1)
-                        guard let imageData = imageData,
-                              let image = UIImage(data: imageData) else {
+                        guard let image = thumbnailImage else {
                             let placeholder = UIImage.placeholder(
                                 size: size,
                                 color: Asset.Colors.Background.systemGroupedBackground.color
@@ -176,18 +175,32 @@ extension ComposeStatusSection {
                     attachmentService.error.eraseToAnyPublisher()
                 )
                 .receive(on: DispatchQueue.main)
-                .sink { [weak cell] uploadState, error  in
+                .sink { [weak cell, weak attachmentService] uploadState, error  in
                     guard let cell = cell else { return }
+                    guard let attachmentService = attachmentService else { return }
                     cell.attachmentContainerView.emptyStateView.isHidden = error == nil
                     cell.attachmentContainerView.descriptionBackgroundView.isHidden = error != nil
-                    if let _ = error {
+                    if let error = error {
                         cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        cell.attachmentContainerView.emptyStateView.label.text = error.localizedDescription
                     } else {
                         guard let uploadState = uploadState else { return }
                         switch uploadState {
                         case is MastodonAttachmentService.UploadState.Finish,
                              is MastodonAttachmentService.UploadState.Fail:
                             cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                            cell.attachmentContainerView.emptyStateView.label.text = {
+                                if let file = attachmentService.file.value {
+                                    switch file {
+                                    case .jpeg, .png, .gif:
+                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
+                                    case .other:
+                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.video)
+                                    }
+                                } else {
+                                    return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
+                                }
+                            }()
                         default:
                             break
                         }

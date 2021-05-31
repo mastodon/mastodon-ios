@@ -35,7 +35,7 @@ extension MastodonAttachmentService.UploadState {
                 return true
             }
 
-            if service?.imageData.value != nil {
+            if service?.file.value != nil {
                 return stateClass == Uploading.self
             } else {
                 return stateClass == Fail.self
@@ -53,15 +53,8 @@ extension MastodonAttachmentService.UploadState {
             
             guard let service = service, let stateMachine = stateMachine else { return }
             guard let authenticationBox = service.authenticationBox else { return }
-            guard let imageData = service.imageData.value else { return }
+            guard let file = service.file.value else { return }
             
-            let file: Mastodon.Query.MediaAttachment = {
-                if imageData.kf.imageFormat == .PNG {
-                    return .png(imageData)
-                } else {
-                    return .jpeg(imageData)
-                }
-            }()
             let description = service.description.value
             let query = Mastodon.API.Media.UploadMeidaQuery(
                 file: file,
@@ -81,6 +74,7 @@ extension MastodonAttachmentService.UploadState {
                 case .failure(let error):
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                     service.error.send(error)
+                    stateMachine.enter(Fail.self)
                 case .finished:
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment success", ((#file as NSString).lastPathComponent), #line, #function)
                     break

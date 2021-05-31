@@ -291,6 +291,8 @@ final class ComposeViewModel {
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] attachmentServices, isPollComposing, pollAttributes in
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: trigger attachments upload…", ((#file as NSString).lastPathComponent), #line, #function)
+
             guard let self = self else { return }
             guard let diffableDataSource = self.diffableDataSource else { return }
             var snapshot = diffableDataSource.snapshot()
@@ -403,6 +405,59 @@ extension ComposeViewModel {
     func updatePublishDate() {
         publishDate = Date()
     }
+}
+
+extension ComposeViewModel {
+    
+    enum AttachmentPrecondition: Error, LocalizedError {
+        case videoAttachWithPhoto
+        case moreThanOneVideo
+        
+        var errorDescription: String? {
+            return L10n.Common.Alerts.PublishPostFailure.title
+        }
+        
+        var failureReason: String? {
+            switch self {
+            case .videoAttachWithPhoto:
+                return L10n.Common.Alerts.PublishPostFailure.AttchmentsMessage.videoAttachWithPhoto
+            case .moreThanOneVideo:
+                return L10n.Common.Alerts.PublishPostFailure.AttchmentsMessage.moreThanOneVideo
+            }
+        }
+    }
+    
+    // check exclusive limit:
+    // - up to 1 video
+    // - up to 4 photos
+    func checkAttachmentPrecondition() throws {
+        let attachmentServices = self.attachmentServices.value
+        guard !attachmentServices.isEmpty else { return }
+        var photoAttachmentServices: [MastodonAttachmentService] = []
+        var videoAttachmentServices: [MastodonAttachmentService] = []
+        attachmentServices.forEach { service in
+            guard let file = service.file.value else {
+                assertionFailure()
+                return
+            }
+            switch file {
+            case .jpeg, .png, .gif:
+                photoAttachmentServices.append(service)
+            case .other:
+                videoAttachmentServices.append(service)
+            }
+        }
+        
+        if !videoAttachmentServices.isEmpty {
+            guard videoAttachmentServices.count == 1 else {
+                throw AttachmentPrecondition.moreThanOneVideo
+            }
+            guard photoAttachmentServices.isEmpty else {
+                throw AttachmentPrecondition.videoAttachWithPhoto
+            }
+        }
+    }
+    
 }
 
 // MARK: - MastodonAttachmentServiceDelegate

@@ -448,9 +448,9 @@ extension ProfileHeaderViewController: PHPickerViewControllerDelegate {
                 case .finished:
                     break
                 }
-            } receiveValue: { [weak self] imageData in
+            } receiveValue: { [weak self] file in
                 guard let self = self else { return }
-                guard let imageData = imageData else { return }
+                guard let imageData = file?.data else { return }
                 guard let image = UIImage(data: imageData) else { return }
                 self.cropImage(image: image, pickerViewController: picker)
             }

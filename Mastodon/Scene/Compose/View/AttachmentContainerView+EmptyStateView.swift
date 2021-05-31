@@ -29,6 +29,8 @@ extension AttachmentContainerView {
             label.textAlignment = .center
             label.text = L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
             label.numberOfLines = 2
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.3
             return label
         }()
         
