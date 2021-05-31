@@ -95,7 +95,6 @@ enum PHPickerResultLoader {
                 } catch {
                     promise(.failure(error))
                 }
-                
             }
         }
     }

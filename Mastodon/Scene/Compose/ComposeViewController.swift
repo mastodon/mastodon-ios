@@ -95,7 +95,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
-        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .movie])
         documentPickerController.delegate = self
         return documentPickerController
     }()
@@ -1102,20 +1102,13 @@ extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationC
 extension ComposeViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
-        
-        do {
-            guard url.startAccessingSecurityScopedResource() else { return }
-            defer { url.stopAccessingSecurityScopedResource() }
-            let imageData = try Data(contentsOf: url)
-            let attachmentService = MastodonAttachmentService(
-                context: context,
-                imageData: imageData,
-                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
-            )
-            viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
-        } catch {
-            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-        }
+
+        let attachmentService = MastodonAttachmentService(
+            context: context,
+            documentURL: url,
+            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+        )
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
 }
 

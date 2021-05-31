@@ -24,7 +24,7 @@ final class MastodonAttachmentService {
     weak var delegate: MastodonAttachmentServiceDelegate?
     
     let identifier = UUID()
-    
+        
     // input
     let context: AppContext
     var authenticationBox: AuthenticationService.MastodonAuthenticationBox?
@@ -85,6 +85,65 @@ final class MastodonAttachmentService {
                 self.uploadStateMachine.enter(UploadState.Initial.self)
             }
             .store(in: &disposeBag)
+    }
+    
+    init(
+        context: AppContext,
+        image: UIImage,
+        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    ) {
+        self.context = context
+        self.authenticationBox = initalAuthenticationBox
+        // end init
+        
+        setupServiceObserver()
+        
+        file.value = .jpeg(image.jpegData(compressionQuality: 0.75))
+        uploadStateMachine.enter(UploadState.Initial.self)
+    }
+    
+    init(
+        context: AppContext,
+        documentURL: URL,
+        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    ) {
+        self.context = context
+        self.authenticationBox = initalAuthenticationBox
+        // end init
+        
+        setupServiceObserver()
+        
+        Just(documentURL)
+            .flatMap { documentURL -> AnyPublisher<Mastodon.Query.MediaAttachment, Error> in
+                return MastodonAttachmentService.loadAttachment(url: documentURL)
+            }
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                switch completion {
+                case .failure(let error):
+                    self.error.value = error
+                    self.uploadStateMachine.enter(UploadState.Fail.self)
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] file in
+                guard let self = self else { return }
+                self.file.value = file
+                self.uploadStateMachine.enter(UploadState.Initial.self)
+            }
+            .store(in: &disposeBag)
+
+        uploadStateMachine.enter(UploadState.Initial.self)
+    }
+    
+    private func setupServiceObserver() {
+        uploadStateMachineSubject
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                self.delegate?.mastodonAttachmentService(self, uploadStateDidChange: state)
+            }
+            .store(in: &disposeBag)
+        
         
         file
             .map { file -> UIImage? in
@@ -114,45 +173,6 @@ final class MastodonAttachmentService {
                 }
             }
             .assign(to: \.value, on: thumbnailImage)
-            .store(in: &disposeBag)
-    }
-    
-    init(
-        context: AppContext,
-        image: UIImage,
-        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
-    ) {
-        self.context = context
-        self.authenticationBox = initalAuthenticationBox
-        // end init
-        
-        setupServiceObserver()
-        
-        file.value = .jpeg(image.jpegData(compressionQuality: 0.75))
-        uploadStateMachine.enter(UploadState.Initial.self)
-    }
-    
-    init(
-        context: AppContext,
-        imageData: Data,
-        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
-    ) {
-        self.context = context
-        self.authenticationBox = initalAuthenticationBox
-        // end init
-        
-        setupServiceObserver()
-        
-        self.file.value = .jpeg(imageData)
-        uploadStateMachine.enter(UploadState.Initial.self)
-    }
-    
-    private func setupServiceObserver() {
-        uploadStateMachineSubject
-            .sink { [weak self] state in
-                guard let self = self else { return }
-                self.delegate?.mastodonAttachmentService(self, uploadStateDidChange: state)
-            }
             .store(in: &disposeBag)
     }
     
@@ -186,6 +206,67 @@ extension MastodonAttachmentService: Equatable, Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
+    }
+    
+}
+
+extension MastodonAttachmentService {
+    
+    private static func createWorkingQueue() -> DispatchQueue {
+        return DispatchQueue(label: "org.joinmastodon.Mastodon.MastodonAttachmentService.\(UUID().uuidString)")
+    }
+    
+    static func loadAttachment(url: URL) -> AnyPublisher<Mastodon.Query.MediaAttachment, Error> {
+        guard let uti = UTType(filenameExtension: url.pathExtension) else {
+            return Fail(error: AttachmentError.invalidAttachmentType).eraseToAnyPublisher()
+        }
+        
+        if uti.conforms(to: .image) {
+            return loadImageAttachment(url: url)
+        } else if uti.conforms(to: .movie) {
+            return loadVideoAttachment(url: url)
+        } else {
+            return Fail(error: AttachmentError.invalidAttachmentType).eraseToAnyPublisher()
+        }
+    }
+    
+    static func loadImageAttachment(url: URL) -> AnyPublisher<Mastodon.Query.MediaAttachment, Error> {
+        Future<Mastodon.Query.MediaAttachment, Error> { promise in
+            createWorkingQueue().async {
+                do {
+                    guard url.startAccessingSecurityScopedResource() else { return }
+                    defer { url.stopAccessingSecurityScopedResource() }
+                    let imageData = try Data(contentsOf: url)
+                    promise(.success(.jpeg(imageData)))
+                } catch {
+                    os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    static func loadVideoAttachment(url: URL) -> AnyPublisher<Mastodon.Query.MediaAttachment, Error> {
+        Future<Mastodon.Query.MediaAttachment, Error> { promise in
+            createWorkingQueue().async {
+                guard url.startAccessingSecurityScopedResource() else { return }
+                defer { url.stopAccessingSecurityScopedResource() }
+                
+                let fileName = UUID().uuidString
+                let tempDirectoryURL = FileManager.default.temporaryDirectory
+                let fileURL = tempDirectoryURL.appendingPathComponent(fileName).appendingPathExtension(url.pathExtension)
+                do {
+                    try FileManager.default.createDirectory(at: tempDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+                    try FileManager.default.copyItem(at: url, to: fileURL)
+                    let file = Mastodon.Query.MediaAttachment.other(fileURL, fileExtension: fileURL.pathExtension, mimeType: UTType.movie.preferredMIMEType ?? "video/mp4")
+                    promise(.success(file))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
     
 }
