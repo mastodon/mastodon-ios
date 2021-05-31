@@ -58,7 +58,7 @@ extension HashtagTimelineViewModel.LoadMiddleState {
                 stateMachine.enter(Fail.self)
                 return
             }
-            let statusIDs = (viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects ?? []).compactMap { status in
+            _ = (viewModel.fetchedResultsController.fetchedResultsController.fetchedObjects ?? []).compactMap { status in
                 status.id
             }
 

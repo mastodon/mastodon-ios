@@ -59,11 +59,6 @@ extension PublicTimelineViewModel: NSFetchedResultsControllerDelegate {
         
         var items = [Item]()
         for (_, status) in indexStatusTuples {
-            let targetStatus = status.reblog ?? status
-            let isStatusTextSensitive: Bool = {
-                guard let spoilerText = targetStatus.spoilerText, !spoilerText.isEmpty else { return false }
-                return true
-            }()
             let attribute = oldSnapshotAttributeDict[status.objectID] ?? Item.StatusAttribute()
             items.append(Item.status(objectID: status.objectID, attribute: attribute))
             if statusIDsWhichHasGap.contains(status.id) {

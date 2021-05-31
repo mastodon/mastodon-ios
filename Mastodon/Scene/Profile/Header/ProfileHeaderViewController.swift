@@ -212,14 +212,6 @@ extension ProfileHeaderViewController {
         }
         .store(in: &disposeBag)
         
-        viewModel.isEditing
-            .receive(on: RunLoop.main)
-            .sink { [weak self] isEditing in
-                guard let self = self else { return }
-                // self.profileHeaderView.fieldCollectionView.
-            }
-            .store(in: &disposeBag)
-        
         profileHeaderView.editAvatarButton.menu = createAvatarContextMenu()
         profileHeaderView.editAvatarButton.showsMenuAsPrimaryAction = true
     }

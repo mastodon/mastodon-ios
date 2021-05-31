@@ -274,7 +274,8 @@ extension StatusSection {
             } else {
                 meta.blurhashImagePublisher()
                     .receive(on: DispatchQueue.main)
-                    .sink { [weak cell] image in
+                    .sink { [weak blurhashImageCache] image in
+                        guard let blurhashImageCache = blurhashImageCache else { return }
                         blurhashOverlayImageView.image = image
                         image?.pngData().flatMap {
                             blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)

@@ -261,10 +261,6 @@ private extension SceneCoordinator {
             let _viewController = FavoriteViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .settings(let viewModel):
-            let _viewController = SettingsViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
         case .suggestionAccount(let viewModel):
             let _viewController = SuggestionAccountViewController()
             _viewController.viewModel = viewModel
