@@ -30,7 +30,6 @@ final class ProfileFieldView: UIView {
         textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
         textField.textColor = Asset.Colors.Label.primary.color
         textField.placeholder = L10n.Scene.Profile.Fields.Placeholder.label
-        textField.isEnabled = false
         return textField
     }()
     
