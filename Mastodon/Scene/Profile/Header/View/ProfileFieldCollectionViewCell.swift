@@ -77,8 +77,8 @@ extension ProfileFieldCollectionViewCell {
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             containerStackView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
