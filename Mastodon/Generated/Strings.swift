@@ -21,6 +21,14 @@ internal enum L10n {
           return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1))
         }
       }
+      internal enum CleanCache {
+        /// Successfully clean %@ cache.
+        internal static func message(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.CleanCache.Message", String(describing: p1))
+        }
+        /// Clean Cache
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.CleanCache.Title")
+      }
       internal enum Common {
         /// Please try again.
         internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")

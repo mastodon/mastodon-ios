@@ -43,6 +43,10 @@
             "delete_post": {
                 "title": "Are you sure you want to delete this post?",
                 "delete": "Delete"
+            },
+            "clean_cache": {
+                "title": "Clean Cache",
+                "message": "Successfully clean %s cache."
             }
         },
         "controls": {
