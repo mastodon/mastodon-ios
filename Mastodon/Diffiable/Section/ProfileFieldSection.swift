@@ -28,10 +28,6 @@ extension ProfileFieldSection {
             case .field(let field, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFieldCollectionViewCell.self), for: indexPath) as! ProfileFieldCollectionViewCell
                 
-                let margin = max(0, collectionView.frame.width - collectionView.readableContentGuide.layoutFrame.width)
-                cell.containerStackView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
-                cell.separatorLineToMarginLeadingLayoutConstraint.constant = margin
-                
                 // set key
                 cell.fieldView.titleActiveLabel.configure(field: field.name.value, emojiDict: attribute.emojiDict.value)
                 cell.fieldView.titleTextField.text = field.name.value
@@ -98,10 +94,6 @@ extension ProfileFieldSection {
                 
             case .addEntry(let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFieldAddEntryCollectionViewCell.self), for: indexPath) as! ProfileFieldAddEntryCollectionViewCell
-
-                let margin = max(0, collectionView.frame.width - collectionView.readableContentGuide.layoutFrame.width)
-                cell.containerStackView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
-                cell.separatorLineToMarginLeadingLayoutConstraint.constant = margin
 
                 cell.bottomSeparatorLine.isHidden = attribute.isLast
                 cell.delegate = profileFieldAddEntryCollectionViewCellDelegate

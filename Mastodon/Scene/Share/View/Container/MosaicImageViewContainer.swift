@@ -395,7 +395,7 @@ struct MosaicImageView_Previews: PreviewProvider {
                 let images = self.images.prefix(2)
                 let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
                 for (i, mosiac) in mosaics.enumerated() {
-                    let (imageView, blurhashOverlayImageView) = mosiac
+                    let (imageView, _) = mosiac
                     imageView.image = images[i]
                 }
                 return view
@@ -407,7 +407,7 @@ struct MosaicImageView_Previews: PreviewProvider {
                 let images = self.images.prefix(3)
                 let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
                 for (i, mosiac) in mosaics.enumerated() {
-                    let (imageView, blurhashOverlayImageView) = mosiac
+                    let (imageView, _) = mosiac
                     imageView.image = images[i]
                 }
                 return view
@@ -419,7 +419,7 @@ struct MosaicImageView_Previews: PreviewProvider {
                 let images = self.images.prefix(4)
                 let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
                 for (i, mosiac) in mosaics.enumerated() {
-                    let (imageView, blurhashOverlayImageView) = mosiac
+                    let (imageView, _) = mosiac
                     imageView.image = images[i]
                 }
                 return view

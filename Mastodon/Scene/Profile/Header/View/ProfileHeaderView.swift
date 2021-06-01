@@ -159,13 +159,14 @@ final class ProfileHeaderView: UIView {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(44))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
-        // note: manually set layout inset to workaround header footer layout issue
-        // section.contentInsetsReference = .readableContent
+        section.contentInsetsReference = .readableContent
         
         let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(1))
         let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         let footer = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize, elementKind: UICollectionView.elementKindSectionFooter, alignment: .bottom)
         section.boundarySupplementaryItems = [header, footer]
+        // note: toggle this not take effect
+        // section.supplementariesFollowContentInsets = false
         
         return UICollectionViewCompositionalLayout(section: section)
     }

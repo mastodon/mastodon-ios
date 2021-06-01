@@ -245,7 +245,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     
     private func popInteractiveTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-              let fromView = transitionContext.view(forKey: .from),
+              let _ = transitionContext.view(forKey: .from),
               let mediaPreviewImageViewController = fromVC.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController,
                     let index = fromVC.pagingViewConttroller.currentIndex else {
             fatalError()

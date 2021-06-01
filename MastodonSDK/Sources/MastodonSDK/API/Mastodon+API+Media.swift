@@ -42,11 +42,17 @@ extension Mastodon.API.Media {
             authorization: authorization
         )
         request.timeoutInterval = 180    // should > 200 Kb/s for 40 MiB media attachment
+        let serialStream = query.serialStream
+        request.httpBodyStream = serialStream.boundStreams.input
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)
                 return Mastodon.Response.Content(value: value, response: response)
             }
+            .handleEvents(receiveCancel: {
+                // retain and handle cancel task
+                serialStream.boundStreams.output.close()
+            })
             .eraseToAnyPublisher()
     }
     
@@ -73,15 +79,30 @@ extension Mastodon.API.Media {
         }
         
         var body: Data? {
-            var data = Data()
-
-            file.flatMap { data.append(Data.multipart(key: "file", value: $0)) }
-            thumbnail.flatMap { data.append(Data.multipart(key: "thumbnail", value: $0)) }
-            description.flatMap { data.append(Data.multipart(key: "description", value: $0)) }
-            focus.flatMap { data.append(Data.multipart(key: "focus", value: $0)) }
+            // using stream data
+            return nil
+        }
+        
+        var serialStream: SerialStream {
+            var streams: [InputStream] = []
             
-            data.append(Data.multipartEnd())
-            return data
+            file.flatMap { value in
+                streams.append(InputStream(data: Data.multipart(key: "file", value: value)))
+                value.multipartStreamValue.flatMap { streams.append($0) }
+            }
+            thumbnail.flatMap { value in
+                streams.append(InputStream(data: Data.multipart(key: "thumbnail", value: value)))
+                value.multipartStreamValue.flatMap { streams.append($0) }
+            }
+            description.flatMap { value in
+                streams.append(InputStream(data: Data.multipart(key: "description", value: value)))
+            }
+            focus.flatMap { value in
+                streams.append(InputStream(data: Data.multipart(key: "focus", value: value)))
+            }
+            streams.append(InputStream(data: Data.multipartEnd()))
+            
+            return SerialStream(streams: streams)
         }
     }
     
@@ -129,8 +150,45 @@ extension Mastodon.API.Media {
             }
             .eraseToAnyPublisher()
     }
-    
-    public typealias UpdateMediaQuery = UploadMeidaQuery
+        
+    public struct UpdateMediaQuery: PutQuery {
+        
+        public let file: Mastodon.Query.MediaAttachment?
+        public let thumbnail: Mastodon.Query.MediaAttachment?
+        public let description: String?
+        public let focus: String?
+        
+        public init(
+            file: Mastodon.Query.MediaAttachment?,
+            thumbnail: Mastodon.Query.MediaAttachment?,
+            description: String?,
+            focus: String?
+        ) {
+            self.file = file
+            self.thumbnail = thumbnail
+            self.description = description
+            self.focus = focus
+        }
+        
+        var contentType: String? {
+            return Self.multipartContentType()
+        }
+        
+        var queryItems: [URLQueryItem]? {
+            return nil
+        }
+        
+        var body: Data? {
+            var data = Data()
+            
+            // not modify uploaded binary data
+            description.flatMap { data.append(Data.multipart(key: "description", value: $0)) }
+            focus.flatMap { data.append(Data.multipart(key: "focus", value: $0)) }
+            
+            data.append(Data.multipartEnd())
+            return data
+        }
+    }
     
 }
 

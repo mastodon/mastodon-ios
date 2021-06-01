@@ -13,6 +13,9 @@ target 'Mastodon' do
   pod 'SwiftGen', '~> 6.4.0'
   pod 'DateToolsSwift', '~> 5.0.0'
   pod 'Kanna', '~> 5.2.2'
+
+  # DEBUG
+  pod 'FLEX', '~> 4.4.0', :configurations => ['Debug']
   
   target 'MastodonTests' do
     inherit! :search_paths
@@ -23,14 +26,16 @@ target 'Mastodon' do
     # Pods for testing
   end
 
-  target 'NotificationService' do 
+end
 
-  end
+target 'NotificationService' do 
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+end
 
-  target 'AppShared' do 
-
-  end
-
+target 'AppShared' do 
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
 end
 
 plugin 'cocoapods-keys', {

@@ -217,9 +217,15 @@ extension Mastodon.API.Account {
                 source.sensitive.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0)) }
                 source.language.flatMap { data.append(Data.multipart(key: "source[privacy]", value: $0)) }
             }
-            for (i, fieldsAttribute) in (fieldsAttributes ?? []).enumerated() {
-                data.append(Data.multipart(key: "fields_attributes[\(i)][name]", value: fieldsAttribute.name))
-                data.append(Data.multipart(key: "fields_attributes[\(i)][value]", value: fieldsAttribute.value))
+            if let fieldsAttributes = fieldsAttributes {
+                if fieldsAttributes.isEmpty {
+                    data.append(Data.multipart(key: "fields_attributes[]", value: ""))
+                } else {
+                    for (i, fieldsAttribute) in fieldsAttributes.enumerated() {
+                        data.append(Data.multipart(key: "fields_attributes[\(i)][name]", value: fieldsAttribute.name))
+                        data.append(Data.multipart(key: "fields_attributes[\(i)][value]", value: fieldsAttribute.value))
+                    }
+                }
             }
             
             data.append(Data.multipartEnd())

@@ -75,12 +75,15 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
     let composeToolbarBackgroundView = UIView()
     
-    private(set) lazy var imagePicker: PHPickerViewController = {
+    static func createPhotoLibraryPickerConfiguration(selectionLimit: Int = 4) -> PHPickerConfiguration {
         var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 4
-
-        let imagePicker = PHPickerViewController(configuration: configuration)
+        configuration.filter = .any(of: [.images, .videos])
+        configuration.selectionLimit = selectionLimit
+        return configuration
+    }
+    
+    private(set) lazy var photoLibraryPicker: PHPickerViewController = {
+        let imagePicker = PHPickerViewController(configuration: ComposeViewController.createPhotoLibraryPickerConfiguration())
         imagePicker.delegate = self
         return imagePicker
     }()
@@ -92,7 +95,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     }()
     
     private(set) lazy var documentPickerController: UIDocumentPickerViewController = {
-        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: [.image, .movie])
         documentPickerController.delegate = self
         return documentPickerController
     }()
@@ -567,12 +570,9 @@ extension ComposeViewController {
     }
     
     private func resetImagePicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
         let selectionLimit = max(1, 4 - viewModel.attachmentServices.value.count)
-        configuration.selectionLimit = selectionLimit
-        
-        imagePicker = createImagePicker(configuration: configuration)
+        let configuration = ComposeViewController.createPhotoLibraryPickerConfiguration(selectionLimit: selectionLimit)
+        photoLibraryPicker = createImagePicker(configuration: configuration)
     }
     
     private func createImagePicker(configuration: PHPickerConfiguration) -> PHPickerViewController {
@@ -610,6 +610,16 @@ extension ComposeViewController {
     
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        do {
+            try viewModel.checkAttachmentPrecondition()
+        } catch {
+            let alertController = UIAlertController(for: error, title: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+            alertController.addAction(okAction)
+            coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            return
+        }
+        
         guard viewModel.publishStateMachine.enter(ComposeViewModel.PublishState.Publishing.self) else {
             // TODO: handle error
             return
@@ -913,7 +923,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
         switch type {
         case .photoLibrary:
-            present(imagePicker, animated: true, completion: nil)
+            present(photoLibraryPicker, animated: true, completion: nil)
         case .camera:
             present(imagePickerController, animated: true, completion: nil)
         case .browse:
@@ -1092,20 +1102,13 @@ extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationC
 extension ComposeViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
-        
-        do {
-            guard url.startAccessingSecurityScopedResource() else { return }
-            defer { url.stopAccessingSecurityScopedResource() }
-            let imageData = try Data(contentsOf: url)
-            let attachmentService = MastodonAttachmentService(
-                context: context,
-                imageData: imageData,
-                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
-            )
-            viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
-        } catch {
-            os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-        }
+
+        let attachmentService = MastodonAttachmentService(
+            context: context,
+            documentURL: url,
+            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+        )
+        viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
 }
 
@@ -1120,8 +1123,12 @@ extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelega
         
         var attachmentServices = viewModel.attachmentServices.value
         guard let index = attachmentServices.firstIndex(of: attachmentService) else { return }
+        let removedItem = attachmentServices[index]
         attachmentServices.remove(at: index)
         viewModel.attachmentServices.value = attachmentServices
+        
+        // cancel task
+        removedItem.disposeBag.removeAll()
     }
     
 }
@@ -1365,7 +1372,7 @@ extension ComposeViewController {
         case .mediaBrowse:
             present(documentPickerController, animated: true, completion: nil)
         case .mediaPhotoLibrary:
-            present(imagePicker, animated: true, completion: nil)
+            present(photoLibraryPicker, animated: true, completion: nil)
         case .mediaCamera:
             guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
                 return

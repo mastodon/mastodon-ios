@@ -76,7 +76,7 @@ extension ComposeStatusSection {
                     //status.emoji
                     cell.statusView.activeTextLabel.configure(content: status.content, emojiDict: [:])
                     // set date
-                    cell.statusView.dateLabel.text = status.createdAt.shortTimeAgoSinceNow
+                    cell.statusView.dateLabel.text = status.createdAt.slowedTimeAgoSinceNow
                     
                     cell.framePublisher.assign(to: \.value, on: repliedToCellFrameSubscriber).store(in: &cell.disposeBag)
                 }
@@ -101,21 +101,24 @@ extension ComposeStatusSection {
                 cell.composeContent
                     .removeDuplicates()
                     .receive(on: DispatchQueue.main)
-                    .sink { text in
+                    .sink { [weak collectionView] text in
+                        guard let collectionView = collectionView else { return }
                         // self size input cell
                         // needs restore content offset to resolve issue #83
                         let oldContentOffset = collectionView.contentOffset
                         collectionView.collectionViewLayout.invalidateLayout()
                         collectionView.layoutIfNeeded()
                         collectionView.contentOffset = oldContentOffset
-                        
+
                         // bind input data
                         attribute.composeContent.value = text
                     }
                     .store(in: &cell.disposeBag)
                 attribute.isContentWarningComposing
                     .receive(on: DispatchQueue.main)
-                    .sink { isContentWarningComposing in
+                    .sink { [weak cell, weak collectionView] isContentWarningComposing in
+                        guard let cell = cell else { return }
+                        guard let collectionView = collectionView else { return }
                         // self size input cell
                         collectionView.collectionViewLayout.invalidateLayout()
                         cell.statusContentWarningEditorView.containerView.isHidden = !isContentWarningComposing
@@ -130,7 +133,8 @@ extension ComposeStatusSection {
                 cell.contentWarningContent
                     .removeDuplicates()
                     .receive(on: DispatchQueue.main)
-                    .sink { text in
+                    .sink { [weak collectionView] text in
+                        guard let collectionView = collectionView else { return }
                         // self size input cell
                         collectionView.collectionViewLayout.invalidateLayout()
                         // bind input data
@@ -145,12 +149,12 @@ extension ComposeStatusSection {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self), for: indexPath) as! ComposeStatusAttachmentCollectionViewCell
                 cell.attachmentContainerView.descriptionTextView.text = attachmentService.description.value
                 cell.delegate = composeStatusAttachmentTableViewCellDelegate
-                attachmentService.imageData
+                attachmentService.thumbnailImage
                     .receive(on: DispatchQueue.main)
-                    .sink { imageData in
+                    .sink { [weak cell] thumbnailImage in
+                        guard let cell = cell else { return }
                         let size = cell.attachmentContainerView.previewImageView.frame.size != .zero ? cell.attachmentContainerView.previewImageView.frame.size : CGSize(width: 1, height: 1)
-                        guard let imageData = imageData,
-                              let image = UIImage(data: imageData) else {
+                        guard let image = thumbnailImage else {
                             let placeholder = UIImage.placeholder(
                                 size: size,
                                 color: Asset.Colors.Background.systemGroupedBackground.color
@@ -171,17 +175,32 @@ extension ComposeStatusSection {
                     attachmentService.error.eraseToAnyPublisher()
                 )
                 .receive(on: DispatchQueue.main)
-                .sink { uploadState, error  in
+                .sink { [weak cell, weak attachmentService] uploadState, error  in
+                    guard let cell = cell else { return }
+                    guard let attachmentService = attachmentService else { return }
                     cell.attachmentContainerView.emptyStateView.isHidden = error == nil
                     cell.attachmentContainerView.descriptionBackgroundView.isHidden = error != nil
-                    if let _ = error {
+                    if let error = error {
                         cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        cell.attachmentContainerView.emptyStateView.label.text = error.localizedDescription
                     } else {
                         guard let uploadState = uploadState else { return }
                         switch uploadState {
                         case is MastodonAttachmentService.UploadState.Finish,
                              is MastodonAttachmentService.UploadState.Fail:
                             cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                            cell.attachmentContainerView.emptyStateView.label.text = {
+                                if let file = attachmentService.file.value {
+                                    switch file {
+                                    case .jpeg, .png, .gif:
+                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
+                                    case .other:
+                                        return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.video)
+                                    }
+                                } else {
+                                    return L10n.Scene.Compose.Attachment.attachmentBroken(L10n.Scene.Compose.Attachment.photo)
+                                }
+                            }()
                         default:
                             break
                         }
@@ -220,7 +239,8 @@ extension ComposeStatusSection {
                 cell.durationButton.setTitle(L10n.Scene.Compose.Poll.durationTime(attribute.expiresOption.value.title), for: .normal)
                 attribute.expiresOption
                     .receive(on: DispatchQueue.main)
-                    .sink { expiresOption in
+                    .sink { [weak cell] expiresOption in
+                        guard let cell = cell else { return }
                         cell.durationButton.setTitle(L10n.Scene.Compose.Poll.durationTime(expiresOption.title), for: .normal)
                     }
                     .store(in: &cell.disposeBag)

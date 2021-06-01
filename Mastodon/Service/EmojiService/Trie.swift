@@ -104,7 +104,7 @@ extension Trie {
     
     var values: NSSet {
         let valueSet = NSMutableSet(set: self.valueSet)
-        for (key, value) in children {
+        for (_, value) in children {
             valueSet.addObjects(from: Array(value.values))
         }
         

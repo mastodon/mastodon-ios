@@ -21,6 +21,14 @@ internal enum L10n {
           return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1))
         }
       }
+      internal enum CleanCache {
+        /// Successfully clean %@ cache.
+        internal static func message(_ p1: Any) -> String {
+          return L10n.tr("Localizable", "Common.Alerts.CleanCache.Message", String(describing: p1))
+        }
+        /// Clean Cache
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.CleanCache.Title")
+      }
       internal enum Common {
         /// Please try again.
         internal static let pleaseTryAgain = L10n.tr("Localizable", "Common.Alerts.Common.PleaseTryAgain")
@@ -44,6 +52,12 @@ internal enum L10n {
         internal static let message = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Message")
         /// Publish Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Title")
+        internal enum AttchmentsMessage {
+          /// Cannot attach more than one video.
+          internal static let moreThanOneVideo = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.MoreThanOneVideo")
+          /// Cannot attach a video to a status that already contains images.
+          internal static let videoAttachWithPhoto = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.VideoAttachWithPhoto")
+        }
       }
       internal enum SavePhotoFailure {
         /// Please enable photo libaray access permission to save photo.
@@ -365,6 +379,10 @@ internal enum L10n {
           internal static let loadMissingPosts = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.LoadMissingPosts")
           /// Show more replies
           internal static let showMoreReplies = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.ShowMoreReplies")
+        }
+        internal enum Timestamp {
+          /// Now
+          internal static let now = L10n.tr("Localizable", "Common.Controls.Timeline.Timestamp.Now")
         }
       }
     }
