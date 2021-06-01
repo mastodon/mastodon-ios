@@ -173,6 +173,9 @@
                 "edit_info": "Edit info"
             },
             "timeline": {
+                "timestamp": {
+                    "now": "Now"
+                },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",

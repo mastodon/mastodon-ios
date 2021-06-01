@@ -76,7 +76,7 @@ extension ComposeStatusSection {
                     //status.emoji
                     cell.statusView.activeTextLabel.configure(content: status.content, emojiDict: [:])
                     // set date
-                    cell.statusView.dateLabel.text = status.createdAt.shortTimeAgoSinceNow
+                    cell.statusView.dateLabel.text = status.createdAt.slowedTimeAgoSinceNow
                     
                     cell.framePublisher.assign(to: \.value, on: repliedToCellFrameSubscriber).store(in: &cell.disposeBag)
                 }

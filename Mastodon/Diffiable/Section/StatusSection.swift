@@ -468,12 +468,12 @@ extension StatusSection {
         
         // set date
         let createdAt = (status.reblog ?? status).createdAt
-        cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
+        cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
         timestampUpdatePublisher
             .sink { [weak cell] _ in
                 guard let cell = cell else { return }
-                cell.statusView.dateLabel.text = createdAt.shortTimeAgoSinceNow
-                cell.statusView.dateLabel.accessibilityLabel = createdAt.timeAgoSinceNow
+                cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
+                cell.statusView.dateLabel.accessibilityLabel = createdAt.slowedTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
 

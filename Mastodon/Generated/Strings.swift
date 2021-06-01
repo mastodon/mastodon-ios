@@ -380,6 +380,10 @@ internal enum L10n {
           /// Show more replies
           internal static let showMoreReplies = L10n.tr("Localizable", "Common.Controls.Timeline.Loader.ShowMoreReplies")
         }
+        internal enum Timestamp {
+          /// Now
+          internal static let now = L10n.tr("Localizable", "Common.Controls.Timeline.Timestamp.Now")
+        }
       }
     }
     internal enum Countable {
