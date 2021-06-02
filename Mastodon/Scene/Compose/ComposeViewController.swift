@@ -730,7 +730,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                         guard let emoji = customEmojiViewModel.emoji(shortcode: name) else { continue }
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
                         
-                        // set emoji token invisiable (without upper bounce space)
+                        // set emoji token invisible (without upper bounce space)
                         var attributes = [NSAttributedString.Key: Any]()
                         attributes[.font] = UIFont.systemFont(ofSize: 0.01)
                         attributedString.addAttributes(attributes, range: match.range)
@@ -812,15 +812,15 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 extension ComposeViewController: TextEditorViewChangeObserver {
     
     func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
-        guard var autoCompeletion = ComposeViewController.scanAutoCompleteInfo(textEditorView: textEditorView) else {
+        guard var autoCompletion = ComposeViewController.scanAutoCompleteInfo(textEditorView: textEditorView) else {
             viewModel.autoCompleteInfo.value = nil
             return
         }
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompeletion.toHighlightEndString), String(autoCompeletion.toCursorString))
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
 
         // get layout text bounding rect
         var glyphRange = NSRange()
-        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompeletion.toCursorRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
+        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.toCursorRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
         let textContainer = textEditorView.layoutManager.textContainers[0]
         let textBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
         
@@ -838,13 +838,13 @@ extension ComposeViewController: TextEditorViewChangeObserver {
         viewModel.autoCompleteRetryLayoutTimes.value = 0
         
         // get symbol bounding rect
-        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompeletion.symbolRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
+        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.symbolRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
         let symbolBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
         
         // set bounding rect and trigger layout
-        autoCompeletion.textBoundingRect = textBoundingRect
-        autoCompeletion.symbolBoundingRect = symbolBoundingRect
-        viewModel.autoCompleteInfo.value = autoCompeletion
+        autoCompletion.textBoundingRect = textBoundingRect
+        autoCompletion.symbolBoundingRect = symbolBoundingRect
+        viewModel.autoCompleteInfo.value = autoCompletion
     }
     
     struct AutoCompleteInfo {
@@ -1017,7 +1017,7 @@ extension ComposeViewController: UICollectionViewDelegate {
             let emoji = attribute.emoji
             let textEditorView = self.textEditorView()
             
-            // retrive active text input and insert emoji
+            // retrieve active text input and insert emoji
             // the leading and trailing space is REQUIRED to fix `UITextStorage` layout issue
             let reference = viewModel.customEmojiPickerInputViewModel.insertText(" :\(emoji.shortcode): ")
             
@@ -1070,7 +1070,7 @@ extension ComposeViewController: PHPickerViewControllerDelegate {
             let service = MastodonAttachmentService(
                 context: context,
                 pickerResult: result,
-                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+                initialAuthenticationBox: viewModel.activeAuthenticationBox.value
             )
             return service
         }
@@ -1089,7 +1089,7 @@ extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationC
         let attachmentService = MastodonAttachmentService(
             context: context,
             image: image,
-            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            initialAuthenticationBox: viewModel.activeAuthenticationBox.value
         )
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
@@ -1108,7 +1108,7 @@ extension ComposeViewController: UIDocumentPickerDelegate {
         let attachmentService = MastodonAttachmentService(
             context: context,
             documentURL: url,
-            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            initialAuthenticationBox: viewModel.activeAuthenticationBox.value
         )
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
