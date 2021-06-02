@@ -864,12 +864,14 @@ extension ComposeViewController: TextEditorViewChangeObserver {
     
     private static func scanAutoCompleteInfo(textEditorView: TextEditorView) -> AutoCompleteInfo? {
         let text = textEditorView.text
-        let cursorLocation = textEditorView.selectedRange.location
-        let cursorIndex = text.index(text.startIndex, offsetBy: cursorLocation)
-        guard cursorLocation > 0, !text.isEmpty else { return nil }
-        
-        let _highlighStartIndex: String.Index? = {
-            var index = text.index(text.startIndex, offsetBy: cursorLocation - 1)
+
+        guard textEditorView.selectedRange.location > 0, !text.isEmpty,
+              let selectedRange = Range(textEditorView.selectedRange, in: text) else {
+            return nil
+        }
+        let cursorIndex = selectedRange.upperBound
+        let _highlightStartIndex: String.Index? = {
+            var index = text.index(before: cursorIndex)
             while index > text.startIndex {
                 let char = text[index]
                 if char == "@" || char == "#" || char == ":" {
@@ -886,18 +888,18 @@ extension ComposeViewController: TextEditorViewChangeObserver {
             }
         }()
         
-        guard let highlighStartIndex = _highlighStartIndex else { return nil }
-        let scanRange = NSRange(highlighStartIndex..<text.endIndex, in: text)
+        guard let highlightStartIndex = _highlightStartIndex else { return nil }
+        let scanRange = NSRange(highlightStartIndex..<text.endIndex, in: text)
         
         guard let match = text.firstMatch(pattern: MastodonRegex.autoCompletePattern, options: [], range: scanRange) else { return nil }
-        let matchRange = match.range(at: 0)
-        let matchStartIndex = text.index(text.startIndex, offsetBy: matchRange.location)
-        let matchEndIndex = text.index(matchStartIndex, offsetBy: matchRange.length)
+        guard let matchRange = Range(match.range(at: 0), in: text) else { return nil }
+        let matchStartIndex = matchRange.lowerBound
+        let matchEndIndex = matchRange.upperBound
         
-        guard matchStartIndex == highlighStartIndex, matchEndIndex >= cursorIndex else { return nil }
-        let symbolRange = highlighStartIndex..<text.index(after: highlighStartIndex)
+        guard matchStartIndex == highlightStartIndex, matchEndIndex >= cursorIndex else { return nil }
+        let symbolRange = highlightStartIndex..<text.index(after: highlightStartIndex)
         let symbolString = text[symbolRange]
-        let toCursorRange = highlighStartIndex..<cursorIndex
+        let toCursorRange = highlightStartIndex..<cursorIndex
         let toCursorString = text[toCursorRange]
         let toHighlightEndRange = matchStartIndex..<matchEndIndex
         let toHighlightEndString = text[toHighlightEndRange]
