@@ -181,11 +181,9 @@
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		B914FC6B0B8AF18573C0B291 /* Pods_NotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */; };
 		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
-		DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */; };
-		DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */; };
-		DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */; };
 		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
+		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
 		DB040ECD26526EA600BEE9D8 /* ComposeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ECC26526EA600BEE9D8 /* ComposeCollectionView.swift */; };
@@ -753,10 +751,8 @@
 		BB482D32A7B9825BF5327C4F /* Pods-Mastodon-MastodonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.release.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.release.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
-		DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewController.swift; sourceTree = "<group>"; };
-		DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift; sourceTree = "<group>"; };
-		DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPinBasedAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
+		DB029E94266A20430062874E /* MastodonAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationController.swift; sourceTree = "<group>"; };
 		DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadReplyLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveUserInterfaceStyleBarButtonItem.swift; sourceTree = "<group>"; };
 		DB040ECC26526EA600BEE9D8 /* ComposeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeCollectionView.swift; sourceTree = "<group>"; };
@@ -1618,23 +1614,12 @@
 				DB68A03825E900CC00CFDF14 /* Share */,
 				0FAA0FDD25E0B5700017CCDE /* Welcome */,
 				0FAA102525E1125D0017CCDE /* PickServer */,
-				DB0140A625C40C0900F9F3CF /* PinBasedAuthentication */,
 				DBE0821A25CD382900FD6BBD /* Register */,
 				DB72602125E36A2500235243 /* ServerRules */,
 				2D364F7025E66D5B00204FDC /* ResendEmail */,
 				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		DB0140A625C40C0900F9F3CF /* PinBasedAuthentication */ = {
-			isa = PBXGroup;
-			children = (
-				DB0140A025C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift */,
-				DB0140AD25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift */,
-				DB0140A725C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift */,
-			);
-			path = PinBasedAuthentication;
 			sourceTree = "<group>";
 		};
 		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
@@ -1921,6 +1906,7 @@
 			children = (
 				2D82B9FE25E7863200E36F0F /* OnboardingViewControllerAppearance.swift */,
 				DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */,
+				DB029E94266A20430062874E /* MastodonAuthenticationController.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -3043,6 +3029,7 @@
 				DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */,
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D79E701261EA5550011E398 /* APIService+CoreData+Tag.swift in Sources */,
+				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3149,7 +3136,6 @@
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
-				DB0140A125C40C0600F9F3CF /* MastodonPinBasedAuthenticationViewController.swift in Sources */,
 				DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
@@ -3220,7 +3206,6 @@
 				2D4AD89C263165B500613EFC /* SuggestionAccountCollectionViewCell.swift in Sources */,
 				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
-				DB0140A825C40C1500F9F3CF /* MastodonPinBasedAuthenticationViewModelNavigationDelegateShim.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
 				DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */,
@@ -3280,7 +3265,6 @@
 				DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */,
 				DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */,
 				DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */,
-				DB0140AE25C40C7300F9F3CF /* MastodonPinBasedAuthenticationViewModel.swift in Sources */,
 				2D32EAAC25CB96DC00C9ED86 /* TimelineMiddleLoaderTableViewCell.swift in Sources */,
 				DB71FD2C25F86A5100512AE1 /* AvatarStackContainerButton.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,

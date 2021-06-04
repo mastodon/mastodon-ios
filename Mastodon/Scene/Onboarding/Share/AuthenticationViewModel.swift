@@ -31,9 +31,7 @@ final class AuthenticationViewModel {
     let isIdle = CurrentValueSubject<Bool, Never>(true)
     let authenticated = PassthroughSubject<(domain: String, account: Mastodon.Entity.Account), Never>()
     let error = CurrentValueSubject<Error?, Never>(nil)
-    
-    var mastodonPinBasedAuthenticationViewController: UIViewController?
-    
+        
     init(context: AppContext, coordinator: SceneCoordinator, isAuthenticationExist: Bool) {
         self.context = context
         self.coordinator = coordinator
@@ -118,18 +116,24 @@ extension AuthenticationViewModel {
         let clientID: String
         let clientSecret: String
         let authorizeURL: URL
+        let redirectURI: String
         
-        init?(domain: String, application: Mastodon.Entity.Application) {
+        init?(
+            domain: String,
+            application: Mastodon.Entity.Application,
+            redirectURI: String = MastodonAuthenticationController.callbackURL
+        ) {
             self.domain = domain
             guard let clientID = application.clientID,
                 let clientSecret = application.clientSecret else { return nil }
             self.clientID = clientID
             self.clientSecret = clientSecret
             self.authorizeURL = {
-                let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: clientID)
+                let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: clientID, redirectURI: redirectURI)
                 let url = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
                 return url
             }()
+            self.redirectURI = redirectURI
         }
     }
     
@@ -138,8 +142,6 @@ extension AuthenticationViewModel {
             .handleEvents(receiveOutput: { [weak self] _ in
                 guard let self = self else { return }
                 self.isAuthenticating.value = true
-                self.mastodonPinBasedAuthenticationViewController?.dismiss(animated: true, completion: nil)
-                self.mastodonPinBasedAuthenticationViewController = nil
             })
             .compactMap { [weak self] code -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>? in
                 guard let self = self else { return nil }
@@ -148,6 +150,7 @@ extension AuthenticationViewModel {
                         domain: info.domain,
                         clientID: info.clientID,
                         clientSecret: info.clientSecret,
+                        redirectURI: info.redirectURI,
                         code: code
                     )
                     .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in

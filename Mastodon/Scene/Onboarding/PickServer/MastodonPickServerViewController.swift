@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import GameController
+import AuthenticationServices
 
 final class MastodonPickServerViewController: UIViewController, NeedsDependency {
     
@@ -19,6 +20,11 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: MastodonPickServerViewModel!
+    private(set) lazy var authenticationViewModel = AuthenticationViewModel(
+        context: context,
+        coordinator: coordinator,
+        isAuthenticationExist: false
+    )
     
     private var expandServerDomainSet = Set<String>()
     
@@ -49,6 +55,8 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         return button
     }()
     var nextStepButtonBottomLayoutConstraint: NSLayoutConstraint!
+    
+    var mastodonAuthenticationController: MastodonAuthenticationController?
     
     deinit {
         tableViewObservation = nil
@@ -182,23 +190,26 @@ extension MastodonPickServerViewController {
             .assign(to: \.isEnabled, on: nextStepButton)
             .store(in: &disposeBag)
         
-        viewModel.error
-            .compactMap { $0 }
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self else { return }
-                let alertController = UIAlertController(for: error, title: "Error", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.coordinator.present(
-                    scene: .alertController(alertController: alertController),
-                    from: nil,
-                    transition: .alertController(animated: true, completion: nil)
-                )
-            }
-            .store(in: &disposeBag)
+        Publishers.Merge(
+            viewModel.error,
+            authenticationViewModel.error
+        )
+        .compactMap { $0 }
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] error in
+            guard let self = self else { return }
+            let alertController = UIAlertController(for: error, title: "Error", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+            alertController.addAction(okAction)
+            self.coordinator.present(
+                scene: .alertController(alertController: alertController),
+                from: nil,
+                transition: .alertController(animated: true, completion: nil)
+            )
+        }
+        .store(in: &disposeBag)
         
-        viewModel
+        authenticationViewModel
             .authenticated
             .flatMap { [weak self] (domain, user) -> AnyPublisher<Result<Bool, Error>, Never> in
                 guard let self = self else { return Just(.success(false)).eraseToAnyPublisher() }
@@ -217,7 +228,7 @@ extension MastodonPickServerViewController {
             }
             .store(in: &disposeBag)
         
-        viewModel.isAuthenticating
+        authenticationViewModel.isAuthenticating
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAuthenticating in
                 guard let self = self else { return }
@@ -273,11 +284,15 @@ extension MastodonPickServerViewController {
     
     private func doSignIn() {
         guard let server = viewModel.selectedServer.value else { return }
-        viewModel.isAuthenticating.send(true)
+        authenticationViewModel.isAuthenticating.send(true)
         context.apiService.createApplication(domain: server.domain)
-            .tryMap { response -> MastodonPickServerViewModel.AuthenticateInfo in
+            .tryMap { response -> AuthenticationViewModel.AuthenticateInfo in
                 let application = response.value
-                guard let info = MastodonPickServerViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
+                guard let info = AuthenticationViewModel.AuthenticateInfo(
+                        domain: server.domain,
+                        application: application,
+                        redirectURI: response.value.redirectURI ?? MastodonAuthenticationController.callbackURL
+                ) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
                 return info
@@ -285,7 +300,7 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.viewModel.isAuthenticating.send(false)
+                self.authenticationViewModel.isAuthenticating.send(false)
                 
                 switch completion {
                 case .failure(let error):
@@ -296,15 +311,19 @@ extension MastodonPickServerViewController {
                 }
             } receiveValue: { [weak self] info in
                 guard let self = self else { return }
-                let mastodonPinBasedAuthenticationViewModel = MastodonPinBasedAuthenticationViewModel(authenticateURL: info.authorizeURL)
-                self.viewModel.authenticate(
-                    info: info,
-                    pinCodePublisher: mastodonPinBasedAuthenticationViewModel.pinCodePublisher
+                let authenticationController = MastodonAuthenticationController(
+                    context: self.context,
+                    authenticateURL: info.authorizeURL
                 )
-                self.viewModel.mastodonPinBasedAuthenticationViewController = self.coordinator.present(
-                    scene: .mastodonPinBasedAuthentication(viewModel: mastodonPinBasedAuthenticationViewModel),
-                    from: nil,
-                    transition: .modal(animated: true, completion: nil)
+                
+                self.mastodonAuthenticationController = authenticationController
+                authenticationController.authenticationSession?.prefersEphemeralWebBrowserSession = true
+                authenticationController.authenticationSession?.presentationContextProvider = self
+                authenticationController.authenticationSession?.start()
+                
+                self.authenticationViewModel.authenticate(
+                    info: info,
+                    pinCodePublisher: authenticationController.pinCodePublisher
                 )
             }
             .store(in: &disposeBag)
@@ -313,7 +332,7 @@ extension MastodonPickServerViewController {
     private func doSignUp() {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         guard let server = viewModel.selectedServer.value else { return }
-        viewModel.isAuthenticating.send(true)
+        authenticationViewModel.isAuthenticating.send(true)
         
         context.apiService.instance(domain: server.domain)
             .compactMap { [weak self] response -> AnyPublisher<MastodonPickServerViewModel.SignUpResponseFirst, Error>? in
@@ -328,7 +347,10 @@ extension MastodonPickServerViewController {
             .switchToLatest()
             .tryMap { response -> MastodonPickServerViewModel.SignUpResponseSecond in
                 let application = response.application.value
-                guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(domain: server.domain, application: application) else {
+                guard let authenticateInfo = AuthenticationViewModel.AuthenticateInfo(
+                        domain: server.domain,
+                        application: application
+                ) else {
                     throw APIService.APIError.explicit(.badResponse)
                 }
                 return MastodonPickServerViewModel.SignUpResponseSecond(instance: response.instance, authenticateInfo: authenticateInfo)
@@ -340,7 +362,8 @@ extension MastodonPickServerViewController {
                 return self.context.apiService.applicationAccessToken(
                     domain: server.domain,
                     clientID: authenticateInfo.clientID,
-                    clientSecret: authenticateInfo.clientSecret
+                    clientSecret: authenticateInfo.clientSecret,
+                    redirectURI: authenticateInfo.redirectURI
                 )
                 .map { MastodonPickServerViewModel.SignUpResponseThird(instance: instance, authenticateInfo: authenticateInfo, applicationToken: $0) }
                 .eraseToAnyPublisher()
@@ -349,7 +372,7 @@ extension MastodonPickServerViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self = self else { return }
-                self.viewModel.isAuthenticating.send(false)
+                self.authenticationViewModel.isAuthenticating.send(false)
                 
                 switch completion {
                 case .failure(let error):
@@ -519,3 +542,10 @@ extension MastodonPickServerViewController: PickServerCellDelegate {
 
 // MARK: - OnboardingViewControllerAppearance
 extension MastodonPickServerViewController: OnboardingViewControllerAppearance { }
+
+// MARK: - ASWebAuthenticationPresentationContextProviding
+extension MastodonPickServerViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
+    }
+}
