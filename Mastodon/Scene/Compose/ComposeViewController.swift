@@ -1031,6 +1031,9 @@ extension ComposeViewController: UICollectionViewDelegate {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.collectionView.collectionViewLayout.invalidateLayout()
+                    
+                    // make click sound
+                    UIDevice.current.playInputClick()
                 }
             }
         } else {
