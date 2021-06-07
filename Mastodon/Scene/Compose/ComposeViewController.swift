@@ -61,7 +61,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var systemKeyboardHeight: CGFloat = .zero {
         didSet {
             // note: some system AutoLayout warning here
-            customEmojiPickerInputView.frame.size.height = systemKeyboardHeight != .zero ? systemKeyboardHeight : 300
+            let height = max(300, systemKeyboardHeight)
+            customEmojiPickerInputView.frame.size.height = height
         }
     }
     
