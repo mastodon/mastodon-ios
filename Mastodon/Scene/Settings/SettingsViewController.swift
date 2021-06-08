@@ -94,7 +94,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        tableView.backgroundColor = .clear
         
         tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsAppearanceTableViewCell.self))
         tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsToggleTableViewCell.self))
@@ -185,7 +185,14 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupView() {
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceLevel {
+            case .elevated where traitCollection.userInterfaceStyle == .dark:
+                return Asset.Colors.Background.systemElevatedBackground.color
+            default:
+                return Asset.Colors.Background.secondarySystemBackground.color
+            }
+        })
         setupNavigation()
         
         view.addSubview(tableView)
