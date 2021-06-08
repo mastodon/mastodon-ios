@@ -218,6 +218,12 @@ extension ComposeToolbarView {
     }
     
     private func updateToolbarButtonUserInterfaceStyle() {
+        // reset emoji
+        let emojiButtonImage = Asset.Human.faceSmilingAdaptive.image
+            .af.imageScaled(to: CGSize(width: 20, height: 20))
+            .withRenderingMode(.alwaysTemplate)
+        emojiButton.setImage(emojiButtonImage, for: .normal)
+
         switch traitCollection.userInterfaceStyle {
         case .light:
             mediaButton.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
