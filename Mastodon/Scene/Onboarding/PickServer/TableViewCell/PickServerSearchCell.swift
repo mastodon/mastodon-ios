@@ -53,6 +53,7 @@ class PickServerSearchCell: UITableViewCell {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.returnKeyType = .done
+        textField.keyboardType = .URL
         return textField
     }()
     
