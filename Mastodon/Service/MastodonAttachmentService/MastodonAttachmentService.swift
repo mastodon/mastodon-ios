@@ -213,7 +213,7 @@ extension MastodonAttachmentService: Equatable, Hashable {
 extension MastodonAttachmentService {
     
     private static func createWorkingQueue() -> DispatchQueue {
-        return DispatchQueue(label: "org.joinmastodon.Mastodon.MastodonAttachmentService.\(UUID().uuidString)")
+        return DispatchQueue(label: "org.joinmastodon.app.MastodonAttachmentService.\(UUID().uuidString)")
     }
     
     static func loadAttachment(url: URL) -> AnyPublisher<Mastodon.Query.MediaAttachment, Error> {

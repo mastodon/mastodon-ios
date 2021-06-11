@@ -13,7 +13,7 @@ import Keys
 
 public final class AppSecret {
     
-    public static let keychain = Keychain(service: "org.joinmastodon.Mastodon.keychain", accessGroup: AppName.groupID)
+    public static let keychain = Keychain(service: "org.joinmastodon.app.keychain", accessGroup: AppName.groupID)
     
     static let notificationPrivateKeyName = "notification-private-key-base64"
     static let notificationAuthName = "notification-auth-base64"

@@ -46,7 +46,7 @@ struct MosaicMeta {
     let blurhash: String?
     let altText: String?
     
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.MosaicMeta.working-queue", qos: .userInitiated, attributes: .concurrent)
+    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.MosaicMeta.working-queue", qos: .userInitiated, attributes: .concurrent)
 
     func blurhashImagePublisher() -> AnyPublisher<UIImage?, Never> {
         return Future { promise in

@@ -17,7 +17,7 @@ final class NotificationService {
     
     var disposeBag = Set<AnyCancellable>()
     
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.NotificationService.working-queue")
+    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.NotificationService.working-queue")
     
     // input
     weak var apiService: APIService?

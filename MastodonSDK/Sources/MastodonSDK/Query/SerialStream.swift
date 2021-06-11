@@ -26,7 +26,7 @@ final class SerialStream: NSObject {
     private var buffer: UnsafeMutablePointer<UInt8>
     private var canWrite = false
     
-    private let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.SerialStream.\(UUID().uuidString)")
+    private let workingQueue = DispatchQueue(label: "org.joinmastodon.app.SerialStream.\(UUID().uuidString)")
 
     // bound pair stream
     private(set) lazy var boundStreams: Streams = {
