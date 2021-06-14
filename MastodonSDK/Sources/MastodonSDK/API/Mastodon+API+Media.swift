@@ -33,7 +33,7 @@ extension Mastodon.API.Media {
     public static func uploadMedia(
         session: URLSession,
         domain: String,
-        query: UploadMeidaQuery,
+        query: UploadMediaQuery,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>  {
         var request = Mastodon.API.post(
@@ -56,7 +56,7 @@ extension Mastodon.API.Media {
             .eraseToAnyPublisher()
     }
     
-    public struct UploadMeidaQuery: PostQuery, PutQuery {
+    public struct UploadMediaQuery: PostQuery, PutQuery {
         public let file: Mastodon.Query.MediaAttachment?
         public let thumbnail: Mastodon.Query.MediaAttachment?
         public let description: String?

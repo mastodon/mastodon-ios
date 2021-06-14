@@ -8,11 +8,11 @@
 import Foundation
 import MastodonSDK
 
-protocol FieldContinaer {
+protocol FieldContainer {
     var fieldsData: Data? { get }
 }
 
-extension FieldContinaer {
+extension FieldContainer {
     
     static func encode(fields: [Mastodon.Entity.Field]) -> Data? {
         return try? JSONEncoder().encode(fields)
