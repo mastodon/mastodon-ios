@@ -101,6 +101,10 @@ extension MastodonNotification {
             ])
         }
     }
+    
+    public static func predicate(validTypesRaws types: [String]) -> NSPredicate {
+        return NSPredicate(format: "%K IN %@", #keyPath(MastodonNotification.typeRaw), types)
+    }
 
 }
 

@@ -30,14 +30,16 @@ extension NotificationSection {
             guard let dependency = dependency else { return nil }
             switch notificationItem {
             case .notification(let objectID, let attribute):
-                
                 let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
                 guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw) else {
+                    // filter out invalid type using predicate
                     assertionFailure()
-                    return nil
+                    return UITableViewCell()
                 }
-                let timeText = notification.createAt.slowedTimeAgoSinceNow
-
+                
+                let createAt = notification.createAt
+                let timeText = createAt.slowedTimeAgoSinceNow
+                
                 let actionText = type.actionText
                 let actionImageName = type.actionImageName
                 let color = type.color
@@ -57,23 +59,24 @@ extension NotificationSection {
                         requestUserID: requestUserID,
                         statusItemAttribute: attribute
                     )
+                    cell.actionImageBackground.backgroundColor = color
+                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.actionLabel.text = actionText + " · " + timeText
                     timestampUpdatePublisher
-                        .sink { _ in
-                            let timeText = notification.createAt.slowedTimeAgoSinceNow
+                        .sink { [weak cell] _ in
+                            guard let cell = cell else { return }
+                            let timeText = createAt.slowedTimeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)
-                    cell.actionImageBackground.backgroundColor = color
-                    cell.actionLabel.text = actionText + " · " + timeText
-                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
                     if let url = notification.account.avatarImageURL() {
-                        cell.avatatImageView.af.setImage(
+                        cell.avatarImageView.af.setImage(
                             withURL: url,
                             placeholderImage: UIImage.placeholder(color: .systemFill),
                             imageTransition: .crossDissolve(0.2)
                         )
                     }
-                    cell.avatatImageView.gesture().sink { [weak cell] _ in
+                    cell.avatarImageView.gesture().sink { [weak cell] _ in
                         cell?.delegate?.userAvatarDidPressed(notification: notification)
                     }
                     .store(in: &cell.disposeBag)
@@ -86,8 +89,9 @@ extension NotificationSection {
                     let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
                     cell.delegate = delegate
                     timestampUpdatePublisher
-                        .sink { _ in
-                            let timeText = notification.createAt.slowedTimeAgoSinceNow
+                        .sink { [weak cell] _ in
+                            guard let cell = cell else { return }
+                            let timeText = createAt.slowedTimeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)
