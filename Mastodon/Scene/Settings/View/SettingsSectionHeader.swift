@@ -39,7 +39,8 @@ class SettingsSectionHeader: UIView {
     init(frame: CGRect, customView: UIView? = nil) {
         super.init(frame: frame)
         
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        backgroundColor = .clear
+        
         stackView.addArrangedSubview(titleLabel)
         if let view = customView {
             stackView.addArrangedSubview(view)

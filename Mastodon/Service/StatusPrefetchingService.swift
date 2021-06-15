@@ -16,7 +16,7 @@ final class StatusPrefetchingService {
     
     typealias TaskID = String
     
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.StatusPrefetchingService.working-queue")
+    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.StatusPrefetchingService.working-queue")
 
     var disposeBag = Set<AnyCancellable>()
     private(set) var statusPrefetchingDisposeBagDict: [TaskID: AnyCancellable] = [:]

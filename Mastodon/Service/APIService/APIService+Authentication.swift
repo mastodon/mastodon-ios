@@ -17,11 +17,13 @@ extension APIService {
         domain: String,
         clientID: String,
         clientSecret: String,
+        redirectURI: String,
         code: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> {
         let query = Mastodon.API.OAuth.AccessTokenQuery(
             clientID: clientID,
             clientSecret: clientSecret,
+            redirectURI: redirectURI,
             code: code,
             grantType: "authorization_code"
         )
@@ -35,11 +37,13 @@ extension APIService {
     func applicationAccessToken(
         domain: String,
         clientID: String,
-        clientSecret: String
+        clientSecret: String,
+        redirectURI: String
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> {
         let query = Mastodon.API.OAuth.AccessTokenQuery(
             clientID: clientID,
             clientSecret: clientSecret,
+            redirectURI: redirectURI,
             code: nil,
             grantType: "client_credentials"
         )

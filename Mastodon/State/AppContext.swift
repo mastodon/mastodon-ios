@@ -111,7 +111,7 @@ extension AppContext {
         return formatter
     }()
     
-    private static let purgeCacheWorkingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.AppContext.purgeCacheWorkingQueue")
+    private static let purgeCacheWorkingQueue = DispatchQueue(label: "org.joinmastodon.app.AppContext.purgeCacheWorkingQueue")
     
     func purgeCache() -> AnyPublisher<ByteCount, Never> {
         Publishers.MergeMany([

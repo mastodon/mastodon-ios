@@ -52,10 +52,10 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         pickerResult: PHPickerResult,
-        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
     ) {
         self.context = context
-        self.authenticationBox = initalAuthenticationBox
+        self.authenticationBox = initialAuthenticationBox
         // end init
         
         setupServiceObserver()
@@ -90,10 +90,10 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         image: UIImage,
-        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
     ) {
         self.context = context
-        self.authenticationBox = initalAuthenticationBox
+        self.authenticationBox = initialAuthenticationBox
         // end init
         
         setupServiceObserver()
@@ -105,10 +105,10 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         documentURL: URL,
-        initalAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
     ) {
         self.context = context
-        self.authenticationBox = initalAuthenticationBox
+        self.authenticationBox = initialAuthenticationBox
         // end init
         
         setupServiceObserver()
@@ -213,7 +213,7 @@ extension MastodonAttachmentService: Equatable, Hashable {
 extension MastodonAttachmentService {
     
     private static func createWorkingQueue() -> DispatchQueue {
-        return DispatchQueue(label: "org.joinmastodon.Mastodon.MastodonAttachmentService.\(UUID().uuidString)")
+        return DispatchQueue(label: "org.joinmastodon.app.MastodonAttachmentService.\(UUID().uuidString)")
     }
     
     static func loadAttachment(url: URL) -> AnyPublisher<Mastodon.Query.MediaAttachment, Error> {

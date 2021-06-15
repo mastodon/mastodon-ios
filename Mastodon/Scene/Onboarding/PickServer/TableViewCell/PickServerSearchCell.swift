@@ -52,6 +52,8 @@ class PickServerSearchCell: UITableViewCell {
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
+        textField.returnKeyType = .done
+        textField.keyboardType = .URL
         return textField
     }()
     
@@ -78,6 +80,7 @@ extension PickServerSearchCell {
         backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        searchTextField.delegate = self
         
         contentView.addSubview(bgView)
         contentView.addSubview(textFieldBgView)
@@ -105,5 +108,14 @@ extension PickServerSearchCell {
 extension PickServerSearchCell {
     @objc private func textFieldDidChange(_ textField: UITextField) {
         delegate?.pickServerSearchCell(self, searchTextDidChange: textField.text)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+extension PickServerSearchCell: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
     }
 }

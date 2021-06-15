@@ -61,7 +61,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var systemKeyboardHeight: CGFloat = .zero {
         didSet {
             // note: some system AutoLayout warning here
-            customEmojiPickerInputView.frame.size.height = systemKeyboardHeight != .zero ? systemKeyboardHeight : 300
+            let height = max(300, systemKeyboardHeight)
+            customEmojiPickerInputView.frame.size.height = height
         }
     }
     
@@ -730,7 +731,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                         guard let emoji = customEmojiViewModel.emoji(shortcode: name) else { continue }
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
                         
-                        // set emoji token invisiable (without upper bounce space)
+                        // set emoji token invisible (without upper bounce space)
                         var attributes = [NSAttributedString.Key: Any]()
                         attributes[.font] = UIFont.systemFont(ofSize: 0.01)
                         attributedString.addAttributes(attributes, range: match.range)
@@ -812,15 +813,15 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
 extension ComposeViewController: TextEditorViewChangeObserver {
     
     func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
-        guard var autoCompeletion = ComposeViewController.scanAutoCompleteInfo(textEditorView: textEditorView) else {
+        guard var autoCompletion = ComposeViewController.scanAutoCompleteInfo(textEditorView: textEditorView) else {
             viewModel.autoCompleteInfo.value = nil
             return
         }
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompeletion.toHighlightEndString), String(autoCompeletion.toCursorString))
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
 
         // get layout text bounding rect
         var glyphRange = NSRange()
-        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompeletion.toCursorRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
+        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.toCursorRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
         let textContainer = textEditorView.layoutManager.textContainers[0]
         let textBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
         
@@ -838,13 +839,13 @@ extension ComposeViewController: TextEditorViewChangeObserver {
         viewModel.autoCompleteRetryLayoutTimes.value = 0
         
         // get symbol bounding rect
-        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompeletion.symbolRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
+        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.symbolRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
         let symbolBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
         
         // set bounding rect and trigger layout
-        autoCompeletion.textBoundingRect = textBoundingRect
-        autoCompeletion.symbolBoundingRect = symbolBoundingRect
-        viewModel.autoCompleteInfo.value = autoCompeletion
+        autoCompletion.textBoundingRect = textBoundingRect
+        autoCompletion.symbolBoundingRect = symbolBoundingRect
+        viewModel.autoCompleteInfo.value = autoCompletion
     }
     
     struct AutoCompleteInfo {
@@ -864,12 +865,14 @@ extension ComposeViewController: TextEditorViewChangeObserver {
     
     private static func scanAutoCompleteInfo(textEditorView: TextEditorView) -> AutoCompleteInfo? {
         let text = textEditorView.text
-        let cursorLocation = textEditorView.selectedRange.location
-        let cursorIndex = text.index(text.startIndex, offsetBy: cursorLocation)
-        guard cursorLocation > 0, !text.isEmpty else { return nil }
-        
-        let _highlighStartIndex: String.Index? = {
-            var index = text.index(text.startIndex, offsetBy: cursorLocation - 1)
+
+        guard textEditorView.selectedRange.location > 0, !text.isEmpty,
+              let selectedRange = Range(textEditorView.selectedRange, in: text) else {
+            return nil
+        }
+        let cursorIndex = selectedRange.upperBound
+        let _highlightStartIndex: String.Index? = {
+            var index = text.index(before: cursorIndex)
             while index > text.startIndex {
                 let char = text[index]
                 if char == "@" || char == "#" || char == ":" {
@@ -886,18 +889,18 @@ extension ComposeViewController: TextEditorViewChangeObserver {
             }
         }()
         
-        guard let highlighStartIndex = _highlighStartIndex else { return nil }
-        let scanRange = NSRange(highlighStartIndex..<text.endIndex, in: text)
+        guard let highlightStartIndex = _highlightStartIndex else { return nil }
+        let scanRange = NSRange(highlightStartIndex..<text.endIndex, in: text)
         
         guard let match = text.firstMatch(pattern: MastodonRegex.autoCompletePattern, options: [], range: scanRange) else { return nil }
-        let matchRange = match.range(at: 0)
-        let matchStartIndex = text.index(text.startIndex, offsetBy: matchRange.location)
-        let matchEndIndex = text.index(matchStartIndex, offsetBy: matchRange.length)
+        guard let matchRange = Range(match.range(at: 0), in: text) else { return nil }
+        let matchStartIndex = matchRange.lowerBound
+        let matchEndIndex = matchRange.upperBound
         
-        guard matchStartIndex == highlighStartIndex, matchEndIndex >= cursorIndex else { return nil }
-        let symbolRange = highlighStartIndex..<text.index(after: highlighStartIndex)
+        guard matchStartIndex == highlightStartIndex, matchEndIndex >= cursorIndex else { return nil }
+        let symbolRange = highlightStartIndex..<text.index(after: highlightStartIndex)
         let symbolString = text[symbolRange]
-        let toCursorRange = highlighStartIndex..<cursorIndex
+        let toCursorRange = highlightStartIndex..<cursorIndex
         let toCursorString = text[toCursorRange]
         let toHighlightEndRange = matchStartIndex..<matchEndIndex
         let toHighlightEndString = text[toHighlightEndRange]
@@ -1015,7 +1018,7 @@ extension ComposeViewController: UICollectionViewDelegate {
             let emoji = attribute.emoji
             let textEditorView = self.textEditorView()
             
-            // retrive active text input and insert emoji
+            // retrieve active text input and insert emoji
             // the leading and trailing space is REQUIRED to fix `UITextStorage` layout issue
             let reference = viewModel.customEmojiPickerInputViewModel.insertText(" :\(emoji.shortcode): ")
             
@@ -1028,6 +1031,9 @@ extension ComposeViewController: UICollectionViewDelegate {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.collectionView.collectionViewLayout.invalidateLayout()
+                    
+                    // make click sound
+                    UIDevice.current.playInputClick()
                 }
             }
         } else {
@@ -1068,7 +1074,7 @@ extension ComposeViewController: PHPickerViewControllerDelegate {
             let service = MastodonAttachmentService(
                 context: context,
                 pickerResult: result,
-                initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+                initialAuthenticationBox: viewModel.activeAuthenticationBox.value
             )
             return service
         }
@@ -1087,7 +1093,7 @@ extension ComposeViewController: UIImagePickerControllerDelegate & UINavigationC
         let attachmentService = MastodonAttachmentService(
             context: context,
             image: image,
-            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            initialAuthenticationBox: viewModel.activeAuthenticationBox.value
         )
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }
@@ -1106,7 +1112,7 @@ extension ComposeViewController: UIDocumentPickerDelegate {
         let attachmentService = MastodonAttachmentService(
             context: context,
             documentURL: url,
-            initalAuthenticationBox: viewModel.activeAuthenticationBox.value
+            initialAuthenticationBox: viewModel.activeAuthenticationBox.value
         )
         viewModel.attachmentServices.value = viewModel.attachmentServices.value + [attachmentService]
     }

@@ -141,8 +141,8 @@ extension ComposeStatusSection {
                         attribute.contentWarningContent.value = text
                     }
                     .store(in: &cell.disposeBag)
-                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplacableTextInput: cell.textEditorView, disposeBag: &cell.disposeBag)
-                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplacableTextInput: cell.statusContentWarningEditorView.textView, disposeBag: &cell.disposeBag)
+                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplaceableTextInput: cell.textEditorView, disposeBag: &cell.disposeBag)
+                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplaceableTextInput: cell.statusContentWarningEditorView.textView, disposeBag: &cell.disposeBag)
 
                 return cell
             case .attachment(let attachmentService):
@@ -228,7 +228,7 @@ extension ComposeStatusSection {
                     .assign(to: \.value, on: attribute.option)
                     .store(in: &cell.disposeBag)
                 cell.delegate = composeStatusPollOptionCollectionViewCellDelegate
-                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplacableTextInput: cell.pollOptionView.optionTextField, disposeBag: &cell.disposeBag)
+                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplaceableTextInput: cell.pollOptionView.optionTextField, disposeBag: &cell.disposeBag)
                 return cell
             case .pollOptionAppendEntry:
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self), for: indexPath) as! ComposeStatusPollOptionAppendEntryCollectionViewCell
@@ -295,7 +295,7 @@ protocol CustomEmojiReplaceableTextInput: AnyObject {
     var isFirstResponder: Bool { get }
 }
 
-class CustomEmojiReplacableTextInputReference {
+class CustomEmojiReplaceableTextInputReference {
     weak var value: CustomEmojiReplaceableTextInput?
 
     init(value: CustomEmojiReplaceableTextInput? = nil) {
@@ -320,7 +320,7 @@ extension ComposeStatusSection {
 
     static func configureCustomEmojiPicker(
         viewModel: CustomEmojiPickerInputViewModel?,
-        customEmojiReplacableTextInput: CustomEmojiReplaceableTextInput,
+        customEmojiReplaceableTextInput: CustomEmojiReplaceableTextInput,
         disposeBag: inout Set<AnyCancellable>
     ) {
         guard let viewModel = viewModel else { return }
@@ -328,9 +328,9 @@ extension ComposeStatusSection {
             .receive(on: DispatchQueue.main)
             .sink { [weak viewModel] isCustomEmojiComposing in
                 guard let viewModel = viewModel else { return }
-                customEmojiReplacableTextInput.inputView = isCustomEmojiComposing ? viewModel.customEmojiPickerInputView : nil
-                customEmojiReplacableTextInput.reloadInputViews()
-                viewModel.append(customEmojiReplacableTextInput: customEmojiReplacableTextInput)
+                customEmojiReplaceableTextInput.inputView = isCustomEmojiComposing ? viewModel.customEmojiPickerInputView : nil
+                customEmojiReplaceableTextInput.reloadInputViews()
+                viewModel.append(customEmojiReplaceableTextInput: customEmojiReplaceableTextInput)
             }
             .store(in: &disposeBag)
     }
