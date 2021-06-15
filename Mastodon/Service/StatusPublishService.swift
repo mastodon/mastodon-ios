@@ -16,7 +16,7 @@ final class StatusPublishService {
     
     var disposeBag = Set<AnyCancellable>()
     
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.Mastodon.StatusPublishService.working-queue")
+    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.StatusPublishService.working-queue")
 
     // input
     var viewModels = CurrentValueSubject<[ComposeViewModel], Never>([])     // use strong reference to retain the view models

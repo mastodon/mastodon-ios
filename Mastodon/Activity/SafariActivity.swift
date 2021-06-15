@@ -18,7 +18,7 @@ final class SafariActivity: UIActivity {
     }
     
     override var activityType: UIActivity.ActivityType? {
-        return UIActivity.ActivityType("org.joinmastodon.Mastodon.safari-activity")
+        return UIActivity.ActivityType("org.joinmastodon.app.safari-activity")
     }
     
     override var activityTitle: String? {

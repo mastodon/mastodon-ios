@@ -139,7 +139,7 @@ extension Mastodon.API.OAuth {
             forceLogin: String? = nil,
             responseType: String = "code",
             clientID: String,
-            redirectURI: String = "urn:ietf:wg:oauth:2.0:oob",
+            redirectURI: String,
             scope: String? = "read write follow push"
         ) {
             self.forceLogin = forceLogin
@@ -166,7 +166,7 @@ extension Mastodon.API.OAuth {
         public init(
             clientID: String,
             clientSecret: String,
-            redirectURI: String = "urn:ietf:wg:oauth:2.0:oob",
+            redirectURI: String,
             scope: String? = "read write follow push",
             code: String?,
             grantType: String

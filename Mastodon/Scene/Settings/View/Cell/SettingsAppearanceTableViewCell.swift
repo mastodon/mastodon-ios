@@ -176,7 +176,7 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     
     // MARK: Private methods
     private func setupUI() {
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        backgroundColor = .clear
         selectionStyle = .none
         contentView.addSubview(stackView)
         

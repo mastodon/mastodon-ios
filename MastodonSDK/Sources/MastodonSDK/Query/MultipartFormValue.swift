@@ -13,8 +13,13 @@ enum Multipart {
 
 protocol MultipartFormValue {
     var multipartValue: Data { get }
+    var multipartStreamValue: InputStream? { get }
     var multipartContentType: String? { get }
     var multipartFilename: String? { get }
+}
+
+extension MultipartFormValue {
+    var multipartStreamValue: InputStream? { nil }
 }
 
 extension Bool: MultipartFormValue {

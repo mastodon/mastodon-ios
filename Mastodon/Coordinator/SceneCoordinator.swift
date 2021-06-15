@@ -42,7 +42,6 @@ extension SceneCoordinator {
         // onboarding
         case welcome
         case mastodonPickServer(viewMode: MastodonPickServerViewModel)
-        case mastodonPinBasedAuthentication(viewModel: MastodonPinBasedAuthenticationViewModel)
         case mastodonRegister(viewModel: MastodonRegisterViewModel)
         case mastodonServerRules(viewModel: MastodonServerRulesViewModel)
         case mastodonConfirmEmail(viewModel: MastodonConfirmEmailViewModel)
@@ -78,6 +77,7 @@ extension SceneCoordinator {
         case safari(url: URL)
         case alertController(alertController: UIAlertController)
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
+        
         #if DEBUG
         case publicTimeline
         #endif
@@ -86,7 +86,6 @@ extension SceneCoordinator {
             switch self {
             case .welcome,
                  .mastodonPickServer,
-                 .mastodonPinBasedAuthentication,
                  .mastodonRegister,
                  .mastodonServerRules,
                  .mastodonConfirmEmail,
@@ -217,10 +216,6 @@ private extension SceneCoordinator {
             let _viewController = MastodonPickServerViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
-        case .mastodonPinBasedAuthentication(let viewModel):
-            let _viewController = MastodonPinBasedAuthenticationViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
         case .mastodonRegister(let viewModel):
             let _viewController = MastodonRegisterViewController()
             _viewController.viewModel = viewModel
@@ -259,10 +254,6 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .favorite(let viewModel):
             let _viewController = FavoriteViewController()
-            _viewController.viewModel = viewModel
-            viewController = _viewController
-        case .settings(let viewModel):
-            let _viewController = SettingsViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .suggestionAccount(let viewModel):

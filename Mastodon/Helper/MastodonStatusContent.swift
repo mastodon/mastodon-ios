@@ -23,7 +23,7 @@ enum MastodonStatusContent {
                 let pattern = ":\(shortcode):"
                 content = content.replacingOccurrences(of: pattern, with: emojiNode)
             }
-            return content
+            return content.trimmingCharacters(in: .whitespacesAndNewlines)
         }()
         let rootNode = try Node.parse(document: document)
         let text = String(rootNode.text)

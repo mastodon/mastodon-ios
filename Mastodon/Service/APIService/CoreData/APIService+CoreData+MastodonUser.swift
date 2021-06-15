@@ -98,6 +98,8 @@ extension APIService.CoreData {
         user.update(locked: property.locked)
         property.bot.flatMap { user.update(bot: $0) }
         property.suspended.flatMap { user.update(suspended: $0) }
+        property.emojisData.flatMap { user.update(emojisData: $0) }
+        property.fieldsData.flatMap { user.update(fieldsData: $0) }
         
         user.didUpdate(at: networkDate)
     }

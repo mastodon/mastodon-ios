@@ -84,3 +84,9 @@ extension CustomEmojiPickerInputView {
         return layout
     }
 }
+
+extension CustomEmojiPickerInputView: UIInputViewAudioFeedback {
+    var enableInputClicksWhenVisible: Bool {
+        return true
+    }
+}

@@ -12,7 +12,7 @@ final class CustomEmojiPickerInputViewModel {
     
     var disposeBag = Set<AnyCancellable>()
     
-    private var customEmojiReplacableTextInputReferences: [CustomEmojiReplacableTextInputReference] = []
+    private var customEmojiReplaceableTextInputReferences: [CustomEmojiReplaceableTextInputReference] = []
 
     // input
     weak var customEmojiPickerInputView: CustomEmojiPickerInputView?
@@ -25,27 +25,27 @@ final class CustomEmojiPickerInputViewModel {
 extension CustomEmojiPickerInputViewModel {
     
     private func removeEmptyReferences() {
-        customEmojiReplacableTextInputReferences.removeAll(where: { element in
+        customEmojiReplaceableTextInputReferences.removeAll(where: { element in
             element.value == nil
         })
     }
     
-    func append(customEmojiReplacableTextInput textInput: CustomEmojiReplaceableTextInput) {
+    func append(customEmojiReplaceableTextInput textInput: CustomEmojiReplaceableTextInput) {
         removeEmptyReferences()
         
-        let isContains = customEmojiReplacableTextInputReferences.contains(where: { element in
+        let isContains = customEmojiReplaceableTextInputReferences.contains(where: { element in
             element.value === textInput
         })
         guard !isContains else {
             return
         }
-        customEmojiReplacableTextInputReferences.append(CustomEmojiReplacableTextInputReference(value: textInput))
+        customEmojiReplaceableTextInputReferences.append(CustomEmojiReplaceableTextInputReference(value: textInput))
     }
     
-    func insertText(_ text: String) -> CustomEmojiReplacableTextInputReference? {
+    func insertText(_ text: String) -> CustomEmojiReplaceableTextInputReference? {
         removeEmptyReferences()
         
-        for reference in customEmojiReplacableTextInputReferences {
+        for reference in customEmojiReplaceableTextInputReferences {
             guard reference.value?.isFirstResponder == true else { continue }
             reference.value?.insertText(text)
             return reference

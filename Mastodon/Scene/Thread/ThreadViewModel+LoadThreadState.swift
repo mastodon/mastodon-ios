@@ -111,7 +111,7 @@ extension ThreadViewModel.LoadThreadState {
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
             
-            guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
+            guard let _ = viewModel, let stateMachine = stateMachine else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 stateMachine.enter(Loading.self)
             }

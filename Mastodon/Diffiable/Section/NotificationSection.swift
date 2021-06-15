@@ -36,7 +36,7 @@ extension NotificationSection {
                     assertionFailure()
                     return nil
                 }
-                let timeText = notification.createAt.shortTimeAgoSinceNow
+                let timeText = notification.createAt.slowedTimeAgoSinceNow
 
                 let actionText = type.actionText
                 let actionImageName = type.actionImageName
@@ -59,7 +59,7 @@ extension NotificationSection {
                     )
                     timestampUpdatePublisher
                         .sink { _ in
-                            let timeText = notification.createAt.shortTimeAgoSinceNow
+                            let timeText = notification.createAt.slowedTimeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)
@@ -87,7 +87,7 @@ extension NotificationSection {
                     cell.delegate = delegate
                     timestampUpdatePublisher
                         .sink { _ in
-                            let timeText = notification.createAt.shortTimeAgoSinceNow
+                            let timeText = notification.createAt.slowedTimeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)

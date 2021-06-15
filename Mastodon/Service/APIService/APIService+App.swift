@@ -20,7 +20,11 @@ extension APIService {
     #endif
 
     func createApplication(domain: String) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error> {
-        let query = Mastodon.API.App.CreateQuery(clientName: APIService.clientName, website: nil)
+        let query = Mastodon.API.App.CreateQuery(
+            clientName: APIService.clientName,
+            redirectURIs: MastodonAuthenticationController.callbackURL,
+            website: nil
+        )
         return Mastodon.API.App.create(
             session: session,
             domain: domain,

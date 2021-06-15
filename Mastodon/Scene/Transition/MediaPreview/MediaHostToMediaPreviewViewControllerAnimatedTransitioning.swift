@@ -163,11 +163,18 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         var needsMaskWithAnimation = true
         let maskLayerToRect: CGRect? = {
             guard case .mosaic = transitionItem.source else { return nil }
-            guard let navigationBar = toVC.navigationController?.navigationBar else { return nil }
-            let navigationBarFrameInWindow = toVC.view.convert(navigationBar.frame, to: nil)
-            var rect = transitionMaskView.frame
-            rect.origin.y = navigationBarFrameInWindow.maxY + UIView.separatorLineHeight(of: toVC.view)     // extra hairline
+            guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
+            let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
             
+            // crop rect top edge
+            var rect = transitionMaskView.frame
+            let _toViewFrameInWindow = toVC.view.superview.flatMap { $0.convert(toVC.view.frame, to: nil) }
+            if let toViewFrameInWindow = _toViewFrameInWindow, toViewFrameInWindow.minY > navigationBarFrameInWindow.maxY {
+                rect.origin.y = toViewFrameInWindow.minY
+            } else {
+                rect.origin.y = navigationBarFrameInWindow.maxY + UIView.separatorLineHeight(of: toVC.view)     // extra hairline
+            }
+
             if rect.minY < snapshot.frame.minY {
                 needsMaskWithAnimation = false
             }
@@ -177,8 +184,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
         let maskLayerToFinalRect: CGRect? = {
             guard case .mosaic = transitionItem.source else { return nil }
-            guard let tabBarController = toVC.tabBarController else { return nil }
-            let tabBarFrameInWindow = toVC.view.convert(tabBarController.tabBar.frame, to: nil)
+            guard let tabBarController = toVC.tabBarController, let tabBarSuperView = tabBarController.tabBar.superview else { return nil }
+            let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
             var rect = maskLayerToRect ?? transitionMaskView.frame
             let offset = rect.maxY - tabBarFrameInWindow.minY
             guard offset > 0 else { return rect }
@@ -238,7 +245,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     
     private func popInteractiveTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
-              let fromView = transitionContext.view(forKey: .from),
+              let _ = transitionContext.view(forKey: .from),
               let mediaPreviewImageViewController = fromVC.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController,
                     let index = fromVC.pagingViewConttroller.currentIndex else {
             fatalError()
@@ -411,11 +418,18 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             var needsMaskWithAnimation = true
             let maskLayerToRect: CGRect? = {
                 guard case .mosaic = transitionItem.source else { return nil }
-                guard let navigationBar = toVC.navigationController?.navigationBar else { return nil }
-                let navigationBarFrameInWindow = toVC.view.convert(navigationBar.frame, to: nil)
-                var rect = transitionMaskView.frame
-                rect.origin.y = navigationBarFrameInWindow.maxY
+                guard let navigationBar = toVC.navigationController?.navigationBar, let navigationBarSuperView = navigationBar.superview else { return nil }
+                let navigationBarFrameInWindow = navigationBarSuperView.convert(navigationBar.frame, to: nil)
                 
+                // crop rect top edge
+                var rect = transitionMaskView.frame
+                let _toViewFrameInWindow = toVC.view.superview.flatMap { $0.convert(toVC.view.frame, to: nil) }
+                if let toViewFrameInWindow = _toViewFrameInWindow, toViewFrameInWindow.minY > navigationBarFrameInWindow.maxY {
+                    rect.origin.y = toViewFrameInWindow.minY
+                } else {
+                    rect.origin.y = navigationBarFrameInWindow.maxY + UIView.separatorLineHeight(of: toVC.view)     // extra hairline
+                }
+
                 if rect.minY < snapshot.frame.minY {
                     needsMaskWithAnimation = false
                 }
@@ -430,8 +444,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             
             let maskLayerToFinalRect: CGRect? = {
                 guard case .mosaic = transitionItem.source else { return nil }
-                guard let tabBarController = toVC.tabBarController else { return nil }
-                let tabBarFrameInWindow = toVC.view.convert(tabBarController.tabBar.frame, to: nil)
+                guard let tabBarController = toVC.tabBarController, let tabBarSuperView = tabBarController.tabBar.superview else { return nil }
+                let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
                 var rect = maskLayerToRect ?? transitionMaskView.frame
                 let offset = rect.maxY - tabBarFrameInWindow.minY
                 guard offset > 0 else { return rect }

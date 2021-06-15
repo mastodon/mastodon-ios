@@ -103,7 +103,7 @@ extension Mastodon.API.App {
         
         public init(
             clientName: String,
-            redirectURIs: String = "urn:ietf:wg:oauth:2.0:oob",
+            redirectURIs: String,
             scopes: String? = "read write follow push",
             website: String?
         ) {

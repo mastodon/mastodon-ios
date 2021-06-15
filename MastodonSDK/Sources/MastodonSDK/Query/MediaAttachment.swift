@@ -16,21 +16,22 @@ extension Mastodon.Query {
         /// PNG (Portable Network Graphics) image
         case png(Data?)
         /// Other media file
-        case other(Data?, fileExtension: String, mimeType: String)
+        /// e.g video
+        case other(URL?, fileExtension: String, mimeType: String)
     }
 }
 
 extension Mastodon.Query.MediaAttachment {
-    var data: Data? {
+    public var data: Data? {
         switch self {
         case .jpeg(let data): return data
         case .gif(let data): return data
         case .png(let data): return data
-        case .other(let data, _, _): return data
+        case .other: return nil
         }
     }
 
-    var fileName: String {
+    public var fileName: String {
         let name = UUID().uuidString
         switch self {
         case .jpeg: return "\(name).jpg"
@@ -40,7 +41,7 @@ extension Mastodon.Query.MediaAttachment {
         }
     }
 
-    var mimeType: String {
+    public var mimeType: String {
         switch self {
         case .jpeg: return "image/jpg"
         case .gif: return "image/gif"
@@ -56,6 +57,14 @@ extension Mastodon.Query.MediaAttachment {
 
 extension Mastodon.Query.MediaAttachment: MultipartFormValue {
     var multipartValue: Data { return data ?? Data() }
+    var multipartStreamValue: InputStream? {
+        switch self {
+        case .other(let url, _, _):
+            return url.flatMap { InputStream(url: $0) }
+        default:
+            return nil
+        }
+    }
     var multipartContentType: String? { return mimeType }
     var multipartFilename: String? { return fileName }
 }

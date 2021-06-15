@@ -12,8 +12,7 @@ import ActiveLabel
 import CoreData
 import CoreDataStack
 import MastodonSDK
-import AlamofireImage
-import Kingfisher
+
 
 class SettingsViewController: UIViewController, NeedsDependency {
     
@@ -95,7 +94,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        tableView.backgroundColor = .clear
         
         tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsAppearanceTableViewCell.self))
         tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsToggleTableViewCell.self))
@@ -186,7 +185,14 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupView() {
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceLevel {
+            case .elevated where traitCollection.userInterfaceStyle == .dark:
+                return Asset.Colors.Background.systemElevatedBackground.color
+            default:
+                return Asset.Colors.Background.secondarySystemBackground.color
+            }
+        })
         setupNavigation()
         
         view.addSubview(tableView)
@@ -319,36 +325,44 @@ extension SettingsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let dataSource = viewModel.dataSource else { return }
-        let item = dataSource.itemIdentifier(for: indexPath)
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
 
         switch item {
-        case .boringZone:
-            guard let url = viewModel.privacyURL else { break }
-            coordinator.present(
-                scene: .safari(url: url),
-                from: self,
-                transition: .safariPresent(animated: true, completion: nil)
-            )
-        case .spicyZone(let link):
-            // clear media cache
-            if link.title == L10n.Scene.Settings.Section.Spicyzone.clear {
-                // clean image cache for AlamofireImage
-                let diskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, diskBytes)
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: clean image cache", ((#file as NSString).lastPathComponent), #line, #function)
-                ImageDownloader.defaultURLCache().removeAllCachedResponses()
-                let cleanedDiskBytes = ImageDownloader.defaultURLCache().currentDiskUsage
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: diskBytes %d", ((#file as NSString).lastPathComponent), #line, #function, cleanedDiskBytes)
-
-                // clean Kingfisher Cache
-                KingfisherManager.shared.cache.clearDiskCache()
-            }
-            // logout
-            if link.title == L10n.Scene.Settings.Section.Spicyzone.signout {
+        case .apperance:
+            // do nothing
+            break
+        case .notification:
+            // do nothing
+            break
+        case .boringZone(let link), .spicyZone(let link):
+            switch link {
+            case .termsOfService, .privacyPolicy:
+                // same URL
+                guard let url = viewModel.privacyURL else { break }
+                coordinator.present(
+                    scene: .safari(url: url),
+                    from: self,
+                    transition: .safariPresent(animated: true, completion: nil)
+                )
+            case .clearMediaCache:
+                context.purgeCache()
+                    .receive(on: RunLoop.main)
+                    .sink { [weak self] byteCount in
+                        guard let self = self else { return }
+                        let byteCountformatted = AppContext.byteCountFormatter.string(fromByteCount: Int64(byteCount))
+                        let alertController = UIAlertController(
+                            title: L10n.Common.Alerts.CleanCache.title,
+                            message: L10n.Common.Alerts.CleanCache.message(byteCountformatted),
+                            preferredStyle: .alert
+                        )
+                        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                        alertController.addAction(okAction)
+                        self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+                    }
+                    .store(in: &disposeBag)
+            case .signOut:
                 alertToSignout()
             }
-        default:
-            break
         }
     }
 }
