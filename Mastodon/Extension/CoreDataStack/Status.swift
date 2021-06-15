@@ -88,4 +88,4 @@ extension Status {
     }
 }
 
-extension Status: EmojiContinaer { }
+extension Status: EmojiContainer { }

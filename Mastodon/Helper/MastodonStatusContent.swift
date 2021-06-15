@@ -17,7 +17,6 @@ enum MastodonStatusContent {
     static func parse(content: String, emojiDict: EmojiDict) throws -> MastodonStatusContent.ParseResult {
         let document: String = {
             var content = content
-            content = content.replacingOccurrences(of: "<br/>", with: "\n")
             for (shortcode, url) in emojiDict {
                 let emojiNode = "<span class=\"emoji\" href=\"\(url.absoluteString)\">\(shortcode)</span>"
                 let pattern = ":\(shortcode):"
@@ -189,6 +188,14 @@ extension MastodonStatusContent {
         
         static func parse(document: String) throws -> MastodonStatusContent.Node {
             let html = try HTML(html: document, encoding: .utf8)
+            
+            // add `\r\n` explicit due to Kanna text missing it after convert to text
+            // ref: https://github.com/tid-kijyun/Kanna/issues/150
+            let brNodes = html.css("br").makeIterator()
+            while let brNode = brNodes.next() {
+                brNode.addNextSibling(try! HTML(html: "<span>\r\n</span>", encoding: .utf8).body!)
+            }
+            
             let body = html.body ?? nil
             let text = body?.text ?? ""
             let level = 0

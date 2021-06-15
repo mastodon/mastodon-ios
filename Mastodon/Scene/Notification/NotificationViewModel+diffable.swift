@@ -9,6 +9,7 @@ import CoreData
 import CoreDataStack
 import os.log
 import UIKit
+import MastodonSDK
 
 extension NotificationViewModel {
     func setupDiffableDataSource(
@@ -16,7 +17,7 @@ extension NotificationViewModel {
         delegate: NotificationTableViewCellDelegate,
         dependency: NeedsDependency
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 30.0, on: .main, in: .common)
+        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
             .autoconnect()
             .share()
             .eraseToAnyPublisher()
@@ -44,7 +45,14 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
         
         guard let diffableDataSource = self.diffableDataSource else { return }
         
-        let predicate = fetchedResultsController.fetchRequest.predicate
+        let predicate: NSPredicate = {
+            let notificationTypePredicate = MastodonNotification.predicate(
+                validTypesRaws: Mastodon.Entity.Notification.NotificationType.knownCases.map { $0.rawValue }
+            )
+            return fetchedResultsController.fetchRequest.predicate.flatMap {
+                NSCompoundPredicate(andPredicateWithSubpredicates: [$0, notificationTypePredicate])
+            } ?? notificationTypePredicate
+        }()
         let parentManagedObjectContext = fetchedResultsController.managedObjectContext
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.parent = parentManagedObjectContext
@@ -73,19 +81,6 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
                 newSnapshot.appendSections([.main])
                 let items: [NotificationItem] = notifications.map { notification in
                     let attribute: Item.StatusAttribute = oldSnapshotAttributeDict[notification.objectID] ?? Item.StatusAttribute()
-
-//                    let attribute: Item.StatusAttribute = {
-//                        if let attribute = oldSnapshotAttributeDict[notification.objectID] {
-//                            return attribute
-//                        } else if let status = notification.status {
-//                            let attribute = Item.StatusAttribute()
-//                            let isSensitive = status.sensitive || !(status.spoilerText ?? "").isEmpty
-//                            attribute.isRevealing.value = !isSensitive
-//                            return attribute
-//                        } else {
-//                            return Item.StatusAttribute()
-//                        }
-//                    }()
                     return NotificationItem.notification(objectID: notification.objectID, attribute: attribute)
                 }
                 newSnapshot.appendItems(items, toSection: .main)

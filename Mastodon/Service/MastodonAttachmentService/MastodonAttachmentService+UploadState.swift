@@ -56,7 +56,7 @@ extension MastodonAttachmentService.UploadState {
             guard let file = service.file.value else { return }
             
             let description = service.description.value
-            let query = Mastodon.API.Media.UploadMeidaQuery(
+            let query = Mastodon.API.Media.UploadMediaQuery(
                 file: file,
                 thumbnail: nil,
                 description: description,

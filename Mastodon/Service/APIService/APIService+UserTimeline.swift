@@ -27,7 +27,7 @@ extension APIService {
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let authorization = authorizationBox.userAuthorization
         let requestMastodonUserID = authorizationBox.userID
-        let query = Mastodon.API.Account.AccountStatuseseQuery(
+        let query = Mastodon.API.Account.AccountStatusesQuery(
             maxID: maxID,
             sinceID: sinceID,
             excludeReplies: excludeReplies,

@@ -101,5 +101,5 @@ extension MastodonUser {
     }
 }
 
-extension MastodonUser: EmojiContinaer { }
-extension MastodonUser: FieldContinaer { }
+extension MastodonUser: EmojiContainer { }
+extension MastodonUser: FieldContainer { }
