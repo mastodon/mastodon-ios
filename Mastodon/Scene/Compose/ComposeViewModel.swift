@@ -92,7 +92,8 @@ final class ComposeViewModel {
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         // end init
-        if case let .reply(repliedToStatusObjectID) = composeKind {
+        switch composeKind {
+        case .reply(let repliedToStatusObjectID):
             context.managedObjectContext.performAndWait {
                 guard let status = context.managedObjectContext.object(with: repliedToStatusObjectID) as? Status else { return }
                 let composeAuthor: MastodonUser? = {
@@ -124,14 +125,13 @@ final class ComposeViewModel {
                 self.preInsertedContent = preInsertedContent
                 self.composeStatusAttribute.composeContent.value = preInsertedContent
             }
-            
-        } else if case let .hashtag(text) = composeKind {
-            let initialComposeContent = "#" + text
+        case .hashtag(let hashtag):
+            let initialComposeContent = "#" + hashtag
             UITextChecker.learnWord(initialComposeContent)
             let preInsertedContent = initialComposeContent + " "
             self.preInsertedContent = preInsertedContent
             self.composeStatusAttribute.composeContent.value = preInsertedContent
-        } else if case let .mention(mastodonUserObjectID) = composeKind {
+        case .mention(let mastodonUserObjectID):
             context.managedObjectContext.performAndWait {
                 let mastodonUser = context.managedObjectContext.object(with: mastodonUserObjectID) as! MastodonUser
                 let initialComposeContent = "@" + mastodonUser.acct
@@ -140,7 +140,7 @@ final class ComposeViewModel {
                 self.preInsertedContent = preInsertedContent
                 self.composeStatusAttribute.composeContent.value = preInsertedContent
             }
-        } else {
+        case .post:
             self.preInsertedContent = nil
         }
         
@@ -263,7 +263,7 @@ final class ComposeViewModel {
                 }
                 // if preInsertedContent plus a space is equal to the content, simply dismiss the modal
                 if let preInsertedContent = self?.preInsertedContent {
-                    return content == (preInsertedContent + " ")
+                    return content == preInsertedContent
                 }
                 return false
             }
@@ -374,11 +374,6 @@ final class ComposeViewModel {
             self.isPollToolbarButtonEnabled.value = !shouldPollDisable
         })
         .store(in: &disposeBag)
-        
-        if let preInsertedContent = preInsertedContent {
-            // add a space after the injected text
-            composeStatusAttribute.composeContent.send(preInsertedContent + " ")
-        }
     }
     
     deinit {
