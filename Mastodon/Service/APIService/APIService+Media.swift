@@ -13,7 +13,7 @@ extension APIService {
  
     func uploadMedia(
         domain: String,
-        query: Mastodon.API.Media.UploadMeidaQuery,
+        query: Mastodon.API.Media.UploadMediaQuery,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization

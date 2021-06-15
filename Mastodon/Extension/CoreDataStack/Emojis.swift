@@ -8,11 +8,11 @@
 import Foundation
 import MastodonSDK
 
-protocol EmojiContinaer {
+protocol EmojiContainer {
     var emojisData: Data? { get }
 }
 
-extension EmojiContinaer {
+extension EmojiContainer {
     
     static func encode(emojis: [Mastodon.Entity.Emoji]) -> Data? {
         return try? JSONEncoder().encode(emojis)
