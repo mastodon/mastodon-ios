@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import Combine
 import MastodonSDK
 
 protocol ComposeToolbarViewDelegate: AnyObject {
@@ -18,6 +19,8 @@ protocol ComposeToolbarViewDelegate: AnyObject {
 }
 
 final class ComposeToolbarView: UIView {
+    
+    var disposeBag = Set<AnyCancellable>()
     
     static let toolbarButtonSize: CGSize = CGSize(width: 44, height: 44)
     static let toolbarHeight: CGFloat = 44
@@ -75,6 +78,8 @@ final class ComposeToolbarView: UIView {
         label.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(500)
         return label
     }()
+    
+    let activeVisibilityType = CurrentValueSubject<VisibilitySelectionType, Never>(.public)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -142,6 +147,15 @@ extension ComposeToolbarView {
         visibilityButton.showsMenuAsPrimaryAction = true
         
         updateToolbarButtonUserInterfaceStyle()
+        
+        // update menu when selected visibility type changed
+        activeVisibilityType
+            .receive(on: RunLoop.main)
+            .sink { [weak self] type in
+                guard let self = self else { return }
+                self.visibilityButton.menu = self.createVisibilityContextMenu(interfaceStyle: self.traitCollection.userInterfaceStyle)
+            }
+            .store(in: &disposeBag)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -161,14 +175,15 @@ extension ComposeToolbarView {
     
     enum VisibilitySelectionType: String, CaseIterable {
         case `public`
-        case unlisted
+        // TODO: remove unlisted option from codebase
+        // case unlisted
         case `private`
         case direct
         
         var title: String {
             switch self {
             case .public: return L10n.Scene.Compose.Visibility.public
-            case .unlisted: return L10n.Scene.Compose.Visibility.unlisted
+            // case .unlisted: return L10n.Scene.Compose.Visibility.unlisted
             case .private: return L10n.Scene.Compose.Visibility.private
             case .direct: return L10n.Scene.Compose.Visibility.direct
             }
@@ -181,7 +196,7 @@ extension ComposeToolbarView {
                 case .light: return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
                 default: return UIImage(systemName: "person.3.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
                 }
-            case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
+            // case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
             case .private: return UIImage(systemName: "person.crop.circle.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
             case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .regular))!
             }
@@ -190,7 +205,7 @@ extension ComposeToolbarView {
         func imageNameForTimeline() -> String {
             switch self {
             case .public: return "person.3"
-            case .unlisted: return "eye.slash"
+            // case .unlisted: return "eye.slash"
             case .private: return "person.crop.circle.badge.plus"
             case .direct: return "at"
             }
@@ -199,7 +214,7 @@ extension ComposeToolbarView {
         var visibility: Mastodon.Entity.Status.Visibility {
             switch self {
             case .public: return .public
-            case .unlisted: return .unlisted
+            // case .unlisted: return .unlisted
             case .private: return .private
             case .direct: return .direct
             }
@@ -268,7 +283,8 @@ extension ComposeToolbarView {
     
     private func createVisibilityContextMenu(interfaceStyle: UIUserInterfaceStyle) -> UIMenu {
         let children: [UIMenuElement] = VisibilitySelectionType.allCases.map { type in
-            UIAction(title: type.title, image: type.image(interfaceStyle: interfaceStyle), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] action in
+            let state: UIMenuElement.State = activeVisibilityType.value == type ? .on : .off
+            return UIAction(title: type.title, image: type.image(interfaceStyle: interfaceStyle), identifier: nil, discoverabilityTitle: nil, attributes: [], state: state) { [weak self] action in
                 guard let self = self else { return }
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: visibilitySelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, type.rawValue)
                 self.delegate?.composeToolbarView(self, visibilityButtonDidPressed: self.visibilityButton, visibilitySelectionType: type)
