@@ -368,6 +368,7 @@ extension ComposeViewController {
             guard let self = self else { return }
             let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
             self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
+            self.composeToolbarView.activeVisibilityType.value = type
         }
         .store(in: &disposeBag)
         
@@ -676,7 +677,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
         updateAttributedString attributedString: NSAttributedString,
         completion: @escaping (NSAttributedString?) -> Void
     ) {
-        // FIXME: needs O(1) update completion to fix profermance issue
+        // FIXME: needs O(1) update completion to fix performance issue
         DispatchQueue.global().async {
             let string = attributedString.string
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
@@ -1291,7 +1292,8 @@ extension ComposeViewController {
         case togglePoll
         case toggleContentWarning
         case selectVisibilityPublic
-        case selectVisibilityUnlisted
+        // TODO: remove selectVisibilityUnlisted from codebase
+        // case selectVisibilityUnlisted
         case selectVisibilityPrivate
         case selectVisibilityDirect
 
@@ -1305,7 +1307,7 @@ extension ComposeViewController {
             case .togglePoll:               return L10n.Scene.Compose.Keyboard.togglePoll
             case .toggleContentWarning:     return L10n.Scene.Compose.Keyboard.toggleContentWarning
             case .selectVisibilityPublic:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.public)
-            case .selectVisibilityUnlisted: return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.unlisted)
+            // case .selectVisibilityUnlisted: return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.unlisted)
             case .selectVisibilityPrivate:  return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.private)
             case .selectVisibilityDirect:   return L10n.Scene.Compose.Keyboard.selectVisibilityEntry(L10n.Scene.Compose.Visibility.direct)
             }
@@ -1322,9 +1324,9 @@ extension ComposeViewController {
             case .togglePoll:               return "p"      // + shift + command
             case .toggleContentWarning:     return "c"      // + shift + command
             case .selectVisibilityPublic:   return "1"      // + command
-            case .selectVisibilityUnlisted: return "2"      // + command
-            case .selectVisibilityPrivate:  return "3"      // + command
-            case .selectVisibilityDirect:   return "4"      // + command
+            // case .selectVisibilityUnlisted: return "2"      // + command
+            case .selectVisibilityPrivate:  return "2"      // + command
+            case .selectVisibilityDirect:   return "3"      // + command
             }
         }
         
@@ -1338,7 +1340,7 @@ extension ComposeViewController {
             case .togglePoll:               return [.shift, .command]
             case .toggleContentWarning:     return [.shift, .command]
             case .selectVisibilityPublic:   return [.command]
-            case .selectVisibilityUnlisted: return [.command]
+            // case .selectVisibilityUnlisted: return [.command]
             case .selectVisibilityPrivate:  return [.command]
             case .selectVisibilityDirect:   return [.command]
             }
@@ -1390,8 +1392,8 @@ extension ComposeViewController {
             composeToolbarView.contentWarningButton.sendActions(for: .touchUpInside)
         case .selectVisibilityPublic:
             viewModel.selectedStatusVisibility.value = .public
-        case .selectVisibilityUnlisted:
-            viewModel.selectedStatusVisibility.value = .unlisted
+        // case .selectVisibilityUnlisted:
+        //     viewModel.selectedStatusVisibility.value = .unlisted
         case .selectVisibilityPrivate:
             viewModel.selectedStatusVisibility.value = .private
         case .selectVisibilityDirect:

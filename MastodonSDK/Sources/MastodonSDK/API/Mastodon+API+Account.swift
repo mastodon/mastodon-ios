@@ -71,14 +71,14 @@ extension Mastodon.API.Account {
     /// - Parameters:
     ///   - session: `URLSession`
     ///   - domain: Mastodon instance domain. e.g. "example.com"
-    ///   - query: `AccountStatuseseQuery` with query parameters
+    ///   - query: `AccountStatusesQuery` with query parameters
     ///   - authorization: User token
     /// - Returns: `AnyPublisher` contains `Token` nested in the response
     public static func statuses(
         session: URLSession,
         domain: String,
         accountID: Mastodon.Entity.Account.ID,
-        query: AccountStatuseseQuery,
+        query: AccountStatusesQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error>  {
         let request = Mastodon.API.get(
@@ -94,7 +94,7 @@ extension Mastodon.API.Account {
             .eraseToAnyPublisher()
     }
     
-    public struct AccountStatuseseQuery: GetQuery {
+    public struct AccountStatusesQuery: GetQuery {
         public let maxID: Mastodon.Entity.Status.ID?
         public let sinceID: Mastodon.Entity.Status.ID?
         public let excludeReplies: Bool?    // undocumented
