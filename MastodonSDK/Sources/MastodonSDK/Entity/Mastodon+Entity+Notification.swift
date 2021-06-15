@@ -49,6 +49,18 @@ extension Mastodon.Entity.Notification {
         
         case _other(String)
         
+        public static var knownCases: [NotificationType] {
+            return [
+                .follow,
+                .followRequest,
+                .mention,
+                .reblog,
+                .favourite,
+                .poll,
+                .status
+            ]
+        }
+        
         public init?(rawValue: String) {
             switch rawValue {
             case "follow":              self = .follow

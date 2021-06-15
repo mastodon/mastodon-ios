@@ -17,7 +17,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     var pollCountdownSubscription: AnyCancellable?
     var delegate: NotificationTableViewCellDelegate?
     
-    let avatatImageView: UIImageView = {
+    let avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 4
         imageView.layer.cornerCurve = .continuous
@@ -86,7 +86,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        avatatImageView.af.cancelImageRequest()
+        avatarImageView.af.cancelImageRequest()
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
@@ -142,13 +142,13 @@ extension NotificationStatusTableViewCell {
             avatarContainer.widthAnchor.constraint(equalToConstant: 47).priority(.required - 1)
         ])
 
-        avatarContainer.addSubview(avatatImageView)
-        avatatImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarContainer.addSubview(avatarImageView)
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            avatatImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
-            avatatImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
-            avatatImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
-            avatatImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor)
+            avatarImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatarImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
+            avatarImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor)
         ])
 
         avatarContainer.addSubview(actionImageBackground)
