@@ -63,7 +63,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let largeTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Register.title
         label.numberOfLines = 0
