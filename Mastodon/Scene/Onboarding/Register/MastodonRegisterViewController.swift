@@ -109,7 +109,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let usernameTextField: UITextField = {
         let textField = UITextField()
-
+        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -160,6 +160,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let displayNameTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -177,6 +178,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let emailTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
@@ -202,6 +204,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let passwordTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .asciiCapable
@@ -235,6 +238,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     lazy var reasonTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -391,14 +395,13 @@ extension MastodonRegisterViewController {
         stackView.setCustomSpacing(6, after: passwordTextField)
         stackView.setCustomSpacing(32, after: passwordCheckLabel)
         
-        //return
+        // return
         if viewModel.approvalRequired {
-            passwordTextField.returnKeyType = .continue
+            reasonTextField.returnKeyType = .done
         } else {
             passwordTextField.returnKeyType = .done
         }
-        reasonTextField.returnKeyType = .done
-
+        
         // button
         stackView.addArrangedSubview(buttonContainer)
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
@@ -641,6 +644,25 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
+        switch textField {
+        case usernameTextField:
+            viewModel.username.value = text
+        case displayNameTextField:
+            viewModel.displayName.value = text
+        case emailTextField:
+            viewModel.email.value = text
+        case passwordTextField:
+            viewModel.password.value = text
+        case reasonTextField:
+            viewModel.reason.value = text
+        default:
+            break
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
         switch textField {
         case usernameTextField:
             viewModel.username.value = text
