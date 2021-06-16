@@ -45,40 +45,12 @@ struct MosaicMeta {
     let size: CGSize
     let blurhash: String?
     let altText: String?
-    
-    let workingQueue = DispatchQueue(label: "org.joinmastodon.app.MosaicMeta.working-queue", qos: .userInitiated, attributes: .concurrent)
 
     func blurhashImagePublisher() -> AnyPublisher<UIImage?, Never> {
-        return Future { promise in
-            workingQueue.async {
-                let image = self.blurhashImage()
-                promise(.success(image))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    func blurhashImage() -> UIImage? {
         guard let blurhash = blurhash else {
-            return nil
+            return Just(nil).eraseToAnyPublisher()
         }
-        
-        let imageSize: CGSize = {
-            let aspectRadio = size.width / size.height
-            if size.width > size.height {
-                let width: CGFloat = MosaicMeta.edgeMaxLength
-                let height = width / aspectRadio
-                return CGSize(width: width, height: height)
-            } else {
-                let height: CGFloat = MosaicMeta.edgeMaxLength
-                let width = height * aspectRadio
-                return CGSize(width: width, height: height)
-            }
-        }()
-        
-        let image = UIImage(blurHash: blurhash, size: imageSize)
-
-        return image
+        return AppContext.shared.blurhashImageCacheService.image(blurhash: blurhash, size: size, url: url)
     }
     
 }

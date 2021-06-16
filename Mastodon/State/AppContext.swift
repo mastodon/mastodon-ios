@@ -35,6 +35,9 @@ class AppContext: ObservableObject {
 
     let blockDomainService: BlockDomainService    
     let photoLibraryService = PhotoLibraryService()
+    
+    let placeholderImageCacheService = PlaceholderImageCacheService()
+    let blurhashImageCacheService = BlurhashImageCacheService()
 
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!

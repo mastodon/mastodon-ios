@@ -63,6 +63,7 @@ extension ActiveLabel {
 extension ActiveLabel {
     /// status content
     func configure(content: String, emojiDict: MastodonStatusContent.EmojiDict) {
+        attributedText = nil
         activeEntities.removeAll()
         
         if let parseResult = try? MastodonStatusContent.parse(content: content, emojiDict: emojiDict) {
@@ -144,10 +145,10 @@ extension ActiveLabel {
         element.accessibilityLanguage = accessibilityLanguage
         elements.append(element)
         
-        for eneity in activeEntities {
-            guard let element = eneity.accessibilityElement(in: self) else { continue }
+        for entity in activeEntities {
+            guard let element = entity.accessibilityElement(in: self) else { continue }
             var glyphRange = NSRange()
-            layoutManager.characterRange(forGlyphRange: eneity.range, actualGlyphRange: &glyphRange)
+            layoutManager.characterRange(forGlyphRange: entity.range, actualGlyphRange: &glyphRange)
             let rect = layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
             element.accessibilityFrame = self.convert(rect, to: nil)
             element.accessibilityContainer = self

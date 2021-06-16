@@ -207,6 +207,7 @@
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
 		DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */; };
 		DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */; };
+		DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */; };
 		DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */; };
 		DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2B3AE825E38850007045F9 /* UIViewPreview.swift */; };
 		DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */; };
@@ -414,6 +415,8 @@
 		DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */; };
 		DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */; };
 		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
+		DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */; };
+		DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = DBAEDE5E267A0B1500D25FF5 /* Nuke */; };
 		DBAFB7352645463500371D5F /* Emojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB7342645463500371D5F /* Emojis.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
@@ -779,6 +782,7 @@
 		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
 		DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputViewModel.swift; sourceTree = "<group>"; };
+		DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageCacheService.swift; sourceTree = "<group>"; };
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2B3AE825E38850007045F9 /* UIViewPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -984,6 +988,7 @@
 		DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Mute.swift"; sourceTree = "<group>"; };
 		DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonMetricFormatter.swift; sourceTree = "<group>"; };
 		DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteProfileViewModel.swift; sourceTree = "<group>"; };
+		DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurhashImageCacheService.swift; sourceTree = "<group>"; };
 		DBAFB7342645463500371D5F /* Emojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emojis.swift; sourceTree = "<group>"; };
 		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
 		DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewController.swift; sourceTree = "<group>"; };
@@ -1045,6 +1050,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */,
 				DB6F5E32264E7410009108F4 /* TwitterTextEditor in Frameworks */,
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
@@ -1350,6 +1356,8 @@
 				DB4924E126312AB200E9DB22 /* NotificationService.swift */,
 				DB6D9F6226357848008423CD /* SettingService.swift */,
 				DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */,
+				DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */,
+				DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2497,6 +2505,7 @@
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
 				DBB525072611EAC0002F1F29 /* Tabman */,
 				DB6F5E31264E7410009108F4 /* TwitterTextEditor */,
+				DBAEDE5E267A0B1500D25FF5 /* Nuke */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2686,6 +2695,7 @@
 				DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */,
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				DB6F5E30264E7410009108F4 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
+				DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -2995,6 +3005,7 @@
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
+				DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */,
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				2DE0FAC82615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift in Sources */,
@@ -3100,6 +3111,7 @@
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
+				DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */,
 				2D38F1DF25CD46A400561493 /* HomeTimelineViewController+Provider.swift in Sources */,
 				DB1D843026566512000346B3 /* KeyboardPreference.swift in Sources */,
 				2D206B9225F60EA700143C56 /* UIControl.swift in Sources */,
@@ -4027,7 +4039,7 @@
 			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
 			requirement = {
 				kind = exactVersion;
-				version = 5.0.2;
+				version = 5.0.3;
 			};
 		};
 		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
@@ -4100,6 +4112,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.4.1;
+			};
+		};
+		DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.3.0;
 			};
 		};
 		DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */ = {
@@ -4184,6 +4204,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
 			productName = "UITextView+Placeholder";
+		};
+		DBAEDE5E267A0B1500D25FF5 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
 		};
 		DBB525072611EAC0002F1F29 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;
