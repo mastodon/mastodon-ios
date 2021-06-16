@@ -60,7 +60,7 @@ class PickServerCell: UITableViewCell {
         return label
     }()
     
-    let thumbnailActivityIdicator = UIActivityIndicatorView(style: .medium)
+    let thumbnailActivityIndicator = UIActivityIndicatorView(style: .medium)
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
@@ -99,7 +99,7 @@ class PickServerCell: UITableViewCell {
         return button
     }()
     
-    let seperator: UIView = {
+    let separator: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -177,7 +177,7 @@ class PickServerCell: UITableViewCell {
         
         thumbnailImageView.isHidden = false
         thumbnailImageView.af.cancelImageRequest()
-        thumbnailActivityIdicator.stopAnimating()
+        thumbnailActivityIndicator.stopAnimating()
         disposeBag.removeAll()
     }
     
@@ -203,7 +203,7 @@ extension PickServerCell {
         containerView.addSubview(domainLabel)
         containerView.addSubview(checkbox)
         containerView.addSubview(descriptionLabel)
-        containerView.addSubview(seperator)
+        containerView.addSubview(separator)
         
         containerView.addSubview(expandButton)
         
@@ -231,13 +231,13 @@ extension PickServerCell {
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 1),
+            contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             
             // Set bottom separator
-            seperator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: seperator.trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: seperator.topAnchor),
-            seperator.heightAnchor.constraint(equalToConstant: 1).priority(.defaultHigh),
+            separator.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: separator.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: separator.topAnchor),
+            separator.heightAnchor.constraint(equalToConstant: 1).priority(.defaultHigh),
             
             domainLabel.topAnchor.constraint(equalTo: containerView.layoutMarginsGuide.topAnchor),
             domainLabel.leadingAnchor.constraint(equalTo: containerView.layoutMarginsGuide.leadingAnchor),
@@ -272,14 +272,14 @@ extension PickServerCell {
             containerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: expandButton.bottomAnchor),
         ])
         
-        thumbnailActivityIdicator.translatesAutoresizingMaskIntoConstraints = false
-        thumbnailImageView.addSubview(thumbnailActivityIdicator)
+        thumbnailActivityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        thumbnailImageView.addSubview(thumbnailActivityIndicator)
         NSLayoutConstraint.activate([
-            thumbnailActivityIdicator.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
-            thumbnailActivityIdicator.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
+            thumbnailActivityIndicator.centerXAnchor.constraint(equalTo: thumbnailImageView.centerXAnchor),
+            thumbnailActivityIndicator.centerYAnchor.constraint(equalTo: thumbnailImageView.centerYAnchor),
         ])
-        thumbnailActivityIdicator.hidesWhenStopped = true
-        thumbnailActivityIdicator.stopAnimating()
+        thumbnailActivityIndicator.hidesWhenStopped = true
+        thumbnailActivityIndicator.stopAnimating()
         
         NSLayoutConstraint.activate(collapseConstraints)
         

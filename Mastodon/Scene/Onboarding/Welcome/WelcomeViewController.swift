@@ -37,9 +37,10 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var  signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
-        let backgroundImageColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? .white : Asset.Colors.Button.normal.color
+        let backgroundImageColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? .white : Asset.Colors.brandBlue.color
+        let backgroundImageHighlightedColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor(white: 0.8, alpha: 1.0) : Asset.Colors.brandBlueDarken20.color
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
-        button.setBackgroundImage(.placeholder(color: backgroundImageColor.withAlphaComponent(0.9)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
         let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? Asset.Colors.Button.normal.color : UIColor.white
         button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +67,8 @@ extension WelcomeViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
         setupIllustrationLayout()

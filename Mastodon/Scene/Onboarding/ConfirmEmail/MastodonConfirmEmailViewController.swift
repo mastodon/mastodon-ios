@@ -22,7 +22,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 
     let largeTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.systemFont(ofSize: 34, weight: .bold))
         label.textColor = .label
         label.text = L10n.Scene.ConfirmEmail.title
         return label
@@ -45,14 +45,8 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     }()
 
     let openEmailButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        let button = PrimaryActionButton()
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 8
-        button.layer.cornerCurve = .continuous
         button.addTarget(self, action: #selector(openEmailButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         return button
     }()

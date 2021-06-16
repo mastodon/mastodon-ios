@@ -10,14 +10,13 @@ import Combine
 import MastodonSDK
 
 final class MastodonServerRulesViewModel {
+    
     // input
-
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let rules: [Mastodon.Entity.Instance.Rule]
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
-
     
     init(
         domain: String,
@@ -36,14 +35,19 @@ final class MastodonServerRulesViewModel {
     var rulesAttributedString: NSAttributedString {
         let attributedString = NSMutableAttributedString(string: "\n")
         let configuration = UIImage.SymbolConfiguration(font: .preferredFont(forTextStyle: .title3))
+        let separatorString = Array(repeating: " ", count: 4).joined()
         for (i, rule) in rules.enumerated() {
+            guard i < 50 else {
+                return NSAttributedString(string: "\(i)" + separatorString + rule.text + "\n\n")
+            }
             let imageName = String(i + 1) + ".circle.fill"
             let image = UIImage(systemName: imageName, withConfiguration: configuration)!
             let attachment = NSTextAttachment()
             attachment.image = image.withTintColor(Asset.Colors.Label.primary.color)
-            let imageAttribute = NSAttributedString(attachment: attachment)
-
-            let ruleString = NSAttributedString(string: "  " + rule.text + "\n\n")
+            let imageAttribute = NSMutableAttributedString(attachment: attachment)
+            imageAttribute.addAttributes([NSAttributedString.Key.baselineOffset : -1.5], range: NSRange(location: 0, length: imageAttribute.length))
+        
+            let ruleString = NSAttributedString(string: separatorString + rule.text + "\n\n")
             attributedString.append(imageAttribute)
             attributedString.append(ruleString)
         }

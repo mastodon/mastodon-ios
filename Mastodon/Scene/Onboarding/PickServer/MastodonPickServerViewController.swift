@@ -237,21 +237,23 @@ extension MastodonPickServerViewController {
             .store(in: &disposeBag)
         
         viewModel.emptyStateViewState
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
                 switch state {
                 case .none:
-                    self.emptyStateView.isHidden = true
+                    UIView.animate(withDuration: 0.3) {
+                        self.emptyStateView.alpha = 0
+                    }
                 case .loading:
-                    self.emptyStateView.isHidden = false
+                    self.emptyStateView.alpha = 1
                     self.emptyStateView.networkIndicatorImageView.isHidden = true
                     self.emptyStateView.activityIndicatorView.startAnimating()
                     self.emptyStateView.infoLabel.isHidden = false
                     self.emptyStateView.infoLabel.text = L10n.Scene.ServerPicker.EmptyState.findingServers
                     self.emptyStateView.infoLabel.textAlignment = self.traitCollection.layoutDirection == .rightToLeft ? .right : .left
                 case .badNetwork:
-                    self.emptyStateView.isHidden = false
+                    self.emptyStateView.alpha = 1
                     self.emptyStateView.networkIndicatorImageView.isHidden = false
                     self.emptyStateView.activityIndicatorView.stopAnimating()
                     self.emptyStateView.infoLabel.isHidden = false
