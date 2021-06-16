@@ -11,6 +11,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
+import Nuke
 
 protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
@@ -84,7 +85,7 @@ extension StatusSection {
                     case .root:
                         StatusSection.configureThreadMeta(cell: cell, status: status)
                         ManagedObjectObserver.observe(object: status.reblog ?? status)
-                            .receive(on: DispatchQueue.main)
+                            .receive(on: RunLoop.main)
                             .sink { _ in
                                 // do nothing
                             } receiveValue: { change in
@@ -160,9 +161,9 @@ extension StatusSection {
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
     ) {
-        // safely cancel the listenser when deleted
+        // safely cancel the listener when deleted
         ManagedObjectObserver.observe(object: status.reblog ?? status)
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
             } receiveValue: { [weak cell] change in
@@ -174,11 +175,10 @@ extension StatusSection {
             }
             .store(in: &cell.disposeBag)
         
-        
         // set header
         StatusSection.configureHeader(cell: cell, status: status)
         ManagedObjectObserver.observe(object: status)
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
             } receiveValue: { [weak cell] change in
@@ -221,7 +221,7 @@ extension StatusSection {
             cell.statusView.updateVisibility(visibility: visibility)
             
             cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
-                .receive(on: DispatchQueue.main)
+                .receive(on: RunLoop.main)
                 .sink { [weak cell] isHidden in
                     cell?.statusView.visibilityImageView.isHidden = !isHidden
                 }
@@ -234,7 +234,7 @@ extension StatusSection {
         let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
         
         // set image
-        let mosiacImageViewModel = MosaicImageViewModel(mediaAttachments: mediaAttachments)
+        let mosaicImageViewModel = MosaicImageViewModel(mediaAttachments: mediaAttachments)
         let imageViewMaxSize: CGSize = {
             let maxWidth: CGFloat = {
                 // use timelinePostView width as container width
@@ -246,61 +246,78 @@ extension StatusSection {
                 return containerWidth
             }()
             let scale: CGFloat = {
-                switch mosiacImageViewModel.metas.count {
+                switch mosaicImageViewModel.metas.count {
                 case 1: return 1.3
                 default: return 0.7
                 }
             }()
             return CGSize(width: maxWidth, height: maxWidth * scale)
         }()
-        let blurhashImageCache = dependency.context.documentStore.blurhashImageCache
         let mosaics: [MosaicImageViewContainer.ConfigurableMosaic] = {
-            if mosiacImageViewModel.metas.count == 1 {
-                let meta = mosiacImageViewModel.metas[0]
+            if mosaicImageViewModel.metas.count == 1 {
+                let meta = mosaicImageViewModel.metas[0]
                 let mosaic = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
                 return [mosaic]
             } else {
-                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosiacImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosaicImageViewModel.metas.count, maxSize: imageViewMaxSize)
                 return mosaics
             }
         }()
-        for (i, mosiac) in mosaics.enumerated() {
-            let (imageView, blurhashOverlayImageView) = mosiac
-            let meta = mosiacImageViewModel.metas[i]
-            let blurhashImageDataKey = meta.url.absoluteString as NSString
-            if let blurhashImageData = blurhashImageCache.object(forKey: meta.url.absoluteString as NSString),
-               let image = UIImage(data: blurhashImageData as Data) {
-                blurhashOverlayImageView.image = image
-            } else {
-                meta.blurhashImagePublisher()
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak blurhashImageCache] image in
-                        guard let blurhashImageCache = blurhashImageCache else { return }
-                        blurhashOverlayImageView.image = image
-                        image?.pngData().flatMap {
-                            blurhashImageCache.setObject($0 as NSData, forKey: blurhashImageDataKey)
-                        }
-                    }
-                    .store(in: &cell.disposeBag)
-            }
-            imageView.af.setImage(
-                withURL: meta.url,
-                placeholderImage: UIImage.placeholder(color: .systemFill),
-                imageTransition: .crossDissolve(0.2)
-            ) { response in
-                switch response.result {
-                case .success:
-                    statusItemAttribute.isImageLoaded.value = true
+        for (i, mosaic) in mosaics.enumerated() {
+            let imageView = mosaic.imageView
+            let blurhashOverlayImageView = mosaic.blurhashOverlayImageView
+            let meta = mosaicImageViewModel.metas[i]
+            
+            meta.blurhashImagePublisher()
+                .receive(on: RunLoop.main)
+                .sink { image in
+                    blurhashOverlayImageView.image = image
+                }
+                .store(in: &cell.disposeBag)
+
+            let imageSize = CGSize(
+                width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
+                height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
+            )
+            let request = ImageRequest(
+                url: meta.url,
+                processors: [
+                    ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)
+                ]
+            )
+            let options = ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.2)
+            )
+            Nuke.loadImage(
+                with: request,
+                options: options,
+                into: imageView
+            ) { result in
+                switch result {
                 case .failure:
                     break
+                case .success:
+                    statusItemAttribute.isImageLoaded.value = true
                 }
             }
+            //imageView.af.setImage(
+            //    withURL: meta.url,
+            //    placeholderImage: UIImage.placeholder(color: .systemFill),
+            //    imageTransition: .crossDissolve(0.2)
+            //) { response in
+            //    switch response.result {
+            //    case .success:
+            //        statusItemAttribute.isImageLoaded.value = true
+            //    case .failure:
+            //        break
+            //    }
+            //}
             imageView.accessibilityLabel = meta.altText
             Publishers.CombineLatest(
                 statusItemAttribute.isImageLoaded,
                 statusItemAttribute.isRevealing
             )
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak cell] isImageLoaded, isMediaRevealing in
                 guard let cell = cell else { return }
                 guard isImageLoaded else {
@@ -322,7 +339,7 @@ extension StatusSection {
             }
             .store(in: &cell.disposeBag)
         }
-        cell.statusView.statusMosaicImageViewContainer.isHidden = mosiacImageViewModel.metas.isEmpty
+        cell.statusView.statusMosaicImageViewContainer.isHidden = mosaicImageViewModel.metas.isEmpty
         
         // set audio
         if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
@@ -408,7 +425,7 @@ extension StatusSection {
         )
         // observe model change
         ManagedObjectObserver.observe(object: status)
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
             } receiveValue: { [weak dependency, weak cell] change in
@@ -479,7 +496,7 @@ extension StatusSection {
 
         // observe model change
         ManagedObjectObserver.observe(object: status.reblog ?? status)
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
             } receiveValue: { [weak dependency, weak cell] change in
@@ -700,7 +717,7 @@ extension StatusSection {
             ManagedObjectObserver.observe(object: status.authorForUserProvider)
                 .assertNoFailure()
             )
-        .receive(on: DispatchQueue.main)
+        .receive(on: RunLoop.main)
         .sink { [weak dependency, weak cell] _, change in
             guard let cell = cell else { return }
             guard let dependency = dependency else { return }

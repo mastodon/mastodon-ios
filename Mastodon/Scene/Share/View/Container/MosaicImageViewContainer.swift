@@ -107,7 +107,11 @@ extension MosaicImageViewContainer {
         container.spacing = 1
     }
     
-    typealias ConfigurableMosaic = (imageView: UIImageView, blurhashOverlayImageView: UIImageView)
+    struct ConfigurableMosaic {
+        let imageView: UIImageView
+        let blurhashOverlayImageView: UIImageView
+        let imageViewSize: CGSize
+    }
     
     func setupImageView(aspectRatio: CGSize, maxSize: CGSize) -> ConfigurableMosaic {
         reset()
@@ -163,14 +167,20 @@ extension MosaicImageViewContainer {
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: imageView.bottomAnchor),
         ])
     
-        return (imageView, blurhashOverlayImageView)
+        return ConfigurableMosaic(
+            imageView: imageView,
+            blurhashOverlayImageView: blurhashOverlayImageView,
+            imageViewSize: maxSize
+        )
     }
     
-    func setupImageViews(count: Int, maxHeight: CGFloat) -> [ConfigurableMosaic] {
+    func setupImageViews(count: Int, maxSize: CGSize) -> [ConfigurableMosaic] {
         reset()
         guard count > 1 else {
             return []
         }
+        
+        let maxHeight = maxSize.height
         
         containerHeightLayoutConstraint.constant = maxHeight
         containerHeightLayoutConstraint.isActive = true
@@ -295,7 +305,35 @@ extension MosaicImageViewContainer {
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
         ])
         
-        return zip(imageViews, blurhashOverlayImageViews).map { ($0, $1) }
+        var mosaics: [ConfigurableMosaic] = []
+        for (i, (imageView, blurhashOverlayImageView)) in zip(imageViews, blurhashOverlayImageViews).enumerated() {
+            let imageViewSize: CGSize = {
+                switch (i, count) {
+                case (_, 4):
+                    return CGSize(width: maxSize.width * 0.5, height: maxSize.height * 0.5)
+                case (i, 3):
+                    let width = maxSize.width * 0.5
+                    if i == 0 {
+                        return CGSize(width: width, height: maxSize.height)
+                    } else {
+                        return CGSize(width: width, height: maxSize.height * 0.5)
+                    }
+                case (_, 2):
+                    let width = maxSize.width * 0.5
+                    return CGSize(width: width, height: maxSize.height)
+                default:
+                    assertionFailure()
+                    return maxSize
+                }
+            }()
+            let mosaic = ConfigurableMosaic(
+                imageView: imageView,
+                blurhashOverlayImageView: blurhashOverlayImageView,
+                imageViewSize: imageViewSize
+            )
+            mosaics.append(mosaic)
+        }
+        return mosaics
     }
     
 }
@@ -366,11 +404,11 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let image = images[3]
-                let (imageView, _) = view.setupImageView(
+                let mosaic = view.setupImageView(
                     aspectRatio: image.size,
                     maxSize: CGSize(width: 375, height: 400)
                 )
-                imageView.image = image
+                mosaic.imageView.image = image
                 return view
             }
             .previewLayout(.fixed(width: 375, height: 400))
@@ -378,14 +416,14 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let image = images[1]
-                let (imageView, _) = view.setupImageView(
+                let mosaic = view.setupImageView(
                     aspectRatio: image.size,
                     maxSize: CGSize(width: 375, height: 400)
                 )
-                imageView.layer.masksToBounds = true
-                imageView.layer.cornerRadius = 8
-                imageView.contentMode = .scaleAspectFill
-                imageView.image = image
+                mosaic.imageView.layer.masksToBounds = true
+                mosaic.imageView.layer.cornerRadius = 8
+                mosaic.imageView.contentMode = .scaleAspectFill
+                mosaic.imageView.image = image
                 return view
             }
             .previewLayout(.fixed(width: 375, height: 400))
@@ -393,10 +431,9 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(2)
-                let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, mosiac) in mosaics.enumerated() {
-                    let (imageView, _) = mosiac
-                    imageView.image = images[i]
+                let mosaics = view.setupImageViews(count: images.count, maxSize: CGSize(width: 375, height: 162))
+                for (i, mosaic) in mosaics.enumerated() {
+                    mosaic.imageView.image = images[i]
                 }
                 return view
             }
@@ -405,10 +442,9 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(3)
-                let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, mosiac) in mosaics.enumerated() {
-                    let (imageView, _) = mosiac
-                    imageView.image = images[i]
+                let mosaics = view.setupImageViews(count: images.count, maxSize: CGSize(width: 375, height: 162))
+                for (i, mosaic) in mosaics.enumerated() {
+                    mosaic.imageView.image = images[i]
                 }
                 return view
             }
@@ -417,10 +453,9 @@ struct MosaicImageView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let view = MosaicImageViewContainer()
                 let images = self.images.prefix(4)
-                let mosaics = view.setupImageViews(count: images.count, maxHeight: 162)
-                for (i, mosiac) in mosaics.enumerated() {
-                    let (imageView, _) = mosiac
-                    imageView.image = images[i]
+                let mosaics = view.setupImageViews(count: images.count, maxSize: CGSize(width: 375, height: 162))
+                for (i, mosaic) in mosaics.enumerated() {
+                    mosaic.imageView.image = images[i]
                 }
                 return view
             }

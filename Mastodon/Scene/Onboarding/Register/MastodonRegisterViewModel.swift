@@ -106,6 +106,7 @@ final class MastodonRegisterViewModel {
                 case .success:
                     let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
                     self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
+                    self.usernameValidateState.value = .invalid
                 case .failure:
                     break
                 }

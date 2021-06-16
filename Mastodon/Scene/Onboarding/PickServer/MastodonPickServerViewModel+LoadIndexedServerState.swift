@@ -45,9 +45,10 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
             viewModel.context.apiService.servers(language: nil, category: nil)
                 .sink { completion in
                     switch completion {
-                    case .failure:
+                    case .failure(let error):
                         // TODO: handle error
                         stateMachine.enter(Fail.self)
+                        viewModel.loadingIndexedServersError.value = error
                     case .finished:
                         break
                     }

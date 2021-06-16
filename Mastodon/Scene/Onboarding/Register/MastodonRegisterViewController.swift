@@ -63,7 +63,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let largeTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Register.title
         label.numberOfLines = 0
@@ -93,11 +93,10 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let plusIconImageView: UIImageView = {
         let icon = UIImageView()
-
         let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
         icon.image = image
         icon.tintColor = Asset.Colors.Icon.plus.color
-        icon.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        icon.backgroundColor = .white
         return icon
     }()
     
@@ -110,7 +109,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let usernameTextField: UITextField = {
         let textField = UITextField()
-        
+        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -119,8 +118,35 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-        textField.leftView = paddingView
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
+        textField.leftView = {
+            let containerView = UIView()
+            
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
+            paddingView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(paddingView)
+            NSLayoutConstraint.activate([
+                paddingView.topAnchor.constraint(equalTo: containerView.topAnchor),
+                paddingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                paddingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                paddingView.widthAnchor.constraint(equalToConstant: 5).priority(.defaultHigh),
+            ])
+
+            let label = UILabel()
+            label.font = MastodonRegisterViewController.textFieldLabelFont
+            label.textColor = Asset.Colors.Label.primary.color
+            label.text = " @"
+            
+            label.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(label)
+            NSLayoutConstraint.activate([
+                label.topAnchor.constraint(equalTo: containerView.topAnchor),
+                label.leadingAnchor.constraint(equalTo: paddingView.trailingAnchor),
+                label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            ])
+            return containerView
+        }()
         textField.leftViewMode = .always
         return textField
     }()
@@ -134,6 +160,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let displayNameTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -145,11 +172,13 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
     let emailTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
@@ -162,6 +191,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
@@ -174,6 +204,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let passwordTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .asciiCapable
@@ -187,6 +218,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
@@ -206,6 +238,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     lazy var reasonTextField: UITextField = {
         let textField = UITextField()
+        textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -217,6 +250,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
@@ -361,14 +395,13 @@ extension MastodonRegisterViewController {
         stackView.setCustomSpacing(6, after: passwordTextField)
         stackView.setCustomSpacing(32, after: passwordCheckLabel)
         
-        //return
+        // return
         if viewModel.approvalRequired {
-            passwordTextField.returnKeyType = .continue
+            reasonTextField.returnKeyType = .done
         } else {
             passwordTextField.returnKeyType = .done
         }
-        reasonTextField.returnKeyType = .done
-
+        
         // button
         stackView.addArrangedSubview(buttonContainer)
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
@@ -611,6 +644,25 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
+        switch textField {
+        case usernameTextField:
+            viewModel.username.value = text
+        case displayNameTextField:
+            viewModel.displayName.value = text
+        case emailTextField:
+            viewModel.email.value = text
+        case passwordTextField:
+            viewModel.password.value = text
+        case reasonTextField:
+            viewModel.reason.value = text
+        default:
+            break
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
         switch textField {
         case usernameTextField:
             viewModel.username.value = text

@@ -115,11 +115,11 @@ extension PickServerSection {
                     guard let proxiedThumbnail = server.proxiedThumbnail,
                           let url = URL(string: proxiedThumbnail) else {
                         cell.thumbnailImageView.image = placeholderImage
-                        cell.thumbnailActivityIdicator.stopAnimating()
+                        cell.thumbnailActivityIndicator.stopAnimating()
                         return
                     }
                     cell.thumbnailImageView.isHidden = false
-                    cell.thumbnailActivityIdicator.startAnimating()
+                    cell.thumbnailActivityIndicator.startAnimating()
             
                     cell.thumbnailImageView.af.setImage(
                         withURL: url,
@@ -129,7 +129,7 @@ extension PickServerSection {
                         completion: { [weak cell] response in
                             switch response.result {
                             case .success, .failure:
-                                cell?.thumbnailActivityIdicator.stopAnimating()
+                                cell?.thumbnailActivityIndicator.stopAnimating()
                             }
                         }
                     )

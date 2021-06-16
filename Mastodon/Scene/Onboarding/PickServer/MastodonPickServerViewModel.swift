@@ -61,6 +61,7 @@ class MastodonPickServerViewModel: NSObject {
     let error = CurrentValueSubject<Error?, Never>(nil)
 
     let isLoadingIndexedServers = CurrentValueSubject<Bool, Never>(false)
+    let loadingIndexedServersError = CurrentValueSubject<Error?, Never>(nil)
     let emptyStateViewState = CurrentValueSubject<EmptyStateViewState, Never>(.none)
         
     init(context: AppContext, mode: PickServerMode) {
@@ -142,16 +143,23 @@ extension MastodonPickServerViewModel {
         })
         .store(in: &disposeBag)
         
-        isLoadingIndexedServers
-            .map { isLoadingIndexedServers -> EmptyStateViewState in
-                if isLoadingIndexedServers {
-                    return .loading
+        Publishers.CombineLatest(
+            isLoadingIndexedServers,
+            loadingIndexedServersError
+        )
+        .map { isLoadingIndexedServers, loadingIndexedServersError -> EmptyStateViewState in
+            if isLoadingIndexedServers {
+                if loadingIndexedServersError != nil {
+                    return .badNetwork
                 } else {
-                    return .none
+                    return .loading
                 }
+            } else {
+                return .none
             }
-            .assign(to: \.value, on: emptyStateViewState)
-            .store(in: &disposeBag)
+        }
+        .assign(to: \.value, on: emptyStateViewState)
+        .store(in: &disposeBag)
         
         Publishers.CombineLatest3(
             indexedServers.eraseToAnyPublisher(),
