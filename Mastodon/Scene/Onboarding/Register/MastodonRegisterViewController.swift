@@ -109,7 +109,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let usernameTextField: UITextField = {
         let textField = UITextField()
-        
+
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
@@ -118,8 +118,35 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
                                                                           NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
         textField.borderStyle = UITextField.BorderStyle.roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-        textField.leftView = paddingView
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
+        textField.leftView = {
+            let containerView = UIView()
+            
+            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
+            paddingView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(paddingView)
+            NSLayoutConstraint.activate([
+                paddingView.topAnchor.constraint(equalTo: containerView.topAnchor),
+                paddingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                paddingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                paddingView.widthAnchor.constraint(equalToConstant: 5).priority(.defaultHigh),
+            ])
+
+            let label = UILabel()
+            label.font = MastodonRegisterViewController.textFieldLabelFont
+            label.textColor = Asset.Colors.Label.primary.color
+            label.text = " @"
+            
+            label.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(label)
+            NSLayoutConstraint.activate([
+                label.topAnchor.constraint(equalTo: containerView.topAnchor),
+                label.leadingAnchor.constraint(equalTo: paddingView.trailingAnchor),
+                label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            ])
+            return containerView
+        }()
         textField.leftViewMode = .always
         return textField
     }()
@@ -144,6 +171,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
@@ -161,6 +189,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
@@ -186,6 +215,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
@@ -216,6 +246,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
         textField.leftView = paddingView
         textField.leftViewMode = .always
+        textField.font = MastodonRegisterViewController.textFieldLabelFont
         return textField
     }()
     
