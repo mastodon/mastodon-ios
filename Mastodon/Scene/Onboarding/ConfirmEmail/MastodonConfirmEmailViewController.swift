@@ -22,7 +22,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 
     let largeTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.boldSystemFont(ofSize: 34))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.systemFont(ofSize: 34, weight: .bold))
         label.textColor = .label
         label.text = L10n.Scene.ConfirmEmail.title
         return label
