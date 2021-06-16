@@ -41,13 +41,44 @@ class PickServerSearchCell: UITableViewCell {
     let searchTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = .preferredFont(forTextStyle: .headline)
+        textField.leftView = {
+            let imageView = UIImageView(
+                image: UIImage(
+                    systemName: "magnifyingglass",
+                    withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+                )
+            )
+            imageView.tintColor = Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)
+            
+            let containerView = UIView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(imageView)
+            NSLayoutConstraint.activate([
+                imageView.topAnchor.constraint(equalTo: containerView.topAnchor),
+                imageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+                imageView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            ])
+            
+            let paddingView = UIView()
+            paddingView.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(paddingView)
+            NSLayoutConstraint.activate([
+                paddingView.topAnchor.constraint(equalTo: containerView.topAnchor),
+                paddingView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
+                paddingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+                paddingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+                paddingView.widthAnchor.constraint(equalToConstant: 4).priority(.defaultHigh),
+            ])
+            return containerView
+        }()
+        textField.leftViewMode = .always
+        textField.font = .systemFont(ofSize: 15, weight: .regular)
         textField.tintColor = Asset.Colors.Label.primary.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.adjustsFontForContentSizeCategory = true
         textField.attributedPlaceholder =
             NSAttributedString(string: L10n.Scene.ServerPicker.Input.placeholder,
-                               attributes: [.font: UIFont.preferredFont(forTextStyle: .headline),
+                               attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .regular),
                                             .foregroundColor: Asset.Colors.Label.secondary.color.withAlphaComponent(0.6)])
         textField.clearButtonMode = .whileEditing
         textField.autocapitalizationType = .none
