@@ -10,14 +10,13 @@ import Combine
 import MastodonSDK
 
 final class MastodonServerRulesViewModel {
+    
     // input
-
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let rules: [Mastodon.Entity.Instance.Rule]
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
-
     
     init(
         domain: String,

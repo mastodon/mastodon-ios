@@ -45,7 +45,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     }()
 
     let openEmailButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = PrimaryActionButton()
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
         button.addTarget(self, action: #selector(openEmailButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         return button
