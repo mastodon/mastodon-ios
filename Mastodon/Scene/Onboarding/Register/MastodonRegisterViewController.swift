@@ -93,11 +93,10 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let plusIconImageView: UIImageView = {
         let icon = UIImageView()
-
         let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
         icon.image = image
         icon.tintColor = Asset.Colors.Icon.plus.color
-        icon.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        icon.backgroundColor = .white
         return icon
     }()
     
