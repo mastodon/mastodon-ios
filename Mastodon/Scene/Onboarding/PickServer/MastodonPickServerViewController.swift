@@ -237,7 +237,7 @@ extension MastodonPickServerViewController {
             .store(in: &disposeBag)
         
         viewModel.emptyStateViewState
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
                 switch state {

@@ -76,22 +76,19 @@ extension PickServerEmptyStateView {
         ])
         containerStackView.addArrangedSubview(networkIndicatorImageView)
         
-        let infoContainerView = UIView()
-        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        infoContainerView.addSubview(activityIndicatorView)
-        NSLayoutConstraint.activate([
-            activityIndicatorView.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor),
-            activityIndicatorView.centerYAnchor.constraint(equalTo: infoContainerView.centerYAnchor),
-            activityIndicatorView.bottomAnchor.constraint(equalTo: infoContainerView.bottomAnchor),
-        ])
-        infoLabel.translatesAutoresizingMaskIntoConstraints = false
-        infoContainerView.addSubview(infoLabel)
-        NSLayoutConstraint.activate([
-            infoLabel.leadingAnchor.constraint(equalTo: activityIndicatorView.trailingAnchor, constant: 4),
-            infoLabel.centerYAnchor.constraint(equalTo: infoContainerView.centerYAnchor),
-            infoLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor),
-        ])
-        containerStackView.addArrangedSubview(infoContainerView)
+        let infoContainerStackView = UIStackView()
+        infoContainerStackView.axis = .horizontal
+        infoContainerStackView.distribution = .fill
+        
+        infoContainerStackView.addArrangedSubview(activityIndicatorView)
+        infoContainerStackView.spacing = 4
+        activityIndicatorView.setContentHuggingPriority(.required - 1, for: .horizontal)
+        
+        infoContainerStackView.addArrangedSubview(infoLabel)
+        infoLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        infoLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        
+        containerStackView.addArrangedSubview(infoContainerStackView)
         
         let bottomPaddingView = UIView()
         bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
@@ -104,7 +101,7 @@ extension PickServerEmptyStateView {
         ])
         
         NSLayoutConstraint.activate([
-            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 1.0),
+            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 1.0).priority(.defaultHigh),
         ])
         
         activityIndicatorView.hidesWhenStopped = true
