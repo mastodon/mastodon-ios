@@ -11,6 +11,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
+import Nuke
 
 protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
@@ -258,12 +259,13 @@ extension StatusSection {
                 let mosaic = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
                 return [mosaic]
             } else {
-                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosaicImageViewModel.metas.count, maxHeight: imageViewMaxSize.height)
+                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosaicImageViewModel.metas.count, maxSize: imageViewMaxSize)
                 return mosaics
             }
         }()
         for (i, mosaic) in mosaics.enumerated() {
-            let (imageView, blurhashOverlayImageView) = mosaic
+            let imageView = mosaic.imageView
+            let blurhashOverlayImageView = mosaic.blurhashOverlayImageView
             let meta = mosaicImageViewModel.metas[i]
             
             meta.blurhashImagePublisher()
@@ -272,18 +274,44 @@ extension StatusSection {
                     blurhashOverlayImageView.image = image
                 }
                 .store(in: &cell.disposeBag)
-            imageView.af.setImage(
-                withURL: meta.url,
-                placeholderImage: UIImage.placeholder(color: .systemFill),
-                imageTransition: .crossDissolve(0.2)
-            ) { response in
-                switch response.result {
-                case .success:
-                    statusItemAttribute.isImageLoaded.value = true
+
+            let imageSize = CGSize(
+                width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
+                height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
+            )
+            let request = ImageRequest(
+                url: meta.url,
+                processors: [
+                    ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)
+                ]
+            )
+            let options = ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.2)
+            )
+            Nuke.loadImage(
+                with: request,
+                options: options,
+                into: imageView
+            ) { result in
+                switch result {
                 case .failure:
                     break
+                case .success:
+                    statusItemAttribute.isImageLoaded.value = true
                 }
             }
+            //imageView.af.setImage(
+            //    withURL: meta.url,
+            //    placeholderImage: UIImage.placeholder(color: .systemFill),
+            //    imageTransition: .crossDissolve(0.2)
+            //) { response in
+            //    switch response.result {
+            //    case .success:
+            //        statusItemAttribute.isImageLoaded.value = true
+            //    case .failure:
+            //        break
+            //    }
+            //}
             imageView.accessibilityLabel = meta.altText
             Publishers.CombineLatest(
                 statusItemAttribute.isImageLoaded,

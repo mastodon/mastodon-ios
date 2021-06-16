@@ -416,6 +416,7 @@
 		DBAE3FA92617106E004B8251 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */; };
 		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
 		DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */; };
+		DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = DBAEDE5E267A0B1500D25FF5 /* Nuke */; };
 		DBAFB7352645463500371D5F /* Emojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB7342645463500371D5F /* Emojis.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
@@ -781,7 +782,6 @@
 		DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerItem.swift; sourceTree = "<group>"; };
 		DB1FD45F25F278AF004CFCFC /* CategoryPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB221B15260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputViewModel.swift; sourceTree = "<group>"; };
-		DB297B192679F5EF00704C90 /* ActiveLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ActiveLabel.swift; path = ../ActiveLabel.swift; sourceTree = "<group>"; };
 		DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderImageCacheService.swift; sourceTree = "<group>"; };
 		DB2B3ABD25E37E15007045F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB2B3AE825E38850007045F9 /* UIViewPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
@@ -1050,6 +1050,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */,
 				DB6F5E32264E7410009108F4 /* TwitterTextEditor in Frameworks */,
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
@@ -1689,7 +1690,6 @@
 			children = (
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
-				DB297B192679F5EF00704C90 /* ActiveLabel.swift */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
 				DB427DD425BAA00100D1B89D /* Mastodon */,
 				DB427DEB25BAA00100D1B89D /* MastodonTests */,
@@ -2505,6 +2505,7 @@
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
 				DBB525072611EAC0002F1F29 /* Tabman */,
 				DB6F5E31264E7410009108F4 /* TwitterTextEditor */,
+				DBAEDE5E267A0B1500D25FF5 /* Nuke */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2694,6 +2695,7 @@
 				DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */,
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				DB6F5E30264E7410009108F4 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
+				DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -4037,7 +4039,7 @@
 			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
 			requirement = {
 				kind = exactVersion;
-				version = 5.0.2;
+				version = 5.0.3;
 			};
 		};
 		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
@@ -4110,6 +4112,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.4.1;
+			};
+		};
+		DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.3.0;
 			};
 		};
 		DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */ = {
@@ -4194,6 +4204,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
 			productName = "UITextView+Placeholder";
+		};
+		DBAEDE5E267A0B1500D25FF5 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
 		};
 		DBB525072611EAC0002F1F29 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;

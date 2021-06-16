@@ -619,10 +619,9 @@ struct StatusView_Previews: PreviewProvider {
                 )
                 statusView.headerContainerView.isHidden = false
                 let images = MosaicImageView_Previews.images
-                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxSize: CGSize(width: 375, height: 162))
                 for (i, mosaic) in mosaics.enumerated() {
-                    let (imageView, _) = mosaic
-                    imageView.image = images[i]
+                    mosaic.imageView.image = images[i]
                 }
                 statusView.statusMosaicImageViewContainer.isHidden = false
                 statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isHidden = true
@@ -644,10 +643,9 @@ struct StatusView_Previews: PreviewProvider {
                 statusView.updateContentWarningDisplay(isHidden: false, animated: false)
                 statusView.drawContentWarningImageView()
                 let images = MosaicImageView_Previews.images
-                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxHeight: 162)
+                let mosaics = statusView.statusMosaicImageViewContainer.setupImageViews(count: 4, maxSize: CGSize(width: 375, height: 162))
                 for (i, mosaic) in mosaics.enumerated() {
-                    let (imageView, _) = mosaic
-                    imageView.image = images[i]
+                    mosaic.imageView.image = images[i]
                 }
                 statusView.statusMosaicImageViewContainer.isHidden = false
                 return statusView
