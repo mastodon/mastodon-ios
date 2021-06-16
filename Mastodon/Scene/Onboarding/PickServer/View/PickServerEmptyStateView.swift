@@ -104,7 +104,7 @@ extension PickServerEmptyStateView {
         ])
         
         NSLayoutConstraint.activate([
-            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 2.0),
+            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 1.0),
         ])
         
         activityIndicatorView.hidesWhenStopped = true
@@ -126,15 +126,18 @@ struct PickServerEmptyStateView_Previews: PreviewProvider {
                 emptyStateView.activityIndicatorView.stopAnimating()
                 return emptyStateView
             }
-            .previewLayout(.fixed(width: 375, height: 400))
+            .previewLayout(.fixed(width: 375, height: 150))
+            .previewDisplayName("Bad Network")
             UIViewPreview(width: 375) {
                 let emptyStateView = PickServerEmptyStateView()
+                emptyStateView.networkIndicatorImageView.isHidden = true
                 emptyStateView.infoLabel.text = L10n.Scene.ServerPicker.EmptyState.findingServers
                 emptyStateView.infoLabel.textAlignment = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? .right : .left
                 emptyStateView.activityIndicatorView.startAnimating()
                 return emptyStateView
             }
-            .previewLayout(.fixed(width: 375, height: 400))
+            .previewLayout(.fixed(width: 375, height: 44))
+            .previewDisplayName("Loading…")
         }
     }
 }
