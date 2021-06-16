@@ -46,13 +46,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 
     let openEmailButton: UIButton = {
         let button = UIButton(type: .system)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
-        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.ConfirmEmail.Button.openEmailApp, for: .normal)
-        button.layer.masksToBounds = true
-        button.layer.cornerRadius = 8
-        button.layer.cornerCurve = .continuous
         button.addTarget(self, action: #selector(openEmailButtonPressed(_:)), for: UIControl.Event.touchUpInside)
         return button
     }()

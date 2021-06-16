@@ -40,7 +40,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let rulesLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = "Rules"
         label.numberOfLines = 0
@@ -66,8 +66,6 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let confirmButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
-        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
-        button.setTitleColor(.white, for: .normal)
         button.setTitle(L10n.Scene.ServerRules.Button.confirm, for: .normal)
         return button
     }()
