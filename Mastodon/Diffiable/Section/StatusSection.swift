@@ -379,8 +379,7 @@ extension StatusSection {
         }()
         
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
-           let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
-        {
+           let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment) {
             var parent: UIViewController?
             var playerViewControllerDelegate: AVPlayerViewControllerDelegate? = nil
             switch cell {
@@ -408,22 +407,11 @@ extension StatusSection {
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
             playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
-            if videoPlayerViewModel.videoKind == .gif {
+            switch videoPlayerViewModel.videoKind {
+            case .gif:
                 playerContainerView.setMediaIndicator(isHidden: false)
-            } else {
-                videoPlayerViewModel.timeControlStatus.sink { timeControlStatus in
-                    UIView.animate(withDuration: 0.33) {
-                        switch timeControlStatus {
-                        case .playing:
-                            playerContainerView.setMediaIndicator(isHidden: true)
-                        case .paused, .waitingToPlayAtSpecifiedRate:
-                            playerContainerView.setMediaIndicator(isHidden: false)
-                        @unknown default:
-                            assertionFailure()
-                        }
-                    }
-                }
-                .store(in: &cell.disposeBag)
+            case .video:
+                playerContainerView.setMediaIndicator(isHidden: true)
             }
             playerContainerView.isHidden = false
             
