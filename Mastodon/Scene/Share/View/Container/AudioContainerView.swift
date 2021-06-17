@@ -52,6 +52,7 @@ final class AudioContainerView: UIView {
     
     let slider: UISlider = {
         let slider = UISlider()
+        slider.isContinuous = true
         slider.translatesAutoresizingMaskIntoConstraints = false
         slider.minimumTrackTintColor = Asset.Colors.Slider.bar.color
         slider.maximumTrackTintColor = Asset.Colors.Slider.bar.color
