@@ -100,14 +100,14 @@ class AudioContainerViewModel {
         switch playbackState {
         case .stopped:
             audioView.playButton.isSelected = false
-            audioView.slider.isEnabled = false
+            audioView.slider.isUserInteractionEnabled = false
             audioView.slider.setValue(0, animated: false)
         case .paused:
             audioView.playButton.isSelected = false
-            audioView.slider.isEnabled = true
+            audioView.slider.isUserInteractionEnabled = true
         case .playing, .readyToPlay:
             audioView.playButton.isSelected = true
-            audioView.slider.isEnabled = true
+            audioView.slider.isUserInteractionEnabled = true
         default:
             assertionFailure()
         }

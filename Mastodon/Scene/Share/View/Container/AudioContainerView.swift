@@ -54,8 +54,8 @@ final class AudioContainerView: UIView {
         let slider = UISlider()
         slider.isContinuous = true
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.minimumTrackTintColor = Asset.Colors.Slider.bar.color
-        slider.maximumTrackTintColor = Asset.Colors.Slider.bar.color
+        slider.minimumTrackTintColor = Asset.Colors.Slider.track.color
+        slider.maximumTrackTintColor = Asset.Colors.Slider.track.color
         if let image = UIImage.placeholder(size: CGSize(width: 22, height: 22), color: .white).withRoundedCorners(radius: 11) {
             slider.setThumbImage(image, for: .normal)
         }

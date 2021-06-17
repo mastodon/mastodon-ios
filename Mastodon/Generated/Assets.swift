@@ -81,7 +81,7 @@ internal enum Asset {
       internal static let searchCard = ColorAsset(name: "Colors/Shadow/SearchCard")
     }
     internal enum Slider {
-      internal static let bar = ColorAsset(name: "Colors/Slider/bar")
+      internal static let track = ColorAsset(name: "Colors/Slider/track")
     }
     internal enum TextField {
       internal static let background = ColorAsset(name: "Colors/TextField/background")
