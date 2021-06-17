@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")
         UserDefaults.standard.setValue(UIApplication.appBuild(), forKey: "Mastodon.appBundle")
         
+        // Setup notification
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
         

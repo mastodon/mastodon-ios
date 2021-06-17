@@ -106,9 +106,11 @@ extension MainTabBarController {
         selectedIndex = 0
         
         // TODO: custom accent color
-//        let tabBarAppearance = UITabBarAppearance()
-//        tabBarAppearance.configureWithDefaultBackground()
-//        tabBar.standardAppearance = tabBarAppearance
+        let tabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithDefaultBackground()
+        tabBarAppearance.selectionIndicatorTintColor = Asset.Colors.brandBlue.color
+        tabBar.standardAppearance = tabBarAppearance
+        
         
         context.apiService.error
             .receive(on: DispatchQueue.main)
