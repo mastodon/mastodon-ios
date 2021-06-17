@@ -8,6 +8,7 @@
 import os.log
 import AVKit
 import UIKit
+import Combine
 
 protocol PlayerContainerViewDelegate: AnyObject {
     func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
@@ -28,9 +29,13 @@ final class PlayerContainerView: UIView {
     
     let playerViewController = AVPlayerViewController()
     
+    let blurhashOverlayImageView = UIImageView()
     let mediaTypeIndicatorView = MediaTypeIndicatorView()
     
     weak var delegate: PlayerContainerViewDelegate?
+    
+    private var isReadyForDisplayObservation: NSKeyValueObservation?
+    let isReadyForDisplay = CurrentValueSubject<Bool, Never>(false)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,6 +69,15 @@ extension PlayerContainerView {
         playerViewController.view.layer.cornerRadius = PlayerContainerView.cornerRadius
         playerViewController.view.layer.cornerCurve = .continuous
         
+        blurhashOverlayImageView.translatesAutoresizingMaskIntoConstraints = false
+        playerViewController.contentOverlayView!.addSubview(blurhashOverlayImageView)
+        NSLayoutConstraint.activate([
+            blurhashOverlayImageView.topAnchor.constraint(equalTo: playerViewController.contentOverlayView!.topAnchor),
+            blurhashOverlayImageView.leadingAnchor.constraint(equalTo: playerViewController.contentOverlayView!.leadingAnchor),
+            blurhashOverlayImageView.trailingAnchor.constraint(equalTo: playerViewController.contentOverlayView!.trailingAnchor),
+            blurhashOverlayImageView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
+        ])
+        
         // mediaType
         mediaTypeIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         playerViewController.contentOverlayView!.addSubview(mediaTypeIndicatorView)
@@ -73,6 +87,12 @@ extension PlayerContainerView {
             mediaTypeIndicatorView.heightAnchor.constraint(equalToConstant: MediaTypeIndicatorView.indicatorViewSize.height).priority(.required - 1),
             mediaTypeIndicatorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicatorView.indicatorViewSize.width).priority(.required - 1),
         ])
+        
+        isReadyForDisplayObservation = playerViewController.observe(\.isReadyForDisplay, options: [.initial, .new]) { [weak self] playerViewController, _ in
+            guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: isReadyForDisplay: %s", (#file as NSString).lastPathComponent, #line, #function, playerViewController.isReadyForDisplay.description)
+            self.isReadyForDisplay.value = playerViewController.isReadyForDisplay
+        }
         
         contentWarningOverlayView.delegate = self
     }
@@ -94,6 +114,8 @@ extension PlayerContainerView {
         playerViewController.view.removeFromSuperview()
         playerViewController.removeFromParent()
         
+        blurhashOverlayImageView.image = nil
+        
         container.subviews.forEach { subview in
             subview.removeFromSuperview()
         }
@@ -113,7 +135,7 @@ extension PlayerContainerView {
         let rect = AVMakeRect(
             aspectRatio: aspectRatio,
             insideRect: CGRect(origin: .zero, size: maxSize)
-        )
+        ).integral
         
         parent?.addChild(playerViewController)
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -124,10 +146,12 @@ extension PlayerContainerView {
             playerViewController.view.leadingAnchor.constraint(equalTo: touchBlockingView.leadingAnchor),
             playerViewController.view.trailingAnchor.constraint(equalTo: touchBlockingView.trailingAnchor),
             playerViewController.view.bottomAnchor.constraint(equalTo: touchBlockingView.bottomAnchor),
-            touchBlockingView.widthAnchor.constraint(equalToConstant: floor(rect.width)).priority(.required - 1),
+            touchBlockingView.widthAnchor.constraint(equalToConstant: rect.width).priority(.required - 1),
         ])
-        containerHeightLayoutConstraint.constant = floor(rect.height)
+        containerHeightLayoutConstraint.constant = rect.height
         containerHeightLayoutConstraint.isActive = true
+        
+        playerViewController.view.frame.size = rect.size
         
         contentWarningOverlayView.removeFromSuperview()
         contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false

@@ -375,7 +375,7 @@ extension StatusSection {
                 return containerFrame.width
             }()
             let scale: CGFloat = 1.3
-            return CGSize(width: maxWidth, height: maxWidth * scale)
+            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
         }()
         
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
@@ -414,6 +414,28 @@ extension StatusSection {
                 playerContainerView.setMediaIndicator(isHidden: true)
             }
             playerContainerView.isHidden = false
+            
+            // set blurhash overlay
+            playerContainerView.isReadyForDisplay
+                .receive(on: DispatchQueue.main)
+                .sink { [weak playerContainerView] isReadyForDisplay in
+                    guard let playerContainerView = playerContainerView else { return }
+                    playerContainerView.blurhashOverlayImageView.alpha = isReadyForDisplay ? 0 : 1
+                }
+                .store(in: &cell.disposeBag)
+            
+            if let blurhash = videoAttachment.blurhash,
+               let url = URL(string: videoAttachment.url) {
+                AppContext.shared.blurhashImageCacheService.image(
+                    blurhash: blurhash,
+                    size: playerContainerView.playerViewController.view.frame.size,
+                    url: url
+                )
+                .sink { image in
+                    playerContainerView.blurhashOverlayImageView.image = image
+                }
+                .store(in: &cell.disposeBag)
+            }
             
         } else {
             cell.statusView.playerContainerView.playerViewController.player?.pause()
