@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class AudioContainerViewModel {
+    
     static func configure(
         cell: StatusCell,
         audioAttachment: Attachment,
@@ -36,11 +37,12 @@ class AudioContainerViewModel {
                 }
             }
             .store(in: &cell.disposeBag)
+        audioView.slider.maximumValue = Float(duration)
         audioView.slider.publisher(for: .valueChanged)
             .sink { [weak audioService] slider in
                 guard let audioService = audioService else { return }
                 let slider = slider as! UISlider
-                let time = Double(slider.value) * duration
+                let time = TimeInterval(slider.value)
                 audioService.seekToTime(time: time)
             }
             .store(in: &cell.disposeBag)
@@ -58,24 +60,24 @@ class AudioContainerViewModel {
         let audioView = cell.statusView.audioView
         var lastCurrentTimeSubject: TimeInterval?
         audioService.currentTimeSubject
-            .throttle(for: 0.33, scheduler: DispatchQueue.main, latest: true)
-            .compactMap { [weak audioService] time -> (TimeInterval, Float)? in
+            .throttle(for: 0.008, scheduler: DispatchQueue.main, latest: true)
+            .compactMap { [weak audioService] time -> TimeInterval? in
                 defer {
                     lastCurrentTimeSubject = time
                 }
                 guard audioAttachment === audioService?.attachment else { return nil }
-                guard let duration = audioAttachment.meta?.original?.duration else { return nil }
+                // guard let duration = audioAttachment.meta?.original?.duration else { return nil }
 
                 if let lastCurrentTimeSubject = lastCurrentTimeSubject, time != 0.0 {
                     guard abs(time - lastCurrentTimeSubject) < 0.5 else { return nil } // debounce
                 }
 
                 guard !audioView.slider.isTracking else { return nil }
-                return (time, Float(time / duration))
+                return TimeInterval(time)
             }
-            .sink(receiveValue: { time, progress in
+            .sink(receiveValue: { time in
                 audioView.timeLabel.text = time.asString(style: .positional)
-                audioView.slider.setValue(progress, animated: true)
+                audioView.slider.setValue(Float(time), animated: true)
             })
             .store(in: &cell.disposeBag)
         audioService.playbackState
@@ -98,14 +100,14 @@ class AudioContainerViewModel {
         switch playbackState {
         case .stopped:
             audioView.playButton.isSelected = false
-            audioView.slider.isEnabled = false
+            audioView.slider.isUserInteractionEnabled = false
             audioView.slider.setValue(0, animated: false)
         case .paused:
             audioView.playButton.isSelected = false
-            audioView.slider.isEnabled = true
+            audioView.slider.isUserInteractionEnabled = true
         case .playing, .readyToPlay:
             audioView.playButton.isSelected = true
-            audioView.slider.isEnabled = true
+            audioView.slider.isUserInteractionEnabled = true
         default:
             assertionFailure()
         }

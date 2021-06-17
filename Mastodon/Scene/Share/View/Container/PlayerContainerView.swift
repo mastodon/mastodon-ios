@@ -8,6 +8,7 @@
 import os.log
 import AVKit
 import UIKit
+import Combine
 
 protocol PlayerContainerViewDelegate: AnyObject {
     func playerContainerView(_ playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
@@ -28,10 +29,13 @@ final class PlayerContainerView: UIView {
     
     let playerViewController = AVPlayerViewController()
     
-    let mediaTypeIndicotorView = MediaTypeIndicotorView()
-    let mediaTypeIndicotorViewInContentWarningOverlay = MediaTypeIndicotorView()
+    let blurhashOverlayImageView = UIImageView()
+    let mediaTypeIndicatorView = MediaTypeIndicatorView()
     
     weak var delegate: PlayerContainerViewDelegate?
+    
+    private var isReadyForDisplayObservation: NSKeyValueObservation?
+    let isReadyForDisplay = CurrentValueSubject<Bool, Never>(false)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,24 +69,30 @@ extension PlayerContainerView {
         playerViewController.view.layer.cornerRadius = PlayerContainerView.cornerRadius
         playerViewController.view.layer.cornerCurve = .continuous
         
-        // mediaType
-        mediaTypeIndicotorView.translatesAutoresizingMaskIntoConstraints = false
-        playerViewController.contentOverlayView!.addSubview(mediaTypeIndicotorView)
+        blurhashOverlayImageView.translatesAutoresizingMaskIntoConstraints = false
+        playerViewController.contentOverlayView!.addSubview(blurhashOverlayImageView)
         NSLayoutConstraint.activate([
-            mediaTypeIndicotorView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
-            mediaTypeIndicotorView.rightAnchor.constraint(equalTo: playerViewController.contentOverlayView!.rightAnchor),
-            mediaTypeIndicotorView.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.required - 1),
-            mediaTypeIndicotorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
+            blurhashOverlayImageView.topAnchor.constraint(equalTo: playerViewController.contentOverlayView!.topAnchor),
+            blurhashOverlayImageView.leadingAnchor.constraint(equalTo: playerViewController.contentOverlayView!.leadingAnchor),
+            blurhashOverlayImageView.trailingAnchor.constraint(equalTo: playerViewController.contentOverlayView!.trailingAnchor),
+            blurhashOverlayImageView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
         ])
         
-        mediaTypeIndicotorViewInContentWarningOverlay.translatesAutoresizingMaskIntoConstraints = false
-        contentWarningOverlayView.addSubview(mediaTypeIndicotorViewInContentWarningOverlay)
+        // mediaType
+        mediaTypeIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        playerViewController.contentOverlayView!.addSubview(mediaTypeIndicatorView)
         NSLayoutConstraint.activate([
-            mediaTypeIndicotorViewInContentWarningOverlay.bottomAnchor.constraint(equalTo: contentWarningOverlayView.bottomAnchor),
-            mediaTypeIndicotorViewInContentWarningOverlay.rightAnchor.constraint(equalTo: contentWarningOverlayView.rightAnchor),
-            mediaTypeIndicotorViewInContentWarningOverlay.heightAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.height).priority(.required - 1),
-            mediaTypeIndicotorViewInContentWarningOverlay.widthAnchor.constraint(equalToConstant: MediaTypeIndicotorView.indicatorViewSize.width).priority(.required - 1),
+            mediaTypeIndicatorView.bottomAnchor.constraint(equalTo: playerViewController.contentOverlayView!.bottomAnchor),
+            mediaTypeIndicatorView.rightAnchor.constraint(equalTo: playerViewController.contentOverlayView!.rightAnchor),
+            mediaTypeIndicatorView.heightAnchor.constraint(equalToConstant: MediaTypeIndicatorView.indicatorViewSize.height).priority(.required - 1),
+            mediaTypeIndicatorView.widthAnchor.constraint(equalToConstant: MediaTypeIndicatorView.indicatorViewSize.width).priority(.required - 1),
         ])
+        
+        isReadyForDisplayObservation = playerViewController.observe(\.isReadyForDisplay, options: [.initial, .new]) { [weak self] playerViewController, _ in
+            guard let self = self else { return }
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: isReadyForDisplay: %s", (#file as NSString).lastPathComponent, #line, #function, playerViewController.isReadyForDisplay.description)
+            self.isReadyForDisplay.value = playerViewController.isReadyForDisplay
+        }
         
         contentWarningOverlayView.delegate = self
     }
@@ -104,6 +114,8 @@ extension PlayerContainerView {
         playerViewController.view.removeFromSuperview()
         playerViewController.removeFromParent()
         
+        blurhashOverlayImageView.image = nil
+        
         container.subviews.forEach { subview in
             subview.removeFromSuperview()
         }
@@ -123,7 +135,7 @@ extension PlayerContainerView {
         let rect = AVMakeRect(
             aspectRatio: aspectRatio,
             insideRect: CGRect(origin: .zero, size: maxSize)
-        )
+        ).integral
         
         parent?.addChild(playerViewController)
         playerViewController.view.translatesAutoresizingMaskIntoConstraints = false
@@ -134,10 +146,12 @@ extension PlayerContainerView {
             playerViewController.view.leadingAnchor.constraint(equalTo: touchBlockingView.leadingAnchor),
             playerViewController.view.trailingAnchor.constraint(equalTo: touchBlockingView.trailingAnchor),
             playerViewController.view.bottomAnchor.constraint(equalTo: touchBlockingView.bottomAnchor),
-            touchBlockingView.widthAnchor.constraint(equalToConstant: floor(rect.width)).priority(.required - 1),
+            touchBlockingView.widthAnchor.constraint(equalToConstant: rect.width).priority(.required - 1),
         ])
-        containerHeightLayoutConstraint.constant = floor(rect.height)
+        containerHeightLayoutConstraint.constant = rect.height
         containerHeightLayoutConstraint.isActive = true
+        
+        playerViewController.view.frame.size = rect.size
         
         contentWarningOverlayView.removeFromSuperview()
         contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
@@ -149,19 +163,17 @@ extension PlayerContainerView {
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: touchBlockingView.bottomAnchor)
         ])
         
-        bringSubviewToFront(mediaTypeIndicotorView)
+        bringSubviewToFront(mediaTypeIndicatorView)
         
         return playerViewController
     }
     
     func setMediaKind(kind: VideoPlayerViewModel.Kind) {
-        mediaTypeIndicotorView.setMediaKind(kind: kind)
-        mediaTypeIndicotorViewInContentWarningOverlay.setMediaKind(kind: kind)
+        mediaTypeIndicatorView.setMediaKind(kind: kind)
     }
     
     func setMediaIndicator(isHidden: Bool) {
-        mediaTypeIndicotorView.alpha = isHidden ? 0 : 1
-        mediaTypeIndicotorViewInContentWarningOverlay.alpha = isHidden ? 0 : 1
+        mediaTypeIndicatorView.alpha = isHidden ? 0 : 1
     }
     
 }

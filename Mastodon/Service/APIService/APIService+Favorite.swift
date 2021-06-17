@@ -30,6 +30,14 @@ extension APIService {
             let targetStatusID = targetStatus.id
             _targetStatusID = targetStatusID
             
+            let favouritesCount: NSNumber
+            switch favoriteKind {
+            case .create:
+                favouritesCount = NSNumber(value: targetStatus.favouritesCount.intValue + 1)
+            case .destroy:
+                favouritesCount = NSNumber(value: max(0, targetStatus.favouritesCount.intValue - 1))
+            }
+            targetStatus.update(favouritesCount: favouritesCount)
             targetStatus.update(liked: favoriteKind == .create, by: mastodonUser)
 
         }

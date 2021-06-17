@@ -383,6 +383,10 @@ internal enum L10n {
         internal enum Timestamp {
           /// Now
           internal static let now = L10n.tr("Localizable", "Common.Controls.Timeline.Timestamp.Now")
+          /// %@ ago
+          internal static func timeAgo(_ p1: Any) -> String {
+            return L10n.tr("Localizable", "Common.Controls.Timeline.Timestamp.TimeAgo", String(describing: p1))
+          }
         }
       }
     }

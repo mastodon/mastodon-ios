@@ -247,7 +247,7 @@ extension StatusProviderFacade {
             }
             .map { statusObjectID, favoriteKind -> AnyPublisher<(Status.ID, Mastodon.API.Favorites.FavoriteKind), Error>  in
                 return context.apiService.favorite(
-                            statusObjectID: statusObjectID,
+                    statusObjectID: statusObjectID,
                     mastodonUserObjectID: mastodonUserObjectID,
                     favoriteKind: favoriteKind
                 )

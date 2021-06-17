@@ -104,7 +104,7 @@ extension MosaicImageViewContainer {
         imageViews = []
         blurhashOverlayImageViews = []
         
-        container.spacing = 1
+        container.spacing = UIView.separatorLineHeight(of: self) * 2        // 2px
     }
     
     struct ConfigurableMosaic {
@@ -120,12 +120,16 @@ extension MosaicImageViewContainer {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         container.addArrangedSubview(contentView)
         
-        let rect = AVMakeRect(
-            aspectRatio: aspectRatio,
-            insideRect: CGRect(origin: .zero, size: maxSize)
-        )
+        let imageViewSize: CGSize = {
+            let rect = AVMakeRect(
+                aspectRatio: aspectRatio,
+                insideRect: CGRect(origin: .zero, size: maxSize)
+            ).integral
+            return rect.size
+        }()
+        let imageViewFrame = CGRect(origin: .zero, size: imageViewSize)
 
-        let imageView = UIImageView()
+        let imageView = UIImageView(frame: imageViewFrame)
         imageViews.append(imageView)
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
@@ -138,9 +142,9 @@ extension MosaicImageViewContainer {
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: floor(rect.width)).priority(.required - 1),
+            imageView.widthAnchor.constraint(equalToConstant: imageViewFrame.width).priority(.required - 1),
         ])
-        containerHeightLayoutConstraint.constant = floor(rect.height)
+        containerHeightLayoutConstraint.constant = imageViewFrame.height
         containerHeightLayoutConstraint.isActive = true
         
         let blurhashOverlayImageView = UIImageView()
@@ -170,7 +174,7 @@ extension MosaicImageViewContainer {
         return ConfigurableMosaic(
             imageView: imageView,
             blurhashOverlayImageView: blurhashOverlayImageView,
-            imageViewSize: maxSize
+            imageViewSize: imageViewSize
         )
     }
     
@@ -181,6 +185,7 @@ extension MosaicImageViewContainer {
         }
         
         let maxHeight = maxSize.height
+        let spacing: CGFloat = 1
         
         containerHeightLayoutConstraint.constant = maxHeight
         containerHeightLayoutConstraint.isActive = true
@@ -190,7 +195,7 @@ extension MosaicImageViewContainer {
         [contentLeftStackView, contentRightStackView].forEach { stackView in
             stackView.axis = .vertical
             stackView.distribution = .fillEqually
-            stackView.spacing = 1
+            stackView.spacing = spacing
         }
         container.addArrangedSubview(contentLeftStackView)
         container.addArrangedSubview(contentRightStackView)
@@ -310,22 +315,23 @@ extension MosaicImageViewContainer {
             let imageViewSize: CGSize = {
                 switch (i, count) {
                 case (_, 4):
-                    return CGSize(width: maxSize.width * 0.5, height: maxSize.height * 0.5)
+                    return CGSize(width: maxSize.width * 0.5 - spacing, height: maxSize.height * 0.5 - spacing)
                 case (i, 3):
-                    let width = maxSize.width * 0.5
+                    let width = maxSize.width * 0.5 - spacing
                     if i == 0 {
                         return CGSize(width: width, height: maxSize.height)
                     } else {
-                        return CGSize(width: width, height: maxSize.height * 0.5)
+                        return CGSize(width: width, height: maxSize.height * 0.5 - spacing)
                     }
                 case (_, 2):
-                    let width = maxSize.width * 0.5
+                    let width = maxSize.width * 0.5 - spacing
                     return CGSize(width: width, height: maxSize.height)
                 default:
                     assertionFailure()
                     return maxSize
                 }
             }()
+            imageView.frame.size = imageViewSize
             let mosaic = ConfigurableMosaic(
                 imageView: imageView,
                 blurhashOverlayImageView: blurhashOverlayImageView,

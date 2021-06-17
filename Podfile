@@ -16,6 +16,7 @@ target 'Mastodon' do
 
   # DEBUG
   pod 'FLEX', '~> 4.4.0', :configurations => ['Debug']
+  pod 'GDPerformanceView-Swift', '~> 2.1.1', :configurations => ['Debug']
   
   target 'MastodonTests' do
     inherit! :search_paths
