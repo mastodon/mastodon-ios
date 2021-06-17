@@ -251,7 +251,7 @@ extension StatusSection {
                 default: return 0.7
                 }
             }()
-            return CGSize(width: maxWidth, height: maxWidth * scale)
+            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
         }()
         let mosaics: [MosaicImageViewContainer.ConfigurableMosaic] = {
             if mosaicImageViewModel.metas.count == 1 {
@@ -268,13 +268,16 @@ extension StatusSection {
             let blurhashOverlayImageView = mosaic.blurhashOverlayImageView
             let meta = mosaicImageViewModel.metas[i]
             
+            // set blurhash image
             meta.blurhashImagePublisher()
-                .receive(on: RunLoop.main)
                 .sink { image in
                     blurhashOverlayImageView.image = image
                 }
                 .store(in: &cell.disposeBag)
 
+            let isSingleMosaicLayout = mosaics.count == 1
+                
+            // set image
             let imageSize = CGSize(
                 width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
                 height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
@@ -282,12 +285,18 @@ extension StatusSection {
             let request = ImageRequest(
                 url: meta.url,
                 processors: [
-                    ImageProcessors.Resize(size: imageSize, contentMode: .aspectFill)
+                    ImageProcessors.Resize(
+                        size: imageSize,
+                        unit: .pixels,
+                        contentMode: isSingleMosaicLayout ? .aspectFill : .aspectFit,
+                        crop: isSingleMosaicLayout
+                    )
                 ]
             )
             let options = ImageLoadingOptions(
                 transition: .fadeIn(duration: 0.2)
             )
+            
             Nuke.loadImage(
                 with: request,
                 options: options,
@@ -296,28 +305,17 @@ extension StatusSection {
                 switch result {
                 case .failure:
                     break
-                case .success:
+                case .success(let response)
                     statusItemAttribute.isImageLoaded.value = true
                 }
             }
-            //imageView.af.setImage(
-            //    withURL: meta.url,
-            //    placeholderImage: UIImage.placeholder(color: .systemFill),
-            //    imageTransition: .crossDissolve(0.2)
-            //) { response in
-            //    switch response.result {
-            //    case .success:
-            //        statusItemAttribute.isImageLoaded.value = true
-            //    case .failure:
-            //        break
-            //    }
-            //}
+
             imageView.accessibilityLabel = meta.altText
             Publishers.CombineLatest(
                 statusItemAttribute.isImageLoaded,
                 statusItemAttribute.isRevealing
             )
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)    // needs call immediately
             .sink { [weak cell] isImageLoaded, isMediaRevealing in
                 guard let cell = cell else { return }
                 guard isImageLoaded else {

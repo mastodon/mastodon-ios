@@ -15,22 +15,25 @@ final class BlurhashImageCacheService {
     let workingQueue = DispatchQueue(label: "org.joinmastodon.app.BlurhashImageCacheService.working-queue", qos: .userInitiated, attributes: .concurrent)
     
     func image(blurhash: String, size: CGSize, url: URL) -> AnyPublisher<UIImage?, Never> {
+        let key = Key(blurhash: blurhash, size: size, url: url)
+        
+        if let image = self.cache.object(forKey: key) {
+            return Just(image).eraseToAnyPublisher()
+        }
+
         return Future { promise in
             self.workingQueue.async {
-                let key = Key(blurhash: blurhash, size: size, url: url)
-                guard let image = self.cache.object(forKey: key) else {
-                    if let image = BlurhashImageCacheService.blurhashImage(blurhash: blurhash, size: size, url: url) {
-                        self.cache.setObject(image, forKey: key)
-                        promise(.success(image))
-                    } else {
-                        promise(.success(nil))
-                    }
+                guard let image = BlurhashImageCacheService.blurhashImage(blurhash: blurhash, size: size, url: url) else {
+                    promise(.success(nil))
                     return
                 }
+                self.cache.setObject(image, forKey: key)
                 promise(.success(image))
             }
         }
+        .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
+
     }
     
     static func blurhashImage(blurhash: String, size: CGSize, url: URL) -> UIImage? {
@@ -55,13 +58,7 @@ final class BlurhashImageCacheService {
 }
 
 extension BlurhashImageCacheService {
-    class Key: Hashable {
-        static func == (lhs: BlurhashImageCacheService.Key, rhs: BlurhashImageCacheService.Key) -> Bool {
-            return lhs.blurhash == rhs.blurhash
-                && lhs.size == rhs.size
-                && lhs.url == rhs.url
-        }
-        
+    class Key: NSObject {
         let blurhash: String
         let size: CGSize
         let url: URL
@@ -72,11 +69,19 @@ extension BlurhashImageCacheService {
             self.url = url
         }
         
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(blurhash)
-            hasher.combine(size.width)
-            hasher.combine(size.height)
-            hasher.combine(url)
+        override func isEqual(_ object: Any?) -> Bool {
+            guard let object = object as? Key else { return false }
+            return object.blurhash == blurhash
+                && object.size == size
+                && object.url == url
         }
+        
+        override var hash: Int {
+            return blurhash.hashValue ^
+                size.width.hashValue ^
+                size.height.hashValue ^
+                url.hashValue
+        }
+
     }
 }
