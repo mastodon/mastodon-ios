@@ -305,7 +305,7 @@ extension StatusSection {
                 switch result {
                 case .failure:
                     break
-                case .success(let response)
+                case .success:
                     statusItemAttribute.isImageLoaded.value = true
                 }
             }
