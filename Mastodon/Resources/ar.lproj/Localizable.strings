@@ -133,6 +133,7 @@ Your account looks like this to them.";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Show more replies";
 "Common.Controls.Timeline.Timestamp.Now" = "Now";
+"Common.Controls.Timeline.Timestamp.TimeAgo" = "%@ ago";
 "Common.Countable.Photo.Multiple" = "photos";
 "Common.Countable.Photo.Single" = "photo";
 "Scene.Compose.Accessibility.AppendAttachment" = "Append attachment";

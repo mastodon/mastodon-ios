@@ -22,7 +22,8 @@ extension Date {
         if earlierDate.timeIntervalSince(latest) >= -60 {
             return L10n.Common.Controls.Timeline.Timestamp.now
         } else {
-            return latest.shortTimeAgo(since: earlierDate)
+            let interval = latest.shortTimeAgo(since: earlierDate)              // 1s
+            return L10n.Common.Controls.Timeline.Timestamp.timeAgo(interval)    // 1s ago
         }
     }
     
