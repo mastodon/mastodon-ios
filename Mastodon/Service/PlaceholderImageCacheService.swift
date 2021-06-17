@@ -33,7 +33,7 @@ final class PlaceholderImageCacheService {
 }
 
 extension PlaceholderImageCacheService {
-    class Key: Hashable {
+    class Key: NSObject {
         let color: UIColor
         let size: CGSize
         let cornerRadius: CGFloat
@@ -44,17 +44,18 @@ extension PlaceholderImageCacheService {
             self.cornerRadius = cornerRadius
         }
         
-        static func == (lhs: PlaceholderImageCacheService.Key, rhs: PlaceholderImageCacheService.Key) -> Bool {
-            return lhs.color == rhs.color
-                && lhs.size == rhs.size
-                && lhs.cornerRadius == rhs.cornerRadius
+        override func isEqual(_ object: Any?) -> Bool {
+            guard let object = object as? Key else { return false }
+            return object.color == color
+                && object.size == size
+                && object.cornerRadius == cornerRadius
         }
         
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(color)
-            hasher.combine(size.width)
-            hasher.combine(size.height)
-            hasher.combine(cornerRadius)
+        override var hash: Int {
+            return color.hashValue ^
+                size.width.hashValue ^
+                size.height.hashValue ^
+                cornerRadius.hashValue
         }
     }
 }
