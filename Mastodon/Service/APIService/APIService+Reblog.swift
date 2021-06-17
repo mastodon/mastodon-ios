@@ -29,12 +29,17 @@ extension APIService {
             let targetStatusID = targetStatus.id
             _targetStatusID = targetStatusID
 
+            let reblogsCount: NSNumber
             switch reblogKind {
             case .reblog:
                 targetStatus.update(reblogged: true, by: mastodonUser)
+                reblogsCount = NSNumber(value: targetStatus.reblogsCount.intValue + 1)
             case .undoReblog:
                 targetStatus.update(reblogged: false, by: mastodonUser)
+                reblogsCount = NSNumber(value: max(0, targetStatus.reblogsCount.intValue - 1))
             }
+            
+            targetStatus.update(reblogsCount: reblogsCount)
 
         }
         .tryMap { result in
