@@ -92,14 +92,12 @@ extension HomeTimelineViewController {
         
         viewModel.homeTimelineNavigationBarTitleViewModel.state
             .removeDuplicates()
-            .debounce(for: 0.3, scheduler: RunLoop.main)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
                 self.titleView.configure(state: state)
             }
             .store(in: &disposeBag)
-        
         
         #if DEBUG
         // long press to trigger debug menu

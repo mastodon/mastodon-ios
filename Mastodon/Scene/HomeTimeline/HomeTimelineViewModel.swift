@@ -36,6 +36,7 @@ final class HomeTimelineViewModel: NSObject {
     
     let timelineIsEmpty = CurrentValueSubject<Bool, Never>(false)
     let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
+    
     // output
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
@@ -130,6 +131,12 @@ final class HomeTimelineViewModel: NSObject {
             }
             .store(in: &disposeBag)
         
+        homeTimelineNavigationBarTitleViewModel.isPublished
+            .sink { [weak self] isPublished in
+                guard let self = self else { return }
+                self.homeTimelineNeedRefresh.send()
+            }
+            .store(in: &disposeBag)
     }
     
     deinit {
