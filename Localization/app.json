@@ -174,7 +174,8 @@
             },
             "timeline": {
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Now",
+                    "time_ago": "%s ago"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",

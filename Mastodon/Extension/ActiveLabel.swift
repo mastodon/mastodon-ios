@@ -61,6 +61,7 @@ extension ActiveLabel {
 }
 
 extension ActiveLabel {
+    
     /// status content
     func configure(content: String, emojiDict: MastodonStatusContent.EmojiDict) {
         attributedText = nil
@@ -74,6 +75,14 @@ extension ActiveLabel {
             text = ""
             accessibilityLabel = nil
         }
+    }
+    
+    func configure(contentParseResult parseResult: MastodonStatusContent.ParseResult?) {
+        attributedText = nil
+        activeEntities.removeAll()
+        text = parseResult?.trimmed ?? ""
+        activeEntities = parseResult?.activeEntities ?? []
+        accessibilityLabel = parseResult?.original ?? nil
     }
     
     /// account note

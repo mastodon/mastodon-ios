@@ -253,6 +253,7 @@ extension StatusView {
         // header container: [icon | info]
         let headerContainerStackView = UIStackView()
         headerContainerStackView.axis = .horizontal
+        headerContainerStackView.spacing = 4
         headerContainerStackView.addArrangedSubview(headerIconLabel)
         headerContainerStackView.addArrangedSubview(headerInfoLabel)
         headerIconLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)

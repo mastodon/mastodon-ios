@@ -17,10 +17,10 @@ protocol ActionToolbarContainerDelegate: AnyObject {
 
 final class ActionToolbarContainer: UIView {
         
-    let replyButton     = HitTestExpandedButton()
-    let reblogButton    = HitTestExpandedButton()
-    let favoriteButton  = HitTestExpandedButton()
-    let moreButton      = HitTestExpandedButton()
+    let replyButton     = HighlightDimmableButton()
+    let reblogButton    = HighlightDimmableButton()
+    let favoriteButton  = HighlightDimmableButton()
+    let moreButton      = HighlightDimmableButton()
     
     var isReblogButtonHighlight: Bool = false {
         didSet { isReblogButtonHighlightStateDidChange(to: isReblogButtonHighlight) }
@@ -97,6 +97,7 @@ extension ActionToolbarContainer {
             button.titleLabel?.font = .monospacedDigitSystemFont(ofSize: 12, weight: .regular)
             button.setTitle("", for: .normal)
             button.setTitleColor(.secondaryLabel, for: .normal)
+            button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
             button.setInsets(forContentPadding: .zero, imageTitlePadding: style.buttonTitleImagePadding)
         }
         

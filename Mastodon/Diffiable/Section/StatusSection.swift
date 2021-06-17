@@ -194,9 +194,15 @@ extension StatusSection {
             let author = (status.reblog ?? status).author
             return author.displayName.isEmpty ? author.username : author.displayName
         }()
-        cell.statusView.nameLabel.configure(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
+        MastodonStatusContent.parseResult(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak cell] parseResult in
+                guard let cell = cell else { return }
+                cell.statusView.nameLabel.configure(contentParseResult: parseResult)
+            }
+            .store(in: &cell.disposeBag)
         cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
-        
+
         // set avatar
         if let reblog = status.reblog {
             cell.statusView.avatarButton.isHidden = true
@@ -210,6 +216,19 @@ extension StatusSection {
         }
         
         // set text
+//        func configureStatusContent() {
+//            let content = (status.reblog ?? status).content
+//            let emojiDict = (status.reblog ?? status).emojiDict
+//            if let cachedParseResult = AppContext.shared.statusContentCacheService.parseResult(content: content, emojiDict: emojiDict) {
+//                cell.statusView.activeTextLabel.configure(contentParseResult: cachedParseResult)
+//            } else {
+//                cell.statusView.activeTextLabel.configure(
+//                    content: (status.reblog ?? status).content,
+//                    emojiDict: (status.reblog ?? status).emojiDict
+//                )
+//            }
+//        }
+//        configureStatusContent()
         cell.statusView.activeTextLabel.configure(
             content: (status.reblog ?? status).content,
             emojiDict: (status.reblog ?? status).emojiDict
@@ -221,7 +240,7 @@ extension StatusSection {
             cell.statusView.updateVisibility(visibility: visibility)
             
             cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
-                .receive(on: RunLoop.main)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak cell] isHidden in
                     cell?.statusView.visibilityImageView.isHidden = !isHidden
                 }
@@ -305,7 +324,7 @@ extension StatusSection {
                 switch result {
                 case .failure:
                     break
-                case .success(let response)
+                case .success:
                     statusItemAttribute.isImageLoaded.value = true
                 }
             }
@@ -356,12 +375,11 @@ extension StatusSection {
                 return containerFrame.width
             }()
             let scale: CGFloat = 1.3
-            return CGSize(width: maxWidth, height: maxWidth * scale)
+            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
         }()
         
         if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
-           let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment)
-        {
+           let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment) {
             var parent: UIViewController?
             var playerViewControllerDelegate: AVPlayerViewControllerDelegate? = nil
             switch cell {
@@ -389,24 +407,35 @@ extension StatusSection {
             playerViewController.player = videoPlayerViewModel.player
             playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
             playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
-            if videoPlayerViewModel.videoKind == .gif {
+            switch videoPlayerViewModel.videoKind {
+            case .gif:
                 playerContainerView.setMediaIndicator(isHidden: false)
-            } else {
-                videoPlayerViewModel.timeControlStatus.sink { timeControlStatus in
-                    UIView.animate(withDuration: 0.33) {
-                        switch timeControlStatus {
-                        case .playing:
-                            playerContainerView.setMediaIndicator(isHidden: true)
-                        case .paused, .waitingToPlayAtSpecifiedRate:
-                            playerContainerView.setMediaIndicator(isHidden: false)
-                        @unknown default:
-                            assertionFailure()
-                        }
-                    }
+            case .video:
+                playerContainerView.setMediaIndicator(isHidden: true)
+            }
+            playerContainerView.isHidden = false
+            
+            // set blurhash overlay
+            playerContainerView.isReadyForDisplay
+                .receive(on: DispatchQueue.main)
+                .sink { [weak playerContainerView] isReadyForDisplay in
+                    guard let playerContainerView = playerContainerView else { return }
+                    playerContainerView.blurhashOverlayImageView.alpha = isReadyForDisplay ? 0 : 1
+                }
+                .store(in: &cell.disposeBag)
+            
+            if let blurhash = videoAttachment.blurhash,
+               let url = URL(string: videoAttachment.url) {
+                AppContext.shared.blurhashImageCacheService.image(
+                    blurhash: blurhash,
+                    size: playerContainerView.playerViewController.view.frame.size,
+                    url: url
+                )
+                .sink { image in
+                    playerContainerView.blurhashOverlayImageView.image = image
                 }
                 .store(in: &cell.disposeBag)
             }
-            playerContainerView.isHidden = false
             
         } else {
             cell.statusView.playerContainerView.playerViewController.player?.pause()
@@ -646,7 +675,13 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
-            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.author.emojiDict)
+            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.author.emojiDict)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] parseResult in
+                    guard let cell = cell else { return }
+                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
+                }
+                .store(in: &cell.disposeBag)
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
@@ -659,7 +694,13 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
-            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
+            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] parseResult in
+                    guard let cell = cell else { return }
+                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
+                }
+                .store(in: &cell.disposeBag)
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else {
             cell.statusView.headerContainerView.isHidden = true

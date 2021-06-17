@@ -15,6 +15,10 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
+#if DEBUG
+import GDPerformanceView_Swift
+#endif
+
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -38,14 +42,14 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.tintColor = Asset.Colors.brandBlue.color
         barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
     
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.Label.highlight.color
+        barButtonItem.tintColor = Asset.Colors.brandBlue.color
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
@@ -87,6 +91,7 @@ extension HomeTimelineViewController {
         titleView.delegate = self
         
         viewModel.homeTimelineNavigationBarTitleViewModel.state
+            .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
@@ -94,10 +99,11 @@ extension HomeTimelineViewController {
             }
             .store(in: &disposeBag)
         
-        
         #if DEBUG
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
+        PerformanceMonitor.shared().delegate = self
+        
         #else
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
@@ -554,3 +560,11 @@ extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
         statusKeyCommandHandler(sender)
     }
 }
+
+#if DEBUG
+extension HomeTimelineViewController: PerformanceMonitorDelegate {
+    func performanceMonitor(didReport performanceReport: PerformanceReport) {
+        // print(performanceReport)
+    }
+}
+#endif

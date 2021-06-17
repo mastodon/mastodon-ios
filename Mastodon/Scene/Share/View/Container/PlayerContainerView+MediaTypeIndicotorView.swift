@@ -9,7 +9,7 @@ import UIKit
 
 extension PlayerContainerView {
     
-    final class MediaTypeIndicotorView: UIView {
+    final class MediaTypeIndicatorView: UIView {
         
         static let indicatorViewSize = CGSize(width: 47, height: 25)
         
@@ -60,7 +60,7 @@ extension PlayerContainerView {
     
 }
 
-extension PlayerContainerView.MediaTypeIndicotorView {
+extension PlayerContainerView.MediaTypeIndicatorView {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.mediaTypeIndicotor.color
@@ -87,14 +87,10 @@ extension PlayerContainerView.MediaTypeIndicotorView {
 
         switch kind {
         case .gif:
-            label.font = PlayerContainerView.MediaTypeIndicotorView.roundedFont(weight: .heavy, fontSize: fontSize)
+            label.font = PlayerContainerView.MediaTypeIndicatorView.roundedFont(weight: .heavy, fontSize: fontSize)
             label.text = "GIF"
         case .video:
-            let configuration = UIImage.SymbolConfiguration(font: PlayerContainerView.MediaTypeIndicotorView.roundedFont(weight: .regular, fontSize: fontSize))
-            let image = UIImage(systemName: "video.fill", withConfiguration: configuration)!
-            let attachment = NSTextAttachment()
-            attachment.image = image.withTintColor(.white)
-            label.attributedText = NSAttributedString(attachment: attachment)
+            label.text = " "
         }
     }
     
@@ -103,29 +99,18 @@ extension PlayerContainerView.MediaTypeIndicotorView {
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
-struct PlayerContainerViewMediaTypeIndicotorView_Previews: PreviewProvider {
+struct PlayerContainerViewMediaTypeIndicatorView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
             UIViewPreview(width: 47) {
-                let view = PlayerContainerView.MediaTypeIndicotorView()
+                let view = PlayerContainerView.MediaTypeIndicatorView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
                     view.heightAnchor.constraint(equalToConstant: 25),
                     view.widthAnchor.constraint(equalToConstant: 47),
                 ])
                 view.setMediaKind(kind: .gif)
-                return view
-            }
-            .previewLayout(.fixed(width: 47, height: 25))
-            UIViewPreview(width: 47) {
-                let view = PlayerContainerView.MediaTypeIndicotorView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    view.heightAnchor.constraint(equalToConstant: 25),
-                    view.widthAnchor.constraint(equalToConstant: 47),
-                ])
-                view.setMediaKind(kind: .video)
                 return view
             }
             .previewLayout(.fixed(width: 47, height: 25))

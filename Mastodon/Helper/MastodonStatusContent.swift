@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import Kanna
 import ActiveLabel
 
@@ -13,6 +14,18 @@ enum MastodonStatusContent {
     
     typealias EmojiShortcode = String
     typealias EmojiDict = [EmojiShortcode: URL]
+    
+    static let workingQueue = DispatchQueue(label: "org.joinmastodon.app.ActiveLabel.working-queue", qos: .userInteractive, attributes: .concurrent)
+    
+    static func parseResult(content: String, emojiDict: MastodonStatusContent.EmojiDict) -> AnyPublisher<MastodonStatusContent.ParseResult?, Never> {
+        return Future { promise in
+            self.workingQueue.async {
+                let parseResult = try? MastodonStatusContent.parse(content: content, emojiDict: emojiDict)
+                promise(.success(parseResult))
+            }
+        }
+        .eraseToAnyPublisher()
+    }
     
     static func parse(content: String, emojiDict: EmojiDict) throws -> MastodonStatusContent.ParseResult {
         let document: String = {
@@ -113,11 +126,25 @@ extension String {
 }
 
 extension MastodonStatusContent {
-    struct ParseResult {
+    struct ParseResult: Hashable {
         let document: String
         let original: String
         let trimmed: String
         let activeEntities: [ActiveEntity]
+        
+        static func == (lhs: MastodonStatusContent.ParseResult, rhs: MastodonStatusContent.ParseResult) -> Bool {
+            return lhs.document == rhs.document
+                && lhs.original == rhs.original
+                && lhs.trimmed == rhs.trimmed
+                && lhs.activeEntities.count == rhs.activeEntities.count     // FIXME:
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(document)
+            hasher.combine(original)
+            hasher.combine(trimmed)
+            hasher.combine(activeEntities.count)        // FIXME:
+        }
     }
 }
 
