@@ -10,6 +10,10 @@ import UIKit
 import UserNotifications
 import AppShared
 
+#if DEBUG
+import GDPerformanceView_Swift
+#endif
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -26,6 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Setup notification
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
+        
+        #if DEBUG
+        PerformanceMonitor.shared().start()
+        #endif
         
         return true
     }

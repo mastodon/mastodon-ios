@@ -38,6 +38,7 @@ class AppContext: ObservableObject {
     
     let placeholderImageCacheService = PlaceholderImageCacheService()
     let blurhashImageCacheService = BlurhashImageCacheService()
+    let statusContentCacheService = StatusContentCacheService()
 
     let documentStore: DocumentStore
     private var documentStoreSubscription: AnyCancellable!

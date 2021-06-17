@@ -194,9 +194,15 @@ extension StatusSection {
             let author = (status.reblog ?? status).author
             return author.displayName.isEmpty ? author.username : author.displayName
         }()
-        cell.statusView.nameLabel.configure(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
+        MastodonStatusContent.parseResult(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak cell] parseResult in
+                guard let cell = cell else { return }
+                cell.statusView.nameLabel.configure(contentParseResult: parseResult)
+            }
+            .store(in: &cell.disposeBag)
         cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
-        
+
         // set avatar
         if let reblog = status.reblog {
             cell.statusView.avatarButton.isHidden = true
@@ -210,6 +216,19 @@ extension StatusSection {
         }
         
         // set text
+//        func configureStatusContent() {
+//            let content = (status.reblog ?? status).content
+//            let emojiDict = (status.reblog ?? status).emojiDict
+//            if let cachedParseResult = AppContext.shared.statusContentCacheService.parseResult(content: content, emojiDict: emojiDict) {
+//                cell.statusView.activeTextLabel.configure(contentParseResult: cachedParseResult)
+//            } else {
+//                cell.statusView.activeTextLabel.configure(
+//                    content: (status.reblog ?? status).content,
+//                    emojiDict: (status.reblog ?? status).emojiDict
+//                )
+//            }
+//        }
+//        configureStatusContent()
         cell.statusView.activeTextLabel.configure(
             content: (status.reblog ?? status).content,
             emojiDict: (status.reblog ?? status).emojiDict
@@ -221,7 +240,7 @@ extension StatusSection {
             cell.statusView.updateVisibility(visibility: visibility)
             
             cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
-                .receive(on: RunLoop.main)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak cell] isHidden in
                     cell?.statusView.visibilityImageView.isHidden = !isHidden
                 }
@@ -646,7 +665,13 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
-            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.author.emojiDict)
+            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.author.emojiDict)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] parseResult in
+                    guard let cell = cell else { return }
+                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
+                }
+                .store(in: &cell.disposeBag)
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
@@ -659,7 +684,13 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
-            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
+            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] parseResult in
+                    guard let cell = cell else { return }
+                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
+                }
+                .store(in: &cell.disposeBag)
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else {
             cell.statusView.headerContainerView.isHidden = true

@@ -15,6 +15,10 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
+#if DEBUG
+import GDPerformanceView_Swift
+#endif
+
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -87,7 +91,9 @@ extension HomeTimelineViewController {
         titleView.delegate = self
         
         viewModel.homeTimelineNavigationBarTitleViewModel.state
-            .receive(on: DispatchQueue.main)
+            .removeDuplicates()
+            .debounce(for: 0.3, scheduler: RunLoop.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] state in
                 guard let self = self else { return }
                 self.titleView.configure(state: state)
@@ -98,6 +104,8 @@ extension HomeTimelineViewController {
         #if DEBUG
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
+        PerformanceMonitor.shared().delegate = self
+        
         #else
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
@@ -554,3 +562,11 @@ extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
         statusKeyCommandHandler(sender)
     }
 }
+
+#if DEBUG
+extension HomeTimelineViewController: PerformanceMonitorDelegate {
+    func performanceMonitor(didReport performanceReport: PerformanceReport) {
+        // print(performanceReport)
+    }
+}
+#endif

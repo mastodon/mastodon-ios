@@ -33,17 +33,22 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             guard let self = self else { return }
             for objectID in statusObjectIDs {
                 let status = backgroundManagedObjectContext.object(with: objectID) as! Status
-                guard let replyToID = status.inReplyToID, status.replyTo == nil else {
-                    // skip
-                    continue
+                
+                // fetch in-reply info if needs
+                if let replyToID = status.inReplyToID, status.replyTo == nil {
+                    self.context.statusPrefetchingService.prefetchReplyTo(
+                        domain: domain,
+                        statusObjectID: status.objectID,
+                        statusID: status.id,
+                        replyToStatusID: replyToID,
+                        authorizationBox: activeMastodonAuthenticationBox
+                    )
                 }
-                self.context.statusPrefetchingService.prefetchReplyTo(
-                    domain: domain,
-                    statusObjectID: status.objectID,
-                    statusID: status.id,
-                    replyToStatusID: replyToID,
-                    authorizationBox: activeMastodonAuthenticationBox
-                )
+                
+//                self.context.statusContentCacheService.prefetch(
+//                    content: (status.reblog ?? status).content,
+//                    emojiDict: (status.reblog ?? status).emojiDict
+//                )
             }
         }
     }
