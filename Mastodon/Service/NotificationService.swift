@@ -54,7 +54,7 @@ final class NotificationService {
                 guard let _ = self else { return }
                 guard let deviceToken = deviceToken else { return }
                 let token = [UInt8](deviceToken).toHexString()
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: deviceToken: %s", ((#file as NSString).lastPathComponent), #line, #function, token)
+                os_log(.info, log: .api, "%{public}s[%{public}ld], %{public}s: deviceToken: %s", ((#file as NSString).lastPathComponent), #line, #function, token)
             }
             .store(in: &disposeBag)
     }
