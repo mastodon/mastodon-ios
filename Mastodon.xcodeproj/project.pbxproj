@@ -441,6 +441,7 @@
 		DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DCA2652539E00E5B703 /* AutoCompleteItem.swift */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */; };
+		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
 		DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */; };
 		DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */; };
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
@@ -466,7 +467,6 @@
 		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
 		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DBF8AE862632992800C9C23C /* Base85 in Frameworks */ = {isa = PBXBuildFile; productRef = DBF8AE852632992800C9C23C /* Base85 */; };
 		DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */; };
 		DBF9814A265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF98149265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift */; };
 		DBF9814C265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF9814B265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift */; };
@@ -1013,6 +1013,7 @@
 		DBBF1DCA2652539E00E5B703 /* AutoCompleteItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteItem.swift; sourceTree = "<group>"; };
 		DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentWarningEditorView.swift; sourceTree = "<group>"; };
 		DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPublishService.swift; sourceTree = "<group>"; };
+		DBCBCBF3267CB070000F5B51 /* Decode85.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decode85.swift; sourceTree = "<group>"; };
 		DBCBED1626132DB500B49291 /* UserTimelineViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserTimelineViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFetchedResultsController.swift; sourceTree = "<group>"; };
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
@@ -1120,7 +1121,6 @@
 			files = (
 				DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */,
 				DB6D9F42263527CE008423CD /* AlamofireImage in Frameworks */,
-				DBF8AE862632992800C9C23C /* Base85 in Frameworks */,
 				DB6804A52637CDCC00430867 /* AppShared.framework in Frameworks */,
 				B914FC6B0B8AF18573C0B291 /* Pods_NotificationService.framework in Frameworks */,
 			);
@@ -2447,6 +2447,7 @@
 				DBF8AE15263293E400C9C23C /* NotificationService.swift */,
 				DB6D9F3426351B7A008423CD /* NotificationService+Decrypt.swift */,
 				DB68045A2636DC6A00430867 /* MastodonNotification.swift */,
+				DBCBCBF3267CB070000F5B51 /* Decode85.swift */,
 				DBF8AE17263293E400C9C23C /* Info.plist */,
 			);
 			path = NotificationService;
@@ -2629,7 +2630,6 @@
 			);
 			name = NotificationService;
 			packageProductDependencies = (
-				DBF8AE852632992800C9C23C /* Base85 */,
 				DB00CA962632DDB600A54956 /* CommonOSLog */,
 				DB6D9F41263527CE008423CD /* AlamofireImage */,
 			);
@@ -2695,7 +2695,6 @@
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
-				DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */,
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				DB6F5E30264E7410009108F4 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 				DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */,
@@ -3406,6 +3405,7 @@
 				DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */,
 				DB6D9F3526351B7A008423CD /* NotificationService+Decrypt.swift in Sources */,
 				DB6804662636DC9000430867 /* String.swift in Sources */,
+				DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */,
 				DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4134,14 +4134,6 @@
 				minimumVersion = 2.11.0;
 			};
 		};
-		DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MainasuK/Base85.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -4218,11 +4210,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
-		};
-		DBF8AE852632992800C9C23C /* Base85 */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBF8AE842632992700C9C23C /* XCRemoteSwiftPackageReference "Base85" */;
-			productName = Base85;
 		};
 /* End XCSwiftPackageProductDependency section */
 
