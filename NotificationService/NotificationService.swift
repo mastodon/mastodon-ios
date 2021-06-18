@@ -9,7 +9,6 @@ import UserNotifications
 import CommonOSLog
 import CryptoKit
 import AlamofireImage
-import Base85
 import AppShared
 
 class NotificationService: UNNotificationServiceExtension {
