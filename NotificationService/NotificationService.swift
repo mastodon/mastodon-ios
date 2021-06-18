@@ -9,7 +9,6 @@ import UserNotifications
 import CommonOSLog
 import CryptoKit
 import AlamofireImage
-import Base85
 import AppShared
 
 class NotificationService: UNNotificationServiceExtension {
@@ -28,12 +27,12 @@ class NotificationService: UNNotificationServiceExtension {
             let privateKey = AppSecret.default.notificationPrivateKey
             let auth = AppSecret.default.notificationAuth
             
-            guard let encodedPayload = bestAttemptContent.userInfo["p"] as? String,
-                  let payload = Data(base85Encoded: encodedPayload, options: [], encoding: .z85) else {
+            guard let encodedPayload = bestAttemptContent.userInfo["p"] as? String else {
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: invalid payload", ((#file as NSString).lastPathComponent), #line, #function)
                 contentHandler(bestAttemptContent)
                 return
             }
+            let payload = encodedPayload.decode85()
             
             guard let encodedPublicKey = bestAttemptContent.userInfo["k"] as? String,
                   let publicKey = NotificationService.publicKey(encodedPublicKey: encodedPublicKey) else {
@@ -42,13 +41,13 @@ class NotificationService: UNNotificationServiceExtension {
                 return
             }
             
-            guard let encodedSalt = bestAttemptContent.userInfo["s"] as? String,
-                let salt = Data(base85Encoded: encodedSalt, options: [], encoding: .z85) else {
+            guard let encodedSalt = bestAttemptContent.userInfo["s"] as? String else {
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: invalid salt", ((#file as NSString).lastPathComponent), #line, #function)
                 contentHandler(bestAttemptContent)
                 return
             }
-            
+            let salt = encodedSalt.decode85()
+
             guard let plaintextData = NotificationService.decrypt(payload: payload, salt: salt, auth: auth, privateKey: privateKey, publicKey: publicKey),
                   let notification = try? JSONDecoder().decode(MastodonPushNotification.self, from: plaintextData) else {
                 contentHandler(bestAttemptContent)
@@ -102,7 +101,7 @@ class NotificationService: UNNotificationServiceExtension {
 
 extension NotificationService {
     static func publicKey(encodedPublicKey: String) -> P256.KeyAgreement.PublicKey? {
-        guard let publicKeyData = Data(base85Encoded: encodedPublicKey, options: [], encoding: .z85) else { return nil }
+        let publicKeyData = encodedPublicKey.decode85()
         return try? P256.KeyAgreement.PublicKey(x963Representation: publicKeyData)
     }
 }

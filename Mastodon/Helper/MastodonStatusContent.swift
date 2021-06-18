@@ -15,7 +15,7 @@ enum MastodonStatusContent {
     typealias EmojiShortcode = String
     typealias EmojiDict = [EmojiShortcode: URL]
     
-    static let workingQueue = DispatchQueue(label: "org.joinmastodon.app.ActiveLabel.working-queue", qos: .userInteractive, attributes: .concurrent)
+    static let workingQueue = DispatchQueue(label: "org.joinmastodon.app.ActiveLabel.working-queue", qos: .userInteractive)
     
     static func parseResult(content: String, emojiDict: MastodonStatusContent.EmojiDict) -> AnyPublisher<MastodonStatusContent.ParseResult?, Never> {
         return Future { promise in

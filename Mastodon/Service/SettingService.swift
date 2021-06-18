@@ -158,12 +158,12 @@ final class SettingService {
                 .sink { completion in
                     switch completion {
                     case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe failure: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log(.info, log: .api, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe failure: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                     case .finished:
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe success", ((#file as NSString).lastPathComponent), #line, #function)
+                        os_log(.info, log: .default, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe success", ((#file as NSString).lastPathComponent), #line, #function)
                     }
-                } receiveValue: { _ in
-                    // do nothing
+                } receiveValue: { response in
+                    os_log(.info, log: .default, "%{public}s[%{public}ld], %{public}s: [Push Notification] subscribe response: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.endpoint)
                 }
                 .store(in: &self.disposeBag)
         })
