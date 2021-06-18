@@ -7,11 +7,13 @@
       "size" : "20x20"
     },
     {
+      "filename" : "notification-icon@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
+      "filename" : "Icon-Small@2x-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
@@ -35,6 +37,7 @@
       "size" : "40x40"
     },
     {
+      "filename" : "icon-60@2x-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
@@ -46,11 +49,13 @@
       "size" : "60x60"
     },
     {
+      "filename" : "notification-icon~ipad.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
+      "filename" : "Icon-Small-41.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
@@ -68,11 +73,13 @@
       "size" : "29x29"
     },
     {
+      "filename" : "Icon-Small-42.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
+      "filename" : "Icon-Small-40@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
