@@ -407,6 +407,15 @@
 		DBA9443E265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9443D265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift */; };
 		DBA94440265D137600C537E1 /* Mastodon+Entity+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9443F265D137600C537E1 /* Mastodon+Entity+Field.swift */; };
 		DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */; };
+		DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC6482267D0B21007FE9FD /* DifferenceKit */; };
+		DBAC6485267D0F9E007FE9FD /* StatusNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6484267D0F9E007FE9FD /* StatusNode.swift */; };
+		DBAC6488267D388B007FE9FD /* ASTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6487267D388B007FE9FD /* ASTableNode.swift */; };
+		DBAC648A267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */; };
+		DBAC648F267DC84D007FE9FD /* TableNodeDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */; };
+		DBAC6497267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */; };
+		DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */; };
+		DBAC649B267DF8C8007FE9FD /* ActivityIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */; };
+		DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC649D267DFE43007FE9FD /* DiffableDataSources */; };
 		DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F672615DD60004B8251 /* UserProvider.swift */; };
 		DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */; };
 		DBAE3F882615DDF4004B8251 /* UserProviderFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */; };
@@ -981,6 +990,13 @@
 		DBA9443D265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBA9443F265D137600C537E1 /* Mastodon+Entity+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mastodon+Entity+Field.swift"; sourceTree = "<group>"; };
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
+		DBAC6484267D0F9E007FE9FD /* StatusNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusNode.swift; sourceTree = "<group>"; };
+		DBAC6487267D388B007FE9FD /* ASTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTableNode.swift; sourceTree = "<group>"; };
+		DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDiffableDataSourceSnapshot.swift; sourceTree = "<group>"; };
+		DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableNodeDiffableDataSource.swift; sourceTree = "<group>"; };
+		DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderNode.swift; sourceTree = "<group>"; };
+		DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderNode.swift; sourceTree = "<group>"; };
+		DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorNode.swift; sourceTree = "<group>"; };
 		DBAE3F672615DD60004B8251 /* UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProvider.swift; sourceTree = "<group>"; };
 		DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileViewController+UserProvider.swift"; sourceTree = "<group>"; };
 		DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProviderFacade.swift; sourceTree = "<group>"; };
@@ -1065,8 +1081,10 @@
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
+				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
+				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */,
@@ -1337,6 +1355,7 @@
 				DB51D171262832380062B7A1 /* BlurHashEncode.swift */,
 				DB6180EC26391C6C0018D199 /* TransitioningMath.swift */,
 				DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */,
+				DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */,
 			);
 			path = Vender;
 			sourceTree = "<group>";
@@ -1414,6 +1433,7 @@
 				2D76319D25C151F600929FB9 /* Section */,
 				2D7631B125C159E700929FB9 /* Item */,
 				DBCBED2226132E1D00B49291 /* FetchedResultsController */,
+				DBAC6490267DC84F007FE9FD /* DataSource */,
 			);
 			path = Diffiable;
 			sourceTree = "<group>";
@@ -1464,6 +1484,7 @@
 				DB87D45C2609DE6600D12C0D /* TextField */,
 				DB1D187125EF5BBD003F1F23 /* TableView */,
 				2D7631A625C1533800929FB9 /* TableviewCell */,
+				DBAC6486267D0FAC007FE9FD /* Node */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2167,6 +2188,7 @@
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
 				DB6D1B23263684C600ACB481 /* UserDefaults.swift */,
 				DB97131E2666078B00BD1E90 /* Date.swift */,
+				DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2326,6 +2348,25 @@
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DBAC6486267D0FAC007FE9FD /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				DBAC6484267D0F9E007FE9FD /* StatusNode.swift */,
+				DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */,
+				DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */,
+			);
+			path = Node;
+			sourceTree = "<group>";
+		};
+		DBAC6490267DC84F007FE9FD /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				DBAC6487267D388B007FE9FD /* ASTableNode.swift */,
+				DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		DBAE3F742615DD63004B8251 /* UserProvider */ = {
@@ -2510,6 +2551,8 @@
 				DBB525072611EAC0002F1F29 /* Tabman */,
 				DB6F5E31264E7410009108F4 /* TwitterTextEditor */,
 				DBAEDE5E267A0B1500D25FF5 /* Nuke */,
+				DBAC6482267D0B21007FE9FD /* DifferenceKit */,
+				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2698,6 +2741,8 @@
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				DB6F5E30264E7410009108F4 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
 				DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */,
+				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
+				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -2992,9 +3037,11 @@
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */,
 				DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */,
+				DBAC648F267DC84D007FE9FD /* TableNodeDiffableDataSource.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */,
 				0F1E2D0B2615C39400C38565 /* DoubleTitleLabelNavigationBarTitleView.swift in Sources */,
 				DB9A488A26034D40008B817C /* ComposeViewModel+PublishState.swift in Sources */,
+				DBAC649B267DF8C8007FE9FD /* ActivityIndicatorNode.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
 				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
@@ -3036,6 +3083,7 @@
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Status.swift in Sources */,
 				DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */,
+				DBAC648A267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift in Sources */,
 				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
 				DB71FD4C25F8C80E00512AE1 /* StatusPrefetchingService.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
@@ -3056,7 +3104,9 @@
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
 				2D38F1D525CD465300561493 /* HomeTimelineViewController.swift in Sources */,
+				DBAC6497267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift in Sources */,
 				DB97131F2666078B00BD1E90 /* Date.swift in Sources */,
+				DBAC6485267D0F9E007FE9FD /* StatusNode.swift in Sources */,
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */,
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
@@ -3129,6 +3179,7 @@
 				5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */,
+				DBAC6488267D388B007FE9FD /* ASTableNode.swift in Sources */,
 				DB6D9F76263587C7008423CD /* SettingFetchedResultController.swift in Sources */,
 				DB9A486C26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				5D0393902612D259007FE196 /* WebViewController.swift in Sources */,
@@ -3262,6 +3313,7 @@
 				5DFC35DF262068D20045711D /* SearchViewController+Follow.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
+				DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
 				DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
@@ -4118,6 +4170,22 @@
 				minimumVersion = 1.4.1;
 			};
 		};
+		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ra1028/DifferenceKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.2.0;
+			};
+		};
+		DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MainasuK/DiffableDataSources.git";
+			requirement = {
+				branch = "feature/async-display-table";
+				kind = branch;
+			};
+		};
 		DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke.git";
@@ -4200,6 +4268,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
 			productName = "UITextView+Placeholder";
+		};
+		DBAC6482267D0B21007FE9FD /* DifferenceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */;
+			productName = DifferenceKit;
+		};
+		DBAC649D267DFE43007FE9FD /* DiffableDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
+			productName = DiffableDataSources;
 		};
 		DBAEDE5E267A0B1500D25FF5 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;

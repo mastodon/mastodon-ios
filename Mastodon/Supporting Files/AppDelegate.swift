@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import UserNotifications
 import AppShared
+import AsyncDisplayKit
 
 #if DEBUG
 import GDPerformanceView_Swift
@@ -33,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
         PerformanceMonitor.shared().start()
+        // ASDisplayNode.shouldShowRangeDebugOverlay = true
         #endif
         
         return true

@@ -47,6 +47,24 @@
         }
       },
       {
+        "package": "DiffableDataSources",
+        "repositoryURL": "https://github.com/MainasuK/DiffableDataSources.git",
+        "state": {
+          "branch": "feature/async-display-table",
+          "revision": "73393a97690959d24387c95594c045c62d9c47cf",
+          "version": null
+        }
+      },
+      {
+        "package": "DifferenceKit",
+        "repositoryURL": "https://github.com/ra1028/DifferenceKit.git",
+        "state": {
+          "branch": null,
+          "revision": "62745d7780deef4a023a792a1f8f763ec7bf9705",
+          "version": "1.2.0"
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {

@@ -53,7 +53,7 @@ extension HomeTimelineViewController: StatusProvider {
     }
     
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? {
-        return viewModel.diffableDataSource
+        return nil
     }
     
     func item(for cell: UITableViewCell?, indexPath: IndexPath?) -> Item? {

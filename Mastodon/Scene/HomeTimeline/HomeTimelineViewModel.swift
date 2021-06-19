@@ -16,6 +16,7 @@ import GameplayKit
 import AlamofireImage
 import DateToolsSwift
 import ActiveLabel
+import AsyncDisplayKit
 
 final class HomeTimelineViewModel: NSObject {
     
@@ -29,15 +30,18 @@ final class HomeTimelineViewModel: NSObject {
     let isFetchingLatestTimeline = CurrentValueSubject<Bool, Never>(false)
     let viewDidAppear = PassthroughSubject<Void, Never>()
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
-    
+
+    weak var tableNode: ASTableNode?
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
-    weak var tableView: UITableView?
+    //weak var tableView: UITableView?
     weak var timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?
     
     let timelineIsEmpty = CurrentValueSubject<Bool, Never>(false)
     let homeTimelineNeedRefresh = PassthroughSubject<Void, Never>()
     
     // output
+    var diffableDataSource: TableNodeDiffableDataSource<StatusSection, Item>?
+
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
@@ -67,7 +71,7 @@ final class HomeTimelineViewModel: NSObject {
     lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     // middle loader
     let loadMiddleSateMachineList = CurrentValueSubject<[NSManagedObjectID: GKStateMachine], Never>([:])    // TimelineIndex.objectID : middle loading state machine
-    var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
+    // var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
     var cellFrameCache = NSCache<NSNumber, NSValue>()
 
     
@@ -100,12 +104,7 @@ final class HomeTimelineViewModel: NSObject {
                 guard let self = self else { return }
                 self.fetchedResultsController.fetchRequest.predicate = predicate
                 do {
-                    self.diffableDataSource?.defaultRowAnimation = .fade
                     try self.fetchedResultsController.performFetch()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                        guard let self = self else { return }
-                        self.diffableDataSource?.defaultRowAnimation = .automatic
-                    }
                 } catch {
                     assertionFailure(error.localizedDescription)
                 }

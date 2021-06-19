@@ -9,35 +9,30 @@ import os.log
 import UIKit
 import CoreData
 import CoreDataStack
+import AsyncDisplayKit
+import DifferenceKit
+import DiffableDataSources
 
 extension HomeTimelineViewModel {
-    
+
     func setupDiffableDataSource(
-        for tableView: UITableView,
+        tableNode: ASTableNode,
         dependency: NeedsDependency,
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
-        diffableDataSource = StatusSection.tableViewDiffableDataSource(
-            for: tableView,
-            dependency: dependency,
-            managedObjectContext: fetchedResultsController.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher,
-            statusTableViewCellDelegate: statusTableViewCellDelegate,
-            timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
-            threadReplyLoaderTableViewCellDelegate: nil
+        tableNode.automaticallyAdjustsContentOffset = true
+
+        diffableDataSource = StatusSection.tableNodeDiffableDataSource(
+            tableNode: tableNode,
+            managedObjectContext: fetchedResultsController.managedObjectContext
         )
-        
-//        var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
-//        snapshot.appendSections([.main])
-//        diffableDataSource?.apply(snapshot)
+
+        var snapshot = DiffableDataSourceSnapshot<StatusSection, Item>()
+        snapshot.appendSections([.main])
+        diffableDataSource?.apply(snapshot)
     }
-    
+
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
@@ -49,21 +44,18 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeContentWith snapshot: NSDiffableDataSourceSnapshotReference) {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        
-        guard let tableView = self.tableView else { return }
-        guard let navigationBar = self.contentOffsetAdjustableTimelineViewControllerDelegate?.navigationBar() else { return }
-        
+
         guard let diffableDataSource = self.diffableDataSource else { return }
         let oldSnapshot = diffableDataSource.snapshot()
-        
+
         let predicate = fetchedResultsController.fetchRequest.predicate
         let parentManagedObjectContext = fetchedResultsController.managedObjectContext
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         managedObjectContext.parent = parentManagedObjectContext
-        
+
         managedObjectContext.perform {
             var shouldAddBottomLoader = false
-            
+
             let timelineIndexes: [HomeTimelineIndex] = {
                 let request = HomeTimelineIndex.sortedFetchRequest
                 request.returnsObjectsAsFaults = false
@@ -75,25 +67,25 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                     return []
                 }
             }()
-            
+
             // that's will be the most fastest fetch because of upstream just update and no modify needs consider
-            
+
             var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
-            
+
             for item in oldSnapshot.itemIdentifiers {
                 guard case let .homeTimelineIndex(objectID, attribute) = item else { continue }
                 oldSnapshotAttributeDict[objectID] = attribute
             }
-            
+
             var newTimelineItems: [Item] = []
 
             for (i, timelineIndex) in timelineIndexes.enumerated() {
                 let attribute = oldSnapshotAttributeDict[timelineIndex.objectID] ?? Item.StatusAttribute()
                 attribute.isSeparatorLineHidden = false
-                
+
                 // append new item into snapshot
                 newTimelineItems.append(.homeTimelineIndex(objectID: timelineIndex.objectID, attribute: attribute))
-                
+
                 let isLast = i == timelineIndexes.count - 1
                 switch (isLast, timelineIndex.hasMore) {
                 case (false, true):
@@ -105,30 +97,22 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
                     break
                 }
             }   // end for
-            
-            var newSnapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
+
+            var newSnapshot = DiffableDataSourceSnapshot<StatusSection, Item>()
             newSnapshot.appendSections([.main])
             newSnapshot.appendItems(newTimelineItems, toSection: .main)
-            
+
             let endSnapshot = CACurrentMediaTime()
-            
-            DispatchQueue.main.async {
-                if shouldAddBottomLoader, !(self.loadoldestStateMachine.currentState is LoadOldestState.NoMore) {
-                    newSnapshot.appendItems([.bottomLoader], toSection: .main)
-                }
-                
-                guard let difference = self.calculateReloadSnapshotDifference(navigationBar: navigationBar, tableView: tableView, oldSnapshot: oldSnapshot, newSnapshot: newSnapshot) else {
-                    diffableDataSource.apply(newSnapshot)
-                    self.isFetchingLatestTimeline.value = false
-                    return
-                }
-                
-                diffableDataSource.apply(newSnapshot, animatingDifferences: false) {
-                    tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
-                    tableView.contentOffset.y = tableView.contentOffset.y - difference.offset
+
+            if shouldAddBottomLoader, !(self.loadoldestStateMachine.currentState is LoadOldestState.NoMore) {
+                newSnapshot.appendItems([.bottomLoader], toSection: .main)
+            }
+
+            diffableDataSource.apply(newSnapshot, animatingDifferences: false) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.isFetchingLatestTimeline.value = false
                 }
-                
+
                 let end = CACurrentMediaTime()
                 os_log("%{public}s[%{public}ld], %{public}s: calculate home timeline layout cost %.2fs", ((#file as NSString).lastPathComponent), #line, #function, end - endSnapshot)
             }
@@ -145,8 +129,8 @@ extension HomeTimelineViewModel: NSFetchedResultsControllerDelegate {
     private func calculateReloadSnapshotDifference<T: Hashable>(
         navigationBar: UINavigationBar,
         tableView: UITableView,
-        oldSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>,
-        newSnapshot: NSDiffableDataSourceSnapshot<StatusSection, T>
+        oldSnapshot: DiffableDataSourceSnapshot<StatusSection, T>,
+        newSnapshot: DiffableDataSourceSnapshot<StatusSection, T>
     ) -> Difference<T>? {
         guard oldSnapshot.numberOfItems != 0 else { return nil }
         

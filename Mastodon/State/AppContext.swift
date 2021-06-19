@@ -44,6 +44,10 @@ class AppContext: ObservableObject {
     private var documentStoreSubscription: AnyCancellable!
     
     let overrideTraitCollection = CurrentValueSubject<UITraitCollection?, Never>(nil)
+    let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
+        .autoconnect()
+        .share()
+        .eraseToAnyPublisher()
 
     init() {
         let _coreDataStack = CoreDataStack()

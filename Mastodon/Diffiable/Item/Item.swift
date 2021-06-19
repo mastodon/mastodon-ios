@@ -10,6 +10,7 @@ import CoreData
 import CoreDataStack
 import Foundation
 import MastodonSDK
+import DifferenceKit
 
 /// Note: update Equatable when change case
 enum Item {
@@ -158,3 +159,5 @@ extension Item: Hashable {
         }
     }
 }
+
+extension Item: Differentiable { }

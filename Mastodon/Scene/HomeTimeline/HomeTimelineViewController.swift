@@ -14,12 +14,13 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import AlamofireImage
+import AsyncDisplayKit
 
 #if DEBUG
 import GDPerformanceView_Swift
 #endif
 
-final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+final class HomeTimelineViewController: ASDKViewController<ASTableNode>, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -53,17 +54,18 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
-    
-    let tableView: UITableView = {
-        let tableView = ControlContainableTableView()
-        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
-        tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
-        tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
-        return tableView
-    }()
+
+    var tableView: UITableView { node.view }
+    //let tableView: UITableView = {
+    //    let tableView = ControlContainableTableView()
+    //    tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
+    //    tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
+    //    tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+    //    tableView.rowHeight = UITableView.automaticDimension
+    //    tableView.separatorStyle = .none
+    //    tableView.backgroundColor = .clear
+    //    return tableView
+    //}()
     
     let publishProgressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
@@ -72,7 +74,16 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     }()
     
     let refreshControl = UIRefreshControl()
-    
+
+
+    override init() {
+        super.init(node: ASTableNode())
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s:", ((#file as NSString).lastPathComponent), #line, #function)
     }
@@ -83,13 +94,15 @@ extension HomeTimelineViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        node.allowsSelection = true
         
         title = L10n.Scene.HomeTimeline.title
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         navigationItem.leftBarButtonItem = settingBarButtonItem
         navigationItem.titleView = titleView
         titleView.delegate = self
-        
+
         viewModel.homeTimelineNavigationBarTitleViewModel.state
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
@@ -98,51 +111,55 @@ extension HomeTimelineViewController {
                 self.titleView.configure(state: state)
             }
             .store(in: &disposeBag)
-        
+
         #if DEBUG
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
         PerformanceMonitor.shared().delegate = self
-        
+
         #else
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
-        
+
         navigationItem.rightBarButtonItem = composeBarButtonItem
         composeBarButtonItem.target = self
         composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
-        
-        tableView.refreshControl = refreshControl
+ 
+        node.view.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(HomeTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
-
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
-        
-        publishProgressView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(publishProgressView)
-        NSLayoutConstraint.activate([
-            publishProgressView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            publishProgressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            publishProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-
-        viewModel.tableView = tableView
+//
+//        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(tableView)
+//        NSLayoutConstraint.activate([
+//            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+//            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//        ])
+//
+//        publishProgressView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(publishProgressView)
+//        NSLayoutConstraint.activate([
+//            publishProgressView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+//            publishProgressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            publishProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//        ])
+//
+//        viewModel.tableView = tableView
+        viewModel.tableNode = node
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
-        tableView.delegate = self
-        tableView.prefetchDataSource = self
+        node.delegate = self
         viewModel.setupDiffableDataSource(
-            for: tableView,
+            tableNode: node,
             dependency: self,
             statusTableViewCellDelegate: self,
             timelineMiddleLoaderTableViewCellDelegate: self
         )
+
+
+//        tableView.delegate = self
+//        tableView.prefetchDataSource = self
 
         // bind refresh control
         viewModel.isFetchingLatestTimeline
@@ -157,88 +174,88 @@ extension HomeTimelineViewController {
                 }
             }
             .store(in: &disposeBag)
-        
-        viewModel.homeTimelineNavigationBarTitleViewModel.publishingProgress
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] progress in
-                guard let self = self else { return }
-                guard progress > 0 else {
-                    let dismissAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut)
-                    dismissAnimator.addAnimations {
-                        self.publishProgressView.alpha = 0
-                    }
-                    dismissAnimator.addCompletion { _ in
-                        self.publishProgressView.setProgress(0, animated: false)
-                    }
-                    dismissAnimator.startAnimation()
-                    return
-                }
-                if self.publishProgressView.alpha == 0 {
-                    let progressAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut)
-                    progressAnimator.addAnimations {
-                        self.publishProgressView.alpha = 1
-                    }
-                    progressAnimator.startAnimation()
-                }
-                
-                self.publishProgressView.setProgress(progress, animated: true)
-            }
-            .store(in: &disposeBag)
-        
-        viewModel.timelineIsEmpty
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isEmpty in
-                if isEmpty {
-                    self?.showEmptyView()
-                } else {
-                    self?.emptyView.removeFromSuperview()
-                }
-            }
-            .store(in: &disposeBag)
+
+//        viewModel.homeTimelineNavigationBarTitleViewModel.publishingProgress
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] progress in
+//                guard let self = self else { return }
+//                guard progress > 0 else {
+//                    let dismissAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut)
+//                    dismissAnimator.addAnimations {
+//                        self.publishProgressView.alpha = 0
+//                    }
+//                    dismissAnimator.addCompletion { _ in
+//                        self.publishProgressView.setProgress(0, animated: false)
+//                    }
+//                    dismissAnimator.startAnimation()
+//                    return
+//                }
+//                if self.publishProgressView.alpha == 0 {
+//                    let progressAnimator = UIViewPropertyAnimator(duration: 0.1, curve: .easeOut)
+//                    progressAnimator.addAnimations {
+//                        self.publishProgressView.alpha = 1
+//                    }
+//                    progressAnimator.startAnimation()
+//                }
+//
+//                self.publishProgressView.setProgress(progress, animated: true)
+//            }
+//            .store(in: &disposeBag)
+//
+//        viewModel.timelineIsEmpty
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] isEmpty in
+//                if isEmpty {
+//                    self?.showEmptyView()
+//                } else {
+//                    self?.emptyView.removeFromSuperview()
+//                }
+//            }
+//            .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        aspectViewWillAppear(animated)
-        
-        // needs trigger manually after onboarding dismiss
-        setNeedsStatusBarAppearanceUpdate()
-        
-        if (viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty {
-            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
-        }
+//        aspectViewWillAppear(animated)
+//
+//        // needs trigger manually after onboarding dismiss
+//        setNeedsStatusBarAppearanceUpdate()
+//
+//        if (viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty {
+//            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
+//        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.viewDidAppear.send()
-
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            if (self.viewModel.fetchedResultsController.fetchedObjects ?? []).count == 0 {
-                self.viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
-            }
-        }
+//        viewModel.viewDidAppear.send()
+//
+//        DispatchQueue.main.async { [weak self] in
+//            guard let self = self else { return }
+//            if (self.viewModel.fetchedResultsController.fetchedObjects ?? []).count == 0 {
+//                self.viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
+//            }
+//        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        aspectViewDidDisappear(animated)
+//        aspectViewDidDisappear(animated)
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
 
-        coordinator.animate { _ in
-            // do nothing
-        } completion: { _ in
-            // fix AutoLayout cell height not update after rotate issue
-            self.viewModel.cellFrameCache.removeAllObjects()
-            self.tableView.reloadData()
-        }
+//        coordinator.animate { _ in
+//            // do nothing
+//        } completion: { _ in
+//            // fix AutoLayout cell height not update after rotate issue
+//            self.viewModel.cellFrameCache.removeAllObjects()
+//            self.tableView.reloadData()
+//        }
     }
 }
 
@@ -315,100 +332,75 @@ extension HomeTimelineViewController {
             return
         }
     }
-    
-    @objc func signOutAction(_ sender: UIAction) {
-        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
-            return
-        }
-
-        context.authenticationService.signOutMastodonUser(
-            domain: activeMastodonAuthenticationBox.domain,
-            userID: activeMastodonAuthenticationBox.userID
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .failure(let error):
-                assertionFailure(error.localizedDescription)
-            case .success(let isSignOut):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign out %s", ((#file as NSString).lastPathComponent), #line, #function, isSignOut ? "success" : "fail")
-                guard isSignOut else { return }
-                self.coordinator.setup()
-                self.coordinator.setupOnboardingIfNeeds(animated: true)
-            }
-        }
-        .store(in: &disposeBag)
-    }
 
 }
 
 // MARK: - StatusTableViewControllerAspect
-extension HomeTimelineViewController: StatusTableViewControllerAspect { }
+//extension HomeTimelineViewController: StatusTableViewControllerAspect { }
 
-extension HomeTimelineViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> { return viewModel.cellFrameCache }
-}
+//extension HomeTimelineViewController: TableViewCellHeightCacheableContainer {
+//    var cellFrameCache: NSCache<NSNumber, NSValue> { return viewModel.cellFrameCache }
+//}
 
 // MARK: - UIScrollViewDelegate
 extension HomeTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        aspectScrollViewDidScroll(scrollView)
+        //aspectScrollViewDidScroll(scrollView)
         viewModel.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
     }
 }
 
-extension HomeTimelineViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = HomeTimelineViewModel.LoadOldestState.Loading
-    var loadMoreConfigurableTableView: UITableView { return tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
-}
+//extension HomeTimelineViewController: LoadMoreConfigurableTableViewContainer {
+//    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
+//    typealias LoadingState = HomeTimelineViewModel.LoadOldestState.Loading
+//    var loadMoreConfigurableTableView: UITableView { return tableView }
+//    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+//}
 
 // MARK: - UITableViewDelegate
-extension HomeTimelineViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        aspectTableView(tableView, didSelectRowAt: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
-    }
-    
-    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
-    }
-
-    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
-    }
-    
-    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
-    }
-    
-}
+//extension HomeTimelineViewController: UITableViewDelegate {
+//
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        aspectTableView(tableView, didSelectRowAt: indexPath)
+//    }
+//
+//    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+//        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+//        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+//    }
+//
+//    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+//        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
+//    }
+//
+//}
 
 // MARK: - UITableViewDataSourcePrefetching
-extension HomeTimelineViewController: UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        aspectTableView(tableView, prefetchRowsAt: indexPaths)
-    }
-}
+//extension HomeTimelineViewController: UITableViewDataSourcePrefetching {
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        aspectTableView(tableView, prefetchRowsAt: indexPaths)
+//    }
+//}
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
 extension HomeTimelineViewController: ContentOffsetAdjustableTimelineViewControllerDelegate {
@@ -482,9 +474,9 @@ extension HomeTimelineViewController: TimelineMiddleLoaderTableViewCellDelegate 
 
 // MARK: - ScrollViewContainer
 extension HomeTimelineViewController: ScrollViewContainer {
-    
+
     var scrollView: UIScrollView { return tableView }
-    
+
     func scrollToTop(animated: Bool) {
         if scrollView.contentOffset.y < scrollView.frame.height,
            viewModel.loadLatestStateMachine.canEnterState(HomeTimelineViewModel.LoadLatestState.Loading.self),
@@ -499,10 +491,10 @@ extension HomeTimelineViewController: ScrollViewContainer {
         } else {
             let indexPath = IndexPath(row: 0, section: 0)
             guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else { return }
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            node.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
-    
+
 }
 
 // MARK: - AVPlayerViewControllerDelegate
@@ -532,7 +524,7 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
             guard let diffableDataSource = viewModel.diffableDataSource else { return }
             let indexPath = IndexPath(row: 0, section: 0)
             guard diffableDataSource.itemIdentifier(for: indexPath) != nil else { return }
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            node.scrollToRow(at: indexPath, at: .top, animated: true)
         case .offlineButton:
             // TODO: retry
             break
@@ -568,3 +560,20 @@ extension HomeTimelineViewController: PerformanceMonitorDelegate {
     }
 }
 #endif
+
+// MARK: - ASTableDelegate
+extension HomeTimelineViewController: ASTableDelegate {
+    func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        switch viewModel.loadLatestStateMachine.currentState {
+        case is HomeTimelineViewModel.LoadOldestState.NoMore:
+            return false
+        default:
+            return true
+        }
+    }
+
+    func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        viewModel.loadoldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
+        context.completeBatchFetching(true)
+    }
+}
