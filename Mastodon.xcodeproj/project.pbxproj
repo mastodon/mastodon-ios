@@ -183,6 +183,7 @@
 		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
 		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
+		DB023295267F0AB800031745 /* ASMetaEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */; };
 		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
@@ -202,6 +203,9 @@
 		DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */; };
 		DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */; };
 		DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1E347725F519300079D7DF /* PickServerItem.swift */; };
+		DB1EE7AE267F3071000CC337 /* MastodonStatusContent+ParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1EE7AD267F3071000CC337 /* MastodonStatusContent+ParseResult.swift */; };
+		DB1EE7B0267F3088000CC337 /* MastodonStatusContent+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1EE7AF267F3088000CC337 /* MastodonStatusContent+Appearance.swift */; };
+		DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1EE7B1267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift */; };
 		DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */; };
 		DB1FD44425F26CCC004CFCFC /* PickServerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */; };
 		DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */; };
@@ -416,6 +420,7 @@
 		DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */; };
 		DBAC649B267DF8C8007FE9FD /* ActivityIndicatorNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC649A267DF8C8007FE9FD /* ActivityIndicatorNode.swift */; };
 		DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC649D267DFE43007FE9FD /* DiffableDataSources */; };
+		DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC64A0267E6D02007FE9FD /* Fuzi */; };
 		DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F672615DD60004B8251 /* UserProvider.swift */; };
 		DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */; };
 		DBAE3F882615DDF4004B8251 /* UserProviderFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F872615DDF4004B8251 /* UserProviderFacade.swift */; };
@@ -765,6 +770,7 @@
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
+		DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMetaEditableTextNode.swift; sourceTree = "<group>"; };
 		DB029E94266A20430062874E /* MastodonAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationController.swift; sourceTree = "<group>"; };
 		DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadReplyLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveUserInterfaceStyleBarButtonItem.swift; sourceTree = "<group>"; };
@@ -786,6 +792,9 @@
 		DB1D84372657B275000346B3 /* SegmentedControlNavigateable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlNavigateable.swift; sourceTree = "<group>"; };
 		DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerSection.swift; sourceTree = "<group>"; };
 		DB1E347725F519300079D7DF /* PickServerItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickServerItem.swift; sourceTree = "<group>"; };
+		DB1EE7AD267F3071000CC337 /* MastodonStatusContent+ParseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonStatusContent+ParseResult.swift"; sourceTree = "<group>"; };
+		DB1EE7AF267F3088000CC337 /* MastodonStatusContent+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonStatusContent+Appearance.swift"; sourceTree = "<group>"; };
+		DB1EE7B1267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+StatusNodeDelegate.swift"; sourceTree = "<group>"; };
 		DB1FD43525F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+LoadIndexedServerState.swift"; sourceTree = "<group>"; };
 		DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerSection.swift; sourceTree = "<group>"; };
 		DB1FD44F25F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonPickServerViewModel+Diffable.swift"; sourceTree = "<group>"; };
@@ -1083,6 +1092,7 @@
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
+				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
 				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
@@ -1299,6 +1309,7 @@
 				2D38F1FD25CD481700561493 /* StatusProvider.swift */,
 				2DF75B9A25D0E27500694EC8 /* StatusProviderFacade.swift */,
 				2DF75BA025D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift */,
+				DB1EE7B1267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift */,
 				DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */,
 				DB71FD4525F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift */,
 				DB1D843526579DB5000346B3 /* StatusProvider+TableViewControllerNavigateable.swift */,
@@ -1652,6 +1663,16 @@
 				2D59819925E4A55C000FB903 /* ConfirmEmail */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		DB023296267F0ABE00031745 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				DBAC6484267D0F9E007FE9FD /* StatusNode.swift */,
+				DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */,
+				DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */,
+			);
+			path = Status;
 			sourceTree = "<group>";
 		};
 		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
@@ -2307,6 +2328,8 @@
 			isa = PBXGroup;
 			children = (
 				2D42FF6A25C817D2004A627A /* MastodonStatusContent.swift */,
+				DB1EE7AD267F3071000CC337 /* MastodonStatusContent+ParseResult.swift */,
+				DB1EE7AF267F3088000CC337 /* MastodonStatusContent+Appearance.swift */,
 				DB6F5E2E264E5518009108F4 /* MastodonRegex.swift */,
 				DB35FC2E26130172006193C9 /* MastodonField.swift */,
 				DBAE3FA82617106E004B8251 /* MastodonMetricFormatter.swift */,
@@ -2353,9 +2376,8 @@
 		DBAC6486267D0FAC007FE9FD /* Node */ = {
 			isa = PBXGroup;
 			children = (
-				DBAC6484267D0F9E007FE9FD /* StatusNode.swift */,
-				DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */,
-				DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */,
+				DB023296267F0ABE00031745 /* Status */,
+				DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -2553,6 +2575,7 @@
 				DBAEDE5E267A0B1500D25FF5 /* Nuke */,
 				DBAC6482267D0B21007FE9FD /* DifferenceKit */,
 				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
+				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2743,6 +2766,7 @@
 				DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */,
 				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
 				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
+				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3210,6 +3234,7 @@
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				DBA94434265CBB5300C537E1 /* ProfileFieldSection.swift in Sources */,
 				DB6F5E2F264E5518009108F4 /* MastodonRegex.swift in Sources */,
+				DB023295267F0AB800031745 /* ASMetaEditableTextNode.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
 				DB6D9F7D26358ED4008423CD /* SettingsSection.swift in Sources */,
@@ -3283,6 +3308,7 @@
 				DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
 				2D7867192625B77500211898 /* NotificationItem.swift in Sources */,
+				DB1EE7AE267F3071000CC337 /* MastodonStatusContent+ParseResult.swift in Sources */,
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */,
@@ -3299,6 +3325,7 @@
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
 				2D04F42525C255B9003F936F /* APIService+PublicTimeline.swift in Sources */,
 				2D34D9E226149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift in Sources */,
+				DB1EE7B0267F3088000CC337 /* MastodonStatusContent+Appearance.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+Provider.swift in Sources */,
 				0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */,
 				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
@@ -3353,6 +3380,7 @@
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
 				DBBF1DC226524D2900E5B703 /* AutoCompleteTableViewCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
+				DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
@@ -4186,6 +4214,14 @@
 				kind = branch;
 			};
 		};
+		DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cezheng/Fuzi.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
 		DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke.git";
@@ -4278,6 +4314,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */;
 			productName = DiffableDataSources;
+		};
+		DBAC64A0267E6D02007FE9FD /* Fuzi */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */;
+			productName = Fuzi;
 		};
 		DBAEDE5E267A0B1500D25FF5 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -9,20 +9,44 @@ import UIKit
 import Combine
 import AsyncDisplayKit
 import CoreDataStack
+import ActiveLabel
+
+protocol StatusNodeDelegate: AnyObject {
+    func statusNode(_ node: StatusNode, statusContentTextNode: ASMetaEditableTextNode, didSelectActiveEntityType type: ActiveEntityType)
+}
 
 final class StatusNode: ASCellNode {
 
     var disposeBag = Set<AnyCancellable>()
+    weak var delegate: StatusNodeDelegate?      // needs assign on main queue
 
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
+
+    static let statusContentAppearance: MastodonStatusContent.Appearance = {
+        let linkAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
+            .foregroundColor: Asset.Colors.brandBlue.color
+        ]
+        return MastodonStatusContent.Appearance(
+            attributes: [
+                .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+                .foregroundColor: Asset.Colors.Label.primary.color
+            ],
+            urlAttributes: linkAttributes,
+            hashtagAttributes: linkAttributes,
+            mentionAttributes: linkAttributes
+        )
+    }()
 
     let avatarImageNode: ASNetworkImageNode = {
         let node = ASNetworkImageNode()
         node.contentMode = .scaleAspectFill
         node.defaultImage = UIImage.placeholder(color: .systemFill)
+        node.forcedSize = StatusNode.avatarImageSize
         node.cornerRadius = StatusNode.avatarImageCornerRadius
         // node.cornerRoundingType = .precomposited
+        // node.shouldRenderProgressImages = true
         return node
     }()
 
@@ -30,6 +54,11 @@ final class StatusNode: ASCellNode {
     let nameDotTextNode = ASTextNode()
     let dateTextNode = ASTextNode()
     let usernameTextNode = ASTextNode()
+    let statusContentTextNode: ASMetaEditableTextNode = {
+        let node = ASMetaEditableTextNode()
+        node.scrollEnabled = false
+        return node
+    }()
 
     init(status: Status) {
         super.init()
@@ -39,6 +68,7 @@ final class StatusNode: ASCellNode {
         if let url = (status.reblog ?? status).author.avatarImageURL() {
             avatarImageNode.url = url
         }
+
         nameTextNode.attributedText = NSAttributedString(string: status.author.displayNameWithFallback, attributes: [
             .foregroundColor: Asset.Colors.Label.primary.color,
             .font: UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -65,10 +95,29 @@ final class StatusNode: ASCellNode {
 //                }
 //                .store(in: &self.disposeBag)
 //        }
+
         usernameTextNode.attributedText = NSAttributedString(string: "@" + status.author.acct, attributes: [
             .foregroundColor: Asset.Colors.Label.secondary.color,
             .font: UIFont.systemFont(ofSize: 15, weight: .regular)
         ])
+
+        statusContentTextNode.metaEditableTextNodeDelegate = self
+        if let parseResult = try? MastodonStatusContent.parse(
+            content: (status.reblog ?? status).content,
+            emojiDict: (status.reblog ?? status).emojiDict
+        ) {
+            statusContentTextNode.attributedText = parseResult.trimmedAttributedString(appearance: StatusNode.statusContentAppearance)
+        }
+    }
+
+    override func didEnterDisplayState() {
+        super.didEnterDisplayState()
+
+        statusContentTextNode.textView.isEditable = false
+        statusContentTextNode.textView.textDragInteraction?.isEnabled = false
+        statusContentTextNode.textView.linkTextAttributes = [
+            .foregroundColor: Asset.Colors.brandBlue.color
+        ]
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -99,11 +148,26 @@ final class StatusNode: ASCellNode {
         headerStack.children = headerStackChildren
 
         let verticalStack = ASStackLayoutSpec.vertical()
+        verticalStack.spacing = 10
         verticalStack.children = [
-            headerStack
+            headerStack,
+            statusContentTextNode,
         ]
 
         return verticalStack
     }
 
+}
+
+// MARK: - ASEditableTextNodeDelegate
+extension StatusNode: ASMetaEditableTextNodeDelegate {
+    func metaEditableTextNode(_ textNode: ASMetaEditableTextNode, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        guard let activityEntityType = ActiveEntityType(url: URL) else {
+            return false
+        }
+        defer {
+            delegate?.statusNode(self, statusContentTextNode: textNode, didSelectActiveEntityType: activityEntityType)
+        }
+        return false
+    }
 }

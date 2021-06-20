@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import AsyncDisplayKit
 
 // MARK: - StatusProvider
 extension HomeTimelineViewController: StatusProvider {
@@ -82,6 +83,29 @@ extension HomeTimelineViewController: StatusProvider {
             items.append(item)
         }
         return items
+    }
+
+    func status(node: ASCellNode?, indexPath: IndexPath?) -> Status? {
+        guard let diffableDataSource = self.viewModel.diffableDataSource else {
+            assertionFailure()
+            return nil
+        }
+
+        guard let indexPath = indexPath ?? node.flatMap({ self.node.indexPath(for: $0) }),
+              let item = diffableDataSource.itemIdentifier(for: indexPath) else {
+            return nil
+        }
+
+        switch item {
+        case .homeTimelineIndex(let objectID, _):
+            guard let homeTimelineIndex = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else {
+                assertionFailure()
+                return nil
+            }
+            return homeTimelineIndex.status
+        default:
+            return nil
+        }
     }
     
 }

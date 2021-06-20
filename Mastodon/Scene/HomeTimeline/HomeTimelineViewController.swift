@@ -576,4 +576,13 @@ extension HomeTimelineViewController: ASTableDelegate {
         viewModel.loadoldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
         context.completeBatchFetching(true)
     }
+
+    func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+        if let statusNode = node as? StatusNode {
+            statusNode.delegate = self
+        }
+    }
 }
+
+// MARK: - StatusNodeDelegate
+extension HomeTimelineViewController: StatusNodeDelegate { }
