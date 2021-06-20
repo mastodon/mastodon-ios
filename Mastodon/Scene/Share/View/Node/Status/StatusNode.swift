@@ -18,6 +18,8 @@ protocol StatusNodeDelegate: AnyObject {
 final class StatusNode: ASCellNode {
 
     var disposeBag = Set<AnyCancellable>()
+    var timestamp: Date
+    var timestampSubscription: AnyCancellable?
     weak var delegate: StatusNodeDelegate?      // needs assign on main queue
 
     static let avatarImageSize = CGSize(width: 42, height: 42)
@@ -61,6 +63,7 @@ final class StatusNode: ASCellNode {
     }()
 
     init(status: Status) {
+        timestamp = (status.reblog ?? status).createdAt
         super.init()
 
         automaticallyManagesSubnodes = true
@@ -78,23 +81,10 @@ final class StatusNode: ASCellNode {
             .font: UIFont.systemFont(ofSize: 13, weight: .regular)
         ])
         // set date
-        let createdAt = (status.reblog ?? status).createdAt
-        dateTextNode.attributedText = NSAttributedString(string: createdAt.slowedTimeAgoSinceNow, attributes: [
+        dateTextNode.attributedText = NSAttributedString(string: timestamp.slowedTimeAgoSinceNow, attributes: [
             .foregroundColor: Asset.Colors.Label.secondary.color,
             .font: UIFont.systemFont(ofSize: 13, weight: .regular)
         ])
-//        RunLoop.main.perform { [weak self] in
-//            guard let self = self else { return }
-//            AppContext.shared.timestampUpdatePublisher
-//                .sink { [weak self] _ in
-//                    guard let self = self else { return }
-//                    self.dateTextNode.attributedText = NSAttributedString(string: createdAt.slowedTimeAgoSinceNow, attributes: [
-//                        .foregroundColor: Asset.Colors.Label.secondary.color,
-//                        .font: UIFont.systemFont(ofSize: 13, weight: .regular)
-//                    ])
-//                }
-//                .store(in: &self.disposeBag)
-//        }
 
         usernameTextNode.attributedText = NSAttributedString(string: "@" + status.author.acct, attributes: [
             .foregroundColor: Asset.Colors.Label.secondary.color,
@@ -113,11 +103,25 @@ final class StatusNode: ASCellNode {
     override func didEnterDisplayState() {
         super.didEnterDisplayState()
 
+        timestampSubscription = AppContext.shared.timestampUpdatePublisher
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.dateTextNode.attributedText = NSAttributedString(string: self.timestamp.slowedTimeAgoSinceNow, attributes: [
+                    .foregroundColor: Asset.Colors.Label.secondary.color,
+                    .font: UIFont.systemFont(ofSize: 13, weight: .regular)
+                ])
+            }
+
         statusContentTextNode.textView.isEditable = false
         statusContentTextNode.textView.textDragInteraction?.isEnabled = false
         statusContentTextNode.textView.linkTextAttributes = [
             .foregroundColor: Asset.Colors.brandBlue.color
         ]
+    }
+
+    override func didExitVisibleState() {
+        super.didExitVisibleState()
+        timestampSubscription = nil
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
