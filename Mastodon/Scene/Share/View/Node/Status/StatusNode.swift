@@ -10,6 +10,7 @@ import Combine
 import AsyncDisplayKit
 import CoreDataStack
 import ActiveLabel
+import func AVFoundation.AVMakeRect
 
 protocol StatusNodeDelegate: AnyObject {
     func statusNode(_ node: StatusNode, statusContentTextNode: ASMetaEditableTextNode, didSelectActiveEntityType type: ActiveEntityType)
@@ -20,6 +21,7 @@ final class StatusNode: ASCellNode {
     var disposeBag = Set<AnyCancellable>()
     var timestamp: Date
     var timestampSubscription: AnyCancellable?
+
     weak var delegate: StatusNodeDelegate?      // needs assign on main queue
 
     static let avatarImageSize = CGSize(width: 42, height: 42)
@@ -51,7 +53,6 @@ final class StatusNode: ASCellNode {
         // node.shouldRenderProgressImages = true
         return node
     }()
-
     let nameTextNode = ASTextNode()
     let nameDotTextNode = ASTextNode()
     let dateTextNode = ASTextNode()
@@ -62,10 +63,29 @@ final class StatusNode: ASCellNode {
         return node
     }()
 
+    let mosaicImageViewModel: MosaicImageViewModel
+    let mediaMultiplexImageNodes: [ASMultiplexImageNode]
+
     init(status: Status) {
         timestamp = (status.reblog ?? status).createdAt
+        let _mosaicImageViewModel: MosaicImageViewModel = {
+            let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
+            return MosaicImageViewModel(mediaAttachments: mediaAttachments)
+        }()
+        mosaicImageViewModel = _mosaicImageViewModel
+        mediaMultiplexImageNodes = {
+            var imageNodes: [ASMultiplexImageNode] = []
+            for _ in 0..<_mosaicImageViewModel.metas.count {
+                let imageNode = ASMultiplexImageNode()   // TODO: adapt downloader
+                imageNode.downloadsIntermediateImages = true
+                imageNode.imageIdentifiers = ["url", "previewURL"].map { $0 as NSString }      // quality in descending order
+                imageNodes.append(imageNode)
+            }
+            return imageNodes
+        }()
         super.init()
 
+        print("meta: \(mosaicImageViewModel.metas.count), nodes: \(mediaMultiplexImageNodes.count)")
         automaticallyManagesSubnodes = true
 
         if let url = (status.reblog ?? status).author.avatarImageURL() {
@@ -98,6 +118,10 @@ final class StatusNode: ASCellNode {
         ) {
             statusContentTextNode.attributedText = parseResult.trimmedAttributedString(appearance: StatusNode.statusContentAppearance)
         }
+
+        for imageNode in mediaMultiplexImageNodes {
+            imageNode.dataSource = self
+        }
     }
 
     override func didEnterDisplayState() {
@@ -112,6 +136,7 @@ final class StatusNode: ASCellNode {
                 ])
             }
 
+        // FIXME: needs move to other only once called callback in life cycle like: `viewDidLoad`
         statusContentTextNode.textView.isEditable = false
         statusContentTextNode.textView.textDragInteraction?.isEnabled = false
         statusContentTextNode.textView.linkTextAttributes = [
@@ -153,15 +178,33 @@ final class StatusNode: ASCellNode {
 
         let verticalStack = ASStackLayoutSpec.vertical()
         verticalStack.spacing = 10
-        verticalStack.children = [
+        var verticalStackChildren: [ASLayoutElement] = [
             headerStack,
             statusContentTextNode,
         ]
+        if !mediaMultiplexImageNodes.isEmpty {
+            for (imageNode, meta) in zip(mediaMultiplexImageNodes, mosaicImageViewModel.metas) {
+                imageNode.style.preferredSize = AVMakeRect(aspectRatio: meta.size, insideRect: CGRect(origin: .zero, size: constrainedSize.max)).size
+                let layout = ASRatioLayoutSpec(ratio: meta.size.height / meta.size.width, child: imageNode)
+                verticalStackChildren.append(layout)
+            }
+        }
+        verticalStack.children = verticalStackChildren
 
         return verticalStack
     }
 
 }
+
+//extension StatusNode: ASImageDownloaderProtocol {
+//    func downloadImage(with URL: URL, callbackQueue: DispatchQueue, downloadProgress: ASImageDownloaderProgress?, completion: @escaping ASImageDownloaderCompletion) -> Any? {
+//
+//    }
+//
+//    func cancelImageDownload(forIdentifier downloadIdentifier: Any) {
+//
+//    }
+//}
 
 // MARK: - ASEditableTextNodeDelegate
 extension StatusNode: ASMetaEditableTextNodeDelegate {
@@ -173,5 +216,23 @@ extension StatusNode: ASMetaEditableTextNodeDelegate {
             delegate?.statusNode(self, statusContentTextNode: textNode, didSelectActiveEntityType: activityEntityType)
         }
         return false
+    }
+}
+
+// MARK: - ASMultiplexImageNodeDataSource
+extension StatusNode: ASMultiplexImageNodeDataSource {
+    func multiplexImageNode(_ imageNode: ASMultiplexImageNode, urlForImageIdentifier imageIdentifier: ASImageIdentifier) -> URL? {
+        guard let imageNodeIndex = mediaMultiplexImageNodes.firstIndex(of: imageNode) else { return nil }
+        guard imageNodeIndex < mosaicImageViewModel.metas.count else { return nil }
+        let meta = mosaicImageViewModel.metas[imageNodeIndex]
+        switch imageIdentifier {
+        case "url" as NSString:
+            return meta.url
+        case "previewURL" as NSString:
+            return meta.priviewURL
+        default:
+            assertionFailure()
+            return nil
+        }
     }
 }
