@@ -191,11 +191,7 @@ extension ComposeToolbarView {
         
         func image(interfaceStyle: UIUserInterfaceStyle) -> UIImage {
             switch self {
-            case .public:
-                switch interfaceStyle {
-                case .light: return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
-                default: return UIImage(systemName: "person.3.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
-                }
+            case .public: return UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
             // case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
             case .private: return UIImage(systemName: "person.crop.circle.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
             case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .regular))!
@@ -204,7 +200,7 @@ extension ComposeToolbarView {
         
         func imageNameForTimeline() -> String {
             switch self {
-            case .public: return "person.3"
+            case .public: return "globe"
             // case .unlisted: return "eye.slash"
             case .private: return "person.crop.circle.badge.plus"
             case .direct: return "at"
@@ -259,7 +255,7 @@ extension ComposeToolbarView {
         var children: [UIMenuElement] = []
         let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
             guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibaray", ((#file as NSString).lastPathComponent), #line, #function)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibrary", ((#file as NSString).lastPathComponent), #line, #function)
             self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .photoLibrary)
         }
         children.append(photoLibraryAction)
