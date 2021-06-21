@@ -191,9 +191,13 @@ extension ComposeToolbarView {
         
         func image(interfaceStyle: UIUserInterfaceStyle) -> UIImage {
             switch self {
-            case .public: return UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+            case .public: return UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .medium))!
             // case .unlisted: return UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
-            case .private: return UIImage(systemName: "person.crop.circle.badge.plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .regular))!
+            case .private:
+                switch interfaceStyle {
+                case .light: return UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+                default: return UIImage(systemName: "person.3.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 15, weight: .medium))!
+                }
             case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .regular))!
             }
         }
@@ -202,7 +206,7 @@ extension ComposeToolbarView {
             switch self {
             case .public: return "globe"
             // case .unlisted: return "eye.slash"
-            case .private: return "person.crop.circle.badge.plus"
+            case .private: return "person.3"
             case .direct: return "at"
             }
         }
