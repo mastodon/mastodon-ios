@@ -16,12 +16,14 @@ import MastodonSDK
 class ThreadViewModel {
     
     var disposeBag = Set<AnyCancellable>()
+    var rootItemObserver: AnyCancellable?
     
     // input
     let context: AppContext
     let rootNode: CurrentValueSubject<RootNode?, Never>
     let rootItem: CurrentValueSubject<Item?, Never>
     let cellFrameCache = NSCache<NSNumber, NSValue>()
+    let existStatusFetchedResultsController: StatusFetchedResultsController
 
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
@@ -49,9 +51,19 @@ class ThreadViewModel {
         self.context = context
         self.rootNode = CurrentValueSubject(optionalStatus.flatMap { RootNode(domain: $0.domain, statusID: $0.id, replyToID: $0.inReplyToID) })
         self.rootItem = CurrentValueSubject(optionalStatus.flatMap { Item.root(statusObjectID: $0.objectID, attribute: Item.StatusAttribute()) })
+        self.existStatusFetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: nil, additionalTweetPredicate: nil)
         self.navigationBarTitle = CurrentValueSubject(
             optionalStatus.flatMap { L10n.Scene.Thread.title($0.author.displayNameWithFallback) }
         )
+        
+        // bind fetcher domain
+        context.authenticationService.activeMastodonAuthenticationBox
+            .receive(on: RunLoop.main)
+            .sink { [weak self] box in
+                guard let self = self else { return }
+                self.existStatusFetchedResultsController.domain.value = box?.domain
+            }
+            .store(in: &disposeBag)
         
         rootNode
             .receive(on: DispatchQueue.main)
@@ -79,8 +91,32 @@ class ThreadViewModel {
                 .store(in: &disposeBag)
         }
         
-        // descendantNodes
-        
+        rootItem
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] rootItem in
+                guard let self = self else { return }
+                guard case let .root(objectID, _) = rootItem else { return }
+                self.context.managedObjectContext.perform {
+                    guard let status = self.context.managedObjectContext.object(with: objectID) as? Status else {
+                        return
+                    }
+                    self.rootItemObserver = ManagedObjectObserver.observe(object: status)
+                        .receive(on: DispatchQueue.main)
+                        .sink(receiveCompletion: { _ in
+                            // do nothing
+                        }, receiveValue: { [weak self] change in
+                            guard let self = self else { return }
+                            switch change.changeType {
+                            case .delete:
+                                self.rootItem.value = nil
+                            default:
+                                break
+                            }
+                        })
+                }
+            }
+            .store(in: &disposeBag)
+                
         ancestorNodes
             .receive(on: DispatchQueue.main)
             .compactMap { [weak self] nodes -> [Item]? in
@@ -276,4 +312,3 @@ extension ThreadViewModel {
     }
     
 }
-

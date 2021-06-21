@@ -12,6 +12,7 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import ActiveLabel
+import AsyncDisplayKit
 
 enum StatusProviderFacade { }
 
@@ -144,50 +145,84 @@ extension StatusProviderFacade {
             break
         }
     }
-    
+
+    static func responseToStatusActiveLabelAction(provider: StatusProvider, node: ASCellNode, didSelectActiveEntityType type: ActiveEntityType) {
+        switch type {
+        case .hashtag(let text, _):
+            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
+            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: provider, transition: .show)
+        case .mention(let text, _):
+            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, node: node, mention: text)
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url) else { return }
+            if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
+               url.pathComponents.count >= 4,
+               url.pathComponents[0] == "/",
+               url.pathComponents[1] == "web",
+               url.pathComponents[2] == "statuses" {
+                let statusID = url.pathComponents[3]
+                let threadViewModel = RemoteThreadViewModel(context: provider.context, statusID: statusID)
+                provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+            } else {
+                provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            }
+        default:
+            break
+        }
+    }
+
+    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, node: ASCellNode, mention: String) {
+        guard let status = provider.status(node: node, indexPath: nil) else { return }
+        coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention)
+    }
+
     private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell, mention: String) {
-        guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-        let domain = activeMastodonAuthenticationBox.domain
-        
         provider.status(for: cell, indexPath: nil)
             .sink { [weak provider] status in
                 guard let provider = provider else { return }
-                let _status: Status? = {
-                    switch target {
-                    case .primary:    return status?.reblog ?? status
-                    case .secondary:  return status
-                    }
-                }()
-                guard let status = _status else { return }
-                
-                // cannot continue without meta
-                guard let mentionMeta = (status.mentions ?? Set()).first(where: { $0.username == mention }) else { return }
-                
-                let userID = mentionMeta.id
-                
-                let profileViewModel: ProfileViewModel = {
-                    // check if self
-                    guard userID != activeMastodonAuthenticationBox.userID else {
-                        return MeProfileViewModel(context: provider.context)
-                    }
-                    
-                    let request = MastodonUser.sortedFetchRequest
-                    request.fetchLimit = 1
-                    request.predicate = MastodonUser.predicate(domain: domain, id: userID)
-                    let mastodonUser = provider.context.managedObjectContext.safeFetch(request).first
-                    
-                    if let mastodonUser = mastodonUser {
-                        return CachedProfileViewModel(context: provider.context, mastodonUser: mastodonUser)
-                    } else {
-                        return RemoteProfileViewModel(context: provider.context, userID: userID)
-                    }
-                }()
-                
-                DispatchQueue.main.async {
-                    provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: provider, transition: .show)
-                }
+                guard let status = status else { return }
+                coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention)
             }
             .store(in: &provider.disposeBag)
+    }
+    
+    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, status: Status, mention: String) {
+        guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let domain = activeMastodonAuthenticationBox.domain
+
+        let status: Status = {
+            switch target {
+            case .primary:    return status.reblog ?? status
+            case .secondary:  return status
+            }
+        }()
+
+        // cannot continue without meta
+        guard let mentionMeta = (status.mentions ?? Set()).first(where: { $0.username == mention }) else { return }
+
+        let userID = mentionMeta.id
+
+        let profileViewModel: ProfileViewModel = {
+            // check if self
+            guard userID != activeMastodonAuthenticationBox.userID else {
+                return MeProfileViewModel(context: provider.context)
+            }
+
+            let request = MastodonUser.sortedFetchRequest
+            request.fetchLimit = 1
+            request.predicate = MastodonUser.predicate(domain: domain, id: userID)
+            let mastodonUser = provider.context.managedObjectContext.safeFetch(request).first
+
+            if let mastodonUser = mastodonUser {
+                return CachedProfileViewModel(context: provider.context, mastodonUser: mastodonUser)
+            } else {
+                return RemoteProfileViewModel(context: provider.context, userID: userID)
+            }
+        }()
+
+        DispatchQueue.main.async {
+            provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: provider, transition: .show)
+        }
     }
 }
 

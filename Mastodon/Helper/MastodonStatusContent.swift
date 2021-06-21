@@ -5,10 +5,10 @@
 //  Created by MainasuK Cirno on 2021/2/1.
 //
 
-import Foundation
+import UIKit
 import Combine
-import Kanna
 import ActiveLabel
+import Fuzi
 
 enum MastodonStatusContent {
     
@@ -126,30 +126,6 @@ extension String {
 }
 
 extension MastodonStatusContent {
-    struct ParseResult: Hashable {
-        let document: String
-        let original: String
-        let trimmed: String
-        let activeEntities: [ActiveEntity]
-        
-        static func == (lhs: MastodonStatusContent.ParseResult, rhs: MastodonStatusContent.ParseResult) -> Bool {
-            return lhs.document == rhs.document
-                && lhs.original == rhs.original
-                && lhs.trimmed == rhs.trimmed
-                && lhs.activeEntities.count == rhs.activeEntities.count     // FIXME:
-        }
-        
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(document)
-            hasher.combine(original)
-            hasher.combine(trimmed)
-            hasher.combine(activeEntities.count)        // FIXME:
-        }
-    }
-}
-
-
-extension MastodonStatusContent {
     
     class Node {
         
@@ -165,7 +141,7 @@ extension MastodonStatusContent {
         }
         
         let tagName: String?
-        let classNames: Set<String>
+        let attributes: [String : String]
         let href: String?
         let hrefEllipsis: String?
         
@@ -175,56 +151,47 @@ extension MastodonStatusContent {
             level: Int,
             text: Substring,
             tagName: String?,
-            className: String?,
+            attributes: [String : String],
             href: String?,
             hrefEllipsis: String?,
             children: [Node]
         ) {
             let _classNames: Set<String> = {
-                guard let className = className else { return Set() }
+                guard let className = attributes["class"] else { return Set() }
                 return Set(className.components(separatedBy: " "))
             }()
             let _type: Type? = {
-                if tagName == "a" && !_classNames.contains("mention") {
-                    return .url
-                }
-                
-                if _classNames.contains("mention") {
+                if tagName == "a" {
                     if _classNames.contains("u-url") {
                         return .mention
-                    } else if _classNames.contains("hashtag") {
+                    }
+                    if _classNames.contains("hashtag") {
                         return .hashtag
                     }
+                    return .url
+                } else {
+                    if _classNames.contains("emoji") {
+                        return .emoji
+                    }
+                    return nil
                 }
-                
-                if _classNames.contains("emoji") {
-                    return .emoji
-                }
-                
-                return nil
             }()
             self.level = level
             self.type = _type
             self.text = text
             self.tagName = tagName
-            self.classNames = _classNames
+            self.attributes = attributes
             self.href = href
             self.hrefEllipsis = hrefEllipsis
             self.children = children
         }
         
         static func parse(document: String) throws -> MastodonStatusContent.Node {
-            let html = try HTML(html: document, encoding: .utf8)
-            
-            // add `\r\n` explicit due to Kanna text missing it after convert to text
-            // ref: https://github.com/tid-kijyun/Kanna/issues/150
-            let brNodes = html.css("br").makeIterator()
-            while let brNode = brNodes.next() {
-                brNode.addNextSibling(try! HTML(html: "<span>\r\n</span>", encoding: .utf8).body!)
-            }
+            let document = document.replacingOccurrences(of: "<br>|<br />", with: "\r\n", options: .regularExpression, range: nil)
+            let html = try HTMLDocument(string: document)
             
             let body = html.body ?? nil
-            let text = body?.text ?? ""
+            let text = body?.stringValue ?? ""
             let level = 0
             let children: [MastodonStatusContent.Node] = body.flatMap { body in
                 return Node.parse(element: body, parentText: text[...], parentLevel: level + 1)
@@ -232,8 +199,8 @@ extension MastodonStatusContent {
             let node = Node(
                 level: level,
                 text: text[...],
-                tagName: body?.tagName,
-                className: body?.className,
+                tagName: body?.tag,
+                attributes: body?.attributes ?? [:],
                 href: nil,
                 hrefEllipsis: nil,
                 children: children
@@ -246,13 +213,11 @@ extension MastodonStatusContent {
             let parent = element
             let scanner = Scanner(string: String(parentText))
             scanner.charactersToBeSkipped = .none
-            
-            var element = parent.at_css(":first-child")
+
             var children: [Node] = []
-            
-            while let _element = element {
-                let _text = _element.text ?? ""
-                
+            for _element in parent.children {
+                let _text = _element.stringValue
+
                 // scan element text
                 _ = scanner.scanUpToString(_text)
                 let startIndexOffset = scanner.currentIndex.utf16Offset(in: scanner.string)
@@ -261,27 +226,26 @@ extension MastodonStatusContent {
                     continue
                 }
                 let endIndexOffset = scanner.currentIndex.utf16Offset(in: scanner.string)
-                
+
                 // locate substring
                 let startIndex = parentText.utf16.index(parentText.utf16.startIndex, offsetBy: startIndexOffset)
                 let endIndex = parentText.utf16.index(parentText.utf16.startIndex, offsetBy: endIndexOffset)
                 let text = Substring(parentText.utf16[startIndex..<endIndex])
-                
+
                 let href = _element["href"]
-                let hrefEllipsis = href.flatMap { _ in _element.at_css(".ellipsis")?.text }
-                
+                let hrefEllipsis = href.flatMap { _ in _element.firstChild(css: ".ellipsis")?.stringValue }
+
                 let level = parentLevel + 1
                 let node = Node(
                     level: level,
                     text: text,
-                    tagName: _element.tagName,
-                    className: _element.className,
+                    tagName: _element.tag,
+                    attributes: _element.attributes,
                     href: href,
                     hrefEllipsis: hrefEllipsis,
                     children: Node.parse(element: _element, parentText: text, parentLevel: level + 1)
                 )
                 children.append(node)
-                element = _element.nextSibling
             }
             
             return children
@@ -344,11 +308,8 @@ extension MastodonStatusContent.Node: CustomDebugStringConvertible {
             }
         }()
         let classNamesInfo: String = {
-            guard !classNames.isEmpty else { return "" }
-            let names = Array(classNames)
-                .sorted()
-                .joined(separator: ", ")
-            return "@[\(names)]"
+            guard let className = attributes["class"] else { return "" }
+            return "@[\(className)]"
         }()
         let nodeDescription = String(
             format: "<%@>%@%@: %@",

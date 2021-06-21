@@ -1,8 +1,8 @@
 //
-//  HomeTimelineViewController+DebugAction.swift
+//  AsyncHomeTimelineViewController+DebugAction.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-2-5.
+//  Created by MainasuK Cirno on 2021-6-21.
 //
 
 import os.log
@@ -13,7 +13,7 @@ import CoreDataStack
 #if DEBUG
 import FLEX
 
-extension HomeTimelineViewController {
+extension AsyncHomeTimelineViewController {
     var debugMenu: UIMenu {
         let menu = UIMenu(
             title: "Debug Tools",
@@ -113,7 +113,7 @@ extension HomeTimelineViewController {
             image: UIImage(systemName: "minus.circle"),
             identifier: nil,
             options: [],
-            children: [50, 100, 150, 200, 250, 300].map { count in
+            children: [10, 50, 100, 150, 200, 250, 300].map { count in
                 UIAction(title: "Drop Recent \(count) Statuses", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
                     self.dropRecentStatusAction(action, count: count)
@@ -123,7 +123,7 @@ extension HomeTimelineViewController {
     }
 }
 
-extension HomeTimelineViewController {
+extension AsyncHomeTimelineViewController {
     
     @objc private func showFLEXAction(_ sender: UIAction) {
         FLEXManager.shared.showExplorer()
@@ -273,7 +273,7 @@ extension HomeTimelineViewController {
     @objc private func dropRecentStatusAction(_ sender: UIAction, count: Int) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         let snapshotTransitioning = diffableDataSource.snapshot()
-        
+
         let droppingObjectIDs = snapshotTransitioning.itemIdentifiers.prefix(count).compactMap { item -> NSManagedObjectID? in
             switch item {
             case .homeTimelineIndex(let objectID, _):   return objectID
@@ -357,6 +357,31 @@ extension HomeTimelineViewController {
             from: self,
             transition: .modal(animated: true, completion: nil)
         )
+    }
+
+    @objc func signOutAction(_ sender: UIAction) {
+        guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
+            return
+        }
+
+        context.authenticationService.signOutMastodonUser(
+            domain: activeMastodonAuthenticationBox.domain,
+            userID: activeMastodonAuthenticationBox.userID
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                assertionFailure(error.localizedDescription)
+            case .success(let isSignOut):
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: sign out %s", ((#file as NSString).lastPathComponent), #line, #function, isSignOut ? "success" : "fail")
+                guard isSignOut else { return }
+                self.coordinator.setup()
+                self.coordinator.setupOnboardingIfNeeds(animated: true)
+            }
+        }
+        .store(in: &disposeBag)
     }
 }
 #endif

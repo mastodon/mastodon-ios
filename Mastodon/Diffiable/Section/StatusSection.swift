@@ -11,6 +11,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
+import AsyncDisplayKit
 import Nuke
 
 protocol StatusCell: DisposeBagCollectable {
@@ -23,6 +24,33 @@ enum StatusSection: Equatable, Hashable {
 }
 
 extension StatusSection {
+    static func tableNodeDiffableDataSource(
+        tableNode: ASTableNode,
+        managedObjectContext: NSManagedObjectContext
+    ) -> TableNodeDiffableDataSource<StatusSection, Item> {
+        TableNodeDiffableDataSource(tableNode: tableNode) { tableNode, indexPath, item in
+            switch item {
+            case .homeTimelineIndex(let objectID, let attribute):
+                guard let homeTimelineIndex = try? managedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else {
+                    return { ASCellNode() }
+                }
+                let status = homeTimelineIndex.status
+
+                return { () -> ASCellNode in
+                    let cellNode = StatusNode(status: status)
+                    return cellNode
+                }
+            case .homeMiddleLoader:
+                return { TimelineMiddleLoaderNode() }
+            case .bottomLoader:
+                return { TimelineBottomLoaderNode() }
+            default:
+                return { ASCellNode() }
+            }
+        }
+    }
+
+
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
@@ -47,14 +75,18 @@ extension StatusSection {
 
                 // configure cell
                 managedObjectContext.performAndWait {
-                    let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                    let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
+                    // note: force check optional for status
+                    // status maybe <uninitialized> here when delete in thread scene
+                    guard let status = timelineIndex?.status,
+                          let userID = timelineIndex?.userID else { return }
                     StatusSection.configure(
                         cell: cell,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
-                        status: timelineIndex.status,
-                        requestUserID: timelineIndex.userID,
+                        status: status,
+                        requestUserID: userID,
                         statusItemAttribute: attribute
                     )
                 }
@@ -752,12 +784,13 @@ extension StatusSection {
             return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.favouritesCount.intValue)
         }()
         Publishers.CombineLatest(
-            dependency.context.blockDomainService.blockedDomains,
+            dependency.context.blockDomainService.blockedDomains.setFailureType(to: ManagedObjectObserver.Error.self),
             ManagedObjectObserver.observe(object: status.authorForUserProvider)
-                .assertNoFailure()
-            )
+        )
         .receive(on: RunLoop.main)
-        .sink { [weak dependency, weak cell] _, change in
+        .sink(receiveCompletion: { _ in
+            // do nothing
+        }, receiveValue: { [weak dependency, weak cell] _, change in
             guard let cell = cell else { return }
             guard let dependency = dependency else { return }
             switch change.changeType {
@@ -769,7 +802,7 @@ extension StatusSection {
                 break
             }
             StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
-        }
+        })
         .store(in: &cell.disposeBag)
         self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }

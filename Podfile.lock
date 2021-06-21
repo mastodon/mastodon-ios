@@ -4,7 +4,42 @@ PODS:
   - GDPerformanceView-Swift (2.1.1)
   - Kanna (5.2.4)
   - Keys (1.0.1)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
+  - PINRemoteImage/Core (3.0.3):
+    - PINOperation
+  - PINRemoteImage/iOS (3.0.3):
+    - PINRemoteImage/Core
+  - PINRemoteImage/PINCache (3.0.3):
+    - PINCache (~> 3.0.3)
+    - PINRemoteImage/Core
   - SwiftGen (6.4.0)
+  - Texture (3.0.0):
+    - Texture/AssetsLibrary (= 3.0.0)
+    - Texture/Core (= 3.0.0)
+    - Texture/MapKit (= 3.0.0)
+    - Texture/Photos (= 3.0.0)
+    - Texture/PINRemoteImage (= 3.0.0)
+    - Texture/Video (= 3.0.0)
+  - Texture/AssetsLibrary (3.0.0):
+    - Texture/Core
+  - Texture/Core (3.0.0)
+  - Texture/MapKit (3.0.0):
+    - Texture/Core
+  - Texture/Photos (3.0.0):
+    - Texture/Core
+  - Texture/PINRemoteImage (3.0.0):
+    - PINRemoteImage/iOS (~> 3.0.0)
+    - PINRemoteImage/PINCache
+    - Texture/Core
+  - Texture/Video (3.0.0):
+    - Texture/Core
   - "UITextField+Shake (1.2.1)"
 
 DEPENDENCIES:
@@ -14,6 +49,7 @@ DEPENDENCIES:
   - Kanna (~> 5.2.2)
   - Keys (from `Pods/CocoaPodsKeys`)
   - SwiftGen (~> 6.4.0)
+  - Texture (~> 3.0.0)
   - "UITextField+Shake (~> 1.2)"
 
 SPEC REPOS:
@@ -22,7 +58,11 @@ SPEC REPOS:
     - FLEX
     - GDPerformanceView-Swift
     - Kanna
+    - PINCache
+    - PINOperation
+    - PINRemoteImage
     - SwiftGen
+    - Texture
     - "UITextField+Shake"
 
 EXTERNAL SOURCES:
@@ -35,9 +75,13 @@ SPEC CHECKSUMS:
   GDPerformanceView-Swift: 22d964fe40b19e3d914dba2586237d064de8fd77
   Kanna: b9d00d7c11428308c7f95e1f1f84b8205f567a8f
   Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  PINRemoteImage: f1295b29f8c5e640e25335a1b2bd9d805171bd01
   SwiftGen: 67860cc7c3cfc2ed25b9b74cfd55495fc89f9108
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
 
-PODFILE CHECKSUM: 257c550231fcd1336a29f7835aa331171bb66ebd
+PODFILE CHECKSUM: ffa234348a25b078905180858ee4119fec0712d1
 
 COCOAPODS: 1.10.1

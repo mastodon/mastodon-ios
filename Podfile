@@ -8,7 +8,8 @@ target 'Mastodon' do
 
   # UI
   pod 'UITextField+Shake', '~> 1.2'
-  
+  pod 'Texture', '~> 3.0.0'
+
   # misc
   pod 'SwiftGen', '~> 6.4.0'
   pod 'DateToolsSwift', '~> 5.0.0'

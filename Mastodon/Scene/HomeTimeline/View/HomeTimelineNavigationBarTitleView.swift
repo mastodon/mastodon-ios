@@ -9,6 +9,7 @@ import os.log
 import UIKit
 
 protocol HomeTimelineNavigationBarTitleViewDelegate: AnyObject {
+    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton)
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton)
 }
 
@@ -16,7 +17,7 @@ final class HomeTimelineNavigationBarTitleView: UIView {
     
     let containerView = UIStackView()
     
-    let imageView = UIImageView()
+    let logoButton = HighlightDimmableButton()
     let button = RoundedEdgesButton()
     let label = UILabel()
     
@@ -25,7 +26,7 @@ final class HomeTimelineNavigationBarTitleView: UIView {
     weak var delegate: HomeTimelineNavigationBarTitleViewDelegate?
     
     // output
-    private(set) var state: HomeTimelineNavigationBarTitleViewModel.State = .logoImage
+    private(set) var state: HomeTimelineNavigationBarTitleViewModel.State = .logo
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,7 +51,7 @@ extension HomeTimelineNavigationBarTitleView {
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
-        containerView.addArrangedSubview(imageView)
+        containerView.addArrangedSubview(logoButton)
         button.translatesAutoresizingMaskIntoConstraints = false
         containerView.addArrangedSubview(button)
         NSLayoutConstraint.activate([
@@ -58,12 +59,18 @@ extension HomeTimelineNavigationBarTitleView {
         ])
         containerView.addArrangedSubview(label)
         
-        configure(state: .logoImage)
+        configure(state: .logo)
+        logoButton.addTarget(self, action: #selector(HomeTimelineNavigationBarTitleView.logoButtonDidPressed(_:)), for: .touchUpInside)
         button.addTarget(self, action: #selector(HomeTimelineNavigationBarTitleView.buttonDidPressed(_:)), for: .touchUpInside)
     }
 }
 
 extension HomeTimelineNavigationBarTitleView {
+    @objc private func logoButtonDidPressed(_ sender: UIButton) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.homeTimelineNavigationBarTitleView(self, logoButtonDidPressed: sender)
+    }
+    
     @objc private func buttonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.homeTimelineNavigationBarTitleView(self, buttonDidPressed: sender)
@@ -73,7 +80,7 @@ extension HomeTimelineNavigationBarTitleView {
 extension HomeTimelineNavigationBarTitleView {
     
     func resetContainer() {
-        imageView.isHidden = true
+        logoButton.isHidden = true
         button.isHidden = true
         label.isHidden = true
     }
@@ -90,11 +97,11 @@ extension HomeTimelineNavigationBarTitleView {
         resetContainer()
         
         switch state {
-        case .logoImage:
-            imageView.tintColor = Asset.Colors.Label.primary.color
-            imageView.image = Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate)
-            imageView.contentMode = .center
-            imageView.isHidden = false
+        case .logo:
+            logoButton.tintColor = Asset.Colors.Label.primary.color
+            logoButton.setImage(Asset.Asset.mastodonTextLogo.image.withRenderingMode(.alwaysTemplate), for: .normal)
+            logoButton.contentMode = .center
+            logoButton.isHidden = false
         case .newPostButton:
             configureButton(
                 title: L10n.Scene.HomeTimeline.NavigationBarState.newPosts,
@@ -173,7 +180,7 @@ struct HomeTimelineNavigationBarTitleView_Previews: PreviewProvider {
         Group {
             UIViewPreview(width: 375) {
                 let titleView = HomeTimelineNavigationBarTitleView()
-                titleView.configure(state: .logoImage)
+                titleView.configure(state: .logo)
                 return titleView
             }
             .previewLayout(.fixed(width: 375, height: 44))

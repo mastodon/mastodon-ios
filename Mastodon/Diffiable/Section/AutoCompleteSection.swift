@@ -33,7 +33,7 @@ extension AutoCompleteSection {
                 return cell
             case .emoji(let emoji):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AutoCompleteTableViewCell.self), for: indexPath) as! AutoCompleteTableViewCell
-                configureEmoji(cell: cell, emoji: emoji)
+                configureEmoji(cell: cell, emoji: emoji, isFirst: indexPath.row == 0)
                 return cell
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
@@ -80,8 +80,10 @@ extension AutoCompleteSection {
         cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: URL(string: account.avatar)))
     }
     
-    private static func configureEmoji(cell: AutoCompleteTableViewCell, emoji: Mastodon.Entity.Emoji) {
+    private static func configureEmoji(cell: AutoCompleteTableViewCell, emoji: Mastodon.Entity.Emoji, isFirst: Bool) {
         cell.titleLabel.text = ":" + emoji.shortcode + ":"
+        // FIXME: handle spacer enter to complete emoji
+        // cell.subtitleLabel.text = isFirst ? L10n.Scene.Compose.AutoComplete.spaceToAdd : " "
         cell.subtitleLabel.text = " "
         cell.avatarImageView.isHidden = false
         cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: URL(string: emoji.url)))

@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 import CoreData
+import CoreDataStack
+import MastodonSDK
 
 extension ThreadViewModel {
     
@@ -41,13 +43,29 @@ extension ThreadViewModel {
         diffableDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
         
         Publishers.CombineLatest3(
+            rootItem.removeDuplicates(),
+            ancestorItems.removeDuplicates(),
+            descendantItems.removeDuplicates()
+        )
+        .receive(on: RunLoop.main)
+        .sink { [weak self] rootItem, ancestorItems, descendantItems in
+            guard let self = self else { return }
+            var items: [Item] = []
+            rootItem.flatMap { items.append($0) }
+            items.append(contentsOf: ancestorItems)
+            items.append(contentsOf: descendantItems)
+            self.updateDeletedStatus(for: items)
+        }
+        .store(in: &disposeBag)
+        
+        Publishers.CombineLatest4(
             rootItem,
             ancestorItems,
-            descendantItems
+            descendantItems,
+            existStatusFetchedResultsController.objectIDs
         )
-        .debounce(for: .milliseconds(100), scheduler: DispatchQueue.main)       // some magic to avoid jitter
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] rootItem, ancestorItems, descendantItems in
+        .debounce(for: .milliseconds(100), scheduler: RunLoop.main)       // some magic to avoid jitter
+        .sink { [weak self] rootItem, ancestorItems, descendantItems, existObjectIDs in
             guard let self = self else { return }
             guard let tableView = self.tableView,
                   let navigationBar = self.contentOffsetAdjustableTimelineViewControllerDelegate?.navigationBar()
@@ -65,31 +83,42 @@ extension ThreadViewModel {
             if self.rootNode.value?.replyToID != nil, !(currentState is LoadThreadState.NoMore) {
                 newSnapshot.appendItems([.topLoader], toSection: .main)
             }
+            
+            let ancestorItems = ancestorItems.filter { item in
+                guard case let .reply(statusObjectID, _) = item else { return false }
+                return existObjectIDs.contains(statusObjectID)
+            }
             newSnapshot.appendItems(ancestorItems, toSection: .main)
             
             // root
-            if let rootItem = rootItem {
-                switch rootItem {
-                case .root:
-                    newSnapshot.appendItems([rootItem], toSection: .main)
-                default:
-                    break
-                }
+            if let rootItem = rootItem,
+               case let .root(objectID, _) = rootItem,
+               existObjectIDs.contains(objectID) {
+                newSnapshot.appendItems([rootItem], toSection: .main)
             }
             
             // leaf
             if !(currentState is LoadThreadState.NoMore) {
                 newSnapshot.appendItems([.bottomLoader], toSection: .main)
             }
+            
+            let descendantItems = descendantItems.filter { item in
+                switch item {
+                case .leaf(let statusObjectID, _):
+                    return existObjectIDs.contains(statusObjectID)
+                default:
+                    return true
+                }
+            }
             newSnapshot.appendItems(descendantItems, toSection: .main)
             
-            // difference for first visiable item exclude .topLoader
+            // difference for first visible item exclude .topLoader
             guard let difference = self.calculateReloadSnapshotDifference(navigationBar: navigationBar, tableView: tableView, oldSnapshot: oldSnapshot, newSnapshot: newSnapshot) else {
                 diffableDataSource.apply(newSnapshot)
                 return
             }
 
-            // addtional margin for .topLoader
+            // additional margin for .topLoader
             let oldTopMargin: CGFloat = {
                 let marginHeight = TimelineTopLoaderTableViewCell.cellHeight
                 if oldSnapshot.itemIdentifiers.contains(.topLoader) {
@@ -182,5 +211,35 @@ extension ThreadViewModel {
             targetIndexPath: targetIndexPath,
             offset: offset
         )
+    }
+}
+
+extension ThreadViewModel {
+    private func updateDeletedStatus(for items: [Item]) {
+        let parentManagedObjectContext = context.managedObjectContext
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        managedObjectContext.parent = parentManagedObjectContext
+        managedObjectContext.perform {
+            var statusIDs: [Status.ID] = []
+            for item in items {
+                switch item {
+                case .root(let objectID, _):
+                    guard let status = managedObjectContext.object(with: objectID) as? Status else { continue }
+                    statusIDs.append(status.id)
+                case .reply(let objectID, _):
+                    guard let status = managedObjectContext.object(with: objectID) as? Status else { continue }
+                    statusIDs.append(status.id)
+                case .leaf(let objectID, _):
+                    guard let status = managedObjectContext.object(with: objectID) as? Status else { continue }
+                    statusIDs.append(status.id)
+                default:
+                    continue
+                }
+            }
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.existStatusFetchedResultsController.statusIDs.value = statusIDs
+            }
+        }
     }
 }

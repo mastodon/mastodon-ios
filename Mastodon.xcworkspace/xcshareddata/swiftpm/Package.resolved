@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
-          "version": "5.4.3"
+          "revision": "4d19ad82f80cc71ff829b941ded114c56f4f604c",
+          "version": "5.4.2"
         }
       },
       {
@@ -44,6 +44,33 @@
           "branch": null,
           "revision": "c121624a30698e9886efe38aebb36ff51c01b6c2",
           "version": "0.1.1"
+        }
+      },
+      {
+        "package": "DiffableDataSources",
+        "repositoryURL": "https://github.com/MainasuK/DiffableDataSources.git",
+        "state": {
+          "branch": "feature/async-display-table",
+          "revision": "73393a97690959d24387c95594c045c62d9c47cf",
+          "version": null
+        }
+      },
+      {
+        "package": "DifferenceKit",
+        "repositoryURL": "https://github.com/ra1028/DifferenceKit.git",
+        "state": {
+          "branch": null,
+          "revision": "62745d7780deef4a023a792a1f8f763ec7bf9705",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "Fuzi",
+        "repositoryURL": "https://github.com/cezheng/Fuzi.git",
+        "state": {
+          "branch": null,
+          "revision": "f08c8323da21e985f3772610753bcfc652c2103f",
+          "version": "3.1.3"
         }
       },
       {

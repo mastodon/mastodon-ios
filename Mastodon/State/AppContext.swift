@@ -44,6 +44,10 @@ class AppContext: ObservableObject {
     private var documentStoreSubscription: AnyCancellable!
     
     let overrideTraitCollection = CurrentValueSubject<UITraitCollection?, Never>(nil)
+    let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
+        .autoconnect()
+        .share()
+        .eraseToAnyPublisher()
 
     init() {
         let _coreDataStack = CoreDataStack()
@@ -205,7 +209,11 @@ extension AppContext {
         }
         .eraseToAnyPublisher()
     }
-//
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: purge temporary directory success", ((#file as NSString).lastPathComponent), #line, #function)
-//    }
+
+}
+
+extension AppContext {
+    @objc func toggleHomePreference(_ action: UIAction) {
+        UserDefaults.shared.preferAsyncHomeTimeline.toggle()
+    }
 }
