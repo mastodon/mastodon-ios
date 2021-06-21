@@ -381,11 +381,11 @@ extension ComposeViewController {
                 self.composeToolbarView.characterCountLabel.text = "\(count)"
                 switch count {
                 case _ where count < 0:
-                    self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 24, weight: .bold)
+                    self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
                     self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
                     self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitExceedsCount(abs(count))
                 default:
-                    self.composeToolbarView.characterCountLabel.font = .systemFont(ofSize: 15, weight: .regular)
+                    self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
                     self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
                     self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(count)
                 }
