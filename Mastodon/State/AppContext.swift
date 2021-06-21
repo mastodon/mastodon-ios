@@ -209,7 +209,11 @@ extension AppContext {
         }
         .eraseToAnyPublisher()
     }
-//
-//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: purge temporary directory success", ((#file as NSString).lastPathComponent), #line, #function)
-//    }
+
+}
+
+extension AppContext {
+    @objc func toggleHomePreference(_ action: UIAction) {
+        UserDefaults.shared.preferAsyncHomeTimeline.toggle()
+    }
 }

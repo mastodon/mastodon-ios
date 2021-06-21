@@ -119,8 +119,22 @@ extension AsyncHomeTimelineViewController {
 
         #else
         settingBarButtonItem.target = self
-        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        settingBarButtonItem.action = #selector(AsyncHomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
+        settingBarButtonItem.menu = UIMenu(title: "Toggle Home", image: nil, identifier: nil, options: [], children: [
+            UIAction(title: "Setting", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
+                guard let self = self else { return }
+                self.settingBarButtonItemPressed(self.settingBarButtonItem)
+            }),
+            UIAction(title: "Toggle Home", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] action in
+                guard let self = self else { return }
+                self.context.toggleHomePreference(action)
+                let alertController = UIAlertController(title: "Please Restart App", message: nil, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            })
+        ])
 
         navigationItem.rightBarButtonItem = composeBarButtonItem
         composeBarButtonItem.target = self

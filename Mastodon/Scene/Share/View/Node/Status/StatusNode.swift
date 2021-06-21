@@ -85,7 +85,6 @@ final class StatusNode: ASCellNode {
         }()
         super.init()
 
-        print("meta: \(mosaicImageViewModel.metas.count), nodes: \(mediaMultiplexImageNodes.count)")
         automaticallyManagesSubnodes = true
 
         if let url = (status.reblog ?? status).author.avatarImageURL() {
