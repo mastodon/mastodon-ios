@@ -22,7 +22,7 @@ final class HomeTimelineNavigationBarTitleViewModel {
     var networkErrorPublisher = PassthroughSubject<Void, Never>()
     
     // output
-    let state = CurrentValueSubject<State, Never>(.logoImage)
+    let state = CurrentValueSubject<State, Never>(.logo)
     let hasNewPosts = CurrentValueSubject<Bool, Never>(false)
     let isOffline = CurrentValueSubject<Bool, Never>(false)
     let isPublishingPost = CurrentValueSubject<Bool, Never>(false)
@@ -75,7 +75,7 @@ final class HomeTimelineNavigationBarTitleViewModel {
             guard !isPublishingPost else { return .publishingPostLabel }
             guard !isOffline else { return .offlineButton }
             guard !hasNewPosts else { return .newPostButton }
-            return .logoImage
+            return .logo
         }
         .receive(on: DispatchQueue.main)
         .assign(to: \.value, on: state)
@@ -100,7 +100,7 @@ final class HomeTimelineNavigationBarTitleViewModel {
 extension HomeTimelineNavigationBarTitleViewModel {
     // state order by priority from low to high
     enum State: String {
-        case logoImage
+        case logo
         case newPostButton
         case offlineButton
         case publishingPostLabel
