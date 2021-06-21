@@ -117,6 +117,14 @@ extension APIService {
                     }
                 }()
                 if let status = oldStatus {
+                    let homeTimelineIndexes = status.homeTimelineIndexes ?? Set()
+                    for homeTimelineIndex in homeTimelineIndexes {
+                        self.backgroundManagedObjectContext.delete(homeTimelineIndex)
+                    }
+                    let inNotifications = status.inNotifications ?? Set()
+                    for notification in inNotifications {
+                        self.backgroundManagedObjectContext.delete(notification)
+                    }
                     self.backgroundManagedObjectContext.delete(status)
                 }
             }

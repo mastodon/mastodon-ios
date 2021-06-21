@@ -45,6 +45,8 @@ final class AutoCompleteTableViewCell: UITableViewCell {
         return label
     }()
     
+    let separatorLine = UIView.separatorLine
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         avatarImageView.af.cancelImageRequest()
@@ -117,6 +119,15 @@ extension AutoCompleteTableViewCell {
             bottomPaddingView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomPaddingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 1.0),
+        ])
+        
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(separatorLine)
+        NSLayoutConstraint.activate([
+            separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)).priority(.defaultHigh),
         ])
     }
     

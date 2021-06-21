@@ -69,6 +69,9 @@ extension ComposeViewModel {
             snapshot.appendItems([.input(replyToStatusObjectID: nil, attribute: composeStatusAttribute)], toSection: .status)
         }
         diffableDataSource.apply(snapshot, animatingDifferences: false)
+        
+        // some magic fix modal presentation animation issue
+        collectionView.dataSource = diffableDataSource
     }
     
     func setupCustomEmojiPickerDiffableDataSource(

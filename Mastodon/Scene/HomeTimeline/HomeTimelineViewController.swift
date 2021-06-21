@@ -526,6 +526,10 @@ extension HomeTimelineViewController: StatusTableViewCellDelegate {
 
 // MARK: - HomeTimelineNavigationBarTitleViewDelegate
 extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate {
+    func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton) {
+        scrollToTop(animated: true)
+    }
+    
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton) {
         switch titleView.state {
         case .newPostButton:

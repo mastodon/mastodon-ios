@@ -367,7 +367,7 @@ internal enum L10n {
           internal static let noStatusFound = L10n.tr("Localizable", "Common.Controls.Timeline.Header.NoStatusFound")
           /// This account has been suspended.
           internal static let suspendedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.SuspendedWarning")
-          /// %@'s account has been suspended.
+          /// %@’s account has been suspended.
           internal static func userSuspendedWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserSuspendedWarning", String(describing: p1))
           }
@@ -404,7 +404,7 @@ internal enum L10n {
     internal enum Compose {
       /// Publish
       internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
-      /// Type or paste what's on your mind
+      /// Type or paste what’s on your mind
       internal static let contentInputPlaceholder = L10n.tr("Localizable", "Scene.Compose.ContentInputPlaceholder")
       /// replying to %@
       internal static func replyingToUser(_ p1: Any) -> String {
@@ -435,7 +435,7 @@ internal enum L10n {
         internal static let removePoll = L10n.tr("Localizable", "Scene.Compose.Accessibility.RemovePoll")
       }
       internal enum Attachment {
-        /// This %@ is broken and can't be\nuploaded to Mastodon.
+        /// This %@ is broken and can’t be\nuploaded to Mastodon.
         internal static func attachmentBroken(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentBroken", String(describing: p1))
         }
@@ -457,6 +457,8 @@ internal enum L10n {
         internal static func singlePeopleTalking(_ p1: Int) -> String {
           return L10n.tr("Localizable", "Scene.Compose.AutoComplete.SinglePeopleTalking", p1)
         }
+        /// Space to add
+        internal static let spaceToAdd = L10n.tr("Localizable", "Scene.Compose.AutoComplete.SpaceToAdd")
       }
       internal enum ContentWarning {
         /// Write an accurate warning here...
@@ -756,7 +758,7 @@ internal enum L10n {
           internal static let passwordTooShort = L10n.tr("Localizable", "Scene.Register.Error.Special.PasswordTooShort")
           /// Username must only contain alphanumeric characters and underscores
           internal static let usernameInvalid = L10n.tr("Localizable", "Scene.Register.Error.Special.UsernameInvalid")
-          /// Username is too long (can't be longer than 30 characters)
+          /// Username is too long (can’t be longer than 30 characters)
           internal static let usernameTooLong = L10n.tr("Localizable", "Scene.Register.Error.Special.UsernameTooLong")
         }
       }
@@ -918,7 +920,7 @@ internal enum L10n {
     internal enum ServerRules {
       /// privacy policy
       internal static let privacyPolicy = L10n.tr("Localizable", "Scene.ServerRules.PrivacyPolicy")
-      /// By continuing, you're subject to the terms of service and privacy policy for %@.
+      /// By continuing, you’re subject to the terms of service and privacy policy for %@.
       internal static func prompt(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.ServerRules.Prompt", String(describing: p1))
       }
