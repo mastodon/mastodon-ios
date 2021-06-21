@@ -103,11 +103,7 @@ extension HomeTimelineViewController {
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
         PerformanceMonitor.shared().delegate = self
-        
-        #else
-        settingBarButtonItem.target = self
-        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
-        #endif
+        #elseif ASDK
         settingBarButtonItem.menu = UIMenu(title: "Toggle Home", image: nil, identifier: nil, options: [], children: [
             UIAction(title: "Setting", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
                 guard let self = self else { return }
@@ -122,6 +118,10 @@ extension HomeTimelineViewController {
                 self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
             })
         ])
+        #else
+        settingBarButtonItem.target = self
+        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        #endif
         
         navigationItem.rightBarButtonItem = composeBarButtonItem
         composeBarButtonItem.target = self
