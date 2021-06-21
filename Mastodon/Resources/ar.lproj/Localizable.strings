@@ -153,6 +153,7 @@ uploaded to Mastodon.";
 "Scene.Compose.Attachment.Video" = "video";
 "Scene.Compose.AutoComplete.MultiplePeopleTalking" = "%ld people talking";
 "Scene.Compose.AutoComplete.SinglePeopleTalking" = "%ld people talking";
+"Scene.Compose.AutoComplete.SpaceToAdd" = "Space to add";
 "Scene.Compose.ComposeAction" = "Publish";
 "Scene.Compose.ContentInputPlaceholder" = "Type or paste what’s on your mind";
 "Scene.Compose.ContentWarning.Placeholder" = "Write an accurate warning here...";

@@ -382,7 +382,8 @@
             },
             "auto_complete": {
                 "single_people_talking": "%ld people talking",
-                "multiple_people_talking": "%ld people talking"
+                "multiple_people_talking": "%ld people talking",
+                "space_to_add": "Space to add"
             },
             "accessibility": {
                 "append_attachment": "Append attachment",

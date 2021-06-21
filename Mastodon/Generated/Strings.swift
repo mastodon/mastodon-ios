@@ -457,6 +457,8 @@ internal enum L10n {
         internal static func singlePeopleTalking(_ p1: Int) -> String {
           return L10n.tr("Localizable", "Scene.Compose.AutoComplete.SinglePeopleTalking", p1)
         }
+        /// Space to add
+        internal static let spaceToAdd = L10n.tr("Localizable", "Scene.Compose.AutoComplete.SpaceToAdd")
       }
       internal enum ContentWarning {
         /// Write an accurate warning here...
