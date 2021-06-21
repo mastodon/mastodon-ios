@@ -45,7 +45,7 @@ class MainTabBarController: UITabBarController {
             let viewController: UIViewController
             switch self {
             case .home:
-                let _viewController = HomeTimelineViewController()
+                let _viewController: NeedsDependency & UIViewController = UserDefaults.shared.preferAsyncHomeTimeline ? AsyncHomeTimelineViewController() : HomeTimelineViewController()
                 _viewController.context = context
                 _viewController.coordinator = coordinator
                 viewController = _viewController

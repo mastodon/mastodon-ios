@@ -48,6 +48,9 @@ extension SceneCoordinator {
         case mastodonResendEmail(viewModel: MastodonResendEmailViewModel)
         case mastodonWebView(viewModel:WebViewModel)
         
+        // ASDK
+        case asyncHome
+        
         // compose
         case compose(viewModel: ComposeViewModel)
         
@@ -235,6 +238,9 @@ private extension SceneCoordinator {
         case .mastodonWebView(let viewModel):
             let _viewController = WebViewController()
             _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .asyncHome:
+            let _viewController = AsyncHomeTimelineViewController()
             viewController = _viewController
         case .compose(let viewModel):
             let _viewController = ComposeViewController()

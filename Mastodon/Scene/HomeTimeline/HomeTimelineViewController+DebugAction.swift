@@ -25,6 +25,10 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showFLEXAction(action)
                 }),
+                UIAction(title: "Toggle Home", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.context.toggleHomePreference(action)
+                }),
                 moveMenu,
                 dropMenu,
                 UIAction(title: "Show Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
