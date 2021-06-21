@@ -47,14 +47,18 @@ extension StatusSection {
 
                 // configure cell
                 managedObjectContext.performAndWait {
-                    let timelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
+                    let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
+                    // note: force check optional for status
+                    // status maybe <uninitialized> here when delete in thread scene
+                    guard let status = timelineIndex?.status,
+                          let userID = timelineIndex?.userID else { return }
                     StatusSection.configure(
                         cell: cell,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         timestampUpdatePublisher: timestampUpdatePublisher,
-                        status: timelineIndex.status,
-                        requestUserID: timelineIndex.userID,
+                        status: status,
+                        requestUserID: userID,
                         statusItemAttribute: attribute
                     )
                 }
@@ -752,12 +756,13 @@ extension StatusSection {
             return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.favouritesCount.intValue)
         }()
         Publishers.CombineLatest(
-            dependency.context.blockDomainService.blockedDomains,
+            dependency.context.blockDomainService.blockedDomains.setFailureType(to: ManagedObjectObserver.Error.self),
             ManagedObjectObserver.observe(object: status.authorForUserProvider)
-                .assertNoFailure()
-            )
+        )
         .receive(on: RunLoop.main)
-        .sink { [weak dependency, weak cell] _, change in
+        .sink(receiveCompletion: { _ in
+            // do nothing
+        }, receiveValue: { [weak dependency, weak cell] _, change in
             guard let cell = cell else { return }
             guard let dependency = dependency else { return }
             switch change.changeType {
@@ -769,7 +774,7 @@ extension StatusSection {
                 break
             }
             StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
-        }
+        })
         .store(in: &cell.disposeBag)
         self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
