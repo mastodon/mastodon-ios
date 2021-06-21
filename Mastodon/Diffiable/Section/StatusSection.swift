@@ -11,6 +11,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
+import AsyncDisplayKit
 import Nuke
 
 protocol StatusCell: DisposeBagCollectable {
@@ -23,6 +24,33 @@ enum StatusSection: Equatable, Hashable {
 }
 
 extension StatusSection {
+    static func tableNodeDiffableDataSource(
+        tableNode: ASTableNode,
+        managedObjectContext: NSManagedObjectContext
+    ) -> TableNodeDiffableDataSource<StatusSection, Item> {
+        TableNodeDiffableDataSource(tableNode: tableNode) { tableNode, indexPath, item in
+            switch item {
+            case .homeTimelineIndex(let objectID, let attribute):
+                guard let homeTimelineIndex = try? managedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else {
+                    return { ASCellNode() }
+                }
+                let status = homeTimelineIndex.status
+
+                return { () -> ASCellNode in
+                    let cellNode = StatusNode(status: status)
+                    return cellNode
+                }
+            case .homeMiddleLoader:
+                return { TimelineMiddleLoaderNode() }
+            case .bottomLoader:
+                return { TimelineBottomLoaderNode() }
+            default:
+                return { ASCellNode() }
+            }
+        }
+    }
+
+
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,

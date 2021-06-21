@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import UserNotifications
 import AppShared
+import AsyncDisplayKit
 
 #if DEBUG
 import GDPerformanceView_Swift
@@ -32,7 +33,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         
         #if DEBUG
-        PerformanceMonitor.shared().start()
+        // PerformanceMonitor.shared().start()
+        // ASDisplayNode.shouldShowRangeDebugOverlay = true
+        // ASControlNode.enableHitTestDebug = true
+        // ASImageNode.shouldShowImageScalingOverlay = true
         #endif
         
         return true

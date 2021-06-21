@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import AsyncDisplayKit
 
 protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewController {
     // async
@@ -21,4 +22,12 @@ protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewControl
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? { get }
     func item(for cell: UITableViewCell?, indexPath: IndexPath?) -> Item?
     func items(indexPaths: [IndexPath]) -> [Item]
+
+    func status(node: ASCellNode?, indexPath: IndexPath?) -> Status?
+}
+
+extension StatusProvider {
+    func status(node: ASCellNode?, indexPath: IndexPath?) -> Status? {
+        fatalError("Needs implement this")
+    }
 }

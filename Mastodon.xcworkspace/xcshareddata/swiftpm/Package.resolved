@@ -47,6 +47,33 @@
         }
       },
       {
+        "package": "DiffableDataSources",
+        "repositoryURL": "https://github.com/MainasuK/DiffableDataSources.git",
+        "state": {
+          "branch": "feature/async-display-table",
+          "revision": "73393a97690959d24387c95594c045c62d9c47cf",
+          "version": null
+        }
+      },
+      {
+        "package": "DifferenceKit",
+        "repositoryURL": "https://github.com/ra1028/DifferenceKit.git",
+        "state": {
+          "branch": null,
+          "revision": "62745d7780deef4a023a792a1f8f763ec7bf9705",
+          "version": "1.2.0"
+        }
+      },
+      {
+        "package": "Fuzi",
+        "repositoryURL": "https://github.com/cezheng/Fuzi.git",
+        "state": {
+          "branch": null,
+          "revision": "f08c8323da21e985f3772610753bcfc652c2103f",
+          "version": "3.1.3"
+        }
+      },
+      {
         "package": "KeychainAccess",
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
@@ -60,7 +87,7 @@
         "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
         "state": {
           "branch": null,
-          "revision": "bbc4bc4def7eb05a7ba8e1219f80ee9be327334e",
+          "revision": "15d199e84677303a7004ed2c5ecaa1a90f3863f8",
           "version": "6.2.1"
         }
       },
