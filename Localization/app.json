@@ -187,7 +187,7 @@
                     "blocking_warning": "You can’t view Artbot’s profile\n until you unblock them.\nYour account looks like this to them.",
                     "blocked_warning": "You can’t view Artbot’s profile\n until they unblock you.",
                     "suspended_warning": "This account has been suspended.",
-                    "user_suspended_warning": "%s's account has been suspended."
+                    "user_suspended_warning": "%s’s account has been suspended."
                 },
                 "accessibility": {
                     "count_replies": "%s replies",
@@ -290,7 +290,7 @@
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can't be longer than 30 characters)",
+                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
                     "email_invalid": "This is not a valid e-mail address",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
@@ -299,7 +299,7 @@
         "server_rules": {
             "title": "Some ground rules.",
             "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you're subject to the terms of service and privacy policy for %s.",
+            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
@@ -351,13 +351,13 @@
                 "photo_library": "Photo Library",
                 "browse": "Browse"
             },
-            "content_input_placeholder": "Type or paste what's on your mind",
+            "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publish",
             "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can't be\nuploaded to Mastodon.",
+                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe photo for low vision people...",
                 "description_video": "Describe what’s happening for low vision people..."
             },
