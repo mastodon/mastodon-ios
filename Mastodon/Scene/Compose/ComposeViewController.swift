@@ -55,6 +55,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
         collectionView.backgroundColor = Asset.Scene.Compose.background.color
         collectionView.alwaysBounceVertical = true
+        collectionView.keyboardDismissMode = .onDrag
         return collectionView
     }()
     
