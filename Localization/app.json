@@ -170,7 +170,7 @@
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
                 "muted": "Muted",
-                "edit_info": "Edit info"
+                "edit_info": "Edit Info"
             },
             "timeline": {
                 "timestamp": {
@@ -465,7 +465,7 @@
                     "hashtags": "Hashtags"
                 },
                 "recent_search": "Recent searches",
-                "clear": "clear"
+                "clear": "Clear"
             }
         },
         "hashtag": {

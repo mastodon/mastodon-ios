@@ -220,6 +220,9 @@ extension ProfileHeaderViewController {
         super.viewDidAppear(animated)
         
         viewModel.viewDidAppear.value = true
+
+        // set display after view appear
+        profileHeaderView.setupAvatarOverlayViews()
     }
     
     override func viewDidLayoutSubviews() {

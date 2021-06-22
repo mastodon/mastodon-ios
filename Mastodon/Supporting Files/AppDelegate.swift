@@ -9,10 +9,13 @@ import os.log
 import UIKit
 import UserNotifications
 import AppShared
-import AsyncDisplayKit
 
 #if DEBUG
 import GDPerformanceView_Swift
+#endif
+
+#if ASDK
+import AsyncDisplayKit
 #endif
 
 @main
@@ -32,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
         
-        #if DEBUG
+        #if ASDK && DEBUG
         // PerformanceMonitor.shared().start()
         // ASDisplayNode.shouldShowRangeDebugOverlay = true
         // ASControlNode.enableHitTestDebug = true

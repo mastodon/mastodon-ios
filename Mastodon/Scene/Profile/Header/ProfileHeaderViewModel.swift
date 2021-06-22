@@ -144,7 +144,7 @@ extension ProfileHeaderViewModel {
         return html?.text
     }
     
-    // check if profile chagned or not
+    // check if profile change or not
     func isProfileInfoEdited() -> Bool {
         guard isEditing.value else { return false }
         

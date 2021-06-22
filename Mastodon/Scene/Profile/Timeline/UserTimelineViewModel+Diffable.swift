@@ -32,6 +32,9 @@ extension UserTimelineViewModel {
         // set empty section to make update animation top-to-bottom style
         var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
         snapshot.appendSections([.main])
+        diffableDataSource?.apply(snapshot)
+
+        // workaround to append loader wrong animation issue
         snapshot.appendItems([.bottomLoader], toSection: .main)
         diffableDataSource?.apply(snapshot)
     }

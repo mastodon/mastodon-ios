@@ -5,6 +5,8 @@
 //  Created by Cirno MainasuK on 2021-6-20.
 //
 
+#if ASDK
+
 import Foundation
 import ActiveLabel
 
@@ -14,3 +16,5 @@ extension StatusNodeDelegate where Self: StatusProvider {
         StatusProviderFacade.responseToStatusActiveLabelAction(provider: self, node: node, didSelectActiveEntityType: type)
     }
 }
+
+#endif

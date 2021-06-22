@@ -6,6 +6,8 @@
 //
 //
 
+#if ASDK
+
 import os.log
 import func QuartzCore.CACurrentMediaTime
 import Foundation
@@ -128,3 +130,5 @@ extension AsyncHomeTimelineViewModel.LoadLatestState {
     }
 
 }
+
+#endif

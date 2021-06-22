@@ -12,7 +12,10 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import ActiveLabel
+
+#if ASDK
 import AsyncDisplayKit
+#endif
 
 enum StatusProviderFacade { }
 
@@ -146,6 +149,7 @@ extension StatusProviderFacade {
         }
     }
 
+    #if ASDK
     static func responseToStatusActiveLabelAction(provider: StatusProvider, node: ASCellNode, didSelectActiveEntityType type: ActiveEntityType) {
         switch type {
         case .hashtag(let text, _):
@@ -175,6 +179,7 @@ extension StatusProviderFacade {
         guard let status = provider.status(node: node, indexPath: nil) else { return }
         coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention)
     }
+    #endif
 
     private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell, mention: String) {
         provider.status(for: cell, indexPath: nil)

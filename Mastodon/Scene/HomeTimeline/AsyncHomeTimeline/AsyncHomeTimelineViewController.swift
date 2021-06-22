@@ -5,6 +5,8 @@
 //  Created by MainasuK Cirno on 2021-6-21.
 //
 
+#if ASDK
+
 import os.log
 import UIKit
 import AVKit
@@ -56,16 +58,6 @@ final class AsyncHomeTimelineViewController: ASDKViewController<ASTableNode>, Ne
     }()
 
     var tableView: UITableView { node.view }
-    //let tableView: UITableView = {
-    //    let tableView = ControlContainableTableView()
-    //    tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
-    //    tableView.register(TimelineMiddleLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineMiddleLoaderTableViewCell.self))
-    //    tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-    //    tableView.rowHeight = UITableView.automaticDimension
-    //    tableView.separatorStyle = .none
-    //    tableView.backgroundColor = .clear
-    //    return tableView
-    //}()
     
     let publishProgressView: UIProgressView = {
         let progressView = UIProgressView(progressViewStyle: .bar)
@@ -116,25 +108,10 @@ extension AsyncHomeTimelineViewController {
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
         PerformanceMonitor.shared().delegate = self
-
         #else
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(AsyncHomeTimelineViewController.settingBarButtonItemPressed(_:))
         #endif
-        settingBarButtonItem.menu = UIMenu(title: "Toggle Home", image: nil, identifier: nil, options: [], children: [
-            UIAction(title: "Setting", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.settingBarButtonItemPressed(self.settingBarButtonItem)
-            }),
-            UIAction(title: "Toggle Home", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] action in
-                guard let self = self else { return }
-                self.context.toggleHomePreference(action)
-                let alertController = UIAlertController(title: "Please Restart App", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
-            })
-        ])
 
         navigationItem.rightBarButtonItem = composeBarButtonItem
         composeBarButtonItem.target = self
@@ -604,3 +581,5 @@ extension AsyncHomeTimelineViewController: ASTableDelegate {
 
 // MARK: - StatusNodeDelegate
 extension AsyncHomeTimelineViewController: StatusNodeDelegate { }
+
+#endif

@@ -38,7 +38,7 @@ extension NotificationSection {
                 }
                 
                 let createAt = notification.createAt
-                let timeText = createAt.slowedTimeAgoSinceNow
+                let timeText = createAt.timeAgoSinceNow
                 
                 let actionText = type.actionText
                 let actionImageName = type.actionImageName
@@ -65,7 +65,7 @@ extension NotificationSection {
                     timestampUpdatePublisher
                         .sink { [weak cell] _ in
                             guard let cell = cell else { return }
-                            let timeText = createAt.slowedTimeAgoSinceNow
+                            let timeText = createAt.timeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)
@@ -91,7 +91,7 @@ extension NotificationSection {
                     timestampUpdatePublisher
                         .sink { [weak cell] _ in
                             guard let cell = cell else { return }
-                            let timeText = createAt.slowedTimeAgoSinceNow
+                            let timeText = createAt.timeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)

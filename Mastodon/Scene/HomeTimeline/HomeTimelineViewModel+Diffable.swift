@@ -33,9 +33,13 @@ extension HomeTimelineViewModel {
             threadReplyLoaderTableViewCellDelegate: nil
         )
         
-//        var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
-//        snapshot.appendSections([.main])
-//        diffableDataSource?.apply(snapshot)
+        var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
+        snapshot.appendSections([.main])
+        diffableDataSource?.apply(snapshot)
+
+        // workaround to append loader wrong animation issue
+        snapshot.appendItems([.bottomLoader], toSection: .main)
+        diffableDataSource?.apply(snapshot)
     }
     
 }

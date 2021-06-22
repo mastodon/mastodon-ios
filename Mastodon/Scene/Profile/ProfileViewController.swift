@@ -58,7 +58,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     
     let refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .label
+        refreshControl.tintColor = .white
         return refreshControl
     }()
     

@@ -180,7 +180,7 @@ internal enum L10n {
         internal static func blockUser(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Controls.Firendship.BlockUser", String(describing: p1))
         }
-        /// Edit info
+        /// Edit Info
         internal static let editInfo = L10n.tr("Localizable", "Common.Controls.Firendship.EditInfo")
         /// Follow
         internal static let follow = L10n.tr("Localizable", "Common.Controls.Firendship.Follow")
@@ -843,7 +843,7 @@ internal enum L10n {
         internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
       }
       internal enum Searching {
-        /// clear
+        /// Clear
         internal static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear")
         /// Recent searches
         internal static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch")

@@ -90,6 +90,13 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         configure()
     }
+
+    override var isHighlighted: Bool {
+        didSet {
+            contentView.alpha = isHighlighted ? 0.8 : 1.0
+        }
+    }
+
 }
 
 extension SearchRecommendAccountsCollectionViewCell {

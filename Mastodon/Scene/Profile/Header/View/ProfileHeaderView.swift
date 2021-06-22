@@ -73,10 +73,15 @@ final class ProfileHeaderView: UIView {
         imageView.image = placeholderImage
         return imageView
     }()
+
+    func setupAvatarOverlayViews() {
+        editAvatarBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        editAvatarButton.tintColor = .white
+    }
     
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        view.backgroundColor = .clear       // set value after view appeared
         view.layer.masksToBounds = true
         view.layer.cornerCurve = .continuous
         view.layer.cornerRadius = ProfileHeaderView.avatarImageViewCornerRadius
@@ -87,7 +92,7 @@ final class ProfileHeaderView: UIView {
     let editAvatarButton: HighlightDimmableButton = {
         let button = HighlightDimmableButton()
         button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 28)), for: .normal)
-        button.tintColor = .white
+        button.tintColor = .clear
         return button
     }()
 

@@ -18,6 +18,8 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
     var disposeBag = Set<AnyCancellable>()
+    var observations = Set<NSKeyValueObservation>()
+
     private(set) lazy var viewModel = NotificationViewModel(context: context)
 
     let segmentControl: UISegmentedControl = {
@@ -48,8 +50,13 @@ extension NotificationViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.titleView = segmentControl
+        NSLayoutConstraint.activate([
+            segmentControl.widthAnchor.constraint(equalToConstant: 287)
+        ])
         segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -81,6 +88,17 @@ extension NotificationViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        viewModel.dataSourceDidUpdated
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.viewModel.needsScrollToTopAfterDataSourceUpdate = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
+                    self.scrollToTop(animated: true)
+                }
+            }
+            .store(in: &disposeBag)
         
         viewModel.selectedIndex
             .removeDuplicates()
@@ -92,6 +110,9 @@ extension NotificationViewController {
                 guard let domain = self.viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = self.viewModel.activeMastodonAuthenticationBox.value?.userID else {
                     return
                 }
+
+                self.viewModel.needsScrollToTopAfterDataSourceUpdate = true
+
                 switch segment {
                 case .EveryThing:
                     self.viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
@@ -100,6 +121,15 @@ extension NotificationViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        segmentControl.observe(\.selectedSegmentIndex, options: [.new]) { [weak self] segmentControl, _ in
+            guard let self = self else { return }
+            // scroll to top when select same segment
+            if segmentControl.selectedSegmentIndex == self.viewModel.selectedIndex.value.rawValue {
+                self.scrollToTop(animated: true)
+            }
+        }
+        .store(in: &observations)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -274,6 +304,18 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
 extension NotificationViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
+    }
+}
+
+// MARK: - ScrollViewContainer
+extension NotificationViewController: ScrollViewContainer {
+
+    var scrollView: UIScrollView { tableView }
+
+    func scrollToTop(animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else { return }
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 

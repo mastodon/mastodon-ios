@@ -5,6 +5,8 @@
 //  Created by Cirno MainasuK on 2021-6-19.
 //
 
+#if ASDK
+
 import UIKit
 import AsyncDisplayKit
 import DifferenceKit
@@ -79,3 +81,5 @@ extension ASTableNode: ReloadableTableView {
         }
     }
 }
+
+#endif
