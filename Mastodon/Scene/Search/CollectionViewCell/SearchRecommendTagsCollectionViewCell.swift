@@ -112,7 +112,7 @@ extension SearchRecommendTagsCollectionViewCell {
         
         flameIconView.translatesAutoresizingMaskIntoConstraints = false
         horizontalStackView.addArrangedSubview(flameIconView)
-        
+        flameIconView.setContentHuggingPriority(.required - 1, for: .horizontal)
 
         containerStackView.addArrangedSubview(horizontalStackView)
         peopleLabel.translatesAutoresizingMaskIntoConstraints = false
