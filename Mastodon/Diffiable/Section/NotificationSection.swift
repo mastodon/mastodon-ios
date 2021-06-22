@@ -38,7 +38,7 @@ extension NotificationSection {
                 }
                 
                 let createAt = notification.createAt
-                let timeText = createAt.slowedTimeAgoSinceNow
+                let timeText = createAt.timeAgoSinceNow
                 
                 let actionText = type.actionText
                 let actionImageName = type.actionImageName
