@@ -60,7 +60,7 @@ Please check your internet connection.";
 "Common.Controls.Firendship.BlockDomain" = "Block %@";
 "Common.Controls.Firendship.BlockUser" = "Block %@";
 "Common.Controls.Firendship.Blocked" = "Blocked";
-"Common.Controls.Firendship.EditInfo" = "Edit info";
+"Common.Controls.Firendship.EditInfo" = "Edit Info";
 "Common.Controls.Firendship.Follow" = "Follow";
 "Common.Controls.Firendship.Following" = "Following";
 "Common.Controls.Firendship.Mute" = "Mute";
