@@ -35,6 +35,7 @@ final class NotificationViewModel: NSObject {
     
     // output
     var diffableDataSource: UITableViewDiffableDataSource<NotificationSection, NotificationItem>!
+    
     // top loader
     private(set) lazy var loadLatestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state

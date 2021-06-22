@@ -29,6 +29,14 @@ extension NotificationViewModel {
             delegate: delegate,
             dependency: dependency
         )
+
+        var snapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
+        snapshot.appendSections([.main])
+        diffableDataSource.apply(snapshot)
+
+        // workaround to append loader wrong animation issue
+        snapshot.appendItems([.bottomLoader], toSection: .main)
+        diffableDataSource.apply(snapshot)
     }
 }
 
