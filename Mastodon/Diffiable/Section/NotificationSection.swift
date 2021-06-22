@@ -65,7 +65,7 @@ extension NotificationSection {
                     timestampUpdatePublisher
                         .sink { [weak cell] _ in
                             guard let cell = cell else { return }
-                            let timeText = createAt.slowedTimeAgoSinceNow
+                            let timeText = createAt.timeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)
@@ -91,7 +91,7 @@ extension NotificationSection {
                     timestampUpdatePublisher
                         .sink { [weak cell] _ in
                             guard let cell = cell else { return }
-                            let timeText = createAt.slowedTimeAgoSinceNow
+                            let timeText = createAt.timeAgoSinceNow
                             cell.actionLabel.text = actionText + " · " + timeText
                         }
                         .store(in: &cell.disposeBag)

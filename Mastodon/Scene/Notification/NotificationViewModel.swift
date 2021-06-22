@@ -31,6 +31,8 @@ final class NotificationViewModel: NSObject {
     let notificationPredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let cellFrameCache = NSCache<NSNumber, NSValue>()
     
+    var needsScrollToTopAfterDataSourceUpdate = false
+    let dataSourceDidUpdated = PassthroughSubject<Void, Never>()
     let isFetchingLatestNotification = CurrentValueSubject<Bool, Never>(false)
     
     // output

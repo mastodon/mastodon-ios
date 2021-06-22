@@ -86,6 +86,17 @@ extension NotificationViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        viewModel.dataSourceDidUpdated
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.viewModel.needsScrollToTopAfterDataSourceUpdate = false
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
+                    self.scrollToTop(animated: true)
+                }
+            }
+            .store(in: &disposeBag)
         
         viewModel.selectedIndex
             .removeDuplicates()
@@ -97,6 +108,9 @@ extension NotificationViewController {
                 guard let domain = self.viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = self.viewModel.activeMastodonAuthenticationBox.value?.userID else {
                     return
                 }
+
+                self.viewModel.needsScrollToTopAfterDataSourceUpdate = true
+
                 switch segment {
                 case .EveryThing:
                     self.viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
@@ -279,6 +293,18 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
 extension NotificationViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
+    }
+}
+
+// MARK: - ScrollViewContainer
+extension NotificationViewController: ScrollViewContainer {
+
+    var scrollView: UIScrollView { tableView }
+
+    func scrollToTop(animated: Bool) {
+        let indexPath = IndexPath(row: 0, section: 0)
+        guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else { return }
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 }
 
