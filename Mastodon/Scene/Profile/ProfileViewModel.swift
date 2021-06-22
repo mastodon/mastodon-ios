@@ -327,7 +327,7 @@ extension ProfileViewModel {
     enum RelationshipAction: Int, CaseIterable {
         case none       // set hide from UI
         case follow
-        case reqeust
+        case request
         case pending
         case following
         case muting
@@ -349,7 +349,7 @@ extension ProfileViewModel {
         
         static let none = RelationshipAction.none.option
         static let follow = RelationshipAction.follow.option
-        static let request = RelationshipAction.reqeust.option
+        static let request = RelationshipAction.request.option
         static let pending = RelationshipAction.pending.option
         static let following = RelationshipAction.following.option
         static let muting = RelationshipAction.muting.option
@@ -378,15 +378,15 @@ extension ProfileViewModel {
             }
             switch highPriorityAction {
             case .none: return " "
-            case .follow: return L10n.Common.Controls.Firendship.follow
-            case .reqeust: return L10n.Common.Controls.Firendship.request
-            case .pending: return L10n.Common.Controls.Firendship.pending
-            case .following: return L10n.Common.Controls.Firendship.following
-            case .muting: return L10n.Common.Controls.Firendship.muted
-            case .blocked: return L10n.Common.Controls.Firendship.follow   // blocked by user
-            case .blocking: return L10n.Common.Controls.Firendship.blocked
-            case .suspended: return L10n.Common.Controls.Firendship.follow
-            case .edit: return L10n.Common.Controls.Firendship.editInfo
+            case .follow: return L10n.Common.Controls.Friendship.follow
+            case .request: return L10n.Common.Controls.Friendship.request
+            case .pending: return L10n.Common.Controls.Friendship.pending
+            case .following: return L10n.Common.Controls.Friendship.following
+            case .muting: return L10n.Common.Controls.Friendship.muted
+            case .blocked: return L10n.Common.Controls.Friendship.follow   // blocked by user
+            case .blocking: return L10n.Common.Controls.Friendship.blocked
+            case .suspended: return L10n.Common.Controls.Friendship.follow
+            case .edit: return L10n.Common.Controls.Friendship.editInfo
             case .editing: return L10n.Common.Controls.Actions.done
             case .updating: return " "
             }
@@ -400,7 +400,7 @@ extension ProfileViewModel {
             switch highPriorityAction {
             case .none: return Asset.Colors.brandBlue.color
             case .follow: return Asset.Colors.brandBlue.color
-            case .reqeust: return Asset.Colors.brandBlue.color
+            case .request: return Asset.Colors.brandBlue.color
             case .pending: return Asset.Colors.brandBlue.color
             case .following: return Asset.Colors.brandBlue.color
             case .muting: return Asset.Colors.Background.alertYellow.color

@@ -813,7 +813,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
             switch relationshipAction {
             case .none:
                 break
-            case .follow, .reqeust, .pending, .following:
+            case .follow, .request, .pending, .following:
                 UserProviderFacade.toggleUserFollowRelationship(provider: self)
                     .sink { _ in
                         // TODO: handle error
@@ -829,7 +829,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                     message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(name),
                     preferredStyle: .alert
                 )
-                let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unmute, style: .default) { [weak self] _ in
+                let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
                     guard let self = self else { return }
                     UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil)
                         .sink { _ in
@@ -851,7 +851,7 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                     message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.message(name),
                     preferredStyle: .alert
                 )
-                let unblockAction = UIAlertAction(title: L10n.Common.Controls.Firendship.unblock, style: .default) { [weak self] _ in
+                let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
                     guard let self = self else { return }
                     UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil)
                         .sink { _ in
