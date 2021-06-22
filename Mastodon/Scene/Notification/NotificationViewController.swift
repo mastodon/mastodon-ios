@@ -18,6 +18,8 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
     var disposeBag = Set<AnyCancellable>()
+    var observations = Set<NSKeyValueObservation>()
+
     private(set) lazy var viewModel = NotificationViewModel(context: context)
 
     let segmentControl: UISegmentedControl = {
@@ -119,6 +121,15 @@ extension NotificationViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        segmentControl.observe(\.selectedSegmentIndex, options: [.new]) { [weak self] segmentControl, _ in
+            guard let self = self else { return }
+            // scroll to top when select same segment
+            if segmentControl.selectedSegmentIndex == self.viewModel.selectedIndex.value.rawValue {
+                self.scrollToTop(animated: true)
+            }
+        }
+        .store(in: &observations)
     }
 
     override func viewWillAppear(_ animated: Bool) {
