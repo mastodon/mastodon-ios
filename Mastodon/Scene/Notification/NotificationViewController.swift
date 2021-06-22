@@ -48,8 +48,13 @@ extension NotificationViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
         navigationItem.titleView = segmentControl
+        NSLayoutConstraint.activate([
+            segmentControl.widthAnchor.constraint(equalToConstant: 287)
+        ])
         segmentControl.addTarget(self, action: #selector(NotificationViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
