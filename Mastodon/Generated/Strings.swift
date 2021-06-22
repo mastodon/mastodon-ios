@@ -843,7 +843,7 @@ internal enum L10n {
         internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
       }
       internal enum Searching {
-        /// clear
+        /// Clear
         internal static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear")
         /// Recent searches
         internal static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch")

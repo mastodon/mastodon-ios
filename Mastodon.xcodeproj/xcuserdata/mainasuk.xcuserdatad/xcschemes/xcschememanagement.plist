@@ -12,7 +12,7 @@
 		<key>CoreDataStack.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>39</integer>
+			<integer>34</integer>
 		</dict>
 		<key>Mastodon - ASDK.xcscheme_^#shared#^_</key>
 		<dict>
@@ -37,7 +37,7 @@
 		<key>NotificationService.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>40</integer>
+			<integer>31</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
