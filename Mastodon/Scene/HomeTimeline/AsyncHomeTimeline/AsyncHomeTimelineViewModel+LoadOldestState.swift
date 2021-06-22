@@ -5,6 +5,8 @@
 //  Created by MainasuK Cirno on 2021-6-21.
 //
 
+#if ASDK
+
 import os.log
 import Foundation
 import GameplayKit
@@ -111,3 +113,5 @@ extension AsyncHomeTimelineViewModel.LoadOldestState {
         }
     }
 }
+
+#endif

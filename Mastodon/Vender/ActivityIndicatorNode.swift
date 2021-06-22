@@ -1,5 +1,7 @@
 // ref: https://github.com/Adlai-Holler/ASDKPlaceholderTest/blob/eea9fa7cff2d16a57efb47d208422ea9b49a630a/ASDKPlaceholderTest/ASDisplayNodeSubclasses.swift
 
+#if ASDK
+
 import Foundation
 import AsyncDisplayKit
 import UIKit
@@ -69,3 +71,5 @@ class ActivityIndicatorNode: ASDisplayNode {
         }
     }
 }
+
+#endif

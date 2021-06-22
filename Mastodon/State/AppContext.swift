@@ -211,9 +211,3 @@ extension AppContext {
     }
 
 }
-
-extension AppContext {
-    @objc func toggleHomePreference(_ action: UIAction) {
-        UserDefaults.shared.preferAsyncHomeTimeline.toggle()
-    }
-}

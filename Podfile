@@ -8,7 +8,7 @@ target 'Mastodon' do
 
   # UI
   pod 'UITextField+Shake', '~> 1.2'
-  pod 'Texture', '~> 3.0.0'
+  pod 'Texture', '~> 3.0.0', :configurations => ['ASDK - Debug', 'ASDK - Release']
 
   # misc
   pod 'SwiftGen', '~> 6.4.0'
@@ -16,8 +16,8 @@ target 'Mastodon' do
   pod 'Kanna', '~> 5.2.2'
 
   # DEBUG
-  pod 'FLEX', '~> 4.4.0', :configurations => ['Debug']
-  pod 'GDPerformanceView-Swift', '~> 2.1.1', :configurations => ['Debug']
+  pod 'FLEX', '~> 4.4.0', :configurations => ['Debug', 'ASDK - Debug']
+  pod 'GDPerformanceView-Swift', '~> 2.1.1', :configurations => ['Debug', 'ASDK - Debug']
   
   target 'MastodonTests' do
     inherit! :search_paths

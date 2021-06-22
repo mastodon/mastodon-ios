@@ -10,6 +10,10 @@ import UIKit
 import Combine
 import SafariServices
 
+#if DEBUG
+import GDPerformanceView_Swift
+#endif
+
 class MainTabBarController: UITabBarController {
     
     var disposeBag = Set<AnyCancellable>()
@@ -185,6 +189,14 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        #if DEBUG
+        PerformanceMonitor.shared().start()
+        #endif
+    }
         
 }
 
@@ -345,3 +357,33 @@ extension MainTabBarController {
     }
     
 }
+
+#if ASDK
+extension MainTabBarController {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard let event = event else { return }
+        switch event.subtype {
+        case .motionShake:
+            let alertController = UIAlertController(title: "ASDK Debug Panel", message: nil, preferredStyle: .alert)
+            let toggleHomeAction = UIAlertAction(title: "Toggle Home", style: .default) { [weak self] _ in
+                guard let self = self else { return }
+                MainTabBarController.toggleAsyncHome()
+                let okAlertController = UIAlertController(title: "Success", message: "Please restart the app", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                okAlertController.addAction(okAction)
+                self.coordinator.present(scene: .alertController(alertController: okAlertController), from: nil, transition: .alertController(animated: true, completion: nil))
+            }
+            alertController.addAction(toggleHomeAction)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
+        default:
+            break
+        }
+    }
+    
+    static func toggleAsyncHome() {
+        UserDefaults.shared.preferAsyncHomeTimeline.toggle()
+    }
+}
+#endif
