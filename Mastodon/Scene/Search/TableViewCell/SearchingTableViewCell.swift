@@ -115,11 +115,11 @@ extension SearchingTableViewCell {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
         _titleLabel.text = "# " + tag.name
-        guard let historys = tag.history else {
+        guard let histories = tag.history else {
             _subTitleLabel.text = ""
             return
         }
-        let recentHistory = historys.prefix(2)
+        let recentHistory = histories.prefix(2)
         let peopleAreTalking = recentHistory.compactMap { Int($0.accounts) }.reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         _subTitleLabel.text = string
@@ -129,13 +129,13 @@ extension SearchingTableViewCell {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
         _titleLabel.text = "# " + tag.name
-        guard let historys = tag.histories?.sorted(by: {
+        guard let histories = tag.histories?.sorted(by: {
             $0.createAt.compare($1.createAt) == .orderedAscending
         }) else {
             _subTitleLabel.text = ""
             return
         }
-        let recentHistory = historys.prefix(2)
+        let recentHistory = histories.prefix(2)
         let peopleAreTalking = recentHistory.compactMap { Int($0.accounts) }.reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         _subTitleLabel.text = string
