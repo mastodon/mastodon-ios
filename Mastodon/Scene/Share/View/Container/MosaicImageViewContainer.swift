@@ -24,18 +24,21 @@ final class MosaicImageViewContainer: UIView {
     weak var delegate: MosaicImageViewContainerDelegate?
     
     let container = UIStackView()
-    var imageViews: [UIImageView] = [] {
-        didSet {
-            imageViews.forEach { imageView in
-                imageView.isUserInteractionEnabled = true
-                let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
-                tapGesture.addTarget(self, action: #selector(MosaicImageViewContainer.photoTapGestureRecognizerHandler(_:)))
-                imageView.addGestureRecognizer(tapGesture)
-                imageView.isAccessibilityElement = true
-            }
+    private(set) lazy var imageViews: [UIImageView] = {
+        (0..<4).map { _ -> UIImageView in
+            let imageView = UIImageView()
+            imageView.isUserInteractionEnabled = true
+            let tapGesture = UITapGestureRecognizer.singleTapGestureRecognizer
+            tapGesture.addTarget(self, action: #selector(MosaicImageViewContainer.photoTapGestureRecognizerHandler(_:)))
+            imageView.addGestureRecognizer(tapGesture)
+            imageView.isAccessibilityElement = true
+            imageView.backgroundColor = .systemFill
+            return imageView
         }
-    }
-    var blurhashOverlayImageViews: [UIImageView] = []
+    }()
+    let blurhashOverlayImageViews: [UIImageView] = {
+        (0..<4).map { _  in UIImageView() }
+    }()
     
     let contentWarningOverlayView: ContentWarningOverlayView = {
         let contentWarningOverlayView = ContentWarningOverlayView()
@@ -97,12 +100,19 @@ extension MosaicImageViewContainer {
         container.subviews.forEach { subview in
             subview.removeFromSuperview()
         }
+        imageViews.forEach { imageView in
+            imageView.constraints.forEach { imageView.removeConstraint($0) }
+            imageView.removeFromSuperview()
+        }
+        blurhashOverlayImageViews.forEach { imageView in
+            imageView.constraints.forEach { imageView.removeConstraint($0) }
+            imageView.removeFromSuperview()
+        }
+        
         contentWarningOverlayView.removeFromSuperview()
         contentWarningOverlayView.blurVisualEffectView.effect = ContentWarningOverlayView.blurVisualEffect
         contentWarningOverlayView.vibrancyVisualEffectView.alpha = 1.0
         contentWarningOverlayView.isUserInteractionEnabled = true
-        imageViews = []
-        blurhashOverlayImageViews = []
         
         container.spacing = UIView.separatorLineHeight(of: self) * 2        // 2px
     }
@@ -129,8 +139,7 @@ extension MosaicImageViewContainer {
         }()
         let imageViewFrame = CGRect(origin: .zero, size: imageViewSize)
 
-        let imageView = UIImageView(frame: imageViewFrame)
-        imageViews.append(imageView)
+        let imageView = imageViews[0]
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
         imageView.layer.cornerCurve = .continuous
@@ -147,12 +156,11 @@ extension MosaicImageViewContainer {
         containerHeightLayoutConstraint.constant = imageViewFrame.height
         containerHeightLayoutConstraint.isActive = true
         
-        let blurhashOverlayImageView = UIImageView()
+        let blurhashOverlayImageView = blurhashOverlayImageViews[0]
         blurhashOverlayImageView.layer.masksToBounds = true
         blurhashOverlayImageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
         blurhashOverlayImageView.layer.cornerCurve = .continuous
         blurhashOverlayImageView.contentMode = .scaleAspectFill
-        blurhashOverlayImageViews.append(blurhashOverlayImageView)
         blurhashOverlayImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(blurhashOverlayImageView)
         NSLayoutConstraint.activate([
@@ -200,14 +208,9 @@ extension MosaicImageViewContainer {
         container.addArrangedSubview(contentLeftStackView)
         container.addArrangedSubview(contentRightStackView)
         
-        var imageViews: [UIImageView] = []
-        var blurhashOverlayImageViews: [UIImageView] = []
-        for _ in 0..<count {
-            imageViews.append(UIImageView())
-            blurhashOverlayImageViews.append(UIImageView())
-        }
-        self.imageViews.append(contentsOf: imageViews)
-        self.blurhashOverlayImageViews.append(contentsOf: blurhashOverlayImageViews)
+        let imageViews: [UIImageView] = (0..<count).map { i in self.imageViews[i] }
+        let blurhashOverlayImageViews: [UIImageView] = (0..<count).map { i in self.blurhashOverlayImageViews[i] }
+        
         imageViews.forEach { imageView in
             imageView.layer.masksToBounds = true
             imageView.layer.cornerRadius = ContentWarningOverlayView.cornerRadius
