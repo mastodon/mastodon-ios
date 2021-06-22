@@ -51,6 +51,12 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         configure()
     }
+
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? Asset.Colors.brandBlueDarken20.color : Asset.Colors.brandBlue.color
+        }
+    }
 }
 
 extension SearchRecommendTagsCollectionViewCell {
