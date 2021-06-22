@@ -395,21 +395,21 @@ extension ProfileViewModel {
         var backgroundColor: UIColor {
             guard let highPriorityAction = self.highPriorityAction(except: []) else {
                 assertionFailure()
-                return Asset.Colors.Button.normal.color
+                return Asset.Colors.brandBlue.color
             }
             switch highPriorityAction {
-            case .none: return Asset.Colors.Button.normal.color
-            case .follow: return Asset.Colors.Button.normal.color
-            case .reqeust: return Asset.Colors.Button.normal.color
-            case .pending: return Asset.Colors.Button.normal.color
-            case .following: return Asset.Colors.Button.normal.color
+            case .none: return Asset.Colors.brandBlue.color
+            case .follow: return Asset.Colors.brandBlue.color
+            case .reqeust: return Asset.Colors.brandBlue.color
+            case .pending: return Asset.Colors.brandBlue.color
+            case .following: return Asset.Colors.brandBlue.color
             case .muting: return Asset.Colors.Background.alertYellow.color
-            case .blocked: return Asset.Colors.Button.normal.color
+            case .blocked: return Asset.Colors.brandBlue.color
             case .blocking: return Asset.Colors.Background.danger.color
-            case .suspended: return Asset.Colors.Button.normal.color
-            case .edit: return Asset.Colors.Button.normal.color
-            case .editing: return Asset.Colors.Button.normal.color
-            case .updating: return Asset.Colors.Button.normal.color
+            case .suspended: return Asset.Colors.brandBlue.color
+            case .edit: return Asset.Colors.brandBlue.color
+            case .editing: return Asset.Colors.brandBlue.color
+            case .updating: return Asset.Colors.brandBlue.color
             }
         }
 

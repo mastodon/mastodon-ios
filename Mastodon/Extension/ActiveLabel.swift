@@ -25,9 +25,9 @@ extension ActiveLabel {
     
         numberOfLines = 0
         lineSpacing = 5
-        mentionColor = Asset.Colors.Label.highlight.color
-        hashtagColor = Asset.Colors.Label.highlight.color
-        URLColor = Asset.Colors.Label.highlight.color
+        mentionColor = Asset.Colors.brandBlue.color
+        hashtagColor = Asset.Colors.brandBlue.color
+        URLColor = Asset.Colors.brandBlue.color
         emojiPlaceholderColor = .systemFill
         #if DEBUG
         text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."

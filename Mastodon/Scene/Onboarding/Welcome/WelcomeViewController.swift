@@ -41,7 +41,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         let backgroundImageHighlightedColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor(white: 0.8, alpha: 1.0) : Asset.Colors.brandBlueDarken20.color
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
         button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
-        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? Asset.Colors.Button.normal.color : UIColor.white
+        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? Asset.Colors.brandBlue.color : UIColor.white
         button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -51,7 +51,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
-        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor.white.withAlphaComponent(0.8) : Asset.Colors.Button.normal.color
+        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor.white.withAlphaComponent(0.8) : Asset.Colors.brandBlue.color
         button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button

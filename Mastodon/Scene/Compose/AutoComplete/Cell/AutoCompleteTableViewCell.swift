@@ -32,7 +32,7 @@ final class AutoCompleteTableViewCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
-        label.textColor = Asset.Colors.Label.highlight.color
+        label.textColor = Asset.Colors.brandBlue.color
         label.text = "Title"
         return label
     }()

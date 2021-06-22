@@ -328,7 +328,7 @@ extension SettingsViewController: UITableViewDelegate {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
 
         switch item {
-        case .apperance:
+        case .appearance:
             // do nothing
             break
         case .notification:
@@ -399,7 +399,7 @@ extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
         guard let dataSource = viewModel.dataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let item = dataSource.itemIdentifier(for: indexPath)
-        guard case let .apperance(settingObjectID) = item else { return }
+        guard case let .appearance(settingObjectID) = item else { return }
 
         context.managedObjectContext.performChanges {
             let setting = self.context.managedObjectContext.object(with: settingObjectID) as! Setting

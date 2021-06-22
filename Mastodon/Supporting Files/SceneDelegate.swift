@@ -22,6 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
 
+        // set tint color
+        window.tintColor = Asset.Colors.brandBlue.color
         
         let appContext = AppContext.shared
         let sceneCoordinator = SceneCoordinator(scene: scene, sceneDelegate: self, appContext: appContext)

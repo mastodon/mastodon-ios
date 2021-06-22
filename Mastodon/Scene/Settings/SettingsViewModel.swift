@@ -71,7 +71,7 @@ extension SettingsViewModel {
         var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, SettingsItem>()
 
         // appearance
-        let appearanceItems = [SettingsItem.apperance(settingObjectID: setting.objectID)]
+        let appearanceItems = [SettingsItem.appearance(settingObjectID: setting.objectID)]
         snapshot.appendSections([.apperance])
         snapshot.appendItems(appearanceItems, toSection: .apperance)
         
@@ -123,7 +123,7 @@ extension SettingsViewModel {
             guard let self = self else { return nil }
             
             switch item {
-            case .apperance(let objectID):
+            case .appearance(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsAppearanceTableViewCell.self), for: indexPath) as! SettingsAppearanceTableViewCell
                 self.context.managedObjectContext.performAndWait {
                     let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
