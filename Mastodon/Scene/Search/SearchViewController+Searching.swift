@@ -29,6 +29,7 @@ extension SearchViewController {
             searchingTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
         searchingTableView.tableFooterView = UIView()
+        searchingTableView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         viewModel.isSearching
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isSearching in
