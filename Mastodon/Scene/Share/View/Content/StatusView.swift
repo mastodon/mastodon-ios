@@ -126,7 +126,7 @@ final class StatusView: UIView {
     let revealContentWarningButton: UIButton = {
         let button = HighlightDimmableButton()
         button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
-        button.tintColor = Asset.Colors.Button.normal.color
+        button.tintColor = Asset.Colors.brandBlue.color
         return button
     }()
     
@@ -175,8 +175,8 @@ final class StatusView: UIView {
         let button = HitTestExpandedButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 14, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Status.Poll.vote, for: .normal)
-        button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
-        button.setTitleColor(Asset.Colors.Button.normal.color.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color.withAlphaComponent(0.8), for: .highlighted)
         button.setTitleColor(Asset.Colors.Button.disabled.color, for: .disabled)
         button.isEnabled = false
         return button

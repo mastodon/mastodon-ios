@@ -11,8 +11,11 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
-import AsyncDisplayKit
 import Nuke
+
+#if ASDK
+import AsyncDisplayKit
+#endif
 
 protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
@@ -24,6 +27,7 @@ enum StatusSection: Equatable, Hashable {
 }
 
 extension StatusSection {
+    #if ASDK
     static func tableNodeDiffableDataSource(
         tableNode: ASTableNode,
         managedObjectContext: NSManagedObjectContext
@@ -49,7 +53,7 @@ extension StatusSection {
             }
         }
     }
-
+    #endif
 
     static func tableViewDiffableDataSource(
         for tableView: UITableView,

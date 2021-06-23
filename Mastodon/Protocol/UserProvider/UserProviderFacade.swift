@@ -164,9 +164,9 @@ extension UserProviderFacade {
         if !isMyself {
             // mute
             let muteAction = UIAction(
-                title: isMuting ? L10n.Common.Controls.Firendship.unmuteUser(name) : L10n.Common.Controls.Firendship.mute,
+                title: isMuting ? L10n.Common.Controls.Friendship.unmuteUser(name) : L10n.Common.Controls.Friendship.mute,
                 image: isMuting ? UIImage(systemName: "speaker") : UIImage(systemName: "speaker.slash"),
-                discoverabilityTitle: isMuting ? nil : L10n.Common.Controls.Firendship.muteUser(name),
+                discoverabilityTitle: isMuting ? nil : L10n.Common.Controls.Friendship.muteUser(name),
                 attributes: isMuting ? [] : .destructive,
                 state: .off
             ) { [weak provider] _ in
@@ -186,7 +186,7 @@ extension UserProviderFacade {
             if isMuting {
                 children.append(muteAction)
             } else {
-                let muteMenu = UIMenu(title: L10n.Common.Controls.Firendship.muteUser(name), image: UIImage(systemName: "speaker.slash"), options: [], children: [muteAction])
+                let muteMenu = UIMenu(title: L10n.Common.Controls.Friendship.muteUser(name), image: UIImage(systemName: "speaker.slash"), options: [], children: [muteAction])
                 children.append(muteMenu)
             }
         }
@@ -194,9 +194,9 @@ extension UserProviderFacade {
         if !isMyself {
             // block
             let blockAction = UIAction(
-                title: isBlocking ? L10n.Common.Controls.Firendship.unblockUser(name) : L10n.Common.Controls.Firendship.block,
+                title: isBlocking ? L10n.Common.Controls.Friendship.unblockUser(name) : L10n.Common.Controls.Friendship.block,
                 image: isBlocking ? UIImage(systemName: "hand.raised.slash") : UIImage(systemName: "hand.raised"),
-                discoverabilityTitle: isBlocking ? nil : L10n.Common.Controls.Firendship.blockUser(name),
+                discoverabilityTitle: isBlocking ? nil : L10n.Common.Controls.Friendship.blockUser(name),
                 attributes: isBlocking ? [] : .destructive,
                 state: .off
             ) { [weak provider] _ in
@@ -216,7 +216,7 @@ extension UserProviderFacade {
             if isBlocking {
                 children.append(blockAction)
             } else {
-                let blockMenu = UIMenu(title: L10n.Common.Controls.Firendship.blockUser(name), image: UIImage(systemName: "hand.raised"), options: [], children: [blockAction])
+                let blockMenu = UIMenu(title: L10n.Common.Controls.Friendship.blockUser(name), image: UIImage(systemName: "hand.raised"), options: [], children: [blockAction])
                 children.append(blockMenu)
             }
         }

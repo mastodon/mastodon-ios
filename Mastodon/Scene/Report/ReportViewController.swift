@@ -222,10 +222,16 @@ class ReportViewController: UIViewController, NeedsDependency {
             let padding = contentFrame.maxY - endFrame.minY
             guard padding > 0 else {
                 self.bottomConstraint.constant = 0.0
+                UIView.animate(withDuration: 0.33) {
+                    self.view.layoutIfNeeded()
+                }
                 return
             }
             
             self.bottomConstraint.constant = padding
+            UIView.animate(withDuration: 0.33) {
+                self.view.layoutIfNeeded()
+            }
         })
         .store(in: &disposeBag)
     }
@@ -235,7 +241,7 @@ class ReportViewController: UIViewController, NeedsDependency {
             = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel,
                               target: self,
                               action: #selector(doneButtonDidClick))
-        navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.Label.highlight.color
+        navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.brandBlue.color
         
         // fetch old mastodon user
         let beReportedUser: MastodonUser? = {

@@ -6,6 +6,8 @@
 //
 //
 
+#if ASDK
+
 import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
@@ -146,3 +148,5 @@ final class AsyncHomeTimelineViewModel: NSObject {
 }
 
 extension AsyncHomeTimelineViewModel: SuggestionAccountViewModelDelegate { }
+
+#endif

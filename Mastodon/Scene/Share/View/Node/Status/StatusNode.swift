@@ -5,6 +5,8 @@
 //  Created by Cirno MainasuK on 2021-6-19.
 //
 
+#if ASDK
+
 import UIKit
 import Combine
 import AsyncDisplayKit
@@ -235,3 +237,5 @@ extension StatusNode: ASMultiplexImageNodeDataSource {
         }
     }
 }
+
+#endif

@@ -5,6 +5,8 @@
 //  Created by Cirno MainasuK on 2021-6-20.
 //
 
+#if ASDK
+
 import UIKit
 import AsyncDisplayKit
 
@@ -19,3 +21,5 @@ final class ASMetaEditableTextNode: ASEditableTextNode, UITextViewDelegate {
         return metaEditableTextNodeDelegate?.metaEditableTextNode(self, shouldInteractWith: URL, in: characterRange, interaction: interaction) ?? false
     }
 }
+
+#endif

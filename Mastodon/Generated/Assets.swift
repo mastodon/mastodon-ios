@@ -32,12 +32,8 @@ internal enum Asset {
   }
   internal enum Colors {
     internal enum Background {
-      internal enum AudioPlayer {
-        internal static let highlight = ColorAsset(name: "Colors/Background/AudioPlayer/highlight")
-      }
       internal enum Poll {
         internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
-        internal static let highlight = ColorAsset(name: "Colors/Background/Poll/highlight")
       }
       internal static let alertYellow = ColorAsset(name: "Colors/Background/alert.yellow")
       internal static let dangerBorder = ColorAsset(name: "Colors/Background/danger.border")
@@ -61,13 +57,11 @@ internal enum Asset {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
       internal static let inactive = ColorAsset(name: "Colors/Button/inactive")
-      internal static let normal = ColorAsset(name: "Colors/Button/normal")
     }
     internal enum Icon {
       internal static let plus = ColorAsset(name: "Colors/Icon/plus")
     }
     internal enum Label {
-      internal static let highlight = ColorAsset(name: "Colors/Label/highlight")
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
       internal static let tertiary = ColorAsset(name: "Colors/Label/tertiary")
@@ -85,7 +79,6 @@ internal enum Asset {
     }
     internal enum TextField {
       internal static let background = ColorAsset(name: "Colors/TextField/background")
-      internal static let highlight = ColorAsset(name: "Colors/TextField/highlight")
       internal static let invalid = ColorAsset(name: "Colors/TextField/invalid")
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }

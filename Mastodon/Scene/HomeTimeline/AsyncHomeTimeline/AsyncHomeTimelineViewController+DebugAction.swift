@@ -5,12 +5,12 @@
 //  Created by MainasuK Cirno on 2021-6-21.
 //
 
+#if ASDK && DEBUG
+
 import os.log
 import UIKit
 import CoreData
 import CoreDataStack
-
-#if DEBUG
 import FLEX
 
 extension AsyncHomeTimelineViewController {
@@ -24,10 +24,6 @@ extension AsyncHomeTimelineViewController {
                 UIAction(title: "Show FLEX", image: nil, attributes: [], handler: { [weak self] action in
                     guard let self = self else { return }
                     self.showFLEXAction(action)
-                }),
-                UIAction(title: "Toggle Home", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.context.toggleHomePreference(action)
                 }),
                 moveMenu,
                 dropMenu,
@@ -384,4 +380,5 @@ extension AsyncHomeTimelineViewController {
         .store(in: &disposeBag)
     }
 }
+
 #endif

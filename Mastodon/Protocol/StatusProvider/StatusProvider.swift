@@ -9,7 +9,10 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+
+#if ASDK
 import AsyncDisplayKit
+#endif
 
 protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewController {
     // async
@@ -23,11 +26,15 @@ protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewControl
     func item(for cell: UITableViewCell?, indexPath: IndexPath?) -> Item?
     func items(indexPaths: [IndexPath]) -> [Item]
 
+    #if ASDK
     func status(node: ASCellNode?, indexPath: IndexPath?) -> Status?
+    #endif
 }
 
+#if ASDK
 extension StatusProvider {
     func status(node: ASCellNode?, indexPath: IndexPath?) -> Status? {
         fatalError("Needs implement this")
     }
 }
+#endif

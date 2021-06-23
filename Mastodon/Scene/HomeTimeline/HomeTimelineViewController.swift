@@ -15,10 +15,6 @@ import GameplayKit
 import MastodonSDK
 import AlamofireImage
 
-#if DEBUG
-import GDPerformanceView_Swift
-#endif
-
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -102,22 +98,6 @@ extension HomeTimelineViewController {
         #if DEBUG
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
-        PerformanceMonitor.shared().delegate = self
-        #elseif ASDK
-        settingBarButtonItem.menu = UIMenu(title: "Toggle Home", image: nil, identifier: nil, options: [], children: [
-            UIAction(title: "Setting", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.settingBarButtonItemPressed(self.settingBarButtonItem)
-            }),
-            UIAction(title: "Show Async Home", image: nil, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] action in
-                guard let self = self else { return }
-                self.context.toggleHomePreference(action)
-                let alertController = UIAlertController(title: "Please Restart App", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.coordinator.present(scene: .alertController(alertController: alertController), from: nil, transition: .alertController(animated: true, completion: nil))
-            })
-        ])
         #else
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
@@ -578,11 +558,3 @@ extension HomeTimelineViewController: StatusTableViewControllerNavigateable {
         statusKeyCommandHandler(sender)
     }
 }
-
-#if DEBUG
-extension HomeTimelineViewController: PerformanceMonitorDelegate {
-    func performanceMonitor(didReport performanceReport: PerformanceReport) {
-        // print(performanceReport)
-    }
-}
-#endif

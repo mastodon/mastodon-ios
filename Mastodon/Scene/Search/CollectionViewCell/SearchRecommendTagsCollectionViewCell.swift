@@ -51,6 +51,12 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         super.init(coder: coder)
         configure()
     }
+
+    override var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? Asset.Colors.brandBlueDarken20.color : Asset.Colors.brandBlue.color
+        }
+    }
 }
 
 extension SearchRecommendTagsCollectionViewCell {
@@ -106,7 +112,7 @@ extension SearchRecommendTagsCollectionViewCell {
         
         flameIconView.translatesAutoresizingMaskIntoConstraints = false
         horizontalStackView.addArrangedSubview(flameIconView)
-        
+        flameIconView.setContentHuggingPriority(.required - 1, for: .horizontal)
 
         containerStackView.addArrangedSubview(horizontalStackView)
         peopleLabel.translatesAutoresizingMaskIntoConstraints = false

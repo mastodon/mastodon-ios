@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 enum SettingsItem: Hashable {
-    case apperance(settingObjectID: NSManagedObjectID)
+    case appearance(settingObjectID: NSManagedObjectID)
     case notification(settingObjectID: NSManagedObjectID, switchMode: NotificationSwitchMode)
     case boringZone(item: Link)
     case spicyZone(item: Link)
@@ -56,8 +56,8 @@ extension SettingsItem {
         
         var textColor: UIColor {
             switch self {
-            case .termsOfService:    return .systemBlue
-            case .privacyPolicy:     return .systemBlue
+            case .termsOfService:    return Asset.Colors.brandBlue.color
+            case .privacyPolicy:     return Asset.Colors.brandBlue.color
             case .clearMediaCache:   return .systemRed
             case .signOut:           return .systemRed
             }

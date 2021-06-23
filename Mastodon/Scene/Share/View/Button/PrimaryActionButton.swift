@@ -38,10 +38,20 @@ extension PrimaryActionButton {
     private func _init() {
         titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold))
         setTitleColor(.white, for: .normal)
+        setupBackgroundAppearance()
+        applyCornerRadius(radius: 10)
+    }
+
+    func setupBackgroundAppearance() {
         setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
         setBackgroundImage(UIImage.placeholder(color: Asset.Colors.brandBlueDarken20.color), for: .highlighted)
         setBackgroundImage(UIImage.placeholder(color: Asset.Colors.disabled.color), for: .disabled)
-        applyCornerRadius(radius: 10)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        setupBackgroundAppearance()
     }
     
     func showLoading() {

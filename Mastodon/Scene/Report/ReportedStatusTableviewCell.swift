@@ -76,7 +76,7 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
         super.setHighlighted(highlighted, animated: animated)
         if highlighted {
             checkbox.image = UIImage(systemName: "checkmark.circle.fill")
-            checkbox.tintColor = Asset.Colors.Label.highlight.color
+            checkbox.tintColor = Asset.Colors.brandBlue.color
         } else if !isSelected {
             checkbox.image = UIImage(systemName: "circle")
             checkbox.tintColor = Asset.Colors.Label.secondary.color

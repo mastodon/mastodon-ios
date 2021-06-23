@@ -117,10 +117,9 @@ extension HashtagTimelineViewController {
         aspectViewWillAppear(animated)
         
         viewModel.fetchTag()
-        guard viewModel.loadLatestStateMachine.currentState is HashtagTimelineViewModel.LoadLatestState.Initial else { return }
-
-        refreshControl.beginRefreshing()
-        refreshControl.sendActions(for: .valueChanged)
+        if viewModel.loadLatestStateMachine.currentState is HashtagTimelineViewModel.LoadLatestState.Initial {
+            viewModel.loadLatestStateMachine.enter(HashtagTimelineViewModel.LoadLatestState.Loading.self)
+        }
     }
 
     override func viewDidDisappear(_ animated: Bool) {
