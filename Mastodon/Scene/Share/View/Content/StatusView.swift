@@ -12,7 +12,9 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
-import LinkPresentation
+
+// TODO:
+// import LinkPresentation
 
 protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
@@ -205,7 +207,8 @@ final class StatusView: UIView {
     
     var isRevealing = true
 
-    let linkPreview = LPLinkView()
+    // TODO:
+    // let linkPreview = LPLinkView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -360,9 +363,10 @@ extension StatusView {
         statusContainerStackView.addArrangedSubview(activeTextLabel)
         activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
+        // TODO:
         // link preview
-        statusContainerStackView.addArrangedSubview(linkPreview)
-        linkPreview.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        // statusContainerStackView.addArrangedSubview(linkPreview)
+        // linkPreview.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         // image
         statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)
@@ -444,6 +448,7 @@ extension StatusView {
     func updateContentWarningDisplay(isHidden: Bool, animated: Bool) {
         func updateOverlayView() {
             contentWarningOverlayView.contentOverlayView.alpha = isHidden ? 0 : 1
+            contentWarningOverlayView.isUserInteractionEnabled = !isHidden
         }
 
         if animated {
@@ -456,7 +461,6 @@ extension StatusView {
         }
 
         contentWarningOverlayView.blurContentWarningTitleLabel.isHidden = isHidden
-        contentWarningOverlayView.blurContentWarningLabel.isHidden = isHidden
     }
     
     func updateRevealContentWarningButton(isRevealing: Bool) {

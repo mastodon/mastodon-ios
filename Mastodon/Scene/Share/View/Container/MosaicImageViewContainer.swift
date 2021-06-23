@@ -103,10 +103,12 @@ extension MosaicImageViewContainer {
         imageViews.forEach { imageView in
             imageView.constraints.forEach { imageView.removeConstraint($0) }
             imageView.removeFromSuperview()
+            imageView.image = nil
         }
         blurhashOverlayImageViews.forEach { imageView in
             imageView.constraints.forEach { imageView.removeConstraint($0) }
             imageView.removeFromSuperview()
+            imageView.image = nil
         }
         
         contentWarningOverlayView.removeFromSuperview()
