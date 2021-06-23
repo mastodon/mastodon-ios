@@ -713,7 +713,7 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
     private func setTextFieldValidAppearance(_ textField: UITextField, validateState: MastodonRegisterViewModel.ValidateState) {
         switch validateState {
         case .empty:
-            showShadowWithColor(color: textField.isFirstResponder ? Asset.Colors.TextField.highlight.color : .clear, textField: textField)
+            showShadowWithColor(color: textField.isFirstResponder ? Asset.Colors.brandBlue.color : .clear, textField: textField)
         case .valid:
             showShadowWithColor(color: Asset.Colors.TextField.valid.color, textField: textField)
         case .invalid:

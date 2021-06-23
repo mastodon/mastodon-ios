@@ -241,7 +241,7 @@ class ReportViewController: UIViewController, NeedsDependency {
             = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel,
                               target: self,
                               action: #selector(doneButtonDidClick))
-        navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.Label.highlight.color
+        navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.brandBlue.color
         
         // fetch old mastodon user
         let beReportedUser: MastodonUser? = {

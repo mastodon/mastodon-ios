@@ -48,7 +48,7 @@ class AppearanceView: UIView {
         didSet {
             checkBox.isSelected = selected
             if selected {
-                checkBox.imageView?.tintColor = Asset.Colors.Label.highlight.color
+                checkBox.imageView?.tintColor = Asset.Colors.brandBlue.color
             } else {
                 checkBox.imageView?.tintColor = Asset.Colors.Label.secondary.color
             }

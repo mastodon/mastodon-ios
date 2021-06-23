@@ -21,7 +21,7 @@ final class PollOptionView: UIView {
     let roundedBackgroundView = UIView()
     let voteProgressStripView: StripProgressView = {
         let view = StripProgressView()
-        view.tintColor = Asset.Colors.Background.Poll.highlight.color
+        view.tintColor = Asset.Colors.brandBlue.color
         return view
     }()
     
@@ -35,7 +35,7 @@ final class PollOptionView: UIView {
         let imageView = UIImageView()
         let image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 14, weight: .bold))!
         imageView.image = image.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = Asset.Colors.Button.normal.color
+        imageView.tintColor = Asset.Colors.brandBlue.color
         return imageView
     }()
     
@@ -43,7 +43,7 @@ final class PollOptionView: UIView {
         let imageView = UIImageView()
         let image = Asset.Circles.plusCircle.image
         imageView.image = image.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = Asset.Colors.Button.normal.color
+        imageView.tintColor = Asset.Colors.brandBlue.color
         return imageView
     }()
     

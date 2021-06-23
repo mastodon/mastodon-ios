@@ -167,48 +167,48 @@ internal enum L10n {
           return L10n.tr("Localizable", "Common.Controls.Actions.UnblockDomain", String(describing: p1))
         }
       }
-      internal enum Firendship {
+      internal enum Friendship {
         /// Block
-        internal static let block = L10n.tr("Localizable", "Common.Controls.Firendship.Block")
+        internal static let block = L10n.tr("Localizable", "Common.Controls.Friendship.Block")
         /// Block %@
         internal static func blockDomain(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Firendship.BlockDomain", String(describing: p1))
+          return L10n.tr("Localizable", "Common.Controls.Friendship.BlockDomain", String(describing: p1))
         }
         /// Blocked
-        internal static let blocked = L10n.tr("Localizable", "Common.Controls.Firendship.Blocked")
+        internal static let blocked = L10n.tr("Localizable", "Common.Controls.Friendship.Blocked")
         /// Block %@
         internal static func blockUser(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Firendship.BlockUser", String(describing: p1))
+          return L10n.tr("Localizable", "Common.Controls.Friendship.BlockUser", String(describing: p1))
         }
         /// Edit Info
-        internal static let editInfo = L10n.tr("Localizable", "Common.Controls.Firendship.EditInfo")
+        internal static let editInfo = L10n.tr("Localizable", "Common.Controls.Friendship.EditInfo")
         /// Follow
-        internal static let follow = L10n.tr("Localizable", "Common.Controls.Firendship.Follow")
+        internal static let follow = L10n.tr("Localizable", "Common.Controls.Friendship.Follow")
         /// Following
-        internal static let following = L10n.tr("Localizable", "Common.Controls.Firendship.Following")
+        internal static let following = L10n.tr("Localizable", "Common.Controls.Friendship.Following")
         /// Mute
-        internal static let mute = L10n.tr("Localizable", "Common.Controls.Firendship.Mute")
+        internal static let mute = L10n.tr("Localizable", "Common.Controls.Friendship.Mute")
         /// Muted
-        internal static let muted = L10n.tr("Localizable", "Common.Controls.Firendship.Muted")
+        internal static let muted = L10n.tr("Localizable", "Common.Controls.Friendship.Muted")
         /// Mute %@
         internal static func muteUser(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Firendship.MuteUser", String(describing: p1))
+          return L10n.tr("Localizable", "Common.Controls.Friendship.MuteUser", String(describing: p1))
         }
         /// Pending
-        internal static let pending = L10n.tr("Localizable", "Common.Controls.Firendship.Pending")
+        internal static let pending = L10n.tr("Localizable", "Common.Controls.Friendship.Pending")
         /// Request
-        internal static let request = L10n.tr("Localizable", "Common.Controls.Firendship.Request")
+        internal static let request = L10n.tr("Localizable", "Common.Controls.Friendship.Request")
         /// Unblock
-        internal static let unblock = L10n.tr("Localizable", "Common.Controls.Firendship.Unblock")
+        internal static let unblock = L10n.tr("Localizable", "Common.Controls.Friendship.Unblock")
         /// Unblock %@
         internal static func unblockUser(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Firendship.UnblockUser", String(describing: p1))
+          return L10n.tr("Localizable", "Common.Controls.Friendship.UnblockUser", String(describing: p1))
         }
         /// Unmute
-        internal static let unmute = L10n.tr("Localizable", "Common.Controls.Firendship.Unmute")
+        internal static let unmute = L10n.tr("Localizable", "Common.Controls.Friendship.Unmute")
         /// Unmute %@
         internal static func unmuteUser(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Firendship.UnmuteUser", String(describing: p1))
+          return L10n.tr("Localizable", "Common.Controls.Friendship.UnmuteUser", String(describing: p1))
         }
       }
       internal enum Keyboard {

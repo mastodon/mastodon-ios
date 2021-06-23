@@ -175,15 +175,19 @@ extension MastodonServerRulesViewController {
     }
     
     func configTextView() {
-        let linkColor = Asset.Colors.Button.normal.color
-        
         let str = NSString(string: L10n.Scene.ServerRules.prompt(viewModel.domain))
         let termsOfServiceRange = str.range(of: L10n.Scene.ServerRules.termsOfService)
         let privacyRange = str.range(of: L10n.Scene.ServerRules.privacyPolicy)
-        let attributeString = NSMutableAttributedString(string: L10n.Scene.ServerRules.prompt(viewModel.domain), attributes: [NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22), NSAttributedString.Key.foregroundColor: UIColor.label])
+        let attributeString = NSMutableAttributedString(
+            string: L10n.Scene.ServerRules.prompt(viewModel.domain),
+            attributes: [
+                NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22),
+                NSAttributedString.Key.foregroundColor: UIColor.label
+            ]
+        )
         attributeString.addAttribute(.link, value: Mastodon.API.serverRulesURL(domain: viewModel.domain), range: termsOfServiceRange)
         attributeString.addAttribute(.link, value: Mastodon.API.privacyURL(domain: viewModel.domain), range: privacyRange)
-        let linkAttributes = [NSAttributedString.Key.foregroundColor:linkColor]
+        let linkAttributes = [NSAttributedString.Key.foregroundColor: Asset.Colors.brandBlue.color]
         bottomPromptTextView.attributedText = attributeString
         bottomPromptTextView.linkTextAttributes = linkAttributes
         bottomPromptTextView.delegate = self

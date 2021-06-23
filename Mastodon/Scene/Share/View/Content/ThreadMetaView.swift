@@ -20,8 +20,8 @@ final class ThreadMetaView: UIView {
         let button = UIButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle("0 reblog", for: .normal)
-        button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
-        button.setTitleColor(Asset.Colors.Button.normal.color.withAlphaComponent(0.5), for: .highlighted)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color.withAlphaComponent(0.5), for: .highlighted)
         return button
     }()
     
@@ -29,8 +29,8 @@ final class ThreadMetaView: UIView {
         let button = UIButton()
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle("0 favorite", for: .normal)
-        button.setTitleColor(Asset.Colors.Button.normal.color, for: .normal)
-        button.setTitleColor(Asset.Colors.Button.normal.color.withAlphaComponent(0.5), for: .highlighted)
+        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitleColor(Asset.Colors.brandBlue.color.withAlphaComponent(0.5), for: .highlighted)
         return button
     }()
     

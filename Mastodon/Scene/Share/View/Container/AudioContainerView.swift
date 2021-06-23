@@ -22,7 +22,7 @@ final class AudioContainerView: UIView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layer.cornerRadius = AudioContainerView.cornerRadius
         stackView.clipsToBounds = true
-        stackView.backgroundColor = Asset.Colors.Background.AudioPlayer.highlight.color
+        stackView.backgroundColor = Asset.Colors.brandBlue.color
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -31,7 +31,7 @@ final class AudioContainerView: UIView {
         let view = UIView()
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
-        view.backgroundColor = Asset.Colors.Background.AudioPlayer.highlight.color
+        view.backgroundColor = Asset.Colors.brandBlue.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

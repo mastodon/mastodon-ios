@@ -29,8 +29,8 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let button = RoundedEdgesButton(type: .custom)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14, weight: .bold)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color), for: .normal)
-        button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.normal.color.withAlphaComponent(0.5)), for: .highlighted)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.brandBlue.color), for: .normal)
+        button.setBackgroundImage(.placeholder(color: Asset.Colors.brandBlue.color.withAlphaComponent(0.5)), for: .highlighted)
         button.setBackgroundImage(.placeholder(color: Asset.Colors.Button.disabled.color), for: .disabled)
         button.setTitleColor(.white, for: .normal)
         button.contentEdgeInsets = UIEdgeInsets(top: 6, left: 16, bottom: 5, right: 16)     // set 28pt height
@@ -711,7 +711,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                 for match in highlightMatches {
                     // set highlight
                     var attributes = [NSAttributedString.Key: Any]()
-                    attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    attributes[.foregroundColor] = Asset.Colors.brandBlue.color
                     
                     // See `traitCollectionDidChange(_:)`
                     // set accessibility
@@ -780,7 +780,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                     
                     // set highlight
                     var attributes = [NSAttributedString.Key: Any]()
-                    attributes[.foregroundColor] = Asset.Colors.Label.highlight.color
+                    attributes[.foregroundColor] = Asset.Colors.brandBlue.color
                     
                     // See `traitCollectionDidChange(_:)`
                     // set accessibility
