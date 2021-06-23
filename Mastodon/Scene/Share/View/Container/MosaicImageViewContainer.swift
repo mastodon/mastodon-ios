@@ -103,11 +103,19 @@ extension MosaicImageViewContainer {
         imageViews.forEach { imageView in
             imageView.constraints.forEach { imageView.removeConstraint($0) }
             imageView.removeFromSuperview()
+            imageView.layer.maskedCorners = [
+                .layerMinXMinYCorner, .layerMaxXMinYCorner,
+                .layerMinXMaxYCorner, .layerMaxXMaxYCorner
+            ]
             imageView.image = nil
         }
         blurhashOverlayImageViews.forEach { imageView in
             imageView.constraints.forEach { imageView.removeConstraint($0) }
             imageView.removeFromSuperview()
+            imageView.layer.maskedCorners = [
+                .layerMinXMinYCorner, .layerMaxXMinYCorner,
+                .layerMinXMaxYCorner, .layerMaxXMaxYCorner
+            ]
             imageView.image = nil
         }
         
