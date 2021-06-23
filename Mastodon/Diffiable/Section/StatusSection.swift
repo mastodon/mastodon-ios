@@ -12,6 +12,7 @@ import os.log
 import UIKit
 import AVKit
 import Nuke
+import LinkPresentation
 
 #if ASDK
 import AsyncDisplayKit
@@ -597,6 +598,39 @@ extension StatusSection {
                 .store(in: &cell.disposeBag)
 
             let isSingleMosaicLayout = mosaics.count == 1
+
+            // set link preview
+            cell.statusView.linkPreview.isHidden = true
+
+            var _firstURL: URL? = {
+                for entity in cell.statusView.activeTextLabel.activeEntities {
+                    guard case let .url(_, _, url, _) = entity.type else { continue }
+                    return URL(string: url)
+                }
+                return nil
+            }()
+
+            if let url = _firstURL {
+                Future<LPLinkMetadata?, Error> { promise in
+                    LPMetadataProvider().startFetchingMetadata(for: url) { meta, error in
+                        if let error = error {
+                            promise(.failure(error))
+                        } else {
+                            promise(.success(meta))
+                        }
+                    }
+                }
+                .receive(on: RunLoop.main)
+                .sink { _ in
+                    // do nothing
+                } receiveValue: { [weak cell] meta in
+                    guard let meta = meta else { return }
+                    guard let cell = cell else { return }
+                    cell.statusView.linkPreview.metadata = meta
+                    cell.statusView.linkPreview.isHidden = false
+                }
+                .store(in: &cell.disposeBag)
+            }
 
             // set image
             let imageSize = CGSize(

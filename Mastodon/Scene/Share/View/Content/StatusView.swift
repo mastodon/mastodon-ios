@@ -12,6 +12,7 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
+import LinkPresentation
 
 protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
@@ -203,7 +204,9 @@ final class StatusView: UIView {
     private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
     var isRevealing = true
-        
+
+    let linkPreview = LPLinkView()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -356,6 +359,10 @@ extension StatusView {
         // status
         statusContainerStackView.addArrangedSubview(activeTextLabel)
         activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+
+        // link preview
+        statusContainerStackView.addArrangedSubview(linkPreview)
+        linkPreview.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         // image
         statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)
