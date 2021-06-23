@@ -349,7 +349,7 @@ extension StatusView {
         contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
-            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor).priority(.defaultHigh),
+            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor).priority(.defaultHigh + 10),
             statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor).priority(.defaultHigh),
             contentWarningOverlayView.rightAnchor.constraint(equalTo: statusContainerStackView.rightAnchor).priority(.defaultHigh),
             contentWarningOverlayView.bottomAnchor.constraint(equalTo: statusContainerStackView.bottomAnchor).priority(.defaultHigh),
@@ -412,6 +412,7 @@ extension StatusView {
         containerStackView.addArrangedSubview(actionToolbarContainer)
         containerStackView.sendSubviewToBack(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        actionToolbarContainer.setContentHuggingPriority(.required - 1, for: .vertical)
 
         headerContainerView.isHidden = true
         statusMosaicImageViewContainer.isHidden = true
@@ -445,22 +446,24 @@ extension StatusView {
 
 extension StatusView {
 
-    func updateContentWarningDisplay(isHidden: Bool, animated: Bool) {
+    func updateContentWarningDisplay(isHidden: Bool, animated: Bool, completion: (() -> Void)? = nil) {
         func updateOverlayView() {
             contentWarningOverlayView.contentOverlayView.alpha = isHidden ? 0 : 1
             contentWarningOverlayView.isUserInteractionEnabled = !isHidden
         }
 
+        contentWarningOverlayView.blurContentWarningTitleLabel.isHidden = isHidden
+
         if animated {
-            let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut) {
+            UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut) {
                 updateOverlayView()
+            } completion: { _ in
+                completion!()
             }
-            animator.startAnimation()
         } else {
             updateOverlayView()
+            completion?()
         }
-
-        contentWarningOverlayView.blurContentWarningTitleLabel.isHidden = isHidden
     }
     
     func updateRevealContentWarningButton(isRevealing: Bool) {

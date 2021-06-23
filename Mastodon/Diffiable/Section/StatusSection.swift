@@ -88,6 +88,7 @@ extension StatusSection {
                 // configure cell
                 configureStatusTableViewCell(
                     cell: cell,
+                    tableView: tableView,
                     dependency: dependency,
                     readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                     status: status,
@@ -109,6 +110,7 @@ extension StatusSection {
                     let status = managedObjectContext.object(with: objectID) as! Status
                     StatusSection.configure(
                         cell: cell,
+                        tableView: tableView,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         status: status,
@@ -189,6 +191,7 @@ extension StatusSection {
 
     static func configureStatusTableViewCell(
         cell: StatusTableViewCell,
+        tableView: UITableView,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         status: Status,
@@ -197,6 +200,7 @@ extension StatusSection {
     ) {
         configure(
             cell: cell,
+            tableView: tableView,
             dependency: dependency,
             readableLayoutFrame: readableLayoutFrame,
             status: status,
@@ -207,6 +211,7 @@ extension StatusSection {
     
     static func configure(
         cell: StatusCell,
+        tableView: UITableView,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         status: Status,
@@ -253,6 +258,7 @@ extension StatusSection {
         StatusSection.configureContentWarningOverlay(
             statusView: cell.statusView,
             status: status,
+            tableView: tableView,
             attribute: statusItemAttribute,
             documentStore: dependency.context.documentStore,
             animated: false
@@ -313,8 +319,9 @@ extension StatusSection {
             .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { [weak cell] change in
+            } receiveValue: { [weak cell, weak tableView] change in
                 guard let cell = cell else { return }
+                guard let tableView = tableView else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status, !status.isDeleted else {
                     return
@@ -323,6 +330,7 @@ extension StatusSection {
                 StatusSection.configureContentWarningOverlay(
                     statusView: cell.statusView,
                     status: status,
+                    tableView: tableView,
                     attribute: statusItemAttribute,
                     documentStore: dependency.context.documentStore,
                     animated: true
@@ -343,6 +351,7 @@ extension StatusSection {
     static func configureContentWarningOverlay(
         statusView: StatusView,
         status: Status,
+        tableView: UITableView,
         attribute: Item.StatusAttribute,
         documentStore: DocumentStore,
         animated: Bool
@@ -370,13 +379,25 @@ extension StatusSection {
             statusView.playerContainerView.contentWarningOverlayView.isHidden = true
             
             if let revealedAt = status.revealedAt, revealedAt > appStartUpTimestamp {
-                statusView.updateRevealContentWarningButton(isRevealing: true)
-                statusView.updateContentWarningDisplay(isHidden: true, animated: animated)
                 attribute.isRevealing.value = true
+                statusView.updateRevealContentWarningButton(isRevealing: true)
+                statusView.updateContentWarningDisplay(isHidden: true, animated: animated) { [weak tableView] in
+                    guard animated else { return }
+                    DispatchQueue.main.async {
+                        tableView?.beginUpdates()
+                        tableView?.endUpdates()
+                    }
+                }
             } else {
-                statusView.updateRevealContentWarningButton(isRevealing: false)
-                statusView.updateContentWarningDisplay(isHidden: false, animated: animated)
                 attribute.isRevealing.value = false
+                statusView.updateRevealContentWarningButton(isRevealing: false)
+                statusView.updateContentWarningDisplay(isHidden: false, animated: animated) { [weak tableView] in
+                    guard animated else { return }
+                    DispatchQueue.main.async {
+                        tableView?.beginUpdates()
+                        tableView?.endUpdates()
+                    }
+                }
             }
         case .media(let isSensitive):
             if !isSensitive, documentStore.defaultRevealStatusDict[status.id] == nil {
@@ -410,6 +431,7 @@ extension StatusSection {
                     statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: false, style: .media)
                 }
             }
+
             if animated {
                 UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut) {
                     updateContentOverlay()
