@@ -10,10 +10,6 @@ import UIKit
 import Combine
 import SafariServices
 
-#if DEBUG
-import GDPerformanceView_Swift
-#endif
-
 class MainTabBarController: UITabBarController {
     
     var disposeBag = Set<AnyCancellable>()
@@ -189,15 +185,7 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        #if DEBUG
-        PerformanceMonitor.shared().start()
-        #endif
-    }
-        
+
 }
 
 extension MainTabBarController {

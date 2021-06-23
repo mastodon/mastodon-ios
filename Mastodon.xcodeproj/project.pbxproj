@@ -192,6 +192,7 @@
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
+		DB0E2D2E26833FF700865C3C /* NukeFLAnimatedImagePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */; };
 		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB118A8C25E4BFB500FAB162 /* HighlightDimmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB118A8B25E4BFB500FAB162 /* HighlightDimmableButton.swift */; };
@@ -489,6 +490,7 @@
 		DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B23263684C600ACB481 /* UserDefaults.swift */; };
 		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
+		DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DBF7A0FB26830C33004176A2 /* FPSIndicator */; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
 		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBF96325262EC0A6001D8D25 /* AuthenticationServices.framework */; };
@@ -1126,6 +1128,7 @@
 				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
+				DB0E2D2E26833FF700865C3C /* NukeFLAnimatedImagePlugin in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
@@ -1133,6 +1136,7 @@
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */,
+				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2644,6 +2648,8 @@
 				DBAC6482267D0B21007FE9FD /* DifferenceKit */,
 				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
 				DBAC64A0267E6D02007FE9FD /* Fuzi */,
+				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
+				DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2835,6 +2841,8 @@
 				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
 				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
 				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
+				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
+				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3788,7 +3796,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -3796,7 +3804,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3815,7 +3823,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -3823,7 +3831,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4143,7 +4151,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4151,7 +4159,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4257,7 +4265,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4265,7 +4273,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4376,7 +4384,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4384,7 +4392,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4490,7 +4498,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4498,7 +4506,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4544,7 +4552,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4552,7 +4560,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4567,7 +4575,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4575,7 +4583,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.7.2;
+				MARKETING_VERSION = 0.7.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4718,6 +4726,14 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
@@ -4798,6 +4814,14 @@
 				minimumVersion = 2.11.0;
 			};
 		};
+		DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MainasuK/FPSIndicator.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -4834,6 +4858,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
 			productName = CommonOSLog;
+		};
+		DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */;
+			productName = NukeFLAnimatedImagePlugin;
 		};
 		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -4889,6 +4918,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		DBF7A0FB26830C33004176A2 /* FPSIndicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */;
+			productName = FPSIndicator;
 		};
 /* End XCSwiftPackageProductDependency section */
 

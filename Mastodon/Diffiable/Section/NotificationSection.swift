@@ -54,7 +54,6 @@ extension NotificationSection {
                         cell: cell,
                         dependency: dependency,
                         readableLayoutFrame: frame,
-                        timestampUpdatePublisher: timestampUpdatePublisher,
                         status: status,
                         requestUserID: requestUserID,
                         statusItemAttribute: attribute

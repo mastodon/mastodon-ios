@@ -7,7 +7,9 @@
 
 import os.log
 import UIKit
-final class AvatarStackedImageView: UIImageView { }
+import FLAnimatedImage
+
+final class AvatarStackedImageView: FLAnimatedImageView { }
 
 // MARK: - AvatarConfigurableView
 extension AvatarStackedImageView: AvatarConfigurableView {

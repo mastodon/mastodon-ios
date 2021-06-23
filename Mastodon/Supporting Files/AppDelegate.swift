@@ -10,10 +10,6 @@ import UIKit
 import UserNotifications
 import AppShared
 
-#if DEBUG
-import GDPerformanceView_Swift
-#endif
-
 #if ASDK
 import AsyncDisplayKit
 #endif

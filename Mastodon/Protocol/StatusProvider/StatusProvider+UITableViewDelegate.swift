@@ -66,6 +66,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             .store(in: &disposeBag)
         
         status(for: cell, indexPath: indexPath)
+            .receive(on: RunLoop.main)
             .sink { [weak self] status in
                 guard let self = self else { return }
                 let status = status?.reblog ?? status

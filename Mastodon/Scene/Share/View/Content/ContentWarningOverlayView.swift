@@ -29,19 +29,22 @@ class ContentWarningOverlayView: UIView {
         label.isAccessibilityElement = false
         return label
     }()
-    
-    let blurContentImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.masksToBounds = false
-        return imageView
+
+    // for status style overlay
+    let contentOverlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Colors.ContentWarningOverlay.background.color
+        view.applyCornerRadius(radius: ContentWarningOverlayView.cornerRadius)
+        return view
     }()
     let blurContentWarningTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17), maximumPointSize: 23)
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 23)
         label.text = L10n.Common.Controls.Status.mediaContentWarning
         label.textColor = Asset.Colors.Label.primary.color
         label.textAlignment = .center
         label.isAccessibilityElement = false
+        label.numberOfLines = 2
         return label
     }()
     let blurContentWarningLabel: UILabel = {
@@ -50,8 +53,8 @@ class ContentWarningOverlayView: UIView {
         label.text = L10n.Common.Controls.Status.mediaContentWarning
         label.textColor = Asset.Colors.Label.secondary.color
         label.textAlignment = .center
-        label.layer.setupShadow()
         label.isAccessibilityElement = false
+        label.numberOfLines = 2
         return label
     }()
     
@@ -108,13 +111,13 @@ extension ContentWarningOverlayView {
         ])
 
         // blur image style
-        blurContentImageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(blurContentImageView)
+        contentOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(contentOverlayView)
         NSLayoutConstraint.activate([
-            blurContentImageView.topAnchor.constraint(equalTo: topAnchor),
-            blurContentImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            blurContentImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            blurContentImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            contentOverlayView.topAnchor.constraint(equalTo: topAnchor),
+            contentOverlayView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentOverlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentOverlayView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
         let blurContentWarningLabelContainer = UIStackView()
@@ -123,7 +126,7 @@ extension ContentWarningOverlayView {
         blurContentWarningLabelContainer.alignment = .center
         
         blurContentWarningLabelContainer.translatesAutoresizingMaskIntoConstraints = false
-        blurContentImageView.addSubview(blurContentWarningLabelContainer)
+        contentOverlayView.addSubview(blurContentWarningLabelContainer)
         NSLayoutConstraint.activate([
             blurContentWarningLabelContainer.topAnchor.constraint(equalTo: topAnchor),
             blurContentWarningLabelContainer.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -143,42 +146,43 @@ extension ContentWarningOverlayView {
             topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor, multiplier: 1.0).priority(.defaultHigh),
         ])
         blurContentWarningTitleLabel.setContentHuggingPriority(.defaultHigh + 2, for: .vertical)
+        blurContentWarningTitleLabel.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         blurContentWarningLabel.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
     
         tapGestureRecognizer.addTarget(self, action: #selector(ContentWarningOverlayView.tapGestureRecognizerHandler(_:)))
         addGestureRecognizer(tapGestureRecognizer)
         
-        configure(style: .visualEffectView)
+        configure(style: .media)
     }
 }
 
 extension ContentWarningOverlayView {
     
     enum Style {
-        case visualEffectView
-        case blurContentImageView
+        case media              // visualEffectView for media
+        case contentWarning     // overlay for post
     }
     
     func configure(style: Style) {
         switch style {
-        case .visualEffectView:
+        case .media:
             blurVisualEffectView.isHidden = false
             vibrancyVisualEffectView.isHidden = false
-            blurContentImageView.isHidden = true
-        case .blurContentImageView:
+            contentOverlayView.isHidden = true
+        case .contentWarning:
             blurVisualEffectView.isHidden = true
             vibrancyVisualEffectView.isHidden = true
-            blurContentImageView.isHidden = false
+            contentOverlayView.isHidden = false
         }
     }
     
     func update(isRevealing: Bool, style: Style) {
         switch style {
-        case .visualEffectView:
+        case .media:
             blurVisualEffectView.effect = isRevealing ? nil : ContentWarningOverlayView.blurVisualEffect
             vibrancyVisualEffectView.alpha = isRevealing ? 0 : 1
             isUserInteractionEnabled = !isRevealing
-        case .blurContentImageView:
+        case .contentWarning:
             assertionFailure("not handle here")
             break
         }

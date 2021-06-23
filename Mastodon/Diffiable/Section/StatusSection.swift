@@ -12,6 +12,7 @@ import os.log
 import UIKit
 import AVKit
 import Nuke
+import LinkPresentation
 
 #if ASDK
 import AsyncDisplayKit
@@ -19,7 +20,6 @@ import AsyncDisplayKit
 
 protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
-    var pollCountdownSubscription: AnyCancellable? { get set }
 }
 
 enum StatusSection: Equatable, Hashable {
@@ -76,24 +76,24 @@ extension StatusSection {
             switch item {
             case .homeTimelineIndex(objectID: let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
+                let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
+
+                // note: force check optional for status
+                // status maybe <uninitialized> here when delete in thread scene
+                guard let status = timelineIndex?.status,
+                      let userID = timelineIndex?.userID else {
+                    return cell
+                }
 
                 // configure cell
-                managedObjectContext.performAndWait {
-                    let timelineIndex = managedObjectContext.object(with: objectID) as? HomeTimelineIndex
-                    // note: force check optional for status
-                    // status maybe <uninitialized> here when delete in thread scene
-                    guard let status = timelineIndex?.status,
-                          let userID = timelineIndex?.userID else { return }
-                    StatusSection.configure(
-                        cell: cell,
-                        dependency: dependency,
-                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
-                        timestampUpdatePublisher: timestampUpdatePublisher,
-                        status: status,
-                        requestUserID: userID,
-                        statusItemAttribute: attribute
-                    )
-                }
+                configureStatusTableViewCell(
+                    cell: cell,
+                    dependency: dependency,
+                    readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
+                    status: status,
+                    requestUserID: userID,
+                    statusItemAttribute: attribute
+                )
                 cell.delegate = statusTableViewCellDelegate
                 cell.isAccessibilityElement = true
                 return cell
@@ -111,7 +111,6 @@ extension StatusSection {
                         cell: cell,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
-                        timestampUpdatePublisher: timestampUpdatePublisher,
                         status: status,
                         requestUserID: requestUserID,
                         statusItemAttribute: attribute
@@ -187,12 +186,29 @@ extension StatusSection {
 }
 
 extension StatusSection {
+
+    static func configureStatusTableViewCell(
+        cell: StatusTableViewCell,
+        dependency: NeedsDependency,
+        readableLayoutFrame: CGRect?,
+        status: Status,
+        requestUserID: String,
+        statusItemAttribute: Item.StatusAttribute
+    ) {
+        configure(
+            cell: cell,
+            dependency: dependency,
+            readableLayoutFrame: readableLayoutFrame,
+            status: status,
+            requestUserID: requestUserID,
+            statusItemAttribute: statusItemAttribute
+        )
+    }
     
     static func configure(
         cell: StatusCell,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>,
         status: Status,
         requestUserID: String,
         statusItemAttribute: Item.StatusAttribute
@@ -212,273 +228,28 @@ extension StatusSection {
             .store(in: &cell.disposeBag)
         
         // set header
-        StatusSection.configureHeader(cell: cell, status: status)
-        ManagedObjectObserver.observe(object: status)
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                // do nothing
-            } receiveValue: { [weak cell] change in
+        StatusSection.configureStatusViewHeader(cell: cell, status: status)
+        // set author: name + username + avatar
+        StatusSection.configureStatusViewAuthor(cell: cell, status: status)
+        // set timestamp
+        let createdAt = (status.reblog ?? status).createdAt
+        cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
+        AppContext.shared.timestampUpdatePublisher
+            .receive(on: RunLoop.main)      // will be paused when scrolling (on purpose)
+            .sink { [weak cell] _ in
                 guard let cell = cell else { return }
-                guard case .update(let object) = change.changeType,
-                      let newStatus = object as? Status else { return }
-                StatusSection.configureHeader(cell: cell, status: newStatus)
+                cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
+                cell.statusView.dateLabel.accessibilityLabel = createdAt.slowedTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
-        
-        // set name username
-        let nameText: String = {
-            let author = (status.reblog ?? status).author
-            return author.displayName.isEmpty ? author.username : author.displayName
-        }()
-        MastodonStatusContent.parseResult(content: nameText, emojiDict: (status.reblog ?? status).author.emojiDict)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak cell] parseResult in
-                guard let cell = cell else { return }
-                cell.statusView.nameLabel.configure(contentParseResult: parseResult)
-            }
-            .store(in: &cell.disposeBag)
-        cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
-
-        // set avatar
-        if let reblog = status.reblog {
-            cell.statusView.avatarButton.isHidden = true
-            cell.statusView.avatarStackedContainerButton.isHidden = false
-            cell.statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: reblog.author.avatarImageURL()))
-            cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
-        } else {
-            cell.statusView.avatarButton.isHidden = false
-            cell.statusView.avatarStackedContainerButton.isHidden = true
-            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
-        }
-        
-        // set text
-//        func configureStatusContent() {
-//            let content = (status.reblog ?? status).content
-//            let emojiDict = (status.reblog ?? status).emojiDict
-//            if let cachedParseResult = AppContext.shared.statusContentCacheService.parseResult(content: content, emojiDict: emojiDict) {
-//                cell.statusView.activeTextLabel.configure(contentParseResult: cachedParseResult)
-//            } else {
-//                cell.statusView.activeTextLabel.configure(
-//                    content: (status.reblog ?? status).content,
-//                    emojiDict: (status.reblog ?? status).emojiDict
-//                )
-//            }
-//        }
-//        configureStatusContent()
-        cell.statusView.activeTextLabel.configure(
-            content: (status.reblog ?? status).content,
-            emojiDict: (status.reblog ?? status).emojiDict
+        // set content
+        StatusSection.configureStatusContent(
+            cell: cell,
+            status: status,
+            readableLayoutFrame: readableLayoutFrame,
+            statusItemAttribute: statusItemAttribute
         )
-        cell.statusView.activeTextLabel.accessibilityLanguage = (status.reblog ?? status).language
-        
-        // set visibility
-        if let visibility = (status.reblog ?? status).visibility {
-            cell.statusView.updateVisibility(visibility: visibility)
-            
-            cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] isHidden in
-                    cell?.statusView.visibilityImageView.isHidden = !isHidden
-                }
-                .store(in: &cell.disposeBag)
-        } else {
-            cell.statusView.visibilityImageView.isHidden = true
-        }
-        
-        // prepare media attachments
-        let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
-        
-        // set image
-        let mosaicImageViewModel = MosaicImageViewModel(mediaAttachments: mediaAttachments)
-        let imageViewMaxSize: CGSize = {
-            let maxWidth: CGFloat = {
-                // use timelinePostView width as container width
-                // that width follows readable width and keep constant width after rotate
-                let containerFrame = readableLayoutFrame ?? cell.statusView.frame
-                var containerWidth = containerFrame.width
-                containerWidth -= 10
-                containerWidth -= StatusView.avatarImageSize.width
-                return containerWidth
-            }()
-            let scale: CGFloat = {
-                switch mosaicImageViewModel.metas.count {
-                case 1: return 1.3
-                default: return 0.7
-                }
-            }()
-            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
-        }()
-        let mosaics: [MosaicImageViewContainer.ConfigurableMosaic] = {
-            if mosaicImageViewModel.metas.count == 1 {
-                let meta = mosaicImageViewModel.metas[0]
-                let mosaic = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
-                return [mosaic]
-            } else {
-                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosaicImageViewModel.metas.count, maxSize: imageViewMaxSize)
-                return mosaics
-            }
-        }()
-        for (i, mosaic) in mosaics.enumerated() {
-            let imageView = mosaic.imageView
-            let blurhashOverlayImageView = mosaic.blurhashOverlayImageView
-            let meta = mosaicImageViewModel.metas[i]
-            
-            // set blurhash image
-            meta.blurhashImagePublisher()
-                .sink { image in
-                    blurhashOverlayImageView.image = image
-                }
-                .store(in: &cell.disposeBag)
-
-            let isSingleMosaicLayout = mosaics.count == 1
-                
-            // set image
-            let imageSize = CGSize(
-                width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
-                height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
-            )
-            let request = ImageRequest(
-                url: meta.url,
-                processors: [
-                    ImageProcessors.Resize(
-                        size: imageSize,
-                        unit: .pixels,
-                        contentMode: isSingleMosaicLayout ? .aspectFill : .aspectFit,
-                        crop: isSingleMosaicLayout
-                    )
-                ]
-            )
-            let options = ImageLoadingOptions(
-                transition: .fadeIn(duration: 0.2)
-            )
-            
-            Nuke.loadImage(
-                with: request,
-                options: options,
-                into: imageView
-            ) { result in
-                switch result {
-                case .failure:
-                    break
-                case .success:
-                    statusItemAttribute.isImageLoaded.value = true
-                }
-            }
-
-            imageView.accessibilityLabel = meta.altText
-            Publishers.CombineLatest(
-                statusItemAttribute.isImageLoaded,
-                statusItemAttribute.isRevealing
-            )
-            .receive(on: DispatchQueue.main)    // needs call immediately
-            .sink { [weak cell] isImageLoaded, isMediaRevealing in
-                guard let cell = cell else { return }
-                guard isImageLoaded else {
-                    blurhashOverlayImageView.alpha = 1
-                    blurhashOverlayImageView.isHidden = false
-                    return
-                }
-                
-                blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
-                if isMediaRevealing {
-                    let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
-                    animator.addAnimations {
-                        blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
-                    }
-                    animator.startAnimation()
-                } else {
-                    cell.statusView.drawContentWarningImageView()
-                }
-            }
-            .store(in: &cell.disposeBag)
-        }
-        cell.statusView.statusMosaicImageViewContainer.isHidden = mosaicImageViewModel.metas.isEmpty
-        
-        // set audio
-        if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
-            cell.statusView.audioView.isHidden = false
-            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment, audioService: dependency.context.audioPlaybackService)
-        } else {
-            cell.statusView.audioView.isHidden = true
-        }
-        
-        // set GIF & video
-        let playerViewMaxSize: CGSize = {
-            let maxWidth: CGFloat = {
-                // use statusView width as container width
-                // that width follows readable width and keep constant width after rotate
-                let containerFrame = readableLayoutFrame ?? cell.statusView.frame
-                return containerFrame.width
-            }()
-            let scale: CGFloat = 1.3
-            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
-        }()
-        
-        if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
-           let videoPlayerViewModel = dependency.context.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment) {
-            var parent: UIViewController?
-            var playerViewControllerDelegate: AVPlayerViewControllerDelegate? = nil
-            switch cell {
-            case is StatusTableViewCell:
-                let statusTableViewCell = cell as! StatusTableViewCell
-                parent = statusTableViewCell.delegate?.parent()
-                playerViewControllerDelegate = statusTableViewCell.delegate?.playerViewControllerDelegate
-            case is NotificationStatusTableViewCell:
-                let notificationTableViewCell = cell as! NotificationStatusTableViewCell
-                parent = notificationTableViewCell.delegate?.parent()
-            case is ReportedStatusTableViewCell:
-                let reportTableViewCell = cell as! ReportedStatusTableViewCell
-                parent = reportTableViewCell.dependency
-            default:
-                parent = nil
-                assertionFailure("unknown cell")
-            }
-            let playerContainerView = cell.statusView.playerContainerView
-            let playerViewController = playerContainerView.setupPlayer(
-                aspectRatio: videoPlayerViewModel.videoSize,
-                maxSize: playerViewMaxSize,
-                parent: parent
-            )
-            playerViewController.delegate = playerViewControllerDelegate
-            playerViewController.player = videoPlayerViewModel.player
-            playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
-            playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
-            switch videoPlayerViewModel.videoKind {
-            case .gif:
-                playerContainerView.setMediaIndicator(isHidden: false)
-            case .video:
-                playerContainerView.setMediaIndicator(isHidden: true)
-            }
-            playerContainerView.isHidden = false
-            
-            // set blurhash overlay
-            playerContainerView.isReadyForDisplay
-                .receive(on: DispatchQueue.main)
-                .sink { [weak playerContainerView] isReadyForDisplay in
-                    guard let playerContainerView = playerContainerView else { return }
-                    playerContainerView.blurhashOverlayImageView.alpha = isReadyForDisplay ? 0 : 1
-                }
-                .store(in: &cell.disposeBag)
-            
-            if let blurhash = videoAttachment.blurhash,
-               let url = URL(string: videoAttachment.url) {
-                AppContext.shared.blurhashImageCacheService.image(
-                    blurhash: blurhash,
-                    size: playerContainerView.playerViewController.view.frame.size,
-                    url: url
-                )
-                .sink { image in
-                    playerContainerView.blurhashOverlayImageView.image = image
-                }
-                .store(in: &cell.disposeBag)
-            }
-            
-        } else {
-            cell.statusView.playerContainerView.playerViewController.player?.pause()
-            cell.statusView.playerContainerView.playerViewController.player = nil
-        }
-        
-        // set text content warning
+        // set content warning
         StatusSection.configureContentWarningOverlay(
             statusView: cell.statusView,
             status: status,
@@ -486,36 +257,14 @@ extension StatusSection {
             documentStore: dependency.context.documentStore,
             animated: false
         )
-        // observe model change
-        ManagedObjectObserver.observe(object: status)
-            .receive(on: RunLoop.main)
-            .sink { _ in
-                // do nothing
-            } receiveValue: { [weak dependency, weak cell] change in
-                guard let cell = cell else { return }
-                guard let dependency = dependency else { return }
-                guard case .update(let object) = change.changeType,
-                      let status = object as? Status else { return }
-                StatusSection.configureContentWarningOverlay(
-                    statusView: cell.statusView,
-                    status: status,
-                    attribute: statusItemAttribute,
-                    documentStore: dependency.context.documentStore,
-                    animated: true
-                )
-            }
-            .store(in: &cell.disposeBag)
-        
         // set poll
-        let poll = (status.reblog ?? status).poll
         StatusSection.configurePoll(
             cell: cell,
-            poll: poll,
+            poll: (status.reblog ?? status).poll,
             requestUserID: requestUserID,
-            updateProgressAnimated: false,
-            timestampUpdatePublisher: timestampUpdatePublisher
+            updateProgressAnimated: false
         )
-        if let poll = poll {
+        if let poll = (status.reblog ?? status).poll {
             ManagedObjectObserver.observe(object: poll)
                 .sink { _ in
                     // do nothing
@@ -527,56 +276,66 @@ extension StatusSection {
                         cell: cell,
                         poll: newPoll,
                         requestUserID: requestUserID,
-                        updateProgressAnimated: true,
-                        timestampUpdatePublisher: timestampUpdatePublisher
+                        updateProgressAnimated: true
                     )
                 }
                 .store(in: &cell.disposeBag)
         }
-        
-        if let statusTableViewCell = cell as? StatusTableViewCell {
-            // toolbar
+        // set action toolbar
+        if let cell = cell as? StatusTableViewCell {
             StatusSection.configureActionToolBar(
-                cell: statusTableViewCell,
+                cell: cell,
                 dependency: dependency,
                 status: status,
                 requestUserID: requestUserID
             )
+
             // separator line
-            statusTableViewCell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
+            cell.separatorLine.isHidden = statusItemAttribute.isSeparatorLineHidden
         }
-        
-        // set date
-        let createdAt = (status.reblog ?? status).createdAt
-        cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
-        timestampUpdatePublisher
-            .sink { [weak cell] _ in
+
+        // listen model changed
+        ManagedObjectObserver.observe(object: status)
+            .receive(on: RunLoop.main)
+            .sink { _ in
+                // do nothing
+            } receiveValue: { [weak cell] change in
                 guard let cell = cell else { return }
-                cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
-                cell.statusView.dateLabel.accessibilityLabel = createdAt.slowedTimeAgoSinceNow
+                guard case .update(let object) = change.changeType,
+                      let status = object as? Status, !status.isDeleted else {
+                    return
+                }
+                // update header
+                StatusSection.configureStatusViewHeader(cell: cell, status: status)
             }
             .store(in: &cell.disposeBag)
-
-        // observe model change
         ManagedObjectObserver.observe(object: status.reblog ?? status)
             .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { [weak dependency, weak cell] change in
-                guard let dependency = dependency else { return }
+            } receiveValue: { [weak cell] change in
+                guard let cell = cell else { return }
                 guard case .update(let object) = change.changeType,
-                      let status = object as? Status,
-                      !status.isDeleted else { return }
-                guard let statusTableViewCell = cell as? StatusTableViewCell else { return }
-                StatusSection.configureActionToolBar(
-                    cell: statusTableViewCell,
-                    dependency: dependency,
+                      let status = object as? Status, !status.isDeleted else {
+                    return
+                }
+                // update content warning overlay
+                StatusSection.configureContentWarningOverlay(
+                    statusView: cell.statusView,
                     status: status,
-                    requestUserID: requestUserID
+                    attribute: statusItemAttribute,
+                    documentStore: dependency.context.documentStore,
+                    animated: true
                 )
-                
-                os_log("%{public}s[%{public}ld], %{public}s: reblog count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.reblogsCount.intValue)
-                os_log("%{public}s[%{public}ld], %{public}s: like count label for status %s did update: %ld", (#file as NSString).lastPathComponent, #line, #function, status.id, status.favouritesCount.intValue)
+                // update action toolbar
+                if let cell = cell as? StatusTableViewCell {
+                    StatusSection.configureActionToolBar(
+                        cell: cell,
+                        dependency: dependency,
+                        status: status,
+                        requestUserID: requestUserID
+                    )
+                }
             }
             .store(in: &cell.disposeBag)
     }
@@ -593,7 +352,7 @@ extension StatusSection {
             if spoilerText.isEmpty {
                 return L10n.Common.Controls.Status.contentWarning
             } else {
-                return L10n.Common.Controls.Status.contentWarningText(spoilerText)
+                return spoilerText
             }
         }()
         let appStartUpTimestamp = documentStore.appStartUpTimestamp
@@ -643,12 +402,12 @@ extension StatusSection {
                 attribute.isRevealing.value = needsReveal
                 if needsReveal {
                     statusView.updateRevealContentWarningButton(isRevealing: true)
-                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: true, style: .visualEffectView)
-                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: true, style: .visualEffectView)
+                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: true, style: .media)
+                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: true, style: .media)
                 } else {
                     statusView.updateRevealContentWarningButton(isRevealing: false)
-                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: false, style: .visualEffectView)
-                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: false, style: .visualEffectView)
+                    statusView.statusMosaicImageViewContainer.contentWarningOverlayView.update(isRevealing: false, style: .media)
+                    statusView.playerContainerView.contentWarningOverlayView.update(isRevealing: false, style: .media)
                 }
             }
             if animated {
@@ -697,9 +456,8 @@ extension StatusSection {
         
         cell.threadMetaView.isHidden = false
     }
-    
 
-    static func configureHeader(
+    static func configureStatusViewHeader(
         cell: StatusCell,
         status: Status
     ) {
@@ -743,80 +501,288 @@ extension StatusSection {
             cell.statusView.headerInfoLabel.isAccessibilityElement = false
         }
     }
-    
-    static func configureActionToolBar(
-        cell: StatusTableViewCell,
-        dependency: NeedsDependency,
-        status: Status,
-        requestUserID: String
+
+    static func configureStatusViewAuthor(
+        cell: StatusCell,
+        status: Status
     ) {
-        let status = status.reblog ?? status
-        
-        // set reply
-        let replyCountTitle: String = {
-            let count = status.repliesCount?.intValue ?? 0
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
-        cell.statusView.actionToolbarContainer.replyButton.accessibilityValue = status.repliesCount.flatMap {
-            L10n.Common.Controls.Timeline.Accessibility.countReplies($0.intValue)
-        } ?? nil
-        // set reblog
-        let isReblogged = status.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-        let reblogCountTitle: String = {
-            let count = status.reblogsCount.intValue
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.reblogButton.setTitle(reblogCountTitle, for: .normal)
-        cell.statusView.actionToolbarContainer.isReblogButtonHighlight = isReblogged
-        cell.statusView.actionToolbarContainer.reblogButton.accessibilityLabel = isReblogged ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog
-        cell.statusView.actionToolbarContainer.reblogButton.accessibilityValue = {
-            guard status.reblogsCount.intValue > 0 else { return nil }
-            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
-        }()
-        // set like
-        let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
-        let favoriteCountTitle: String = {
-            let count = status.favouritesCount.intValue
-            return StatusSection.formattedNumberTitleForActionButton(count)
-        }()
-        cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
-        cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
-        cell.statusView.actionToolbarContainer.favoriteButton.accessibilityLabel = isLike ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite
-        cell.statusView.actionToolbarContainer.favoriteButton.accessibilityValue = {
-            guard status.favouritesCount.intValue > 0 else { return nil }
-            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.favouritesCount.intValue)
-        }()
-        Publishers.CombineLatest(
-            dependency.context.blockDomainService.blockedDomains.setFailureType(to: ManagedObjectObserver.Error.self),
-            ManagedObjectObserver.observe(object: status.authorForUserProvider)
+        // name
+        let author = (status.reblog ?? status).author
+        let nameContent = author.displayNameWithFallback
+        cell.statusView.nameLabel.configure(content: nameContent, emojiDict: author.emojiDict)
+        // username
+        cell.statusView.usernameLabel.text = "@" + author.acct
+        // avatar
+        if let reblog = status.reblog {
+            cell.statusView.avatarImageView.isHidden = true
+            cell.statusView.avatarStackedContainerButton.isHidden = false
+            cell.statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: reblog.author.avatarImageURL()))
+            cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
+        } else {
+            cell.statusView.avatarImageView.isHidden = false
+            cell.statusView.avatarStackedContainerButton.isHidden = true
+            cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
+        }
+    }
+
+    static func configureStatusContent(
+        cell: StatusCell,
+        status: Status,
+        readableLayoutFrame: CGRect?,
+        statusItemAttribute: Item.StatusAttribute
+    ) {
+        // set content
+        cell.statusView.activeTextLabel.configure(
+            content: (status.reblog ?? status).content,
+            emojiDict: (status.reblog ?? status).emojiDict
         )
-        .receive(on: RunLoop.main)
-        .sink(receiveCompletion: { _ in
-            // do nothing
-        }, receiveValue: { [weak dependency, weak cell] _, change in
-            guard let cell = cell else { return }
-            guard let dependency = dependency else { return }
-            switch change.changeType {
-            case .delete:
-                return
-            case .update(_):
-                break
-            case .none:
-                break
+        cell.statusView.activeTextLabel.accessibilityLanguage = (status.reblog ?? status).language
+
+        // set visibility
+        if let visibility = (status.reblog ?? status).visibility {
+            cell.statusView.updateVisibility(visibility: visibility)
+
+            cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] isHidden in
+                    cell?.statusView.visibilityImageView.isHidden = !isHidden
+                }
+                .store(in: &cell.disposeBag)
+        } else {
+            cell.statusView.visibilityImageView.isHidden = true
+        }
+
+        // prepare media attachments
+        let mediaAttachments = Array((status.reblog ?? status).mediaAttachments ?? []).sorted { $0.index.compare($1.index) == .orderedAscending }
+
+        // set image
+        let mosaicImageViewModel = MosaicImageViewModel(mediaAttachments: mediaAttachments)
+        let imageViewMaxSize: CGSize = {
+            let maxWidth: CGFloat = {
+                // use timelinePostView width as container width
+                // that width follows readable width and keep constant width after rotate
+                let containerFrame = readableLayoutFrame ?? cell.statusView.frame
+                var containerWidth = containerFrame.width
+                containerWidth -= 10
+                containerWidth -= StatusView.avatarImageSize.width
+                return containerWidth
+            }()
+            let scale: CGFloat = {
+                switch mosaicImageViewModel.metas.count {
+                case 1: return 1.3
+                default: return 0.7
+                }
+            }()
+            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
+        }()
+        let mosaics: [MosaicImageViewContainer.ConfigurableMosaic] = {
+            if mosaicImageViewModel.metas.count == 1 {
+                let meta = mosaicImageViewModel.metas[0]
+                let mosaic = cell.statusView.statusMosaicImageViewContainer.setupImageView(aspectRatio: meta.size, maxSize: imageViewMaxSize)
+                return [mosaic]
+            } else {
+                let mosaics = cell.statusView.statusMosaicImageViewContainer.setupImageViews(count: mosaicImageViewModel.metas.count, maxSize: imageViewMaxSize)
+                return mosaics
             }
-            StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
-        })
-        .store(in: &cell.disposeBag)
-        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+        }()
+        for (i, mosaic) in mosaics.enumerated() {
+            let imageView = mosaic.imageView
+            let blurhashOverlayImageView = mosaic.blurhashOverlayImageView
+            let meta = mosaicImageViewModel.metas[i]
+
+            // set blurhash image
+            meta.blurhashImagePublisher()
+                .sink { image in
+                    blurhashOverlayImageView.image = image
+                }
+                .store(in: &cell.disposeBag)
+
+            let isSingleMosaicLayout = mosaics.count == 1
+
+            // set link preview
+            cell.statusView.linkPreview.isHidden = true
+
+            var _firstURL: URL? = {
+                for entity in cell.statusView.activeTextLabel.activeEntities {
+                    guard case let .url(_, _, url, _) = entity.type else { continue }
+                    return URL(string: url)
+                }
+                return nil
+            }()
+
+            if let url = _firstURL {
+                Future<LPLinkMetadata?, Error> { promise in
+                    LPMetadataProvider().startFetchingMetadata(for: url) { meta, error in
+                        if let error = error {
+                            promise(.failure(error))
+                        } else {
+                            promise(.success(meta))
+                        }
+                    }
+                }
+                .receive(on: RunLoop.main)
+                .sink { _ in
+                    // do nothing
+                } receiveValue: { [weak cell] meta in
+                    guard let meta = meta else { return }
+                    guard let cell = cell else { return }
+                    cell.statusView.linkPreview.metadata = meta
+                    cell.statusView.linkPreview.isHidden = false
+                }
+                .store(in: &cell.disposeBag)
+            }
+
+            // set image
+            let imageSize = CGSize(
+                width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
+                height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
+            )
+            let request = ImageRequest(
+                url: meta.url,
+                processors: [
+                    ImageProcessors.Resize(
+                        size: imageSize,
+                        unit: .pixels,
+                        contentMode: isSingleMosaicLayout ? .aspectFill : .aspectFit,
+                        crop: isSingleMosaicLayout
+                    )
+                ]
+            )
+            let options = ImageLoadingOptions(
+                transition: .fadeIn(duration: 0.2)
+            )
+
+            Nuke.loadImage(
+                with: request,
+                options: options,
+                into: imageView
+            ) { result in
+                switch result {
+                case .failure:
+                    break
+                case .success:
+                    statusItemAttribute.isImageLoaded.value = true
+                }
+            }
+
+            imageView.accessibilityLabel = meta.altText
+
+            // setup media content overlay trigger
+            Publishers.CombineLatest(
+                statusItemAttribute.isImageLoaded,
+                statusItemAttribute.isRevealing
+            )
+            .receive(on: DispatchQueue.main)    // needs call immediately
+            .sink { [weak cell] isImageLoaded, isMediaRevealing in
+                guard let _ = cell else { return }
+                guard isImageLoaded else {
+                    // always display blurhash image when before image loaded
+                    blurhashOverlayImageView.alpha = 1
+                    blurhashOverlayImageView.isHidden = false
+                    return
+                }
+
+                // display blurhash image depends on revealing state
+                let animator = UIViewPropertyAnimator(duration: 0.33, curve: .easeInOut)
+                animator.addAnimations {
+                    blurhashOverlayImageView.alpha = isMediaRevealing ? 0 : 1
+                }
+                animator.startAnimation()
+            }
+            .store(in: &cell.disposeBag)
+        }
+        cell.statusView.statusMosaicImageViewContainer.isHidden = mosaicImageViewModel.metas.isEmpty
+
+        // set audio
+        if let audioAttachment = mediaAttachments.filter({ $0.type == .audio }).first {
+            cell.statusView.audioView.isHidden = false
+            AudioContainerViewModel.configure(cell: cell, audioAttachment: audioAttachment, audioService: AppContext.shared.audioPlaybackService)
+        } else {
+            cell.statusView.audioView.isHidden = true
+        }
+
+        // set GIF & video
+        let playerViewMaxSize: CGSize = {
+            let maxWidth: CGFloat = {
+                // use statusView width as container width
+                // that width follows readable width and keep constant width after rotate
+                let containerFrame = readableLayoutFrame ?? cell.statusView.frame
+                return containerFrame.width
+            }()
+            let scale: CGFloat = 1.3
+            return CGSize(width: maxWidth, height: floor(maxWidth * scale))
+        }()
+
+        if let videoAttachment = mediaAttachments.filter({ $0.type == .gifv || $0.type == .video }).first,
+           let videoPlayerViewModel = AppContext.shared.videoPlaybackService.dequeueVideoPlayerViewModel(for: videoAttachment) {
+            var parent: UIViewController?
+            var playerViewControllerDelegate: AVPlayerViewControllerDelegate? = nil
+            switch cell {
+            case is StatusTableViewCell:
+                let statusTableViewCell = cell as! StatusTableViewCell
+                parent = statusTableViewCell.delegate?.parent()
+                playerViewControllerDelegate = statusTableViewCell.delegate?.playerViewControllerDelegate
+            case is NotificationStatusTableViewCell:
+                let notificationTableViewCell = cell as! NotificationStatusTableViewCell
+                parent = notificationTableViewCell.delegate?.parent()
+            case is ReportedStatusTableViewCell:
+                let reportTableViewCell = cell as! ReportedStatusTableViewCell
+                parent = reportTableViewCell.dependency
+            default:
+                parent = nil
+                assertionFailure("unknown cell")
+            }
+            let playerContainerView = cell.statusView.playerContainerView
+            let playerViewController = playerContainerView.setupPlayer(
+                aspectRatio: videoPlayerViewModel.videoSize,
+                maxSize: playerViewMaxSize,
+                parent: parent
+            )
+            playerViewController.delegate = playerViewControllerDelegate
+            playerViewController.player = videoPlayerViewModel.player
+            playerViewController.showsPlaybackControls = videoPlayerViewModel.videoKind != .gif
+            playerContainerView.setMediaKind(kind: videoPlayerViewModel.videoKind)
+            switch videoPlayerViewModel.videoKind {
+            case .gif:
+                playerContainerView.setMediaIndicator(isHidden: false)
+            case .video:
+                playerContainerView.setMediaIndicator(isHidden: true)
+            }
+            playerContainerView.isHidden = false
+
+            // set blurhash overlay
+            playerContainerView.isReadyForDisplay
+                .receive(on: DispatchQueue.main)
+                .sink { [weak playerContainerView] isReadyForDisplay in
+                    guard let playerContainerView = playerContainerView else { return }
+                    playerContainerView.blurhashOverlayImageView.alpha = isReadyForDisplay ? 0 : 1
+                }
+                .store(in: &cell.disposeBag)
+
+            if let blurhash = videoAttachment.blurhash,
+               let url = URL(string: videoAttachment.url) {
+                AppContext.shared.blurhashImageCacheService.image(
+                    blurhash: blurhash,
+                    size: playerContainerView.playerViewController.view.frame.size,
+                    url: url
+                )
+                .sink { image in
+                    playerContainerView.blurhashOverlayImageView.image = image
+                }
+                .store(in: &cell.disposeBag)
+            }
+
+        } else {
+            cell.statusView.playerContainerView.playerViewController.player?.pause()
+            cell.statusView.playerContainerView.playerViewController.player = nil
+        }
     }
     
     static func configurePoll(
         cell: StatusCell,
         poll: Poll?,
         requestUserID: String,
-        updateProgressAnimated: Bool,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>
+        updateProgressAnimated: Bool
     ) {
         guard let poll = poll,
               let managedObjectContext = poll.managedObjectContext
@@ -847,17 +813,16 @@ extension StatusSection {
             }
         }()
         if poll.expired {
-            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownSubscription = nil
             cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.closed
         } else if let expiresAt = poll.expiresAt {
             cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
-            cell.pollCountdownSubscription = timestampUpdatePublisher
+            cell.statusView.pollCountdownSubscription = AppContext.shared.timestampUpdatePublisher
                 .sink { _ in
                     cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
                 }
         } else {
-            // assertionFailure()
-            cell.pollCountdownSubscription = nil
+            cell.statusView.pollCountdownSubscription = nil
             cell.statusView.pollCountdownLabel.text = "-"
         }
         
@@ -920,7 +885,78 @@ extension StatusSection {
         snapshot.appendItems(pollItems, toSection: .main)
         cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
     }
-    
+
+    static func configureActionToolBar(
+        cell: StatusTableViewCell,
+        dependency: NeedsDependency,
+        status: Status,
+        requestUserID: String
+    ) {
+        let status = status.reblog ?? status
+
+        // set reply
+        let replyCountTitle: String = {
+            let count = status.repliesCount?.intValue ?? 0
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.replyButton.accessibilityValue = status.repliesCount.flatMap {
+            L10n.Common.Controls.Timeline.Accessibility.countReplies($0.intValue)
+        } ?? nil
+        // set reblog
+        let isReblogged = status.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let reblogCountTitle: String = {
+            let count = status.reblogsCount.intValue
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.reblogButton.setTitle(reblogCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isReblogButtonHighlight = isReblogged
+        cell.statusView.actionToolbarContainer.reblogButton.accessibilityLabel = isReblogged ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog
+        cell.statusView.actionToolbarContainer.reblogButton.accessibilityValue = {
+            guard status.reblogsCount.intValue > 0 else { return nil }
+            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
+        }()
+        // set like
+        let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
+        let favoriteCountTitle: String = {
+            let count = status.favouritesCount.intValue
+            return StatusSection.formattedNumberTitleForActionButton(count)
+        }()
+        cell.statusView.actionToolbarContainer.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
+        cell.statusView.actionToolbarContainer.isFavoriteButtonHighlight = isLike
+        cell.statusView.actionToolbarContainer.favoriteButton.accessibilityLabel = isLike ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite
+        cell.statusView.actionToolbarContainer.favoriteButton.accessibilityValue = {
+            guard status.favouritesCount.intValue > 0 else { return nil }
+            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.favouritesCount.intValue)
+        }()
+        Publishers.CombineLatest(
+            dependency.context.blockDomainService.blockedDomains.setFailureType(to: ManagedObjectObserver.Error.self),
+            ManagedObjectObserver.observe(object: status.authorForUserProvider)
+        )
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: { _ in
+            // do nothing
+        }, receiveValue: { [weak dependency, weak cell] _, change in
+            guard let cell = cell else { return }
+            guard let dependency = dependency else { return }
+            switch change.changeType {
+            case .delete:
+                return
+            case .update(_):
+                break
+            case .none:
+                break
+            }
+            StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+        })
+        .store(in: &cell.disposeBag)
+        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+    }
+
+}
+
+
+extension StatusSection {
     static func configureEmptyStateHeader(
         cell: TimelineHeaderTableViewCell,
         attribute: Item.EmptyStateHeaderAttribute
