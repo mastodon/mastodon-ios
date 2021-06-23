@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "FLAnimatedImage",
+        "repositoryURL": "https://github.com/Flipboard/FLAnimatedImage",
+        "state": {
+          "branch": null,
+          "revision": "e7f9fd4681ae41bf6f3056db08af4f401d61da52",
+          "version": "1.0.16"
+        }
+      },
+      {
         "package": "FPSIndicator",
         "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
         "state": {
@@ -107,6 +116,15 @@
           "branch": null,
           "revision": "69ae6d5b8c4b898450432f94bd35f863d3830cfc",
           "version": "10.3.0"
+        }
+      },
+      {
+        "package": "NukeFLAnimatedImagePlugin",
+        "repositoryURL": "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git",
+        "state": {
+          "branch": null,
+          "revision": "b59c346a7d536336db3b0f12c72c6e53ee709e16",
+          "version": "8.0.0"
         }
       },
       {

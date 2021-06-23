@@ -21,7 +21,7 @@ protocol StatusTableViewCellDelegate: AnyObject {
     var playerViewControllerDelegate: AVPlayerViewControllerDelegate? { get }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, headerInfoLabelDidPressed label: UILabel)
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarButtonDidPressed button: UIButton)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
@@ -93,16 +93,6 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
         _init()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // precondition: app is active 
-        guard UIApplication.shared.applicationState == .active else { return }
-        DispatchQueue.main.async {
-            self.statusView.drawContentWarningImageView()
-        }
-    }
-    
 }
 
 extension StatusTableViewCell {
@@ -154,18 +144,7 @@ extension StatusTableViewCell {
         
         resetSeparatorLineLayout()
     }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        resetContentOverlayBlurImageBackgroundColor(selected: highlighted)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        resetContentOverlayBlurImageBackgroundColor(selected: selected)
-    }
+
     
 }
 
@@ -199,11 +178,7 @@ extension StatusTableViewCell {
             }
         }
     }
-    
-    private func resetContentOverlayBlurImageBackgroundColor(selected: Bool) {
-        let imageViewBackgroundColor: UIColor? = selected ? selectedBackgroundView?.backgroundColor : backgroundColor
-        statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = imageViewBackgroundColor
-    }
+
 }
 
 // MARK: - MosaicImageViewContainerPresentable
@@ -301,9 +276,9 @@ extension StatusTableViewCell: StatusViewDelegate {
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
         delegate?.statusTableViewCell(self, statusView: statusView, headerInfoLabelDidPressed: label)
     }
-    
-    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton) {
-        delegate?.statusTableViewCell(self, statusView: statusView, avatarButtonDidPressed: button)
+
+    func statusView(_ statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView) {
+        delegate?.statusTableViewCell(self, statusView: statusView, avatarImageViewDidPressed: imageView)
     }
     
     func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {

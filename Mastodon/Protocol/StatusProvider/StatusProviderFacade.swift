@@ -541,8 +541,9 @@ extension StatusProviderFacade {
             .compactMap { [weak dependency] status -> AnyPublisher<Status?, Never>? in
                 guard let dependency = dependency else { return nil }
                 guard let _status = status else { return nil }
-                return dependency.context.managedObjectContext.performChanges {
-                    guard let status = dependency.context.managedObjectContext.object(with: _status.objectID) as? Status else { return }
+                let managedObjectContext = dependency.context.backgroundManagedObjectContext
+                return managedObjectContext.performChanges {
+                    guard let status = managedObjectContext.object(with: _status.objectID) as? Status else { return }
                     let appStartUpTimestamp = dependency.context.documentStore.appStartUpTimestamp
                     let isRevealing: Bool = {
                         if dependency.context.documentStore.defaultRevealStatusDict[status.id] == true {
@@ -560,7 +561,11 @@ extension StatusProviderFacade {
                     // toggle reveal
                     dependency.context.documentStore.defaultRevealStatusDict[status.id] = false
                     status.update(isReveal: !isRevealing)
-                    status.reblog?.update(isReveal: !isRevealing)
+
+                    if let reblog = status.reblog {
+                        dependency.context.documentStore.defaultRevealStatusDict[reblog.id] = false
+                        reblog.update(isReveal: !isRevealing)
+                    }
                     
                     // pause video playback if isRevealing before toggle
                     if isRevealing, let attachment = (status.reblog ?? status).mediaAttachments?.first,

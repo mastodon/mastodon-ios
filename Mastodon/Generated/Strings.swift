@@ -254,13 +254,9 @@ internal enum L10n {
         }
       }
       internal enum Status {
-        /// content warning
+        /// Content Warning
         internal static let contentWarning = L10n.tr("Localizable", "Common.Controls.Status.ContentWarning")
-        /// cw: %@
-        internal static func contentWarningText(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Common.Controls.Status.ContentWarningText", String(describing: p1))
-        }
-        /// Tap to reveal that may be sensitive
+        /// Tap anywhere to reveal
         internal static let mediaContentWarning = L10n.tr("Localizable", "Common.Controls.Status.MediaContentWarning")
         /// Show Post
         internal static let showPost = L10n.tr("Localizable", "Common.Controls.Status.ShowPost")

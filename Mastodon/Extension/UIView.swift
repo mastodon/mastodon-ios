@@ -22,7 +22,7 @@ extension UIView {
     
 }
 
-// MARK: - Convinience view appearance modification method
+// MARK: - Convenience view appearance modification method
 extension UIView {
     @discardableResult
     func applyCornerRadius(radius: CGFloat) -> Self {

@@ -58,6 +58,9 @@ internal enum Asset {
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
       internal static let inactive = ColorAsset(name: "Colors/Button/inactive")
     }
+    internal enum ContentWarningOverlay {
+      internal static let background = ColorAsset(name: "Colors/ContentWarningOverlay/background")
+    }
     internal enum Icon {
       internal static let plus = ColorAsset(name: "Colors/Icon/plus")
     }

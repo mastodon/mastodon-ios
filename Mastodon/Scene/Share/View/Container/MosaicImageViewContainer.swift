@@ -42,7 +42,7 @@ final class MosaicImageViewContainer: UIView {
     
     let contentWarningOverlayView: ContentWarningOverlayView = {
         let contentWarningOverlayView = ContentWarningOverlayView()
-        contentWarningOverlayView.configure(style: .visualEffectView)
+        contentWarningOverlayView.configure(style: .media)
         return contentWarningOverlayView
     }()
     

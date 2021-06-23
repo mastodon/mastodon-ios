@@ -121,9 +121,8 @@
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
                 "show_user_profile": "Show user profile",
-                "content_warning": "content warning",
-                "content_warning_text": "cw: %s",
-                "media_content_warning": "Tap to reveal that may be sensitive",
+                "content_warning": "Content Warning",
+                "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
                     "vote": "Vote",
                     "vote_count": {

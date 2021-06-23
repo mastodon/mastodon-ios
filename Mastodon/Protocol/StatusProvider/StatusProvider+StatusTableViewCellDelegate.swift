@@ -20,7 +20,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         StatusProviderFacade.coordinateToStatusAuthorProfileScene(for: .secondary, provider: self, cell: cell)
     }
     
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView) {
         StatusProviderFacade.coordinateToStatusAuthorProfileScene(for: .primary, provider: self, cell: cell)
     }
     

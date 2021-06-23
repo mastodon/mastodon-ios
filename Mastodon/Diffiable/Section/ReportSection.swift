@@ -43,7 +43,6 @@ extension ReportSection {
                         cell: cell,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
-                        timestampUpdatePublisher: timestampUpdatePublisher,
                         status: status,
                         requestUserID: requestUserID,
                         statusItemAttribute: attribute

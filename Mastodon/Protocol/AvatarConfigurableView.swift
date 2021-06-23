@@ -7,7 +7,8 @@
 
 import UIKit
 import AlamofireImage
-import Kingfisher
+import FLAnimatedImage
+import Nuke
 
 protocol AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { get }
@@ -31,13 +32,7 @@ extension AvatarConfigurableView {
             }
             return placeholderImage
         }()
-        
-        // cancel previous task
-        configurableAvatarImageView?.af.cancelImageRequest()
-        configurableAvatarImageView?.kf.cancelDownloadTask()
-        configurableAvatarButton?.af.cancelImageRequest(for: .normal)
-        configurableAvatarButton?.kf.cancelImageDownloadTask()
-        
+
         // reset layer attributes
         configurableAvatarImageView?.layer.masksToBounds = false
         configurableAvatarImageView?.layer.cornerRadius = 0
@@ -55,85 +50,50 @@ extension AvatarConfigurableView {
             avatarConfigurableView(self, didFinishConfiguration: configuration)
         }
 
-        let filter = ScaledToSizeWithRoundedCornersFilter(
-            size: Self.configurableAvatarImageSize,
-            radius: configuration.keepImageCorner ? 0 : Self.configurableAvatarImageCornerRadius
-        )
-
-        // set placeholder if no asset
-        guard let avatarImageURL = configuration.avatarImageURL else {
-            configurableAvatarImageView?.image = placeholderImage
-            configurableAvatarImageView?.layer.masksToBounds = true
-            configurableAvatarImageView?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-            configurableAvatarImageView?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
-            
-            configurableAvatarButton?.setImage(placeholderImage, for: .normal)
-            configurableAvatarButton?.layer.masksToBounds = true
-            configurableAvatarButton?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-            configurableAvatarButton?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+        guard let imageDisplayingView: ImageDisplayingView = configurableAvatarImageView ?? configurableAvatarButton?.imageView else {
             return
         }
 
-        if let avatarImageView = configurableAvatarImageView {
-            // set avatar (GIF using Kingfisher)
-            switch avatarImageURL.pathExtension {
-            case "gif":
-                avatarImageView.kf.setImage(
-                    with: avatarImageURL,
-                    placeholder: placeholderImage,
-                    options: [
-                        .transition(.fade(0.2))
-                    ]
-                )
-                avatarImageView.layer.masksToBounds = true
-                avatarImageView.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                avatarImageView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
-                    
-            default:
-                avatarImageView.af.setImage(
-                    withURL: avatarImageURL,
-                    placeholderImage: placeholderImage,
-                    filter: filter,
-                    imageTransition: .crossDissolve(0.3),
-                    runImageTransitionIfCached: false,
-                    completion: nil
-                )
-                
-                if Self.configurableAvatarImageCornerRadius > 0, configuration.keepImageCorner {
-                    configurableAvatarImageView?.layer.masksToBounds = true
-                    configurableAvatarImageView?.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                    configurableAvatarImageView?.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
-                }
+        // set corner radius (due to GIF won't crop)
+        imageDisplayingView.layer.masksToBounds = true
+        imageDisplayingView.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+        imageDisplayingView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+
+        // set border
+        configureLayerBorder(view: imageDisplayingView, configuration: configuration)
+
+
+        // set image
+        let url = configuration.avatarImageURL
+        let processors: [ImageProcessing] = [
+            ImageProcessors.Resize(
+                size: Self.configurableAvatarImageSize,
+                unit: .points,
+                contentMode: .aspectFill,
+                crop: false
+            ),
+            ImageProcessors.RoundedCorners(
+                radius: Self.configurableAvatarImageCornerRadius
+            )
+        ]
+
+        let request = ImageRequest(url: url, processors: processors)
+        let options = ImageLoadingOptions(
+            placeholder: placeholderImage,
+            transition: .fadeIn(duration: 0.2)
+        )
+
+        Nuke.loadImage(
+            with: request,
+            options: options,
+            into: imageDisplayingView
+        ) { result in
+            switch result {
+            case .failure:
+                break
+            case .success:
+                break
             }
-            
-            configureLayerBorder(view: avatarImageView, configuration: configuration)
-        }
-        
-        if let avatarButton = configurableAvatarButton {
-            switch avatarImageURL.pathExtension {
-            case "gif":
-                avatarButton.kf.setImage(
-                    with: avatarImageURL,
-                    for: .normal,
-                    placeholder: placeholderImage,
-                    options: [
-                        .transition(.fade(0.2))
-                    ]
-                )
-                avatarButton.layer.masksToBounds = true
-                avatarButton.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-                avatarButton.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous : .circular
-            default:
-                avatarButton.af.setImage(
-                    for: .normal,
-                    url: avatarImageURL,
-                    placeholderImage: placeholderImage,
-                    filter: filter,
-                    completion: nil
-                )
-            }
-            
-            configureLayerBorder(view: avatarButton, configuration: configuration)
         }
     }
     

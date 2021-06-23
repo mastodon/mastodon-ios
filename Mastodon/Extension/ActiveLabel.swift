@@ -29,9 +29,6 @@ extension ActiveLabel {
         hashtagColor = Asset.Colors.brandBlue.color
         URLColor = Asset.Colors.brandBlue.color
         emojiPlaceholderColor = .systemFill
-        #if DEBUG
-        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        #endif
         
         accessibilityContainerType = .semanticGroup
         
