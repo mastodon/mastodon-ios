@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "FPSIndicator",
+        "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
+        "state": {
+          "branch": null,
+          "revision": "b2a002d689c400485f2ba41f9e71e15f7b99764a",
+          "version": "1.0.1"
+        }
+      },
+      {
         "package": "Fuzi",
         "repositoryURL": "https://github.com/cezheng/Fuzi.git",
         "state": {

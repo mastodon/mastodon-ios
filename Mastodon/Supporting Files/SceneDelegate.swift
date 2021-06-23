@@ -9,12 +9,21 @@ import UIKit
 import Combine
 import CoreDataStack
 
+#if DEBUG
+import FPSIndicator
+#endif
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var observations = Set<NSKeyValueObservation>()
     
     var window: UIWindow?
     var coordinator: SceneCoordinator?
+
+    #if DEBUG
+    var fpsIndicator: FPSIndicator?
+    #endif
+
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
@@ -38,6 +47,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.overrideUserInterfaceStyle = defaults.customUserInterfaceStyle
         }
         .store(in: &observations)
+
+        #if DEBUG
+        fpsIndicator = FPSIndicator(windowScene: windowScene)
+        #endif
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
