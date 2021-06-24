@@ -196,11 +196,11 @@ extension APIService {
                 let lookUpMastodonUserRequest = MastodonUser.sortedFetchRequest
                 lookUpMastodonUserRequest.predicate = MastodonUser.predicate(domain: domain, id: mastodonUserID)
                 lookUpMastodonUserRequest.fetchLimit = 1
-                let lookUpMastodonuser = managedObjectContext.safeFetch(lookUpMastodonUserRequest).first
+                let lookUpMastodonUser = managedObjectContext.safeFetch(lookUpMastodonUserRequest).first
                 
-                if let lookUpMastodonuser = lookUpMastodonuser {
+                if let lookUpMastodonUser = lookUpMastodonUser {
                     let entity = response.value
-                    APIService.CoreData.update(user: lookUpMastodonuser, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: response.networkDate)
+                    APIService.CoreData.update(user: lookUpMastodonUser, entity: entity, requestMastodonUser: requestMastodonUser, domain: domain, networkDate: response.networkDate)
                 }
             }
             .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Relationship> in
