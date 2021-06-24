@@ -42,6 +42,9 @@ class ProfileViewModel: NSObject {
     let fileds: CurrentValueSubject<[Mastodon.Entity.Field], Never>
     let emojiDict: CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>
 
+    // fulfill this before editing
+    let accountForEdit = CurrentValueSubject<Mastodon.Entity.Account?, Never>(nil)
+
     let protected: CurrentValueSubject<Bool?, Never>
     let suspended: CurrentValueSubject<Bool, Never>
 
@@ -58,8 +61,10 @@ class ProfileViewModel: NSObject {
     let isReplyBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
     let isMoreMenuBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
     let isMeBarButtonItemsHidden = CurrentValueSubject<Bool, Never>(true)
-    
+
     let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
+    let needsPaingEnabled = CurrentValueSubject<Bool, Never>(true)
+    let needsImageOverlayBlurred = CurrentValueSubject<Bool, Never>(false)
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
@@ -146,6 +151,23 @@ class ProfileViewModel: NSObject {
             }
         }
         .store(in: &disposeBag)
+
+        let isBlockingOrBlocked = Publishers.CombineLatest(
+            isBlocking,
+            isBlockedBy
+        )
+        .map { $0 || $1 }
+        .share()
+
+        isBlockingOrBlocked
+            .map { !$0 }
+            .assign(to: \.value, on: needsPaingEnabled)
+            .store(in: &disposeBag)
+
+        isBlockingOrBlocked
+            .map { $0 }
+            .assign(to: \.value, on: needsImageOverlayBlurred)
+            .store(in: &disposeBag)
 
         setup()
     }
@@ -318,6 +340,22 @@ extension ProfileViewModel {
             self.isMoreMenuBarButtonItemHidden.value = false
             self.isMeBarButtonItemsHidden.value = true
         }
+    }
+
+}
+
+extension ProfileViewModel {
+
+    // fetch profile info before edit
+    func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        guard let currentMastodonUser = currentMastodonUser.value,
+              let mastodonAuthentication = currentMastodonUser.mastodonAuthentication else {
+            return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
+        }
+
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
+        return context.apiService.accountVerifyCredentials(domain: currentMastodonUser.domain, authorization: authorization)
+//            .erro
     }
 
 }

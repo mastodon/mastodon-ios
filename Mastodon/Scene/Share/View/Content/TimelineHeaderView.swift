@@ -97,10 +97,18 @@ extension Item.EmptyStateHeaderAttribute.Reason {
         switch self {
         case .noStatusFound:
             return L10n.Common.Controls.Timeline.Header.noStatusFound
-        case .blocking:
-            return L10n.Common.Controls.Timeline.Header.blockingWarning
-        case .blocked:
-            return L10n.Common.Controls.Timeline.Header.blockedWarning
+        case .blocking(let name):
+            if let name = name {
+                return L10n.Common.Controls.Timeline.Header.userBlockingWarning(name)
+            } else {
+                return L10n.Common.Controls.Timeline.Header.blockingWarning
+            }
+        case .blocked(let name):
+            if let name = name {
+                return L10n.Common.Controls.Timeline.Header.userBlockedWarning(name)
+            } else {
+                return L10n.Common.Controls.Timeline.Header.blockedWarning
+            }
         case .suspended(let name):
             if let name = name {
                 return L10n.Common.Controls.Timeline.Header.userSuspendedWarning(name)
@@ -119,8 +127,8 @@ struct TimelineHeaderView_Previews: PreviewProvider {
         Group {
             UIViewPreview(width: 375) {
                 let headerView = TimelineHeaderView()
-                headerView.iconImageView.image = Item.EmptyStateHeaderAttribute.Reason.blocking.iconImage
-                headerView.messageLabel.text = Item.EmptyStateHeaderAttribute.Reason.blocking.message
+                headerView.iconImageView.image = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).iconImage
+                headerView.messageLabel.text = Item.EmptyStateHeaderAttribute.Reason.blocking(name: nil).message
                 return headerView
             }
             .previewLayout(.fixed(width: 375, height: 400))

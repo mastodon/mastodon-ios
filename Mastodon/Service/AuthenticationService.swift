@@ -103,20 +103,20 @@ extension AuthenticationService {
 extension AuthenticationService {
     
     func activeMastodonUser(domain: String, userID: MastodonUser.ID) -> AnyPublisher<Result<Bool, Error>, Never> {
-        var isActived = false
+        var isActive = false
         
         return backgroundManagedObjectContext.performChanges {
             let request = MastodonAuthentication.sortedFetchRequest
             request.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
             request.fetchLimit = 1
-            guard let mastodonAutentication = try? self.backgroundManagedObjectContext.fetch(request).first else {
+            guard let mastodonAuthentication = try? self.backgroundManagedObjectContext.fetch(request).first else {
                 return
             }
-            mastodonAutentication.update(activedAt: Date())
-            isActived = true
+            mastodonAuthentication.update(activedAt: Date())
+            isActive = true
         }
         .map { result in
-            return result.map { isActived }
+            return result.map { isActive }
         }
         .eraseToAnyPublisher()
     }
@@ -124,27 +124,27 @@ extension AuthenticationService {
     func signOutMastodonUser(domain: String, userID: MastodonUser.ID) -> AnyPublisher<Result<Bool, Error>, Never> {
         var isSignOut = false
         
-        var _mastodonAutenticationBox: MastodonAuthenticationBox?
+        var _mastodonAuthenticationBox: MastodonAuthenticationBox?
         let managedObjectContext = backgroundManagedObjectContext
         return managedObjectContext.performChanges {
             let request = MastodonAuthentication.sortedFetchRequest
             request.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
             request.fetchLimit = 1
-            guard let mastodonAutentication = try? managedObjectContext.fetch(request).first else {
+            guard let mastodonAuthentication = try? managedObjectContext.fetch(request).first else {
                 return
             }
-            _mastodonAutenticationBox = AuthenticationService.MastodonAuthenticationBox(
-                domain: mastodonAutentication.domain,
-                userID: mastodonAutentication.userID,
-                appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAutentication.appAccessToken),
-                userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAutentication.userAccessToken)
+            _mastodonAuthenticationBox = AuthenticationService.MastodonAuthenticationBox(
+                domain: mastodonAuthentication.domain,
+                userID: mastodonAuthentication.userID,
+                appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),
+                userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
             )
-            managedObjectContext.delete(mastodonAutentication)
+            managedObjectContext.delete(mastodonAuthentication)
             isSignOut = true
         }
         .flatMap { result -> AnyPublisher<Result<Void, Error>, Never> in
             guard let apiService = self.apiService,
-                  let mastodonAuthenticationBox = _mastodonAutenticationBox else {
+                  let mastodonAuthenticationBox = _mastodonAuthenticationBox else {
                 return Just(result).eraseToAnyPublisher()
             }
             

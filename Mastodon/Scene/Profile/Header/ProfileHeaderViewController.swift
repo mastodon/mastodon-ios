@@ -371,7 +371,7 @@ extension ProfileHeaderViewController {
         } else if bannerContainerBottomOffset < containerSafeAreaInset.top {
             // 3
             // banner bottom pin to navigation bar bottom and
-            // the `progress` growth to 1 then segemented control pin to top
+            // the `progress` growth to 1 then segmented control pin to top
             bannerImageView.frame.origin.y = -containerSafeAreaInset.top
             let bannerImageHeight = bannerContainerInWindow.size.height + containerSafeAreaInset.top + (containerSafeAreaInset.top - bannerContainerBottomOffset)
             bannerImageView.frame.size.height = bannerImageHeight
@@ -406,7 +406,7 @@ extension ProfileHeaderViewController {
             setProfileBannerFade(alpha: 1)
         }
     }
-    
+
     private func setProfileBannerFade(alpha: CGFloat) {
         profileHeaderView.avatarImageViewBackgroundView.alpha = alpha
         profileHeaderView.avatarImageView.alpha = alpha
@@ -501,6 +501,7 @@ extension ProfileHeaderViewController: UICollectionViewDelegate {
 
 // MARK: - ProfileFieldCollectionViewCellDelegate
 extension ProfileHeaderViewController: ProfileFieldCollectionViewCellDelegate {
+    // should be remove style edit button
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, editButtonDidPressed button: UIButton) {
         guard let diffableDataSource = viewModel.fieldDiffableDataSource else { return }
         guard let indexPath = profileHeaderView.fieldCollectionView.indexPath(for: cell) else { return }
