@@ -452,7 +452,7 @@ extension ProfileViewController {
         viewModel.isEditing
             .handleEvents(receiveOutput: { [weak self] isEditing in
                 guard let self = self else { return }
-                // set firset responder for key command
+                // set first responder for key command
                 if !isEditing {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         self.profileSegmentedViewController.pagingViewController.becomeFirstResponder()
@@ -520,6 +520,14 @@ extension ProfileViewController {
                 self.profileHeaderViewController.profileHeaderView.statusDashboardView.followersDashboardMeterView.accessibilityLabel = L10n.Scene.Profile.Dashboard.Accessibility.countFollowers(count ?? 0)
             }
             .store(in: &disposeBag)
+        viewModel.needsPaingEnabled
+            .receive(on: RunLoop.main)
+            .sink { [weak self] needsPaingEnabled in
+                guard let self = self else { return }
+                self.profileSegmentedViewController.pagingViewController.isScrollEnabled = needsPaingEnabled
+            }
+            .store(in: &disposeBag)
+
         
         profileHeaderViewController.profileHeaderView.delegate = self
     }

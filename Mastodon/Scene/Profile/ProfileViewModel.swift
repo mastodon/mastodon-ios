@@ -58,8 +58,9 @@ class ProfileViewModel: NSObject {
     let isReplyBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
     let isMoreMenuBarButtonItemHidden = CurrentValueSubject<Bool, Never>(true)
     let isMeBarButtonItemsHidden = CurrentValueSubject<Bool, Never>(true)
-    
+
     let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
+    let needsPaingEnabled = CurrentValueSubject<Bool, Never>(true)
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
@@ -145,6 +146,14 @@ class ProfileViewModel: NSObject {
                 }
             }
         }
+        .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            isBlocking,
+            isBlockedBy
+        )
+        .map { !($0 || $1) }
+        .assign(to: \.value, on: needsPaingEnabled)
         .store(in: &disposeBag)
 
         setup()
