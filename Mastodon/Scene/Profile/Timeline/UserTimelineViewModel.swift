@@ -62,10 +62,10 @@ final class UserTimelineViewModel {
             .store(in: &disposeBag)
         
         Publishers.CombineLatest4(
-            statusFetchedResultsController.objectIDs.eraseToAnyPublisher(),
-            isBlocking.eraseToAnyPublisher(),
-            isBlockedBy.eraseToAnyPublisher(),
-            isSuspended.eraseToAnyPublisher()
+            statusFetchedResultsController.objectIDs.removeDuplicates(),
+            isBlocking,
+            isBlockedBy,
+            isSuspended
         )
         .receive(on: DispatchQueue.main)
         .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
@@ -76,12 +76,12 @@ final class UserTimelineViewModel {
             var items: [Item] = []
             var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
             snapshot.appendSections([.main])
-            
+
             defer {
                 // not animate when empty items fix loader first appear layout issue
                 diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
             }
-            
+
             guard !isBlocking else {
                 snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocking))], toSection: .main)
                 return
@@ -97,14 +97,14 @@ final class UserTimelineViewModel {
                 snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .suspended(name: name)))], toSection: .main)
                 return
             }
-            
+
             var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]
             let oldSnapshot = diffableDataSource.snapshot()
             for item in oldSnapshot.itemIdentifiers {
                 guard case let .status(objectID, attribute) = item else { continue }
                 oldSnapshotAttributeDict[objectID] = attribute
             }
-            
+
             for objectID in objectIDs {
                 let attribute = oldSnapshotAttributeDict[objectID] ?? Item.StatusAttribute()
                 items.append(.status(objectID: objectID, attribute: attribute))
