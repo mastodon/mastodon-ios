@@ -16,6 +16,8 @@ class MainTabBarController: UITabBarController {
     
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
+
+    var currentTab = Tab.home
         
     enum Tab: Int, CaseIterable {
         case home
@@ -95,7 +97,9 @@ extension MainTabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        delegate = self
+
         view.backgroundColor = .systemBackground
         
         let tabs = Tab.allCases
@@ -195,6 +199,27 @@ extension MainTabBarController {
     }
     
 }
+
+// MARK: - UITabBarControllerDelegate
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
+        defer {
+            if let tab = Tab(rawValue: tabBarController.selectedIndex) {
+                currentTab = tab
+            }
+        }
+        guard currentTab.rawValue == tabBarController.selectedIndex,
+              let navigationController = viewController as? UINavigationController,
+              navigationController.viewControllers.count == 1,
+              let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer else {
+            return
+        }
+
+        scrollViewContainer.scrollToTop(animated: true)
+    }
+}
+
 
 // HIG: keyboard UX
 // https://developer.apple.com/design/human-interface-guidelines/macos/user-interaction/keyboard/
@@ -307,7 +332,10 @@ extension MainTabBarController {
         guard let index = Tab.allCases.firstIndex(of: tab) else { return }
         let previousTab = Tab(rawValue: selectedIndex)
         selectedIndex = index
-        
+        if let tab = Tab(rawValue: index) {
+            currentTab = tab
+        }
+
         if let previousTab = previousTab {
             switch (tab, previousTab) {
             case (.home, .home):
