@@ -129,7 +129,7 @@ Your account looks like this to them.";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "This account has been suspended.";
 "Common.Controls.Timeline.Header.UserBlockedWarning" = "You can’t view %@’s profile
  until they unblock you.";
-"Common.Controls.Timeline.Header.UserBlockingWarning" = "You can’t view %@'s profile
+"Common.Controls.Timeline.Header.UserBlockingWarning" = "You can’t view %@’s profile
  until you unblock them.
 Your account looks like this to them.";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "%@’s account has been suspended.";

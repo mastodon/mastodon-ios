@@ -184,7 +184,7 @@
                 "header": {
                     "no_status_found": "No Status Found",
                     "blocking_warning": "You can’t view this profile\n until you unblock them.\nYour account looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s's profile\n until you unblock them.\nYour account looks like this to them.",
+                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour account looks like this to them.",
                     "blocked_warning": "You can’t view this’s profile\n until they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
                     "suspended_warning": "This account has been suspended.",

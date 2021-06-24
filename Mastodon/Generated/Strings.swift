@@ -367,7 +367,7 @@ internal enum L10n {
           internal static func userBlockedWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserBlockedWarning", String(describing: p1))
           }
-          /// You can’t view %@'s profile\n until you unblock them.\nYour account looks like this to them.
+          /// You can’t view %@’s profile\n until you unblock them.\nYour account looks like this to them.
           internal static func userBlockingWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserBlockingWarning", String(describing: p1))
           }
