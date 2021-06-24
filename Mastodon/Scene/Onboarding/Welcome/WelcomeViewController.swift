@@ -36,6 +36,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     
     private(set) lazy var  signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
+        button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         let backgroundImageColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? .white : Asset.Colors.brandBlue.color
         let backgroundImageHighlightedColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor(white: 0.8, alpha: 1.0) : Asset.Colors.brandBlueDarken20.color

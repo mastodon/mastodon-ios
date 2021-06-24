@@ -1,7 +1,6 @@
 PODS:
   - DateToolsSwift (5.0.0)
   - FLEX (4.4.1)
-  - GDPerformanceView-Swift (2.1.1)
   - Kanna (5.2.4)
   - Keys (1.0.1)
   - PINCache (3.0.3):
@@ -45,7 +44,6 @@ PODS:
 DEPENDENCIES:
   - DateToolsSwift (~> 5.0.0)
   - FLEX (~> 4.4.0)
-  - GDPerformanceView-Swift (~> 2.1.1)
   - Kanna (~> 5.2.2)
   - Keys (from `Pods/CocoaPodsKeys`)
   - SwiftGen (~> 6.4.0)
@@ -56,7 +54,6 @@ SPEC REPOS:
   trunk:
     - DateToolsSwift
     - FLEX
-    - GDPerformanceView-Swift
     - Kanna
     - PINCache
     - PINOperation
@@ -72,7 +69,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
-  GDPerformanceView-Swift: 22d964fe40b19e3d914dba2586237d064de8fd77
   Kanna: b9d00d7c11428308c7f95e1f1f84b8205f567a8f
   Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
@@ -82,6 +78,6 @@ SPEC CHECKSUMS:
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   "UITextField+Shake": 298ac5a0f239d731bdab999b19b628c956ca0ac3
 
-PODFILE CHECKSUM: a0d0a385a2888802244e7841940a7d5a55315e1f
+PODFILE CHECKSUM: f2f99b5771c5c36ef69d13999b88cea5b0e8bfe1
 
 COCOAPODS: 1.10.1

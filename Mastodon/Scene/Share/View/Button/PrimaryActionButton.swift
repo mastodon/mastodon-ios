@@ -20,6 +20,8 @@ class PrimaryActionButton: UIButton {
     }()
     
     private var originalButtonTitle: String?
+
+    var adjustsBackgroundImageWhenUserInterfaceStyleChanges = true
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,7 +53,9 @@ extension PrimaryActionButton {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        setupBackgroundAppearance()
+        if adjustsBackgroundImageWhenUserInterfaceStyleChanges {
+            setupBackgroundAppearance()
+        }
     }
     
     func showLoading() {

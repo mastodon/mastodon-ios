@@ -41,8 +41,14 @@ enum Item {
 extension Item {
     class StatusAttribute {
         var isSeparatorLineHidden: Bool
-        
+
+        /// is media loaded or not
         let isImageLoaded = CurrentValueSubject<Bool, Never>(false)
+
+        /// flag for current sensitive content reveal state
+        ///
+        /// - true: displaying sensitive content
+        /// - false: displaying content warning overlay
         let isRevealing = CurrentValueSubject<Bool, Never>(false)
 
         init(isSeparatorLineHidden: Bool = false) {

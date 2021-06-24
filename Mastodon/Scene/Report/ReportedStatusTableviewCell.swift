@@ -19,7 +19,6 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     
     weak var dependency: ReportViewController?
     var disposeBag = Set<AnyCancellable>()
-    var pollCountdownSubscription: AnyCancellable?
     var observations = Set<NSKeyValueObservation>()
     
     let statusView = StatusView()
@@ -60,16 +59,6 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // precondition: app is active
-        guard UIApplication.shared.applicationState == .active else { return }
-        DispatchQueue.main.async {
-            self.statusView.drawContentWarningImageView()
-        }
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -134,7 +123,6 @@ extension ReportedStatusTableViewCell {
         statusView.delegate = self
         statusView.statusMosaicImageViewContainer.delegate = self
         statusView.actionToolbarContainer.isHidden = true
-        statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = backgroundColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -188,12 +176,13 @@ extension ReportedStatusTableViewCell: MosaicImageViewContainerDelegate {
 }
 
 extension ReportedStatusTableViewCell: StatusViewDelegate {
+
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
     }
-    
-    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+
+    func statusView(_ statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView) {
     }
-    
+
     func statusView(_ statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
         guard let dependency = self.dependency else { return }
         StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: dependency, cell: self)

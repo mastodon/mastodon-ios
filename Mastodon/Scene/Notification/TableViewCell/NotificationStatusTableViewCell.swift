@@ -104,16 +104,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         super.init(coder: coder)
         configure()
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // precondition: app is active
-        guard UIApplication.shared.applicationState == .active else { return }
-        DispatchQueue.main.async {
-            self.statusView.drawContentWarningImageView()
-        }
-    }
+
 }
 
 extension NotificationStatusTableViewCell {
@@ -231,32 +222,17 @@ extension NotificationStatusTableViewCell {
         statusBorder.layer.borderColor = Asset.Colors.Border.notification.color.cgColor
         actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
     }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-        
-        resetContentOverlayBlurImageBackgroundColor(selected: highlighted)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        resetContentOverlayBlurImageBackgroundColor(selected: selected)
-    }
-    
-    private func resetContentOverlayBlurImageBackgroundColor(selected: Bool) {
-        let imageViewBackgroundColor: UIColor? = selected ? selectedBackgroundView?.backgroundColor : backgroundColor
-        statusView.contentWarningOverlayView.blurContentImageView.backgroundColor = imageViewBackgroundColor
-    }
+
 }
 
 // MARK: - StatusViewDelegate
 extension NotificationStatusTableViewCell: StatusViewDelegate {
+
     func statusView(_ statusView: StatusView, headerInfoLabelDidPressed label: UILabel) {
         // do nothing
     }
-    
-    func statusView(_ statusView: StatusView, avatarButtonDidPressed button: UIButton) {
+
+    func statusView(_ statusView: StatusView, avatarImageViewDidPressed imageView: UIImageView) {
         // do nothing
     }
     

@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import ActiveLabel
 import TwitterTextEditor
+import FLAnimatedImage
 
 protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)
@@ -66,7 +67,7 @@ final class ProfileHeaderView: UIView {
     }()
     
     let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = FLAnimatedImageView()
         let placeholderImage = UIImage
             .placeholder(size: ProfileHeaderView.avatarImageViewSize, color: Asset.Colors.Background.systemGroupedBackground.color)
             .af.imageRounded(withCornerRadius: ProfileHeaderView.avatarImageViewCornerRadius, divideRadiusByImageScale: false)

@@ -42,7 +42,7 @@ final class MosaicImageViewContainer: UIView {
     
     let contentWarningOverlayView: ContentWarningOverlayView = {
         let contentWarningOverlayView = ContentWarningOverlayView()
-        contentWarningOverlayView.configure(style: .visualEffectView)
+        contentWarningOverlayView.configure(style: .media)
         return contentWarningOverlayView
     }()
     
@@ -103,10 +103,20 @@ extension MosaicImageViewContainer {
         imageViews.forEach { imageView in
             imageView.constraints.forEach { imageView.removeConstraint($0) }
             imageView.removeFromSuperview()
+            imageView.layer.maskedCorners = [
+                .layerMinXMinYCorner, .layerMaxXMinYCorner,
+                .layerMinXMaxYCorner, .layerMaxXMaxYCorner
+            ]
+            imageView.image = nil
         }
         blurhashOverlayImageViews.forEach { imageView in
             imageView.constraints.forEach { imageView.removeConstraint($0) }
             imageView.removeFromSuperview()
+            imageView.layer.maskedCorners = [
+                .layerMinXMinYCorner, .layerMaxXMinYCorner,
+                .layerMinXMaxYCorner, .layerMaxXMaxYCorner
+            ]
+            imageView.image = nil
         }
         
         contentWarningOverlayView.removeFromSuperview()
