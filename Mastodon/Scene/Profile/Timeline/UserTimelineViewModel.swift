@@ -82,19 +82,28 @@ final class UserTimelineViewModel {
                 diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
             }
 
+            let name = self.userDisplayName.value
             guard !isBlocking else {
-                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocking))], toSection: .main)
+                snapshot.appendItems(
+                    [Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocking(name: name)))],
+                    toSection: .main
+                )
                 return
             }
             
             guard !isBlockedBy else {
-                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocked))], toSection: .main)
+                snapshot.appendItems(
+                    [Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .blocked(name: name)))],
+                    toSection: .main
+                )
                 return
             }
             
-            let name = self.userDisplayName.value
             guard !isSuspended else {
-                snapshot.appendItems([Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .suspended(name: name)))], toSection: .main)
+                snapshot.appendItems(
+                    [Item.emptyStateHeader(attribute: Item.EmptyStateHeaderAttribute(reason: .suspended(name: name)))],
+                    toSection: .main
+                )
                 return
             }
 

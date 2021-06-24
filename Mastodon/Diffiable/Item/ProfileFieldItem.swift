@@ -32,18 +32,14 @@ extension ProfileFieldItem {
 extension ProfileFieldItem {
     struct FieldValue: Equatable, Hashable {
         let id: UUID
-        
+
         var name: CurrentValueSubject<String, Never>
         var value: CurrentValueSubject<String, Never>
-        
+
         init(id: UUID = UUID(), name: String, value: String) {
             self.id = id
             self.name = CurrentValueSubject(name)
             self.value = CurrentValueSubject(value)
-        }
-        
-        func duplicate() -> FieldValue {
-            FieldValue(name: name.value, value: value.value)
         }
         
         static func == (lhs: ProfileFieldItem.FieldValue, rhs: ProfileFieldItem.FieldValue) -> Bool {

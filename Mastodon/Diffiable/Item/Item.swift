@@ -62,15 +62,15 @@ extension Item {
         
         enum Reason: Equatable {
             case noStatusFound
-            case blocking
-            case blocked
+            case blocking(name: String?)
+            case blocked(name: String?)
             case suspended(name: String?)
             
             static func == (lhs: Item.EmptyStateHeaderAttribute.Reason, rhs: Item.EmptyStateHeaderAttribute.Reason) -> Bool {
                 switch (lhs, rhs) {
                 case (.noStatusFound, noStatusFound): return true
-                case (.blocking, blocking): return true
-                case (.blocked, blocked): return true
+                case (.blocking(let nameLeft), blocking(let nameRight)): return nameLeft == nameRight
+                case (.blocked(let nameLeft), blocked(let nameRight)): return nameLeft == nameRight
                 case (.suspended(let nameLeft), .suspended(let nameRight)):   return nameLeft == nameRight
                 default: return false
                 }

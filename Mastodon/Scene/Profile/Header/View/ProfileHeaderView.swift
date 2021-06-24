@@ -50,8 +50,12 @@ final class ProfileHeaderView: UIView {
         imageView.accessibilityIgnoresInvertColors = true
         return imageView
     }()
-    let bannerImageViewOverlayView: UIView = {
-        let overlayView = UIView()
+
+    // known issue:
+    // in iOS 14 blur maybe disappear when banner image moving and scaling
+    static let bannerImageViewOverlayBlurEffect = UIBlurEffect(style: .systemMaterialDark)
+    let bannerImageViewOverlayVisualEffectView: UIVisualEffectView = {
+        let overlayView = UIVisualEffectView(effect: nil)
         overlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
         return overlayView
     }()
@@ -79,6 +83,9 @@ final class ProfileHeaderView: UIView {
         editAvatarBackgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         editAvatarButton.tintColor = .white
     }
+
+    static let avatarImageViewOverlayBlurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+    let avatarImageViewOverlayVisualEffectView = UIVisualEffectView(effect: nil)
     
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
@@ -226,13 +233,13 @@ extension ProfileHeaderView {
         bannerImageView.frame = bannerContainerView.bounds
         bannerContainerView.addSubview(bannerImageView)
         
-        bannerImageViewOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        bannerImageView.addSubview(bannerImageViewOverlayView)
+        bannerImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        bannerImageView.addSubview(bannerImageViewOverlayVisualEffectView)
         NSLayoutConstraint.activate([
-            bannerImageViewOverlayView.topAnchor.constraint(equalTo: bannerImageView.topAnchor),
-            bannerImageViewOverlayView.leadingAnchor.constraint(equalTo: bannerImageView.leadingAnchor),
-            bannerImageViewOverlayView.trailingAnchor.constraint(equalTo: bannerImageView.trailingAnchor),
-            bannerImageViewOverlayView.bottomAnchor.constraint(equalTo: bannerImageView.bottomAnchor),
+            bannerImageViewOverlayVisualEffectView.topAnchor.constraint(equalTo: bannerImageView.topAnchor),
+            bannerImageViewOverlayVisualEffectView.leadingAnchor.constraint(equalTo: bannerImageView.leadingAnchor),
+            bannerImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: bannerImageView.trailingAnchor),
+            bannerImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: bannerImageView.bottomAnchor),
         ])
 
         // avatar
@@ -252,6 +259,15 @@ extension ProfileHeaderView {
             avatarImageViewBackgroundView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 0.5 * ProfileHeaderView.avatarImageViewBorderWidth),
             avatarImageView.widthAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.width).priority(.required - 1),
             avatarImageView.heightAnchor.constraint(equalToConstant: ProfileHeaderView.avatarImageViewSize.height).priority(.required - 1),
+        ])
+
+        avatarImageViewOverlayVisualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        avatarImageViewBackgroundView.addSubview(avatarImageViewOverlayVisualEffectView)
+        NSLayoutConstraint.activate([
+            avatarImageViewOverlayVisualEffectView.topAnchor.constraint(equalTo: avatarImageViewBackgroundView.topAnchor),
+            avatarImageViewOverlayVisualEffectView.leadingAnchor.constraint(equalTo: avatarImageViewBackgroundView.leadingAnchor),
+            avatarImageViewOverlayVisualEffectView.trailingAnchor.constraint(equalTo: avatarImageViewBackgroundView.trailingAnchor),
+            avatarImageViewOverlayVisualEffectView.bottomAnchor.constraint(equalTo: avatarImageViewBackgroundView.bottomAnchor),
         ])
     
         editAvatarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
@@ -425,7 +441,7 @@ extension ProfileHeaderView {
             bioTextEditorView.isHidden = true
             
             animator.addAnimations {
-                self.bannerImageViewOverlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
+                self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
                 self.nameTextFieldBackgroundView.backgroundColor = .clear
                 self.editAvatarBackgroundView.alpha = 0
             }
@@ -441,7 +457,7 @@ extension ProfileHeaderView {
             editAvatarBackgroundView.alpha = 0
             bioTextEditorView.backgroundColor = .clear
             animator.addAnimations {
-                self.bannerImageViewOverlayView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
+                self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
                 self.nameTextFieldBackgroundView.backgroundColor = Asset.Scene.Profile.Banner.nameEditBackgroundGray.color
                 self.editAvatarBackgroundView.alpha = 1
                 self.bioTextEditorView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
