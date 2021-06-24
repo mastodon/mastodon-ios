@@ -42,6 +42,9 @@ class ProfileViewModel: NSObject {
     let fileds: CurrentValueSubject<[Mastodon.Entity.Field], Never>
     let emojiDict: CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>
 
+    // fulfill this before editing
+    let accountForEdit = CurrentValueSubject<Mastodon.Entity.Account?, Never>(nil)
+
     let protected: CurrentValueSubject<Bool?, Never>
     let suspended: CurrentValueSubject<Bool, Never>
 
@@ -337,6 +340,22 @@ extension ProfileViewModel {
             self.isMoreMenuBarButtonItemHidden.value = false
             self.isMeBarButtonItemsHidden.value = true
         }
+    }
+
+}
+
+extension ProfileViewModel {
+
+    // fetch profile info before edit
+    func fetchEditProfileInfo() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> {
+        guard let currentMastodonUser = currentMastodonUser.value,
+              let mastodonAuthentication = currentMastodonUser.mastodonAuthentication else {
+            return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
+        }
+
+        let authorization = Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
+        return context.apiService.accountVerifyCredentials(domain: currentMastodonUser.domain, authorization: authorization)
+//            .erro
     }
 
 }

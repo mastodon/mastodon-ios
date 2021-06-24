@@ -27,6 +27,10 @@
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
+            "edit_profile_failure": {
+                "title": "Edit Profile Error",
+                "message": "Cannot edit profile. Please try again."
+            },
             "sign_out": {
                 "title": "Sign out",
                 "message": "Are you sure you want to sign out?",

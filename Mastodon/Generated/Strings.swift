@@ -47,6 +47,12 @@ internal enum L10n {
         /// Discard Publish
         internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Title")
       }
+      internal enum EditProfileFailure {
+        /// Cannot edit profile. Please try again.
+        internal static let message = L10n.tr("Localizable", "Common.Alerts.EditProfileFailure.Message")
+        /// Edit Profile Error
+        internal static let title = L10n.tr("Localizable", "Common.Alerts.EditProfileFailure.Title")
+      }
       internal enum PublishPostFailure {
         /// Failed to publish the post.\nPlease check your internet connection.
         internal static let message = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Message")

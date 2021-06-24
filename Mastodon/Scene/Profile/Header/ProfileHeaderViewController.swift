@@ -501,6 +501,7 @@ extension ProfileHeaderViewController: UICollectionViewDelegate {
 
 // MARK: - ProfileFieldCollectionViewCellDelegate
 extension ProfileHeaderViewController: ProfileFieldCollectionViewCellDelegate {
+    // should be remove style edit button
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, editButtonDidPressed button: UIButton) {
         guard let diffableDataSource = viewModel.fieldDiffableDataSource else { return }
         guard let indexPath = profileHeaderView.fieldCollectionView.indexPath(for: cell) else { return }

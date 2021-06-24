@@ -24,6 +24,7 @@ final class ProfileHeaderViewModel {
     let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
     let isTitleViewContentOffsetSet = CurrentValueSubject<Bool, Never>(false)
     let emojiDict = CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>([:])
+    let accountForEdit = CurrentValueSubject<Mastodon.Entity.Account?, Never>(nil)
     
     // output
     let displayProfileInfo = ProfileInfo()
@@ -33,19 +34,24 @@ final class ProfileHeaderViewModel {
     
     init(context: AppContext) {
         self.context = context
-        
-        isEditing
-            .removeDuplicates()     // only triiger when value toggle
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isEditing in
-                guard let self = self else { return }
-                // setup editing value when toggle to editing
-                self.editProfileInfo.name.value = self.displayProfileInfo.name.value        // set to name
-                self.editProfileInfo.avatarImageResource.value = .image(nil)                // set to empty
-                self.editProfileInfo.note.value = ProfileHeaderViewModel.normalize(note: self.displayProfileInfo.note.value)
-                self.editProfileInfo.fields.value = self.displayProfileInfo.fields.value.map { $0.duplicate() }    // set to fields
-            }
-            .store(in: &disposeBag)
+
+        Publishers.CombineLatest(
+            isEditing.removeDuplicates(),   // only trigger when value toggle
+            accountForEdit
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] isEditing, account in
+            guard let self = self else { return }
+            guard isEditing else { return }
+            // setup editing value when toggle to editing
+            self.editProfileInfo.name.value = self.displayProfileInfo.name.value        // set to name
+            self.editProfileInfo.avatarImageResource.value = .image(nil)                // set to empty
+            self.editProfileInfo.note.value = ProfileHeaderViewModel.normalize(note: self.displayProfileInfo.note.value)
+            self.editProfileInfo.fields.value = account?.source?.fields?.compactMap { field in
+                ProfileFieldItem.FieldValue(name: field.name, value: field.value)
+            } ?? []
+        }
+        .store(in: &disposeBag)
         
         Publishers.CombineLatest4(
             isEditing.removeDuplicates(),
@@ -152,12 +158,14 @@ extension ProfileHeaderViewModel {
         guard case let .image(image) =  editProfileInfo.avatarImageResource.value, image == nil else { return true }
         guard editProfileInfo.note.value == ProfileHeaderViewModel.normalize(note: displayProfileInfo.note.value) else { return true }
         let isFieldsEqual: Bool = {
+            let originalFields = self.accountForEdit.value?.source?.fields?.compactMap { field in
+                ProfileFieldItem.FieldValue(name: field.name, value: field.value)
+            } ?? []
             let editFields = editProfileInfo.fields.value
-            let displayFields = displayProfileInfo.fields.value
-            guard editFields.count == displayFields.count else { return false }
-            for (editField, displayField) in zip(editFields, displayFields) {
-                guard editField.name.value == displayField.name.value,
-                      editField.value.value == displayField.value.value else {
+            guard editFields.count == originalFields.count else { return false }
+            for (editField, originalField) in zip(editFields, originalFields) {
+                guard editField.name.value == originalField.name.value,
+                      editField.value.value == originalField.value.value else {
                     return false
                 }
             }

@@ -376,6 +376,9 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.fields)
             .store(in: &disposeBag)
+        viewModel.accountForEdit
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.accountForEdit)
+            .store(in: &disposeBag)
         viewModel.emojiDict
             .receive(on: DispatchQueue.main)
             .assign(to: \.value, on: profileHeaderViewController.viewModel.emojiDict)
@@ -443,7 +446,7 @@ extension ProfileViewController {
             if relationshipActionSet.contains(.edit) {
                 // check .edit state and set .editing when isEditing
                 friendshipButton.configure(actionOptionSet: isUpdating ? .updating : (isEditing ? .editing : .edit))
-                self.profileHeaderViewController.profileHeaderView.configure(state: isUpdating || isEditing ? .editing : .normal)
+                self.profileHeaderViewController.profileHeaderView.configure(state: isEditing ? .editing : .normal)
             } else {
                 friendshipButton.configure(actionOptionSet: relationshipActionSet)
             }
@@ -695,8 +698,9 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
             animated: true
         )
     }
-    
+
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        // handle profile fields interaction
         switch entity.type {
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }
@@ -704,6 +708,13 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
         case .hashtag(let hashtag, _):
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag)
             coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
+        case .mention(_, let userInfo):
+            guard let href = userInfo?["href"] as? String else {
+                // currently we cannot present profile scene without userID
+                return
+            }
+            guard let url = URL(string: href) else { return }
+            coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
         default:
             break
         }
@@ -803,29 +814,67 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
     
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton) {
         let relationshipActionSet = viewModel.relationshipActionOptionSet.value
+
+        // handle edit logic for editable profile
+        // handle relationship logic for non-editable profile
         if relationshipActionSet.contains(.edit) {
+            // do nothing when updating
             guard !viewModel.isUpdating.value else { return }
-            
+
             if profileHeaderViewController.viewModel.isProfileInfoEdited() {
+                // update profile if changed
                 viewModel.isUpdating.value = true
                 profileHeaderViewController.viewModel.updateProfileInfo()
                     .receive(on: DispatchQueue.main)
                     .sink { [weak self] completion in
                         guard let self = self else { return }
+                        defer {
+                            // finish updating
+                            self.viewModel.isUpdating.value = false
+                        }
                         switch completion {
                         case .failure(let error):
                             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update profile info fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                         case .finished:
                             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update profile info success", ((#file as NSString).lastPathComponent), #line, #function)
                         }
-                        self.viewModel.isUpdating.value = false
                     } receiveValue: { [weak self] _ in
                         guard let self = self else { return }
                         self.viewModel.isEditing.value = false
                     }
                     .store(in: &disposeBag)
             } else {
-                viewModel.isEditing.value.toggle()
+                // set `updating` then toggle `edit` state
+                viewModel.isUpdating.value = true
+                viewModel.fetchEditProfileInfo()
+                    .receive(on: RunLoop.main)
+                    .sink { [weak self] completion in
+                        guard let self = self else { return }
+                        defer {
+                            // finish updating
+                            self.viewModel.isUpdating.value = false
+                        }
+                        switch completion {
+                        case .failure(let error):
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch profile info for edit fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                            let alertController = UIAlertController(for: error, title: L10n.Common.Alerts.EditProfileFailure.title, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+                            alertController.addAction(okAction)
+                            self.coordinator.present(
+                                scene: .alertController(alertController: alertController),
+                                from: nil,
+                                transition: .alertController(animated: true, completion: nil)
+                            )
+                        case .finished:
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch profile info for edit success", ((#file as NSString).lastPathComponent), #line, #function)
+                            // enter editing mode
+                            self.viewModel.isEditing.value.toggle()
+                        }
+                    } receiveValue: { [weak self] response in
+                        guard let self = self else { return }
+                        self.viewModel.accountForEdit.value = response.value
+                    }
+                    .store(in: &disposeBag)
             }
         } else {
             guard let relationshipAction = relationshipActionSet.highPriorityAction(except: .editOptions) else { return }

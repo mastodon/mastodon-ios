@@ -91,11 +91,7 @@ extension ActiveLabel {
 extension ActiveLabel {
     /// account field
     func configure(field: String, emojiDict: MastodonStatusContent.EmojiDict) {
-        activeEntities.removeAll()
-        let parseResult = MastodonField.parse(field: field, emojiDict: emojiDict)
-        text = parseResult.trimmed
-        activeEntities = parseResult.activeEntities
-        accessibilityLabel = parseResult.value
+        configure(content: field, emojiDict: emojiDict)
     }
 }
 

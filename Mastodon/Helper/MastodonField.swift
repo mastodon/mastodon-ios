@@ -9,7 +9,8 @@ import Foundation
 import ActiveLabel
 
 enum MastodonField {
-    
+
+    @available(*, deprecated, message: "rely on server meta rendering")
     static func parse(field string: String, emojiDict: MastodonStatusContent.EmojiDict) -> ParseResult {
         // use content parser get emoji entities
         let value = string
