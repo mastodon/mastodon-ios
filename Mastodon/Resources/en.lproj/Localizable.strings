@@ -120,13 +120,18 @@ Please check your internet connection.";
 "Common.Controls.Timeline.Accessibility.CountFavorites" = "%@ favorites";
 "Common.Controls.Timeline.Accessibility.CountReblogs" = "%@ reblogs";
 "Common.Controls.Timeline.Accessibility.CountReplies" = "%@ replies";
-"Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view Artbot’s profile
+"Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view this’s profile
  until they unblock you.";
-"Common.Controls.Timeline.Header.BlockingWarning" = "You can’t view Artbot’s profile
+"Common.Controls.Timeline.Header.BlockingWarning" = "You can’t view this profile
  until you unblock them.
 Your account looks like this to them.";
 "Common.Controls.Timeline.Header.NoStatusFound" = "No Status Found";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "This account has been suspended.";
+"Common.Controls.Timeline.Header.UserBlockedWarning" = "You can’t view %@’s profile
+ until they unblock you.";
+"Common.Controls.Timeline.Header.UserBlockingWarning" = "You can’t view %@'s profile
+ until you unblock them.
+Your account looks like this to them.";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "%@’s account has been suspended.";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "Load missing posts";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
