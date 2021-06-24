@@ -527,7 +527,18 @@ extension ProfileViewController {
                 self.profileSegmentedViewController.pagingViewController.isScrollEnabled = needsPaingEnabled
             }
             .store(in: &disposeBag)
-
+        viewModel.needsImageOverlayBlurred
+            .receive(on: RunLoop.main)
+            .sink { [weak self] needsImageOverlayBlurred in
+                guard let self = self else { return }
+                UIView.animate(withDuration: 0.33) {
+                    let bannerEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.bannerImageViewOverlayBlurEffect : nil
+                    self.profileHeaderViewController.profileHeaderView.bannerImageViewOverlayVisualEffectView.effect = bannerEffect
+                    let avatarEffect: UIVisualEffect? = needsImageOverlayBlurred ? ProfileHeaderView.avatarImageViewOverlayBlurEffect : nil
+                    self.profileHeaderViewController.profileHeaderView.avatarImageViewOverlayVisualEffectView.effect = avatarEffect
+                }
+            }
+            .store(in: &disposeBag)
         
         profileHeaderViewController.profileHeaderView.delegate = self
     }

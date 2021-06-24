@@ -61,6 +61,7 @@ class ProfileViewModel: NSObject {
 
     let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
     let needsPaingEnabled = CurrentValueSubject<Bool, Never>(true)
+    let needsImageOverlayBlurred = CurrentValueSubject<Bool, Never>(false)
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
         self.context = context
@@ -148,13 +149,22 @@ class ProfileViewModel: NSObject {
         }
         .store(in: &disposeBag)
 
-        Publishers.CombineLatest(
+        let isBlockingOrBlocked = Publishers.CombineLatest(
             isBlocking,
             isBlockedBy
         )
-        .map { !($0 || $1) }
-        .assign(to: \.value, on: needsPaingEnabled)
-        .store(in: &disposeBag)
+        .map { $0 || $1 }
+        .share()
+
+        isBlockingOrBlocked
+            .map { !$0 }
+            .assign(to: \.value, on: needsPaingEnabled)
+            .store(in: &disposeBag)
+
+        isBlockingOrBlocked
+            .map { $0 }
+            .assign(to: \.value, on: needsImageOverlayBlurred)
+            .store(in: &disposeBag)
 
         setup()
     }
