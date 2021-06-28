@@ -35,6 +35,8 @@ final class ComposeViewModel {
     let autoCompleteInfo = CurrentValueSubject<ComposeViewController.AutoCompleteInfo?, Never>(nil)
     
     // output
+    let composeStatusContentTableViewCell = ComposeStatusContentTableViewCell()
+    var dataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
     var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
     var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>!
     private(set) lazy var publishStateMachine: GKStateMachine = {
@@ -61,7 +63,7 @@ final class ComposeViewModel {
     let characterCount = CurrentValueSubject<Int, Never>(0)
     let collectionViewState = CurrentValueSubject<CollectionViewState, Never>(.fold)
     
-    // for hashtag: "#<hashag> "
+    // for hashtag: "#<hashtag> "
     // for mention: "@<mention> "
     private(set) var preInsertedContent: String?
     

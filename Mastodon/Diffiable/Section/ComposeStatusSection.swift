@@ -9,7 +9,8 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import TwitterTextEditor
+import MetaTextView
+import MastodonMeta
 import AlamofireImage
 
 enum ComposeStatusSection: Equatable, Hashable {
@@ -36,8 +37,8 @@ extension ComposeStatusSection {
         composeKind: ComposeKind,
         repliedToCellFrameSubscriber: CurrentValueSubject<CGRect, Never>,
         customEmojiPickerInputViewModel: CustomEmojiPickerInputViewModel,
-        textEditorViewTextAttributesDelegate: TextEditorViewTextAttributesDelegate,
-        textEditorViewChangeObserver: TextEditorViewChangeObserver,
+        metaTextDelegate: MetaTextDelegate,
+        metaTextViewDelegate: UITextViewDelegate,
         composeStatusAttachmentTableViewCellDelegate: ComposeStatusAttachmentCollectionViewCellDelegate,
         composeStatusPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionCollectionViewCellDelegate,
         composeStatusNewPollOptionCollectionViewCellDelegate: ComposeStatusPollOptionAppendEntryCollectionViewCellDelegate,
@@ -45,8 +46,8 @@ extension ComposeStatusSection {
     ) -> UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem> {
         UICollectionViewDiffableDataSource(collectionView: collectionView) { [
             weak customEmojiPickerInputViewModel,
-            weak textEditorViewTextAttributesDelegate,
-            weak textEditorViewChangeObserver,
+            weak metaTextDelegate,
+            weak metaTextViewDelegate,
             weak composeStatusAttachmentTableViewCellDelegate,
             weak composeStatusPollOptionCollectionViewCellDelegate,
             weak composeStatusNewPollOptionCollectionViewCellDelegate,
@@ -74,7 +75,7 @@ extension ComposeStatusSection {
                     cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
                     // set text
                     //status.emoji
-                    cell.statusView.activeTextLabel.configure(content: status.content, emojiDict: [:])
+//                    cell.statusView.activeTextLabel.configure(content: status.content, emojiDict: [:])
                     // set date
                     cell.statusView.dateLabel.text = status.createdAt.slowedTimeAgoSinceNow
                     
@@ -83,8 +84,17 @@ extension ComposeStatusSection {
                 return cell
             case .input(let replyToStatusObjectID, let attribute):
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self), for: indexPath) as! ComposeStatusContentCollectionViewCell
+                do {
+                    let metaContent = try MastodonMetaContent.convert(
+                        document: MastodonContent(content: attribute.composeContent.value ?? "", emojis: [:])
+                    )
+                    cell.metaText.configure(content: metaContent)
+                } catch {
+                    assertionFailure()
+                }
+                cell.metaText.delegate = metaTextDelegate
+                cell.metaText.textView.delegate = metaTextViewDelegate
                 cell.statusContentWarningEditorView.textView.text = attribute.contentWarningContent.value
-                cell.textEditorView.text = attribute.composeContent.value ?? ""
                 managedObjectContext.performAndWait {
                     guard let replyToStatusObjectID = replyToStatusObjectID,
                           let replyTo = managedObjectContext.object(with: replyToStatusObjectID) as? Status else {
@@ -96,24 +106,22 @@ extension ComposeStatusSection {
                     cell.statusView.headerInfoLabel.text = L10n.Scene.Compose.replyingToUser(replyTo.author.displayNameWithFallback)
                 }
                 ComposeStatusSection.configureStatusContent(cell: cell, attribute: attribute)
-                cell.textEditorView.textAttributesDelegate = textEditorViewTextAttributesDelegate
-                cell.textEditorViewChangeObserver = textEditorViewChangeObserver    // relay
-                cell.composeContent
-                    .removeDuplicates()
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak collectionView] text in
-                        guard let collectionView = collectionView else { return }
-                        // self size input cell
-                        // needs restore content offset to resolve issue #83
-                        let oldContentOffset = collectionView.contentOffset
-                        collectionView.collectionViewLayout.invalidateLayout()
-                        collectionView.layoutIfNeeded()
-                        collectionView.contentOffset = oldContentOffset
-
-                        // bind input data
-                        attribute.composeContent.value = text
-                    }
-                    .store(in: &cell.disposeBag)
+//                cell.composeContent
+//                    .removeDuplicates()
+//                    .receive(on: DispatchQueue.main)
+//                    .sink { [weak collectionView] text in
+//                        guard let collectionView = collectionView else { return }
+//                        // self size input cell
+//                        // needs restore content offset to resolve issue #83
+//                        let oldContentOffset = collectionView.contentOffset
+//                        collectionView.collectionViewLayout.invalidateLayout()
+//                        collectionView.layoutIfNeeded()
+//                        collectionView.contentOffset = oldContentOffset
+//
+//                        // bind input data
+//                        attribute.composeContent.value = text
+//                    }
+//                    .store(in: &cell.disposeBag)
                 attribute.isContentWarningComposing
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell, weak collectionView] isContentWarningComposing in
@@ -121,7 +129,7 @@ extension ComposeStatusSection {
                         guard let collectionView = collectionView else { return }
                         // self size input cell
                         collectionView.collectionViewLayout.invalidateLayout()
-                        cell.statusContentWarningEditorView.containerView.isHidden = !isContentWarningComposing
+                        cell.statusContentWarningEditorView.isHidden = !isContentWarningComposing
                         cell.statusContentWarningEditorView.alpha = 0
                         UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseOut]) {
                             cell.statusContentWarningEditorView.alpha = 1
@@ -141,7 +149,7 @@ extension ComposeStatusSection {
                         attribute.contentWarningContent.value = text
                     }
                     .store(in: &cell.disposeBag)
-                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplaceableTextInput: cell.textEditorView, disposeBag: &cell.disposeBag)
+                ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplaceableTextInput: cell.metaText.textView, disposeBag: &cell.disposeBag)
                 ComposeStatusSection.configureCustomEmojiPicker(viewModel: customEmojiPickerInputViewModel, customEmojiReplaceableTextInput: cell.statusContentWarningEditorView.textView, disposeBag: &cell.disposeBag)
 
                 return cell
@@ -282,6 +290,30 @@ extension ComposeStatusSection {
             .assign(to: \.value, on: attribute.composeContent)
             .store(in: &cell.disposeBag)
     }
+
+    static func configureStatusContent(
+        cell: ComposeStatusContentTableViewCell,
+        attribute: ComposeStatusItem.ComposeStatusAttribute
+    ) {
+        // set avatar
+        attribute.avatarURL
+            .receive(on: DispatchQueue.main)
+            .sink { avatarURL in
+                cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: avatarURL))
+            }
+            .store(in: &cell.disposeBag)
+        // set display name and username
+        Publishers.CombineLatest(
+            attribute.displayName.eraseToAnyPublisher(),
+            attribute.username.eraseToAnyPublisher()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { displayName, username in
+            cell.statusView.nameLabel.text = displayName
+            cell.statusView.usernameLabel.text = username.flatMap { "@" + $0 } ?? " "
+        }
+        .store(in: &cell.disposeBag)
+    }
     
 }
 
@@ -303,16 +335,16 @@ class CustomEmojiReplaceableTextInputReference {
     }
 }
 
-extension TextEditorView: CustomEmojiReplaceableTextInput {
-    func insertText(_ text: String) {
-        try? updateByReplacing(range: selectedRange, with: text, selectedRange: nil)
-    }
-    
-    public override var isFirstResponder: Bool {
-        return isEditing
-    }
-
-}
+//extension TextEditorView: CustomEmojiReplaceableTextInput {
+//    func insertText(_ text: String) {
+//        try? updateByReplacing(range: selectedRange, with: text, selectedRange: nil)
+//    }
+//    
+//    public override var isFirstResponder: Bool {
+//        return isEditing
+//    }
+//
+//}
 extension UITextField: CustomEmojiReplaceableTextInput { }
 extension UITextView: CustomEmojiReplaceableTextInput { }
 

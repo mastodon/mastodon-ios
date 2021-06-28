@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 import Combine
-import TwitterTextEditor
+import MetaTextView
 
 final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
     
@@ -19,22 +19,35 @@ final class ComposeStatusContentCollectionViewCell: UICollectionViewCell {
     let statusContentWarningEditorView = StatusContentWarningEditorView()
     
     let textEditorViewContainerView = UIView()
-    let textEditorView: TextEditorView = {
-        let textEditorView = TextEditorView()
-        textEditorView.font = .preferredFont(forTextStyle: .body)
-        textEditorView.scrollView.isScrollEnabled = false
-        textEditorView.isScrollEnabled = false
-        textEditorView.placeholderText = L10n.Scene.Compose.contentInputPlaceholder
-        textEditorView.keyboardType = .twitter
-        return textEditorView
+
+    static let metaTextViewTag: Int = 333
+    let metaText: MetaText = {
+        let metaText = MetaText()
+        metaText.textView.tag = ComposeStatusContentCollectionViewCell.metaTextViewTag
+        metaText.textView.isScrollEnabled = false
+        metaText.textView.keyboardType = .twitter
+        metaText.textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+        metaText.textView.attributedPlaceholder = {
+            var attributes = metaText.textAttributes
+            attributes[.foregroundColor] = Asset.Colors.Label.secondary.color
+            return NSAttributedString(
+                string: L10n.Scene.Compose.contentInputPlaceholder,
+                attributes: attributes
+            )
+        }()
+        return metaText
     }()
 
-    // input
-    weak var textEditorViewChangeObserver: TextEditorViewChangeObserver?
-    
     // output
     let composeContent = PassthroughSubject<String, Never>()
     let contentWarningContent = PassthroughSubject<String, Never>()
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        metaText.delegate = nil
+        metaText.textView.delegate = nil
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -90,45 +103,58 @@ extension ComposeStatusContentCollectionViewCell {
         ])
         textEditorViewContainerView.preservesSuperviewLayoutMargins = true
         
-        textEditorView.translatesAutoresizingMaskIntoConstraints = false
-        textEditorViewContainerView.addSubview(textEditorView)
+//        textEditorView.translatesAutoresizingMaskIntoConstraints = false
+//        textEditorViewContainerView.addSubview(textEditorView)
+//        NSLayoutConstraint.activate([
+//            textEditorView.topAnchor.constraint(equalTo: textEditorViewContainerView.topAnchor),
+//            textEditorView.leadingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.leadingAnchor),
+//            textEditorView.trailingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.trailingAnchor),
+//            textEditorView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor),
+//            textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+//        ])
+//        textEditorView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+
+        metaText.textView.translatesAutoresizingMaskIntoConstraints = false
+        textEditorViewContainerView.addSubview(metaText.textView)
         NSLayoutConstraint.activate([
-            textEditorView.topAnchor.constraint(equalTo: textEditorViewContainerView.topAnchor),
-            textEditorView.leadingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.leadingAnchor),
-            textEditorView.trailingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.trailingAnchor),
-            textEditorView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor),
-            textEditorView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+            metaText.textView.topAnchor.constraint(equalTo: textEditorViewContainerView.topAnchor),
+            metaText.textView.leadingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.leadingAnchor),
+            metaText.textView.trailingAnchor.constraint(equalTo: textEditorViewContainerView.readableContentGuide.trailingAnchor),
+            metaText.textView.bottomAnchor.constraint(equalTo: textEditorViewContainerView.bottomAnchor),
+            metaText.textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 88).priority(.defaultHigh),
         ])
-        textEditorView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
+        metaText.textView.setContentCompressionResistancePriority(.required - 2, for: .vertical)
                 
         statusContentWarningEditorView.textView.delegate = self
-        textEditorView.changeObserver = self
+        //textEditorView.changeObserver = self
         
-        statusContentWarningEditorView.containerView.isHidden = true
+        statusContentWarningEditorView.isHidden = true
         statusView.revealContentWarningButton.isHidden = true
     }
 
 }
 
 // MARK: - TextEditorViewChangeObserver
-extension ComposeStatusContentCollectionViewCell: TextEditorViewChangeObserver {
-    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
-        defer {
-            textEditorViewChangeObserver?.textEditorView(textEditorView, didChangeWithChangeResult: changeResult)
-        }
-        
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textEditorView.text)
-        guard changeResult.isTextChanged else { return }
-        composeContent.send(textEditorView.text)
-    }
-}
+//extension ComposeStatusContentCollectionViewCell: TextEditorViewChangeObserver {
+//    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
+//        defer {
+//            textEditorViewChangeObserver?.textEditorView(textEditorView, didChangeWithChangeResult: changeResult)
+//        }
+//
+//        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textEditorView.text)
+//        guard changeResult.isTextChanged else { return }
+//        composeContent.send(textEditorView.text)
+//    }
+//}
 
 // MARK: - UITextViewDelegate
 extension ComposeStatusContentCollectionViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        // disable input line break
-        guard text != "\n" else { return false }
+        if textView === statusContentWarningEditorView.textView {
+            // disable input line break
+            guard text != "\n" else { return false }
+        }
         return true
     }
     

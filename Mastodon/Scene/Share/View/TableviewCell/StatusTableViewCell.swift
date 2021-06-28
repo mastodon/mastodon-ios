@@ -12,6 +12,8 @@ import Combine
 import CoreData
 import CoreDataStack
 import ActiveLabel
+import Meta
+import MetaTextView
 
 protocol StatusTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }
@@ -26,6 +28,7 @@ protocol StatusTableViewCellDelegate: AnyObject {
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, didTapImageView imageView: UIImageView, atIndex index: Int)
@@ -71,6 +74,7 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         selectionStyle = .default
+        statusView.contentMetaText.textView.isSelectable = false
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
         statusView.pollTableView.dataSource = nil
@@ -299,6 +303,10 @@ extension StatusTableViewCell: StatusViewDelegate {
     
     func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
         delegate?.statusTableViewCell(self, statusView: statusView, activeLabel: activeLabel, didSelectActiveEntity: entity)
+    }
+
+    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
+        delegate?.statusTableViewCell(self, statusView: statusView, metaText: metaText, didSelectMeta: meta)
     }
 
 }

@@ -110,6 +110,15 @@
         }
       },
       {
+        "package": "MetaTextView",
+        "repositoryURL": "https://github.com/TwidereProject/MetaTextView.git",
+        "state": {
+          "branch": null,
+          "revision": "637b73044e665e8b9678ed64dd2a83314c286aef",
+          "version": "1.2.0"
+        }
+      },
+      {
         "package": "Nuke",
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {
