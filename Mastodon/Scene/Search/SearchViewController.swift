@@ -151,6 +151,12 @@ extension SearchViewController {
         view.bringSubviewToFront(statusBar)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.viewDidAppeared.send()
+    }
+
     func setupSearchBar() {
         searchBar.delegate = self
         view.addSubview(searchBar)
