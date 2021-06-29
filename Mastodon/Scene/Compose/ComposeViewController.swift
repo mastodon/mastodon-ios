@@ -767,6 +767,22 @@ extension ComposeViewController: UITextViewDelegate {
         return autoCompleteInfo
     }
 
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if textView === textEditorView()?.textView {
+            return false
+        }
+
+        return true
+    }
+
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        if textView === textEditorView()?.textView {
+            return false
+        }
+
+        return true
+    }
+
 }
 
 // MARK: - TextEditorViewTextAttributesDelegate
