@@ -574,9 +574,8 @@ extension StatusSection {
         cell.statusView.contentMetaText.textView.accessibilityLanguage = (status.reblog ?? status).language
 
         // set visibility
-        if let visibility = (status.reblog ?? status).visibility {
+        if let visibility = (status.reblog ?? status).visibilityEnum {
             cell.statusView.updateVisibility(visibility: visibility)
-
             cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
                 .receive(on: DispatchQueue.main)
                 .sink { [weak cell] isHidden in
@@ -953,6 +952,13 @@ extension StatusSection {
             guard status.reblogsCount.intValue > 0 else { return nil }
             return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
         }()
+
+        // disable reblog when non-public (except self)
+        cell.statusView.actionToolbarContainer.reblogButton.isEnabled = true
+        if let visibility = status.visibilityEnum, visibility != .public, status.author.id != requestUserID {
+            cell.statusView.actionToolbarContainer.reblogButton.isEnabled = false
+        }
+        
         // set like
         let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {

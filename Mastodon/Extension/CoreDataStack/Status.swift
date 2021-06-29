@@ -89,3 +89,10 @@ extension Status {
 }
 
 extension Status: EmojiContainer { }
+
+
+extension Status {
+    var visibilityEnum: Mastodon.Entity.Status.Visibility? {
+        return visibility.flatMap { Mastodon.Entity.Status.Visibility(rawValue: $0) }
+    }
+}
