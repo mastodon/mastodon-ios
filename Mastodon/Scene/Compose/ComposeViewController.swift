@@ -215,6 +215,7 @@ extension ComposeViewController {
         )
         
         // update layout when keyboard show/dismiss
+        view.layoutIfNeeded()
         let keyboardEventPublishers = Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow,
             KeyboardResponderService.shared.state,
@@ -428,8 +429,8 @@ extension ComposeViewController {
         
         // setup snap behavior
         Publishers.CombineLatest(
-            viewModel.repliedToCellFrame.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.collectionViewState.eraseToAnyPublisher()
+            viewModel.repliedToCellFrame,
+            viewModel.collectionViewState
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] repliedToCellFrame, collectionViewState in
@@ -438,6 +439,8 @@ extension ComposeViewController {
             switch collectionViewState {
             case .fold:
                 self.tableView.contentInset.top = -repliedToCellFrame.height
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: set contentInset.top: -%s", ((#file as NSString).lastPathComponent), #line, #function, repliedToCellFrame.height.description)
+
             case .expand:
                 self.tableView.contentInset.top = 0
             }
@@ -447,12 +450,15 @@ extension ComposeViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Fix AutoLayout conflict issue
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.markTextEditorViewBecomeFirstResponser()
+
+        // using index to make table view layout
+        // otherwise, the content offset will be wrong
+        guard let indexPath = tableView.indexPath(for: viewModel.composeStatusContentTableViewCell),
+              let cell = tableView.cellForRow(at: indexPath) as? ComposeStatusContentTableViewCell else {
+            assertionFailure()
+            return
         }
+        cell.metaText.textView.becomeFirstResponder()
     }
 
     override func viewDidAppear(_ animated: Bool) {

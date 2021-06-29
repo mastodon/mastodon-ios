@@ -221,7 +221,18 @@ extension ComposeViewModel: UITableViewDataSource {
                 }
                 cell.statusView.headerContainerView.isHidden = false
                 cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
-                cell.statusView.headerInfoLabel.text = L10n.Scene.Compose.replyingToUser(replyTo.author.displayNameWithFallback)
+                let headerText: String = {
+                    let author = replyTo.author
+                    let name = author.displayName.isEmpty ? author.username : author.displayName
+                    return L10n.Scene.Compose.replyingToUser(name)
+                }()
+                MastodonStatusContent.parseResult(content: headerText, emojiDict: replyTo.author.emojiDict)
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak cell] parseResult in
+                        guard let cell = cell else { return }
+                        cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
+                    }
+                    .store(in: &cell.disposeBag)
             }
             // configure author
             ComposeStatusSection.configureStatusContent(cell: cell, attribute: composeStatusAttribute)
