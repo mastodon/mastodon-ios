@@ -43,6 +43,7 @@ final class ComposeRepliedToStatusContentTableViewCell: UITableViewCell {
 extension ComposeRepliedToStatusContentTableViewCell {
 
     private func _init() {
+        selectionStyle = .none
         backgroundColor = .clear
 
         statusView.actionToolbarContainer.isHidden = true

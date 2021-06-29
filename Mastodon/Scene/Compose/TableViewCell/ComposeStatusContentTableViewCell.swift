@@ -24,10 +24,10 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
     static let metaTextViewTag: Int = 333
     let metaText: MetaText = {
         let metaText = MetaText()
-        metaText.textView.tag = ComposeStatusContentCollectionViewCell.metaTextViewTag
         metaText.textView.backgroundColor = .clear
         metaText.textView.isScrollEnabled = false
         metaText.textView.keyboardType = .twitter
+        metaText.textView.textContainer.lineFragmentPadding = 10    // leading inset
         metaText.textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         metaText.textView.attributedPlaceholder = {
             var attributes = metaText.textAttributes
@@ -65,7 +65,7 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
 extension ComposeStatusContentTableViewCell {
 
     private func _init() {
-        // selectionStyle = .none
+        selectionStyle = .none
         layer.zPosition = 999
         preservesSuperviewLayoutMargins = true
 

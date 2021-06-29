@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Nuke
 
 final class CustomEmojiPickerItemCollectionViewCell: UICollectionViewCell {
     
     static let itemSize = CGSize(width: 44, height: 44)
+
+    var imageTask: ImageTask?
     
     let emojiImageView: UIImageView = {
         let imageView = UIImageView()
@@ -22,6 +25,12 @@ final class CustomEmojiPickerItemCollectionViewCell: UICollectionViewCell {
         didSet {
             emojiImageView.alpha = isHighlighted ? 0.5 : 1.0
         }
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageTask?.cancel()
+        imageTask = nil
     }
     
     override init(frame: CGRect) {

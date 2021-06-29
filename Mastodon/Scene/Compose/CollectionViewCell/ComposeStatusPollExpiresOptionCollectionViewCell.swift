@@ -10,7 +10,7 @@ import UIKit
 import Combine
 
 protocol ComposeStatusPollExpiresOptionCollectionViewCellDelegate: AnyObject {
-    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption)
+    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusPollItem.PollExpiresOptionAttribute.ExpiresOption)
 }
 
 final class ComposeStatusPollExpiresOptionCollectionViewCell: UICollectionViewCell {
@@ -41,7 +41,7 @@ final class ComposeStatusPollExpiresOptionCollectionViewCell: UICollectionViewCe
 
 extension ComposeStatusPollExpiresOptionCollectionViewCell {
     
-    private typealias ExpiresOption = ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption
+    private typealias ExpiresOption = ComposeStatusPollItem.PollExpiresOptionAttribute.ExpiresOption
     
     private func _init() {
         durationButton.translatesAutoresizingMaskIntoConstraints = false

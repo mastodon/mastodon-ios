@@ -13,7 +13,7 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 
-final class ComposeViewModel {
+final class ComposeViewModel: NSObject {
     
     static let composeContentLimit: Int = 500
     
@@ -33,11 +33,14 @@ final class ComposeViewModel {
     let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
     let autoCompleteRetryLayoutTimes = CurrentValueSubject<Int, Never>(0)
     let autoCompleteInfo = CurrentValueSubject<ComposeViewController.AutoCompleteInfo?, Never>(nil)
+    var isViewAppeared = false
     
     // output
     let composeStatusContentTableViewCell = ComposeStatusContentTableViewCell()
+    let composeStatusAttachmentTableViewCell = ComposeStatusAttachmentTableViewCell()
+    let composeStatusPollTableViewCell = ComposeStatusPollTableViewCell()
+
     var dataSource: UITableViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
-    var diffableDataSource: UICollectionViewDiffableDataSource<ComposeStatusSection, ComposeStatusItem>!
     var customEmojiPickerDiffableDataSource: UICollectionViewDiffableDataSource<CustomEmojiPickerSection, CustomEmojiPickerItem>!
     private(set) lazy var publishStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
@@ -77,8 +80,8 @@ final class ComposeViewModel {
     let attachmentServices = CurrentValueSubject<[MastodonAttachmentService], Never>([])
     
     // polls
-    let pollOptionAttributes = CurrentValueSubject<[ComposeStatusItem.ComposePollOptionAttribute], Never>([])
-    let pollExpiresOptionAttribute = ComposeStatusItem.ComposePollExpiresOptionAttribute()
+    let pollOptionAttributes = CurrentValueSubject<[ComposeStatusPollItem.PollOptionAttribute], Never>([])
+    let pollExpiresOptionAttribute = ComposeStatusPollItem.PollExpiresOptionAttribute()
     
     init(
         context: AppContext,
@@ -93,7 +96,9 @@ final class ComposeViewModel {
         self.selectedStatusVisibility = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public)
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
+        super.init()
         // end init
+        
         switch composeKind {
         case .reply(let repliedToStatusObjectID):
             context.managedObjectContext.performAndWait {
@@ -145,7 +150,7 @@ final class ComposeViewModel {
         case .post:
             self.preInsertedContent = nil
         }
-        
+
         isCustomEmojiComposing
             .assign(to: \.value, on: customEmojiPickerInputViewModel.isCustomEmojiComposing)
             .store(in: &disposeBag)
@@ -284,45 +289,13 @@ final class ComposeViewModel {
                 self.customEmojiViewModel.value = self.context.emojiService.dequeueCustomEmojiViewModel(for: domain)
             }
             .store(in: &disposeBag)
-        
-        // bind snapshot
-        Publishers.CombineLatest3(
-            attachmentServices.eraseToAnyPublisher(),
-            isPollComposing.eraseToAnyPublisher(),
-            pollOptionAttributes.eraseToAnyPublisher()
-        )
-        .receive(on: DispatchQueue.main)
-        .sink { [weak self] attachmentServices, isPollComposing, pollAttributes in
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: trigger attachments upload…", ((#file as NSString).lastPathComponent), #line, #function)
 
-            guard let self = self else { return }
-            guard let diffableDataSource = self.diffableDataSource else { return }
-            var snapshot = diffableDataSource.snapshot()
-            
-            snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .attachment))
-            var attachmentItems: [ComposeStatusItem] = []
-            for attachmentService in attachmentServices {
-                let item = ComposeStatusItem.attachment(attachmentService: attachmentService)
-                attachmentItems.append(item)
-            }
-            snapshot.appendItems(attachmentItems, toSection: .attachment)
-            
-            snapshot.deleteItems(snapshot.itemIdentifiers(inSection: .poll))
-            if isPollComposing {
-                var pollItems: [ComposeStatusItem] = []
-                for pollAttribute in pollAttributes {
-                    let item = ComposeStatusItem.pollOption(attribute: pollAttribute)
-                    pollItems.append(item)
-                }
-                snapshot.appendItems(pollItems, toSection: .poll)
-                if pollAttributes.count < 4 {
-                    snapshot.appendItems([ComposeStatusItem.pollOptionAppendEntry], toSection: .poll)
-                }
-                snapshot.appendItems([ComposeStatusItem.pollExpiresOption(attribute: self.pollExpiresOptionAttribute)], toSection: .poll)
-            }
-            
-            diffableDataSource.apply(snapshot)
-            
+        // setup attribute updater
+        Publishers.CombineLatest(
+            attachmentServices,
+            context.timestampUpdatePublisher
+        )
+        .sink { attachmentServices, _ in
             // drive service upload state
             // make image upload in the queue
             for attachmentService in attachmentServices {
@@ -395,7 +368,7 @@ extension ComposeViewModel {
     func createNewPollOptionIfPossible() {
         guard pollOptionAttributes.value.count < 4 else { return }
         
-        let attribute = ComposeStatusItem.ComposePollOptionAttribute()
+        let attribute = ComposeStatusPollItem.PollOptionAttribute()
         pollOptionAttributes.value = pollOptionAttributes.value + [attribute]
     }
     
@@ -467,7 +440,7 @@ extension ComposeViewModel: MastodonAttachmentServiceDelegate {
 
 // MARK: - ComposePollAttributeDelegate
 extension ComposeViewModel: ComposePollAttributeDelegate {
-    func composePollAttribute(_ attribute: ComposeStatusItem.ComposePollOptionAttribute, pollOptionDidChange: String?) {
+    func composePollAttribute(_ attribute: ComposeStatusPollItem.PollOptionAttribute, pollOptionDidChange: String?) {
         // trigger update
         pollOptionAttributes.value = pollOptionAttributes.value
     }

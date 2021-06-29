@@ -9,7 +9,7 @@ import UIKit
 
 final class CustomEmojiPickerHeaderCollectionReusableView: UICollectionReusableView {
     
-    let titlelabel: UILabel = {
+    let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .bold))
         label.textColor = Asset.Colors.Label.secondary.color
@@ -30,13 +30,13 @@ final class CustomEmojiPickerHeaderCollectionReusableView: UICollectionReusableV
 
 extension CustomEmojiPickerHeaderCollectionReusableView {
     private func _init() {
-        titlelabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(titlelabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            titlelabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            titlelabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            titlelabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-            titlelabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            titleLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }

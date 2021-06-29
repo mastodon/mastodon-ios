@@ -98,15 +98,15 @@ extension AudioContainerView {
         NSLayoutConstraint.activate([
             playButton.centerXAnchor.constraint(equalTo: playButtonBackgroundView.centerXAnchor),
             playButton.centerYAnchor.constraint(equalTo: playButtonBackgroundView.centerYAnchor),
-            playButtonBackgroundView.heightAnchor.constraint(equalToConstant: 32),
-            playButtonBackgroundView.widthAnchor.constraint(equalToConstant: 32),
+            playButtonBackgroundView.heightAnchor.constraint(equalToConstant: 32).priority(.required - 1),
+            playButtonBackgroundView.widthAnchor.constraint(equalToConstant: 32).priority(.required - 1),
         ])
 
         container.addArrangedSubview(slider)
         
         container.addArrangedSubview(timeLabel)
         NSLayoutConstraint.activate([
-            timeLabel.widthAnchor.constraint(equalToConstant: 40),
+            timeLabel.widthAnchor.constraint(equalToConstant: 40).priority(.required - 1),
         ])
     }
 }
