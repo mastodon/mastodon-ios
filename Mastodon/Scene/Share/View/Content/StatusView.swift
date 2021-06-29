@@ -207,7 +207,6 @@ final class StatusView: UIView {
         return actionToolbarContainer
     }()
     
-    //let activeTextLabel = ActiveLabel(style: .default)
     let contentMetaText: MetaText = {
         let metaText = MetaText()
         metaText.textView.backgroundColor = .clear

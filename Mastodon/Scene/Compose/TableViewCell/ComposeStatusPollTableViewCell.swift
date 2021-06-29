@@ -34,9 +34,9 @@ final class ComposeStatusPollTableViewCell: UITableViewCell {
     }
 
     private(set) var collectionViewHeightLayoutConstraint: NSLayoutConstraint!
-    let collectionView: ComposeCollectionView = {
+    let collectionView: UICollectionView = {
         let collectionViewLayout = ComposeStatusPollTableViewCell.createLayout()
-        let collectionView = ComposeCollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
         collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
         collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))

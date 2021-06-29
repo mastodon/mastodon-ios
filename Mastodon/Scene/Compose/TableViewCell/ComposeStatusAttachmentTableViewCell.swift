@@ -26,9 +26,9 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
     }
 
     private(set) var collectionViewHeightLayoutConstraint: NSLayoutConstraint!
-    let collectionView: ComposeCollectionView = {
+    let collectionView: UICollectionView = {
         let collectionViewLayout = ComposeStatusAttachmentTableViewCell.createLayout()
-        let collectionView = ComposeCollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
         collectionView.backgroundColor = Asset.Scene.Compose.background.color
         collectionView.alwaysBounceVertical = true

@@ -190,11 +190,8 @@ extension ComposeViewModel: UITableViewDataSource {
                 // set avatar
                 cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
                 // set name username
-                cell.statusView.nameLabel.text = {
-                    let author = status.author
-                    return author.displayName.isEmpty ? author.username : author.displayName
-                }()
-                cell.statusView.usernameLabel.text = "@" + (status.reblog ?? status).author.acct
+                cell.statusView.nameLabel.configure(content: status.author.displayNameWithFallback, emojiDict: status.author.emojiDict)
+                cell.statusView.usernameLabel.text = "@" + status.author.acct
                 // set text
                 let content = MastodonContent(content: status.content, emojis: status.emojiMeta)
                 do {
@@ -228,6 +225,8 @@ extension ComposeViewModel: UITableViewDataSource {
             }
             // configure author
             ComposeStatusSection.configureStatusContent(cell: cell, attribute: composeStatusAttribute)
+            // configure content warning
+            cell.statusContentWarningEditorView.textView.text = composeStatusAttribute.contentWarningContent.value
             // bind content warning
             composeStatusAttribute.isContentWarningComposing
                 .receive(on: DispatchQueue.main)
@@ -235,7 +234,6 @@ extension ComposeViewModel: UITableViewDataSource {
                     guard let cell = cell else { return }
                     guard let tableView = tableView else { return }
                     // self size input cell
-                    //tableView.
                     cell.statusContentWarningEditorView.isHidden = !isContentWarningComposing
                     cell.statusContentWarningEditorView.alpha = 0
                     UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseOut]) {
@@ -245,19 +243,21 @@ extension ComposeViewModel: UITableViewDataSource {
                     }
                 }
                 .store(in: &cell.disposeBag)
+
             cell.contentWarningContent
                 .removeDuplicates()
                 .receive(on: DispatchQueue.main)
                 .sink { [weak tableView, weak self] text in
-                    guard let tableView = tableView else { return }
                     guard let self = self else { return }
+                    // bind input data
+                    self.composeStatusAttribute.contentWarningContent.value = text
+
                     // self size input cell
+                    guard let tableView = tableView else { return }
                     UIView.performWithoutAnimation {
                         tableView.beginUpdates()
                         tableView.endUpdates()
                     }
-                    // bind input data
-                    self.composeStatusAttribute.contentWarningContent.value = text
                 }
                 .store(in: &cell.disposeBag)
             // configure custom emoji picker

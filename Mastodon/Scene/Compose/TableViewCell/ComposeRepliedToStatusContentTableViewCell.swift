@@ -12,14 +12,13 @@ final class ComposeRepliedToStatusContentTableViewCell: UITableViewCell {
 
     var disposeBag = Set<AnyCancellable>()
 
-    let statusView = StatusView()
+    let statusView = ReplicaStatusView()
 
     let framePublisher = PassthroughSubject<CGRect, Never>()
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         disposeBag.removeAll()
     }
 
@@ -46,9 +45,6 @@ extension ComposeRepliedToStatusContentTableViewCell {
         selectionStyle = .none
         backgroundColor = .clear
 
-        statusView.actionToolbarContainer.isHidden = true
-        statusView.revealContentWarningButton.isHidden = true
-
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         NSLayoutConstraint.activate([
@@ -57,6 +53,8 @@ extension ComposeRepliedToStatusContentTableViewCell {
             contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: statusView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: statusView.bottomAnchor, constant: 10).identifier("ComposeRepliedToStatusContentCollectionViewCell.contentView.bottom to statusView.bottom"),
         ])
+
+        statusView.headerContainerView.isHidden = true
     }
 
 }

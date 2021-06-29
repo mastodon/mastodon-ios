@@ -15,7 +15,7 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
 
     var disposeBag = Set<AnyCancellable>()
 
-    let statusView = StatusView()
+    let statusView = ReplicaStatusView()
 
     let statusContentWarningEditorView = StatusContentWarningEditorView()
 
@@ -108,12 +108,10 @@ extension ComposeStatusContentTableViewCell {
         ])
         statusContentWarningEditorView.textView.delegate = self
 
+        statusView.nameTrialingDotLabel.isHidden = true
+        statusView.dateLabel.isHidden = true
         statusContentWarningEditorView.isHidden = true
         statusView.statusContainerStackView.isHidden = true
-        statusView.actionToolbarContainer.isHidden = true
-        statusView.revealContentWarningButton.isHidden = true
-
-        statusView.contentMetaText.textView.delegate = self
     }
 
 }
@@ -123,8 +121,6 @@ extension ComposeStatusContentTableViewCell: UITextViewDelegate {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         switch textView {
-        case statusView.contentMetaText.textView:
-            return false
         case statusContentWarningEditorView.textView:
             // disable input line break
             guard text != "\n" else { return false }
