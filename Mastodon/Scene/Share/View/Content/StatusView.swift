@@ -14,6 +14,7 @@ import AlamofireImage
 import FLAnimatedImage
 import MetaTextView
 import Meta
+import MastodonSDK
 
 // TODO:
 // import LinkPresentation
@@ -498,10 +499,20 @@ extension StatusView {
         }
         // TODO: a11y
     }
-    
-    func updateVisibility(visibility: String) {
-        guard let visibility = ComposeToolbarView.VisibilitySelectionType(rawValue: visibility) else { return }
-        visibilityImageView.image = UIImage(systemName: visibility.imageNameForTimeline(), withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+
+    func updateVisibility(visibility: Mastodon.Entity.Status.Visibility) {
+        switch visibility {
+        case .public:
+            visibilityImageView.image = UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case .private:
+            visibilityImageView.image = UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case .unlisted:
+            visibilityImageView.image = UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case .direct:
+            visibilityImageView.image = UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case ._other:
+            visibilityImageView.image = nil
+        }
     }
     
 }

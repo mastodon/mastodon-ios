@@ -10,6 +10,7 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
+import ActiveLabel
 
 protocol SearchRecommendAccountsCollectionViewCellDelegate: NSObject {
     func followButtonDidPressed(clickedUser: MastodonUser)
@@ -42,8 +43,8 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
     
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
-    let displayNameLabel: UILabel = {
-        let label = UILabel()
+    let displayNameLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusName)
         label.textColor = .white
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 18, weight: .semibold)
@@ -164,7 +165,7 @@ extension SearchRecommendAccountsCollectionViewCell {
     }
     
     func config(with mastodonUser: MastodonUser) {
-        displayNameLabel.text = mastodonUser.displayName.isEmpty ? mastodonUser.username : mastodonUser.displayName
+        displayNameLabel.configure(content: mastodonUser.displayNameWithFallback, emojiDict: mastodonUser.emojiDict)
         acctLabel.text = "@" + mastodonUser.acct
         avatarImageView.af.setImage(
             withURL: URL(string: mastodonUser.avatar)!,

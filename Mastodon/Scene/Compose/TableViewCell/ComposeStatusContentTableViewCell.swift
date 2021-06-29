@@ -27,6 +27,7 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
         metaText.textView.backgroundColor = .clear
         metaText.textView.isScrollEnabled = false
         metaText.textView.keyboardType = .twitter
+        metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
         metaText.textView.textContainer.lineFragmentPadding = 10    // leading inset
         metaText.textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
         metaText.textView.attributedPlaceholder = {

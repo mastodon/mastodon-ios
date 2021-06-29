@@ -181,6 +181,7 @@ final class ComposeViewModel: NSObject {
                     }
                     return displayName
                 }()
+                self.composeStatusAttribute.emojiDict.value = mastodonUser?.emojiDict ?? [:]
                 self.composeStatusAttribute.username.value = username
             }
             .store(in: &disposeBag)

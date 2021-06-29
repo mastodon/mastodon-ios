@@ -23,6 +23,7 @@ final class SearchViewModel: NSObject {
     
     let mastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
     let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
+    let viewDidAppeared = PassthroughSubject<Void, Never>()
     
     // output
     let searchText = CurrentValueSubject<String, Never>("")
@@ -145,9 +146,10 @@ final class SearchViewModel: NSObject {
             dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
         }
         .store(in: &disposeBag)
-        
-        requestRecommendHashTags()
-            .receive(on: DispatchQueue.main)
+
+        viewDidAppeared
+            .compactMap { _ in self.requestRecommendHashTags() }
+            .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if !self.recommendHashTags.isEmpty {
@@ -160,8 +162,9 @@ final class SearchViewModel: NSObject {
             } receiveValue: { _ in
             }
             .store(in: &disposeBag)
-        
-        requestRecommendAccountsV2()
+        viewDidAppeared
+            .compactMap { _ in self.requestRecommendAccountsV2() }
+            .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 if !self.recommendAccounts.isEmpty {
@@ -172,6 +175,7 @@ final class SearchViewModel: NSObject {
             .store(in: &disposeBag)
         
         recommendAccountsFallback
+            .receive(on: RunLoop.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.requestRecommendAccounts()

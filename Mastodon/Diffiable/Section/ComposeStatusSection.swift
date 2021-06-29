@@ -43,13 +43,14 @@ extension ComposeStatusSection {
             }
             .store(in: &cell.disposeBag)
         // set display name and username
-        Publishers.CombineLatest(
-            attribute.displayName.eraseToAnyPublisher(),
+        Publishers.CombineLatest3(
+            attribute.displayName,
+            attribute.emojiDict,
             attribute.username.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { displayName, username in
-            cell.statusView.nameLabel.text = displayName
+        .sink { displayName, emojiDict, username in
+            cell.statusView.nameLabel.configure(content: displayName ?? " ", emojiDict: emojiDict)
             cell.statusView.usernameLabel.text = username.flatMap { "@" + $0 } ?? " "
         }
         .store(in: &cell.disposeBag)

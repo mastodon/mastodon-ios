@@ -202,15 +202,6 @@ extension ComposeToolbarView {
             }
         }
         
-        func imageNameForTimeline() -> String {
-            switch self {
-            case .public: return "globe"
-            // case .unlisted: return "eye.slash"
-            case .private: return "person.3"
-            case .direct: return "at"
-            }
-        }
-        
         var visibility: Mastodon.Entity.Status.Visibility {
             switch self {
             case .public: return .public

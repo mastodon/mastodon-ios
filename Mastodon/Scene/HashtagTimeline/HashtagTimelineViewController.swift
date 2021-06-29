@@ -56,7 +56,7 @@ extension HashtagTimelineViewController {
         super.viewDidLoad()
         
         title = "#\(viewModel.hashtag)"
-        titleView.update(title: viewModel.hashtag, subtitle: nil)
+        titleView.update(title: viewModel.hashtag, subtitle: nil, emojiDict: [:])
         navigationItem.titleView = titleView
         
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
@@ -143,7 +143,7 @@ extension HashtagTimelineViewController {
     private func updatePromptTitle() {
         var subtitle: String?
         defer {
-            titleView.update(title: "#" + viewModel.hashtag, subtitle: subtitle)
+            titleView.update(title: "#" + viewModel.hashtag, subtitle: subtitle, emojiDict: [:])
         }
         guard let histories = viewModel.hashtagEntity.value?.history else {
             return

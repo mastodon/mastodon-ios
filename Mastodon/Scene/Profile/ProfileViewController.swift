@@ -303,12 +303,13 @@ extension ProfileViewController {
         profileSegmentedViewController.pagingViewController.pagingDelegate = self
 
         // bind view model
-        Publishers.CombineLatest(
-            viewModel.name.eraseToAnyPublisher(),
-            viewModel.statusesCount.eraseToAnyPublisher()
+        Publishers.CombineLatest3(
+            viewModel.name,
+            viewModel.emojiDict,
+            viewModel.statusesCount
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] name, statusesCount in
+        .sink { [weak self] name, emojiDict, statusesCount in
             guard let self = self else { return }
             guard let title = name, let statusesCount = statusesCount,
                   let formattedStatusCount = MastodonMetricFormatter().string(from: statusesCount) else {
@@ -316,7 +317,7 @@ extension ProfileViewController {
                 return
             }
             let subtitle = L10n.Scene.Profile.subtitle(formattedStatusCount)
-            self.titleView.update(title: title, subtitle: subtitle)
+            self.titleView.update(title: title, subtitle: subtitle, emojiDict: emojiDict)
             self.titleView.isHidden = false
         }
         .store(in: &disposeBag)
@@ -368,7 +369,7 @@ extension ProfileViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.name)
             .store(in: &disposeBag)
-        viewModel.fileds
+        viewModel.fields
             .removeDuplicates()
             .map { fields -> [ProfileFieldItem.FieldValue] in
                 fields.map { ProfileFieldItem.FieldValue(name: $0.name, value: $0.value) }

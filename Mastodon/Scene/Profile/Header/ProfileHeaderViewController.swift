@@ -13,6 +13,7 @@ import ActiveLabel
 import AlamofireImage
 import CropViewController
 import TwitterTextEditor
+import MastodonMeta
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
@@ -166,14 +167,27 @@ extension ProfileHeaderViewController {
             )
         }
         .store(in: &disposeBag)
-        Publishers.CombineLatest3(
-            viewModel.isEditing.eraseToAnyPublisher(),
-            viewModel.displayProfileInfo.name.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.editProfileInfo.name.removeDuplicates().eraseToAnyPublisher()
+        Publishers.CombineLatest4(
+            viewModel.isEditing,
+            viewModel.displayProfileInfo.name.removeDuplicates(),
+            viewModel.editProfileInfo.name.removeDuplicates(),
+            viewModel.emojiDict
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, name, editingName in
+        .sink { [weak self] isEditing, name, editingName, emojiDict in
             guard let self = self else { return }
+            do {
+                var emojis = MastodonContent.Emojis()
+                for (key, value) in emojiDict {
+                    emojis[key] = value.absoluteString
+                }
+                let metaContent = try MastodonMetaContent.convert(
+                    document: MastodonContent(content: name ?? " ", emojis: emojis)
+                )
+                self.profileHeaderView.nameMetaText.configure(content: metaContent)
+            } catch {
+                assertionFailure()
+            }
             self.profileHeaderView.nameTextField.text = isEditing ? editingName : name
         }
         .store(in: &disposeBag)
@@ -412,7 +426,7 @@ extension ProfileHeaderViewController {
         profileHeaderView.avatarImageView.alpha = alpha
         profileHeaderView.editAvatarBackgroundView.alpha = alpha
         profileHeaderView.nameTextFieldBackgroundView.alpha = alpha
-        profileHeaderView.nameTextField.alpha = alpha
+        profileHeaderView.displayNameStackView.alpha = alpha
         profileHeaderView.usernameLabel.alpha = alpha
     }
     
