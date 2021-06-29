@@ -180,6 +180,10 @@ extension ComposeViewModel: UITableViewDataSource {
         case .repliedTo:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ComposeRepliedToStatusContentTableViewCell.self), for: indexPath) as! ComposeRepliedToStatusContentTableViewCell
             guard case let .reply(statusObjectID) = composeKind else { return cell }
+            cell.framePublisher
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.value, on: self.repliedToCellFrame)
+                .store(in: &cell.disposeBag)
             let managedObjectContext = context.managedObjectContext
             managedObjectContext.performAndWait {
                 guard let replyTo = managedObjectContext.object(with: statusObjectID) as? Status else {
@@ -203,10 +207,6 @@ extension ComposeViewModel: UITableViewDataSource {
                 }
                 // set date
                 cell.statusView.dateLabel.text = status.createdAt.slowedTimeAgoSinceNow
-
-                cell.framePublisher
-                    .assign(to: \.value, on: self.repliedToCellFrame)
-                    .store(in: &cell.disposeBag)
             }
             return cell
         case .status:

@@ -213,12 +213,15 @@ extension ReplicaStatusView {
         titleContainerStackView.alignment = .firstBaseline
         titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
-        titleContainerStackView.addArrangedSubview(UIView()) // padding
+        let padding = UIView()
+        titleContainerStackView.addArrangedSubview(padding) // padding
         nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        padding.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        padding.setContentCompressionResistancePriority(.defaultLow - 1, for: .horizontal)
 
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
