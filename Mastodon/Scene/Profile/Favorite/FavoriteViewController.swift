@@ -49,7 +49,7 @@ extension FavoriteViewController {
         
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
         navigationItem.titleView = titleView
-        titleView.update(title: L10n.Scene.Favorite.title, subtitle: nil)
+        titleView.update(title: L10n.Scene.Favorite.title, subtitle: nil, emojiDict: [:])
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

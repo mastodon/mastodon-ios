@@ -45,7 +45,7 @@ class ThreadViewModel {
     let ancestorItems = CurrentValueSubject<[Item], Never>([])
     let descendantNodes = CurrentValueSubject<[LeafNode], Never>([])
     let descendantItems = CurrentValueSubject<[Item], Never>([])
-    let navigationBarTitle: CurrentValueSubject<String?, Never>
+    let navigationBarTitle: CurrentValueSubject<(String, MastodonStatusContent.EmojiDict)?, Never>
     
     init(context: AppContext, optionalStatus: Status?) {
         self.context = context
@@ -53,7 +53,7 @@ class ThreadViewModel {
         self.rootItem = CurrentValueSubject(optionalStatus.flatMap { Item.root(statusObjectID: $0.objectID, attribute: Item.StatusAttribute()) })
         self.existStatusFetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: nil, additionalTweetPredicate: nil)
         self.navigationBarTitle = CurrentValueSubject(
-            optionalStatus.flatMap { L10n.Scene.Thread.title($0.author.displayNameWithFallback) }
+            optionalStatus.flatMap { (L10n.Scene.Thread.title($0.author.displayNameWithFallback), $0.emojiDict) }
         )
         
         // bind fetcher domain
@@ -85,7 +85,7 @@ class ThreadViewModel {
                             return
                         }
                         self.rootNode.value = RootNode(domain: status.domain, statusID: status.id, replyToID: status.inReplyToID)
-                        self.navigationBarTitle.value = L10n.Scene.Thread.title(status.author.displayNameWithFallback)
+                        self.navigationBarTitle.value = (L10n.Scene.Thread.title(status.author.displayNameWithFallback), status.author.emojiDict)
                     }
                 }
                 .store(in: &disposeBag)

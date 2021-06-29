@@ -80,9 +80,13 @@ extension ThreadViewController {
         
         viewModel.navigationBarTitle
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] title in
+            .sink { [weak self] tuple in
                 guard let self = self else { return }
-                self.titleView.update(title: title ?? L10n.Scene.Thread.backTitle, subtitle: nil)
+                guard let (title, emojiDict) = tuple else {
+                    self.titleView.update(title: L10n.Scene.Thread.backTitle, subtitle: nil, emojiDict: [:])
+                    return
+                }
+                self.titleView.update(title: title, subtitle: nil, emojiDict: emojiDict)
             }
             .store(in: &disposeBag)
     }
