@@ -848,7 +848,6 @@
 		DB36679C268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentTableViewCell.swift; sourceTree = "<group>"; };
 		DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentSection.swift; sourceTree = "<group>"; };
 		DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentItem.swift; sourceTree = "<group>"; };
-		DB3667A2268AC3BB0027D07F /* MetaTextView */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetaTextView; path = ../MetaTextView; sourceTree = "<group>"; };
 		DB3667A3268AE2370027D07F /* ComposeStatusPollTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollTableViewCell.swift; sourceTree = "<group>"; };
 		DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollSection.swift; sourceTree = "<group>"; };
 		DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollItem.swift; sourceTree = "<group>"; };
@@ -1827,7 +1826,6 @@
 			children = (
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
-				DB3667A2268AC3BB0027D07F /* MetaTextView */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
 				DB427DD425BAA00100D1B89D /* Mastodon */,
 				DB427DEB25BAA00100D1B89D /* MastodonTests */,
@@ -4780,7 +4778,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.2.0;
+				version = 1.2.1;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
