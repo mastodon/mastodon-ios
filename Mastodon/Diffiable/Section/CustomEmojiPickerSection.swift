@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Kingfisher
+import Nuke
 
 enum CustomEmojiPickerSection: Equatable, Hashable {
     case emoji(name: String)
@@ -24,13 +24,13 @@ extension CustomEmojiPickerSection {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomEmojiPickerItemCollectionViewCell.self), for: indexPath) as! CustomEmojiPickerItemCollectionViewCell
                 let placeholder = UIImage.placeholder(size: CustomEmojiPickerItemCollectionViewCell.itemSize, color: .systemFill)
                     .af.imageRounded(withCornerRadius: 4)
-                cell.emojiImageView.kf.setImage(
-                    with: URL(string: attribute.emoji.url),
-                    placeholder: placeholder,
-                    options: [
-                        .transition(.fade(0.2))
-                    ],
-                    completionHandler: nil
+                cell.imageTask = Nuke.loadImage(
+                    with: attribute.emoji.url,
+                    options: .init(
+                        placeholder: placeholder,
+                        transition: .fadeIn(duration: 0.2)
+                    ),
+                    into: cell.emojiImageView
                 )
                 cell.accessibilityLabel = attribute.emoji.shortcode
                 return cell
@@ -48,7 +48,7 @@ extension CustomEmojiPickerSection {
                 let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: CustomEmojiPickerHeaderCollectionReusableView.self), for: indexPath) as! CustomEmojiPickerHeaderCollectionReusableView
                 switch section {
                 case .emoji(let name):
-                    header.titlelabel.text = name
+                    header.titleLabel.text = name
                 }
                 return header
             default:

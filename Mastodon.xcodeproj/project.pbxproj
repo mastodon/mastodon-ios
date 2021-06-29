@@ -188,7 +188,11 @@
 		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
-		DB040ECD26526EA600BEE9D8 /* ComposeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ECC26526EA600BEE9D8 /* ComposeCollectionView.swift */; };
+		DB03F7EB268976B5007B274C /* MastodonMeta in Frameworks */ = {isa = PBXBuildFile; productRef = DB03F7EA268976B5007B274C /* MastodonMeta */; };
+		DB03F7ED268976B5007B274C /* MetaTextView in Frameworks */ = {isa = PBXBuildFile; productRef = DB03F7EC268976B5007B274C /* MetaTextView */; };
+		DB03F7F026899097007B274C /* ComposeStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7EF26899097007B274C /* ComposeStatusContentTableViewCell.swift */; };
+		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
+		DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F42689B782007B274C /* ComposeTableView.swift */; };
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
@@ -221,6 +225,13 @@
 		DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */; };
 		DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC242612FD7A006193C9 /* ProfileFieldView.swift */; };
 		DB35FC2F26130172006193C9 /* MastodonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FC2E26130172006193C9 /* MastodonField.swift */; };
+		DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36679C268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift */; };
+		DB36679F268ABAF20027D07F /* ComposeStatusAttachmentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */; };
+		DB3667A1268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */; };
+		DB3667A4268AE2370027D07F /* ComposeStatusPollTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A3268AE2370027D07F /* ComposeStatusPollTableViewCell.swift */; };
+		DB3667A6268AE2620027D07F /* ComposeStatusPollSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */; };
+		DB3667A8268AE2900027D07F /* ComposeStatusPollItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */; };
+		DB3667CA268B14A80027D07F /* ReplicaStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667C9268B14A80027D07F /* ReplicaStatusView.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
@@ -339,8 +350,6 @@
 		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
-		DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */; };
-		DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A2A25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift */; };
 		DB7F48452620241000796008 /* ProfileHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */; };
 		DB8190C62601FF0400020C08 /* AttachmentContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */; };
 		DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */; };
@@ -799,7 +808,9 @@
 		DB029E94266A20430062874E /* MastodonAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationController.swift; sourceTree = "<group>"; };
 		DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadReplyLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveUserInterfaceStyleBarButtonItem.swift; sourceTree = "<group>"; };
-		DB040ECC26526EA600BEE9D8 /* ComposeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeCollectionView.swift; sourceTree = "<group>"; };
+		DB03F7EF26899097007B274C /* ComposeStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentTableViewCell.swift; sourceTree = "<group>"; };
+		DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeRepliedToStatusContentTableViewCell.swift; sourceTree = "<group>"; };
+		DB03F7F42689B782007B274C /* ComposeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTableView.swift; sourceTree = "<group>"; };
 		DB040ED026538E3C00BEE9D8 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
@@ -834,6 +845,13 @@
 		DB35FC1E2612F1D9006193C9 /* ProfileRelationshipActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRelationshipActionButton.swift; sourceTree = "<group>"; };
 		DB35FC242612FD7A006193C9 /* ProfileFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFieldView.swift; sourceTree = "<group>"; };
 		DB35FC2E26130172006193C9 /* MastodonField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonField.swift; sourceTree = "<group>"; };
+		DB36679C268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentTableViewCell.swift; sourceTree = "<group>"; };
+		DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentSection.swift; sourceTree = "<group>"; };
+		DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusAttachmentItem.swift; sourceTree = "<group>"; };
+		DB3667A3268AE2370027D07F /* ComposeStatusPollTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollTableViewCell.swift; sourceTree = "<group>"; };
+		DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollSection.swift; sourceTree = "<group>"; };
+		DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollItem.swift; sourceTree = "<group>"; };
+		DB3667C9268B14A80027D07F /* ReplicaStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReplicaStatusView.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -949,8 +967,6 @@
 		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
-		DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentCollectionViewCell.swift; sourceTree = "<group>"; };
-		DB789A2A25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeRepliedToStatusContentCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB7F48442620241000796008 /* ProfileHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderViewModel.swift; sourceTree = "<group>"; };
 		DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentContainerView.swift; sourceTree = "<group>"; };
 		DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollOptionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1120,6 +1136,7 @@
 				DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */,
 				DB6F5E32264E7410009108F4 /* TwitterTextEditor in Frameworks */,
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
+				DB03F7ED268976B5007B274C /* MetaTextView in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
 				DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */,
@@ -1138,6 +1155,7 @@
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */,
+				DB03F7EB268976B5007B274C /* MastodonMeta in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1519,6 +1537,8 @@
 				2D35237926256D920031AF25 /* NotificationSection.swift */,
 				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
 				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
+				DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */,
+				DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */,
 				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
 				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
 				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
@@ -1583,6 +1603,8 @@
 				DB1E347725F519300079D7DF /* PickServerItem.swift */,
 				DB1FD45925F27898004CFCFC /* CategoryPickerItem.swift */,
 				DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */,
+				DB3667A0268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift */,
+				DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */,
 				DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */,
 				DB6D9F8326358EEC008423CD /* SettingsItem.swift */,
 				DBBF1DCA2652539E00E5B703 /* AutoCompleteItem.swift */,
@@ -1730,6 +1752,17 @@
 				DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */,
 			);
 			path = Status;
+			sourceTree = "<group>";
+		};
+		DB03F7F1268990A2007B274C /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */,
+				DB03F7EF26899097007B274C /* ComposeStatusContentTableViewCell.swift */,
+				DB36679C268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift */,
+				DB3667A3268AE2370027D07F /* ComposeStatusPollTableViewCell.swift */,
+			);
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
@@ -1940,7 +1973,8 @@
 		DB55D32225FB4D320002F825 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				DB040ECC26526EA600BEE9D8 /* ComposeCollectionView.swift */,
+				DB3667C9268B14A80027D07F /* ReplicaStatusView.swift */,
+				DB03F7F42689B782007B274C /* ComposeTableView.swift */,
 				DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */,
 				DB8190C52601FF0400020C08 /* AttachmentContainerView.swift */,
 				DB9A486B26032AC1008B817C /* AttachmentContainerView+EmptyStateView.swift */,
@@ -2082,6 +2116,7 @@
 				DB6F5E36264E78EA009108F4 /* AutoComplete */,
 				DB55D32225FB4D320002F825 /* View */,
 				DB789A2125F9F76D0071ACA0 /* CollectionViewCell */,
+				DB03F7F1268990A2007B274C /* TableViewCell */,
 				DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */,
 				DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */,
 				DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */,
@@ -2093,8 +2128,6 @@
 		DB789A2125F9F76D0071ACA0 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				DB789A2A25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift */,
-				DB789A1B25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift */,
 				DB6B351D2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift */,
 				DB87D4442609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift */,
 				DB87D4502609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift */,
@@ -2653,6 +2686,8 @@
 				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
 				DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */,
+				DB03F7EA268976B5007B274C /* MastodonMeta */,
+				DB03F7EC268976B5007B274C /* MetaTextView */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -2846,6 +2881,7 @@
 				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
 				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
 				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
+				DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3193,6 +3229,7 @@
 				DB71FD4C25F8C80E00512AE1 /* StatusPrefetchingService.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
 				2DAC9E3E262FC2400062E1A6 /* SuggestionAccountViewModel.swift in Sources */,
+				DB3667A8268AE2900027D07F /* ComposeStatusPollItem.swift in Sources */,
 				DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */,
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D79E701261EA5550011E398 /* APIService+CoreData+Tag.swift in Sources */,
@@ -3216,8 +3253,10 @@
 				DB98338825C945ED00AD9700 /* Assets.swift in Sources */,
 				DB6180E926391BDF0018D199 /* MediaHostToMediaPreviewViewControllerAnimatedTransitioning.swift in Sources */,
 				DB6B351E2601FAEE00DC1E11 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
+				DB36679F268ABAF20027D07F /* ComposeStatusAttachmentSection.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
+				DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */,
 				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
 				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,
 				DB8AF52F25C13561002E6C99 /* DocumentStore.swift in Sources */,
@@ -3304,17 +3343,18 @@
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
 				DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */,
 				DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */,
+				DB3667A6268AE2620027D07F /* ComposeStatusPollSection.swift in Sources */,
 				DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */,
 				DB47229725F9EFAD00DA7F53 /* NSManagedObjectContext.swift in Sources */,
 				2D34D9D126148D9E0081BFC0 /* APIService+Recommend.swift in Sources */,
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
-				DB789A1C25F9F76A0071ACA0 /* ComposeStatusContentCollectionViewCell.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				2D084B8D26258EA3003AA3AF /* NotificationViewModel+Diffable.swift in Sources */,
 				DB6D1B24263684C600ACB481 /* UserDefaults.swift in Sources */,
+				DB3667A1268ABB2E0027D07F /* ComposeStatusAttachmentItem.swift in Sources */,
 				DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */,
 				DBA94434265CBB5300C537E1 /* ProfileFieldSection.swift in Sources */,
 				DB6F5E2F264E5518009108F4 /* MastodonRegex.swift in Sources */,
@@ -3325,6 +3365,7 @@
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */,
 				2D24E11D2626D8B100A59D4F /* NotificationStatusTableViewCell.swift in Sources */,
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
@@ -3400,6 +3441,7 @@
 				DB45FAB625CA5485005A8AC7 /* UIAlertController.swift in Sources */,
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */,
+				DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				DBCBCC032680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift in Sources */,
 				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
@@ -3440,8 +3482,8 @@
 				DB1D842E26552C4D000346B3 /* StatusTableViewControllerNavigateable.swift in Sources */,
 				DB938F1F2624382F00E5B6C1 /* ThreadViewModel+Diffable.swift in Sources */,
 				2D69CFF425CA9E2200C3A1B2 /* LoadMoreConfigurableTableViewContainer.swift in Sources */,
-				DB040ECD26526EA600BEE9D8 /* ComposeCollectionView.swift in Sources */,
 				DB482A4B261340A7008AE74C /* APIService+UserTimeline.swift in Sources */,
+				DB3667CA268B14A80027D07F /* ReplicaStatusView.swift in Sources */,
 				DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */,
 				0F2021FB2613262F000C64BF /* HashtagTimelineViewController.swift in Sources */,
 				DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */,
@@ -3468,9 +3510,11 @@
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
+				DB3667A4268AE2370027D07F /* ComposeStatusPollTableViewCell.swift in Sources */,
 				DBBF1DC226524D2900E5B703 /* AutoCompleteTableViewCell.swift in Sources */,
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */,
+				DB03F7F026899097007B274C /* ComposeStatusContentTableViewCell.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
@@ -3489,7 +3533,6 @@
 				DBAFB7352645463500371D5F /* Emojis.swift in Sources */,
 				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
-				DB789A2B25F9F7AB0071ACA0 /* ComposeRepliedToStatusContentCollectionViewCell.swift in Sources */,
 				DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
 				DBAE3F942616E28B004B8251 /* APIService+Follow.swift in Sources */,
@@ -4730,6 +4773,14 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.2.1;
+			};
+		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git";
@@ -4862,6 +4913,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
 			productName = CommonOSLog;
+		};
+		DB03F7EA268976B5007B274C /* MastodonMeta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */;
+			productName = MastodonMeta;
+		};
+		DB03F7EC268976B5007B274C /* MetaTextView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */;
+			productName = MetaTextView;
 		};
 		DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */ = {
 			isa = XCSwiftPackageProductDependency;

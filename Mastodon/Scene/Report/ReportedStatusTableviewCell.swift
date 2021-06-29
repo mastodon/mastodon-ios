@@ -12,6 +12,8 @@ import Combine
 import CoreData
 import CoreDataStack
 import ActiveLabel
+import Meta
+import MetaTextView
 
 final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     
@@ -203,4 +205,8 @@ extension ReportedStatusTableViewCell: StatusViewDelegate {
     
     func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
     }
+
+    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
+    }
+
 }

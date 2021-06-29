@@ -97,8 +97,8 @@ extension AutoCompleteTableViewCell {
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
         ])
         
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false

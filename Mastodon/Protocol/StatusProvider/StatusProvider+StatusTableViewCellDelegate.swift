@@ -12,6 +12,8 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import ActiveLabel
+import Meta
+import MetaTextView
 
 // MARK: - StatusViewDelegate
 extension StatusTableViewCellDelegate where Self: StatusProvider {
@@ -26,6 +28,10 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
         StatusProviderFacade.responseToStatusActiveLabelAction(provider: self, cell: cell, activeLabel: activeLabel, didTapEntity: entity)
+    }
+
+    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
+        StatusProviderFacade.responseToStatusMetaTextAction(provider: self, cell: cell, metaText: metaText, didSelectMeta: meta)
     }
     
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {

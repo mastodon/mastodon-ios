@@ -12,6 +12,9 @@ import PhotosUI
 import Kingfisher
 import MastodonSDK
 import TwitterTextEditor
+import MetaTextView
+import MastodonMeta
+import Meta
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -22,7 +25,9 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     var viewModel: ComposeViewModel!
-    
+
+    let logger = Logger(subsystem: "ComposeViewController", category: "logic")
+
     private var suffixedAttachmentViews: [UIView] = []
     
     let publishButton: UIButton = {
@@ -43,20 +48,17 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         let barButtonItem = UIBarButtonItem(customView: publishButton)
         return barButtonItem
     }()
-    
-    let collectionView: ComposeCollectionView = {
-        let collectionViewLayout = ComposeViewController.createLayout()
-        let collectionView = ComposeCollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.register(ComposeRepliedToStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeRepliedToStatusContentCollectionViewCell.self))
-        collectionView.register(ComposeStatusContentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusContentCollectionViewCell.self))
-        collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
-        collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
-        collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
-        collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
-        collectionView.backgroundColor = Asset.Scene.Compose.background.color
-        collectionView.alwaysBounceVertical = true
-        collectionView.keyboardDismissMode = .onDrag
-        return collectionView
+
+    let tableView: ComposeTableView = {
+        let tableView = ComposeTableView()
+        tableView.register(ComposeRepliedToStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToStatusContentTableViewCell.self))
+        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
+        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
+        tableView.backgroundColor = Asset.Scene.Compose.background.color
+        tableView.alwaysBounceVertical = true
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        return tableView
     }()
     
     var systemKeyboardHeight: CGFloat = .zero {
@@ -148,14 +150,15 @@ extension ComposeViewController {
         navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = publishBarButtonItem
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
+
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
         
         composeToolbarView.translatesAutoresizingMaskIntoConstraints = false
@@ -178,21 +181,31 @@ extension ComposeViewController {
             composeToolbarBackgroundView.trailingAnchor.constraint(equalTo: composeToolbarView.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: composeToolbarBackgroundView.bottomAnchor),
         ])
-        
-        collectionView.delegate = self
+
+        tableView.delegate = self
         viewModel.setupDiffableDataSource(
-            for: collectionView,
-            dependency: self,
+            tableView: tableView,
+            metaTextDelegate: self,
+            metaTextViewDelegate: self,
             customEmojiPickerInputViewModel: viewModel.customEmojiPickerInputViewModel,
-            textEditorViewTextAttributesDelegate: self,
-            textEditorViewChangeObserver: self,
-            composeStatusAttachmentTableViewCellDelegate: self,
+            composeStatusAttachmentCollectionViewCellDelegate: self,
             composeStatusPollOptionCollectionViewCellDelegate: self,
-            composeStatusNewPollOptionCollectionViewCellDelegate: self,
+            composeStatusPollOptionAppendEntryCollectionViewCellDelegate: self,
             composeStatusPollExpiresOptionCollectionViewCellDelegate: self
         )
-        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeViewController.longPressReorderGestureHandler(_:)))
-        collectionView.addGestureRecognizer(longPressReorderGesture)
+
+        viewModel.composeStatusAttribute.composeContent
+            .removeDuplicates()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                guard self.view.window != nil else { return }
+                UIView.performWithoutAnimation {
+                    self.tableView.beginUpdates()
+                    self.tableView.endUpdates()
+                }
+            }
+            .store(in: &disposeBag)
         
         customEmojiPickerInputView.collectionView.delegate = self
         viewModel.customEmojiPickerInputViewModel.customEmojiPickerInputView = customEmojiPickerInputView
@@ -202,6 +215,7 @@ extension ComposeViewController {
         )
         
         // update layout when keyboard show/dismiss
+        view.layoutIfNeeded()
         let keyboardEventPublishers = Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow,
             KeyboardResponderService.shared.state,
@@ -227,8 +241,8 @@ extension ComposeViewController {
             // update keyboard background color
 
             guard isShow, state == .dock else {
-                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
-                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.tableView.contentInset.bottom = extraMargin
+                self.tableView.verticalScrollIndicatorInsets.bottom = extraMargin
             
                 if let superView = self.autoCompleteViewController.tableView.superview {
                     let autoCompleteTableViewBottomInset: CGFloat = {
@@ -263,18 +277,18 @@ extension ComposeViewController {
             self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
             
             // adjust inset for collectionView
-            let contentFrame = self.view.convert(self.collectionView.frame, to: nil)
+            let contentFrame = self.view.convert(self.tableView.frame, to: nil)
             let padding = contentFrame.maxY + extraMargin - endFrame.minY
             guard padding > 0 else {
-                self.collectionView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
-                self.collectionView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
+                self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
 
                 self.updateKeyboardBackground(isKeyboardDisplay: false)
                 return
             }
 
-            self.collectionView.contentInset.bottom = padding
-            self.collectionView.verticalScrollIndicatorInsets.bottom = padding
+            self.tableView.contentInset.bottom = padding - self.view.safeAreaInsets.bottom
+            self.tableView.verticalScrollIndicatorInsets.bottom = padding - self.view.safeAreaInsets.bottom
             UIView.animate(withDuration: 0.3) {
                 self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
                 self.view.layoutIfNeeded()
@@ -292,15 +306,16 @@ extension ComposeViewController {
                 if self.autoCompleteViewController.view.superview == nil {
                     self.autoCompleteViewController.view.frame = self.view.bounds
                     // add to container view. seealso: `viewDidLayoutSubviews()`
-                    textEditorView.superview!.addSubview(self.autoCompleteViewController.view)
+                    self.viewModel.composeStatusContentTableViewCell.textEditorViewContainerView.addSubview(self.autoCompleteViewController.view)
                     self.addChild(self.autoCompleteViewController)
                     self.autoCompleteViewController.didMove(toParent: self)
                     self.autoCompleteViewController.view.isHidden = true
-                    self.collectionView.autoCompleteViewController = self.autoCompleteViewController
+                    self.tableView.autoCompleteViewController = self.autoCompleteViewController
                 }
+                self.updateAutoCompleteViewControllerLayout()
                 self.autoCompleteViewController.view.isHidden = info == nil
                 guard let info = info else { return }
-                let symbolBoundingRectInContainer = textEditorView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
+                let symbolBoundingRectInContainer = textEditorView.textView.convert(info.symbolBoundingRect, to: self.autoCompleteViewController.chevronView)
                 self.autoCompleteViewController.view.frame.origin.y = info.textBoundingRect.maxY
                 self.autoCompleteViewController.viewModel.symbolBoundingRect.value = symbolBoundingRectInContainer
                 self.autoCompleteViewController.viewModel.inputText.value = String(info.inputText)
@@ -414,8 +429,8 @@ extension ComposeViewController {
         
         // setup snap behavior
         Publishers.CombineLatest(
-            viewModel.repliedToCellFrame.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.collectionViewState.eraseToAnyPublisher()
+            viewModel.repliedToCellFrame,
+            viewModel.collectionViewState
         )
         .receive(on: DispatchQueue.main)
         .sink { [weak self] repliedToCellFrame, collectionViewState in
@@ -423,9 +438,11 @@ extension ComposeViewController {
             guard repliedToCellFrame != .zero else { return }
             switch collectionViewState {
             case .fold:
-                self.collectionView.contentInset.top = -repliedToCellFrame.height
+                self.tableView.contentInset.top = -repliedToCellFrame.height
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: set contentInset.top: -%s", ((#file as NSString).lastPathComponent), #line, #function, repliedToCellFrame.height.description)
+
             case .expand:
-                self.collectionView.contentInset.top = 0
+                self.tableView.contentInset.top = 0
             }
         }
         .store(in: &disposeBag)
@@ -433,12 +450,21 @@ extension ComposeViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Fix AutoLayout conflict issue
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.markTextEditorViewBecomeFirstResponser()
+
+        // using index to make table view layout
+        // otherwise, the content offset will be wrong
+        guard let indexPath = tableView.indexPath(for: viewModel.composeStatusContentTableViewCell),
+              let cell = tableView.cellForRow(at: indexPath) as? ComposeStatusContentTableViewCell else {
+            assertionFailure()
+            return
         }
+        cell.metaText.textView.becomeFirstResponder()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.isViewAppeared = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -449,13 +475,17 @@ extension ComposeViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        // pin autoCompleteViewController frame to window
+        updateAutoCompleteViewControllerLayout()
+    }
+
+    func updateAutoCompleteViewControllerLayout() {
+        // pin autoCompleteViewController frame to current view
         if let containerView = autoCompleteViewController.view.superview {
-            let viewFrameInWindow = containerView.convert(autoCompleteViewController.view.frame, to: nil)
+            let viewFrameInWindow = containerView.convert(autoCompleteViewController.view.frame, to: view)
             if viewFrameInWindow.origin.x != 0 {
                 autoCompleteViewController.view.frame.origin.x = -viewFrameInWindow.origin.x
             }
+            autoCompleteViewController.view.frame.size.width = view.frame.width
         }
     }
     
@@ -463,86 +493,56 @@ extension ComposeViewController {
 
 extension ComposeViewController {
     
-    private func textEditorView() -> TextEditorView? {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
-        let items = diffableDataSource.snapshot().itemIdentifiers
-        for item in items {
-            switch item {
-            case .input:
-                guard let indexPath = diffableDataSource.indexPath(for: item),
-                      let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusContentCollectionViewCell else {
-                    continue
-                }
-                return cell.textEditorView
-            default:
-                continue
-            }
-        }
-        
-        return nil
+    private func textEditorView() -> MetaText? {
+        return viewModel.composeStatusContentTableViewCell.metaText
     }
     
     private func markTextEditorViewBecomeFirstResponser() {
-        textEditorView()?.isEditing = true
+        textEditorView()?.textView.becomeFirstResponder()
     }
     
     private func contentWarningEditorTextView() -> UITextView? {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
-        let items = diffableDataSource.snapshot().itemIdentifiers
-        for item in items {
-            switch item {
-            case .input:
-                guard let indexPath = diffableDataSource.indexPath(for: item),
-                      let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusContentCollectionViewCell else {
-                    continue
-                }
-                return cell.statusContentWarningEditorView.textView
-            default:
-                continue
-            }
-        }
-        
-        return nil
+        viewModel.composeStatusContentTableViewCell.statusContentWarningEditorView.textView
     }
     
-    private func pollOptionCollectionViewCell(of item: ComposeStatusItem) -> ComposeStatusPollOptionCollectionViewCell? {
+    private func pollOptionCollectionViewCell(of item: ComposeStatusPollItem) -> ComposeStatusPollOptionCollectionViewCell? {
         guard case .pollOption = item else { return nil }
-        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
-        guard let indexPath = diffableDataSource.indexPath(for: item),
-              let cell = collectionView.cellForItem(at: indexPath) as? ComposeStatusPollOptionCollectionViewCell else {
+        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return nil }
+        guard let indexPath = dataSource.indexPath(for: item),
+              let cell = viewModel.composeStatusPollTableViewCell.collectionView.cellForItem(at: indexPath) as? ComposeStatusPollOptionCollectionViewCell else {
             return nil
         }
-        
+
         return cell
     }
     
     private func firstPollOptionCollectionViewCell() -> ComposeStatusPollOptionCollectionViewCell? {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
-        let items = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
+        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return nil }
+        let items = dataSource.snapshot().itemIdentifiers(inSection: .main)
         let firstPollItem = items.first { item -> Bool in
             guard case .pollOption = item else { return false }
             return true
         }
-                
+
         guard let item = firstPollItem else {
             return nil
         }
-        
+
         return pollOptionCollectionViewCell(of: item)
     }
     
     private func lastPollOptionCollectionViewCell() -> ComposeStatusPollOptionCollectionViewCell? {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
-        let items = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
+        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return nil }
+        let items = dataSource.snapshot().itemIdentifiers(inSection: .main)
         let lastPollItem = items.last { item -> Bool in
             guard case .pollOption = item else { return false }
             return true
         }
-                
+
         guard let item = lastPollItem else {
             return nil
         }
-        
+
         return pollOptionCollectionViewCell(of: item)
     }
     
@@ -631,43 +631,142 @@ extension ComposeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    // seealso: ComposeViewModel.setupDiffableDataSource(…)
-    @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
-        switch(sender.state) {
-        case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
-                  let cell = collectionView.cellForItem(at: selectedIndexPath) as? ComposeStatusPollOptionCollectionViewCell else {
-                break
-            }
-            // check if pressing reorder bar no not
-            let locationInCell = sender.location(in: cell)
-            guard cell.reorderBarImageView.frame.contains(locationInCell) else {
-                return
-            }
-            
-            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case .changed:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
-                  let diffableDataSource = viewModel.diffableDataSource else {
-                break
-            }
-            guard let item = diffableDataSource.itemIdentifier(for: selectedIndexPath),
-                  case .pollOption = item else {
-                collectionView.cancelInteractiveMovement()
-                return
-            }
+}
 
-            var position = sender.location(in: collectionView)
-            position.x = collectionView.frame.width * 0.5
-            collectionView.updateInteractiveMovementTargetPosition(position)
-        case .ended:
-            collectionView.endInteractiveMovement()
-            collectionView.reloadData()
-        default:
-            collectionView.cancelInteractiveMovement()
+// MARK: - MetaTextDelegate
+extension ComposeViewController: MetaTextDelegate {
+    func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
+        let string = metaText.textStorage.string
+        let content = MastodonContent(
+            content: string,
+            emojis: viewModel.customEmojiViewModel.value?.emojiMapping.value ?? [:]
+        )
+        let metaContent = MastodonMetaContent.convert(text: content)
+        return metaContent
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension ComposeViewController: UITextViewDelegate {
+
+    func textViewDidChange(_ textView: UITextView) {
+        if textEditorView()?.textView === textView {
+            // update model
+            guard let metaText = textEditorView() else { return }
+            let backedString = metaText.backedString
+            viewModel.composeStatusAttribute.composeContent.value = backedString
+            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(backedString)")
+
+            // configure auto completion
+            setupAutoComplete(for: textView)
         }
     }
-    
+
+    struct AutoCompleteInfo {
+        // model
+        let inputText: Substring
+        // range
+        let symbolRange: Range<String.Index>
+        let symbolString: Substring
+        let toCursorRange: Range<String.Index>
+        let toCursorString: Substring
+        let toHighlightEndRange: Range<String.Index>
+        let toHighlightEndString: Substring
+        // geometry
+        var textBoundingRect: CGRect = .zero
+        var symbolBoundingRect: CGRect = .zero
+    }
+
+    private func setupAutoComplete(for textView: UITextView) {
+        guard var autoCompletion = ComposeViewController.scanAutoCompleteInfo(textView: textView) else {
+            viewModel.autoCompleteInfo.value = nil
+            return
+        }
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
+
+        // get layout text bounding rect
+        var glyphRange = NSRange()
+        textView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.toCursorRange, in: textView.text), actualGlyphRange: &glyphRange)
+        let textContainer = textView.layoutManager.textContainers[0]
+        let textBoundingRect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+
+        let retryLayoutTimes = viewModel.autoCompleteRetryLayoutTimes.value
+        guard textBoundingRect.size != .zero else {
+            viewModel.autoCompleteRetryLayoutTimes.value += 1
+            // avoid infinite loop
+            guard retryLayoutTimes < 3 else { return }
+            // needs retry calculate layout when the rect position changing
+            DispatchQueue.main.async {
+                self.setupAutoComplete(for: textView)
+            }
+            return
+        }
+        viewModel.autoCompleteRetryLayoutTimes.value = 0
+
+        // get symbol bounding rect
+        textView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.symbolRange, in: textView.text), actualGlyphRange: &glyphRange)
+        let symbolBoundingRect = textView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
+
+        // set bounding rect and trigger layout
+        autoCompletion.textBoundingRect = textBoundingRect
+        autoCompletion.symbolBoundingRect = symbolBoundingRect
+        viewModel.autoCompleteInfo.value = autoCompletion
+    }
+
+    private static func scanAutoCompleteInfo(textView: UITextView) -> AutoCompleteInfo? {
+        guard let text = textView.text,
+              textView.selectedRange.location > 0, !text.isEmpty,
+              let selectedRange = Range(textView.selectedRange, in: text) else {
+            return nil
+        }
+        let cursorIndex = selectedRange.upperBound
+        let _highlightStartIndex: String.Index? = {
+            var index = text.index(before: cursorIndex)
+            while index > text.startIndex {
+                let char = text[index]
+                if char == "@" || char == "#" || char == ":" {
+                    return index
+                }
+                index = text.index(before: index)
+            }
+            assert(index == text.startIndex)
+            let char = text[index]
+            if char == "@" || char == "#" || char == ":" {
+                return index
+            } else {
+                return nil
+            }
+        }()
+
+        guard let highlightStartIndex = _highlightStartIndex else { return nil }
+        let scanRange = NSRange(highlightStartIndex..<text.endIndex, in: text)
+
+        guard let match = text.firstMatch(pattern: MastodonRegex.autoCompletePattern, options: [], range: scanRange) else { return nil }
+        guard let matchRange = Range(match.range(at: 0), in: text) else { return nil }
+        let matchStartIndex = matchRange.lowerBound
+        let matchEndIndex = matchRange.upperBound
+
+        guard matchStartIndex == highlightStartIndex, matchEndIndex >= cursorIndex else { return nil }
+        let symbolRange = highlightStartIndex..<text.index(after: highlightStartIndex)
+        let symbolString = text[symbolRange]
+        let toCursorRange = highlightStartIndex..<cursorIndex
+        let toCursorString = text[toCursorRange]
+        let toHighlightEndRange = matchStartIndex..<matchEndIndex
+        let toHighlightEndString = text[toHighlightEndRange]
+
+        let inputText = toHighlightEndString
+        let autoCompleteInfo = AutoCompleteInfo(
+            inputText: inputText,
+            symbolRange: symbolRange,
+            symbolString: symbolString,
+            toCursorRange: toCursorRange,
+            toCursorString: toCursorString,
+            toHighlightEndRange: toHighlightEndRange,
+            toHighlightEndString: toHighlightEndString
+        )
+        return autoCompleteInfo
+    }
+
 }
 
 // MARK: - TextEditorViewTextAttributesDelegate
@@ -700,7 +799,7 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
                 }
                 self.suffixedAttachmentViews.removeAll()
 
-                // set normal apperance
+                // set normal appearance
                 let attributedString = NSMutableAttributedString(attributedString: attributedString)
                 attributedString.removeAttribute(.suffixedAttachment, range: stringRange)
                 attributedString.removeAttribute(.underlineStyle, range: stringRange)
@@ -811,117 +910,6 @@ extension ComposeViewController: TextEditorViewTextAttributesDelegate {
     
 }
 
-// MARK: - TextEditorViewChangeObserver
-extension ComposeViewController: TextEditorViewChangeObserver {
-    
-    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
-        guard var autoCompletion = ComposeViewController.scanAutoCompleteInfo(textEditorView: textEditorView) else {
-            viewModel.autoCompleteInfo.value = nil
-            return
-        }
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete %s (%s)", ((#file as NSString).lastPathComponent), #line, #function, String(autoCompletion.toHighlightEndString), String(autoCompletion.toCursorString))
-
-        // get layout text bounding rect
-        var glyphRange = NSRange()
-        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.toCursorRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
-        let textContainer = textEditorView.layoutManager.textContainers[0]
-        let textBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-        
-        let retryLayoutTimes = viewModel.autoCompleteRetryLayoutTimes.value
-        guard textBoundingRect.size != .zero else {
-            viewModel.autoCompleteRetryLayoutTimes.value += 1
-            // avoid infinite loop
-            guard retryLayoutTimes < 3 else { return }
-            // needs retry calculate layout when the rect position changing
-            DispatchQueue.main.async {
-                self.textEditorView(textEditorView, didChangeWithChangeResult: changeResult)
-            }
-            return
-        }
-        viewModel.autoCompleteRetryLayoutTimes.value = 0
-        
-        // get symbol bounding rect
-        textEditorView.layoutManager.characterRange(forGlyphRange: NSRange(autoCompletion.symbolRange, in: textEditorView.text), actualGlyphRange: &glyphRange)
-        let symbolBoundingRect = textEditorView.layoutManager.boundingRect(forGlyphRange: glyphRange, in: textContainer)
-        
-        // set bounding rect and trigger layout
-        autoCompletion.textBoundingRect = textBoundingRect
-        autoCompletion.symbolBoundingRect = symbolBoundingRect
-        viewModel.autoCompleteInfo.value = autoCompletion
-    }
-    
-    struct AutoCompleteInfo {
-        // model
-        let inputText: Substring
-        // range
-        let symbolRange: Range<String.Index>
-        let symbolString: Substring
-        let toCursorRange: Range<String.Index>
-        let toCursorString: Substring
-        let toHighlightEndRange: Range<String.Index>
-        let toHighlightEndString: Substring
-        // geometry
-        var textBoundingRect: CGRect = .zero
-        var symbolBoundingRect: CGRect = .zero
-    }
-    
-    private static func scanAutoCompleteInfo(textEditorView: TextEditorView) -> AutoCompleteInfo? {
-        let text = textEditorView.text
-
-        guard textEditorView.selectedRange.location > 0, !text.isEmpty,
-              let selectedRange = Range(textEditorView.selectedRange, in: text) else {
-            return nil
-        }
-        let cursorIndex = selectedRange.upperBound
-        let _highlightStartIndex: String.Index? = {
-            var index = text.index(before: cursorIndex)
-            while index > text.startIndex {
-                let char = text[index]
-                if char == "@" || char == "#" || char == ":" {
-                    return index
-                }
-                index = text.index(before: index)
-            }
-            assert(index == text.startIndex)
-            let char = text[index]
-            if char == "@" || char == "#" || char == ":" {
-                return index
-            } else {
-                return nil
-            }
-        }()
-        
-        guard let highlightStartIndex = _highlightStartIndex else { return nil }
-        let scanRange = NSRange(highlightStartIndex..<text.endIndex, in: text)
-        
-        guard let match = text.firstMatch(pattern: MastodonRegex.autoCompletePattern, options: [], range: scanRange) else { return nil }
-        guard let matchRange = Range(match.range(at: 0), in: text) else { return nil }
-        let matchStartIndex = matchRange.lowerBound
-        let matchEndIndex = matchRange.upperBound
-        
-        guard matchStartIndex == highlightStartIndex, matchEndIndex >= cursorIndex else { return nil }
-        let symbolRange = highlightStartIndex..<text.index(after: highlightStartIndex)
-        let symbolString = text[symbolRange]
-        let toCursorRange = highlightStartIndex..<cursorIndex
-        let toCursorString = text[toCursorRange]
-        let toHighlightEndRange = matchStartIndex..<matchEndIndex
-        let toHighlightEndString = text[toHighlightEndRange]
-        
-        let inputText = toHighlightEndString
-        let autoCompleteInfo = AutoCompleteInfo(
-            inputText: inputText,
-            symbolRange: symbolRange,
-            symbolString: symbolString,
-            toCursorRange: toCursorRange,
-            toCursorString: toCursorString,
-            toHighlightEndRange: toHighlightEndRange,
-            toHighlightEndString: toHighlightEndString
-        )
-        return autoCompleteInfo
-    }
-    
-}
-
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
@@ -941,7 +929,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         
         // setup initial poll option if needs
         if viewModel.isPollComposing.value, viewModel.pollOptionAttributes.value.isEmpty {
-            viewModel.pollOptionAttributes.value = [ComposeStatusItem.ComposePollOptionAttribute(), ComposeStatusItem.ComposePollOptionAttribute()]
+            viewModel.pollOptionAttributes.value = [ComposeStatusPollItem.PollOptionAttribute(), ComposeStatusPollItem.PollOptionAttribute()]
         }
         
         if viewModel.isPollComposing.value {
@@ -984,7 +972,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
 // MARK: - UIScrollViewDelegate
 extension ComposeViewController {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard scrollView === collectionView else { return }
+        guard scrollView === tableView else { return }
 
         let repliedToCellFrame = viewModel.repliedToCellFrame.value
         guard repliedToCellFrame != .zero else { return }
@@ -1007,6 +995,9 @@ extension ComposeViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+extension ComposeViewController: UITableViewDelegate { }
+
 // MARK: - UICollectionViewDelegate
 extension ComposeViewController: UICollectionViewDelegate {
     
@@ -1018,26 +1009,13 @@ extension ComposeViewController: UICollectionViewDelegate {
             let item = diffableDataSource.itemIdentifier(for: indexPath)
             guard case let .emoji(attribute) = item else { return }
             let emoji = attribute.emoji
-            let textEditorView = self.textEditorView()
-            
+
+            // make click sound
+            UIDevice.current.playInputClick()
+
             // retrieve active text input and insert emoji
-            // the leading and trailing space is REQUIRED to fix `UITextStorage` layout issue
-            let reference = viewModel.customEmojiPickerInputViewModel.insertText(" :\(emoji.shortcode): ")
-            
-            // workaround: non-user interactive change do not trigger value update event
-            if reference?.value === textEditorView {
-                viewModel.composeStatusAttribute.composeContent.value = textEditorView?.text
-                // update text storage
-                textEditorView?.setNeedsUpdateTextAttributes()
-                // collection self-size
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.collectionView.collectionViewLayout.invalidateLayout()
-                    
-                    // make click sound
-                    UIDevice.current.playInputClick()
-                }
-            }
+            // the trailing space is REQUIRED to make regex happy
+            _ = viewModel.customEmojiPickerInputViewModel.insertText(":\(emoji.shortcode): ")
         } else {
             // do nothing
         }
@@ -1124,17 +1102,17 @@ extension ComposeViewController: UIDocumentPickerDelegate {
 extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelegate {
     
     func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        guard let diffableDataSource = viewModel.composeStatusAttachmentTableViewCell.dataSource else { return }
+        guard let indexPath = viewModel.composeStatusAttachmentTableViewCell.collectionView.indexPath(for: cell) else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         guard case let .attachment(attachmentService) = item else { return }
-        
+
         var attachmentServices = viewModel.attachmentServices.value
         guard let index = attachmentServices.firstIndex(of: attachmentService) else { return }
         let removedItem = attachmentServices[index]
         attachmentServices.remove(at: index)
         viewModel.attachmentServices.value = attachmentServices
-        
+
         // cancel task
         removedItem.disposeBag.removeAll()
     }
@@ -1155,16 +1133,16 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
     // handle delete backward event for poll option input
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textBeforeDeleteBackward text: String?) {
         guard (text ?? "").isEmpty else { return }
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return }
+        guard let indexPath = viewModel.composeStatusPollTableViewCell.collectionView.indexPath(for: cell) else { return }
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
         guard case let .pollOption(attribute) = item else { return }
-        
+
         var pollAttributes = viewModel.pollOptionAttributes.value
         guard let index = pollAttributes.firstIndex(of: attribute) else { return }
-    
+
         // mark previous (fallback to next) item of removed middle poll option become first responder
-        let pollItems = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll)
+        let pollItems = dataSource.snapshot().itemIdentifiers(inSection: .main)
         if let indexOfItem = pollItems.firstIndex(of: item), index > 0 {
             func cellBeforeRemoved() -> ComposeStatusPollOptionCollectionViewCell? {
                 guard index > 0 else { return nil }
@@ -1172,7 +1150,7 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
                 let itemBeforeRemoved = pollItems[indexBeforeRemoved]
                 return pollOptionCollectionViewCell(of: itemBeforeRemoved)
             }
-            
+
             func cellAfterRemoved() -> ComposeStatusPollOptionCollectionViewCell? {
                 guard index < pollItems.count - 1 else { return nil }
                 let indexAfterRemoved = pollItems.index(after: index)
@@ -1186,27 +1164,27 @@ extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelega
             }
             cell?.pollOptionView.optionTextField.becomeFirstResponder()
         }
-        
+
         guard pollAttributes.count > 2 else {
             return
         }
         pollAttributes.remove(at: index)
-        
+
         // update data source
         viewModel.pollOptionAttributes.value = pollAttributes
     }
     
     // handle keyboard return event for poll option input
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, pollOptionTextFieldDidReturn: UITextField) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        let pollItems = diffableDataSource.snapshot().itemIdentifiers(inSection: .poll).filter { item in
+        guard let dataSource = viewModel.composeStatusPollTableViewCell.dataSource else { return }
+        guard let indexPath = viewModel.composeStatusPollTableViewCell.collectionView.indexPath(for: cell) else { return }
+        let pollItems = dataSource.snapshot().itemIdentifiers(inSection: .main).filter { item in
             guard case .pollOption = item else { return false }
             return true
         }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
         guard let index = pollItems.firstIndex(of: item) else { return }
-        
+
         if index == pollItems.count - 1 {
             // is the last
             viewModel.createNewPollOptionIfPossible()
@@ -1236,7 +1214,7 @@ extension ComposeViewController: ComposeStatusPollOptionAppendEntryCollectionVie
 
 // MARK: - ComposeStatusPollExpiresOptionCollectionViewCellDelegate
 extension ComposeViewController: ComposeStatusPollExpiresOptionCollectionViewCellDelegate {
-    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusItem.ComposePollExpiresOptionAttribute.ExpiresOption) {
+    func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusPollItem.PollExpiresOptionAttribute.ExpiresOption) {
         viewModel.pollExpiresOptionAttribute.expiresOption.value = expiresOption
     }
 }
@@ -1264,14 +1242,22 @@ extension ComposeViewController: AutoCompleteViewControllerDelegate {
         }()
         guard let replacedText = _replacedText else { return }
 
-        guard let textEditorView = textEditorView() else { return }
-        let text = textEditorView.text
-        
-        do {
-            try textEditorView.updateByReplacing(range: NSRange(info.toHighlightEndRange, in: text), with: replacedText)
-            viewModel.autoCompleteInfo.value = nil
-        } catch {
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: auto complete fail %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+        guard let textEditorView = textEditorView(),
+              let text = textEditorView.textView.text else { return }
+
+
+        let range = NSRange(info.toHighlightEndRange, in: text)
+        textEditorView.textStorage.replaceCharacters(in: range, with: replacedText)
+        viewModel.autoCompleteInfo.value = nil
+
+        switch item {
+        case .emoji, .bottomLoader:
+            break
+        default:
+            // set selected range except emoji
+            let newRange = NSRange(location: range.location + (replacedText as NSString).length, length: 0)
+            guard textEditorView.textStorage.length <= newRange.location else { return }
+            textEditorView.textView.selectedRange = newRange
         }
     }
 }

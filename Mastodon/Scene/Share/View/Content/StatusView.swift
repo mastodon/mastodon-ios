@@ -12,6 +12,8 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
+import MetaTextView
+import Meta
 
 // TODO:
 // import LinkPresentation
@@ -24,9 +26,12 @@ protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
+    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
 }
 
 final class StatusView: UIView {
+
+    let logger = Logger(subsystem: "StatusView", category: "logic")
     
     var statusPollTableViewHeightObservation: NSKeyValueObservation?
     var pollCountdownSubscription: AnyCancellable?
@@ -78,6 +83,7 @@ final class StatusView: UIView {
     let headerInfoLabel: ActiveLabel = {
         let label = ActiveLabel(style: .statusHeader)
         label.text = "Bob reblogged"
+        label.layer.masksToBounds = false
         return label
     }()
     
@@ -201,7 +207,17 @@ final class StatusView: UIView {
         return actionToolbarContainer
     }()
     
-    let activeTextLabel = ActiveLabel(style: .default)
+    let contentMetaText: MetaText = {
+        let metaText = MetaText()
+        metaText.textView.backgroundColor = .clear
+        metaText.textView.isEditable = false
+        metaText.textView.isSelectable = false
+        metaText.textView.isScrollEnabled = false
+        metaText.textView.textContainer.lineFragmentPadding = 0
+        metaText.textView.textContainerInset = .zero
+        metaText.textView.layer.masksToBounds = false
+        return metaText
+    }()
     
     private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
@@ -261,6 +277,9 @@ extension StatusView {
             headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
         ])
         containerStackView.addArrangedSubview(headerContainerView)
+        defer {
+            containerStackView.bringSubviewToFront(headerContainerView)
+        }
         
         // author container: [avatar | author meta container | reveal button]
         let authorContainerStackView = UIStackView()
@@ -360,8 +379,8 @@ extension StatusView {
         }
         
         // status
-        statusContainerStackView.addArrangedSubview(activeTextLabel)
-        activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        statusContainerStackView.addArrangedSubview(contentMetaText.textView)
+        contentMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
         // TODO:
         // link preview
@@ -423,8 +442,9 @@ extension StatusView {
         
         avatarStackedContainerButton.isHidden = true
         contentWarningOverlayView.isHidden = true
-        
-        activeTextLabel.delegate = self
+
+        contentMetaText.textView.delegate = self
+        contentMetaText.textView.linkDelegate = self
         playerContainerView.delegate = self
         contentWarningOverlayView.delegate = self
         
@@ -513,6 +533,34 @@ extension StatusView {
         delegate?.statusView(self, pollVoteButtonPressed: sender)
     }
     
+}
+
+// MARK: - MetaTextViewDelegate
+extension StatusView: MetaTextViewDelegate {
+    func metaTextView(_ metaTextView: MetaTextView, didSelectLink link: URL) {
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        switch metaTextView {
+        case contentMetaText.textView:
+            guard let meta = Meta(url: link) else { return }
+            delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)
+        default:
+            assertionFailure()
+            break
+        }
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension StatusView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch textView {
+        case contentMetaText.textView:
+            return false
+        default:
+            assertionFailure()
+            return true
+        }
+    }
 }
 
 // MARK: - ActiveLabelDelegate

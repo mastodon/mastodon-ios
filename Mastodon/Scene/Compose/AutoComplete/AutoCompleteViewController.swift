@@ -38,7 +38,9 @@ final class AutoCompleteViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.contentInset.top = AutoCompleteViewController.chevronViewHeight
         tableView.verticalScrollIndicatorInsets.top = AutoCompleteViewController.chevronViewHeight
-        tableView.showsVerticalScrollIndicator = false  // avoid duplicate to the compose collection view indicator 
+        tableView.showsVerticalScrollIndicator = false  // avoid duplicate to the compose collection view indicator
+        tableView.preservesSuperviewLayoutMargins = false
+        tableView.cellLayoutMarginsFollowReadableWidth = false
         return tableView
     }()
     
@@ -50,6 +52,9 @@ extension AutoCompleteViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .clear
+
+        // we hack the view hierarchy. Do not preserve from superview
+        view.preservesSuperviewLayoutMargins = false
         
         chevronView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(chevronView)

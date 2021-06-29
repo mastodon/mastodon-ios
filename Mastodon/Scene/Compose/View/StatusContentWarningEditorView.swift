@@ -8,19 +8,12 @@
 import UIKit
 
 final class StatusContentWarningEditorView: UIView {
-    
-    let containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
-        return view
-    }()
-    
-    // due to section following readable inset. We overlap the bleeding to make backgorund fill
+
+    // due to section following readable inset. We overlap the bleeding to make background fill
     // default hidden
     let containerBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
-        view.isHidden = true
         return view
     }()
     
@@ -55,44 +48,38 @@ final class StatusContentWarningEditorView: UIView {
 
 extension StatusContentWarningEditorView {
     private func _init() {
-        let contentWarningStackView = UIStackView()
-        contentWarningStackView.axis = .horizontal
-        contentWarningStackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(contentWarningStackView)
-        NSLayoutConstraint.activate([
-            contentWarningStackView.topAnchor.constraint(equalTo: topAnchor),
-            contentWarningStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentWarningStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            contentWarningStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-        ])
-        contentWarningStackView.addArrangedSubview(containerView)
-        
+
         containerBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(containerBackgroundView)
+        addSubview(containerBackgroundView)
         NSLayoutConstraint.activate([
-            containerBackgroundView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            containerBackgroundView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: -1024),
-            containerBackgroundView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 1024),
-            containerBackgroundView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            containerBackgroundView.topAnchor.constraint(equalTo: topAnchor),
+            containerBackgroundView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -1024),
+            containerBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 1024),
+            containerBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(iconImageView)
+        addSubview(iconImageView)
         NSLayoutConstraint.activate([
-            iconImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            iconImageView.leadingAnchor.constraint(equalTo: containerView.readableContentGuide.leadingAnchor),
+            iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            iconImageView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
             iconImageView.widthAnchor.constraint(equalToConstant: StatusView.avatarImageSize.width).priority(.defaultHigh),    // center alignment to avatar
         ])
-        iconImageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        iconImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
         
         textView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(textView)
+        addSubview(textView)
         NSLayoutConstraint.activate([
-            textView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 6),
-            textView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: StatusView.avatarToLabelSpacing - 4),    // align to name label. minus magic 4pt to remove addtion inset
-            textView.trailingAnchor.constraint(equalTo: containerView.readableContentGuide.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 6),
+            textView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            textView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 6).priority(.required - 1),
+            textView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: StatusView.avatarToLabelSpacing - 4),    // align to name label. minus magic 4pt to remove addition inset
+            textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            bottomAnchor.constraint(greaterThanOrEqualTo: textView.bottomAnchor, constant: 6).priority(.required - 1),
+            //textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
+
+        textView.setContentHuggingPriority(.required - 1, for: .vertical)
+        textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
     }
 }
 

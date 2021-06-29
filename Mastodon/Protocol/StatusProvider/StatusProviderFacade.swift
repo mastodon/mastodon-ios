@@ -12,6 +12,8 @@ import CoreData
 import CoreDataStack
 import MastodonSDK
 import ActiveLabel
+import Meta
+import MetaTextView
 
 #if ASDK
 import AsyncDisplayKit
@@ -144,6 +146,31 @@ extension StatusProviderFacade {
             } else {
                 provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
             }
+        default:
+            break
+        }
+    }
+
+    static func responseToStatusMetaTextAction(provider: StatusProvider, cell: UITableViewCell, metaText: MetaText, didSelectMeta meta: Meta) {
+        switch meta {
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url) else { return }
+            if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
+               url.pathComponents.count >= 4,
+               url.pathComponents[0] == "/",
+               url.pathComponents[1] == "web",
+               url.pathComponents[2] == "statuses" {
+                let statusID = url.pathComponents[3]
+                let threadViewModel = RemoteThreadViewModel(context: provider.context, statusID: statusID)
+                provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
+            } else {
+                provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+            }
+        case .hashtag(_, let hashtag, _):
+            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: hashtag)
+            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
+        case .mention(_, let mention, _):
+            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: mention)
         default:
             break
         }
