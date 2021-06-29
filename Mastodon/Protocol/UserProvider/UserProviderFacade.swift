@@ -29,6 +29,23 @@ extension UserProviderFacade {
             mastodonUser: provider.mastodonUser().eraseToAnyPublisher()
         )
     }
+
+    static func toggleUserFollowRelationship(
+        provider: UserProvider,
+        mastodonUser: MastodonUser
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
+        // prepare authentication
+        guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            assertionFailure()
+            return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
+        }
+
+        return _toggleUserFollowRelationship(
+            context: provider.context,
+            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+            mastodonUser: Just(mastodonUser).eraseToAnyPublisher()
+        )
+    }
     
     private static func _toggleUserFollowRelationship(
         context: AppContext,
@@ -52,6 +69,22 @@ extension UserProviderFacade {
 }
 
 extension UserProviderFacade {
+    static func toggleUserBlockRelationship(
+        provider: UserProvider,
+        mastodonUser: MastodonUser
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
+        // prepare authentication
+        guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            assertionFailure()
+            return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
+        }
+        return _toggleUserBlockRelationship(
+            context: provider.context,
+            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+            mastodonUser: Just(mastodonUser).eraseToAnyPublisher()
+        )
+    }
+
     static func toggleUserBlockRelationship(
         provider: UserProvider,
         cell: UITableViewCell?
@@ -98,6 +131,23 @@ extension UserProviderFacade {
 }
 
 extension UserProviderFacade {
+
+    static func toggleUserMuteRelationship(
+        provider: UserProvider,
+        mastodonUser: MastodonUser
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
+        // prepare authentication
+        guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
+            assertionFailure()
+            return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
+        }
+        return _toggleUserMuteRelationship(
+            context: provider.context,
+            activeMastodonAuthenticationBox: activeMastodonAuthenticationBox,
+            mastodonUser: Just(mastodonUser).eraseToAnyPublisher()
+        )
+    }
+
     static func toggleUserMuteRelationship(
         provider: UserProvider,
         cell: UITableViewCell?
