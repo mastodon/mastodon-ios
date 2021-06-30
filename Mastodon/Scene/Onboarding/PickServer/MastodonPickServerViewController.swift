@@ -44,7 +44,6 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         return tableView
     }()
     
@@ -319,7 +318,6 @@ extension MastodonPickServerViewController {
                 )
                 
                 self.mastodonAuthenticationController = authenticationController
-                authenticationController.authenticationSession?.prefersEphemeralWebBrowserSession = true
                 authenticationController.authenticationSession?.presentationContextProvider = self
                 authenticationController.authenticationSession?.start()
                 

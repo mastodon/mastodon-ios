@@ -12,7 +12,9 @@ import os.log
 import UIKit
 import AVKit
 import Nuke
-import LinkPresentation
+import MastodonMeta
+
+// import LinkPresentation
 
 #if ASDK
 import AsyncDisplayKit
@@ -138,12 +140,15 @@ extension StatusSection {
                 cell.delegate = statusTableViewCellDelegate
                 switch item {
                 case .root:
-                    cell.statusView.activeTextLabel.isAccessibilityElement = false
+                    // enable selection only for root
+                    cell.statusView.contentMetaText.textView.isSelectable = true
+                    cell.statusView.contentMetaText.textView.isAccessibilityElement = false
                     var accessibilityElements: [Any] = []
                     accessibilityElements.append(cell.statusView.avatarView)
                     accessibilityElements.append(cell.statusView.nameLabel)
                     accessibilityElements.append(cell.statusView.dateLabel)
-                    accessibilityElements.append(contentsOf: cell.statusView.activeTextLabel.createAccessibilityElements())
+                    // TODO: a11y
+                    accessibilityElements.append(cell.statusView.contentMetaText.textView)
                     accessibilityElements.append(contentsOf: cell.statusView.statusMosaicImageViewContainer.imageViews)
                     accessibilityElements.append(cell.statusView.playerContainerView)
                     accessibilityElements.append(cell.statusView.actionToolbarContainer)
@@ -554,16 +559,23 @@ extension StatusSection {
         statusItemAttribute: Item.StatusAttribute
     ) {
         // set content
-        cell.statusView.activeTextLabel.configure(
-            content: (status.reblog ?? status).content,
-            emojiDict: (status.reblog ?? status).emojiDict
-        )
-        cell.statusView.activeTextLabel.accessibilityLanguage = (status.reblog ?? status).language
+        do {
+            let content = MastodonContent(
+                content: (status.reblog ?? status).content,
+                emojis: (status.reblog ?? status).emojiMeta
+            )
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            cell.statusView.contentMetaText.configure(content: metaContent)
+        } catch {
+            cell.statusView.contentMetaText.textView.text = " "
+            assertionFailure()
+        }
+
+        cell.statusView.contentMetaText.textView.accessibilityLanguage = (status.reblog ?? status).language
 
         // set visibility
-        if let visibility = (status.reblog ?? status).visibility {
+        if let visibility = (status.reblog ?? status).visibilityEnum {
             cell.statusView.updateVisibility(visibility: visibility)
-
             cell.statusView.revealContentWarningButton.publisher(for: \.isHidden)
                 .receive(on: DispatchQueue.main)
                 .sink { [weak cell] isHidden in
@@ -940,6 +952,18 @@ extension StatusSection {
             guard status.reblogsCount.intValue > 0 else { return nil }
             return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
         }()
+
+        // disable reblog if needs (except self)
+        cell.statusView.actionToolbarContainer.reblogButton.isEnabled = true
+        if let visibility = status.visibilityEnum, status.author.id != requestUserID {
+            switch visibility {
+            case .public, .unlisted:
+                break
+            default:
+                cell.statusView.actionToolbarContainer.reblogButton.isEnabled = false
+            }
+        }
+        
         // set like
         let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {

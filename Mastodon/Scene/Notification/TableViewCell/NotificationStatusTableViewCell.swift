@@ -9,6 +9,8 @@ import Combine
 import Foundation
 import UIKit
 import ActiveLabel
+import MetaTextView
+import Meta
 
 final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     static let actionImageBorderWidth: CGFloat = 2
@@ -253,6 +255,10 @@ extension NotificationStatusTableViewCell: StatusViewDelegate {
     }
     
     func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+        // do nothing
+    }
+
+    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
         // do nothing
     }
     

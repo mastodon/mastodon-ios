@@ -11,6 +11,7 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
+import ActiveLabel
 
 protocol SuggestionAccountTableViewCellDelegate: AnyObject {
     func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell)
@@ -28,8 +29,8 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
+    let titleLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusName)
         label.textColor = Asset.Colors.brandBlue.color
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         label.lineBreakMode = .byTruncatingTail
@@ -153,7 +154,7 @@ extension SuggestionAccountTableViewCell {
                 imageTransition: .crossDissolve(0.2)
             )
         }
-        titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
+        titleLabel.configure(content: account.displayNameWithFallback, emojiDict: account.emojiDict)
         subTitleLabel.text = account.acct
         button.isSelected = isSelected
         button.publisher(for: .touchUpInside)

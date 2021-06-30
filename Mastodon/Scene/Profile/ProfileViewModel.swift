@@ -39,7 +39,7 @@ class ProfileViewModel: NSObject {
     let statusesCount: CurrentValueSubject<Int?, Never>
     let followingCount: CurrentValueSubject<Int?, Never>
     let followersCount: CurrentValueSubject<Int?, Never>
-    let fileds: CurrentValueSubject<[Mastodon.Entity.Field], Never>
+    let fields: CurrentValueSubject<[Mastodon.Entity.Field], Never>
     let emojiDict: CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>
 
     // fulfill this before editing
@@ -82,7 +82,7 @@ class ProfileViewModel: NSObject {
         self.followersCount = CurrentValueSubject(mastodonUser.flatMap { Int(truncating: $0.followersCount) })
         self.protected = CurrentValueSubject(mastodonUser?.locked)
         self.suspended = CurrentValueSubject(mastodonUser?.suspended ?? false)
-        self.fileds = CurrentValueSubject(mastodonUser?.fields ?? [])
+        self.fields = CurrentValueSubject(mastodonUser?.fields ?? [])
         self.emojiDict = CurrentValueSubject(mastodonUser?.emojiDict ?? [:])
         super.init()
         
@@ -257,7 +257,7 @@ extension ProfileViewModel {
         self.followersCount.value = mastodonUser.flatMap { Int(truncating: $0.followersCount) }
         self.protected.value = mastodonUser?.locked
         self.suspended.value = mastodonUser?.suspended ?? false
-        self.fileds.value = mastodonUser?.fields ?? []
+        self.fields.value = mastodonUser?.fields ?? []
         self.emojiDict.value = mastodonUser?.emojiDict ?? [:]
     }
     

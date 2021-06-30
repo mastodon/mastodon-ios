@@ -7,6 +7,7 @@
 
 import Foundation
 import MastodonSDK
+import MastodonMeta
 
 protocol EmojiContainer {
     var emojisData: Data? { get }
@@ -28,6 +29,14 @@ extension EmojiContainer {
         for emoji in emojis ?? [] {
             guard let url = URL(string: emoji.url) else { continue }
             dict[emoji.shortcode] = url
+        }
+        return dict
+    }
+
+    var emojiMeta: MastodonContent.Emojis {
+        var dict = MastodonContent.Emojis()
+        for emoji in emojis ?? [] {
+            dict[emoji.shortcode] = emoji.url
         }
         return dict
     }

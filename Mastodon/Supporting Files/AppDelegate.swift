@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import UserNotifications
 import AppShared
+import AVFoundation
 
 #if ASDK
 import AsyncDisplayKit
@@ -55,12 +56,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
 }
 
 extension AppDelegate {
-    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {        
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        #if DEBUG
+        return .all
+        #else
         return UIDevice.current.userInterfaceIdiom == .phone ? .portrait : .all
+        #endif
     }
 }
 

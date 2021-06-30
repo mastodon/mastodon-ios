@@ -40,7 +40,7 @@ extension VideoPlaybackService {
             } else {
                 if latestPlayingVideoPlayerViewModel === playerViewModel {
                     latestPlayingVideoPlayerViewModel = nil
-                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
+//                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
                 }
             }
         }
@@ -111,7 +111,7 @@ extension VideoPlaybackService {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
         
         // note: do not retain view controller
-        // pause all player when view disppear exclude full screen player and other transitioning scene
+        // pause all player when view disappear exclude full screen player and other transitioning scene
         for viewModel in viewPlayerViewModelDict.values {
             guard !viewModel.isTransitioning else {
                 viewModel.isTransitioning = false

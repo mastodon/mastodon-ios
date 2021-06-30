@@ -12,6 +12,9 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
+import MetaTextView
+import Meta
+import MastodonSDK
 
 // TODO:
 // import LinkPresentation
@@ -24,9 +27,12 @@ protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
     func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
+    func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
 }
 
 final class StatusView: UIView {
+
+    let logger = Logger(subsystem: "StatusView", category: "logic")
     
     var statusPollTableViewHeightObservation: NSKeyValueObservation?
     var pollCountdownSubscription: AnyCancellable?
@@ -78,6 +84,7 @@ final class StatusView: UIView {
     let headerInfoLabel: ActiveLabel = {
         let label = ActiveLabel(style: .statusHeader)
         label.text = "Bob reblogged"
+        label.layer.masksToBounds = false
         return label
     }()
     
@@ -201,7 +208,32 @@ final class StatusView: UIView {
         return actionToolbarContainer
     }()
     
-    let activeTextLabel = ActiveLabel(style: .default)
+    let contentMetaText: MetaText = {
+        let metaText = MetaText()
+        metaText.textView.backgroundColor = .clear
+        metaText.textView.isEditable = false
+        metaText.textView.isSelectable = false
+        metaText.textView.isScrollEnabled = false
+        metaText.textView.textContainer.lineFragmentPadding = 0
+        metaText.textView.textContainerInset = .zero
+        metaText.textView.layer.masksToBounds = false
+        let paragraphStyle: NSMutableParagraphStyle = {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 5
+            return style
+        }()
+        metaText.textAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+            .foregroundColor: Asset.Colors.Label.primary.color,
+            .paragraphStyle: paragraphStyle,
+        ]
+        metaText.linkAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
+            .foregroundColor: Asset.Colors.brandBlue.color,
+            .paragraphStyle: paragraphStyle,
+        ]
+        return metaText
+    }()
     
     private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
@@ -261,6 +293,9 @@ extension StatusView {
             headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
         ])
         containerStackView.addArrangedSubview(headerContainerView)
+        defer {
+            containerStackView.bringSubviewToFront(headerContainerView)
+        }
         
         // author container: [avatar | author meta container | reveal button]
         let authorContainerStackView = UIStackView()
@@ -318,7 +353,9 @@ extension StatusView {
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        visibilityImageView.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.required - 1, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.required - 1, for: .vertical)
+        visibilityImageView.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
@@ -360,8 +397,8 @@ extension StatusView {
         }
         
         // status
-        statusContainerStackView.addArrangedSubview(activeTextLabel)
-        activeTextLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        statusContainerStackView.addArrangedSubview(contentMetaText.textView)
+        contentMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
 
         // TODO:
         // link preview
@@ -423,8 +460,9 @@ extension StatusView {
         
         avatarStackedContainerButton.isHidden = true
         contentWarningOverlayView.isHidden = true
-        
-        activeTextLabel.delegate = self
+
+        contentMetaText.textView.delegate = self
+        contentMetaText.textView.linkDelegate = self
         playerContainerView.delegate = self
         contentWarningOverlayView.delegate = self
         
@@ -478,10 +516,20 @@ extension StatusView {
         }
         // TODO: a11y
     }
-    
-    func updateVisibility(visibility: String) {
-        guard let visibility = ComposeToolbarView.VisibilitySelectionType(rawValue: visibility) else { return }
-        visibilityImageView.image = UIImage(systemName: visibility.imageNameForTimeline(), withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+
+    func updateVisibility(visibility: Mastodon.Entity.Status.Visibility) {
+        switch visibility {
+        case .public:
+            visibilityImageView.image = UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case .private:
+            visibilityImageView.image = UIImage(systemName: "person.3", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case .unlisted:
+            visibilityImageView.image = UIImage(systemName: "eye.slash", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case .direct:
+            visibilityImageView.image = UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13, weight: .regular))
+        case ._other:
+            visibilityImageView.image = nil
+        }
     }
     
 }
@@ -513,6 +561,34 @@ extension StatusView {
         delegate?.statusView(self, pollVoteButtonPressed: sender)
     }
     
+}
+
+// MARK: - MetaTextViewDelegate
+extension StatusView: MetaTextViewDelegate {
+    func metaTextView(_ metaTextView: MetaTextView, didSelectLink link: URL) {
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        switch metaTextView {
+        case contentMetaText.textView:
+            guard let meta = Meta(url: link) else { return }
+            delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)
+        default:
+            assertionFailure()
+            break
+        }
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension StatusView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch textView {
+        case contentMetaText.textView:
+            return false
+        default:
+            assertionFailure()
+            return true
+        }
+    }
 }
 
 // MARK: - ActiveLabelDelegate

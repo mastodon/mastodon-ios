@@ -10,6 +10,7 @@ import UIKit
 import ActiveLabel
 import TwitterTextEditor
 import FLAnimatedImage
+import MetaTextView
 
 protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)
@@ -111,7 +112,24 @@ final class ProfileHeaderView: UIView {
         view.layer.cornerRadius = 10
         return view
     }()
-    
+
+    let displayNameStackView = UIStackView()
+    let nameMetaText: MetaText = {
+        let metaText = MetaText()
+        metaText.textView.backgroundColor = .clear
+        metaText.textView.isEditable = false
+        metaText.textView.isSelectable = false
+        metaText.textView.isScrollEnabled = false
+        metaText.textView.layer.masksToBounds = false
+        metaText.textView.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28)
+        metaText.textView.textColor = .white
+        metaText.textView.textContainer.lineFragmentPadding = 0
+        metaText.textAttributes = [
+            .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28),
+            .foregroundColor: UIColor.white
+        ]
+        return metaText
+    }()
     let nameTextField: UITextField = {
         let textField = UITextField()
         textField.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold), maximumPointSize: 28)
@@ -303,7 +321,6 @@ extension ProfileHeaderView {
             nameContainerStackView.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
         ])
         
-        let displayNameStackView = UIStackView()
         displayNameStackView.axis = .horizontal
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         displayNameStackView.addArrangedSubview(nameTextField)
@@ -321,6 +338,16 @@ extension ProfileHeaderView {
         ])
         displayNameStackView.bringSubviewToFront(nameTextField)
         displayNameStackView.addArrangedSubview(UIView())
+
+        // overlay meta text for display name
+        nameMetaText.textView.translatesAutoresizingMaskIntoConstraints = false
+        displayNameStackView.addSubview(nameMetaText.textView)
+        NSLayoutConstraint.activate([
+            nameMetaText.textView.topAnchor.constraint(equalTo: nameTextField.topAnchor),
+            nameMetaText.textView.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
+            nameMetaText.textView.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
+            nameMetaText.textView.bottomAnchor.constraint(equalTo: nameTextField.bottomAnchor),
+        ])
         
         nameContainerStackView.addArrangedSubview(displayNameStackView)
         nameContainerStackView.addArrangedSubview(usernameLabel)
@@ -436,6 +463,8 @@ extension ProfileHeaderView {
         
         switch state {
         case .normal:
+            nameMetaText.textView.alpha = 1
+            nameTextField.alpha = 0
             nameTextField.isEnabled = false
             bioActiveLabelContainer.isHidden = false
             bioTextEditorView.isHidden = true
@@ -449,7 +478,9 @@ extension ProfileHeaderView {
                 self.editAvatarBackgroundView.isHidden = true
             }
         case .editing:
+            nameMetaText.textView.alpha = 0
             nameTextField.isEnabled = true
+            nameTextField.alpha = 1
             bioActiveLabelContainer.isHidden = true
             bioTextEditorView.isHidden = false
             
