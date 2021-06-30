@@ -48,9 +48,9 @@ final class SearchViewController: UIViewController, NeedsDependency {
         searchBar.placeholder = L10n.Scene.Search.Searchbar.placeholder
         searchBar.tintColor = Asset.Colors.brandBlue.color
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        let micImage = UIImage(systemName: "mic.fill")
-        searchBar.setImage(micImage, for: .bookmark, state: .normal)
-        searchBar.showsBookmarkButton = true
+        // let micImage = UIImage(systemName: "mic.fill")
+        // searchBar.setImage(micImage, for: .bookmark, state: .normal)
+        // searchBar.showsBookmarkButton = true
         searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
         searchBar.barTintColor = Asset.Colors.Background.navigationBar.color
         return searchBar
