@@ -93,6 +93,7 @@ extension NotificationViewController {
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 guard let self = self else { return }
+                guard self.viewModel.needsScrollToTopAfterDataSourceUpdate else { return }
                 self.viewModel.needsScrollToTopAfterDataSourceUpdate = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
                     self.scrollToTop(animated: true)
@@ -106,6 +107,9 @@ extension NotificationViewController {
             .sink { [weak self] segment in
                 guard let self = self else { return }
                 self.segmentControl.selectedSegmentIndex = segment.rawValue
+
+                // trigger scroll-to-top after data reload
+                self.viewModel.needsScrollToTopAfterDataSourceUpdate = true
                 
                 guard let domain = self.viewModel.activeMastodonAuthenticationBox.value?.domain, let userID = self.viewModel.activeMastodonAuthenticationBox.value?.userID else {
                     return

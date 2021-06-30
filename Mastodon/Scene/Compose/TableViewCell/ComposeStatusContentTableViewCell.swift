@@ -38,6 +38,21 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
                 attributes: attributes
             )
         }()
+        let paragraphStyle: NSMutableParagraphStyle = {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 5
+            return style
+        }()
+        metaText.textAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+            .foregroundColor: Asset.Colors.Label.primary.color,
+            .paragraphStyle: paragraphStyle,
+        ]
+        metaText.linkAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
+            .foregroundColor: Asset.Colors.brandBlue.color,
+            .paragraphStyle: paragraphStyle,
+        ]
         return metaText
     }()
 
@@ -68,6 +83,7 @@ extension ComposeStatusContentTableViewCell {
     private func _init() {
         selectionStyle = .none
         layer.zPosition = 999
+        backgroundColor = .clear
         preservesSuperviewLayoutMargins = true
 
         let containerStackView = UIStackView()

@@ -46,8 +46,23 @@ extension CustomEmojiPickerInputViewModel {
         removeEmptyReferences()
         
         for reference in customEmojiReplaceableTextInputReferences {
-            guard reference.value?.isFirstResponder == true else { continue }
-            reference.value?.insertText(text)
+            guard let textInput = reference.value else { continue }
+            guard textInput.isFirstResponder == true else { continue }
+
+            let selectedTextRange = textInput.selectedTextRange
+            textInput.insertText(text)
+
+            // due to insert text render as attachment
+            // the cursor reset logic not works
+            // hack with hard code +2 offset
+            assert(text.hasSuffix(": "))
+            if text.hasPrefix(":") && text.hasSuffix(": "),
+               let selectedTextRange = selectedTextRange,
+               let newPosition = textInput.position(from: selectedTextRange.start, offset: 2) {
+                let newSelectedTextRange = textInput.textRange(from: newPosition, to: newPosition)
+                textInput.selectedTextRange = newSelectedTextRange
+            }
+
             return reference
         }
         

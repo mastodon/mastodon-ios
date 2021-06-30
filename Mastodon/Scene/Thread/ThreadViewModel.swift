@@ -53,7 +53,7 @@ class ThreadViewModel {
         self.rootItem = CurrentValueSubject(optionalStatus.flatMap { Item.root(statusObjectID: $0.objectID, attribute: Item.StatusAttribute()) })
         self.existStatusFetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: nil, additionalTweetPredicate: nil)
         self.navigationBarTitle = CurrentValueSubject(
-            optionalStatus.flatMap { (L10n.Scene.Thread.title($0.author.displayNameWithFallback), $0.emojiDict) }
+            optionalStatus.flatMap { (L10n.Scene.Thread.title($0.author.displayNameWithFallback), $0.author.emojiDict) }
         )
         
         // bind fetcher domain
@@ -239,7 +239,7 @@ extension ThreadViewModel {
                     nextID = object.inReplyToID
                 }
             }
-            return nodes.reversed()
+            return nodes
         }
     }
     

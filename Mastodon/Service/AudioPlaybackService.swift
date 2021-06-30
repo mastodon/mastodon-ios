@@ -23,7 +23,6 @@ final class AudioPlaybackService: NSObject {
     var statusObserver: Any?
     var attachment: Attachment?
 
-    let session = AVAudioSession.sharedInstance()
     let playbackState = CurrentValueSubject<PlaybackState, Never>(PlaybackState.unknown)
 
     let currentTimeSubject = CurrentValueSubject<TimeInterval, Never>(0)
@@ -31,18 +30,29 @@ final class AudioPlaybackService: NSObject {
     override init() {
         super.init()
         addObserver()
+
+        playbackState
+            .receive(on: RunLoop.main)
+            .sink { status in
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: audio status: %s", ((#file as NSString).lastPathComponent), #line, #function, status.description)
+                switch status {
+                case .unknown, .buffering, .readyToPlay:
+                    break
+                case .playing:
+                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
+                    try? AVAudioSession.sharedInstance().setActive(true)
+                case .paused, .stopped, .failed:
+                    try? AVAudioSession.sharedInstance().setCategory(.ambient)
+                    try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+                }
+            }
+            .store(in: &disposeBag)
     }
 }
 
 extension AudioPlaybackService {
     func playAudio(audioAttachment: Attachment) {
         guard let url = URL(string: audioAttachment.url) else {
-            return
-        }
-        do {
-            try session.setCategory(.playback)
-        } catch {
-            print(error)
             return
         }
 
@@ -64,27 +74,6 @@ extension AudioPlaybackService {
     }
 
     func addObserver() {
-        UIDevice.current.isProximityMonitoringEnabled = true
-        NotificationCenter.default.publisher(for: UIDevice.proximityStateDidChangeNotification, object: nil)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                if UIDevice.current.proximityState == true {
-                    do {
-                        try self.session.setCategory(.playAndRecord)
-                    } catch {
-                        print(error)
-                        return
-                    }
-                } else {
-                    do {
-                        try self.session.setCategory(.playback)
-                    } catch {
-                        print(error)
-                        return
-                    }
-                }
-            }
-            .store(in: &disposeBag)
         NotificationCenter.default.publisher(for: VideoPlayerViewModel.appWillPlayVideoNotification)
             .sink { [weak self] _ in
                 guard let self = self else { return }
@@ -96,7 +85,7 @@ extension AudioPlaybackService {
             guard let self = self else { return }
             self.currentTimeSubject.value = time.seconds
         })
-        player.publisher(for: \.status, options: .new)
+        player.publisher(for: \.status, options: [.initial, .new])
             .sink(receiveValue: { [weak self] status in
                 guard let self = self else { return }
                 switch status {

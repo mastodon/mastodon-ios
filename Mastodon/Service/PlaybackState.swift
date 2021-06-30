@@ -23,3 +23,21 @@ public enum PlaybackState : Int {
 
     case failed = 6
 }
+
+// MARK: - CustomStringConvertible
+extension PlaybackState: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .unknown: return "unknown"
+        case .buffering: return "buffering"
+        case .readyToPlay: return "readyToPlay"
+        case .playing: return "playing"
+        case .paused: return "paused"
+        case .stopped: return "stopped"
+        case .failed: return "failed"
+        default:
+            assertionFailure()
+            return "<nil>"
+        }
+    }
+}

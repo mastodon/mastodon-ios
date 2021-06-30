@@ -953,10 +953,15 @@ extension StatusSection {
             return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
         }()
 
-        // disable reblog when non-public (except self)
+        // disable reblog if needs (except self)
         cell.statusView.actionToolbarContainer.reblogButton.isEnabled = true
-        if let visibility = status.visibilityEnum, visibility != .public, status.author.id != requestUserID {
-            cell.statusView.actionToolbarContainer.reblogButton.isEnabled = false
+        if let visibility = status.visibilityEnum, status.author.id != requestUserID {
+            switch visibility {
+            case .public, .unlisted:
+                break
+            default:
+                cell.statusView.actionToolbarContainer.reblogButton.isEnabled = false
+            }
         }
         
         // set like

@@ -20,14 +20,13 @@ extension SearchViewController: UserProvider {
     
     func mastodonUser() -> Future<MastodonUser?, Never> {
         Future { promise in
-            promise(.success(self.viewModel.mastodonUser.value))
+            promise(.success(nil))
         }
     }
 }
 
 extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegate {
     func followButtonDidPressed(clickedUser: MastodonUser) {
-        viewModel.mastodonUser.value = clickedUser
         guard let currentMastodonUser = viewModel.currentMastodonUser.value else {
             return
         }
@@ -36,17 +35,17 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
         case .none:
             break
         case .follow, .following:
-            UserProviderFacade.toggleUserFollowRelationship(provider: self)
+            UserProviderFacade.toggleUserFollowRelationship(provider: self, mastodonUser: clickedUser)
                 .sink { _ in
-
+                    // error handling
                 } receiveValue: { _ in
+                    // success
                 }
                 .store(in: &disposeBag)
         case .pending:
             break
         case .muting:
-            guard let mastodonUser = viewModel.mastodonUser.value else { return }
-            let name = mastodonUser.displayNameWithFallback
+            let name = clickedUser.displayNameWithFallback
             let alertController = UIAlertController(
                 title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title,
                 message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(name),
@@ -54,7 +53,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserMuteRelationship(provider: self, cell: nil)
+                UserProviderFacade.toggleUserMuteRelationship(provider: self, mastodonUser: clickedUser)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in
@@ -67,8 +66,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
         case .blocking:
-            guard let mastodonUser = viewModel.mastodonUser.value else { return }
-            let name = mastodonUser.displayNameWithFallback
+            let name = clickedUser.displayNameWithFallback
             let alertController = UIAlertController(
                 title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.title,
                 message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.message(name),
@@ -76,7 +74,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserBlockRelationship(provider: self, cell: nil)
+                UserProviderFacade.toggleUserBlockRelationship(provider: self, mastodonUser: clickedUser)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in

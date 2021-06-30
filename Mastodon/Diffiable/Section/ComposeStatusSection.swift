@@ -58,14 +58,8 @@ extension ComposeStatusSection {
     
 }
 
-protocol CustomEmojiReplaceableTextInput: AnyObject {
+protocol CustomEmojiReplaceableTextInput: UITextInput & UIResponder {
     var inputView: UIView? { get set }
-    func reloadInputViews()
-    
-    // UIKeyInput
-    func insertText(_ text: String)
-    // UIResponder
-    var isFirstResponder: Bool { get }
 }
 
 class CustomEmojiReplaceableTextInputReference {

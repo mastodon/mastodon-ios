@@ -19,6 +19,8 @@ final class AttachmentContainerView: UIView {
     let previewImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = AttachmentContainerView.containerViewCornerRadius
+        imageView.layer.cornerCurve = .continuous
         imageView.layer.masksToBounds = true
         return imageView
     }()
