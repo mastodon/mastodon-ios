@@ -353,7 +353,9 @@ extension StatusView {
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        visibilityImageView.setContentHuggingPriority(.defaultHigh + 3, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.required - 1, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.required - 1, for: .vertical)
+        visibilityImageView.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
