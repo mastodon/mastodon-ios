@@ -217,6 +217,21 @@ final class StatusView: UIView {
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
         metaText.textView.layer.masksToBounds = false
+        let paragraphStyle: NSMutableParagraphStyle = {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 5
+            return style
+        }()
+        metaText.textAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+            .foregroundColor: Asset.Colors.Label.primary.color,
+            .paragraphStyle: paragraphStyle,
+        ]
+        metaText.linkAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
+            .foregroundColor: Asset.Colors.brandBlue.color,
+            .paragraphStyle: paragraphStyle,
+        ]
         return metaText
     }()
     
