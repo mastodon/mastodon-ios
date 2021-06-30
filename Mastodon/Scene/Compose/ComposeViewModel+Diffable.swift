@@ -236,6 +236,10 @@ extension ComposeViewModel: UITableViewDataSource {
             }
             // configure author
             ComposeStatusSection.configureStatusContent(cell: cell, attribute: composeStatusAttribute)
+            // configure content. bind text in UITextViewDelegate
+            if let composeContent = composeStatusAttribute.composeContent.value {
+                cell.metaText.textView.text = composeContent
+            }
             // configure content warning
             cell.statusContentWarningEditorView.textView.text = composeStatusAttribute.contentWarningContent.value
             // bind content warning
@@ -254,7 +258,6 @@ extension ComposeViewModel: UITableViewDataSource {
                     }
                 }
                 .store(in: &cell.disposeBag)
-
             cell.contentWarningContent
                 .removeDuplicates()
                 .receive(on: DispatchQueue.main)
