@@ -292,33 +292,32 @@ final class ComposeViewModel: NSObject {
             .store(in: &disposeBag)
 
         // setup attribute updater
-        Publishers.CombineLatest(
-            attachmentServices,
-            context.timestampUpdatePublisher
-        )
-        .sink { attachmentServices, _ in
-            // drive service upload state
-            // make image upload in the queue
-            for attachmentService in attachmentServices {
-                // skip when prefix N task when task finish OR fail OR uploading
-                guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
-                if currentState is MastodonAttachmentService.UploadState.Fail {
-                    continue
-                }
-                if currentState is MastodonAttachmentService.UploadState.Finish {
-                    continue
-                }
-                if currentState is MastodonAttachmentService.UploadState.Uploading {
-                    break
-                }
-                // trigger uploading one by one
-                if currentState is MastodonAttachmentService.UploadState.Initial {
-                    attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
-                    break
+        attachmentServices
+            .receive(on: DispatchQueue.main)
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { attachmentServices in
+                // drive service upload state
+                // make image upload in the queue
+                for attachmentService in attachmentServices {
+                    // skip when prefix N task when task finish OR fail OR uploading
+                    guard let currentState = attachmentService.uploadStateMachine.currentState else { break }
+                    if currentState is MastodonAttachmentService.UploadState.Fail {
+                        continue
+                    }
+                    if currentState is MastodonAttachmentService.UploadState.Finish {
+                        continue
+                    }
+                    if currentState is MastodonAttachmentService.UploadState.Uploading {
+                        break
+                    }
+                    // trigger uploading one by one
+                    if currentState is MastodonAttachmentService.UploadState.Initial {
+                        attachmentService.uploadStateMachine.enter(MastodonAttachmentService.UploadState.Uploading.self)
+                        break
+                    }
                 }
             }
-        }
-        .store(in: &disposeBag)
+            .store(in: &disposeBag)
         
         // bind delegate
         attachmentServices
