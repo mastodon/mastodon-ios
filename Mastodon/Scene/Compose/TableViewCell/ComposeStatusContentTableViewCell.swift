@@ -83,6 +83,7 @@ extension ComposeStatusContentTableViewCell {
     private func _init() {
         selectionStyle = .none
         layer.zPosition = 999
+        backgroundColor = .clear
         preservesSuperviewLayoutMargins = true
 
         let containerStackView = UIStackView()
