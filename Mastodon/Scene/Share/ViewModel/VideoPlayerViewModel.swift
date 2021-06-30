@@ -69,7 +69,8 @@ final class VideoPlayerViewModel {
                 case .gif:
                     break
                 case .video:
-                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
+                    break
+//                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
                 }
             }
             .store(in: &disposeBag)
@@ -107,7 +108,8 @@ extension VideoPlayerViewModel {
         case .gif:
             break
         case .video:
-            try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
+            break
+//            try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
         }
 
         player.play()
