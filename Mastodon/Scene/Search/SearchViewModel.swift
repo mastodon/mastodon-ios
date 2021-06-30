@@ -251,61 +251,6 @@ final class SearchViewModel: NSObject {
             }
             .store(in: &disposeBag)
     }
-
-    func requestRecommendAccountsV2() -> Future<Void, Error> {
-        Future { promise in
-            guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                promise(.failure(APIService.APIError.implicit(APIService.APIError.ErrorReason.authenticationMissing)))
-                return
-            }
-            self.context.apiService.suggestionAccountV2(domain: activeMastodonAuthenticationBox.domain, query: nil, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-                .sink { [weak self] completion in
-                    switch completion {
-                    case .failure(let error):
-                        if let apiError = error as? Mastodon.API.Error {
-                            if apiError.httpResponseStatus == .notFound {
-                                self?.recommendAccountsFallback.send()
-                            }
-                        }
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                        promise(.failure(error))
-                    case .finished:
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request success", (#file as NSString).lastPathComponent, #line, #function)
-                        promise(.success(()))
-                    }
-                } receiveValue: { [weak self] accounts in
-                    guard let self = self else { return }
-                    let ids = accounts.value.compactMap({$0.account.id})
-                    self.receiveAccounts(ids: ids)
-                }
-                .store(in: &self.disposeBag)
-        }
-    }
-    
-    func requestRecommendAccounts() -> Future<Void, Error> {
-        Future { promise in
-            guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                promise(.failure(APIService.APIError.implicit(APIService.APIError.ErrorReason.authenticationMissing)))
-                return
-            }
-            self.context.apiService.suggestionAccount(domain: activeMastodonAuthenticationBox.domain, query: nil, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request fail: %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                        promise(.failure(error))
-                    case .finished:
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: recommendAccount request success", (#file as NSString).lastPathComponent, #line, #function)
-                        promise(.success(()))
-                    }
-                } receiveValue: { [weak self] accounts in
-                    guard let self = self else { return }
-                    let ids = accounts.value.compactMap({$0.id})
-                    self.receiveAccounts(ids: ids)
-                }
-                .store(in: &self.disposeBag)
-        }
-    }
     
     func receiveAccounts(ids: [Mastodon.Entity.Account.ID]) {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
@@ -324,8 +269,8 @@ final class SearchViewModel: NSObject {
                 return nil
             }
         }()
-        guard let mastodonUsers = mastodonUsers else { return }
-        let objectIDs = mastodonUsers
+        guard let users = mastodonUsers else { return }
+        let objectIDs: [NSManagedObjectID] = users
             .compactMap { object in
                 ids.firstIndex(of: object.id).map { index in (index, object) }
             }
