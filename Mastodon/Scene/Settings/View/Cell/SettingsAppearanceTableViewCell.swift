@@ -149,7 +149,7 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // remove seperator line in section of group tableview
+        // remove separator line in section of group tableview
         for subview in self.subviews {
             if subview != self.contentView && subview.frame.width == self.frame.width {
                 subview.removeFromSuperview()
