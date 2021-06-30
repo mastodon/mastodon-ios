@@ -239,7 +239,7 @@ extension ThreadViewModel {
                     nextID = object.inReplyToID
                 }
             }
-            return nodes.reversed()
+            return nodes
         }
     }
     
