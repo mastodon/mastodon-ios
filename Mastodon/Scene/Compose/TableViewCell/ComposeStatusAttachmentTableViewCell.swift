@@ -93,9 +93,8 @@ extension ComposeStatusAttachmentTableViewCell {
                             cell.attachmentContainerView.previewImageView.image = placeholder
                             return
                         }
+                        // cannot get correct size. set corner radius on layer
                         cell.attachmentContainerView.previewImageView.image = image
-                            .af.imageAspectScaled(toFill: size)
-                            .af.imageRounded(withCornerRadius: AttachmentContainerView.containerViewCornerRadius)
                     }
                     .store(in: &cell.disposeBag)
                 Publishers.CombineLatest(
