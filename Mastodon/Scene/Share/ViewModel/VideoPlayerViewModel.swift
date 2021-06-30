@@ -37,7 +37,8 @@ final class VideoPlayerViewModel {
     
     private var timeControlStatusObservation: NSKeyValueObservation?
     let timeControlStatus = CurrentValueSubject<AVPlayer.TimeControlStatus, Never>(.paused)
-    
+    let playbackState = CurrentValueSubject<PlaybackState, Never>(PlaybackState.unknown)
+
     init(previewImageURL: URL?, videoURL: URL, videoSize: CGSize, videoKind: VideoPlayerViewModel.Kind) {
         self.previewImageURL = previewImageURL
         self.videoURL = videoURL
@@ -58,19 +59,42 @@ final class VideoPlayerViewModel {
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: player state: %s", (#file as NSString).lastPathComponent, #line, #function, player.timeControlStatus.debugDescription)
             self.timeControlStatus.value = player.timeControlStatus
         }
-        
-        // update audio session category for user interactive event stream
+
+        player.publisher(for: \.status, options: [.initial, .new])
+            .sink(receiveValue: { [weak self] status in
+                guard let self = self else { return }
+                switch status {
+                case .failed:
+                    self.playbackState.value = .failed
+                case .readyToPlay:
+                    self.playbackState.value = .readyToPlay
+                case .unknown:
+                    self.playbackState.value = .unknown
+                @unknown default:
+                    assertionFailure()
+                }
+            })
+            .store(in: &disposeBag)
+
         timeControlStatus
             .sink { [weak self] timeControlStatus in
-                guard let _ = self else { return }
-                guard timeControlStatus == .playing else { return }
-                NotificationCenter.default.post(name: VideoPlayerViewModel.appWillPlayVideoNotification, object: nil)
-                switch videoKind {
-                case .gif:
-                    break
-                case .video:
-                    break
-//                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
+                guard let self = self else { return }
+
+                // emit playing event
+                if timeControlStatus == .playing {
+                    NotificationCenter.default.post(name: VideoPlayerViewModel.appWillPlayVideoNotification, object: nil)
+                }
+
+                switch timeControlStatus {
+                case .paused:
+                    self.playbackState.value = .paused
+                case .waitingToPlayAtSpecifiedRate:
+                    self.playbackState.value = .buffering
+                case .playing:
+                    self.playbackState.value = .playing
+                @unknown default:
+                    assertionFailure()
+                    self.playbackState.value = .unknown
                 }
             }
             .store(in: &disposeBag)
@@ -80,6 +104,27 @@ final class VideoPlayerViewModel {
             .sink { [weak self] isPlay in
                 guard let self = self else { return }
                 isPlay ? self.play() : self.pause()
+            }
+            .store(in: &disposeBag)
+
+        let sessionName = videoKind == .gif ? "GIF" : "Video"
+        playbackState
+            .receive(on: RunLoop.main)
+            .sink { [weak self] status in
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s status: %s", ((#file as NSString).lastPathComponent), #line, #function, sessionName, status.description)
+                guard let self = self else { return }
+                // only update audio session for video
+                guard self.videoKind == .video else { return }
+                switch status {
+                case .unknown, .buffering, .readyToPlay:
+                    break
+                case .playing:
+                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
+                    try? AVAudioSession.sharedInstance().setActive(true)
+                case .paused, .stopped, .failed:
+                    try? AVAudioSession.sharedInstance().setCategory(.ambient)
+                    try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+                }
             }
             .store(in: &disposeBag)
     }
