@@ -96,7 +96,14 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
         icon.image = image
         icon.tintColor = Asset.Colors.Icon.plus.color
-        icon.backgroundColor = .white
+        icon.backgroundColor = UIColor(dynamicProvider: { collection in
+            switch collection.userInterfaceStyle {
+            case .dark:
+                return Asset.Colors.Background.secondaryGroupedSystemBackground.color
+            default:
+                return .white
+            }
+        })
         return icon
     }()
     

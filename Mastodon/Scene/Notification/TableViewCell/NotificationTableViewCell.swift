@@ -125,6 +125,7 @@ final class NotificationTableViewCell: UITableViewCell {
 
 extension NotificationTableViewCell {
     func configure() {
+        backgroundColor = Asset.Colors.Background.systemBackground.color
         
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical

@@ -46,6 +46,8 @@ final class ReportHeaderView: UIView {
         view.spacing = 2
         return view
     }()
+
+    let bottomSeparatorLine = UIView.separatorLine
     
     var step: Step = .one {
         didSet {
@@ -86,6 +88,15 @@ final class ReportHeaderView: UIView {
                 equalTo: stackview.trailingAnchor,
                 constant: ReportView.horizontalMargin
             )
+        ])
+
+        bottomSeparatorLine.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(bottomSeparatorLine)
+        NSLayoutConstraint.activate([
+            bottomSeparatorLine.leadingAnchor.constraint(equalTo: leadingAnchor),
+            bottomSeparatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),
+            bottomSeparatorLine.bottomAnchor.constraint(equalTo: bottomAnchor),
+            bottomSeparatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: self)).priority(.defaultHigh),
         ])
     }
     

@@ -89,7 +89,7 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
 extension ReportedStatusTableViewCell {
     
     private func _init() {
-        backgroundColor = Asset.Colors.Background.systemBackground.color
+        backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(checkbox)

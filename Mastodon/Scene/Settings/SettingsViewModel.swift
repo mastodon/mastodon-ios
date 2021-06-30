@@ -72,8 +72,8 @@ extension SettingsViewModel {
 
         // appearance
         let appearanceItems = [SettingsItem.appearance(settingObjectID: setting.objectID)]
-        snapshot.appendSections([.apperance])
-        snapshot.appendItems(appearanceItems, toSection: .apperance)
+        snapshot.appendSections([.appearance])
+        snapshot.appendItems(appearanceItems, toSection: .appearance)
         
         let notificationItems = SettingsItem.NotificationSwitchMode.allCases.map { mode in
             SettingsItem.notification(settingObjectID: setting.objectID, switchMode: mode)
