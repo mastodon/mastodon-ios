@@ -21,7 +21,7 @@ final class MediaPreviewViewController: UIViewController, NeedsDependency {
     var viewModel: MediaPreviewViewModel!
         
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-    let pagingViewConttroller = MediaPreviewPagingViewController()
+    let pagingViewController = MediaPreviewPagingViewController()
     
     let closeButtonBackground: UIVisualEffectView = {
         let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
@@ -57,16 +57,16 @@ extension MediaPreviewViewController {
         visualEffectView.frame = view.bounds
         view.addSubview(visualEffectView)
         
-        pagingViewConttroller.view.translatesAutoresizingMaskIntoConstraints = false
-        addChild(pagingViewConttroller)
-        visualEffectView.contentView.addSubview(pagingViewConttroller.view)
+        pagingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        addChild(pagingViewController)
+        visualEffectView.contentView.addSubview(pagingViewController.view)
         NSLayoutConstraint.activate([
-            visualEffectView.topAnchor.constraint(equalTo: pagingViewConttroller.view.topAnchor),
-            visualEffectView.bottomAnchor.constraint(equalTo: pagingViewConttroller.view.bottomAnchor),
-            visualEffectView.leadingAnchor.constraint(equalTo: pagingViewConttroller.view.leadingAnchor),
-            visualEffectView.trailingAnchor.constraint(equalTo: pagingViewConttroller.view.trailingAnchor),
+            visualEffectView.topAnchor.constraint(equalTo: pagingViewController.view.topAnchor),
+            visualEffectView.bottomAnchor.constraint(equalTo: pagingViewController.view.bottomAnchor),
+            visualEffectView.leadingAnchor.constraint(equalTo: pagingViewController.view.leadingAnchor),
+            visualEffectView.trailingAnchor.constraint(equalTo: pagingViewController.view.trailingAnchor),
         ])
-        pagingViewConttroller.didMove(toParent: self)
+        pagingViewController.didMove(toParent: self)
         
         closeButtonBackground.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(closeButtonBackground)
@@ -90,9 +90,9 @@ extension MediaPreviewViewController {
         
         viewModel.mediaPreviewImageViewControllerDelegate = self
 
-        pagingViewConttroller.interPageSpacing = 10
-        pagingViewConttroller.delegate = self
-        pagingViewConttroller.dataSource = viewModel
+        pagingViewController.interPageSpacing = 10
+        pagingViewController.delegate = self
+        pagingViewController.dataSource = viewModel
         
         closeButton.addTarget(self, action: #selector(MediaPreviewViewController.closeButtonPressed(_:)), for: .touchUpInside)
         
@@ -128,8 +128,8 @@ extension MediaPreviewViewController {
 // MARK: - MediaPreviewingViewController
 extension MediaPreviewViewController: MediaPreviewingViewController {
     
-    func isInteractiveDismissable() -> Bool {
-        if let mediaPreviewImageViewController = pagingViewConttroller.currentViewController as? MediaPreviewImageViewController {
+    func isInteractiveDismissible() -> Bool {
+        if let mediaPreviewImageViewController = pagingViewController.currentViewController as? MediaPreviewImageViewController {
             let previewImageView = mediaPreviewImageViewController.previewImageView
             // TODO: allow zooming pan dismiss
             guard previewImageView.zoomScale == previewImageView.minimumZoomScale else {
@@ -138,12 +138,12 @@ extension MediaPreviewViewController: MediaPreviewingViewController {
 
             let safeAreaInsets = previewImageView.safeAreaInsets
             let statusBarFrameHeight = view.window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
-            let dismissable = previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight)
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissable %s", ((#file as NSString).lastPathComponent), #line, #function, dismissable ? "true" : "false")
-            return dismissable
+            let dismissible = previewImageView.contentOffset.y <= -(safeAreaInsets.top - statusBarFrameHeight) + 3 // add 3pt tolerance
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible %s", ((#file as NSString).lastPathComponent), #line, #function, dismissible ? "true" : "false")
+            return dismissible
         }
 
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissable false", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: dismissible false", ((#file as NSString).lastPathComponent), #line, #function)
         return false
     }
     
@@ -303,11 +303,11 @@ extension MediaPreviewViewController {
     }
     
     @objc private func showNextKeyCommandHandler(_ sender: UIKeyCommand) {
-        pagingViewConttroller.scrollToPage(.next, animated: true, completion: nil)
+        pagingViewController.scrollToPage(.next, animated: true, completion: nil)
     }
     
     @objc private func showPreviousKeyCommandHandler(_ sender: UIKeyCommand) {
-        pagingViewConttroller.scrollToPage(.previous, animated: true, completion: nil)
+        pagingViewController.scrollToPage(.previous, animated: true, completion: nil)
     }
 }
 

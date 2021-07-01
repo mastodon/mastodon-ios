@@ -56,7 +56,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         toView.alpha = 0
         transitionContext.containerView.addSubview(toView)
         // set to image hidden
-        toVC.pagingViewConttroller.view.alpha = 0
+        toVC.pagingViewController.view.alpha = 0
         // set from image hidden. update hidden when paging. seealso: `MediaPreviewViewController`
         transitionItem.source.updateAppearance(position: .start, index: toVC.viewModel.currentPage.value)
         
@@ -98,7 +98,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         }
 
         animator.addCompletion { position in
-            toVC.pagingViewConttroller.view.alpha = 1
+            toVC.pagingViewController.view.alpha = 1
             transitionImageView.removeFromSuperview()
             UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseInOut]) {
                 toVC.closeButtonBackground.alpha = 1
@@ -112,8 +112,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     private func popTransition(using transitionContext: UIViewControllerContextTransitioning, curve: UIView.AnimationCurve = .easeInOut) -> UIViewPropertyAnimator {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
               let fromView = transitionContext.view(forKey: .from),
-              let mediaPreviewImageViewController = fromVC.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController,
-              let index = fromVC.pagingViewConttroller.currentIndex else {
+              let mediaPreviewImageViewController = fromVC.pagingViewController.currentViewController as? MediaPreviewImageViewController,
+              let index = fromVC.pagingViewController.currentIndex else {
             fatalError()
         }
         
@@ -154,7 +154,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionItem.targetFrame = targetFrame
 
         // disable interaction
-        fromVC.pagingViewConttroller.isUserInteractionEnabled = false
+        fromVC.pagingViewController.isUserInteractionEnabled = false
         
         let animator = popInteractiveTransitionAnimator
 
@@ -246,8 +246,8 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
     private func popInteractiveTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromVC = transitionContext.viewController(forKey: .from) as? MediaPreviewViewController,
               let _ = transitionContext.view(forKey: .from),
-              let mediaPreviewImageViewController = fromVC.pagingViewConttroller.currentViewController as? MediaPreviewImageViewController,
-                    let index = fromVC.pagingViewConttroller.currentIndex else {
+              let mediaPreviewImageViewController = fromVC.pagingViewController.currentViewController as? MediaPreviewImageViewController,
+                    let index = fromVC.pagingViewController.currentIndex else {
             fatalError()
         }
         
@@ -289,7 +289,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionItem.targetFrame = targetFrame ?? snapshot.frame
 
         // disable interaction
-        fromVC.pagingViewConttroller.isUserInteractionEnabled = false
+        fromVC.pagingViewController.isUserInteractionEnabled = false
         
         let animator = popInteractiveTransitionAnimator
 
@@ -315,7 +315,7 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         }
 
         animator.addCompletion { position in
-            fromVC.pagingViewConttroller.isUserInteractionEnabled = true
+            fromVC.pagingViewController.isUserInteractionEnabled = true
             fromVC.closeButtonBackground.alpha = position == .end ? 0 : 1
             self.transitionItem.imageView?.isHidden = position == .end
             self.transitionItem.snapshotRaw?.alpha = position == .start ? 1.0 : 0.0
