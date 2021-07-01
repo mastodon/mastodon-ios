@@ -99,6 +99,17 @@ extension StatusSection {
                 )
                 cell.delegate = statusTableViewCellDelegate
                 cell.isAccessibilityElement = true
+                // FIXME:
+                cell.accessibilityLabel = {
+                    [
+                        cell.statusView.headerInfoLabel.accessibilityLabel,
+                        cell.statusView.nameLabel.accessibilityLabel,
+                        cell.statusView.dateLabel.accessibilityLabel,
+                        cell.statusView.contentMetaText.textView.accessibilityLabel,
+                    ]
+                    .compactMap { $0 }
+                    .joined(separator: " ")
+                }()
                 return cell
             case .status(let objectID, let attribute),
                  .root(let objectID, let attribute),
@@ -566,11 +577,15 @@ extension StatusSection {
             )
             let metaContent = try MastodonMetaContent.convert(document: content)
             cell.statusView.contentMetaText.configure(content: metaContent)
+            cell.statusView.contentMetaText.textView.accessibilityLabel = metaContent.trimmed
         } catch {
             cell.statusView.contentMetaText.textView.text = " "
+            cell.statusView.contentMetaText.textView.accessibilityLabel = ""
             assertionFailure()
         }
 
+        cell.statusView.contentMetaText.textView.accessibilityTraits = [.staticText]
+        cell.statusView.contentMetaText.textView.accessibilityElementsHidden = false
         cell.statusView.contentMetaText.textView.accessibilityLanguage = (status.reblog ?? status).language
 
         // set visibility
