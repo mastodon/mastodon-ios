@@ -171,7 +171,7 @@ extension MastodonConfirmEmailViewController {
     func showEmailAppAlert() {
         let clients = ThirdPartyMailClient.clients()
         let application = UIApplication.shared
-        let avaliableClients = clients.filter { client -> Bool in
+        let availableClients = clients.filter { client -> Bool in
             ThirdPartyMailer.application(application, isMailClientAvailable: client)
         }
         let alertController = UIAlertController(title: L10n.Scene.ConfirmEmail.OpenEmailApp.openEmailClient, message: nil, preferredStyle: .alert)
@@ -180,9 +180,9 @@ extension MastodonConfirmEmailViewController {
             UIApplication.shared.open(URL(string: "message://")!, options: [:], completionHandler: nil)
         }
         alertController.addAction(alertAction)
-        _ = avaliableClients.compactMap { client -> UIAlertAction in
+        _ = availableClients.compactMap { client -> UIAlertAction in
             let alertAction = UIAlertAction(title: client.name, style: .default) { _ in
-                _ = ThirdPartyMailer.application(application, openMailClient: client, recipient: nil, subject: nil, body: nil)
+                _ = ThirdPartyMailer.application(application, openMailClient: client)
             }
             alertController.addAction(alertAction)
             return alertAction
