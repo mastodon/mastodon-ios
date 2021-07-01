@@ -57,8 +57,8 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         return label
     }()
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
+    let nameLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusName)
         label.textColor = Asset.Colors.brandBlue.color
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
         label.lineBreakMode = .byTruncatingTail
@@ -259,7 +259,7 @@ extension NotificationStatusTableViewCell: StatusViewDelegate {
     }
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
-        // do nothing
+        delegate?.notificationStatusTableViewCell(self, statusView: statusView, metaText: metaText, didSelectMeta: meta)
     }
     
 }

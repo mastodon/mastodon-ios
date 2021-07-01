@@ -523,32 +523,6 @@ extension StatusProviderFacade {
 
 extension StatusProviderFacade {
     
-    static func responseToStatusContentWarningRevealAction(dependency: NotificationViewController, cell: UITableViewCell) {
-        let status = Future<Status?, Never> { promise in
-            guard let diffableDataSource = dependency.viewModel.diffableDataSource,
-                  let indexPath = dependency.tableView.indexPath(for: cell),
-                  let item = diffableDataSource.itemIdentifier(for: indexPath) else {
-                promise(.success(nil))
-                return
-            }
-            
-            switch item {
-            case .notification(let objectID, _):
-                dependency.viewModel.fetchedResultsController.managedObjectContext.perform {
-                    let notification = dependency.viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! MastodonNotification
-                    promise(.success(notification.status))
-                }
-            default:
-                promise(.success(nil))
-            }
-        }
-        
-        _responseToStatusContentWarningRevealAction(
-            dependency: dependency,
-            status: status
-        )
-    }
-    
     static func responseToStatusContentWarningRevealAction(provider: StatusProvider, cell: UITableViewCell) {
         _responseToStatusContentWarningRevealAction(
             dependency: provider,

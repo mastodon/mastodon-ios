@@ -60,7 +60,7 @@ extension NotificationSection {
                         statusItemAttribute: attribute
                     )
                     cell.actionImageBackground.backgroundColor = color
-                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
                     cell.actionLabel.text = actionText + " · " + timeText
                     timestampUpdatePublisher
                         .sink { [weak cell] _ in
@@ -109,15 +109,15 @@ extension NotificationSection {
                         .store(in: &cell.disposeBag)
                     cell.actionImageBackground.backgroundColor = color
                     cell.actionLabel.text = actionText + " · " + timeText
-                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
                     if let url = notification.account.avatarImageURL() {
-                        cell.avatatImageView.af.setImage(
+                        cell.avatarImageView.af.setImage(
                             withURL: url,
                             placeholderImage: UIImage.placeholder(color: .systemFill),
                             imageTransition: .crossDissolve(0.2)
                         )
                     }
-                    cell.avatatImageView.gesture().sink { [weak cell] _ in
+                    cell.avatarImageView.gesture().sink { [weak cell] _ in
                         cell?.delegate?.userAvatarDidPressed(notification: notification)
                     }
                     .store(in: &cell.disposeBag)

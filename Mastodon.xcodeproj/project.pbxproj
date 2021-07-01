@@ -296,6 +296,7 @@
 		DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F526391D580018D199 /* MediaPreviewableViewController.swift */; };
 		DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */; };
 		DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */; };
+		DB63BE7F268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63BE7E268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift */; };
 		DB66728C25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */; };
 		DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729525F9F91600D60309 /* ComposeStatusSection.swift */; };
 		DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */; };
@@ -921,6 +922,7 @@
 		DB6180F526391D580018D199 /* MediaPreviewableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewableViewController.swift; sourceTree = "<group>"; };
 		DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewingViewController.swift; sourceTree = "<group>"; };
 		DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
+		DB63BE7E268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationViewController+StatusProvider.swift"; sourceTree = "<group>"; };
 		DB66728B25F9F8DC00D60309 /* ComposeViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+Diffable.swift"; sourceTree = "<group>"; };
 		DB66729525F9F91600D60309 /* ComposeStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusSection.swift; sourceTree = "<group>"; };
 		DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusItem.swift; sourceTree = "<group>"; };
@@ -2369,6 +2371,7 @@
 			isa = PBXGroup;
 			children = (
 				DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */,
+				DB63BE7E268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift */,
 				2D607AD726242FC500B70763 /* NotificationViewModel.swift */,
 				2D084B8C26258EA3003AA3AF /* NotificationViewModel+Diffable.swift */,
 				2D084B9226259545003AA3AF /* NotificationViewModel+LoadLatestState.swift */,
@@ -3177,6 +3180,7 @@
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */,
+				DB63BE7F268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift in Sources */,
 				DBB5255E2611F07A002F1F29 /* ProfileViewModel.swift in Sources */,
 				DBAC648F267DC84D007FE9FD /* TableNodeDiffableDataSource.swift in Sources */,
 				2D8434FB25FF46B300EECE90 /* HomeTimelineNavigationBarTitleView.swift in Sources */,
