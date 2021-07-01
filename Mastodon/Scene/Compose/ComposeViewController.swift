@@ -585,17 +585,20 @@ extension ComposeViewController {
     }
     
     private func updateKeyboardBackground(isKeyboardDisplay: Bool) {
-        guard isKeyboardDisplay else {
-            composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-            return
-        }
-        composeToolbarBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
-            // avoid elevated color
-            switch traitCollection.userInterfaceStyle {
-            case .light:        return .white
-            default:            return .black
-            }
-        })
+        composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
+
+        // Deprecated: not works for new Dark Mode color
+        // guard isKeyboardDisplay else {
+        //     composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
+        //     return
+        // }
+        // composeToolbarBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
+        //     // avoid elevated color
+        //     switch traitCollection.userInterfaceStyle {
+        //     case .light:        return .white
+        //     default:            return .black
+        //     }
+        // })
     }
 
 }

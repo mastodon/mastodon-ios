@@ -40,6 +40,7 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
     let emailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Asset.Asset.email.image
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
