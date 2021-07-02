@@ -7,12 +7,12 @@
 		<key>AppShared.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>20</integer>
 		</dict>
 		<key>CoreDataStack.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>19</integer>
 		</dict>
 		<key>Mastodon - ASDK.xcscheme_^#shared#^_</key>
 		<dict>
