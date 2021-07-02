@@ -100,7 +100,7 @@ extension MainTabBarController {
 
         delegate = self
 
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = Asset.Colors.Background.systemBackground.color
         
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
@@ -112,13 +112,6 @@ extension MainTabBarController {
         }
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
-        
-        // TODO: custom accent color
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithDefaultBackground()
-        tabBarAppearance.selectionIndicatorTintColor = Asset.Colors.brandBlue.color
-        tabBar.standardAppearance = tabBarAppearance
-        
         
         context.apiService.error
             .receive(on: DispatchQueue.main)

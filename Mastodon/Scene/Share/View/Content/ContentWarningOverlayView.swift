@@ -77,8 +77,7 @@ extension ContentWarningOverlayView {
     private func _init() {
         backgroundColor = .clear
         isUserInteractionEnabled = true
-        layer.masksToBounds = false
-        
+
         // visual effect style
         // add blur visual effect view in the setup method
         blurVisualEffectView.layer.masksToBounds = true
@@ -115,10 +114,10 @@ extension ContentWarningOverlayView {
         contentOverlayView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentOverlayView)
         NSLayoutConstraint.activate([
-            topAnchor.constraint(equalTo: contentOverlayView.topAnchor, constant: 2),
-            leadingAnchor.constraint(equalTo: contentOverlayView.leadingAnchor, constant: 2),
-            contentOverlayView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 2),
-            contentOverlayView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 2),
+            topAnchor.constraint(equalTo: contentOverlayView.topAnchor),
+            leadingAnchor.constraint(equalTo: contentOverlayView.leadingAnchor),
+            contentOverlayView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentOverlayView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
         let blurContentWarningLabelContainer = UIStackView()

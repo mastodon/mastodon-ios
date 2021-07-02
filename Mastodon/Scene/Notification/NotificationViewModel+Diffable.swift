@@ -17,14 +17,8 @@ extension NotificationViewModel {
         delegate: NotificationTableViewCellDelegate,
         dependency: NeedsDependency
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
         diffableDataSource = NotificationSection.tableViewDiffableDataSource(
             for: tableView,
-            timestampUpdatePublisher: timestampUpdatePublisher,
             managedObjectContext: context.managedObjectContext,
             delegate: delegate,
             dependency: dependency
