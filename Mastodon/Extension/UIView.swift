@@ -7,12 +7,23 @@
 
 import UIKit
 
-// MARK: - Convinience view creation method
+// MARK: - Convenience view creation method
 extension UIView {
+
+    static let separatorColor: UIColor = {
+        UIColor(dynamicProvider: { collection in
+            switch collection.userInterfaceStyle {
+            case .dark:
+                return Asset.Colors.Background.Cell.separator.color
+            default:
+                return .separator
+            }
+        })
+    }()
     
     static var separatorLine: UIView {
         let line = UIView()
-        line.backgroundColor = .separator
+        line.backgroundColor = UIView.separatorColor
         return line
     }
     

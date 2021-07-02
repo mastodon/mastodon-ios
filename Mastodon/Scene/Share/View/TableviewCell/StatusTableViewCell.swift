@@ -103,7 +103,12 @@ extension StatusTableViewCell {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
-        
+        selectedBackgroundView = {
+            let view = UIView()
+            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
+            return view
+        }()
+
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         NSLayoutConstraint.activate([

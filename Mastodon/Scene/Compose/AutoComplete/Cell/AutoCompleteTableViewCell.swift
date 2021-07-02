@@ -74,6 +74,11 @@ extension AutoCompleteTableViewCell {
     
     private func _init() {
         backgroundColor = .clear
+        selectedBackgroundView = {
+            let view = UIView()
+            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
+            return view
+        }()
         
         let topPaddingView = UIView()
         let bottomPaddingView = UIView()
