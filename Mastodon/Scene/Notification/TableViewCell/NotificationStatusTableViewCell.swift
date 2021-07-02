@@ -11,6 +11,8 @@ import UIKit
 import ActiveLabel
 import MetaTextView
 import Meta
+import FLAnimatedImage
+import Nuke
 
 final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     static let actionImageBorderWidth: CGFloat = 2
@@ -18,9 +20,10 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var delegate: NotificationTableViewCellDelegate?
-    
+
+    var avatarImageViewTask: ImageTask?
     let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = FLAnimatedImageView()
         imageView.layer.cornerRadius = 4
         imageView.layer.cornerCurve = .continuous
         imageView.clipsToBounds = true
@@ -88,12 +91,12 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        avatarImageView.af.cancelImageRequest()
+        avatarImageViewTask?.cancel()
+        avatarImageViewTask = nil
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
         statusView.playerContainerView.isHidden = true
-
         disposeBag.removeAll()
     }
     

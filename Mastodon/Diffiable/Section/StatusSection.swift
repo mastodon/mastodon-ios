@@ -547,7 +547,13 @@ extension StatusSection {
         // name
         let author = (status.reblog ?? status).author
         let nameContent = author.displayNameWithFallback
-        cell.statusView.nameLabel.configure(content: nameContent, emojiDict: author.emojiDict)
+        MastodonStatusContent.parseResult(content: nameContent, emojiDict: author.emojiDict)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak cell] parseResult in
+                guard let cell = cell else { return }
+                cell.statusView.nameLabel.configure(contentParseResult: parseResult)
+            }
+            .store(in: &cell.disposeBag)
         // username
         cell.statusView.usernameLabel.text = "@" + author.acct
         // avatar
@@ -571,9 +577,10 @@ extension StatusSection {
     ) {
         // set content
         do {
+            let status = status.reblog ?? status
             let content = MastodonContent(
-                content: (status.reblog ?? status).content,
-                emojis: (status.reblog ?? status).emojiMeta
+                content: status.content,
+                emojis: status.emojiMeta
             )
             let metaContent = try MastodonMetaContent.convert(document: content)
             cell.statusView.contentMetaText.configure(content: metaContent)
@@ -648,46 +655,19 @@ extension StatusSection {
 
             let isSingleMosaicLayout = mosaics.count == 1
 
-            // set link preview
-//            cell.statusView.linkPreview.isHidden = true
-//
-//            var _firstURL: URL? = {
-//                for entity in cell.statusView.activeTextLabel.activeEntities {
-//                    guard case let .url(_, _, url, _) = entity.type else { continue }
-//                    return URL(string: url)
-//                }
-//                return nil
-//            }()
-//
-//            if let url = _firstURL {
-//                Future<LPLinkMetadata?, Error> { promise in
-//                    LPMetadataProvider().startFetchingMetadata(for: url) { meta, error in
-//                        if let error = error {
-//                            promise(.failure(error))
-//                        } else {
-//                            promise(.success(meta))
-//                        }
-//                    }
-//                }
-//                .receive(on: RunLoop.main)
-//                .sink { _ in
-//                    // do nothing
-//                } receiveValue: { [weak cell] meta in
-//                    guard let meta = meta else { return }
-//                    guard let cell = cell else { return }
-//                    cell.statusView.linkPreview.metadata = meta
-//                    cell.statusView.linkPreview.isHidden = false
-//                }
-//                .store(in: &cell.disposeBag)
-//            }
-
             // set image
             let imageSize = CGSize(
                 width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
                 height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
             )
+            let url: URL? = {
+                if UIDevice.current.userInterfaceIdiom == .phone {
+                    return meta.previewURL ?? meta.url
+                }
+                return meta.url
+            }()
             let request = ImageRequest(
-                url: meta.url,
+                url: url,
                 processors: [
                     ImageProcessors.Resize(
                         size: imageSize,

@@ -12,6 +12,8 @@ import UIKit
 import Meta
 import MetaTextView
 import ActiveLabel
+import FLAnimatedImage
+import Nuke
 
 protocol NotificationTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }
@@ -37,9 +39,10 @@ final class NotificationTableViewCell: UITableViewCell {
     var disposeBag = Set<AnyCancellable>()
     
     var delegate: NotificationTableViewCellDelegate?
-    
+
+    var avatarImageViewTask: ImageTask?
     let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = FLAnimatedImageView()
         imageView.layer.cornerRadius = 4
         imageView.layer.cornerCurve = .continuous
         imageView.clipsToBounds = true
@@ -112,7 +115,8 @@ final class NotificationTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        avatarImageView.af.cancelImageRequest()
+        avatarImageViewTask?.cancel()
+        avatarImageViewTask = nil
         disposeBag.removeAll()
     }
     

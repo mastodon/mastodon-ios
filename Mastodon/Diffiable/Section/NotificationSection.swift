@@ -11,6 +11,7 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
+import Nuke
 
 enum NotificationSection: Equatable, Hashable {
     case main
@@ -72,10 +73,13 @@ extension NotificationSection {
                         }
                         .store(in: &cell.disposeBag)
                     if let url = notification.account.avatarImageURL() {
-                        cell.avatarImageView.af.setImage(
-                            withURL: url,
-                            placeholderImage: UIImage.placeholder(color: .systemFill),
-                            imageTransition: .crossDissolve(0.2)
+                        cell.avatarImageViewTask = Nuke.loadImage(
+                            with: url,
+                            options: ImageLoadingOptions(
+                                placeholder: UIImage.placeholder(color: .systemFill),
+                                transition: .fadeIn(duration: 0.2)
+                            ),
+                            into: cell.avatarImageView
                         )
                     }
                     cell.avatarImageView.gesture().sink { [weak cell] _ in
@@ -113,10 +117,13 @@ extension NotificationSection {
                     cell.actionLabel.text = actionText + " · " + timeText
                     cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
                     if let url = notification.account.avatarImageURL() {
-                        cell.avatarImageView.af.setImage(
-                            withURL: url,
-                            placeholderImage: UIImage.placeholder(color: .systemFill),
-                            imageTransition: .crossDissolve(0.2)
+                        cell.avatarImageViewTask = Nuke.loadImage(
+                            with: url,
+                            options: ImageLoadingOptions(
+                                placeholder: UIImage.placeholder(color: .systemFill),
+                                transition: .fadeIn(duration: 0.2)
+                            ),
+                            into: cell.avatarImageView
                         )
                     }
                     cell.avatarImageView.gesture().sink { [weak cell] _ in

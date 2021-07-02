@@ -14,27 +14,27 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         // prefetch reply status
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let domain = activeMastodonAuthenticationBox.domain
-        
-        var statusObjectIDs: [NSManagedObjectID] = []
-        for item in items(indexPaths: indexPaths) {
-            switch item {
-            case .homeTimelineIndex(let objectID, _):
-                let homeTimelineIndex = managedObjectContext.object(with: objectID) as! HomeTimelineIndex
-                statusObjectIDs.append(homeTimelineIndex.status.objectID)
-            case .status(let objectID, _):
-                statusObjectIDs.append(objectID)
-            default:
-                continue
-            }
-        }
-        
-        let backgroundManagedObjectContext = context.backgroundManagedObjectContext
-        backgroundManagedObjectContext.perform { [weak self] in
+        let items = self.items(indexPaths: indexPaths)
+
+        let managedObjectContext = context.managedObjectContext
+        managedObjectContext.perform { [weak self] in
             guard let self = self else { return }
-            for objectID in statusObjectIDs {
-                let status = backgroundManagedObjectContext.object(with: objectID) as! Status
-                
-                // fetch in-reply info if needs
+
+            var statuses: [Status] = []
+            for item in items {
+                switch item {
+                case .homeTimelineIndex(let objectID, _):
+                    guard let homeTimelineIndex = try? managedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else { continue }
+                    statuses.append(homeTimelineIndex.status)
+                case .status(let objectID, _):
+                    guard let status = try? managedObjectContext.existingObject(with: objectID) as? Status else { continue }
+                    statuses.append(status)
+                default:
+                    continue
+                }
+            }
+
+            for status in statuses {
                 if let replyToID = status.inReplyToID, status.replyTo == nil {
                     self.context.statusPrefetchingService.prefetchReplyTo(
                         domain: domain,
@@ -44,12 +44,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                         authorizationBox: activeMastodonAuthenticationBox
                     )
                 }
-                
-//                self.context.statusContentCacheService.prefetch(
-//                    content: (status.reblog ?? status).content,
-//                    emojiDict: (status.reblog ?? status).emojiDict
-//                )
-            }
-        }
-    }
+            }   // end for in
+        }   // end context.perform
+    }   // end func
 }

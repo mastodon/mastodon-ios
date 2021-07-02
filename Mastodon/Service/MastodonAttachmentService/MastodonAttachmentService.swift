@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
-import Kingfisher
 import GameplayKit
 import MobileCoreServices
 import MastodonSDK
