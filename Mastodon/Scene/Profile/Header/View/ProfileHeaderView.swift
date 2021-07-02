@@ -86,7 +86,11 @@ final class ProfileHeaderView: UIView {
     }
 
     static let avatarImageViewOverlayBlurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-    let avatarImageViewOverlayVisualEffectView = UIVisualEffectView(effect: nil)
+    let avatarImageViewOverlayVisualEffectView: UIVisualEffectView = {
+        let visualEffectView = UIVisualEffectView(effect: nil)
+        visualEffectView.isUserInteractionEnabled = false
+        return visualEffectView
+    }()
     
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
