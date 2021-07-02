@@ -95,6 +95,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .clear
+        tableView.separatorColor = Asset.Colors.Background.Cell.separator.color
         
         tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsAppearanceTableViewCell.self))
         tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsToggleTableViewCell.self))

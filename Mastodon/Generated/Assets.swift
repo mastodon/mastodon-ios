@@ -40,10 +40,10 @@ internal enum Asset {
         internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
       }
       internal static let alertYellow = ColorAsset(name: "Colors/Background/alert.yellow")
+      internal static let bar = ColorAsset(name: "Colors/Background/bar")
       internal static let dangerBorder = ColorAsset(name: "Colors/Background/danger.border")
       internal static let danger = ColorAsset(name: "Colors/Background/danger")
       internal static let mediaTypeIndicotor = ColorAsset(name: "Colors/Background/media.type.indicotor")
-      internal static let navigationBar = ColorAsset(name: "Colors/Background/navigationBar")
       internal static let onboardingBackground = ColorAsset(name: "Colors/Background/onboarding.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Colors/Background/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Colors/Background/secondary.system.background")
@@ -54,8 +54,10 @@ internal enum Asset {
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Colors/Background/tertiary.system.grouped.background")
     }
     internal enum Border {
-      internal static let notification = ColorAsset(name: "Colors/Border/notification")
+      internal static let composePoll = ColorAsset(name: "Colors/Border/compose.poll")
+      internal static let notificationStatus = ColorAsset(name: "Colors/Border/notification.status")
       internal static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
+      internal static let status = ColorAsset(name: "Colors/Border/status")
     }
     internal enum Button {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
@@ -83,6 +85,9 @@ internal enum Asset {
     }
     internal enum Slider {
       internal static let track = ColorAsset(name: "Colors/Slider/track")
+    }
+    internal enum TabBar {
+      internal static let itemInactive = ColorAsset(name: "Colors/TabBar/item.inactive")
     }
     internal enum TextField {
       internal static let background = ColorAsset(name: "Colors/TextField/background")

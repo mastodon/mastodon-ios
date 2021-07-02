@@ -46,11 +46,12 @@ final class AvatarStackContainerButton: UIControl {
 extension AvatarStackContainerButton {
     
     private func _init() {
-        topLeadingAvatarStackedImageView.layer.shouldRasterize = true
-        topLeadingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
-
-        bottomTrailingAvatarStackedImageView.layer.shouldRasterize = true
-        bottomTrailingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
+        // GIF get worse when enable rasterize
+//        topLeadingAvatarStackedImageView.layer.shouldRasterize = true
+//        topLeadingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
+//
+//        bottomTrailingAvatarStackedImageView.layer.shouldRasterize = true
+//        bottomTrailingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
 
         topLeadingAvatarStackedImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(topLeadingAvatarStackedImageView)

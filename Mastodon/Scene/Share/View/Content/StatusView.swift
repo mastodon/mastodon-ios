@@ -97,8 +97,8 @@ final class StatusView: UIView {
     }()
     let avatarImageView: UIImageView = {
         let imageView = FLAnimatedImageView()
-        imageView.layer.shouldRasterize = true
-        imageView.layer.rasterizationScale = UIScreen.main.scale
+//        imageView.layer.shouldRasterize = true
+//        imageView.layer.rasterizationScale = UIScreen.main.scale
         return imageView
     }()
     let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
@@ -343,6 +343,7 @@ extension StatusView {
         let titleContainerStackView = UIStackView()
         authorMetaContainerStackView.addArrangedSubview(titleContainerStackView)
         titleContainerStackView.axis = .horizontal
+        titleContainerStackView.alignment = .center
         titleContainerStackView.spacing = 4
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         titleContainerStackView.addArrangedSubview(nameLabel)
@@ -379,7 +380,7 @@ extension StatusView {
             authorContainerStackView.topAnchor.constraint(equalTo: authorContainerView.topAnchor),
             authorContainerStackView.leadingAnchor.constraint(equalTo: authorContainerView.leadingAnchor),
             authorContainerStackView.trailingAnchor.constraint(equalTo: authorContainerView.trailingAnchor),
-            authorContainerView.bottomAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+            authorContainerView.bottomAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.required - 1),
         ])
         containerStackView.addArrangedSubview(authorContainerView)
         

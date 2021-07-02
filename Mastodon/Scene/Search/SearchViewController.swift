@@ -39,7 +39,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     
     let statusBar: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.navigationBar.color
+        view.backgroundColor = Asset.Colors.Background.bar.color
         return view
     }()
     
@@ -52,7 +52,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
         // searchBar.setImage(micImage, for: .bookmark, state: .normal)
         // searchBar.showsBookmarkButton = true
         searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
-        searchBar.barTintColor = Asset.Colors.Background.navigationBar.color
+        searchBar.barTintColor = Asset.Colors.Background.bar.color
         return searchBar
     }()
     
