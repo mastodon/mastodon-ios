@@ -74,6 +74,7 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         selectionStyle = .default
+        statusView.statusMosaicImageViewContainer.reset()
         statusView.contentMetaText.textView.isSelectable = false
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
