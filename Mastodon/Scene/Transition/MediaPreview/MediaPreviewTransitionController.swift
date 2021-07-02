@@ -56,7 +56,7 @@ extension MediaPreviewTransitionController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer === panGestureRecognizer {
             guard let mediaPreviewViewController = self.mediaPreviewViewController else { return false }
-            return mediaPreviewViewController.isInteractiveDismissable()
+            return mediaPreviewViewController.isInteractiveDismissible()
         }
         
         return false

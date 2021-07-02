@@ -18,10 +18,6 @@ import MastodonSDK
 import AlamofireImage
 import AsyncDisplayKit
 
-#if DEBUG
-import GDPerformanceView_Swift
-#endif
-
 final class AsyncHomeTimelineViewController: ASDKViewController<ASTableNode>, NeedsDependency, MediaPreviewableViewController {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -107,7 +103,6 @@ extension AsyncHomeTimelineViewController {
         #if DEBUG
         // long press to trigger debug menu
         settingBarButtonItem.menu = debugMenu
-        PerformanceMonitor.shared().delegate = self
         #else
         settingBarButtonItem.target = self
         settingBarButtonItem.action = #selector(AsyncHomeTimelineViewController.settingBarButtonItemPressed(_:))
@@ -548,13 +543,6 @@ extension AsyncHomeTimelineViewController: StatusTableViewControllerNavigateable
     }
 }
 
-#if DEBUG
-extension AsyncHomeTimelineViewController: PerformanceMonitorDelegate {
-    func performanceMonitor(didReport performanceReport: PerformanceReport) {
-        // print(performanceReport)
-    }
-}
-#endif
 
 // MARK: - ASTableDelegate
 extension AsyncHomeTimelineViewController: ASTableDelegate {

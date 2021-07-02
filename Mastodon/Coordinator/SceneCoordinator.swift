@@ -279,7 +279,10 @@ private extension SceneCoordinator {
                   scheme == "http" || scheme == "https" else {
                 return nil
             }
-            viewController = SFSafariViewController(url: url)
+            let _viewController = SFSafariViewController(url: url)
+            _viewController.preferredControlTintColor = Asset.Colors.brandBlue.color
+            viewController = _viewController
+
         case .alertController(let alertController):
             if let popoverPresentationController = alertController.popoverPresentationController {
                 assert(

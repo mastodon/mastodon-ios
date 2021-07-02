@@ -32,6 +32,10 @@ internal enum Asset {
   }
   internal enum Colors {
     internal enum Background {
+      internal enum Cell {
+        internal static let highlight = ColorAsset(name: "Colors/Background/Cell/highlight")
+        internal static let separator = ColorAsset(name: "Colors/Background/Cell/separator")
+      }
       internal enum Poll {
         internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
       }

@@ -9,12 +9,11 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
-import Kingfisher
 import MastodonSDK
-import TwitterTextEditor
 import MetaTextView
 import MastodonMeta
 import Meta
+import Nuke
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -786,147 +785,6 @@ extension ComposeViewController: UITextViewDelegate {
         return true
     }
 
-}
-
-// MARK: - TextEditorViewTextAttributesDelegate
-extension ComposeViewController: TextEditorViewTextAttributesDelegate {
-    
-    func textEditorView(
-        _ textEditorView: TextEditorView,
-        updateAttributedString attributedString: NSAttributedString,
-        completion: @escaping (NSAttributedString?) -> Void
-    ) {
-        // FIXME: needs O(1) update completion to fix performance issue
-        DispatchQueue.global().async {
-            let string = attributedString.string
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update: %s", ((#file as NSString).lastPathComponent), #line, #function, string)
-
-            let stringRange = NSRange(location: 0, length: string.length)
-            let highlightMatches = string.matches(pattern: MastodonRegex.highlightPattern)
-            let emojiMatches = string.matches(pattern: MastodonRegex.emojiPattern)
-            // only accept http/https scheme
-            let urlMatches = string.matches(pattern: "(?i)https?://\\S+(?:/|\\b)")
-
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else {
-                    completion(nil)
-                    return
-                }
-                let customEmojiViewModel = self.viewModel.customEmojiViewModel.value
-                for view in self.suffixedAttachmentViews {
-                    view.removeFromSuperview()
-                }
-                self.suffixedAttachmentViews.removeAll()
-
-                // set normal appearance
-                let attributedString = NSMutableAttributedString(attributedString: attributedString)
-                attributedString.removeAttribute(.suffixedAttachment, range: stringRange)
-                attributedString.removeAttribute(.underlineStyle, range: stringRange)
-                attributedString.addAttribute(.foregroundColor, value: Asset.Colors.Label.primary.color, range: stringRange)
-                attributedString.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: stringRange)
-
-                // hashtag
-                for match in highlightMatches {
-                    // set highlight
-                    var attributes = [NSAttributedString.Key: Any]()
-                    attributes[.foregroundColor] = Asset.Colors.brandBlue.color
-                    
-                    // See `traitCollectionDidChange(_:)`
-                    // set accessibility
-                    if #available(iOS 13.0, *) {
-                        switch self.traitCollection.accessibilityContrast {
-                        case .high:
-                            attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
-                        default:
-                            break
-                        }
-                    }
-                    attributedString.addAttributes(attributes, range: match.range)
-                }
-                
-                // emoji
-                if let customEmojiViewModel = customEmojiViewModel, !customEmojiViewModel.emojiDict.value.isEmpty {
-                    for match in emojiMatches {
-                        guard let name = string.substring(with: match, at: 2) else { continue }
-                        guard let emoji = customEmojiViewModel.emoji(shortcode: name) else { continue }
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
-                        
-                        // set emoji token invisible (without upper bounce space)
-                        var attributes = [NSAttributedString.Key: Any]()
-                        attributes[.font] = UIFont.systemFont(ofSize: 0.01)
-                        attributedString.addAttributes(attributes, range: match.range)
-                        
-                        // append emoji attachment
-                        let imageViewSize = CGSize(width: 20, height: 20)
-                        let imageView = UIImageView(frame: CGRect(origin: .zero, size: imageViewSize))
-                        textEditorView.textContentView.addSubview(imageView)
-                        self.suffixedAttachmentViews.append(imageView)
-                        let processor = DownsamplingImageProcessor(size: imageViewSize)
-                        imageView.kf.setImage(
-                            with: URL(string: emoji.url),
-                            placeholder: UIImage.placeholder(size: imageViewSize, color: .systemFill),
-                            options: [
-                                .processor(processor),
-                                .scaleFactor(textEditorView.traitCollection.displayScale),
-                            ], completionHandler: nil
-                        )
-                        let layoutInTextContainer = { [weak textEditorView] (view: UIView, frame: CGRect) in
-                            // `textEditorView` retains `textStorage`, which retains this block as a part of attributes.
-                            guard let textEditorView = textEditorView else {
-                                return
-                            }
-                            let insets = textEditorView.textContentInsets
-                            view.frame = frame.offsetBy(dx: insets.left, dy: insets.top)
-                        }
-                        let attachment = TextAttributes.SuffixedAttachment(
-                            size: imageViewSize,
-                            attachment: .view(view: imageView, layoutInTextContainer: layoutInTextContainer)
-                        )
-                        let index = match.range.upperBound - 1
-                        attributedString.addAttribute(
-                            .suffixedAttachment,
-                            value: attachment,
-                            range: NSRange(location: index, length: 1)
-                        )
-                    }
-                }
-                
-                // url
-                for match in urlMatches {
-                    guard let name = string.substring(with: match, at: 0) else { continue }
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: handle emoji: %s", ((#file as NSString).lastPathComponent), #line, #function, name)
-                    
-                    // set highlight
-                    var attributes = [NSAttributedString.Key: Any]()
-                    attributes[.foregroundColor] = Asset.Colors.brandBlue.color
-                    
-                    // See `traitCollectionDidChange(_:)`
-                    // set accessibility
-                    if #available(iOS 13.0, *) {
-                        switch self.traitCollection.accessibilityContrast {
-                        case .high:
-                            attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
-                        default:
-                            break
-                        }
-                    }
-                    attributedString.addAttributes(attributes, range: match.range)
-                }
-                
-                if string.count > ComposeViewModel.composeContentLimit {
-                    var attributes = [NSAttributedString.Key: Any]()
-                    attributes[.foregroundColor] = Asset.Colors.danger.color
-                    let boundStart = string.index(string.startIndex, offsetBy: ComposeViewModel.composeContentLimit)
-                    let boundEnd = string.endIndex
-                    let range = boundStart..<boundEnd
-                    attributedString.addAttributes(attributes, range: NSRange(range, in: string))
-                }
-                
-                completion(attributedString)
-            }
-        }
-    }
-    
 }
 
 // MARK: - ComposeToolbarViewDelegate

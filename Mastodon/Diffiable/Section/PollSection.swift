@@ -67,13 +67,13 @@ extension PollSection {
             cell.pollOptionView.checkmarkBackgroundView.isHidden = true
             cell.pollOptionView.checkmarkImageView.isHidden = true
         case .off:
-            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = .systemBackground
-            cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
+            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
+            cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = Asset.Colors.Background.Cell.highlight.color.withAlphaComponent(0.3).cgColor
             cell.pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
             cell.pollOptionView.checkmarkBackgroundView.isHidden = false
             cell.pollOptionView.checkmarkImageView.isHidden = true
         case .on:
-            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = .systemBackground
+            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
             cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.clear.cgColor
             cell.pollOptionView.checkmarkBackgroundView.layer.borderWidth = 0
             cell.pollOptionView.checkmarkBackgroundView.isHidden = false

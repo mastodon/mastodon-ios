@@ -8,11 +8,12 @@
 import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
+import FLAnimatedImage
 
 final class MediaPreviewImageView: UIScrollView {
     
-    let imageView: UIImageView = {
-        let imageView = UIImageView()
+    let imageView: FLAnimatedImageView = {
+        let imageView = FLAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -120,7 +121,9 @@ extension MediaPreviewImageView {
             }
         }()
         imageView.frame = CGRect(origin: .zero, size: imageViewSize)
-        imageView.image = image
+        if imageView.image == nil {
+            imageView.image = image
+        }
         contentSize = imageViewSize
         contentInset = imageContentInset
         

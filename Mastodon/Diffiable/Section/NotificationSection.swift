@@ -11,6 +11,7 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
+import Nuke
 
 enum NotificationSection: Equatable, Hashable {
     case main
@@ -30,7 +31,9 @@ extension NotificationSection {
             guard let dependency = dependency else { return nil }
             switch notificationItem {
             case .notification(let objectID, let attribute):
-                let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
+                guard let notification = try? managedObjectContext.existingObject(with: objectID) as? MastodonNotification else {
+                    return UITableViewCell()
+                }
                 guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw) else {
                     // filter out invalid type using predicate
                     assertionFailure()
@@ -60,7 +63,7 @@ extension NotificationSection {
                         statusItemAttribute: attribute
                     )
                     cell.actionImageBackground.backgroundColor = color
-                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
                     cell.actionLabel.text = actionText + " · " + timeText
                     timestampUpdatePublisher
                         .sink { [weak cell] _ in
@@ -70,10 +73,13 @@ extension NotificationSection {
                         }
                         .store(in: &cell.disposeBag)
                     if let url = notification.account.avatarImageURL() {
-                        cell.avatarImageView.af.setImage(
-                            withURL: url,
-                            placeholderImage: UIImage.placeholder(color: .systemFill),
-                            imageTransition: .crossDissolve(0.2)
+                        cell.avatarImageViewTask = Nuke.loadImage(
+                            with: url,
+                            options: ImageLoadingOptions(
+                                placeholder: UIImage.placeholder(color: .systemFill),
+                                transition: .fadeIn(duration: 0.2)
+                            ),
+                            into: cell.avatarImageView
                         )
                     }
                     cell.avatarImageView.gesture().sink { [weak cell] _ in
@@ -109,15 +115,18 @@ extension NotificationSection {
                         .store(in: &cell.disposeBag)
                     cell.actionImageBackground.backgroundColor = color
                     cell.actionLabel.text = actionText + " · " + timeText
-                    cell.nameLabel.text = notification.account.displayName.isEmpty ? notification.account.username : notification.account.displayName
+                    cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
                     if let url = notification.account.avatarImageURL() {
-                        cell.avatatImageView.af.setImage(
-                            withURL: url,
-                            placeholderImage: UIImage.placeholder(color: .systemFill),
-                            imageTransition: .crossDissolve(0.2)
+                        cell.avatarImageViewTask = Nuke.loadImage(
+                            with: url,
+                            options: ImageLoadingOptions(
+                                placeholder: UIImage.placeholder(color: .systemFill),
+                                transition: .fadeIn(duration: 0.2)
+                            ),
+                            into: cell.avatarImageView
                         )
                     }
-                    cell.avatatImageView.gesture().sink { [weak cell] _ in
+                    cell.avatarImageView.gesture().sink { [weak cell] _ in
                         cell?.delegate?.userAvatarDidPressed(notification: notification)
                     }
                     .store(in: &cell.disposeBag)

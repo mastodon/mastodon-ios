@@ -77,7 +77,12 @@ final class HomeTimelineViewModel: NSObject {
             let fetchRequest = HomeTimelineIndex.sortedFetchRequest
             fetchRequest.fetchBatchSize = 20
             fetchRequest.returnsObjectsAsFaults = false
-            fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(HomeTimelineIndex.status)]
+            fetchRequest.relationshipKeyPathsForPrefetching = [
+                #keyPath(HomeTimelineIndex.status),
+                #keyPath(HomeTimelineIndex.status.author),
+                #keyPath(HomeTimelineIndex.status.reblog),
+                #keyPath(HomeTimelineIndex.status.reblog.author),
+            ]
             let controller = NSFetchedResultsController(
                 fetchRequest: fetchRequest,
                 managedObjectContext: context.managedObjectContext,

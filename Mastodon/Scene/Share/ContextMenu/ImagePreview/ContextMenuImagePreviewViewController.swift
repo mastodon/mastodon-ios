@@ -8,19 +8,27 @@
 import func AVFoundation.AVMakeRect
 import UIKit
 import Combine
+import Nuke
+import FLAnimatedImage
 
 final class ContextMenuImagePreviewViewController: UIViewController {
     
     var disposeBag = Set<AnyCancellable>()
     
     var viewModel: ContextMenuImagePreviewViewModel!
-    
+
+    var imageTask: ImageTask?
     let imageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = FLAnimatedImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
         return imageView
     }()
+
+    deinit {
+        imageTask?.cancel()
+        imageTask = nil
+    }
     
 }
 
@@ -47,12 +55,13 @@ extension ContextMenuImagePreviewViewController {
             .sink { [weak self] url in
                 guard let self = self else { return }
                 guard let url = url else { return }
-                self.imageView.af.setImage(
-                    withURL: url,
-                    placeholderImage: self.viewModel.thumbnail,
-                    imageTransition: .crossDissolve(0.2),
-                    runImageTransitionIfCached: true,
-                    completion: nil
+                self.imageTask = Nuke.loadImage(
+                    with: url,
+                    options: ImageLoadingOptions(
+                        placeholder: self.viewModel.thumbnail,
+                        transition: .fadeIn(duration: 0.2)
+                    ),
+                    into: self.imageView
                 )
             }
             .store(in: &disposeBag)

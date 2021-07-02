@@ -12,6 +12,8 @@ import GameplayKit
 import MastodonSDK
 import OSLog
 import UIKit
+import Meta
+import MetaTextView
 
 final class NotificationViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -141,10 +143,9 @@ extension NotificationViewController {
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
-        // fetch latest if has unread push notification
-        if context.notificationService.hasUnreadPushNotification.value {
-            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
-        }
+        // fetch latest notification when will appear
+        viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
+
         
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
@@ -191,33 +192,34 @@ extension NotificationViewController {
 extension NotificationViewController: StatusTableViewControllerAspect { }
 
 // MARK: - TableViewCellHeightCacheableContainer
-extension NotificationViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> {
-        viewModel.cellFrameCache
-    }
-    
-    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        let key = item.hashValue
-        let frame = cell.frame
-        viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
-    }
+//extension NotificationViewController: TableViewCellHeightCacheableContainer {
+//    var cellFrameCache: NSCache<NSNumber, NSValue> {
+//        viewModel.cellFrameCache
+//    }
+//
+//    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+//        let key = item.hashValue
+//        let frame = cell.frame
+//        viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
+//    }
+//
+//    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
+//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
+//        guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
+//            if case .bottomLoader = item {
+//                return TimelineLoaderTableViewCell.cellHeight
+//            } else {
+//                return UITableView.automaticDimension
+//            }
+//        }
+//
+//        return ceil(frame.height)
+//    }
+//}
 
-    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
-        guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
-            if case .bottomLoader = item {
-                return TimelineLoaderTableViewCell.cellHeight
-            } else {
-                return UITableView.automaticDimension
-            }
-        }
-
-        return ceil(frame.height)
-    }
-}
 // MARK: - UITableViewDelegate
 
 extension NotificationViewController: UITableViewDelegate {
@@ -271,6 +273,7 @@ extension NotificationViewController: ContentOffsetAdjustableTimelineViewControl
 
 // MARK: - NotificationTableViewCellDelegate
 extension NotificationViewController: NotificationTableViewCellDelegate {
+
     func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton) {
         viewModel.acceptFollowRequest(notification: notification)
     }
@@ -286,20 +289,31 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
         }
     }
 
+    func userNameLabelDidPressed(notification: MastodonNotification) {
+        let viewModel = CachedProfileViewModel(context: context, mastodonUser: notification.account)
+        DispatchQueue.main.async {
+            self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+        }
+    }
+
     func parent() -> UIViewController {
         self
     }
     
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton) {
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: self, cell: cell)
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
     }
     
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: self, cell: cell)
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
     }
     
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView) {
-        StatusProviderFacade.responseToStatusContentWarningRevealAction(dependency: self, cell: cell)
+        StatusProviderFacade.responseToStatusContentWarningRevealAction(provider: self, cell: cell)
+    }
+
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
+        StatusProviderFacade.responseToStatusMetaTextAction(provider: self, cell: cell, metaText: metaText, didSelectMeta: meta)
     }
 }
 

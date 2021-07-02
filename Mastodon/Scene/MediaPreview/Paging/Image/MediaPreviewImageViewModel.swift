@@ -8,9 +8,11 @@
 import os.log
 import UIKit
 import Combine
-import AlamofireImage
+import Nuke
 
 class MediaPreviewImageViewModel {
+
+    var disposeBag = Set<AnyCancellable>()
     
     // input
     let item: ImagePreviewItem
@@ -25,16 +27,20 @@ class MediaPreviewImageViewModel {
         self.altText = meta.altText
         
         let url = meta.url
-        ImageDownloader.default.download(URLRequest(url: url), completion:  { [weak self] response in
-            guard let self = self else { return }
-            switch response.result {
-            case .failure(let error):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
-            case .success(let image):
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
-                self.image.value = image
+
+        ImagePipeline.shared.imagePublisher(with: url)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
+                case .finished:
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                self.image.value = response.image
             }
-        })
+            .store(in: &disposeBag)
     }
     
     init(meta: LocalImagePreviewMeta) {

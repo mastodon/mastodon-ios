@@ -11,6 +11,8 @@ import UIKit
 import ActiveLabel
 import MetaTextView
 import Meta
+import FLAnimatedImage
+import Nuke
 
 final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     static let actionImageBorderWidth: CGFloat = 2
@@ -18,9 +20,10 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
     var delegate: NotificationTableViewCellDelegate?
-    
+
+    var avatarImageViewTask: ImageTask?
     let avatarImageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = FLAnimatedImageView()
         imageView.layer.cornerRadius = 4
         imageView.layer.cornerCurve = .continuous
         imageView.clipsToBounds = true
@@ -57,8 +60,8 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         return label
     }()
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
+    let nameLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .statusName)
         label.textColor = Asset.Colors.brandBlue.color
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
         label.lineBreakMode = .byTruncatingTail
@@ -88,12 +91,12 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        avatarImageView.af.cancelImageRequest()
+        avatarImageViewTask?.cancel()
+        avatarImageViewTask = nil
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
         statusView.playerContainerView.isHidden = true
-
         disposeBag.removeAll()
     }
     
@@ -112,7 +115,11 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
 extension NotificationStatusTableViewCell {
     func configure() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
-        
+        selectedBackgroundView = {
+            let view = UIView()
+            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
+            return view
+        }()
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
         containerStackView.alignment = .top
@@ -259,7 +266,7 @@ extension NotificationStatusTableViewCell: StatusViewDelegate {
     }
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {
-        // do nothing
+        delegate?.notificationStatusTableViewCell(self, statusView: statusView, metaText: metaText, didSelectMeta: meta)
     }
     
 }

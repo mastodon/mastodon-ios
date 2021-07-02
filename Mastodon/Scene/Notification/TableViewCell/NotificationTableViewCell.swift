@@ -9,6 +9,11 @@ import Combine
 import CoreDataStack
 import Foundation
 import UIKit
+import Meta
+import MetaTextView
+import ActiveLabel
+import FLAnimatedImage
+import Nuke
 
 protocol NotificationTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }
@@ -16,13 +21,14 @@ protocol NotificationTableViewCellDelegate: AnyObject {
     func parent() -> UIViewController
     
     func userAvatarDidPressed(notification: MastodonNotification)
+    func userNameLabelDidPressed(notification: MastodonNotification)
     
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
-    
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+
     func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton)
-    
     func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton)
     
 }
@@ -33,9 +39,10 @@ final class NotificationTableViewCell: UITableViewCell {
     var disposeBag = Set<AnyCancellable>()
     
     var delegate: NotificationTableViewCellDelegate?
-    
-    let avatatImageView: UIImageView = {
-        let imageView = UIImageView()
+
+    var avatarImageViewTask: ImageTask?
+    let avatarImageView: UIImageView = {
+        let imageView = FLAnimatedImageView()
         imageView.layer.cornerRadius = 4
         imageView.layer.cornerCurve = .continuous
         imageView.clipsToBounds = true
@@ -72,8 +79,8 @@ final class NotificationTableViewCell: UITableViewCell {
         return label
     }()
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
+    let nameLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = Asset.Colors.brandBlue.color
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
         label.lineBreakMode = .byTruncatingTail
@@ -108,7 +115,8 @@ final class NotificationTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        avatatImageView.af.cancelImageRequest()
+        avatarImageViewTask?.cancel()
+        avatarImageViewTask = nil
         disposeBag.removeAll()
     }
     
@@ -126,6 +134,11 @@ final class NotificationTableViewCell: UITableViewCell {
 extension NotificationTableViewCell {
     func configure() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
+        selectedBackgroundView = {
+            let view = UIView()
+            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
+            return view
+        }()
         
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical
@@ -153,13 +166,13 @@ extension NotificationTableViewCell {
             avatarContainer.widthAnchor.constraint(equalToConstant: 47).priority(.required - 1)
         ])
 
-        avatarContainer.addSubview(avatatImageView)
-        avatatImageView.translatesAutoresizingMaskIntoConstraints = false
+        avatarContainer.addSubview(avatarImageView)
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            avatatImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
-            avatatImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
-            avatatImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
-            avatatImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor)
+            avatarImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
+            avatarImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
+            avatarImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor)
         ])
 
         avatarContainer.addSubview(actionImageBackground)

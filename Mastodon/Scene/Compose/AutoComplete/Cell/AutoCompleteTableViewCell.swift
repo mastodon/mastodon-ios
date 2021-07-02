@@ -12,7 +12,7 @@ final class AutoCompleteTableViewCell: UITableViewCell {
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
     static let avatarToLabelSpacing: CGFloat = 12
-    
+
     let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -47,12 +47,6 @@ final class AutoCompleteTableViewCell: UITableViewCell {
     
     let separatorLine = UIView.separatorLine
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        avatarImageView.af.cancelImageRequest()
-        avatarImageView.kf.cancelDownloadTask()
-    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()
@@ -80,6 +74,11 @@ extension AutoCompleteTableViewCell {
     
     private func _init() {
         backgroundColor = .clear
+        selectedBackgroundView = {
+            let view = UIView()
+            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
+            return view
+        }()
         
         let topPaddingView = UIView()
         let bottomPaddingView = UIView()
