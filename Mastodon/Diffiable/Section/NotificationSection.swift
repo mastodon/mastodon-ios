@@ -20,7 +20,6 @@ enum NotificationSection: Equatable, Hashable {
 extension NotificationSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>,
         managedObjectContext: NSManagedObjectContext,
         delegate: NotificationTableViewCellDelegate,
         dependency: NeedsDependency
@@ -34,73 +33,46 @@ extension NotificationSection {
                 guard let notification = try? managedObjectContext.existingObject(with: objectID) as? MastodonNotification else {
                     return UITableViewCell()
                 }
-                guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw) else {
-                    // filter out invalid type using predicate
-                    assertionFailure()
-                    return UITableViewCell()
+
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationStatusTableViewCell.self), for: indexPath) as! NotificationStatusTableViewCell
+                cell.delegate = delegate
+
+                // configure author
+                cell.avatarImageViewTask = Nuke.loadImage(
+                    with: notification.account.avatarImageURL(),
+                    options: ImageLoadingOptions(
+                        placeholder: UIImage.placeholder(color: .systemFill),
+                        transition: .fadeIn(duration: 0.2)
+                    ),
+                    into: cell.avatarImageView
+                )
+                cell.avatarImageView.gesture().sink { [weak cell] _ in
+                    cell?.delegate?.userAvatarDidPressed(notification: notification)
                 }
-                
-                let createAt = notification.createAt
-                let timeText = createAt.timeAgoSinceNow
-                
-                let actionText = type.actionText
-                let actionImageName = type.actionImageName
-                let color = type.color
-                
-                if let status = notification.status {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationStatusTableViewCell.self), for: indexPath) as! NotificationStatusTableViewCell
-                    cell.delegate = delegate
-                    let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
-                    let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
-                    let frame = CGRect(x: 0, y: 0, width: tableView.readableContentGuide.layoutFrame.width - NotificationStatusTableViewCell.statusPadding.left - NotificationStatusTableViewCell.statusPadding.right, height: tableView.readableContentGuide.layoutFrame.height)
-                    StatusSection.configure(
-                        cell: cell,
-                        tableView: tableView,
-                        dependency: dependency,
-                        readableLayoutFrame: frame,
-                        status: status,
-                        requestUserID: requestUserID,
-                        statusItemAttribute: attribute
+                .store(in: &cell.disposeBag)
+                cell.actionImageView.image = UIImage(
+                    systemName: notification.notificationType.actionImageName,
+                    withConfiguration: UIImage.SymbolConfiguration(
+                        pointSize: 12, weight: .semibold
                     )
-                    cell.actionImageBackground.backgroundColor = color
-                    cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
-                    cell.actionLabel.text = actionText + " · " + timeText
-                    timestampUpdatePublisher
-                        .sink { [weak cell] _ in
-                            guard let cell = cell else { return }
-                            let timeText = createAt.timeAgoSinceNow
-                            cell.actionLabel.text = actionText + " · " + timeText
-                        }
-                        .store(in: &cell.disposeBag)
-                    if let url = notification.account.avatarImageURL() {
-                        cell.avatarImageViewTask = Nuke.loadImage(
-                            with: url,
-                            options: ImageLoadingOptions(
-                                placeholder: UIImage.placeholder(color: .systemFill),
-                                transition: .fadeIn(duration: 0.2)
-                            ),
-                            into: cell.avatarImageView
-                        )
-                    }
-                    cell.avatarImageView.gesture().sink { [weak cell] _ in
-                        cell?.delegate?.userAvatarDidPressed(notification: notification)
+                )?.withRenderingMode(.alwaysTemplate)
+                cell.actionImageBackground.backgroundColor = notification.notificationType.color
+
+                // configure author name, notification description, timestamp
+                cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
+                let createAt = notification.createAt
+                let actionText = notification.notificationType.actionText
+                cell.actionLabel.text = actionText + " · " + createAt.timeAgoSinceNow
+                AppContext.shared.timestampUpdatePublisher
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak cell] _ in
+                        guard let cell = cell else { return }
+                        cell.actionLabel.text = actionText + " · " + createAt.timeAgoSinceNow
                     }
                     .store(in: &cell.disposeBag)
-                    if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
-                        cell.actionImageView.image = actionImage
-                    }
-                    return cell
-                    
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: NotificationTableViewCell.self), for: indexPath) as! NotificationTableViewCell
-                    cell.delegate = delegate
-                    timestampUpdatePublisher
-                        .sink { [weak cell] _ in
-                            guard let cell = cell else { return }
-                            let timeText = createAt.timeAgoSinceNow
-                            cell.actionLabel.text = actionText + " · " + timeText
-                        }
-                        .store(in: &cell.disposeBag)
+
+                // configure follow request (if exist)
+                if case .followRequest = notification.notificationType {
                     cell.acceptButton.publisher(for: .touchUpInside)
                         .sink { [weak cell] _ in
                             guard let cell = cell else { return }
@@ -113,29 +85,46 @@ extension NotificationSection {
                             cell.delegate?.notificationTableViewCell(cell, notification: notification, rejectButtonDidPressed: cell.rejectButton)
                         }
                         .store(in: &cell.disposeBag)
-                    cell.actionImageBackground.backgroundColor = color
-                    cell.actionLabel.text = actionText + " · " + timeText
-                    cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
-                    if let url = notification.account.avatarImageURL() {
-                        cell.avatarImageViewTask = Nuke.loadImage(
-                            with: url,
-                            options: ImageLoadingOptions(
-                                placeholder: UIImage.placeholder(color: .systemFill),
-                                transition: .fadeIn(duration: 0.2)
-                            ),
-                            into: cell.avatarImageView
-                        )
-                    }
-                    cell.avatarImageView.gesture().sink { [weak cell] _ in
-                        cell?.delegate?.userAvatarDidPressed(notification: notification)
-                    }
-                    .store(in: &cell.disposeBag)
-                    if let actionImage = UIImage(systemName: actionImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 12, weight: .semibold))?.withRenderingMode(.alwaysTemplate) {
-                        cell.actionImageView.image = actionImage
-                    }
-                    cell.buttonStackView.isHidden = (type != .followRequest)
-                    return cell
+                    cell.buttonStackView.isHidden = false
+                } else {
+                    cell.buttonStackView.isHidden = true
                 }
+
+                // configure status (if exist)
+                if let status = notification.status {
+                    let frame = CGRect(
+                        x: 0,
+                        y: 0,
+                        width: tableView.readableContentGuide.layoutFrame.width - NotificationStatusTableViewCell.statusPadding.left - NotificationStatusTableViewCell.statusPadding.right,
+                        height: tableView.readableContentGuide.layoutFrame.height
+                    )
+                    StatusSection.configure(
+                        cell: cell,
+                        tableView: tableView,
+                        dependency: dependency,
+                        readableLayoutFrame: frame,
+                        status: status,
+                        requestUserID: notification.userID,
+                        statusItemAttribute: attribute
+                    )
+                    cell.containerStackView.alignment = .top
+                    cell.containerStackViewBottomLayoutConstraint.constant = 0
+                } else {
+                    if case .followRequest = notification.notificationType {
+                        cell.containerStackView.alignment = .top
+                    } else {
+                        cell.containerStackView.alignment = .center
+                    }
+                    cell.statusContainerView.isHidden = true
+                    cell.containerStackViewBottomLayoutConstraint.constant = 5  // 5pt margin when no status view
+                }
+
+                // make constraint change take effect
+                cell.setNeedsLayout()
+                cell.layoutIfNeeded()
+
+                return cell
+
             case .bottomLoader:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self)) as! TimelineBottomLoaderTableViewCell
                 cell.startAnimating()

@@ -15,7 +15,7 @@ protocol PlayerContainerViewDelegate: AnyObject {
 }
 
 final class PlayerContainerView: UIView {
-    static let cornerRadius: CGFloat = 8
+    static let cornerRadius: CGFloat = ContentWarningOverlayView.cornerRadius
 
     private let container = UIView()
     private let touchBlockingView = TouchBlockingView()

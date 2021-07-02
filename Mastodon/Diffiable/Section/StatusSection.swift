@@ -512,13 +512,8 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
-            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.author.emojiDict)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] parseResult in
-                    guard let cell = cell else { return }
-                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
-                }
-                .store(in: &cell.disposeBag)
+            // sync set display name to avoid layout issue
+            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.author.emojiDict)
             cell.statusView.headerInfoLabel.accessibilityLabel = headerText
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {

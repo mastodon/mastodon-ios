@@ -32,11 +32,8 @@ final class NotificationViewController: UIViewController, NeedsDependency {
 
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.register(NotificationTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationTableViewCell.self))
         tableView.register(NotificationStatusTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationStatusTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
@@ -274,11 +271,11 @@ extension NotificationViewController: ContentOffsetAdjustableTimelineViewControl
 // MARK: - NotificationTableViewCellDelegate
 extension NotificationViewController: NotificationTableViewCellDelegate {
 
-    func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton) {
+    func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton) {
         viewModel.acceptFollowRequest(notification: notification)
     }
     
-    func notificationTableViewCell(_ cell: NotificationTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton) {
+    func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton) {
         viewModel.rejectFollowRequest(notification: notification)
     }
     
