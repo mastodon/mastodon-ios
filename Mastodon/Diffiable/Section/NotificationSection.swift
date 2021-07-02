@@ -30,7 +30,9 @@ extension NotificationSection {
             guard let dependency = dependency else { return nil }
             switch notificationItem {
             case .notification(let objectID, let attribute):
-                let notification = managedObjectContext.object(with: objectID) as! MastodonNotification
+                guard let notification = try? managedObjectContext.existingObject(with: objectID) as? MastodonNotification else {
+                    return UITableViewCell()
+                }
                 guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: notification.typeRaw) else {
                     // filter out invalid type using predicate
                     assertionFailure()
