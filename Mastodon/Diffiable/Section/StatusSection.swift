@@ -101,14 +101,18 @@ extension StatusSection {
                 cell.isAccessibilityElement = true
                 // FIXME:
                 cell.accessibilityLabel = {
-                    [
-                        cell.statusView.headerInfoLabel.accessibilityLabel,
-                        cell.statusView.nameLabel.accessibilityLabel,
-                        cell.statusView.dateLabel.accessibilityLabel,
-                        cell.statusView.contentMetaText.textView.accessibilityLabel,
-                    ]
-                    .compactMap { $0 }
-                    .joined(separator: " ")
+                    var accessibilityViews: [UIView?] = []
+                    if !cell.statusView.headerContainerView.isHidden {
+                        accessibilityViews.append(cell.statusView.headerInfoLabel)
+                    }
+                    accessibilityViews.append(contentsOf: [
+                        cell.statusView.nameLabel,
+                        cell.statusView.dateLabel,
+                        cell.statusView.contentMetaText.textView,
+                    ])
+                    return accessibilityViews
+                        .compactMap { $0?.accessibilityLabel }
+                        .joined(separator: " ")
                 }()
                 return cell
             case .status(let objectID, let attribute),
@@ -255,6 +259,7 @@ extension StatusSection {
         // set timestamp
         let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
+        cell.statusView.dateLabel.accessibilityValue = createdAt.timeAgoSinceNow
         AppContext.shared.timestampUpdatePublisher
             .receive(on: RunLoop.main)      // will be paused when scrolling (on purpose)
             .sink { [weak cell] _ in
@@ -514,6 +519,7 @@ extension StatusSection {
                     cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
                 }
                 .store(in: &cell.disposeBag)
+            cell.statusView.headerInfoLabel.accessibilityLabel = headerText
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
@@ -533,7 +539,8 @@ extension StatusSection {
                     cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
                 }
                 .store(in: &cell.disposeBag)
-            cell.statusView.headerInfoLabel.isAccessibilityElement = true
+            cell.statusView.headerInfoLabel.accessibilityLabel = headerText
+            cell.statusView.headerInfoLabel.isAccessibilityElement = status.replyTo != nil
         } else {
             cell.statusView.headerContainerView.isHidden = true
             cell.statusView.headerInfoLabel.isAccessibilityElement = false
@@ -554,6 +561,7 @@ extension StatusSection {
                 cell.statusView.nameLabel.configure(contentParseResult: parseResult)
             }
             .store(in: &cell.disposeBag)
+        cell.statusView.nameLabel.accessibilityLabel = nameContent
         // username
         cell.statusView.usernameLabel.text = "@" + author.acct
         // avatar
