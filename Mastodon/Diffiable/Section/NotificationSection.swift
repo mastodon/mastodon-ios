@@ -107,6 +107,7 @@ extension NotificationSection {
                         requestUserID: notification.userID,
                         statusItemAttribute: attribute
                     )
+                    cell.statusContainerView.isHidden = false
                     cell.containerStackView.alignment = .top
                     cell.containerStackViewBottomLayoutConstraint.constant = 0
                 } else {
@@ -118,10 +119,6 @@ extension NotificationSection {
                     cell.statusContainerView.isHidden = true
                     cell.containerStackViewBottomLayoutConstraint.constant = 5  // 5pt margin when no status view
                 }
-
-                // make constraint change take effect
-                cell.setNeedsLayout()
-                cell.layoutIfNeeded()
 
                 return cell
 
