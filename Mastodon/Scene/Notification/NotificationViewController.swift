@@ -143,10 +143,9 @@ extension NotificationViewController {
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
-        // fetch latest if has unread push notification
-        if context.notificationService.hasUnreadPushNotification.value {
-            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
-        }
+        // fetch latest notification when will appear
+        viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
+
         
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
@@ -193,33 +192,34 @@ extension NotificationViewController {
 extension NotificationViewController: StatusTableViewControllerAspect { }
 
 // MARK: - TableViewCellHeightCacheableContainer
-extension NotificationViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> {
-        viewModel.cellFrameCache
-    }
-    
-    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        let key = item.hashValue
-        let frame = cell.frame
-        viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
-    }
+//extension NotificationViewController: TableViewCellHeightCacheableContainer {
+//    var cellFrameCache: NSCache<NSNumber, NSValue> {
+//        viewModel.cellFrameCache
+//    }
+//
+//    func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+//        let key = item.hashValue
+//        let frame = cell.frame
+//        viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
+//    }
+//
+//    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
+//        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
+//        guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
+//            if case .bottomLoader = item {
+//                return TimelineLoaderTableViewCell.cellHeight
+//            } else {
+//                return UITableView.automaticDimension
+//            }
+//        }
+//
+//        return ceil(frame.height)
+//    }
+//}
 
-    func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
-        guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
-            if case .bottomLoader = item {
-                return TimelineLoaderTableViewCell.cellHeight
-            } else {
-                return UITableView.automaticDimension
-            }
-        }
-
-        return ceil(frame.height)
-    }
-}
 // MARK: - UITableViewDelegate
 
 extension NotificationViewController: UITableViewDelegate {

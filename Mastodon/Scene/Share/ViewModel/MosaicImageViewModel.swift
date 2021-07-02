@@ -23,7 +23,7 @@ struct MosaicImageViewModel {
                 continue
             }
             let mosaicMeta = MosaicMeta(
-                priviewURL: element.previewURL.flatMap { URL(string: $0) },
+                previewURL: element.previewURL.flatMap { URL(string: $0) },
                 url: url,
                 size: CGSize(width: width, height: height),
                 blurhash: element.blurhash,
@@ -39,7 +39,7 @@ struct MosaicImageViewModel {
 struct MosaicMeta {
     static let edgeMaxLength: CGFloat = 20
 
-    let priviewURL: URL?
+    let previewURL: URL?
     let url: URL
     let size: CGSize
     let blurhash: String?

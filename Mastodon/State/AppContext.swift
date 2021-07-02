@@ -11,7 +11,6 @@ import Combine
 import CoreData
 import CoreDataStack
 import AlamofireImage
-import Kingfisher
 
 class AppContext: ObservableObject {
     
@@ -124,7 +123,6 @@ extension AppContext {
     func purgeCache() -> AnyPublisher<ByteCount, Never> {
         Publishers.MergeMany([
             AppContext.purgeAlamofireImageCache(),
-            AppContext.purgeKingfisherCache(),
             AppContext.purgeTemporaryDirectory(),
         ])
         .reduce(0, +)
@@ -141,29 +139,6 @@ extension AppContext {
                 let purgedDiskBytes = max(0, diskBytes - currentDiskBytes)
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: purge AlamofireImage cache bytes: %ld -> %ld (%ld)", ((#file as NSString).lastPathComponent), #line, #function, diskBytes, currentDiskBytes, purgedDiskBytes)
                 promise(.success(purgedDiskBytes))
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
-    private static func purgeKingfisherCache() -> AnyPublisher<ByteCount, Never> {
-        Future<ByteCount, Never> { promise in
-            KingfisherManager.shared.cache.calculateDiskStorageSize { result in
-                switch result {
-                case .success(let diskBytes):
-                    KingfisherManager.shared.cache.clearCache()
-                    KingfisherManager.shared.cache.calculateDiskStorageSize { currentResult in
-                        switch currentResult {
-                        case .success(let currentDiskBytes):
-                            let purgedDiskBytes = max(0, Int(diskBytes) - Int(currentDiskBytes))
-                            promise(.success(purgedDiskBytes))
-                        case .failure:
-                            promise(.success(0))
-                        }
-                    }
-                case .failure:
-                    promise(.success(0))
-                }
             }
         }
         .eraseToAnyPublisher()

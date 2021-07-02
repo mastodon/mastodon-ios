@@ -95,7 +95,12 @@ final class StatusView: UIView {
         view.accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
         return view
     }()
-    let avatarImageView: UIImageView = FLAnimatedImageView()
+    let avatarImageView: UIImageView = {
+        let imageView = FLAnimatedImageView()
+        imageView.layer.shouldRasterize = true
+        imageView.layer.rasterizationScale = UIScreen.main.scale
+        return imageView
+    }()
     let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
     let nameLabel: ActiveLabel = {
@@ -217,6 +222,7 @@ final class StatusView: UIView {
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
         metaText.textView.layer.masksToBounds = false
+
         let paragraphStyle: NSMutableParagraphStyle = {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
@@ -234,7 +240,7 @@ final class StatusView: UIView {
         ]
         return metaText
     }()
-    
+
     private let headerInfoLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
     var isRevealing = true
@@ -399,11 +405,6 @@ extension StatusView {
         // status
         statusContainerStackView.addArrangedSubview(contentMetaText.textView)
         contentMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-
-        // TODO:
-        // link preview
-        // statusContainerStackView.addArrangedSubview(linkPreview)
-        // linkPreview.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
         // image
         statusContainerStackView.addArrangedSubview(statusMosaicImageViewContainer)

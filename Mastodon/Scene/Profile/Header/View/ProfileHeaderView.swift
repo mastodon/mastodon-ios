@@ -86,7 +86,11 @@ final class ProfileHeaderView: UIView {
     }
 
     static let avatarImageViewOverlayBlurEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-    let avatarImageViewOverlayVisualEffectView = UIVisualEffectView(effect: nil)
+    let avatarImageViewOverlayVisualEffectView: UIVisualEffectView = {
+        let visualEffectView = UIVisualEffectView(effect: nil)
+        visualEffectView.isUserInteractionEnabled = false
+        return visualEffectView
+    }()
     
     let editAvatarBackgroundView: UIView = {
         let view = UIView()
@@ -343,10 +347,9 @@ extension ProfileHeaderView {
         nameMetaText.textView.translatesAutoresizingMaskIntoConstraints = false
         displayNameStackView.addSubview(nameMetaText.textView)
         NSLayoutConstraint.activate([
-            nameMetaText.textView.topAnchor.constraint(equalTo: nameTextField.topAnchor),
+            nameMetaText.textView.centerYAnchor.constraint(equalTo: nameTextField.centerYAnchor),
             nameMetaText.textView.leadingAnchor.constraint(equalTo: nameTextField.leadingAnchor),
             nameMetaText.textView.trailingAnchor.constraint(equalTo: nameTextField.trailingAnchor),
-            nameMetaText.textView.bottomAnchor.constraint(equalTo: nameTextField.bottomAnchor),
         ])
         
         nameContainerStackView.addArrangedSubview(displayNameStackView)

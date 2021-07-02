@@ -273,7 +273,6 @@
 		DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
-		DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DB5086B725CC0D6400C2C187 /* Kingfisher */; };
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
 		DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D170262832380062B7A1 /* BlurHashDecode.swift */; };
 		DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D171262832380062B7A1 /* BlurHashEncode.swift */; };
@@ -1146,7 +1145,6 @@
 				DBB525082611EAC0002F1F29 /* Tabman in Frameworks */,
 				5D526FE225BE9AC400460CB9 /* MastodonSDK in Frameworks */,
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
-				DB5086B825CC0D6400C2C187 /* Kingfisher in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				DB0E2D2E26833FF700865C3C /* NukeFLAnimatedImagePlugin in Frameworks */,
@@ -2677,7 +2675,6 @@
 				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
 				2D42FF6025C8177C004A627A /* ActiveLabel */,
 				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
-				DB5086B725CC0D6400C2C187 /* Kingfisher */,
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
@@ -2871,7 +2868,6 @@
 				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
 				2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */,
 				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
-				DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 				DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */,
@@ -4782,7 +4778,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.2.3;
+				version = 1.2.4;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
@@ -4799,14 +4795,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 4.1.0;
-			};
-		};
-		DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.1.0;
 			};
 		};
 		DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
@@ -4937,11 +4925,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
-		};
-		DB5086B725CC0D6400C2C187 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB5086B625CC0D6400C2C187 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 		DB68050F2637D0F800430867 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;

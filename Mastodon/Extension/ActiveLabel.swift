@@ -58,6 +58,15 @@ extension ActiveLabel {
 }
 
 extension ActiveLabel {
+    func configure(text: String) {
+        attributedText = nil
+        activeEntities.removeAll()
+        self.text = text
+        accessibilityLabel = text
+    }
+}
+
+extension ActiveLabel {
     
     /// status content
     func configure(content: String, emojiDict: MastodonStatusContent.EmojiDict) {

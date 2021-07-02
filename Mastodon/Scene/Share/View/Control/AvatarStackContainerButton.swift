@@ -25,7 +25,7 @@ final class AvatarStackContainerButton: UIControl {
     static let maskOffset: CGFloat = 2
     
     // UIControl.Event - Application: 0x0F000000
-    static let primaryAction   = UIControl.Event(rawValue: 1 << 25)     // 0x01000000
+    static let primaryAction = UIControl.Event(rawValue: 1 << 25)     // 0x01000000
     var primaryActionState: UIControl.State = .normal
 
     let topLeadingAvatarStackedImageView = AvatarStackedImageView()
@@ -46,6 +46,12 @@ final class AvatarStackContainerButton: UIControl {
 extension AvatarStackContainerButton {
     
     private func _init() {
+        topLeadingAvatarStackedImageView.layer.shouldRasterize = true
+        topLeadingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
+
+        bottomTrailingAvatarStackedImageView.layer.shouldRasterize = true
+        bottomTrailingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
+
         topLeadingAvatarStackedImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(topLeadingAvatarStackedImageView)
         NSLayoutConstraint.activate([

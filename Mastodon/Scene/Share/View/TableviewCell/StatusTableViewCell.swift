@@ -74,6 +74,7 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         selectionStyle = .default
+        statusView.statusMosaicImageViewContainer.reset()
         statusView.contentMetaText.textView.isSelectable = false
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.statusMosaicImageViewContainer.contentWarningOverlayView.isUserInteractionEnabled = true
@@ -103,7 +104,12 @@ extension StatusTableViewCell {
     
     private func _init() {
         backgroundColor = Asset.Colors.Background.systemBackground.color
-        
+        selectedBackgroundView = {
+            let view = UIView()
+            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
+            return view
+        }()
+
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         NSLayoutConstraint.activate([

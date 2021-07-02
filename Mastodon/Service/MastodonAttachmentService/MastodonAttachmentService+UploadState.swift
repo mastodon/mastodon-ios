@@ -8,7 +8,6 @@
 import os.log
 import Foundation
 import GameplayKit
-import Kingfisher
 import MastodonSDK
 
 extension MastodonAttachmentService {
