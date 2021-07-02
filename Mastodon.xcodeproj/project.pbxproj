@@ -4782,7 +4782,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.2.3;
+				version = 1.2.4;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
