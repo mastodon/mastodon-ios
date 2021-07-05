@@ -7,6 +7,7 @@
 
 import os.log
 import Foundation
+import Combine
 import UIKit
 
 protocol ContentWarningOverlayViewDelegate: AnyObject {
@@ -14,6 +15,8 @@ protocol ContentWarningOverlayViewDelegate: AnyObject {
 }
 
 class ContentWarningOverlayView: UIView {
+
+    var disposeBag = Set<AnyCancellable>()
     
     static let cornerRadius: CGFloat = 4
     static let blurVisualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
@@ -33,7 +36,7 @@ class ContentWarningOverlayView: UIView {
     // for status style overlay
     let contentOverlayView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.ContentWarningOverlay.background.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.contentWarningOverlayBackgroundColor
         view.applyCornerRadius(radius: ContentWarningOverlayView.cornerRadius)
         return view
     }()

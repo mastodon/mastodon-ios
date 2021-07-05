@@ -913,7 +913,7 @@ extension StatusSection {
                     }()
                     return PollItem.Attribute(selectState: selectState, voteState: voteState)
                 }()
-                let option = PollItem.opion(objectID: option.objectID, attribute: attribute)
+                let option = PollItem.option(objectID: option.objectID, attribute: attribute)
                 return option
             }
         snapshot.appendItems(pollItems, toSection: .main)

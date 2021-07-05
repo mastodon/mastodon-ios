@@ -29,7 +29,7 @@ final class ComposeStatusPollOptionAppendEntryCollectionViewCell: UICollectionVi
     
     override var isHighlighted: Bool {
         didSet {
-            pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? Asset.Colors.Background.tertiarySystemBackground.color : Asset.Colors.Background.secondarySystemBackground.color
+            pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor.withAlphaComponent(0.6) : ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
             pollOptionView.plusCircleImageView.tintColor = isHighlighted ? Asset.Colors.brandBlue.color.withAlphaComponent(0.5) : Asset.Colors.brandBlue.color
         }
     }
@@ -82,7 +82,7 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
         pollOptionView.optionTextField.isHidden = true
         pollOptionView.plusCircleImageView.isHidden = false
         
-        pollOptionView.roundedBackgroundView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
         setupBorderColor()
         
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
@@ -93,7 +93,7 @@ extension ComposeStatusPollOptionAppendEntryCollectionViewCell {
     
     private func setupBorderColor() {
         pollOptionView.roundedBackgroundView.layer.borderWidth = 1
-        pollOptionView.roundedBackgroundView.layer.borderColor = Asset.Colors.Background.secondarySystemBackground.color.cgColor
+        pollOptionView.roundedBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

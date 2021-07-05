@@ -53,7 +53,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         tableView.register(ComposeRepliedToStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeRepliedToStatusContentTableViewCell.self))
         tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
         tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
-        tableView.backgroundColor = Asset.Scene.Compose.background.color
         tableView.alwaysBounceVertical = true
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
@@ -145,7 +144,15 @@ extension ComposeViewController {
                 self.title = title
             }
             .store(in: &disposeBag)
-        view.backgroundColor = Asset.Scene.Compose.background.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = theme.systemElevatedBackgroundColor
+                self.tableView.backgroundColor = theme.systemElevatedBackgroundColor
+            }
+            .store(in: &disposeBag)
         navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = publishBarButtonItem
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
@@ -903,7 +910,7 @@ extension ComposeViewController: UICollectionViewDelegate {
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .fullScreen
+        return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
     }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {

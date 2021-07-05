@@ -95,7 +95,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = .clear
-        tableView.separatorColor = Asset.Colors.Background.Cell.separator.color
+        tableView.separatorColor = ThemeService.shared.currentTheme.value.separator
         
         tableView.register(SettingsAppearanceTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsAppearanceTableViewCell.self))
         tableView.register(SettingsToggleTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsToggleTableViewCell.self))
@@ -128,6 +128,13 @@ class SettingsViewController: UIViewController, NeedsDependency {
         bindViewModel()
         
         viewModel.viewDidLoad.send()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // make large title not collapsed
+        navigationController?.navigationBar.sizeToFit()
     }
     
     override func viewDidLayoutSubviews() {
@@ -186,16 +193,31 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupView() {
-        view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+        self.view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
             switch traitCollection.userInterfaceLevel {
             case .elevated where traitCollection.userInterfaceStyle == .dark:
-                return Asset.Colors.Background.systemElevatedBackground.color
+                return ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
             default:
-                return Asset.Colors.Background.secondarySystemBackground.color
+                return ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
             }
         })
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+                    switch traitCollection.userInterfaceLevel {
+                    case .elevated where traitCollection.userInterfaceStyle == .dark:
+                        return theme.systemElevatedBackgroundColor
+                    default:
+                        return theme.secondarySystemBackgroundColor
+                    }
+                })
+
+            }
+            .store(in: &disposeBag)
+
         setupNavigation()
-        
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -215,12 +237,6 @@ class SettingsViewController: UIViewController, NeedsDependency {
                               target: self,
                               action: #selector(doneButtonDidClick))
         navigationItem.title = L10n.Scene.Settings.title
-        
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithDefaultBackground()
-        navigationItem.standardAppearance = barAppearance
-        navigationItem.compactAppearance = barAppearance
-        navigationItem.scrollEdgeAppearance = barAppearance
     }
     
     private func setupTableView() {
@@ -332,6 +348,9 @@ extension SettingsViewController: UITableViewDelegate {
         case .appearance:
             // do nothing
             break
+        case .appearanceDarkMode:
+            // do nothing
+            break
         case .notification:
             // do nothing
             break
@@ -418,6 +437,23 @@ extension SettingsViewController: SettingsToggleCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let item = dataSource.itemIdentifier(for: indexPath)
         switch item {
+        case .appearanceDarkMode(let settingObjectID):
+            let isOn = `switch`.isOn
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                setting.update(preferredTrueBlackDarkMode: isOn)
+            }
+            .sink { result in
+                switch result {
+                case .success:
+                    ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                    break
+                }
+            }
+            .store(in: &disposeBag)
         case .notification(let settingObjectID, let switchMode):
             let isOn = `switch`.isOn
             let managedObjectContext = context.backgroundManagedObjectContext

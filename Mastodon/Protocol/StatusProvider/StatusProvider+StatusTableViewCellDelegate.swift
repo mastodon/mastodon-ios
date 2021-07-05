@@ -137,7 +137,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
         
         guard let diffableDataSource = cell.statusView.pollTableViewDataSource else { return }
         let item = diffableDataSource.itemIdentifier(for: indexPath)
-        guard case let .opion(objectID, _) = item else { return }
+        guard case let .option(objectID, _) = item else { return }
         guard let option = managedObjectContext.object(with: objectID) as? PollOption else { return }
         
         let poll = option.poll

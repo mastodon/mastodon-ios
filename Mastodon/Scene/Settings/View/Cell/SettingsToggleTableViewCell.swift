@@ -38,7 +38,6 @@ class SettingsToggleTableViewCell: UITableViewCell {
     private func setupUI() {
         selectionStyle = .none
         accessoryView = switchButton
-        backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         
         switchButton.addTarget(self, action: #selector(switchValueDidChange(sender:)), for: .valueChanged)
     }

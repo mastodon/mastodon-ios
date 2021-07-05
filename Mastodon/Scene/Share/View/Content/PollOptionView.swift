@@ -17,6 +17,8 @@ final class PollOptionView: UIView {
     static let checkmarkBackgroundLeadingMargin: CGFloat = 9
     
     private var viewStateDisposeBag = Set<AnyCancellable>()
+
+    var disposeBag = Set<AnyCancellable>()
     
     let roundedBackgroundView = UIView()
     let voteProgressStripView: StripProgressView = {
@@ -82,7 +84,7 @@ final class PollOptionView: UIView {
 extension PollOptionView {
     private func _init() {
         // default color in the timeline
-        roundedBackgroundView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         
         roundedBackgroundView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(roundedBackgroundView)

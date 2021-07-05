@@ -14,7 +14,11 @@ final class AttachmentContainerView: UIView {
     
     var descriptionBackgroundViewFrameObservation: NSKeyValueObservation?
     
-    let activityIndicatorView = UIActivityIndicatorView(style: .large)
+    let activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView(style: .large)
+        activityIndicatorView.color = UIColor.white.withAlphaComponent(0.8)
+        return activityIndicatorView
+    }()
     
     let previewImageView: UIImageView = {
         let imageView = UIImageView()
@@ -119,13 +123,30 @@ extension AttachmentContainerView {
             activityIndicatorView.centerYAnchor.constraint(equalTo: previewImageView.centerYAnchor),
         ])
 
+        setupBroader()
+
         emptyStateView.isHidden = true
         activityIndicatorView.hidesWhenStopped = true
         activityIndicatorView.startAnimating()
         
         descriptionTextView.delegate = self
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        setupBroader()
+    }
     
+}
+
+extension AttachmentContainerView {
+
+    private func setupBroader() {
+        emptyStateView.layer.borderWidth = 1
+        emptyStateView.layer.borderColor = traitCollection.userInterfaceStyle == .dark ? ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.cgColor : nil
+    }
+
 }
 
 // MARK: - UITextViewDelegate

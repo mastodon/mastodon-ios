@@ -74,6 +74,10 @@ extension SettingsViewModel {
         let appearanceItems = [SettingsItem.appearance(settingObjectID: setting.objectID)]
         snapshot.appendSections([.appearance])
         snapshot.appendItems(appearanceItems, toSection: .appearance)
+
+        let appearanceSettingItems = [SettingsItem.appearanceDarkMode(settingObjectID: setting.objectID)]
+        snapshot.appendSections([.appearanceSettings])
+        snapshot.appendItems(appearanceSettingItems, toSection: .appearanceSettings)
         
         let notificationItems = SettingsItem.NotificationSwitchMode.allCases.map { mode in
             SettingsItem.notification(settingObjectID: setting.objectID, switchMode: mode)
@@ -129,6 +133,7 @@ extension SettingsViewModel {
                     let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
                     cell.update(with: setting.appearance)
                     ManagedObjectObserver.observe(object: setting)
+                        .receive(on: DispatchQueue.main)
                         .sink(receiveCompletion: { _ in
                             // do nothing
                         }, receiveValue: { [weak cell] change in
@@ -140,6 +145,26 @@ extension SettingsViewModel {
                         .store(in: &cell.disposeBag)
                 }
                 cell.delegate = settingsAppearanceTableViewCellDelegate
+                return cell
+            case .appearanceDarkMode(let objectID):
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
+                cell.delegate = settingsToggleCellDelegate
+                cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.DarkMode.title
+                self.context.managedObjectContext.performAndWait {
+                    let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
+                    cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
+                    ManagedObjectObserver.observe(object: setting)
+                        .receive(on: DispatchQueue.main)
+                        .sink(receiveCompletion: { _ in
+                            // do nothing
+                        }, receiveValue: { [weak cell] change in
+                            guard let cell = cell else { return }
+                            guard case .update(let object) = change.changeType,
+                                  let setting = object as? Setting else { return }
+                            cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
+                        })
+                        .store(in: &cell.disposeBag)
+                }
                 return cell
             case .notification(let objectID, let switchMode):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell

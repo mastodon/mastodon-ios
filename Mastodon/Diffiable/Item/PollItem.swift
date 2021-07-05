@@ -10,7 +10,7 @@ import CoreData
 
 /// Note: update Equatable when change case
 enum PollItem {
-    case opion(objectID: NSManagedObjectID, attribute: Attribute)
+    case option(objectID: NSManagedObjectID, attribute: Attribute)
 }
 
 
@@ -51,7 +51,7 @@ extension PollItem {
 extension PollItem: Equatable {
     static func == (lhs: PollItem, rhs: PollItem) -> Bool {
         switch (lhs, rhs) {
-        case (.opion(let objectIDLeft, _), .opion(let objectIDRight, _)):
+        case (.option(let objectIDLeft, _), .option(let objectIDRight, _)):
             return objectIDLeft == objectIDRight
         }
     }
@@ -61,7 +61,7 @@ extension PollItem: Equatable {
 extension PollItem: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
-        case .opion(let objectID, _):
+        case .option(let objectID, _):
             hasher.combine(objectID)
         }
     }

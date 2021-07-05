@@ -100,8 +100,16 @@ extension MainTabBarController {
 
         delegate = self
 
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
-        
+        view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
+//        ThemeService.shared.currentTheme
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] theme in
+//                guard let self = self else { return }
+//                // fix tab bar not update color issue
+//                self.tabBar.backgroundColor = theme.tabBarBackgroundColor
+//            }
+//            .store(in: &disposeBag)
+
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)

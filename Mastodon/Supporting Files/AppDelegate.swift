@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         AppSecret.default.register()
+
+        // configure appearance
+        ThemeService.shared.apply(theme: ThemeService.shared.currentTheme.value)
         
         // Update app version info. See: `Settings.bundle`
         UserDefaults.standard.setValue(UIApplication.appVersion(), forKey: "Mastodon.appVersion")

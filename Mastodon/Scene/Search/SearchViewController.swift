@@ -39,20 +39,17 @@ final class SearchViewController: UIViewController, NeedsDependency {
     
     let statusBar: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.bar.color
         return view
     }()
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = L10n.Scene.Search.Searchbar.placeholder
-        searchBar.tintColor = Asset.Colors.brandBlue.color
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         // let micImage = UIImage(systemName: "mic.fill")
         // searchBar.setImage(micImage, for: .bookmark, state: .normal)
         // searchBar.showsBookmarkButton = true
         searchBar.scopeButtonTitles = [L10n.Scene.Search.Searching.Segment.all, L10n.Scene.Search.Searching.Segment.people, L10n.Scene.Search.Searching.Segment.hashtags]
-        searchBar.barTintColor = Asset.Colors.Background.bar.color
         return searchBar
     }()
     
@@ -99,7 +96,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
     // searching
     let searchingTableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = Asset.Colors.Background.systemBackground.color
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .singleLine
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -109,7 +105,6 @@ final class SearchViewController: UIViewController, NeedsDependency {
     
     lazy var searchHeader: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
         view.frame = CGRect(origin: .zero, size: CGSize(width: searchingTableView.frame.width, height: 56))
         return view
     }()
@@ -133,12 +128,24 @@ final class SearchViewController: UIViewController, NeedsDependency {
 extension SearchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithTransparentBackground()
         navigationItem.standardAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = theme.systemGroupedBackgroundColor
+                self.searchHeader.backgroundColor = theme.systemGroupedBackgroundColor
+                self.searchingTableView.backgroundColor = theme.systemBackgroundColor
+                self.statusBar.backgroundColor = theme.navigationBarBackgroundColor
+            }
+            .store(in: &disposeBag)
+
         navigationItem.hidesBackButton = true
        
         setupSearchBar()
@@ -150,6 +157,12 @@ extension SearchViewController {
         setupSearchHeader()
         view.bringSubviewToFront(searchBar)
         view.bringSubviewToFront(statusBar)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        searchBar.tintColor = Asset.Colors.brandBlue.color
     }
 
     override func viewDidAppear(_ animated: Bool) {

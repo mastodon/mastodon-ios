@@ -65,7 +65,7 @@ final class ReportHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = Asset.Colors.Background.systemElevatedBackground.color
+        self.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
         stackview.addArrangedSubview(titleLabel)
         stackview.addArrangedSubview(contentLabel)
         addSubview(stackview)

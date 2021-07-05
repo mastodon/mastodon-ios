@@ -137,13 +137,6 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
 
 extension NotificationStatusTableViewCell {
     func configure() {
-        backgroundColor = Asset.Colors.Background.systemBackground.color
-        selectedBackgroundView = {
-            let view = UIView()
-            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
-            return view
-        }()
-
         containerStackView.axis = .horizontal
         containerStackView.alignment = .top
         containerStackView.distribution = .fill
@@ -225,14 +218,16 @@ extension NotificationStatusTableViewCell {
             statusView.trailingAnchor.constraint(equalTo: statusContainerView.layoutMarginsGuide.trailingAnchor),
             statusView.bottomAnchor.constraint(equalTo: statusContainerView.layoutMarginsGuide.bottomAnchor),
         ])
-        statusContainerView.backgroundColor = UIColor(dynamicProvider: { collection in
-            switch collection.userInterfaceStyle {
-            case .dark:
-                return Asset.Colors.Background.tertiarySystemGroupedBackground.color
-            default:
-                return .clear
+
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+                    return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
+                })
             }
-        })
+            .store(in: &disposeBag)
         // remove item don't display
         statusView.actionToolbarContainer.removeFromStackView()
         // it affect stackView's height, need remove

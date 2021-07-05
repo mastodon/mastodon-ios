@@ -518,6 +518,11 @@
                     "light": "Always Light",
                     "dark": "Always Dark"
                 },
+                "appearance_settings": {
+                    "dark_mode": {
+                        "title": "True black Dark Mode"
+                    }
+                },
                 "notifications": {
                     "title": "Notifications",
                     "favorites": "Favorites my post",

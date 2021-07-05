@@ -31,6 +31,5 @@ extension SettingsLinkTableViewCell {
     func update(with link: SettingsItem.Link) {
         textLabel?.text = link.title
         textLabel?.textColor = link.textColor
-        backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
     }
 }
