@@ -86,10 +86,10 @@ extension ComposeStatusAttachmentCollectionViewCell {
             removeButton.widthAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.width).priority(.defaultHigh),
             removeButton.heightAnchor.constraint(equalToConstant: ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height).priority(.defaultHigh),
         ])
-        
+
         removeButton.addTarget(self, action: #selector(ComposeStatusAttachmentCollectionViewCell.removeButtonDidPressed(_:)), for: .touchUpInside)
     }
-    
+
 }
 
 

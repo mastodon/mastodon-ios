@@ -15,6 +15,7 @@ import FPSIndicator
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
     var window: UIWindow?
@@ -34,30 +35,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // set tint color
         window.tintColor = Asset.Colors.brandBlue.color
 
-        // set navigation bar appearance
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = Asset.Colors.Background.bar.color
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().compactAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-
-        // set tab bar appearance
-        let tabBarAppearance = UITabBarAppearance()
-        tabBarAppearance.configureWithDefaultBackground()
-
-        let tabBarItemAppearance = UITabBarItemAppearance()
-        tabBarItemAppearance.selected.iconColor = Asset.Colors.brandBlue.color
-        tabBarItemAppearance.focused.iconColor = Asset.Colors.TabBar.itemInactive.color
-        tabBarItemAppearance.normal.iconColor = Asset.Colors.TabBar.itemInactive.color
-        tabBarItemAppearance.disabled.iconColor = Asset.Colors.TabBar.itemInactive.color
-        tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
-        tabBarAppearance.inlineLayoutAppearance = tabBarItemAppearance
-        tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
-
-        tabBarAppearance.backgroundColor = Asset.Colors.Background.bar.color
-        tabBarAppearance.selectionIndicatorTintColor = Asset.Colors.brandBlue.color
-        UITabBar.appearance().standardAppearance = tabBarAppearance
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .dropFirst()
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                guard let window = self.window else { return }
+                window.subviews.forEach { view in
+                    view.removeFromSuperview()
+                    window.addSubview(view)
+                }
+            }
+            .store(in: &disposeBag)
         
         let appContext = AppContext.shared
         let sceneCoordinator = SceneCoordinator(scene: scene, sceneDelegate: self, appContext: appContext)

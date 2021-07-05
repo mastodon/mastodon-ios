@@ -965,6 +965,12 @@ internal enum L10n {
           /// Appearance
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
         }
+        internal enum AppearanceSettings {
+          internal enum DarkMode {
+            /// True black Dark Mode
+            internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.DarkMode.Title")
+          }
+        }
         internal enum Boringzone {
           /// Privacy Policy
           internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Privacy")

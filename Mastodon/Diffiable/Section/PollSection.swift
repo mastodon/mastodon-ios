@@ -32,7 +32,7 @@ extension PollSection {
     ) -> UITableViewDiffableDataSource<PollSection, PollItem> {
         return UITableViewDiffableDataSource<PollSection, PollItem>(tableView: tableView) { tableView, indexPath, item -> UITableViewCell? in
             switch item {
-            case .opion(let objectID, let attribute):
+            case .option(let objectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PollOptionTableViewCell.self), for: indexPath) as! PollOptionTableViewCell
                 managedObjectContext.performAndWait {
                     let option = managedObjectContext.object(with: objectID) as! PollOption
@@ -67,13 +67,25 @@ extension PollSection {
             cell.pollOptionView.checkmarkBackgroundView.isHidden = true
             cell.pollOptionView.checkmarkImageView.isHidden = true
         case .off:
-            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
-            cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = Asset.Colors.Background.Cell.highlight.color.withAlphaComponent(0.3).cgColor
+            ThemeService.shared.currentTheme
+                .receive(on: RunLoop.main)
+                .sink { [weak cell] theme in
+                    guard let cell = cell else { return }
+                    cell.pollOptionView.checkmarkBackgroundView.backgroundColor = theme.tertiarySystemBackgroundColor
+                    cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = theme.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
+                }
+                .store(in: &cell.disposeBag)
             cell.pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
             cell.pollOptionView.checkmarkBackgroundView.isHidden = false
             cell.pollOptionView.checkmarkImageView.isHidden = true
         case .on:
-            cell.pollOptionView.checkmarkBackgroundView.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
+            ThemeService.shared.currentTheme
+                .receive(on: RunLoop.main)
+                .sink { [weak cell] theme in
+                    guard let cell = cell else { return }
+                    cell.pollOptionView.checkmarkBackgroundView.backgroundColor = theme.tertiarySystemBackgroundColor
+                }
+                .store(in: &cell.disposeBag)
             cell.pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.clear.cgColor
             cell.pollOptionView.checkmarkBackgroundView.layer.borderWidth = 0
             cell.pollOptionView.checkmarkBackgroundView.isHidden = false

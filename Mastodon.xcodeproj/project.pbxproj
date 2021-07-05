@@ -487,6 +487,12 @@
 		DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */; };
 		DBCC3B9B261584A00045B23D /* PrivateNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B9A2615849F0045B23D /* PrivateNote.swift */; };
 		DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */; };
+		DBD376A72692EA00007FEC24 /* ThemeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376A62692EA00007FEC24 /* ThemeService.swift */; };
+		DBD376AA2692EA4F007FEC24 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376A92692EA4F007FEC24 /* Theme.swift */; };
+		DBD376AC2692ECDB007FEC24 /* ThemePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */; };
+		DBD376AE2692EE0A007FEC24 /* MastodonTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AD2692EE0A007FEC24 /* MastodonTheme.swift */; };
+		DBD376B02692F20F007FEC24 /* SystemTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376AF2692F20F007FEC24 /* SystemTheme.swift */; };
+		DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD376B1269302A4007FEC24 /* UITableViewCell.swift */; };
 		DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */; };
 		DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */; };
 		DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */; };
@@ -1102,6 +1108,12 @@
 		DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Relationship.swift"; sourceTree = "<group>"; };
 		DBCC3B9A2615849F0045B23D /* PrivateNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateNote.swift; sourceTree = "<group>"; };
 		DBCCC71D25F73297007E1AB6 /* APIService+Reblog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Reblog.swift"; sourceTree = "<group>"; };
+		DBD376A62692EA00007FEC24 /* ThemeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeService.swift; sourceTree = "<group>"; };
+		DBD376A92692EA4F007FEC24 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreference.swift; sourceTree = "<group>"; };
+		DBD376AD2692EE0A007FEC24 /* MastodonTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonTheme.swift; sourceTree = "<group>"; };
+		DBD376AF2692F20F007FEC24 /* SystemTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTheme.swift; sourceTree = "<group>"; };
+		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -1453,6 +1465,7 @@
 			children = (
 				DB45FB0425CA87B4005A8AC7 /* APIService */,
 				DB49A61925FF327D00B98345 /* EmojiService */,
+				DBD376A82692EA3F007FEC24 /* ThemeService */,
 				DB9A489B26036E19008B817C /* MastodonAttachmentService */,
 				DB45FB0E25CA87D0005A8AC7 /* AuthenticationService.swift */,
 				DB4563BC25E11A24004DA0B9 /* KeyboardResponderService.swift */,
@@ -1969,6 +1982,7 @@
 				DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */,
 				DB1D842F26566512000346B3 /* KeyboardPreference.swift */,
 				DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */,
+				DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -2284,6 +2298,7 @@
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
 				DB45FAD625CA6C76005A8AC7 /* UIBarButtonItem.swift */,
 				DB4481B825EE289600BEFB67 /* UITableView.swift */,
+				DBD376B1269302A4007FEC24 /* UITableViewCell.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
 				2D206B7F25F5F45E00143C56 /* UIImage.swift */,
@@ -2591,6 +2606,17 @@
 				DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */,
 			);
 			path = FetchedResultsController;
+			sourceTree = "<group>";
+		};
+		DBD376A82692EA3F007FEC24 /* ThemeService */ = {
+			isa = PBXGroup;
+			children = (
+				DBD376A62692EA00007FEC24 /* ThemeService.swift */,
+				DBD376A92692EA4F007FEC24 /* Theme.swift */,
+				DBD376AD2692EE0A007FEC24 /* MastodonTheme.swift */,
+				DBD376AF2692F20F007FEC24 /* SystemTheme.swift */,
+			);
+			path = ThemeService;
 			sourceTree = "<group>";
 		};
 		DBE0821A25CD382900FD6BBD /* Register */ = {
@@ -3170,6 +3196,7 @@
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
 				DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */,
 				2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */,
+				DBD376AA2692EA4F007FEC24 /* Theme.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB92CF7225E7BB98002C1017 /* PollOptionTableViewCell.swift in Sources */,
@@ -3430,6 +3457,7 @@
 				DB447691260B406600B66B82 /* CustomEmojiPickerItemCollectionViewCell.swift in Sources */,
 				DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */,
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
+				DBD376AC2692ECDB007FEC24 /* ThemePreference.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
 				DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */,
 				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
@@ -3475,6 +3503,7 @@
 				5DFC35DF262068D20045711D /* SearchViewController+Follow.swift in Sources */,
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
+				DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */,
 				DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
 				DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */,
@@ -3510,9 +3539,12 @@
 				DB9D6BFF25E4F5940051B173 /* ProfileViewController.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
+				DBD376A72692EA00007FEC24 /* ThemeService.swift in Sources */,
+				DBD376AE2692EE0A007FEC24 /* MastodonTheme.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,
+				DBD376B02692F20F007FEC24 /* SystemTheme.swift in Sources */,
 				DB938F3326243D6200E5B6C1 /* TimelineTopLoaderTableViewCell.swift in Sources */,
 				DB3667A4268AE2370027D07F /* ComposeStatusPollTableViewCell.swift in Sources */,
 				DBBF1DC226524D2900E5B703 /* AutoCompleteTableViewCell.swift in Sources */,

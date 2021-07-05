@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Application" representedClassName=".Application" syncable="YES">
         <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -189,6 +189,7 @@
         <attribute name="appearanceRaw" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
+        <attribute name="preferredTrueBlackDarkMode" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userID" attributeType="String"/>
         <relationship name="subscriptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subscription" inverseName="setting" inverseEntity="Subscription"/>
@@ -280,7 +281,7 @@
         <element name="PollOption" positionX="0" positionY="0" width="128" height="134"/>
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
         <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
-        <element name="Setting" positionX="72" positionY="162" width="128" height="119"/>
+        <element name="Setting" positionX="72" positionY="162" width="128" height="134"/>
         <element name="Status" positionX="0" positionY="0" width="128" height="599"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
         <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="14"/>

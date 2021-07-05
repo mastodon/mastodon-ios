@@ -30,7 +30,7 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
         let collectionViewLayout = ComposeStatusAttachmentTableViewCell.createLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.register(ComposeStatusAttachmentCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusAttachmentCollectionViewCell.self))
-        collectionView.backgroundColor = Asset.Scene.Compose.background.color
+        collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         collectionView.isScrollEnabled = false
         return collectionView
@@ -51,6 +51,9 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
 extension ComposeStatusAttachmentTableViewCell {
 
     private func _init() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(collectionView)
         collectionViewHeightLayoutConstraint = collectionView.heightAnchor.constraint(equalToConstant: 200).priority(.defaultHigh)

@@ -11,6 +11,7 @@ import Foundation
 public final class Setting: NSManagedObject {
     
     @NSManaged public var appearanceRaw: String
+    @NSManaged public var preferredTrueBlackDarkMode: Bool
     @NSManaged public var domain: String
     @NSManaged public var userID: String
     
@@ -45,6 +46,12 @@ extension Setting {
     public func update(appearanceRaw: String) {
         guard appearanceRaw != self.appearanceRaw else { return }
         self.appearanceRaw = appearanceRaw
+        didUpdate(at: Date())
+    }
+
+    public func update(preferredTrueBlackDarkMode: Bool) {
+        guard preferredTrueBlackDarkMode != self.preferredTrueBlackDarkMode else { return }
+        self.preferredTrueBlackDarkMode = preferredTrueBlackDarkMode
         didUpdate(at: Date())
     }
     

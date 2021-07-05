@@ -142,7 +142,13 @@ extension ProfileViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = theme.secondarySystemBackgroundColor
+            }
+            .store(in: &disposeBag)
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithTransparentBackground()

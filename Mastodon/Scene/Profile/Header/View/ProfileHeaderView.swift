@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import Combine
 import ActiveLabel
 import TwitterTextEditor
 import FLAnimatedImage
@@ -36,6 +37,7 @@ final class ProfileHeaderView: UIView {
     static let bannerImageViewOverlayViewBackgroundEditingColor = UIColor.black.withAlphaComponent(0.8)
     
     weak var delegate: ProfileHeaderViewDelegate?
+    var disposeBag = Set<AnyCancellable>()
     
     var state: State?
     
@@ -213,7 +215,6 @@ final class ProfileHeaderView: UIView {
         collectionView.register(ProfileFieldAddEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ProfileFieldAddEntryCollectionViewCell.self))
         collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.headerReuseIdentifer)
         collectionView.register(ProfileFieldCollectionViewHeaderFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: ProfileFieldCollectionViewHeaderFooterView.footerReuseIdentifer)
-        collectionView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         collectionView.isScrollEnabled = false
         return collectionView
     }()
@@ -238,7 +239,14 @@ final class ProfileHeaderView: UIView {
 
 extension ProfileHeaderView {
     private func _init() {
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.backgroundColor = theme.systemGroupedBackgroundColor
+                self.fieldCollectionView.backgroundColor = theme.profileFieldCollectionViewBackgroundColor
+            }
+            .store(in: &disposeBag)
         
         // banner
         bannerContainerView.translatesAutoresizingMaskIntoConstraints = false

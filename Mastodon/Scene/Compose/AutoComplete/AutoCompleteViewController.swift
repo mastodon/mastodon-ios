@@ -25,7 +25,7 @@ final class AutoCompleteViewController: UIViewController {
     let chevronView = AutoCompleteTopChevronView()
     let containerBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
         return view
     }()
     

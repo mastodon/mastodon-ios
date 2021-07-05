@@ -47,7 +47,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.setContentHuggingPriority(.defaultLow, for: .vertical)
-        view.backgroundColor = Asset.Colors.Background.systemElevatedBackground.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
         return view
     }()
     
@@ -109,7 +109,15 @@ class ReportViewController: UIViewController, NeedsDependency {
     
     // MAKR: - Private methods
     private func setupView() {
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = theme.secondarySystemBackgroundColor
+            }
+            .store(in: &disposeBag)
+
         setupNavigation()
 
         stackview.addArrangedSubview(header)

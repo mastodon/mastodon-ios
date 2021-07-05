@@ -87,8 +87,6 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
 
 extension SuggestionAccountTableViewCell {
     private func configure() {
-        backgroundColor = .clear
-        
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fill

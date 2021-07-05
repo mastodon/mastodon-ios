@@ -32,15 +32,10 @@ internal enum Asset {
   }
   internal enum Colors {
     internal enum Background {
-      internal enum Cell {
-        internal static let highlight = ColorAsset(name: "Colors/Background/Cell/highlight")
-        internal static let separator = ColorAsset(name: "Colors/Background/Cell/separator")
-      }
       internal enum Poll {
         internal static let disabled = ColorAsset(name: "Colors/Background/Poll/disabled")
       }
       internal static let alertYellow = ColorAsset(name: "Colors/Background/alert.yellow")
-      internal static let bar = ColorAsset(name: "Colors/Background/bar")
       internal static let dangerBorder = ColorAsset(name: "Colors/Background/danger.border")
       internal static let danger = ColorAsset(name: "Colors/Background/danger")
       internal static let mediaTypeIndicotor = ColorAsset(name: "Colors/Background/media.type.indicotor")
@@ -63,9 +58,6 @@ internal enum Asset {
       internal static let actionToolbar = ColorAsset(name: "Colors/Button/action.toolbar")
       internal static let disabled = ColorAsset(name: "Colors/Button/disabled")
       internal static let inactive = ColorAsset(name: "Colors/Button/inactive")
-    }
-    internal enum ContentWarningOverlay {
-      internal static let background = ColorAsset(name: "Colors/ContentWarningOverlay/background")
     }
     internal enum Icon {
       internal static let plus = ColorAsset(name: "Colors/Icon/plus")
@@ -140,6 +132,42 @@ internal enum Asset {
     internal static let appearanceAutomatic = ImageAsset(name: "Settings/appearance.automatic")
     internal static let appearanceDark = ImageAsset(name: "Settings/appearance.dark")
     internal static let appearanceLight = ImageAsset(name: "Settings/appearance.light")
+  }
+  internal enum Theme {
+    internal enum Mastodon {
+      internal static let contentWarningOverlayBackground = ColorAsset(name: "Theme/Mastodon/content.warning.overlay.background")
+      internal static let navigationBarBackground = ColorAsset(name: "Theme/Mastodon/navigation.bar.background")
+      internal static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/Mastodon/profile.field.collection.view.background")
+      internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.grouped.system.background")
+      internal static let secondarySystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.system.background")
+      internal static let systemBackground = ColorAsset(name: "Theme/Mastodon/system.background")
+      internal static let systemElevatedBackground = ColorAsset(name: "Theme/Mastodon/system.elevated.background")
+      internal static let systemGroupedBackground = ColorAsset(name: "Theme/Mastodon/system.grouped.background")
+      internal static let tabBarBackground = ColorAsset(name: "Theme/Mastodon/tab.bar.background")
+      internal static let tableViewCellBackground = ColorAsset(name: "Theme/Mastodon/table.view.cell.background")
+      internal static let tableViewCellSelectionBackground = ColorAsset(name: "Theme/Mastodon/table.view.cell.selection.background")
+      internal static let tertiarySystemBackground = ColorAsset(name: "Theme/Mastodon/tertiary.system.background")
+      internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Theme/Mastodon/tertiary.system.grouped.background")
+      internal static let separator = ColorAsset(name: "Theme/Mastodon/separator")
+      internal static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/Mastodon/tab.bar.item.inactive.icon.color")
+    }
+    internal enum System {
+      internal static let contentWarningOverlayBackground = ColorAsset(name: "Theme/System/content.warning.overlay.background")
+      internal static let navigationBarBackground = ColorAsset(name: "Theme/System/navigation.bar.background")
+      internal static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/System/profile.field.collection.view.background")
+      internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/System/secondary.grouped.system.background")
+      internal static let secondarySystemBackground = ColorAsset(name: "Theme/System/secondary.system.background")
+      internal static let systemBackground = ColorAsset(name: "Theme/System/system.background")
+      internal static let systemElevatedBackground = ColorAsset(name: "Theme/System/system.elevated.background")
+      internal static let systemGroupedBackground = ColorAsset(name: "Theme/System/system.grouped.background")
+      internal static let tabBarBackground = ColorAsset(name: "Theme/System/tab.bar.background")
+      internal static let tableViewCellBackground = ColorAsset(name: "Theme/System/table.view.cell.background")
+      internal static let tableViewCellSelectionBackground = ColorAsset(name: "Theme/System/table.view.cell.selection.background")
+      internal static let tertiarySystemBackground = ColorAsset(name: "Theme/System/tertiary.system.background")
+      internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Theme/System/tertiary.system.grouped.background")
+      internal static let separator = ColorAsset(name: "Theme/System/separator")
+      internal static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/System/tab.bar.item.inactive.icon.color")
+    }
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
