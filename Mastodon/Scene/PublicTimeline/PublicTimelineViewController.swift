@@ -45,8 +45,7 @@ extension PublicTimelineViewController {
         super.viewDidLoad()
         
         title = "Public"
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
-        
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(PublicTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)
         // bind refresh control

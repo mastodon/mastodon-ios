@@ -54,8 +54,6 @@ final class SearchingTableViewCell: UITableViewCell {
 
 extension SearchingTableViewCell {
     private func configure() {
-        backgroundColor = Asset.Colors.Background.systemBackground.color
-        
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fill

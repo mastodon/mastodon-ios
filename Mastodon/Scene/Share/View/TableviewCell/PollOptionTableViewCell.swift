@@ -9,6 +9,8 @@ import UIKit
 import Combine
 
 final class PollOptionTableViewCell: UITableViewCell {
+
+    var disposeBag = Set<AnyCancellable>()
     
     let pollOptionView = PollOptionView()
     var attribute: PollItem.Attribute?
@@ -29,7 +31,7 @@ final class PollOptionTableViewCell: UITableViewCell {
         guard let voteState = attribute?.voteState else { return }
         switch voteState {
         case .hidden:
-            let color = Asset.Colors.Background.systemGroupedBackground.color
+            let color = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
             pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? color.withAlphaComponent(0.8) : color
         case .reveal:
             break
@@ -42,7 +44,7 @@ final class PollOptionTableViewCell: UITableViewCell {
         guard let voteState = attribute?.voteState else { return }
         switch voteState {
         case .hidden:
-            let color = Asset.Colors.Background.systemGroupedBackground.color
+            let color = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
             pollOptionView.roundedBackgroundView.backgroundColor = isHighlighted ? color.withAlphaComponent(0.8) : color
         case .reveal:
             break

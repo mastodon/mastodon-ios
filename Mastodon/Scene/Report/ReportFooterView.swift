@@ -53,8 +53,8 @@ final class ReportFooterView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = Asset.Colors.Background.systemElevatedBackground.color
-        
+        self.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
+
         stackview.addArrangedSubview(nextStepButton)
         stackview.addArrangedSubview(skipButton)
         addSubview(stackview)

@@ -79,9 +79,16 @@ extension HomeTimelineViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = theme.secondarySystemBackgroundColor
+            }
+            .store(in: &disposeBag)
         navigationItem.leftBarButtonItem = settingBarButtonItem
         navigationItem.titleView = titleView
         titleView.delegate = self

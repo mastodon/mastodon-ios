@@ -83,9 +83,11 @@ extension ComposeStatusPollOptionCollectionViewCell {
         pollOptionView.checkmarkImageView.isHidden = true
         pollOptionView.optionPercentageLabel.isHidden = true
         pollOptionView.optionTextField.text = nil
-        
-        pollOptionView.roundedBackgroundView.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
-        pollOptionView.checkmarkBackgroundView.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
+
+        pollOptionView.roundedBackgroundView.backgroundColor = ThemeService.shared.currentTheme.value.tertiarySystemGroupedBackgroundColor
+        pollOptionView.checkmarkBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            return traitCollection.userInterfaceStyle == .light ? .white : ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor
+        })
         setupBorderColor()
         
         pollOptionView.addGestureRecognizer(singleTagGestureRecognizer)
@@ -103,7 +105,10 @@ extension ComposeStatusPollOptionCollectionViewCell {
     }
     
     private func setupBorderColor() {
-        pollOptionView.checkmarkBackgroundView.layer.borderColor = UIColor.systemGray3.cgColor
+        pollOptionView.roundedBackgroundView.layer.borderWidth = 1
+        pollOptionView.roundedBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
+
+        pollOptionView.checkmarkBackgroundView.layer.borderColor = ThemeService.shared.currentTheme.value.tableViewCellSelectionBackgroundColor.withAlphaComponent(0.3).cgColor
         pollOptionView.checkmarkBackgroundView.layer.borderWidth = 1
     }
     

@@ -103,13 +103,6 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
 extension StatusTableViewCell {
     
     private func _init() {
-        backgroundColor = Asset.Colors.Background.systemBackground.color
-        selectedBackgroundView = {
-            let view = UIView()
-            view.backgroundColor = Asset.Colors.Background.Cell.highlight.color
-            return view
-        }()
-
         statusView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(statusView)
         NSLayoutConstraint.activate([
@@ -214,7 +207,7 @@ extension StatusTableViewCell: UITableViewDelegate {
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: indexPath: %s. PollID: %s", ((#file as NSString).lastPathComponent), #line, #function, indexPath.debugDescription, pollID ?? "<nil>")
             }
             guard let item = diffableDataSource.itemIdentifier(for: indexPath),
-                  case let .opion(objectID, _) = item,
+                  case let .option(objectID, _) = item,
                   let option = delegate?.managedObjectContext.object(with: objectID) as? PollOption else {
                 return false
             }
@@ -236,7 +229,7 @@ extension StatusTableViewCell: UITableViewDelegate {
             guard let context = delegate?.context else { return nil }
             guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
             guard let item = diffableDataSource.itemIdentifier(for: indexPath),
-                  case let .opion(objectID, _) = item,
+                  case let .option(objectID, _) = item,
                   let option = delegate?.managedObjectContext.object(with: objectID) as? PollOption else {
                 return nil
             }

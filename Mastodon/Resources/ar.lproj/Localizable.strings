@@ -324,6 +324,7 @@ any server.";
 "Scene.Settings.Section.Appearance.Dark" = "Always Dark";
 "Scene.Settings.Section.Appearance.Light" = "Always Light";
 "Scene.Settings.Section.Appearance.Title" = "Appearance";
+"Scene.Settings.Section.AppearanceSettings.DarkMode.Title" = "True black Dark Mode";
 "Scene.Settings.Section.Boringzone.Privacy" = "Privacy Policy";
 "Scene.Settings.Section.Boringzone.Terms" = "Terms of Service";
 "Scene.Settings.Section.Boringzone.Title" = "The Boring zone";

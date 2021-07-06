@@ -40,7 +40,7 @@ final class ComposeStatusPollTableViewCell: UITableViewCell {
         collectionView.register(ComposeStatusPollOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionCollectionViewCell.self))
         collectionView.register(ComposeStatusPollOptionAppendEntryCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollOptionAppendEntryCollectionViewCell.self))
         collectionView.register(ComposeStatusPollExpiresOptionCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: ComposeStatusPollExpiresOptionCollectionViewCell.self))
-        collectionView.backgroundColor = Asset.Scene.Compose.background.color
+        collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         collectionView.isScrollEnabled = false
         return collectionView
@@ -61,6 +61,9 @@ final class ComposeStatusPollTableViewCell: UITableViewCell {
 extension ComposeStatusPollTableViewCell {
 
     private func _init() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(collectionView)
         collectionViewHeightLayoutConstraint = collectionView.heightAnchor.constraint(equalToConstant: 300).priority(.defaultHigh)
