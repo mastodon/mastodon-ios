@@ -26,6 +26,10 @@ extension PhotoLibraryService {
 extension PhotoLibraryService {
     
     func saveImage(url: URL) -> AnyPublisher<UIImage, Error> {
+        guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
+            return Fail(error: PhotoLibraryError.noPermission).eraseToAnyPublisher()
+        }
+
         return processImage(url: url)
             .handleEvents(receiveOutput: { image in
                 self.save(image: image)
@@ -44,10 +48,6 @@ extension PhotoLibraryService {
     func processImage(url: URL) -> AnyPublisher<UIImage, Error> {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-
-        guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
-            return Fail(error: PhotoLibraryError.noPermission).eraseToAnyPublisher()
-        }
 
         return ImagePipeline.shared.imagePublisher(with: url)
             .handleEvents(receiveSubscription: { _ in
@@ -81,6 +81,16 @@ extension PhotoLibraryService {
             nil
         )
         
+        // assert no error
+        if withNotificationFeedback {
+            let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+            notificationFeedbackGenerator.notificationOccurred(.success)
+        }
+    }
+
+    func copy(image: UIImage, withNotificationFeedback: Bool = false) {
+        UIPasteboard.general.image = image
+
         // assert no error
         if withNotificationFeedback {
             let notificationFeedbackGenerator = UINotificationFeedbackGenerator()

@@ -202,14 +202,10 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                             return self.context.photoLibraryService.copyImage(url: url)
                         }
                         .switchToLatest()
-                        .sink(receiveCompletion: { [weak self] completion in
-                            guard let self = self else { return }
+                        .sink(receiveCompletion: { completion in
                             switch completion {
                             case .failure(let error):
-                                guard let error = error as? PhotoLibraryService.PhotoLibraryError,
-                                      case .noPermission = error else { return }
-                                let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
-                                self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+                                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                             case .finished:
                                 break
                             }
