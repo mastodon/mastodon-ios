@@ -17,10 +17,18 @@ extension Mastodon.Entity {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/token/)
     public struct Token: Codable {
+
         public let accessToken: String
         public let tokenType: String
         public let scope: String
         public let createdAt: Date
+
+        public init(accessToken: String, tokenType: String, scope: String, createdAt: Date) {
+            self.accessToken = accessToken
+            self.tokenType = tokenType
+            self.scope = scope
+            self.createdAt = createdAt
+        }
         
         enum CodingKeys: String, CodingKey {
             case accessToken = "access_token"

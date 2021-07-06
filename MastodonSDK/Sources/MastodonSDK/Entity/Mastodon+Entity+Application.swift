@@ -17,7 +17,7 @@ extension Mastodon.Entity {
     /// # Reference
     ///  [Document](https://docs.joinmastodon.org/entities/application/)
     public struct Application: Codable {
-        
+
         public let name: String
 
         public let website: String?
@@ -27,6 +27,15 @@ extension Mastodon.Entity {
         public let redirectURI: String?      // undocumented
         public let clientID: String?
         public let clientSecret: String?
+
+        public init(name: String, website: String?, vapidKey: String?, redirectURI: String?, clientID: String?, clientSecret: String?) {
+            self.name = name
+            self.website = website
+            self.vapidKey = vapidKey
+            self.redirectURI = redirectURI
+            self.clientID = clientID
+            self.clientSecret = clientSecret
+        }
         
         enum CodingKeys: String, CodingKey {
             case name

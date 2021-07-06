@@ -37,4 +37,17 @@ final class MastodonConfirmEmailViewModel {
         self.userToken = userToken
         self.updateCredentialQuery = updateCredentialQuery
     }
+
+    #if DEBUG
+    init() {
+        self.context = AppContext.shared
+        self.email = "example.com"
+        self.authenticateInfo = AuthenticationViewModel.AuthenticateInfo(
+            domain: "",
+            application: Mastodon.Entity.Application(name: "", website: nil, vapidKey: nil, redirectURI: nil, clientID: "clientID", clientSecret: "clientSecret")
+        )!
+        self.userToken = Mastodon.Entity.Token(accessToken: "", tokenType: "", scope: "", createdAt: Date())
+        self.updateCredentialQuery = Mastodon.API.Account.UpdateCredentialQuery(discoverable: nil, bot: nil, displayName: nil, note: nil, avatar: nil, header: nil, locked: nil, source: nil, fieldsAttributes: nil)
+    }
+    #endif
 }
