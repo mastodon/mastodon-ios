@@ -31,7 +31,11 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showWelcomeAction(action)
                 },
-                UIAction(title: "Show Or Remove EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
+                UIAction(title: "Show Confirm Email", image: UIImage(systemName: "envelope"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showConfirmEmail(action)
+                },
+                UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     if self.emptyView.superview != nil {
                         self.emptyView.removeFromSuperview()
@@ -309,6 +313,11 @@ extension HomeTimelineViewController {
     
     @objc private func showWelcomeAction(_ sender: UIAction) {
         coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+    }
+
+    @objc private func showConfirmEmail(_ sender: UIAction) {
+        let mastodonConfirmEmailViewModel = MastodonConfirmEmailViewModel()
+        coordinator.present(scene: .mastodonConfirmEmail(viewModel: mastodonConfirmEmailViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func showPublicTimelineAction(_ sender: UIAction) {
