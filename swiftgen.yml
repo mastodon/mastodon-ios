@@ -1,5 +1,7 @@
 strings:
-  inputs: Mastodon/Resources/en.lproj/Localizable.strings
+  inputs:
+    - Mastodon/Resources/en.lproj/Localizable.strings
+    - Mastodon/Resources/en.lproj/Localizable.stringsdict
   outputs:
     - templateName: structured-swift5
       output: Mastodon/Generated/Strings.swift

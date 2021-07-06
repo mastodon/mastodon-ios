@@ -129,14 +129,6 @@
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
                     "vote": "Vote",
-                    "vote_count": {
-                        "single": "%d vote",
-                        "multiple": "%d votes"
-                    },
-                    "voter_count": {
-                        "single": "%d voter",
-                        "multiple": "%d voters"
-                    },
                     "time_left": "%s left",
                     "closed": "Closed"
                 },
@@ -199,12 +191,6 @@
                     "count_reblogs": "%s reblogs",
                     "count_favorites": "%s favorites"
                 }
-            }
-        },
-        "countable": {
-            "photo": {
-                "single": "photo",
-                "multiple": "photos"
             }
         }
     },
@@ -386,8 +372,6 @@
                 "direct": "Only people I mention"
             },
             "auto_complete": {
-                "single_people_talking": "%ld people talking",
-                "multiple_people_talking": "%ld people talking",
                 "space_to_add": "Space to add"
             },
             "accessibility": {
@@ -411,7 +395,6 @@
             }
         },
         "profile": {
-            "subtitle": "%s posts",
             "dashboard": {
                 "posts": "posts",
                 "following": "following",
@@ -499,15 +482,7 @@
         },
         "thread": {
             "back_title": "Post",
-            "title": "Post from %s",
-            "reblog": {
-                "single": "%s reblog",
-                "multiple": "%s reblogs"
-            },
-            "favorite": {
-                "single": "%s favorite",
-                "multiple": "%s favorites"
-            }
+            "title": "Post from %s"
         },
         "settings": {
             "title": "Settings",

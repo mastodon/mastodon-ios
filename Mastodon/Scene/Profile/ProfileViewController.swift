@@ -322,7 +322,7 @@ extension ProfileViewController {
                 self.titleView.isHidden = true
                 return
             }
-            let subtitle = L10n.Scene.Profile.subtitle(formattedStatusCount)
+            let subtitle = L10n.Plural.Count.MetricFormatted.post(formattedStatusCount, statusesCount)
             self.titleView.update(title: title, subtitle: subtitle, emojiDict: emojiDict)
             self.titleView.isHidden = false
         }

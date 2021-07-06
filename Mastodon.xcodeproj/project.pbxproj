@@ -242,6 +242,7 @@
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
+		DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB443CD0269415D200159B29 /* Localizable.stringsdict */; };
 		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
 		DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */; };
 		DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */; };
@@ -875,6 +876,8 @@
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		DB443CCF269415D200159B29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DB443CD1269415D800159B29 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
 		DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerSection.swift; sourceTree = "<group>"; };
 		DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerItem.swift; sourceTree = "<group>"; };
@@ -1831,6 +1834,7 @@
 				164F0EBB267D4FE400249499 /* BoopSound.caf */,
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
+				DB443CD0269415D200159B29 /* Localizable.stringsdict */,
 				DB3D100F25BAA75E00EAA174 /* Localizable.strings */,
 				DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */,
 			);
@@ -2933,6 +2937,7 @@
 			files = (
 				164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */,
 				DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */,
+				DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */,
 				DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */,
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
@@ -3748,6 +3753,16 @@
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
+		};
+		DB443CD0269415D200159B29 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB443CCF269415D200159B29 /* en */,
+				DB443CD1269415D800159B29 /* ar */,
+			);
+			name = Localizable.stringsdict;
+			path = /Users/mainasuk/Developer/Mastodon/Mastodon/Resources;
+			sourceTree = "<absolute>";
 		};
 /* End PBXVariantGroup section */
 
