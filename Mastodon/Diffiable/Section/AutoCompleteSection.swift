@@ -55,11 +55,7 @@ extension AutoCompleteSection {
                 .prefix(2)
                 .compactMap { Int($0.accounts) }
                 .reduce(0, +)
-            if count > 1 {
-                return L10n.Scene.Compose.AutoComplete.multiplePeopleTalking(count)
-            } else {
-                return L10n.Scene.Compose.AutoComplete.singlePeopleTalking(count)
-            }
+            return L10n.Plural.peopleTalking(count)
         }()
         cell.avatarImageView.isHidden = true
     }

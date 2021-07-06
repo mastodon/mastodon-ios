@@ -165,7 +165,7 @@ final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
-        label.text = L10n.Common.Controls.Status.Poll.VoteCount.single(0)
+        label.text = L10n.Plural.Count.vote(0)
         return label
     }()
     let pollStatusDotLabel: UILabel = {
