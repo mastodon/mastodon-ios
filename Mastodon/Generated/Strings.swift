@@ -299,26 +299,6 @@ internal enum L10n {
           }
           /// Vote
           internal static let vote = L10n.tr("Localizable", "Common.Controls.Status.Poll.Vote")
-          internal enum VoteCount {
-            /// %d votes
-            internal static func multiple(_ p1: Int) -> String {
-              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Multiple", p1)
-            }
-            /// %d vote
-            internal static func single(_ p1: Int) -> String {
-              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoteCount.Single", p1)
-            }
-          }
-          internal enum VoterCount {
-            /// %d voters
-            internal static func multiple(_ p1: Int) -> String {
-              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoterCount.Multiple", p1)
-            }
-            /// %d voter
-            internal static func single(_ p1: Int) -> String {
-              return L10n.tr("Localizable", "Common.Controls.Status.Poll.VoterCount.Single", p1)
-            }
-          }
         }
         internal enum Tag {
           /// Email
@@ -400,14 +380,6 @@ internal enum L10n {
         }
       }
     }
-    internal enum Countable {
-      internal enum Photo {
-        /// photos
-        internal static let multiple = L10n.tr("Localizable", "Common.Countable.Photo.Multiple")
-        /// photo
-        internal static let single = L10n.tr("Localizable", "Common.Countable.Photo.Single")
-      }
-    }
   }
 
   internal enum Scene {
@@ -459,14 +431,6 @@ internal enum L10n {
         internal static let video = L10n.tr("Localizable", "Scene.Compose.Attachment.Video")
       }
       internal enum AutoComplete {
-        /// %ld people talking
-        internal static func multiplePeopleTalking(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "Scene.Compose.AutoComplete.MultiplePeopleTalking", p1)
-        }
-        /// %ld people talking
-        internal static func singlePeopleTalking(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "Scene.Compose.AutoComplete.SinglePeopleTalking", p1)
-        }
         /// Space to add
         internal static let spaceToAdd = L10n.tr("Localizable", "Scene.Compose.AutoComplete.SpaceToAdd")
       }
@@ -634,10 +598,6 @@ internal enum L10n {
       }
     }
     internal enum Profile {
-      /// %@ posts
-      internal static func subtitle(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Profile.Subtitle", String(describing: p1))
-      }
       internal enum Dashboard {
         /// followers
         internal static let followers = L10n.tr("Localizable", "Scene.Profile.Dashboard.Followers")
@@ -950,6 +910,12 @@ internal enum L10n {
     internal enum Settings {
       /// Settings
       internal static let title = L10n.tr("Localizable", "Scene.Settings.Title")
+      internal enum Footer {
+        /// Mastodon is open source software. You can contribute or report issues on GitHub at %@ (%@)
+        internal static func mastodonDescription(_ p1: Any, _ p2: Any) -> String {
+          return L10n.tr("Localizable", "Scene.Settings.Footer.MastodonDescription", String(describing: p1), String(describing: p2))
+        }
+      }
       internal enum Keyboard {
         /// Close Settings Window
         internal static let closeSettingsWindow = L10n.tr("Localizable", "Scene.Settings.Keyboard.CloseSettingsWindow")
@@ -1026,30 +992,41 @@ internal enum L10n {
       internal static func title(_ p1: Any) -> String {
         return L10n.tr("Localizable", "Scene.Thread.Title", String(describing: p1))
       }
-      internal enum Favorite {
-        /// %@ favorites
-        internal static func multiple(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Thread.Favorite.Multiple", String(describing: p1))
-        }
-        /// %@ favorite
-        internal static func single(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Thread.Favorite.Single", String(describing: p1))
-        }
-      }
-      internal enum Reblog {
-        /// %@ reblogs
-        internal static func multiple(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Thread.Reblog.Multiple", String(describing: p1))
-        }
-        /// %@ reblog
-        internal static func single(_ p1: Any) -> String {
-          return L10n.tr("Localizable", "Scene.Thread.Reblog.Single", String(describing: p1))
-        }
-      }
     }
     internal enum Welcome {
       /// Social networking\nback in your hands.
       internal static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan")
+    }
+  }
+
+  internal enum Plural {
+    /// Plural format key: "%#@count_people_talking@"
+    internal static func peopleTalking(_ p1: Int) -> String {
+      return L10n.tr("Localizable", "plural.people_talking", p1)
+    }
+    internal enum Count {
+      /// Plural format key: "%#@favorite_count@"
+      internal static func favorite(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.favorite", p1)
+      }
+      /// Plural format key: "%#@reblog_count@"
+      internal static func reblog(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.reblog", p1)
+      }
+      /// Plural format key: "%#@vote_count@"
+      internal static func vote(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.vote", p1)
+      }
+      /// Plural format key: "%#@voter_count@"
+      internal static func voter(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.voter", p1)
+      }
+      internal enum MetricFormatted {
+        /// Plural format key: "%@ %#@post_count@"
+        internal static func post(_ p1: Any, _ p2: Int) -> String {
+          return L10n.tr("Localizable", "plural.count.metric_formatted.post", String(describing: p1), p2)
+        }
+      }
     }
   }
 }

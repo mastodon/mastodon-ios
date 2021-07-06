@@ -102,7 +102,13 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.register(SettingsLinkTableViewCell.self, forCellReuseIdentifier: String(describing: SettingsLinkTableViewCell.self))
         return tableView
     }()
-    
+
+    let tableFooterActiveLabel: ActiveLabel = {
+        let label = ActiveLabel(style: .default)
+        label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = .center
+        return label
+    }()
     lazy var tableFooterView: UIView = {
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
         let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
@@ -110,14 +116,9 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         view.axis = .vertical
         view.alignment = .center
-        
-        let label = ActiveLabel(style: .default)
-        label.adjustsFontForContentSizeCategory = true
-        label.textAlignment = .center
-        label.configure(content: "Mastodon is open source software. You can contribute or report issues on GitHub at <a href=\"https://github.com/tootsuite/mastodon\">tootsuite/mastodon</a> (v3.3.0).", emojiDict: [:])
-        label.delegate = self
-        
-        view.addArrangedSubview(label)
+
+        tableFooterActiveLabel.delegate = self
+        view.addArrangedSubview(tableFooterActiveLabel)
         return view
     }()
     
@@ -190,30 +191,26 @@ class SettingsViewController: UIViewController, NeedsDependency {
                     }
             }
             .store(in: &disposeBag)
+
+        viewModel.currentInstance
+            .receive(on: RunLoop.main)
+            .sink { [weak self] instance in
+                guard let self = self else { return }
+                let version = instance?.version ?? "-"
+                let link = #"<a href="https://github.com/tootsuite/mastodon">tootsuite/mastodon</a>"#
+                let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
+                self.tableFooterActiveLabel.configure(content: content, emojiDict: [:])
+            }
+            .store(in: &disposeBag)
     }
     
     private func setupView() {
-        self.view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-            switch traitCollection.userInterfaceLevel {
-            case .elevated where traitCollection.userInterfaceStyle == .dark:
-                return ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
-            default:
-                return ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
-            }
-        })
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-                    switch traitCollection.userInterfaceLevel {
-                    case .elevated where traitCollection.userInterfaceStyle == .dark:
-                        return theme.systemElevatedBackgroundColor
-                    default:
-                        return theme.secondarySystemBackgroundColor
-                    }
-                })
-
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
 
@@ -228,6 +225,17 @@ class SettingsViewController: UIViewController, NeedsDependency {
         setupTableView()
         
         updateSectionHeaderStackViewLayout()
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceLevel {
+            case .elevated where traitCollection.userInterfaceStyle == .dark:
+                return theme.systemElevatedBackgroundColor
+            default:
+                return theme.secondarySystemBackgroundColor
+            }
+        })
     }
     
     private func setupNavigation() {

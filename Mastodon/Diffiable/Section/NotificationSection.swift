@@ -46,10 +46,6 @@ extension NotificationSection {
                     ),
                     into: cell.avatarImageView
                 )
-                cell.avatarImageView.gesture().sink { [weak cell] _ in
-                    cell?.delegate?.userAvatarDidPressed(notification: notification)
-                }
-                .store(in: &cell.disposeBag)
                 cell.actionImageView.image = UIImage(
                     systemName: notification.notificationType.actionImageName,
                     withConfiguration: UIImage.SymbolConfiguration(

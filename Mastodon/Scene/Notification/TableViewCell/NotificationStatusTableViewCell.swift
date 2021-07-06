@@ -5,14 +5,33 @@
 //  Created by sxiaojian on 2021/4/14.
 //
 
+import os.log
 import Combine
 import Foundation
+import CoreDataStack
 import UIKit
 import ActiveLabel
 import MetaTextView
 import Meta
 import FLAnimatedImage
 import Nuke
+
+protocol NotificationTableViewCellDelegate: AnyObject {
+    var context: AppContext! { get }
+    func parent() -> UIViewController
+
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, avatarImageViewDidPressed imageView: UIImageView)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, authorNameLabelDidPressed label: ActiveLabel)
+
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
+
+    func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton)
+    func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton)
+
+}
 
 final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
 
@@ -219,13 +238,12 @@ extension NotificationStatusTableViewCell {
             statusView.bottomAnchor.constraint(equalTo: statusContainerView.layoutMarginsGuide.bottomAnchor),
         ])
 
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-                    return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
-                })
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
         // remove item don't display
@@ -246,7 +264,14 @@ extension NotificationStatusTableViewCell {
         ])
 
         statusView.delegate = self
-        
+
+        let avatarImageViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        avatarImageViewTapGestureRecognizer.addTarget(self, action: #selector(NotificationStatusTableViewCell.avatarImageViewTapGestureRecognizerHandler(_:)))
+        avatarImageView.addGestureRecognizer(avatarImageViewTapGestureRecognizer)
+        let authorNameLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        authorNameLabelTapGestureRecognizer.addTarget(self, action: #selector(NotificationStatusTableViewCell.authorNameLabelTapGestureRecognizerHandler(_:)))
+        nameLabel.addGestureRecognizer(authorNameLabelTapGestureRecognizer)
+
         resetSeparatorLineLayout()
     }
 
@@ -258,6 +283,28 @@ extension NotificationStatusTableViewCell {
         statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
     }
 
+}
+
+extension NotificationStatusTableViewCell {
+
+    private func setupBackgroundColor(theme: Theme) {
+        statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
+        })
+    }
+
+}
+
+extension NotificationStatusTableViewCell {
+    @objc private func avatarImageViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.notificationStatusTableViewCell(self, avatarImageViewDidPressed: avatarImageView)
+    }
+
+    @objc private func authorNameLabelTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.notificationStatusTableViewCell(self, authorNameLabelDidPressed: nameLabel)
+    }
 }
 
 // MARK: - StatusViewDelegate

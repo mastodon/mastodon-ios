@@ -12,6 +12,7 @@ import GameplayKit
 import MastodonSDK
 import OSLog
 import UIKit
+import ActiveLabel
 import Meta
 import MetaTextView
 
@@ -47,7 +48,8 @@ final class NotificationViewController: UIViewController, NeedsDependency {
 extension NotificationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
@@ -277,19 +279,41 @@ extension NotificationViewController: ContentOffsetAdjustableTimelineViewControl
 // MARK: - NotificationTableViewCellDelegate
 extension NotificationViewController: NotificationTableViewCellDelegate {
 
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, avatarImageViewDidPressed imageView: UIImageView) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .notification(let objectID, _):
+            guard let notification = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return }
+            let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
+            coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+        default:
+            break
+        }
+    }
+
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, authorNameLabelDidPressed label: ActiveLabel) {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        switch item {
+        case .notification(let objectID, _):
+            guard let notification = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return }
+            let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
+            coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+        default:
+            break
+        }
+    }
+
+
     func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton) {
         viewModel.acceptFollowRequest(notification: notification)
     }
     
     func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, rejectButtonDidPressed button: UIButton) {
         viewModel.rejectFollowRequest(notification: notification)
-    }
-    
-    func userAvatarDidPressed(notification: MastodonNotification) {
-        let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
-        DispatchQueue.main.async {
-            self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
-        }
     }
 
     func userNameLabelDidPressed(notification: MastodonNotification) {

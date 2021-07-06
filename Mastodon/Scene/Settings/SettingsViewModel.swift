@@ -32,6 +32,7 @@ class SettingsViewModel {
     /// - does not has one
     /// - does not find subscription for selected trigger when change trigger
     let createSubscriptionSubject = PassthroughSubject<(triggerBy: String, values: [Bool?]), Never>()
+    let currentInstance = CurrentValueSubject<Mastodon.Entity.Instance?, Never>(nil)
     
     /// update a subscription when:
     /// - change switch for specified alerts
@@ -54,6 +55,26 @@ class SettingsViewModel {
                 guard let self = self else { return }
                 self.processDataSource(setting)
             })
+            .store(in: &disposeBag)
+
+        context.authenticationService.activeMastodonAuthenticationBox
+            .compactMap { $0?.domain }
+            .map { context.apiService.instance(domain: $0) }
+            .switchToLatest()
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch instance fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    self.currentInstance.value = nil
+                case .finished:
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch instance success", ((#file as NSString).lastPathComponent), #line, #function)
+
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                self.currentInstance.value = response.value
+            }
             .store(in: &disposeBag)
     }
     

@@ -253,6 +253,8 @@ extension ComposeViewModel: UITableViewDataSource {
                     cell.statusContentWarningEditorView.alpha = 0
                     UIView.animate(withDuration: 0.33, delay: 0, options: [.curveEaseOut]) {
                         cell.statusContentWarningEditorView.alpha = 1
+                        tableView.beginUpdates()
+                        tableView.endUpdates()
                     } completion: { _ in
                         // do nothing
                     }

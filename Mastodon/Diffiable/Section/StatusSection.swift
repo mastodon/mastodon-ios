@@ -479,21 +479,13 @@ extension StatusSection {
         cell.threadMetaView.dateLabel.accessibilityLabel = DateFormatter.localizedString(from: status.createdAt, dateStyle: .medium, timeStyle: .short)
         let reblogCountTitle: String = {
             let count = status.reblogsCount.intValue
-            if count > 1 {
-                return L10n.Scene.Thread.Reblog.multiple(String(count))
-            } else {
-                return L10n.Scene.Thread.Reblog.single(String(count))
-            }
+            return L10n.Plural.Count.reblog(count)
         }()
         cell.threadMetaView.reblogButton.setTitle(reblogCountTitle, for: .normal)
         
         let favoriteCountTitle: String = {
             let count = status.favouritesCount.intValue
-            if count > 1 {
-                return L10n.Scene.Thread.Favorite.multiple(String(count))
-            } else {
-                return L10n.Scene.Thread.Favorite.single(String(count))
-            }
+            return L10n.Plural.Count.favorite(count)
         }()
         cell.threadMetaView.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
         
@@ -832,18 +824,10 @@ extension StatusSection {
         cell.statusView.pollVoteCountLabel.text = {
             if poll.multiple {
                 let count = poll.votersCount?.intValue ?? 0
-                if count > 1 {
-                    return L10n.Common.Controls.Status.Poll.VoterCount.single(count)
-                } else {
-                    return L10n.Common.Controls.Status.Poll.VoterCount.multiple(count)
-                }
+                return L10n.Plural.Count.voter(count)
             } else {
                 let count = poll.votesCount.intValue
-                if count > 1 {
-                    return L10n.Common.Controls.Status.Poll.VoteCount.single(count)
-                } else {
-                    return L10n.Common.Controls.Status.Poll.VoteCount.multiple(count)
-                }
+                return L10n.Plural.Count.vote(count)
             }
         }()
         if poll.expired {
