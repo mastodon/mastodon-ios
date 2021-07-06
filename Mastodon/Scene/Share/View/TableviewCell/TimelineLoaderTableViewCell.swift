@@ -16,13 +16,14 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     static let labelFont = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .medium))
     
     var disposeBag = Set<AnyCancellable>()
+
+    private var _disposeBag = Set<AnyCancellable>()
         
     let stackView = UIStackView()
 
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
-        button.backgroundColor = Asset.Colors.Background.systemBackground.color
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Common.Controls.Timeline.Loader.loadMissingPosts, for: .normal)
         button.setTitle("", for: .disabled)
@@ -114,6 +115,19 @@ class TimelineLoaderTableViewCell: UITableViewCell {
         loadMoreButton.isHidden = true
         loadMoreLabel.isHidden = true
         activityIndicatorView.isHidden = true
+
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &_disposeBag)
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        loadMoreButton.backgroundColor = theme.systemBackgroundColor
     }
     
 }
