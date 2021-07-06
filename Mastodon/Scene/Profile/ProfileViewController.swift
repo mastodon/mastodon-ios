@@ -141,7 +141,8 @@ extension ProfileViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
@@ -495,7 +496,8 @@ extension ProfileViewController {
             let isNeedSetHidden = isBlocking || isBlockedBy || suspended
             self.profileHeaderViewController.viewModel.needsSetupBottomShadow.value = !isNeedSetHidden
             self.profileHeaderViewController.profileHeaderView.bioContainerView.isHidden = isNeedSetHidden
-            self.profileHeaderViewController.pageSegmentedControl.isHidden = isNeedSetHidden
+            self.profileHeaderViewController.viewModel.needsFiledCollectionViewHidden.value = isNeedSetHidden
+            self.profileHeaderViewController.pageSegmentedControl.isEnabled = !isNeedSetHidden
             self.viewModel.needsPagePinToTop.value = isNeedSetHidden
         }
         .store(in: &disposeBag)
@@ -530,7 +532,7 @@ extension ProfileViewController {
                 self.profileHeaderViewController.profileHeaderView.statusDashboardView.followersDashboardMeterView.accessibilityLabel = L10n.Scene.Profile.Dashboard.Accessibility.countFollowers(count ?? 0)
             }
             .store(in: &disposeBag)
-        viewModel.needsPaingEnabled
+        viewModel.needsPagingEnabled
             .receive(on: RunLoop.main)
             .sink { [weak self] needsPaingEnabled in
                 guard let self = self else { return }

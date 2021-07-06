@@ -58,7 +58,8 @@ extension HashtagTimelineViewController {
         title = "#\(viewModel.hashtag)"
         titleView.update(title: viewModel.hashtag, subtitle: nil, emojiDict: [:])
         navigationItem.titleView = titleView
-        
+
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in

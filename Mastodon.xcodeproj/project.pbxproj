@@ -55,7 +55,6 @@
 		2D34D9DB261494120081BFC0 /* APIService+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9DA261494120081BFC0 /* APIService+Search.swift */; };
 		2D34D9E226149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D34D9E126149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift */; };
 		2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35237926256D920031AF25 /* NotificationSection.swift */; };
-		2D35238126256F690031AF25 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D35238026256F690031AF25 /* NotificationTableViewCell.swift */; };
 		2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D364F7125E66D7500204FDC /* MastodonResendEmailViewController.swift */; };
 		2D364F7825E66D8300204FDC /* MastodonResendEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */; };
 		2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */; };
@@ -243,6 +242,7 @@
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
 		DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB443CD0269415D200159B29 /* Localizable.stringsdict */; };
+		DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB443CD32694627B00159B29 /* AppearanceView.swift */; };
 		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
 		DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */; };
 		DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */; };
@@ -666,7 +666,6 @@
 		2D34D9DA261494120081BFC0 /* APIService+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Search.swift"; sourceTree = "<group>"; };
 		2D34D9E126149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRecommendTagsCollectionViewCell.swift; sourceTree = "<group>"; };
 		2D35237926256D920031AF25 /* NotificationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSection.swift; sourceTree = "<group>"; };
-		2D35238026256F690031AF25 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		2D364F7125E66D7500204FDC /* MastodonResendEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewController.swift; sourceTree = "<group>"; };
 		2D364F7725E66D8300204FDC /* MastodonResendEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonResendEmailViewModel.swift; sourceTree = "<group>"; };
 		2D38F1C525CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentOffsetAdjustableTimelineViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -878,6 +877,7 @@
 		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		DB443CCF269415D200159B29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DB443CD1269415D800159B29 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
 		DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerSection.swift; sourceTree = "<group>"; };
 		DB44768A260B3F2100B66B82 /* CustomEmojiPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerItem.swift; sourceTree = "<group>"; };
@@ -1362,7 +1362,6 @@
 		2D35237F26256F470031AF25 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				2D35238026256F690031AF25 /* NotificationTableViewCell.swift */,
 				2D24E11C2626D8B100A59D4F /* NotificationStatusTableViewCell.swift */,
 			);
 			path = TableViewCell;
@@ -1725,6 +1724,7 @@
 			children = (
 				5B90C458262599800002E742 /* Cell */,
 				5B90C45C262599800002E742 /* SettingsSectionHeader.swift */,
+				DB443CD32694627B00159B29 /* AppearanceView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3203,6 +3203,7 @@
 				2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */,
 				DBD376AA2692EA4F007FEC24 /* Theme.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
+				DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB92CF7225E7BB98002C1017 /* PollOptionTableViewCell.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
@@ -3278,7 +3279,6 @@
 				DBF9814A265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift in Sources */,
 				2D939AB525EDD8A90076FA61 /* String.swift in Sources */,
 				DB4481B925EE289600BEFB67 /* UITableView.swift in Sources */,
-				2D35238126256F690031AF25 /* NotificationTableViewCell.swift in Sources */,
 				DBE3CDBB261C427900430CC6 /* TimelineHeaderTableViewCell.swift in Sources */,
 				DBCBCBFF2680AE98000F5B51 /* AsyncHomeTimelineViewModel.swift in Sources */,
 				0FAA101C25E10E760017CCDE /* UIFont.swift in Sources */,
@@ -4829,7 +4829,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.2.4;
+				version = 1.2.5;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {

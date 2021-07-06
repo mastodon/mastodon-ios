@@ -80,8 +80,8 @@ extension HomeTimelineViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         title = L10n.Scene.HomeTimeline.title
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
