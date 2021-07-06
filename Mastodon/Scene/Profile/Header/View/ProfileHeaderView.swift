@@ -218,7 +218,7 @@ final class ProfileHeaderView: UIView {
         collectionView.isScrollEnabled = false
         return collectionView
     }()
-    var fieldCollectionViewHeightLaoutConstraint: NSLayoutConstraint!
+    var fieldCollectionViewHeightLayoutConstraint: NSLayoutConstraint!
     var fieldCollectionViewHeightObservation: NSKeyValueObservation?
     
     override init(frame: CGRect) {
@@ -239,6 +239,8 @@ final class ProfileHeaderView: UIView {
 
 extension ProfileHeaderView {
     private func _init() {
+        backgroundColor = ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
+        fieldCollectionView.backgroundColor = ThemeService.shared.currentTheme.value.profileFieldCollectionViewBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
@@ -427,17 +429,17 @@ extension ProfileHeaderView {
         
         fieldCollectionView.translatesAutoresizingMaskIntoConstraints = false
         metaContainerStackView.addArrangedSubview(fieldCollectionView)
-        fieldCollectionViewHeightLaoutConstraint = fieldCollectionView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
+        fieldCollectionViewHeightLayoutConstraint = fieldCollectionView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh)
         NSLayoutConstraint.activate([
-            fieldCollectionViewHeightLaoutConstraint,
+            fieldCollectionViewHeightLayoutConstraint,
         ])
         fieldCollectionViewHeightObservation = fieldCollectionView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
             guard let self = self else { return }
             guard self.fieldCollectionView.contentSize.height != .zero else {
-                self.fieldCollectionViewHeightLaoutConstraint.constant = 44
+                self.fieldCollectionViewHeightLayoutConstraint.constant = 44
                 return
             }
-            self.fieldCollectionViewHeightLaoutConstraint.constant = self.fieldCollectionView.contentSize.height
+            self.fieldCollectionViewHeightLayoutConstraint.constant = self.fieldCollectionView.contentSize.height
         })
         
         bringSubviewToFront(bannerContainerView)

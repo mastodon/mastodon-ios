@@ -222,13 +222,18 @@ extension ProfileHeaderViewController {
             }
             .store(in: &disposeBag)
         
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             viewModel.isEditing,
-            viewModel.displayProfileInfo.fields
+            viewModel.displayProfileInfo.fields,
+            viewModel.needsFiledCollectionViewHidden
         )
         .receive(on: RunLoop.main)
-        .sink { [weak self] isEditing, fields in
+        .sink { [weak self] isEditing, fields, needsHidden in
             guard let self = self else { return }
+            guard !needsHidden else {
+                self.profileHeaderView.fieldCollectionView.isHidden = true
+                return
+            }
             self.profileHeaderView.fieldCollectionView.isHidden = isEditing ? false : fields.isEmpty
         }
         .store(in: &disposeBag)

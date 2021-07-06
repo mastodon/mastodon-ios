@@ -63,7 +63,7 @@ class ProfileViewModel: NSObject {
     let isMeBarButtonItemsHidden = CurrentValueSubject<Bool, Never>(true)
 
     let needsPagePinToTop = CurrentValueSubject<Bool, Never>(false)
-    let needsPaingEnabled = CurrentValueSubject<Bool, Never>(true)
+    let needsPagingEnabled = CurrentValueSubject<Bool, Never>(true)
     let needsImageOverlayBlurred = CurrentValueSubject<Bool, Never>(false)
     
     init(context: AppContext, optionalMastodonUser mastodonUser: MastodonUser?) {
@@ -161,7 +161,7 @@ class ProfileViewModel: NSObject {
 
         isBlockingOrBlocked
             .map { !$0 }
-            .assign(to: \.value, on: needsPaingEnabled)
+            .assign(to: \.value, on: needsPagingEnabled)
             .store(in: &disposeBag)
 
         isBlockingOrBlocked

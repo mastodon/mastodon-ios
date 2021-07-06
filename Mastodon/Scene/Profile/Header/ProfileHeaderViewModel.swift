@@ -22,6 +22,7 @@ final class ProfileHeaderViewModel {
     let isEditing = CurrentValueSubject<Bool, Never>(false)
     let viewDidAppear = CurrentValueSubject<Bool, Never>(false)
     let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
+    let needsFiledCollectionViewHidden = CurrentValueSubject<Bool, Never>(false)
     let isTitleViewContentOffsetSet = CurrentValueSubject<Bool, Never>(false)
     let emojiDict = CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>([:])
     let accountForEdit = CurrentValueSubject<Mastodon.Entity.Account?, Never>(nil)
