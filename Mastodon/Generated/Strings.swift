@@ -110,6 +110,8 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm")
         /// Continue
         internal static let `continue` = L10n.tr("Localizable", "Common.Controls.Actions.Continue")
+        /// Copy Photo
+        internal static let copyPhoto = L10n.tr("Localizable", "Common.Controls.Actions.CopyPhoto")
         /// Delete
         internal static let delete = L10n.tr("Localizable", "Common.Controls.Actions.Delete")
         /// Discard
@@ -144,7 +146,7 @@ internal enum L10n {
         }
         /// Save
         internal static let save = L10n.tr("Localizable", "Common.Controls.Actions.Save")
-        /// Save photo
+        /// Save Photo
         internal static let savePhoto = L10n.tr("Localizable", "Common.Controls.Actions.SavePhoto")
         /// See More
         internal static let seeMore = L10n.tr("Localizable", "Common.Controls.Actions.SeeMore")
@@ -152,7 +154,7 @@ internal enum L10n {
         internal static let settings = L10n.tr("Localizable", "Common.Controls.Actions.Settings")
         /// Share
         internal static let share = L10n.tr("Localizable", "Common.Controls.Actions.Share")
-        /// Share post
+        /// Share Post
         internal static let sharePost = L10n.tr("Localizable", "Common.Controls.Actions.SharePost")
         /// Share %@
         internal static func shareUser(_ p1: Any) -> String {
@@ -164,7 +166,7 @@ internal enum L10n {
         internal static let signUp = L10n.tr("Localizable", "Common.Controls.Actions.SignUp")
         /// Skip
         internal static let skip = L10n.tr("Localizable", "Common.Controls.Actions.Skip")
-        /// Take photo
+        /// Take Photo
         internal static let takePhoto = L10n.tr("Localizable", "Common.Controls.Actions.TakePhoto")
         /// Try Again
         internal static let tryAgain = L10n.tr("Localizable", "Common.Controls.Actions.TryAgain")

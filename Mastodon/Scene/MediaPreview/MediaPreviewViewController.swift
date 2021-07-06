@@ -226,6 +226,24 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
             case .local(let meta):
                 context.photoLibraryService.save(image: meta.image, withNotificationFeedback: true)
             }
+        case .copyPhoto:
+            switch viewController.viewModel.item {
+            case .status(let meta):
+                context.photoLibraryService.copyImage(url: meta.url)
+                    .sink { completion in
+                        switch completion {
+                        case .failure(let error):
+                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        case .finished:
+                            break
+                        }
+                    } receiveValue: { _ in
+                        // do nothing
+                    }
+                    .store(in: &context.disposeBag)
+            case .local(let meta):
+                context.photoLibraryService.copy(image: meta.image, withNotificationFeedback: true)
+            }
         case .share:
             let applicationActivities: [UIActivity] = [
                 SafariActivity(sceneCoordinator: self.coordinator)
@@ -236,6 +254,7 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
             )
             activityViewController.popoverPresentationController?.sourceView = viewController.previewImageView.imageView
             self.present(activityViewController, animated: true, completion: nil)
+
         }
     }
     
