@@ -189,6 +189,31 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                         })
                         .store(in: &self.context.disposeBag)
                 }
+                let copyPhotoAction = UIAction(
+                    title: L10n.Common.Controls.Actions.copyPhoto,
+                    image: UIImage(systemName: "doc.on.doc"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
+                ) { [weak self] _ in
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo", ((#file as NSString).lastPathComponent), #line, #function)
+                    guard let self = self else { return }
+                    self.attachment(of: status, index: i)
+                        .setFailureType(to: Error.self)
+                        .compactMap { attachment -> AnyPublisher<UIImage, Error>? in
+                            guard let attachment = attachment, let url = URL(string: attachment.url) else { return nil }
+                            return self.context.photoLibraryService.copyImage(url: url)
+                        }
+                        .switchToLatest()
+                        .sink(receiveCompletion: { completion in
+                            switch completion {
+                            case .failure(let error):
+                                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                            case .finished:
+                                break
+                            }
+                        }, receiveValue: { _ in
+                            // do nothing
+                        })
+                        .store(in: &self.context.disposeBag)
+                }
                 let shareAction = UIAction(
                     title: L10n.Common.Controls.Actions.share, image: UIImage(systemName: "square.and.arrow.up")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
                 ) { [weak self] _ in
@@ -210,7 +235,7 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                         })
                         .store(in: &self.context.disposeBag)
                 }
-                let children = [savePhotoAction, shareAction]
+                let children = [savePhotoAction, copyPhotoAction, shareAction]
                 return UIMenu(title: "", image: nil, children: children)
             }
             contextMenuConfiguration.indexPath = indexPath

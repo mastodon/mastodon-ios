@@ -133,6 +133,14 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
             guard let self = self else { return }
             self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .savePhoto)
         }
+
+        let copyAction = UIAction(
+            title: L10n.Common.Controls.Actions.copyPhoto, image: UIImage(systemName: "doc.on.doc")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
+        ) { [weak self] _ in
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo", ((#file as NSString).lastPathComponent), #line, #function)
+            guard let self = self else { return }
+            self.delegate?.mediaPreviewImageViewController(self, contextMenuActionPerform: .copyPhoto)
+        }
         
         let shareAction = UIAction(
             title: L10n.Common.Controls.Actions.share, image: UIImage(systemName: "square.and.arrow.up")!, identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off
@@ -145,6 +153,7 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
         let actionProvider: UIContextMenuActionProvider = { elements -> UIMenu?  in
             return UIMenu(title: "", image: nil, identifier: nil, options: [], children: [
                 saveAction,
+                copyAction,
                 shareAction
             ])
         }
@@ -162,6 +171,7 @@ extension MediaPreviewImageViewController: UIContextMenuInteractionDelegate {
 extension MediaPreviewImageViewController {
     enum ContextMenuAction {
         case savePhoto
+        case copyPhoto
         case share
     }
 }

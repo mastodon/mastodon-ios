@@ -1005,7 +1005,8 @@ extension StatusSection {
     private static func setupStatusMoreButtonMenu(
         cell: StatusTableViewCell,
         dependency: NeedsDependency,
-        status: Status) {
+        status: Status
+    ) {
         
         guard let userProvider = dependency as? UserProvider else { fatalError() }
         
