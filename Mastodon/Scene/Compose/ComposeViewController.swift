@@ -860,20 +860,45 @@ extension ComposeViewController {
 
         let repliedToCellFrame = viewModel.repliedToCellFrame.value
         guard repliedToCellFrame != .zero else { return }
-        let throttle = viewModel.repliedToCellFrame.value.height - scrollView.adjustedContentInset.top
-        // print("\(throttle) - \(scrollView.contentOffset.y)")
+
+         // try to find some patterns:
+         // print("""
+         // repliedToCellFrame: \(viewModel.repliedToCellFrame.value.height)
+         // scrollView.contentOffset.y: \(scrollView.contentOffset.y)
+         // scrollView.contentSize.height: \(scrollView.contentSize.height)
+         // scrollView.frame: \(scrollView.frame)
+         // scrollView.adjustedContentInset.top: \(scrollView.adjustedContentInset.top)
+         // scrollView.adjustedContentInset.bottom: \(scrollView.adjustedContentInset.bottom)
+         // """)
 
         switch viewModel.collectionViewState.value {
         case .fold:
-            if scrollView.contentOffset.y < throttle {
+            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
+            guard velocity.y < 0 else { return }
+            let offsetY = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+            if offsetY < -44 {
+                tableView.contentInset.top = 0
+                targetContentOffset.pointee = CGPoint(x: 0, y: -scrollView.adjustedContentInset.top)
                 viewModel.collectionViewState.value = .expand
             }
-            os_log("%{public}s[%{public}ld], %{public}s: fold", ((#file as NSString).lastPathComponent), #line, #function)
 
         case .expand:
-            if scrollView.contentOffset.y > -44 {
+            os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
+            guard velocity.y > 0 else { return }
+            // check if top across
+            let topOffset = (scrollView.contentOffset.y + scrollView.adjustedContentInset.top) - repliedToCellFrame.height
+
+            // check if bottom bounce
+            let bottomOffsetY = scrollView.contentOffset.y + (scrollView.frame.height - scrollView.adjustedContentInset.bottom)
+            let bottomOffset = bottomOffsetY - scrollView.contentSize.height
+
+            if topOffset > 44 {
+                // do not interrupt user scrolling
                 viewModel.collectionViewState.value = .fold
-                os_log("%{public}s[%{public}ld], %{public}s: expand", ((#file as NSString).lastPathComponent), #line, #function)
+            } else if bottomOffset > 44 {
+                tableView.contentInset.top = -repliedToCellFrame.height
+                targetContentOffset.pointee = CGPoint(x: 0, y: -repliedToCellFrame.height)
+                viewModel.collectionViewState.value = .fold
             }
         }
     }
@@ -910,7 +935,8 @@ extension ComposeViewController: UICollectionViewDelegate {
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
+        return .fullScreen
+        //return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
     }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {

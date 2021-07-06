@@ -57,29 +57,43 @@ extension StatusContentWarningEditorView {
             containerBackgroundView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 1024),
             containerBackgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-        
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(iconImageView)
+
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(containerStackView)
         NSLayoutConstraint.activate([
-            iconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            iconImageView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: StatusView.avatarImageSize.width).priority(.defaultHigh),    // center alignment to avatar
-        ])
-        iconImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
-        
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(textView)
-        NSLayoutConstraint.activate([
-            textView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            textView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 6).priority(.required - 1),
-            textView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: StatusView.avatarToLabelSpacing - 4),    // align to name label. minus magic 4pt to remove addition inset
-            textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-            bottomAnchor.constraint(greaterThanOrEqualTo: textView.bottomAnchor, constant: 6).priority(.required - 1),
-            //textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+            containerStackView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+            containerStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+            bottomAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 6),
         ])
 
-        textView.setContentHuggingPriority(.required - 1, for: .vertical)
-        textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        containerStackView.addArrangedSubview(iconImageView)
+        iconImageView.setContentHuggingPriority(.required - 1, for: .horizontal)
+        containerStackView.addArrangedSubview(textView)
+        
+//        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(iconImageView)
+//        NSLayoutConstraint.activate([
+//            iconImageView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+//            iconImageView.widthAnchor.constraint(equalToConstant: StatusView.avatarImageSize.width).priority(.defaultHigh),    // center alignment to avatar
+//        ])
+//        iconImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
+//
+//        textView.translatesAutoresizingMaskIntoConstraints = false
+//        addSubview(textView)
+//        NSLayoutConstraint.activate([
+//            textView.centerYAnchor.constraint(equalTo: centerYAnchor),
+//            textView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
+//            textView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: StatusView.avatarToLabelSpacing - 4),    // align to name label. minus magic 4pt to remove addition inset
+//            textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
+//            bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 6),
+//            textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+//        ])
+//
+//        textView.setContentHuggingPriority(.required - 1, for: .vertical)
+//        textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
     }
 }
 
