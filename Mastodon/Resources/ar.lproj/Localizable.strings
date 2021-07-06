@@ -310,6 +310,7 @@ any server.";
 "Scene.ServerRules.Subtitle" = "These rules are set by the admins of %@.";
 "Scene.ServerRules.TermsOfService" = "terms of service";
 "Scene.ServerRules.Title" = "Some ground rules.";
+"Scene.Settings.Footer.MastodonDescription" = "Mastodon is open source software. You can contribute or report issues on GitHub at %@ (%@)";
 "Scene.Settings.Keyboard.CloseSettingsWindow" = "Close Settings Window";
 "Scene.Settings.Section.Appearance.Automatic" = "Automatic";
 "Scene.Settings.Section.Appearance.Dark" = "Always Dark";

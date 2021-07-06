@@ -523,6 +523,9 @@
                     "signout": "Sign Out"
                 }
             },
+            "footer": {
+                "mastodon_description": "Mastodon is open source software. You can contribute or report issues on GitHub at %s (%s)"
+            },
             "keyboard": {
                 "close_settings_window": "Close Settings Window"
             }
