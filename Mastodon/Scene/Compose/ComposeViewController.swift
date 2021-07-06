@@ -144,13 +144,12 @@ extension ComposeViewController {
                 self.title = title
             }
             .store(in: &disposeBag)
-        view.backgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
+        self.setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.view.backgroundColor = theme.systemElevatedBackgroundColor
-                self.tableView.backgroundColor = theme.systemElevatedBackgroundColor
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
         navigationItem.leftBarButtonItem = cancelBarButtonItem
@@ -605,6 +604,11 @@ extension ComposeViewController {
         //     default:            return .black
         //     }
         // })
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        view.backgroundColor = theme.systemElevatedBackgroundColor
+        tableView.backgroundColor = theme.systemElevatedBackgroundColor
     }
 
 }

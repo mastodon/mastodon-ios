@@ -141,7 +141,8 @@ extension ProfileViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in

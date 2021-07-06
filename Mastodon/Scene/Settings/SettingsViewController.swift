@@ -205,27 +205,12 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }
     
     private func setupView() {
-        self.view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-            switch traitCollection.userInterfaceLevel {
-            case .elevated where traitCollection.userInterfaceStyle == .dark:
-                return ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor
-            default:
-                return ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
-            }
-        })
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-                    switch traitCollection.userInterfaceLevel {
-                    case .elevated where traitCollection.userInterfaceStyle == .dark:
-                        return theme.systemElevatedBackgroundColor
-                    default:
-                        return theme.secondarySystemBackgroundColor
-                    }
-                })
-
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
 
@@ -240,6 +225,17 @@ class SettingsViewController: UIViewController, NeedsDependency {
         setupTableView()
         
         updateSectionHeaderStackViewLayout()
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        view.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            switch traitCollection.userInterfaceLevel {
+            case .elevated where traitCollection.userInterfaceStyle == .dark:
+                return theme.systemElevatedBackgroundColor
+            default:
+                return theme.secondarySystemBackgroundColor
+            }
+        })
     }
     
     private func setupNavigation() {

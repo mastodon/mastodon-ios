@@ -238,13 +238,12 @@ extension NotificationStatusTableViewCell {
             statusView.bottomAnchor.constraint(equalTo: statusContainerView.layoutMarginsGuide.bottomAnchor),
         ])
 
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
-                    return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
-                })
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
         // remove item don't display
@@ -282,6 +281,16 @@ extension NotificationStatusTableViewCell {
         resetSeparatorLineLayout()
         actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
         statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
+    }
+
+}
+
+extension NotificationStatusTableViewCell {
+
+    private func setupBackgroundColor(theme: Theme) {
+        statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
+            return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
+        })
     }
 
 }

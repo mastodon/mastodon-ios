@@ -135,14 +135,12 @@ extension SearchViewController {
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
 
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.view.backgroundColor = theme.systemGroupedBackgroundColor
-                self.searchHeader.backgroundColor = theme.systemGroupedBackgroundColor
-                self.searchingTableView.backgroundColor = theme.systemBackgroundColor
-                self.statusBar.backgroundColor = theme.navigationBarBackgroundColor
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
 
@@ -169,6 +167,13 @@ extension SearchViewController {
         super.viewDidAppear(animated)
 
         viewModel.viewDidAppeared.send()
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        view.backgroundColor = theme.systemGroupedBackgroundColor
+        searchHeader.backgroundColor = theme.systemGroupedBackgroundColor
+        searchingTableView.backgroundColor = theme.systemBackgroundColor
+        statusBar.backgroundColor = theme.navigationBarBackgroundColor
     }
 
     func setupSearchBar() {
