@@ -809,7 +809,11 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton) {
+        // toggle poll composing state
         viewModel.isPollComposing.value.toggle()
+
+        // cancel custom picker input
+        viewModel.isCustomEmojiComposing.value = false
         
         // setup initial poll option if needs
         if viewModel.isPollComposing.value, viewModel.pollOptionAttributes.value.isEmpty {
@@ -831,6 +835,9 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
     }
     
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
+        // cancel custom picker input
+        viewModel.isCustomEmojiComposing.value = false
+
         // restore first responder for text editor when content warning dismiss
         if viewModel.isContentWarningComposing.value {
             if contentWarningEditorTextView()?.isFirstResponder == true {
