@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import Combine
 import Photos
-import AlamofireImage
+import Nuke
 
 final class PhotoLibraryService: NSObject {
 
@@ -26,39 +26,51 @@ extension PhotoLibraryService {
 extension PhotoLibraryService {
     
     func saveImage(url: URL) -> AnyPublisher<UIImage, Error> {
+        return processImage(url: url)
+            .handleEvents(receiveOutput: { image in
+                self.save(image: image)
+            })
+            .eraseToAnyPublisher()
+    }
+
+    func copyImage(url: URL) -> AnyPublisher<UIImage, Error> {
+        return processImage(url: url)
+            .handleEvents(receiveOutput: { image in
+                UIPasteboard.general.image = image
+            })
+            .eraseToAnyPublisher()
+    }
+
+    func processImage(url: URL) -> AnyPublisher<UIImage, Error> {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-        
-        return Future<UIImage, Error> { promise in
-            guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
-                promise(.failure(PhotoLibraryError.noPermission))
-                return
-            }
-            
-            ImageDownloader.default.download(URLRequest(url: url), completion: { [weak self] response in
-                guard let self = self else { return }
-                switch response.result {
+
+        guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
+            return Fail(error: PhotoLibraryError.noPermission).eraseToAnyPublisher()
+        }
+
+        return ImagePipeline.shared.imagePublisher(with: url)
+            .handleEvents(receiveSubscription: { _ in
+                impactFeedbackGenerator.impactOccurred()
+            }, receiveOutput: { response in
+                self.save(image: response.image)
+            }, receiveCompletion: { completion in
+                switch completion {
                 case .failure(let error):
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
-                    promise(.failure(error))
-                case .success(let image):
+
+                    notificationFeedbackGenerator.notificationOccurred(.error)
+                case .finished:
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
-                    self.save(image: image)
-                    promise(.success(image))
+
+                    notificationFeedbackGenerator.notificationOccurred(.success)
                 }
             })
-        }
-        .handleEvents(receiveSubscription: { _ in
-            impactFeedbackGenerator.impactOccurred()
-        }, receiveCompletion: { completion in
-            switch completion {
-            case .failure:
-                notificationFeedbackGenerator.notificationOccurred(.error)
-            case .finished:
-                notificationFeedbackGenerator.notificationOccurred(.success)
+            .map { response in
+                return response.image
             }
-        })
-        .eraseToAnyPublisher()
+            .mapError { error in error as Error }
+            .eraseToAnyPublisher()
     }
     
     func save(image: UIImage, withNotificationFeedback: Bool = false) {
