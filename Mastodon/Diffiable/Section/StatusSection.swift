@@ -137,6 +137,9 @@ extension StatusSection {
                     
                     switch item {
                     case .root:
+                        // allow select content
+                        cell.statusView.contentMetaText.textView.isSelectable = true
+                        // configure thread meta
                         StatusSection.configureThreadMeta(cell: cell, status: status)
                         ManagedObjectObserver.observe(object: status.reblog ?? status)
                             .receive(on: RunLoop.main)

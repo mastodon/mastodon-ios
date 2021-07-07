@@ -220,6 +220,7 @@ final class StatusView: UIView {
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
         metaText.textView.layer.masksToBounds = false
+        metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
 
         let paragraphStyle: NSMutableParagraphStyle = {
             let style = NSMutableParagraphStyle()
@@ -583,6 +584,17 @@ extension StatusView: MetaTextViewDelegate {
 
 // MARK: - UITextViewDelegate
 extension StatusView: UITextViewDelegate {
+
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch textView {
+        case contentMetaText.textView:
+            return false
+        default:
+            assertionFailure()
+            return true
+        }
+    }
+
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         switch textView {
         case contentMetaText.textView:
