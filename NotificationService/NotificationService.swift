@@ -56,7 +56,7 @@ class NotificationService: UNNotificationServiceExtension {
             
             bestAttemptContent.title = notification.title
             bestAttemptContent.subtitle = ""
-            bestAttemptContent.body = notification.body
+            bestAttemptContent.body = notification.body.escape()
             bestAttemptContent.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "BoopSound.caf"))
             bestAttemptContent.userInfo["plaintext"] = plaintextData
             
@@ -103,5 +103,16 @@ extension NotificationService {
     static func publicKey(encodedPublicKey: String) -> P256.KeyAgreement.PublicKey? {
         let publicKeyData = encodedPublicKey.decode85()
         return try? P256.KeyAgreement.PublicKey(x963Representation: publicKeyData)
+    }
+}
+
+extension String {
+    func escape() -> String {
+        return self
+            .replacingOccurrences(of: "&amp;", with: "&")
+            .replacingOccurrences(of: "&lt;", with: "<")
+            .replacingOccurrences(of: "&gt;", with: ">")
+            .replacingOccurrences(of: "&quot;", with: "\"")
+            .replacingOccurrences(of: "&apos;", with: "'")
     }
 }
