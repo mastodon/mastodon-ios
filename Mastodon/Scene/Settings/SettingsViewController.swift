@@ -236,6 +236,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
                 return theme.secondarySystemBackgroundColor
             }
         })
+
+        tableView.separatorColor = theme.separator
     }
     
     private func setupNavigation() {
