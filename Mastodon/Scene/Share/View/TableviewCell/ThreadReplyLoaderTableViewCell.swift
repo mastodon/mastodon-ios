@@ -18,11 +18,11 @@ final class ThreadReplyLoaderTableViewCell: UITableViewCell {
     static let cellHeight: CGFloat = 44
     
     weak var delegate: ThreadReplyLoaderTableViewCellDelegate?
+    var _disposeBag = Set<AnyCancellable>()
     
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
-        button.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Common.Controls.Timeline.Loader.showMoreReplies, for: .normal)
         return button
@@ -83,6 +83,15 @@ extension ThreadReplyLoaderTableViewCell {
         resetSeparatorLineLayout()
         
         loadMoreButton.addTarget(self, action: #selector(ThreadReplyLoaderTableViewCell.loadMoreButtonDidPressed(_:)), for: .touchUpInside)
+
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &_disposeBag)
     }
     
     private func resetSeparatorLineLayout() {
@@ -112,6 +121,10 @@ extension ThreadReplyLoaderTableViewCell {
                 ])
             }
         }
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        loadMoreButton.backgroundColor = theme.secondarySystemGroupedBackgroundColor
     }
     
 }
