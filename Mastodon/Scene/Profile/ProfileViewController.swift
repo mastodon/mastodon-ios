@@ -152,7 +152,11 @@ extension ProfileViewController {
             .store(in: &disposeBag)
 
         let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
+        if isModal {
+            barAppearance.configureWithDefaultBackground()
+        } else {
+            barAppearance.configureWithTransparentBackground()
+        }
         navigationItem.standardAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
