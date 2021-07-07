@@ -24,8 +24,6 @@ final class MosaicImageViewContainer: UIView {
 
     weak var delegate: MosaicImageViewContainerDelegate?
 
-    var imageTasks = Set<ImageTask?>()
-    
     let container = UIStackView()
     private(set) lazy var imageViews: [UIImageView] = {
         (0..<4).map { _ -> UIImageView in
@@ -94,11 +92,16 @@ extension MosaicImageViewContainer {
 }
 
 extension MosaicImageViewContainer {
+
+    func resetImageTask() {
+        imageViews.forEach { imageView in
+            Nuke.cancelRequest(for: imageView)
+        }
+    }
     
     func reset() {
-        imageTasks.forEach { $0?.cancel() }
-        imageTasks.removeAll()
-
+        resetImageTask()
+        
         container.arrangedSubviews.forEach { subview in
             container.removeArrangedSubview(subview)
             subview.removeFromSuperview()

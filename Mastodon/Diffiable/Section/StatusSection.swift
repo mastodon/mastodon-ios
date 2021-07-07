@@ -675,9 +675,7 @@ extension StatusSection {
                 case .success:
                     statusItemAttribute.isImageLoaded.value = true
                 }
-            }?
-            .store(in: &cell.statusView.statusMosaicImageViewContainer.imageTasks)
-
+            }
 
             imageView.accessibilityLabel = meta.altText
 
