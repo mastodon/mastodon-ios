@@ -135,8 +135,10 @@ final class HomeTimelineViewModel: NSObject {
                 self?.loadLatestStateMachine.enter(LoadLatestState.Loading.self)
             }
             .store(in: &disposeBag)
-        
+
+        // refresh after publish post
         homeTimelineNavigationBarTitleViewModel.isPublished
+            .delay(for: 2, scheduler: DispatchQueue.main)
             .sink { [weak self] isPublished in
                 guard let self = self else { return }
                 self.homeTimelineNeedRefresh.send()

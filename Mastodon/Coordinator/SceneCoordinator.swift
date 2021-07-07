@@ -141,7 +141,11 @@ extension SceneCoordinator {
         if let navigationControllerVisibleViewController = presentingViewController.navigationController?.visibleViewController {
             switch viewController {
             case is ProfileViewController:
-                let barButtonItem = UIBarButtonItem(title: navigationControllerVisibleViewController.navigationItem.title, style: .plain, target: nil, action: nil)
+                let title: String = {
+                    let title = navigationControllerVisibleViewController.navigationItem.title ?? ""
+                    return title.count > 10 ? "" : title
+                }()
+                let barButtonItem = UIBarButtonItem(title: title, style: .plain, target: nil, action: nil)
                 barButtonItem.tintColor = .white
                 navigationControllerVisibleViewController.navigationItem.backBarButtonItem = barButtonItem
             default:

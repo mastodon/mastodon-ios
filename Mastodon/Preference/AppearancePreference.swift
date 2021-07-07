@@ -17,4 +17,12 @@ extension UserDefaults {
         set { self[#function] = newValue.rawValue }
     }
 
+    @objc dynamic var preferredStaticAvatar: Bool {
+        get {
+            register(defaults: [#function: false])
+            return bool(forKey: #function)
+        }
+        set { self[#function] = newValue }
+    }
+
 }

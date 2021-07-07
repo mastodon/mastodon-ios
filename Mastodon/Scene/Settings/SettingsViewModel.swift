@@ -96,7 +96,10 @@ extension SettingsViewModel {
         snapshot.appendSections([.appearance])
         snapshot.appendItems(appearanceItems, toSection: .appearance)
 
-        let appearanceSettingItems = [SettingsItem.appearanceDarkMode(settingObjectID: setting.objectID)]
+        let appearanceSettingItems = [
+            SettingsItem.appearanceDarkMode(settingObjectID: setting.objectID),
+            SettingsItem.appearanceDisableAvatarAnimation(settingObjectID: setting.objectID)
+        ]
         snapshot.appendSections([.appearanceSettings])
         snapshot.appendItems(appearanceSettingItems, toSection: .appearanceSettings)
         
@@ -146,7 +149,6 @@ extension SettingsViewModel {
             weak settingsToggleCellDelegate
         ] tableView, indexPath, item -> UITableViewCell? in
             guard let self = self else { return nil }
-            
             switch item {
             case .appearance(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsAppearanceTableViewCell.self), for: indexPath) as! SettingsAppearanceTableViewCell
@@ -167,13 +169,14 @@ extension SettingsViewModel {
                 }
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
-            case .appearanceDarkMode(let objectID):
+            case .appearanceDarkMode(let objectID),
+                 .appearanceDisableAvatarAnimation(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
                 cell.delegate = settingsToggleCellDelegate
-                cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.DarkMode.title
                 self.context.managedObjectContext.performAndWait {
                     let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
-                    cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
+                    SettingsViewModel.configureSettingToggle(cell: cell, item: item, setting: setting)
+
                     ManagedObjectObserver.observe(object: setting)
                         .receive(on: DispatchQueue.main)
                         .sink(receiveCompletion: { _ in
@@ -182,7 +185,7 @@ extension SettingsViewModel {
                             guard let cell = cell else { return }
                             guard case .update(let object) = change.changeType,
                                   let setting = object as? Setting else { return }
-                            cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
+                            SettingsViewModel.configureSettingToggle(cell: cell, item: item, setting: setting)
                         })
                         .store(in: &cell.disposeBag)
                 }
@@ -220,6 +223,23 @@ extension SettingsViewModel {
 }
 
 extension SettingsViewModel {
+
+    static func configureSettingToggle(
+        cell: SettingsToggleTableViewCell,
+        item: SettingsItem,
+        setting: Setting
+    ) {
+        switch item {
+        case .appearanceDarkMode:
+            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.DarkMode.title
+            cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
+        case .appearanceDisableAvatarAnimation:
+            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.AvatarAnimation.title
+            cell.switchButton.isOn = setting.preferredStaticAvatar
+        default:
+            assertionFailure()
+        }
+    }
     
     static func configureSettingToggle(
         cell: SettingsToggleTableViewCell,

@@ -210,6 +210,40 @@ extension UserProviderFacade {
     ) -> UIMenu {
         var children: [UIMenuElement] = []
         let name = mastodonUser.displayNameWithFallback
+
+        if let shareUser = shareUser {
+            let shareAction = UIAction(title: L10n.Common.Controls.Actions.shareUser(name), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                guard let provider = provider else { return }
+                let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: shareUser, dependency: provider)
+                provider.coordinator.present(
+                    scene: .activityViewController(
+                        activityViewController: activityViewController,
+                        sourceView: sourceView,
+                        barButtonItem: barButtonItem
+                    ),
+                    from: provider,
+                    transition: .activityViewControllerPresent(animated: true, completion: nil)
+                )
+            }
+            children.append(shareAction)
+        }
+
+        if let shareStatus = shareStatus {
+            let shareAction = UIAction(title: L10n.Common.Controls.Actions.sharePost, image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                guard let provider = provider else { return }
+                let activityViewController = createActivityViewControllerForMastodonUser(status: shareStatus, dependency: provider)
+                provider.coordinator.present(
+                    scene: .activityViewController(
+                        activityViewController: activityViewController,
+                        sourceView: sourceView,
+                        barButtonItem: barButtonItem
+                    ),
+                    from: provider,
+                    transition: .activityViewControllerPresent(animated: true, completion: nil)
+                )
+            }
+            children.append(shareAction)
+        }
         
         if !isMyself {
             // mute
@@ -314,40 +348,6 @@ extension UserProviderFacade {
                 }
                 children.append(blockDomainAction)
             }
-        }
-        
-        if let shareUser = shareUser {
-            let shareAction = UIAction(title: L10n.Common.Controls.Actions.shareUser(name), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
-                guard let provider = provider else { return }
-                let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: shareUser, dependency: provider)
-                provider.coordinator.present(
-                    scene: .activityViewController(
-                        activityViewController: activityViewController,
-                        sourceView: sourceView,
-                        barButtonItem: barButtonItem
-                    ),
-                    from: provider,
-                    transition: .activityViewControllerPresent(animated: true, completion: nil)
-                )
-            }
-            children.append(shareAction)
-        }
-        
-        if let shareStatus = shareStatus {
-            let shareAction = UIAction(title: L10n.Common.Controls.Actions.sharePost, image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
-                guard let provider = provider else { return }
-                let activityViewController = createActivityViewControllerForMastodonUser(status: shareStatus, dependency: provider)
-                provider.coordinator.present(
-                    scene: .activityViewController(
-                        activityViewController: activityViewController,
-                        sourceView: sourceView,
-                        barButtonItem: barButtonItem
-                    ),
-                    from: provider,
-                    transition: .activityViewControllerPresent(animated: true, completion: nil)
-                )
-            }
-            children.append(shareAction)
         }
         
         if let status = shareStatus, isMyself {

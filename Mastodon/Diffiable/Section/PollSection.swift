@@ -68,7 +68,7 @@ extension PollSection {
             cell.pollOptionView.checkmarkImageView.isHidden = true
         case .off:
             ThemeService.shared.currentTheme
-                .receive(on: RunLoop.main)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak cell] theme in
                     guard let cell = cell else { return }
                     cell.pollOptionView.checkmarkBackgroundView.backgroundColor = theme.tertiarySystemBackgroundColor
@@ -80,7 +80,7 @@ extension PollSection {
             cell.pollOptionView.checkmarkImageView.isHidden = true
         case .on:
             ThemeService.shared.currentTheme
-                .receive(on: RunLoop.main)
+                .receive(on: DispatchQueue.main)
                 .sink { [weak cell] theme in
                     guard let cell = cell else { return }
                     cell.pollOptionView.checkmarkBackgroundView.backgroundColor = theme.tertiarySystemBackgroundColor

@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import Combine
 import Photos
-import Nuke
+import AlamofireImage
 
 final class PhotoLibraryService: NSObject {
 
@@ -49,28 +49,29 @@ extension PhotoLibraryService {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
 
-        return ImagePipeline.shared.imagePublisher(with: url)
-            .handleEvents(receiveSubscription: { _ in
-                impactFeedbackGenerator.impactOccurred()
-            }, receiveOutput: { response in
-                self.save(image: response.image)
-            }, receiveCompletion: { completion in
-                switch completion {
+        return Future<UIImage, Error> { promise in
+            ImageDownloader.default.download(URLRequest(url: url), completion: { response in
+                switch response.result {
                 case .failure(let error):
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
-
-                    notificationFeedbackGenerator.notificationOccurred(.error)
-                case .finished:
+                    promise(.failure(error))
+                case .success(let image):
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
-
-                    notificationFeedbackGenerator.notificationOccurred(.success)
+                    promise(.success(image))
                 }
             })
-            .map { response in
-                return response.image
+        }
+        .handleEvents(receiveSubscription: { _ in
+            impactFeedbackGenerator.impactOccurred()
+        }, receiveCompletion: { completion in
+            switch completion {
+            case .failure:
+                notificationFeedbackGenerator.notificationOccurred(.error)
+            case .finished:
+                notificationFeedbackGenerator.notificationOccurred(.success)
             }
-            .mapError { error in error as Error }
-            .eraseToAnyPublisher()
+        })
+        .eraseToAnyPublisher()
     }
     
     func save(image: UIImage, withNotificationFeedback: Bool = false) {

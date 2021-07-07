@@ -189,6 +189,7 @@
         <attribute name="appearanceRaw" attributeType="String"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="domain" attributeType="String"/>
+        <attribute name="preferredStaticAvatar" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="preferredTrueBlackDarkMode" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userID" attributeType="String"/>
@@ -281,7 +282,7 @@
         <element name="PollOption" positionX="0" positionY="0" width="128" height="134"/>
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
         <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
-        <element name="Setting" positionX="72" positionY="162" width="128" height="134"/>
+        <element name="Setting" positionX="72" positionY="162" width="128" height="149"/>
         <element name="Status" positionX="0" positionY="0" width="128" height="599"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
         <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="14"/>

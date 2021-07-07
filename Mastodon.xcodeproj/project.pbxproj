@@ -411,6 +411,7 @@
 		DB9D6C2E25E504AC0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C2D25E504AC0051B173 /* Attachment.swift */; };
 		DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C3725E508BE0051B173 /* Attachment.swift */; };
 		DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */; };
+		DBA088DF26958164003EB4B2 /* UserFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */; };
 		DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */; };
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBA1DB80268F84F80052DB59 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA1DB7F268F84F80052DB59 /* NotificationType.swift */; };
@@ -1039,6 +1040,7 @@
 		DB9D6C2D25E504AC0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DB9D6C3725E508BE0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterpolatingMotionEffect.swift; sourceTree = "<group>"; };
+		DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFetchedResultsController.swift; sourceTree = "<group>"; };
 		DBA0A10825FB3C2B0079C110 /* RoundedEdgesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedEdgesButton.swift; sourceTree = "<group>"; };
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBA1DB7F268F84F80052DB59 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
@@ -2607,6 +2609,7 @@
 			isa = PBXGroup;
 			children = (
 				DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */,
+				DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */,
 				DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */,
 			);
 			path = FetchedResultsController;
@@ -3256,6 +3259,7 @@
 				DBA9443E265CFA6400C537E1 /* ProfileFieldCollectionViewCell.swift in Sources */,
 				2D24E1232626ED9D00A59D4F /* UIView+Gesture.swift in Sources */,
 				DB45FAE325CA7181005A8AC7 /* MastodonUser.swift in Sources */,
+				DBA088DF26958164003EB4B2 /* UserFetchedResultsController.swift in Sources */,
 				DB2FF510260B113300ADA9FE /* ComposeStatusPollExpiresOptionCollectionViewCell.swift in Sources */,
 				0F202213261351F5000C64BF /* APIService+HashtagTimeline.swift in Sources */,
 				DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */,
@@ -4829,7 +4833,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.2.5;
+				version = 1.3.0;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {

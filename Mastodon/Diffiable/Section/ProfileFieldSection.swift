@@ -39,7 +39,7 @@ extension ProfileFieldSection {
                 .sink { [weak cell] name, emojiDict in
                     guard let cell = cell else { return }
                     cell.fieldView.titleActiveLabel.configure(field: name, emojiDict: emojiDict)
-                    cell.fieldView.titleTextField.text = name
+                    // only bind label. The text field should only set once
                 }
                 .store(in: &cell.disposeBag)
                 
@@ -55,7 +55,7 @@ extension ProfileFieldSection {
                 .sink { [weak cell] value, emojiDict in
                     guard let cell = cell else { return }
                     cell.fieldView.valueActiveLabel.configure(field: value, emojiDict: emojiDict)
-                    cell.fieldView.valueTextField.text = value
+                    // only bind label. The text field should only set once
                 }
                 .store(in: &cell.disposeBag)
                 
