@@ -8,7 +8,6 @@
 import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
-import Nuke
 
 protocol MosaicImageViewContainerPresentable: AnyObject {
     var mosaicImageViewContainer: MosaicImageViewContainer { get }
@@ -95,7 +94,8 @@ extension MosaicImageViewContainer {
 
     func resetImageTask() {
         imageViews.forEach { imageView in
-            Nuke.cancelRequest(for: imageView)
+            imageView.af.cancelImageRequest()
+            imageView.image = nil
         }
     }
     

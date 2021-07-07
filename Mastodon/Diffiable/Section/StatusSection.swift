@@ -11,7 +11,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
-import Nuke
+import AlamofireImage
 import MastodonMeta
 
 // import LinkPresentation
@@ -639,44 +639,30 @@ extension StatusSection {
                 }
                 .store(in: &cell.disposeBag)
 
-            let isSingleMosaicLayout = mosaics.count == 1
-
             // set image
-            let imageSize = CGSize(
-                width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
-                height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
-            )
-            let url: URL? = {
+            let url: URL = {
                 if UIDevice.current.userInterfaceIdiom == .phone {
                     return meta.previewURL ?? meta.url
                 }
                 return meta.url
             }()
-            let request = ImageRequest(
-                url: url,
-                processors: [
-                    ImageProcessors.Resize(
-                        size: imageSize,
-                        unit: .pixels,
-                        contentMode: isSingleMosaicLayout ? .aspectFill : .aspectFit,
-                        crop: isSingleMosaicLayout
-                    )
-                ]
-            )
-            let options = ImageLoadingOptions(
-                transition: .fadeIn(duration: 0.2)
-            )
 
-            Nuke.loadImage(
-                with: request,
-                options: options,
-                into: imageView
-            ) { result in
-                switch result {
-                case .failure:
-                    break
+            // let imageSize = CGSize(
+            //     width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
+            //     height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
+            // )
+            // let imageFilter = AspectScaledToFillSizeFilter(size: imageSize)
+
+            imageView.af.setImage(
+                withURL: url,
+                placeholderImage: UIImage.placeholder(color: .systemFill),
+                imageTransition: .crossDissolve(0.2)
+            ) { response in
+                switch response.result {
                 case .success:
                     statusItemAttribute.isImageLoaded.value = true
+                case .failure:
+                    break
                 }
             }
 
