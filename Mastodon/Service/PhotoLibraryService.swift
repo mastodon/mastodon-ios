@@ -52,8 +52,6 @@ extension PhotoLibraryService {
         return ImagePipeline.shared.imagePublisher(with: url)
             .handleEvents(receiveSubscription: { _ in
                 impactFeedbackGenerator.impactOccurred()
-            }, receiveOutput: { response in
-                self.save(image: response.image)
             }, receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
