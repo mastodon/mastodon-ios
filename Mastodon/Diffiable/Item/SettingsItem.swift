@@ -11,6 +11,7 @@ import CoreData
 enum SettingsItem: Hashable {
     case appearance(settingObjectID: NSManagedObjectID)
     case appearanceDarkMode(settingObjectID: NSManagedObjectID)
+    case appearanceDisableAvatarAnimation(settingObjectID: NSManagedObjectID)
     case notification(settingObjectID: NSManagedObjectID, switchMode: NotificationSwitchMode)
     case boringZone(item: Link)
     case spicyZone(item: Link)

@@ -74,11 +74,12 @@ extension MastodonUser {
     }
     
     public func avatarImageURL() -> URL? {
-        return URL(string: avatar)
+        let string = UserDefaults.shared.preferredStaticAvatar ? avatarStatic ?? avatar : avatar
+        return URL(string: string)
     }
     
     public func avatarImageURLWithFallback(domain: String) -> URL {
-        return URL(string: avatar) ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
+        return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
     }
     
 }

@@ -40,6 +40,8 @@ final class SearchViewModel: NSObject {
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>?
     var searchResultDiffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>?
 
+    let statusFetchedResultsController: StatusFetchedResultsController
+
     // bottom loader
     private(set) lazy var loadoldestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
@@ -59,6 +61,11 @@ final class SearchViewModel: NSObject {
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.coordinator = coordinator
         self.context = context
+        self.statusFetchedResultsController = StatusFetchedResultsController(
+            managedObjectContext: context.managedObjectContext,
+            domain: nil,
+            additionalTweetPredicate: nil
+        )
         super.init()
 
         // bind active authentication
@@ -70,6 +77,7 @@ final class SearchViewModel: NSObject {
                     return
                 }
                 self.currentMastodonUser.value = activeMastodonAuthentication.user
+                self.statusFetchedResultsController.domain.value = activeMastodonAuthentication.domain
             }
             .store(in: &disposeBag)
         
@@ -224,7 +232,7 @@ final class SearchViewModel: NSObject {
             }
         }
         .store(in: &disposeBag)
-        
+
         searchResult
             .receive(on: DispatchQueue.main)
             .sink { [weak self] searchResult in
@@ -343,7 +351,7 @@ final class SearchViewModel: NSObject {
                 DispatchQueue.main.async {
                     self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
                 }
-            
+
             case .hashtag(let tag):
                 let (tagInCoreData, _) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: tag)
                 if let searchHistories = searchHistories {
