@@ -303,7 +303,7 @@ tap the link to confirm your account.";
 "Scene.ServerPicker.Label.Category" = "CATEGORY";
 "Scene.ServerPicker.Label.Language" = "LANGUAGE";
 "Scene.ServerPicker.Label.Users" = "USERS";
-"Scene.ServerPicker.Title" = "Pick a Server,
+"Scene.ServerPicker.Title" = "Pick a server,
 any server.";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "privacy policy";

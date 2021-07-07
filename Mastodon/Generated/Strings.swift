@@ -830,7 +830,7 @@ internal enum L10n {
       }
     }
     internal enum ServerPicker {
-      /// Pick a Server,\nany server.
+      /// Pick a server,\nany server.
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       internal enum Button {
         /// See Less
