@@ -519,13 +519,7 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
-            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] parseResult in
-                    guard let cell = cell else { return }
-                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
-                }
-                .store(in: &cell.disposeBag)
+            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
             cell.statusView.headerInfoLabel.accessibilityLabel = headerText
             cell.statusView.headerInfoLabel.isAccessibilityElement = status.replyTo != nil
         } else {
@@ -541,13 +535,7 @@ extension StatusSection {
         // name
         let author = (status.reblog ?? status).author
         let nameContent = author.displayNameWithFallback
-        MastodonStatusContent.parseResult(content: nameContent, emojiDict: author.emojiDict)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak cell] parseResult in
-                guard let cell = cell else { return }
-                cell.statusView.nameLabel.configure(contentParseResult: parseResult)
-            }
-            .store(in: &cell.disposeBag)
+        cell.statusView.nameLabel.configure(content: nameContent, emojiDict: author.emojiDict)
         cell.statusView.nameLabel.accessibilityLabel = nameContent
         // username
         cell.statusView.usernameLabel.text = "@" + author.acct
