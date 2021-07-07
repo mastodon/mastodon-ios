@@ -37,6 +37,7 @@ final class ProfileFieldView: UIView {
     let valueActiveLabel: ActiveLabel = {
         let label = ActiveLabel(style: .profileFieldValue)
         label.configure(content: "value", emojiDict: [:])
+        label.textAlignment = .right
         return label
     }()
     
