@@ -31,3 +31,16 @@ class MastodonTests: XCTestCase {
     }
 
 }
+
+extension MastodonTests {
+    func testWebFinger() {
+        let expectation = expectation(description: "webfinger")
+        let cancellable = AppContext.shared.apiService.webFinger(domain: "pawoo.net")
+            .sink { completion in
+                expectation.fulfill()
+            } receiveValue: { domain in
+                expectation.fulfill()
+            }
+        wait(for: [expectation], timeout: 10)
+    }
+}

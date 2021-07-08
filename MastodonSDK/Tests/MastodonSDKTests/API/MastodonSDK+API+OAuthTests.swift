@@ -17,12 +17,12 @@ extension MastodonSDKTests {
     }
     
     func _testOAuthAuthorize(domain: String) throws {
-        let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: "StubClientID")
+        let query = Mastodon.API.OAuth.AuthorizeQuery(clientID: "StubClientID", redirectURI: "mastodon://joinmastodon.org/oauth")
         let authorizeURL = Mastodon.API.OAuth.authorizeURL(domain: domain, query: query)
         os_log("%{public}s[%{public}ld], %{public}s: (%s) authorizeURL %s", ((#file as NSString).lastPathComponent), #line, #function, domain, authorizeURL.absoluteString)
         XCTAssertEqual(
             authorizeURL.absoluteString,
-            "https://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=urn:ietf:wg:oauth:2.0:oob&scope=read%20write%20follow%20push"
+            "https://\(domain)/oauth/authorize?response_type=code&client_id=StubClientID&redirect_uri=mastodon://joinmastodon.org/oauth&scope=read%20write%20follow%20push"
         )
     }
 
@@ -31,7 +31,7 @@ extension MastodonSDKTests {
     }
 
     func _testRevokeTokenFail() {
-        let theExpectation = expectation(description: "Revoke Instance Infomation")
+        let theExpectation = expectation(description: "Revoke Instance Information")
         let query = Mastodon.API.OAuth.RevokeTokenQuery(clientID: "StubClientID", clientSecret: "", token: "")
         Mastodon.API.OAuth.revokeToken(session: session, domain: domain, query: query)
             .receive(on: DispatchQueue.main)
