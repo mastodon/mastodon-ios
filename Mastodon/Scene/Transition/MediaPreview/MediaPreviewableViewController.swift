@@ -18,9 +18,9 @@ extension MediaPreviewableViewController {
         case .mosaic(let mosaicImageViewContainer):
             guard index < mosaicImageViewContainer.imageViews.count else { return nil }
             let imageView = mosaicImageViewContainer.imageViews[index]
-            return imageView.superview!.convert(imageView.frame, to: nil)
+            return imageView.superview?.convert(imageView.frame, to: nil)
         case .profileAvatar(let profileHeaderView):
-            return profileHeaderView.avatarImageView.superview!.convert(profileHeaderView.avatarImageView.frame, to: nil)
+            return profileHeaderView.avatarImageView.superview?.convert(profileHeaderView.avatarImageView.frame, to: nil)
         case .profileBanner:
             return nil      // fallback to snapshot.frame
         }
