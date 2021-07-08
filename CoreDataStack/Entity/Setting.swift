@@ -16,6 +16,7 @@ public final class Setting: NSManagedObject {
     @NSManaged public var appearanceRaw: String
     @NSManaged public var preferredTrueBlackDarkMode: Bool
     @NSManaged public var preferredStaticAvatar: Bool
+    @NSManaged public var preferredUsingDefaultBrowser: Bool
     
     @NSManaged public private(set) var createdAt: Date
     @NSManaged public private(set) var updatedAt: Date
@@ -60,6 +61,12 @@ extension Setting {
     public func update(preferredStaticAvatar: Bool) {
         guard preferredStaticAvatar != self.preferredStaticAvatar else { return }
         self.preferredStaticAvatar = preferredStaticAvatar
+        didUpdate(at: Date())
+    }
+
+    public func update(preferredUsingDefaultBrowser: Bool) {
+        guard preferredUsingDefaultBrowser != self.preferredUsingDefaultBrowser else { return }
+        self.preferredUsingDefaultBrowser = preferredUsingDefaultBrowser
         didUpdate(at: Date())
     }
     

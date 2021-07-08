@@ -495,12 +495,8 @@
                     "dark": "Always Dark"
                 },
                 "appearance_settings": {
-                    "dark_mode": {
-                        "title": "True black Dark Mode"
-                    },
-                    "avatar_animation": {
-                        "title": "Disable avatar animation"
-                    }
+                    "true_black_dark_mode": "True black Dark Mode",
+                    "disable_avatar_animation": "Disable avatar animation"
                 },
                 "notifications": {
                     "title": "Notifications",
@@ -515,6 +511,10 @@
                         "noone": "no one",
                         "title": "Notify me when"
                     }
+                },
+                "preference": {
+                    "title": "Preference",
+                    "using_default_browser": "Using default browser open link"
                 },
                 "boringzone": {
                     "title": "The Boring zone",

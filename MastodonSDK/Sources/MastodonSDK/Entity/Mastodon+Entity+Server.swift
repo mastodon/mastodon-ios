@@ -38,8 +38,8 @@ extension Mastodon.Entity {
             case category
         }
         
-        public init(instance: Instance) {
-            self.domain = instance.uri
+        public init(domain: String, instance: Instance) {
+            self.domain = domain        // make domain configurable for WebFinger
             self.version = instance.version ?? ""
             self.description = instance.shortDescription ?? instance.description
             self.language = instance.languages?.first ?? ""

@@ -13,6 +13,7 @@ enum SettingsItem: Hashable {
     case appearanceDarkMode(settingObjectID: NSManagedObjectID)
     case appearanceDisableAvatarAnimation(settingObjectID: NSManagedObjectID)
     case notification(settingObjectID: NSManagedObjectID, switchMode: NotificationSwitchMode)
+    case preferenceUsingDefaultBrowser(settingObjectID: NSManagedObjectID)
     case boringZone(item: Link)
     case spicyZone(item: Link)
 }

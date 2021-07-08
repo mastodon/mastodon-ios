@@ -21,6 +21,7 @@ extension MastodonSDKTests {
         
         let query = Mastodon.API.App.CreateQuery(
             clientName: "XCTest",
+            redirectURIs: "mastodon://joinmastodon.org/oauth",
             website: nil
         )
         Mastodon.API.App.create(session: session, domain: domain, query: query)

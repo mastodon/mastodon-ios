@@ -934,14 +934,10 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
         }
         internal enum AppearanceSettings {
-          internal enum AvatarAnimation {
-            /// Disable avatar animation
-            internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.AvatarAnimation.Title")
-          }
-          internal enum DarkMode {
-            /// True black Dark Mode
-            internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.DarkMode.Title")
-          }
+          /// Disable avatar animation
+          internal static let disableAvatarAnimation = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.DisableAvatarAnimation")
+          /// True black Dark Mode
+          internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode")
         }
         internal enum Boringzone {
           /// Privacy Policy
@@ -974,6 +970,12 @@ internal enum L10n {
             /// Notify me when
             internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Notifications.Trigger.Title")
           }
+        }
+        internal enum Preference {
+          /// Preference
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Preference.Title")
+          /// Using default browser open link
+          internal static let usingDefaultBrowser = L10n.tr("Localizable", "Scene.Settings.Section.Preference.UsingDefaultBrowser")
         }
         internal enum Spicyzone {
           /// Clear Media Cache

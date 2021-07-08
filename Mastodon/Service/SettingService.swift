@@ -91,20 +91,16 @@ final class SettingService {
                     self.currentSettingUpdateSubscription = nil
                     return
                 }
-                
+
+                SettingService.updatePreference(setting: setting)
                 self.currentSettingUpdateSubscription = ManagedObjectObserver.observe(object: setting)
                     .sink(receiveCompletion: { _ in
                         // do nothing
                     }, receiveValue: { change in
                         guard case .update(let object) = change.changeType,
                               let setting = object as? Setting else { return }
-                        
-                        // observe apparance mode
-                        switch setting.appearance {
-                        case .automatic:    UserDefaults.shared.customUserInterfaceStyle = .unspecified
-                        case .light:        UserDefaults.shared.customUserInterfaceStyle = .light
-                        case .dark:         UserDefaults.shared.customUserInterfaceStyle = .dark
-                        }
+
+                        SettingService.updatePreference(setting: setting)
                     })
             }
             .store(in: &disposeBag)
@@ -186,4 +182,38 @@ extension SettingService {
         return alertController
     }
     
+}
+
+extension SettingService {
+
+    static func updatePreference(setting: Setting) {
+        // set appearance
+        let userInterfaceStyle: UIUserInterfaceStyle = {
+            switch setting.appearance {
+            case .automatic:    return .unspecified
+            case .light:        return .light
+            case .dark:         return .dark
+            }
+        }()
+        if UserDefaults.shared.customUserInterfaceStyle != userInterfaceStyle {
+            UserDefaults.shared.customUserInterfaceStyle = userInterfaceStyle
+        }
+
+        // set theme
+        let themeName: ThemeName = setting.preferredTrueBlackDarkMode ? .system : .mastodon
+        if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
+            ThemeService.shared.set(themeName: themeName)
+            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update theme style", ((#file as NSString).lastPathComponent), #line, #function)
+        }
+
+        // set avatar mode
+        if UserDefaults.shared.preferredStaticAvatar != setting.preferredStaticAvatar {
+            UserDefaults.shared.preferredStaticAvatar = setting.preferredStaticAvatar
+        }
+
+        // set browser
+        if UserDefaults.shared.preferredUsingDefaultBrowser != setting.preferredUsingDefaultBrowser {
+            UserDefaults.shared.preferredUsingDefaultBrowser = setting.preferredUsingDefaultBrowser
+        }
+    }
 }

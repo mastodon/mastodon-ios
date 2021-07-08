@@ -81,26 +81,6 @@ final class AuthenticationService: NSObject {
             .assign(to: \.value, on: activeMastodonAuthenticationBox)
             .store(in: &disposeBag)
 
-        activeMastodonAuthenticationBox
-            .receive(on: RunLoop.main)
-            .sink { [weak self] authenticationBox in
-                guard let _ = self else { return }
-                guard let authenticationBox = authenticationBox else { return }
-                let request = Setting.sortedFetchRequest
-                request.predicate = Setting.predicate(domain: authenticationBox.domain, userID: authenticationBox.userID)
-                guard let setting = managedObjectContext.safeFetch(request).first else { return }
-
-                let themeName: ThemeName = setting.preferredTrueBlackDarkMode ? .system : .mastodon
-                if UserDefaults.shared.currentThemeNameRawValue != themeName.rawValue {
-                    ThemeService.shared.set(themeName: themeName)
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: update theme style", ((#file as NSString).lastPathComponent), #line, #function)
-                }
-                if UserDefaults.shared.preferredStaticAvatar != setting.preferredStaticAvatar {
-                    UserDefaults.shared.preferredStaticAvatar = setting.preferredStaticAvatar
-                }
-            }
-            .store(in: &disposeBag)
-
         do {
             try mastodonAuthenticationFetchedResultsController.performFetch()
             mastodonAuthentications.value = mastodonAuthenticationFetchedResultsController.fetchedObjects ?? []
