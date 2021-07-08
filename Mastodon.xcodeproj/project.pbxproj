@@ -416,6 +416,7 @@
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBA1DB80268F84F80052DB59 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA1DB7F268F84F80052DB59 /* NotificationType.swift */; };
 		DBA465932696B495002B41DB /* APIService+WebFinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA465922696B495002B41DB /* APIService+WebFinger.swift */; };
+		DBA465952696E387002B41DB /* AppPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA465942696E387002B41DB /* AppPreference.swift */; };
 		DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */; };
 		DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */; };
 		DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */; };
@@ -1046,6 +1047,7 @@
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBA1DB7F268F84F80052DB59 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		DBA465922696B495002B41DB /* APIService+WebFinger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+WebFinger.swift"; sourceTree = "<group>"; };
+		DBA465942696E387002B41DB /* AppPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreference.swift; sourceTree = "<group>"; };
 		DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
 		DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewModel.swift; sourceTree = "<group>"; };
 		DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -1987,6 +1989,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */,
+				DBA465942696E387002B41DB /* AppPreference.swift */,
 				DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */,
 				DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */,
 				DB1D842F26566512000346B3 /* KeyboardPreference.swift */,
@@ -3228,6 +3231,7 @@
 				DBAC649B267DF8C8007FE9FD /* ActivityIndicatorNode.swift in Sources */,
 				DB45FAD725CA6C76005A8AC7 /* UIBarButtonItem.swift in Sources */,
 				2DA504692601ADE7008F4E6C /* SawToothView.swift in Sources */,
+				DBA465952696E387002B41DB /* AppPreference.swift in Sources */,
 				DB87D4572609DD5300D12C0D /* DeleteBackwardResponseTextField.swift in Sources */,
 				2D8434F525FF465D00EECE90 /* HomeTimelineNavigationBarTitleViewModel.swift in Sources */,
 				DB938F0F2624119800E5B6C1 /* ThreadViewModel+LoadThreadState.swift in Sources */,

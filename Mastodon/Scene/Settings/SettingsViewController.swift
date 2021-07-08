@@ -364,6 +364,9 @@ extension SettingsViewController: UITableViewDelegate {
         case .notification:
             // do nothing
             break
+        case .preferenceUsingDefaultBrowser:
+            // do nothing
+            break
         case .boringZone(let link), .spicyZone(let link):
             switch link {
             case .termsOfService, .privacyPolicy:
@@ -501,7 +504,24 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 // do nothing
             }
             .store(in: &disposeBag)
+        case .preferenceUsingDefaultBrowser(let settingObjectID):
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                setting.update(preferredUsingDefaultBrowser: isOn)
+            }
+            .sink { result in
+                switch result {
+                case .success:
+                    UserDefaults.shared.preferredUsingDefaultBrowser = isOn
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                    break
+                }
+            }
+            .store(in: &disposeBag)
         default:
+            assertionFailure()
             break
         }
     }
