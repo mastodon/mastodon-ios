@@ -11,7 +11,7 @@ import CoreDataStack
 import os.log
 import UIKit
 import AVKit
-import Nuke
+import AlamofireImage
 import MastodonMeta
 
 // import LinkPresentation
@@ -137,6 +137,9 @@ extension StatusSection {
                     
                     switch item {
                     case .root:
+                        // allow select content
+                        cell.statusView.contentMetaText.textView.isSelectable = true
+                        // configure thread meta
                         StatusSection.configureThreadMeta(cell: cell, status: status)
                         ManagedObjectObserver.observe(object: status.reblog ?? status)
                             .receive(on: RunLoop.main)
@@ -519,13 +522,7 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
-            MastodonStatusContent.parseResult(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] parseResult in
-                    guard let cell = cell else { return }
-                    cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
-                }
-                .store(in: &cell.disposeBag)
+            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
             cell.statusView.headerInfoLabel.accessibilityLabel = headerText
             cell.statusView.headerInfoLabel.isAccessibilityElement = status.replyTo != nil
         } else {
@@ -541,13 +538,7 @@ extension StatusSection {
         // name
         let author = (status.reblog ?? status).author
         let nameContent = author.displayNameWithFallback
-        MastodonStatusContent.parseResult(content: nameContent, emojiDict: author.emojiDict)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak cell] parseResult in
-                guard let cell = cell else { return }
-                cell.statusView.nameLabel.configure(contentParseResult: parseResult)
-            }
-            .store(in: &cell.disposeBag)
+        cell.statusView.nameLabel.configure(content: nameContent, emojiDict: author.emojiDict)
         cell.statusView.nameLabel.accessibilityLabel = nameContent
         // username
         cell.statusView.usernameLabel.text = "@" + author.acct
@@ -648,48 +639,32 @@ extension StatusSection {
                 }
                 .store(in: &cell.disposeBag)
 
-            let isSingleMosaicLayout = mosaics.count == 1
-
             // set image
-            let imageSize = CGSize(
-                width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
-                height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
-            )
-            let url: URL? = {
+            let url: URL = {
                 if UIDevice.current.userInterfaceIdiom == .phone {
                     return meta.previewURL ?? meta.url
                 }
                 return meta.url
             }()
-            let request = ImageRequest(
-                url: url,
-                processors: [
-                    ImageProcessors.Resize(
-                        size: imageSize,
-                        unit: .pixels,
-                        contentMode: isSingleMosaicLayout ? .aspectFill : .aspectFit,
-                        crop: isSingleMosaicLayout
-                    )
-                ]
-            )
-            let options = ImageLoadingOptions(
-                transition: .fadeIn(duration: 0.2)
-            )
 
-            Nuke.loadImage(
-                with: request,
-                options: options,
-                into: imageView
-            ) { result in
-                switch result {
-                case .failure:
-                    break
+            // let imageSize = CGSize(
+            //     width: mosaic.imageViewSize.width * imageView.traitCollection.displayScale,
+            //     height: mosaic.imageViewSize.height * imageView.traitCollection.displayScale
+            // )
+            // let imageFilter = AspectScaledToFillSizeFilter(size: imageSize)
+
+            imageView.af.setImage(
+                withURL: url,
+                placeholderImage: UIImage.placeholder(color: .systemFill),
+                imageTransition: .crossDissolve(0.2)
+            ) { response in
+                switch response.result {
                 case .success:
                     statusItemAttribute.isImageLoaded.value = true
+                case .failure:
+                    break
                 }
-            }?
-            .store(in: &cell.statusView.statusMosaicImageViewContainer.imageTasks)
-
+            }
 
             imageView.accessibilityLabel = meta.altText
 

@@ -10,10 +10,13 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
+import FLAnimatedImage
+import Nuke
 
 final class SearchingTableViewCell: UITableViewCell {
+
     let _imageView: UIImageView = {
-        let imageView = UIImageView()
+        let imageView = FLAnimatedImageView()
         imageView.tintColor = Asset.Colors.Label.primary.color
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
@@ -37,8 +40,7 @@ final class SearchingTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        _imageView.af.cancelImageRequest()
-        _imageView.image = nil
+        Nuke.cancelRequest(for: _imageView)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -90,22 +92,28 @@ extension SearchingTableViewCell {
     }
     
     func config(with account: Mastodon.Entity.Account) {
-        _imageView.af.setImage(
-            withURL: URL(string: account.avatar)!,
-            placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)
+        Nuke.loadImage(
+            with: account.avatarImageURL(),
+            options: ImageLoadingOptions(
+                placeholder: UIImage.placeholder(color: .systemFill),
+                transition: .fadeIn(duration: 0.2)
+            ),
+            into: _imageView
         )
         _titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
         _subTitleLabel.text = account.acct
     }
     
     func config(with account: MastodonUser) {
-        _imageView.af.setImage(
-            withURL: URL(string: account.avatar)!,
-            placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)
+        Nuke.loadImage(
+            with: account.avatarImageURL(),
+            options: ImageLoadingOptions(
+                placeholder: UIImage.placeholder(color: .systemFill),
+                transition: .fadeIn(duration: 0.2)
+            ),
+            into: _imageView
         )
-        _titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
+        _titleLabel.text = account.displayNameWithFallback
         _subTitleLabel.text = account.acct
     }
     
@@ -122,7 +130,7 @@ extension SearchingTableViewCell {
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         _subTitleLabel.text = string
     }
-    
+
     func config(with tag: Tag) {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image

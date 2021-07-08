@@ -303,7 +303,7 @@ tap the link to confirm your account.";
 "Scene.ServerPicker.Label.Category" = "CATEGORY";
 "Scene.ServerPicker.Label.Language" = "LANGUAGE";
 "Scene.ServerPicker.Label.Users" = "USERS";
-"Scene.ServerPicker.Title" = "Pick a Server,
+"Scene.ServerPicker.Title" = "Pick a server,
 any server.";
 "Scene.ServerRules.Button.Confirm" = "I Agree";
 "Scene.ServerRules.PrivacyPolicy" = "privacy policy";
@@ -317,6 +317,7 @@ any server.";
 "Scene.Settings.Section.Appearance.Dark" = "Always Dark";
 "Scene.Settings.Section.Appearance.Light" = "Always Light";
 "Scene.Settings.Section.Appearance.Title" = "Appearance";
+"Scene.Settings.Section.AppearanceSettings.AvatarAnimation.Title" = "Disable avatar animation";
 "Scene.Settings.Section.AppearanceSettings.DarkMode.Title" = "True black Dark Mode";
 "Scene.Settings.Section.Boringzone.Privacy" = "Privacy Policy";
 "Scene.Settings.Section.Boringzone.Terms" = "Terms of Service";

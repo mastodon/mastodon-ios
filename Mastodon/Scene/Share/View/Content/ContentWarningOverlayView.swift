@@ -17,6 +17,7 @@ protocol ContentWarningOverlayViewDelegate: AnyObject {
 class ContentWarningOverlayView: UIView {
 
     var disposeBag = Set<AnyCancellable>()
+    private var _disposeBag = Set<AnyCancellable>()
     
     static let cornerRadius: CGFloat = 4
     static let blurVisualEffect = UIBlurEffect(style: .systemUltraThinMaterial)
@@ -36,7 +37,6 @@ class ContentWarningOverlayView: UIView {
     // for status style overlay
     let contentOverlayView: UIView = {
         let view = UIView()
-        view.backgroundColor = ThemeService.shared.currentTheme.value.contentWarningOverlayBackgroundColor
         view.applyCornerRadius(radius: ContentWarningOverlayView.cornerRadius)
         return view
     }()
@@ -156,6 +156,18 @@ extension ContentWarningOverlayView {
         addGestureRecognizer(tapGestureRecognizer)
         
         configure(style: .media)
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &_disposeBag)
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        contentOverlayView.backgroundColor = theme.contentWarningOverlayBackgroundColor
     }
 }
 

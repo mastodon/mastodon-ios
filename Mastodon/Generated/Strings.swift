@@ -830,7 +830,7 @@ internal enum L10n {
       }
     }
     internal enum ServerPicker {
-      /// Pick a Server,\nany server.
+      /// Pick a server,\nany server.
       internal static let title = L10n.tr("Localizable", "Scene.ServerPicker.Title")
       internal enum Button {
         /// See Less
@@ -934,6 +934,10 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
         }
         internal enum AppearanceSettings {
+          internal enum AvatarAnimation {
+            /// Disable avatar animation
+            internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.AvatarAnimation.Title")
+          }
           internal enum DarkMode {
             /// True black Dark Mode
             internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.DarkMode.Title")

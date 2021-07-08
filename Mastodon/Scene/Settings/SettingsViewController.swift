@@ -236,6 +236,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
                 return theme.secondarySystemBackgroundColor
             }
         })
+
+        tableView.separatorColor = theme.separator
     }
     
     private func setupNavigation() {
@@ -356,7 +358,7 @@ extension SettingsViewController: UITableViewDelegate {
         case .appearance:
             // do nothing
             break
-        case .appearanceDarkMode:
+        case .appearanceDarkMode, .appearanceDisableAvatarAnimation:
             // do nothing
             break
         case .notification:
@@ -443,10 +445,12 @@ extension SettingsViewController: SettingsToggleCellDelegate {
     func settingsToggleCell(_ cell: SettingsToggleTableViewCell, switchValueDidChange switch: UISwitch) {
         guard let dataSource = viewModel.dataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
+
+        let isOn = `switch`.isOn
         let item = dataSource.itemIdentifier(for: indexPath)
+
         switch item {
         case .appearanceDarkMode(let settingObjectID):
-            let isOn = `switch`.isOn
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
                 let setting = managedObjectContext.object(with: settingObjectID) as! Setting
@@ -462,8 +466,23 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 }
             }
             .store(in: &disposeBag)
+        case .appearanceDisableAvatarAnimation(let settingObjectID):
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                setting.update(preferredStaticAvatar: isOn)
+            }
+            .sink { result in
+                switch result {
+                case .success:
+                    UserDefaults.shared.preferredStaticAvatar = isOn
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                    break
+                }
+            }
+            .store(in: &disposeBag)
         case .notification(let settingObjectID, let switchMode):
-            let isOn = `switch`.isOn
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
                 let setting = managedObjectContext.object(with: settingObjectID) as! Setting

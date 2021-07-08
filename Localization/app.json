@@ -200,7 +200,7 @@
             "slogan": "Social networking\nback in your hands."
         },
         "server_picker": {
-            "title": "Pick a Server,\nany server.",
+            "title": "Pick a server,\nany server.",
             "button": {
                 "category": {
                     "all": "All",
@@ -497,6 +497,9 @@
                 "appearance_settings": {
                     "dark_mode": {
                         "title": "True black Dark Mode"
+                    },
+                    "avatar_animation": {
+                        "title": "Disable avatar animation"
                     }
                 },
                 "notifications": {

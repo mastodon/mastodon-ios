@@ -205,10 +205,6 @@ extension HomeTimelineViewController {
         
         // needs trigger manually after onboarding dismiss
         setNeedsStatusBarAppearanceUpdate()
-        
-        if (viewModel.fetchedResultsController.fetchedObjects ?? []).isEmpty {
-            viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
-        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -216,11 +212,10 @@ extension HomeTimelineViewController {
         
         viewModel.viewDidAppear.send()
 
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else { return }
-            if (self.viewModel.fetchedResultsController.fetchedObjects ?? []).count == 0 {
-                self.viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadLatestState.Loading.self)
-            }
+            // always try to refresh timeline after appear
+            self.viewModel.homeTimelineNeedRefresh.send()
         }
     }
     

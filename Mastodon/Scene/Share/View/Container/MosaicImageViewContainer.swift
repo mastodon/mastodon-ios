@@ -8,7 +8,6 @@
 import os.log
 import func AVFoundation.AVMakeRect
 import UIKit
-import Nuke
 
 protocol MosaicImageViewContainerPresentable: AnyObject {
     var mosaicImageViewContainer: MosaicImageViewContainer { get }
@@ -24,8 +23,6 @@ final class MosaicImageViewContainer: UIView {
 
     weak var delegate: MosaicImageViewContainerDelegate?
 
-    var imageTasks = Set<ImageTask?>()
-    
     let container = UIStackView()
     private(set) lazy var imageViews: [UIImageView] = {
         (0..<4).map { _ -> UIImageView in
@@ -94,11 +91,17 @@ extension MosaicImageViewContainer {
 }
 
 extension MosaicImageViewContainer {
+
+    func resetImageTask() {
+        imageViews.forEach { imageView in
+            imageView.af.cancelImageRequest()
+            imageView.image = nil
+        }
+    }
     
     func reset() {
-        imageTasks.forEach { $0?.cancel() }
-        imageTasks.removeAll()
-
+        resetImageTask()
+        
         container.arrangedSubviews.forEach { subview in
             container.removeArrangedSubview(subview)
             subview.removeFromSuperview()

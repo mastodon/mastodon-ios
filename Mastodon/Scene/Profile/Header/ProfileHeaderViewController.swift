@@ -209,7 +209,12 @@ extension ProfileHeaderViewController {
         .sink { [weak self] isEditing, note, editingNote in
             guard let self = self else { return }
             self.profileHeaderView.bioActiveLabel.configure(note: note ?? "", emojiDict: [:])       // FIXME: custom emoji
-            self.profileHeaderView.bioTextEditorView.text = editingNote ?? ""
+
+            // prevent duplicate set
+            let editingNote = editingNote ?? ""
+            if self.profileHeaderView.bioTextEditorView.text != editingNote {
+                self.profileHeaderView.bioTextEditorView.text = editingNote
+            }
         }
         .store(in: &disposeBag)
         

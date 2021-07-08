@@ -49,18 +49,26 @@ final class SuggestionAccountViewModel: NSObject {
 
         super.init()
         
-        Publishers.CombineLatest(self.accounts,self.selectedAccounts)
-            .sink { [weak self] accounts,selectedAccounts in
-                self?.applyTableViewDataSource(accounts: accounts)
-                self?.applySelectedCollectionViewDataSource(accounts: selectedAccounts)
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            self.accounts,
+            self.selectedAccounts
+        )
+        .receive(on: RunLoop.main)
+        .sink { [weak self] accounts,selectedAccounts in
+            self?.applyTableViewDataSource(accounts: accounts)
+            self?.applySelectedCollectionViewDataSource(accounts: selectedAccounts)
+        }
+        .store(in: &disposeBag)
         
-        Publishers.CombineLatest(self.selectedAccounts,self.headerPlaceholderCount)
-            .sink { [weak self] selectedAccount,count in
-                self?.applySelectedCollectionViewDataSource(accounts: selectedAccount)
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            self.selectedAccounts,
+            self.headerPlaceholderCount
+        )
+        .receive(on: RunLoop.main)
+        .sink { [weak self] selectedAccount,count in
+            self?.applySelectedCollectionViewDataSource(accounts: selectedAccount)
+        }
+        .store(in: &disposeBag)
         
         viewWillAppear
             .sink { [weak self] _ in
@@ -133,6 +141,7 @@ final class SuggestionAccountViewModel: NSObject {
     }
     
     func applyTableViewDataSource(accounts: [NSManagedObjectID]) {
+        assert(Thread.isMainThread)
         guard let dataSource = diffableDataSource else { return }
         var snapshot = NSDiffableDataSourceSnapshot<RecommendAccountSection, NSManagedObjectID>()
         snapshot.appendSections([.main])
@@ -141,6 +150,7 @@ final class SuggestionAccountViewModel: NSObject {
     }
     
     func applySelectedCollectionViewDataSource(accounts: [NSManagedObjectID]) {
+        assert(Thread.isMainThread)
         guard let count = headerPlaceholderCount.value else { return }
         guard let dataSource = collectionDiffableDataSource else { return }
         var snapshot = NSDiffableDataSourceSnapshot<SelectedAccountSection, SelectedAccountItem>()
