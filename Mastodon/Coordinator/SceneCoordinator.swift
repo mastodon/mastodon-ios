@@ -192,8 +192,12 @@ extension SceneCoordinator {
             sender?.navigationController?.pushViewController(viewController, animated: true)
             
         case .safariPresent(let animated, let completion):
-            viewController.modalPresentationCapturesStatusBarAppearance = true
-            presentingViewController.present(viewController, animated: animated, completion: completion)
+            if UserDefaults.shared.preferredUsingDefaultBrowser, case let .safari(url) = scene {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                viewController.modalPresentationCapturesStatusBarAppearance = true
+                presentingViewController.present(viewController, animated: animated, completion: completion)
+            }
             
         case .alertController(let animated, let completion):
             viewController.modalPresentationCapturesStatusBarAppearance = true

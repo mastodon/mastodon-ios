@@ -128,12 +128,10 @@ extension StatusProviderFacade {
     
     static func responseToStatusActiveLabelAction(provider: StatusProvider, cell: UITableViewCell, activeLabel: ActiveLabel, didTapEntity entity: ActiveEntity) {
         switch entity.type {
-        case .hashtag(let text, _):
-            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
-            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: provider, transition: .show)
-        case .mention(let text, _):
-            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text)
-        case .url(_, _, let url, _):
+        case .url(_, _, let url, _),
+             .mention(let url, _) where url.lowercased().hasPrefix("http"):
+            // note:
+            // some server mark the normal url as "u-url" class. :
             guard let url = URL(string: url) else { return }
             if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
                url.pathComponents.count >= 4,
@@ -146,6 +144,12 @@ extension StatusProviderFacade {
             } else {
                 provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
             }
+        case .hashtag(let text, _):
+            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
+            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: provider, transition: .show)
+        case .mention(let text, let userInfo):
+            let href = userInfo?["href"] as? String
+            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text, href: href)
         default:
             break
         }
@@ -153,7 +157,10 @@ extension StatusProviderFacade {
 
     static func responseToStatusMetaTextAction(provider: StatusProvider, cell: UITableViewCell, metaText: MetaText, didSelectMeta meta: Meta) {
         switch meta {
-        case .url(_, _, let url, _):
+        case .url(_, _, let url, _),
+             .mention(_, let url, _) where url.lowercased().hasPrefix("http"):
+            // note:
+            // some server mark the normal url as "u-url" class. highlighted content is a URL
             guard let url = URL(string: url) else { return }
             if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
                url.pathComponents.count >= 4,
@@ -169,8 +176,9 @@ extension StatusProviderFacade {
         case .hashtag(_, let hashtag, _):
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: hashtag)
             provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
-        case .mention(_, let mention, _):
-            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: mention)
+        case .mention(_, let mention, let userInfo):
+            let href = userInfo?["href"] as? String
+            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: mention, href: href)
         default:
             break
         }
@@ -208,17 +216,17 @@ extension StatusProviderFacade {
     }
     #endif
 
-    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell, mention: String) {
+    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, cell: UITableViewCell, mention: String, href: String?) {
         provider.status(for: cell, indexPath: nil)
             .sink { [weak provider] status in
                 guard let provider = provider else { return }
                 guard let status = status else { return }
-                coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention)
+                coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention, href: href)
             }
             .store(in: &provider.disposeBag)
     }
     
-    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, status: Status, mention: String) {
+    private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, status: Status, mention: String, href: String?) {
         guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let domain = activeMastodonAuthenticationBox.domain
 
@@ -230,7 +238,13 @@ extension StatusProviderFacade {
         }()
 
         // cannot continue without meta
-        guard let mentionMeta = (status.mentions ?? Set()).first(where: { $0.username == mention }) else { return }
+        guard let mentionMeta = (status.mentions ?? Set()).first(where: { $0.username == mention }) else {
+            // present web page if possible
+            if let url = href.flatMap({ URL(string: $0) }) {
+                provider.coordinator.present(scene: .safari(url: url), from: provider, transition: .safariPresent(animated: true, completion: nil))
+            }
+            return
+        }
 
         let userID = mentionMeta.id
 

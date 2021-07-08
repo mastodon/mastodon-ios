@@ -86,7 +86,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
             loadMoreButton.heightAnchor.constraint(equalToConstant: TimelineLoaderTableViewCell.buttonHeight).priority(.required - 1),
         ])
         
-        // use stack view to alignlment content center
+        // use stack view to alignment content center
         stackView.spacing = 4
         stackView.axis = .horizontal
         stackView.alignment = .center
@@ -127,7 +127,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     }
 
     private func setupBackgroundColor(theme: Theme) {
-        loadMoreButton.backgroundColor = theme.systemBackgroundColor
+        loadMoreButton.backgroundColor = theme.tableViewCellBackgroundColor
     }
     
 }

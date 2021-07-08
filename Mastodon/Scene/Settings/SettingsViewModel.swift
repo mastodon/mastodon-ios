@@ -102,12 +102,17 @@ extension SettingsViewModel {
         ]
         snapshot.appendSections([.appearanceSettings])
         snapshot.appendItems(appearanceSettingItems, toSection: .appearanceSettings)
-        
+
+        // notification
         let notificationItems = SettingsItem.NotificationSwitchMode.allCases.map { mode in
             SettingsItem.notification(settingObjectID: setting.objectID, switchMode: mode)
         }
         snapshot.appendSections([.notifications])
         snapshot.appendItems(notificationItems, toSection: .notifications)
+
+        // preference
+        snapshot.appendSections([.preference])
+        snapshot.appendItems([.preferenceUsingDefaultBrowser(settingObjectID: setting.objectID)], toSection: .preference)
 
         // boring zone
         let boringZoneSettingsItems: [SettingsItem] = {
@@ -170,7 +175,8 @@ extension SettingsViewModel {
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
             case .appearanceDarkMode(let objectID),
-                 .appearanceDisableAvatarAnimation(let objectID):
+                 .appearanceDisableAvatarAnimation(let objectID),
+                 .preferenceUsingDefaultBrowser(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
                 cell.delegate = settingsToggleCellDelegate
                 self.context.managedObjectContext.performAndWait {
@@ -231,11 +237,14 @@ extension SettingsViewModel {
     ) {
         switch item {
         case .appearanceDarkMode:
-            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.DarkMode.title
+            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.trueBlackDarkMode
             cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
         case .appearanceDisableAvatarAnimation:
-            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.AvatarAnimation.title
+            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.disableAvatarAnimation
             cell.switchButton.isOn = setting.preferredStaticAvatar
+        case .preferenceUsingDefaultBrowser:
+            cell.textLabel?.text = L10n.Scene.Settings.Section.Preference.usingDefaultBrowser
+            cell.switchButton.isOn = setting.preferredUsingDefaultBrowser
         default:
             assertionFailure()
         }

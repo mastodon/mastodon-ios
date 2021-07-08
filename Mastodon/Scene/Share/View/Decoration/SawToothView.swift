@@ -52,7 +52,7 @@ final class SawToothView: UIView {
         }
         bezierPath.addLine(to: CGPoint(x: 0, y: bottomY))
         bezierPath.close()
-        ThemeService.shared.currentTheme.value.systemBackgroundColor.setFill()
+        ThemeService.shared.currentTheme.value.tableViewCellBackgroundColor.setFill()
         bezierPath.fill()
         bezierPath.lineWidth = 0
         bezierPath.stroke()
