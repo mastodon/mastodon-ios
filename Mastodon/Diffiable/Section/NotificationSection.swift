@@ -97,6 +97,7 @@ extension NotificationSection {
                     StatusSection.configure(
                         cell: cell,
                         tableView: tableView,
+                        timelineContext: .notifications,
                         dependency: dependency,
                         readableLayoutFrame: frame,
                         status: status,

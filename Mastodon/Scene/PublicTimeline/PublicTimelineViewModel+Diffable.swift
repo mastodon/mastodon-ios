@@ -24,6 +24,7 @@ extension PublicTimelineViewModel {
 
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
+            timelineContext: .public,
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,

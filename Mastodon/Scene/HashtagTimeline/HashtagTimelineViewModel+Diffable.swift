@@ -24,6 +24,7 @@ extension HashtagTimelineViewModel {
         
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
+            timelineContext: .hashtag,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,

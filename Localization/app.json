@@ -169,6 +169,7 @@
                 "edit_info": "Edit Info"
             },
             "timeline": {
+                "filtered": "Filtered",
                 "timestamp": {
                     "now": "Now",
                     "time_ago": "%s ago"

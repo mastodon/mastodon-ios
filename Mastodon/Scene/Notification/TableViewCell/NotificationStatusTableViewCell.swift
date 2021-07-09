@@ -130,9 +130,24 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     
     var separatorLineToMarginLeadingLayoutConstraint: NSLayoutConstraint!
     var separatorLineToMarginTrailingLayoutConstraint: NSLayoutConstraint!
+
+    var isFiltered: Bool = false {
+        didSet {
+            configure(isFiltered: isFiltered)
+        }
+    }
+
+    let filteredLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = L10n.Common.Controls.Timeline.filtered
+        label.font = .preferredFont(forTextStyle: .body)
+        return label
+    }()
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        isFiltered = false
         avatarImageViewTask?.cancel()
         avatarImageViewTask = nil
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
@@ -263,6 +278,14 @@ extension NotificationStatusTableViewCell {
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
 
+        filteredLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(filteredLabel)
+        NSLayoutConstraint.activate([
+            filteredLabel.centerXAnchor.constraint(equalTo: statusContainerView.centerXAnchor),
+            filteredLabel.centerYAnchor.constraint(equalTo: statusContainerView.centerYAnchor),
+        ])
+        filteredLabel.isHidden = true
+
         statusView.delegate = self
 
         let avatarImageViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
@@ -281,6 +304,12 @@ extension NotificationStatusTableViewCell {
         resetSeparatorLineLayout()
         actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
         statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
+    }
+
+    private func configure(isFiltered: Bool) {
+        statusView.alpha = isFiltered ? 0 : 1
+        filteredLabel.isHidden = !isFiltered
+        isUserInteractionEnabled = !isFiltered
     }
 
 }

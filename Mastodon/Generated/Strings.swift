@@ -328,6 +328,8 @@ internal enum L10n {
         internal static let search = L10n.tr("Localizable", "Common.Controls.Tabs.Search")
       }
       internal enum Timeline {
+        /// Filtered
+        internal static let filtered = L10n.tr("Localizable", "Common.Controls.Timeline.Filtered")
         internal enum Accessibility {
           /// %@ favorites
           internal static func countFavorites(_ p1: Any) -> String {

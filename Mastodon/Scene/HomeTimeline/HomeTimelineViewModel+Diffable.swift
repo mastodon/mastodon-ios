@@ -25,6 +25,7 @@ extension HomeTimelineViewModel {
         
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
+            timelineContext: .home,
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,

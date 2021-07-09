@@ -13,6 +13,8 @@ import UIKit
 import AVKit
 import AlamofireImage
 import MastodonMeta
+import MastodonSDK
+import NaturalLanguage
 
 // import LinkPresentation
 
@@ -22,6 +24,7 @@ import AsyncDisplayKit
 
 protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
+    var isFiltered: Bool { get set }
 }
 
 enum StatusSection: Equatable, Hashable {
@@ -59,6 +62,7 @@ extension StatusSection {
 
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
+        timelineContext: TimelineContext,
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
         timestampUpdatePublisher: AnyPublisher<Date, Never>,
@@ -91,6 +95,7 @@ extension StatusSection {
                 configureStatusTableViewCell(
                     cell: cell,
                     tableView: tableView,
+                    timelineContext: timelineContext,
                     dependency: dependency,
                     readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                     status: status,
@@ -128,6 +133,7 @@ extension StatusSection {
                     StatusSection.configure(
                         cell: cell,
                         tableView: tableView,
+                        timelineContext: timelineContext,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         status: status,
@@ -212,9 +218,97 @@ extension StatusSection {
 
 extension StatusSection {
 
+    enum TimelineContext {
+        case home
+        case notifications
+        case `public`
+        case thread
+        case account
+
+        case favorite
+        case hashtag
+        case report
+
+        var filterContext: Mastodon.Entity.Filter.Context? {
+            switch self {
+            case .home:             return .home
+            case .notifications:    return .notifications
+            case .public:           return .public
+            case .thread:           return .thread
+            case .account:          return .account
+            default:                return nil
+            }
+        }
+    }
+
+    private static func needsFilterStatus(
+        content: MastodonMetaContent?,
+        filters: [Mastodon.Entity.Filter],
+        timelineContext: TimelineContext
+    ) -> AnyPublisher<Bool, Never> {
+        guard let content = content,
+              let currentFilterContext = timelineContext.filterContext else {
+            return Just(false).eraseToAnyPublisher()
+        }
+
+        return Future<Bool, Never> { promise in
+            DispatchQueue.global(qos: .userInteractive).async {
+                var wordFilters: [Mastodon.Entity.Filter] = []
+                var nonWordFilters: [Mastodon.Entity.Filter] = []
+                for filter in filters {
+                    guard filter.context.contains(where: { $0 == currentFilterContext }) else { continue }
+                    if filter.wholeWord {
+                        wordFilters.append(filter)
+                    } else {
+                        nonWordFilters.append(filter)
+                    }
+                }
+
+                let text = content.original.lowercased()
+
+                var needsFilter = false
+                for filter in nonWordFilters {
+                    guard text.contains(filter.phrase.lowercased()) else { continue }
+                    needsFilter = true
+                    break
+                }
+
+                if needsFilter {
+                    DispatchQueue.main.async {
+                        promise(.success(true))
+                    }
+                    return
+                }
+
+                let tokenizer = NLTokenizer(unit: .word)
+                tokenizer.string = text
+                let phraseWords = wordFilters.map { $0.phrase.lowercased() }
+                tokenizer.enumerateTokens(in: text.startIndex..<text.endIndex) { range, _ in
+                    let word = String(text[range])
+                    if phraseWords.contains(word) {
+                        needsFilter = true
+                        return false
+                    } else {
+                        return true
+                    }
+                }
+
+                DispatchQueue.main.async {
+                    promise(.success(needsFilter))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+}
+
+extension StatusSection {
+
     static func configureStatusTableViewCell(
         cell: StatusTableViewCell,
         tableView: UITableView,
+        timelineContext: TimelineContext,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         status: Status,
@@ -224,6 +318,7 @@ extension StatusSection {
         configure(
             cell: cell,
             tableView: tableView,
+            timelineContext: timelineContext,
             dependency: dependency,
             readableLayoutFrame: readableLayoutFrame,
             status: status,
@@ -235,6 +330,7 @@ extension StatusSection {
     static func configure(
         cell: StatusCell,
         tableView: UITableView,
+        timelineContext: TimelineContext,
         dependency: NeedsDependency,
         readableLayoutFrame: CGRect?,
         status: Status,
@@ -254,6 +350,32 @@ extension StatusSection {
                 }
             }
             .store(in: &cell.disposeBag)
+
+        let document = MastodonContent(
+            content: (status.reblog ?? status).content,
+            emojis: (status.reblog ?? status).emojiMeta
+        )
+        let content = try? MastodonMetaContent.convert(document: document)
+        
+        if status.author.id == requestUserID || status.reblog?.author.id == requestUserID {
+            // do not filter myself
+        } else {
+            let needsFilter = StatusSection.needsFilterStatus(
+                content: content,
+                filters: AppContext.shared.authenticationService.activeFilters.value,
+                timelineContext: timelineContext
+            )
+            needsFilter
+                .receive(on: DispatchQueue.main)
+                .sink { [weak cell] needsFilter in
+                    guard let cell = cell else { return }
+                    cell.isFiltered = needsFilter
+                    if needsFilter {
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: filter out status: %s", ((#file as NSString).lastPathComponent), #line, #function, content?.original ?? "<nil>")
+                    }
+                }
+                .store(in: &cell.disposeBag)
+        }
         
         // set header
         StatusSection.configureStatusViewHeader(cell: cell, status: status)
@@ -275,6 +397,7 @@ extension StatusSection {
         StatusSection.configureStatusContent(
             cell: cell,
             status: status,
+            content: content,
             readableLayoutFrame: readableLayoutFrame,
             statusItemAttribute: statusItemAttribute
         )
@@ -558,20 +681,15 @@ extension StatusSection {
     static func configureStatusContent(
         cell: StatusCell,
         status: Status,
+        content: MastodonMetaContent?,
         readableLayoutFrame: CGRect?,
         statusItemAttribute: Item.StatusAttribute
     ) {
         // set content
-        do {
-            let status = status.reblog ?? status
-            let content = MastodonContent(
-                content: status.content,
-                emojis: status.emojiMeta
-            )
-            let metaContent = try MastodonMetaContent.convert(document: content)
-            cell.statusView.contentMetaText.configure(content: metaContent)
-            cell.statusView.contentMetaText.textView.accessibilityLabel = metaContent.trimmed
-        } catch {
+        if let content = content {
+            cell.statusView.contentMetaText.configure(content: content)
+            cell.statusView.contentMetaText.textView.accessibilityLabel = content.trimmed
+        } else {
             cell.statusView.contentMetaText.textView.text = " "
             cell.statusView.contentMetaText.textView.accessibilityLabel = ""
             assertionFailure()
