@@ -148,8 +148,10 @@ extension NotificationViewController {
 
         tableView.deselectRow(with: transitionCoordinator, animated: animated)
         
-        // fetch latest notification when will appear
-        viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
+        // fetch latest notification when scroll position is within half screen height to prevent list reload
+        if tableView.contentOffset.y < view.frame.height * 0.5 {
+            viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
+        }
 
         
         // needs trigger manually after onboarding dismiss

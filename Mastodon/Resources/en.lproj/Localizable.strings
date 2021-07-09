@@ -119,6 +119,7 @@ Please check your internet connection.";
 "Common.Controls.Timeline.Accessibility.CountFavorites" = "%@ favorites";
 "Common.Controls.Timeline.Accessibility.CountReblogs" = "%@ reblogs";
 "Common.Controls.Timeline.Accessibility.CountReplies" = "%@ replies";
+"Common.Controls.Timeline.Filtered" = "Filtered";
 "Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view this’s profile
  until they unblock you.";
 "Common.Controls.Timeline.Header.BlockingWarning" = "You can’t view this profile

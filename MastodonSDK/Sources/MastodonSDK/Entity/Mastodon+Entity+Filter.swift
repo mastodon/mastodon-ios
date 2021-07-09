@@ -43,6 +43,7 @@ extension Mastodon.Entity.Filter {
         case notifications
         case `public`
         case thread
+        case account
         
         case _other(String)
         
@@ -52,6 +53,7 @@ extension Mastodon.Entity.Filter {
             case "notifications":       self = .notifications
             case "public":              self = .`public`
             case "thread":              self = .thread
+            case "account":             self = .account
             default:                    self = ._other(rawValue)
             }
         }
@@ -62,6 +64,7 @@ extension Mastodon.Entity.Filter {
             case .notifications:            return "notifications"
             case .public:                   return "public"
             case .thread:                   return "thread"
+            case .account:                  return "account"
             case ._other(let value):        return value
             }
         }
