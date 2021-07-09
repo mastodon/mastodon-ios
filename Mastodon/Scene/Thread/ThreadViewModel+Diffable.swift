@@ -26,6 +26,7 @@ extension ThreadViewModel {
         
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
+            timelineContext: .thread,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,

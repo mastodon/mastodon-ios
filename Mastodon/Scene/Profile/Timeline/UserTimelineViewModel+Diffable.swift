@@ -21,6 +21,7 @@ extension UserTimelineViewModel {
         
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
+            timelineContext: .account,
             dependency: dependency,
             managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,

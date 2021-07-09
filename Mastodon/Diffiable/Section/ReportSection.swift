@@ -42,6 +42,7 @@ extension ReportSection {
                     StatusSection.configure(
                         cell: cell,
                         tableView: tableView,
+                        timelineContext: .report,
                         dependency: dependency,
                         readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
                         status: status,

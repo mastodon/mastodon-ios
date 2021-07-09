@@ -41,6 +41,9 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     var separatorLineToMarginLeadingLayoutConstraint: NSLayoutConstraint!
     var separatorLineToMarginTrailingLayoutConstraint: NSLayoutConstraint!
 
+    // not support filter
+    var isFiltered: Bool = false
+
     override func prepareForReuse() {
         super.prepareForReuse()
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)

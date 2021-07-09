@@ -21,6 +21,7 @@ extension FavoriteViewModel {
         
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
+            timelineContext: .favorite,
             dependency: dependency,
             managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
             timestampUpdatePublisher: timestampUpdatePublisher,

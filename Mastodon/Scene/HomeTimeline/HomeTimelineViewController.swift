@@ -24,12 +24,18 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     private(set) lazy var viewModel = HomeTimelineViewModel(context: context)
     
     let mediaPreviewTransitionController = MediaPreviewTransitionController()
+
+    let friendsAssetImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = Asset.Asset.friends.image
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
     
     lazy var emptyView: UIStackView = {
         let emptyView = UIStackView()
         emptyView.axis = .vertical
         emptyView.distribution = .fill
-        emptyView.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 54, right: 20)
         emptyView.isLayoutMarginsRelativeArrangement = true
         return emptyView
     }()
@@ -246,9 +252,10 @@ extension HomeTimelineViewController {
         view.addSubview(emptyView)
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emptyView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor)
+            emptyView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
         ])
         
         if emptyView.arrangedSubviews.count > 0 {
@@ -272,11 +279,29 @@ extension HomeTimelineViewController {
             button.addTarget(self, action: #selector(HomeTimelineViewController.manuallySearchButtonPressed(_:)), for: .touchUpInside)
             return button
         }()
-        
-        emptyView.addArrangedSubview(findPeopleButton)
-        emptyView.setCustomSpacing(17, after: findPeopleButton)
-        emptyView.addArrangedSubview(manuallySearchButton)
-        
+
+        let topPaddingView = UIView()
+        let bottomPaddingView = UIView()
+
+        emptyView.addArrangedSubview(topPaddingView)
+        emptyView.addArrangedSubview(friendsAssetImageView)
+        emptyView.addArrangedSubview(bottomPaddingView)
+
+        topPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor, multiplier: 0.8),
+        ])
+
+        let buttonContainerStackView = UIStackView()
+        emptyView.addArrangedSubview(buttonContainerStackView)
+        buttonContainerStackView.isLayoutMarginsRelativeArrangement = true
+        buttonContainerStackView.layoutMargins = UIEdgeInsets(top: 0, left: 32, bottom: 22, right: 32)
+        buttonContainerStackView.axis = .vertical
+        buttonContainerStackView.spacing = 17
+
+        buttonContainerStackView.addArrangedSubview(findPeopleButton)
+        buttonContainerStackView.addArrangedSubview(manuallySearchButton)
     }
 }
 
