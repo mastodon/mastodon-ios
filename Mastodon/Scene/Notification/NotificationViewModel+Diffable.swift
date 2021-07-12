@@ -19,7 +19,7 @@ extension NotificationViewModel {
     ) {
         diffableDataSource = NotificationSection.tableViewDiffableDataSource(
             for: tableView,
-            managedObjectContext: context.managedObjectContext,
+            managedObjectContext: fetchedResultsController.managedObjectContext,
             delegate: delegate,
             dependency: dependency
         )

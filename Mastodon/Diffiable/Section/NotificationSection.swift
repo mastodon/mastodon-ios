@@ -30,7 +30,8 @@ extension NotificationSection {
             guard let dependency = dependency else { return nil }
             switch notificationItem {
             case .notification(let objectID, let attribute):
-                guard let notification = try? managedObjectContext.existingObject(with: objectID) as? MastodonNotification else {
+                guard let notification = try? managedObjectContext.existingObject(with: objectID) as? MastodonNotification,
+                      !notification.isDeleted else {
                     return UITableViewCell()
                 }
 
@@ -38,21 +39,21 @@ extension NotificationSection {
                 cell.delegate = delegate
 
                 // configure author
-                cell.avatarImageViewTask = Nuke.loadImage(
-                    with: notification.account.avatarImageURL(),
-                    options: ImageLoadingOptions(
-                        placeholder: UIImage.placeholder(color: .systemFill),
-                        transition: .fadeIn(duration: 0.2)
-                    ),
-                    into: cell.avatarImageView
+                cell.configure(
+                    with: AvatarConfigurableViewConfiguration(
+                        avatarImageURL: notification.account.avatarImageURL()
+                    )
                 )
                 cell.actionImageView.image = UIImage(
                     systemName: notification.notificationType.actionImageName,
                     withConfiguration: UIImage.SymbolConfiguration(
                         pointSize: 12, weight: .semibold
                     )
-                )?.withRenderingMode(.alwaysTemplate)
-                cell.actionImageBackground.backgroundColor = notification.notificationType.color
+                )?
+                .withRenderingMode(.alwaysTemplate)
+                .af.imageAspectScaled(toFit: CGSize(width: 14, height: 14))
+
+                cell.actionImageView.backgroundColor = notification.notificationType.color
 
                 // configure author name, notification description, timestamp
                 cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
