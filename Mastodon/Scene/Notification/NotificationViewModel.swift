@@ -75,6 +75,7 @@ final class NotificationViewModel: NSObject {
         self.fetchedResultsController = {
             let fetchRequest = MastodonNotification.sortedFetchRequest
             fetchRequest.returnsObjectsAsFaults = false
+            fetchRequest.fetchBatchSize = 10
             fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(MastodonNotification.status), #keyPath(MastodonNotification.account)]
             let controller = NSFetchedResultsController(
                 fetchRequest: fetchRequest,
