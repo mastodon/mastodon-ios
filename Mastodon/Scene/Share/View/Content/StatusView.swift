@@ -152,6 +152,7 @@ final class StatusView: UIView {
     let pollTableView: PollTableView = {
         let tableView = PollTableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         tableView.register(PollOptionTableViewCell.self, forCellReuseIdentifier: String(describing: PollOptionTableViewCell.self))
+        tableView.rowHeight = PollOptionView.height
         tableView.isScrollEnabled = false
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
@@ -450,7 +451,7 @@ extension StatusView {
         // action toolbar container
         containerStackView.addArrangedSubview(actionToolbarContainer)
         containerStackView.sendSubviewToBack(actionToolbarContainer)
-        actionToolbarContainer.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        actionToolbarContainer.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         actionToolbarContainer.setContentHuggingPriority(.required - 1, for: .vertical)
 
         headerContainerView.isHidden = true

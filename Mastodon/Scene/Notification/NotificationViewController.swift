@@ -198,32 +198,34 @@ extension NotificationViewController {
 // MARK: - StatusTableViewControllerAspect
 extension NotificationViewController: StatusTableViewControllerAspect { }
 
-// MARK: - TableViewCellHeightCacheableContainer
-extension NotificationViewController: TableViewCellHeightCacheableContainer {
-    var cellFrameCache: NSCache<NSNumber, NSValue> {
-        viewModel.cellFrameCache
-    }
+extension NotificationViewController {
 
     func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        let key = item.hashValue
-        let frame = cell.frame
-        viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
+        switch item {
+        case .notification(let objectID, _):
+            guard let object = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return }
+            let key = object.id as NSString
+            let frame = cell.frame
+            viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: key)
+        case .bottomLoader:
+            break
+        }
     }
 
     func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
-        guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: item.hashValue))?.cgRectValue else {
-            if case .bottomLoader = item {
-                return TimelineLoaderTableViewCell.cellHeight
-            } else {
-                return UITableView.automaticDimension
-            }
+        switch item {
+        case .notification(let objectID, _):
+            guard let object = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return UITableView.automaticDimension }
+            let key = object.id as NSString
+            guard let frame = viewModel.cellFrameCache.object(forKey: key)?.cgRectValue else { return UITableView.automaticDimension }
+            return frame.height
+        case .bottomLoader:
+            return TimelineLoaderTableViewCell.cellHeight
         }
-
-        return ceil(frame.height)
     }
 }
 
@@ -235,6 +237,14 @@ extension NotificationViewController: UITableViewDelegate {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         open(item: item)
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cacheTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return handleTableView(tableView, estimatedHeightForRowAt: indexPath)
     }
 
 }
