@@ -192,7 +192,10 @@ final class StatusNode: ASCellNode {
         }
         verticalStack.children = verticalStackChildren
 
-        return verticalStack
+        return ASInsetLayoutSpec(
+            insets: UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16),
+            child: verticalStack
+        )
     }
 
 }
@@ -230,7 +233,7 @@ extension StatusNode: ASMultiplexImageNodeDataSource {
         case "url" as NSString:
             return meta.url
         case "previewURL" as NSString:
-            return meta.priviewURL
+            return meta.previewURL
         default:
             assertionFailure()
             return nil
