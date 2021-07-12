@@ -197,7 +197,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
             .sink { [weak self] instance in
                 guard let self = self else { return }
                 let version = instance?.version ?? "-"
-                let link = #"<a href="https://github.com/tootsuite/mastodon">tootsuite/mastodon</a>"#
+                let link = #"<a href="https://github.com/mastodon/mastodon">mastodon/mastodon</a>"#
                 let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
                 self.tableFooterActiveLabel.configure(content: content, emojiDict: [:])
             }
@@ -530,7 +530,7 @@ extension SettingsViewController: SettingsToggleCellDelegate {
 extension SettingsViewController: ActiveLabelDelegate {
     func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
         coordinator.present(
-            scene: .safari(url: URL(string: "https://github.com/tootsuite/mastodon")!),
+            scene: .safari(url: URL(string: "https://github.com/mastodon/mastodon")!),
             from: self,
             transition: .safariPresent(animated: true, completion: nil)
         )
