@@ -62,9 +62,10 @@ final class ThemeService {
         UITableViewCell.appearance().selectionColor = theme.tableViewCellSelectionBackgroundColor
 
         // set search bar appearance
-        UISearchBar.appearance().barTintColor = theme.navigationBarBackgroundColor
         UISearchBar.appearance().tintColor = Asset.Colors.brandBlue.color
-
+        UISearchBar.appearance().barTintColor = theme.navigationBarBackgroundColor
+        let cancelButtonAttributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: Asset.Colors.brandBlue.color]
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: .normal)
     }
 
 }
