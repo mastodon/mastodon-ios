@@ -29,7 +29,7 @@ final class NotificationViewModel: NSObject {
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
     let notificationPredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-    let cellFrameCache = NSCache<NSNumber, NSValue>()
+    let cellFrameCache = NSCache<NSString, NSValue>()
     
     var needsScrollToTopAfterDataSourceUpdate = false
     let dataSourceDidUpdated = PassthroughSubject<Void, Never>()
