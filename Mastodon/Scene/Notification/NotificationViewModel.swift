@@ -29,7 +29,7 @@ final class NotificationViewModel: NSObject {
     let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
     let notificationPredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-    let cellFrameCache = NSCache<NSNumber, NSValue>()
+    let cellFrameCache = NSCache<NSString, NSValue>()
     
     var needsScrollToTopAfterDataSourceUpdate = false
     let dataSourceDidUpdated = PassthroughSubject<Void, Never>()
@@ -75,6 +75,7 @@ final class NotificationViewModel: NSObject {
         self.fetchedResultsController = {
             let fetchRequest = MastodonNotification.sortedFetchRequest
             fetchRequest.returnsObjectsAsFaults = false
+            fetchRequest.fetchBatchSize = 10
             fetchRequest.relationshipKeyPathsForPrefetching = [#keyPath(MastodonNotification.status), #keyPath(MastodonNotification.account)]
             let controller = NSFetchedResultsController(
                 fetchRequest: fetchRequest,

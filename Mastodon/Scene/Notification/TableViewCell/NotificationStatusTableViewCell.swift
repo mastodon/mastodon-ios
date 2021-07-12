@@ -37,6 +37,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
 
     static let actionImageBorderWidth: CGFloat = 2
     static let statusPadding = UIEdgeInsets(top: 50, left: 73, bottom: 24, right: 24)
+    static let actionImageViewSize = CGSize(width: 24, height: 24)
 
     var disposeBag = Set<AnyCancellable>()
     var pollCountdownSubscription: AnyCancellable?
@@ -45,30 +46,24 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     var containerStackViewBottomLayoutConstraint: NSLayoutConstraint!
     let containerStackView = UIStackView()
 
-    var avatarImageViewTask: ImageTask?
     let avatarImageView: UIImageView = {
         let imageView = FLAnimatedImageView()
-        imageView.layer.cornerRadius = 4
-        imageView.layer.cornerCurve = .continuous
-        imageView.clipsToBounds = true
         return imageView
     }()
     
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .center
         imageView.tintColor = Asset.Colors.Background.systemBackground.color
+        imageView.isOpaque = true
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = NotificationStatusTableViewCell.actionImageViewSize.width * 0.5
+        imageView.layer.cornerCurve = .circular
+        imageView.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
+        imageView.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
+        imageView.layer.shouldRasterize = true
+        imageView.layer.rasterizationScale = UIScreen.main.scale
         return imageView
-    }()
-    
-    let actionImageBackground: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = (24 + NotificationStatusTableViewCell.actionImageBorderWidth) / 2
-        view.layer.cornerCurve = .continuous
-        view.clipsToBounds = true
-        view.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
-        view.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
-        view.tintColor = Asset.Colors.Background.systemBackground.color
-        return view
     }()
     
     let avatarContainer: UIView = {
@@ -148,8 +143,6 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         isFiltered = false
-        avatarImageViewTask?.cancel()
-        avatarImageViewTask = nil
         statusView.updateContentWarningDisplay(isHidden: true, animated: false)
         statusView.pollTableView.dataSource = nil
         statusView.playerContainerView.reset()
@@ -199,20 +192,13 @@ extension NotificationStatusTableViewCell {
             avatarImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
         ])
 
-        actionImageBackground.translatesAutoresizingMaskIntoConstraints = false
-        avatarContainer.addSubview(actionImageBackground)
-        NSLayoutConstraint.activate([
-            actionImageBackground.heightAnchor.constraint(equalToConstant: 24 + NotificationStatusTableViewCell.actionImageBorderWidth).priority(.required - 1),
-            actionImageBackground.widthAnchor.constraint(equalToConstant: 24 + NotificationStatusTableViewCell.actionImageBorderWidth).priority(.required - 1),
-            actionImageBackground.centerYAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
-            actionImageBackground.centerXAnchor.constraint(equalTo: avatarContainer.trailingAnchor),
-        ])
-
         actionImageView.translatesAutoresizingMaskIntoConstraints = false
-        actionImageBackground.addSubview(actionImageView)
+        avatarContainer.addSubview(actionImageView)
         NSLayoutConstraint.activate([
-            actionImageView.centerXAnchor.constraint(equalTo: actionImageBackground.centerXAnchor),
-            actionImageView.centerYAnchor.constraint(equalTo: actionImageBackground.centerYAnchor),
+            actionImageView.centerYAnchor.constraint(equalTo: avatarContainer.bottomAnchor),
+            actionImageView.centerXAnchor.constraint(equalTo: avatarContainer.trailingAnchor),
+            actionImageView.widthAnchor.constraint(equalToConstant: NotificationStatusTableViewCell.actionImageViewSize.width),
+            actionImageView.heightAnchor.constraint(equalToConstant: NotificationStatusTableViewCell.actionImageViewSize.height),
         ])
 
         containerStackView.addArrangedSubview(contentStackView)
@@ -302,7 +288,7 @@ extension NotificationStatusTableViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         
         resetSeparatorLineLayout()
-        actionImageBackground.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
+        avatarImageView.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
         statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
     }
 
@@ -404,4 +390,12 @@ extension NotificationStatusTableViewCell {
         }
     }
     
+}
+
+// MARK: - AvatarConfigurableView
+extension NotificationStatusTableViewCell: AvatarConfigurableView {
+    static var configurableAvatarImageSize: CGSize { CGSize(width: 35, height: 35) }
+    static var configurableAvatarImageCornerRadius: CGFloat { 4 }
+    var configurableAvatarImageView: UIImageView? { avatarImageView }
+    var configurableAvatarButton: UIButton? { nil }
 }

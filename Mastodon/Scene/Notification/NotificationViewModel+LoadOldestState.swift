@@ -71,43 +71,44 @@ extension NotificationViewModel.LoadOldestState {
                 sinceID: nil,
                 minID: nil,
                 limit: nil,
-                excludeTypes: [.followRequest],
-                accountID: nil)
+                excludeTypes: [],
+                accountID: nil
+            )
             viewModel.context.apiService.allNotifications(
                 domain: activeMastodonAuthenticationBox.domain,
                 query: query,
                 mastodonAuthenticationBox: activeMastodonAuthenticationBox
             )
-                .sink { completion in
-                    switch completion {
-                    case .failure(let error):
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
-                    case .finished:
-                        // handle isFetchingLatestTimeline in fetch controller delegate
-                        break
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
+                case .finished:
+                    // handle isFetchingLatestTimeline in fetch controller delegate
+                    break
+                }
+
+                stateMachine.enter(Idle.self)
+            } receiveValue: { [weak viewModel] response in
+                guard let viewModel = viewModel else { return }
+                switch viewModel.selectedIndex.value {
+                case .EveryThing:
+                    if response.value.isEmpty {
+                        stateMachine.enter(NoMore.self)
+                    } else {
+                        stateMachine.enter(Idle.self)
                     }
-                    
-                    stateMachine.enter(Idle.self)
-                } receiveValue: { [weak viewModel] response in
-                    guard let viewModel = viewModel else { return }
-                    switch viewModel.selectedIndex.value {
-                    case .EveryThing:
-                        if response.value.isEmpty {
-                            stateMachine.enter(NoMore.self)
-                        } else {
-                            stateMachine.enter(Idle.self)
-                        }
-                    case .Mentions:
-                        viewModel.noMoreNotification.value = response.value.isEmpty
-                        let list = response.value.filter { $0.type == Mastodon.Entity.Notification.NotificationType.mention }
-                        if list.isEmpty {
-                            stateMachine.enter(NoMore.self)
-                        } else {
-                            stateMachine.enter(Idle.self)
-                        }
+                case .Mentions:
+                    viewModel.noMoreNotification.value = response.value.isEmpty
+                    let list = response.value.filter { $0.type == Mastodon.Entity.Notification.NotificationType.mention }
+                    if list.isEmpty {
+                        stateMachine.enter(NoMore.self)
+                    } else {
+                        stateMachine.enter(Idle.self)
                     }
                 }
-                .store(in: &viewModel.disposeBag)
+            }
+            .store(in: &viewModel.disposeBag)
         }
     }
     

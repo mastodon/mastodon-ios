@@ -188,8 +188,8 @@ extension StatusProviderFacade {
     static func responseToStatusActiveLabelAction(provider: StatusProvider, node: ASCellNode, didSelectActiveEntityType type: ActiveEntityType) {
         switch type {
         case .hashtag(let text, _):
-            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
-            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: provider, transition: .show)
+            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
+            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
         case .mention(let text, _):
             coordinateToStatusMentionProfileScene(for: .primary, provider: provider, node: node, mention: text)
         case .url(_, _, let url, _):
@@ -212,7 +212,7 @@ extension StatusProviderFacade {
 
     private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, node: ASCellNode, mention: String) {
         guard let status = provider.status(node: node, indexPath: nil) else { return }
-        coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention)
+        coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention, href: nil)
     }
     #endif
 
