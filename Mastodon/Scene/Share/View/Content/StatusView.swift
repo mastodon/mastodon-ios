@@ -225,6 +225,7 @@ final class StatusView: UIView {
         let paragraphStyle: NSMutableParagraphStyle = {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
+            style.paragraphSpacing = 8
             return style
         }()
         metaText.textAttributes = [
