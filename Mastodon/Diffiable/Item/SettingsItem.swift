@@ -43,6 +43,7 @@ extension SettingsItem {
     }
     
     enum Link: CaseIterable {
+        case accountSettings
         case termsOfService
         case privacyPolicy
         case clearMediaCache
@@ -50,6 +51,7 @@ extension SettingsItem {
         
         var title: String {
             switch self {
+            case .accountSettings:   return "Account settings"
             case .termsOfService:    return L10n.Scene.Settings.Section.Boringzone.terms
             case .privacyPolicy:     return L10n.Scene.Settings.Section.Boringzone.privacy
             case .clearMediaCache:   return L10n.Scene.Settings.Section.Spicyzone.clear
@@ -59,6 +61,7 @@ extension SettingsItem {
         
         var textColor: UIColor {
             switch self {
+            case .accountSettings:   return Asset.Colors.brandBlue.color
             case .termsOfService:    return Asset.Colors.brandBlue.color
             case .privacyPolicy:     return Asset.Colors.brandBlue.color
             case .clearMediaCache:   return .systemRed

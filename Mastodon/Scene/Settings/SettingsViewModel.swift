@@ -12,13 +12,15 @@ import Foundation
 import MastodonSDK
 import UIKit
 import os.log
+import AuthenticationServices
 
 class SettingsViewModel {
     
     var disposeBag = Set<AnyCancellable>()
 
     let context: AppContext
-    
+    var mastodonAuthenticationController: MastodonAuthenticationController?
+
     // input
     let setting: CurrentValueSubject<Setting, Never>
     var updateDisposeBag = Set<AnyCancellable>()
@@ -85,6 +87,20 @@ class SettingsViewModel {
 }
 
 extension SettingsViewModel {
+
+    func openAuthenticationPage(
+        authenticateURL: URL,
+        presentationContextProvider: ASWebAuthenticationPresentationContextProviding
+    ) {
+        let authenticationController = MastodonAuthenticationController(
+            context: self.context,
+            authenticateURL: authenticateURL
+        )
+
+        self.mastodonAuthenticationController = authenticationController
+        authenticationController.authenticationSession?.presentationContextProvider = presentationContextProvider
+        authenticationController.authenticationSession?.start()
+    }
     
     // MARK: - Private methods
     private func processDataSource(_ setting: Setting) {
@@ -117,6 +133,7 @@ extension SettingsViewModel {
         // boring zone
         let boringZoneSettingsItems: [SettingsItem] = {
             let links: [SettingsItem.Link] = [
+                .accountSettings,
                 .termsOfService,
                 .privacyPolicy
             ]

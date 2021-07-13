@@ -519,6 +519,7 @@
                 },
                 "boringzone": {
                     "title": "The Boring zone",
+                    "account_settings": "Account settings",
                     "terms": "Terms of Service",
                     "privacy": "Privacy Policy"
                 },

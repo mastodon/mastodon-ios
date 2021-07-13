@@ -145,8 +145,8 @@ extension StatusProviderFacade {
                 provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
             }
         case .hashtag(let text, _):
-            let hashtagTimelienViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
-            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelienViewModel), from: provider, transition: .show)
+            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
+            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
         case .mention(let text, let userInfo):
             let href = userInfo?["href"] as? String
             coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text, href: href)

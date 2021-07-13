@@ -12,7 +12,7 @@ import ActiveLabel
 import CoreData
 import CoreDataStack
 import MastodonSDK
-
+import AuthenticationServices
 
 class SettingsViewController: UIViewController, NeedsDependency {
     
@@ -369,6 +369,10 @@ extension SettingsViewController: UITableViewDelegate {
             break
         case .boringZone(let link), .spicyZone(let link):
             switch link {
+            case .accountSettings:
+                guard let box = context.authenticationService.activeMastodonAuthenticationBox.value,
+                      let url = URL(string: "https://\(box.domain)/auth/edit") else { return }
+                viewModel.openAuthenticationPage(authenticateURL: url, presentationContextProvider: self)
             case .termsOfService, .privacyPolicy:
                 // same URL
                 guard let url = viewModel.privacyURL else { break }
@@ -382,10 +386,10 @@ extension SettingsViewController: UITableViewDelegate {
                     .receive(on: RunLoop.main)
                     .sink { [weak self] byteCount in
                         guard let self = self else { return }
-                        let byteCountformatted = AppContext.byteCountFormatter.string(fromByteCount: Int64(byteCount))
+                        let byteCountFormatted = AppContext.byteCountFormatter.string(fromByteCount: Int64(byteCount))
                         let alertController = UIAlertController(
                             title: L10n.Common.Alerts.CleanCache.title,
-                            message: L10n.Common.Alerts.CleanCache.message(byteCountformatted),
+                            message: L10n.Common.Alerts.CleanCache.message(byteCountFormatted),
                             preferredStyle: .alert
                         )
                         let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
@@ -534,6 +538,13 @@ extension SettingsViewController: ActiveLabelDelegate {
             from: self,
             transition: .safariPresent(animated: true, completion: nil)
         )
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+extension SettingsViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return view.window!
     }
 }
 
