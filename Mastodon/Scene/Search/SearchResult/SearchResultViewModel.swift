@@ -65,6 +65,12 @@ final class SearchResultViewModel {
             snapshot.appendSections([.main])
 
             // append account & hashtag items
+
+            var items = items
+            if self.searchScope == .all {
+                // all search scope not paging. it's safe sort on whole dataset
+                items.sort(by: { ($0.sortKey ?? "") < ($1.sortKey ?? "")})
+            }
             snapshot.appendItems(items, toSection: .main)
 
             var oldSnapshotAttributeDict: [NSManagedObjectID : Item.StatusAttribute] = [:]

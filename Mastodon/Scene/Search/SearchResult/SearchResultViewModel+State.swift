@@ -37,7 +37,8 @@ extension SearchResultViewModel.State {
         let logger = Logger(subsystem: "SearchResultViewModel.State.Loading", category: "Logic")
 
         var previousSearchText = ""
-        var offset = 0
+        var offset: Int? = nil
+        var latestLoadingToken = UUID()
 
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = self.viewModel else { return false }
@@ -77,15 +78,15 @@ extension SearchResultViewModel.State {
 
             if searchText != previousSearchText {
                 previousSearchText = searchText
+                offset = nil
             }
 
             // not set offset for all case
             // and assert other cases the items are all the same type elements
-            let offset: Int? = {
+            let _offset: Int? = {
                 switch searchType {
                 case .default:  return nil
-                default:
-                    return viewModel.items.value.isEmpty ? nil : viewModel.items.value.count
+                default:        return offset
                 }
             }()
 
@@ -98,9 +99,12 @@ extension SearchResultViewModel.State {
                 excludeUnreviewed: nil,
                 resolve: nil,
                 limit: nil,
-                offset: offset,
+                offset: _offset,
                 following: nil
             )
+
+            let id = UUID()
+            latestLoadingToken = id
 
             viewModel.context.apiService.search(
                 domain: domain,
@@ -121,9 +125,12 @@ extension SearchResultViewModel.State {
 
                 // discard result when search text is outdated
                 guard searchText == self.previousSearchText else { return }
+                // discard result when request not the latest one
+                guard id == self.latestLoadingToken else { return }
+                // discard result when state is not Loading
                 guard stateMachine.currentState is Loading else { return }
 
-                let oldItems = offset == nil ? [] : viewModel.items.value
+                let oldItems = _offset == nil ? [] : viewModel.items.value
                 var newItems: [SearchResultItem] = []
 
                 for account in response.value.accounts {
@@ -136,17 +143,18 @@ extension SearchResultViewModel.State {
                     guard !oldItems.contains(item) else { continue }
                     newItems.append(item)
                 }
-                if searchType == .default {
-                    newItems.sort(by: { ($0.sortKey ?? "") < ($1.sortKey ?? "")})
-                }
 
-                var newStatusIDs = offset == nil ? [] : viewModel.statusFetchedResultsController.statusIDs.value
+                var newStatusIDs = _offset == nil ? [] : viewModel.statusFetchedResultsController.statusIDs.value
                 for status in response.value.statuses {
                     guard !newStatusIDs.contains(status.id) else { continue }
                     newStatusIDs.append(status.id)
                 }
 
-                stateMachine.enter(Idle.self)
+                if viewModel.searchScope == .all {
+                    stateMachine.enter(NoMore.self)
+                } else {
+                    stateMachine.enter(Idle.self)
+                }
                 viewModel.items.value = oldItems + newItems
                 viewModel.statusFetchedResultsController.statusIDs.value = newStatusIDs
             }
