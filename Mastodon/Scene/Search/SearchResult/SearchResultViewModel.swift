@@ -36,6 +36,7 @@ final class SearchResultViewModel {
     }()
     let items = CurrentValueSubject<[SearchResultItem], Never>([])
     var diffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>!
+    let didDataSourceUpdate = PassthroughSubject<Void, Never>()
 
     init(context: AppContext, searchScope: SearchDetailViewModel.SearchScope) {
         self.context = context
@@ -93,7 +94,10 @@ final class SearchResultViewModel {
             }
 
             diffableDataSource.defaultRowAnimation = .fade
-            diffableDataSource.apply(snapshot, animatingDifferences: true)
+            diffableDataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+                guard let self = self else { return }
+                self.didDataSourceUpdate.send()
+            }
 
         }
         .store(in: &disposeBag)

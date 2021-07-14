@@ -64,11 +64,12 @@ extension SearchResultViewController {
             KeyboardResponderService.shared.state,
             KeyboardResponderService.shared.endFrame
         )
-        Publishers.CombineLatest(
+        Publishers.CombineLatest3(
             keyboardEventPublishers,
-            viewModel.viewDidAppear
+            viewModel.viewDidAppear,
+            viewModel.didDataSourceUpdate
         )
-        .sink(receiveValue: { [weak self] keyboardEvents, _ in
+        .sink(receiveValue: { [weak self] keyboardEvents, _, _ in
             guard let self = self else { return }
             let (isShow, state, endFrame) = keyboardEvents
 
