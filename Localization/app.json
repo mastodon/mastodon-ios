@@ -431,7 +431,8 @@
             }
         },
         "search": {
-            "searchBar": {
+            "title": "Search",
+            "search_bar": {
                 "placeholder": "Search hashtags and users",
                 "cancel": "Cancel"
             },
@@ -452,7 +453,8 @@
                 "segment": {
                     "all": "All",
                     "people": "People",
-                    "hashtags": "Hashtags"
+                    "hashtags": "Hashtags",
+                    "posts": "Posts"
                 },
                 "recent_search": "Recent searches",
                 "clear": "Clear"
@@ -518,13 +520,13 @@
                     "using_default_browser": "Using default browser open link"
                 },
                 "boringzone": {
-                    "title": "The Boring zone",
+                    "title": "The Boring Zone",
                     "account_settings": "Account settings",
                     "terms": "Terms of Service",
                     "privacy": "Privacy Policy"
                 },
                 "spicyzone": {
-                    "title": "The spicy zone",
+                    "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
                     "signout": "Sign Out"
                 }

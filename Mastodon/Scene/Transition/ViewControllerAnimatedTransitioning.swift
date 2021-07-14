@@ -17,6 +17,7 @@ class ViewControllerAnimatedTransitioning: NSObject {
 
     let operation: UINavigationController.Operation
 
+    var transitionDuration: TimeInterval
     var transitionContext: UIViewControllerContextTransitioning!
     var isInteractive: Bool { return transitionContext.isInteractive }
 
@@ -25,6 +26,7 @@ class ViewControllerAnimatedTransitioning: NSObject {
     init(operation: UINavigationController.Operation) {
         assert(operation != .none)
         self.operation = operation
+        self.transitionDuration = 0.3
         super.init()
     }
 
@@ -38,7 +40,7 @@ class ViewControllerAnimatedTransitioning: NSObject {
 extension ViewControllerAnimatedTransitioning: UIViewControllerAnimatedTransitioning {
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.3
+        return transitionDuration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

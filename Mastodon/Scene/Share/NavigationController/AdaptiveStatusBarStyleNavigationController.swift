@@ -7,7 +7,7 @@
 
 import UIKit
 
-// Make status bar style adptive for child view controller
+// Make status bar style adaptive for child view controller
 // SeeAlso: `modalPresentationCapturesStatusBarAppearance`
 final class AdaptiveStatusBarStyleNavigationController: UINavigationController {
     var viewControllersHiddenNavigationBar: [UIViewController.Type]
@@ -19,7 +19,7 @@ final class AdaptiveStatusBarStyleNavigationController: UINavigationController {
     override init(rootViewController: UIViewController) {
         self.viewControllersHiddenNavigationBar = [SearchViewController.self]
         super.init(rootViewController: rootViewController)
-        self.delegate = self
+//        self.delegate = self
     }
 
     @available(*, unavailable)
@@ -28,13 +28,13 @@ final class AdaptiveStatusBarStyleNavigationController: UINavigationController {
     }
 }
 
-extension AdaptiveStatusBarStyleNavigationController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        let isContain = self.viewControllersHiddenNavigationBar.contains { type(of: viewController) == $0 }
-        if isContain {
-            self.setNavigationBarHidden(true, animated: animated)
-        } else {
-            self.setNavigationBarHidden(false, animated: animated)
-        }
-    }
-}
+//extension AdaptiveStatusBarStyleNavigationController: UINavigationControllerDelegate {
+//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+//        let isContain = self.viewControllersHiddenNavigationBar.contains { type(of: viewController) == $0 }
+//        if isContain {
+//            self.setNavigationBarHidden(true, animated: animated)
+//        } else {
+//            self.setNavigationBarHidden(false, animated: animated)
+//        }
+//    }
+//}

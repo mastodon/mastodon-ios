@@ -228,6 +228,7 @@ extension StatusSection {
         case favorite
         case hashtag
         case report
+        case search
 
         var filterContext: Mastodon.Entity.Filter.Context? {
             switch self {

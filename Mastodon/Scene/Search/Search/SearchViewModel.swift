@@ -38,25 +38,8 @@ final class SearchViewModel: NSObject {
     
     var hashtagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>?
-    var searchResultDiffableDataSource: UITableViewDiffableDataSource<SearchResultSection, SearchResultItem>?
 
     let statusFetchedResultsController: StatusFetchedResultsController
-
-    // bottom loader
-    private(set) lazy var loadoldestStateMachine: GKStateMachine = {
-        // exclude timeline middle fetcher state
-        let stateMachine = GKStateMachine(states: [
-            LoadOldestState.Initial(viewModel: self),
-            LoadOldestState.Loading(viewModel: self),
-            LoadOldestState.Fail(viewModel: self),
-            LoadOldestState.Idle(viewModel: self),
-            LoadOldestState.NoMore(viewModel: self),
-        ])
-        stateMachine.enter(LoadOldestState.Initial.self)
-        return stateMachine
-    }()
-
-    lazy var loadOldestStateMachinePublisher = CurrentValueSubject<LoadOldestState?, Never>(nil)
     
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.coordinator = coordinator
@@ -134,38 +117,6 @@ final class SearchViewModel: NSObject {
                 }
             }
             .store(in: &disposeBag)
-        
-        Publishers.CombineLatest3(
-            isSearching,
-            searchText,
-            searchScope
-        )
-        .filter { isSearching, _, _ in
-            isSearching
-        }
-        .sink { [weak self] _, text, scope in
-            guard text.isEmpty else { return }
-            guard let self = self else { return }
-            guard let searchHistories = self.fetchSearchHistory() else { return }
-            guard let dataSource = self.searchResultDiffableDataSource else { return }
-            var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()
-            snapshot.appendSections([.mixed])
-            
-            searchHistories.forEach { searchHistory in
-                let containsAccount = scope == Mastodon.API.V2.Search.SearchType.accounts || scope == Mastodon.API.V2.Search.SearchType.default
-                let containsHashTag = scope == Mastodon.API.V2.Search.SearchType.hashtags || scope == Mastodon.API.V2.Search.SearchType.default
-                if let mastodonUser = searchHistory.account, containsAccount {
-                    let item = SearchResultItem.accountObjectID(accountObjectID: mastodonUser.objectID)
-                    snapshot.appendItems([item], toSection: .mixed)
-                }
-                if let tag = searchHistory.hashtag, containsHashTag {
-                    let item = SearchResultItem.hashtagObjectID(hashtagObjectID: tag.objectID)
-                    snapshot.appendItems([item], toSection: .mixed)
-                }
-            }
-            dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-        }
-        .store(in: &disposeBag)
 
         Publishers.CombineLatest(
             context.authenticationService.activeMastodonAuthenticationBox,
@@ -232,32 +183,6 @@ final class SearchViewModel: NSObject {
             }
         }
         .store(in: &disposeBag)
-
-        searchResult
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] searchResult in
-                guard let self = self else { return }
-                guard let dataSource = self.searchResultDiffableDataSource else { return }
-                var snapshot = NSDiffableDataSourceSnapshot<SearchResultSection, SearchResultItem>()
-                if let accounts = searchResult?.accounts {
-                    snapshot.appendSections([.account])
-                    let items = accounts.compactMap { SearchResultItem.account(account: $0) }
-                    snapshot.appendItems(items, toSection: .account)
-                    if self.searchScope.value == Mastodon.API.V2.Search.SearchType.accounts, !items.isEmpty {
-                        snapshot.appendItems([.bottomLoader], toSection: .account)
-                    }
-                }
-                if let tags = searchResult?.hashtags {
-                    snapshot.appendSections([.hashtag])
-                    let items = tags.compactMap { SearchResultItem.hashtag(tag: $0) }
-                    snapshot.appendItems(items, toSection: .hashtag)
-                    if self.searchScope.value == Mastodon.API.V2.Search.SearchType.hashtags, !items.isEmpty {
-                        snapshot.appendItems([.bottomLoader], toSection: .hashtag)
-                    }
-                }
-                dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-            }
-            .store(in: &disposeBag)
     }
     
     func receiveAccounts(ids: [Mastodon.Entity.Account.ID]) {
@@ -294,21 +219,6 @@ final class SearchViewModel: NSObject {
         snapshot.appendSections([.main])
         snapshot.appendItems(self.recommendAccounts, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-    }
-
-    func accountCollectionViewItemDidSelected(mastodonUser: MastodonUser, from: UIViewController) {
-        let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
-        DispatchQueue.main.async {
-            self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
-        }
-    }
-    
-    func hashtagCollectionViewItemDidSelected(hashtag: Mastodon.Entity.Tag, from: UIViewController) {
-        let (tagInCoreData, _) = APIService.CoreData.createOrMergeTag(into: context.managedObjectContext, entity: hashtag)
-        let viewModel = HashtagTimelineViewModel(context: context, hashtag: tagInCoreData.name)
-        DispatchQueue.main.async {
-            self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
-        }
     }
     
     func searchResultItemDidSelected(item: SearchResultItem, from: UIViewController) {

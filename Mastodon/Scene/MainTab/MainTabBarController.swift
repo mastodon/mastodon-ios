@@ -101,14 +101,13 @@ extension MainTabBarController {
         delegate = self
 
         view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
-//        ThemeService.shared.currentTheme
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] theme in
-//                guard let self = self else { return }
-//                // fix tab bar not update color issue
-//                self.tabBar.backgroundColor = theme.tabBarBackgroundColor
-//            }
-//            .store(in: &disposeBag)
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.view.backgroundColor = theme.tabBarBackgroundColor
+            }
+            .store(in: &disposeBag)
 
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
@@ -189,6 +188,10 @@ extension MainTabBarController {
                 self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
             }
             .store(in: &disposeBag)
+
+        #if DEBUG
+//        selectedIndex = 1
+        #endif
     }
 
 }

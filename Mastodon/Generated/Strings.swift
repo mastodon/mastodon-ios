@@ -788,6 +788,8 @@ internal enum L10n {
       }
     }
     internal enum Search {
+      /// Search
+      internal static let title = L10n.tr("Localizable", "Scene.Search.Title")
       internal enum Recommend {
         /// See All
         internal static let buttonText = L10n.tr("Localizable", "Scene.Search.Recommend.ButtonText")
@@ -810,11 +812,11 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.Title")
         }
       }
-      internal enum Searchbar {
+      internal enum SearchBar {
         /// Cancel
-        internal static let cancel = L10n.tr("Localizable", "Scene.Search.Searchbar.Cancel")
+        internal static let cancel = L10n.tr("Localizable", "Scene.Search.SearchBar.Cancel")
         /// Search hashtags and users
-        internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
+        internal static let placeholder = L10n.tr("Localizable", "Scene.Search.SearchBar.Placeholder")
       }
       internal enum Searching {
         /// Clear
@@ -828,6 +830,8 @@ internal enum L10n {
           internal static let hashtags = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Hashtags")
           /// People
           internal static let people = L10n.tr("Localizable", "Scene.Search.Searching.Segment.People")
+          /// Posts
+          internal static let posts = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Posts")
         }
       }
     }
@@ -948,7 +952,7 @@ internal enum L10n {
           internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Privacy")
           /// Terms of Service
           internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Terms")
-          /// The Boring zone
+          /// The Boring Zone
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Title")
         }
         internal enum Notifications {
@@ -986,7 +990,7 @@ internal enum L10n {
           internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Clear")
           /// Sign Out
           internal static let signout = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Signout")
-          /// The spicy zone
+          /// The Spicy Zone
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Title")
         }
       }

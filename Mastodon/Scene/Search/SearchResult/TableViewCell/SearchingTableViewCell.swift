@@ -13,7 +13,7 @@ import UIKit
 import FLAnimatedImage
 import Nuke
 
-final class SearchingTableViewCell: UITableViewCell {
+final class SearchResultTableViewCell: UITableViewCell {
 
     let _imageView: UIImageView = {
         let imageView = FLAnimatedImageView()
@@ -54,7 +54,7 @@ final class SearchingTableViewCell: UITableViewCell {
     }
 }
 
-extension SearchingTableViewCell {
+extension SearchResultTableViewCell {
     private func configure() {
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
@@ -74,8 +74,8 @@ extension SearchingTableViewCell {
         _imageView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(_imageView)
         NSLayoutConstraint.activate([
-            _imageView.widthAnchor.constraint(equalToConstant: 42),
-            _imageView.heightAnchor.constraint(equalToConstant: 42),
+            _imageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            _imageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
         ])
         
         let textStackView = UIStackView()
@@ -120,7 +120,7 @@ extension SearchingTableViewCell {
     func config(with tag: Mastodon.Entity.Tag) {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
-        _titleLabel.text = "# " + tag.name
+        _titleLabel.text = "#" + tag.name
         guard let histories = tag.history else {
             _subTitleLabel.text = ""
             return
@@ -151,11 +151,11 @@ extension SearchingTableViewCell {
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
-struct SearchingTableViewCell_Previews: PreviewProvider {
+struct SearchResultTableViewCell_Previews: PreviewProvider {
     static var controls: some View {
         Group {
             UIViewPreview {
-                let cell = SearchingTableViewCell()
+                let cell = SearchResultTableViewCell()
                 cell.backgroundColor = .white
                 cell._imageView.image = UIImage(systemName: "number.circle.fill")
                 cell._titleLabel.text = "Electronic Frontier Foundation"
