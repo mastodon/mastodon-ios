@@ -13,9 +13,11 @@ public final class SearchHistory: NSManagedObject {
     @NSManaged public private(set) var identifier: ID
     @NSManaged public private(set) var createAt: Date
     @NSManaged public private(set) var updatedAt: Date
-    
+
+    // one-to-one relationship
     @NSManaged public private(set) var account: MastodonUser?
     @NSManaged public private(set) var hashtag: Tag?
+    @NSManaged public private(set) var status: Status?
 
 }
 
@@ -49,6 +51,16 @@ extension SearchHistory {
     ) -> SearchHistory {
         let searchHistory: SearchHistory = context.insertObject()
         searchHistory.hashtag = hashtag
+        return searchHistory
+    }
+
+    @discardableResult
+    public static func insert(
+        into context: NSManagedObjectContext,
+        status: Status
+    ) -> SearchHistory {
+        let searchHistory: SearchHistory = context.insertObject()
+        searchHistory.status = status
         return searchHistory
     }
 }

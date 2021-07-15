@@ -15,7 +15,7 @@ final class SearchToSearchDetailViewControllerAnimatedTransitioning: ViewControl
     override init(operation: UINavigationController.Operation) {
         super.init(operation: operation)
 
-        self.transitionDuration = 0.01
+        self.transitionDuration = 0.2
     }
 
     deinit {
@@ -37,7 +37,7 @@ extension SearchToSearchDetailViewControllerAnimatedTransitioning {
         }
     }
 
-    private func pushTransition(using transitionContext: UIViewControllerContextTransitioning, curve: UIView.AnimationCurve = .easeInOut) -> UIViewPropertyAnimator {
+    private func pushTransition(using transitionContext: UIViewControllerContextTransitioning, curve: UIView.AnimationCurve = .easeOut) -> UIViewPropertyAnimator {
         guard let toVC = transitionContext.viewController(forKey: .to) as? SearchDetailViewController,
               let toView = transitionContext.view(forKey: .to) else {
             fatalError()
@@ -46,12 +46,14 @@ extension SearchToSearchDetailViewControllerAnimatedTransitioning {
         let toViewEndFrame = transitionContext.finalFrame(for: toVC)
         transitionContext.containerView.addSubview(toView)
         toView.frame = toViewEndFrame
+        toView.alpha = 0
 
         let animator = UIViewPropertyAnimator(duration: transitionDuration(using: transitionContext), curve: curve)
         animator.addAnimations {
 
         }
         animator.addCompletion { position in
+            toView.alpha = 1
             transitionContext.completeTransition(true)
         }
         return animator

@@ -136,6 +136,7 @@
         <relationship name="privateNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="to" inverseEntity="PrivateNote"/>
         <relationship name="privateNotesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="from" inverseEntity="PrivateNote"/>
         <relationship name="reblogged" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="rebloggedBy" inverseEntity="Status"/>
+        <relationship name="searchHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="account" inverseEntity="SearchHistory"/>
         <relationship name="statuses" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="author" inverseEntity="Status"/>
         <relationship name="votePollOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PollOption" inverseName="votedBy" inverseEntity="PollOption"/>
         <relationship name="votePolls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Poll" inverseName="votedBy" inverseEntity="Poll"/>
@@ -182,8 +183,9 @@
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
-        <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag"/>
+        <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="searchHistory" inverseEntity="MastodonUser"/>
+        <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="searchHistory" inverseEntity="Tag"/>
+        <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="searchHistory" inverseEntity="Status"/>
     </entity>
     <entity name="Setting" representedClassName=".Setting" syncable="YES">
         <attribute name="appearanceRaw" attributeType="String"/>
@@ -234,6 +236,7 @@
         <relationship name="rebloggedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="reblogged" inverseEntity="MastodonUser"/>
         <relationship name="replyFrom" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="replyTo" inverseEntity="Status"/>
         <relationship name="replyTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="replyFrom" inverseEntity="Status"/>
+        <relationship name="searchHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="status" inverseEntity="SearchHistory"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="statuses" inverseEntity="Tag"/>
     </entity>
     <entity name="Subscription" representedClassName=".Subscription" syncable="YES">
@@ -266,6 +269,7 @@
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" attributeType="String"/>
         <relationship name="histories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="History" inverseName="tag" inverseEntity="History"/>
+        <relationship name="searchHistory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistory" inverseName="hashtag" inverseEntity="SearchHistory"/>
         <relationship name="statuses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="tags" inverseEntity="Status"/>
     </entity>
     <elements>
@@ -277,16 +281,16 @@
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="0" positionY="0" width="128" height="209"/>
         <element name="MastodonNotification" positionX="9" positionY="162" width="128" height="164"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="704"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="719"/>
         <element name="Mention" positionX="0" positionY="0" width="128" height="149"/>
         <element name="Poll" positionX="0" positionY="0" width="128" height="194"/>
         <element name="PollOption" positionX="0" positionY="0" width="128" height="134"/>
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
-        <element name="SearchHistory" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="SearchHistory" positionX="0" positionY="0" width="128" height="119"/>
         <element name="Setting" positionX="72" positionY="162" width="128" height="164"/>
-        <element name="Status" positionX="0" positionY="0" width="128" height="599"/>
+        <element name="Status" positionX="0" positionY="0" width="128" height="614"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>
         <element name="SubscriptionAlerts" positionX="72" positionY="162" width="128" height="14"/>
-        <element name="Tag" positionX="0" positionY="0" width="128" height="134"/>
+        <element name="Tag" positionX="0" positionY="0" width="128" height="149"/>
     </elements>
 </model>

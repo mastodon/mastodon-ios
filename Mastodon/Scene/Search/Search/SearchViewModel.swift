@@ -25,13 +25,7 @@ final class SearchViewModel: NSObject {
     let viewDidAppeared = PassthroughSubject<Void, Never>()
     
     // output
-    let searchText = CurrentValueSubject<String, Never>("")
-    let searchScope = CurrentValueSubject<Mastodon.API.V2.Search.SearchType, Never>(Mastodon.API.V2.Search.SearchType.default)
-    
-    let isSearching = CurrentValueSubject<Bool, Never>(false)
-    
-    let searchResult = CurrentValueSubject<Mastodon.Entity.SearchResult?, Never>(nil)
-    
+
     // var recommendHashTags = [Mastodon.Entity.Tag]()
     var recommendAccounts = [NSManagedObjectID]()
     var recommendAccountsFallback = PassthroughSubject<Void, Never>()
@@ -39,84 +33,10 @@ final class SearchViewModel: NSObject {
     var hashtagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>?
 
-    let statusFetchedResultsController: StatusFetchedResultsController
-    
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.coordinator = coordinator
         self.context = context
-        self.statusFetchedResultsController = StatusFetchedResultsController(
-            managedObjectContext: context.managedObjectContext,
-            domain: nil,
-            additionalTweetPredicate: nil
-        )
         super.init()
-
-        // bind active authentication
-        context.authenticationService.activeMastodonAuthentication
-            .sink { [weak self] activeMastodonAuthentication in
-                guard let self = self else { return }
-                guard let activeMastodonAuthentication = activeMastodonAuthentication else {
-                    self.currentMastodonUser.value = nil
-                    return
-                }
-                self.currentMastodonUser.value = activeMastodonAuthentication.user
-                self.statusFetchedResultsController.domain.value = activeMastodonAuthentication.domain
-            }
-            .store(in: &disposeBag)
-        
-        Publishers.CombineLatest(
-            searchText
-                .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates(),
-            searchScope
-        )
-        .filter { text, _ in
-            !text.isEmpty
-        }
-        .compactMap { (text, scope) -> AnyPublisher<Result<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error>, Never>? in
-            guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return nil }
-            let query = Mastodon.API.V2.Search.Query(
-                q: text,
-                type: scope,
-                accountID: nil,
-                maxID: nil,
-                minID: nil,
-                excludeUnreviewed: nil,
-                resolve: nil,
-                limit: nil,
-                offset: nil,
-                following: nil
-            )
-            return context.apiService.search(
-                domain: activeMastodonAuthenticationBox.domain,
-                query: query,
-                mastodonAuthenticationBox: activeMastodonAuthenticationBox
-            )
-            // .retry(3)   // iOS 14.0 SDK may not works here. needs testing before add this
-            .map { response in Result<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> { response } }
-            .catch { error in Just(Result<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> { throw error }) }
-            .eraseToAnyPublisher()
-        }
-        .switchToLatest()
-        .sink { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let response):
-                guard self.isSearching.value else { return }
-                self.searchResult.value = response.value
-            case .failure(let error):
-                break
-            }
-        }
-        .store(in: &disposeBag)
-
-        isSearching
-            .sink { [weak self] isSearching in
-                if !isSearching {
-                    self?.searchResult.value = nil
-                    self?.searchText.value = ""
-                }
-            }
-            .store(in: &disposeBag)
 
         Publishers.CombineLatest(
             context.authenticationService.activeMastodonAuthenticationBox,
@@ -220,126 +140,5 @@ final class SearchViewModel: NSObject {
         snapshot.appendItems(self.recommendAccounts, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
     }
-    
-    func searchResultItemDidSelected(item: SearchResultItem, from: UIViewController) {
-        let searchHistories = fetchSearchHistory()
-        _ = context.managedObjectContext.performChanges { [weak self] in
-            guard let self = self else { return }
-            switch item {
-            case .account(let account):
-                guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else {
-                    return
-                }
-                // load request mastodon user
-                let requestMastodonUser: MastodonUser? = {
-                    let request = MastodonUser.sortedFetchRequest
-                    request.predicate = MastodonUser.predicate(domain: activeMastodonAuthenticationBox.domain, id: activeMastodonAuthenticationBox.userID)
-                    request.fetchLimit = 1
-                    request.returnsObjectsAsFaults = false
-                    do {
-                        return try self.context.managedObjectContext.fetch(request).first
-                    } catch {
-                        assertionFailure(error.localizedDescription)
-                        return nil
-                    }
-                }()
-                let (mastodonUser, _) = APIService.CoreData.createOrMergeMastodonUser(into: self.context.managedObjectContext, for: requestMastodonUser, in: activeMastodonAuthenticationBox.domain, entity: account, userCache: nil, networkDate: Date(), log: OSLog.api)
-                if let searchHistories = searchHistories {
-                    let history = searchHistories.first { history -> Bool in
-                        guard let account = history.account else { return false }
-                        return account.objectID == mastodonUser.objectID
-                    }
-                    if let history = history {
-                        history.update(updatedAt: Date())
-                    } else {
-                        SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
-                    }
-                } else {
-                    SearchHistory.insert(into: self.context.managedObjectContext, account: mastodonUser)
-                }
-                let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: mastodonUser)
-                DispatchQueue.main.async {
-                    self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
-                }
 
-            case .hashtag(let tag):
-                let (tagInCoreData, _) = APIService.CoreData.createOrMergeTag(into: self.context.managedObjectContext, entity: tag)
-                if let searchHistories = searchHistories {
-                    let history = searchHistories.first { history -> Bool in
-                        guard let hashtag = history.hashtag else { return false }
-                        return hashtag.objectID == tagInCoreData.objectID
-                    }
-                    if let history = history {
-                        history.update(updatedAt: Date())
-                    } else {
-                        SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
-                    }
-                } else {
-                    SearchHistory.insert(into: self.context.managedObjectContext, hashtag: tagInCoreData)
-                }
-                let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
-                DispatchQueue.main.async {
-                    self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
-                }
-            case .accountObjectID(let accountObjectID):
-                if let searchHistories = searchHistories {
-                    let history = searchHistories.first { history -> Bool in
-                        guard let account = history.account else { return false }
-                        return account.objectID == accountObjectID
-                    }
-                    if let history = history {
-                        history.update(updatedAt: Date())
-                    }
-                }
-                let mastodonUser = self.context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
-                let viewModel = ProfileViewModel(context: self.context, optionalMastodonUser: mastodonUser)
-                DispatchQueue.main.async {
-                    self.coordinator.present(scene: .profile(viewModel: viewModel), from: from, transition: .show)
-                }
-            case .hashtagObjectID(let hashtagObjectID):
-                if let searchHistories = searchHistories {
-                    let history = searchHistories.first { history -> Bool in
-                        guard let hashtag = history.hashtag else { return false }
-                        return hashtag.objectID == hashtagObjectID
-                    }
-                    if let history = history {
-                        history.update(updatedAt: Date())
-                    }
-                }
-                let tagInCoreData = self.context.managedObjectContext.object(with: hashtagObjectID) as! Tag
-                let viewModel = HashtagTimelineViewModel(context: self.context, hashtag: tagInCoreData.name)
-                DispatchQueue.main.async {
-                    self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: from, transition: .show)
-                }
-            default:
-                break
-            }
-        }
-    }
-    
-    func fetchSearchHistory() -> [SearchHistory]? {
-        let searchHistory: [SearchHistory]? = {
-            let request = SearchHistory.sortedFetchRequest
-            request.predicate = nil
-            request.returnsObjectsAsFaults = false
-            do {
-                return try context.managedObjectContext.fetch(request)
-            } catch {
-                assertionFailure(error.localizedDescription)
-                return nil
-            }
-            
-        }()
-        return searchHistory
-    }
-    
-    func deleteSearchHistory() {
-        let result = fetchSearchHistory()
-        _ = context.managedObjectContext.performChanges { [weak self] in
-            result?.forEach { history in
-                self?.context.managedObjectContext.delete(history)
-            }
-            self?.isSearching.value = true
-        }
-    }
 }

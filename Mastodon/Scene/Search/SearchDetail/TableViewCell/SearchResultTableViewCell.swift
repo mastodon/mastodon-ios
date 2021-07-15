@@ -68,14 +68,14 @@ extension SearchResultTableViewCell {
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fill
         containerStackView.spacing = 12
-        containerStackView.layoutMargins = UIEdgeInsets(top: 12, left: 21, bottom: 12, right: 12)
+        containerStackView.layoutMargins = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         

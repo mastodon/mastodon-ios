@@ -274,6 +274,10 @@
 		DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */; };
 		DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */; };
 		DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */; };
+		DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */; };
+		DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */; };
+		DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */; };
+		DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */; };
 		DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */; };
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
@@ -921,6 +925,10 @@
 		DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableHeaderView.swift; sourceTree = "<group>"; };
 		DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewModel+State.swift"; sourceTree = "<group>"; };
 		DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewModel.swift; sourceTree = "<group>"; };
+		DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySection.swift; sourceTree = "<group>"; };
+		DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryItem.swift; sourceTree = "<group>"; };
+		DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryFetchedResultController.swift; sourceTree = "<group>"; };
 		DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchToSearchDetailViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransitionController.swift; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
@@ -1509,6 +1517,7 @@
 				DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */,
 				DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */,
 				DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */,
+				DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1570,24 +1579,13 @@
 		2D76319D25C151F600929FB9 /* Section */ = {
 			isa = PBXGroup;
 			children = (
-				2D76319E25C1521200929FB9 /* StatusSection.swift */,
-				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
-				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
-				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
-				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
-				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				DB4F097926A039C400D62E92 /* Status */,
+				DB4F097826A039B400D62E92 /* Onboarding */,
+				DB4F097726A039A200D62E92 /* Search */,
+				DB4F097626A0398000D62E92 /* Compose */,
 				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
-				2D35237926256D920031AF25 /* NotificationSection.swift */,
-				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
-				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
-				DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */,
-				DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */,
-				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
 				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
-				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
-				DBBF1DC82652538500E5B703 /* AutoCompleteSection.swift */,
 				DBA94433265CBB5300C537E1 /* ProfileFieldSection.swift */,
-				DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -1641,6 +1639,7 @@
 			children = (
 				2D7631B225C159F700929FB9 /* Item.swift */,
 				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
+				DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */,
 				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
 				2D7867182625B77500211898 /* NotificationItem.swift */,
 				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
@@ -2010,13 +2009,63 @@
 		DB4F0964269ED06700D62E92 /* SearchResult */ = {
 			isa = PBXGroup;
 			children = (
-				2DFAD5212616F8E300F9EE7C /* TableViewCell */,
 				DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */,
 				DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */,
 				DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */,
 				DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */,
 			);
 			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		DB4F097626A0398000D62E92 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
+				DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */,
+				DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */,
+				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
+				DBBF1DC82652538500E5B703 /* AutoCompleteSection.swift */,
+			);
+			path = Compose;
+			sourceTree = "<group>";
+		};
+		DB4F097726A039A200D62E92 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
+				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
+				DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		DB4F097826A039B400D62E92 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
+				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		DB4F097926A039C400D62E92 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				2D76319E25C1521200929FB9 /* StatusSection.swift */,
+				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
+				2D35237926256D920031AF25 /* NotificationSection.swift */,
+				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
+		DB4F098026A0475500D62E92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		DB4FFC2D269EC39C00D62E92 /* Search */ = {
@@ -2428,8 +2477,6 @@
 			children = (
 				DBF1D253269DB02C00C1C08A /* Search */,
 				DBF1D24F269DAF6100C1C08A /* SearchDetail */,
-				DB4F0964269ED06700D62E92 /* SearchResult */,
-				DBF1D252269DB01700C1C08A /* SearchHistory */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2656,6 +2703,7 @@
 				DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */,
 				DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */,
 				DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */,
+				DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */,
 			);
 			path = FetchedResultsController;
 			sourceTree = "<group>";
@@ -2696,6 +2744,9 @@
 		DBF1D24F269DAF6100C1C08A /* SearchDetail */ = {
 			isa = PBXGroup;
 			children = (
+				2DFAD5212616F8E300F9EE7C /* TableViewCell */,
+				DB4F0964269ED06700D62E92 /* SearchResult */,
+				DBF1D252269DB01700C1C08A /* SearchHistory */,
 				DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */,
 				DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */,
 			);
@@ -2705,8 +2756,9 @@
 		DBF1D252269DB01700C1C08A /* SearchHistory */ = {
 			isa = PBXGroup;
 			children = (
+				DB4F098026A0475500D62E92 /* View */,
 				DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */,
-				DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */,
+				DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */,
 			);
 			path = SearchHistory;
 			sourceTree = "<group>";
@@ -3388,6 +3440,7 @@
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,
+				DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */,
@@ -3528,6 +3581,7 @@
 				DBA94438265CBD4D00C537E1 /* ProfileHeaderViewModel+Diffable.swift in Sources */,
 				0F20220D26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
+				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
@@ -3555,6 +3609,7 @@
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DBD376AC2692ECDB007FEC24 /* ThemePreference.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
+				DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */,
 				DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */,
 				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
@@ -3624,6 +3679,7 @@
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
+				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				DBCBCC0B2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,

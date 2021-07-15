@@ -23,6 +23,7 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
     var viewModel: SearchDetailViewModel!
     var viewControllers: [SearchResultViewController]!
 
+    let navigationBarVisualEffectBackgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
     let navigationBarBackgroundView = UIView()
     let navigationBar: UINavigationBar = {
         let navigationItem = UINavigationItem()
@@ -32,7 +33,9 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
 
-        let navigationBar = UINavigationBar()
+        let navigationBar = UINavigationBar(
+            frame: CGRect(x: 0, y: 0, width: 300, height: 100)
+        )
         navigationBar.setItems([navigationItem], animated: false)
         return navigationBar
     }()
@@ -40,8 +43,17 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
         let searchBar = UISearchBar()
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.scopeButtonTitles = SearchDetailViewModel.SearchScope.allCases.map { $0.segmentedControlTitle }
+        searchBar.sizeToFit()
         searchBar.scopeBarBackgroundImage = UIImage()
         return searchBar
+    }()
+
+    private(set) lazy var searchHistoryViewController: SearchHistoryViewController = {
+        let searchHistoryViewController = SearchHistoryViewController()
+        searchHistoryViewController.context = context
+        searchHistoryViewController.coordinator = coordinator
+        searchHistoryViewController.viewModel = SearchHistoryViewModel(context: context)
+        return searchHistoryViewController
     }()
 }
 
@@ -80,6 +92,26 @@ extension SearchDetailViewController {
             navigationBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             navigationBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             navigationBarBackgroundView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+        ])
+
+        navigationBarVisualEffectBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(navigationBarVisualEffectBackgroundView, belowSubview: navigationBarBackgroundView)
+        NSLayoutConstraint.activate([
+            navigationBarVisualEffectBackgroundView.topAnchor.constraint(equalTo: navigationBarBackgroundView.topAnchor),
+            navigationBarVisualEffectBackgroundView.leadingAnchor.constraint(equalTo: navigationBarBackgroundView.leadingAnchor),
+            navigationBarVisualEffectBackgroundView.trailingAnchor.constraint(equalTo: navigationBarBackgroundView.trailingAnchor),
+            navigationBarVisualEffectBackgroundView.bottomAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
+        ])
+
+        addChild(searchHistoryViewController)
+        searchHistoryViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchHistoryViewController.view)
+        searchHistoryViewController.didMove(toParent: self)
+        NSLayoutConstraint.activate([
+            searchHistoryViewController.view.topAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
+            searchHistoryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchHistoryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchHistoryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
         transition = Transition(style: .fade, duration: 0.1)
@@ -168,12 +200,25 @@ extension SearchDetailViewController {
                 searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
+
+        // bind search history display
+        viewModel.searchText
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] searchText in
+                guard let self = self else { return }
+                self.searchHistoryViewController.view.isHidden = !searchText.isEmpty
+            }
+            .store(in: &disposeBag)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        searchBar.setShowsScope(true, animated: false)
+        searchBar.setNeedsLayout()
+        searchBar.layoutIfNeeded()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -193,11 +238,7 @@ extension SearchDetailViewController {
 
 extension SearchDetailViewController {
     private func setupSearchBar() {
-        searchBar.setShowsScope(true, animated: false)
-        searchBar.sizeToFit()
-
         navigationBar.topItem?.titleView = searchBar
-        navigationBar.sizeToFit()
 
         searchBar.delegate = self
     }
@@ -222,7 +263,7 @@ extension SearchDetailViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: false)
     }
 
 }
@@ -231,7 +272,7 @@ extension SearchDetailViewController: UISearchBarDelegate {
 extension SearchDetailViewController: PageboyViewControllerDataSource {
 
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
-        return 4
+        return viewControllers.count
     }
 
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {

@@ -26,4 +26,13 @@ extension SearchTransitionController: UINavigationControllerDelegate {
             return nil
         }
     }
+
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        switch viewController {
+        case is SearchDetailViewController:
+            navigationController.interactivePopGestureRecognizer?.isEnabled = false
+        default:
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
+        }
+    }
 }

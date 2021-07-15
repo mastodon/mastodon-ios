@@ -10,6 +10,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import GameplayKit
+import CommonOSLog
 
 final class SearchResultViewModel {
 
@@ -135,5 +136,61 @@ extension SearchResultViewModel {
         snapshot.appendSections([.main])
         snapshot.appendItems(self.items.value, toSection: .main)    // with initial items
         diffableDataSource.apply(snapshot, animatingDifferences: false)
+    }
+}
+
+extension SearchResultViewModel {
+    func persistSearchHistory(for item: SearchResultItem) {
+        guard let box = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let domain = box.domain
+
+        switch item {
+        case .account(let account):
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let (user, _) = APIService.CoreData.createOrMergeMastodonUser(
+                    into: managedObjectContext,
+                    for: nil,
+                    in: domain,
+                    entity: account,
+                    userCache: nil,
+                    networkDate: Date(),
+                    log: OSLog.api
+                )
+                if let searchHistory = user.searchHistory {
+                    searchHistory.update(updatedAt: Date())
+                } else {
+                    SearchHistory.insert(into: managedObjectContext, account: user)
+                }
+            }
+            .sink { result in
+                // do nothing
+            }
+            .store(in: &context.disposeBag)
+
+        case .hashtag(let hashtag):
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let (hashtag, _) = APIService.CoreData.createOrMergeTag(
+                    into: managedObjectContext,
+                    entity: hashtag
+                )
+                if let searchHistory = hashtag.searchHistory {
+                    searchHistory.update(updatedAt: Date())
+                } else {
+                    SearchHistory.insert(into: managedObjectContext, hashtag: hashtag)
+                }
+            }
+            .sink { result in
+                // do nothing
+            }
+            .store(in: &context.disposeBag)
+
+        case .status:
+            // FIXME:
+            break
+        case .bottomLoader:
+            break
+        }
     }
 }

@@ -195,7 +195,10 @@ extension SearchResultViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        let item = diffableDataSource.itemIdentifier(for: indexPath)
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+
+        viewModel.persistSearchHistory(for: item)
+
         switch item {
         case .account(let account):
             let profileViewModel = RemoteProfileViewModel(context: context, userID: account.id)
@@ -207,8 +210,6 @@ extension SearchResultViewController: UITableViewDelegate {
             aspectTableView(tableView, didSelectRowAt: indexPath)
         case .bottomLoader:
             break
-        default:
-            assertionFailure()
         }
     }
 

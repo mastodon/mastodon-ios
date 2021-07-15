@@ -12,11 +12,7 @@ import MastodonSDK
 enum SearchResultItem {
     case hashtag(tag: Mastodon.Entity.Tag)
     case account(account: Mastodon.Entity.Account)
-
-    case accountObjectID(accountObjectID: NSManagedObjectID)
-    case hashtagObjectID(hashtagObjectID: NSManagedObjectID)
     case status(statusObjectID: NSManagedObjectID, attribute: Item.StatusAttribute)
-
     case bottomLoader(attribute: BottomLoaderAttribute)
 }
 
@@ -47,10 +43,6 @@ extension SearchResultItem: Equatable {
             return tagLeft == tagRight
         case (.account(let accountLeft), .account(let accountRight)):
             return accountLeft == accountRight
-        case (.accountObjectID(let idLeft), .accountObjectID(let idRight)):
-            return idLeft == idRight
-        case (.hashtagObjectID(let idLeft), .hashtagObjectID(let idRight)):
-            return idLeft == idRight
         case (.status(let idLeft, _), .status(let idRight, _)):
             return idLeft == idRight
         case (.bottomLoader(let attributeLeft), .bottomLoader(let attributeRight)):
@@ -70,10 +62,6 @@ extension SearchResultItem: Hashable {
         case .hashtag(let tag):
             hasher.combine(String(describing: SearchResultItem.hashtag.self))
             hasher.combine(tag.name)
-        case .accountObjectID(let id):
-            hasher.combine(id)
-        case .hashtagObjectID(let id):
-            hasher.combine(id)
         case .status(let id, _):
             hasher.combine(id)
         case .bottomLoader(let attribute):
@@ -99,8 +87,6 @@ extension SearchResultItem {
             return .status(objectID: objectID)
         case .hashtag,
              .account,
-             .accountObjectID,
-             .hashtagObjectID,
              .bottomLoader:
             return nil
         }
