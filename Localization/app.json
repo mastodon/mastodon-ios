@@ -522,13 +522,13 @@
                     "title": "Preferences",
                     "using_default_browser": "Use default browser to open links"
                 },
-                "boringzone": {
+                "boring_zone": {
                     "title": "The Boring Zone",
                     "account_settings": "Account settings",
                     "terms": "Terms of Service",
                     "privacy": "Privacy Policy"
                 },
-                "spicyzone": {
+                "spicy_zone": {
                     "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
                     "signout": "Sign Out"

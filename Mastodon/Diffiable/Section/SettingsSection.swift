@@ -19,8 +19,8 @@ enum SettingsSection: Hashable {
         case .appearance:           return L10n.Scene.Settings.Section.Appearance.title
         case .notifications:        return L10n.Scene.Settings.Section.Notifications.title
         case .preference:           return L10n.Scene.Settings.Section.Preference.title
-        case .boringZone:           return L10n.Scene.Settings.Section.Boringzone.title
-        case .spicyZone:            return L10n.Scene.Settings.Section.Spicyzone.title
+        case .boringZone:           return L10n.Scene.Settings.Section.BoringZone.title
+        case .spicyZone:            return L10n.Scene.Settings.Section.SpicyZone.title
         }
     }
 }

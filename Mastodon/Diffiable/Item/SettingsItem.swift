@@ -51,11 +51,11 @@ extension SettingsItem {
         
         var title: String {
             switch self {
-            case .accountSettings:   return L10n.Scene.Settings.Section.Boringzone.accountSettings
-            case .termsOfService:    return L10n.Scene.Settings.Section.Boringzone.terms
-            case .privacyPolicy:     return L10n.Scene.Settings.Section.Boringzone.privacy
-            case .clearMediaCache:   return L10n.Scene.Settings.Section.Spicyzone.clear
-            case .signOut:           return L10n.Scene.Settings.Section.Spicyzone.signout
+            case .accountSettings:   return L10n.Scene.Settings.Section.BoringZone.accountSettings
+            case .termsOfService:    return L10n.Scene.Settings.Section.BoringZone.terms
+            case .privacyPolicy:     return L10n.Scene.Settings.Section.BoringZone.privacy
+            case .clearMediaCache:   return L10n.Scene.Settings.Section.SpicyZone.clear
+            case .signOut:           return L10n.Scene.Settings.Section.SpicyZone.signout
             }
         }
         

@@ -949,15 +949,15 @@ internal enum L10n {
           /// True black dark mode
           internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode")
         }
-        internal enum Boringzone {
+        internal enum BoringZone {
           /// Account settings
-          internal static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.AccountSettings")
+          internal static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.AccountSettings")
           /// Privacy Policy
-          internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Privacy")
+          internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Privacy")
           /// Terms of Service
-          internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Terms")
+          internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Terms")
           /// The Boring Zone
-          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Title")
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Title")
         }
         internal enum Notifications {
           /// Reblogs my post
@@ -989,13 +989,13 @@ internal enum L10n {
           /// Use default browser to open links
           internal static let usingDefaultBrowser = L10n.tr("Localizable", "Scene.Settings.Section.Preference.UsingDefaultBrowser")
         }
-        internal enum Spicyzone {
+        internal enum SpicyZone {
           /// Clear Media Cache
-          internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Clear")
+          internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Clear")
           /// Sign Out
-          internal static let signout = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Signout")
+          internal static let signout = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Signout")
           /// The Spicy Zone
-          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Title")
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title")
         }
       }
     }
