@@ -316,7 +316,9 @@ extension HomeTimelineViewController {
     }
     
     @objc private func manuallySearchButtonPressed(_ sender: UIButton) {
-        coordinator.switchToTabBar(tab: .search)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        let searchDetailViewModel = SearchDetailViewModel()
+        coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {

@@ -224,7 +224,10 @@ extension SearchDetailViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        if navigationController?.viewControllers.count != 1 {
+            // set bar hidden but not when self is root
+            navigationController?.setNavigationBarHidden(false, animated: animated)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -263,7 +266,13 @@ extension SearchDetailViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        navigationController?.popViewController(animated: false)
+
+        // dismiss or pop
+        if isModal {
+            dismiss(animated: true, completion: nil)
+        } else {
+            navigationController?.popViewController(animated: false)
+        }
     }
 
 }
