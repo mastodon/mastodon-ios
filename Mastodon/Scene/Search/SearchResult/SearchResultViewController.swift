@@ -24,6 +24,7 @@ final class SearchResultViewController: UIViewController, NeedsDependency, Media
         tableView.register(SearchResultTableViewCell.self, forCellReuseIdentifier: String(describing: SearchResultTableViewCell.self))
         tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
+        tableView.separatorStyle = .none
         return tableView
     }()
 
@@ -52,6 +53,7 @@ extension SearchResultViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
 
+        tableView.delegate = self
         viewModel.setupDiffableDataSource(
             tableView: tableView,
             dependency: self,
@@ -138,3 +140,11 @@ extension SearchResultViewController: StatusTableViewCellDelegate {
 //    var loadMoreConfigurableTableView: UITableView { searchingTableView }
 //    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }
 //}
+
+// MARK: - StatusTableViewControllerAspect
+extension SearchResultViewController: StatusTableViewControllerAspect { }
+
+// MARK: - UITableViewDelegate
+extension SearchResultViewController: UITableViewDelegate {
+    
+}

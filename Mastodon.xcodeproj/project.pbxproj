@@ -140,7 +140,7 @@
 		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
 		2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */; };
 		2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */; };
-		2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */; };
+		2DFAD5372617010500F9EE7C /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5362617010500F9EE7C /* SearchResultTableViewCell.swift */; };
 		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
 		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
 		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
@@ -760,7 +760,7 @@
 		2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Favorite.swift"; sourceTree = "<group>"; };
 		2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
 		2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextObjectsDidChange.swift; sourceTree = "<group>"; };
-		2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingTableViewCell.swift; sourceTree = "<group>"; };
+		2DFAD5362617010500F9EE7C /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
 		374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk - debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk - debug.xcconfig"; sourceTree = "<group>"; };
@@ -1701,7 +1701,7 @@
 		2DFAD5212616F8E300F9EE7C /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */,
+				2DFAD5362617010500F9EE7C /* SearchResultTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -3263,7 +3263,7 @@
 				DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
-				2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */,
+				2DFAD5372617010500F9EE7C /* SearchResultTableViewCell.swift in Sources */,
 				DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */,
 				5BB04FEF262F0DCB0043BFF6 /* ReportViewModel+Data.swift in Sources */,
 				5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */,

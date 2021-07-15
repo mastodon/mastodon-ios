@@ -1,5 +1,5 @@
 //
-//  SearchingTableViewCell.swift
+//  SearchResultTableViewCell.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/4/2.
@@ -37,6 +37,14 @@ final class SearchResultTableViewCell: UITableViewCell {
         label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
+
+    let separatorLine = UIView.separatorLine
+
+    var separatorLineToEdgeLeadingLayoutConstraint: NSLayoutConstraint!
+    var separatorLineToEdgeTrailingLayoutConstraint: NSLayoutConstraint!
+
+    var separatorLineToMarginLeadingLayoutConstraint: NSLayoutConstraint!
+    var separatorLineToMarginTrailingLayoutConstraint: NSLayoutConstraint!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -89,7 +97,62 @@ extension SearchResultTableViewCell {
         _subTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         
         containerStackView.addArrangedSubview(textStackView)
+
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(separatorLine)
+        separatorLineToEdgeLeadingLayoutConstraint = separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        separatorLineToEdgeTrailingLayoutConstraint = separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        separatorLineToMarginLeadingLayoutConstraint = separatorLine.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor)
+        separatorLineToMarginTrailingLayoutConstraint = separatorLine.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor)
+        NSLayoutConstraint.activate([
+            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
+        ])
+        resetSeparatorLineLayout()
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        resetSeparatorLineLayout()
+    }
+
+}
+
+extension SearchResultTableViewCell {
+
+    private func resetSeparatorLineLayout() {
+        separatorLineToEdgeLeadingLayoutConstraint.isActive = false
+        separatorLineToEdgeTrailingLayoutConstraint.isActive = false
+        separatorLineToMarginLeadingLayoutConstraint.isActive = false
+        separatorLineToMarginTrailingLayoutConstraint.isActive = false
+
+        if traitCollection.userInterfaceIdiom == .phone {
+            // to edge
+            NSLayoutConstraint.activate([
+                separatorLineToEdgeLeadingLayoutConstraint,
+                separatorLineToEdgeTrailingLayoutConstraint,
+            ])
+        } else {
+            if traitCollection.horizontalSizeClass == .compact {
+                // to edge
+                NSLayoutConstraint.activate([
+                    separatorLineToEdgeLeadingLayoutConstraint,
+                    separatorLineToEdgeTrailingLayoutConstraint,
+                ])
+            } else {
+                // to margin
+                NSLayoutConstraint.activate([
+                    separatorLineToMarginLeadingLayoutConstraint,
+                    separatorLineToMarginTrailingLayoutConstraint,
+                ])
+            }
+        }
+    }
+
+}
+
+extension SearchResultTableViewCell {
     
     func config(with account: Mastodon.Entity.Account) {
         Nuke.loadImage(
