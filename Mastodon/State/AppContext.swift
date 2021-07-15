@@ -33,8 +33,9 @@ class AppContext: ObservableObject {
     let settingService: SettingService
 
     let blockDomainService: BlockDomainService    
+    let statusFilterService: StatusFilterService
     let photoLibraryService = PhotoLibraryService()
-    
+
     let placeholderImageCacheService = PlaceholderImageCacheService()
     let blurhashImageCacheService = BlurhashImageCacheService()
     let statusContentCacheService = StatusContentCacheService()
@@ -69,7 +70,10 @@ class AppContext: ObservableObject {
         emojiService = EmojiService(
             apiService: apiService
         )
+        
         statusPrefetchingService = StatusPrefetchingService(
+            managedObjectContext: _managedObjectContext,
+            backgroundManagedObjectContext: _backgroundManagedObjectContext,
             apiService: _apiService
         )
         let _notificationService = NotificationService(
@@ -86,6 +90,11 @@ class AppContext: ObservableObject {
         
         blockDomainService = BlockDomainService(
             backgroundManagedObjectContext: _backgroundManagedObjectContext,
+            authenticationService: _authenticationService
+        )
+
+        statusFilterService = StatusFilterService(
+            apiService: _apiService,
             authenticationService: _authenticationService
         )
         

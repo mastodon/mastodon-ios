@@ -60,6 +60,8 @@ extension StatusSection {
     }
     #endif
 
+    static let logger = Logger(subsystem: "StatusSection", category: "logic")
+
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         timelineContext: TimelineContext,
@@ -248,7 +250,8 @@ extension StatusSection {
         timelineContext: TimelineContext
     ) -> AnyPublisher<Bool, Never> {
         guard let content = content,
-              let currentFilterContext = timelineContext.filterContext else {
+              let currentFilterContext = timelineContext.filterContext,
+              !filters.isEmpty else {
             return Just(false).eraseToAnyPublisher()
         }
 
@@ -352,18 +355,29 @@ extension StatusSection {
             }
             .store(in: &cell.disposeBag)
 
-        let document = MastodonContent(
-            content: (status.reblog ?? status).content,
-            emojis: (status.reblog ?? status).emojiMeta
-        )
-        let content = try? MastodonMetaContent.convert(document: document)
-        
+        let content: MastodonMetaContent? = {
+            if let operation = dependency.context.statusPrefetchingService.statusContentOperations.removeValue(forKey: status.objectID),
+               let result = operation.result {
+                switch result {
+                case .success(let content):     return content
+                case .failure:                  return nil
+                }
+            } else {
+                let document = MastodonContent(
+                    content: (status.reblog ?? status).content,
+                    emojis: (status.reblog ?? status).emojiMeta
+                )
+                return try? MastodonMetaContent.convert(document: document)
+            }
+        }()
+
+
         if status.author.id == requestUserID || status.reblog?.author.id == requestUserID {
             // do not filter myself
         } else {
             let needsFilter = StatusSection.needsFilterStatus(
                 content: content,
-                filters: AppContext.shared.authenticationService.activeFilters.value,
+                filters: AppContext.shared.statusFilterService.activeFilters.value,
                 timelineContext: timelineContext
             )
             needsFilter
@@ -1128,5 +1142,46 @@ extension StatusSection {
             shareUser: nil,
             shareStatus: status
         )
+    }
+}
+
+class StatusContentOperation: Operation {
+
+    let logger = Logger(subsystem: "StatusContentOperation", category: "logic")
+
+    // input
+    let statusObjectID: NSManagedObjectID
+    let mastodonContent: MastodonContent
+
+    // output
+    var result: Result<MastodonMetaContent, Error>?
+
+    init(
+        statusObjectID: NSManagedObjectID,
+        mastodonContent: MastodonContent
+    ) {
+        self.statusObjectID = statusObjectID
+        self.mastodonContent = mastodonContent
+        super.init()
+    }
+
+    override func main() {
+        guard !isCancelled else { return }
+        // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): prcoess \(self.statusObjectID)…")
+
+        do {
+            let content = try MastodonMetaContent.convert(document: mastodonContent)
+            result = .success(content)
+            // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): process success \(self.statusObjectID)")
+        } catch {
+            result = .failure(error)
+            // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): process fail \(self.statusObjectID)")
+        }
+
+    }
+
+    override func cancel() {
+        // logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): cancel \(self.statusObjectID.debugDescription)")
+        super.cancel()
     }
 }

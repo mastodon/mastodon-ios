@@ -11,22 +11,90 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MastodonMeta
 
 final class StatusPrefetchingService {
     
     typealias TaskID = String
+    typealias StatusObjectID = NSManagedObjectID
     
     let workingQueue = DispatchQueue(label: "org.joinmastodon.app.StatusPrefetchingService.working-queue")
 
+    // StatusContentOperation
+    let statusContentOperationQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.name = "org.joinmastodon.app.StatusPrefetchingService.statusContentOperationQueue"
+        queue.maxConcurrentOperationCount = 2
+        return queue
+    }()
+    var statusContentOperations: [StatusObjectID: StatusContentOperation] = [:]
+
     var disposeBag = Set<AnyCancellable>()
     private(set) var statusPrefetchingDisposeBagDict: [TaskID: AnyCancellable] = [:]
-    
+
+    // input
     weak var apiService: APIService?
+    let managedObjectContext: NSManagedObjectContext
+    let backgroundManagedObjectContext: NSManagedObjectContext  // read-only
     
-    init(apiService: APIService) {
+    init(
+        managedObjectContext: NSManagedObjectContext,
+        backgroundManagedObjectContext: NSManagedObjectContext,
+        apiService: APIService
+    ) {
+        self.managedObjectContext = managedObjectContext
+        self.backgroundManagedObjectContext = backgroundManagedObjectContext
         self.apiService = apiService
     }
+
+    private func status(from statusObjectItem: StatusObjectItem) -> Status? {
+        assert(Thread.isMainThread)
+        switch statusObjectItem {
+        case .homeTimelineIndex(let objectID):
+            let homeTimelineIndex = try? managedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex
+            return homeTimelineIndex?.status
+        case .mastodonNotification(let objectID):
+            let mastodonNotification = try? managedObjectContext.existingObject(with: objectID) as? MastodonNotification
+            return mastodonNotification?.status
+        case .status(let objectID):
+            let status = try? managedObjectContext.existingObject(with: objectID) as? Status
+            return status
+        }
+
+    }
     
+}
+
+extension StatusPrefetchingService {
+    func prefetch(statusObjectItems items: [StatusObjectItem]) {
+        for item in items {
+            guard let status = status(from: item), !status.isDeleted else { continue }
+
+            // status content parser task
+            if statusContentOperations[status.objectID] == nil {
+                let mastodonContent = MastodonContent(
+                    content: (status.reblog ?? status).content,
+                    emojis: (status.reblog ?? status).emojiMeta
+                )
+                let operation = StatusContentOperation(
+                    statusObjectID: status.objectID,
+                    mastodonContent: mastodonContent
+                )
+                statusContentOperations[status.objectID] = operation
+                statusContentOperationQueue.addOperation(operation)
+            }
+        }
+    }
+
+    func cancelPrefetch(statusObjectItems items: [StatusObjectItem]) {
+        for item in items {
+            guard let status = status(from: item), !status.isDeleted else { continue }
+
+            // cancel status content parser task
+            statusContentOperations.removeValue(forKey: status.objectID)?.cancel()
+        }
+    }
+
 }
 
 extension StatusPrefetchingService {

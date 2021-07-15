@@ -167,3 +167,25 @@ extension Item: Hashable {
 }
 
 extension Item: Differentiable { }
+
+extension Item {
+    var statusObjectItem: StatusObjectItem? {
+        switch self {
+        case .homeTimelineIndex(let objectID, _):
+            return .homeTimelineIndex(objectID: objectID)
+        case .root(let objectID, _),
+             .reply(let objectID, _),
+             .leaf(let objectID, _),
+             .status(let objectID, _),
+             .reportStatus(let objectID, _):
+            return .status(objectID: objectID)
+        case .leafBottomLoader,
+             .homeMiddleLoader,
+             .publicMiddleLoader,
+             .topLoader,
+             .bottomLoader,
+             .emptyStateHeader:
+            return nil
+        }
+    }
+}

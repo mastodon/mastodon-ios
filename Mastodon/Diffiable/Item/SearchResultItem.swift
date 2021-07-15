@@ -71,3 +71,18 @@ extension SearchResultItem {
         }
     }
 }
+
+extension SearchResultItem {
+    var statusObjectItem: StatusObjectItem? {
+        switch self {
+        case .status(let objectID, _):
+            return .status(objectID: objectID)
+        case .hashtag,
+             .account,
+             .accountObjectID,
+             .hashtagObjectID,
+             .bottomLoader:
+            return nil
+        }
+    }
+}

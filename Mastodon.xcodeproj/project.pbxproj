@@ -239,7 +239,6 @@
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
-		DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB443CD0269415D200159B29 /* Localizable.stringsdict */; };
 		DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB443CD32694627B00159B29 /* AppearanceView.swift */; };
 		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
 		DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */; };
@@ -284,6 +283,8 @@
 		DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D171262832380062B7A1 /* BlurHashEncode.swift */; };
 		DB52D33A26839DD800D43133 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52D33926839DD800D43133 /* ImageTask.swift */; };
 		DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */; };
+		DB564BD0269F2F83001E39A7 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */; };
+		DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */; };
 		DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */; };
 		DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */; };
 		DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */; };
@@ -885,8 +886,6 @@
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
-		DB443CCF269415D200159B29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		DB443CD1269415D800159B29 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
 		DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerSection.swift; sourceTree = "<group>"; };
@@ -931,6 +930,9 @@
 		DB51D171262832380062B7A1 /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashEncode.swift; sourceTree = "<group>"; };
 		DB52D33926839DD800D43133 /* ImageTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTask.swift; sourceTree = "<group>"; };
 		DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TwitterTextEditor+String.swift"; sourceTree = "<group>"; };
+		DB564BCF269F2F83001E39A7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DB564BD1269F2F8A001E39A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFilterService.swift; sourceTree = "<group>"; };
 		DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeightCacheableContainer.swift; sourceTree = "<group>"; };
 		DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Poll.swift"; sourceTree = "<group>"; };
@@ -1585,6 +1587,7 @@
 				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
 				DBBF1DC82652538500E5B703 /* AutoCompleteSection.swift */,
 				DBA94433265CBB5300C537E1 /* ProfileFieldSection.swift */,
+				DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */,
 			);
 			path = Section;
 			sourceTree = "<group>";
@@ -1858,7 +1861,7 @@
 				164F0EBB267D4FE400249499 /* BoopSound.caf */,
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
-				DB443CD0269415D200159B29 /* Localizable.stringsdict */,
+				DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */,
 				DB3D100F25BAA75E00EAA174 /* Localizable.strings */,
 				DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */,
 			);
@@ -3013,7 +3016,7 @@
 			files = (
 				164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */,
 				DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */,
-				DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */,
+				DB564BD0269F2F83001E39A7 /* Localizable.stringsdict in Resources */,
 				DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */,
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
@@ -3311,6 +3314,7 @@
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
+				DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */,
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
 				DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */,
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
@@ -3842,15 +3846,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		DB443CD0269415D200159B29 /* Localizable.stringsdict */ = {
+		DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DB443CCF269415D200159B29 /* en */,
-				DB443CD1269415D800159B29 /* ar */,
+				DB564BCF269F2F83001E39A7 /* ar */,
+				DB564BD1269F2F8A001E39A7 /* en */,
 			);
 			name = Localizable.stringsdict;
-			path = /Users/mainasuk/Developer/Mastodon/Mastodon/Resources;
-			sourceTree = "<absolute>";
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
