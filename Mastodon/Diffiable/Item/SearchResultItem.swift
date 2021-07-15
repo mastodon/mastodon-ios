@@ -17,7 +17,27 @@ enum SearchResultItem {
     case hashtagObjectID(hashtagObjectID: NSManagedObjectID)
     case status(statusObjectID: NSManagedObjectID, attribute: Item.StatusAttribute)
 
-    case bottomLoader
+    case bottomLoader(attribute: BottomLoaderAttribute)
+}
+
+extension SearchResultItem {
+    class BottomLoaderAttribute: Hashable {
+        let id = UUID()
+
+        var isNoResult: Bool
+
+        init(isEmptyResult: Bool) {
+            self.isNoResult = isEmptyResult
+        }
+
+        static func == (lhs: SearchResultItem.BottomLoaderAttribute, rhs: SearchResultItem.BottomLoaderAttribute) -> Bool {
+            return lhs.id == rhs.id
+        }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
 }
 
 extension SearchResultItem: Equatable {
@@ -33,8 +53,8 @@ extension SearchResultItem: Equatable {
             return idLeft == idRight
         case (.status(let idLeft, _), .status(let idRight, _)):
             return idLeft == idRight
-        case (.bottomLoader, .bottomLoader):
-            return true
+        case (.bottomLoader(let attributeLeft), .bottomLoader(let attributeRight)):
+            return attributeLeft == attributeRight
         default:
             return false
         }
@@ -56,8 +76,8 @@ extension SearchResultItem: Hashable {
             hasher.combine(id)
         case .status(let id, _):
             hasher.combine(id)
-        case .bottomLoader:
-            hasher.combine(String(describing: SearchResultItem.bottomLoader.self))
+        case .bottomLoader(let attribute):
+            hasher.combine(attribute)
         }
     }
 }

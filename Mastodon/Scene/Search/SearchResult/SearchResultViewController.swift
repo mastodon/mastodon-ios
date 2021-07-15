@@ -205,6 +205,8 @@ extension SearchResultViewController: UITableViewDelegate {
             coordinator.present(scene: .hashtagTimeline(viewModel: hashtagViewModel), from: self, transition: .show)
         case .status:
             aspectTableView(tableView, didSelectRowAt: indexPath)
+        case .bottomLoader:
+            break
         default:
             assertionFailure()
         }

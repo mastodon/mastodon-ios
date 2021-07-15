@@ -456,6 +456,9 @@
                     "hashtags": "Hashtags",
                     "posts": "Posts"
                 },
+                "empty_state": {
+                    "no_results": "No results"
+                },
                 "recent_search": "Recent searches",
                 "clear": "Clear"
             }

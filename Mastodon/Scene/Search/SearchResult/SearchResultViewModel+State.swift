@@ -61,15 +61,17 @@ extension SearchResultViewModel.State {
                 return
             }
 
-            if previousState is Initial {
-                // trigger bottom loader display
-                viewModel.items.value = viewModel.items.value
-            }
-
             let domain = activeMastodonAuthenticationBox.domain
 
             let searchText = viewModel.searchText.value
             let searchType = viewModel.searchScope.searchType
+
+            if previousState is NoMore && previousSearchText == searchText {
+                // same searchText from NoMore. should silent refresh
+            } else {
+                // trigger bottom loader display
+                viewModel.items.value = viewModel.items.value
+            }
 
             guard !searchText.isEmpty else {
                 stateMachine.enter(Fail.self)
@@ -79,6 +81,8 @@ extension SearchResultViewModel.State {
             if searchText != previousSearchText {
                 previousSearchText = searchText
                 offset = nil
+            } else {
+                offset = viewModel.items.value.count
             }
 
             // not set offset for all case
@@ -150,7 +154,7 @@ extension SearchResultViewModel.State {
                     newStatusIDs.append(status.id)
                 }
 
-                if viewModel.searchScope == .all {
+                if viewModel.searchScope == .all || newItems.isEmpty {
                     stateMachine.enter(NoMore.self)
                 } else {
                     stateMachine.enter(Idle.self)

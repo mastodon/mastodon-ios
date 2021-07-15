@@ -31,6 +31,7 @@ enum Item {
     case publicMiddleLoader(statusID: String)
     case topLoader
     case bottomLoader
+    case emptyBottomLoader
     
     case emptyStateHeader(attribute: EmptyStateHeaderAttribute)
     
@@ -98,6 +99,7 @@ extension Item {
             super.init(isSeparatorLineHidden: isSeparatorLineHidden)
         }
     }
+
 }
 
 extension Item: Equatable {
@@ -122,6 +124,8 @@ extension Item: Equatable {
         case (.topLoader, .topLoader):
             return true
         case (.bottomLoader, .bottomLoader):
+            return true
+        case (.emptyBottomLoader, .emptyBottomLoader):
             return true
         case (.emptyStateHeader(let attributeLeft), .emptyStateHeader(let attributeRight)):
             return attributeLeft == attributeRight
@@ -158,6 +162,8 @@ extension Item: Hashable {
             hasher.combine(String(describing: Item.topLoader.self))
         case .bottomLoader:
             hasher.combine(String(describing: Item.bottomLoader.self))
+        case .emptyBottomLoader:
+            hasher.combine(String(describing: Item.emptyBottomLoader.self))
         case .emptyStateHeader(let attribute):
             hasher.combine(attribute)
         case .reportStatus(let objectID, _):
@@ -184,6 +190,7 @@ extension Item {
              .publicMiddleLoader,
              .topLoader,
              .bottomLoader,
+             .emptyBottomLoader,
              .emptyStateHeader:
             return nil
         }

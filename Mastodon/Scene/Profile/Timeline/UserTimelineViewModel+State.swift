@@ -179,8 +179,8 @@ extension UserTimelineViewModel.State {
             super.didEnter(from: previousState)
             guard let viewModel = viewModel, let _ = stateMachine else { return }
             
-            // trigger data source update
-            viewModel.statusFetchedResultsController.objectIDs.value = viewModel.statusFetchedResultsController.objectIDs.value
+            // trigger data source update. otherwise, spinner always display
+            viewModel.isSuspended.value = viewModel.isSuspended.value
         }
     }
 }

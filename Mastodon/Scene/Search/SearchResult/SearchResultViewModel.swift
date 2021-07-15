@@ -92,10 +92,16 @@ final class SearchResultViewModel {
 
             if let currentState = self.stateMachine.currentState {
                 switch currentState {
-                case is State.Loading, is State.Fail, is State.Fail:
-                    snapshot.appendItems([.bottomLoader], toSection: .main)
-                case is State.NoMore:
+                case is State.Loading, is State.Fail, is State.Idle:
+                    let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: false)
+                    snapshot.appendItems([.bottomLoader(attribute: attribute)], toSection: .main)
+                case is State.Fail:
                     break
+                case is State.NoMore:
+                    if snapshot.itemIdentifiers.isEmpty {
+                        let attribute = SearchResultItem.BottomLoaderAttribute(isEmptyResult: true)
+                        snapshot.appendItems([.bottomLoader(attribute: attribute)], toSection: .main)
+                    }
                 default:
                     break
                 }

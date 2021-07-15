@@ -823,6 +823,10 @@ internal enum L10n {
         internal static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear")
         /// Recent searches
         internal static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch")
+        internal enum EmptyState {
+          /// No results
+          internal static let noResults = L10n.tr("Localizable", "Scene.Search.Searching.EmptyState.NoResults")
+        }
         internal enum Segment {
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.Search.Searching.Segment.All")

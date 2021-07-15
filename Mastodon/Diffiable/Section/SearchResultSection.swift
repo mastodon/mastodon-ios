@@ -61,9 +61,17 @@ extension SearchResultSection {
                 }
                 cell.delegate = statusTableViewCellDelegate
                 return cell
-            case .bottomLoader:
+            case .bottomLoader(let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self)) as! TimelineBottomLoaderTableViewCell
-                cell.startAnimating()
+                if attribute.isNoResult {
+                    cell.stopAnimating()
+                    cell.loadMoreLabel.text = L10n.Scene.Search.Searching.EmptyState.noResults
+                    cell.loadMoreLabel.textColor = Asset.Colors.Label.secondary.color
+                    cell.loadMoreLabel.isHidden = false
+                } else {
+                    cell.startAnimating()
+                    cell.loadMoreLabel.isHidden = true
+                }
                 return cell
             default:
                 fatalError()

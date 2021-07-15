@@ -207,6 +207,12 @@ extension StatusSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
                 cell.startAnimating()
                 return cell
+            case .emptyBottomLoader:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self), for: indexPath) as! TimelineBottomLoaderTableViewCell
+                cell.stopAnimating()
+                cell.loadMoreLabel.text = " "
+                cell.loadMoreLabel.isHidden = false
+                return cell
             case .emptyStateHeader(let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TimelineHeaderTableViewCell.self), for: indexPath) as! TimelineHeaderTableViewCell
                 StatusSection.configureEmptyStateHeader(cell: cell, attribute: attribute)
