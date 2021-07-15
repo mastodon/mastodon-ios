@@ -358,7 +358,7 @@ extension SettingsViewController: UITableViewDelegate {
         case .appearance:
             // do nothing
             break
-        case .appearanceDarkMode, .appearanceDisableAvatarAnimation:
+        case .preferenceDarkMode, .preferenceDisableAvatarAnimation:
             // do nothing
             break
         case .notification:
@@ -457,38 +457,6 @@ extension SettingsViewController: SettingsToggleCellDelegate {
         let item = dataSource.itemIdentifier(for: indexPath)
 
         switch item {
-        case .appearanceDarkMode(let settingObjectID):
-            let managedObjectContext = context.backgroundManagedObjectContext
-            managedObjectContext.performChanges {
-                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
-                setting.update(preferredTrueBlackDarkMode: isOn)
-            }
-            .sink { result in
-                switch result {
-                case .success:
-                    ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                    break
-                }
-            }
-            .store(in: &disposeBag)
-        case .appearanceDisableAvatarAnimation(let settingObjectID):
-            let managedObjectContext = context.backgroundManagedObjectContext
-            managedObjectContext.performChanges {
-                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
-                setting.update(preferredStaticAvatar: isOn)
-            }
-            .sink { result in
-                switch result {
-                case .success:
-                    UserDefaults.shared.preferredStaticAvatar = isOn
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                    break
-                }
-            }
-            .store(in: &disposeBag)
         case .notification(let settingObjectID, let switchMode):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
@@ -506,6 +474,38 @@ extension SettingsViewController: SettingsToggleCellDelegate {
             }
             .sink { _ in
                 // do nothing
+            }
+            .store(in: &disposeBag)
+        case .preferenceDarkMode(let settingObjectID):
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                setting.update(preferredTrueBlackDarkMode: isOn)
+            }
+            .sink { result in
+                switch result {
+                case .success:
+                    ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                    break
+                }
+            }
+            .store(in: &disposeBag)
+        case .preferenceDisableAvatarAnimation(let settingObjectID):
+            let managedObjectContext = context.backgroundManagedObjectContext
+            managedObjectContext.performChanges {
+                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
+                setting.update(preferredStaticAvatar: isOn)
+            }
+            .sink { result in
+                switch result {
+                case .success:
+                    UserDefaults.shared.preferredStaticAvatar = isOn
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                    break
+                }
             }
             .store(in: &disposeBag)
         case .preferenceUsingDefaultBrowser(let settingObjectID):

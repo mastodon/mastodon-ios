@@ -224,8 +224,8 @@ extension SearchDetailViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if navigationController?.viewControllers.count != 1 {
-            // set bar hidden but not when self is root
+        if !isModal {
+            // prevent bar restore conflict with modal style issue
             navigationController?.setNavigationBarHidden(false, animated: animated)
         }
     }

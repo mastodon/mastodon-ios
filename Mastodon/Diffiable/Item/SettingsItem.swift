@@ -10,9 +10,9 @@ import CoreData
 
 enum SettingsItem: Hashable {
     case appearance(settingObjectID: NSManagedObjectID)
-    case appearanceDarkMode(settingObjectID: NSManagedObjectID)
-    case appearanceDisableAvatarAnimation(settingObjectID: NSManagedObjectID)
     case notification(settingObjectID: NSManagedObjectID, switchMode: NotificationSwitchMode)
+    case preferenceDarkMode(settingObjectID: NSManagedObjectID)
+    case preferenceDisableAvatarAnimation(settingObjectID: NSManagedObjectID)
     case preferenceUsingDefaultBrowser(settingObjectID: NSManagedObjectID)
     case boringZone(item: Link)
     case spicyZone(item: Link)
@@ -51,7 +51,7 @@ extension SettingsItem {
         
         var title: String {
             switch self {
-            case .accountSettings:   return "Account settings"
+            case .accountSettings:   return L10n.Scene.Settings.Section.Boringzone.accountSettings
             case .termsOfService:    return L10n.Scene.Settings.Section.Boringzone.terms
             case .privacyPolicy:     return L10n.Scene.Settings.Section.Boringzone.privacy
             case .clearMediaCache:   return L10n.Scene.Settings.Section.Spicyzone.clear
