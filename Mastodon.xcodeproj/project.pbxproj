@@ -275,7 +275,7 @@
 		DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */; };
 		DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */; };
 		DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */; };
-		DB4FFC2C269EC39600D62E92 /* SearchDetailTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchDetailTransitionController.swift */; };
+		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
@@ -922,7 +922,7 @@
 		DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewModel+State.swift"; sourceTree = "<group>"; };
 		DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewController+StatusProvider.swift"; sourceTree = "<group>"; };
 		DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchToSearchDetailViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
-		DB4FFC2A269EC39600D62E92 /* SearchDetailTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDetailTransitionController.swift; sourceTree = "<group>"; };
+		DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransitionController.swift; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
@@ -2019,13 +2019,13 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
-		DB4FFC2D269EC39C00D62E92 /* SearchDetail */ = {
+		DB4FFC2D269EC39C00D62E92 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				DB4FFC2A269EC39600D62E92 /* SearchDetailTransitionController.swift */,
+				DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */,
 				DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */,
 			);
-			path = SearchDetail;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		DB5086CB25CC0DB400C2C187 /* Preference */ = {
@@ -2081,7 +2081,7 @@
 			children = (
 				DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */,
 				DB6180E726391B580018D199 /* MediaPreview */,
-				DB4FFC2D269EC39C00D62E92 /* SearchDetail */,
+				DB4FFC2D269EC39C00D62E92 /* Search */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -3519,7 +3519,7 @@
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
-				DB4FFC2C269EC39600D62E92 /* SearchDetailTransitionController.swift in Sources */,
+				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,

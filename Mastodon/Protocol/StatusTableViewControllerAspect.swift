@@ -15,6 +15,7 @@ import GameController
 // - HashtagTimelineViewController:     2021/4/30
 // - UserTimelineViewController:        2021/4/30
 // - ThreadViewController:              2021/4/30
+// - SearchResultViewController:        2021/7/15
 // * StatusTableViewControllerAspect:   2021/7/15
 
 // (Fake) Aspect protocol to group common protocol extension implementations
@@ -45,6 +46,7 @@ extension StatusTableViewControllerAspect {
     }
 }
 
+// [A2] aspectViewDidDisappear(_:)
 extension StatusTableViewControllerAspect where Self: NeedsDependency {
     /// [Media] hook to notify video service
     func aspectViewDidDisappear(_ animated: Bool) {

@@ -15,6 +15,7 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
     let logger = Logger(subsystem: "SearchDetail", category: "UI")
 
     var disposeBag = Set<AnyCancellable>()
+    var observations = Set<NSKeyValueObservation>()
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -22,10 +23,24 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
     var viewModel: SearchDetailViewModel!
     var viewControllers: [SearchResultViewController]!
 
+    let navigationBarBackgroundView = UIView()
+    let navigationBar: UINavigationBar = {
+        let navigationItem = UINavigationItem()
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+
+        let navigationBar = UINavigationBar()
+        navigationBar.setItems([navigationItem], animated: false)
+        return navigationBar
+    }()
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.scopeButtonTitles = SearchDetailViewModel.SearchScope.allCases.map { $0.segmentedControlTitle }
+        searchBar.scopeBarBackgroundImage = UIImage()
         return searchBar
     }()
 }
@@ -35,11 +50,39 @@ extension SearchDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.setHidesBackButton(true, animated: false)
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &disposeBag)
+
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationBar)
+        NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
         setupSearchBar()
+        navigationBar.layer.observe(\.bounds, options: [.new]) { [weak self] navigationBar, _ in
+            guard let self = self else { return }
+            self.viewModel.navigationBarFrame.value = navigationBar.frame
+        }
+        .store(in: &observations)
+
+        navigationBarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(navigationBarBackgroundView, belowSubview: navigationBar)
+        NSLayoutConstraint.activate([
+            navigationBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            navigationBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navigationBarBackgroundView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+        ])
 
         transition = Transition(style: .fade, duration: 0.1)
-        // transition = nil
         isScrollEnabled = false
 
         viewControllers = viewModel.searchScopes.map { scope in
@@ -47,9 +90,16 @@ extension SearchDetailViewController {
             searchResultViewController.context = context
             searchResultViewController.coordinator = coordinator
             searchResultViewController.viewModel = SearchResultViewModel(context: context, searchScope: scope)
+
             // bind searchText
             viewModel.searchText
                 .assign(to: \.value, on: searchResultViewController.viewModel.searchText)
+                .store(in: &searchResultViewController.disposeBag)
+
+            // bind navigationBarFrame
+            viewModel.navigationBarFrame
+                .receive(on: DispatchQueue.main)
+                .assign(to: \.value, on: searchResultViewController.viewModel.navigationBarFrame)
                 .store(in: &searchResultViewController.disposeBag)
             return searchResultViewController
         }
@@ -107,8 +157,8 @@ extension SearchDetailViewController {
 
         // bind search trigger
         viewModel.searchText
-            .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
             .removeDuplicates()
+            .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] searchText in
                 guard let self = self else { return }
                 guard let searchResultViewController = self.currentViewController as? SearchResultViewController else {
@@ -118,6 +168,18 @@ extension SearchDetailViewController {
                 searchResultViewController.viewModel.stateMachine.enter(SearchResultViewModel.State.Loading.self)
             }
             .store(in: &disposeBag)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -131,11 +193,18 @@ extension SearchDetailViewController {
 
 extension SearchDetailViewController {
     private func setupSearchBar() {
-        navigationItem.titleView = searchBar
         searchBar.setShowsScope(true, animated: false)
         searchBar.sizeToFit()
 
+        navigationBar.topItem?.titleView = searchBar
+        navigationBar.sizeToFit()
+
         searchBar.delegate = self
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        navigationBarBackgroundView.backgroundColor = theme.navigationBarBackgroundColor
+        navigationBar.tintColor = Asset.Colors.brandBlue.color
     }
 }
 

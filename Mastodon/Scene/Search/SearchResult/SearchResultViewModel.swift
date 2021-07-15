@@ -21,6 +21,8 @@ final class SearchResultViewModel {
     let searchText = CurrentValueSubject<String, Never>("")
     let statusFetchedResultsController: StatusFetchedResultsController
     let viewDidAppear = CurrentValueSubject<Bool, Never>(false)
+    var cellFrameCache = NSCache<NSNumber, NSValue>()
+    var navigationBarFrame = CurrentValueSubject<CGRect, Never>(.zero)
 
     // output
     private(set) lazy var stateMachine: GKStateMachine = {

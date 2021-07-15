@@ -7,6 +7,7 @@
 
 import os.log
 import Foundation
+import CoreGraphics
 import Combine
 import MastodonSDK
 
@@ -15,6 +16,7 @@ final class SearchDetailViewModel {
     // input
     var needsBecomeFirstResponder = false
     let viewDidAppear = PassthroughSubject<Void, Never>()
+    let navigationBarFrame = CurrentValueSubject<CGRect, Never>(.zero)
 
     // output
     let searchScopes = SearchScope.allCases

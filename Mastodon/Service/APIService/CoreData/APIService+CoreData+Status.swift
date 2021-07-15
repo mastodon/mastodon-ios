@@ -102,7 +102,7 @@ extension APIService.CoreData {
                     let metaData = attachment.meta.flatMap { meta in
                         try? encoder.encode(meta)
                     }
-                    let property = Attachment.Property(domain: domain, index: index, id: attachment.id, typeRaw: attachment.type.rawValue, url: attachment.url, previewURL: attachment.previewURL, remoteURL: attachment.remoteURL, metaData: metaData, textURL: attachment.textURL, descriptionString: attachment.description, blurhash: attachment.blurhash, networkDate: networkDate)
+                    let property = Attachment.Property(domain: domain, index: index, id: attachment.id, typeRaw: attachment.type.rawValue, url: attachment.url ?? "", previewURL: attachment.previewURL, remoteURL: attachment.remoteURL, metaData: metaData, textURL: attachment.textURL, descriptionString: attachment.description, blurhash: attachment.blurhash, networkDate: networkDate)
                     attachments.append(Attachment.insert(into: managedObjectContext, property: property))
                 }
                 guard !attachments.isEmpty else { return nil }

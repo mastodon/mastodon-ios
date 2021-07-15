@@ -22,8 +22,8 @@ extension Mastodon.Entity {
         
         public let id: ID
         public let type: Type
-        public let url: String
-        public let previewURL: String?    // could be nil when attachement is audio
+        public let url: String?           // media v2 may return null url
+        public let previewURL: String?    // could be nil when attachment is audio
         
         public let remoteURL: String?
         public let textURL: String?

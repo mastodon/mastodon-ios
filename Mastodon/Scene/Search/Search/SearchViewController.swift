@@ -37,7 +37,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
-    var searchDetailTransitionController = SearchDetailTransitionController()
+    var searchTransitionController = SearchTransitionController()
     
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = SearchViewModel(context: context, coordinator: coordinator)
@@ -165,7 +165,7 @@ extension SearchViewController: UISearchBarDelegate {
         // push to search detail
         let searchDetailViewModel = SearchDetailViewModel()
         searchDetailViewModel.needsBecomeFirstResponder = true
-        self.navigationController?.delegate = self.searchDetailTransitionController
+        self.navigationController?.delegate = self.searchTransitionController
         self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush)
         return false
     }

@@ -931,7 +931,7 @@ extension ComposeViewController: UICollectionViewDelegate {
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .fullScreen
+        return .overFullScreen
         //return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
     }
 

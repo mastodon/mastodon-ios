@@ -1,5 +1,5 @@
 //
-//  SearchDetailTransitionController.swift
+//  SearchTransitionController.swift
 //  Mastodon
 //
 //  Created by MainasuK Cirno on 2021-7-13.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class SearchDetailTransitionController: NSObject {
+final class SearchTransitionController: NSObject {
 
 }
 
 // MARK: - UINavigationControllerDelegate
-extension SearchDetailTransitionController: UINavigationControllerDelegate {
+extension SearchTransitionController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch operation {
         case .push where fromVC is SearchViewController && toVC is SearchDetailViewController:
