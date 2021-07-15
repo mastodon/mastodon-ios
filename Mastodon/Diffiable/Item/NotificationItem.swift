@@ -37,3 +37,14 @@ extension NotificationItem: Hashable {
         }
     }
 }
+
+extension NotificationItem {
+    var statusObjectItem: StatusObjectItem? {
+        switch self {
+        case .notification(let objectID, _):
+            return .mastodonNotification(objectID: objectID)
+        case .bottomLoader:
+            return nil
+        }
+    }
+}

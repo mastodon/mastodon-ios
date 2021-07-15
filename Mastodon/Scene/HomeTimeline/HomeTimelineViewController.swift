@@ -431,6 +431,10 @@ extension HomeTimelineViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         aspectTableView(tableView, prefetchRowsAt: indexPaths)
     }
+
+    func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        aspectTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
+    }
 }
 
 // MARK: - ContentOffsetAdjustableTimelineViewControllerDelegate
