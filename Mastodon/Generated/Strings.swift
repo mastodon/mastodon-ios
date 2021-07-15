@@ -14,15 +14,15 @@ internal enum L10n {
   internal enum Common {
     internal enum Alerts {
       internal enum BlockDomain {
-        /// Block entire domain
+        /// Block Domain
         internal static let blockEntireDomain = L10n.tr("Localizable", "Common.Alerts.BlockDomain.BlockEntireDomain")
-        /// Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.
+        /// Are you really, really sure you want to block the entire %@? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.
         internal static func title(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Alerts.BlockDomain.Title", String(describing: p1))
         }
       }
       internal enum CleanCache {
-        /// Successfully clean %@ cache.
+        /// Successfully cleaned %@ cache.
         internal static func message(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Common.Alerts.CleanCache.Message", String(describing: p1))
         }
@@ -42,9 +42,9 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Common.Alerts.DeletePost.Title")
       }
       internal enum DiscardPostContent {
-        /// Confirm discard composed post content.
+        /// Confirm to discard composed post content.
         internal static let message = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Message")
-        /// Discard Publish
+        /// Discard Draft
         internal static let title = L10n.tr("Localizable", "Common.Alerts.DiscardPostContent.Title")
       }
       internal enum EditProfileFailure {
@@ -61,12 +61,12 @@ internal enum L10n {
         internal enum AttchmentsMessage {
           /// Cannot attach more than one video.
           internal static let moreThanOneVideo = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.MoreThanOneVideo")
-          /// Cannot attach a video to a status that already contains images.
+          /// Cannot attach a video to a post that already contains images.
           internal static let videoAttachWithPhoto = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.VideoAttachWithPhoto")
         }
       }
       internal enum SavePhotoFailure {
-        /// Please enable photo libaray access permission to save photo.
+        /// Please enable the photo library access permission to save the photo.
         internal static let message = L10n.tr("Localizable", "Common.Alerts.SavePhotoFailure.Message")
         /// Save Photo Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.SavePhotoFailure.Title")
@@ -80,7 +80,7 @@ internal enum L10n {
         internal static let confirm = L10n.tr("Localizable", "Common.Alerts.SignOut.Confirm")
         /// Are you sure you want to sign out?
         internal static let message = L10n.tr("Localizable", "Common.Alerts.SignOut.Message")
-        /// Sign out
+        /// Sign Out
         internal static let title = L10n.tr("Localizable", "Common.Alerts.SignOut.Title")
       }
       internal enum SignUpFailure {
@@ -239,25 +239,25 @@ internal enum L10n {
           internal static let previousSection = L10n.tr("Localizable", "Common.Controls.Keyboard.SegmentedControl.PreviousSection")
         }
         internal enum Timeline {
-          /// Next Status
+          /// Next Post
           internal static let nextStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.NextStatus")
-          /// Open Author Profile
+          /// Open Author's Profile
           internal static let openAuthorProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenAuthorProfile")
-          /// Open Reblogger Profile
+          /// Open Reblogger's Profile
           internal static let openRebloggerProfile = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenRebloggerProfile")
-          /// Open Status
+          /// Open Post
           internal static let openStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.OpenStatus")
           /// Preview Image
           internal static let previewImage = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.PreviewImage")
-          /// Previous Status
+          /// Previous Post
           internal static let previousStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.PreviousStatus")
-          /// Reply Status
+          /// Reply to Post
           internal static let replyStatus = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ReplyStatus")
           /// Toggle Content Warning
           internal static let toggleContentWarning = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleContentWarning")
-          /// Toggle Status Favorite
+          /// Toggle Favorite on Post
           internal static let toggleFavorite = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleFavorite")
-          /// Toggle Status Reblog
+          /// Toggle Reblog on Post
           internal static let toggleReblog = L10n.tr("Localizable", "Common.Controls.Keyboard.Timeline.ToggleReblog")
         }
       }
@@ -289,7 +289,7 @@ internal enum L10n {
           internal static let reply = L10n.tr("Localizable", "Common.Controls.Status.Actions.Reply")
           /// Unfavorite
           internal static let unfavorite = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unfavorite")
-          /// Unreblog
+          /// Undo reblog
           internal static let unreblog = L10n.tr("Localizable", "Common.Controls.Status.Actions.Unreblog")
         }
         internal enum Poll {
@@ -345,19 +345,19 @@ internal enum L10n {
           }
         }
         internal enum Header {
-          /// You can’t view this’s profile\n until they unblock you.
+          /// You can’t view this user’s profile\n until they unblock you.
           internal static let blockedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockedWarning")
-          /// You can’t view this profile\n until you unblock them.\nYour account looks like this to them.
+          /// You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.
           internal static let blockingWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockingWarning")
-          /// No Status Found
+          /// No Post Found
           internal static let noStatusFound = L10n.tr("Localizable", "Common.Controls.Timeline.Header.NoStatusFound")
-          /// This account has been suspended.
+          /// This user has been suspended.
           internal static let suspendedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.SuspendedWarning")
           /// You can’t view %@’s profile\n until they unblock you.
           internal static func userBlockedWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserBlockedWarning", String(describing: p1))
           }
-          /// You can’t view %@’s profile\n until you unblock them.\nYour account looks like this to them.
+          /// You can’t view %@’s profile\n until you unblock them.\nYour profile looks like this to them.
           internal static func userBlockingWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserBlockingWarning", String(describing: p1))
           }
@@ -397,15 +397,15 @@ internal enum L10n {
         return L10n.tr("Localizable", "Scene.Compose.ReplyingToUser", String(describing: p1))
       }
       internal enum Accessibility {
-        /// Append attachment
+        /// Add Attachment
         internal static let appendAttachment = L10n.tr("Localizable", "Scene.Compose.Accessibility.AppendAttachment")
-        /// Append poll
+        /// Add Poll
         internal static let appendPoll = L10n.tr("Localizable", "Scene.Compose.Accessibility.AppendPoll")
-        /// Custom emoji picker
+        /// Custom Emoji Picker
         internal static let customEmojiPicker = L10n.tr("Localizable", "Scene.Compose.Accessibility.CustomEmojiPicker")
-        /// Disable content warning
+        /// Disable Content Warning
         internal static let disableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.DisableContentWarning")
-        /// Enable content warning
+        /// Enable Content Warning
         internal static let enableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.EnableContentWarning")
         /// Input limit exceeds %ld
         internal static func inputLimitExceedsCount(_ p1: Int) -> String {
@@ -415,9 +415,9 @@ internal enum L10n {
         internal static func inputLimitRemainsCount(_ p1: Int) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Accessibility.InputLimitRemainsCount", p1)
         }
-        /// Post visibility menu
+        /// Post Visibility Menu
         internal static let postVisibilityMenu = L10n.tr("Localizable", "Scene.Compose.Accessibility.PostVisibilityMenu")
-        /// Remove poll
+        /// Remove Poll
         internal static let removePoll = L10n.tr("Localizable", "Scene.Compose.Accessibility.RemovePoll")
       }
       internal enum Attachment {
@@ -425,9 +425,9 @@ internal enum L10n {
         internal static func attachmentBroken(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Attachment.AttachmentBroken", String(describing: p1))
         }
-        /// Describe photo for low vision people...
+        /// Describe the photo for the visually-impaired...
         internal static let descriptionPhoto = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionPhoto")
-        /// Describe what’s happening for low vision people...
+        /// Describe the video for the visually-impaired...
         internal static let descriptionVideo = L10n.tr("Localizable", "Scene.Compose.Attachment.DescriptionVideo")
         /// photo
         internal static let photo = L10n.tr("Localizable", "Scene.Compose.Attachment.Photo")
@@ -443,7 +443,7 @@ internal enum L10n {
         internal static let placeholder = L10n.tr("Localizable", "Scene.Compose.ContentWarning.Placeholder")
       }
       internal enum Keyboard {
-        /// Append Attachment - %@
+        /// Add Attachment - %@
         internal static func appendAttachmentEntry(_ p1: Any) -> String {
           return L10n.tr("Localizable", "Scene.Compose.Keyboard.AppendAttachmentEntry", String(describing: p1))
         }
@@ -569,13 +569,13 @@ internal enum L10n {
         internal static let favourite = L10n.tr("Localizable", "Scene.Notification.Action.Favourite")
         /// followed you
         internal static let follow = L10n.tr("Localizable", "Scene.Notification.Action.Follow")
-        /// request to follow you
+        /// requested to follow you
         internal static let followRequest = L10n.tr("Localizable", "Scene.Notification.Action.FollowRequest")
         /// mentioned you
         internal static let mention = L10n.tr("Localizable", "Scene.Notification.Action.Mention")
         /// Your poll has ended
         internal static let poll = L10n.tr("Localizable", "Scene.Notification.Action.Poll")
-        /// rebloged your post
+        /// reblogged your post
         internal static let reblog = L10n.tr("Localizable", "Scene.Notification.Action.Reblog")
       }
       internal enum Keyobard {
@@ -636,7 +636,7 @@ internal enum L10n {
       }
       internal enum RelationshipActionAlert {
         internal enum ConfirmUnblockUsre {
-          /// Confirm unblock %@
+          /// Confirm to unblock %@
           internal static func message(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message", String(describing: p1))
           }
@@ -644,7 +644,7 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Title")
         }
         internal enum ConfirmUnmuteUser {
-          /// Confirm unmute %@
+          /// Confirm to unmute %@
           internal static func message(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.Message", String(describing: p1))
           }
@@ -692,7 +692,7 @@ internal enum L10n {
           internal static func blank(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Blank", String(describing: p1))
           }
-          /// %@ contains a disallowed e-mail provider
+          /// %@ contains a disallowed email provider
           internal static func blocked(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Register.Error.Reason.Blocked", String(describing: p1))
           }
@@ -726,7 +726,7 @@ internal enum L10n {
           }
         }
         internal enum Special {
-          /// This is not a valid e-mail address
+          /// This is not a valid email address
           internal static let emailInvalid = L10n.tr("Localizable", "Scene.Register.Error.Special.EmailInvalid")
           /// Password is too short (must be at least 8 characters)
           internal static let passwordTooShort = L10n.tr("Localizable", "Scene.Register.Error.Special.PasswordTooShort")
@@ -788,6 +788,8 @@ internal enum L10n {
       }
     }
     internal enum Search {
+      /// Search
+      internal static let title = L10n.tr("Localizable", "Scene.Search.Title")
       internal enum Recommend {
         /// See All
         internal static let buttonText = L10n.tr("Localizable", "Scene.Search.Recommend.ButtonText")
@@ -800,27 +802,31 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Search.Recommend.Accounts.Title")
         }
         internal enum HashTag {
-          /// Hashtags that are getting quite a bit of attention among people you follow
+          /// Hashtags that are getting quite a bit of attention
           internal static let description = L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.Description")
           /// %@ people are talking
           internal static func peopleTalking(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.PeopleTalking", String(describing: p1))
           }
-          /// Trending in your timeline
+          /// Trending on Mastodon
           internal static let title = L10n.tr("Localizable", "Scene.Search.Recommend.HashTag.Title")
         }
       }
-      internal enum Searchbar {
+      internal enum SearchBar {
         /// Cancel
-        internal static let cancel = L10n.tr("Localizable", "Scene.Search.Searchbar.Cancel")
+        internal static let cancel = L10n.tr("Localizable", "Scene.Search.SearchBar.Cancel")
         /// Search hashtags and users
-        internal static let placeholder = L10n.tr("Localizable", "Scene.Search.Searchbar.Placeholder")
+        internal static let placeholder = L10n.tr("Localizable", "Scene.Search.SearchBar.Placeholder")
       }
       internal enum Searching {
         /// Clear
         internal static let clear = L10n.tr("Localizable", "Scene.Search.Searching.Clear")
         /// Recent searches
         internal static let recentSearch = L10n.tr("Localizable", "Scene.Search.Searching.RecentSearch")
+        internal enum EmptyState {
+          /// No results
+          internal static let noResults = L10n.tr("Localizable", "Scene.Search.Searching.EmptyState.NoResults")
+        }
         internal enum Segment {
           /// All
           internal static let all = L10n.tr("Localizable", "Scene.Search.Searching.Segment.All")
@@ -828,6 +834,8 @@ internal enum L10n {
           internal static let hashtags = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Hashtags")
           /// People
           internal static let people = L10n.tr("Localizable", "Scene.Search.Searching.Segment.People")
+          /// Posts
+          internal static let posts = L10n.tr("Localizable", "Scene.Search.Searching.Segment.Posts")
         }
       }
     }
@@ -871,7 +879,7 @@ internal enum L10n {
         }
       }
       internal enum EmptyState {
-        /// Something went wrong while loading data. Check your internet connection.
+        /// Something went wrong while loading the data. Check your internet connection.
         internal static let badNetwork = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.BadNetwork")
         /// Finding available servers...
         internal static let findingServers = L10n.tr("Localizable", "Scene.ServerPicker.EmptyState.FindingServers")
@@ -936,18 +944,20 @@ internal enum L10n {
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
         }
         internal enum AppearanceSettings {
-          /// Disable avatar animation
+          /// Disable animated avatars
           internal static let disableAvatarAnimation = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.DisableAvatarAnimation")
-          /// True black Dark Mode
+          /// True black dark mode
           internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode")
         }
-        internal enum Boringzone {
+        internal enum BoringZone {
+          /// Account settings
+          internal static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.AccountSettings")
           /// Privacy Policy
-          internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Privacy")
+          internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Privacy")
           /// Terms of Service
-          internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Terms")
-          /// The Boring zone
-          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Boringzone.Title")
+          internal static let terms = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Terms")
+          /// The Boring Zone
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Title")
         }
         internal enum Notifications {
           /// Reblogs my post
@@ -974,18 +984,18 @@ internal enum L10n {
           }
         }
         internal enum Preference {
-          /// Preference
+          /// Preferences
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Preference.Title")
-          /// Using default browser open link
+          /// Use default browser to open links
           internal static let usingDefaultBrowser = L10n.tr("Localizable", "Scene.Settings.Section.Preference.UsingDefaultBrowser")
         }
-        internal enum Spicyzone {
+        internal enum SpicyZone {
           /// Clear Media Cache
-          internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Clear")
+          internal static let clear = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Clear")
           /// Sign Out
-          internal static let signout = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Signout")
-          /// The spicy zone
-          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Spicyzone.Title")
+          internal static let signout = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Signout")
+          /// The Spicy Zone
+          internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.SpicyZone.Title")
         }
       }
     }

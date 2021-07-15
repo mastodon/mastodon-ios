@@ -242,8 +242,6 @@ extension ComposeViewController {
                 }
                 return margin
             }()
-            
-            // update keyboard background color
 
             guard isShow, state == .dock else {
                 self.tableView.contentInset.bottom = extraMargin
@@ -591,19 +589,6 @@ extension ComposeViewController {
     
     private func updateKeyboardBackground(isKeyboardDisplay: Bool) {
         composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-
-        // Deprecated: not works for new Dark Mode color
-        // guard isKeyboardDisplay else {
-        //     composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-        //     return
-        // }
-        // composeToolbarBackgroundView.backgroundColor = UIColor(dynamicProvider: { traitCollection -> UIColor in
-        //     // avoid elevated color
-        //     switch traitCollection.userInterfaceStyle {
-        //     case .light:        return .white
-        //     default:            return .black
-        //     }
-        // })
     }
 
     private func setupBackgroundColor(theme: Theme) {
@@ -946,7 +931,7 @@ extension ComposeViewController: UICollectionViewDelegate {
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .fullScreen
+        return .overFullScreen
         //return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
     }
 

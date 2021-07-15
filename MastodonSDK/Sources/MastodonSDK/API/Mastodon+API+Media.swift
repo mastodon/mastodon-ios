@@ -104,7 +104,12 @@ extension Mastodon.API.Media {
             
             return SerialStream(streams: streams)
         }
+
+        public var clone: UploadMediaQuery {
+            UploadMediaQuery(file: file, thumbnail: thumbnail, description: description, focus: focus)
+        }
     }
+
     
 }
 

@@ -52,7 +52,10 @@ extension SceneCoordinator {
         // ASDK
         case asyncHome
         #endif
-        
+
+        // search
+        case searchDetail(viewModel: SearchDetailViewModel)
+
         // compose
         case compose(viewModel: ComposeViewModel)
         
@@ -254,6 +257,10 @@ private extension SceneCoordinator {
             let _viewController = AsyncHomeTimelineViewController()
             viewController = _viewController
         #endif
+        case .searchDetail(let viewModel):
+            let _viewController = SearchDetailViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
         case .compose(let viewModel):
             let _viewController = ComposeViewController()
             _viewController.viewModel = viewModel

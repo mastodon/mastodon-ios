@@ -24,11 +24,12 @@ final class UserTimelineViewModel {
     let queryFilter: CurrentValueSubject<QueryFilter, Never>
     let statusFetchedResultsController: StatusFetchedResultsController
     var cellFrameCache = NSCache<NSNumber, NSValue>()
-    
+
     let isBlocking = CurrentValueSubject<Bool, Never>(false)
     let isBlockedBy = CurrentValueSubject<Bool, Never>(false)
     let isSuspended = CurrentValueSubject<Bool, Never>(false)
     let userDisplayName = CurrentValueSubject<String?, Never>(nil)  // for suspended prompt label
+    var dataSourceDidUpdate = PassthroughSubject<Void, Never>()
 
     // output
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
@@ -77,9 +78,13 @@ final class UserTimelineViewModel {
             var snapshot = NSDiffableDataSourceSnapshot<StatusSection, Item>()
             snapshot.appendSections([.main])
 
+            var animatingDifferences = true
             defer {
                 // not animate when empty items fix loader first appear layout issue
-                diffableDataSource.apply(snapshot, animatingDifferences: !items.isEmpty)
+                diffableDataSource.apply(snapshot, animatingDifferences: animatingDifferences) { [weak self] in
+                    guard let self = self else { return }
+                    self.dataSourceDidUpdate.send()
+                }
             }
 
             let name = self.userDisplayName.value
@@ -125,7 +130,8 @@ final class UserTimelineViewModel {
                 case is State.Reloading, is State.Loading, is State.Idle, is State.Fail:
                     snapshot.appendItems([.bottomLoader], toSection: .main)
                 case is State.NoMore:
-                    break
+                    snapshot.appendItems([.emptyBottomLoader], toSection: .main)
+                    animatingDifferences = false
                 // TODO: handle other states
                 default:
                     break

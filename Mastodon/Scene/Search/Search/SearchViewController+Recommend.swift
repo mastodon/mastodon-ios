@@ -62,12 +62,19 @@ extension SearchViewController: UICollectionViewDelegate {
         case self.accountsCollectionView:
             guard let diffableDataSource = viewModel.accountDiffableDataSource else { return }
             guard let accountObjectID = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-            let user = context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
-            viewModel.accountCollectionViewItemDidSelected(mastodonUser: user, from: self)
+            let mastodonUser = context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
+            let viewModel = ProfileViewModel(context: context, optionalMastodonUser: mastodonUser)
+            DispatchQueue.main.async {
+                self.coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
+            }
         case self.hashtagCollectionView:
             guard let diffableDataSource = viewModel.hashtagDiffableDataSource else { return }
             guard let hashtag = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-            viewModel.hashtagCollectionViewItemDidSelected(hashtag: hashtag, from: self)
+            let (tagInCoreData, _) = APIService.CoreData.createOrMergeTag(into: context.managedObjectContext, entity: hashtag)
+            let viewModel = HashtagTimelineViewModel(context: context, hashtag: tagInCoreData.name)
+            DispatchQueue.main.async {
+                self.coordinator.present(scene: .hashtagTimeline(viewModel: viewModel), from: self, transition: .show)
+            }
         default:
             break
         }

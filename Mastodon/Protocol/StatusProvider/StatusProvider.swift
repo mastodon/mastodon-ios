@@ -22,9 +22,15 @@ protocol StatusProvider: NeedsDependency & DisposeBagCollectable & UIViewControl
     
     // sync
     var managedObjectContext: NSManagedObjectContext { get }
+
+    @available(*, deprecated)
     var tableViewDiffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>? { get }
+    @available(*, deprecated)
     func item(for cell: UITableViewCell?, indexPath: IndexPath?) -> Item?
+    @available(*, deprecated)
     func items(indexPaths: [IndexPath]) -> [Item]
+
+    func statusObjectItems(indexPaths: [IndexPath]) -> [StatusObjectItem]
 
     #if ASDK
     func status(node: ASCellNode?, indexPath: IndexPath?) -> Status?
@@ -38,3 +44,9 @@ extension StatusProvider {
     }
 }
 #endif
+
+enum StatusObjectItem {
+    case status(objectID: NSManagedObjectID)
+    case homeTimelineIndex(objectID: NSManagedObjectID)
+    case mastodonNotification(objectID: NSManagedObjectID)  // may not contains status 
+}

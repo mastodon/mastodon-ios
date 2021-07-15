@@ -10,12 +10,13 @@ import AVKit
 import GameController
 
 //   Check List                         Last Updated
-// - HomeViewController:                2021/4/30
+// - HomeViewController:                2021/7/15
 // - FavoriteViewController:            2021/4/30
 // - HashtagTimelineViewController:     2021/4/30
 // - UserTimelineViewController:        2021/4/30
 // - ThreadViewController:              2021/4/30
-// * StatusTableViewControllerAspect:   2021/4/30
+// - SearchResultViewController:        2021/7/15
+// * StatusTableViewControllerAspect:   2021/7/15
 
 // (Fake) Aspect protocol to group common protocol extension implementations
 // Needs update related view controller when aspect interface changes
@@ -45,6 +46,7 @@ extension StatusTableViewControllerAspect {
     }
 }
 
+// [A2] aspectViewDidDisappear(_:)
 extension StatusTableViewControllerAspect where Self: NeedsDependency {
     /// [Media] hook to notify video service
     func aspectViewDidDisappear(_ animated: Bool) {
@@ -146,9 +148,17 @@ extension StatusTableViewControllerAspect where Self: StatusTableViewCellDelegat
 
 // [C1] aspectTableView(:prefetchRowsAt)
 extension StatusTableViewControllerAspect where Self: UITableViewDataSourcePrefetching & StatusTableViewCellDelegate & StatusProvider {
-    /// [Data Source] hook to prefetch reply to info for status
+    /// [Data Source] hook to prefetch status
     func aspectTableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         handleTableView(tableView, prefetchRowsAt: indexPaths)
+    }
+}
+
+// [C2] aspectTableView(:prefetchRowsAt)
+extension StatusTableViewControllerAspect where Self: UITableViewDataSourcePrefetching & StatusTableViewCellDelegate & StatusProvider {
+    /// [Data Source] hook to cancel prefetch status
+    func aspectTableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        handleTableView(tableView, cancelPrefetchingForRowsAt: indexPaths)
     }
 }
 

@@ -123,6 +123,7 @@ extension Mastodon.API {
 extension Mastodon.API.V2 {
     public enum Search { }
     public enum Suggestions { }
+    public enum Media { }
 }
 
 extension Mastodon.API {

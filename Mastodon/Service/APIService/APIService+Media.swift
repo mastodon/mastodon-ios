@@ -10,8 +10,21 @@ import Combine
 import MastodonSDK
 
 extension APIService {
- 
+
     func uploadMedia(
+        domain: String,
+        query: Mastodon.API.Media.UploadMediaQuery,
+        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
+        needsFallback: Bool
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
+        if needsFallback {
+            return uploadMediaV1(domain: domain, query: query, mastodonAuthenticationBox: mastodonAuthenticationBox)
+        } else {
+            return uploadMediaV2(domain: domain, query: query, mastodonAuthenticationBox: mastodonAuthenticationBox)
+        }
+    }
+ 
+    private func uploadMediaV1(
         domain: String,
         query: Mastodon.API.Media.UploadMediaQuery,
         mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
@@ -24,6 +37,22 @@ extension APIService {
             query: query,
             authorization: authorization
         )
+    }
+
+    private func uploadMediaV2(
+        domain: String,
+        query: Mastodon.API.Media.UploadMediaQuery,
+        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
+        let authorization = mastodonAuthenticationBox.userAuthorization
+
+        return Mastodon.API.V2.Media.uploadMedia(
+            session: session,
+            domain: domain,
+            query: query,
+            authorization: authorization
+        )
+        .eraseToAnyPublisher()
     }
     
     func updateMedia(

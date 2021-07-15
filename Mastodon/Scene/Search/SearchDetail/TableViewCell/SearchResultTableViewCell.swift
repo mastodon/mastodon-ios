@@ -1,5 +1,5 @@
 //
-//  SearchingTableViewCell.swift
+//  SearchResultTableViewCell.swift
 //  Mastodon
 //
 //  Created by sxiaojian on 2021/4/2.
@@ -13,7 +13,7 @@ import UIKit
 import FLAnimatedImage
 import Nuke
 
-final class SearchingTableViewCell: UITableViewCell {
+final class SearchResultTableViewCell: UITableViewCell {
 
     let _imageView: UIImageView = {
         let imageView = FLAnimatedImageView()
@@ -37,6 +37,14 @@ final class SearchingTableViewCell: UITableViewCell {
         label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
+
+    let separatorLine = UIView.separatorLine
+
+    var separatorLineToEdgeLeadingLayoutConstraint: NSLayoutConstraint!
+    var separatorLineToEdgeTrailingLayoutConstraint: NSLayoutConstraint!
+
+    var separatorLineToMarginLeadingLayoutConstraint: NSLayoutConstraint!
+    var separatorLineToMarginTrailingLayoutConstraint: NSLayoutConstraint!
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -54,28 +62,28 @@ final class SearchingTableViewCell: UITableViewCell {
     }
 }
 
-extension SearchingTableViewCell {
+extension SearchResultTableViewCell {
     private func configure() {
         let containerStackView = UIStackView()
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fill
         containerStackView.spacing = 12
-        containerStackView.layoutMargins = UIEdgeInsets(top: 12, left: 21, bottom: 12, right: 12)
+        containerStackView.layoutMargins = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
         containerStackView.isLayoutMarginsRelativeArrangement = true
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(containerStackView)
         NSLayoutConstraint.activate([
             containerStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
         _imageView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(_imageView)
         NSLayoutConstraint.activate([
-            _imageView.widthAnchor.constraint(equalToConstant: 42),
-            _imageView.heightAnchor.constraint(equalToConstant: 42),
+            _imageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            _imageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
         ])
         
         let textStackView = UIStackView()
@@ -89,7 +97,62 @@ extension SearchingTableViewCell {
         _subTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
         
         containerStackView.addArrangedSubview(textStackView)
+
+        separatorLine.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(separatorLine)
+        separatorLineToEdgeLeadingLayoutConstraint = separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        separatorLineToEdgeTrailingLayoutConstraint = separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        separatorLineToMarginLeadingLayoutConstraint = separatorLine.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor)
+        separatorLineToMarginTrailingLayoutConstraint = separatorLine.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor)
+        NSLayoutConstraint.activate([
+            separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
+        ])
+        resetSeparatorLineLayout()
     }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        resetSeparatorLineLayout()
+    }
+
+}
+
+extension SearchResultTableViewCell {
+
+    private func resetSeparatorLineLayout() {
+        separatorLineToEdgeLeadingLayoutConstraint.isActive = false
+        separatorLineToEdgeTrailingLayoutConstraint.isActive = false
+        separatorLineToMarginLeadingLayoutConstraint.isActive = false
+        separatorLineToMarginTrailingLayoutConstraint.isActive = false
+
+        if traitCollection.userInterfaceIdiom == .phone {
+            // to edge
+            NSLayoutConstraint.activate([
+                separatorLineToEdgeLeadingLayoutConstraint,
+                separatorLineToEdgeTrailingLayoutConstraint,
+            ])
+        } else {
+            if traitCollection.horizontalSizeClass == .compact {
+                // to edge
+                NSLayoutConstraint.activate([
+                    separatorLineToEdgeLeadingLayoutConstraint,
+                    separatorLineToEdgeTrailingLayoutConstraint,
+                ])
+            } else {
+                // to margin
+                NSLayoutConstraint.activate([
+                    separatorLineToMarginLeadingLayoutConstraint,
+                    separatorLineToMarginTrailingLayoutConstraint,
+                ])
+            }
+        }
+    }
+
+}
+
+extension SearchResultTableViewCell {
     
     func config(with account: Mastodon.Entity.Account) {
         Nuke.loadImage(
@@ -120,7 +183,7 @@ extension SearchingTableViewCell {
     func config(with tag: Mastodon.Entity.Tag) {
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
-        _titleLabel.text = "# " + tag.name
+        _titleLabel.text = "#" + tag.name
         guard let histories = tag.history else {
             _subTitleLabel.text = ""
             return
@@ -151,11 +214,11 @@ extension SearchingTableViewCell {
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
-struct SearchingTableViewCell_Previews: PreviewProvider {
+struct SearchResultTableViewCell_Previews: PreviewProvider {
     static var controls: some View {
         Group {
             UIViewPreview {
-                let cell = SearchingTableViewCell()
+                let cell = SearchResultTableViewCell()
                 cell.backgroundColor = .white
                 cell._imageView.image = UIImage(systemName: "number.circle.fill")
                 cell._titleLabel.text = "Electronic Frontier Foundation"

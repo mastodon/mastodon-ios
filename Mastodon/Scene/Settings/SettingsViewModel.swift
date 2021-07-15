@@ -12,13 +12,15 @@ import Foundation
 import MastodonSDK
 import UIKit
 import os.log
+import AuthenticationServices
 
 class SettingsViewModel {
     
     var disposeBag = Set<AnyCancellable>()
 
     let context: AppContext
-    
+    var mastodonAuthenticationController: MastodonAuthenticationController?
+
     // input
     let setting: CurrentValueSubject<Setting, Never>
     var updateDisposeBag = Set<AnyCancellable>()
@@ -85,6 +87,20 @@ class SettingsViewModel {
 }
 
 extension SettingsViewModel {
+
+    func openAuthenticationPage(
+        authenticateURL: URL,
+        presentationContextProvider: ASWebAuthenticationPresentationContextProviding
+    ) {
+        let authenticationController = MastodonAuthenticationController(
+            context: self.context,
+            authenticateURL: authenticateURL
+        )
+
+        self.mastodonAuthenticationController = authenticationController
+        authenticationController.authenticationSession?.presentationContextProvider = presentationContextProvider
+        authenticationController.authenticationSession?.start()
+    }
     
     // MARK: - Private methods
     private func processDataSource(_ setting: Setting) {
@@ -96,13 +112,6 @@ extension SettingsViewModel {
         snapshot.appendSections([.appearance])
         snapshot.appendItems(appearanceItems, toSection: .appearance)
 
-        let appearanceSettingItems = [
-            SettingsItem.appearanceDarkMode(settingObjectID: setting.objectID),
-            SettingsItem.appearanceDisableAvatarAnimation(settingObjectID: setting.objectID)
-        ]
-        snapshot.appendSections([.appearanceSettings])
-        snapshot.appendItems(appearanceSettingItems, toSection: .appearanceSettings)
-
         // notification
         let notificationItems = SettingsItem.NotificationSwitchMode.allCases.map { mode in
             SettingsItem.notification(settingObjectID: setting.objectID, switchMode: mode)
@@ -112,11 +121,17 @@ extension SettingsViewModel {
 
         // preference
         snapshot.appendSections([.preference])
-        snapshot.appendItems([.preferenceUsingDefaultBrowser(settingObjectID: setting.objectID)], toSection: .preference)
+        let preferenceItems: [SettingsItem] = [
+            .preferenceDarkMode(settingObjectID: setting.objectID),
+            .preferenceDisableAvatarAnimation(settingObjectID: setting.objectID),
+            .preferenceUsingDefaultBrowser(settingObjectID: setting.objectID),
+        ]
+        snapshot.appendItems(preferenceItems,toSection: .preference)
 
         // boring zone
         let boringZoneSettingsItems: [SettingsItem] = {
             let links: [SettingsItem.Link] = [
+                .accountSettings,
                 .termsOfService,
                 .privacyPolicy
             ]
@@ -174,8 +189,8 @@ extension SettingsViewModel {
                 }
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
-            case .appearanceDarkMode(let objectID),
-                 .appearanceDisableAvatarAnimation(let objectID),
+            case .preferenceDarkMode(let objectID),
+                 .preferenceDisableAvatarAnimation(let objectID),
                  .preferenceUsingDefaultBrowser(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
                 cell.delegate = settingsToggleCellDelegate
@@ -236,10 +251,10 @@ extension SettingsViewModel {
         setting: Setting
     ) {
         switch item {
-        case .appearanceDarkMode:
+        case .preferenceDarkMode:
             cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.trueBlackDarkMode
             cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
-        case .appearanceDisableAvatarAnimation:
+        case .preferenceDisableAvatarAnimation:
             cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.disableAvatarAnimation
             cell.switchButton.isOn = setting.preferredStaticAvatar
         case .preferenceUsingDefaultBrowser:

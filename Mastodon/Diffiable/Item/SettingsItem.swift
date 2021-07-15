@@ -10,9 +10,9 @@ import CoreData
 
 enum SettingsItem: Hashable {
     case appearance(settingObjectID: NSManagedObjectID)
-    case appearanceDarkMode(settingObjectID: NSManagedObjectID)
-    case appearanceDisableAvatarAnimation(settingObjectID: NSManagedObjectID)
     case notification(settingObjectID: NSManagedObjectID, switchMode: NotificationSwitchMode)
+    case preferenceDarkMode(settingObjectID: NSManagedObjectID)
+    case preferenceDisableAvatarAnimation(settingObjectID: NSManagedObjectID)
     case preferenceUsingDefaultBrowser(settingObjectID: NSManagedObjectID)
     case boringZone(item: Link)
     case spicyZone(item: Link)
@@ -43,6 +43,7 @@ extension SettingsItem {
     }
     
     enum Link: CaseIterable {
+        case accountSettings
         case termsOfService
         case privacyPolicy
         case clearMediaCache
@@ -50,15 +51,17 @@ extension SettingsItem {
         
         var title: String {
             switch self {
-            case .termsOfService:    return L10n.Scene.Settings.Section.Boringzone.terms
-            case .privacyPolicy:     return L10n.Scene.Settings.Section.Boringzone.privacy
-            case .clearMediaCache:   return L10n.Scene.Settings.Section.Spicyzone.clear
-            case .signOut:           return L10n.Scene.Settings.Section.Spicyzone.signout
+            case .accountSettings:   return L10n.Scene.Settings.Section.BoringZone.accountSettings
+            case .termsOfService:    return L10n.Scene.Settings.Section.BoringZone.terms
+            case .privacyPolicy:     return L10n.Scene.Settings.Section.BoringZone.privacy
+            case .clearMediaCache:   return L10n.Scene.Settings.Section.SpicyZone.clear
+            case .signOut:           return L10n.Scene.Settings.Section.SpicyZone.signout
             }
         }
         
         var textColor: UIColor {
             switch self {
+            case .accountSettings:   return Asset.Colors.brandBlue.color
             case .termsOfService:    return Asset.Colors.brandBlue.color
             case .privacyPolicy:     return Asset.Colors.brandBlue.color
             case .clearMediaCache:   return .systemRed

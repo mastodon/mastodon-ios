@@ -9,7 +9,6 @@ import Foundation
 
 enum SettingsSection: Hashable {
     case appearance
-    case appearanceSettings
     case notifications
     case preference
     case boringZone
@@ -18,11 +17,10 @@ enum SettingsSection: Hashable {
     var title: String {
         switch self {
         case .appearance:           return L10n.Scene.Settings.Section.Appearance.title
-        case .appearanceSettings:   return ""
         case .notifications:        return L10n.Scene.Settings.Section.Notifications.title
         case .preference:           return L10n.Scene.Settings.Section.Preference.title
-        case .boringZone:           return L10n.Scene.Settings.Section.Boringzone.title
-        case .spicyZone:            return L10n.Scene.Settings.Section.Spicyzone.title
+        case .boringZone:           return L10n.Scene.Settings.Section.BoringZone.title
+        case .spicyZone:            return L10n.Scene.Settings.Section.SpicyZone.title
         }
     }
 }

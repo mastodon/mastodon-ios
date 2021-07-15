@@ -105,8 +105,8 @@ extension Mastodon.API.V2.Search {
     }
 }
 
-public extension Mastodon.API.V2.Search {
-    enum SearchType: String, Codable {
+extension Mastodon.API.V2.Search {
+    public enum SearchType: String, Codable {
         case accounts
         case hashtags
         case statuses
