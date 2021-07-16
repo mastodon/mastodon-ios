@@ -491,6 +491,8 @@
 		DBC6462926A1736700B0E31B /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338525C945ED00AD9700 /* Strings.swift */; };
 		DBC6462B26A1738900B0E31B /* MastodonUI in Frameworks */ = {isa = PBXBuildFile; productRef = DBC6462A26A1738900B0E31B /* MastodonUI */; };
 		DBC6462C26A176B000B0E31B /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338625C945ED00AD9700 /* Assets.swift */; };
+		DBC6463326A195DB00B0E31B /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
+		DBC6463726A195DB00B0E31B /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DBC7A672260C897100E57475 /* StatusContentWarningEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */; };
 		DBC7A67C260DFADE00E57475 /* StatusPublishService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7A67B260DFADE00E57475 /* StatusPublishService.swift */; };
 		DBCBCBF4267CB070000F5B51 /* Decode85.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBCBF3267CB070000F5B51 /* Decode85.swift */; };
@@ -614,6 +616,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = DBC6461126A170AB00B0E31B;
 			remoteInfo = ShareActionExtension;
+		};
+		DBC6463526A195DB00B0E31B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB68047E2637CD4C00430867;
+			remoteInfo = AppShared;
+		};
+		DBC6463926A195DB00B0E31B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB89B9ED25C10FD0008580ED;
+			remoteInfo = CoreDataStack;
 		};
 		DBF8AE18263293E400C9C23C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1281,6 +1297,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBC6462526A1720B00B0E31B /* MastodonUI in Frameworks */,
+				DBC6463726A195DB00B0E31B /* CoreDataStack.framework in Frameworks */,
+				DBC6463326A195DB00B0E31B /* AppShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3012,6 +3030,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				DBC6463626A195DB00B0E31B /* PBXTargetDependency */,
+				DBC6463A26A195DB00B0E31B /* PBXTargetDependency */,
 			);
 			name = ShareActionExtension;
 			packageProductDependencies = (
@@ -3955,6 +3975,16 @@
 			target = DBC6461126A170AB00B0E31B /* ShareActionExtension */;
 			targetProxy = DBC6461A26A170AB00B0E31B /* PBXContainerItemProxy */;
 		};
+		DBC6463626A195DB00B0E31B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB68047E2637CD4C00430867 /* AppShared */;
+			targetProxy = DBC6463526A195DB00B0E31B /* PBXContainerItemProxy */;
+		};
+		DBC6463A26A195DB00B0E31B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB89B9ED25C10FD0008580ED /* CoreDataStack */;
+			targetProxy = DBC6463926A195DB00B0E31B /* PBXContainerItemProxy */;
+		};
 		DBF8AE19263293E400C9C23C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DBF8AE12263293E400C9C23C /* NotificationService */;
@@ -4434,14 +4464,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4454,14 +4485,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4474,14 +4506,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4494,14 +4527,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

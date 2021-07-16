@@ -9,6 +9,7 @@ import os.log
 import UIKit
 import Combine
 import MastodonUI
+import SwiftUI
 
 class ShareViewController: UIViewController {
 
@@ -45,18 +46,7 @@ class ShareViewController: UIViewController {
         return barButtonItem
     }()
 
-//    let tableView: ComposeTableView = {
-//        let tableView = ComposeTableView()
-//        tableView.register(ComposeStatusContentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusContentTableViewCell.self))
-//        tableView.register(ComposeStatusAttachmentTableViewCell.self, forCellReuseIdentifier: String(describing: ComposeStatusAttachmentTableViewCell.self))
-//        tableView.alwaysBounceVertical = true
-//        tableView.separatorStyle = .none
-//        tableView.tableFooterView = UIView()
-//        return tableView
-//    }()
-
 }
-
 
 extension ShareViewController {
 
@@ -74,6 +64,21 @@ extension ShareViewController {
             }
             .store(in: &disposeBag)
 
+        let hostingViewController = UIHostingController(
+            rootView: ComposeView().environmentObject(viewModel.composeViewModel)
+        )
+        addChild(hostingViewController)
+        view.addSubview(hostingViewController.view)
+        hostingViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hostingViewController.view)
+        NSLayoutConstraint.activate([
+            hostingViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            hostingViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            hostingViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            hostingViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+        hostingViewController.didMove(toParent: self)
+        
 //        viewModel.authentication
 //            .receive(on: DispatchQueue.main)
 //            .sink { [weak self] result in

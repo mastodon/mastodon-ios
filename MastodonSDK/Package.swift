@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "MastodonSDK",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v14),
     ],
     products: [
         .library(
@@ -22,6 +22,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.0.0"),
+        .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
+        .package(name: "NukeFLAnimatedImagePlugin", url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -35,7 +37,11 @@ let package = Package(
         ),
         .target(
             name: "MastodonUI",
-            dependencies: ["MastodonExtension"]
+            dependencies: [
+                "MastodonExtension",
+                "Nuke",
+                "NukeFLAnimatedImagePlugin"
+            ]
         ),
         .target(
             name: "MastodonExtension",

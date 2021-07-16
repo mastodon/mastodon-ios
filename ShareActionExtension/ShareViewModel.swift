@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import CoreData
 import CoreDataStack
+import MastodonUI
 
 final class ShareViewModel {
 
@@ -27,6 +28,7 @@ final class ShareViewModel {
     let isFetchAuthentication = CurrentValueSubject<Bool, Never>(true)
     let isBusy = CurrentValueSubject<Bool, Never>(true)
     let isValid = CurrentValueSubject<Bool, Never>(false)
+    let composeViewModel = ComposeViewModel()
 
     init() {
         viewDidAppear.receive(on: DispatchQueue.main)

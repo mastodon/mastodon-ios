@@ -5,13 +5,15 @@
 //  Created by MainasuK Cirno on 2021-2-5.
 //
 
+
+#if DEBUG
 import os.log
 import UIKit
 import CoreData
 import CoreDataStack
-
-#if DEBUG
 import FLEX
+import SwiftUI
+import MastodonUI
 
 extension HomeTimelineViewController {
     var debugMenu: UIMenu {
@@ -54,6 +56,10 @@ extension HomeTimelineViewController {
                 UIAction(title: "Show Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showThreadAction(action)
+                },
+                UIAction(title: "Show Share Action Compose", image: UIImage(systemName: "square.and.arrow.up"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showShareActionExtensionComposeView(action)
                 },
                 UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
@@ -363,5 +369,14 @@ extension HomeTimelineViewController {
             transition: .modal(animated: true, completion: nil)
         )
     }
+
+    @objc private func showShareActionExtensionComposeView(_ sender: UIAction) {
+        let viewController = UIHostingController(
+            rootView: ComposeView().environmentObject(MastodonUI.ComposeViewModel())
+        )
+        let navigationController = UINavigationController(rootViewController: viewController)
+        present(navigationController, animated: true, completion: nil)
+    }
+
 }
 #endif
