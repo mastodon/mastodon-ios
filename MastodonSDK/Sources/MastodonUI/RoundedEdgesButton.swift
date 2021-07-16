@@ -1,15 +1,15 @@
 //
 //  RoundedEdgesButton.swift
-//  Mastodon
+//  MastodonUI
 //
 //  Created by MainasuK Cirno on 2021-3-12.
 //
 
 import UIKit
 
-class RoundedEdgesButton: UIButton {
+open class RoundedEdgesButton: UIButton {
         
-    override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
         layer.masksToBounds = true

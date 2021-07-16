@@ -9,17 +9,6 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import UIKit
 
-extension UIImage {
-    static func placeholder(size: CGSize = CGSize(width: 1, height: 1), color: UIColor) -> UIImage {
-        let render = UIGraphicsImageRenderer(size: size)
-
-        return render.image { (context: UIGraphicsImageRendererContext) in
-            context.cgContext.setFillColor(color.cgColor)
-            context.fill(CGRect(origin: .zero, size: size))
-        }
-    }
-}
-
 // refs: https://www.hackingwithswift.com/example-code/media/how-to-read-the-average-color-of-a-uiimage-using-ciareaaverage
 extension UIImage {
     @available(iOS 14.0, *)

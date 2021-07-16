@@ -12,6 +12,12 @@ let package = Package(
         .library(
             name: "MastodonSDK",
             targets: ["MastodonSDK"]),
+        .library(
+            name: "MastodonUI",
+            targets: ["MastodonUI"]),
+        .library(
+            name: "MastodonExtension",
+            targets: ["MastodonExtension"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
@@ -26,6 +32,14 @@ let package = Package(
                 .product(name: "SwiftyJSON", package: "SwiftyJSON"),
                 .product(name: "NIOHTTP1", package: "swift-nio"),
             ]
+        ),
+        .target(
+            name: "MastodonUI",
+            dependencies: ["MastodonExtension"]
+        ),
+        .target(
+            name: "MastodonExtension",
+            dependencies: []
         ),
         .testTarget(
             name: "MastodonSDKTests",

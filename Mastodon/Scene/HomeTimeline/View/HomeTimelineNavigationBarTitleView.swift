@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import MastodonUI
 
 protocol HomeTimelineNavigationBarTitleViewDelegate: AnyObject {
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton)
