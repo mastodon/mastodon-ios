@@ -7,6 +7,7 @@
 
 import os.log
 import Foundation
+import Combine
 import GameplayKit
 import MastodonSDK
 
@@ -43,8 +44,10 @@ extension MastodonAttachmentService.UploadState {
     }
     
     class Uploading: MastodonAttachmentService.UploadState {
+        var needsFallback = false
+
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Fail.self || stateClass == Finish.self
+            return stateClass == Fail.self || stateClass == Finish.self || stateClass == Uploading.self
         }
         
         override func didEnter(from previousState: GKState?) {
@@ -61,30 +64,43 @@ extension MastodonAttachmentService.UploadState {
                 description: description,
                 focus: nil
             )
-            
+
+            // and needs clone the `query` if needs retry
             service.context.apiService.uploadMedia(
                 domain: authenticationBox.domain,
                 query: query,
-                mastodonAuthenticationBox: authenticationBox
+                mastodonAuthenticationBox: authenticationBox,
+                needsFallback: needsFallback
             )
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
+                guard let self = self else { return }
                 switch completion {
                 case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    service.error.send(error)
-                    stateMachine.enter(Fail.self)
+                    if let apiError = error as? Mastodon.API.Error,
+                       apiError.httpResponseStatus == .notFound,
+                       self.needsFallback == false
+                    {
+                        self.needsFallback = true
+                        stateMachine.enter(Uploading.self)
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fallback to V1", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    } else {
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        service.error.send(error)
+                        stateMachine.enter(Fail.self)
+                    }
                 case .finished:
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment success", ((#file as NSString).lastPathComponent), #line, #function)
                     break
                 }
             } receiveValue: { response in
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment %s success: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.url)
+                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment %s success: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.url ?? "<nil>")
                 service.attachment.value = response.value
                 stateMachine.enter(Finish.self)
             }
             .store(in: &service.disposeBag)
         }
+
     }
     
     class Fail: MastodonAttachmentService.UploadState {

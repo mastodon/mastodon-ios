@@ -38,20 +38,21 @@ public final class Status: NSManagedObject {
     @NSManaged public private(set) var language: String? //  (ISO 639 Part 1 two-letter language code)
     @NSManaged public private(set) var text: String?
     
-    // many-to-one relastionship
+    // many-to-one relationship
     @NSManaged public private(set) var author: MastodonUser
     @NSManaged public private(set) var reblog: Status?
     @NSManaged public private(set) var replyTo: Status?
     
-    // many-to-many relastionship
+    // many-to-many relationship
     @NSManaged public private(set) var favouritedBy: Set<MastodonUser>?
     @NSManaged public private(set) var rebloggedBy: Set<MastodonUser>?
     @NSManaged public private(set) var mutedBy: Set<MastodonUser>?
     @NSManaged public private(set) var bookmarkedBy: Set<MastodonUser>?
 
-    // one-to-one relastionship
+    // one-to-one relationship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
     @NSManaged public private(set) var poll: Poll?
+    @NSManaged public private(set) var searchHistory: SearchHistory?
         
     // one-to-many relationship
     @NSManaged public private(set) var reblogFrom: Set<Status>?

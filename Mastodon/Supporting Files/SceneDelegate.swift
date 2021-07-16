@@ -81,6 +81,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // reset notification badge
         UserDefaults.shared.notificationBadgeCount = 0
         UIApplication.shared.applicationIconBadgeNumber = 0
+
+        // trigger status filter update
+        AppContext.shared.statusFilterService.filterUpdatePublisher.send()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {

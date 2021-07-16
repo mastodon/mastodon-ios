@@ -11,14 +11,29 @@ import MastodonSDK
 
 enum SearchResultItem {
     case hashtag(tag: Mastodon.Entity.Tag)
-
     case account(account: Mastodon.Entity.Account)
+    case status(statusObjectID: NSManagedObjectID, attribute: Item.StatusAttribute)
+    case bottomLoader(attribute: BottomLoaderAttribute)
+}
 
-    case accountObjectID(accountObjectID: NSManagedObjectID)
+extension SearchResultItem {
+    class BottomLoaderAttribute: Hashable {
+        let id = UUID()
 
-    case hashtagObjectID(hashtagObjectID: NSManagedObjectID)
+        var isNoResult: Bool
 
-    case bottomLoader
+        init(isEmptyResult: Bool) {
+            self.isNoResult = isEmptyResult
+        }
+
+        static func == (lhs: SearchResultItem.BottomLoaderAttribute, rhs: SearchResultItem.BottomLoaderAttribute) -> Bool {
+            return lhs.id == rhs.id
+        }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+    }
 }
 
 extension SearchResultItem: Equatable {
@@ -28,12 +43,10 @@ extension SearchResultItem: Equatable {
             return tagLeft == tagRight
         case (.account(let accountLeft), .account(let accountRight)):
             return accountLeft == accountRight
-        case (.bottomLoader, .bottomLoader):
-            return true
-        case (.accountObjectID(let idLeft),.accountObjectID(let idRight)):
+        case (.status(let idLeft, _), .status(let idRight, _)):
             return idLeft == idRight
-        case (.hashtagObjectID(let idLeft),.hashtagObjectID(let idRight)):
-            return idLeft == idRight
+        case (.bottomLoader(let attributeLeft), .bottomLoader(let attributeRight)):
+            return attributeLeft == attributeRight
         default:
             return false
         }
@@ -44,15 +57,38 @@ extension SearchResultItem: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
         case .account(let account):
-            hasher.combine(account)
+            hasher.combine(String(describing: SearchResultItem.account.self))
+            hasher.combine(account.id)
         case .hashtag(let tag):
-            hasher.combine(tag)
-        case .accountObjectID(let id):
+            hasher.combine(String(describing: SearchResultItem.hashtag.self))
+            hasher.combine(tag.name)
+        case .status(let id, _):
             hasher.combine(id)
-        case .hashtagObjectID(let id):
-            hasher.combine(id)
-        case .bottomLoader:
-            hasher.combine(String(describing: SearchResultItem.bottomLoader.self))
+        case .bottomLoader(let attribute):
+            hasher.combine(attribute)
+        }
+    }
+}
+
+extension SearchResultItem {
+    var sortKey: String? {
+        switch self {
+        case .account(let account): return account.displayName.lowercased()
+        case .hashtag(let hashtag): return hashtag.name.lowercased()
+        default:                    return nil
+        }
+    }
+}
+
+extension SearchResultItem {
+    var statusObjectItem: StatusObjectItem? {
+        switch self {
+        case .status(let objectID, _):
+            return .status(objectID: objectID)
+        case .hashtag,
+             .account,
+             .bottomLoader:
+            return nil
         }
     }
 }

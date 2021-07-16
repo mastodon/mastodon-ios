@@ -38,7 +38,6 @@
 		2D152A9225C2980C009AA50C /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152A9125C2980C009AA50C /* UIFont.swift */; };
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
-		2D198655261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */; };
 		2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7125F5D27F00143C56 /* AudioContainerView.swift */; };
 		2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7F25F5F45E00143C56 /* UIImage.swift */; };
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
@@ -141,8 +140,7 @@
 		2DF75BA725D10E1000694EC8 /* APIService+Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */; };
 		2DF75BB925D1474100694EC8 /* ManagedObjectObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */; };
 		2DF75BC725D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */; };
-		2DFAD5272616F9D300F9EE7C /* SearchViewController+Searching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5262616F9D300F9EE7C /* SearchViewController+Searching.swift */; };
-		2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */; };
+		2DFAD5372617010500F9EE7C /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFAD5362617010500F9EE7C /* SearchResultTableViewCell.swift */; };
 		5B24BBDA262DB14800A9381B /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD7262DB14800A9381B /* ReportViewModel.swift */; };
 		5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBD8262DB14800A9381B /* ReportViewModel+Diffable.swift */; };
 		5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B24BBE1262DB19100A9381B /* APIService+Report.swift */; };
@@ -241,7 +239,6 @@
 		DB427DED25BAA00100D1B89D /* MastodonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DEC25BAA00100D1B89D /* MastodonTests.swift */; };
 		DB427DF825BAA00100D1B89D /* MastodonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DF725BAA00100D1B89D /* MastodonUITests.swift */; };
 		DB44384F25E8C1FA008912A2 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44384E25E8C1FA008912A2 /* CALayer.swift */; };
-		DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB443CD0269415D200159B29 /* Localizable.stringsdict */; };
 		DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB443CD32694627B00159B29 /* AppearanceView.swift */; };
 		DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */; };
 		DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */; };
@@ -272,6 +269,17 @@
 		DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */; };
 		DB49A62B25FF36C700B98345 /* APIService+CustomEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */; };
 		DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */; };
+		DB4F0963269ED06300D62E92 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */; };
+		DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */; };
+		DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */; };
+		DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */; };
+		DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */; };
+		DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */; };
+		DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */; };
+		DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */; };
+		DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */; };
+		DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */; };
+		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB5086AB25CC0BBB00C2C187 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */; };
 		DB5086BE25CC0D9900C2C187 /* SplashPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */; };
@@ -279,6 +287,8 @@
 		DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D171262832380062B7A1 /* BlurHashEncode.swift */; };
 		DB52D33A26839DD800D43133 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52D33926839DD800D43133 /* ImageTask.swift */; };
 		DB55D33025FB630A0002F825 /* TwitterTextEditor+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */; };
+		DB564BD0269F2F83001E39A7 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */; };
+		DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */; };
 		DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */; };
 		DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */; };
 		DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */; };
@@ -512,6 +522,9 @@
 		DBE54ABF2636C889004E7C0B /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B23263684C600ACB481 /* UserDefaults.swift */; };
 		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
+		DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */; };
+		DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */; };
+		DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */; };
 		DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DBF7A0FB26830C33004176A2 /* FPSIndicator */; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
 		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -653,7 +666,6 @@
 		2D152A9125C2980C009AA50C /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
-		2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewModel+LoadOldestState.swift"; sourceTree = "<group>"; };
 		2D206B7125F5D27F00143C56 /* AudioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerView.swift; sourceTree = "<group>"; };
 		2D206B7F25F5F45E00143C56 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
@@ -753,8 +765,7 @@
 		2DF75BA625D10E1000694EC8 /* APIService+Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Favorite.swift"; sourceTree = "<group>"; };
 		2DF75BB825D1474100694EC8 /* ManagedObjectObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectObserver.swift; sourceTree = "<group>"; };
 		2DF75BC625D1475D00694EC8 /* ManagedObjectContextObjectsDidChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextObjectsDidChange.swift; sourceTree = "<group>"; };
-		2DFAD5262616F9D300F9EE7C /* SearchViewController+Searching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchViewController+Searching.swift"; sourceTree = "<group>"; };
-		2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingTableViewCell.swift; sourceTree = "<group>"; };
+		2DFAD5362617010500F9EE7C /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon/Pods-Mastodon.debug.xcconfig"; sourceTree = "<group>"; };
 		374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7FD8F28DDA8FBCE5562B78 /* Pods-NotificationService.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationService.asdk - debug.xcconfig"; path = "Target Support Files/Pods-NotificationService/Pods-NotificationService.asdk - debug.xcconfig"; sourceTree = "<group>"; };
@@ -879,8 +890,6 @@
 		DB427DF725BAA00100D1B89D /* MastodonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonUITests.swift; sourceTree = "<group>"; };
 		DB427DF925BAA00100D1B89D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB44384E25E8C1FA008912A2 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
-		DB443CCF269415D200159B29 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		DB443CD1269415D800159B29 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DB443CD32694627B00159B29 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		DB44767A260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerInputView.swift; sourceTree = "<group>"; };
 		DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEmojiPickerSection.swift; sourceTree = "<group>"; };
@@ -911,6 +920,17 @@
 		DB49A62425FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiService+CustomEmojiViewModel+LoadState.swift"; sourceTree = "<group>"; };
 		DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CustomEmoji.swift"; sourceTree = "<group>"; };
 		DB49A63C25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerContainerView+MediaTypeIndicotorView.swift"; sourceTree = "<group>"; };
+		DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableHeaderView.swift; sourceTree = "<group>"; };
+		DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewModel+State.swift"; sourceTree = "<group>"; };
+		DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultViewController+StatusProvider.swift"; sourceTree = "<group>"; };
+		DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewModel.swift; sourceTree = "<group>"; };
+		DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySection.swift; sourceTree = "<group>"; };
+		DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryItem.swift; sourceTree = "<group>"; };
+		DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryFetchedResultController.swift; sourceTree = "<group>"; };
+		DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchToSearchDetailViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
+		DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransitionController.swift; sourceTree = "<group>"; };
 		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB5086AA25CC0BBB00C2C187 /* AvatarConfigurableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarConfigurableView.swift; sourceTree = "<group>"; };
 		DB5086BD25CC0D9900C2C187 /* SplashPreference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashPreference.swift; sourceTree = "<group>"; };
@@ -918,6 +938,9 @@
 		DB51D171262832380062B7A1 /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashEncode.swift; sourceTree = "<group>"; };
 		DB52D33926839DD800D43133 /* ImageTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTask.swift; sourceTree = "<group>"; };
 		DB55D32F25FB630A0002F825 /* TwitterTextEditor+String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TwitterTextEditor+String.swift"; sourceTree = "<group>"; };
+		DB564BCF269F2F83001E39A7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DB564BD1269F2F8A001E39A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFilterService.swift; sourceTree = "<group>"; };
 		DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusProvider+UITableViewDelegate.swift"; sourceTree = "<group>"; };
 		DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeightCacheableContainer.swift; sourceTree = "<group>"; };
 		DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Poll.swift"; sourceTree = "<group>"; };
@@ -1137,6 +1160,9 @@
 		DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+Provider.swift"; sourceTree = "<group>"; };
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
+		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
+		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
+		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1491,6 +1517,7 @@
 				DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */,
 				DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */,
 				DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */,
+				DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1552,22 +1579,12 @@
 		2D76319D25C151F600929FB9 /* Section */ = {
 			isa = PBXGroup;
 			children = (
-				2D76319E25C1521200929FB9 /* StatusSection.swift */,
-				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
-				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
-				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
-				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
-				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				DB4F097926A039C400D62E92 /* Status */,
+				DB4F097826A039B400D62E92 /* Onboarding */,
+				DB4F097726A039A200D62E92 /* Search */,
+				DB4F097626A0398000D62E92 /* Compose */,
 				2D4AD8A126316CD200613EFC /* SelectedAccountSection.swift */,
-				2D35237926256D920031AF25 /* NotificationSection.swift */,
-				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
-				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
-				DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */,
-				DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */,
-				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
 				DB6D9F7C26358ED4008423CD /* SettingsSection.swift */,
-				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
-				DBBF1DC82652538500E5B703 /* AutoCompleteSection.swift */,
 				DBA94433265CBB5300C537E1 /* ProfileFieldSection.swift */,
 			);
 			path = Section;
@@ -1622,6 +1639,7 @@
 			children = (
 				2D7631B225C159F700929FB9 /* Item.swift */,
 				2D198642261BF09500F0B013 /* SearchResultItem.swift */,
+				DB4F097C26A03A5B00D62E92 /* SearchHistoryItem.swift */,
 				2D4AD8A726316D3500613EFC /* SelectedAccountItem.swift */,
 				2D7867182625B77500211898 /* NotificationItem.swift */,
 				DB4481CB25EE2AFE00BEFB67 /* PollItem.swift */,
@@ -1685,7 +1703,7 @@
 		2DFAD5212616F8E300F9EE7C /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				2DFAD5362617010500F9EE7C /* SearchingTableViewCell.swift */,
+				2DFAD5362617010500F9EE7C /* SearchResultTableViewCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -1842,7 +1860,7 @@
 				164F0EBB267D4FE400249499 /* BoopSound.caf */,
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
-				DB443CD0269415D200159B29 /* Localizable.stringsdict */,
+				DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */,
 				DB3D100F25BAA75E00EAA174 /* Localizable.strings */,
 				DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */,
 			);
@@ -1988,6 +2006,77 @@
 			path = EmojiService;
 			sourceTree = "<group>";
 		};
+		DB4F0964269ED06700D62E92 /* SearchResult */ = {
+			isa = PBXGroup;
+			children = (
+				DB4F0962269ED06300D62E92 /* SearchResultViewController.swift */,
+				DB4F096B269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift */,
+				DB4F0965269ED52200D62E92 /* SearchResultViewModel.swift */,
+				DB4F0969269EDAD200D62E92 /* SearchResultViewModel+State.swift */,
+			);
+			path = SearchResult;
+			sourceTree = "<group>";
+		};
+		DB4F097626A0398000D62E92 /* Compose */ = {
+			isa = PBXGroup;
+			children = (
+				DB66729525F9F91600D60309 /* ComposeStatusSection.swift */,
+				DB36679E268ABAF20027D07F /* ComposeStatusAttachmentSection.swift */,
+				DB3667A5268AE2620027D07F /* ComposeStatusPollSection.swift */,
+				DB447680260B3ED600B66B82 /* CustomEmojiPickerSection.swift */,
+				DBBF1DC82652538500E5B703 /* AutoCompleteSection.swift */,
+			);
+			path = Compose;
+			sourceTree = "<group>";
+		};
+		DB4F097726A039A200D62E92 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2DE0FAC02615F04D00CDF649 /* RecommendHashTagSection.swift */,
+				2DE0FACD2615F7AD00CDF649 /* RecommendAccountSection.swift */,
+				2D198648261C0B8500F0B013 /* SearchResultSection.swift */,
+				DB4F097A26A039FF00D62E92 /* SearchHistorySection.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		DB4F097826A039B400D62E92 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				DB1FD44325F26CCC004CFCFC /* PickServerSection.swift */,
+				DB1E346725F518E20079D7DF /* CategoryPickerSection.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		DB4F097926A039C400D62E92 /* Status */ = {
+			isa = PBXGroup;
+			children = (
+				2D76319E25C1521200929FB9 /* StatusSection.swift */,
+				DB4481C525EE2ADA00BEFB67 /* PollSection.swift */,
+				2D35237926256D920031AF25 /* NotificationSection.swift */,
+				5BB04FF4262F0E6D0043BFF6 /* ReportSection.swift */,
+			);
+			path = Status;
+			sourceTree = "<group>";
+		};
+		DB4F098026A0475500D62E92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB4F0967269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DB4FFC2D269EC39C00D62E92 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */,
+				DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		DB5086CB25CC0DB400C2C187 /* Preference */ = {
 			isa = PBXGroup;
 			children = (
@@ -2041,6 +2130,7 @@
 			children = (
 				DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */,
 				DB6180E726391B580018D199 /* MediaPreview */,
+				DB4FFC2D269EC39C00D62E92 /* Search */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -2385,15 +2475,8 @@
 		DB9D6BEE25E4F5370051B173 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				2DFAD5212616F8E300F9EE7C /* TableViewCell */,
-				2DE0FAC62615F5D200CDF649 /* View */,
-				DB9D6BE825E4F5340051B173 /* SearchViewController.swift */,
-				2D34D9CA261489930081BFC0 /* SearchViewController+Recommend.swift */,
-				2DFAD5262616F9D300F9EE7C /* SearchViewController+Searching.swift */,
-				5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */,
-				2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */,
-				2D198654261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift */,
-				2D34D9E026149C550081BFC0 /* CollectionViewCell */,
+				DBF1D253269DB02C00C1C08A /* Search */,
+				DBF1D24F269DAF6100C1C08A /* SearchDetail */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2620,6 +2703,7 @@
 				DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */,
 				DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */,
 				DB6D9F75263587C7008423CD /* SettingFetchedResultController.swift */,
+				DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */,
 			);
 			path = FetchedResultsController;
 			sourceTree = "<group>";
@@ -2655,6 +2739,41 @@
 				DBE3CE00261D623D00430CC6 /* FavoriteViewModel+State.swift */,
 			);
 			path = Favorite;
+			sourceTree = "<group>";
+		};
+		DBF1D24F269DAF6100C1C08A /* SearchDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2DFAD5212616F8E300F9EE7C /* TableViewCell */,
+				DB4F0964269ED06700D62E92 /* SearchResult */,
+				DBF1D252269DB01700C1C08A /* SearchHistory */,
+				DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */,
+				DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */,
+			);
+			path = SearchDetail;
+			sourceTree = "<group>";
+		};
+		DBF1D252269DB01700C1C08A /* SearchHistory */ = {
+			isa = PBXGroup;
+			children = (
+				DB4F098026A0475500D62E92 /* View */,
+				DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */,
+				DB4F097426A037F500D62E92 /* SearchHistoryViewModel.swift */,
+			);
+			path = SearchHistory;
+			sourceTree = "<group>";
+		};
+		DBF1D253269DB02C00C1C08A /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2D34D9E026149C550081BFC0 /* CollectionViewCell */,
+				2DE0FAC62615F5D200CDF649 /* View */,
+				DB9D6BE825E4F5340051B173 /* SearchViewController.swift */,
+				2D34D9CA261489930081BFC0 /* SearchViewController+Recommend.swift */,
+				5DFC35DE262068D20045711D /* SearchViewController+Follow.swift */,
+				2D6DE3FF26141DF600A63F6A /* SearchViewModel.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		DBF8AE14263293E400C9C23C /* NotificationService */ = {
@@ -2949,7 +3068,7 @@
 			files = (
 				164F0EBC267D4FE400249499 /* BoopSound.caf in Resources */,
 				DB427DE225BAA00100D1B89D /* LaunchScreen.storyboard in Resources */,
-				DB443CD22694326A00159B29 /* Localizable.stringsdict in Resources */,
+				DB564BD0269F2F83001E39A7 /* Localizable.stringsdict in Resources */,
 				DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */,
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
@@ -3188,6 +3307,7 @@
 				DBA94440265D137600C537E1 /* Mastodon+Entity+Field.swift in Sources */,
 				DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */,
 				DBBF1DC7265251D400E5B703 /* AutoCompleteViewModel+State.swift in Sources */,
+				DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */,
 				DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				5DF1054125F886D400D6C0D4 /* VideoPlaybackService.swift in Sources */,
@@ -3198,7 +3318,7 @@
 				DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */,
 				DB482A3F261331E8008AE74C /* UserTimelineViewModel+State.swift in Sources */,
 				2D38F1F725CD47AC00561493 /* HomeTimelineViewModel+LoadOldestState.swift in Sources */,
-				2DFAD5372617010500F9EE7C /* SearchingTableViewCell.swift in Sources */,
+				2DFAD5372617010500F9EE7C /* SearchResultTableViewCell.swift in Sources */,
 				DB447681260B3ED600B66B82 /* CustomEmojiPickerSection.swift in Sources */,
 				5BB04FEF262F0DCB0043BFF6 /* ReportViewModel+Data.swift in Sources */,
 				5B8E055826319E47006E3C53 /* ReportFooterView.swift in Sources */,
@@ -3216,6 +3336,7 @@
 				DBD376AA2692EA4F007FEC24 /* Theme.swift in Sources */,
 				0FAA101225E105390017CCDE /* PrimaryActionButton.swift in Sources */,
 				DB443CD42694627B00159B29 /* AppearanceView.swift in Sources */,
+				DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */,
 				DB8AF53025C13561002E6C99 /* AppContext.swift in Sources */,
 				DB92CF7225E7BB98002C1017 /* PollOptionTableViewCell.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
@@ -3245,12 +3366,13 @@
 				2D607AD826242FC500B70763 /* NotificationViewModel.swift in Sources */,
 				DBA0A10925FB3C2B0079C110 /* RoundedEdgesButton.swift in Sources */,
 				DBABE3EC25ECAC4B00879EE5 /* WelcomeIllustrationView.swift in Sources */,
+				DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */,
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
 				DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */,
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				2DE0FAC82615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift in Sources */,
-				2DFAD5272616F9D300F9EE7C /* SearchViewController+Searching.swift in Sources */,
+				DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */,
 				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
 				DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */,
 				DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */,
@@ -3318,6 +3440,7 @@
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,
+				DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */,
 				DBD9149025DF6D8D00903DFD /* APIService+Onboarding.swift in Sources */,
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */,
@@ -3360,6 +3483,7 @@
 				5B24BBDB262DB14800A9381B /* ReportViewModel+Diffable.swift in Sources */,
 				DB71FD3C25F8A1C500512AE1 /* APIService+Persist+PersistCache.swift in Sources */,
 				2DA6055125F74407006356F9 /* AudioContainerViewModel.swift in Sources */,
+				DB4F0968269ED8AD00D62E92 /* SearchHistoryTableHeaderView.swift in Sources */,
 				0FB3D2FE25E4CB6400AAD544 /* PickServerTitleCell.swift in Sources */,
 				5DA732CC2629CEF500A92342 /* UIView+Remove.swift in Sources */,
 				DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */,
@@ -3411,11 +3535,13 @@
 				DB6F5E2F264E5518009108F4 /* MastodonRegex.swift in Sources */,
 				DB023295267F0AB800031745 /* ASMetaEditableTextNode.swift in Sources */,
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
+				DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
 				DB6D9F7D26358ED4008423CD /* SettingsSection.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
+				DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */,
 				DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */,
 				2D24E11D2626D8B100A59D4F /* NotificationStatusTableViewCell.swift in Sources */,
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
@@ -3435,6 +3561,7 @@
 				DB6180E626391B550018D199 /* MediaPreviewTransitionController.swift in Sources */,
 				5BB04FDB262EA3070043BFF6 /* ReportHeaderView.swift in Sources */,
 				DB2F073525E8ECF000957B2D /* AuthenticationViewModel.swift in Sources */,
+				DB4F0963269ED06300D62E92 /* SearchResultViewController.swift in Sources */,
 				DBBF1DC5265251C300E5B703 /* AutoCompleteViewModel+Diffable.swift in Sources */,
 				DB68A04A25E9027700CFDF14 /* AdaptiveStatusBarStyleNavigationController.swift in Sources */,
 				0FB3D33825E6401400AAD544 /* PickServerCell.swift in Sources */,
@@ -3445,6 +3572,7 @@
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
+				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
 				DB45FADD25CA6F6B005A8AC7 /* APIService+CoreData+MastodonUser.swift in Sources */,
 				2D32EABA25CB9B0500C9ED86 /* UIView.swift in Sources */,
@@ -3453,6 +3581,7 @@
 				DBA94438265CBD4D00C537E1 /* ProfileHeaderViewModel+Diffable.swift in Sources */,
 				0F20220D26134E3F000C64BF /* HashtagTimelineViewModel+LoadLatestState.swift in Sources */,
 				DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */,
+				DB4F097526A037F500D62E92 /* SearchHistoryViewModel.swift in Sources */,
 				DB49A63D25FF609300B98345 /* PlayerContainerView+MediaTypeIndicotorView.swift in Sources */,
 				DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */,
 				DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */,
@@ -3480,6 +3609,7 @@
 				DB1FD45025F26FA1004CFCFC /* MastodonPickServerViewModel+Diffable.swift in Sources */,
 				DBD376AC2692ECDB007FEC24 /* ThemePreference.swift in Sources */,
 				DB2B3AE925E38850007045F9 /* UIViewPreview.swift in Sources */,
+				DB4F097D26A03A5B00D62E92 /* SearchHistoryItem.swift in Sources */,
 				DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */,
 				DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */,
 				DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */,
@@ -3525,11 +3655,11 @@
 				DB8AF52E25C13561002E6C99 /* ViewStateStore.swift in Sources */,
 				2DA7D04A25CA52CB00804E11 /* TimelineBottomLoaderTableViewCell.swift in Sources */,
 				DBD376B2269302A4007FEC24 /* UITableViewCell.swift in Sources */,
+				DB4F0966269ED52200D62E92 /* SearchResultViewModel.swift in Sources */,
 				DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */,
 				2D76318325C14E8F00929FB9 /* PublicTimelineViewModel+Diffable.swift in Sources */,
 				DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */,
 				DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */,
-				2D198655261C3C4300F0B013 /* SearchViewModel+LoadOldestState.swift in Sources */,
 				0F202227261411BB000C64BF /* HashtagTimelineViewController+Provider.swift in Sources */,
 				2D7631A825C1535600929FB9 /* StatusTableViewCell.swift in Sources */,
 				2D76316525C14BD100929FB9 /* PublicTimelineViewController.swift in Sources */,
@@ -3549,6 +3679,7 @@
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
+				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
 				DBCBCC0B2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
@@ -3573,6 +3704,7 @@
 				DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */,
 				DB03F7F026899097007B274C /* ComposeStatusContentTableViewCell.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
+				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
 				DB938F25262438D600E5B6C1 /* ThreadViewController+Provider.swift in Sources */,
@@ -3770,15 +3902,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		DB443CD0269415D200159B29 /* Localizable.stringsdict */ = {
+		DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DB443CCF269415D200159B29 /* en */,
-				DB443CD1269415D800159B29 /* ar */,
+				DB564BCF269F2F83001E39A7 /* ar */,
+				DB564BD1269F2F8A001E39A7 /* en */,
 			);
 			name = Localizable.stringsdict;
-			path = /Users/mainasuk/Developer/Mastodon/Mastodon/Resources;
-			sourceTree = "<absolute>";
+			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
@@ -3910,7 +4041,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -3918,13 +4049,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3937,7 +4068,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -3945,12 +4076,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -4265,7 +4396,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4273,13 +4404,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "ASDK - Release";
 		};
@@ -4379,7 +4510,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4387,12 +4518,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "ASDK - Release";
 		};
@@ -4498,7 +4629,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4506,13 +4637,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "ASDK - Debug";
 		};
@@ -4612,7 +4743,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4620,12 +4751,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = "ASDK - Debug";
 		};
@@ -4666,7 +4797,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4674,12 +4805,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -4689,7 +4820,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4697,12 +4828,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.8.11;
+				MARKETING_VERSION = 0.9.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

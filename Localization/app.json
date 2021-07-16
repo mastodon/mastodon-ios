@@ -16,14 +16,14 @@
                 "poll_expired": "The poll has expired"
             },
             "discard_post_content": {
-                "title": "Discard Publish",
-                "message": "Confirm discard composed post content."
+                "title": "Discard Draft",
+                "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attchments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a status that already contains images.",
+                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
@@ -32,17 +32,17 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign out",
+                "title": "Sign Out",
                 "message": "Are you sure you want to sign out?",
                 "confirm": "Sign Out"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.",
-                "block_entire_domain": "Block entire domain"
+                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "block_entire_domain": "Block Domain"
             },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
-                "message": "Please enable photo libaray access permission to save photo."
+                "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
                 "title": "Are you sure you want to delete this post?",
@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "Clean Cache",
-                "message": "Successfully clean %s cache."
+                "message": "Successfully cleaned %s cache."
             }
         },
         "controls": {
@@ -105,14 +105,14 @@
                     "open_settings": "Open Settings"
                 },
                 "timeline": {
-                    "previous_status": "Previous Status",
-                    "next_status": "Next Status",
-                    "open_status": "Open Status",
-                    "open_author_profile": "Open Author Profile",
-                    "open_reblogger_profile": "Open Reblogger Profile",
-                    "reply_status": "Reply Status",
-                    "toggle_reblog": "Toggle Status Reblog",
-                    "toggle_favorite": "Toggle Status Favorite",
+                    "previous_status": "Previous Post",
+                    "next_status": "Next Post",
+                    "open_status": "Open Post",
+                    "open_author_profile": "Open Author's Profile",
+                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "reply_status": "Reply to Post",
+                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
                     "preview_image": "Preview Image"
                 },
@@ -136,7 +136,7 @@
                 "actions": {
                     "reply": "Reply",
                     "reblog": "Reblog",
-                    "unreblog": "Unreblog",
+                    "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu"
@@ -180,12 +180,12 @@
                     "show_more_replies": "Show more replies"
                 },
                 "header": {
-                    "no_status_found": "No Status Found",
-                    "blocking_warning": "You can’t view this profile\n until you unblock them.\nYour account looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour account looks like this to them.",
-                    "blocked_warning": "You can’t view this’s profile\n until they unblock you.",
+                    "no_status_found": "No Post Found",
+                    "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
+                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
+                    "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
-                    "suspended_warning": "This account has been suspended.",
+                    "suspended_warning": "This user has been suspended.",
                     "user_suspended_warning": "%s’s account has been suspended."
                 },
                 "accessibility": {
@@ -232,7 +232,7 @@
             },
             "empty_state": {
                 "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading data. Check your internet connection.",
+                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "No results"
             }
         },
@@ -270,7 +270,7 @@
                     "reason": "Reason"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed e-mail provider",
+                    "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
                     "taken": "%s is already in use",
                     "reserved": "%s is a reserved keyword",
@@ -284,7 +284,7 @@
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid e-mail address",
+                    "email_invalid": "This is not a valid email address",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
             }
@@ -351,8 +351,8 @@
                 "photo": "photo",
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe photo for low vision people...",
-                "description_video": "Describe what’s happening for low vision people..."
+                "description_photo": "Describe the photo for the visually-impaired...",
+                "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
                 "duration_time": "Duration: %s",
@@ -377,13 +377,13 @@
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Append attachment",
-                "append_poll": "Append poll",
-                "remove_poll": "Remove poll",
-                "custom_emoji_picker": "Custom emoji picker",
-                "enable_content_warning": "Enable content warning",
-                "disable_content_warning": "Disable content warning",
-                "post_visibility_menu": "Post visibility menu",
+                "append_attachment": "Add Attachment",
+                "append_poll": "Add Poll",
+                "remove_poll": "Remove Poll",
+                "custom_emoji_picker": "Custom Emoji Picker",
+                "enable_content_warning": "Enable Content Warning",
+                "disable_content_warning": "Disable Content Warning",
+                "post_visibility_menu": "Post Visibility Menu",
                 "input_limit_remains_count": "Input limit remains %ld",
                 "input_limit_exceeds_count": "Input limit exceeds %ld"
             },
@@ -392,7 +392,7 @@
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Append Attachment - %s",
+                "append_attachment_entry": "Add Attachment - %s",
                 "select_visibility_entry": "Select Visibility - %s"
             }
         },
@@ -422,24 +422,25 @@
             "relationship_action_alert": {
                 "confirm_unmute_user": {
                     "title": "Unmute Account",
-                    "message": "Confirm unmute %s"
+                    "message": "Confirm to unmute %s"
                 },
                 "confirm_unblock_usre": {
                     "title": "Unblock Account",
-                    "message": "Confirm unblock %s"
+                    "message": "Confirm to unblock %s"
                 }
             }
         },
         "search": {
-            "searchBar": {
+            "title": "Search",
+            "search_bar": {
                 "placeholder": "Search hashtags and users",
                 "cancel": "Cancel"
             },
             "recommend": {
                 "button_text": "See All",
                 "hash_tag": {
-                    "title": "Trending in your timeline",
-                    "description": "Hashtags that are getting quite a bit of attention among people you follow",
+                    "title": "Trending on Mastodon",
+                    "description": "Hashtags that are getting quite a bit of attention",
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
@@ -452,7 +453,11 @@
                 "segment": {
                     "all": "All",
                     "people": "People",
-                    "hashtags": "Hashtags"
+                    "hashtags": "Hashtags",
+                    "posts": "Posts"
+                },
+                "empty_state": {
+                    "no_results": "No results"
                 },
                 "recent_search": "Recent searches",
                 "clear": "Clear"
@@ -472,10 +477,10 @@
             "action": {
                 "follow": "followed you",
                 "favourite": "favorited your post",
-                "reblog": "rebloged your post",
+                "reblog": "reblogged your post",
                 "poll": "Your poll has ended",
                 "mention": "mentioned you",
-                "follow_request": "request to follow you"
+                "follow_request": "requested to follow you"
             },
             "keyobard": {
                 "show_everything": "Show Everything",
@@ -496,8 +501,8 @@
                     "dark": "Always Dark"
                 },
                 "appearance_settings": {
-                    "true_black_dark_mode": "True black Dark Mode",
-                    "disable_avatar_animation": "Disable avatar animation"
+                    "true_black_dark_mode": "True black dark mode",
+                    "disable_avatar_animation": "Disable animated avatars"
                 },
                 "notifications": {
                     "title": "Notifications",
@@ -514,16 +519,17 @@
                     }
                 },
                 "preference": {
-                    "title": "Preference",
-                    "using_default_browser": "Using default browser open link"
+                    "title": "Preferences",
+                    "using_default_browser": "Use default browser to open links"
                 },
-                "boringzone": {
-                    "title": "The Boring zone",
+                "boring_zone": {
+                    "title": "The Boring Zone",
+                    "account_settings": "Account settings",
                     "terms": "Terms of Service",
                     "privacy": "Privacy Policy"
                 },
-                "spicyzone": {
-                    "title": "The spicy zone",
+                "spicy_zone": {
+                    "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
                     "signout": "Sign Out"
                 }

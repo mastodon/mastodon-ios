@@ -11,6 +11,9 @@ import CoreDataStack
 
 extension StatusTableViewCellDelegate where Self: StatusProvider {
     func handleTableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        let statusObjectItems = self.statusObjectItems(indexPaths: indexPaths)
+        self.context.statusPrefetchingService.prefetch(statusObjectItems: statusObjectItems)
+        
         // prefetch reply status
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
         let domain = activeMastodonAuthenticationBox.domain
@@ -47,4 +50,9 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
             }   // end for in
         }   // end context.perform
     }   // end func
+
+    func handleTableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        let statusObjectItems = self.statusObjectItems(indexPaths: indexPaths)
+        self.context.statusPrefetchingService.cancelPrefetch(statusObjectItems: statusObjectItems)
+    }
 }

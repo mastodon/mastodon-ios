@@ -83,6 +83,12 @@ extension FavoriteViewController: StatusProvider {
         }
         return items
     }
+
+    func statusObjectItems(indexPaths: [IndexPath]) -> [StatusObjectItem] {
+        guard let diffableDataSource = self.viewModel.diffableDataSource else { return [] }
+        let items = indexPaths.compactMap { diffableDataSource.itemIdentifier(for: $0)?.statusObjectItem }
+        return items
+    }
     
 }
 
