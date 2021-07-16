@@ -38,9 +38,13 @@ final class SearchHistoryViewModel {
                 for objectID in objectIDs {
                     guard let searchHistory = try? managedObjectContext.existingObject(with: objectID) as? SearchHistory else { continue }
                     if let account = searchHistory.account {
-                        items.append(.account(objectID: account.objectID))
+                        let item: SearchHistoryItem = .account(objectID: account.objectID)
+                        guard !items.contains(item) else { continue }
+                        items.append(item)
                     } else if let hashtag = searchHistory.hashtag {
-                        items.append(.hashtag(objectID: hashtag.objectID))
+                        let item: SearchHistoryItem = .hashtag(objectID: hashtag.objectID)
+                        guard !items.contains(item) else { continue }
+                        items.append(item)
                     } else {
                         // TODO: status
                     }

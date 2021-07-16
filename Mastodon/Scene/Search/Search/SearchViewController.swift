@@ -82,6 +82,8 @@ final class SearchViewController: UIViewController, NeedsDependency {
         return view
     }()
 
+    let searchBarTapPublisher = PassthroughSubject<Void, Never>()
+
 }
 
 extension SearchViewController {
@@ -123,6 +125,18 @@ extension SearchViewController {
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.delegate = self
         navigationItem.titleView = searchBar
+
+        searchBarTapPublisher
+            .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                // push to search detail
+                let searchDetailViewModel = SearchDetailViewModel()
+                searchDetailViewModel.needsBecomeFirstResponder = true
+                self.navigationController?.delegate = self.searchTransitionController
+                self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush)
+            }
+            .store(in: &disposeBag)
     }
 
     private func setupScrollView() {
@@ -161,12 +175,7 @@ extension SearchViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         os_log("%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
-        // push to search detail
-        let searchDetailViewModel = SearchDetailViewModel()
-        searchDetailViewModel.needsBecomeFirstResponder = true
-        self.navigationController?.delegate = self.searchTransitionController
-        self.coordinator.present(scene: .searchDetail(viewModel: searchDetailViewModel), from: self, transition: .customPush)
+        searchBarTapPublisher.send()
         return false
     }
 }
