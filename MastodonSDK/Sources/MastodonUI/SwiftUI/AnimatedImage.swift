@@ -9,23 +9,27 @@ import SwiftUI
 import Nuke
 import FLAnimatedImage
 
-struct AnimatedImage: UIViewRepresentable {
+public struct AnimatedImage: UIViewRepresentable {
 
-    let imageURL: URL?
+    public let imageURL: URL?
 
-    func makeUIView(context: Context) -> FLAnimatedImageViewProxy {
+    public init(imageURL: URL?) {
+        self.imageURL = imageURL
+    }
+    
+    public func makeUIView(context: Context) -> FLAnimatedImageViewProxy {
         let proxy = FLAnimatedImageViewProxy(frame: .zero)
         Nuke.loadImage(with: imageURL, into: proxy.imageView)
         return proxy
     }
 
-    func updateUIView(_ proxy: FLAnimatedImageViewProxy, context: Context) {
+    public func updateUIView(_ proxy: FLAnimatedImageViewProxy, context: Context) {
         Nuke.cancelRequest(for: proxy.imageView)
         Nuke.loadImage(with: imageURL, into: proxy.imageView)
     }
 }
 
-final class FLAnimatedImageViewProxy: UIView {
+final public class FLAnimatedImageViewProxy: UIView {
     let imageView = FLAnimatedImageView()
 
     override init(frame: CGRect) {

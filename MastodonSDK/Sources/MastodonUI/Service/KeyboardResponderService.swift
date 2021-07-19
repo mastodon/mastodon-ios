@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class KeyboardResponderService {
+final public class KeyboardResponderService {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -16,9 +16,9 @@ final class KeyboardResponderService {
     public static let shared = KeyboardResponderService()
     
     // output
-    let isShow = CurrentValueSubject<Bool, Never>(false)
-    let state = CurrentValueSubject<KeyboardState, Never>(.none)
-    let endFrame = CurrentValueSubject<CGRect, Never>(.zero)
+    public let isShow = CurrentValueSubject<Bool, Never>(false)
+    public let state = CurrentValueSubject<KeyboardState, Never>(.none)
+    public let endFrame = CurrentValueSubject<CGRect, Never>(.zero)
 
     private init() {
         NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification, object: nil)
@@ -82,7 +82,7 @@ extension KeyboardResponderService {
 }
 
 extension KeyboardResponderService {
-    enum KeyboardState {
+    public enum KeyboardState {
         case none
         case notLocal
         case notDock        // undock | split

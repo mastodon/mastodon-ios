@@ -10,6 +10,7 @@ import UIKit
 import UserNotifications
 import AppShared
 import AVFoundation
+@_exported import MastodonUI
 
 #if ASDK
 import AsyncDisplayKit

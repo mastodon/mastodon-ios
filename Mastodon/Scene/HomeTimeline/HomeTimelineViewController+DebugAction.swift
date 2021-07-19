@@ -57,10 +57,6 @@ extension HomeTimelineViewController {
                     guard let self = self else { return }
                     self.showThreadAction(action)
                 },
-                UIAction(title: "Show Share Action Compose", image: UIImage(systemName: "square.and.arrow.up"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showShareActionExtensionComposeView(action)
-                },
                 UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showSettings(action)
@@ -368,14 +364,6 @@ extension HomeTimelineViewController {
             from: self,
             transition: .modal(animated: true, completion: nil)
         )
-    }
-
-    @objc private func showShareActionExtensionComposeView(_ sender: UIAction) {
-        let viewController = UIHostingController(
-            rootView: ComposeView().environmentObject(MastodonUI.ComposeViewModel())
-        )
-        let navigationController = UINavigationController(rootViewController: viewController)
-        present(navigationController, animated: true, completion: nil)
     }
 
 }

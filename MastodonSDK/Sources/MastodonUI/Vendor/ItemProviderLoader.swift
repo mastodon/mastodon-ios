@@ -1,6 +1,6 @@
 //
-//  PHPickerResultLoader.swift
-//  Mastodon
+//  ItemProviderLoader.swift
+//  MastodonUI
 //
 //  Created by MainasuK Cirno on 2021-3-18.
 //
@@ -14,11 +14,19 @@ import MastodonSDK
 
 // load image with low memory usage
 // Refs: https://christianselig.com/2020/09/phpickerviewcontroller-efficiently/
-enum PHPickerResultLoader {
+public enum ItemProviderLoader {
+    static let logger = Logger(subsystem: "ItemProviderLoader", category: "logic")
+}
+
+extension ItemProviderLoader {
+
+    public static func loadImageData(from result: PHPickerResult) -> Future<Mastodon.Query.MediaAttachment?, Error> {
+        loadImageData(from: result.itemProvider)
+    }
     
-    static func loadImageData(from result: PHPickerResult) -> Future<Mastodon.Query.MediaAttachment?, Error> {
+    public static func loadImageData(from itemProvider: NSItemProvider) -> Future<Mastodon.Query.MediaAttachment?, Error> {
         Future { promise in
-            result.itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
+            itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
                 if let error = error {
                     promise(.failure(error))
                     return
@@ -63,17 +71,25 @@ enum PHPickerResultLoader {
                 CGImageDestinationFinalize(imageDestination)
                 
                 let dataSize = ByteCountFormatter.string(fromByteCount: Int64(data.length), countStyle: .memory)
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: load image %s", ((#file as NSString).lastPathComponent), #line, #function, dataSize)
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): load image \(dataSize)")
 
                 let file = Mastodon.Query.MediaAttachment.jpeg(data as Data)
                 promise(.success(file))
             }
         }
     }
-    
-    static func loadVideoData(from result: PHPickerResult) -> Future<Mastodon.Query.MediaAttachment?, Error> {
+
+}
+
+extension ItemProviderLoader {
+
+    public static func loadVideoData(from result: PHPickerResult) -> Future<Mastodon.Query.MediaAttachment?, Error> {
+        loadVideoData(from: result.itemProvider)
+    }
+
+    public static func loadVideoData(from itemProvider: NSItemProvider) -> Future<Mastodon.Query.MediaAttachment?, Error> {
         Future { promise in
-            result.itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, error in
+            itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, error in
                 if let error = error {
                     promise(.failure(error))
                     return

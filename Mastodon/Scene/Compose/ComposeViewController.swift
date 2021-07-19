@@ -76,7 +76,11 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     let composeToolbarView = ComposeToolbarView()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-    let composeToolbarBackgroundView = UIView()
+    let composeToolbarBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
+        return view
+    }()
     
     static func createPhotoLibraryPickerConfiguration(selectionLimit: Int = 4) -> PHPickerConfiguration {
         var configuration = PHPickerConfiguration()
@@ -189,7 +193,7 @@ extension ComposeViewController {
         ])
 
         tableView.delegate = self
-        viewModel.setupDiffableDataSource(
+        viewModel.setupDataSource(
             tableView: tableView,
             metaTextDelegate: self,
             metaTextViewDelegate: self,
@@ -264,7 +268,6 @@ extension ComposeViewController {
                         self.view.layoutIfNeeded()
                     }
                 }
-                self.updateKeyboardBackground(isKeyboardDisplay: isShow)
                 return
             }
             // isShow AND dock state
@@ -280,14 +283,12 @@ extension ComposeViewController {
             self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
             self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
             
-            // adjust inset for collectionView
+            // adjust inset for tableView
             let contentFrame = self.view.convert(self.tableView.frame, to: nil)
             let padding = contentFrame.maxY + extraMargin - endFrame.minY
             guard padding > 0 else {
                 self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
-
-                self.updateKeyboardBackground(isKeyboardDisplay: false)
                 return
             }
 
@@ -297,7 +298,6 @@ extension ComposeViewController {
                 self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
                 self.view.layoutIfNeeded()
             }
-            self.updateKeyboardBackground(isKeyboardDisplay: isShow)
         })
         .store(in: &disposeBag)
         
@@ -586,10 +586,6 @@ extension ComposeViewController {
         let imagePicker = PHPickerViewController(configuration: configuration)
         imagePicker.delegate = self
         return imagePicker
-    }
-    
-    private func updateKeyboardBackground(isKeyboardDisplay: Bool) {
-        composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
     }
 
     private func setupBackgroundColor(theme: Theme) {

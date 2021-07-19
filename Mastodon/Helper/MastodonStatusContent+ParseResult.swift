@@ -9,20 +9,20 @@ import Foundation
 import ActiveLabel
 
 extension MastodonStatusContent {
-    struct ParseResult: Hashable {
-        let document: String
-        let original: String
-        let trimmed: String
-        let activeEntities: [ActiveEntity]
+    public struct ParseResult: Hashable {
+        public let document: String
+        public let original: String
+        public let trimmed: String
+        public let activeEntities: [ActiveEntity]
 
-        static func == (lhs: MastodonStatusContent.ParseResult, rhs: MastodonStatusContent.ParseResult) -> Bool {
+        public static func == (lhs: MastodonStatusContent.ParseResult, rhs: MastodonStatusContent.ParseResult) -> Bool {
             return lhs.document == rhs.document
                 && lhs.original == rhs.original
                 && lhs.trimmed == rhs.trimmed
                 && lhs.activeEntities.count == rhs.activeEntities.count     // FIXME:
         }
 
-        func hash(into hasher: inout Hasher) {
+        public func hash(into hasher: inout Hasher) {
             hasher.combine(document)
             hasher.combine(original)
             hasher.combine(trimmed)
@@ -57,7 +57,7 @@ extension ActiveEntityType {
 
     static let appScheme = "mastodon"
 
-    init?(url: URL) {
+    public init?(url: URL) {
         guard let scheme = url.scheme?.lowercased() else { return nil }
         guard scheme == ActiveEntityType.appScheme else {
             self = .url("", trimmed: "", url: url.absoluteString, userInfo: nil)
@@ -78,7 +78,7 @@ extension ActiveEntityType {
         return nil
     }
 
-    var uri: URL? {
+    public var uri: URL? {
         switch self {
         case .url(_, _, let url, _):
             return URL(string: url)

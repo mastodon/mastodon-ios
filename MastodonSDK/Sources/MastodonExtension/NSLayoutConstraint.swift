@@ -8,12 +8,12 @@
 import UIKit
 
 extension NSLayoutConstraint {
-    func priority(_ priority: UILayoutPriority) -> Self {
+    public func priority(_ priority: UILayoutPriority) -> Self {
         self.priority = priority
         return self
     }
     
-    func identifier(_ identifier: String?) -> Self {
+    public func identifier(_ identifier: String?) -> Self {
         self.identifier = identifier
         return self
     }

@@ -6,11 +6,10 @@
 //
 
 import Foundation
-import AppShared
 
 extension UserDefaults {
     
-    subscript<T: RawRepresentable>(key: String) -> T? {
+    public subscript<T: RawRepresentable>(key: String) -> T? {
         get {
             if let rawValue = value(forKey: key) as? T.RawValue {
                 return T(rawValue: rawValue)
@@ -20,7 +19,7 @@ extension UserDefaults {
         set { set(newValue?.rawValue, forKey: key) }
     }
     
-    subscript<T>(key: String) -> T? {
+    public subscript<T>(key: String) -> T? {
         get { return value(forKey: key) as? T }
         set { set(newValue, forKey: key) }
     }

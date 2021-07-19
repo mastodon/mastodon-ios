@@ -48,7 +48,7 @@ final class ReplicaStatusView: UIView {
 
     let headerIconLabel: UILabel = {
         let label = UILabel()
-        label.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+        label.attributedText = ReplicaStatusView.iconAttributedString(image: ReplicaStatusView.reblogIconImage)
         return label
     }()
 
@@ -67,7 +67,6 @@ final class ReplicaStatusView: UIView {
         return view
     }()
     let avatarImageView: UIImageView = FLAnimatedImageView()
-    let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
 
     let nameLabel: ActiveLabel = {
         let label = ActiveLabel(style: .statusName)
@@ -157,7 +156,7 @@ extension ReplicaStatusView {
             headerContainerStackView.topAnchor.constraint(equalTo: headerContainerView.topAnchor),
             headerContainerStackView.leadingAnchor.constraint(equalTo: headerContainerView.leadingAnchor),
             headerContainerStackView.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor),
-            headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+            headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: ReplicaStatusView.containerStackViewSpacing).priority(.defaultHigh),
         ])
         containerStackView.addArrangedSubview(headerContainerView)
         defer {
@@ -167,15 +166,15 @@ extension ReplicaStatusView {
         // author container: [avatar | author meta container | reveal button]
         let authorContainerStackView = UIStackView()
         authorContainerStackView.axis = .horizontal
-        authorContainerStackView.spacing = StatusView.avatarToLabelSpacing
+        authorContainerStackView.spacing = ReplicaStatusView.avatarToLabelSpacing
         authorContainerStackView.distribution = .fill
 
         // avatar
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         authorContainerStackView.addArrangedSubview(avatarView)
         NSLayoutConstraint.activate([
-            avatarView.widthAnchor.constraint(equalToConstant: StatusView.avatarImageSize.width).priority(.required - 1),
-            avatarView.heightAnchor.constraint(equalToConstant: StatusView.avatarImageSize.height).priority(.required - 1),
+            avatarView.widthAnchor.constraint(equalToConstant: ReplicaStatusView.avatarImageSize.width).priority(.required - 1),
+            avatarView.heightAnchor.constraint(equalToConstant: ReplicaStatusView.avatarImageSize.height).priority(.required - 1),
         ])
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.addSubview(avatarImageView)
@@ -184,14 +183,6 @@ extension ReplicaStatusView {
             avatarImageView.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
             avatarImageView.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
             avatarImageView.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
-        ])
-        avatarStackedContainerButton.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.addSubview(avatarStackedContainerButton)
-        NSLayoutConstraint.activate([
-            avatarStackedContainerButton.topAnchor.constraint(equalTo: avatarView.topAnchor),
-            avatarStackedContainerButton.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
-            avatarStackedContainerButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
-            avatarStackedContainerButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
         ])
 
         // author meta container: [title container | subtitle container]
@@ -235,7 +226,7 @@ extension ReplicaStatusView {
             authorContainerStackView.topAnchor.constraint(equalTo: authorContainerView.topAnchor),
             authorContainerStackView.leadingAnchor.constraint(equalTo: authorContainerView.leadingAnchor),
             authorContainerStackView.trailingAnchor.constraint(equalTo: authorContainerView.trailingAnchor),
-            authorContainerView.bottomAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
+            authorContainerView.bottomAnchor.constraint(equalTo: authorContainerStackView.bottomAnchor, constant: ReplicaStatusView.containerStackViewSpacing).priority(.defaultHigh),
         ])
         containerStackView.addArrangedSubview(authorContainerView)
 
@@ -252,8 +243,6 @@ extension ReplicaStatusView {
         // status
         statusContainerStackView.addArrangedSubview(contentMetaText.textView)
         contentMetaText.textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-
-        avatarStackedContainerButton.isHidden = true
     }
 }
 

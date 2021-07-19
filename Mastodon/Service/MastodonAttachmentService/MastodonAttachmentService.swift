@@ -12,6 +12,7 @@ import PhotosUI
 import GameplayKit
 import MobileCoreServices
 import MastodonSDK
+import MastodonUI
 
 protocol MastodonAttachmentServiceDelegate: AnyObject {
     func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?)
@@ -62,10 +63,10 @@ final class MastodonAttachmentService {
         Just(pickerResult)
             .flatMap { result -> AnyPublisher<Mastodon.Query.MediaAttachment?, Error> in
                 if result.itemProvider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: []) {
-                    return PHPickerResultLoader.loadImageData(from: result).eraseToAnyPublisher()
+                    return ItemProviderLoader.loadImageData(from: result).eraseToAnyPublisher()
                 }
                 if result.itemProvider.hasRepresentationConforming(toTypeIdentifier: UTType.movie.identifier, fileOptions: []) {
-                    return PHPickerResultLoader.loadVideoData(from: result).eraseToAnyPublisher()
+                    return ItemProviderLoader.loadVideoData(from: result).eraseToAnyPublisher()
                 }
                 return Fail(error: AttachmentError.invalidAttachmentType).eraseToAnyPublisher()
             }
@@ -186,7 +187,6 @@ extension MastodonAttachmentService {
         case invalidAttachmentType
         case attachmentTooLarge
     }
-    
 }
 
 extension MastodonAttachmentService {

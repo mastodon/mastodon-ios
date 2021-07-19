@@ -1,59 +1,30 @@
 //
 //  ComposeToolbarView.swift
-//  Mastodon
+//  ShareActionExtension
 //
-//  Created by MainasuK Cirno on 2021-3-12.
+//  Created by MainasuK Cirno on 2021-7-19.
 //
 
 import os.log
 import UIKit
 import Combine
 import MastodonSDK
+import MastodonUI
 
 protocol ComposeToolbarViewDelegate: AnyObject {
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton)
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton)
     func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType)
 }
 
 final class ComposeToolbarView: UIView {
-    
+
     var disposeBag = Set<AnyCancellable>()
-    
+
     static let toolbarButtonSize: CGSize = CGSize(width: 44, height: 44)
     static let toolbarHeight: CGFloat = 44
-    
+
     weak var delegate: ComposeToolbarViewDelegate?
-    
-    let mediaButton: UIButton = {
-        let button = HighlightDimmableButton()
-        ComposeToolbarView.configureToolbarButtonAppearance(button: button)
-        button.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular)), for: .normal)
-        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendAttachment
-        return button
-    }()
-    
-    let pollButton: UIButton = {
-        let button = HighlightDimmableButton(type: .custom)
-        ComposeToolbarView.configureToolbarButtonAppearance(button: button)
-        button.setImage(UIImage(systemName: "list.bullet", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)), for: .normal)
-        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
-        return button
-    }()
-    
-    let emojiButton: UIButton = {
-        let button = HighlightDimmableButton()
-        ComposeToolbarView.configureToolbarButtonAppearance(button: button)
-        let image = Asset.Human.faceSmilingAdaptive.image
-            .af.imageScaled(to: CGSize(width: 20, height: 20))
-            .withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
-        button.accessibilityLabel = L10n.Scene.Compose.Accessibility.customEmojiPicker
-        return button
-    }()
-    
+
     let contentWarningButton: UIButton = {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
@@ -61,7 +32,7 @@ final class ComposeToolbarView: UIView {
         button.accessibilityLabel = L10n.Scene.Compose.Accessibility.enableContentWarning
         return button
     }()
-    
+
     let visibilityButton: UIButton = {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
@@ -69,7 +40,7 @@ final class ComposeToolbarView: UIView {
         button.accessibilityLabel = L10n.Scene.Compose.Accessibility.postVisibilityMenu
         return button
     }()
-    
+
     let characterCountLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .regular)
@@ -78,26 +49,26 @@ final class ComposeToolbarView: UIView {
         label.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(500)
         return label
     }()
-    
+
     let activeVisibilityType = CurrentValueSubject<VisibilitySelectionType, Never>(.public)
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
-    
+
 }
 
 extension ComposeToolbarView {
-    
+
     private func _init() {
         backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-        
+
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 0
@@ -108,11 +79,8 @@ extension ComposeToolbarView {
             stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             layoutMarginsGuide.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 8), // tweak button margin offset
         ])
-        
+
         let buttons = [
-            mediaButton,
-            pollButton,
-            emojiButton,
             contentWarningButton,
             visibilityButton,
         ]
@@ -124,7 +92,7 @@ extension ComposeToolbarView {
                 button.heightAnchor.constraint(equalToConstant: 44),
             ])
         }
-        
+
         characterCountLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(characterCountLabel)
         NSLayoutConstraint.activate([
@@ -134,17 +102,13 @@ extension ComposeToolbarView {
             characterCountLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         characterCountLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        
-        mediaButton.menu = createMediaContextMenu()
-        mediaButton.showsMenuAsPrimaryAction = true
-        pollButton.addTarget(self, action: #selector(ComposeToolbarView.pollButtonDidPressed(_:)), for: .touchUpInside)
-        emojiButton.addTarget(self, action: #selector(ComposeToolbarView.emojiButtonDidPressed(_:)), for: .touchUpInside)
+
         contentWarningButton.addTarget(self, action: #selector(ComposeToolbarView.contentWarningButtonDidPressed(_:)), for: .touchUpInside)
         visibilityButton.menu = createVisibilityContextMenu(interfaceStyle: traitCollection.userInterfaceStyle)
         visibilityButton.showsMenuAsPrimaryAction = true
-        
+
         updateToolbarButtonUserInterfaceStyle()
-        
+
         // update menu when selected visibility type changed
         activeVisibilityType
             .receive(on: RunLoop.main)
@@ -154,13 +118,13 @@ extension ComposeToolbarView {
             }
             .store(in: &disposeBag)
     }
-    
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        
+
         updateToolbarButtonUserInterfaceStyle()
     }
-    
+
 }
 
 extension ComposeToolbarView {
@@ -169,14 +133,14 @@ extension ComposeToolbarView {
         case photoLibrary
         case browse
     }
-    
+
     enum VisibilitySelectionType: String, CaseIterable {
         case `public`
         // TODO: remove unlisted option from codebase
         // case unlisted
         case `private`
         case direct
-        
+
         var title: String {
             switch self {
             case .public: return L10n.Scene.Compose.Visibility.public
@@ -185,7 +149,7 @@ extension ComposeToolbarView {
             case .direct: return L10n.Scene.Compose.Visibility.direct
             }
         }
-        
+
         func image(interfaceStyle: UIUserInterfaceStyle) -> UIImage {
             switch self {
             case .public: return UIImage(systemName: "globe", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .medium))!
@@ -198,7 +162,7 @@ extension ComposeToolbarView {
             case .direct: return UIImage(systemName: "at", withConfiguration: UIImage.SymbolConfiguration(pointSize: 19, weight: .regular))!
             }
         }
-        
+
         var visibility: Mastodon.Entity.Status.Visibility {
             switch self {
             case .public: return .public
@@ -219,94 +183,50 @@ extension ComposeToolbarView {
         button.layer.cornerRadius = 5
         button.layer.cornerCurve = .continuous
     }
-    
-    private func updateToolbarButtonUserInterfaceStyle() {
-        // reset emoji
-        let emojiButtonImage = Asset.Human.faceSmilingAdaptive.image
-            .af.imageScaled(to: CGSize(width: 20, height: 20))
-            .withRenderingMode(.alwaysTemplate)
-        emojiButton.setImage(emojiButtonImage, for: .normal)
 
+    private func updateToolbarButtonUserInterfaceStyle() {
         switch traitCollection.userInterfaceStyle {
         case .light:
-            mediaButton.setImage(UIImage(systemName: "photo", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
             contentWarningButton.setImage(UIImage(systemName: "exclamationmark.shield", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
 
         case .dark:
-            mediaButton.setImage(UIImage(systemName: "photo.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
             contentWarningButton.setImage(UIImage(systemName: "exclamationmark.shield.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .regular))!, for: .normal)
 
         default:
             assertionFailure()
         }
-        
+
         visibilityButton.menu = createVisibilityContextMenu(interfaceStyle: traitCollection.userInterfaceStyle)
     }
-    
-    private func createMediaContextMenu() -> UIMenu {
-        var children: [UIMenuElement] = []
-        let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .photoLibrary", ((#file as NSString).lastPathComponent), #line, #function)
-            self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .photoLibrary)
-        }
-        children.append(photoLibraryAction)
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .camera", ((#file as NSString).lastPathComponent), #line, #function)
-                self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .camera)
-            })
-            children.append(cameraAction)
-        }
-        let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: mediaSelectionType: .browse", ((#file as NSString).lastPathComponent), #line, #function)
-            self.delegate?.composeToolbarView(self, cameraButtonDidPressed: self.mediaButton, mediaSelectionType: .browse)
-        }
-        children.append(browseAction)
-        
-        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
-    }
-    
+
     private func createVisibilityContextMenu(interfaceStyle: UIUserInterfaceStyle) -> UIMenu {
         let children: [UIMenuElement] = VisibilitySelectionType.allCases.map { type in
             let state: UIMenuElement.State = activeVisibilityType.value == type ? .on : .off
             return UIAction(title: type.title, image: type.image(interfaceStyle: interfaceStyle), identifier: nil, discoverabilityTitle: nil, attributes: [], state: state) { [weak self] action in
                 guard let self = self else { return }
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: visibilitySelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, type.rawValue)
+                os_log(.info, "%{public}s[%{public}ld], %{public}s: visibilitySelectionType: %s", ((#file as NSString).lastPathComponent), #line, #function, type.rawValue)
                 self.delegate?.composeToolbarView(self, visibilityButtonDidPressed: self.visibilityButton, visibilitySelectionType: type)
             }
         }
         return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
     }
-    
+
 }
 
 extension ComposeToolbarView {
-    
-    @objc private func pollButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.composeToolbarView(self, pollButtonDidPressed: sender)
-    }
-    
-    @objc private func emojiButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.composeToolbarView(self, emojiButtonDidPressed: sender)
-    }
-    
+
     @objc private func contentWarningButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.composeToolbarView(self, contentWarningButtonDidPressed: sender)
     }
-    
+
 }
 
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
 struct ComposeToolbarView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
         UIViewPreview(width: 375) {
             let toolbarView = ComposeToolbarView()
@@ -319,7 +239,7 @@ struct ComposeToolbarView_Previews: PreviewProvider {
         }
         .previewLayout(.fixed(width: 375, height: 100))
     }
-    
+
 }
 
 #endif

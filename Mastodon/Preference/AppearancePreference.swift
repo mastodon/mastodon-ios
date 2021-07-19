@@ -19,7 +19,8 @@ extension UserDefaults {
 
     @objc dynamic var preferredStaticAvatar: Bool {
         get {
-            register(defaults: [#function: false])
+            // default false
+            // without set register to profile timeline performance
             return bool(forKey: #function)
         }
         set { self[#function] = newValue }

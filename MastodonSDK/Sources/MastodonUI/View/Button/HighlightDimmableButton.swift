@@ -7,25 +7,25 @@
 
 import UIKit
 
-final class HighlightDimmableButton: UIButton {
+final public class HighlightDimmableButton: UIButton {
     
-    var expandEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    public var expandEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
     }
     
-    required init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         super.init(coder: coder)
         _init()
     }
     
-    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+    public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return bounds.inset(by: expandEdgeInsets).contains(point)
     }
     
-    override var isHighlighted: Bool {
+    public override var isHighlighted: Bool {
         didSet {
             alpha = isHighlighted ? 0.6 : 1
         }

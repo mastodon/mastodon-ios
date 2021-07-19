@@ -1,45 +1,50 @@
 //
-//  TextEditorView.swift
-//  
+//  StatusEditorView.swift
+//
 //
 //  Created by MainasuK Cirno on 2021-7-16.
 //
 
 import UIKit
 import SwiftUI
+import UITextView_Placeholder
 
-public struct TextEditorView: UIViewRepresentable {
+public struct StatusEditorView: UIViewRepresentable {
 
     @Binding var string: String
-
+    let placeholder: String
     let width: CGFloat
     let attributedString: NSAttributedString
+    let keyboardType: UIKeyboardType
 
     public init(
         string: Binding<String>,
+        placeholder: String,
         width: CGFloat,
-        attributedString: NSAttributedString
+        attributedString: NSAttributedString,
+        keyboardType: UIKeyboardType
     ) {
         self._string = string
+        self.placeholder = placeholder
         self.width = width
         self.attributedString = attributedString
+        self.keyboardType = keyboardType
     }
 
     public func makeUIView(context: Context) -> UITextView {
         let textView = UITextView(frame: .zero)
+        textView.placeholder = placeholder
 
         textView.isScrollEnabled = false
         textView.font = .preferredFont(forTextStyle: .body)
         textView.textColor = .label
-
+        textView.keyboardType = keyboardType
         textView.delegate = context.coordinator
 
         textView.translatesAutoresizingMaskIntoConstraints = false
         let widthLayoutConstraint = textView.widthAnchor.constraint(equalToConstant: 100)
         widthLayoutConstraint.priority = .required - 1
         context.coordinator.widthLayoutConstraint = widthLayoutConstraint
-
-
         return textView
     }
 
@@ -57,10 +62,10 @@ public struct TextEditorView: UIViewRepresentable {
     }
 
     public class Coordinator: NSObject, UITextViewDelegate {
-        var parent: TextEditorView
+        var parent: StatusEditorView
         var widthLayoutConstraint: NSLayoutConstraint?
 
-        init(_ parent: TextEditorView) {
+        init(_ parent: StatusEditorView) {
             self.parent = parent
         }
 

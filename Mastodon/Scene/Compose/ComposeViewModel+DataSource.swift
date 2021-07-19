@@ -16,7 +16,7 @@ import MetaTextView
 
 extension ComposeViewModel {
 
-    func setupDiffableDataSource(
+    func setupDataSource(
         tableView: UITableView,
         metaTextDelegate: MetaTextDelegate,
         metaTextViewDelegate: UITextViewDelegate,

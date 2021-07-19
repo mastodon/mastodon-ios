@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import ActiveLabel
 import os.log
+import MastodonUI
 
 extension ActiveLabel {
     
@@ -58,7 +59,7 @@ extension ActiveLabel {
 }
 
 extension ActiveLabel {
-    func configure(text: String) {
+    public func configure(text: String) {
         attributedText = nil
         activeEntities.removeAll()
         self.text = text
@@ -69,7 +70,7 @@ extension ActiveLabel {
 extension ActiveLabel {
     
     /// status content
-    func configure(content: String, emojiDict: MastodonStatusContent.EmojiDict) {
+    public func configure(content: String, emojiDict: MastodonStatusContent.EmojiDict) {
         attributedText = nil
         activeEntities.removeAll()
         
@@ -83,7 +84,7 @@ extension ActiveLabel {
         }
     }
     
-    func configure(contentParseResult parseResult: MastodonStatusContent.ParseResult?) {
+    public func configure(contentParseResult parseResult: MastodonStatusContent.ParseResult?) {
         attributedText = nil
         activeEntities.removeAll()
         text = parseResult?.trimmed ?? ""
@@ -92,14 +93,14 @@ extension ActiveLabel {
     }
     
     /// account note
-    func configure(note: String, emojiDict: MastodonStatusContent.EmojiDict) {
+    public func configure(note: String, emojiDict: MastodonStatusContent.EmojiDict) {
         configure(content: note, emojiDict: emojiDict)
     }
 }
 
 extension ActiveLabel {
     /// account field
-    func configure(field: String, emojiDict: MastodonStatusContent.EmojiDict) {
+    public func configure(field: String, emojiDict: MastodonStatusContent.EmojiDict) {
         configure(content: field, emojiDict: emojiDict)
     }
 }

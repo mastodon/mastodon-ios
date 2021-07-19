@@ -5,13 +5,15 @@
 //  Created by MainasuK Cirno on 2021-6-28.
 //
 
-
 import os.log
 import UIKit
 import Combine
 import MetaTextView
+import UITextView_Placeholder
 
 final class ComposeStatusContentTableViewCell: UITableViewCell {
+
+    let logger = Logger(subsystem: "ComposeStatusContentTableViewCell", category: "UI")
 
     var disposeBag = Set<AnyCancellable>()
 
@@ -149,7 +151,7 @@ extension ComposeStatusContentTableViewCell: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textView.text)
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): text: \(textView.text ?? "<nil>")")
         guard textView === statusContentWarningEditorView.textView else { return }
         // replace line break with space
         textView.text = textView.text.replacingOccurrences(of: "\n", with: " ")

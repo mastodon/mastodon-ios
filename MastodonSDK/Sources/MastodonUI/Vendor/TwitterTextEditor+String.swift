@@ -10,16 +10,16 @@ import Foundation
 
 extension String {
     @inlinable
-    var length: Int {
+    public var length: Int {
         (self as NSString).length
     }
 
     @inlinable
-    func substring(with range: NSRange) -> String {
+    public func substring(with range: NSRange) -> String {
         (self as NSString).substring(with: range)
     }
 
-    func substring(with result: NSTextCheckingResult, at index: Int) -> String? {
+    public func substring(with result: NSTextCheckingResult, at index: Int) -> String? {
         guard index < result.numberOfRanges else {
             return nil
         }
@@ -30,7 +30,7 @@ extension String {
         return substring(with: result.range(at: index))
     }
 
-    func firstMatch(pattern: String,
+    public func firstMatch(pattern: String,
                     options: NSRegularExpression.Options = [],
                     range: NSRange? = nil) -> NSTextCheckingResult?
     {
@@ -41,7 +41,7 @@ extension String {
         return regularExpression.firstMatch(in: self, options: [], range: range)
     }
 
-    func matches(pattern: String,
+    public func matches(pattern: String,
                  options: NSRegularExpression.Options = [],
                  range: NSRange? = nil) -> [NSTextCheckingResult]
     {

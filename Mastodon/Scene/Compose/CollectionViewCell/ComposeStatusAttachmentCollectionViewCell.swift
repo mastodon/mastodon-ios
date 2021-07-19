@@ -8,13 +8,16 @@
 import os.log
 import UIKit
 import Combine
+import MastodonUI
 
 protocol ComposeStatusAttachmentCollectionViewCellDelegate: AnyObject {
     func composeStatusAttachmentCollectionViewCell(_ cell: ComposeStatusAttachmentCollectionViewCell, removeButtonDidPressed button: UIButton)
 }
 
 final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
-    
+
+    let logger = Logger(subsystem: "ComposeStatusAttachmentCollectionViewCell", category: "UI")
+
     var disposeBag = Set<AnyCancellable>()
 
     static let verticalMarginHeight: CGFloat = ComposeStatusAttachmentCollectionViewCell.removeButtonSize.height * 0.5
@@ -58,7 +61,7 @@ final class ComposeStatusAttachmentCollectionViewCell: UICollectionViewCell {
     }
     
     deinit {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
     }
     
 }
@@ -96,7 +99,7 @@ extension ComposeStatusAttachmentCollectionViewCell {
 extension ComposeStatusAttachmentCollectionViewCell {
 
     @objc private func removeButtonDidPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         delegate?.composeStatusAttachmentCollectionViewCell(self, removeButtonDidPressed: sender)
     }
 
