@@ -14,7 +14,7 @@ extension APIService {
     func uploadMedia(
         domain: String,
         query: Mastodon.API.Media.UploadMediaQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
+        mastodonAuthenticationBox: MastodonAuthenticationBox,
         needsFallback: Bool
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
         if needsFallback {
@@ -27,7 +27,7 @@ extension APIService {
     private func uploadMediaV1(
         domain: String,
         query: Mastodon.API.Media.UploadMediaQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 
@@ -42,7 +42,7 @@ extension APIService {
     private func uploadMediaV2(
         domain: String,
         query: Mastodon.API.Media.UploadMediaQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 
@@ -54,12 +54,16 @@ extension APIService {
         )
         .eraseToAnyPublisher()
     }
+
+}
+
+extension APIService {
     
     func updateMedia(
         domain: String,
         attachmentID: Mastodon.Entity.Attachment.ID,
         query: Mastodon.API.Media.UpdateMediaQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 

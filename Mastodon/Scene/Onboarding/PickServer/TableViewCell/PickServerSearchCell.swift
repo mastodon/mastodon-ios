@@ -17,7 +17,7 @@ class PickServerSearchCell: UITableViewCell {
     
     private var bgView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        view.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.maskedCorners = [
             .layerMinXMinYCorner,
@@ -108,7 +108,7 @@ class PickServerSearchCell: UITableViewCell {
 extension PickServerSearchCell {
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         searchTextField.delegate = self

@@ -5,13 +5,15 @@
 //  Created by MainasuK Cirno on 2021-2-5.
 //
 
+
+#if DEBUG
 import os.log
 import UIKit
 import CoreData
 import CoreDataStack
-
-#if DEBUG
 import FLEX
+import SwiftUI
+import MastodonUI
 
 extension HomeTimelineViewController {
     var debugMenu: UIMenu {
@@ -363,5 +365,6 @@ extension HomeTimelineViewController {
             transition: .modal(animated: true, completion: nil)
         )
     }
+
 }
 #endif

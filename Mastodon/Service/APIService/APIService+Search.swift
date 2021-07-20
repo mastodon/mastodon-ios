@@ -15,7 +15,7 @@ extension APIService {
     func search(
         domain: String,
         query: Mastodon.API.V2.Search.Query,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.SearchResult>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let requestMastodonUserID = mastodonAuthenticationBox.userID

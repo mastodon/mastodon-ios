@@ -115,7 +115,7 @@ extension MastodonPickServerViewController {
             tableViewTopPaddingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewTopPaddingViewHeightLayoutConstraint,
         ])
-        tableViewTopPaddingView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        tableViewTopPaddingView.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -422,7 +422,7 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
-        headerView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        headerView.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         return headerView
     }
     

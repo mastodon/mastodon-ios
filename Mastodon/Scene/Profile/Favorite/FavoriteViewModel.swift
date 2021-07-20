@@ -17,7 +17,7 @@ final class FavoriteViewModel {
     
     // input
     let context: AppContext
-    let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
+    let activeMastodonAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
     let statusFetchedResultsController: StatusFetchedResultsController
     let cellFrameCache = NSCache<NSNumber, NSValue>()
     

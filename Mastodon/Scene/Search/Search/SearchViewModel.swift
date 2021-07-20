@@ -42,7 +42,7 @@ final class SearchViewModel: NSObject {
             context.authenticationService.activeMastodonAuthenticationBox,
             viewDidAppeared
         )
-        .compactMap { activeMastodonAuthenticationBox, _ -> AuthenticationService.MastodonAuthenticationBox? in
+        .compactMap { activeMastodonAuthenticationBox, _ -> MastodonAuthenticationBox? in
             return activeMastodonAuthenticationBox
         }
         .throttle(for: 1, scheduler: DispatchQueue.main, latest: false)
@@ -72,7 +72,7 @@ final class SearchViewModel: NSObject {
             context.authenticationService.activeMastodonAuthenticationBox,
             viewDidAppeared
         )
-        .compactMap { activeMastodonAuthenticationBox, _ -> AuthenticationService.MastodonAuthenticationBox? in
+        .compactMap { activeMastodonAuthenticationBox, _ -> MastodonAuthenticationBox? in
             return activeMastodonAuthenticationBox
         }
         .throttle(for: 1, scheduler: DispatchQueue.main, latest: false)

@@ -7,7 +7,8 @@
 
 import UIKit
 
-protocol Theme {
+public protocol Theme {
+    
     var systemBackgroundColor: UIColor { get }
     var secondarySystemBackgroundColor: UIColor { get }
     var tertiarySystemBackgroundColor: UIColor { get }
@@ -33,16 +34,17 @@ protocol Theme {
 
     var contentWarningOverlayBackgroundColor: UIColor { get }
     var profileFieldCollectionViewBackgroundColor: UIColor { get }
+    var composeToolbarBackgroundColor: UIColor { get }
 
 }
 
-enum ThemeName: String, CaseIterable {
+public enum ThemeName: String, CaseIterable {
     case system
     case mastodon
 }
 
 extension ThemeName {
-    var theme: Theme {
+    public var theme: Theme {
         switch self {
         case .system:       return SystemTheme()
         case .mastodon:     return MastodonTheme()

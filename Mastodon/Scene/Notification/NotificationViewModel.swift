@@ -26,7 +26,7 @@ final class NotificationViewModel: NSObject {
     let selectedIndex = CurrentValueSubject<NotificationSegment, Never>(.EveryThing)
     let noMoreNotification = CurrentValueSubject<Bool, Never>(false)
     
-    let activeMastodonAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
+    let activeMastodonAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
     let notificationPredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
     let cellFrameCache = NSCache<NSString, NSValue>()

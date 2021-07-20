@@ -58,11 +58,11 @@ internal enum L10n {
         internal static let message = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Message")
         /// Publish Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.Title")
-        internal enum AttchmentsMessage {
+        internal enum AttachmentsMessage {
           /// Cannot attach more than one video.
-          internal static let moreThanOneVideo = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.MoreThanOneVideo")
+          internal static let moreThanOneVideo = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo")
           /// Cannot attach a video to a post that already contains images.
-          internal static let videoAttachWithPhoto = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttchmentsMessage.VideoAttachWithPhoto")
+          internal static let videoAttachWithPhoto = L10n.tr("Localizable", "Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto")
         }
       }
       internal enum SavePhotoFailure {
@@ -950,7 +950,7 @@ internal enum L10n {
           internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode")
         }
         internal enum BoringZone {
-          /// Account settings
+          /// Account Settings
           internal static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.AccountSettings")
           /// Privacy Policy
           internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Privacy")

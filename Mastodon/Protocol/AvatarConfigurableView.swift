@@ -24,11 +24,22 @@ extension AvatarConfigurableView {
     public func configure(with configuration: AvatarConfigurableViewConfiguration) {
         let placeholderImage: UIImage = {
             guard let placeholderImage = configuration.placeholderImage else {
+                #if APP_EXTENSION
+                let placeholderImage = configuration.placeholderImage ?? UIImage.placeholder(size: Self.configurableAvatarImageSize, color: .systemFill)
+                if Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 {
+                    return placeholderImage
+                        .af.imageAspectScaled(toFill: Self.configurableAvatarImageSize)
+                        .af.imageRounded(withCornerRadius: Self.configurableAvatarImageCornerRadius, divideRadiusByImageScale: false)
+                } else {
+                    return placeholderImage.af.imageRoundedIntoCircle()
+                }
+                #else
                 return AppContext.shared.placeholderImageCacheService.image(
                     color: .systemFill,
                     size: Self.configurableAvatarImageSize,
                     cornerRadius: Self.configurableAvatarImageCornerRadius
                 )
+                #endif
             }
             return placeholderImage
         }()
@@ -115,7 +126,7 @@ extension AvatarConfigurableView {
 }
 
 struct AvatarConfigurableViewConfiguration {
-    
+
     let avatarImageURL: URL?
     let placeholderImage: UIImage?
     let borderColor: UIColor?

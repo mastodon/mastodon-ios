@@ -16,7 +16,7 @@ extension APIService {
     func allNotifications(
         domain: String,
         query: Mastodon.API.Notifications.Query,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Notification]>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let userID = mastodonAuthenticationBox.userID
@@ -75,7 +75,7 @@ extension APIService {
     
     func notification(
         notificationID: Mastodon.Entity.Notification.ID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Notification>, Error> {
         let domain = mastodonAuthenticationBox.domain
         let authorization = mastodonAuthenticationBox.userAuthorization

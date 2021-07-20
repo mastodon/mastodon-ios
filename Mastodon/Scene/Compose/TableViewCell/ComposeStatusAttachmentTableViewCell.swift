@@ -88,7 +88,7 @@ extension ComposeStatusAttachmentTableViewCell {
                         guard let image = thumbnailImage else {
                             let placeholder = UIImage.placeholder(
                                 size: size,
-                                color: Asset.Colors.Background.systemGroupedBackground.color
+                                color: ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
                             )
                             .af.imageRounded(
                                 withCornerRadius: AttachmentContainerView.containerViewCornerRadius
@@ -116,9 +116,11 @@ extension ComposeStatusAttachmentTableViewCell {
                     } else {
                         guard let uploadState = uploadState else { return }
                         switch uploadState {
-                        case is MastodonAttachmentService.UploadState.Finish,
-                             is MastodonAttachmentService.UploadState.Fail:
+                        case is MastodonAttachmentService.UploadState.Finish:
                             cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                        case  is MastodonAttachmentService.UploadState.Fail:
+                            cell.attachmentContainerView.activityIndicatorView.stopAnimating()
+                            // FIXME: not display
                             cell.attachmentContainerView.emptyStateView.label.text = {
                                 if let file = attachmentService.file.value {
                                     switch file {

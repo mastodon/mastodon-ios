@@ -14,7 +14,7 @@ extension APIService {
     func report(
         domain: String,
         query: Mastodon.API.Reports.FileReportQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Bool>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 

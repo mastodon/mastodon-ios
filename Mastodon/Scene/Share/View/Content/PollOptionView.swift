@@ -29,7 +29,8 @@ final class PollOptionView: UIView {
     
     let checkmarkBackgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.tertiarySystemBackground.color
+        // FIXME: missing update trigger
+        view.backgroundColor = ThemeService.shared.currentTheme.value.tertiarySystemBackgroundColor
         return view
     }()
     

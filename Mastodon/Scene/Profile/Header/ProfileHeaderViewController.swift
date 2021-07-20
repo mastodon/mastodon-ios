@@ -465,7 +465,7 @@ extension ProfileHeaderViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true, completion: nil)
         guard let result = results.first else { return }
-        PHPickerResultLoader.loadImageData(from: result)
+        ItemProviderLoader.loadImageData(from: result)
             .sink { [weak self] completion in
                 guard let _ = self else { return }
                 switch completion {

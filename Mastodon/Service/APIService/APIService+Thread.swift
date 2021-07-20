@@ -17,7 +17,7 @@ extension APIService {
     func statusContext(
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         guard domain == mastodonAuthenticationBox.domain else {

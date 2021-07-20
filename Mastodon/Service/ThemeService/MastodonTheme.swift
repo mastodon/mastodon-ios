@@ -33,4 +33,5 @@ struct MastodonTheme: Theme {
     
     let contentWarningOverlayBackgroundColor = Asset.Theme.Mastodon.contentWarningOverlayBackground.color
     let profileFieldCollectionViewBackgroundColor = Asset.Theme.Mastodon.profileFieldCollectionViewBackground.color
+    let composeToolbarBackgroundColor = Asset.Theme.Mastodon.composeToolbarBackground.color
 }

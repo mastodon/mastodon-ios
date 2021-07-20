@@ -49,7 +49,7 @@ extension UserProviderFacade {
     
     private static func _toggleUserFollowRelationship(
         context: AppContext,
-        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
+        activeMastodonAuthenticationBox: MastodonAuthenticationBox,
         mastodonUser: AnyPublisher<MastodonUser?, Never>
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         mastodonUser
@@ -111,7 +111,7 @@ extension UserProviderFacade {
     
     private static func _toggleUserBlockRelationship(
         context: AppContext,
-        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
+        activeMastodonAuthenticationBox: MastodonAuthenticationBox,
         mastodonUser: AnyPublisher<MastodonUser?, Never>
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         mastodonUser
@@ -174,7 +174,7 @@ extension UserProviderFacade {
     
     private static func _toggleUserMuteRelationship(
         context: AppContext,
-        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox,
+        activeMastodonAuthenticationBox: MastodonAuthenticationBox,
         mastodonUser: AnyPublisher<MastodonUser?, Never>
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         mastodonUser

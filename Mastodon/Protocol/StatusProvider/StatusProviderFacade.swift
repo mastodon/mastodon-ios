@@ -525,7 +525,10 @@ extension StatusProviderFacade {
             .sink { [weak provider] status in
                 guard let provider = provider else { return }
                 guard let status = status?.reblog ?? status else { return }
-                
+
+                let generator = UIImpactFeedbackGenerator(style: .light)
+                generator.impactOccurred()
+
                 let composeViewModel = ComposeViewModel(context: provider.context, composeKind: .reply(repliedToStatusObjectID: status.objectID))
                 provider.coordinator.present(scene: .compose(viewModel: composeViewModel), from: provider, transition: .modal(animated: true, completion: nil))
             }

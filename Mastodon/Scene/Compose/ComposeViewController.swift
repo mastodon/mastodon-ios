@@ -14,6 +14,7 @@ import MetaTextView
 import MastodonMeta
 import Meta
 import Nuke
+import MastodonUI
 
 final class ComposeViewController: UIViewController, NeedsDependency {
     
@@ -188,7 +189,7 @@ extension ComposeViewController {
         ])
 
         tableView.delegate = self
-        viewModel.setupDiffableDataSource(
+        viewModel.setupDataSource(
             tableView: tableView,
             metaTextDelegate: self,
             metaTextViewDelegate: self,
@@ -263,7 +264,6 @@ extension ComposeViewController {
                         self.view.layoutIfNeeded()
                     }
                 }
-                self.updateKeyboardBackground(isKeyboardDisplay: isShow)
                 return
             }
             // isShow AND dock state
@@ -279,14 +279,12 @@ extension ComposeViewController {
             self.autoCompleteViewController.tableView.contentInset.bottom = autoCompleteTableViewBottomInset
             self.autoCompleteViewController.tableView.verticalScrollIndicatorInsets.bottom = autoCompleteTableViewBottomInset
             
-            // adjust inset for collectionView
+            // adjust inset for tableView
             let contentFrame = self.view.convert(self.tableView.frame, to: nil)
             let padding = contentFrame.maxY + extraMargin - endFrame.minY
             guard padding > 0 else {
                 self.tableView.contentInset.bottom = self.view.safeAreaInsets.bottom + extraMargin
                 self.tableView.verticalScrollIndicatorInsets.bottom = self.view.safeAreaInsets.bottom + extraMargin
-
-                self.updateKeyboardBackground(isKeyboardDisplay: false)
                 return
             }
 
@@ -296,7 +294,6 @@ extension ComposeViewController {
                 self.composeToolbarViewBottomLayoutConstraint.constant = endFrame.height
                 self.view.layoutIfNeeded()
             }
-            self.updateKeyboardBackground(isKeyboardDisplay: isShow)
         })
         .store(in: &disposeBag)
         
@@ -586,14 +583,11 @@ extension ComposeViewController {
         imagePicker.delegate = self
         return imagePicker
     }
-    
-    private func updateKeyboardBackground(isKeyboardDisplay: Bool) {
-        composeToolbarBackgroundView.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-    }
 
     private func setupBackgroundColor(theme: Theme) {
         view.backgroundColor = theme.systemElevatedBackgroundColor
         tableView.backgroundColor = theme.systemElevatedBackgroundColor
+        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
     }
 
 }

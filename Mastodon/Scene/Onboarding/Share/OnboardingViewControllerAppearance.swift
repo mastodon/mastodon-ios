@@ -20,7 +20,7 @@ extension OnboardingViewControllerAppearance {
     static var viewBottomPaddingHeight: CGFloat { return 11 }
     
     func setupOnboardingAppearance() {
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
 
         setupNavigationBarAppearance()
         
@@ -42,7 +42,7 @@ extension OnboardingViewControllerAppearance {
     func setupNavigationBarBackgroundView() {
         let navigationBarBackgroundView: UIView = {
             let view = UIView()
-            view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+            view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
             return view
         }()
         

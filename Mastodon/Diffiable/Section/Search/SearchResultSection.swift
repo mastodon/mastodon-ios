@@ -33,16 +33,6 @@ extension SearchResultSection {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchResultTableViewCell.self), for: indexPath) as! SearchResultTableViewCell
                 cell.config(with: tag)
                 return cell
-//            case .hashtagObjectID(let hashtagObjectID):
-//                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
-//                let tag  = dependency.context.managedObjectContext.object(with: hashtagObjectID) as! Tag
-//                cell.config(with: tag)
-//                return cell
-//            case .accountObjectID(let accountObjectID):
-//                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SearchingTableViewCell.self), for: indexPath) as! SearchingTableViewCell
-//                let user  = dependency.context.managedObjectContext.object(with: accountObjectID) as! MastodonUser
-//                cell.config(with: user)
-//                return cell
             case .status(let statusObjectID, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
                 if let status = try? dependency.context.managedObjectContext.existingObject(with: statusObjectID) as? Status {
@@ -73,8 +63,6 @@ extension SearchResultSection {
                     cell.loadMoreLabel.isHidden = true
                 }
                 return cell
-            default:
-                fatalError()
             }   // end switch
         }   // end UITableViewDiffableDataSource
     }   // end func

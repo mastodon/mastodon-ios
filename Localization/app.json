@@ -22,7 +22,7 @@
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
-                "attchments_message": {
+                "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
                 }
@@ -524,7 +524,7 @@
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
-                    "account_settings": "Account settings",
+                    "account_settings": "Account Settings",
                     "terms": "Terms of Service",
                     "privacy": "Privacy Policy"
                 },
