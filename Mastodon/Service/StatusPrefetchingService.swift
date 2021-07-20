@@ -104,7 +104,7 @@ extension StatusPrefetchingService {
         statusObjectID: NSManagedObjectID,
         statusID: Mastodon.Entity.Status.ID,
         replyToStatusID: Mastodon.Entity.Status.ID,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) {
         workingQueue.async { [weak self] in
             guard let self = self, let apiService = self.apiService else { return }

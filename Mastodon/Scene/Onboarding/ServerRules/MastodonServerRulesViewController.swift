@@ -49,7 +49,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let bottomContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         return view
     }()
     
@@ -60,7 +60,7 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         textView.isSelectable = true
         textView.isEditable = false
         textView.isScrollEnabled = false
-        textView.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        textView.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         return textView
     }()
     

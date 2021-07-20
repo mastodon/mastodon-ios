@@ -19,7 +19,7 @@ extension APIService {
         domain: String,
         pollID: Mastodon.Entity.Poll.ID,
         pollObjectID: NSManagedObjectID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let requestMastodonUserID = mastodonAuthenticationBox.userID
@@ -143,7 +143,7 @@ extension APIService {
         pollID: Mastodon.Entity.Poll.ID,
         pollObjectID: NSManagedObjectID,
         choices: [Int],
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Poll>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let requestMastodonUserID = mastodonAuthenticationBox.userID

@@ -8,7 +8,7 @@
 import UIKit
 
 extension MastodonStatusContent {
-    struct Appearance {
+    public struct Appearance {
         let attributes: [NSAttributedString.Key: Any]
         let urlAttributes: [NSAttributedString.Key: Any]
         let hashtagAttributes: [NSAttributedString.Key: Any]

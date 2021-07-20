@@ -44,7 +44,7 @@ final class PickServerEmptyStateView: UIView {
 extension PickServerEmptyStateView {
     
     private func _init() {
-        backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         layer.maskedCorners = [
             .layerMinXMaxYCorner,
             .layerMaxXMaxYCorner

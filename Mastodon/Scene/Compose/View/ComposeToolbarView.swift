@@ -96,11 +96,15 @@ final class ComposeToolbarView: UIView {
 extension ComposeToolbarView {
     
     private func _init() {
-        // magic keyboard color (iOS 14):
-        // light with white background: RGB 214 216 222
-        // dark with black background: RGB 43 43 43
-        backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-        
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &disposeBag)
+
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 0
@@ -214,6 +218,10 @@ extension ComposeToolbarView {
 }
 
 extension ComposeToolbarView {
+
+    private func setupBackgroundColor(theme: Theme) {
+        backgroundColor = theme.composeToolbarBackgroundColor
+    }
 
     private static func configureToolbarButtonAppearance(button: UIButton) {
         button.tintColor = Asset.Colors.brandBlue.color

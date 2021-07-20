@@ -21,7 +21,7 @@ extension APIService {
         maxID: Mastodon.Entity.Status.ID? = nil,
         limit: Int = onceRequestStatusMaxCount,
         local: Bool? = nil,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let authorization = authorizationBox.userAuthorization
         let requestMastodonUserID = authorizationBox.userID

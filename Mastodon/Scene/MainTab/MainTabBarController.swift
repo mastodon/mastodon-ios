@@ -42,6 +42,15 @@ class MainTabBarController: UITabBarController {
             case .me:               return UIImage(systemName: "person.fill")!
             }
         }
+
+        var largeImage: UIImage {
+            switch self {
+            case .home:             return UIImage(systemName: "house.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
+            case .search:           return UIImage(systemName: "magnifyingglass", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
+            case .notification:     return UIImage(systemName: "bell.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
+            case .me:               return UIImage(systemName: "person.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 80))!
+            }
+        }
         
         func viewController(context: AppContext, coordinator: SceneCoordinator) -> UIViewController {
             let viewController: UIViewController
@@ -112,13 +121,19 @@ extension MainTabBarController {
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)
-            viewController.tabBarItem.title = "" // set text to empty string for image only style (SDK failed to layout when set to nil)
+            viewController.tabBarItem.title = tab.title
             viewController.tabBarItem.image = tab.image
             viewController.tabBarItem.accessibilityLabel = tab.title
+            viewController.tabBarItem.largeContentSizeImage = tab.largeImage
+            viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             return viewController
         }
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
+
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.clear], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.clear], for: .highlighted)
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor : UIColor.clear], for: .selected)
         
         context.apiService.error
             .receive(on: DispatchQueue.main)

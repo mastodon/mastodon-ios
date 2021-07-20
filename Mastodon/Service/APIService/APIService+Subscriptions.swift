@@ -17,7 +17,7 @@ extension APIService {
     func createSubscription(
         subscriptionObjectID: NSManagedObjectID,
         query: Mastodon.API.Subscriptions.CreateSubscriptionQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Subscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let domain = mastodonAuthenticationBox.domain
@@ -50,7 +50,7 @@ extension APIService {
     }
     
     func cancelSubscription(
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.EmptySubscription>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let domain = mastodonAuthenticationBox.domain

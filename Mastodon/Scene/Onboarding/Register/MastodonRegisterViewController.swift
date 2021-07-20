@@ -84,7 +84,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
 
         button.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: UIControl.State.normal)
         button.imageView?.tintColor = Asset.Colors.Label.secondary.color
-        button.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        button.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         
@@ -99,7 +99,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         icon.backgroundColor = UIColor(dynamicProvider: { collection in
             switch collection.userInterfaceStyle {
             case .dark:
-                return Asset.Colors.Background.secondaryGroupedSystemBackground.color
+                return Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
             default:
                 return .white
             }
@@ -119,7 +119,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -170,7 +170,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.returnKeyType = .next
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -189,7 +189,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.keyboardType = .emailAddress
-        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -216,7 +216,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.autocorrectionType = .no
         textField.keyboardType = .asciiCapable
         textField.isSecureTextEntry = true
-        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
@@ -248,7 +248,7 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
-        textField.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         textField.textColor = Asset.Colors.Label.primary.color
         textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
                                                              attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,

@@ -10,14 +10,14 @@ import Combine
 import ActiveLabel
 import Fuzi
 
-enum MastodonStatusContent {
+public enum MastodonStatusContent {
     
-    typealias EmojiShortcode = String
-    typealias EmojiDict = [EmojiShortcode: URL]
+    public typealias EmojiShortcode = String
+    public typealias EmojiDict = [EmojiShortcode: URL]
     
     static let workingQueue = DispatchQueue(label: "org.joinmastodon.app.ActiveLabel.working-queue", qos: .userInteractive, attributes: .concurrent)
     
-    static func parseResult(content: String, emojiDict: MastodonStatusContent.EmojiDict) -> AnyPublisher<MastodonStatusContent.ParseResult?, Never> {
+    public static func parseResult(content: String, emojiDict: MastodonStatusContent.EmojiDict) -> AnyPublisher<MastodonStatusContent.ParseResult?, Never> {
         return Future { promise in
             self.workingQueue.async {
                 let parseResult = try? MastodonStatusContent.parse(content: content, emojiDict: emojiDict)
@@ -27,7 +27,7 @@ enum MastodonStatusContent {
         .eraseToAnyPublisher()
     }
     
-    static func parse(content: String, emojiDict: EmojiDict) throws -> MastodonStatusContent.ParseResult {
+    public static func parse(content: String, emojiDict: EmojiDict) throws -> MastodonStatusContent.ParseResult {
         let document: String = {
             var content = content
             for (shortcode, url) in emojiDict {

@@ -14,48 +14,11 @@ import DateToolsSwift
 import MastodonSDK
 
 extension APIService {
- 
-    func publishStatus(
-        domain: String,
-        query: Mastodon.API.Statuses.PublishStatusQuery,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
-        let authorization = mastodonAuthenticationBox.userAuthorization
-
-        return Mastodon.API.Statuses.publishStatus(
-            session: session,
-            domain: domain,
-            query: query,
-            authorization: authorization
-        )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
-            return APIService.Persist.persistStatus(
-                managedObjectContext: self.backgroundManagedObjectContext,
-                domain: domain,
-                query: nil,
-                response: response.map { [$0] },
-                persistType: .lookUp,
-                requestMastodonUserID: nil,
-                log: OSLog.api
-            )
-            .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
-                switch result {
-                case .success:
-                    return response
-                case .failure(let error):
-                    throw error
-                }
-            }
-            .eraseToAnyPublisher()
-        }
-        .eraseToAnyPublisher()
-    }
 
     func status(
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let authorization = authorizationBox.userAuthorization
         return Mastodon.API.Statuses.status(
@@ -91,7 +54,7 @@ extension APIService {
     func deleteStatus(
         domain: String,
         statusID: Mastodon.Entity.Status.ID,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let authorization = authorizationBox.userAuthorization
         let query = Mastodon.API.Statuses.DeleteStatusQuery(id: statusID)

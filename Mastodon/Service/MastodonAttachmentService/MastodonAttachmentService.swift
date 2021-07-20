@@ -12,6 +12,7 @@ import PhotosUI
 import GameplayKit
 import MobileCoreServices
 import MastodonSDK
+import MastodonUI
 
 protocol MastodonAttachmentServiceDelegate: AnyObject {
     func mastodonAttachmentService(_ service: MastodonAttachmentService, uploadStateDidChange state: MastodonAttachmentService.UploadState?)
@@ -26,7 +27,7 @@ final class MastodonAttachmentService {
         
     // input
     let context: AppContext
-    var authenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    var authenticationBox: MastodonAuthenticationBox?
     let file = CurrentValueSubject<Mastodon.Query.MediaAttachment?, Never>(nil)
     let description = CurrentValueSubject<String?, Never>(nil)
     
@@ -51,7 +52,7 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         pickerResult: PHPickerResult,
-        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: MastodonAuthenticationBox?
     ) {
         self.context = context
         self.authenticationBox = initialAuthenticationBox
@@ -62,10 +63,10 @@ final class MastodonAttachmentService {
         Just(pickerResult)
             .flatMap { result -> AnyPublisher<Mastodon.Query.MediaAttachment?, Error> in
                 if result.itemProvider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: []) {
-                    return PHPickerResultLoader.loadImageData(from: result).eraseToAnyPublisher()
+                    return ItemProviderLoader.loadImageData(from: result).eraseToAnyPublisher()
                 }
                 if result.itemProvider.hasRepresentationConforming(toTypeIdentifier: UTType.movie.identifier, fileOptions: []) {
-                    return PHPickerResultLoader.loadVideoData(from: result).eraseToAnyPublisher()
+                    return ItemProviderLoader.loadVideoData(from: result).eraseToAnyPublisher()
                 }
                 return Fail(error: AttachmentError.invalidAttachmentType).eraseToAnyPublisher()
             }
@@ -89,7 +90,7 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         image: UIImage,
-        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: MastodonAuthenticationBox?
     ) {
         self.context = context
         self.authenticationBox = initialAuthenticationBox
@@ -104,7 +105,7 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         documentURL: URL,
-        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: MastodonAuthenticationBox?
     ) {
         self.context = context
         self.authenticationBox = initialAuthenticationBox
@@ -186,12 +187,11 @@ extension MastodonAttachmentService {
         case invalidAttachmentType
         case attachmentTooLarge
     }
-    
 }
 
 extension MastodonAttachmentService {
     // FIXME: needs reset state for multiple account posting support
-    func uploading(mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox) -> Bool {
+    func uploading(mastodonAuthenticationBox: MastodonAuthenticationBox) -> Bool {
         authenticationBox = mastodonAuthenticationBox
         return uploadStateMachine.enter(UploadState.self)
     }

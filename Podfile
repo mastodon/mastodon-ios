@@ -34,6 +34,11 @@ target 'NotificationService' do
   use_frameworks!
 end
 
+target 'ShareActionExtension' do 
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+end
+
 target 'AppShared' do 
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

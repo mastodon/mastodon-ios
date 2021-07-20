@@ -61,7 +61,7 @@ extension APIService {
     func favorite(
         statusID: Mastodon.Entity.Status.ID,
         favoriteKind: Mastodon.API.Favorites.FavoriteKind,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let requestMastodonUserID = mastodonAuthenticationBox.userID
@@ -139,7 +139,7 @@ extension APIService {
     func favoritedStatuses(
         limit: Int = onceRequestStatusMaxCount,
         maxID: String? = nil,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
 
         let requestMastodonUserID = mastodonAuthenticationBox.userID

@@ -28,7 +28,7 @@ final class ComposeViewModel: NSObject {
     let isContentWarningComposing = CurrentValueSubject<Bool, Never>(false)
     let selectedStatusVisibility: CurrentValueSubject<ComposeToolbarView.VisibilitySelectionType, Never>
     let activeAuthentication: CurrentValueSubject<MastodonAuthentication?, Never>
-    let activeAuthenticationBox: CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>
+    let activeAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
     let traitCollectionDidChangePublisher = CurrentValueSubject<Void, Never>(Void())      // use CurrentValueSubject to make initial event emit
     let repliedToCellFrame = CurrentValueSubject<CGRect, Never>(.zero)
     let autoCompleteRetryLayoutTimes = CurrentValueSubject<Int, Never>(0)
@@ -202,13 +202,13 @@ final class ComposeViewModel: NSObject {
         }
         .assign(to: \.value, on: characterCount)
         .store(in: &disposeBag)
+
         // bind compose bar button item UI state
         let isComposeContentEmpty = composeStatusAttribute.composeContent
             .map { ($0 ?? "").isEmpty }
-        let isComposeContentValid = composeStatusAttribute.composeContent
-            .map { composeContent -> Bool in
-                let composeContent = composeContent ?? ""
-                return composeContent.count <= ComposeViewModel.composeContentLimit
+        let isComposeContentValid = characterCount
+            .map { characterCount -> Bool in
+                return characterCount <= ComposeViewModel.composeContentLimit
             }
         let isMediaEmpty = attachmentServices
             .map { $0.isEmpty }
@@ -224,10 +224,10 @@ final class ComposeViewModel: NSObject {
             }
         
         let isPublishBarButtonItemEnabledPrecondition1 = Publishers.CombineLatest4(
-            isComposeContentEmpty.eraseToAnyPublisher(),
-            isComposeContentValid.eraseToAnyPublisher(),
-            isMediaEmpty.eraseToAnyPublisher(),
-            isMediaUploadAllSuccess.eraseToAnyPublisher()
+            isComposeContentEmpty,
+            isComposeContentValid,
+            isMediaEmpty,
+            isMediaUploadAllSuccess
         )
         .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess -> Bool in
             if isMediaEmpty {
@@ -239,10 +239,10 @@ final class ComposeViewModel: NSObject {
         .eraseToAnyPublisher()
 
         let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest4(
-            isComposeContentEmpty.eraseToAnyPublisher(),
-            isComposeContentValid.eraseToAnyPublisher(),
-            isPollComposing.eraseToAnyPublisher(),
-            isPollAttributeAllValid.eraseToAnyPublisher()
+            isComposeContentEmpty,
+            isComposeContentValid,
+            isPollComposing,
+            isPollAttributeAllValid
         )
         .map { isComposeContentEmpty, isComposeContentValid, isPollComposing, isPollAttributeAllValid -> Bool in
             if isPollComposing {
@@ -390,9 +390,9 @@ extension ComposeViewModel {
         var failureReason: String? {
             switch self {
             case .videoAttachWithPhoto:
-                return L10n.Common.Alerts.PublishPostFailure.AttchmentsMessage.videoAttachWithPhoto
+                return L10n.Common.Alerts.PublishPostFailure.AttachmentsMessage.videoAttachWithPhoto
             case .moreThanOneVideo:
-                return L10n.Common.Alerts.PublishPostFailure.AttchmentsMessage.moreThanOneVideo
+                return L10n.Common.Alerts.PublishPostFailure.AttachmentsMessage.moreThanOneVideo
             }
         }
     }

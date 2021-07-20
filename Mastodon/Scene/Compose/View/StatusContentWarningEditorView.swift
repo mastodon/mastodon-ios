@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonUI
 
 final class StatusContentWarningEditorView: UIView {
 
@@ -72,28 +73,6 @@ extension StatusContentWarningEditorView {
         containerStackView.addArrangedSubview(iconImageView)
         iconImageView.setContentHuggingPriority(.required - 1, for: .horizontal)
         containerStackView.addArrangedSubview(textView)
-        
-//        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(iconImageView)
-//        NSLayoutConstraint.activate([
-//            iconImageView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-//            iconImageView.widthAnchor.constraint(equalToConstant: StatusView.avatarImageSize.width).priority(.defaultHigh),    // center alignment to avatar
-//        ])
-//        iconImageView.setContentHuggingPriority(.required - 2, for: .horizontal)
-//
-//        textView.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(textView)
-//        NSLayoutConstraint.activate([
-//            textView.centerYAnchor.constraint(equalTo: centerYAnchor),
-//            textView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
-//            textView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: StatusView.avatarToLabelSpacing - 4),    // align to name label. minus magic 4pt to remove addition inset
-//            textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-//            bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: 6),
-//            textView.heightAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
-//        ])
-//
-//        textView.setContentHuggingPriority(.required - 1, for: .vertical)
-//        textView.setContentCompressionResistancePriority(.required - 1, for: .vertical)
     }
 }
 

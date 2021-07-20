@@ -16,7 +16,7 @@ extension APIService {
     func suggestionAccount(
         domain: String,
         query: Mastodon.API.Suggestions.Query?,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 
@@ -47,7 +47,7 @@ extension APIService {
     func suggestionAccountV2(
         domain: String,
         query: Mastodon.API.Suggestions.Query?,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.V2.SuggestionAccount]>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
 

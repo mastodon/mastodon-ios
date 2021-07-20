@@ -23,7 +23,7 @@ extension APIService {
         excludeReplies: Bool? = nil,
         excludeReblogs: Bool? = nil,
         onlyMedia: Bool? = nil,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Status]>, Error> {
         let authorization = authorizationBox.userAuthorization
         let requestMastodonUserID = authorizationBox.userID

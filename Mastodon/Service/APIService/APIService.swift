@@ -21,7 +21,6 @@ final class APIService {
     
     // internal
     let session: URLSession
-
     
     // input
     let backgroundManagedObjectContext: NSManagedObjectContext

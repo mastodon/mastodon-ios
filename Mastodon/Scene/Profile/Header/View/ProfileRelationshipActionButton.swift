@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonUI
 
 final class ProfileRelationshipActionButton: RoundedEdgesButton {
     

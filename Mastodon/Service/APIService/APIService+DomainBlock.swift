@@ -17,7 +17,7 @@ extension APIService {
     func getDomainblocks(
         domain: String,
         limit: Int = onceRequestDomainBlocksMaxCount,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[String]>, Error> {
         let authorization = authorizationBox.userAuthorization
         
@@ -71,7 +71,7 @@ extension APIService {
  
     func blockDomain(
         user: MastodonUser,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
         let authorization = authorizationBox.userAuthorization
 
@@ -105,7 +105,7 @@ extension APIService {
     
     func unblockDomain(
         user: MastodonUser,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Empty>, Error> {
         let authorization = authorizationBox.userAuthorization
         

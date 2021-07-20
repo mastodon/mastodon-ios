@@ -7,12 +7,14 @@
 
 import os
 import Foundation
+import Combine
 import CoreData
 import AppShared
 
 public final class CoreDataStack {
     
     private(set) var storeDescriptions: [NSPersistentStoreDescription]
+    public let didFinishLoad = CurrentValueSubject<Bool, Never>(false)
     
     init(persistentStoreDescriptions storeDescriptions: [NSPersistentStoreDescription]) {
         self.storeDescriptions = storeDescriptions
@@ -33,7 +35,10 @@ public final class CoreDataStack {
          */
         let container = CoreDataStack.persistentContainer()
         CoreDataStack.configure(persistentContainer: container, storeDescriptions: storeDescriptions)
-        CoreDataStack.load(persistentContainer: container)
+        CoreDataStack.load(persistentContainer: container) { [weak self] in
+            guard let self = self else { return }
+            self.didFinishLoad.value = true
+        }
 
         return container
     }()
@@ -52,7 +57,7 @@ public final class CoreDataStack {
         container.persistentStoreDescriptions = storeDescriptions
     }
     
-    static func load(persistentContainer container: NSPersistentContainer) {
+    static func load(persistentContainer container: NSPersistentContainer, callback: @escaping () -> Void) {
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -85,6 +90,8 @@ public final class CoreDataStack {
             container.viewContext.automaticallyMergesChangesFromParent = true
             
             os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, storeDescription.debugDescription)
+
+            callback()
         })
     }
     
@@ -96,7 +103,10 @@ extension CoreDataStack {
         let oldStoreURL = persistentContainer.persistentStoreCoordinator.url(for: persistentContainer.persistentStoreCoordinator.persistentStores.first!)
         try! persistentContainer.persistentStoreCoordinator.destroyPersistentStore(at: oldStoreURL, ofType: NSSQLiteStoreType, options: nil)
         
-        CoreDataStack.load(persistentContainer: persistentContainer)
+        CoreDataStack.load(persistentContainer: persistentContainer) { [weak self] in
+            guard let self = self else { return }
+            self.didFinishLoad.value = true
+        }
     }
 
 }

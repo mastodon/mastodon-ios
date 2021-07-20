@@ -82,7 +82,7 @@ extension NotificationService {
 extension NotificationService {
     
     func dequeueNotificationViewModel(
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> NotificationViewModel? {
         var _notificationSubscription: NotificationViewModel?
         workingQueue.sync {
@@ -130,7 +130,7 @@ extension NotificationService {
             
             // cancel subscription if sign-out
             let accessToken = mastodonPushNotification.accessToken
-            let mastodonAuthenticationBox = AuthenticationService.MastodonAuthenticationBox(
+            let mastodonAuthenticationBox = MastodonAuthenticationBox(
                 domain: domain,
                 userID: userID,
                 appAuthorization: .init(accessToken: accessToken),
@@ -178,7 +178,7 @@ extension NotificationService.NotificationViewModel {
     func createSubscribeQuery(
         deviceToken: Data,
         queryData: Mastodon.API.Subscriptions.QueryData,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> Mastodon.API.Subscriptions.CreateSubscriptionQuery {
         let deviceToken = [UInt8](deviceToken).toHexString()
         

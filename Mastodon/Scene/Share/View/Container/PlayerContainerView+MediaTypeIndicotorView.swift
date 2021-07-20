@@ -63,7 +63,7 @@ extension PlayerContainerView {
 extension PlayerContainerView.MediaTypeIndicatorView {
     
     private func _init() {
-        backgroundColor = Asset.Colors.Background.mediaTypeIndicotor.color
+        backgroundColor = Asset.Colors.mediaTypeIndicotor.color
         layoutMargins = UIEdgeInsets(top: 3, left: 13, bottom: 0, right: 6)
         
         addSubview(label)

@@ -6,16 +6,26 @@ import PackageDescription
 let package = Package(
     name: "MastodonSDK",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v14),
     ],
     products: [
         .library(
             name: "MastodonSDK",
             targets: ["MastodonSDK"]),
+        .library(
+            name: "MastodonUI",
+            targets: ["MastodonUI"]),
+        .library(
+            name: "MastodonExtension",
+            targets: ["MastodonExtension"]),
     ],
     dependencies: [
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "5.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "1.0.0"),
+        .package(url: "https://github.com/kean/Nuke.git", from: "10.3.1"),
+        .package(name: "NukeFLAnimatedImagePlugin", url: "https://github.com/kean/Nuke-FLAnimatedImage-Plugin.git", from: "8.0.0"),
+        .package(name: "UITextView+Placeholder", url: "https://github.com/MainasuK/UITextView-Placeholder.git", from: "1.4.1"),
+        .package(name: "Introspect", url: "https://github.com/siteline/SwiftUI-Introspect.git", from: "0.1.3")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,6 +36,21 @@ let package = Package(
                 .product(name: "SwiftyJSON", package: "SwiftyJSON"),
                 .product(name: "NIOHTTP1", package: "swift-nio"),
             ]
+        ),
+        .target(
+            name: "MastodonUI",
+            dependencies: [
+                "MastodonSDK",
+                "MastodonExtension",
+                "Nuke",
+                "NukeFLAnimatedImagePlugin",
+                "UITextView+Placeholder",
+                "Introspect",
+            ]
+        ),
+        .target(
+            name: "MastodonExtension",
+            dependencies: []
         ),
         .testTarget(
             name: "MastodonSDKTests",

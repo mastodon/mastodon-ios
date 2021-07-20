@@ -17,7 +17,7 @@ extension ReportViewModel {
     func requestRecentStatus(
         domain: String,
         accountId: String,
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) {
         context.apiService.userTimeline(
             domain: domain,

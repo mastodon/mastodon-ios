@@ -17,7 +17,7 @@ extension SearchViewController {
         let header = SearchRecommendCollectionHeader()
         header.titleLabel.text = L10n.Scene.Search.Recommend.HashTag.title
         header.descriptionLabel.text = L10n.Scene.Search.Recommend.HashTag.description
-        header.seeAllButton.addTarget(self, action: #selector(SearchViewController.hashtagSeeAllButtonPressed(_:)), for: .touchUpInside)
+        header.seeAllButton.isHidden = true
         stackView.addArrangedSubview(header)
 
         hashtagCollectionView.register(SearchRecommendTagsCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SearchRecommendTagsCollectionViewCell.self))

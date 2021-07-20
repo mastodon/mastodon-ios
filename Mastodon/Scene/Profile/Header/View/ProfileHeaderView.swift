@@ -76,7 +76,7 @@ final class ProfileHeaderView: UIView {
     let avatarImageView: UIImageView = {
         let imageView = FLAnimatedImageView()
         let placeholderImage = UIImage
-            .placeholder(size: ProfileHeaderView.avatarImageViewSize, color: Asset.Colors.Background.systemGroupedBackground.color)
+            .placeholder(size: ProfileHeaderView.avatarImageViewSize, color: Asset.Theme.Mastodon.systemGroupedBackground.color)
             .af.imageRounded(withCornerRadius: ProfileHeaderView.avatarImageViewCornerRadius, divideRadiusByImageScale: false)
         imageView.image = placeholderImage
         return imageView

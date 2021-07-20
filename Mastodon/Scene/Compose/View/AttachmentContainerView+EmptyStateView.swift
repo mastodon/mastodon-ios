@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MastodonUI
 
 extension AttachmentContainerView {
     final class EmptyStateView: UIView {

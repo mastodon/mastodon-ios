@@ -115,7 +115,7 @@ class ProfileViewModel: NSObject {
             context.authenticationService.activeMastodonAuthenticationBox.eraseToAnyPublisher(),
             pendingRetryPublisher.eraseToAnyPublisher()
         )
-        .compactMap { mastodonUserID, activeMastodonAuthenticationBox, _ -> (String, AuthenticationService.MastodonAuthenticationBox)? in
+        .compactMap { mastodonUserID, activeMastodonAuthenticationBox, _ -> (String, MastodonAuthenticationBox)? in
             guard let mastodonUserID = mastodonUserID, let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return nil }
             guard mastodonUserID != activeMastodonAuthenticationBox.userID else { return nil }
             return (mastodonUserID, activeMastodonAuthenticationBox)
@@ -441,9 +441,9 @@ extension ProfileViewModel {
             case .request: return Asset.Colors.brandBlue.color
             case .pending: return Asset.Colors.brandBlue.color
             case .following: return Asset.Colors.brandBlue.color
-            case .muting: return Asset.Colors.Background.alertYellow.color
+            case .muting: return Asset.Colors.alertYellow.color
             case .blocked: return Asset.Colors.brandBlue.color
-            case .blocking: return Asset.Colors.Background.danger.color
+            case .blocking: return Asset.Colors.danger.color
             case .suspended: return Asset.Colors.brandBlue.color
             case .edit: return Asset.Colors.brandBlue.color
             case .editing: return Asset.Colors.brandBlue.color

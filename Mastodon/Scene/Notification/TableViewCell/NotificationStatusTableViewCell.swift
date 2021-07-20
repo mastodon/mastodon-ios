@@ -50,17 +50,18 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         let imageView = FLAnimatedImageView()
         return imageView
     }()
+
+
+    let traitCollectionDidChange = PassthroughSubject<Void, Never>()
     
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .center
-        imageView.tintColor = Asset.Colors.Background.systemBackground.color
         imageView.isOpaque = true
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = NotificationStatusTableViewCell.actionImageViewSize.width * 0.5
         imageView.layer.cornerCurve = .circular
         imageView.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
-        imageView.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
         imageView.layer.shouldRasterize = true
         imageView.layer.rasterizationScale = UIScreen.main.scale
         return imageView
@@ -197,8 +198,8 @@ extension NotificationStatusTableViewCell {
         NSLayoutConstraint.activate([
             actionImageView.centerYAnchor.constraint(equalTo: avatarContainer.bottomAnchor),
             actionImageView.centerXAnchor.constraint(equalTo: avatarContainer.trailingAnchor),
-            actionImageView.widthAnchor.constraint(equalToConstant: NotificationStatusTableViewCell.actionImageViewSize.width),
-            actionImageView.heightAnchor.constraint(equalToConstant: NotificationStatusTableViewCell.actionImageViewSize.height),
+            actionImageView.widthAnchor.constraint(equalToConstant: NotificationStatusTableViewCell.actionImageViewSize.width).priority(.required - 1),
+            actionImageView.heightAnchor.constraint(equalTo: actionImageView.widthAnchor, multiplier: 1.0),
         ])
 
         containerStackView.addArrangedSubview(contentStackView)
@@ -282,14 +283,23 @@ extension NotificationStatusTableViewCell {
         nameLabel.addGestureRecognizer(authorNameLabelTapGestureRecognizer)
 
         resetSeparatorLineLayout()
+
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &disposeBag)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
         resetSeparatorLineLayout()
-        avatarImageView.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
-        statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        traitCollectionDidChange.send()
     }
 
     private func configure(isFiltered: Bool) {
@@ -297,12 +307,14 @@ extension NotificationStatusTableViewCell {
         filteredLabel.isHidden = !isFiltered
         isUserInteractionEnabled = !isFiltered
     }
-
 }
 
 extension NotificationStatusTableViewCell {
 
     private func setupBackgroundColor(theme: Theme) {
+        actionImageView.layer.borderColor = theme.systemBackgroundColor.cgColor
+        avatarImageView.layer.borderColor = Asset.Theme.Mastodon.systemBackground.color.cgColor
+        statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
         statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
             return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
         })
