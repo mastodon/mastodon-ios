@@ -30,6 +30,10 @@ extension ThemeService {
         tabBarAppearance.configureWithDefaultBackground()
 
         let tabBarItemAppearance = UITabBarItemAppearance()
+        tabBarItemAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        tabBarItemAppearance.focused.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        tabBarItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
+        tabBarItemAppearance.disabled.titleTextAttributes = [.foregroundColor: UIColor.clear]
         tabBarItemAppearance.selected.iconColor = theme.tabBarItemSelectedIconColor
         tabBarItemAppearance.focused.iconColor = theme.tabBarItemFocusedIconColor
         tabBarItemAppearance.normal.iconColor = theme.tabBarItemNormalIconColor
