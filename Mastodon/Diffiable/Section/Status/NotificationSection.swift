@@ -44,14 +44,26 @@ extension NotificationSection {
                         avatarImageURL: notification.account.avatarImageURL()
                     )
                 )
-                cell.actionImageView.image = UIImage(
-                    systemName: notification.notificationType.actionImageName,
-                    withConfiguration: UIImage.SymbolConfiguration(
-                        pointSize: 12, weight: .semibold
-                    )
-                )?
-                .withRenderingMode(.alwaysTemplate)
-                .af.imageAspectScaled(toFit: CGSize(width: 14, height: 14))
+                
+                func createActionImage() -> UIImage? {
+                    return UIImage(
+                        systemName: notification.notificationType.actionImageName,
+                        withConfiguration: UIImage.SymbolConfiguration(
+                            pointSize: 12, weight: .semibold
+                        )
+                    )?
+                    .withTintColor(.systemBackground)
+                    .af.imageAspectScaled(toFit: CGSize(width: 14, height: 14))
+                }
+                
+                cell.actionImageView.image = createActionImage()
+                cell.traitCollectionDidChange
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak cell] in
+                        guard let cell = cell else { return }
+                        cell.actionImageView.image = createActionImage()
+                    }
+                    .store(in: &cell.disposeBag)
 
                 cell.actionImageView.backgroundColor = notification.notificationType.color
 

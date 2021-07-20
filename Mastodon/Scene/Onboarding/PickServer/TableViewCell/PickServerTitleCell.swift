@@ -35,7 +35,7 @@ extension PickServerTitleCell {
     
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Theme.Mastodon.systemBackground.color
+        backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
 
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
