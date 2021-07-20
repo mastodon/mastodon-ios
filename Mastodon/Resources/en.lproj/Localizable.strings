@@ -323,7 +323,7 @@ any server.";
 "Scene.Settings.Section.Appearance.Title" = "Appearance";
 "Scene.Settings.Section.AppearanceSettings.DisableAvatarAnimation" = "Disable animated avatars";
 "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode" = "True black dark mode";
-"Scene.Settings.Section.BoringZone.AccountSettings" = "Account settings";
+"Scene.Settings.Section.BoringZone.AccountSettings" = "Account Settings";
 "Scene.Settings.Section.BoringZone.Privacy" = "Privacy Policy";
 "Scene.Settings.Section.BoringZone.Terms" = "Terms of Service";
 "Scene.Settings.Section.BoringZone.Title" = "The Boring Zone";

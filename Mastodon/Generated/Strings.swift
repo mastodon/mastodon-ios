@@ -950,7 +950,7 @@ internal enum L10n {
           internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode")
         }
         internal enum BoringZone {
-          /// Account settings
+          /// Account Settings
           internal static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.AccountSettings")
           /// Privacy Policy
           internal static let privacy = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.Privacy")

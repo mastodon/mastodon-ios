@@ -55,7 +55,7 @@ extension PickServerCategoriesCell {
     
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         
         metricView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(metricView)

@@ -43,6 +43,7 @@ public struct StatusEditorView: UIViewRepresentable {
         textView.textColor = .label
         textView.keyboardType = keyboardType
         textView.delegate = context.coordinator
+        textView.backgroundColor = .clear
 
         textView.translatesAutoresizingMaskIntoConstraints = false
         let widthLayoutConstraint = textView.widthAnchor.constraint(equalToConstant: 100)

@@ -88,7 +88,7 @@ extension ComposeStatusAttachmentTableViewCell {
                         guard let image = thumbnailImage else {
                             let placeholder = UIImage.placeholder(
                                 size: size,
-                                color: Asset.Colors.Background.systemGroupedBackground.color
+                                color: ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
                             )
                             .af.imageRounded(
                                 withCornerRadius: AttachmentContainerView.containerViewCornerRadius

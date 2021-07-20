@@ -54,13 +54,13 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     let actionImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .center
-        imageView.tintColor = Asset.Colors.Background.systemBackground.color
+        imageView.tintColor = Asset.Theme.Mastodon.systemBackground.color
         imageView.isOpaque = true
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = NotificationStatusTableViewCell.actionImageViewSize.width * 0.5
         imageView.layer.cornerCurve = .circular
         imageView.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
-        imageView.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
+        imageView.layer.borderColor = Asset.Theme.Mastodon.systemBackground.color.cgColor
         imageView.layer.shouldRasterize = true
         imageView.layer.rasterizationScale = UIScreen.main.scale
         return imageView
@@ -288,7 +288,7 @@ extension NotificationStatusTableViewCell {
         super.traitCollectionDidChange(previousTraitCollection)
         
         resetSeparatorLineLayout()
-        avatarImageView.layer.borderColor = Asset.Colors.Background.systemBackground.color.cgColor
+        avatarImageView.layer.borderColor = Asset.Theme.Mastodon.systemBackground.color.cgColor
         statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
     }
 

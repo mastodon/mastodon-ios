@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 final class AutoCompleteTopChevronView: UIView {
+
+    var disposeBag = Set<AnyCancellable>()
     
     static let chevronSize = CGSize(width: 20, height: 12)
     
@@ -16,10 +19,10 @@ final class AutoCompleteTopChevronView: UIView {
     private let maskLayer = CAShapeLayer()
         
     var chevronMinX: CGFloat = 0
-    var topViewBackgroundColor = Asset.Scene.Compose.background.color {
+    var topViewBackgroundColor = ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor {
         didSet { setNeedsLayout() }
     }
-    var bottomViewBackgroundColor = Asset.Colors.Background.systemBackground.color {
+    var bottomViewBackgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor {
         didSet { setNeedsLayout() }
     }
 
@@ -70,6 +73,15 @@ extension AutoCompleteTopChevronView {
         
         shadowLayer.fillColor = topViewBackgroundColor.cgColor
         shadowView.layer.addSublayer(shadowLayer)
+
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &disposeBag)
     }
     
     override func layoutSubviews() {
@@ -115,6 +127,13 @@ extension AutoCompleteTopChevronView {
 }
 
 extension AutoCompleteTopChevronView {
+    private func setupBackgroundColor(theme: Theme) {
+        topViewBackgroundColor = theme.systemElevatedBackgroundColor
+        bottomViewBackgroundColor = theme.systemBackgroundColor
+    }
+}
+
+extension AutoCompleteTopChevronView {
     func invertMask(in rect: CGRect) -> CAShapeLayer {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: bounds.maxY))
@@ -153,7 +172,7 @@ struct AutoCompleteTopChevronView_Previews: PreviewProvider {
                 view.chevronMinX = 10
                 return view
             }
-            .background(Color(Asset.Scene.Compose.background.color))
+            .background(Color(ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor))
             .padding(20)
             .previewLayout(.fixed(width: 375 + 40, height: 100 + 40))
             UIViewPreview(width: 375) {
@@ -166,7 +185,7 @@ struct AutoCompleteTopChevronView_Previews: PreviewProvider {
                 view.chevronMinX = 10
                 return view
             }
-            .background(Color(Asset.Scene.Compose.background.color))
+            .background(Color(ThemeService.shared.currentTheme.value.systemElevatedBackgroundColor))
             .preferredColorScheme(.dark)
             .padding(20)
             .previewLayout(.fixed(width: 375 + 40, height: 100 + 40))

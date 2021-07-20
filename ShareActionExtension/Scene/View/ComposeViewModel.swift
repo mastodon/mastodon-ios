@@ -16,6 +16,7 @@ class ComposeViewModel: ObservableObject {
 
     @Published var authentication: MastodonAuthentication?
 
+    @Published var backgroundColor: UIColor = .clear
     @Published var toolbarHeight: CGFloat = 0
     @Published var viewDidAppear = false
 

@@ -29,7 +29,7 @@ public struct ComposeView: View {
                     .padding(EdgeInsets(top: 6, leading: horizontalMargin, bottom: 6, trailing: horizontalMargin))
                     .background(viewModel.contentWarningBackgroundColor)
                     .transition(.opacity)
-                    .listRow()
+                    .listRow(backgroundColor: Color(viewModel.backgroundColor))
                 }
 
                 // Author
@@ -39,7 +39,7 @@ public struct ComposeView: View {
                     username: viewModel.authorUsername
                 )
                 .padding(EdgeInsets(top: 20, leading: horizontalMargin, bottom: 16, trailing: horizontalMargin))
-                .listRow()
+                .listRow(backgroundColor: Color(viewModel.backgroundColor))
 
                 // Editor
                 StatusEditorView(
@@ -53,7 +53,7 @@ public struct ComposeView: View {
                 .frame(width: statusEditorViewWidth)
                 .frame(minHeight: 100)
                 .padding(EdgeInsets(top: 0, leading: horizontalMargin, bottom: 0, trailing: horizontalMargin))
-                .listRow()
+                .listRow(backgroundColor: Color(viewModel.backgroundColor))
 
                 // Attachments
                 ForEach(viewModel.attachmentViewModels) { attachmentViewModel in
@@ -78,12 +78,12 @@ public struct ComposeView: View {
                 }
                 .padding(EdgeInsets(top: 16, leading: horizontalMargin, bottom: 0, trailing: horizontalMargin))
                 .fixedSize(horizontal: false, vertical: true)
-                .listRow()
+                .listRow(backgroundColor: Color(viewModel.backgroundColor))
 
                 // bottom padding
                 Color.clear
                     .frame(height: viewModel.toolbarHeight + 20)
-                    .listRow()
+                    .listRow(backgroundColor: Color(viewModel.backgroundColor))
             }   // end List
             .introspectTableView(customize: { tableView in
                 // tableView.keyboardDismissMode = .onDrag
@@ -97,9 +97,13 @@ public struct ComposeView: View {
                 var frame = frame
                 frame.size.width = frame.width - 2 * horizontalMargin
                 statusEditorViewWidth = frame.width
-            }
-        }
-    }
+            }   // end List
+            .introspectTableView(customize: { tableView in
+                tableView.backgroundColor = .clear
+            })
+            .background(Color(viewModel.backgroundColor).ignoresSafeArea())
+        }   // end GeometryReader
+    }   // end body
 }
 
 struct ComposeListViewFramePreferenceKey: PreferenceKey {
@@ -108,10 +112,10 @@ struct ComposeListViewFramePreferenceKey: PreferenceKey {
 }
 
 extension View {
-    func listRow() -> some View {
+    func listRow(backgroundColor: Color) -> some View {
         self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             .listRowInsets(EdgeInsets(top: -1, leading: -1, bottom: -1, trailing: -1))
-            .background(Color(.systemBackground))
+            .background(backgroundColor)
     }
 }
 

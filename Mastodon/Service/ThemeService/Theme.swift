@@ -8,6 +8,7 @@
 import UIKit
 
 public protocol Theme {
+    
     var systemBackgroundColor: UIColor { get }
     var secondarySystemBackgroundColor: UIColor { get }
     var tertiarySystemBackgroundColor: UIColor { get }
@@ -33,6 +34,7 @@ public protocol Theme {
 
     var contentWarningOverlayBackgroundColor: UIColor { get }
     var profileFieldCollectionViewBackgroundColor: UIColor { get }
+    var composeToolbarBackgroundColor: UIColor { get }
 
 }
 

@@ -48,7 +48,7 @@ extension PickServerCategoryView {
         addSubview(bgView)
         addSubview(titleLabel)
 
-        bgView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        bgView.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
 
         NSLayoutConstraint.activate([
             bgView.leadingAnchor.constraint(equalTo: self.leadingAnchor),

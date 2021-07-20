@@ -13,14 +13,14 @@ final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
     let containerView: UIView = {
         let view = UIView()
         view.layoutMargins = UIEdgeInsets(top: 16, left: 16, bottom: 10, right: 16)
-        view.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+        view.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     let seperator: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

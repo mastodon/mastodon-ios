@@ -58,7 +58,6 @@ extension ThreadReplyLoaderTableViewCell {
 
     func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
 
         loadMoreButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(loadMoreButton)
@@ -124,7 +123,7 @@ extension ThreadReplyLoaderTableViewCell {
     }
 
     private func setupBackgroundColor(theme: Theme) {
-        loadMoreButton.backgroundColor = theme.secondarySystemGroupedBackgroundColor
+        backgroundColor = theme.systemGroupedBackgroundColor
     }
     
 }

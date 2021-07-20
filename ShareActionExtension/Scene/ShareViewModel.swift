@@ -37,6 +37,7 @@ final class ShareViewModel {
     let isPublishing = CurrentValueSubject<Bool, Never>(false)
     let isBusy = CurrentValueSubject<Bool, Never>(true)
     let isValid = CurrentValueSubject<Bool, Never>(false)
+    let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
     let composeViewModel = ComposeViewModel()
     let characterCount = CurrentValueSubject<Int, Never>(0)
 
@@ -134,6 +135,11 @@ final class ShareViewModel {
         // bind compose bar button item UI state
         let isComposeContentEmpty = composeViewModel.$statusContent
             .map { $0.isEmpty }
+
+        isComposeContentEmpty
+            .assign(to: \.value, on: shouldDismiss)
+            .store(in: &disposeBag)
+
         let isComposeContentValid = composeViewModel.$characterCount
             .map { characterCount -> Bool in
                 return characterCount <= ShareViewModel.composeContentLimit

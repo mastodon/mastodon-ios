@@ -49,11 +49,7 @@ class ShareViewController: UIViewController {
     let viewSafeAreaDidChange = PassthroughSubject<Void, Never>()
     let composeToolbarView = ComposeToolbarView()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-    let composeToolbarBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-        return view
-    }()
+    let composeToolbarBackgroundView = UIView()
 }
 
 extension ShareViewController {
@@ -61,7 +57,16 @@ extension ShareViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Asset.Colors.Background.systemBackground.color
+        navigationController?.presentationController?.delegate = self
+
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackgroundColor(theme: theme)
+            }
+            .store(in: &disposeBag)
 
         navigationItem.leftBarButtonItem = cancelBarButtonItem
         viewModel.isBusy
@@ -204,9 +209,36 @@ extension ShareViewController {
 }
 
 extension ShareViewController {
+    private func setupBackgroundColor(theme: Theme) {
+        view.backgroundColor = theme.systemElevatedBackgroundColor
+        viewModel.composeViewModel.backgroundColor = theme.systemElevatedBackgroundColor
+        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithDefaultBackground()
+        barAppearance.backgroundColor = theme.navigationBarBackgroundColor
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+    }
+
+    private func showDismissConfirmAlertController() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)        // can not use alert in extension
+        let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { _ in
+            self.extensionContext?.cancelRequest(withError: ShareViewModel.ShareError.userCancelShare)
+        }
+        alertController.addAction(discardAction)
+        let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension ShareViewController {
     @objc private func cancelBarButtonItemPressed(_ sender: UIBarButtonItem) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
-        extensionContext?.cancelRequest(withError: ShareViewModel.ShareError.userCancelShare)
+
+        showDismissConfirmAlertController()
     }
 
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
@@ -267,5 +299,23 @@ extension ShareViewController: ComposeToolbarViewDelegate {
         viewModel.selectedStatusVisibility.value = type
     }
 
+}
+
+// MARK: - UIAdaptivePresentationControllerDelegate
+extension ShareViewController: UIAdaptivePresentationControllerDelegate {
+
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return viewModel.shouldDismiss.value
+    }
+
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        showDismissConfirmAlertController()
+
+    }
+
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 
 }

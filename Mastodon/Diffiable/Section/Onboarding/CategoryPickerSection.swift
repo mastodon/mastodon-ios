@@ -34,7 +34,7 @@ extension CategoryPickerSection {
                         cell.categoryView.titleLabel.textColor = .white
                     }
                 } else {
-                    cell.categoryView.bgView.backgroundColor = Asset.Colors.Background.secondaryGroupedSystemBackground.color
+                    cell.categoryView.bgView.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
                     cell.categoryView.bgView.applyShadow(color: Asset.Colors.brandBlue.color, alpha: 0, x: 0, y: 0, blur: 0.0)
                     if case .all = item {
                         cell.categoryView.titleLabel.textColor = Asset.Colors.brandBlue.color

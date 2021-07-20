@@ -76,11 +76,7 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     
     let composeToolbarView = ComposeToolbarView()
     var composeToolbarViewBottomLayoutConstraint: NSLayoutConstraint!
-    let composeToolbarBackgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = Asset.Scene.Compose.toolbarBackground.color
-        return view
-    }()
+    let composeToolbarBackgroundView = UIView()
     
     static func createPhotoLibraryPickerConfiguration(selectionLimit: Int = 4) -> PHPickerConfiguration {
         var configuration = PHPickerConfiguration()
@@ -591,6 +587,7 @@ extension ComposeViewController {
     private func setupBackgroundColor(theme: Theme) {
         view.backgroundColor = theme.systemElevatedBackgroundColor
         tableView.backgroundColor = theme.systemElevatedBackgroundColor
+        composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
     }
 
 }

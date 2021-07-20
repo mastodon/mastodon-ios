@@ -32,7 +32,7 @@ class SuggestionAccountViewController: UIViewController, NeedsDependency {
 
     lazy var tableHeader: UIView = {
         let view = UIView()
-        view.backgroundColor = Asset.Colors.Background.systemGroupedBackground.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.systemGroupedBackgroundColor
         view.frame = CGRect(origin: .zero, size: CGSize(width: tableView.frame.width, height: 156))
         return view
     }()
@@ -67,12 +67,12 @@ extension SuggestionAccountViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
             .sink { [weak self] theme in
                 guard let self = self else { return }
-                self.view.backgroundColor = theme.systemBackgroundColor
+                self.setupBackgroundColor(theme: theme)
             }
             .store(in: &disposeBag)
 
@@ -145,6 +145,11 @@ extension SuggestionAccountViewController {
         selectedCollectionView.delegate = self
 
         tableView.tableHeaderView = tableHeader
+    }
+
+    private func setupBackgroundColor(theme: Theme) {
+        view.backgroundColor = theme.systemBackgroundColor
+        tableHeader.backgroundColor = theme.systemGroupedBackgroundColor
     }
 }
 
