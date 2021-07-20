@@ -15,7 +15,7 @@ import MastodonSDK
 extension APIService {
 
     func filters(
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Filter]>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
         let domain = mastodonAuthenticationBox.domain

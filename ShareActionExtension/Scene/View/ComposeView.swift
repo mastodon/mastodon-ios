@@ -47,7 +47,8 @@ public struct ComposeView: View {
                     placeholder: viewModel.statusPlaceholder,
                     width: statusEditorViewWidth,
                     attributedString: viewModel.statusContentAttributedString,
-                    keyboardType: .twitter
+                    keyboardType: .twitter,
+                    viewDidAppear: $viewModel.viewDidAppear
                 )
                 .frame(width: statusEditorViewWidth)
                 .frame(minHeight: 100)
@@ -55,11 +56,23 @@ public struct ComposeView: View {
                 .listRow()
 
                 // Attachments
-                ForEach(viewModel.attachmentViewModels) { viewModel in
+                ForEach(viewModel.attachmentViewModels) { attachmentViewModel in
+                    let descriptionBinding = Binding {
+                        return attachmentViewModel.descriptionContent
+                    } set: { newValue in
+                        attachmentViewModel.descriptionContent = newValue
+                    }
+
                     StatusAttachmentView(
-                        image: viewModel.thumbnailImage,
+                        image: attachmentViewModel.thumbnailImage,
+                        descriptionPlaceholder: attachmentViewModel.descriptionPlaceholder,
+                        description: descriptionBinding,
+                        errorPrompt: attachmentViewModel.errorPrompt,
+                        errorPromptImage: attachmentViewModel.errorPromptImage,
+                        isUploading: attachmentViewModel.isUploading,
+                        progressViewTintColor: attachmentViewModel.progressViewTintColor,
                         removeButtonAction: {
-                            self.viewModel.removeAttachmentViewModel(viewModel)
+                            self.viewModel.removeAttachmentViewModel(attachmentViewModel)
                         }
                     )
                 }
@@ -73,7 +86,7 @@ public struct ComposeView: View {
                     .listRow()
             }   // end List
             .introspectTableView(customize: { tableView in
-                tableView.keyboardDismissMode = .onDrag
+                // tableView.keyboardDismissMode = .onDrag
                 tableView.verticalScrollIndicatorInsets.bottom = viewModel.toolbarHeight
             })
             .preference(

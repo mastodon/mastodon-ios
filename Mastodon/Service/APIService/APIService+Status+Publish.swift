@@ -1,47 +1,49 @@
 //
-//  APIService+Thread.swift
+//  APIService+Status+Publish.swift
 //  Mastodon
 //
-//  Created by MainasuK Cirno on 2021-4-12.
+//  Created by MainasuK Cirno on 2021-7-20.
 //
 
-import os.log
 import Foundation
 import Combine
 import CoreData
 import CoreDataStack
+import CommonOSLog
 import MastodonSDK
 
 extension APIService {
-    
-    func statusContext(
+
+    func publishStatus(
         domain: String,
-        statusID: Mastodon.Entity.Status.ID,
+        query: Mastodon.API.Statuses.PublishStatusQuery,
         mastodonAuthenticationBox: MastodonAuthenticationBox
-    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error> {
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let authorization = mastodonAuthenticationBox.userAuthorization
-        guard domain == mastodonAuthenticationBox.domain else {
-            return Fail(error: APIError.implicit(.badRequest)).eraseToAnyPublisher()
-        }
-        
-        return Mastodon.API.Statuses.statusContext(
+
+        return Mastodon.API.Statuses.publishStatus(
             session: session,
             domain: domain,
-            statusID: statusID,
+            query: query,
             authorization: authorization
         )
-        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Context>, Error> in
+        .flatMap { response -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+            #if APP_EXTENSION
+            return Just(response)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+            #else
             return APIService.Persist.persistStatus(
                 managedObjectContext: self.backgroundManagedObjectContext,
                 domain: domain,
                 query: nil,
-                response: response.map { $0.ancestors + $0.descendants },
+                response: response.map { [$0] },
                 persistType: .lookUp,
                 requestMastodonUserID: nil,
                 log: OSLog.api
             )
             .setFailureType(to: Error.self)
-            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Context> in
+            .tryMap { result -> Mastodon.Response.Content<Mastodon.Entity.Status> in
                 switch result {
                 case .success:
                     return response
@@ -50,8 +52,9 @@ extension APIService {
                 }
             }
             .eraseToAnyPublisher()
+            #endif
         }
         .eraseToAnyPublisher()
     }
-    
+
 }

@@ -16,7 +16,7 @@ extension APIService {
     
     func toggleMute(
         for mastodonUser: MastodonUser,
-        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        activeMastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
         let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
@@ -86,7 +86,7 @@ extension APIService {
     // update database local and return mute query update type for remote request
     func muteUpdateLocal(
         mastodonUserObjectID: NSManagedObjectID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<(Mastodon.API.Account.MuteQueryType, MastodonUser.ID), Error> {
         let domain = mastodonAuthenticationBox.domain
         let requestMastodonUserID = mastodonAuthenticationBox.userID
@@ -132,7 +132,7 @@ extension APIService {
     func muteUpdateRemote(
         muteQueryType: Mastodon.API.Account.MuteQueryType,
         mastodonUserID: MastodonUser.ID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let domain = mastodonAuthenticationBox.domain
         let authorization = mastodonAuthenticationBox.userAuthorization

@@ -62,7 +62,7 @@ extension APIService {
     func reblog(
         statusID: Mastodon.Entity.Status.ID,
         reblogKind: Mastodon.API.Reblog.ReblogKind,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
         let domain = mastodonAuthenticationBox.domain
         let authorization = mastodonAuthenticationBox.userAuthorization

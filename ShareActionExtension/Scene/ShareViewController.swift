@@ -34,8 +34,7 @@ class ShareViewController: UIViewController {
     private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ShareViewController.cancelBarButtonItemPressed(_:)))
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(customView: publishButton)
-        barButtonItem.target = self
-        barButtonItem.action = #selector(ShareViewController.publishBarButtonItemPressed(_:))
+        publishButton.addTarget(self, action: #selector(ShareViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
         return barButtonItem
     }()
 
@@ -173,6 +172,12 @@ extension ShareViewController {
                 }
             }
             .store(in: &disposeBag)
+
+        // bind valid
+        viewModel.isValid
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isEnabled, on: publishButton)
+            .store(in: &disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -180,6 +185,8 @@ extension ShareViewController {
 
         viewModel.viewDidAppear.value = true
         viewModel.inputItems.value = extensionContext?.inputItems.compactMap { $0 as? NSExtensionItem } ?? []
+
+        viewModel.composeViewModel.viewDidAppear = true
     }
 
     override func viewSafeAreaInsetsDidChange() {
@@ -204,6 +211,42 @@ extension ShareViewController {
 
     @objc private func publishBarButtonItemPressed(_ sender: UIBarButtonItem) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+
+        viewModel.isPublishing.value = true
+
+        viewModel.publish()
+            .delay(for: 2, scheduler: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let self = self else { return }
+                self.viewModel.isPublishing.value = false
+
+                switch completion {
+                case .failure:
+                    let alertController = UIAlertController(
+                        title: L10n.Common.Alerts.PublishPostFailure.title,
+                        message: L10n.Common.Alerts.PublishPostFailure.message,
+                        preferredStyle: .actionSheet        // can not use alert in extension
+                    )
+                    let okAction = UIAlertAction(
+                        title: L10n.Common.Controls.Actions.ok,
+                        style: .cancel,
+                        handler: nil
+                    )
+                    alertController.addAction(okAction)
+                    self.present(alertController, animated: true, completion: nil)
+                case .finished:
+                    self.publishButton.setTitle(L10n.Common.Controls.Actions.done, for: .normal)
+                    self.publishButton.isUserInteractionEnabled = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                        guard let self = self else { return }
+                        self.extensionContext?.completeRequest(returningItems: nil, completionHandler: nil)
+                    }
+                }
+            } receiveValue: { response in
+                // do nothing
+            }
+            .store(in: &disposeBag)
     }
 }
 

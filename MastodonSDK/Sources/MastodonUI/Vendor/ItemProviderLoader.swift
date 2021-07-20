@@ -41,11 +41,17 @@ extension ItemProviderLoader {
                 guard let source = CGImageSourceCreateWithURL(url as CFURL, sourceOptions) else {
                     return
                 }
+
+                #if APP_EXTENSION
+                let maxPixelSize: Int = 4096        // not limit but may upload fail
+                #else
+                let maxPixelSize: Int = 1536        // fit 120MB RAM limit
+                #endif
                 
                 let downsampleOptions = [
                     kCGImageSourceCreateThumbnailFromImageAlways: true,
                     kCGImageSourceCreateThumbnailWithTransform: true,
-                    kCGImageSourceThumbnailMaxPixelSize: 4096,
+                    kCGImageSourceThumbnailMaxPixelSize: maxPixelSize,
                 ] as CFDictionary
                 
                 guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else {

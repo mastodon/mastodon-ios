@@ -16,19 +16,22 @@ public struct StatusEditorView: UIViewRepresentable {
     let width: CGFloat
     let attributedString: NSAttributedString
     let keyboardType: UIKeyboardType
+    @Binding var viewDidAppear: Bool
 
     public init(
         string: Binding<String>,
         placeholder: String,
         width: CGFloat,
         attributedString: NSAttributedString,
-        keyboardType: UIKeyboardType
+        keyboardType: UIKeyboardType,
+        viewDidAppear: Binding<Bool>
     ) {
         self._string = string
         self.placeholder = placeholder
         self.width = width
         self.attributedString = attributedString
         self.keyboardType = keyboardType
+        self._viewDidAppear = viewDidAppear
     }
 
     public func makeUIView(context: Context) -> UITextView {
@@ -45,6 +48,7 @@ public struct StatusEditorView: UIViewRepresentable {
         let widthLayoutConstraint = textView.widthAnchor.constraint(equalToConstant: 100)
         widthLayoutConstraint.priority = .required - 1
         context.coordinator.widthLayoutConstraint = widthLayoutConstraint
+
         return textView
     }
 
@@ -55,6 +59,12 @@ public struct StatusEditorView: UIViewRepresentable {
 
         // update layout
         context.coordinator.updateLayout(width: width)
+
+        // set becomeFirstResponder
+        if viewDidAppear {
+            viewDidAppear = false
+            textView.becomeFirstResponder()
+        }
     }
 
     public func makeCoordinator() -> Coordinator {

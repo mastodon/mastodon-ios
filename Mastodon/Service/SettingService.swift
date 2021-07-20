@@ -41,7 +41,7 @@ final class SettingService {
 
         // create setting (if non-exist) for authenticated users
         authenticationService.mastodonAuthenticationBoxes
-            .compactMap { [weak self] mastodonAuthenticationBoxes -> AnyPublisher<[AuthenticationService.MastodonAuthenticationBox], Never>? in
+            .compactMap { [weak self] mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
                 guard let self = self else { return nil }
                 guard let authenticationService = self.authenticationService else { return nil }
                 guard let activeMastodonAuthenticationBox = mastodonAuthenticationBoxes.first else { return nil }

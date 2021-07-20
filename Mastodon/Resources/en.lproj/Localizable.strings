@@ -10,8 +10,8 @@
 "Common.Alerts.DiscardPostContent.Title" = "Discard Draft";
 "Common.Alerts.EditProfileFailure.Message" = "Cannot edit profile. Please try again.";
 "Common.Alerts.EditProfileFailure.Title" = "Edit Profile Error";
-"Common.Alerts.PublishPostFailure.AttchmentsMessage.MoreThanOneVideo" = "Cannot attach more than one video.";
-"Common.Alerts.PublishPostFailure.AttchmentsMessage.VideoAttachWithPhoto" = "Cannot attach a video to a post that already contains images.";
+"Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Cannot attach more than one video.";
+"Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "Cannot attach a video to a post that already contains images.";
 "Common.Alerts.PublishPostFailure.Message" = "Failed to publish the post.
 Please check your internet connection.";
 "Common.Alerts.PublishPostFailure.Title" = "Publish Failure";

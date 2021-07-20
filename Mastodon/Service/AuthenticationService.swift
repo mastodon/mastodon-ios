@@ -24,9 +24,9 @@ final class AuthenticationService: NSObject {
 
     // output
     let mastodonAuthentications = CurrentValueSubject<[MastodonAuthentication], Never>([])
-    let mastodonAuthenticationBoxes = CurrentValueSubject<[AuthenticationService.MastodonAuthenticationBox], Never>([])
+    let mastodonAuthenticationBoxes = CurrentValueSubject<[MastodonAuthenticationBox], Never>([])
     let activeMastodonAuthentication = CurrentValueSubject<MastodonAuthentication?, Never>(nil)
-    let activeMastodonAuthenticationBox = CurrentValueSubject<AuthenticationService.MastodonAuthenticationBox?, Never>(nil)
+    let activeMastodonAuthenticationBox = CurrentValueSubject<MastodonAuthenticationBox?, Never>(nil)
 
     init(
         managedObjectContext: NSManagedObjectContext,
@@ -61,11 +61,11 @@ final class AuthenticationService: NSObject {
             .store(in: &disposeBag)
         
         mastodonAuthentications
-            .map { authentications -> [AuthenticationService.MastodonAuthenticationBox] in
+            .map { authentications -> [MastodonAuthenticationBox] in
                 return authentications
                     .sorted(by: { $0.activedAt > $1.activedAt })
-                    .compactMap { authentication -> AuthenticationService.MastodonAuthenticationBox? in
-                        return AuthenticationService.MastodonAuthenticationBox(
+                    .compactMap { authentication -> MastodonAuthenticationBox? in
+                        return MastodonAuthenticationBox(
                             domain: authentication.domain,
                             userID: authentication.userID,
                             appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
@@ -89,15 +89,6 @@ final class AuthenticationService: NSObject {
         }
     }
 
-}
-
-extension AuthenticationService {
-    struct MastodonAuthenticationBox {
-        let domain: String
-        let userID: MastodonUser.ID
-        let appAuthorization: Mastodon.API.OAuth.Authorization
-        let userAuthorization: Mastodon.API.OAuth.Authorization
-    }
 }
 
 extension AuthenticationService {
@@ -133,7 +124,7 @@ extension AuthenticationService {
             guard let mastodonAuthentication = try? managedObjectContext.fetch(request).first else {
                 return
             }
-            _mastodonAuthenticationBox = AuthenticationService.MastodonAuthenticationBox(
+            _mastodonAuthenticationBox = MastodonAuthenticationBox(
                 domain: mastodonAuthentication.domain,
                 userID: mastodonAuthentication.userID,
                 appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),

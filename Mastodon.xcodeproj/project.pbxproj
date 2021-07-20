@@ -39,7 +39,6 @@
 		2D198643261BF09500F0B013 /* SearchResultItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198642261BF09500F0B013 /* SearchResultItem.swift */; };
 		2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D198648261C0B8500F0B013 /* SearchResultSection.swift */; };
 		2D206B7225F5D27F00143C56 /* AudioContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7125F5D27F00143C56 /* AudioContainerView.swift */; };
-		2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B7F25F5F45E00143C56 /* UIImage.swift */; };
 		2D206B8625F5FB0900143C56 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8525F5FB0900143C56 /* Double.swift */; };
 		2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */; };
 		2D206B9225F60EA700143C56 /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D206B9125F60EA700143C56 /* UIControl.swift */; };
@@ -533,7 +532,6 @@
 		DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */; };
 		DBCC3B30261440A50045B23D /* UITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B2F261440A50045B23D /* UITabBarController.swift */; };
 		DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B35261440BA0045B23D /* UINavigationController.swift */; };
-		DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B88261454BA0045B23D /* CGImage.swift */; };
 		DBCC3B8F26148F7B0045B23D /* CachedProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */; };
 		DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */; };
 		DBCC3B9B261584A00045B23D /* PrivateNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCC3B9A2615849F0045B23D /* PrivateNote.swift */; };
@@ -569,6 +567,19 @@
 		DBFEF05F26A57715006D7ED1 /* StatusAuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */; };
 		DBFEF06026A57715006D7ED1 /* StatusAttachmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */; };
 		DBFEF06326A577F2006D7ED1 /* StatusAttachmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */; };
+		DBFEF06826A67DEE006D7ED1 /* MastodonUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB45FAE225CA7181005A8AC7 /* MastodonUser.swift */; };
+		DBFEF06926A67E45006D7ED1 /* AppearancePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6D1B3C2636857500ACB481 /* AppearancePreference.swift */; };
+		DBFEF06A26A67E53006D7ED1 /* Emojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB7342645463500371D5F /* Emojis.swift */; };
+		DBFEF06B26A67E58006D7ED1 /* Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA94439265CC0FC00C537E1 /* Fields.swift */; };
+		DBFEF06D26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */; };
+		DBFEF06F26A690C4006D7ED1 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
+		DBFEF07126A690E8006D7ED1 /* AlamofireNetworkActivityIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DBFEF07026A690E8006D7ED1 /* AlamofireNetworkActivityIndicator */; };
+		DBFEF07326A6913D006D7ED1 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07226A6913D006D7ED1 /* APIService.swift */; };
+		DBFEF07526A69192006D7ED1 /* APIService+Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9A488F26035963008B817C /* APIService+Media.swift */; };
+		DBFEF07726A691FB006D7ED1 /* MastodonAuthenticationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */; };
+		DBFEF07826A69209006D7ED1 /* MastodonAuthenticationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */; };
+		DBFEF07B26A6BCE8006D7ED1 /* APIService+Status+Publish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */; };
+		DBFEF07C26A6BD0A006D7ED1 /* APIService+Status+Publish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */; };
 		EE93E8E8F9E0C39EAAEBD92F /* Pods_AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */; };
 /* End PBXBuildFile section */
 
@@ -727,7 +738,6 @@
 		2D198642261BF09500F0B013 /* SearchResultItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultItem.swift; sourceTree = "<group>"; };
 		2D198648261C0B8500F0B013 /* SearchResultSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultSection.swift; sourceTree = "<group>"; };
 		2D206B7125F5D27F00143C56 /* AudioContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioContainerView.swift; sourceTree = "<group>"; };
-		2D206B7F25F5F45E00143C56 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		2D206B8525F5FB0900143C56 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		2D206B8B25F6015000143C56 /* AudioPlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackService.swift; sourceTree = "<group>"; };
 		2D206B9125F60EA700143C56 /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
@@ -1204,7 +1214,6 @@
 		DBCBED1C26132E1A00B49291 /* StatusFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFetchedResultsController.swift; sourceTree = "<group>"; };
 		DBCC3B2F261440A50045B23D /* UITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController.swift; sourceTree = "<group>"; };
 		DBCC3B35261440BA0045B23D /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
-		DBCC3B88261454BA0045B23D /* CGImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImage.swift; sourceTree = "<group>"; };
 		DBCC3B8E26148F7B0045B23D /* CachedProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedProfileViewModel.swift; sourceTree = "<group>"; };
 		DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Relationship.swift"; sourceTree = "<group>"; };
 		DBCC3B9A2615849F0045B23D /* PrivateNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateNote.swift; sourceTree = "<group>"; };
@@ -1242,6 +1251,10 @@
 		DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAttachmentView.swift; sourceTree = "<group>"; };
 		DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusAttachmentViewModel.swift; sourceTree = "<group>"; };
 		DBFEF06726A58D07006D7ED1 /* ShareActionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShareActionExtension.entitlements; sourceTree = "<group>"; };
+		DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatusAttachmentViewModel+UploadState.swift"; sourceTree = "<group>"; };
+		DBFEF07226A6913D006D7ED1 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationBox.swift; sourceTree = "<group>"; };
+		DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status+Publish.swift"; sourceTree = "<group>"; };
 		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1341,6 +1354,7 @@
 				DB41ED8026A54D7C00F58330 /* AlamofireImage in Frameworks */,
 				DBC6463326A195DB00B0E31B /* AppShared.framework in Frameworks */,
 				4278334D6033AEEE0A1C5155 /* Pods_ShareActionExtension.framework in Frameworks */,
+				DBFEF07126A690E8006D7ED1 /* AlamofireNetworkActivityIndicator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2055,6 +2069,7 @@
 				DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */,
 				DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */,
 				DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */,
+				DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */,
 				DB938F1426241FDF00E5B6C1 /* APIService+Thread.swift */,
 				DB49A62A25FF36C700B98345 /* APIService+CustomEmoji.swift */,
 				2D61254C262547C200299647 /* APIService+Notification.swift */,
@@ -2497,8 +2512,6 @@
 				DBD376B1269302A4007FEC24 /* UITableViewCell.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
-				2D206B7F25F5F45E00143C56 /* UIImage.swift */,
-				DBCC3B88261454BA0045B23D /* CGImage.swift */,
 				2D206B8525F5FB0900143C56 /* Double.swift */,
 				2D206B9125F60EA700143C56 /* UIControl.swift */,
 				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
@@ -2764,6 +2777,7 @@
 				DBBC24D926A54BCB00398BB9 /* MastodonStatusContent+ParseResult.swift */,
 				DBBC24DA26A54BCB00398BB9 /* MastodonField.swift */,
 				DBBC24DB26A54BCB00398BB9 /* MastodonStatusContent+Appearance.swift */,
+				DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2791,6 +2805,7 @@
 				DBC6461926A170AB00B0E31B /* Info.plist */,
 				DBC6461626A170AB00B0E31B /* MainInterface.storyboard */,
 				DBFEF06126A57721006D7ED1 /* Scene */,
+				DBFEF07426A69140006D7ED1 /* Service */,
 			);
 			path = ShareActionExtension;
 			sourceTree = "<group>";
@@ -2902,6 +2917,7 @@
 				DBFEF05926A576EE006D7ED1 /* StatusAuthorView.swift */,
 				DBFEF05A26A576EE006D7ED1 /* StatusAttachmentView.swift */,
 				DBFEF06226A577F2006D7ED1 /* StatusAttachmentViewModel.swift */,
+				DBFEF06C26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2914,6 +2930,14 @@
 				DBC6461426A170AB00B0E31B /* ShareViewController.swift */,
 			);
 			path = Scene;
+			sourceTree = "<group>";
+		};
+		DBFEF07426A69140006D7ED1 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DBFEF07226A6913D006D7ED1 /* APIService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3111,6 +3135,7 @@
 				DB41ED7F26A54D7C00F58330 /* AlamofireImage */,
 				DB41ED8126A54D8A00F58330 /* MastodonMeta */,
 				DB41ED8326A54D8A00F58330 /* MetaTextView */,
+				DBFEF07026A690E8006D7ED1 /* AlamofireNetworkActivityIndicator */,
 			);
 			productName = ShareActionExtension;
 			productReference = DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */;
@@ -3821,6 +3846,7 @@
 				DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				DBBC24E026A54BCB00398BB9 /* MastodonField.swift in Sources */,
+				DBFEF07B26A6BCE8006D7ED1 /* APIService+Status+Publish.swift in Sources */,
 				DBCBCC032680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift in Sources */,
 				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
@@ -3836,7 +3862,6 @@
 				2D34D9E226149C920081BFC0 /* SearchRecommendTagsCollectionViewCell.swift in Sources */,
 				2D76317D25C14DF500929FB9 /* PublicTimelineViewController+Provider.swift in Sources */,
 				0F20223326145E51000C64BF /* HashtagTimelineViewModel+LoadMiddleState.swift in Sources */,
-				2D206B8025F5F45E00143C56 /* UIImage.swift in Sources */,
 				DB6D9F502635761F008423CD /* SubscriptionAlerts.swift in Sources */,
 				0F20220726134DA4000C64BF /* HashtagTimelineViewModel+Diffable.swift in Sources */,
 				DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */,
@@ -3871,6 +3896,7 @@
 				DBBC24C026A5443100398BB9 /* MastodonTheme.swift in Sources */,
 				DBBC24B526A540AE00398BB9 /* AvatarConfigurableView.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
+				DBFEF07726A691FB006D7ED1 /* MastodonAuthenticationBox.swift in Sources */,
 				DBBC24CF26A547AE00398BB9 /* ThemeService+Appearance.swift in Sources */,
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
@@ -3910,7 +3936,6 @@
 				2D6DE40026141DF600A63F6A /* SearchViewModel.swift in Sources */,
 				DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */,
 				DBAFB7352645463500371D5F /* Emojis.swift in Sources */,
-				DBCC3B89261454BA0045B23D /* CGImage.swift in Sources */,
 				DBCCC71E25F73297007E1AB6 /* APIService+Reblog.swift in Sources */,
 				DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */,
 				5BB04FD5262E7AFF0043BFF6 /* ReportViewController.swift in Sources */,
@@ -3993,21 +4018,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBFEF05E26A57715006D7ED1 /* ComposeView.swift in Sources */,
+				DBFEF07326A6913D006D7ED1 /* APIService.swift in Sources */,
 				DB41ED7C26A54D5500F58330 /* MastodonStatusContent+Appearance.swift in Sources */,
 				DBFEF06026A57715006D7ED1 /* StatusAttachmentView.swift in Sources */,
 				DBC6462326A1712000B0E31B /* ShareViewModel.swift in Sources */,
 				DBBC24B326A53EE700398BB9 /* ActiveLabel.swift in Sources */,
+				DBFEF06D26A67FB7006D7ED1 /* StatusAttachmentViewModel+UploadState.swift in Sources */,
 				DBBC24CB26A546C000398BB9 /* ThemePreference.swift in Sources */,
 				DBFEF05F26A57715006D7ED1 /* StatusAuthorView.swift in Sources */,
 				DBFEF05D26A57715006D7ED1 /* ContentWarningEditorView.swift in Sources */,
+				DBFEF06A26A67E53006D7ED1 /* Emojis.swift in Sources */,
+				DBFEF07526A69192006D7ED1 /* APIService+Media.swift in Sources */,
 				DB41ED7B26A54D4D00F58330 /* MastodonStatusContent+ParseResult.swift in Sources */,
 				DB41ED8A26A54F4C00F58330 /* AttachmentContainerView.swift in Sources */,
+				DBFEF06F26A690C4006D7ED1 /* APIService+APIError.swift in Sources */,
 				DBFEF05C26A57715006D7ED1 /* StatusEditorView.swift in Sources */,
 				DBBC24C726A5456400398BB9 /* SystemTheme.swift in Sources */,
 				DBBC24B626A5419700398BB9 /* ComposeStatusContentTableViewCell.swift in Sources */,
 				DBC6462926A1736700B0E31B /* Strings.swift in Sources */,
 				DBBC24C826A5456400398BB9 /* ThemeService.swift in Sources */,
+				DBFEF06826A67DEE006D7ED1 /* MastodonUser.swift in Sources */,
 				DBBC24C926A5456400398BB9 /* MastodonTheme.swift in Sources */,
+				DBFEF07C26A6BD0A006D7ED1 /* APIService+Status+Publish.swift in Sources */,
 				DBBC24B926A5426000398BB9 /* StatusContentWarningEditorView.swift in Sources */,
 				DB41ED8B26A54F5800F58330 /* AttachmentContainerView+EmptyStateView.swift in Sources */,
 				DBBC24A826A52F9000398BB9 /* ComposeToolbarView.swift in Sources */,
@@ -4019,6 +4051,9 @@
 				DB41ED8926A54F4000F58330 /* ComposeStatusAttachmentCollectionViewCell.swift in Sources */,
 				DBBC24D226A5488600398BB9 /* AvatarConfigurableView.swift in Sources */,
 				DBC6462C26A176B000B0E31B /* Assets.swift in Sources */,
+				DBFEF06926A67E45006D7ED1 /* AppearancePreference.swift in Sources */,
+				DBFEF06B26A67E58006D7ED1 /* Fields.swift in Sources */,
+				DBFEF07826A69209006D7ED1 /* MastodonAuthenticationBox.swift in Sources */,
 				DBC6461526A170AB00B0E31B /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5578,6 +5613,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */;
 			productName = FPSIndicator;
+		};
+		DBFEF07026A690E8006D7ED1 /* AlamofireNetworkActivityIndicator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */;
+			productName = AlamofireNetworkActivityIndicator;
 		};
 /* End XCSwiftPackageProductDependency section */
 

@@ -165,7 +165,7 @@ class ReportViewModel: NSObject {
             .store(in: &disposeBag)
     }
     
-    func bindForStep2(input: Input, domain: String, activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox) -> AnyPublisher<(Bool, Error?), Never> {
+    func bindForStep2(input: Input, domain: String, activeMastodonAuthenticationBox: MastodonAuthenticationBox) -> AnyPublisher<(Bool, Error?), Never> {
         let skip = input.step2Skip.map { [weak self] value -> Void in
             guard let self = self else { return value }
             self.reportQuery.comment = nil

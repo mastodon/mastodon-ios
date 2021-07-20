@@ -21,11 +21,12 @@ struct StatusAuthorView: View {
         HStack(spacing: 5) {
             AnimatedImage(imageURL: avatarImageURL)
                 .frame(width: 42, height: 42)
+                .background(Color(UIColor.systemFill))
                 .cornerRadius(4)
             VStack(alignment: .leading) {
                 Text(name)
                     .font(.headline)
-                Text("@" + username)
+                Text(username)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }

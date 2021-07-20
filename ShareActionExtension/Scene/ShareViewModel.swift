@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import CoreData
 import CoreDataStack
+import MastodonSDK
 import MastodonUI
 import SwiftUI
 import UniformTypeIdentifiers
@@ -33,6 +34,7 @@ final class ShareViewModel {
     // output
     let authentication = CurrentValueSubject<Result<MastodonAuthentication, Error>?, Never>(nil)
     let isFetchAuthentication = CurrentValueSubject<Bool, Never>(true)
+    let isPublishing = CurrentValueSubject<Bool, Never>(false)
     let isBusy = CurrentValueSubject<Bool, Never>(true)
     let isValid = CurrentValueSubject<Bool, Never>(false)
     let composeViewModel = ComposeViewModel()
@@ -59,11 +61,13 @@ final class ShareViewModel {
         }
         .store(in: &disposeBag)
 
+        // bind authentication loading state
         authentication
             .map { result in result == nil }
             .assign(to: \.value, on: isFetchAuthentication)
             .store(in: &disposeBag)
 
+        // bind user locked state
         authentication
             .compactMap { result -> Bool? in
                 guard let result = result else { return nil }
@@ -80,15 +84,105 @@ final class ShareViewModel {
             .assign(to: \.value, on: selectedStatusVisibility)
             .store(in: &disposeBag)
 
-        isFetchAuthentication
+        // bind author
+        authentication
             .receive(on: DispatchQueue.main)
-            .assign(to: \.value, on: isBusy)
+            .sink { [weak self] result in
+                guard let self = self else { return }
+                guard let result = result else { return }
+                switch result {
+                case .success(let authentication):
+                    self.composeViewModel.avatarImageURL = authentication.user.avatarImageURL()
+                    self.composeViewModel.authorName = authentication.user.displayNameWithFallback
+                    self.composeViewModel.authorUsername = "@" + authentication.user.username
+                case .failure:
+                    self.composeViewModel.avatarImageURL = nil
+                    self.composeViewModel.authorName = " "
+                    self.composeViewModel.authorUsername =  " "
+                }
+            }
             .store(in: &disposeBag)
 
+        // bind authentication to compose view model
+        authentication
+            .map { result -> MastodonAuthentication? in
+                guard let result = result else { return nil }
+                switch result {
+                case .success(let authentication):
+                    return authentication
+                case .failure:
+                    return nil
+                }
+            }
+            .assign(to: &composeViewModel.$authentication)
+
+        // bind isBusy
+        Publishers.CombineLatest(
+            isFetchAuthentication,
+            isPublishing
+        )
+        .receive(on: DispatchQueue.main)
+        .map { $0 || $1 }
+        .assign(to: \.value, on: isBusy)
+        .store(in: &disposeBag)
+
+        // pass initial i18n string
         composeViewModel.statusPlaceholder = L10n.Scene.Compose.contentInputPlaceholder
         composeViewModel.contentWarningPlaceholder = L10n.Scene.Compose.ContentWarning.placeholder
         composeViewModel.toolbarHeight = ComposeToolbarView.toolbarHeight
-        
+
+        // bind compose bar button item UI state
+        let isComposeContentEmpty = composeViewModel.$statusContent
+            .map { $0.isEmpty }
+        let isComposeContentValid = composeViewModel.$characterCount
+            .map { characterCount -> Bool in
+                return characterCount <= ShareViewModel.composeContentLimit
+            }
+        let isMediaEmpty = composeViewModel.$attachmentViewModels
+            .map { $0.isEmpty }
+        let isMediaUploadAllSuccess = composeViewModel.$attachmentViewModels
+            .map { viewModels in
+                viewModels.allSatisfy { $0.uploadStateMachineSubject.value is StatusAttachmentViewModel.UploadState.Finish }
+            }
+
+        let isPublishBarButtonItemEnabledPrecondition1 = Publishers.CombineLatest4(
+            isComposeContentEmpty,
+            isComposeContentValid,
+            isMediaEmpty,
+            isMediaUploadAllSuccess
+        )
+        .map { isComposeContentEmpty, isComposeContentValid, isMediaEmpty, isMediaUploadAllSuccess -> Bool in
+            if isMediaEmpty {
+                return isComposeContentValid && !isComposeContentEmpty
+            } else {
+                return isComposeContentValid && isMediaUploadAllSuccess
+            }
+        }
+        .eraseToAnyPublisher()
+
+        let isPublishBarButtonItemEnabledPrecondition2 = Publishers.CombineLatest(
+            isComposeContentEmpty,
+            isComposeContentValid
+        )
+        .map { isComposeContentEmpty, isComposeContentValid -> Bool in
+            return isComposeContentValid && !isComposeContentEmpty
+        }
+        .eraseToAnyPublisher()
+
+        Publishers.CombineLatest(
+            isPublishBarButtonItemEnabledPrecondition1,
+            isPublishBarButtonItemEnabledPrecondition2
+        )
+        .map { $0 && $1 }
+        .assign(to: \.value, on: isValid)
+        .store(in: &disposeBag)
+
+        // bind counter
+        composeViewModel.$characterCount
+            .assign(to: \.value, on: characterCount)
+            .store(in: &disposeBag)
+
+        // setup theme
         setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
@@ -96,10 +190,6 @@ final class ShareViewModel {
                 guard let self = self else { return }
                 self.setupBackgroundColor(theme: theme)
             }
-            .store(in: &disposeBag)
-
-        composeViewModel.$characterCount
-            .assign(to: \.value, on: characterCount)
             .store(in: &disposeBag)
     }
 
@@ -182,5 +272,78 @@ extension ShareViewModel {
             }
             composeViewModel.setupAttachmentViewModels(viewModels)
         }
+    }
+}
+
+extension ShareViewModel {
+    func publish() -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
+        guard let authentication = composeViewModel.authentication else {
+            return Fail(error: APIService.APIError.implicit(.authenticationMissing)).eraseToAnyPublisher()
+        }
+        let mastodonAuthenticationBox = MastodonAuthenticationBox(
+            domain: authentication.domain,
+            userID: authentication.userID,
+            appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.appAccessToken),
+            userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: authentication.userAccessToken)
+        )
+
+        let domain = authentication.domain
+        let attachmentViewModels = composeViewModel.attachmentViewModels
+        let mediaIDs = attachmentViewModels.compactMap { viewModel in
+            viewModel.attachment.value?.id
+        }
+        let sensitive: Bool = composeViewModel.isContentWarningComposing
+        let spoilerText: String? = {
+            let text = composeViewModel.contentWarningContent
+            guard !text.isEmpty else { return nil }
+            return text
+        }()
+        let visibility = selectedStatusVisibility.value.visibility
+
+        let updateMediaQuerySubscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = {
+            var subscriptions: [AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>] = []
+            for attachmentViewModel in attachmentViewModels {
+                guard let attachmentID = attachmentViewModel.attachment.value?.id else { continue }
+                let description = attachmentViewModel.descriptionContent.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !description.isEmpty else { continue }
+                let query = Mastodon.API.Media.UpdateMediaQuery(
+                    file: nil,
+                    thumbnail: nil,
+                    description: description,
+                    focus: nil
+                )
+                let subscription = APIService.shared.updateMedia(
+                    domain: domain,
+                    attachmentID: attachmentID,
+                    query: query,
+                    mastodonAuthenticationBox: mastodonAuthenticationBox
+                )
+                subscriptions.append(subscription)
+            }
+            return subscriptions
+        }()
+
+        let status = composeViewModel.statusContent
+
+        return Publishers.MergeMany(updateMediaQuerySubscriptions)
+            .collect()
+            .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
+                let query = Mastodon.API.Statuses.PublishStatusQuery(
+                    status: status,
+                    mediaIDs: mediaIDs.isEmpty ? nil : mediaIDs,
+                    pollOptions: nil,
+                    pollExpiresIn: nil,
+                    inReplyToID: nil,
+                    sensitive: sensitive,
+                    spoilerText: spoilerText,
+                    visibility: visibility
+                )
+                return APIService.shared.publishStatus(
+                    domain: domain,
+                    query: query,
+                    mastodonAuthenticationBox: mastodonAuthenticationBox
+                )
+            }
+            .eraseToAnyPublisher()
     }
 }

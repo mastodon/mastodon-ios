@@ -83,7 +83,7 @@ extension MastodonAttachmentService.UploadState {
                     {
                         self.needsFallback = true
                         stateMachine.enter(Uploading.self)
-                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fallback to V1", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fallback to V1", ((#file as NSString).lastPathComponent), #line, #function)
                     } else {
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                         service.error.send(error)

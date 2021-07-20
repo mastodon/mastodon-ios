@@ -17,7 +17,7 @@ extension APIService {
     func relationship(
         domain: String,
         accountIDs: [Mastodon.Entity.Account.ID],
-        authorizationBox: AuthenticationService.MastodonAuthenticationBox
+        authorizationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Relationship]>, Error> {
         let authorization = authorizationBox.userAuthorization
         let requestMastodonUserID = authorizationBox.userID

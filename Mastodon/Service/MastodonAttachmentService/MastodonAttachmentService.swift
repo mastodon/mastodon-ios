@@ -27,7 +27,7 @@ final class MastodonAttachmentService {
         
     // input
     let context: AppContext
-    var authenticationBox: AuthenticationService.MastodonAuthenticationBox?
+    var authenticationBox: MastodonAuthenticationBox?
     let file = CurrentValueSubject<Mastodon.Query.MediaAttachment?, Never>(nil)
     let description = CurrentValueSubject<String?, Never>(nil)
     
@@ -52,7 +52,7 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         pickerResult: PHPickerResult,
-        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: MastodonAuthenticationBox?
     ) {
         self.context = context
         self.authenticationBox = initialAuthenticationBox
@@ -90,7 +90,7 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         image: UIImage,
-        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: MastodonAuthenticationBox?
     ) {
         self.context = context
         self.authenticationBox = initialAuthenticationBox
@@ -105,7 +105,7 @@ final class MastodonAttachmentService {
     init(
         context: AppContext,
         documentURL: URL,
-        initialAuthenticationBox: AuthenticationService.MastodonAuthenticationBox?
+        initialAuthenticationBox: MastodonAuthenticationBox?
     ) {
         self.context = context
         self.authenticationBox = initialAuthenticationBox
@@ -191,7 +191,7 @@ extension MastodonAttachmentService {
 
 extension MastodonAttachmentService {
     // FIXME: needs reset state for multiple account posting support
-    func uploading(mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox) -> Bool {
+    func uploading(mastodonAuthenticationBox: MastodonAuthenticationBox) -> Bool {
         authenticationBox = mastodonAuthenticationBox
         return uploadStateMachine.enter(UploadState.self)
     }

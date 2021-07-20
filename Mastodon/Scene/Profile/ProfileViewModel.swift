@@ -115,7 +115,7 @@ class ProfileViewModel: NSObject {
             context.authenticationService.activeMastodonAuthenticationBox.eraseToAnyPublisher(),
             pendingRetryPublisher.eraseToAnyPublisher()
         )
-        .compactMap { mastodonUserID, activeMastodonAuthenticationBox, _ -> (String, AuthenticationService.MastodonAuthenticationBox)? in
+        .compactMap { mastodonUserID, activeMastodonAuthenticationBox, _ -> (String, MastodonAuthenticationBox)? in
             guard let mastodonUserID = mastodonUserID, let activeMastodonAuthenticationBox = activeMastodonAuthenticationBox else { return nil }
             guard mastodonUserID != activeMastodonAuthenticationBox.userID else { return nil }
             return (mastodonUserID, activeMastodonAuthenticationBox)

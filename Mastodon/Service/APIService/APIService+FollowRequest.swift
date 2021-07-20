@@ -17,7 +17,7 @@ import MastodonSDK
 extension APIService {
     func acceptFollowRequest(
             mastodonUserID: MastodonUser.ID,
-            mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+            mastodonAuthenticationBox: MastodonAuthenticationBox
         ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
             let domain = mastodonAuthenticationBox.domain
             let authorization = mastodonAuthenticationBox.userAuthorization
@@ -61,7 +61,7 @@ extension APIService {
     
     func rejectFollowRequest(
             mastodonUserID: MastodonUser.ID,
-            mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+            mastodonAuthenticationBox: MastodonAuthenticationBox
         ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
             let domain = mastodonAuthenticationBox.domain
             let authorization = mastodonAuthenticationBox.userAuthorization

@@ -24,7 +24,7 @@ extension APIService {
     /// - Returns: publisher for `Relationship`
     func toggleFollow(
         for mastodonUser: MastodonUser,
-        activeMastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        activeMastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         
         let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
@@ -96,7 +96,7 @@ extension APIService {
     // update database local and return follow query update type for remote request
     func followUpdateLocal(
         mastodonUserObjectID: NSManagedObjectID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<(Mastodon.API.Account.FollowQueryType, MastodonUser.ID), Error> {
         let domain = mastodonAuthenticationBox.domain
         let requestMastodonUserID = mastodonAuthenticationBox.userID
@@ -156,7 +156,7 @@ extension APIService {
     func followUpdateRemote(
         followQueryType: Mastodon.API.Account.FollowQueryType,
         mastodonUserID: MastodonUser.ID,
-        mastodonAuthenticationBox: AuthenticationService.MastodonAuthenticationBox
+        mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Relationship>, Error> {
         let domain = mastodonAuthenticationBox.domain
         let authorization = mastodonAuthenticationBox.userAuthorization
