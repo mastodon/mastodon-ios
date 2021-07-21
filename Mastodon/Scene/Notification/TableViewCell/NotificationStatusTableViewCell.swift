@@ -14,7 +14,6 @@ import ActiveLabel
 import MetaTextView
 import Meta
 import FLAnimatedImage
-import Nuke
 
 protocol NotificationTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }
@@ -46,31 +45,8 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
     var containerStackViewBottomLayoutConstraint: NSLayoutConstraint!
     let containerStackView = UIStackView()
 
-    let avatarImageView: UIImageView = {
-        let imageView = FLAnimatedImageView()
-        return imageView
-    }()
-
-
+    let avatarButton = NotificationAvatarButton()
     let traitCollectionDidChange = PassthroughSubject<Void, Never>()
-    
-    let actionImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .center
-        imageView.isOpaque = true
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = NotificationStatusTableViewCell.actionImageViewSize.width * 0.5
-        imageView.layer.cornerCurve = .circular
-        imageView.layer.borderWidth = NotificationStatusTableViewCell.actionImageBorderWidth
-        imageView.layer.shouldRasterize = true
-        imageView.layer.rasterizationScale = UIScreen.main.scale
-        return imageView
-    }()
-    
-    let avatarContainer: UIView = {
-        let view = UIView()
-        return view
-    }()
 
     let contentStackView = UIStackView()
 
@@ -181,25 +157,11 @@ extension NotificationStatusTableViewCell {
             containerStackViewBottomLayoutConstraint.priority(.required - 1),
         ])
 
-        containerStackView.addArrangedSubview(avatarContainer)
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarContainer.addSubview(avatarImageView)
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: avatarContainer.topAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: avatarContainer.leadingAnchor),
-            avatarImageView.trailingAnchor.constraint(equalTo: avatarContainer.trailingAnchor),
-            avatarImageView.bottomAnchor.constraint(equalTo: avatarContainer.bottomAnchor),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 35).priority(.required - 1),
-            avatarImageView.widthAnchor.constraint(equalToConstant: 35).priority(.required - 1),
-        ])
-
-        actionImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarContainer.addSubview(actionImageView)
-        NSLayoutConstraint.activate([
-            actionImageView.centerYAnchor.constraint(equalTo: avatarContainer.bottomAnchor),
-            actionImageView.centerXAnchor.constraint(equalTo: avatarContainer.trailingAnchor),
-            actionImageView.widthAnchor.constraint(equalToConstant: NotificationStatusTableViewCell.actionImageViewSize.width).priority(.required - 1),
-            actionImageView.heightAnchor.constraint(equalTo: actionImageView.widthAnchor, multiplier: 1.0),
+            avatarButton.heightAnchor.constraint(equalToConstant: NotificationAvatarButton.containerSize.width).priority(.required - 1),
+            avatarButton.widthAnchor.constraint(equalToConstant: NotificationAvatarButton.containerSize.height).priority(.required - 1),
         ])
 
         containerStackView.addArrangedSubview(contentStackView)
@@ -274,10 +236,8 @@ extension NotificationStatusTableViewCell {
         filteredLabel.isHidden = true
 
         statusView.delegate = self
-
-        let avatarImageViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-        avatarImageViewTapGestureRecognizer.addTarget(self, action: #selector(NotificationStatusTableViewCell.avatarImageViewTapGestureRecognizerHandler(_:)))
-        avatarImageView.addGestureRecognizer(avatarImageViewTapGestureRecognizer)
+        
+        avatarButton.addTarget(self, action: #selector(NotificationStatusTableViewCell.avatarButtonDidPressed(_:)), for: .touchUpInside)
         let authorNameLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         authorNameLabelTapGestureRecognizer.addTarget(self, action: #selector(NotificationStatusTableViewCell.authorNameLabelTapGestureRecognizerHandler(_:)))
         nameLabel.addGestureRecognizer(authorNameLabelTapGestureRecognizer)
@@ -312,8 +272,8 @@ extension NotificationStatusTableViewCell {
 extension NotificationStatusTableViewCell {
 
     private func setupBackgroundColor(theme: Theme) {
-        actionImageView.layer.borderColor = theme.systemBackgroundColor.cgColor
-        avatarImageView.layer.borderColor = Asset.Theme.Mastodon.systemBackground.color.cgColor
+//        actionImageView.layer.borderColor = theme.systemBackgroundColor.cgColor
+//        avatarImageView.layer.borderColor = Asset.Theme.Mastodon.systemBackground.color.cgColor
         statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
         statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
             return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
@@ -323,9 +283,9 @@ extension NotificationStatusTableViewCell {
 }
 
 extension NotificationStatusTableViewCell {
-    @objc private func avatarImageViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+    @objc private func avatarButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.notificationStatusTableViewCell(self, avatarImageViewDidPressed: avatarImageView)
+        delegate?.notificationStatusTableViewCell(self, avatarImageViewDidPressed: avatarButton.avatarImageView)
     }
 
     @objc private func authorNameLabelTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
@@ -408,6 +368,5 @@ extension NotificationStatusTableViewCell {
 extension NotificationStatusTableViewCell: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { CGSize(width: 35, height: 35) }
     static var configurableAvatarImageCornerRadius: CGFloat { 4 }
-    var configurableAvatarImageView: UIImageView? { avatarImageView }
-    var configurableAvatarButton: UIButton? { nil }
+    var configurableAvatarImageView: FLAnimatedImageView? { avatarButton.avatarImageView }
 }

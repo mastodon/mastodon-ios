@@ -193,7 +193,9 @@
 		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
 		DB0C946B26A700AB0088FB11 /* MastodonUser+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C946A26A700AB0088FB11 /* MastodonUser+Property.swift */; };
 		DB0C946C26A700CE0088FB11 /* MastodonUser+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C946A26A700AB0088FB11 /* MastodonUser+Property.swift */; };
-		DB0E2D2E26833FF700865C3C /* NukeFLAnimatedImagePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */; };
+		DB0C946F26A7D2A80088FB11 /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C946E26A7D2A80088FB11 /* AvatarImageView.swift */; };
+		DB0C947226A7D2D70088FB11 /* AvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947126A7D2D70088FB11 /* AvatarButton.swift */; };
+		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
 		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
@@ -275,10 +277,8 @@
 		DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */; };
 		DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */; };
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
-		DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */; };
 		DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D170262832380062B7A1 /* BlurHashDecode.swift */; };
 		DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D171262832380062B7A1 /* BlurHashEncode.swift */; };
-		DB52D33A26839DD800D43133 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB52D33926839DD800D43133 /* ImageTask.swift */; };
 		DB564BD0269F2F83001E39A7 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */; };
 		DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */; };
 		DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */; };
@@ -443,9 +443,10 @@
 		DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */; };
 		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
 		DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */; };
-		DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = DBAEDE5E267A0B1500D25FF5 /* Nuke */; };
 		DBAEDE61267B342D00D25FF5 /* StatusContentCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */; };
 		DBAFB7352645463500371D5F /* Emojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB7342645463500371D5F /* Emojis.swift */; };
+		DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */; };
+		DBB3BA2B26A81D060004F2D4 /* FLAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */; };
 		DBB525082611EAC0002F1F29 /* Tabman in Frameworks */ = {isa = PBXBuildFile; productRef = DBB525072611EAC0002F1F29 /* Tabman */; };
 		DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */; };
 		DBB525212611EBD6002F1F29 /* ProfilePagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */; };
@@ -892,6 +893,9 @@
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0C946A26A700AB0088FB11 /* MastodonUser+Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonUser+Property.swift"; sourceTree = "<group>"; };
+		DB0C946E26A7D2A80088FB11 /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
+		DB0C947126A7D2D70088FB11 /* AvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarButton.swift; sourceTree = "<group>"; };
+		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0F814D264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -980,10 +984,8 @@
 		DB4F097E26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryFetchedResultController.swift; sourceTree = "<group>"; };
 		DB4FFC29269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchToSearchDetailViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
 		DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTransitionController.swift; sourceTree = "<group>"; };
-		DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarBarButtonItem.swift; sourceTree = "<group>"; };
 		DB51D170262832380062B7A1 /* BlurHashDecode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
 		DB51D171262832380062B7A1 /* BlurHashEncode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurHashEncode.swift; sourceTree = "<group>"; };
-		DB52D33926839DD800D43133 /* ImageTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTask.swift; sourceTree = "<group>"; };
 		DB564BCF269F2F83001E39A7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ar; path = ar.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DB564BD1269F2F8A001E39A7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusFilterService.swift; sourceTree = "<group>"; };
@@ -1143,6 +1145,7 @@
 		DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurhashImageCacheService.swift; sourceTree = "<group>"; };
 		DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentCacheService.swift; sourceTree = "<group>"; };
 		DBAFB7342645463500371D5F /* Emojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emojis.swift; sourceTree = "<group>"; };
+		DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAnimatedImageView.swift; sourceTree = "<group>"; };
 		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
 		DBB525202611EBD6002F1F29 /* ProfilePagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewController.swift; sourceTree = "<group>"; };
 		DBB5252F2611EBF3002F1F29 /* ProfilePagingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePagingViewModel.swift; sourceTree = "<group>"; };
@@ -1253,7 +1256,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBAEDE5F267A0B1500D25FF5 /* Nuke in Frameworks */,
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB03F7ED268976B5007B274C /* MetaTextView in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
@@ -1266,7 +1268,6 @@
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
-				DB0E2D2E26833FF700865C3C /* NukeFLAnimatedImagePlugin in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
@@ -1544,7 +1545,8 @@
 		2D42FF8325C82245004A627A /* Button */ = {
 			isa = PBXGroup;
 			children = (
-				DB5086A425CC0B7000C2C187 /* AvatarBarButtonItem.swift */,
+				DB0C947126A7D2D70088FB11 /* AvatarButton.swift */,
+				DB71FD2B25F86A5100512AE1 /* AvatarStackContainerButton.swift */,
 				2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */,
 				0FAA101125E105390017CCDE /* PrimaryActionButton.swift */,
 			);
@@ -1695,6 +1697,7 @@
 				DB9D6C1325E4F97A0051B173 /* Container */,
 				DBA9B90325F1D4420012E7B6 /* Control */,
 				2D152A8A25C295B8009AA50C /* Content */,
+				DB0C947026A7D2AB0088FB11 /* ImageView */,
 				DB87D45C2609DE6600D12C0D /* TextField */,
 				DB1D187125EF5BBD003F1F23 /* TableView */,
 				2D7631A625C1533800929FB9 /* TableviewCell */,
@@ -1908,6 +1911,22 @@
 				DBA1DB7F268F84F80052DB59 /* NotificationType.swift */,
 			);
 			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
+		DB0C947026A7D2AB0088FB11 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				DB0C946E26A7D2A80088FB11 /* AvatarImageView.swift */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		DB0C947826A7FE950088FB11 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 		DB1D187125EF5BBD003F1F23 /* TableView */ = {
@@ -2509,7 +2528,7 @@
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
 				DB97131E2666078B00BD1E90 /* Date.swift */,
 				DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */,
-				DB52D33926839DD800D43133 /* ImageTask.swift */,
+				DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2568,13 +2587,14 @@
 		DB9D6BFD25E4F57B0051B173 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				DB0C947826A7FE950088FB11 /* Button */,
+				2D35237F26256F470031AF25 /* TableViewCell */,
 				DB9D6BF725E4F5690051B173 /* NotificationViewController.swift */,
 				DB63BE7E268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift */,
 				2D607AD726242FC500B70763 /* NotificationViewModel.swift */,
 				2D084B8C26258EA3003AA3AF /* NotificationViewModel+Diffable.swift */,
 				2D084B9226259545003AA3AF /* NotificationViewModel+LoadLatestState.swift */,
 				2D24E12C2626FD2E00A59D4F /* NotificationViewModel+LoadOldestState.swift */,
-				2D35237F26256F470031AF25 /* TableViewCell */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -2639,7 +2659,6 @@
 		DBA9B90325F1D4420012E7B6 /* Control */ = {
 			isa = PBXGroup;
 			children = (
-				DB71FD2B25F86A5100512AE1 /* AvatarStackContainerButton.swift */,
 				DB59F11725EFA35B001F1DAB /* StripProgressView.swift */,
 				DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */,
 			);
@@ -2976,12 +2995,10 @@
 				2D939AC725EE14620076FA61 /* CropViewController */,
 				DB9A487D2603456B008B817C /* UITextView+Placeholder */,
 				DBB525072611EAC0002F1F29 /* Tabman */,
-				DBAEDE5E267A0B1500D25FF5 /* Nuke */,
 				DBAC6482267D0B21007FE9FD /* DifferenceKit */,
 				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
 				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
-				DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */,
 				DB03F7EA268976B5007B274C /* MastodonMeta */,
 				DB03F7EC268976B5007B274C /* MetaTextView */,
 				DBC6462A26A1738900B0E31B /* MastodonUI */,
@@ -3204,7 +3221,6 @@
 				DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */,
 				DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				DB6F5E30264E7410009108F4 /* XCRemoteSwiftPackageReference "TwitterTextEditor" */,
-				DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */,
 				DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */,
 				DBAC649C267DFE43007FE9FD /* XCRemoteSwiftPackageReference "DiffableDataSources" */,
 				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
@@ -3540,6 +3556,7 @@
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
 				DBAEDE61267B342D00D25FF5 /* StatusContentCacheService.swift in Sources */,
+				DB0C946F26A7D2A80088FB11 /* AvatarImageView.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
 				DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */,
@@ -3569,6 +3586,7 @@
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */,
+				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,
 				2DE0FAC82615F5F000CDF649 /* SearchRecommendAccountsCollectionViewCell.swift in Sources */,
 				DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */,
 				2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */,
@@ -3607,6 +3625,7 @@
 				DBCBED1D26132E1A00B49291 /* StatusFetchedResultsController.swift in Sources */,
 				2D79E701261EA5550011E398 /* APIService+CoreData+Tag.swift in Sources */,
 				DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */,
+				DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */,
 				5B90C461262599800002E742 /* SettingsLinkTableViewCell.swift in Sources */,
 				DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */,
 				DBE3CDEC261C6B2900430CC6 /* FavoriteViewController.swift in Sources */,
@@ -3664,7 +3683,6 @@
 				DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */,
 				DBE0822425CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift in Sources */,
 				2DF75B9B25D0E27500694EC8 /* StatusProviderFacade.swift in Sources */,
-				DB5086A525CC0B7000C2C187 /* AvatarBarButtonItem.swift in Sources */,
 				5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */,
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
@@ -3676,7 +3694,6 @@
 				DBCBCC012680AF2A000F5B51 /* AsyncHomeTimelineViewModel+Diffable.swift in Sources */,
 				DBCC3B36261440BA0045B23D /* UINavigationController.swift in Sources */,
 				DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */,
-				DB52D33A26839DD800D43133 /* ImageTask.swift in Sources */,
 				2D84350525FF858100EECE90 /* UIScrollView.swift in Sources */,
 				DB49A61F25FF32AA00B98345 /* EmojiService+CustomEmojiViewModel.swift in Sources */,
 				2D76316B25C14D4C00929FB9 /* PublicTimelineViewModel.swift in Sources */,
@@ -3821,6 +3838,7 @@
 				DBE0821525CD382600FD6BBD /* MastodonRegisterViewController.swift in Sources */,
 				2D5A3D0325CF8742002347D6 /* ControlContainableScrollViews.swift in Sources */,
 				DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
+				DB0C947226A7D2D70088FB11 /* AvatarButton.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
 				DBBC24E026A54BCB00398BB9 /* MastodonField.swift in Sources */,
 				DBFEF07B26A6BCE8006D7ED1 /* APIService+Status+Publish.swift in Sources */,
@@ -4011,6 +4029,7 @@
 				DBBC24C826A5456400398BB9 /* ThemeService.swift in Sources */,
 				DBBC24C926A5456400398BB9 /* MastodonTheme.swift in Sources */,
 				DBFEF07C26A6BD0A006D7ED1 /* APIService+Status+Publish.swift in Sources */,
+				DBB3BA2B26A81D060004F2D4 /* FLAnimatedImageView.swift in Sources */,
 				DBBC24A826A52F9000398BB9 /* ComposeToolbarView.swift in Sources */,
 				DBFEF05B26A57715006D7ED1 /* ComposeViewModel.swift in Sources */,
 				DBBC24C626A5456000398BB9 /* Theme.swift in Sources */,
@@ -5402,14 +5421,6 @@
 				minimumVersion = 3.1.3;
 			};
 		};
-		DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/Nuke.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.3.0;
-			};
-		};
 		DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/uias/Tabman";
@@ -5478,11 +5489,6 @@
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
 		};
-		DB0E2D2D26833FF700865C3C /* NukeFLAnimatedImagePlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */;
-			productName = NukeFLAnimatedImagePlugin;
-		};
 		DB3D0FF225BAA61700EAA174 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
@@ -5527,11 +5533,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */;
 			productName = Fuzi;
-		};
-		DBAEDE5E267A0B1500D25FF5 /* Nuke */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DBAEDE5D267A0B1500D25FF5 /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = Nuke;
 		};
 		DBB525072611EAC0002F1F29 /* Tabman */ = {
 			isa = XCSwiftPackageProductDependency;

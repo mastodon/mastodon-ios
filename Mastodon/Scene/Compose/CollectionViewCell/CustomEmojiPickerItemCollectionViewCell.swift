@@ -6,16 +6,14 @@
 //
 
 import UIKit
-import Nuke
+import FLAnimatedImage
 
 final class CustomEmojiPickerItemCollectionViewCell: UICollectionViewCell {
     
     static let itemSize = CGSize(width: 44, height: 44)
 
-    var imageTask: ImageTask?
-    
-    let emojiImageView: UIImageView = {
-        let imageView = UIImageView()
+    let emojiImageView: FLAnimatedImageView = {
+        let imageView = FLAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         return imageView
@@ -29,8 +27,6 @@ final class CustomEmojiPickerItemCollectionViewCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        imageTask?.cancel()
-        imageTask = nil
     }
     
     override init(frame: CGRect) {

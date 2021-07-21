@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FLAnimatedImage
 
 final class AutoCompleteTableViewCell: UITableViewCell {
     
@@ -27,7 +28,7 @@ final class AutoCompleteTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    let avatarImageView = UIImageView()
+    let avatarImageView = FLAnimatedImageView()
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -129,8 +130,7 @@ extension AutoCompleteTableViewCell {
 extension AutoCompleteTableViewCell: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { avatarImageSize }
     static var configurableAvatarImageCornerRadius: CGFloat { avatarImageCornerRadius }
-    var configurableAvatarImageView: UIImageView? { avatarImageView }
-    var configurableAvatarButton: UIButton? { nil }
+    var configurableAvatarImageView: FLAnimatedImageView? { avatarImageView }
 }
 
 #if canImport(SwiftUI) && DEBUG

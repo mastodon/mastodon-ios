@@ -8,7 +8,6 @@
 import os.log
 import UIKit
 import Combine
-import Nuke
 
 protocol MediaPreviewImageViewControllerDelegate: AnyObject {
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, tapGestureRecognizerDidTrigger tapGestureRecognizer: UITapGestureRecognizer)
@@ -91,11 +90,14 @@ extension MediaPreviewImageViewController {
 //        }
         viewModel.image
             .receive(on: RunLoop.main)      // use RunLoop prevent set image during zooming (TODO: handle transitioning state)
-            .sink { [weak self] image in
+            .sink { [weak self] image, animatedImage in
                 guard let self = self else { return }
                 guard let image = image else { return }
                 self.previewImageView.imageView.image = image
                 self.previewImageView.setup(image: image, container: self.previewImageView, forceUpdate: true)
+                if let animatedImage = animatedImage {
+                    self.previewImageView.imageView.animatedImage = animatedImage
+                }
                 self.previewImageView.imageView.accessibilityLabel = self.viewModel.altText
             }
             .store(in: &disposeBag)
