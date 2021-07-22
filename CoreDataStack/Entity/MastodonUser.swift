@@ -47,6 +47,7 @@ final public class MastodonUser: NSManagedObject {
     
     // one-to-many relationship
     @NSManaged public private(set) var statuses: Set<Status>?
+    @NSManaged public private(set) var notifications: Set<MastodonNotification>?
     
     // many-to-many relationship
     @NSManaged public private(set) var favourite: Set<Status>?
