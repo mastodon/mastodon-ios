@@ -99,3 +99,20 @@ extension SearchHistory: Managed {
         return [NSSortDescriptor(keyPath: \SearchHistory.updatedAt, ascending: false)]
     }
 }
+
+extension SearchHistory {
+    static func predicate(domain: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(SearchHistory.domain), domain)
+    }
+
+    static func predicate(userID: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(SearchHistory.userID), userID)
+    }
+
+    public static func predicate(domain: String, userID: String) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            predicate(domain: domain),
+            predicate(userID: userID)
+        ])
+    }
+}

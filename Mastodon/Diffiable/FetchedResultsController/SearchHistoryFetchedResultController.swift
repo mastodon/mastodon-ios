@@ -17,6 +17,8 @@ final class SearchHistoryFetchedResultController: NSObject {
     var disposeBag = Set<AnyCancellable>()
 
     let fetchedResultsController: NSFetchedResultsController<SearchHistory>
+    let domain = CurrentValueSubject<String?, Never>(nil)
+    let userID = CurrentValueSubject<Mastodon.Entity.Status.ID?, Never>(nil)
 
     // output
     let objectIDs = CurrentValueSubject<[NSManagedObjectID], Never>([])
@@ -38,6 +40,23 @@ final class SearchHistoryFetchedResultController: NSObject {
         super.init()
 
         fetchedResultsController.delegate = self
+
+        Publishers.CombineLatest(
+            self.domain.removeDuplicates(),
+            self.userID.removeDuplicates()
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] domain, userID in
+            guard let self = self else { return }
+            let predicates = [SearchHistory.predicate(domain: domain ?? "", userID: userID ?? "")]
+            self.fetchedResultsController.fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {
+                assertionFailure(error.localizedDescription)
+            }
+        }
+        .store(in: &disposeBag)
     }
 
 }

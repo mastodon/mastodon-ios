@@ -25,6 +25,15 @@ final class SearchHistoryViewModel {
         self.context = context
         self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
 
+        context.authenticationService.activeMastodonAuthenticationBox
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] box in
+                guard let self = self else { return }
+                self.searchHistoryFetchedResultController.domain.value = box?.domain
+                self.searchHistoryFetchedResultController.userID.value = box?.userID
+            }
+            .store(in: &disposeBag)
+
         // may block main queue by large dataset
         searchHistoryFetchedResultController.objectIDs
             .removeDuplicates()
