@@ -25,6 +25,15 @@ final class SearchHistoryViewModel {
         self.context = context
         self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
 
+        context.authenticationService.activeMastodonAuthenticationBox
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] box in
+                guard let self = self else { return }
+                self.searchHistoryFetchedResultController.domain.value = box?.domain
+                self.searchHistoryFetchedResultController.userID.value = box?.userID
+            }
+            .store(in: &disposeBag)
+
         // may block main queue by large dataset
         searchHistoryFetchedResultController.objectIDs
             .removeDuplicates()
@@ -81,6 +90,9 @@ extension SearchHistoryViewModel {
 
 extension SearchHistoryViewModel {
     func persistSearchHistory(for item: SearchHistoryItem) {
+        guard let box = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let property = SearchHistory.Property(domain: box.domain, userID: box.userID)
+
         switch item {
         case .account(let objectID):
             let managedObjectContext = context.backgroundManagedObjectContext
@@ -89,7 +101,7 @@ extension SearchHistoryViewModel {
                 if let searchHistory = user.searchHistory {
                     searchHistory.update(updatedAt: Date())
                 } else {
-                    SearchHistory.insert(into: managedObjectContext, account: user)
+                    SearchHistory.insert(into: managedObjectContext, property: property, account: user)
                 }
             }
             .sink { result in
@@ -104,7 +116,7 @@ extension SearchHistoryViewModel {
                 if let searchHistory = hashtag.searchHistory {
                     searchHistory.update(updatedAt: Date())
                 } else {
-                    SearchHistory.insert(into: managedObjectContext, hashtag: hashtag)
+                    SearchHistory.insert(into: managedObjectContext, property: property, hashtag: hashtag)
                 }
             }
             .sink { result in

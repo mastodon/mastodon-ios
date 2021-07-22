@@ -358,13 +358,10 @@ extension SettingsViewController: UITableViewDelegate {
         case .appearance:
             // do nothing
             break
-        case .preferenceDarkMode, .preferenceDisableAvatarAnimation:
-            // do nothing
-            break
         case .notification:
             // do nothing
             break
-        case .preferenceUsingDefaultBrowser:
+        case .preference:
             // do nothing
             break
         case .boringZone(let link), .spicyZone(let link):
@@ -476,48 +473,30 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                 // do nothing
             }
             .store(in: &disposeBag)
-        case .preferenceDarkMode(let settingObjectID):
+        case .preference(let settingObjectID, let preferenceType):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
                 let setting = managedObjectContext.object(with: settingObjectID) as! Setting
-                setting.update(preferredTrueBlackDarkMode: isOn)
-            }
-            .sink { result in
-                switch result {
-                case .success:
-                    ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                    break
+                switch preferenceType {
+                case .darkMode:
+                    setting.update(preferredTrueBlackDarkMode: isOn)
+                case .disableAvatarAnimation:
+                    setting.update(preferredStaticAvatar: isOn)
+                case .useDefaultBrowser:
+                    setting.update(preferredUsingDefaultBrowser: isOn)
                 }
             }
-            .store(in: &disposeBag)
-        case .preferenceDisableAvatarAnimation(let settingObjectID):
-            let managedObjectContext = context.backgroundManagedObjectContext
-            managedObjectContext.performChanges {
-                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
-                setting.update(preferredStaticAvatar: isOn)
-            }
             .sink { result in
                 switch result {
                 case .success:
-                    UserDefaults.shared.preferredStaticAvatar = isOn
-                case .failure(let error):
-                    assertionFailure(error.localizedDescription)
-                    break
-                }
-            }
-            .store(in: &disposeBag)
-        case .preferenceUsingDefaultBrowser(let settingObjectID):
-            let managedObjectContext = context.backgroundManagedObjectContext
-            managedObjectContext.performChanges {
-                let setting = managedObjectContext.object(with: settingObjectID) as! Setting
-                setting.update(preferredUsingDefaultBrowser: isOn)
-            }
-            .sink { result in
-                switch result {
-                case .success:
-                    UserDefaults.shared.preferredUsingDefaultBrowser = isOn
+                    switch preferenceType {
+                    case .darkMode:
+                        ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
+                    case .disableAvatarAnimation:
+                        UserDefaults.shared.preferredStaticAvatar = isOn
+                    case .useDefaultBrowser:
+                        UserDefaults.shared.preferredUsingDefaultBrowser = isOn
+                    }
                 case .failure(let error):
                     assertionFailure(error.localizedDescription)
                     break

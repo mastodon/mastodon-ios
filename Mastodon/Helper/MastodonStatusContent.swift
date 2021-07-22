@@ -29,7 +29,7 @@ public enum MastodonStatusContent {
     
     public static func parse(content: String, emojiDict: EmojiDict) throws -> MastodonStatusContent.ParseResult {
         let document: String = {
-            var content = content
+            var content = content.replacingOccurrences(of: "</p>", with: "</p>\r\n")
             for (shortcode, url) in emojiDict {
                 let emojiNode = "<span class=\"emoji\" href=\"\(url.absoluteString)\">\(shortcode)</span>"
                 let pattern = ":\(shortcode):"

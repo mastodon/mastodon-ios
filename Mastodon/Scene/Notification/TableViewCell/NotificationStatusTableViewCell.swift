@@ -90,7 +90,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         view.layer.cornerRadius = 6
         view.layer.cornerCurve = .continuous
         view.layer.borderWidth = 2
-        view.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
+        view.layer.borderColor = ThemeService.shared.currentTheme.value.notificationStatusBorderColor.cgColor
         return view
     }()
     let statusView = StatusView()
@@ -272,9 +272,7 @@ extension NotificationStatusTableViewCell {
 extension NotificationStatusTableViewCell {
 
     private func setupBackgroundColor(theme: Theme) {
-//        actionImageView.layer.borderColor = theme.systemBackgroundColor.cgColor
-//        avatarImageView.layer.borderColor = Asset.Theme.Mastodon.systemBackground.color.cgColor
-        statusContainerView.layer.borderColor = Asset.Colors.Border.notificationStatus.color.cgColor
+        statusContainerView.layer.borderColor = theme.notificationStatusBorderColor.resolvedColor(with: traitCollection).cgColor
         statusContainerView.backgroundColor = UIColor(dynamicProvider: { traitCollection in
             return traitCollection.userInterfaceStyle == .light ? theme.systemBackgroundColor : theme.tertiarySystemGroupedBackgroundColor
         })
