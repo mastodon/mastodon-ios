@@ -22,6 +22,12 @@ class SettingsToggleTableViewCell: UITableViewCell {
     }()
     
     weak var delegate: SettingsToggleCellDelegate?
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag.removeAll()
+    }
     
     // MARK: - Methods
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

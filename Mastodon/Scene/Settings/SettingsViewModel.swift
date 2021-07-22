@@ -122,9 +122,9 @@ extension SettingsViewModel {
         // preference
         snapshot.appendSections([.preference])
         let preferenceItems: [SettingsItem] = [
-            .preferenceDarkMode(settingObjectID: setting.objectID),
-            .preferenceDisableAvatarAnimation(settingObjectID: setting.objectID),
-            .preferenceUsingDefaultBrowser(settingObjectID: setting.objectID),
+            .preference(settingObjectID: setting.objectID, preferenceType: .darkMode),
+            .preference(settingObjectID: setting.objectID, preferenceType: .disableAvatarAnimation),
+            .preference(settingObjectID: setting.objectID, preferenceType: .useDefaultBrowser),
         ]
         snapshot.appendItems(preferenceItems,toSection: .preference)
 
@@ -163,123 +163,12 @@ extension SettingsViewModel {
         settingsAppearanceTableViewCellDelegate: SettingsAppearanceTableViewCellDelegate,
         settingsToggleCellDelegate: SettingsToggleCellDelegate
     ) {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView) { [
-            weak self,
-            weak settingsAppearanceTableViewCellDelegate,
-            weak settingsToggleCellDelegate
-        ] tableView, indexPath, item -> UITableViewCell? in
-            guard let self = self else { return nil }
-            switch item {
-            case .appearance(let objectID):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsAppearanceTableViewCell.self), for: indexPath) as! SettingsAppearanceTableViewCell
-                self.context.managedObjectContext.performAndWait {
-                    let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
-                    cell.update(with: setting.appearance)
-                    ManagedObjectObserver.observe(object: setting)
-                        .receive(on: DispatchQueue.main)
-                        .sink(receiveCompletion: { _ in
-                            // do nothing
-                        }, receiveValue: { [weak cell] change in
-                            guard let cell = cell else { return }
-                            guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
-                            cell.update(with: setting.appearance)
-                        })
-                        .store(in: &cell.disposeBag)
-                }
-                cell.delegate = settingsAppearanceTableViewCellDelegate
-                return cell
-            case .preferenceDarkMode(let objectID),
-                 .preferenceDisableAvatarAnimation(let objectID),
-                 .preferenceUsingDefaultBrowser(let objectID):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
-                cell.delegate = settingsToggleCellDelegate
-                self.context.managedObjectContext.performAndWait {
-                    let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
-                    SettingsViewModel.configureSettingToggle(cell: cell, item: item, setting: setting)
-
-                    ManagedObjectObserver.observe(object: setting)
-                        .receive(on: DispatchQueue.main)
-                        .sink(receiveCompletion: { _ in
-                            // do nothing
-                        }, receiveValue: { [weak cell] change in
-                            guard let cell = cell else { return }
-                            guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
-                            SettingsViewModel.configureSettingToggle(cell: cell, item: item, setting: setting)
-                        })
-                        .store(in: &cell.disposeBag)
-                }
-                return cell
-            case .notification(let objectID, let switchMode):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsToggleTableViewCell.self), for: indexPath) as! SettingsToggleTableViewCell
-                self.context.managedObjectContext.performAndWait {
-                    let setting = self.context.managedObjectContext.object(with: objectID) as! Setting
-                    if let subscription = setting.activeSubscription {
-                        SettingsViewModel.configureSettingToggle(cell: cell, switchMode: switchMode, subscription: subscription)
-                    }
-                    ManagedObjectObserver.observe(object: setting)
-                        .sink(receiveCompletion: { _ in
-                            // do nothing
-                        }, receiveValue: { [weak cell] change in
-                            guard let cell = cell else { return }
-                            guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
-                            guard let subscription = setting.activeSubscription else { return }
-                            SettingsViewModel.configureSettingToggle(cell: cell, switchMode: switchMode, subscription: subscription)
-                        })
-                        .store(in: &cell.disposeBag)
-                }
-                cell.delegate = settingsToggleCellDelegate
-                return cell
-            case .boringZone(let item), .spicyZone(let item):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsLinkTableViewCell.self), for: indexPath) as! SettingsLinkTableViewCell
-                cell.update(with: item)
-                return cell
-            }
-        }
-        
+        dataSource = SettingsSection.tableViewDiffableDataSource(
+            for: tableView,
+            managedObjectContext: context.managedObjectContext,
+            settingsAppearanceTableViewCellDelegate: settingsAppearanceTableViewCellDelegate,
+            settingsToggleCellDelegate: settingsToggleCellDelegate
+        )
         processDataSource(self.setting.value)
     }
-}
-
-extension SettingsViewModel {
-
-    static func configureSettingToggle(
-        cell: SettingsToggleTableViewCell,
-        item: SettingsItem,
-        setting: Setting
-    ) {
-        switch item {
-        case .preferenceDarkMode:
-            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.trueBlackDarkMode
-            cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
-        case .preferenceDisableAvatarAnimation:
-            cell.textLabel?.text = L10n.Scene.Settings.Section.AppearanceSettings.disableAvatarAnimation
-            cell.switchButton.isOn = setting.preferredStaticAvatar
-        case .preferenceUsingDefaultBrowser:
-            cell.textLabel?.text = L10n.Scene.Settings.Section.Preference.usingDefaultBrowser
-            cell.switchButton.isOn = setting.preferredUsingDefaultBrowser
-        default:
-            assertionFailure()
-        }
-    }
-    
-    static func configureSettingToggle(
-        cell: SettingsToggleTableViewCell,
-        switchMode: SettingsItem.NotificationSwitchMode,
-        subscription: NotificationSubscription
-    ) {
-        cell.textLabel?.text = switchMode.title
-        
-        let enabled: Bool?
-        switch switchMode {
-        case .favorite:     enabled = subscription.alert.favourite
-        case .follow:       enabled = subscription.alert.follow
-        case .reblog:       enabled = subscription.alert.reblog
-        case .mention:      enabled = subscription.alert.mention
-        }
-        cell.update(enabled: enabled)
-    }
-    
 }
