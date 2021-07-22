@@ -85,7 +85,7 @@
         <attribute name="typeRaw" attributeType="String"/>
         <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="userID" attributeType="String"/>
-        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser"/>
+        <relationship name="account" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="notifications" inverseEntity="MastodonUser"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="inNotifications" inverseEntity="Status"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -132,6 +132,7 @@
         <relationship name="muted" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="mutedBy" inverseEntity="Status"/>
         <relationship name="muting" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="mutingBy" inverseEntity="MastodonUser"/>
         <relationship name="mutingBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="muting" inverseEntity="MastodonUser"/>
+        <relationship name="notifications" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MastodonNotification" inverseName="account" inverseEntity="MastodonNotification"/>
         <relationship name="pinnedStatus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="pinnedBy" inverseEntity="Status"/>
         <relationship name="privateNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="to" inverseEntity="PrivateNote"/>
         <relationship name="privateNotesTo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PrivateNote" inverseName="from" inverseEntity="PrivateNote"/>
@@ -181,8 +182,10 @@
     </entity>
     <entity name="SearchHistory" representedClassName=".SearchHistory" syncable="YES">
         <attribute name="createAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="domain" attributeType="String" defaultValueString=""/>
         <attribute name="identifier" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="updatedAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="userID" attributeType="String" defaultValueString=""/>
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MastodonUser" inverseName="searchHistory" inverseEntity="MastodonUser"/>
         <relationship name="hashtag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="searchHistory" inverseEntity="Tag"/>
         <relationship name="status" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Status" inverseName="searchHistory" inverseEntity="Status"/>
@@ -281,12 +284,12 @@
         <element name="HomeTimelineIndex" positionX="0" positionY="0" width="128" height="134"/>
         <element name="MastodonAuthentication" positionX="0" positionY="0" width="128" height="209"/>
         <element name="MastodonNotification" positionX="9" positionY="162" width="128" height="164"/>
-        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="719"/>
+        <element name="MastodonUser" positionX="0" positionY="0" width="128" height="734"/>
         <element name="Mention" positionX="0" positionY="0" width="128" height="149"/>
         <element name="Poll" positionX="0" positionY="0" width="128" height="194"/>
         <element name="PollOption" positionX="0" positionY="0" width="128" height="134"/>
         <element name="PrivateNote" positionX="0" positionY="0" width="128" height="89"/>
-        <element name="SearchHistory" positionX="0" positionY="0" width="128" height="119"/>
+        <element name="SearchHistory" positionX="0" positionY="0" width="128" height="149"/>
         <element name="Setting" positionX="72" positionY="162" width="128" height="164"/>
         <element name="Status" positionX="0" positionY="0" width="128" height="614"/>
         <element name="Subscription" positionX="81" positionY="171" width="128" height="179"/>

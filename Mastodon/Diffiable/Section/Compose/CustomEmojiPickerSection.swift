@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Nuke
 
 enum CustomEmojiPickerSection: Equatable, Hashable {
     case emoji(name: String)
@@ -24,14 +23,9 @@ extension CustomEmojiPickerSection {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CustomEmojiPickerItemCollectionViewCell.self), for: indexPath) as! CustomEmojiPickerItemCollectionViewCell
                 let placeholder = UIImage.placeholder(size: CustomEmojiPickerItemCollectionViewCell.itemSize, color: .systemFill)
                     .af.imageRounded(withCornerRadius: 4)
-                cell.imageTask = Nuke.loadImage(
-                    with: attribute.emoji.url,
-                    options: .init(
-                        placeholder: placeholder,
-                        transition: .fadeIn(duration: 0.2)
-                    ),
-                    into: cell.emojiImageView
-                )
+
+                let url = URL(string: attribute.emoji.url)
+                cell.emojiImageView.setImage(url: url, placeholder: placeholder, scaleToSize: CustomEmojiPickerItemCollectionViewCell.itemSize)
                 cell.accessibilityLabel = attribute.emoji.shortcode
                 return cell
             }

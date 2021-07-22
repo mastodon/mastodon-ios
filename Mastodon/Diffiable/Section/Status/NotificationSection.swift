@@ -11,7 +11,6 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import Nuke
 
 enum NotificationSection: Equatable, Hashable {
     case main
@@ -56,16 +55,15 @@ extension NotificationSection {
                     .af.imageAspectScaled(toFit: CGSize(width: 14, height: 14))
                 }
                 
-                cell.actionImageView.image = createActionImage()
+                cell.avatarButton.badgeImageView.backgroundColor = notification.notificationType.color
+                cell.avatarButton.badgeImageView.image = createActionImage()
                 cell.traitCollectionDidChange
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell] in
                         guard let cell = cell else { return }
-                        cell.actionImageView.image = createActionImage()
+                        cell.avatarButton.badgeImageView.image = createActionImage()
                     }
                     .store(in: &cell.disposeBag)
-
-                cell.actionImageView.backgroundColor = notification.notificationType.color
 
                 // configure author name, notification description, timestamp
                 cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)

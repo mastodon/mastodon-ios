@@ -272,6 +272,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         transitionMaskView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         transitionContext.containerView.addSubview(transitionMaskView)
         transitionItem.interactiveTransitionMaskView = transitionMaskView
+
+        let transitionMaskViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+        transitionMaskViewTapGestureRecognizer.addTarget(self, action: #selector(MediaHostToMediaPreviewViewControllerAnimatedTransitioning.transitionMaskViewTapGestureRecognizerHandler(_:)))
+        transitionMaskView.addGestureRecognizer(transitionMaskViewTapGestureRecognizer)
         
         let maskLayer = CAShapeLayer()
         maskLayer.frame = transitionMaskView.bounds
@@ -339,11 +343,33 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
 }
 
 extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
+
+    // app may freeze without response during transitioning
+    // patch it by tap the view to finish transitioning 
+    @objc func transitionMaskViewTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        // not panning now but still in transitioning
+        guard panGestureRecognizer.state == .possible,
+              transitionContext.isAnimated, transitionContext.isInteractive else {
+            return
+        }
+
+        // finish or cancel current transitioning
+        let targetPosition = completionPosition()
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: target position: %s", ((#file as NSString).lastPathComponent), #line, #function, targetPosition == .end ? "end" : "start")
+        isTransitionContextFinish = true
+        animate(targetPosition)
+
+        targetPosition == .end ? transitionContext.finishInteractiveTransition() : transitionContext.cancelInteractiveTransition()
+    }
     
     @objc func updatePanGestureInteractive(_ sender: UIPanGestureRecognizer) {
-        guard !isTransitionContextFinish else { return }    // do not accept transition abort
+        guard !isTransitionContextFinish else {
+            return
+        }    // do not accept transition abort
 
         switch sender.state {
+        case .possible:
+            return
         case .began, .changed:
             let translation = sender.translation(in: transitionContext.containerView)
             let percent = popInteractiveTransitionAnimator.fractionComplete + progressStep(for: translation)
@@ -360,7 +386,10 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             animate(targetPosition)
 
             targetPosition == .end ? transitionContext.finishInteractiveTransition() : transitionContext.cancelInteractiveTransition()
-        default:
+        case .failed:
+            return
+        @unknown default:
+            assertionFailure()
             return
         }
     }

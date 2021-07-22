@@ -205,45 +205,51 @@ extension MediaPreviewViewController: MediaPreviewImageViewControllerDelegate {
     func mediaPreviewImageViewController(_ viewController: MediaPreviewImageViewController, contextMenuActionPerform action: MediaPreviewImageViewController.ContextMenuAction) {
         switch action {
         case .savePhoto:
-            switch viewController.viewModel.item {
-            case .status(let meta):
-                context.photoLibraryService.saveImage(url: meta.url)
-                    .sink { [weak self] completion in
-                        guard let self = self else { return }
-                        switch completion {
-                        case .failure(let error):
-                            guard let error = error as? PhotoLibraryService.PhotoLibraryError,
-                                  case .noPermission = error else { return }
-                            let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
-                            self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
-                        case .finished:
-                            break
-                        }
-                    } receiveValue: { _ in
-                        // do nothing
+            let savePublisher: AnyPublisher<Void, Error> = {
+                switch viewController.viewModel.item {
+                case .status(let meta):
+                    return context.photoLibraryService.save(imageSource: .url(meta.url))
+                case .local(let meta):
+                    return context.photoLibraryService.save(imageSource: .image(meta.image))
+                }
+            }()
+            savePublisher
+                .sink { [weak self] completion in
+                    guard let self = self else { return }
+                    switch completion {
+                    case .failure(let error):
+                        guard let error = error as? PhotoLibraryService.PhotoLibraryError,
+                              case .noPermission = error else { return }
+                        let alertController = SettingService.openSettingsAlertController(title: L10n.Common.Alerts.SavePhotoFailure.title, message: L10n.Common.Alerts.SavePhotoFailure.message)
+                        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+                    case .finished:
+                        break
                     }
-                    .store(in: &context.disposeBag)
-            case .local(let meta):
-                context.photoLibraryService.save(image: meta.image, withNotificationFeedback: true)
-            }
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &context.disposeBag)
         case .copyPhoto:
-            switch viewController.viewModel.item {
-            case .status(let meta):
-                context.photoLibraryService.copyImage(url: meta.url)
-                    .sink { completion in
-                        switch completion {
-                        case .failure(let error):
-                            os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                        case .finished:
-                            break
-                        }
-                    } receiveValue: { _ in
-                        // do nothing
+            let copyPublisher: AnyPublisher<Void, Error> = {
+                switch viewController.viewModel.item {
+                case .status(let meta):
+                    return context.photoLibraryService.copy(imageSource: .url(meta.url))
+                case .local(let meta):
+                    return context.photoLibraryService.copy(imageSource: .image(meta.image))
+                }
+            }()
+            copyPublisher
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: copy photo fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    case .finished:
+                        break
                     }
-                    .store(in: &context.disposeBag)
-            case .local(let meta):
-                context.photoLibraryService.copy(image: meta.image, withNotificationFeedback: true)
-            }
+                } receiveValue: { _ in
+                    // do nothing
+                }
+                .store(in: &context.disposeBag)
         case .share:
             let applicationActivities: [UIActivity] = [
                 SafariActivity(sceneCoordinator: self.coordinator)

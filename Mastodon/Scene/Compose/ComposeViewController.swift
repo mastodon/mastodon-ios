@@ -13,7 +13,6 @@ import MastodonSDK
 import MetaTextView
 import MastodonMeta
 import Meta
-import Nuke
 import MastodonUI
 
 final class ComposeViewController: UIViewController, NeedsDependency {

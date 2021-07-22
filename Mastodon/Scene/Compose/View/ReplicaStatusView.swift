@@ -66,7 +66,7 @@ final class ReplicaStatusView: UIView {
         view.accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
         return view
     }()
-    let avatarImageView: UIImageView = FLAnimatedImageView()
+    let avatarImageView = FLAnimatedImageView()
 
     let nameLabel: ActiveLabel = {
         let label = ActiveLabel(style: .statusName)
@@ -250,6 +250,5 @@ extension ReplicaStatusView {
 extension ReplicaStatusView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { return Self.avatarImageSize }
     static var configurableAvatarImageCornerRadius: CGFloat { return 4 }
-    var configurableAvatarImageView: UIImageView? { avatarImageView }
-    var configurableAvatarButton: UIButton? { nil }
+    var configurableAvatarImageView: FLAnimatedImageView? { avatarImageView }
 }

@@ -11,6 +11,8 @@ import CoreData
 public final class SearchHistory: NSManagedObject {
     public typealias ID = UUID
     @NSManaged public private(set) var identifier: ID
+    @NSManaged public private(set) var domain: String
+    @NSManaged public private(set) var userID: MastodonUser.ID
     @NSManaged public private(set) var createAt: Date
     @NSManaged public private(set) var updatedAt: Date
 
@@ -37,9 +39,12 @@ extension SearchHistory {
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
+        property: Property,
         account: MastodonUser
     ) -> SearchHistory {
         let searchHistory: SearchHistory = context.insertObject()
+        searchHistory.domain = property.domain
+        searchHistory.userID = property.userID
         searchHistory.account = account
         return searchHistory
     }
@@ -47,9 +52,12 @@ extension SearchHistory {
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
+        property: Property,
         hashtag: Tag
     ) -> SearchHistory {
         let searchHistory: SearchHistory = context.insertObject()
+        searchHistory.domain = property.domain
+        searchHistory.userID = property.userID
         searchHistory.hashtag = hashtag
         return searchHistory
     }
@@ -57,22 +65,54 @@ extension SearchHistory {
     @discardableResult
     public static func insert(
         into context: NSManagedObjectContext,
+        property: Property,
         status: Status
     ) -> SearchHistory {
         let searchHistory: SearchHistory = context.insertObject()
+        searchHistory.domain = property.domain
+        searchHistory.userID = property.userID
         searchHistory.status = status
         return searchHistory
     }
 }
 
-public extension SearchHistory {
-    func update(updatedAt: Date) {
+extension SearchHistory {
+    public func update(updatedAt: Date) {
         setValue(updatedAt, forKey: #keyPath(SearchHistory.updatedAt))
+    }
+}
+
+extension SearchHistory {
+    public struct Property {
+        public let domain: String
+        public let userID: MastodonUser.ID
+
+        public init(domain: String, userID: MastodonUser.ID) {
+            self.domain = domain
+            self.userID = userID
+        }
     }
 }
 
 extension SearchHistory: Managed {
     public static var defaultSortDescriptors: [NSSortDescriptor] {
         return [NSSortDescriptor(keyPath: \SearchHistory.updatedAt, ascending: false)]
+    }
+}
+
+extension SearchHistory {
+    static func predicate(domain: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(SearchHistory.domain), domain)
+    }
+
+    static func predicate(userID: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(SearchHistory.userID), userID)
+    }
+
+    public static func predicate(domain: String, userID: String) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            predicate(domain: domain),
+            predicate(userID: userID)
+        ])
     }
 }

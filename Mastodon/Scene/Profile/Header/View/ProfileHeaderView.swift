@@ -73,7 +73,7 @@ final class ProfileHeaderView: UIView {
         return view
     }()
     
-    let avatarImageView: UIImageView = {
+    let avatarImageView: FLAnimatedImageView = {
         let imageView = FLAnimatedImageView()
         let placeholderImage = UIImage
             .placeholder(size: ProfileHeaderView.avatarImageViewSize, color: Asset.Theme.Mastodon.systemGroupedBackground.color)
@@ -559,8 +559,7 @@ extension ProfileHeaderView: ProfileStatusDashboardViewDelegate {
 extension ProfileHeaderView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { avatarImageViewSize }
     static var configurableAvatarImageCornerRadius: CGFloat { avatarImageViewCornerRadius }
-    var configurableAvatarImageView: UIImageView? { return avatarImageView }
-    var configurableAvatarButton: UIButton? { return nil }
+    var configurableAvatarImageView: FLAnimatedImageView? { return avatarImageView }
 }
 
 

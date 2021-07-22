@@ -13,7 +13,6 @@ import CoreDataStack
 import MastodonSDK
 import AlamofireImage
 import AlamofireNetworkActivityIndicator
-import Nuke
 
 final class APIService {
         
@@ -34,10 +33,6 @@ final class APIService {
         
         // setup cache. 10MB RAM + 50MB Disk
         URLCache.shared = URLCache(memoryCapacity: 10 * 1024 * 1024, diskCapacity: 50 * 1024 * 1024, diskPath: nil)
-
-        // setup Nuke cache
-        // using LRU disk cache
-        ImagePipeline.shared = ImagePipeline(configuration: .withDataCache)
         
         // enable network activity manager for AlamofireImage
         NetworkActivityIndicatorManager.shared.isEnabled = true

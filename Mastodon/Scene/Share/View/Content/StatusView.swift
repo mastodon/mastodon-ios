@@ -95,10 +95,7 @@ final class StatusView: UIView {
         view.accessibilityLabel = L10n.Common.Controls.Status.showUserProfile
         return view
     }()
-    let avatarImageView: FLAnimatedImageView = {
-        let imageView = FLAnimatedImageView()
-        return imageView
-    }()
+    let avatarButton = AvatarButton()
     let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
     let nameLabel: ActiveLabel = {
@@ -317,13 +314,13 @@ extension StatusView {
             avatarView.widthAnchor.constraint(equalToConstant: StatusView.avatarImageSize.width).priority(.required - 1),
             avatarView.heightAnchor.constraint(equalToConstant: StatusView.avatarImageSize.height).priority(.required - 1),
         ])
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.addSubview(avatarImageView)
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.addSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarImageView.topAnchor.constraint(equalTo: avatarView.topAnchor),
-            avatarImageView.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
-            avatarImageView.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
-            avatarImageView.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
+            avatarButton.topAnchor.constraint(equalTo: avatarView.topAnchor),
+            avatarButton.leadingAnchor.constraint(equalTo: avatarView.leadingAnchor),
+            avatarButton.trailingAnchor.constraint(equalTo: avatarView.trailingAnchor),
+            avatarButton.bottomAnchor.constraint(equalTo: avatarView.bottomAnchor),
         ])
         avatarStackedContainerButton.translatesAutoresizingMaskIntoConstraints = false
         avatarView.addSubview(avatarStackedContainerButton)
@@ -473,11 +470,7 @@ extension StatusView {
         headerInfoLabel.isUserInteractionEnabled = true
         headerInfoLabel.addGestureRecognizer(headerInfoLabelTapGestureRecognizer)
 
-        let avatarImageViewTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
-        avatarImageViewTapGestureRecognizer.addTarget(self, action: #selector(StatusView.avatarImageViewDidPressed(_:)))
-        avatarImageView.addGestureRecognizer(avatarImageViewTapGestureRecognizer)
-        avatarImageView.isUserInteractionEnabled = true
-
+        avatarButton.addTarget(self, action: #selector(StatusView.avatarButtonDidPressed(_:)), for: .touchUpInside)
         avatarStackedContainerButton.addTarget(self, action: #selector(StatusView.avatarStackedContainerButtonDidPressed(_:)), for: .touchUpInside)
         revealContentWarningButton.addTarget(self, action: #selector(StatusView.revealContentWarningButtonDidPressed(_:)), for: .touchUpInside)
         pollVoteButton.addTarget(self, action: #selector(StatusView.pollVoteButtonPressed(_:)), for: .touchUpInside)
@@ -544,9 +537,9 @@ extension StatusView {
         delegate?.statusView(self, headerInfoLabelDidPressed: headerInfoLabel)
     }
     
-    @objc private func avatarImageViewDidPressed(_ sender: UITapGestureRecognizer) {
+    @objc private func avatarButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.statusView(self, avatarImageViewDidPressed: avatarImageView)
+        delegate?.statusView(self, avatarImageViewDidPressed: avatarButton.avatarImageView)
     }
     
     @objc private func avatarStackedContainerButtonDidPressed(_ sender: UIButton) {
@@ -633,8 +626,7 @@ extension StatusView: PlayerContainerViewDelegate {
 extension StatusView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { return Self.avatarImageSize }
     static var configurableAvatarImageCornerRadius: CGFloat { return 4 }
-    var configurableAvatarImageView: UIImageView? { avatarImageView }
-    var configurableAvatarButton: UIButton? { nil }
+    var configurableAvatarImageView: FLAnimatedImageView? { avatarButton.avatarImageView }
 }
 
 #if canImport(SwiftUI) && DEBUG
@@ -662,7 +654,7 @@ struct StatusView_Previews: PreviewProvider {
             UIViewPreview(width: 375) {
                 let statusView = StatusView()
                 statusView.headerContainerView.isHidden = false
-                statusView.avatarImageView.isHidden = true
+                statusView.avatarButton.isHidden = true
                 statusView.avatarStackedContainerButton.isHidden = false
                 statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(
                     with: AvatarConfigurableViewConfiguration(

@@ -688,12 +688,12 @@ extension StatusSection {
         cell.statusView.usernameLabel.text = "@" + author.acct
         // avatar
         if let reblog = status.reblog {
-            cell.statusView.avatarImageView.isHidden = true
+            cell.statusView.avatarButton.isHidden = true
             cell.statusView.avatarStackedContainerButton.isHidden = false
             cell.statusView.avatarStackedContainerButton.topLeadingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: reblog.author.avatarImageURL()))
             cell.statusView.avatarStackedContainerButton.bottomTrailingAvatarStackedImageView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
         } else {
-            cell.statusView.avatarImageView.isHidden = false
+            cell.statusView.avatarButton.isHidden = false
             cell.statusView.avatarStackedContainerButton.isHidden = true
             cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
         }

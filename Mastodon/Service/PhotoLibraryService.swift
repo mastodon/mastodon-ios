@@ -9,7 +9,9 @@ import os.log
 import UIKit
 import Combine
 import Photos
+import Alamofire
 import AlamofireImage
+import FLAnimatedImage
 
 final class PhotoLibraryService: NSObject {
 
@@ -19,88 +21,150 @@ extension PhotoLibraryService {
     
     enum PhotoLibraryError: Error {
         case noPermission
+        case badPayload
+    }
+
+    enum ImageSource {
+        case url(URL)
+        case image(UIImage)
     }
 
 }
 
 extension PhotoLibraryService {
-    
-    func saveImage(url: URL) -> AnyPublisher<UIImage, Error> {
+
+    func save(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+
+
+        let imageDataPublisher: AnyPublisher<Data, Error> = {
+            switch source {
+            case .url(let url):
+                return PhotoLibraryService.fetchImageData(url: url)
+            case .image(let image):
+                return PhotoLibraryService.fetchImageData(image: image)
+            }
+        }()
+
+        return imageDataPublisher
+            .flatMap { data in
+                PhotoLibraryService.save(imageData: data)
+            }
+            .handleEvents(receiveSubscription: { _ in
+                impactFeedbackGenerator.impactOccurred()
+            }, receiveCompletion: { completion in
+                switch completion {
+                case .failure:
+                    notificationFeedbackGenerator.notificationOccurred(.error)
+                case .finished:
+                    notificationFeedbackGenerator.notificationOccurred(.success)
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+
+}
+
+extension PhotoLibraryService {
+
+    func copy(imageSource source: ImageSource) -> AnyPublisher<Void, Error> {
+
+        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+
+        let imageDataPublisher: AnyPublisher<Data, Error> = {
+            switch source {
+            case .url(let url):
+                return PhotoLibraryService.fetchImageData(url: url)
+            case .image(let image):
+                return PhotoLibraryService.fetchImageData(image: image)
+            }
+        }()
+
+        return imageDataPublisher
+            .flatMap { data in
+                PhotoLibraryService.copy(imageData: data)
+            }
+            .handleEvents(receiveSubscription: { _ in
+                impactFeedbackGenerator.impactOccurred()
+            }, receiveCompletion: { completion in
+                switch completion {
+                case .failure:
+                    notificationFeedbackGenerator.notificationOccurred(.error)
+                case .finished:
+                    notificationFeedbackGenerator.notificationOccurred(.success)
+                }
+            })
+            .eraseToAnyPublisher()
+    }
+}
+
+extension PhotoLibraryService {
+
+    static func fetchImageData(url: URL) -> AnyPublisher<Data, Error> {
+        AF.request(url).publishData()
+            .tryMap { response in
+                switch response.result {
+                case .success(let data):
+                    return data
+                case .failure(let error):
+                    throw error
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+
+    static func fetchImageData(image: UIImage) -> AnyPublisher<Data, Error> {
+        return Future<Data, Error> { promise in
+            DispatchQueue.global().async {
+                let imageData = image.pngData()
+                DispatchQueue.main.async {
+                    if let imageData = imageData {
+                        promise(.success(imageData))
+                    } else {
+                        promise(.failure(PhotoLibraryError.badPayload))
+                    }
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
+    static func save(imageData: Data) -> AnyPublisher<Void, Error> {
         guard PHPhotoLibrary.authorizationStatus(for: .addOnly) != .denied else {
             return Fail(error: PhotoLibraryError.noPermission).eraseToAnyPublisher()
         }
 
-        return processImage(url: url)
-            .handleEvents(receiveOutput: { image in
-                self.save(image: image)
-            })
-            .eraseToAnyPublisher()
-    }
-
-    func copyImage(url: URL) -> AnyPublisher<UIImage, Error> {
-        return processImage(url: url)
-            .handleEvents(receiveOutput: { image in
-                UIPasteboard.general.image = image
-            })
-            .eraseToAnyPublisher()
-    }
-
-    func processImage(url: URL) -> AnyPublisher<UIImage, Error> {
-        let impactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-        let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-
-        return Future<UIImage, Error> { promise in
-            ImageDownloader.default.download(URLRequest(url: url), completion: { response in
-                switch response.result {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
+        return Future<Void, Error> { promise in
+            PHPhotoLibrary.shared().performChanges {
+                PHAssetCreationRequest.forAsset().addResource(with: .photo, data: imageData, options: nil)
+            } completionHandler: { isSuccess, error in
+                if let error = error {
                     promise(.failure(error))
-                case .success(let image):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
-                    promise(.success(image))
+                } else {
+                    promise(.success(Void()))
                 }
-            })
-        }
-        .handleEvents(receiveSubscription: { _ in
-            impactFeedbackGenerator.impactOccurred()
-        }, receiveCompletion: { completion in
-            switch completion {
-            case .failure:
-                notificationFeedbackGenerator.notificationOccurred(.error)
-            case .finished:
-                notificationFeedbackGenerator.notificationOccurred(.success)
             }
-        })
+        }
         .eraseToAnyPublisher()
     }
-    
-    func save(image: UIImage, withNotificationFeedback: Bool = false) {
-        UIImageWriteToSavedPhotosAlbum(
-            image,
-            self,
-            #selector(PhotoLibraryService.image(_:didFinishSavingWithError:contextInfo:)),
-            nil
-        )
-        
-        // assert no error
-        if withNotificationFeedback {
-            let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-            notificationFeedbackGenerator.notificationOccurred(.success)
+
+    static func copy(imageData: Data) -> AnyPublisher<Void, Error> {
+        Future<Void, Error> { promise in
+            DispatchQueue.global().async {
+                let image = UIImage(data: imageData, scale: UIScreen.main.scale)
+                DispatchQueue.main.async {
+                    if let image = image {
+                        UIPasteboard.general.image = image
+                        promise(.success(Void()))
+                    } else {
+                        promise(.failure(PhotoLibraryError.badPayload))
+                    }
+                }
+            }
         }
+        .eraseToAnyPublisher()
     }
 
-    func copy(image: UIImage, withNotificationFeedback: Bool = false) {
-        UIPasteboard.general.image = image
-
-        // assert no error
-        if withNotificationFeedback {
-            let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-            notificationFeedbackGenerator.notificationOccurred(.success)
-        }
-    }
-    
-    @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        // TODO: notify banner
-    }
-    
 }

@@ -5,16 +5,16 @@
 //  Created by Cirno MainasuK on 2021-2-4.
 //
 
+import Foundation
 import UIKit
+import Combine
 import AlamofireImage
 import FLAnimatedImage
-import Nuke
 
 protocol AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { get }
     static var configurableAvatarImageCornerRadius: CGFloat { get }
-    var configurableAvatarImageView: UIImageView? { get }
-    var configurableAvatarButton: UIButton? { get }
+    var configurableAvatarImageView: FLAnimatedImageView? { get }
     func configure(with configuration: AvatarConfigurableViewConfiguration)
     func avatarConfigurableView(_ avatarConfigurableView: AvatarConfigurableView, didFinishConfiguration configuration: AvatarConfigurableViewConfiguration)
 }
@@ -43,69 +43,31 @@ extension AvatarConfigurableView {
             }
             return placeholderImage
         }()
-
-        // reset layer attributes
-        configurableAvatarImageView?.layer.masksToBounds = false
-        configurableAvatarImageView?.layer.cornerRadius = 0
-        configurableAvatarImageView?.layer.cornerCurve = .circular
-        
-        configurableAvatarButton?.layer.masksToBounds = false
-        configurableAvatarButton?.layer.cornerRadius = 0
-        configurableAvatarButton?.layer.cornerCurve = .circular
         
         // accessibility
         configurableAvatarImageView?.accessibilityIgnoresInvertColors = true
-        configurableAvatarButton?.accessibilityIgnoresInvertColors = true
-        
+
         defer {
             avatarConfigurableView(self, didFinishConfiguration: configuration)
         }
 
-        guard let imageDisplayingView: ImageDisplayingView = configurableAvatarImageView ?? configurableAvatarButton?.imageView else {
+        guard let configurableAvatarImageView = configurableAvatarImageView else {
             return
         }
 
         // set corner radius (due to GIF won't crop)
-        imageDisplayingView.layer.masksToBounds = true
-        imageDisplayingView.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
-        imageDisplayingView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
+        configurableAvatarImageView.layer.masksToBounds = true
+        configurableAvatarImageView.layer.cornerRadius = Self.configurableAvatarImageCornerRadius
+        configurableAvatarImageView.layer.cornerCurve = Self.configurableAvatarImageCornerRadius < Self.configurableAvatarImageSize.width * 0.5 ? .continuous :.circular
 
         // set border
-        configureLayerBorder(view: imageDisplayingView, configuration: configuration)
+        configureLayerBorder(view: configurableAvatarImageView, configuration: configuration)
 
-
-        // set image
-        let url = configuration.avatarImageURL
-        let processors: [ImageProcessing] = [
-            ImageProcessors.Resize(
-                size: Self.configurableAvatarImageSize,
-                unit: .points,
-                contentMode: .aspectFill,
-                crop: false
-            ),
-            ImageProcessors.RoundedCorners(
-                radius: Self.configurableAvatarImageCornerRadius
-            )
-        ]
-
-        let request = ImageRequest(url: url, processors: processors)
-        let options = ImageLoadingOptions(
+        configurableAvatarImageView.setImage(
+            url: configuration.avatarImageURL,
             placeholder: placeholderImage,
-            transition: .fadeIn(duration: 0.2)
+            scaleToSize: Self.configurableAvatarImageSize
         )
-
-        Nuke.loadImage(
-            with: request,
-            options: options,
-            into: imageDisplayingView
-        ) { result in
-            switch result {
-            case .failure:
-                break
-            case .success:
-                break
-            }
-        }
     }
     
     func configureLayerBorder(view: UIView, configuration: AvatarConfigurableViewConfiguration) {

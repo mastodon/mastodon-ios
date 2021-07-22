@@ -9,19 +9,20 @@ import os.log
 import UIKit
 import FLAnimatedImage
 
-final class AvatarStackedImageView: FLAnimatedImageView { }
+final class AvatarStackedImageView: AvatarImageView { }
 
 // MARK: - AvatarConfigurableView
 extension AvatarStackedImageView: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { CGSize(width: 28, height: 28) }
     static var configurableAvatarImageCornerRadius: CGFloat { 4 }
-    var configurableAvatarImageView: UIImageView? { self }
-    var configurableAvatarButton: UIButton? { nil }
+    var configurableAvatarImageView: FLAnimatedImageView? { self }
 }
 
 final class AvatarStackContainerButton: UIControl {
     
     static let containerSize = CGSize(width: 42, height: 42)
+    static let avatarImageViewSize = CGSize(width: 28, height: 28)
+    static let avatarImageViewCornerRadius: CGFloat = 4
     static let maskOffset: CGFloat = 2
     
     // UIControl.Event - Application: 0x0F000000
@@ -46,13 +47,6 @@ final class AvatarStackContainerButton: UIControl {
 extension AvatarStackContainerButton {
     
     private func _init() {
-        // GIF get worse when enable rasterize
-//        topLeadingAvatarStackedImageView.layer.shouldRasterize = true
-//        topLeadingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
-//
-//        bottomTrailingAvatarStackedImageView.layer.shouldRasterize = true
-//        bottomTrailingAvatarStackedImageView.layer.rasterizationScale = UIScreen.main.scale
-
         topLeadingAvatarStackedImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(topLeadingAvatarStackedImageView)
         NSLayoutConstraint.activate([
@@ -75,16 +69,16 @@ extension AvatarStackContainerButton {
         let offset: CGFloat = 2
         let path: CGPath = {
             let path = CGMutablePath()
-            path.addRect(CGRect(origin: .zero, size: AvatarStackedImageView.configurableAvatarImageSize))
+            path.addRect(CGRect(origin: .zero, size: AvatarStackContainerButton.avatarImageViewSize))
             let mirrorScale: CGFloat = UIApplication.shared.userInterfaceLayoutDirection == .rightToLeft ? -1 : 1
             path.addPath(UIBezierPath(
                 roundedRect: CGRect(
-                    x: mirrorScale * (AvatarStackContainerButton.containerSize.width - AvatarStackedImageView.configurableAvatarImageSize.width - offset),
-                    y: AvatarStackContainerButton.containerSize.height - AvatarStackedImageView.configurableAvatarImageSize.height - offset,
-                    width: AvatarStackedImageView.configurableAvatarImageSize.width,
-                    height: AvatarStackedImageView.configurableAvatarImageSize.height
+                    x: mirrorScale * (AvatarStackContainerButton.containerSize.width - AvatarStackContainerButton.avatarImageViewSize.width - offset),
+                    y: AvatarStackContainerButton.containerSize.height - AvatarStackContainerButton.avatarImageViewSize.height - offset,
+                    width: AvatarStackContainerButton.avatarImageViewSize.width,
+                    height: AvatarStackContainerButton.avatarImageViewSize.height
                 ),
-                cornerRadius: AvatarStackedImageView.configurableAvatarImageCornerRadius
+                cornerRadius: AvatarStackedImageView.configurableAvatarImageCornerRadius + 1    // 1pt overshoot
             ).cgPath)
             return path
         }()
@@ -93,9 +87,6 @@ extension AvatarStackContainerButton {
         maskShapeLayer.fillRule = .evenOdd
         maskShapeLayer.path = path
         topLeadingAvatarStackedImageView.layer.mask = maskShapeLayer
-
-        topLeadingAvatarStackedImageView.image = UIImage.placeholder(color: .systemFill)
-        bottomTrailingAvatarStackedImageView.image = UIImage.placeholder(color: .systemFill)
     }
 
     override var intrinsicContentSize: CGSize {

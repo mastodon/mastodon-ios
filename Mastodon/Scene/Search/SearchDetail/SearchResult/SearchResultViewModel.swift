@@ -142,6 +142,7 @@ extension SearchResultViewModel {
 extension SearchResultViewModel {
     func persistSearchHistory(for item: SearchResultItem) {
         guard let box = context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        let property = SearchHistory.Property(domain: box.domain, userID: box.userID)
         let domain = box.domain
 
         switch item {
@@ -160,7 +161,7 @@ extension SearchResultViewModel {
                 if let searchHistory = user.searchHistory {
                     searchHistory.update(updatedAt: Date())
                 } else {
-                    SearchHistory.insert(into: managedObjectContext, account: user)
+                    SearchHistory.insert(into: managedObjectContext, property: property, account: user)
                 }
             }
             .sink { result in
@@ -178,7 +179,7 @@ extension SearchResultViewModel {
                 if let searchHistory = hashtag.searchHistory {
                     searchHistory.update(updatedAt: Date())
                 } else {
-                    SearchHistory.insert(into: managedObjectContext, hashtag: hashtag)
+                    SearchHistory.insert(into: managedObjectContext, property: property, hashtag: hashtag)
                 }
             }
             .sink { result in

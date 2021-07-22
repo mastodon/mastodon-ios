@@ -8,7 +8,9 @@
 import os.log
 import UIKit
 import Combine
-import Nuke
+import Alamofire
+import AlamofireImage
+import FLAnimatedImage
 
 class MediaPreviewImageViewModel {
 
@@ -18,34 +20,35 @@ class MediaPreviewImageViewModel {
     let item: ImagePreviewItem
     
     // output
-    let image: CurrentValueSubject<UIImage?, Never>
+    let image: CurrentValueSubject<(UIImage?, FLAnimatedImage?), Never>
     let altText: String?
         
     init(meta: RemoteImagePreviewMeta) {
         self.item = .status(meta)
-        self.image = CurrentValueSubject(meta.thumbnail)
+        self.image = CurrentValueSubject((meta.thumbnail, nil))
         self.altText = meta.altText
         
         let url = meta.url
-
-        ImagePipeline.shared.imagePublisher(with: url)
-            .sink { completion in
-                switch completion {
+        AF.request(url).publishData()
+            .map { response in
+                switch response.result {
+                case .success(let data):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
+                    let image = UIImage(data: data, scale: UIScreen.main.scale)
+                    let animatedImage = FLAnimatedImage(animatedGIFData: data)
+                    return (image, animatedImage)
                 case .failure(let error):
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s fail: %s", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription, error.localizedDescription)
-                case .finished:
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: download image %s success", ((#file as NSString).lastPathComponent), #line, #function, url.debugDescription)
+                    return (nil, nil)
                 }
-            } receiveValue: { [weak self] response in
-                guard let self = self else { return }
-                self.image.value = response.image
             }
+            .assign(to: \.value, on: image)
             .store(in: &disposeBag)
     }
     
     init(meta: LocalImagePreviewMeta) {
         self.item = .local(meta)
-        self.image = CurrentValueSubject(meta.image)
+        self.image = CurrentValueSubject((meta.image, nil))
         self.altText = nil
     }
     

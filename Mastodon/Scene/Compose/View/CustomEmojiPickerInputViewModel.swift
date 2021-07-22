@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MetaTextView
 
 final class CustomEmojiPickerInputViewModel {
     
@@ -48,19 +49,26 @@ extension CustomEmojiPickerInputViewModel {
         for reference in customEmojiReplaceableTextInputReferences {
             guard let textInput = reference.value else { continue }
             guard textInput.isFirstResponder == true else { continue }
+            guard let selectedTextRange = textInput.selectedTextRange else { continue }
 
-            let selectedTextRange = textInput.selectedTextRange
             textInput.insertText(text)
 
             // due to insert text render as attachment
             // the cursor reset logic not works
             // hack with hard code +2 offset
             assert(text.hasSuffix(": "))
-            if text.hasPrefix(":") && text.hasSuffix(": "),
-               let selectedTextRange = selectedTextRange,
-               let newPosition = textInput.position(from: selectedTextRange.start, offset: 2) {
-                let newSelectedTextRange = textInput.textRange(from: newPosition, to: newPosition)
-                textInput.selectedTextRange = newSelectedTextRange
+            guard text.hasPrefix(":") && text.hasSuffix(": ") else { continue }
+
+            if let _ = textInput as? MetaTextView {
+                if let newPosition = textInput.position(from: selectedTextRange.start, offset: 2) {
+                    let newSelectedTextRange = textInput.textRange(from: newPosition, to: newPosition)
+                    textInput.selectedTextRange = newSelectedTextRange
+                }
+            } else {
+                if let newPosition = textInput.position(from: selectedTextRange.start, offset: text.length) {
+                    let newSelectedTextRange = textInput.textRange(from: newPosition, to: newPosition)
+                    textInput.selectedTextRange = newSelectedTextRange
+                }
             }
 
             return reference

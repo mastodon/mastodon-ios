@@ -11,12 +11,11 @@ import Foundation
 import MastodonSDK
 import UIKit
 import FLAnimatedImage
-import Nuke
 
 final class SearchResultTableViewCell: UITableViewCell {
 
-    let _imageView: UIImageView = {
-        let imageView = FLAnimatedImageView()
+    let _imageView: AvatarImageView = {
+        let imageView = AvatarImageView()
         imageView.tintColor = Asset.Colors.Label.primary.color
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
@@ -48,7 +47,7 @@ final class SearchResultTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        Nuke.cancelRequest(for: _imageView)
+        _imageView.af.cancelImageRequest()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -155,32 +154,19 @@ extension SearchResultTableViewCell {
 extension SearchResultTableViewCell {
     
     func config(with account: Mastodon.Entity.Account) {
-        Nuke.loadImage(
-            with: account.avatarImageURL(),
-            options: ImageLoadingOptions(
-                placeholder: UIImage.placeholder(color: .systemFill),
-                transition: .fadeIn(duration: 0.2)
-            ),
-            into: _imageView
-        )
+        configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: account.avatarImageURL()))
         _titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
         _subTitleLabel.text = account.acct
     }
     
     func config(with account: MastodonUser) {
-        Nuke.loadImage(
-            with: account.avatarImageURL(),
-            options: ImageLoadingOptions(
-                placeholder: UIImage.placeholder(color: .systemFill),
-                transition: .fadeIn(duration: 0.2)
-            ),
-            into: _imageView
-        )
+        configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: account.avatarImageURL()))
         _titleLabel.text = account.displayNameWithFallback
         _subTitleLabel.text = account.acct
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
+        configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
         _titleLabel.text = "#" + tag.name
@@ -195,6 +181,7 @@ extension SearchResultTableViewCell {
     }
 
     func config(with tag: Tag) {
+        configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
         _titleLabel.text = "# " + tag.name
@@ -209,6 +196,13 @@ extension SearchResultTableViewCell {
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         _subTitleLabel.text = string
     }
+}
+
+// MARK: - AvatarStackedImageView
+extension SearchResultTableViewCell: AvatarConfigurableView {
+    static var configurableAvatarImageSize: CGSize { CGSize(width: 42, height: 42) }
+    static var configurableAvatarImageCornerRadius: CGFloat { 4 }
+    var configurableAvatarImageView: FLAnimatedImageView? { _imageView }
 }
 
 #if canImport(SwiftUI) && DEBUG

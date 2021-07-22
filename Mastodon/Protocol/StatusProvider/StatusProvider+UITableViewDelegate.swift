@@ -168,9 +168,9 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                     guard let self = self else { return }
                     self.attachment(of: status, index: i)
                         .setFailureType(to: Error.self)
-                        .compactMap { attachment -> AnyPublisher<UIImage, Error>? in
+                        .compactMap { attachment -> AnyPublisher<Void, Error>? in
                             guard let attachment = attachment, let url = URL(string: attachment.url) else { return nil }
-                            return self.context.photoLibraryService.saveImage(url: url)
+                            return self.context.photoLibraryService.save(imageSource: .url(url))
                         }
                         .switchToLatest()
                         .sink(receiveCompletion: { [weak self] completion in
@@ -197,9 +197,9 @@ extension StatusTableViewCellDelegate where Self: StatusProvider {
                     guard let self = self else { return }
                     self.attachment(of: status, index: i)
                         .setFailureType(to: Error.self)
-                        .compactMap { attachment -> AnyPublisher<UIImage, Error>? in
+                        .compactMap { attachment -> AnyPublisher<Void, Error>? in
                             guard let attachment = attachment, let url = URL(string: attachment.url) else { return nil }
-                            return self.context.photoLibraryService.copyImage(url: url)
+                            return self.context.photoLibraryService.copy(imageSource: .url(url))
                         }
                         .switchToLatest()
                         .sink(receiveCompletion: { completion in
