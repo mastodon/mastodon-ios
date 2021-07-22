@@ -9,7 +9,7 @@ import os.log
 import UIKit
 import ActiveLabel
 import FLAnimatedImage
-import MetaTextView
+import MetaTextKit
 
 final class ReplicaStatusView: UIView {
 

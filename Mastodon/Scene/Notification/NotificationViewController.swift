@@ -14,7 +14,7 @@ import OSLog
 import UIKit
 import ActiveLabel
 import Meta
-import MetaTextView
+import MetaTextKit
 
 final class NotificationViewController: UIViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }

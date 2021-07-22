@@ -13,7 +13,7 @@ import CoreDataStack
 import MastodonSDK
 import ActiveLabel
 import Meta
-import MetaTextView
+import MetaTextKit
 
 #if ASDK
 import AsyncDisplayKit

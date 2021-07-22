@@ -179,12 +179,12 @@
 		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
 		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
+		DB01E23326A98F0900C3965B /* MastodonMeta in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23226A98F0900C3965B /* MastodonMeta */; };
+		DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB01E23426A98F0900C3965B /* MetaTextKit */; };
 		DB023295267F0AB800031745 /* ASMetaEditableTextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */; };
 		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
-		DB03F7EB268976B5007B274C /* MastodonMeta in Frameworks */ = {isa = PBXBuildFile; productRef = DB03F7EA268976B5007B274C /* MastodonMeta */; };
-		DB03F7ED268976B5007B274C /* MetaTextView in Frameworks */ = {isa = PBXBuildFile; productRef = DB03F7EC268976B5007B274C /* MetaTextView */; };
 		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
 		DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F42689B782007B274C /* ComposeTableView.swift */; };
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
@@ -196,6 +196,7 @@
 		DB0C946F26A7D2A80088FB11 /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C946E26A7D2A80088FB11 /* AvatarImageView.swift */; };
 		DB0C947226A7D2D70088FB11 /* AvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947126A7D2D70088FB11 /* AvatarButton.swift */; };
 		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
+		DB0E91EA26A9675100BD2ACC /* MetaLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E91E926A9675100BD2ACC /* MetaLabel.swift */; };
 		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
@@ -227,8 +228,6 @@
 		DB3667A8268AE2900027D07F /* ComposeStatusPollItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */; };
 		DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB3D0FF225BAA61700EAA174 /* AlamofireImage */; };
 		DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
-		DB41ED8226A54D8A00F58330 /* MastodonMeta in Frameworks */ = {isa = PBXBuildFile; productRef = DB41ED8126A54D8A00F58330 /* MastodonMeta */; };
-		DB41ED8426A54D8A00F58330 /* MetaTextView in Frameworks */ = {isa = PBXBuildFile; productRef = DB41ED8326A54D8A00F58330 /* MetaTextView */; };
 		DB427DD625BAA00100D1B89D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD525BAA00100D1B89D /* AppDelegate.swift */; };
 		DB427DD825BAA00100D1B89D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB427DD725BAA00100D1B89D /* SceneDelegate.swift */; };
 		DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDB25BAA00100D1B89D /* Main.storyboard */; };
@@ -896,6 +895,7 @@
 		DB0C946E26A7D2A80088FB11 /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		DB0C947126A7D2D70088FB11 /* AvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarButton.swift; sourceTree = "<group>"; };
 		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
+		DB0E91E926A9675100BD2ACC /* MetaLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaLabel.swift; sourceTree = "<group>"; };
 		DB0F814D264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -1257,7 +1257,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
-				DB03F7ED268976B5007B274C /* MetaTextView in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				DBC6462B26A1738900B0E31B /* MastodonUI in Frameworks */,
 				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
@@ -1269,14 +1268,15 @@
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
+				DB01E23326A98F0900C3965B /* MastodonMeta in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
 				DB3D0FF325BAA61700EAA174 /* AlamofireImage in Frameworks */,
 				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */,
-				DB03F7EB268976B5007B274C /* MastodonMeta in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
+				DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1329,8 +1329,6 @@
 				DBBC24B826A5421800398BB9 /* CommonOSLog in Frameworks */,
 				DBC6462526A1720B00B0E31B /* MastodonUI in Frameworks */,
 				DBC6463726A195DB00B0E31B /* CoreDataStack.framework in Frameworks */,
-				DB41ED8426A54D8A00F58330 /* MetaTextView in Frameworks */,
-				DB41ED8226A54D8A00F58330 /* MastodonMeta in Frameworks */,
 				DBBC24D126A5484F00398BB9 /* UITextView+Placeholder in Frameworks */,
 				DBBC24AA26A5301B00398BB9 /* MastodonSDK in Frameworks */,
 				DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */,
@@ -2502,6 +2500,7 @@
 				DB6C8C0525F0921200AAA452 /* MastodonSDK */,
 				DB44384E25E8C1FA008912A2 /* CALayer.swift */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
+				DB0E91E926A9675100BD2ACC /* MetaLabel.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
@@ -2999,9 +2998,9 @@
 				DBAC649D267DFE43007FE9FD /* DiffableDataSources */,
 				DBAC64A0267E6D02007FE9FD /* Fuzi */,
 				DBF7A0FB26830C33004176A2 /* FPSIndicator */,
-				DB03F7EA268976B5007B274C /* MastodonMeta */,
-				DB03F7EC268976B5007B274C /* MetaTextView */,
 				DBC6462A26A1738900B0E31B /* MastodonUI */,
+				DB01E23226A98F0900C3965B /* MastodonMeta */,
+				DB01E23426A98F0900C3965B /* MetaTextKit */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3127,8 +3126,6 @@
 				DBBC24A926A5301B00398BB9 /* MastodonSDK */,
 				DBBC24B726A5421800398BB9 /* CommonOSLog */,
 				DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */,
-				DB41ED8126A54D8A00F58330 /* MastodonMeta */,
-				DB41ED8326A54D8A00F58330 /* MetaTextView */,
 				DB0C946426A6FD4D0088FB11 /* AlamofireImage */,
 			);
 			productName = ShareActionExtension;
@@ -3226,7 +3223,7 @@
 				DBAC649F267E6D01007FE9FD /* XCRemoteSwiftPackageReference "Fuzi" */,
 				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
 				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
-				DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */,
+				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3752,6 +3749,7 @@
 				DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
 				DB6D9F7D26358ED4008423CD /* SettingsSection.swift in Sources */,
+				DB0E91EA26A9675100BD2ACC /* MetaLabel.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
 				DB9D6BE925E4F5340051B173 /* SearchViewController.swift in Sources */,
 				2D38F1C625CD37F400561493 /* ContentOffsetAdjustableTimelineViewControllerDelegate.swift in Sources */,
@@ -5349,12 +5347,12 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */ = {
+		DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TwidereProject/MetaTextView.git";
+			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = 1.4.0;
+				version = 2.0.0;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
@@ -5474,15 +5472,15 @@
 			package = DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */;
 			productName = CommonOSLog;
 		};
-		DB03F7EA268976B5007B274C /* MastodonMeta */ = {
+		DB01E23226A98F0900C3965B /* MastodonMeta */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */;
+			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
 			productName = MastodonMeta;
 		};
-		DB03F7EC268976B5007B274C /* MetaTextView */ = {
+		DB01E23426A98F0900C3965B /* MetaTextKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */;
-			productName = MetaTextView;
+			package = DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */;
+			productName = MetaTextKit;
 		};
 		DB0C946426A6FD4D0088FB11 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -5493,16 +5491,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
-		};
-		DB41ED8126A54D8A00F58330 /* MastodonMeta */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */;
-			productName = MastodonMeta;
-		};
-		DB41ED8326A54D8A00F58330 /* MetaTextView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DB03F7E9268976B5007B274C /* XCRemoteSwiftPackageReference "MetaTextView" */;
-			productName = MetaTextView;
 		};
 		DB68050F2637D0F800430867 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;

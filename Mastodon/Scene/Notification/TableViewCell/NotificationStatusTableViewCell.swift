@@ -11,7 +11,7 @@ import Foundation
 import CoreDataStack
 import UIKit
 import ActiveLabel
-import MetaTextView
+import MetaTextKit
 import Meta
 import FLAnimatedImage
 

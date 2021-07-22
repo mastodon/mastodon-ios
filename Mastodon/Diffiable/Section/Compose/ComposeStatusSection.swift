@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import MetaTextView
+import MetaTextKit
 import MastodonMeta
 import AlamofireImage
 

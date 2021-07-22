@@ -12,7 +12,7 @@ import CoreDataStack
 import TwitterTextEditor
 import MastodonSDK
 import MastodonMeta
-import MetaTextView
+import MetaTextKit
 
 extension ComposeViewModel {
 

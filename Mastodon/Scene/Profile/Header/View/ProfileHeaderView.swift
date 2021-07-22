@@ -11,7 +11,7 @@ import Combine
 import ActiveLabel
 import TwitterTextEditor
 import FLAnimatedImage
-import MetaTextView
+import MetaTextKit
 
 protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)

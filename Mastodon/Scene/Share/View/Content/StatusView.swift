@@ -12,7 +12,7 @@ import AVKit
 import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
-import MetaTextView
+import MetaTextKit
 import Meta
 import MastodonSDK
 
@@ -81,12 +81,7 @@ final class StatusView: UIView {
         return label
     }()
     
-    let headerInfoLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusHeader)
-        label.text = "Bob reblogged"
-        label.layer.masksToBounds = false
-        return label
-    }()
+    let headerInfoLabel = MetaLabel(style: .statusHeader)
     
     let avatarView: UIView = {
         let view = UIView()
@@ -98,8 +93,8 @@ final class StatusView: UIView {
     let avatarButton = AvatarButton()
     let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
-    let nameLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusName)
+    let nameMetaLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusName)
         return label
     }()
     
@@ -343,24 +338,27 @@ extension StatusView {
         titleContainerStackView.axis = .horizontal
         titleContainerStackView.alignment = .center
         titleContainerStackView.spacing = 4
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleContainerStackView.addArrangedSubview(nameLabel)
+        nameMetaLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleContainerStackView.addArrangedSubview(nameMetaLabel)
         NSLayoutConstraint.activate([
-            nameLabel.heightAnchor.constraint(equalToConstant: 22).priority(.defaultHigh),
+            nameMetaLabel.heightAnchor.constraint(equalToConstant: 22).priority(.defaultHigh),
         ])
-        titleContainerStackView.alignment = .firstBaseline
         titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
-        titleContainerStackView.addArrangedSubview(UIView()) // padding
+        let padding = UIView()
+        padding.translatesAutoresizingMaskIntoConstraints = false
+        titleContainerStackView.addArrangedSubview(padding) // padding
         titleContainerStackView.addArrangedSubview(visibilityImageView)
-        nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        nameMetaLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        visibilityImageView.setContentHuggingPriority(.required - 1, for: .horizontal)
+        dateLabel.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
+        padding.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        padding.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.required - 9, for: .horizontal)
+        visibilityImageView.setContentCompressionResistancePriority(.required - 9, for: .horizontal)
         visibilityImageView.setContentHuggingPriority(.required - 1, for: .vertical)
-        visibilityImageView.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()

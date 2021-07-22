@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "4d19ad82f80cc71ff829b941ded114c56f4f604c",
-          "version": "5.4.2"
+          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
+          "version": "5.4.3"
         }
       },
       {
@@ -110,12 +110,12 @@
         }
       },
       {
-        "package": "MetaTextView",
-        "repositoryURL": "https://github.com/TwidereProject/MetaTextView.git",
+        "package": "MetaTextKit",
+        "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "4c16bc639652a7e1bff4f75e1eba2fcf40213974",
-          "version": "1.4.0"
+          "revision": "44fc5111269d9862369348870835e17907062115",
+          "version": "2.0.0"
         }
       },
       {
@@ -143,6 +143,15 @@
           "branch": null,
           "revision": "34ecb6e7c4e0e07494960ab2f7cc9a02293915a6",
           "version": "3.6.2"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "76dd4b49110b8624317fc128e7fa0d8a252018bc",
+          "version": "5.11.1"
         }
       },
       {

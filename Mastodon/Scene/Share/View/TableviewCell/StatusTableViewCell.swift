@@ -13,7 +13,7 @@ import CoreData
 import CoreDataStack
 import ActiveLabel
 import Meta
-import MetaTextView
+import MetaTextKit
 
 protocol StatusTableViewCellDelegate: AnyObject {
     var context: AppContext! { get }

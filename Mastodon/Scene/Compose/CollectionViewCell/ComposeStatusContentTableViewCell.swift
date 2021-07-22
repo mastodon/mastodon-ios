@@ -8,7 +8,7 @@
 import os.log
 import UIKit
 import Combine
-import MetaTextView
+import MetaTextKit
 import UITextView_Placeholder
 
 final class ComposeStatusContentTableViewCell: UITableViewCell {
