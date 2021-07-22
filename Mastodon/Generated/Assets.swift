@@ -34,7 +34,6 @@ internal enum Asset {
   internal enum Colors {
     internal enum Border {
       internal static let composePoll = ColorAsset(name: "Colors/Border/compose.poll")
-      internal static let notificationStatus = ColorAsset(name: "Colors/Border/notification.status")
       internal static let searchCard = ColorAsset(name: "Colors/Border/searchCard")
       internal static let status = ColorAsset(name: "Colors/Border/status")
     }
@@ -64,9 +63,6 @@ internal enum Asset {
     }
     internal enum Slider {
       internal static let track = ColorAsset(name: "Colors/Slider/track")
-    }
-    internal enum TabBar {
-      internal static let itemInactive = ColorAsset(name: "Colors/TabBar/item.inactive")
     }
     internal enum TextField {
       internal static let background = ColorAsset(name: "Colors/TextField/background")
@@ -135,6 +131,7 @@ internal enum Asset {
       internal static let tableViewCellSelectionBackground = ColorAsset(name: "Theme/Mastodon/table.view.cell.selection.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Theme/Mastodon/tertiary.system.background")
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Theme/Mastodon/tertiary.system.grouped.background")
+      internal static let notificationStatusBorderColor = ColorAsset(name: "Theme/Mastodon/notification.status.border.color")
       internal static let separator = ColorAsset(name: "Theme/Mastodon/separator")
       internal static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/Mastodon/tab.bar.item.inactive.icon.color")
     }
@@ -153,6 +150,7 @@ internal enum Asset {
       internal static let tableViewCellSelectionBackground = ColorAsset(name: "Theme/system/table.view.cell.selection.background")
       internal static let tertiarySystemBackground = ColorAsset(name: "Theme/system/tertiary.system.background")
       internal static let tertiarySystemGroupedBackground = ColorAsset(name: "Theme/system/tertiary.system.grouped.background")
+      internal static let notificationStatusBorderColor = ColorAsset(name: "Theme/system/notification.status.border.color")
       internal static let separator = ColorAsset(name: "Theme/system/separator")
       internal static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/system/tab.bar.item.inactive.icon.color")
     }

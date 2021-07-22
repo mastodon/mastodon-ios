@@ -34,4 +34,5 @@ struct SystemTheme: Theme {
     let contentWarningOverlayBackgroundColor = Asset.Theme.System.contentWarningOverlayBackground.color
     let profileFieldCollectionViewBackgroundColor = Asset.Theme.System.profileFieldCollectionViewBackground.color
     let composeToolbarBackgroundColor = Asset.Theme.System.composeToolbarBackground.color
+    let notificationStatusBorderColor = Asset.Theme.System.notificationStatusBorderColor.color
 }
