@@ -211,9 +211,15 @@ extension SettingService {
             UserDefaults.shared.preferredStaticAvatar = setting.preferredStaticAvatar
         }
 
+        // set emoji mode
+        if UserDefaults.shared.preferredStaticEmoji != setting.preferredStaticEmoji {
+            UserDefaults.shared.preferredStaticEmoji = setting.preferredStaticEmoji
+        }
+
         // set browser
         if UserDefaults.shared.preferredUsingDefaultBrowser != setting.preferredUsingDefaultBrowser {
             UserDefaults.shared.preferredUsingDefaultBrowser = setting.preferredUsingDefaultBrowser
         }
+
     }
 }

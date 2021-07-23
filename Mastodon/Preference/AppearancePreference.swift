@@ -26,4 +26,13 @@ extension UserDefaults {
         set { self[#function] = newValue }
     }
 
+    @objc dynamic var preferredStaticEmoji: Bool {
+        get {
+            // default false
+            // without set register to profile timeline performance
+            return bool(forKey: #function)
+        }
+        set { self[#function] = newValue }
+    }
+
 }

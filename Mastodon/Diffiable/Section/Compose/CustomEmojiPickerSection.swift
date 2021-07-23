@@ -24,7 +24,8 @@ extension CustomEmojiPickerSection {
                 let placeholder = UIImage.placeholder(size: CustomEmojiPickerItemCollectionViewCell.itemSize, color: .systemFill)
                     .af.imageRounded(withCornerRadius: 4)
 
-                let url = URL(string: attribute.emoji.url)
+                let isAnimated = !UserDefaults.shared.preferredStaticEmoji
+                let url = URL(string:  isAnimated ? attribute.emoji.url : attribute.emoji.staticURL)
                 cell.emojiImageView.sd_setImage(
                     with: url,
                     placeholderImage: placeholder,

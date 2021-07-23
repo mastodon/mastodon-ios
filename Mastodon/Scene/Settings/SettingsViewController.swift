@@ -486,6 +486,8 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                     setting.update(preferredTrueBlackDarkMode: isOn)
                 case .disableAvatarAnimation:
                     setting.update(preferredStaticAvatar: isOn)
+                case .disableEmojiAnimation:
+                    setting.update(preferredStaticEmoji: isOn)
                 case .useDefaultBrowser:
                     setting.update(preferredUsingDefaultBrowser: isOn)
                 }
@@ -498,6 +500,8 @@ extension SettingsViewController: SettingsToggleCellDelegate {
                         ThemeService.shared.set(themeName: isOn ? .system : .mastodon)
                     case .disableAvatarAnimation:
                         UserDefaults.shared.preferredStaticAvatar = isOn
+                    case .disableEmojiAnimation:
+                        UserDefaults.shared.preferredStaticEmoji = isOn
                     case .useDefaultBrowser:
                         UserDefaults.shared.preferredUsingDefaultBrowser = isOn
                     }

@@ -13,6 +13,8 @@ protocol EmojiContainer {
     var emojisData: Data? { get }
 }
 
+// FIXME: `Mastodon.Entity.Account` extension
+
 extension EmojiContainer {
     
     static func encode(emojis: [Mastodon.Entity.Emoji]) -> Data? {
@@ -25,9 +27,11 @@ extension EmojiContainer {
     }
 
     var emojiMeta: MastodonContent.Emojis {
+        let isAnimated = !UserDefaults.shared.preferredStaticEmoji
+
         var dict = MastodonContent.Emojis()
         for emoji in emojis ?? [] {
-            dict[emoji.shortcode] = emoji.url
+            dict[emoji.shortcode] = isAnimated ? emoji.url : emoji.staticURL
         }
         return dict
     }
