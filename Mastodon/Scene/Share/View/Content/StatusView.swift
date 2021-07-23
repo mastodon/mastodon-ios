@@ -287,6 +287,7 @@ extension StatusView {
             headerContainerStackView.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor),
             headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
         ])
+        headerContainerStackView.setContentCompressionResistancePriority(.required - 5, for: .vertical)
         containerStackView.addArrangedSubview(headerContainerView)
         defer {
             containerStackView.bringSubviewToFront(headerContainerView)
@@ -418,17 +419,21 @@ extension StatusView {
         NSLayoutConstraint.activate([
             pollTableViewHeightLayoutConstraint,
         ])
-        
-        statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
-            guard let self = self else { return }
-            guard self.pollTableView.contentSize.height != .zero else {
-                self.pollTableViewHeightLayoutConstraint.constant = 44
-                return
-            }
-            self.pollTableViewHeightLayoutConstraint.constant = self.pollTableView.contentSize.height
-        })
-        
+
+        // statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
+        //     guard let self = self else { return }
+        //     guard self.pollTableView.contentSize.height != .zero else {
+        //         self.pollTableViewHeightLayoutConstraint.constant = 44
+        //         return
+        //     }
+        //     self.pollTableViewHeightLayoutConstraint.constant = self.pollTableView.contentSize.height
+        // })
+
+        pollStatusStackView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(pollStatusStackView)
+        NSLayoutConstraint.activate([
+            pollStatusStackView.heightAnchor.constraint(equalToConstant: 30).priority(.required - 10)
+        ])
         pollStatusStackView.axis = .horizontal
         pollStatusStackView.addArrangedSubview(pollVoteCountLabel)
         pollStatusStackView.addArrangedSubview(pollStatusDotLabel)
