@@ -84,7 +84,7 @@ extension HashtagTimelineViewModel {
             newSnapshot.appendItems(statusItemList, toSection: .main)
         }
         
-        if !(self.loadoldestStateMachine.currentState is LoadOldestState.NoMore) {
+        if !(self.loadOldestStateMachine.currentState is LoadOldestState.NoMore) {
             newSnapshot.appendItems([.bottomLoader], toSection: .main)
         }
         

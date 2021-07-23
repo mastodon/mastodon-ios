@@ -388,7 +388,7 @@ extension HomeTimelineViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
     typealias LoadingState = HomeTimelineViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { return tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadLatestStateMachine }
 }
 
 // MARK: - UITableViewDelegate

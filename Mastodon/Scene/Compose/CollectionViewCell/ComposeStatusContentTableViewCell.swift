@@ -40,20 +40,19 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
                 attributes: attributes
             )
         }()
-        let paragraphStyle: NSMutableParagraphStyle = {
+        metaText.paragraphStyle = {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
+            style.paragraphSpacing = 8
             return style
         }()
         metaText.textAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
             .foregroundColor: Asset.Colors.Label.primary.color,
-            .paragraphStyle: paragraphStyle,
         ]
         metaText.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
             .foregroundColor: Asset.Colors.brandBlue.color,
-            .paragraphStyle: paragraphStyle,
         ]
         return metaText
     }()

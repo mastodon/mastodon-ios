@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import Meta
 import MetaTextKit
 
 extension MetaLabel {
     enum Style {
         case statusHeader
         case statusName
-//        case profileFieldName
-//        case profileFieldValue
+        case notificationName
+        case profileFieldName
+        case profileFieldValue
+        case recommendAccountName
+        case titleView
+        case settingTableFooter
     }
 
     convenience init(style: Style) {
@@ -33,14 +38,37 @@ extension MetaLabel {
         case .statusName:
             font = .systemFont(ofSize: 17, weight: .semibold)
             textColor = Asset.Colors.Label.primary.color
-//        case .profileFieldName:
-//            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
-//            textColor = Asset.Colors.Label.primary.color
-//            numberOfLines = 1
-//        case .profileFieldValue:
-//            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 20)
-//            textColor = Asset.Colors.Label.primary.color
-//            numberOfLines = 1
+
+        case .notificationName:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
+            textColor = Asset.Colors.brandBlue.color
+
+        case .profileFieldName:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
+            textColor = Asset.Colors.Label.primary.color
+
+        case .profileFieldValue:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 20)
+            textColor = Asset.Colors.Label.primary.color
+            textAlignment = .right
+
+
+        case .titleView:
+            font = .systemFont(ofSize: 17, weight: .semibold)
+            textColor = Asset.Colors.Label.primary.color
+            textAlignment = .center
+            paragraphStyle.alignment = .center
+
+        case .recommendAccountName:
+            font = .systemFont(ofSize: 18, weight: .semibold)
+            textColor = .white
+
+        case .settingTableFooter:
+            font = .preferredFont(forTextStyle: .body)
+            textColor = Asset.Colors.Label.primary.color
+            numberOfLines = 0
+            textContainer.maximumNumberOfLines = 0
+            paragraphStyle.alignment = .center
         }
 
         self.font = font
@@ -50,4 +78,23 @@ extension MetaLabel {
             .font: font,
             .foregroundColor: textColor
         ]
-    }}
+        linkAttributes = [
+            .font: font,
+            .foregroundColor: Asset.Colors.brandBlue.color
+        ]
+    }
+
+}
+
+struct PlaintextMetaContent: MetaContent {
+    let string: String
+    let entities: [Meta.Entity] = []
+
+    init(string: String) {
+        self.string = string
+    }
+
+    func metaAttachment(for entity: Meta.Entity) -> MetaAttachment? {
+        return nil
+    }
+}

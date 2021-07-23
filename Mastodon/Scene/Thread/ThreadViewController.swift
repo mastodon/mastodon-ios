@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreData
 import AVKit
+import MastodonMeta
 
 final class ThreadViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
         
@@ -84,18 +85,27 @@ extension ThreadViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        viewModel.navigationBarTitle
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] tuple in
-                guard let self = self else { return }
-                guard let (title, emojiDict) = tuple else {
-                    self.titleView.update(title: L10n.Scene.Thread.backTitle, subtitle: nil, emojiDict: [:])
-                    return
-                }
-                self.titleView.update(title: title, subtitle: nil, emojiDict: emojiDict)
+
+        Publishers.CombineLatest(
+            viewModel.navigationBarTitle,
+            viewModel.navigationBarTitleEmojiMeta
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] title, emojiMeta in
+            guard let self = self else { return }
+            guard let title = title else {
+                self.titleView.update(title: "", subtitle: nil)
+                return
             }
-            .store(in: &disposeBag)
+            let mastodonContent = MastodonContent(content: title, emojis: emojiMeta ?? [:])
+            do {
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                self.titleView.update(titleMetaContent: metaContent, subtitle: nil)
+            } catch {
+                assertionFailure()
+            }
+        }
+        .store(in: &disposeBag)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "ActiveLabel",
-        "repositoryURL": "https://github.com/TwidereProject/ActiveLabel.swift",
-        "state": {
-          "branch": null,
-          "revision": "d503eb3bfabc54a70139618ab2ba09ebb8c09672",
-          "version": "5.0.3"
-        }
-      },
-      {
         "package": "Alamofire",
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
@@ -98,24 +89,6 @@
           "branch": null,
           "revision": "84e546727d66f1adc5439debad16270d0fdd04e7",
           "version": "4.2.2"
-        }
-      },
-      {
-        "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
-        "state": {
-          "branch": null,
-          "revision": "44450a8f564d7c0165f736ba2250649ff8d3e556",
-          "version": "6.3.0"
-        }
-      },
-      {
-        "package": "MetaTextKit",
-        "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
-        "state": {
-          "branch": null,
-          "revision": "44fc5111269d9862369348870835e17907062115",
-          "version": "2.0.0"
         }
       },
       {

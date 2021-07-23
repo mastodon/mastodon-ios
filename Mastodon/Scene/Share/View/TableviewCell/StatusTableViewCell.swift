@@ -11,7 +11,6 @@ import AVKit
 import Combine
 import CoreData
 import CoreDataStack
-import ActiveLabel
 import Meta
 import MetaTextKit
 
@@ -27,7 +26,6 @@ protocol StatusTableViewCellDelegate: AnyObject {
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
     func statusTableViewCell(_ cell: StatusTableViewCell, statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
     
     func statusTableViewCell(_ cell: StatusTableViewCell, mosaicImageViewContainer: MosaicImageViewContainer, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
@@ -327,10 +325,6 @@ extension StatusTableViewCell: StatusViewDelegate {
     
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
         delegate?.statusTableViewCell(self, statusView: statusView, pollVoteButtonPressed: button)
-    }
-    
-    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        delegate?.statusTableViewCell(self, statusView: statusView, activeLabel: activeLabel, didSelectActiveEntity: entity)
     }
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {

@@ -8,10 +8,11 @@
 import os.log
 import UIKit
 import Combine
-import ActiveLabel
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import MetaTextKit
+import MastodonMeta
 import AuthenticationServices
 
 class SettingsViewController: UIViewController, NeedsDependency {
@@ -103,12 +104,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         return tableView
     }()
 
-    let tableFooterActiveLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .default)
-        label.adjustsFontForContentSizeCategory = true
-        label.textAlignment = .center
-        return label
-    }()
+    let tableFooterLabel = MetaLabel(style: .settingTableFooter)
     lazy var tableFooterView: UIView = {
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
         let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
@@ -117,8 +113,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
         view.axis = .vertical
         view.alignment = .center
 
-        tableFooterActiveLabel.delegate = self
-        view.addArrangedSubview(tableFooterActiveLabel)
+        tableFooterLabel.linkDelegate = self
+        view.addArrangedSubview(tableFooterLabel)
         return view
     }()
     
@@ -199,7 +195,15 @@ class SettingsViewController: UIViewController, NeedsDependency {
                 let version = instance?.version ?? "-"
                 let link = #"<a href="https://github.com/mastodon/mastodon">mastodon/mastodon</a>"#
                 let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
-                self.tableFooterActiveLabel.configure(content: content, emojiDict: [:])
+                let mastodonContent = MastodonContent(content: content, emojis: [:])
+                do {
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    self.tableFooterLabel.configure(content: metaContent)
+                } catch {
+                    let metaContent = PlaintextMetaContent(string: "")
+                    self.tableFooterLabel.configure(content: metaContent)
+                    assertionFailure()
+                }
             }
             .store(in: &disposeBag)
     }
@@ -510,13 +514,16 @@ extension SettingsViewController: SettingsToggleCellDelegate {
     }
 }
 
-extension SettingsViewController: ActiveLabelDelegate {
-    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        coordinator.present(
-            scene: .safari(url: URL(string: "https://github.com/mastodon/mastodon")!),
-            from: self,
-            transition: .safariPresent(animated: true, completion: nil)
-        )
+// MARK: - MetaLabelDelegate
+extension SettingsViewController: MetaLabelDelegate {
+    func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
+        switch meta {
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url) else { return }
+            coordinator.present(scene: .safari(url: url), from: self, transition: .safariPresent(animated: true, completion: nil))
+        default:
+            assertionFailure()
+        }
     }
 }
 

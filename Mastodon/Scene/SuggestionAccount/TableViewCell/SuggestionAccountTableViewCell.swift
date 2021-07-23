@@ -11,7 +11,8 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
-import ActiveLabel
+import MetaTextKit
+import MastodonMeta
 
 protocol SuggestionAccountTableViewCellDelegate: AnyObject {
     func accountButtonPressed(objectID: NSManagedObjectID, cell: SuggestionAccountTableViewCell)
@@ -29,13 +30,7 @@ final class SuggestionAccountTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    let titleLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusName)
-        label.textColor = Asset.Colors.brandBlue.color
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.lineBreakMode = .byTruncatingTail
-        return label
-    }()
+    let titleLabel = MetaLabel(style: .statusName)
     
     let subTitleLabel: UILabel = {
         let label = UILabel()
@@ -152,8 +147,15 @@ extension SuggestionAccountTableViewCell {
                 imageTransition: .crossDissolve(0.2)
             )
         }
-        titleLabel.configure(content: account.displayNameWithFallback, emojiDict: account.emojiDict)
-        subTitleLabel.text = account.acct
+        let mastodonContent = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojiMeta)
+        do {
+            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+            titleLabel.configure(content: metaContent)
+        } catch {
+            let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
+            titleLabel.configure(content: metaContent)
+        }
+        subTitleLabel.text = "@" + account.acct
         button.isSelected = isSelected
         button.publisher(for: .touchUpInside)
             .sink { [weak self] _ in

@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import CoreDataStack
 import MastodonSDK
+import MastodonMeta
 
 // please override this base class
 class ProfileViewModel: NSObject {
@@ -40,7 +41,7 @@ class ProfileViewModel: NSObject {
     let followingCount: CurrentValueSubject<Int?, Never>
     let followersCount: CurrentValueSubject<Int?, Never>
     let fields: CurrentValueSubject<[Mastodon.Entity.Field], Never>
-    let emojiDict: CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>
+    let emojiMeta: CurrentValueSubject<MastodonContent.Emojis, Never>
 
     // fulfill this before editing
     let accountForEdit = CurrentValueSubject<Mastodon.Entity.Account?, Never>(nil)
@@ -83,7 +84,7 @@ class ProfileViewModel: NSObject {
         self.protected = CurrentValueSubject(mastodonUser?.locked)
         self.suspended = CurrentValueSubject(mastodonUser?.suspended ?? false)
         self.fields = CurrentValueSubject(mastodonUser?.fields ?? [])
-        self.emojiDict = CurrentValueSubject(mastodonUser?.emojiDict ?? [:])
+        self.emojiMeta = CurrentValueSubject(mastodonUser?.emojiMeta ?? [:])
         super.init()
         
         relationshipActionOptionSet
@@ -258,7 +259,7 @@ extension ProfileViewModel {
         self.protected.value = mastodonUser?.locked
         self.suspended.value = mastodonUser?.suspended ?? false
         self.fields.value = mastodonUser?.fields ?? []
-        self.emojiDict.value = mastodonUser?.emojiDict ?? [:]
+        self.emojiMeta.value = mastodonUser?.emojiMeta ?? [:]
     }
     
     private func update(mastodonUser: MastodonUser?, currentMastodonUser: MastodonUser?) {

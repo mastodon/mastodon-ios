@@ -8,11 +8,11 @@
 import os.log
 import UIKit
 import Combine
-import ActiveLabel
+import MetaTextKit
 
 protocol ProfileFieldCollectionViewCellDelegate: AnyObject {
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, editButtonDidPressed button: UIButton)
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta)
 }
 
 final class ProfileFieldCollectionViewCell: UICollectionViewCell {
@@ -107,7 +107,7 @@ extension ProfileFieldCollectionViewCell {
         
         editButton.addTarget(self, action: #selector(ProfileFieldCollectionViewCell.editButtonDidPressed(_:)), for: .touchUpInside)
         
-        fieldView.valueActiveLabel.delegate = self
+        fieldView.valueMetaLabel.linkDelegate = self
         
         resetSeparatorLineLayout()
     }
@@ -153,13 +153,11 @@ extension ProfileFieldCollectionViewCell {
     }
 }
 
-
-
-// MARK: - ActiveLabelDelegate
-extension ProfileFieldCollectionViewCell: ActiveLabelDelegate {
-    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
+// MARK: - MetaLabelDelegate
+extension ProfileFieldCollectionViewCell: MetaLabelDelegate {
+    func metaLabel(_ metaLabel: MetaLabel, didSelectMeta meta: Meta) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.profileFieldCollectionViewCell(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
+        delegate?.profileFieldCollectionViewCell(self, metaLebel: metaLabel, didSelectMeta: meta)
     }
 }
 

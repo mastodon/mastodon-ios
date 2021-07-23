@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import FLAnimatedImage
+import SDWebImage
 
 final class CustomEmojiPickerItemCollectionViewCell: UICollectionViewCell {
     
     static let itemSize = CGSize(width: 44, height: 44)
 
-    let emojiImageView: FLAnimatedImageView = {
-        let imageView = FLAnimatedImageView()
+    let emojiImageView: SDAnimatedImageView = {
+        let imageView = SDAnimatedImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
         return imageView

@@ -46,7 +46,7 @@ final class HashtagTimelineViewModel: NSObject {
     }()
     lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
     // bottom loader
-    private(set) lazy var loadoldestStateMachine: GKStateMachine = {
+    private(set) lazy var loadOldestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
             LoadOldestState.Initial(viewModel: self),

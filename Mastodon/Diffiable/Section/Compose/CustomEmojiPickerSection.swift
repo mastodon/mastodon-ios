@@ -25,7 +25,12 @@ extension CustomEmojiPickerSection {
                     .af.imageRounded(withCornerRadius: 4)
 
                 let url = URL(string: attribute.emoji.url)
-                cell.emojiImageView.setImage(url: url, placeholder: placeholder, scaleToSize: CustomEmojiPickerItemCollectionViewCell.itemSize)
+                cell.emojiImageView.sd_setImage(
+                    with: url,
+                    placeholderImage: placeholder,
+                    options: [],
+                    context: nil
+                )
                 cell.accessibilityLabel = attribute.emoji.shortcode
                 return cell
             }

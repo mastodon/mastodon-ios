@@ -11,7 +11,6 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
-import ActiveLabel
 import Meta
 import MetaTextKit
 
@@ -125,35 +124,6 @@ extension StatusProviderFacade {
 }
 
 extension StatusProviderFacade {
-    
-    static func responseToStatusActiveLabelAction(provider: StatusProvider, cell: UITableViewCell, activeLabel: ActiveLabel, didTapEntity entity: ActiveEntity) {
-        switch entity.type {
-        case .url(_, _, let url, _),
-             .mention(let url, _) where url.lowercased().hasPrefix("http"):
-            // note:
-            // some server mark the normal url as "u-url" class. :
-            guard let url = URL(string: url) else { return }
-            if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
-               url.pathComponents.count >= 4,
-               url.pathComponents[0] == "/",
-               url.pathComponents[1] == "web",
-               url.pathComponents[2] == "statuses" {
-                let statusID = url.pathComponents[3]
-                let threadViewModel = RemoteThreadViewModel(context: provider.context, statusID: statusID)
-                provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-            } else {
-                provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-            }
-        case .hashtag(let text, _):
-            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
-            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
-        case .mention(let text, let userInfo):
-            let href = userInfo?["href"] as? String
-            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, cell: cell, mention: text, href: href)
-        default:
-            break
-        }
-    }
 
     static func responseToStatusMetaTextAction(provider: StatusProvider, cell: UITableViewCell, metaText: MetaText, didSelectMeta meta: Meta) {
         switch meta {
@@ -185,31 +155,6 @@ extension StatusProviderFacade {
     }
 
     #if ASDK
-    static func responseToStatusActiveLabelAction(provider: StatusProvider, node: ASCellNode, didSelectActiveEntityType type: ActiveEntityType) {
-        switch type {
-        case .hashtag(let text, _):
-            let hashtagTimelineViewModel = HashtagTimelineViewModel(context: provider.context, hashtag: text)
-            provider.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: provider, transition: .show)
-        case .mention(let text, _):
-            coordinateToStatusMentionProfileScene(for: .primary, provider: provider, node: node, mention: text)
-        case .url(_, _, let url, _):
-            guard let url = URL(string: url) else { return }
-            if let domain = provider.context.authenticationService.activeMastodonAuthenticationBox.value?.domain, url.host == domain,
-               url.pathComponents.count >= 4,
-               url.pathComponents[0] == "/",
-               url.pathComponents[1] == "web",
-               url.pathComponents[2] == "statuses" {
-                let statusID = url.pathComponents[3]
-                let threadViewModel = RemoteThreadViewModel(context: provider.context, statusID: statusID)
-                provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-            } else {
-                provider.coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-            }
-        default:
-            break
-        }
-    }
-
     private static func coordinateToStatusMentionProfileScene(for target: Target, provider: StatusProvider, node: ASCellNode, mention: String) {
         guard let status = provider.status(node: node, indexPath: nil) else { return }
         coordinateToStatusMentionProfileScene(for: target, provider: provider, status: status, mention: mention, href: nil)

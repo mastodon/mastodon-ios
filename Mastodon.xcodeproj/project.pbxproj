@@ -65,7 +65,6 @@
 		2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F1FD25CD481700561493 /* StatusProvider.swift */; };
 		2D38F20825CD491300561493 /* DisposeBagCollectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D38F20725CD491300561493 /* DisposeBagCollectable.swift */; };
 		2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */; };
-		2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 2D42FF6025C8177C004A627A /* ActiveLabel */; };
 		2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF7D25C82218004A627A /* ActionToolBarContainer.swift */; };
 		2D42FF8525C8224F004A627A /* HitTestExpandedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8425C8224F004A627A /* HitTestExpandedButton.swift */; };
 		2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D42FF8E25C8228A004A627A /* UIButton.swift */; };
@@ -309,7 +308,6 @@
 		DB6804872637CD4C00430867 /* AppShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB6804922637CD8700430867 /* AppName.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804912637CD8700430867 /* AppName.swift */; };
 		DB6804A52637CDCC00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
-		DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
 		DB6804D12637CE4700430867 /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804D02637CE4700430867 /* UserDefaults.swift */; };
 		DB6804FD2637CFEC00430867 /* AppSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6804FC2637CFEC00430867 /* AppSecret.swift */; };
 		DB6805102637D0F800430867 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = DB68050F2637D0F800430867 /* KeychainAccess */; };
@@ -442,7 +440,6 @@
 		DBAE3F9E2616E308004B8251 /* APIService+Mute.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */; };
 		DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */; };
 		DBAEDE5C267A058D00D25FF5 /* BlurhashImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */; };
-		DBAEDE61267B342D00D25FF5 /* StatusContentCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */; };
 		DBAFB7352645463500371D5F /* Emojis.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAFB7342645463500371D5F /* Emojis.swift */; };
 		DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */; };
 		DBB3BA2B26A81D060004F2D4 /* FLAnimatedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */; };
@@ -479,11 +476,7 @@
 		DBBC24D126A5484F00398BB9 /* UITextView+Placeholder in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24D026A5484F00398BB9 /* UITextView+Placeholder */; };
 		DBBC24D226A5488600398BB9 /* AvatarConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24B426A540AE00398BB9 /* AvatarConfigurableView.swift */; };
 		DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */; };
-		DBBC24DD26A54BCB00398BB9 /* MastodonStatusContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D726A54BCB00398BB9 /* MastodonStatusContent.swift */; };
 		DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */; };
-		DBBC24DF26A54BCB00398BB9 /* MastodonStatusContent+ParseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24D926A54BCB00398BB9 /* MastodonStatusContent+ParseResult.swift */; };
-		DBBC24E026A54BCB00398BB9 /* MastodonField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24DA26A54BCB00398BB9 /* MastodonField.swift */; };
-		DBBC24E126A54BCB00398BB9 /* MastodonStatusContent+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24DB26A54BCB00398BB9 /* MastodonStatusContent+Appearance.swift */; };
 		DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */; };
 		DBBF1DBF2652401B00E5B703 /* AutoCompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DBE2652401B00E5B703 /* AutoCompleteViewModel.swift */; };
 		DBBF1DC226524D2900E5B703 /* AutoCompleteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBF1DC126524D2900E5B703 /* AutoCompleteTableViewCell.swift */; };
@@ -930,6 +923,7 @@
 		DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollItem.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DB3F693926AA97BD00C883AB /* MetaTextKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetaTextKit; path = ../MetaTextKit; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1143,7 +1137,6 @@
 		DBAE3F9D2616E308004B8251 /* APIService+Mute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Mute.swift"; sourceTree = "<group>"; };
 		DBAE3FAE26172FC0004B8251 /* RemoteProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteProfileViewModel.swift; sourceTree = "<group>"; };
 		DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurhashImageCacheService.swift; sourceTree = "<group>"; };
-		DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusContentCacheService.swift; sourceTree = "<group>"; };
 		DBAFB7342645463500371D5F /* Emojis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emojis.swift; sourceTree = "<group>"; };
 		DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FLAnimatedImageView.swift; sourceTree = "<group>"; };
 		DBB5250D2611EBAF002F1F29 /* ProfileSegmentedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSegmentedViewController.swift; sourceTree = "<group>"; };
@@ -1168,11 +1161,7 @@
 		DBBC24C326A544B900398BB9 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		DBBC24CE26A547AE00398BB9 /* ThemeService+Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ThemeService+Appearance.swift"; sourceTree = "<group>"; };
 		DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonRegex.swift; sourceTree = "<group>"; };
-		DBBC24D726A54BCB00398BB9 /* MastodonStatusContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonStatusContent.swift; sourceTree = "<group>"; };
 		DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonMetricFormatter.swift; sourceTree = "<group>"; };
-		DBBC24D926A54BCB00398BB9 /* MastodonStatusContent+ParseResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MastodonStatusContent+ParseResult.swift"; sourceTree = "<group>"; };
-		DBBC24DA26A54BCB00398BB9 /* MastodonField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MastodonField.swift; sourceTree = "<group>"; };
-		DBBC24DB26A54BCB00398BB9 /* MastodonStatusContent+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MastodonStatusContent+Appearance.swift"; sourceTree = "<group>"; };
 		DBBE1B4425F3474B0081417A /* MastodonPickServerAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonPickServerAppearance.swift; sourceTree = "<group>"; };
 		DBBF1DBE2652401B00E5B703 /* AutoCompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteViewModel.swift; sourceTree = "<group>"; };
 		DBBF1DC126524D2900E5B703 /* AutoCompleteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCompleteTableViewCell.swift; sourceTree = "<group>"; };
@@ -1259,7 +1248,6 @@
 				DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */,
 				DB89BA0325C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
 				DBC6462B26A1738900B0E31B /* MastodonUI in Frameworks */,
-				2D42FF6125C8177C004A627A /* ActiveLabel in Frameworks */,
 				DB9A487E2603456B008B817C /* UITextView+Placeholder in Frameworks */,
 				2D939AC825EE14620076FA61 /* CropViewController in Frameworks */,
 				DBB525082611EAC0002F1F29 /* Tabman in Frameworks */,
@@ -1274,7 +1262,6 @@
 				DBAC649E267DFE43007FE9FD /* DiffableDataSources in Frameworks */,
 				2D5981BA25E4D7F8000FB903 /* ThirdPartyMailer in Frameworks */,
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
-				DB6804C82637CE2F00430867 /* AppShared.framework in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
 				DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */,
 			);
@@ -1600,7 +1587,6 @@
 				DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */,
 				DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */,
 				DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */,
-				DBAEDE60267B342D00D25FF5 /* StatusContentCacheService.swift */,
 				DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */,
 			);
 			path = Service;
@@ -1974,6 +1960,7 @@
 			children = (
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
+				DB3F693926AA97BD00C883AB /* MetaTextKit */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
 				DB427DD425BAA00100D1B89D /* Mastodon */,
 				DB427DEB25BAA00100D1B89D /* MastodonTests */,
@@ -2771,11 +2758,7 @@
 			isa = PBXGroup;
 			children = (
 				DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */,
-				DBBC24D726A54BCB00398BB9 /* MastodonStatusContent.swift */,
 				DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */,
-				DBBC24D926A54BCB00398BB9 /* MastodonStatusContent+ParseResult.swift */,
-				DBBC24DA26A54BCB00398BB9 /* MastodonField.swift */,
-				DBBC24DB26A54BCB00398BB9 /* MastodonStatusContent+Appearance.swift */,
 				DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */,
 			);
 			path = Helper;
@@ -2988,7 +2971,6 @@
 				DB3D0FF225BAA61700EAA174 /* AlamofireImage */,
 				5D526FE125BE9AC400460CB9 /* MastodonSDK */,
 				2D61336825C18A4F00CAE157 /* AlamofireNetworkActivityIndicator */,
-				2D42FF6025C8177C004A627A /* ActiveLabel */,
 				DB0140BC25C40D7500F9F3CF /* CommonOSLog */,
 				2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */,
 				2D939AC725EE14620076FA61 /* CropViewController */,
@@ -3163,7 +3145,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					DB427DD125BAA00100D1B89D = {
 						CreatedOnToolsVersion = 12.4;
@@ -3210,7 +3192,6 @@
 			packageReferences = (
 				DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 				2D61336725C18A4F00CAE157 /* XCRemoteSwiftPackageReference "AlamofireNetworkActivityIndicator" */,
-				2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */,
 				DB0140BB25C40D7500F9F3CF /* XCRemoteSwiftPackageReference "CommonOSLog" */,
 				2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */,
 				2D939AC625EE14620076FA61 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
@@ -3552,7 +3533,6 @@
 				DB92CF7225E7BB98002C1017 /* PollOptionTableViewCell.swift in Sources */,
 				DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */,
 				2D364F7225E66D7500204FDC /* MastodonResendEmailViewController.swift in Sources */,
-				DBAEDE61267B342D00D25FF5 /* StatusContentCacheService.swift in Sources */,
 				DB0C946F26A7D2A80088FB11 /* AvatarImageView.swift in Sources */,
 				2D38F1F125CD477D00561493 /* HomeTimelineViewModel+LoadMiddleState.swift in Sources */,
 				DB68A06325E905E000CFDF14 /* UIApplication.swift in Sources */,
@@ -3712,7 +3692,6 @@
 				2D3F9E0425DFA133004262D9 /* UITapGestureRecognizer.swift in Sources */,
 				5DDDF1992617447F00311060 /* Mastodon+Entity+Tag.swift in Sources */,
 				5B90C45F262599800002E742 /* SettingsToggleTableViewCell.swift in Sources */,
-				DBBC24DF26A54BCB00398BB9 /* MastodonStatusContent+ParseResult.swift in Sources */,
 				2D694A7425F9EB4E0038ADDC /* ContentWarningOverlayView.swift in Sources */,
 				DBAE3F682615DD60004B8251 /* UserProvider.swift in Sources */,
 				DBAC6488267D388B007FE9FD /* ASTableNode.swift in Sources */,
@@ -3726,7 +3705,6 @@
 				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
 				5DF1056425F887CB00D6C0D4 /* AVPlayer.swift in Sources */,
-				DBBC24E126A54BCB00398BB9 /* MastodonStatusContent+Appearance.swift in Sources */,
 				DBBF1DCB2652539E00E5B703 /* AutoCompleteItem.swift in Sources */,
 				2DA6054725F716A2006356F9 /* PlaybackState.swift in Sources */,
 				DB35FC1F2612F1D9006193C9 /* ProfileRelationshipActionButton.swift in Sources */,
@@ -3786,7 +3764,6 @@
 				DBA465932696B495002B41DB /* APIService+WebFinger.swift in Sources */,
 				DB8AF54525C13647002E6C99 /* NeedsDependency.swift in Sources */,
 				DB9D6BF825E4F5690051B173 /* NotificationViewController.swift in Sources */,
-				DBBC24DD26A54BCB00398BB9 /* MastodonStatusContent.swift in Sources */,
 				2DAC9E46262FC9FD0062E1A6 /* SuggestionAccountTableViewCell.swift in Sources */,
 				DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */,
 				DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */,
@@ -3838,7 +3815,6 @@
 				DB36679D268AB91B0027D07F /* ComposeStatusAttachmentTableViewCell.swift in Sources */,
 				DB0C947226A7D2D70088FB11 /* AvatarButton.swift in Sources */,
 				DB98336B25C9420100AD9700 /* APIService+App.swift in Sources */,
-				DBBC24E026A54BCB00398BB9 /* MastodonField.swift in Sources */,
 				DBFEF07B26A6BCE8006D7ED1 /* APIService+Status+Publish.swift in Sources */,
 				DBCBCC032680AF6E000F5B51 /* AsyncHomeTimelineViewController+DebugAction.swift in Sources */,
 				DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */,
@@ -4746,6 +4722,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ASDK;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = "ASDK - Release";
@@ -5307,14 +5284,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TwidereProject/ActiveLabel.swift";
-			requirement = {
-				kind = exactVersion;
-				version = 5.0.3;
-			};
-		};
 		2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/vtourraine/ThirdPartyMailer.git";
@@ -5352,7 +5321,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.0.0;
+				version = 2.1.0;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {
@@ -5438,11 +5407,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2D42FF6025C8177C004A627A /* ActiveLabel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2D42FF5F25C8177C004A627A /* XCRemoteSwiftPackageReference "ActiveLabel" */;
-			productName = ActiveLabel;
-		};
 		2D5981B925E4D7F8000FB903 /* ThirdPartyMailer */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2D5981B825E4D7F8000FB903 /* XCRemoteSwiftPackageReference "ThirdPartyMailer" */;

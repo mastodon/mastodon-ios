@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import AVKit
-import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
 import MetaTextKit
@@ -26,7 +25,6 @@ protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
 }
 
@@ -215,7 +213,7 @@ final class StatusView: UIView {
         metaText.textView.layer.masksToBounds = false
         metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
 
-        let paragraphStyle: NSMutableParagraphStyle = {
+        metaText.paragraphStyle = {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
             style.paragraphSpacing = 8
@@ -224,12 +222,10 @@ final class StatusView: UIView {
         metaText.textAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
             .foregroundColor: Asset.Colors.Label.primary.color,
-            .paragraphStyle: paragraphStyle,
         ]
         metaText.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
             .foregroundColor: Asset.Colors.brandBlue.color,
-            .paragraphStyle: paragraphStyle,
         ]
         return metaText
     }()
@@ -559,11 +555,10 @@ extension StatusView {
 
 // MARK: - MetaTextViewDelegate
 extension StatusView: MetaTextViewDelegate {
-    func metaTextView(_ metaTextView: MetaTextView, didSelectLink link: URL) {
+    func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         switch metaTextView {
         case contentMetaText.textView:
-            guard let meta = Meta(url: link) else { return }
             delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)
         default:
             assertionFailure()
@@ -593,14 +588,6 @@ extension StatusView: UITextViewDelegate {
             assertionFailure()
             return true
         }
-    }
-}
-
-// MARK: - ActiveLabelDelegate
-extension StatusView: ActiveLabelDelegate {
-    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
-        delegate?.statusView(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
     }
 }
 

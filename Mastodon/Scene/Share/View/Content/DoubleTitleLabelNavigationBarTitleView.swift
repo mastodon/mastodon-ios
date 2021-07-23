@@ -6,19 +6,14 @@
 //
 
 import UIKit
-import ActiveLabel
+import Meta
+import MetaTextKit
 
 final class DoubleTitleLabelNavigationBarTitleView: UIView {
     
     let containerView = UIStackView()
     
-    let titleLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .default)
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = Asset.Colors.Label.primary.color
-        label.textAlignment = .center
-        return label
-    }()
+    let titleLabel = MetaLabel(style: .titleView)
     
     let subtitleLabel: UILabel = {
         let label = UILabel()
@@ -58,9 +53,18 @@ extension DoubleTitleLabelNavigationBarTitleView {
         containerView.addArrangedSubview(titleLabel)
         containerView.addArrangedSubview(subtitleLabel)
     }
+
+    func update(title: String, subtitle: String?) {
+        titleLabel.configure(content: PlaintextMetaContent(string: title))
+        update(subtitle: subtitle)
+    }
     
-    func update(title: String, subtitle: String?, emojiDict: MastodonStatusContent.EmojiDict) {
-        titleLabel.configure(content: title, emojiDict: emojiDict)
+    func update(titleMetaContent: MetaContent, subtitle: String?) {
+        titleLabel.configure(content: titleMetaContent)
+        update(subtitle: subtitle)
+    }
+
+    func update(subtitle: String?) {
         if let subtitle = subtitle {
             subtitleLabel.text = subtitle
             subtitleLabel.isHidden = false

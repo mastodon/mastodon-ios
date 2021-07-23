@@ -11,7 +11,6 @@ import AVKit
 import Combine
 import CoreData
 import CoreDataStack
-import ActiveLabel
 import Meta
 import MetaTextKit
 
@@ -211,9 +210,6 @@ extension ReportedStatusTableViewCell: StatusViewDelegate {
     }
     
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
-    }
-    
-    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
     }
 
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta) {

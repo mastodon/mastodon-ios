@@ -57,7 +57,7 @@ extension FavoriteViewController {
             .store(in: &disposeBag)
 
         navigationItem.titleView = titleView
-        titleView.update(title: L10n.Scene.Favorite.title, subtitle: nil, emojiDict: [:])
+        titleView.update(title: L10n.Scene.Favorite.title, subtitle: nil)
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)

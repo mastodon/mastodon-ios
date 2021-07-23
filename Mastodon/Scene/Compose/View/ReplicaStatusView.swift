@@ -7,7 +7,6 @@
 
 import os.log
 import UIKit
-import ActiveLabel
 import FLAnimatedImage
 import MetaTextKit
 
@@ -52,12 +51,7 @@ final class ReplicaStatusView: UIView {
         return label
     }()
 
-    let headerInfoLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusHeader)
-        label.text = "Bob reblogged"
-        label.layer.masksToBounds = false
-        return label
-    }()
+    let headerInfoLabel = MetaLabel(style: .statusHeader)
 
     let avatarView: UIView = {
         let view = UIView()
@@ -68,10 +62,7 @@ final class ReplicaStatusView: UIView {
     }()
     let avatarImageView = FLAnimatedImageView()
 
-    let nameLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusName)
-        return label
-    }()
+    let nameLabel = MetaLabel(style: .statusName)
 
     let nameTrialingDotLabel: UILabel = {
         let label = UILabel()

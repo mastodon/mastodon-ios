@@ -9,16 +9,16 @@ import os.log
 import UIKit
 import Combine
 import PhotosUI
-import ActiveLabel
 import AlamofireImage
 import CropViewController
 import TwitterTextEditor
 import MastodonMeta
+import MetaTextKit
 
 protocol ProfileHeaderViewControllerDelegate: AnyObject {
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView)
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, pageSegmentedControlValueChanged segmentedControl: UISegmentedControl, selectedSegmentIndex index: Int)
-    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
+    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta)
 }
 
 final class ProfileHeaderViewController: UIViewController {
@@ -35,6 +35,7 @@ final class ProfileHeaderViewController: UIViewController {
     let titleView: DoubleTitleLabelNavigationBarTitleView = {
         let titleView = DoubleTitleLabelNavigationBarTitleView()
         titleView.titleLabel.textColor = .white
+        titleView.titleLabel.textAttributes[.foregroundColor] = UIColor.white
         titleView.titleLabel.alpha = 0
         titleView.subtitleLabel.textColor = .white
         titleView.subtitleLabel.alpha = 0
@@ -179,19 +180,14 @@ extension ProfileHeaderViewController {
             viewModel.isEditing,
             viewModel.displayProfileInfo.name.removeDuplicates(),
             viewModel.editProfileInfo.name.removeDuplicates(),
-            viewModel.emojiDict
+            viewModel.emojiMeta
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, name, editingName, emojiDict in
+        .sink { [weak self] isEditing, name, editingName, emojiMeta in
             guard let self = self else { return }
             do {
-                var emojis = MastodonContent.Emojis()
-                for (key, value) in emojiDict {
-                    emojis[key] = value.absoluteString
-                }
-                let metaContent = try MastodonMetaContent.convert(
-                    document: MastodonContent(content: name ?? " ", emojis: emojis)
-                )
+                let mastodonContent = MastodonContent(content: name ?? " ", emojis: emojiMeta)
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
                 self.profileHeaderView.nameMetaText.configure(content: metaContent)
             } catch {
                 assertionFailure()
@@ -200,25 +196,37 @@ extension ProfileHeaderViewController {
         }
         .store(in: &disposeBag)
         
-        Publishers.CombineLatest3(
-            viewModel.isEditing.eraseToAnyPublisher(),
-            viewModel.displayProfileInfo.note.removeDuplicates().eraseToAnyPublisher(),
-            viewModel.editProfileInfo.note.removeDuplicates().eraseToAnyPublisher()
+        Publishers.CombineLatest4(
+            viewModel.isEditing.removeDuplicates(),
+            viewModel.displayProfileInfo.note.removeDuplicates(),
+            viewModel.editProfileInfo.note.removeDuplicates(),
+            viewModel.emojiMeta.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, note, editingNote in
+        .sink { [weak self] isEditing, note, editingNote, emojiMeta in
             guard let self = self else { return }
-            self.profileHeaderView.bioActiveLabel.configure(note: note ?? "", emojiDict: [:])       // FIXME: custom emoji
 
-            // prevent duplicate set
-            let editingNote = editingNote ?? ""
-            if self.profileHeaderView.bioTextEditorView.text != editingNote {
-                self.profileHeaderView.bioTextEditorView.text = editingNote
+            self.profileHeaderView.bioMetaText.textView.isEditable = isEditing
+            
+            if isEditing {
+                if self.profileHeaderView.bioMetaText.backedString != note {
+                    let metaContent = PlaintextMetaContent(string: editingNote ?? "")
+                    self.profileHeaderView.bioMetaText.configure(content: metaContent)
+                }
+            } else {
+                let mastodonContent = MastodonContent(content: note ?? "", emojis: emojiMeta)
+                do {
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    self.profileHeaderView.bioMetaText.configure(content: metaContent)
+                } catch {
+                    assertionFailure()
+                    self.profileHeaderView.bioMetaText.reset()
+                }
             }
         }
         .store(in: &disposeBag)
-        
-        profileHeaderView.bioTextEditorView.changeObserver = self
+        profileHeaderView.bioMetaText.delegate = self
+
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: profileHeaderView.nameTextField)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] notification in
@@ -450,13 +458,16 @@ extension ProfileHeaderViewController {
     
 }
 
-// MARK: - TextEditorViewChangeObserver
-extension ProfileHeaderViewController: TextEditorViewChangeObserver {
-    func textEditorView(_ textEditorView: TextEditorView, didChangeWithChangeResult changeResult: TextEditorViewChangeResult) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, textEditorView.text)
-        guard changeResult.isTextChanged else { return }
-        assert(textEditorView === profileHeaderView.bioTextEditorView)
-        viewModel.editProfileInfo.note.value = textEditorView.text
+// MARK: - MetaTextDelegate
+extension ProfileHeaderViewController: MetaTextDelegate {
+    func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, metaText.backedString)
+        assert(metaText.textView === profileHeaderView.bioMetaText.textView)
+        if metaText.textView === profileHeaderView.bioMetaText.textView {
+            viewModel.editProfileInfo.note.value = metaText.backedString
+        }
+
+        return nil
     }
 }
 
@@ -533,6 +544,7 @@ extension ProfileHeaderViewController: UICollectionViewDelegate {
 
 // MARK: - ProfileFieldCollectionViewCellDelegate
 extension ProfileHeaderViewController: ProfileFieldCollectionViewCellDelegate {
+
     // should be remove style edit button
     func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, editButtonDidPressed button: UIButton) {
         guard let diffableDataSource = viewModel.fieldDiffableDataSource else { return }
@@ -541,8 +553,8 @@ extension ProfileHeaderViewController: ProfileFieldCollectionViewCellDelegate {
         viewModel.removeFieldItem(item: item)
     }
 
-    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        delegate?.profileHeaderViewController(self, profileFieldCollectionViewCell: cell, activeLabel: activeLabel, didSelectActiveEntity: entity)
+    func profileFieldCollectionViewCell(_ cell: ProfileFieldCollectionViewCell, metaLebel: MetaLabel, didSelectMeta meta: Meta) {
+        delegate?.profileHeaderViewController(self, profileFieldCollectionViewCell: cell, metaLabel: metaLebel, didSelectMeta: meta)
     }
 }
 

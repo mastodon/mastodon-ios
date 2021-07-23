@@ -12,7 +12,6 @@ import GameplayKit
 import MastodonSDK
 import OSLog
 import UIKit
-import ActiveLabel
 import Meta
 import MetaTextKit
 
@@ -272,7 +271,7 @@ extension NotificationViewController {
         switch item {
         case .bottomLoader:
             if !tableView.isDragging, !tableView.isDecelerating {
-                viewModel.loadoldestStateMachine.enter(NotificationViewModel.LoadOldestState.Loading.self)
+                viewModel.loadOldestStateMachine.enter(NotificationViewModel.LoadOldestState.Loading.self)
             }
         default:
             break
@@ -305,7 +304,7 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
         }
     }
 
-    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, authorNameLabelDidPressed label: ActiveLabel) {
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, authorNameLabelDidPressed label: MetaLabel) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
@@ -318,7 +317,6 @@ extension NotificationViewController: NotificationTableViewCellDelegate {
             break
         }
     }
-
 
     func notificationTableViewCell(_ cell: NotificationStatusTableViewCell, notification: MastodonNotification, acceptButtonDidPressed button: UIButton) {
         viewModel.acceptFollowRequest(notification: notification)
@@ -380,7 +378,7 @@ extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
     typealias LoadingState = NotificationViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadoldestStateMachine }
+    var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadOldestStateMachine }
 }
 
 extension NotificationViewController {
