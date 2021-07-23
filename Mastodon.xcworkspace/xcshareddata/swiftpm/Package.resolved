@@ -191,15 +191,6 @@
         }
       },
       {
-        "package": "TwitterTextEditor",
-        "repositoryURL": "https://github.com/MainasuK/TwitterTextEditor.git",
-        "state": {
-          "branch": "feature/expose-layout",
-          "revision": "c208329b23dcb3c8c7192de34776440d625a26a4",
-          "version": null
-        }
-      },
-      {
         "package": "UITextView+Placeholder",
         "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
         "state": {

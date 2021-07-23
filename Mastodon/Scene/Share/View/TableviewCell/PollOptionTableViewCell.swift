@@ -10,6 +10,8 @@ import Combine
 
 final class PollOptionTableViewCell: UITableViewCell {
 
+    static let height: CGFloat = PollOptionView.height
+
     var disposeBag = Set<AnyCancellable>()
     
     let pollOptionView = PollOptionView()

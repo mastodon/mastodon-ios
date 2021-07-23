@@ -358,11 +358,10 @@ extension SettingsViewController: UITableViewDelegate {
         guard let dataSource = viewModel.dataSource else { return }
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
 
-        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-
         switch item {
         case .appearance:
-            feedbackGenerator.impactOccurred()
+            // do nothing
+            break
         case .notification:
             // do nothing
             break
@@ -370,6 +369,7 @@ extension SettingsViewController: UITableViewDelegate {
             // do nothing
             break
         case .boringZone(let link), .spicyZone(let link):
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
             feedbackGenerator.impactOccurred()
             switch link {
             case .accountSettings:
@@ -447,7 +447,8 @@ extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
             setting.update(appearanceRaw: appearanceMode.rawValue)
         }
         .sink { _ in
-            // do nothing
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+            feedbackGenerator.impactOccurred()
         }.store(in: &disposeBag)
     }
 }

@@ -1035,6 +1035,7 @@ extension StatusSection {
             }
         snapshot.appendItems(pollItems, toSection: .main)
         cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+        cell.statusView.pollTableViewHeightLayoutConstraint.constant = PollOptionTableViewCell.height * CGFloat(poll.options.count)
     }
 
     static func configureActionToolBar(
