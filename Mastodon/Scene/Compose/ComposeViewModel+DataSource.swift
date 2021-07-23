@@ -9,7 +9,6 @@ import os.log
 import UIKit
 import Combine
 import CoreDataStack
-import TwitterTextEditor
 import MastodonSDK
 import MastodonMeta
 import MetaTextKit
