@@ -11,6 +11,8 @@ import Foundation
 import MastodonSDK
 import UIKit
 import FLAnimatedImage
+import MetaTextKit
+import MastodonMeta
 
 final class SearchResultTableViewCell: UITableViewCell {
 
@@ -22,13 +24,7 @@ final class SearchResultTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    let _titleLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.brandBlue.color
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.lineBreakMode = .byTruncatingTail
-        return label
-    }()
+    let _titleLabel = MetaLabel(style: .statusName)
     
     let _subTitleLabel: UILabel = {
         let label = UILabel()
@@ -155,13 +151,28 @@ extension SearchResultTableViewCell {
     
     func config(with account: Mastodon.Entity.Account) {
         configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: account.avatarImageURL()))
-        _titleLabel.text = account.displayName.isEmpty ? account.username : account.displayName
+        let name = account.displayName.isEmpty ? account.username : account.displayName
+        do {
+            let mastodonContent = MastodonContent(content: name, emojis: account.emojiMeta)
+            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+            _titleLabel.configure(content: metaContent)
+        } catch {
+            let metaContent = PlaintextMetaContent(string: name)
+            _titleLabel.configure(content: metaContent)
+        }
         _subTitleLabel.text = account.acct
     }
     
     func config(with account: MastodonUser) {
         configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: account.avatarImageURL()))
-        _titleLabel.text = account.displayNameWithFallback
+        do {
+            let mastodonContent = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojiMeta)
+            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+            _titleLabel.configure(content: metaContent)
+        } catch {
+            let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
+            _titleLabel.configure(content: metaContent)
+        }
         _subTitleLabel.text = account.acct
     }
     

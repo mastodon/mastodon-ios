@@ -125,6 +125,8 @@ extension SettingsSection {
             cell.switchButton.isOn = setting.preferredTrueBlackDarkMode
         case .disableAvatarAnimation:
             cell.switchButton.isOn = setting.preferredStaticAvatar
+        case .disableEmojiAnimation:
+            cell.switchButton.isOn = setting.preferredStaticEmoji
         case .useDefaultBrowser:
             cell.switchButton.isOn = setting.preferredUsingDefaultBrowser
         }

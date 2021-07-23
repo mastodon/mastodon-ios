@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import CoreData
+import MastodonMeta
 
 /// Note: update Equatable when change case
 enum ComposeStatusItem {
@@ -25,7 +26,7 @@ extension ComposeStatusItem {
                 
         let avatarURL = CurrentValueSubject<URL?, Never>(nil)
         let displayName = CurrentValueSubject<String?, Never>(nil)
-        let emojiDict = CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>([:])
+        let emojiMeta = CurrentValueSubject<MastodonContent.Emojis, Never>([:])
         let username = CurrentValueSubject<String?, Never>(nil)
         let composeContent = CurrentValueSubject<String?, Never>(nil)
         
@@ -35,7 +36,7 @@ extension ComposeStatusItem {
         static func == (lhs: ComposeStatusAttribute, rhs: ComposeStatusAttribute) -> Bool {
             return lhs.avatarURL.value == rhs.avatarURL.value &&
                 lhs.displayName.value == rhs.displayName.value &&
-                lhs.emojiDict.value == rhs.emojiDict.value &&
+                lhs.emojiMeta.value == rhs.emojiMeta.value &&
                 lhs.username.value == rhs.username.value &&
                 lhs.composeContent.value == rhs.composeContent.value &&
                 lhs.isContentWarningComposing.value == rhs.isContentWarningComposing.value &&

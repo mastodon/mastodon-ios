@@ -11,6 +11,8 @@ import CoreDataStack
 import Foundation
 import MastodonSDK
 import UIKit
+import MetaTextKit
+import MastodonMeta
 
 enum NotificationSection: Equatable, Hashable {
     case main
@@ -66,7 +68,14 @@ extension NotificationSection {
                     .store(in: &cell.disposeBag)
 
                 // configure author name, notification description, timestamp
-                cell.nameLabel.configure(content: notification.account.displayNameWithFallback, emojiDict: notification.account.emojiDict)
+                do {
+                    let mastodonContent = MastodonContent(content: notification.account.displayNameWithFallback, emojis: notification.account.emojiMeta)
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    cell.nameLabel.configure(content: metaContent)
+                } catch {
+                    let metaContent = PlaintextMetaContent(string: notification.account.displayNameWithFallback)
+                    cell.nameLabel.configure(content: metaContent)
+                }
                 let createAt = notification.createAt
                 let actionText = notification.notificationType.actionText
                 cell.actionLabel.text = actionText + " · " + createAt.timeAgoSinceNow

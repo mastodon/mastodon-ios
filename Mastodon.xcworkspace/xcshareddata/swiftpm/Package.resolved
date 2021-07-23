@@ -2,21 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "ActiveLabel",
-        "repositoryURL": "https://github.com/TwidereProject/ActiveLabel.swift",
-        "state": {
-          "branch": null,
-          "revision": "d503eb3bfabc54a70139618ab2ba09ebb8c09672",
-          "version": "5.0.3"
-        }
-      },
-      {
         "package": "Alamofire",
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "4d19ad82f80cc71ff829b941ded114c56f4f604c",
-          "version": "5.4.2"
+          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
+          "version": "5.4.3"
         }
       },
       {
@@ -101,24 +92,6 @@
         }
       },
       {
-        "package": "Kingfisher",
-        "repositoryURL": "https://github.com/onevcat/Kingfisher.git",
-        "state": {
-          "branch": null,
-          "revision": "44450a8f564d7c0165f736ba2250649ff8d3e556",
-          "version": "6.3.0"
-        }
-      },
-      {
-        "package": "MetaTextView",
-        "repositoryURL": "https://github.com/TwidereProject/MetaTextView.git",
-        "state": {
-          "branch": null,
-          "revision": "4c16bc639652a7e1bff4f75e1eba2fcf40213974",
-          "version": "1.4.0"
-        }
-      },
-      {
         "package": "Nuke",
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {
@@ -143,6 +116,15 @@
           "branch": null,
           "revision": "34ecb6e7c4e0e07494960ab2f7cc9a02293915a6",
           "version": "3.6.2"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "76dd4b49110b8624317fc128e7fa0d8a252018bc",
+          "version": "5.11.1"
         }
       },
       {
@@ -206,15 +188,6 @@
           "branch": null,
           "revision": "dad97167bf1be16aeecd109130900995dd01c515",
           "version": "2.6.0"
-        }
-      },
-      {
-        "package": "TwitterTextEditor",
-        "repositoryURL": "https://github.com/MainasuK/TwitterTextEditor.git",
-        "state": {
-          "branch": "feature/expose-layout",
-          "revision": "c208329b23dcb3c8c7192de34776440d625a26a4",
-          "version": null
         }
       },
       {

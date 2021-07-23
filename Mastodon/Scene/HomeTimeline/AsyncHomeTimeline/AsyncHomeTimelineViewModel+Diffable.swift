@@ -106,7 +106,7 @@ extension AsyncHomeTimelineViewModel: NSFetchedResultsControllerDelegate {
 
             let endSnapshot = CACurrentMediaTime()
 
-            if shouldAddBottomLoader, !(self.loadoldestStateMachine.currentState is LoadOldestState.NoMore) {
+            if shouldAddBottomLoader, !(self.loadLatestStateMachine.currentState is LoadOldestState.NoMore) {
                 newSnapshot.appendItems([.bottomLoader], toSection: .main)
             }
 

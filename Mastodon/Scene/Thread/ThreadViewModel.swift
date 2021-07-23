@@ -12,6 +12,7 @@ import CoreData
 import CoreDataStack
 import GameplayKit
 import MastodonSDK
+import MastodonMeta
 
 class ThreadViewModel {
     
@@ -45,7 +46,8 @@ class ThreadViewModel {
     let ancestorItems = CurrentValueSubject<[Item], Never>([])
     let descendantNodes = CurrentValueSubject<[LeafNode], Never>([])
     let descendantItems = CurrentValueSubject<[Item], Never>([])
-    let navigationBarTitle: CurrentValueSubject<(String, MastodonStatusContent.EmojiDict)?, Never>
+    let navigationBarTitle: CurrentValueSubject<String?, Never>
+    let navigationBarTitleEmojiMeta: CurrentValueSubject<MastodonContent.Emojis, Never>
     
     init(context: AppContext, optionalStatus: Status?) {
         self.context = context
@@ -53,8 +55,8 @@ class ThreadViewModel {
         self.rootItem = CurrentValueSubject(optionalStatus.flatMap { Item.root(statusObjectID: $0.objectID, attribute: Item.StatusAttribute()) })
         self.existStatusFetchedResultsController = StatusFetchedResultsController(managedObjectContext: context.managedObjectContext, domain: nil, additionalTweetPredicate: nil)
         self.navigationBarTitle = CurrentValueSubject(
-            optionalStatus.flatMap { (L10n.Scene.Thread.title($0.author.displayNameWithFallback), $0.author.emojiDict) }
-        )
+            optionalStatus.flatMap { L10n.Scene.Thread.title($0.author.displayNameWithFallback) })
+        self.navigationBarTitleEmojiMeta = CurrentValueSubject(optionalStatus.flatMap { $0.author.emojiMeta } ?? [:])
         
         // bind fetcher domain
         context.authenticationService.activeMastodonAuthenticationBox
@@ -85,7 +87,8 @@ class ThreadViewModel {
                             return
                         }
                         self.rootNode.value = RootNode(domain: status.domain, statusID: status.id, replyToID: status.inReplyToID)
-                        self.navigationBarTitle.value = (L10n.Scene.Thread.title(status.author.displayNameWithFallback), status.author.emojiDict)
+                        self.navigationBarTitle.value = L10n.Scene.Thread.title(status.author.displayNameWithFallback)
+                        self.navigationBarTitleEmojiMeta.value = status.author.emojiMeta ?? [:]
                     }
                 }
                 .store(in: &disposeBag)

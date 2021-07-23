@@ -56,7 +56,7 @@ extension HashtagTimelineViewController {
         super.viewDidLoad()
         
         title = "#\(viewModel.hashtag)"
-        titleView.update(title: viewModel.hashtag, subtitle: nil, emojiDict: [:])
+        titleView.update(title: viewModel.hashtag, subtitle: nil)
         navigationItem.titleView = titleView
 
         view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
@@ -150,7 +150,7 @@ extension HashtagTimelineViewController {
     private func updatePromptTitle() {
         var subtitle: String?
         defer {
-            titleView.update(title: "#" + viewModel.hashtag, subtitle: subtitle, emojiDict: [:])
+            titleView.update(title: "#" + viewModel.hashtag, subtitle: subtitle)
         }
         guard let histories = viewModel.hashtagEntity.value?.history else {
             return
@@ -209,7 +209,7 @@ extension HashtagTimelineViewController: LoadMoreConfigurableTableViewContainer 
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
     typealias LoadingState = HashtagTimelineViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { return tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadOldestStateMachine }
 }
 
 // MARK: - UITableViewDelegate

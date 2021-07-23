@@ -10,7 +10,7 @@ import UIKit
 import Combine
 import PhotosUI
 import MastodonSDK
-import MetaTextView
+import MetaTextKit
 import MastodonMeta
 import Meta
 import MastodonUI

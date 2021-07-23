@@ -9,10 +9,9 @@ import os.log
 import UIKit
 import Combine
 import AVKit
-import ActiveLabel
 import AlamofireImage
 import FLAnimatedImage
-import MetaTextView
+import MetaTextKit
 import Meta
 import MastodonSDK
 
@@ -26,7 +25,6 @@ protocol StatusViewDelegate: AnyObject {
     func statusView(_ statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, playerContainerView: PlayerContainerView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton)
-    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity)
     func statusView(_ statusView: StatusView, metaText: MetaText, didSelectMeta meta: Meta)
 }
 
@@ -81,12 +79,7 @@ final class StatusView: UIView {
         return label
     }()
     
-    let headerInfoLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusHeader)
-        label.text = "Bob reblogged"
-        label.layer.masksToBounds = false
-        return label
-    }()
+    let headerInfoLabel = MetaLabel(style: .statusHeader)
     
     let avatarView: UIView = {
         let view = UIView()
@@ -98,8 +91,8 @@ final class StatusView: UIView {
     let avatarButton = AvatarButton()
     let avatarStackedContainerButton: AvatarStackContainerButton = AvatarStackContainerButton()
     
-    let nameLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusName)
+    let nameMetaLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusName)
         return label
     }()
     
@@ -220,7 +213,7 @@ final class StatusView: UIView {
         metaText.textView.layer.masksToBounds = false
         metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
 
-        let paragraphStyle: NSMutableParagraphStyle = {
+        metaText.paragraphStyle = {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
             style.paragraphSpacing = 8
@@ -229,12 +222,10 @@ final class StatusView: UIView {
         metaText.textAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
             .foregroundColor: Asset.Colors.Label.primary.color,
-            .paragraphStyle: paragraphStyle,
         ]
         metaText.linkAttributes = [
             .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
             .foregroundColor: Asset.Colors.brandBlue.color,
-            .paragraphStyle: paragraphStyle,
         ]
         return metaText
     }()
@@ -296,6 +287,7 @@ extension StatusView {
             headerContainerStackView.trailingAnchor.constraint(equalTo: headerContainerView.trailingAnchor),
             headerContainerView.bottomAnchor.constraint(equalTo: headerContainerStackView.bottomAnchor, constant: StatusView.containerStackViewSpacing).priority(.defaultHigh),
         ])
+        headerContainerStackView.setContentCompressionResistancePriority(.required - 5, for: .vertical)
         containerStackView.addArrangedSubview(headerContainerView)
         defer {
             containerStackView.bringSubviewToFront(headerContainerView)
@@ -343,24 +335,27 @@ extension StatusView {
         titleContainerStackView.axis = .horizontal
         titleContainerStackView.alignment = .center
         titleContainerStackView.spacing = 4
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleContainerStackView.addArrangedSubview(nameLabel)
+        nameMetaLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleContainerStackView.addArrangedSubview(nameMetaLabel)
         NSLayoutConstraint.activate([
-            nameLabel.heightAnchor.constraint(equalToConstant: 22).priority(.defaultHigh),
+            nameMetaLabel.heightAnchor.constraint(equalToConstant: 22).priority(.defaultHigh),
         ])
-        titleContainerStackView.alignment = .firstBaseline
         titleContainerStackView.addArrangedSubview(nameTrialingDotLabel)
         titleContainerStackView.addArrangedSubview(dateLabel)
-        titleContainerStackView.addArrangedSubview(UIView()) // padding
+        let padding = UIView()
+        padding.translatesAutoresizingMaskIntoConstraints = false
+        titleContainerStackView.addArrangedSubview(padding) // padding
         titleContainerStackView.addArrangedSubview(visibilityImageView)
-        nameLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
+        nameMetaLabel.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         nameTrialingDotLabel.setContentHuggingPriority(.defaultHigh + 2, for: .horizontal)
         nameTrialingDotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         dateLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        dateLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        visibilityImageView.setContentHuggingPriority(.required - 1, for: .horizontal)
+        dateLabel.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
+        padding.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        padding.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        visibilityImageView.setContentHuggingPriority(.required - 9, for: .horizontal)
+        visibilityImageView.setContentCompressionResistancePriority(.required - 9, for: .horizontal)
         visibilityImageView.setContentHuggingPriority(.required - 1, for: .vertical)
-        visibilityImageView.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
 
         // subtitle container: [username]
         let subtitleContainerStackView = UIStackView()
@@ -424,17 +419,21 @@ extension StatusView {
         NSLayoutConstraint.activate([
             pollTableViewHeightLayoutConstraint,
         ])
-        
-        statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
-            guard let self = self else { return }
-            guard self.pollTableView.contentSize.height != .zero else {
-                self.pollTableViewHeightLayoutConstraint.constant = 44
-                return
-            }
-            self.pollTableViewHeightLayoutConstraint.constant = self.pollTableView.contentSize.height
-        })
-        
+
+        // statusPollTableViewHeightObservation = pollTableView.observe(\.contentSize, options: .new, changeHandler: { [weak self] tableView, _ in
+        //     guard let self = self else { return }
+        //     guard self.pollTableView.contentSize.height != .zero else {
+        //         self.pollTableViewHeightLayoutConstraint.constant = 44
+        //         return
+        //     }
+        //     self.pollTableViewHeightLayoutConstraint.constant = self.pollTableView.contentSize.height
+        // })
+
+        pollStatusStackView.translatesAutoresizingMaskIntoConstraints = false
         statusContainerStackView.addArrangedSubview(pollStatusStackView)
+        NSLayoutConstraint.activate([
+            pollStatusStackView.heightAnchor.constraint(equalToConstant: 30).priority(.required - 10)
+        ])
         pollStatusStackView.axis = .horizontal
         pollStatusStackView.addArrangedSubview(pollVoteCountLabel)
         pollStatusStackView.addArrangedSubview(pollStatusDotLabel)
@@ -561,11 +560,10 @@ extension StatusView {
 
 // MARK: - MetaTextViewDelegate
 extension StatusView: MetaTextViewDelegate {
-    func metaTextView(_ metaTextView: MetaTextView, didSelectLink link: URL) {
+    func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         switch metaTextView {
         case contentMetaText.textView:
-            guard let meta = Meta(url: link) else { return }
             delegate?.statusView(self, metaText: contentMetaText, didSelectMeta: meta)
         default:
             assertionFailure()
@@ -595,14 +593,6 @@ extension StatusView: UITextViewDelegate {
             assertionFailure()
             return true
         }
-    }
-}
-
-// MARK: - ActiveLabelDelegate
-extension StatusView: ActiveLabelDelegate {
-    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
-        delegate?.statusView(self, activeLabel: activeLabel, didSelectActiveEntity: entity)
     }
 }
 

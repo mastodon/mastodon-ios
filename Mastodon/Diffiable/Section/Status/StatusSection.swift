@@ -113,7 +113,7 @@ extension StatusSection {
                         accessibilityViews.append(cell.statusView.headerInfoLabel)
                     }
                     accessibilityViews.append(contentsOf: [
-                        cell.statusView.nameLabel,
+                        cell.statusView.nameMetaLabel,
                         cell.statusView.dateLabel,
                         cell.statusView.contentMetaText.textView,
                     ])
@@ -171,7 +171,7 @@ extension StatusSection {
                     cell.statusView.contentMetaText.textView.isAccessibilityElement = false
                     var accessibilityElements: [Any] = []
                     accessibilityElements.append(cell.statusView.avatarView)
-                    accessibilityElements.append(cell.statusView.nameLabel)
+                    accessibilityElements.append(cell.statusView.nameMetaLabel)
                     accessibilityElements.append(cell.statusView.dateLabel)
                     // TODO: a11y
                     accessibilityElements.append(cell.statusView.contentMetaText.textView)
@@ -652,7 +652,13 @@ extension StatusSection {
                 return L10n.Common.Controls.Status.userReblogged(name)
             }()
             // sync set display name to avoid layout issue
-            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.author.emojiDict)
+            do {
+                let mastodonContent = MastodonContent(content: headerText, emojis: status.author.emojiMeta)
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                cell.statusView.headerInfoLabel.configure(content: metaContent)
+            } catch {
+                cell.statusView.headerInfoLabel.reset()
+            }
             cell.statusView.headerInfoLabel.accessibilityLabel = headerText
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
@@ -666,7 +672,13 @@ extension StatusSection {
                 let name = author.displayName.isEmpty ? author.username : author.displayName
                 return L10n.Common.Controls.Status.userRepliedTo(name)
             }()
-            cell.statusView.headerInfoLabel.configure(content: headerText, emojiDict: status.replyTo?.author.emojiDict ?? [:])
+            do {
+                let mastodonContent = MastodonContent(content: headerText, emojis: status.replyTo?.author.emojiMeta ?? [:])
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                cell.statusView.headerInfoLabel.configure(content: metaContent)
+            } catch {
+                cell.statusView.headerInfoLabel.reset()
+            }
             cell.statusView.headerInfoLabel.accessibilityLabel = headerText
             cell.statusView.headerInfoLabel.isAccessibilityElement = status.replyTo != nil
         } else {
@@ -682,8 +694,15 @@ extension StatusSection {
         // name
         let author = (status.reblog ?? status).author
         let nameContent = author.displayNameWithFallback
-        cell.statusView.nameLabel.configure(content: nameContent, emojiDict: author.emojiDict)
-        cell.statusView.nameLabel.accessibilityLabel = nameContent
+        do {
+            let mastodonContent = MastodonContent(content: nameContent, emojis: author.emojiMeta)
+            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+            cell.statusView.nameMetaLabel.configure(content: metaContent)
+            cell.statusView.nameMetaLabel.accessibilityLabel = metaContent.trimmed
+        } catch {
+            cell.statusView.nameMetaLabel.reset()
+            cell.statusView.nameMetaLabel.accessibilityLabel = ""
+        }
         // username
         cell.statusView.usernameLabel.text = "@" + author.acct
         // avatar
@@ -1016,6 +1035,7 @@ extension StatusSection {
             }
         snapshot.appendItems(pollItems, toSection: .main)
         cell.statusView.pollTableViewDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
+        cell.statusView.pollTableViewHeightLayoutConstraint.constant = PollOptionTableViewCell.height * CGFloat(poll.options.count)
     }
 
     static func configureActionToolBar(

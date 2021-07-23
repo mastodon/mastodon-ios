@@ -10,8 +10,7 @@ import Combine
 import Foundation
 import CoreDataStack
 import UIKit
-import ActiveLabel
-import MetaTextView
+import MetaTextKit
 import Meta
 import FLAnimatedImage
 
@@ -20,7 +19,7 @@ protocol NotificationTableViewCellDelegate: AnyObject {
     func parent() -> UIViewController
 
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, avatarImageViewDidPressed imageView: UIImageView)
-    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, authorNameLabelDidPressed label: ActiveLabel)
+    func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, authorNameLabelDidPressed label: MetaLabel)
 
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, revealContentWarningButtonDidPressed button: UIButton)
     func notificationStatusTableViewCell(_ cell: NotificationStatusTableViewCell, statusView: StatusView, contentWarningOverlayViewDidPressed contentWarningOverlayView: ContentWarningOverlayView)
@@ -58,13 +57,7 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         return label
     }()
     
-    let nameLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .statusName)
-        label.textColor = Asset.Colors.brandBlue.color
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
-        label.lineBreakMode = .byTruncatingTail
-        return label
-    }()
+    let nameLabel = MetaLabel(style: .notificationName)
 
     let buttonStackView = UIStackView()
 
@@ -316,10 +309,6 @@ extension NotificationStatusTableViewCell: StatusViewDelegate {
     }
     
     func statusView(_ statusView: StatusView, pollVoteButtonPressed button: UIButton) {
-        // do nothing
-    }
-    
-    func statusView(_ statusView: StatusView, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
         // do nothing
     }
 

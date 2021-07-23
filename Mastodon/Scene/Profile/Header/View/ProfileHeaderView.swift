@@ -8,16 +8,14 @@
 import os.log
 import UIKit
 import Combine
-import ActiveLabel
-import TwitterTextEditor
 import FLAnimatedImage
-import MetaTextView
+import MetaTextKit
 
 protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, bannerImageViewDidPressed imageView: UIImageView)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity)
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, metaTextView: MetaTextView, metaDidPressed meta: Meta)
 
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed followingDashboardMeterView: ProfileStatusDashboardMeterView)
@@ -166,28 +164,38 @@ final class ProfileHeaderView: UIView {
     }()
     
     let bioContainerView = UIView()
-    let bioContainerStackView = UIStackView()
     let fieldContainerStackView = UIStackView()
-    
-    let bioActiveLabelContainer: UIView = {
-        // use to set margin for active label
-        // the display/edit mode bio transition animation should without flicker with that
-        let view = UIView()
-        // note: comment out to see how it works
-        view.layoutMargins = UIEdgeInsets(top: 8, left: 5, bottom: 8, right: 5) // magic from TextEditorView
-        return view
-    }()
-    let bioActiveLabel = ActiveLabel(style: .default)
-    let bioTextEditorView: TextEditorView = {
-        let textEditorView = TextEditorView()
-        textEditorView.scrollView.isScrollEnabled = false
-        textEditorView.isScrollEnabled = false
-        textEditorView.font = .preferredFont(forTextStyle: .body)
-        textEditorView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
-        textEditorView.layer.masksToBounds = true
-        textEditorView.layer.cornerCurve = .continuous
-        textEditorView.layer.cornerRadius = 10
-        return textEditorView
+
+    let bioMetaText: MetaText = {
+        let metaText = MetaText()
+        metaText.textView.backgroundColor = .clear
+        metaText.textView.isEditable = false
+        metaText.textView.isSelectable = true
+        metaText.textView.isScrollEnabled = false
+        //metaText.textView.textContainer.lineFragmentPadding = 0
+        //metaText.textView.textContainerInset = .zero
+        metaText.textView.layer.masksToBounds = false
+        metaText.textView.textDragInteraction?.isEnabled = false    // disable drag for link and attachment
+
+        metaText.textView.layer.masksToBounds = true
+        metaText.textView.layer.cornerCurve = .continuous
+        metaText.textView.layer.cornerRadius = 10
+
+        metaText.paragraphStyle = {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 5
+            style.paragraphSpacing = 8
+            return style
+        }()
+        metaText.textAttributes = [
+            .font: UIFont.preferredFont(forTextStyle: .body),
+            .foregroundColor: Asset.Colors.Label.primary.color,
+        ]
+        metaText.linkAttributes = [
+            .font: UIFont.preferredFont(forTextStyle: .body),
+            .foregroundColor: Asset.Colors.brandBlue.color,
+        ]
+        return metaText
     }()
     
     static func createFieldCollectionViewLayout() -> UICollectionViewLayout {
@@ -405,27 +413,14 @@ extension ProfileHeaderView {
         bioContainerView.preservesSuperviewLayoutMargins = true
         metaContainerStackView.addArrangedSubview(bioContainerView)
         
-        bioContainerStackView.translatesAutoresizingMaskIntoConstraints = false
-        bioContainerView.addSubview(bioContainerStackView)
+        bioMetaText.textView.translatesAutoresizingMaskIntoConstraints = false
+        bioContainerView.addSubview(bioMetaText.textView)
         NSLayoutConstraint.activate([
-            bioContainerStackView.topAnchor.constraint(equalTo: bioContainerView.topAnchor),
-            bioContainerStackView.leadingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.leadingAnchor),
-            bioContainerStackView.trailingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.trailingAnchor),
-            bioContainerStackView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor),
+            bioMetaText.textView.topAnchor.constraint(equalTo: bioContainerView.topAnchor),
+            bioMetaText.textView.leadingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.leadingAnchor),
+            bioMetaText.textView.trailingAnchor.constraint(equalTo: bioContainerView.readableContentGuide.trailingAnchor),
+            bioMetaText.textView.bottomAnchor.constraint(equalTo: bioContainerView.bottomAnchor),
         ])
-        
-        bioActiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        bioActiveLabelContainer.addSubview(bioActiveLabel)
-        NSLayoutConstraint.activate([
-            bioActiveLabel.topAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.topAnchor),
-            bioActiveLabel.leadingAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.leadingAnchor),
-            bioActiveLabel.trailingAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.trailingAnchor),
-            bioActiveLabel.bottomAnchor.constraint(equalTo: bioActiveLabelContainer.layoutMarginsGuide.bottomAnchor),
-        ])
-        
-        bioContainerStackView.axis = .vertical
-        bioContainerStackView.addArrangedSubview(bioActiveLabelContainer)
-        bioContainerStackView.addArrangedSubview(bioTextEditorView)
         
         fieldCollectionView.translatesAutoresizingMaskIntoConstraints = false
         metaContainerStackView.addArrangedSubview(fieldCollectionView)
@@ -445,7 +440,7 @@ extension ProfileHeaderView {
         bringSubviewToFront(bannerContainerView)
         bringSubviewToFront(nameContainerStackView)
         
-        bioActiveLabel.delegate = self
+        bioMetaText.textView.linkDelegate = self
         
         let avatarImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         avatarImageView.addGestureRecognizer(avatarImageViewSingleTapGestureRecognizer)
@@ -479,9 +474,8 @@ extension ProfileHeaderView {
             nameMetaText.textView.alpha = 1
             nameTextField.alpha = 0
             nameTextField.isEnabled = false
-            bioActiveLabelContainer.isHidden = false
-            bioTextEditorView.isHidden = true
-            
+            bioMetaText.textView.backgroundColor = .clear
+
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundNormalColor
                 self.nameTextFieldBackgroundView.backgroundColor = .clear
@@ -494,17 +488,15 @@ extension ProfileHeaderView {
             nameMetaText.textView.alpha = 0
             nameTextField.isEnabled = true
             nameTextField.alpha = 1
-            bioActiveLabelContainer.isHidden = true
-            bioTextEditorView.isHidden = false
             
             editAvatarBackgroundView.isHidden = false
             editAvatarBackgroundView.alpha = 0
-            bioTextEditorView.backgroundColor = .clear
+            bioMetaText.textView.backgroundColor = .clear
             animator.addAnimations {
                 self.bannerImageViewOverlayVisualEffectView.backgroundColor = ProfileHeaderView.bannerImageViewOverlayViewBackgroundEditingColor
                 self.nameTextFieldBackgroundView.backgroundColor = Asset.Scene.Profile.Banner.nameEditBackgroundGray.color
                 self.editAvatarBackgroundView.alpha = 1
-                self.bioTextEditorView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
+                self.bioMetaText.textView.backgroundColor = Asset.Scene.Profile.Banner.bioEditBackgroundGray.color
             }
         }
         
@@ -530,11 +522,11 @@ extension ProfileHeaderView {
     }
 }
 
-// MARK: - ActiveLabelDelegate
-extension ProfileHeaderView: ActiveLabelDelegate {
-    func activeLabel(_ activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity: %s", ((#file as NSString).lastPathComponent), #line, #function, entity.primaryText)
-        delegate?.profileHeaderView(self, activeLabel: activeLabel, entityDidPressed: entity)
+// MARK: - MetaTextViewDelegate
+extension ProfileHeaderView: MetaTextViewDelegate {
+    func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select entity", ((#file as NSString).lastPathComponent), #line, #function)
+        delegate?.profileHeaderView(self, metaTextView: metaTextView, metaDidPressed: meta)
     }
 }
 

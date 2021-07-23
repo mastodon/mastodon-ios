@@ -11,11 +11,10 @@ import UIKit
 import Combine
 import AsyncDisplayKit
 import CoreDataStack
-import ActiveLabel
 import func AVFoundation.AVMakeRect
 
 protocol StatusNodeDelegate: AnyObject {
-    func statusNode(_ node: StatusNode, statusContentTextNode: ASMetaEditableTextNode, didSelectActiveEntityType type: ActiveEntityType)
+    //func statusNode(_ node: StatusNode, statusContentTextNode: ASMetaEditableTextNode, didSelectActiveEntityType type: ActiveEntityType)
 }
 
 final class StatusNode: ASCellNode {
@@ -29,21 +28,21 @@ final class StatusNode: ASCellNode {
     static let avatarImageSize = CGSize(width: 42, height: 42)
     static let avatarImageCornerRadius: CGFloat = 4
 
-    static let statusContentAppearance: MastodonStatusContent.Appearance = {
-        let linkAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
-            .foregroundColor: Asset.Colors.brandBlue.color
-        ]
-        return MastodonStatusContent.Appearance(
-            attributes: [
-                .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
-                .foregroundColor: Asset.Colors.Label.primary.color
-            ],
-            urlAttributes: linkAttributes,
-            hashtagAttributes: linkAttributes,
-            mentionAttributes: linkAttributes
-        )
-    }()
+//    static let statusContentAppearance: MastodonStatusContent.Appearance = {
+//        let linkAttributes: [NSAttributedString.Key: Any] = [
+//            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
+//            .foregroundColor: Asset.Colors.brandBlue.color
+//        ]
+//        return MastodonStatusContent.Appearance(
+//            attributes: [
+//                .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+//                .foregroundColor: Asset.Colors.Label.primary.color
+//            ],
+//            urlAttributes: linkAttributes,
+//            hashtagAttributes: linkAttributes,
+//            mentionAttributes: linkAttributes
+//        )
+//    }()
 
     let avatarImageNode: ASNetworkImageNode = {
         let node = ASNetworkImageNode()
@@ -112,13 +111,14 @@ final class StatusNode: ASCellNode {
             .font: UIFont.systemFont(ofSize: 15, weight: .regular)
         ])
 
-        statusContentTextNode.metaEditableTextNodeDelegate = self
-        if let parseResult = try? MastodonStatusContent.parse(
-            content: (status.reblog ?? status).content,
-            emojiDict: (status.reblog ?? status).emojiDict
-        ) {
-            statusContentTextNode.attributedText = parseResult.trimmedAttributedString(appearance: StatusNode.statusContentAppearance)
-        }
+        // FIXME:
+        // statusContentTextNode.metaEditableTextNodeDelegate = self
+//        if let parseResult = try? MastodonStatusContent.parse(
+//            content: (status.reblog ?? status).content,
+//            emojiDict: (status.reblog ?? status).emojiDict
+//        ) {
+//            statusContentTextNode.attributedText = parseResult.trimmedAttributedString(appearance: StatusNode.statusContentAppearance)
+//        }
 
         for imageNode in mediaMultiplexImageNodes {
             imageNode.dataSource = self
@@ -200,28 +200,18 @@ final class StatusNode: ASCellNode {
 
 }
 
-//extension StatusNode: ASImageDownloaderProtocol {
-//    func downloadImage(with URL: URL, callbackQueue: DispatchQueue, downloadProgress: ASImageDownloaderProgress?, completion: @escaping ASImageDownloaderCompletion) -> Any? {
-//
-//    }
-//
-//    func cancelImageDownload(forIdentifier downloadIdentifier: Any) {
-//
+// MARK: - ASEditableTextNodeDelegate
+//extension StatusNode: ASMetaEditableTextNodeDelegate {
+//    func metaEditableTextNode(_ textNode: ASMetaEditableTextNode, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+//        guard let activityEntityType = ActiveEntityType(url: URL) else {
+//            return false
+//        }
+//        defer {
+//            delegate?.statusNode(self, statusContentTextNode: textNode, didSelectActiveEntityType: activityEntityType)
+//        }
+//        return false
 //    }
 //}
-
-// MARK: - ASEditableTextNodeDelegate
-extension StatusNode: ASMetaEditableTextNodeDelegate {
-    func metaEditableTextNode(_ textNode: ASMetaEditableTextNode, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        guard let activityEntityType = ActiveEntityType(url: URL) else {
-            return false
-        }
-        defer {
-            delegate?.statusNode(self, statusContentTextNode: textNode, didSelectActiveEntityType: activityEntityType)
-        }
-        return false
-    }
-}
 
 // MARK: - ASMultiplexImageNodeDataSource
 extension StatusNode: ASMultiplexImageNodeDataSource {

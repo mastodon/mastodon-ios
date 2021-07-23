@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import MastodonSDK
+import MastodonMeta
 
 enum ProfileFieldItem {
     case field(field: FieldValue, attribute: FieldItemAttribute)
@@ -56,7 +57,7 @@ extension ProfileFieldItem {
 
 extension ProfileFieldItem {
     class FieldItemAttribute: Equatable, ProfileFieldListSeparatorLineConfigurable {
-        let emojiDict = CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>([:])
+        let emojiMeta = CurrentValueSubject<MastodonContent.Emojis, Never>([:])
         
         var isEditing = false
         var isLast = false

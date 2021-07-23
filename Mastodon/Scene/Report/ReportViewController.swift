@@ -11,8 +11,8 @@ import CoreData
 import CoreDataStack
 import os.log
 import UIKit
-import TwitterTextEditor
 import MastodonSDK
+import MastodonMeta
 
 class ReportViewController: UIViewController, NeedsDependency {
     static let kAnimationDuration: TimeInterval = 0.33
@@ -92,6 +92,8 @@ class ReportViewController: UIViewController, NeedsDependency {
     }()
     
     var bottomConstraint: NSLayoutConstraint!
+
+    let titleView = DoubleTitleLabelNavigationBarTitleView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -267,10 +269,19 @@ class ReportViewController: UIViewController, NeedsDependency {
                 return nil
             }
         }()
-        
-        navigationItem.title = L10n.Scene.Report.title(
-            beReportedUser?.displayNameWithFallback ?? ""
-        )
+
+        navigationItem.titleView = titleView
+        if let user = beReportedUser {
+            do {
+                let mastodonConent = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
+                let metaContent = try MastodonMetaContent.convert(document: mastodonConent)
+                titleView.update(titleMetaContent: metaContent, subtitle: nil)
+            } catch {
+                let metaContent = PlaintextMetaContent(string: user.displayNameWithFallback)
+                titleView.update(titleMetaContent: metaContent, subtitle: nil)
+            }
+        }
+
     }
     
     private func switchToStep2Content() {

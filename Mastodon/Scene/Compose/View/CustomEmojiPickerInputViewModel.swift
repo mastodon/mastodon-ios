@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-import MetaTextView
+import MetaTextKit
 
 final class CustomEmojiPickerInputViewModel {
     
