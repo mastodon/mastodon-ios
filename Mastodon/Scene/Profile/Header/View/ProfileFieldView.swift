@@ -7,7 +7,7 @@
 
 import UIKit
 import Combine
-import ActiveLabel
+import MetaTextKit
 
 final class ProfileFieldView: UIView {
     
@@ -18,11 +18,7 @@ final class ProfileFieldView: UIView {
     let value = PassthroughSubject<String, Never>()
     
     // for custom emoji display
-    let titleActiveLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .profileFieldName)
-        label.configure(content: "title", emojiDict: [:])
-        return label
-    }()
+    let titleMetaLabel = MetaLabel(style: .profileFieldName)
     
     // for editing
     let titleTextField: UITextField = {
@@ -34,12 +30,7 @@ final class ProfileFieldView: UIView {
     }()
     
     // for custom emoji display
-    let valueActiveLabel: ActiveLabel = {
-        let label = ActiveLabel(style: .profileFieldValue)
-        label.configure(content: "value", emojiDict: [:])
-        label.textAlignment = .right
-        return label
-    }()
+    let valueMetaLabel = MetaLabel(style: .profileFieldValue)
     
     // for editing
     let valueTextField: UITextField = {
@@ -81,10 +72,10 @@ extension ProfileFieldView {
             containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-        titleActiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(titleActiveLabel)
+        titleMetaLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(titleMetaLabel)
         NSLayoutConstraint.activate([
-            titleActiveLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+            titleMetaLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
         titleTextField.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -94,12 +85,12 @@ extension ProfileFieldView {
         ])
         titleTextField.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         
-        valueActiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(valueActiveLabel)
+        valueMetaLabel.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(valueMetaLabel)
         NSLayoutConstraint.activate([
-            valueActiveLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
+            valueMetaLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).priority(.defaultHigh),
         ])
-        valueActiveLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        valueMetaLabel.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         valueTextField.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(valueTextField)
         NSLayoutConstraint.activate([
@@ -137,7 +128,8 @@ struct ProfileFieldView_Previews: PreviewProvider {
     static var previews: some View {
         UIViewPreview(width: 375) {
             let filedView = ProfileFieldView()
-            filedView.valueActiveLabel.configure(field: "https://mastodon.online", emojiDict: [:])
+            let content = PlaintextMetaContent(string: "https://mastodon.online")
+            filedView.valueMetaLabel.configure(content: content)
             return filedView
         }
         .previewLayout(.fixed(width: 375, height: 100))

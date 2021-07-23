@@ -12,7 +12,7 @@ import CoreDataStack
 import TwitterTextEditor
 import MastodonSDK
 import MastodonMeta
-import MetaTextView
+import MetaTextKit
 
 extension ComposeViewModel {
 
@@ -193,8 +193,15 @@ extension ComposeViewModel: UITableViewDataSource {
 
                 // set avatar
                 cell.statusView.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: status.author.avatarImageURL()))
-                // set name username
-                cell.statusView.nameLabel.configure(content: status.author.displayNameWithFallback, emojiDict: status.author.emojiDict)
+                // set name, username
+                do {
+                    let mastodonContent = MastodonContent(content: status.author.displayNameWithFallback, emojis: status.author.emojiMeta)
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    cell.statusView.nameLabel.configure(content: metaContent)
+                } catch {
+                    let metaContent = PlaintextMetaContent(string: status.author.displayNameWithFallback)
+                    cell.statusView.nameLabel.configure(content: metaContent)
+                }
                 cell.statusView.usernameLabel.text = "@" + status.author.acct
                 // set text
                 let content = MastodonContent(content: status.content, emojis: status.emojiMeta)
@@ -226,13 +233,14 @@ extension ComposeViewModel: UITableViewDataSource {
                     let name = author.displayName.isEmpty ? author.username : author.displayName
                     return L10n.Scene.Compose.replyingToUser(name)
                 }()
-                MastodonStatusContent.parseResult(content: headerText, emojiDict: replyTo.author.emojiDict)
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak cell] parseResult in
-                        guard let cell = cell else { return }
-                        cell.statusView.headerInfoLabel.configure(contentParseResult: parseResult)
-                    }
-                    .store(in: &cell.disposeBag)
+                do {
+                    let mastodonContent = MastodonContent(content: headerText, emojis: replyTo.author.emojiMeta)
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    cell.statusView.headerInfoLabel.configure(content: metaContent)
+                } catch {
+                    let metaContent = PlaintextMetaContent(string: headerText)
+                    cell.statusView.headerInfoLabel.configure(content: metaContent)
+                }
             }
             // configure author
             ComposeStatusSection.configureStatusContent(cell: cell, attribute: composeStatusAttribute)

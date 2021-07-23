@@ -943,12 +943,6 @@ internal enum L10n {
           /// Appearance
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Appearance.Title")
         }
-        internal enum AppearanceSettings {
-          /// Disable animated avatars
-          internal static let disableAvatarAnimation = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.DisableAvatarAnimation")
-          /// True black dark mode
-          internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.AppearanceSettings.TrueBlackDarkMode")
-        }
         internal enum BoringZone {
           /// Account Settings
           internal static let accountSettings = L10n.tr("Localizable", "Scene.Settings.Section.BoringZone.AccountSettings")
@@ -984,8 +978,14 @@ internal enum L10n {
           }
         }
         internal enum Preference {
+          /// Disable animated avatars
+          internal static let disableAvatarAnimation = L10n.tr("Localizable", "Scene.Settings.Section.Preference.DisableAvatarAnimation")
+          /// Disable animated emojis
+          internal static let disableEmojiAnimation = L10n.tr("Localizable", "Scene.Settings.Section.Preference.DisableEmojiAnimation")
           /// Preferences
           internal static let title = L10n.tr("Localizable", "Scene.Settings.Section.Preference.Title")
+          /// True black dark mode
+          internal static let trueBlackDarkMode = L10n.tr("Localizable", "Scene.Settings.Section.Preference.TrueBlackDarkMode")
           /// Use default browser to open links
           internal static let usingDefaultBrowser = L10n.tr("Localizable", "Scene.Settings.Section.Preference.UsingDefaultBrowser")
         }

@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonMeta
 
 extension Mastodon.Entity.Account: Hashable {
     public func hash(into hasher: inout Hasher) {
@@ -26,5 +27,17 @@ extension Mastodon.Entity.Account {
 
     public func avatarImageURLWithFallback(domain: String) -> URL {
         return avatarImageURL() ?? URL(string: "https://\(domain)/avatars/original/missing.png")!
+    }
+}
+
+extension Mastodon.Entity.Account {
+    var emojiMeta: MastodonContent.Emojis {
+        let isAnimated = !UserDefaults.shared.preferredStaticEmoji
+
+        var dict = MastodonContent.Emojis()
+        for emoji in emojis ?? [] {
+            dict[emoji.shortcode] = isAnimated ? emoji.url : emoji.staticURL
+        }
+        return dict
     }
 }

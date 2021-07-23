@@ -15,7 +15,6 @@ import CoreDataStack
 import GameplayKit
 import AlamofireImage
 import DateToolsSwift
-import ActiveLabel
 
 final class HomeTimelineViewModel: NSObject {
     
@@ -52,7 +51,7 @@ final class HomeTimelineViewModel: NSObject {
     }()
     lazy var loadLatestStateMachinePublisher = CurrentValueSubject<LoadLatestState?, Never>(nil)
     // bottom loader
-    private(set) lazy var loadoldestStateMachine: GKStateMachine = {
+    private(set) lazy var loadOldestStateMachine: GKStateMachine = {
         // exclude timeline middle fetcher state
         let stateMachine = GKStateMachine(states: [
             LoadOldestState.Initial(viewModel: self),

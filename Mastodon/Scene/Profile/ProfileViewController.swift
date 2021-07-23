@@ -8,7 +8,8 @@
 import os.log
 import UIKit
 import Combine
-import ActiveLabel
+import MastodonMeta
+import MetaTextKit
 
 final class ProfileViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -316,20 +317,26 @@ extension ProfileViewController {
         // bind view model
         Publishers.CombineLatest3(
             viewModel.name,
-            viewModel.emojiDict,
+            viewModel.emojiMeta,
             viewModel.statusesCount
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] name, emojiDict, statusesCount in
+        .sink { [weak self] name, emojiMeta, statusesCount in
             guard let self = self else { return }
             guard let title = name, let statusesCount = statusesCount,
                   let formattedStatusCount = MastodonMetricFormatter().string(from: statusesCount) else {
                 self.titleView.isHidden = true
                 return
             }
-            let subtitle = L10n.Plural.Count.MetricFormatted.post(formattedStatusCount, statusesCount)
-            self.titleView.update(title: title, subtitle: subtitle, emojiDict: emojiDict)
             self.titleView.isHidden = false
+            let subtitle = L10n.Plural.Count.MetricFormatted.post(formattedStatusCount, statusesCount)
+            let mastodonContent = MastodonContent(content: title, emojis: emojiMeta)
+            do {
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                self.titleView.update(titleMetaContent: metaContent, subtitle: subtitle)
+            } catch {
+
+            }
         }
         .store(in: &disposeBag)
         viewModel.name
@@ -391,9 +398,9 @@ extension ProfileViewController {
         viewModel.accountForEdit
             .assign(to: \.value, on: profileHeaderViewController.viewModel.accountForEdit)
             .store(in: &disposeBag)
-        viewModel.emojiDict
+        viewModel.emojiMeta
             .receive(on: DispatchQueue.main)
-            .assign(to: \.value, on: profileHeaderViewController.viewModel.emojiDict)
+            .assign(to: \.value, on: profileHeaderViewController.viewModel.emojiMeta)
             .store(in: &disposeBag)
         viewModel.username
             .map { username in username.flatMap { "@" + $0 } ?? " " }
@@ -695,7 +702,7 @@ extension ProfileViewController: UIScrollViewDelegate {
 
 // MARK: - ProfileHeaderViewControllerDelegate
 extension ProfileViewController: ProfileHeaderViewControllerDelegate {
-    
+
     func profileHeaderViewController(_ viewController: ProfileHeaderViewController, viewLayoutDidUpdate view: UIView) {
         guard let scrollView = (profileSegmentedViewController.pagingViewController.currentViewController as? UserTimelineViewController)?.scrollView else {
             // assertionFailure()
@@ -712,23 +719,24 @@ extension ProfileViewController: ProfileHeaderViewControllerDelegate {
         )
     }
 
-    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, activeLabel: ActiveLabel, didSelectActiveEntity entity: ActiveEntity) {
-        // handle profile fields interaction
-        switch entity.type {
+    func profileHeaderViewController(_ viewController: ProfileHeaderViewController, profileFieldCollectionViewCell: ProfileFieldCollectionViewCell, metaLabel: MetaLabel, didSelectMeta meta: Meta) {
+        switch meta {
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }
             coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-        case .hashtag(let hashtag, _):
+        case .hashtag(_, let hashtag, _):
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag)
             coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
-        case .mention(_, let userInfo):
+        case .mention(_, _, let userInfo):
             guard let href = userInfo?["href"] as? String else {
                 // currently we cannot present profile scene without userID
                 return
             }
             guard let url = URL(string: href) else { return }
             coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-        default:
+        case .email:
+            break
+        case .emoji:
             break
         }
     }
@@ -758,7 +766,7 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileViewController: ProfileHeaderViewDelegate {
-    
+
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView) {
         guard let mastodonUser = viewModel.mastodonUser.value else { return }
         guard let avatar = imageView.image else { return }
@@ -953,24 +961,24 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
             }
         }
     }
-    
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, activeLabel: ActiveLabel, entityDidPressed entity: ActiveEntity) {
-        switch entity.type {
+
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, metaTextView: MetaTextView, metaDidPressed meta: Meta) {
+        switch meta {
         case .url(_, _, let url, _):
             guard let url = URL(string: url) else { return }
             coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-        case .mention(_, let userInfo):
+        case .mention(_, _, let userInfo):
             guard let href = userInfo?["href"] as? String,
-                let url = URL(string: href) else { return }
+                  let url = URL(string: href) else { return }
             coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
-        case .hashtag(let hashtag, _):
+        case .hashtag(_, let hashtag, _):
             let hashtagTimelineViewModel = HashtagTimelineViewModel(context: context, hashtag: hashtag)
             coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: nil, transition: .show)
-        default:
+        case .email, .emoji:
             break
         }
     }
-    
+
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
         
     }

@@ -8,6 +8,7 @@
 import os
 import UIKit
 import Combine
+import MastodonMeta
 
 enum ProfileFieldSection: Equatable, Hashable {
     case main
@@ -29,32 +30,60 @@ extension ProfileFieldSection {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ProfileFieldCollectionViewCell.self), for: indexPath) as! ProfileFieldCollectionViewCell
                 
                 // set key
-                cell.fieldView.titleActiveLabel.configure(field: field.name.value, emojiDict: attribute.emojiDict.value)
+                do {
+                    let mastodonContent = MastodonContent(content: field.name.value, emojis: attribute.emojiMeta.value)
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    cell.fieldView.titleMetaLabel.configure(content: metaContent)
+                } catch {
+                    let content = PlaintextMetaContent(string: field.name.value)
+                    cell.fieldView.titleMetaLabel.configure(content: content)
+                }
                 cell.fieldView.titleTextField.text = field.name.value
                 Publishers.CombineLatest(
                     field.name.removeDuplicates(),
-                    attribute.emojiDict.removeDuplicates()
+                    attribute.emojiMeta.removeDuplicates()
                 )
                 .receive(on: RunLoop.main)
-                .sink { [weak cell] name, emojiDict in
+                .sink { [weak cell] name, emojiMeta in
                     guard let cell = cell else { return }
-                    cell.fieldView.titleActiveLabel.configure(field: name, emojiDict: emojiDict)
+                    do {
+                        let mastodonContent = MastodonContent(content: name, emojis: emojiMeta)
+                        let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                        cell.fieldView.titleMetaLabel.configure(content: metaContent)
+                    } catch {
+                        let content = PlaintextMetaContent(string: name)
+                        cell.fieldView.titleMetaLabel.configure(content: content)
+                    }
                     // only bind label. The text field should only set once
                 }
                 .store(in: &cell.disposeBag)
                 
                 
                 // set value
-                cell.fieldView.valueActiveLabel.configure(field: field.value.value, emojiDict: attribute.emojiDict.value)
+                do {
+                    let mastodonContent = MastodonContent(content: field.value.value, emojis: attribute.emojiMeta.value)
+                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                    cell.fieldView.valueMetaLabel.configure(content: metaContent)
+                } catch {
+                    let content = PlaintextMetaContent(string: field.value.value)
+                    cell.fieldView.valueMetaLabel.configure(content: content)
+                }
                 cell.fieldView.valueTextField.text = field.value.value
                 Publishers.CombineLatest(
                     field.value.removeDuplicates(),
-                    attribute.emojiDict.removeDuplicates()
+                    attribute.emojiMeta.removeDuplicates()
                 )
                 .receive(on: RunLoop.main)
-                .sink { [weak cell] value, emojiDict in
+                .sink { [weak cell] value, emojiMeta in
                     guard let cell = cell else { return }
-                    cell.fieldView.valueActiveLabel.configure(field: value, emojiDict: emojiDict)
+                    do {
+                        let mastodonContent = MastodonContent(content: value, emojis: emojiMeta)
+                        let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                        cell.fieldView.valueMetaLabel.configure(content: metaContent)
+                    } catch {
+                        let content = PlaintextMetaContent(string: value)
+                        cell.fieldView.valueMetaLabel.configure(content: content)
+                    }
                     // only bind label. The text field should only set once
                 }
                 .store(in: &cell.disposeBag)
@@ -76,8 +105,8 @@ extension ProfileFieldSection {
                 // setup editing state
                 cell.fieldView.titleTextField.isHidden = !attribute.isEditing
                 cell.fieldView.valueTextField.isHidden = !attribute.isEditing
-                cell.fieldView.titleActiveLabel.isHidden = attribute.isEditing
-                cell.fieldView.valueActiveLabel.isHidden = attribute.isEditing
+                cell.fieldView.titleMetaLabel.isHidden = attribute.isEditing
+                cell.fieldView.valueMetaLabel.isHidden = attribute.isEditing
                 
                 // set control hidden
                 let isHidden = !attribute.isEditing

@@ -121,11 +121,9 @@ extension SettingsViewModel {
 
         // preference
         snapshot.appendSections([.preference])
-        let preferenceItems: [SettingsItem] = [
-            .preference(settingObjectID: setting.objectID, preferenceType: .darkMode),
-            .preference(settingObjectID: setting.objectID, preferenceType: .disableAvatarAnimation),
-            .preference(settingObjectID: setting.objectID, preferenceType: .useDefaultBrowser),
-        ]
+        let preferenceItems: [SettingsItem] = SettingsItem.PreferenceType.allCases.map { preferenceType in
+            SettingsItem.preference(settingObjectID: setting.objectID, preferenceType: preferenceType)
+        }
         snapshot.appendItems(preferenceItems,toSection: .preference)
 
         // boring zone

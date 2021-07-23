@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import Kanna
 import MastodonSDK
+import MastodonMeta
 
 final class ProfileHeaderViewModel {
     
@@ -24,7 +25,7 @@ final class ProfileHeaderViewModel {
     let needsSetupBottomShadow = CurrentValueSubject<Bool, Never>(true)
     let needsFiledCollectionViewHidden = CurrentValueSubject<Bool, Never>(false)
     let isTitleViewContentOffsetSet = CurrentValueSubject<Bool, Never>(false)
-    let emojiDict = CurrentValueSubject<MastodonStatusContent.EmojiDict, Never>([:])
+    let emojiMeta = CurrentValueSubject<MastodonContent.Emojis, Never>([:])
     let accountForEdit = CurrentValueSubject<Mastodon.Entity.Account?, Never>(nil)
     
     // output
@@ -58,10 +59,10 @@ final class ProfileHeaderViewModel {
             isEditing.removeDuplicates(),
             displayProfileInfo.fields.removeDuplicates(),
             editProfileInfo.fields.removeDuplicates(),
-            emojiDict.removeDuplicates()
+            emojiMeta.removeDuplicates()
         )
         .receive(on: RunLoop.main)
-        .sink { [weak self] isEditing, displayFields, editingFields, emojiDict in
+        .sink { [weak self] isEditing, displayFields, editingFields, emojiMeta in
             guard let self = self else { return }
             guard let diffableDataSource = self.fieldDiffableDataSource else { return }
             
@@ -87,7 +88,7 @@ final class ProfileHeaderViewModel {
 
                 let attribute = oldFieldAttributeDict[field.id] ?? ProfileFieldItem.FieldItemAttribute()
                 attribute.isEditing = isEditing
-                attribute.emojiDict.value = emojiDict
+                attribute.emojiMeta.value = emojiMeta
                 attribute.isLast = false
                 return ProfileFieldItem.field(field: field, attribute: attribute)
             }

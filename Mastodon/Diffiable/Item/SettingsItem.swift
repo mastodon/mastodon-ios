@@ -43,12 +43,14 @@ extension SettingsItem {
     enum PreferenceType: CaseIterable {
         case darkMode
         case disableAvatarAnimation
+        case disableEmojiAnimation
         case useDefaultBrowser
 
         var title: String {
             switch self {
-            case .darkMode:                 return L10n.Scene.Settings.Section.AppearanceSettings.trueBlackDarkMode
-            case .disableAvatarAnimation:   return L10n.Scene.Settings.Section.AppearanceSettings.disableAvatarAnimation
+            case .darkMode:                 return L10n.Scene.Settings.Section.Preference.trueBlackDarkMode
+            case .disableAvatarAnimation:   return L10n.Scene.Settings.Section.Preference.disableAvatarAnimation
+            case .disableEmojiAnimation:    return L10n.Scene.Settings.Section.Preference.disableEmojiAnimation
             case .useDefaultBrowser:        return L10n.Scene.Settings.Section.Preference.usingDefaultBrowser
             }
         }

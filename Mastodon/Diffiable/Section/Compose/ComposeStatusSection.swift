@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
-import MetaTextView
+import MetaTextKit
 import MastodonMeta
 import AlamofireImage
 
@@ -45,12 +45,19 @@ extension ComposeStatusSection {
         // set display name and username
         Publishers.CombineLatest3(
             attribute.displayName,
-            attribute.emojiDict,
-            attribute.username.eraseToAnyPublisher()
+            attribute.emojiMeta,
+            attribute.username
         )
         .receive(on: DispatchQueue.main)
-        .sink { displayName, emojiDict, username in
-            cell.statusView.nameLabel.configure(content: displayName ?? " ", emojiDict: emojiDict)
+        .sink { displayName, emojiMeta, username in
+            do {
+                let mastodonContent = MastodonContent(content: displayName ?? " ", emojis: emojiMeta)
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                cell.statusView.nameLabel.configure(content: metaContent)
+            } catch {
+                let metaContent = PlaintextMetaContent(string: " ")
+                cell.statusView.nameLabel.configure(content: metaContent)
+            }
             cell.statusView.usernameLabel.text = username.flatMap { "@" + $0 } ?? " "
         }
         .store(in: &cell.disposeBag)

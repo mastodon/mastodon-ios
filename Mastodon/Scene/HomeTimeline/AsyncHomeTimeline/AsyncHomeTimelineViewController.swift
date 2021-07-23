@@ -86,7 +86,7 @@ extension AsyncHomeTimelineViewController {
         node.allowsSelection = true
         
         title = L10n.Scene.HomeTimeline.title
-        view.backgroundColor = Asset.Colors.Background.secondarySystemBackground.color
+        view.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemBackgroundColor
         navigationItem.leftBarButtonItem = settingBarButtonItem
         navigationItem.titleView = titleView
         titleView.delegate = self
@@ -341,7 +341,7 @@ extension AsyncHomeTimelineViewController {
 //    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
 //    typealias LoadingState = HomeTimelineViewModel.LoadOldestState.Loading
 //    var loadMoreConfigurableTableView: UITableView { return tableView }
-//    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadoldestStateMachine }
+//    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.loadOldestStateMachine }
 //}
 
 // MARK: - UITableViewDelegate
@@ -556,7 +556,7 @@ extension AsyncHomeTimelineViewController: ASTableDelegate {
     }
 
     func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
-        viewModel.loadoldestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
+        viewModel.loadLatestStateMachine.enter(HomeTimelineViewModel.LoadOldestState.Loading.self)
         context.completeBatchFetching(true)
     }
 
