@@ -358,10 +358,11 @@ extension SettingsViewController: UITableViewDelegate {
         guard let dataSource = viewModel.dataSource else { return }
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
 
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+
         switch item {
         case .appearance:
-            // do nothing
-            break
+            feedbackGenerator.impactOccurred()
         case .notification:
             // do nothing
             break
@@ -369,6 +370,7 @@ extension SettingsViewController: UITableViewDelegate {
             // do nothing
             break
         case .boringZone(let link), .spicyZone(let link):
+            feedbackGenerator.impactOccurred()
             switch link {
             case .accountSettings:
                 guard let box = context.authenticationService.activeMastodonAuthenticationBox.value,
@@ -399,6 +401,7 @@ extension SettingsViewController: UITableViewDelegate {
                     }
                     .store(in: &disposeBag)
             case .signOut:
+                feedbackGenerator.impactOccurred()
                 alertToSignout()
             }
         }
