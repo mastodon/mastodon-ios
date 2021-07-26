@@ -99,6 +99,21 @@ final class ReplicaStatusView: UIView {
         metaText.textView.textContainer.lineFragmentPadding = 0
         metaText.textView.textContainerInset = .zero
         metaText.textView.layer.masksToBounds = false
+
+        metaText.paragraphStyle = {
+            let style = NSMutableParagraphStyle()
+            style.lineSpacing = 5
+            style.paragraphSpacing = 8
+            return style
+        }()
+        metaText.textAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular)),
+            .foregroundColor: Asset.Colors.Label.primary.color,
+        ]
+        metaText.linkAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold)),
+            .foregroundColor: Asset.Colors.brandBlue.color,
+        ]
         return metaText
     }()
 
