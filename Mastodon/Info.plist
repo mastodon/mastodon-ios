@@ -86,5 +86,24 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>UIApplicationShortcutItems</key>
+    <array>
+        <dict>
+            <key>UIApplicationShortcutItemType</key>
+            <string>org.joinmastodon.app.new-post</string>
+            <key>UIApplicationShortcutItemIconSymbolName</key>
+            <string>square.and.pencil</string>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>NewPostShortcutItemTitle</string>
+        </dict>
+        <dict>
+            <key>UIApplicationShortcutItemType</key>
+            <string>org.joinmastodon.app.search</string>
+            <key>UIApplicationShortcutItemIconSymbolName</key>
+            <string>magnifyingglass</string>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>SearchShortcutItemTitle</string>
+        </dict>
+    </array>
 </dict>
 </plist>
