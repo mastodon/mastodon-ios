@@ -40,7 +40,7 @@ extension APIService {
 // MARK: - LocalizedError
 extension APIService.APIError: LocalizedError {
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch errorReason {
         case .authenticationMissing:        return "Fail to Authenticatie"
         case .badRequest:                   return "Bad Request"

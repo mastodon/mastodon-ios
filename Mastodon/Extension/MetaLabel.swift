@@ -26,7 +26,8 @@ extension MetaLabel {
 
         layer.masksToBounds = true
         textContainer.lineBreakMode = .byTruncatingTail
-
+        textContainer.lineFragmentPadding = 0
+        
         let font: UIFont
         let textColor: UIColor
 

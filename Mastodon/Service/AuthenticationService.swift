@@ -130,6 +130,19 @@ extension AuthenticationService {
                 appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),
                 userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
             )
+
+            // remove home timeline indexes
+            let homeTimelineIndexRequest = HomeTimelineIndex.sortedFetchRequest
+            homeTimelineIndexRequest.predicate = HomeTimelineIndex.predicate(
+                domain: mastodonAuthentication.domain,
+                userID: mastodonAuthentication.userID
+            )
+            let homeTimelineIndexes = managedObjectContext.safeFetch(homeTimelineIndexRequest)
+            for homeTimelineIndex in homeTimelineIndexes {
+                managedObjectContext.delete(homeTimelineIndex)
+            }
+
+            // remove user authentication
             managedObjectContext.delete(mastodonAuthentication)
             isSignOut = true
         }

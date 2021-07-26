@@ -5,6 +5,7 @@
 //  Created by MainasuK Cirno on 2021/1/22.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -25,6 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var fpsIndicator: FPSIndicator?
     #endif
 
+    var savedShortCutItem: UIApplicationShortcutItem?
+
+    let logger = Logger(subsystem: "SceneDelegate", category: "logic")
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
@@ -55,6 +59,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         sceneCoordinator.setup()
         sceneCoordinator.setupOnboardingIfNeeds(animated: false)
         window.makeKeyAndVisible()
+
+        if let shortcutItem = connectionOptions.shortcutItem {
+            // Save it off for later when we become active.
+            savedShortCutItem = shortcutItem
+        }
         
         UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak self] defaults, _ in
             guard let self = self else { return }
@@ -84,6 +93,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // trigger status filter update
         AppContext.shared.statusFilterService.filterUpdatePublisher.send()
+
+        if let shortcutItem = savedShortCutItem {
+            _ = handler(shortcutItem: shortcutItem)
+            savedShortCutItem = nil
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -103,7 +117,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         AppContext.shared.audioPlaybackService.pauseIfNeed()
     }
 
+}
 
+extension SceneDelegate {
+    func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        completionHandler(handler(shortcutItem: shortcutItem))
+    }
+
+    private func handler(shortcutItem: UIApplicationShortcutItem) -> Bool {
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(shortcutItem.type)")
+
+        switch shortcutItem.type {
+        case "org.joinmastodon.app.new-post":
+            if coordinator?.tabBarController.topMost is ComposeViewController {
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
+            } else {
+                let composeViewModel = ComposeViewModel(context: AppContext.shared, composeKind: .post)
+                coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+            }
+        case "org.joinmastodon.app.search":
+            coordinator?.switchToTabBar(tab: .search)
+            logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): select search tab")
+
+            if let searchViewController = coordinator?.tabBarController.topMost as? SearchViewController {
+                searchViewController.searchBarTapPublisher.send()
+                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): trigger search")
+            }
+        default:
+            assertionFailure()
+            break
+        }
+
+        return true
+    }
 }
 
 #if DEBUG

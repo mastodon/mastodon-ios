@@ -160,7 +160,7 @@ extension SearchResultTableViewCell {
             let metaContent = PlaintextMetaContent(string: name)
             _titleLabel.configure(content: metaContent)
         }
-        _subTitleLabel.text = account.acct
+        _subTitleLabel.text = "@" + account.acct
     }
     
     func config(with account: MastodonUser) {
@@ -173,14 +173,15 @@ extension SearchResultTableViewCell {
             let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
             _titleLabel.configure(content: metaContent)
         }
-        _subTitleLabel.text = account.acct
+        _subTitleLabel.text = "@" + account.acct
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
         configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
-        _titleLabel.text = "#" + tag.name
+        let metaContent = PlaintextMetaContent(string: "#" + tag.name)
+        _titleLabel.configure(content: metaContent)
         guard let histories = tag.history else {
             _subTitleLabel.text = ""
             return
@@ -195,7 +196,8 @@ extension SearchResultTableViewCell {
         configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
         let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
         _imageView.image = image
-        _titleLabel.text = "# " + tag.name
+        let metaContent = PlaintextMetaContent(string: "#" + tag.name)
+        _titleLabel.configure(content: metaContent)
         guard let histories = tag.histories?.sorted(by: {
             $0.createAt.compare($1.createAt) == .orderedAscending
         }) else {

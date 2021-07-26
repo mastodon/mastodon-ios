@@ -92,6 +92,15 @@
         }
       },
       {
+        "package": "MetaTextKit",
+        "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
+        "state": {
+          "branch": null,
+          "revision": "ccb54189b31d13868d979c33d43566912b765bbd",
+          "version": "2.1.0"
+        }
+      },
+      {
         "package": "Nuke",
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {

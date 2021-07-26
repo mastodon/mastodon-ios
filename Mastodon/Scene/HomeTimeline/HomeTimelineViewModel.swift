@@ -120,9 +120,10 @@ final class HomeTimelineViewModel: NSObject {
             .sink { [weak self] activeMastodonAuthentication in
                 guard let self = self else { return }
                 guard let mastodonAuthentication = activeMastodonAuthentication else { return }
-                let activeMastodonUserID = mastodonAuthentication.userID
+                let domain = mastodonAuthentication.domain
+                let userID = mastodonAuthentication.userID
                 let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                    HomeTimelineIndex.predicate(userID: activeMastodonUserID),
+                    HomeTimelineIndex.predicate(domain: domain, userID: userID),
                     HomeTimelineIndex.notDeleted()
                 ])
                 self.timelinePredicate.value = predicate

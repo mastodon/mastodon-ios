@@ -65,7 +65,7 @@ extension HomeTimelineIndex {
         public let domain: String
         public let userID: String
      
-        public init(domain: String,userID: String) {
+        public init(domain: String, userID: String) {
             self.identifier = UUID().uuidString + "@" + domain
             self.domain = domain
             self.userID = userID
@@ -80,10 +80,20 @@ extension HomeTimelineIndex: Managed {
 }
 extension HomeTimelineIndex {
     
-    public static func predicate(userID: String) -> NSPredicate {
+    static func predicate(domain: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(HomeTimelineIndex.domain), domain)
+    }
+
+    static func predicate(userID: MastodonUser.ID) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(HomeTimelineIndex.userID), userID)
     }
-    
+
+    public static func predicate(domain: String, userID: MastodonUser.ID) -> NSPredicate {
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [
+            predicate(domain: domain),
+            predicate(userID: userID)
+        ])
+    }
     
     public static func notDeleted() -> NSPredicate {
         return NSPredicate(format: "%K == nil", #keyPath(HomeTimelineIndex.deletedAt))
