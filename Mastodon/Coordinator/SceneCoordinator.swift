@@ -13,7 +13,7 @@ final public class SceneCoordinator {
     private weak var scene: UIScene!
     private weak var sceneDelegate: SceneDelegate!
     private weak var appContext: AppContext!
-    private weak var tabBarController: MainTabBarController!
+    private(set) weak var tabBarController: MainTabBarController!
     
     let id = UUID().uuidString
     

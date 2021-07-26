@@ -24,7 +24,7 @@ extension Status.Property {
             reblogsCount: NSNumber(value: entity.reblogsCount),
             favouritesCount: NSNumber(value: entity.favouritesCount),
             repliesCount: entity.repliesCount.flatMap { NSNumber(value: $0) },
-            url: entity.uri,
+            url: entity.url ?? entity.uri,
             inReplyToID: entity.inReplyToID,
             inReplyToAccountID: entity.inReplyToAccountID,
             language: entity.language,

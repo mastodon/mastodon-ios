@@ -104,7 +104,17 @@ extension APIService {
                 APIService.CoreData.merge(status: oldStatus, entity: entity.reblog ?? entity, requestMastodonUser: requestMastodonUser, domain: mastodonAuthenticationBox.domain, networkDate: response.networkDate)
                 switch reblogKind {
                 case .undoReblog:
+                    // update reblogged status
                     oldStatus.update(reblogsCount: NSNumber(value: max(0, oldStatus.reblogsCount.intValue - 1)))
+
+                    // remove reblog from statuses
+                    let reblogFroms = oldStatus.reblogFrom?.filter { status in
+                        return status.author.domain == domain && status.author.id == requestMastodonUserID
+                    } ?? Set()
+                    reblogFroms.forEach { reblogFrom in
+                        managedObjectContext.delete(reblogFrom)
+                    }
+
                 default:
                     break
                 }

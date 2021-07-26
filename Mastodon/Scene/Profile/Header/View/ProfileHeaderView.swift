@@ -440,6 +440,7 @@ extension ProfileHeaderView {
         bringSubviewToFront(bannerContainerView)
         bringSubviewToFront(nameContainerStackView)
         
+        bioMetaText.textView.delegate = self
         bioMetaText.textView.linkDelegate = self
         
         let avatarImageViewSingleTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
@@ -519,6 +520,19 @@ extension ProfileHeaderView {
     @objc private func bannerImageViewDidPressed(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.profileHeaderView(self, bannerImageViewDidPressed: bannerImageView)
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension ProfileHeaderView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith textAttachment: NSTextAttachment, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        switch textView {
+        case bioMetaText.textView:
+            return false
+        default:
+            assertionFailure()
+            return true
+        }
     }
 }
 

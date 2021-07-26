@@ -101,7 +101,7 @@ extension SearchResultViewModel.State {
                 maxID: nil,
                 minID: nil,
                 excludeUnreviewed: nil,
-                resolve: nil,
+                resolve: true,
                 limit: nil,
                 offset: _offset,
                 following: nil

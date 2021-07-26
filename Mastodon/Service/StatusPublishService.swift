@@ -7,6 +7,7 @@
 
 import os.log
 import Foundation
+import Intents
 import Combine
 import CoreData
 import CoreDataStack
@@ -52,7 +53,7 @@ extension StatusPublishService {
                     
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: composeViewModelDidUpdate", ((#file as NSString).lastPathComponent), #line, #function)
                     self.composeViewModelDidUpdatePublisher.send()
-                    
+
                     switch state {
                     case is ComposeViewModel.PublishState.Finish:
                         self.remove(composeViewModel: composeViewModel)
