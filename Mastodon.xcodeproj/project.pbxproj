@@ -923,7 +923,6 @@
 		DB3667A7268AE2900027D07F /* ComposeStatusPollItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusPollItem.swift; sourceTree = "<group>"; };
 		DB3D0FED25BAA42200EAA174 /* MastodonSDK */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MastodonSDK; sourceTree = "<group>"; };
 		DB3D100E25BAA75E00EAA174 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DB3F693926AA97BD00C883AB /* MetaTextKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MetaTextKit; path = ../MetaTextKit; sourceTree = "<group>"; };
 		DB427DD225BAA00100D1B89D /* Mastodon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastodon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB427DD525BAA00100D1B89D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB427DD725BAA00100D1B89D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -1960,7 +1959,6 @@
 			children = (
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
-				DB3F693926AA97BD00C883AB /* MetaTextKit */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
 				DB427DD425BAA00100D1B89D /* Mastodon */,
 				DB427DEB25BAA00100D1B89D /* MastodonTests */,
