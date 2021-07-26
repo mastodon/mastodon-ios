@@ -160,7 +160,7 @@ extension SearchResultTableViewCell {
             let metaContent = PlaintextMetaContent(string: name)
             _titleLabel.configure(content: metaContent)
         }
-        _subTitleLabel.text = account.acct
+        _subTitleLabel.text = "@" + account.acct
     }
     
     func config(with account: MastodonUser) {
@@ -173,7 +173,7 @@ extension SearchResultTableViewCell {
             let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
             _titleLabel.configure(content: metaContent)
         }
-        _subTitleLabel.text = account.acct
+        _subTitleLabel.text = "@" + account.acct
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
