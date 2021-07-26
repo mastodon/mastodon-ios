@@ -176,6 +176,8 @@
 		87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4ABE34829701A4496C5BB64 /* Pods_Mastodon.framework */; };
 		B914FC6B0B8AF18573C0B291 /* Pods_NotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */; };
 		BBAC710E327AF1EE1DB36A4E /* Pods_MastodonIntent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4C94BD75C96D0EFF5F6D961 /* Pods_MastodonIntent.framework */; };
+		DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */; };
 		DB00CA972632DDB600A54956 /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB00CA962632DDB600A54956 /* CommonOSLog */; };
 		DB0140BD25C40D7500F9F3CF /* CommonOSLog in Frameworks */ = {isa = PBXBuildFile; productRef = DB0140BC25C40D7500F9F3CF /* CommonOSLog */; };
 		DB0140CF25C42AEE00F9F3CF /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0140CE25C42AEE00F9F3CF /* OSLog.swift */; };
@@ -378,8 +380,6 @@
 		DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */; };
 		DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */; };
 		DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		DB8FABD426AEC7DA008E5AF4 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
-		DB8FABD526AEC7DC008E5AF4 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */; };
 		DB8FABD726AEC873008E5AF4 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
 		DB8FABDC26AEC87B008E5AF4 /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */; };
@@ -918,6 +918,9 @@
 		C3789232A52F43529CA67E95 /* Pods-MastodonIntent.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonIntent.asdk - debug.xcconfig"; path = "Target Support Files/Pods-MastodonIntent/Pods-MastodonIntent.asdk - debug.xcconfig"; sourceTree = "<group>"; };
 		CD92E0F10BDE4FE7C4B999F2 /* Pods_MastodonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MastodonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7D7CF93E262178800077512 /* Pods-Mastodon-AppShared.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-AppShared.debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-AppShared/Pods-Mastodon-AppShared.debug.xcconfig"; sourceTree = "<group>"; };
+		DB0009A826AEE5DC009B9D2D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
+		DB0009AB26AEE5E3009B9D2D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
+		DB0009AD26AEE5E4009B9D2D /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Intents.strings; sourceTree = "<group>"; };
 		DB0140CE25C42AEE00F9F3CF /* OSLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		DB023294267F0AB800031745 /* ASMetaEditableTextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMetaEditableTextNode.swift; sourceTree = "<group>"; };
 		DB029E94266A20430062874E /* MastodonAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationController.swift; sourceTree = "<group>"; };
@@ -1259,7 +1262,6 @@
 		DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+Provider.swift"; sourceTree = "<group>"; };
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
-		DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
@@ -2031,7 +2033,7 @@
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
-				DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */,
+				DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */,
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
@@ -3855,7 +3857,7 @@
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
 				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */,
-				DB8FABD426AEC7DA008E5AF4 /* Intents.intentdefinition in Sources */,
+				DB0009A626AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
 				5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */,
 				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
@@ -4142,7 +4144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB8FABD526AEC7DC008E5AF4 /* Intents.intentdefinition in Sources */,
+				DB0009A726AEE5DC009B9D2D /* Intents.intentdefinition in Sources */,
 				DBB8AB4E26AED12E00F6D281 /* Assets.swift in Sources */,
 				DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */,
 				DBB8AB5326AED25100F6D281 /* MastodonAuthenticationBox.swift in Sources */,
@@ -4287,6 +4289,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB0009A826AEE5DC009B9D2D /* Base */,
+				DB0009AB26AEE5E3009B9D2D /* en */,
+				DB0009AD26AEE5E4009B9D2D /* ar */,
+			);
+			name = Intents.intentdefinition;
+			sourceTree = "<group>";
+		};
 		DB2B3ABE25E37E15007045F9 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
