@@ -18,6 +18,8 @@ final class ComposeViewModel: NSObject {
     static let composeContentLimit: Int = 500
     
     var disposeBag = Set<AnyCancellable>()
+
+    let id = UUID()
     
     // input
     let context: AppContext

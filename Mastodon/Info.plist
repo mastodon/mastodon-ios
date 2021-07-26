@@ -44,6 +44,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>SendPostIntent</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -63,6 +67,25 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>square.and.pencil</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>NewPostShortcutItemTitle</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>org.joinmastodon.app.new-post</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>magnifyingglass</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>SearchShortcutItemTitle</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>org.joinmastodon.app.search</string>
+		</dict>
+	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -86,24 +109,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>UIApplicationShortcutItems</key>
-    <array>
-        <dict>
-            <key>UIApplicationShortcutItemType</key>
-            <string>org.joinmastodon.app.new-post</string>
-            <key>UIApplicationShortcutItemIconSymbolName</key>
-            <string>square.and.pencil</string>
-            <key>UIApplicationShortcutItemTitle</key>
-            <string>NewPostShortcutItemTitle</string>
-        </dict>
-        <dict>
-            <key>UIApplicationShortcutItemType</key>
-            <string>org.joinmastodon.app.search</string>
-            <key>UIApplicationShortcutItemIconSymbolName</key>
-            <string>magnifyingglass</string>
-            <key>UIApplicationShortcutItemTitle</key>
-            <string>SearchShortcutItemTitle</string>
-        </dict>
-    </array>
 </dict>
 </plist>

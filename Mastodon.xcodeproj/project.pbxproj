@@ -374,6 +374,13 @@
 		DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */; };
 		DB8AF55D25C138B7002E6C99 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF55C25C138B7002E6C99 /* UIViewController.swift */; };
 		DB8AF56825C13E2A002E6C99 /* HomeTimelineIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */; };
+		DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */; };
+		DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */; };
+		DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DB8FABD426AEC7DA008E5AF4 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		DB8FABD526AEC7DC008E5AF4 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */; };
+		DB8FABD726AEC873008E5AF4 /* AppShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB68047F2637CD4C00430867 /* AppShared.framework */; };
+		DB8FABDC26AEC87B008E5AF4 /* CoreDataStack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB89B9EE25C10FD0008580ED /* CoreDataStack.framework */; };
 		DB9282B225F3222800823B15 /* PickServerEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */; };
 		DB92CF7225E7BB98002C1017 /* PollOptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB92CF7125E7BB98002C1017 /* PollOptionTableViewCell.swift */; };
 		DB938EE62623F50700E5B6C1 /* ThreadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */; };
@@ -455,6 +462,17 @@
 		DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525632612C988002F1F29 /* MeProfileViewModel.swift */; };
 		DBB5256E2612D5A1002F1F29 /* ProfileStatusDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB5256D2612D5A1002F1F29 /* ProfileStatusDashboardView.swift */; };
 		DBB525852612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB525842612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift */; };
+		DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */; };
+		DBB8AB4826AED09C00F6D281 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DBB8AB4726AED09C00F6D281 /* MastodonSDK */; };
+		DBB8AB4A26AED0B500F6D281 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB8AB4926AED0B500F6D281 /* APIService.swift */; };
+		DBB8AB4C26AED11300F6D281 /* APIService+APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98337E25C9452D00AD9700 /* APIService+APIError.swift */; };
+		DBB8AB4D26AED12B00F6D281 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338525C945ED00AD9700 /* Strings.swift */; };
+		DBB8AB4E26AED12E00F6D281 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98338625C945ED00AD9700 /* Assets.swift */; };
+		DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB427DDE25BAA00100D1B89D /* Assets.xcassets */; };
+		DBB8AB5026AED14400F6D281 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */; };
+		DBB8AB5126AED14600F6D281 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DB3D100F25BAA75E00EAA174 /* Localizable.strings */; };
+		DBB8AB5226AED1B300F6D281 /* APIService+Status+Publish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */; };
+		DBB8AB5326AED25100F6D281 /* MastodonAuthenticationBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */; };
 		DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBB9759B262462E1004620BD /* ThreadMetaView.swift */; };
 		DBBC24A826A52F9000398BB9 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */; };
 		DBBC24AA26A5301B00398BB9 /* MastodonSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DBBC24A926A5301B00398BB9 /* MastodonSDK */; };
@@ -624,6 +642,27 @@
 			remoteGlobalIDString = DB89B9ED25C10FD0008580ED;
 			remoteInfo = CoreDataStack;
 		};
+		DB8FABCC26AEC7B2008E5AF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB8FABC526AEC7B2008E5AF4;
+			remoteInfo = MastodonIntent;
+		};
+		DB8FABD926AEC873008E5AF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB68047E2637CD4C00430867;
+			remoteInfo = AppShared;
+		};
+		DB8FABDE26AEC87B008E5AF4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB89B9ED25C10FD0008580ED;
+			remoteInfo = CoreDataStack;
+		};
 		DBC6461A26A170AB00B0E31B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DB427DCA25BAA00100D1B89D /* Project object */;
@@ -673,6 +712,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				DB8FABCE26AEC7B2008E5AF4 /* MastodonIntent.appex in Embed App Extensions */,
 				DBC6461C26A170AB00B0E31B /* ShareActionExtension.appex in Embed App Extensions */,
 				DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */,
 			);
@@ -1074,6 +1114,12 @@
 		DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DB8AF55C25C138B7002E6C99 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		DB8AF56725C13E2A002E6C99 /* HomeTimelineIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTimelineIndex.swift; sourceTree = "<group>"; };
+		DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MastodonIntent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		DB8FABCB26AEC7B2008E5AF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB8FABD626AEC864008E5AF4 /* MastodonIntent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MastodonIntent.entitlements; sourceTree = "<group>"; };
 		DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerEmptyStateView.swift; sourceTree = "<group>"; };
 		DB92CF7125E7BB98002C1017 /* PollOptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollOptionTableViewCell.swift; sourceTree = "<group>"; };
 		DB938EE52623F50700E5B6C1 /* ThreadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadViewController.swift; sourceTree = "<group>"; };
@@ -1149,6 +1195,8 @@
 		DBB525632612C988002F1F29 /* MeProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeProfileViewModel.swift; sourceTree = "<group>"; };
 		DBB5256D2612D5A1002F1F29 /* ProfileStatusDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusDashboardView.swift; sourceTree = "<group>"; };
 		DBB525842612D6DD002F1F29 /* ProfileStatusDashboardMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStatusDashboardMeterView.swift; sourceTree = "<group>"; };
+		DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendPostIntentHandler.swift; sourceTree = "<group>"; };
+		DBB8AB4926AED0B500F6D281 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		DBB9759B262462E1004620BD /* ThreadMetaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadMetaView.swift; sourceTree = "<group>"; };
 		DBBC24A726A52F9000398BB9 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBBC24AB26A53D9300398BB9 /* ComposeStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusContentTableViewCell.swift; sourceTree = "<group>"; };
@@ -1207,6 +1255,7 @@
 		DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+Provider.swift"; sourceTree = "<group>"; };
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
+		DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
@@ -1305,6 +1354,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB89B9F725C10FD0008580ED /* CoreDataStack.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB8FABC326AEC7B2008E5AF4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB8FABC726AEC7B2008E5AF4 /* Intents.framework in Frameworks */,
+				DB8FABDC26AEC87B008E5AF4 /* CoreDataStack.framework in Frameworks */,
+				DBB8AB4826AED09C00F6D281 /* MastodonSDK in Frameworks */,
+				DB8FABD726AEC873008E5AF4 /* AppShared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1788,6 +1848,8 @@
 				F4A2A2D7000E477CA459ADA9 /* Pods_AppShared.framework */,
 				374AA339A20E0FAC75BCDA6D /* Pods_NotificationService.framework */,
 				A32B0CACBF35F4CC3CFAA043 /* Pods_ShareActionExtension.framework */,
+				DB8FAB9E26AEC3A2008E5AF4 /* Intents.framework */,
+				DB8FABA926AEC3A2008E5AF4 /* IntentsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1957,6 +2019,7 @@
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
+				DBEB12BF26AEBC2D00A67030 /* Intents.intentdefinition */,
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
@@ -1968,6 +2031,7 @@
 				DB89B9FC25C10FD0008580ED /* CoreDataStackTests */,
 				DBF8AE14263293E400C9C23C /* NotificationService */,
 				DBC6461326A170AB00B0E31B /* ShareActionExtension */,
+				DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */,
 				DB427DD325BAA00100D1B89D /* Products */,
 				1EBA4F56E920856A3FC84ACB /* Pods */,
 				3FE14AD363ED19AE7FF210A6 /* Frameworks */,
@@ -1986,6 +2050,7 @@
 				DBF8AE13263293E400C9C23C /* NotificationService.appex */,
 				DB68047F2637CD4C00430867 /* AppShared.framework */,
 				DBC6461226A170AB00B0E31B /* ShareActionExtension.appex */,
+				DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2517,6 +2582,18 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */ = {
+			isa = PBXGroup;
+			children = (
+				DB8FABD626AEC864008E5AF4 /* MastodonIntent.entitlements */,
+				DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */,
+				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
+				DBB8AB4B26AED0B800F6D281 /* Service */,
+				DB8FABCB26AEC7B2008E5AF4 /* Info.plist */,
+			);
+			path = MastodonIntent;
+			sourceTree = "<group>";
+		};
 		DB938EEB2623F52600E5B6C1 /* Thread */ = {
 			isa = PBXGroup;
 			children = (
@@ -2738,6 +2815,14 @@
 				DBF98149265E24F500E4BA07 /* ProfileFieldCollectionViewHeaderFooterView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DBB8AB4B26AED0B800F6D281 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DBB8AB4926AED0B500F6D281 /* APIService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		DBBC24BD26A5441A00398BB9 /* ThemeService */ = {
@@ -2963,6 +3048,7 @@
 				DB6804852637CD4C00430867 /* PBXTargetDependency */,
 				DB6804CA2637CE3000430867 /* PBXTargetDependency */,
 				DBC6461B26A170AB00B0E31B /* PBXTargetDependency */,
+				DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */,
 			);
 			name = Mastodon;
 			packageProductDependencies = (
@@ -3085,6 +3171,28 @@
 			productReference = DB89B9F625C10FD0008580ED /* CoreDataStackTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		DB8FABC526AEC7B2008E5AF4 /* MastodonIntent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DB8FABCF26AEC7B2008E5AF4 /* Build configuration list for PBXNativeTarget "MastodonIntent" */;
+			buildPhases = (
+				DB8FABC226AEC7B2008E5AF4 /* Sources */,
+				DB8FABC326AEC7B2008E5AF4 /* Frameworks */,
+				DB8FABC426AEC7B2008E5AF4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DB8FABDA26AEC873008E5AF4 /* PBXTargetDependency */,
+				DB8FABDF26AEC87B008E5AF4 /* PBXTargetDependency */,
+			);
+			name = MastodonIntent;
+			packageProductDependencies = (
+				DBB8AB4726AED09C00F6D281 /* MastodonSDK */,
+			);
+			productName = MastodonIntent;
+			productReference = DB8FABC626AEC7B2008E5AF4 /* MastodonIntent.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DBC6461126A170AB00B0E31B /* ShareActionExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBC6462126A170AB00B0E31B /* Build configuration list for PBXNativeTarget "ShareActionExtension" */;
@@ -3169,6 +3277,9 @@
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = DB427DD125BAA00100D1B89D;
 					};
+					DB8FABC526AEC7B2008E5AF4 = {
+						CreatedOnToolsVersion = 12.5.1;
+					};
 					DBC6461126A170AB00B0E31B = {
 						CreatedOnToolsVersion = 12.5.1;
 					};
@@ -3215,6 +3326,7 @@
 				DB89B9F525C10FD0008580ED /* CoreDataStackTests */,
 				DBF8AE12263293E400C9C23C /* NotificationService */,
 				DBC6461126A170AB00B0E31B /* ShareActionExtension */,
+				DB8FABC526AEC7B2008E5AF4 /* MastodonIntent */,
 			);
 		};
 /* End PBXProject section */
@@ -3268,6 +3380,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DB8FABC426AEC7B2008E5AF4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */,
+				DBB8AB5126AED14600F6D281 /* Localizable.strings in Resources */,
+				DBB8AB5026AED14400F6D281 /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3698,6 +3820,7 @@
 				DB4481CC25EE2AFE00BEFB67 /* PollItem.swift in Sources */,
 				DB44767B260B3B8C00B66B82 /* CustomEmojiPickerInputView.swift in Sources */,
 				0F20222D261457EE000C64BF /* HashtagTimelineViewModel+LoadOldestState.swift in Sources */,
+				DB8FABD426AEC7DA008E5AF4 /* Intents.intentdefinition in Sources */,
 				5B90C462262599800002E742 /* SettingsSectionHeader.swift in Sources */,
 				DB44768B260B3F2100B66B82 /* CustomEmojiPickerItem.swift in Sources */,
 				2DF75BA125D0E29D00694EC8 /* StatusProvider+StatusTableViewCellDelegate.swift in Sources */,
@@ -3980,6 +4103,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DB8FABC226AEC7B2008E5AF4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB8FABD526AEC7DC008E5AF4 /* Intents.intentdefinition in Sources */,
+				DBB8AB4E26AED12E00F6D281 /* Assets.swift in Sources */,
+				DBB8AB4626AECDE200F6D281 /* SendPostIntentHandler.swift in Sources */,
+				DBB8AB5326AED25100F6D281 /* MastodonAuthenticationBox.swift in Sources */,
+				DBB8AB4A26AED0B500F6D281 /* APIService.swift in Sources */,
+				DBB8AB4C26AED11300F6D281 /* APIService+APIError.swift in Sources */,
+				DBB8AB4D26AED12B00F6D281 /* Strings.swift in Sources */,
+				DBB8AB5226AED1B300F6D281 /* APIService+Status+Publish.swift in Sources */,
+				DB8FABCA26AEC7B2008E5AF4 /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DBC6460E26A170AB00B0E31B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4074,6 +4213,21 @@
 			isa = PBXTargetDependency;
 			target = DB89B9ED25C10FD0008580ED /* CoreDataStack */;
 			targetProxy = DB89BA0125C10FD0008580ED /* PBXContainerItemProxy */;
+		};
+		DB8FABCD26AEC7B2008E5AF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB8FABC526AEC7B2008E5AF4 /* MastodonIntent */;
+			targetProxy = DB8FABCC26AEC7B2008E5AF4 /* PBXContainerItemProxy */;
+		};
+		DB8FABDA26AEC873008E5AF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB68047E2637CD4C00430867 /* AppShared */;
+			targetProxy = DB8FABD926AEC873008E5AF4 /* PBXContainerItemProxy */;
+		};
+		DB8FABDF26AEC87B008E5AF4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB89B9ED25C10FD0008580ED /* CoreDataStack */;
+			targetProxy = DB8FABDE26AEC87B008E5AF4 /* PBXContainerItemProxy */;
 		};
 		DBC6461B26A170AB00B0E31B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4204,6 +4358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -4260,6 +4415,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -4274,6 +4430,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E1F6A67FDF9771D3E064FDC /* Pods-Mastodon.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -4301,6 +4458,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 75E3471C898DDD9631729B6E /* Pods-Mastodon.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -4565,6 +4723,90 @@
 			};
 			name = Release;
 		};
+		DB8FABD026AEC7B2008E5AF4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		DB8FABD126AEC7B2008E5AF4 /* ASDK - Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "ASDK - Debug";
+		};
+		DB8FABD226AEC7B2008E5AF4 /* ASDK - Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "ASDK - Release";
+		};
+		DB8FABD326AEC7B2008E5AF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Z4GVSS33P;
+				INFOPLIST_FILE = MastodonIntent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		DBC6461D26A170AB00B0E31B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77EE917BC055E6621C0452B6 /* Pods-ShareActionExtension.debug.xcconfig */;
@@ -4713,6 +4955,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -4728,6 +4971,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BD7598A87F4497045EDEF252 /* Pods-Mastodon.asdk - release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -4948,6 +5192,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -4962,6 +5207,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D6D967E77A5357E2C6110D9 /* Pods-Mastodon.asdk - debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -5256,6 +5502,17 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DB8FABCF26AEC7B2008E5AF4 /* Build configuration list for PBXNativeTarget "MastodonIntent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB8FABD026AEC7B2008E5AF4 /* Debug */,
+				DB8FABD126AEC7B2008E5AF4 /* ASDK - Debug */,
+				DB8FABD226AEC7B2008E5AF4 /* ASDK - Release */,
+				DB8FABD326AEC7B2008E5AF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DBC6462126A170AB00B0E31B /* Build configuration list for PBXNativeTarget "ShareActionExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5479,6 +5736,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DBB525062611EAC0002F1F29 /* XCRemoteSwiftPackageReference "Tabman" */;
 			productName = Tabman;
+		};
+		DBB8AB4726AED09C00F6D281 /* MastodonSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MastodonSDK;
 		};
 		DBBC24A926A5301B00398BB9 /* MastodonSDK */ = {
 			isa = XCSwiftPackageProductDependency;
