@@ -132,9 +132,13 @@ extension SceneDelegate {
             if coordinator?.tabBarController.topMost is ComposeViewController {
                 logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): composing…")
             } else {
-                let composeViewModel = ComposeViewModel(context: AppContext.shared, composeKind: .post)
-                coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
-                logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+                if AppContext.shared.authenticationService.activeMastodonAuthenticationBox.value == nil {
+                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): not authenticated")
+                } else {
+                    let composeViewModel = ComposeViewModel(context: AppContext.shared, composeKind: .post)
+                    coordinator?.present(scene: .compose(viewModel: composeViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+                    logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): present compose scene")
+                }
             }
         case "org.joinmastodon.app.search":
             coordinator?.switchToTabBar(tab: .search)
