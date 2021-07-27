@@ -45,7 +45,7 @@ arch -x86_64 pod install
 #### Contributors
 The app require the `App Group` capability. To make sure it works for your developer membership. Please check [AppName.swift](AppShared/AppName.swift) file and set another unique `groupID` and update `App Group` settings.
 
-The compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via cocoapod-keys.
+The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) APNs. You can set your push notification endpoint via cocoapod-keys.
 
 
 ## Acknowledgements
