@@ -8,6 +8,8 @@
 import UIKit
 
 public protocol Theme {
+
+    var themeName: ThemeName { get }
     
     var systemBackgroundColor: UIColor { get }
     var secondarySystemBackgroundColor: UIColor { get }
