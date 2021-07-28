@@ -105,18 +105,18 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }()
 
     let tableFooterLabel = MetaLabel(style: .settingTableFooter)
-    lazy var tableFooterView: UIView = {
-        // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
-        let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
-        view.isLayoutMarginsRelativeArrangement = true
-        view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        view.axis = .vertical
-        view.alignment = .center
-
-        tableFooterLabel.linkDelegate = self
-        view.addArrangedSubview(tableFooterLabel)
-        return view
-    }()
+//    lazy var tableFooterView: UIView = {
+//        // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
+//        let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
+//        view.isLayoutMarginsRelativeArrangement = true
+//        view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+//        view.axis = .vertical
+//        view.alignment = .center
+//
+//        tableFooterLabel.linkDelegate = self
+//        view.addArrangedSubview(tableFooterLabel)
+//        return view
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -259,7 +259,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
             settingsAppearanceTableViewCellDelegate: self,
             settingsToggleCellDelegate: self
         )
-        tableView.tableFooterView = tableFooterView
+        // tableView.tableFooterView = tableFooterView
     }
     
     func alertToSignout() {
