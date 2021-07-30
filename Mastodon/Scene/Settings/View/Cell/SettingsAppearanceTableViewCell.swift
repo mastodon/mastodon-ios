@@ -15,26 +15,26 @@ protocol SettingsAppearanceTableViewCellDelegate: AnyObject {
 class SettingsAppearanceTableViewCell: UITableViewCell {
     
     var disposeBag = Set<AnyCancellable>()
+
+    static let spacing: CGFloat = 18
     
     weak var delegate: SettingsAppearanceTableViewCellDelegate?
     var appearance: SettingsItem.AppearanceMode = .automatic
     
     lazy var stackView: UIStackView = {
         let view = UIStackView()
-        view.isLayoutMarginsRelativeArrangement = true
-        view.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         view.axis = .horizontal
         view.distribution = .fillEqually
-        view.spacing = 18
+        view.spacing = SettingsAppearanceTableViewCell.spacing
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let automatic = AppearanceView(image: Asset.Settings.appearanceAutomatic.image,
+    let automatic = AppearanceView(image: Asset.Settings.darkAuto.image,
                                    title: L10n.Scene.Settings.Section.Appearance.automatic)
-    let light = AppearanceView(image: Asset.Settings.appearanceLight.image,
+    let light = AppearanceView(image: Asset.Settings.light.image,
                                title: L10n.Scene.Settings.Section.Appearance.light)
-    let dark = AppearanceView(image: Asset.Settings.appearanceDark.image,
+    let dark = AppearanceView(image: Asset.Settings.dark.image,
                               title: L10n.Scene.Settings.Section.Appearance.dark)
     
     lazy var automaticTap: UITapGestureRecognizer = {
@@ -80,6 +80,8 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
                 subview.removeFromSuperview()
             }
         }
+
+        setupAsset(theme: ThemeService.shared.currentTheme.value)
     }
     
     func update(with data: SettingsItem.AppearanceMode) {
@@ -115,10 +117,36 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
         ])
+
+        setupAsset(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupAsset(theme: theme)
+            }
+            .store(in: &disposeBag)
+    }
+
+    private func setupAsset(theme: Theme) {
+        let aspectRatio = Asset.Settings.light.image.size
+        let width = floor(frame.width - 2 * SettingsAppearanceTableViewCell.spacing) / 3
+        let height = width / aspectRatio.width * aspectRatio.height
+        let size = CGSize(width: width, height: height)
+
+        light.imageView.image = Asset.Settings.light.image.af.imageAspectScaled(toFill: size, scale: UIScreen.main.scale)
+        switch theme.themeName {
+        case .mastodon:
+            automatic.imageView.image = Asset.Settings.darkAuto.image.af.imageAspectScaled(toFill: size, scale: UIScreen.main.scale)
+            dark.imageView.image = Asset.Settings.dark.image.af.imageAspectScaled(toFill: size, scale: UIScreen.main.scale)
+        case .system:
+            automatic.imageView.image = Asset.Settings.blackAuto.image.af.imageAspectScaled(toFill: size, scale: UIScreen.main.scale)
+            dark.imageView.image = Asset.Settings.black.image.af.imageAspectScaled(toFill: size, scale: UIScreen.main.scale)
+        }
     }
     
     // MARK: - Actions

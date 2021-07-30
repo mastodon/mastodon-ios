@@ -111,9 +111,11 @@ internal enum Asset {
     }
   }
   internal enum Settings {
-    internal static let appearanceAutomatic = ImageAsset(name: "Settings/appearance.automatic")
-    internal static let appearanceDark = ImageAsset(name: "Settings/appearance.dark")
-    internal static let appearanceLight = ImageAsset(name: "Settings/appearance.light")
+    internal static let blackAuto = ImageAsset(name: "Settings/black.auto")
+    internal static let black = ImageAsset(name: "Settings/black")
+    internal static let darkAuto = ImageAsset(name: "Settings/dark.auto")
+    internal static let dark = ImageAsset(name: "Settings/dark")
+    internal static let light = ImageAsset(name: "Settings/light")
   }
   internal enum Theme {
     internal enum Mastodon {

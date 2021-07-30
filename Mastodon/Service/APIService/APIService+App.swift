@@ -19,7 +19,7 @@ extension APIService {
     private static let clientName = "Mastodon for iOS"
     #endif
 
-    private static let appWebsite = "https://joinmastodon.org/apps"
+    private static let appWebsite = "https://app.joinmastodon.org/ios"
 
     func createApplication(domain: String) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Application>, Error> {
         let query = Mastodon.API.App.CreateQuery(
