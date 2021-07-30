@@ -8,6 +8,9 @@
 import UIKit
 
 struct MastodonTheme: Theme {
+
+    let themeName: ThemeName = .mastodon
+
     let systemBackgroundColor = Asset.Theme.Mastodon.systemBackground.color
     let secondarySystemBackgroundColor = Asset.Theme.Mastodon.secondarySystemBackground.color
     let tertiarySystemBackgroundColor = Asset.Theme.Mastodon.tertiarySystemBackground.color

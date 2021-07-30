@@ -923,7 +923,7 @@ internal enum L10n {
       /// Settings
       internal static let title = L10n.tr("Localizable", "Scene.Settings.Title")
       internal enum Footer {
-        /// Mastodon is open source software. You can contribute or report issues on GitHub at %@ (%@)
+        /// Mastodon is open source software. You can report issues on GitHub at %@ (%@)
         internal static func mastodonDescription(_ p1: Any, _ p2: Any) -> String {
           return L10n.tr("Localizable", "Scene.Settings.Footer.MastodonDescription", String(describing: p1), String(describing: p2))
         }

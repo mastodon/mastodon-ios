@@ -8,6 +8,9 @@
 import UIKit
 
 struct SystemTheme: Theme {
+
+    let themeName: ThemeName = .system
+
     let systemBackgroundColor = Asset.Theme.System.systemBackground.color
     let secondarySystemBackgroundColor = Asset.Theme.System.secondarySystemBackground.color
     let tertiarySystemBackgroundColor = Asset.Theme.System.tertiarySystemBackground.color

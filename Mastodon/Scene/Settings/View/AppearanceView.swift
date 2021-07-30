@@ -10,6 +10,9 @@ import UIKit
 class AppearanceView: UIView {
     lazy var imageView: UIImageView = {
         let view = UIImageView()
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 14
+        view.layer.cornerCurve = .continuous
         // accessibility
         view.accessibilityIgnoresInvertColors = true
         return view
