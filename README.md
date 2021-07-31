@@ -15,7 +15,6 @@ We needs the latest version Xcode from App Store. And use Cocoapods for dependen
 #### For the Intel Mac
 
 ```zsh
-# install cocoapods from Homebrew
 sudo gem install cocoapods
 sudo gem install cocoapods-keys
 pod install
@@ -24,7 +23,6 @@ pod install
 #### For the M1 Mac
 
 ```zsh
-# install cocoapods from Homebrew
 sudo gem install cocoapods
 sudo gem install cocoapods-keys
 
