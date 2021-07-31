@@ -81,3 +81,4 @@ The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) 
 - [UITextView-Placeholder](https://github.com/devxoul/UITextView-Placeholder)
 
 ## License
+This project is released under the [GPL-3 License](./LICENSE).
