@@ -2,50 +2,50 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>plural.count.metric_formatted.post</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%@ %#@post_count@</string>
-        <key>post_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>posts</string>
-            <key>one</key>
-            <string>post</string>
-            <key>few</key>
-            <string>posts</string>
-            <key>many</key>
-            <string>posts</string>
-            <key>other</key>
-            <string>posts</string>
-        </dict>
-    </dict>
+	<key>plural.count.metric_formatted.post</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%@ %#@post_count@</string>
+		<key>post_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>トゥート</string>
+			<key>one</key>
+			<string>トゥート</string>
+			<key>few</key>
+			<string>トゥート</string>
+			<key>many</key>
+			<string>トゥート</string>
+			<key>other</key>
+			<string>トゥート</string>
+		</dict>
+	</dict>
 	<key>plural.count.favorite</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@favorite_count@</string>
-        <key>favorite_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 favorites</string>
-            <key>one</key>
-            <string>1 favorite</string>
-            <key>few</key>
-            <string>%ld favorites</string>
-            <key>many</key>
-            <string>%ld favorites</string>
-            <key>other</key>
-            <string>%ld favorites</string>
-        </dict>
-    </dict>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@favorite_count@</string>
+		<key>favorite_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 いいね</string>
+			<key>one</key>
+			<string>1 いいね</string>
+			<key>few</key>
+			<string>%ld いいね</string>
+			<key>many</key>
+			<string>%ld いいね</string>
+			<key>other</key>
+			<string>%ld いいね</string>
+		</dict>
+	</dict>
 	<key>plural.count.reblog</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
@@ -57,82 +57,82 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>ld</string>
 			<key>zero</key>
-			<string>0 reblogs</string>
+			<string>0 ブースト</string>
 			<key>one</key>
-			<string>1 reblog</string>
+			<string>1 ブースト</string>
 			<key>few</key>
-			<string>%ld reblogs</string>
+			<string>%ld ブースト</string>
 			<key>many</key>
-			<string>%ld reblogs</string>
+			<string>%ld ブースト</string>
 			<key>other</key>
-			<string>%ld reblogs</string>
+			<string>%ld ブースト</string>
 		</dict>
 	</dict>
-    <key>plural.count.vote</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@vote_count@</string>
-        <key>vote_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 votes</string>
-            <key>one</key>
-            <string>1 vote</string>
-            <key>few</key>
-            <string>%ld votes</string>
-            <key>many</key>
-            <string>%ld votes</string>
-            <key>other</key>
-            <string>%ld votes</string>
-        </dict>
-    </dict>
-    <key>plural.count.voter</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@voter_count@</string>
-        <key>voter_count</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 voters</string>
-            <key>one</key>
-            <string>1 voter</string>
-            <key>few</key>
-            <string>%ld voters</string>
-            <key>many</key>
-            <string>%ld voters</string>
-            <key>other</key>
-            <string>%ld voters</string>
-        </dict>
-    </dict>
-    <key>plural.people_talking</key>
-    <dict>
-        <key>NSStringLocalizedFormatKey</key>
-        <string>%#@count_people_talking@</string>
-        <key>count_people_talking</key>
-        <dict>
-            <key>NSStringFormatSpecTypeKey</key>
-            <string>NSStringPluralRuleType</string>
-            <key>NSStringFormatValueTypeKey</key>
-            <string>ld</string>
-            <key>zero</key>
-            <string>0 people talking</string>
-            <key>one</key>
-            <string>1 people talking</string>
-            <key>few</key>
-            <string>%ld people talking</string>
-            <key>many</key>
-            <string>%ld people talking</string>
-            <key>other</key>
-            <string>%ld people talking</string>
-        </dict>
-    </dict>
+	<key>plural.count.vote</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@vote_count@</string>
+		<key>vote_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 票</string>
+			<key>one</key>
+			<string>1 票</string>
+			<key>few</key>
+			<string>%ld 票</string>
+			<key>many</key>
+			<string>%ld 票</string>
+			<key>other</key>
+			<string>%ld 票</string>
+		</dict>
+	</dict>
+	<key>plural.count.voter</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@voter_count@</string>
+		<key>voter_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 人</string>
+			<key>one</key>
+			<string>1 人</string>
+			<key>few</key>
+			<string>%ld 人</string>
+			<key>many</key>
+			<string>%ld 人</string>
+			<key>other</key>
+			<string>%ld 人</string>
+		</dict>
+	</dict>
+	<key>plural.people_talking</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@count_people_talking@</string>
+		<key>count_people_talking</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>zero</key>
+			<string>0 人が話しています</string>
+			<key>one</key>
+			<string>1 人が話しています</string>
+			<key>few</key>
+			<string>%ld 人が話しています</string>
+			<key>many</key>
+			<string>%ld 人が話しています</string>
+			<key>other</key>
+			<string>%ld 人が話しています</string>
+		</dict>
+	</dict>
 </dict>
 </plist>
