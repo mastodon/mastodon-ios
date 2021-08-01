@@ -14,7 +14,7 @@
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "すでに画像が含まれている投稿に、動画を添付することができません。";
 "Common.Alerts.PublishPostFailure.Message" = "トゥートに失敗しました。
 インターネットに接続されているか確認してください。";
-"Common.Alerts.PublishPostFailure.Title" = "Publish Failure";
+"Common.Alerts.PublishPostFailure.Title" = "失敗";
 "Common.Alerts.SavePhotoFailure.Message" = "写真を保存するには、フォトライブラリのアクセス許可を有効にしてください。";
 "Common.Alerts.SavePhotoFailure.Title" = "写真の保存に失敗しました";
 "Common.Alerts.ServerError.Title" = "サーバーエラー";
