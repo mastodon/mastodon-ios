@@ -1287,6 +1287,10 @@
 		DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status+Publish.swift"; sourceTree = "<group>"; };
 		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		E9AABD3D26B64B8C00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Intents.strings; sourceTree = "<group>"; };
+		E9AABD3E26B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		E9AABD3F26B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E9AABD4026B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release.xcconfig"; sourceTree = "<group>"; };
 		EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk.xcconfig"; sourceTree = "<group>"; };
@@ -3311,6 +3315,7 @@
 				en,
 				Base,
 				ar,
+				ja,
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4295,6 +4300,7 @@
 				DB0009A826AEE5DC009B9D2D /* Base */,
 				DB0009AB26AEE5E3009B9D2D /* en */,
 				DB0009AD26AEE5E4009B9D2D /* ar */,
+				E9AABD3D26B64B8C00E237DA /* ja */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4304,6 +4310,7 @@
 			children = (
 				DB2B3ABD25E37E15007045F9 /* en */,
 				DB0F814E264CFFD300F2A12B /* ar */,
+				E9AABD4026B64B8D00E237DA /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4313,6 +4320,7 @@
 			children = (
 				DB3D100E25BAA75E00EAA174 /* en */,
 				DB0F814D264CFFD300F2A12B /* ar */,
+				E9AABD3F26B64B8D00E237DA /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4338,6 +4346,7 @@
 			children = (
 				DB564BCF269F2F83001E39A7 /* ar */,
 				DB564BD1269F2F8A001E39A7 /* en */,
+				E9AABD3E26B64B8D00E237DA /* ja */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
