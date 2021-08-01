@@ -6,8 +6,8 @@
 "Common.Alerts.Common.PleaseTryAgainLater" = "後でもう一度お試しください。";
 "Common.Alerts.DeletePost.Delete" = "消去";
 "Common.Alerts.DeletePost.Title" = "このトゥートを消去しますか？";
-"Common.Alerts.DiscardPostContent.Message" = "Confirm to discard composed post content.";
-"Common.Alerts.DiscardPostContent.Title" = "Discard Draft";
+"Common.Alerts.DiscardPostContent.Message" = "この操作は取り消しできません。下書きは失われます。";
+"Common.Alerts.DiscardPostContent.Title" = "トゥートを破棄しますか？";
 "Common.Alerts.EditProfileFailure.Message" = "プロフィールを編集できません。もう一度お試しください。";
 "Common.Alerts.EditProfileFailure.Title" = "プロフィールを編集できませんでした";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "複数の動画を添付することはできません。";
