@@ -228,88 +228,88 @@
                 "category": "CATEGORÍA"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Encontrá un servidor o unite al tuyo…"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Buscando servidores disponibles…",
+                "bad_network": "Algo salió mal al cargar los datos. Revisá tu conexión de Internet.",
+                "no_results": "No hay resultados"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Contanos sobre vos.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Eliminar"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "nombre de usuario",
+                    "duplicate_prompt": "Este nombre de usuario ya está en uso."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "nombre para mostrar"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "correo electrónico"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "contraseña",
+                    "hint": "Tu contraseña necesita al menos ocho caracteres"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "¿Por qué querés unirte?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Nombre de usuario",
+                    "email": "Correo electrónico",
+                    "password": "Contraseña",
+                    "agreement": "Acuerdo",
+                    "locale": "Idioma de la interface",
+                    "reason": "Motivo"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s contiene un proveedor de correo electrónico no permitido",
+                    "unreachable": "%s parece no existir",
+                    "taken": "%s ya está en uso",
+                    "reserved": "%s es una palabra clave reservada",
+                    "accepted": "%s debe ser aceptado",
+                    "blank": "%s es obligatorio",
+                    "invalid": "%s no es válido",
+                    "too_long": "%s es demasiado largo",
+                    "too_short": "%s es demasiado corto",
+                    "inclusion": "%s no es un valor soportado"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "El nombre de usuario sólo debe contener caracteres alfanuméricos sin signos diacríticos y subguiones (\"_\")",
+                    "username_too_long": "El nombre de usuario es demasiado largo (no puede tener más de 30 caracteres)",
+                    "email_invalid": "Esta no es una dirección de correo electrónico válida",
+                    "password_too_short": "La contraseña es demasiado corta (debe tener al menos 8 caracteres)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Algunas reglas básicas.",
+            "subtitle": "Estas reglas son establecidas por los administradores de %s.",
+            "prompt": "Al continuar, estás sujeto a los términos de servicio y política de privacidad de %s.",
+            "terms_of_service": "términos del servicio",
+            "privacy_policy": "política de privacidad",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Estoy de acuerdo"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Una última cosa.",
+            "subtitle": "Acabamos de enviar un correo electrónico a %s,\npulsá en el enlace para confirmar tu cuenta.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Abrir aplicación de correo electrónico",
+                "dont_receive_email": "Nunca recibí un correo electrónico"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Revisá tu correo electrónico",
+                "description": "Revisá si tu dirección de correo electrónico es correcta así como tu carpeta de correo basura / correo no deseado / spam, si todavía no lo hiciste.",
+                "resend_email": "Reenviar correo electrónico"
             },
             "open_email_app": {
                 "title": "Revisá tu bandeja de entrada.",
