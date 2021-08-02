@@ -26,5 +26,10 @@ files: [
   "source" : "/Localization/ios-infoPlist.json",
   "translation" : "/Localization/StringsConvertor/input/%locale_with_underscore%/%original_file_name%",
   "update_option" : "update_as_unapproved",
+ },
+ {
+  "source" : "/MastodonIntent/en.lproj/Intents.strings",
+  "translation" : "/Localization/StringsConvertor/Intents/input/%locale_with_underscore%/%original_file_name%",
+  "update_option" : "update_as_unapproved",
  }
 ]
