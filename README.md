@@ -8,7 +8,7 @@
 - iOS 14.0+
 
 ## Setup
-We needs the latest version Xcode from App Store. And use Cocoapods for dependency management.
+We need the latest version of Xcode from App Store. And use Cocoapods for dependency management.
 
 ### CocoaPods
 
