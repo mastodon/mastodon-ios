@@ -2037,7 +2037,6 @@
 		DB427DC925BAA00100D1B89D = {
 			isa = PBXGroup;
 			children = (
-				DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */,
 				DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */,
 				DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */,
 				DB3D0FED25BAA42200EAA174 /* MastodonSDK */,
@@ -2603,6 +2602,7 @@
 		DB8FABC826AEC7B2008E5AF4 /* MastodonIntent */ = {
 			isa = PBXGroup;
 			children = (
+				DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */,
 				DB8FABD626AEC864008E5AF4 /* MastodonIntent.entitlements */,
 				DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */,
 				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
