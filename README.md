@@ -1,5 +1,5 @@
 # Mastodon
-
+<a href="https://apps.apple.com/us/app/mastodon-for-iphone/id1571998974?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-top-left-radius: 13px; border-top-right-radius: 13px; border-bottom-right-radius: 13px; border-bottom-left-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1627603200&h=72b0c8495c2c0af1291efef280c4c2c1" alt="Download on the App Store" style="border-top-left-radius: 13px; border-top-right-radius: 13px; border-bottom-right-radius: 13px; border-bottom-left-radius: 13px; width: 250px; height: 83px;"></a>
 
 ## Requirements
 
@@ -8,14 +8,13 @@
 - iOS 14.0+
 
 ## Setup
-We needs the latest version Xcode from App Store. And use Cocoapods for dependency management.
+We need the latest version of Xcode from App Store. And use Cocoapods for dependency management.
 
 ### CocoaPods
 
 #### For the Intel Mac
 
 ```zsh
-# install cocoapods from Homebrew
 sudo gem install cocoapods
 sudo gem install cocoapods-keys
 pod install
@@ -24,7 +23,6 @@ pod install
 #### For the M1 Mac
 
 ```zsh
-# install cocoapods from Homebrew
 sudo gem install cocoapods
 sudo gem install cocoapods-keys
 
@@ -74,7 +72,6 @@ The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) 
 - [SwiftGen](https://github.com/SwiftGen/SwiftGen)
 - [SwiftUI-Introspect](https://github.com/siteline/SwiftUI-Introspect)
 - [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
-- [SwiftyJSON](https://github.com/SwiftyJSON/SwiftyJSON)
 - [Tabman](https://github.com/uias/Tabman)
 - [Texture](https://github.com/TextureGroup/Texture)
 - [ThirdPartyMailer](https://github.com/vtourraine/ThirdPartyMailer)
@@ -83,3 +80,4 @@ The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) 
 - [UITextView-Placeholder](https://github.com/devxoul/UITextView-Placeholder)
 
 ## License
+This project is released under the [GPL-3 License](./LICENSE).
