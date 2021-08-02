@@ -83,70 +83,70 @@
                 "open_in_safari": "Abrir en Safari",
                 "find_people": "Encontrá cuentas para seguir",
                 "manually_search": "Buscar manualmente",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "skip": "Omitir",
+                "reply": "Responder",
+                "report_user": "Denunciar a %s",
+                "block_domain": "Bloquear a %s",
+                "unblock_domain": "Desbloquear a %s",
+                "settings": "Configuración",
+                "delete": "Eliminar"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Principal",
+                "search": "Buscar",
+                "notification": "Notificación",
+                "profile": "Perfil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Cambiar a %s",
+                    "compose_new_post": "Redactar un nuevo mensaje",
+                    "show_favorites": "Mostrar favoritos",
+                    "open_settings": "Abrir Configuración"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Mensaje anterior",
+                    "next_status": "Mensaje siguiente",
+                    "open_status": "Abrir mensaje",
+                    "open_author_profile": "Abrir perfil del autor",
+                    "open_reblogger_profile": "Abrir perfil del adherente",
+                    "reply_status": "Responder al mensaje",
+                    "toggle_reblog": "Cambiar la adhesión en el mensaje",
+                    "toggle_favorite": "Cambiar la marca de favorito en el mensaje",
+                    "toggle_content_warning": "Cambiar la advertencia de contenido",
+                    "preview_image": "Previsualizar imagen"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Sección anterior",
+                    "next_section": "Sección siguiente"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "user_reblogged": "%s adhirió",
+                "user_replied_to": "Respondió a %s",
+                "show_post": "Mostrar mensaje",
+                "show_user_profile": "Mostrar perfil de usuario",
+                "content_warning": "Advertencia de contenido",
+                "media_content_warning": "Toca en cualquier lugar para mostrar",
                 "poll": {
-                    "vote": "Vote",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "vote": "Votar",
+                    "time_left": "Quedan %s",
+                    "closed": "Cerrada"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "reply": "Responder",
+                    "reblog": "Adherir",
+                    "unreblog": "Deshacer adhesión",
+                    "favorite": "Marcar como favorito",
+                    "unfavorite": "Dejar de marcar como favorito",
+                    "menu": "Menú"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "url": "Dirección web",
+                    "mention": "Mención",
+                    "link": "Enlace",
+                    "hashtag": "Etiqueta",
+                    "email": "Correo electrónico",
                     "emoji": "Emoji"
                 }
             },
@@ -220,12 +220,12 @@
                     "tech": "tecnología"
                 },
                 "see_less": "Ver menos",
-                "see_more": "See More"
+                "see_more": "Ver más"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "IDIOMA",
+                "users": "CUENTAS",
+                "category": "CATEGORÍA"
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
@@ -328,7 +328,7 @@
             }
         },
         "suggestion_account": {
-            "title": "Encontrá gente para seguir",
+            "title": "Encontrá cuentas para seguir",
             "follow_explain": "Cuando sigás a alguien, verás sus mensajes en tu línea temporal principal."
         },
         "public_timeline": {
@@ -390,105 +390,105 @@
             "keyboard": {
                 "discard_post": "Descartar mensaje",
                 "publish_post": "Enviar mensaje",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "toggle_poll": "Cambiar encuesta",
+                "toggle_content_warning": "Cambiar advertencia de contenido",
+                "append_attachment_entry": "Agregar archivo adjunto - %s",
+                "select_visibility_entry": "Seleccionar visibilidad - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers",
+                "posts": "mensajes",
+                "following": "siguiendo",
+                "followers": "seguidores",
                 "accessibility": {
-                    "count_posts": "%ld posts",
-                    "count_following": "%ld following",
-                    "count_followers": "%ld followers"
+                    "count_posts": "%ld mensajes",
+                    "count_following": "siguiendo a %ld",
+                    "count_followers": "%ld seguidores"
                 }
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Agregar fila",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Nombre de campo",
+                    "content": "Valor de campo"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "media": "Media"
+                "posts": "Mensajes",
+                "replies": "Respuestas",
+                "media": "Medios"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Dejar de silenciar cuenta",
+                    "message": "Confirmá para dejar de silenciar a %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Desbloquear cuenta",
+                    "message": "Confirmá para desbloquear a %s"
                 }
             }
         },
         "search": {
-            "title": "Search",
+            "title": "Buscar",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Buscar etiquetas y cuentas",
+                "cancel": "Cancelar"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Ver todos",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Tendencias en Mastodon",
+                    "description": "Etiquetas que están recibiendo bastante atención",
+                    "people_talking": "%s cuentas están hablando"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Cuentas que te pueden gustar",
+                    "description": "Puede que te guste seguir estas cuentas",
+                    "follow": "Seguir"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Todas",
+                    "people": "Cuentas",
+                    "hashtags": "Etiquetas",
+                    "posts": "Mensajes"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "No hay resultados"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Búsquedas recientes",
+                "clear": "Limpiar"
             }
         },
         "hashtag": {
-            "prompt": "%s people talking"
+            "prompt": "%s cuentas hablando"
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Tus favoritos"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Todo",
+                "Mentions": "Menciones"
             },
             "action": {
-                "follow": "followed you",
-                "favourite": "favorited your post",
-                "reblog": "reblogged your post",
-                "poll": "Your poll has ended",
-                "mention": "mentioned you",
-                "follow_request": "requested to follow you"
+                "follow": "te sigue",
+                "favourite": "marcó como favorito tu mensaje",
+                "reblog": "adhirió a tu mensaje",
+                "poll": "Tu encuesta finalizó",
+                "mention": "te mencionó",
+                "follow_request": "solicitó seguirte"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Mostrar todo",
+                "show_mentions": "Mostrar menciones"
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Mensaje",
             "title": "Mensaje de %s"
         },
         "settings": {
