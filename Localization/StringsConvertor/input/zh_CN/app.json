@@ -275,55 +275,55 @@
                     "taken": "%s 已被使用",
                     "reserved": "%s 是一个保留的关键字",
                     "accepted": "%s 必须被接受",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blank": "%s 为必需项",
+                    "invalid": "%s 无效",
+                    "too_long": "%s 长度过长",
+                    "too_short": "%s 长度太短",
+                    "inclusion": "%s 是不支持的值"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "用户名只能包含字母数字和下划线字符",
+                    "username_too_long": "用户名太长（不能超过 30 个字符）",
+                    "email_invalid": "这不是一个有效的电子邮件地址",
+                    "password_too_short": "密码太短（至少需要 8 个字符）"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "一些基本规则。",
+            "subtitle": "这些规则由 %s 的管理员设置。",
+            "prompt": "如果继续，你必须遵守 %s 的服务条款和隐私政策。",
+            "terms_of_service": "服务条款",
+            "privacy_policy": "隐私政策",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "我同意"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "最后一件事。",
+            "subtitle": "我们刚刚向 %s 发送了一封电子邮件，\n点击链接确认你的帐户。",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "打开电子邮件应用",
+                "dont_receive_email": "我还没有收到电子邮件"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "请检查你的邮箱。",
+                "description": "检查您的电子邮件地址是否正确，同时请检查你的垃圾箱。",
+                "resend_email": "重新发送邮件"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "检查你的邮箱",
+                "description": "我们刚刚向你发送了一封电子邮件。如果未收到，请检查你的垃圾箱。",
+                "mail": "邮件",
+                "open_email_client": "打开邮件客户端"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "主页",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "离线",
                 "new_posts": "查看新帖子",
-                "published": "Published!",
+                "published": "已发送",
                 "Publishing": "正在发送..."
             }
         },
@@ -457,29 +457,29 @@
                     "posts": "帖子"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "无结果"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "最近搜索",
+                "clear": "清除"
             }
         },
         "hashtag": {
-            "prompt": "%s people talking"
+            "prompt": "%s 人正在讨论"
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "你的喜欢"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "所有",
+                "Mentions": "提及"
             },
             "action": {
-                "follow": "followed you",
+                "follow": "关注了你",
                 "favourite": "喜欢了你的帖子",
                 "reblog": "转发了你的帖子",
-                "poll": "Your poll has ended",
-                "mention": "mentioned you",
+                "poll": "你的投票已经结束",
+                "mention": "提及了你",
                 "follow_request": "向你发送了关注请求"
             },
             "keyobard": {
