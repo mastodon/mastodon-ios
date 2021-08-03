@@ -1,5 +1,5 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "ドメインをブロック";
-"Common.Alerts.BlockDomain.Title" = "本当に%@全体をブロックしますか？ ほとんどの場合、いくつかのターゲットを絞ったブロックやミュートで十分ですし、それが望ましいです。そのドメインからのコンテンツが表示されなくなり、そのドメインからのフォロワーもすべて削除されます。";
+"Common.Alerts.BlockDomain.Title" = "本当に%@全体をブロックしたいのですか？ ほとんどの場合、いくつかのターゲットを絞ったブロックやミュートで十分ですし、それが望ましいです。そのドメインからのコンテンツが表示されなくなり、そのドメインからのフォロワーもすべて削除されます。";
 "Common.Alerts.CleanCache.Message" = "%@のキャッシュを消去しました。";
 "Common.Alerts.CleanCache.Title" = "キャッシュを消去";
 "Common.Alerts.Common.PleaseTryAgain" = "もう一度お試しください。";
@@ -11,7 +11,7 @@
 "Common.Alerts.EditProfileFailure.Message" = "プロフィールを編集できません。もう一度お試しください。";
 "Common.Alerts.EditProfileFailure.Title" = "プロフィールを編集できませんでした";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "複数の動画を添付することはできません。";
-"Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "すでに画像が含まれているトゥートに、動画を添付することができません。";
+"Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "すでに画像が含まれている投稿に、動画を添付することができません。";
 "Common.Alerts.PublishPostFailure.Message" = "トゥートに失敗しました。
 インターネットに接続されているか確認してください。";
 "Common.Alerts.PublishPostFailure.Title" = "失敗";
@@ -37,17 +37,17 @@
 "Common.Controls.Actions.Edit" = "編集";
 "Common.Controls.Actions.FindPeople" = "フォローする人を見つける";
 "Common.Controls.Actions.ManuallySearch" = "手動で検索する";
-"Common.Controls.Actions.Next" = "次へ";
+"Common.Controls.Actions.Next" = "次";
 "Common.Controls.Actions.Ok" = "OK";
 "Common.Controls.Actions.Open" = "開く";
 "Common.Controls.Actions.OpenInSafari" = "Safariで開く";
 "Common.Controls.Actions.Preview" = "プレビュー";
-"Common.Controls.Actions.Previous" = "前へ";
+"Common.Controls.Actions.Previous" = "前";
 "Common.Controls.Actions.Remove" = "消去";
 "Common.Controls.Actions.Reply" = "リプライ";
 "Common.Controls.Actions.ReportUser" = "%@を報告";
 "Common.Controls.Actions.Save" = "保存";
-"Common.Controls.Actions.SavePhoto" = "写真を保存";
+"Common.Controls.Actions.SavePhoto" = "写真を撮る";
 "Common.Controls.Actions.SeeMore" = "もっと見る";
 "Common.Controls.Actions.Settings" = "設定";
 "Common.Controls.Actions.Share" = "共有";
@@ -63,7 +63,7 @@
 "Common.Controls.Friendship.BlockDomain" = "%@をブロック";
 "Common.Controls.Friendship.BlockUser" = "%@をブロック";
 "Common.Controls.Friendship.Blocked" = "ブロック済み";
-"Common.Controls.Friendship.EditInfo" = "編集";
+"Common.Controls.Friendship.EditInfo" = "Edit Info";
 "Common.Controls.Friendship.Follow" = "フォロー";
 "Common.Controls.Friendship.Following" = "フォロー中";
 "Common.Controls.Friendship.Mute" = "ミュート";
@@ -75,21 +75,21 @@
 "Common.Controls.Friendship.UnblockUser" = "%@のブロックを解除";
 "Common.Controls.Friendship.Unmute" = "ミュートを解除";
 "Common.Controls.Friendship.UnmuteUser" = "%@のミュートを解除";
-"Common.Controls.Keyboard.Common.ComposeNewPost" = "新しいトゥートを作成";
+"Common.Controls.Keyboard.Common.ComposeNewPost" = "新しい投稿を作成";
 "Common.Controls.Keyboard.Common.OpenSettings" = "設定を開く";
 "Common.Controls.Keyboard.Common.ShowFavorites" = "いいねを表示";
 "Common.Controls.Keyboard.Common.SwitchToTab" = "%@に切り替え";
 "Common.Controls.Keyboard.SegmentedControl.NextSection" = "次のセクション";
 "Common.Controls.Keyboard.SegmentedControl.PreviousSection" = "前のセクション";
-"Common.Controls.Keyboard.Timeline.NextStatus" = "次のトゥート";
+"Common.Controls.Keyboard.Timeline.NextStatus" = "次の投稿";
 "Common.Controls.Keyboard.Timeline.OpenAuthorProfile" = "プロフィールを見る";
-"Common.Controls.Keyboard.Timeline.OpenRebloggerProfile" = "ブーストした人を見る";
-"Common.Controls.Keyboard.Timeline.OpenStatus" = "トゥートを開く";
+"Common.Controls.Keyboard.Timeline.OpenRebloggerProfile" = "リブロガーのプロフィールを開く";
+"Common.Controls.Keyboard.Timeline.OpenStatus" = "投稿を開く";
 "Common.Controls.Keyboard.Timeline.PreviewImage" = "画像をプレビュー";
 "Common.Controls.Keyboard.Timeline.PreviousStatus" = "前のトゥート";
 "Common.Controls.Keyboard.Timeline.ReplyStatus" = "トゥートにリプライ";
 "Common.Controls.Keyboard.Timeline.ToggleContentWarning" = "閲覧注意を切り替える";
-"Common.Controls.Keyboard.Timeline.ToggleFavorite" = "トゥートを切り替える";
+"Common.Controls.Keyboard.Timeline.ToggleFavorite" = "いいねを切り替える";
 "Common.Controls.Keyboard.Timeline.ToggleReblog" = "ブーストを切り替える";
 "Common.Controls.Status.Actions.Favorite" = "いいね";
 "Common.Controls.Status.Actions.Menu" = "メニュー";
@@ -97,8 +97,8 @@
 "Common.Controls.Status.Actions.Reply" = "リプライ";
 "Common.Controls.Status.Actions.Unfavorite" = "いいねと取り消す";
 "Common.Controls.Status.Actions.Unreblog" = "ブーストを戻す";
-"Common.Controls.Status.ContentWarning" = "閲覧注意";
-"Common.Controls.Status.MediaContentWarning" = "タップして表示";
+"Common.Controls.Status.ContentWarning" = "コンテンツ警告";
+"Common.Controls.Status.MediaContentWarning" = "どこかをタップして表示";
 "Common.Controls.Status.Poll.Closed" = "クローズド";
 "Common.Controls.Status.Poll.TimeLeft" = "残り%@";
 "Common.Controls.Status.Poll.Vote" = "投票";
@@ -121,16 +121,18 @@
 "Common.Controls.Timeline.Accessibility.CountReplies" = "%@ リプライ";
 "Common.Controls.Timeline.Filtered" = "フィルター済み";
 "Common.Controls.Timeline.Header.BlockedWarning" = "ブロックされているようです...";
-"Common.Controls.Timeline.Header.BlockingWarning" = "ブロックを解除するまでこのユーザーをみることはできません。";
+"Common.Controls.Timeline.Header.BlockingWarning" = "ブロックを解除するまでこのユーザーをみることはできません。
+そういうことです。";
 "Common.Controls.Timeline.Header.NoStatusFound" = "トゥートが見つかりません";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "このユーザーは停止されています。";
 "Common.Controls.Timeline.Header.UserBlockedWarning" = "%@がブロックを解除しない限りプロフィールをみることはできません。";
-"Common.Controls.Timeline.Header.UserBlockingWarning" = "%@がブロックを解除しない限りプロフィールをみることはできません。";
+"Common.Controls.Timeline.Header.UserBlockingWarning" = "%@がブロックを解除しない限りプロフィールをみることはできません。
+そういうことです。";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "%@のアカウントは停止されました。";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "不足しているトゥートを読み込む";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "読込中...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "リプライをもっとみる";
-"Common.Controls.Timeline.Timestamp.Now" = "なう";
+"Common.Controls.Timeline.Timestamp.Now" = "今";
 "Common.Controls.Timeline.Timestamp.TimeAgo" = "%@前";
 "Scene.Compose.Accessibility.AppendAttachment" = "アタッチメントの追加";
 "Scene.Compose.Accessibility.AppendPoll" = "投票を追加";
@@ -138,10 +140,10 @@
 "Scene.Compose.Accessibility.DisableContentWarning" = "コンテンツ警告を無効にする";
 "Scene.Compose.Accessibility.EnableContentWarning" = "コンテンツ警告を有効にする";
 "Scene.Compose.Accessibility.InputLimitExceedsCount" = "最大文字数を超えました。 %ld";
-"Scene.Compose.Accessibility.InputLimitRemainsCount" = "残り %ld";
-"Scene.Compose.Accessibility.PostVisibilityMenu" = "トゥート表示メニュー";
+"Scene.Compose.Accessibility.InputLimitRemainsCount" = "入力制限は残り %ld";
+"Scene.Compose.Accessibility.PostVisibilityMenu" = "投稿の表示メニュー";
 "Scene.Compose.Accessibility.RemovePoll" = "投票を消去";
-"Scene.Compose.Attachment.AttachmentBroken" = "%@は壊れていてマストドンにアップロードできません。";
+"Scene.Compose.Attachment.AttachmentBroken" = "%@は壊れていてMastodonにアップロードできません。";
 "Scene.Compose.Attachment.DescriptionPhoto" = "視覚障がい者のために写真を説明";
 "Scene.Compose.Attachment.DescriptionVideo" = "視覚障がい者のための映像の説明";
 "Scene.Compose.Attachment.Photo" = "写真";
@@ -155,7 +157,7 @@
 "Scene.Compose.Keyboard.PublishPost" = "トゥート";
 "Scene.Compose.Keyboard.SelectVisibilityEntry" = "公開設定を選択 - %@";
 "Scene.Compose.Keyboard.ToggleContentWarning" = "閲覧注意を切り替える";
-"Scene.Compose.Keyboard.TogglePoll" = "Toggle Poll";
+"Scene.Compose.Keyboard.TogglePoll" = "投票を切り替える";
 "Scene.Compose.MediaSelection.Browse" = "ブラウズ";
 "Scene.Compose.MediaSelection.Camera" = "写真を撮る";
 "Scene.Compose.MediaSelection.PhotoLibrary" = "写真";
@@ -173,7 +175,7 @@
 "Scene.Compose.Visibility.Direct" = "メンションしてる人のみ";
 "Scene.Compose.Visibility.Private" = "フォロワーのみ";
 "Scene.Compose.Visibility.Public" = "パブリック";
-"Scene.Compose.Visibility.Unlisted" = "非公開";
+"Scene.Compose.Visibility.Unlisted" = "非表示";
 "Scene.ConfirmEmail.Button.DontReceiveEmail" = "メールがこない";
 "Scene.ConfirmEmail.Button.OpenEmailApp" = "メールアプリを開く";
 "Scene.ConfirmEmail.DontReceiveEmail.Description" = "メールアドレスが正しいかどうか、また、迷惑メールフォルダに入っていないかどうかも確認してください。";
@@ -197,7 +199,7 @@
 "Scene.Notification.Action.FollowRequest" = "フォローリクエスト";
 "Scene.Notification.Action.Mention" = "メンションされました";
 "Scene.Notification.Action.Poll" = "投票が終了しました";
-"Scene.Notification.Action.Reblog" = "あなたのトゥートをブーストしました。";
+"Scene.Notification.Action.Reblog" = "あなたの投稿をリブログしました。";
 "Scene.Notification.Keyobard.ShowEverything" = "すべて見る";
 "Scene.Notification.Keyobard.ShowMentions" = "メンションを見る";
 "Scene.Notification.Title.Everything" = "すべて";
@@ -211,7 +213,7 @@
 "Scene.Profile.Dashboard.Followers" = "フォロワー";
 "Scene.Profile.Dashboard.Following" = "フォロー中";
 "Scene.Profile.Dashboard.Posts" = "トゥート";
-"Scene.Profile.Fields.AddRow" = "行を追加";
+"Scene.Profile.Fields.AddRow" = "行追加";
 "Scene.Profile.Fields.Placeholder.Content" = "コンテンツ";
 "Scene.Profile.Fields.Placeholder.Label" = "ラベル";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message" = "%@のブロックを解除しますか？";
@@ -222,7 +224,7 @@
 "Scene.Profile.SegmentedControl.Posts" = "トゥート";
 "Scene.Profile.SegmentedControl.Replies" = "リプライ";
 "Scene.PublicTimeline.Title" = "公開";
-"Scene.Register.Error.Item.Agreement" = "同意";
+"Scene.Register.Error.Item.Agreement" = "契約";
 "Scene.Register.Error.Item.Email" = "メール";
 "Scene.Register.Error.Item.Locale" = "地域";
 "Scene.Register.Error.Item.Password" = "パスワード";
@@ -240,8 +242,8 @@
 "Scene.Register.Error.Reason.Unreachable" = "%@は存在しないようだ";
 "Scene.Register.Error.Special.EmailInvalid" = "有効なメールアドレスではありません";
 "Scene.Register.Error.Special.PasswordTooShort" = "パスワードが短すぎます（8文字以上）";
-"Scene.Register.Error.Special.UsernameInvalid" = "ユーザー名には、英数字とアンダースコアのみを使用してください。";
-"Scene.Register.Error.Special.UsernameTooLong" = "ユーザー名が長すぎます（30文字以内）";
+"Scene.Register.Error.Special.UsernameInvalid" = "ユーザーネームには、英数字とアンダースコアのみを使用してください。";
+"Scene.Register.Error.Special.UsernameTooLong" = "ユーザーネームが長すぎます（30文字以内）";
 "Scene.Register.Input.Avatar.Delete" = "消去";
 "Scene.Register.Input.DisplayName.Placeholder" = "表示名";
 "Scene.Register.Input.Email.Placeholder" = "メール";
@@ -255,8 +257,8 @@
 "Scene.Report.Content2" = "この報告についてモデレーターに言いたいことはありますか？";
 "Scene.Report.Send" = "報告を送信";
 "Scene.Report.SkipToSend" = "コメントなしで送信";
-"Scene.Report.Step1" = "手順 1/2";
-"Scene.Report.Step2" = "手順 2/2";
+"Scene.Report.Step1" = "ステップ 1/2";
+"Scene.Report.Step2" = "ステップ 2/2";
 "Scene.Report.TextPlaceholder" = "追加コメントを入力";
 "Scene.Report.Title" = "%@を報告";
 "Scene.Search.Recommend.Accounts.Description" = "以下のアカウントをフォローしてみてはいかがでしょうか？";
@@ -264,12 +266,12 @@
 "Scene.Search.Recommend.Accounts.Title" = "おすすめのアカウント";
 "Scene.Search.Recommend.ButtonText" = "すべて見る";
 "Scene.Search.Recommend.HashTag.Description" = "注目されているハッシュタグ";
-"Scene.Search.Recommend.HashTag.PeopleTalking" = "%@人がこの話題について話しています";
+"Scene.Search.Recommend.HashTag.PeopleTalking" = "%@人が話題について話しています";
 "Scene.Search.Recommend.HashTag.Title" = "マストドンに関するトレンド";
 "Scene.Search.SearchBar.Cancel" = "キャンセル";
 "Scene.Search.SearchBar.Placeholder" = "ハッシュタグとユーザーを検索";
 "Scene.Search.Searching.Clear" = "クリア";
-"Scene.Search.Searching.EmptyState.NoResults" = "ありません";
+"Scene.Search.Searching.EmptyState.NoResults" = "なし";
 "Scene.Search.Searching.RecentSearch" = "最近の検索";
 "Scene.Search.Searching.Segment.All" = "すべて";
 "Scene.Search.Searching.Segment.Hashtags" = "ハッシュタグ";
@@ -304,7 +306,7 @@
 "Scene.ServerRules.PrivacyPolicy" = "プライバシーポリシー";
 "Scene.ServerRules.Prompt" = "同意することでお客様は以下のサービスの利用規約とプライバシーポリシーに従うことになります。 %@.";
 "Scene.ServerRules.Subtitle" = "これらのルールは、%@の管理者によって設定されています。";
-"Scene.ServerRules.TermsOfService" = "terms of service";
+"Scene.ServerRules.TermsOfService" = "利用規約";
 "Scene.ServerRules.Title" = "いくつかのルールがあります。";
 "Scene.Settings.Footer.MastodonDescription" = "Mastodonはオープンソースです。バグの報告はGithubの%@ (%@)で行うことができます。";
 "Scene.Settings.Keyboard.CloseSettingsWindow" = "設定を閉じる";
@@ -314,7 +316,7 @@
 "Scene.Settings.Section.Appearance.Title" = "外観";
 "Scene.Settings.Section.BoringZone.AccountSettings" = "アカウント設定";
 "Scene.Settings.Section.BoringZone.Privacy" = "プライバシーポリシー";
-"Scene.Settings.Section.BoringZone.Terms" = "Terms of Service";
+"Scene.Settings.Section.BoringZone.Terms" = "利用規約";
 "Scene.Settings.Section.BoringZone.Title" = "アプリについて";
 "Scene.Settings.Section.Notifications.Boosts" = "ブースト";
 "Scene.Settings.Section.Notifications.Favorites" = "いいね";
@@ -333,10 +335,11 @@
 "Scene.Settings.Section.Preference.UsingDefaultBrowser" = "既定のブラウザでリンクを開く";
 "Scene.Settings.Section.SpicyZone.Clear" = "メディアキャッシュをクリア";
 "Scene.Settings.Section.SpicyZone.Signout" = "サインアウト";
-"Scene.Settings.Section.SpicyZone.Title" = "破壊的変更";
+"Scene.Settings.Section.SpicyZone.Title" = "スパイシーゾーン";
 "Scene.Settings.Title" = "設定";
-"Scene.SuggestionAccount.FollowExplain" = "誰かをフォローすると、その人のトゥートがタイムラインに表示されるようになります。";
+"Scene.SuggestionAccount.FollowExplain" = "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。";
 "Scene.SuggestionAccount.Title" = "フォローする人を探す";
 "Scene.Thread.BackTitle" = "トゥート";
 "Scene.Thread.Title" = "%@のトゥート";
-"Scene.Welcome.Slogan" = "SNSをあなたの手で取り戻してください";
+"Scene.Welcome.Slogan" = "Social networking
+back in your hands.";
