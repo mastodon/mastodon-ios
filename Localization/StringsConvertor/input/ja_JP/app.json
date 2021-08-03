@@ -111,8 +111,8 @@
                     "open_author_profile": "プロフィールを見る",
                     "open_reblogger_profile": "リブロガーのプロフィールを開く",
                     "reply_status": "トゥートにリプライ",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
+                    "toggle_reblog": "ブーストを切り替える",
+                    "toggle_favorite": "いいねを切り替える",
                     "toggle_content_warning": "閲覧注意を切り替える",
                     "preview_image": "画像をプレビュー"
                 },
@@ -126,7 +126,7 @@
                 "user_replied_to": "%sがリプライ",
                 "show_post": "トゥートを見る",
                 "show_user_profile": "プロフィールを見る",
-                "content_warning": "Content Warning",
+                "content_warning": "コンテンツ警告",
                 "media_content_warning": "どこかをタップして表示",
                 "poll": {
                     "vote": "投票",
@@ -265,7 +265,7 @@
                     "username": "ユーザー名",
                     "email": "メール",
                     "password": "パスワード",
-                    "agreement": "Agreement",
+                    "agreement": "契約",
                     "locale": "地域",
                     "reason": "理由"
                 },
@@ -293,8 +293,8 @@
             "title": "いくつかのルールがあります。",
             "subtitle": "これらのルールは、%sの管理者によって設定されています。",
             "prompt": "同意することでお客様は以下のサービスの利用規約とプライバシーポリシーに従うことになります。 %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "terms_of_service": "利用規約",
+            "privacy_policy": "プライバシーポリシー",
             "button": {
                 "confirm": "同意する"
             }
@@ -369,7 +369,7 @@
             },
             "visibility": {
                 "public": "パブリック",
-                "unlisted": "Unlisted",
+                "unlisted": "非表示",
                 "private": "フォロワーのみ",
                 "direct": "メンションしてる人のみ"
             },
@@ -383,14 +383,14 @@
                 "custom_emoji_picker": "カスタム絵文字ピッカー",
                 "enable_content_warning": "コンテンツ警告を有効にする",
                 "disable_content_warning": "コンテンツ警告を無効にする",
-                "post_visibility_menu": "Post Visibility Menu",
-                "input_limit_remains_count": "Input limit remains %ld",
+                "post_visibility_menu": "投稿の表示メニュー",
+                "input_limit_remains_count": "入力制限は残り %ld",
                 "input_limit_exceeds_count": "最大文字数を超えました。 %ld"
             },
             "keyboard": {
                 "discard_post": "トゥートを破棄",
                 "publish_post": "トゥート",
-                "toggle_poll": "Toggle Poll",
+                "toggle_poll": "投票を切り替える",
                 "toggle_content_warning": "閲覧注意を切り替える",
                 "append_attachment_entry": "アタッチメントを追加 - %s",
                 "select_visibility_entry": "公開設定を選択 - %s"
@@ -408,7 +408,7 @@
                 }
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "行追加",
                 "placeholder": {
                     "label": "ラベル",
                     "content": "コンテンツ"
@@ -524,11 +524,11 @@
                 "boring_zone": {
                     "title": "アプリについて",
                     "account_settings": "アカウント設定",
-                    "terms": "Terms of Service",
+                    "terms": "利用規約",
                     "privacy": "プライバシーポリシー"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
+                    "title": "スパイシーゾーン",
                     "clear": "メディアキャッシュをクリア",
                     "signout": "サインアウト"
                 }
@@ -542,8 +542,8 @@
         },
         "report": {
             "title": "%sを報告",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "step1": "ステップ 1/2",
+            "step2": "ステップ 2/2",
             "content1": "他に報告したいトゥートはありますか？",
             "content2": "この報告についてモデレーターに言いたいことはありますか？",
             "send": "報告を送信",
