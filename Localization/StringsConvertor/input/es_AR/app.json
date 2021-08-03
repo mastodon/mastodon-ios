@@ -153,7 +153,7 @@
             "friendship": {
                 "follow": "Seguir",
                 "following": "Siguiendo",
-                "request": "Solicitud",
+                "request": "Solicitar",
                 "pending": "Pendientes",
                 "block": "Bloquear",
                 "block_user": "Bloquear a %s",
