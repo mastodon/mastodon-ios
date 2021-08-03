@@ -23,4 +23,3 @@ fi
 
 #task4 clean temp file
 rm -rf ${SRCROOT}/Localization/StringsConvertor/output
-rm -rf ${SRCROOT}/Localization/StringsConvertor/input
