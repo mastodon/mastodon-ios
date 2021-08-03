@@ -98,7 +98,7 @@ final class ComposeViewModel: NSObject {
         self.selectedStatusVisibility = {
             // default private when user locked
             var visibility: ComposeToolbarView.VisibilitySelectionType = context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public
-            // set visibility is replied post is DM
+            // set visibility for reply post
             switch composeKind {
             case .reply(let repliedToStatusObjectID):
                 context.managedObjectContext.performAndWait {
