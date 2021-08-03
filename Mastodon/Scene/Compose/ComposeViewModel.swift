@@ -95,7 +95,36 @@ final class ComposeViewModel: NSObject {
         case .post, .hashtag, .mention:       self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newPost)
         case .reply:                          self.title = CurrentValueSubject(L10n.Scene.Compose.Title.newReply)
         }
-        self.selectedStatusVisibility = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public)
+        self.selectedStatusVisibility = {
+            // default private when user locked
+            var visibility: ComposeToolbarView.VisibilitySelectionType = context.authenticationService.activeMastodonAuthentication.value?.user.locked == true ? .private : .public
+            // set visibility for reply post
+            switch composeKind {
+            case .reply(let repliedToStatusObjectID):
+                context.managedObjectContext.performAndWait {
+                    guard let status = try? context.managedObjectContext.existingObject(with: repliedToStatusObjectID) as? Status else {
+                        assertionFailure()
+                        return
+                    }
+                    guard let repliedStatusVisibility = status.visibilityEnum else { return }
+                    switch repliedStatusVisibility {
+                    case .public, .unlisted:
+                        // keep default
+                        break
+                    case .private:
+                        visibility = .private
+                    case .direct:
+                        visibility = .direct
+                    case ._other:
+                        assertionFailure()
+                        break
+                    }
+                }
+            default:
+                break
+            }
+            return CurrentValueSubject(visibility)
+        }()
         self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
         super.init()

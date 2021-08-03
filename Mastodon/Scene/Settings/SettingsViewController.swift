@@ -105,18 +105,18 @@ class SettingsViewController: UIViewController, NeedsDependency {
     }()
 
     let tableFooterLabel = MetaLabel(style: .settingTableFooter)
-//    lazy var tableFooterView: UIView = {
-//        // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
-//        let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
-//        view.isLayoutMarginsRelativeArrangement = true
-//        view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-//        view.axis = .vertical
-//        view.alignment = .center
-//
-//        tableFooterLabel.linkDelegate = self
-//        view.addArrangedSubview(tableFooterLabel)
-//        return view
-//    }()
+    lazy var tableFooterView: UIView = {
+        // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Height' UIStackView:0x7ffe41e47da0.height == 0)
+        let view = UIStackView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
+        view.isLayoutMarginsRelativeArrangement = true
+        view.layoutMargins = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        view.axis = .vertical
+        view.alignment = .center
+
+        // tableFooterLabel.linkDelegate = self
+        view.addArrangedSubview(tableFooterLabel)
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,24 +188,31 @@ class SettingsViewController: UIViewController, NeedsDependency {
             }
             .store(in: &disposeBag)
 
-        viewModel.currentInstance
-            .receive(on: RunLoop.main)
-            .sink { [weak self] instance in
-                guard let self = self else { return }
-                let version = instance?.version ?? "-"
-                let link = #"<a href="https://github.com/mastodon/mastodon">mastodon/mastodon</a>"#
-                let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
-                let mastodonContent = MastodonContent(content: content, emojis: [:])
-                do {
-                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                    self.tableFooterLabel.configure(content: metaContent)
-                } catch {
-                    let metaContent = PlaintextMetaContent(string: "")
-                    self.tableFooterLabel.configure(content: metaContent)
-                    assertionFailure()
-                }
-            }
-            .store(in: &disposeBag)
+        
+        let footer = "Mastodon v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
+        let metaContent = PlaintextMetaContent(string: footer)
+        tableFooterLabel.configure(content: metaContent)
+        
+        // FIXME:
+        // needs a workaround for GitHub link
+//        viewModel.currentInstance
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] instance in
+//                guard let self = self else { return }
+//                let version = instance?.version ?? "-"
+//                let link = #"<a href="https://github.com/mastodon/mastodon">mastodon/mastodon</a>"#
+//                let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
+//                let mastodonContent = MastodonContent(content: content, emojis: [:])
+//                do {
+//                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+//                    self.tableFooterLabel.configure(content: metaContent)
+//                } catch {
+//                    let metaContent = PlaintextMetaContent(string: "")
+//                    self.tableFooterLabel.configure(content: metaContent)
+//                    assertionFailure()
+//                }
+//            }
+//            .store(in: &disposeBag)
     }
     
     private func setupView() {
@@ -259,7 +266,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
             settingsAppearanceTableViewCellDelegate: self,
             settingsToggleCellDelegate: self
         )
-        // tableView.tableFooterView = tableFooterView
+        tableView.tableFooterView = tableFooterView
     }
     
     func alertToSignout() {
@@ -376,6 +383,13 @@ extension SettingsViewController: UITableViewDelegate {
                 guard let box = context.authenticationService.activeMastodonAuthenticationBox.value,
                       let url = URL(string: "https://\(box.domain)/auth/edit") else { return }
                 viewModel.openAuthenticationPage(authenticateURL: url, presentationContextProvider: self)
+            case .github:
+                guard let url = URL(string: "https://github.com/mastodon/mastodon-ios") else { break }
+                coordinator.present(
+                    scene: .safari(url: url),
+                    from: self,
+                    transition: .safariPresent(animated: true, completion: nil)
+                )
             case .termsOfService, .privacyPolicy:
                 // same URL
                 guard let url = viewModel.privacyURL else { break }
