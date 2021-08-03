@@ -130,6 +130,7 @@ extension SettingsViewModel {
         let boringZoneSettingsItems: [SettingsItem] = {
             let links: [SettingsItem.Link] = [
                 .accountSettings,
+                .github,
                 .termsOfService,
                 .privacyPolicy
             ]

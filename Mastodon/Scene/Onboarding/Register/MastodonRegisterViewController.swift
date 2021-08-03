@@ -744,13 +744,33 @@ extension MastodonRegisterViewController {
         let username = viewModel.username.value
         let email = viewModel.email.value
         let password = viewModel.password.value
+        
+        let locale: String = {
+            let fallbackLanguageCode = Locale.current.languageCode ?? "en"
+            guard let identifier = Locale.preferredLanguages.first else {
+                return fallbackLanguageCode
+            }
+            let local = Locale(identifier: identifier)
+            guard let languageCode = local.languageCode else {
+                return fallbackLanguageCode
+            }
+            switch languageCode {
+            case "zh":
+                // Check Simplified Chinese / Traditional Chinese
+                // https://github.com/gunchleoc/mastodon/blob/ed6153b8f24d3a8f5a124cc95683bd1f20aec882/app/helpers/settings_helper.rb
+                guard let regionCode = local.regionCode else { return languageCode }
+                return "zh" + "-" + regionCode
+            default:
+                return languageCode
+            }
+        }()
         let query = Mastodon.API.Account.RegisterQuery(
             reason: viewModel.reason.value,
             username: username,
             email: email,
             password: password,
             agreement: true, // user confirmed in the server rules scene
-            locale: Locale.current.languageCode ?? "en"
+            locale: locale
         )
  
         // register without show server rules
