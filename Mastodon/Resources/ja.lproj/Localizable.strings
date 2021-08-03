@@ -100,7 +100,7 @@
 "Common.Controls.Status.ContentWarning" = "閲覧注意";
 "Common.Controls.Status.MediaContentWarning" = "タップして表示";
 "Common.Controls.Status.Poll.Closed" = "クローズド";
-"Common.Controls.Status.Poll.TimeLeft" = "%@ left";
+"Common.Controls.Status.Poll.TimeLeft" = "残り%@";
 "Common.Controls.Status.Poll.Vote" = "投票";
 "Common.Controls.Status.ShowPost" = "トゥートを見る";
 "Common.Controls.Status.ShowUserProfile" = "プロフィールを見る";
@@ -154,7 +154,7 @@
 "Scene.Compose.Keyboard.DiscardPost" = "トゥートを破棄";
 "Scene.Compose.Keyboard.PublishPost" = "トゥート";
 "Scene.Compose.Keyboard.SelectVisibilityEntry" = "公開設定を選択 - %@";
-"Scene.Compose.Keyboard.ToggleContentWarning" = "Toggle Content Warning";
+"Scene.Compose.Keyboard.ToggleContentWarning" = "閲覧注意を切り替える";
 "Scene.Compose.Keyboard.TogglePoll" = "Toggle Poll";
 "Scene.Compose.MediaSelection.Browse" = "ブラウズ";
 "Scene.Compose.MediaSelection.Camera" = "写真を撮る";
@@ -212,7 +212,7 @@
 "Scene.Profile.Dashboard.Following" = "フォロー中";
 "Scene.Profile.Dashboard.Posts" = "トゥート";
 "Scene.Profile.Fields.AddRow" = "行を追加";
-"Scene.Profile.Fields.Placeholder.Content" = "Content";
+"Scene.Profile.Fields.Placeholder.Content" = "コンテンツ";
 "Scene.Profile.Fields.Placeholder.Label" = "ラベル";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message" = "%@のブロックを解除しますか？";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Title" = "ブロックを解除";
