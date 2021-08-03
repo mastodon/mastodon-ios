@@ -113,7 +113,7 @@
                     "reply_status": "トゥートにリプライ",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "閲覧注意を切り替える",
                     "preview_image": "画像をプレビュー"
                 },
                 "segmented_control": {
@@ -130,7 +130,7 @@
                 "media_content_warning": "どこかをタップして表示",
                 "poll": {
                     "vote": "投票",
-                    "time_left": "%s left",
+                    "time_left": "残り%s",
                     "closed": "クローズド"
                 },
                 "actions": {
@@ -391,7 +391,7 @@
                 "discard_post": "トゥートを破棄",
                 "publish_post": "トゥート",
                 "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_content_warning": "閲覧注意を切り替える",
                 "append_attachment_entry": "アタッチメントを追加 - %s",
                 "select_visibility_entry": "公開設定を選択 - %s"
             }
@@ -411,7 +411,7 @@
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "ラベル",
-                    "content": "内容"
+                    "content": "コンテンツ"
                 }
             },
             "segmented_control": {
