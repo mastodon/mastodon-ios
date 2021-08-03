@@ -1,5 +1,5 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "ドメインをブロック";
-"Common.Alerts.BlockDomain.Title" = "本当に%@全体をブロックしたいのですか？ ほとんどの場合、いくつかのターゲットを絞ったブロックやミュートで十分ですし、それが望ましいです。そのドメインからのコンテンツが表示されなくなり、そのドメインからのフォロワーもすべて削除されます。";
+"Common.Alerts.BlockDomain.Title" = "本当に%@全体をブロックしますか？ ほとんどの場合、いくつかのターゲットを絞ったブロックやミュートで十分ですし、それが望ましいです。そのドメインからのコンテンツが表示されなくなり、そのドメインからのフォロワーもすべて削除されます。";
 "Common.Alerts.CleanCache.Message" = "%@のキャッシュを消去しました。";
 "Common.Alerts.CleanCache.Title" = "キャッシュを消去";
 "Common.Alerts.Common.PleaseTryAgain" = "もう一度お試しください。";
@@ -37,7 +37,7 @@
 "Common.Controls.Actions.Edit" = "編集";
 "Common.Controls.Actions.FindPeople" = "フォローする人を見つける";
 "Common.Controls.Actions.ManuallySearch" = "手動で検索する";
-"Common.Controls.Actions.Next" = "次";
+"Common.Controls.Actions.Next" = "次へ";
 "Common.Controls.Actions.Ok" = "OK";
 "Common.Controls.Actions.Open" = "開く";
 "Common.Controls.Actions.OpenInSafari" = "Safariで開く";
