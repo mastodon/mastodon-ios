@@ -2,25 +2,25 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Bitte versuchen Sie es erneut.",
+                "please_try_again_later": "Bitte versuchen Sie es später nochmal."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Anmeldefehler"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Serverfehler"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "Fehler bei Abstimmung",
+                "poll_expired": "Diese Umfrage ist abgelaufen"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Entwurf Verwerfen",
+                "message": "Bestätigen Sie um den Beitrag zu verwerfen."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
+                "title": "Fehler bei Veröffentlichung",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
