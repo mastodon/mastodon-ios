@@ -2,21 +2,21 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "请重试。",
+                "please_try_again_later": "请稍后重试。"
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "注册失败"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "服务器错误"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "投票失败",
+                "poll_expired": "此投票已过期"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "丢弃草案",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
