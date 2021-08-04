@@ -65,7 +65,7 @@ extension MetaLabel {
             textColor = .white
 
         case .settingTableFooter:
-            font = .preferredFont(forTextStyle: .body)
+            font = .preferredFont(forTextStyle: .footnote)
             textColor = Asset.Colors.Label.secondary.color
             numberOfLines = 0
             textContainer.maximumNumberOfLines = 0
