@@ -1,26 +1,26 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Publicar en Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Contenido del texto";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "Publicación";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "¿Qué contenido publicar?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Publicación fallida";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Motivo del fallo";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Enviar publicación con contenido de texto";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Publicación";
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Publicación";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilidad";
 
 "Zo4jgJ" = "Post Visibility";
 
@@ -32,9 +32,9 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "Publicación";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Público";
 
 "ehFLjY" = "Followers Only";
 
