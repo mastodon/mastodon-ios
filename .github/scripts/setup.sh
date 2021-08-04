@@ -6,4 +6,4 @@ sudo gem install cocoapods-keys
 pod keys set notification_endpoint "<endpoint>"
 pod keys set notification_endpoint_debug "<endpoint>"
 
-pod install
+sudo pod install
