@@ -176,7 +176,7 @@
                 },
                 "loader": {
                     "load_missing_posts": "Charger les messages manquants",
-                    "loading_missing_posts": "Charger les messages manquants...",
+                    "loading_missing_posts": "Chargement des publications manquantes...",
                     "show_more_replies": "Charger plus de réponses"
                 },
                 "header": {
@@ -545,16 +545,16 @@
             "step1": "Étape 1 de 2",
             "step2": "Étape 2 de 2",
             "content1": "Y a-t-il d’autres messages que vous aimeriez ajouter au signalement?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "content2": "Y a-t-il quelque chose que les modérateurs devraient savoir sur ce rapport ?",
+            "send": "Envoyer le rapport",
+            "skip_to_send": "Envoyer sans commentaire",
+            "text_placeholder": "Tapez ou collez des informations supplémentaires"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Fermer l'aperçu",
+                "show_next": "Afficher le suivant",
+                "show_previous": "Afficher le précédent"
             }
         }
     }
