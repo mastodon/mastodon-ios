@@ -2,39 +2,39 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Пожалуйста, попробуйте ещё раз.",
+                "please_try_again_later": "Пожалуйста, попробуйте ещё раз позднее."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Не удалось зарегистрироваться"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Ошибка сервера"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "Не удалось проголосовать",
+                "poll_expired": "Этот опрос завершён"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Удалить черновик",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Ошибка публикации",
+                "message": "Не удалось опубликовать пост.\nПожалуйста, проверьте подключение к интернету.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Ошибка изменения профиля",
+                "message": "Не удаётся изменить профиль. Пожалуйста, попробуйте ещё раз."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Выход",
+                "message": "Вы действительно хотите выйти из учётной записи?",
+                "confirm": "Выйти"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
