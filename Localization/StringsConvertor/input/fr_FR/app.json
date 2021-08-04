@@ -71,144 +71,144 @@
                 "discard": "Abandonner",
                 "try_again": "Réessayer",
                 "take_photo": "Prendre une photo",
-                "save_photo": "Prendre une photo",
+                "save_photo": "Enregistrer la photo",
                 "copy_photo": "Copier la photo",
-                "sign_in": "Connexion",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "sign_in": "Se connecter",
+                "sign_up": "Créer un compte",
+                "see_more": "Voir plus",
+                "preview": "Aperçu",
+                "share": "Partager",
+                "share_user": "Partager %s",
+                "share_post": "Partager la publication",
+                "open_in_safari": "Ouvrir dans Safari",
+                "find_people": "Trouver des personnes à suivre",
+                "manually_search": "Rechercher manuellement à la place",
+                "skip": "Passer",
+                "reply": "Répondre",
+                "report_user": "Signaler %s",
+                "block_domain": "Bloquer %s",
+                "unblock_domain": "Débloquer %s",
+                "settings": "Paramètres",
+                "delete": "Supprimer"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
+                "home": "Accueil",
+                "search": "Rechercher",
                 "notification": "Notification",
-                "profile": "Profile"
+                "profile": "Profil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Basculer vers %s",
+                    "compose_new_post": "Rédiger un nouveau message",
+                    "show_favorites": "Afficher les favoris",
+                    "open_settings": "Ouvrir les paramètres"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Article précédent",
+                    "next_status": "Article suivant",
+                    "open_status": "Ouvrir la publication",
+                    "open_author_profile": "Ouvrir le profil de l'auteur",
+                    "open_reblogger_profile": "Ouvrir le profil du rebloggeur",
+                    "reply_status": "Répondre à la publication",
+                    "toggle_reblog": "Basculer le reblogue lors de la publication",
+                    "toggle_favorite": "Basculer le favori lors de la publication",
+                    "toggle_content_warning": "Basculer l’avertissement de contenu",
+                    "preview_image": "Prévisualiser l’image"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Section précédente",
+                    "next_section": "Prochaine section"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "user_reblogged": "%s à reblogué",
+                "user_replied_to": "À répondu à %s",
+                "show_post": "Montrer la publication",
+                "show_user_profile": "Montrer le profil de l’utilisateur",
+                "content_warning": "Avertissement de contenu",
+                "media_content_warning": "Tapotez n’importe où pour révéler la publication",
                 "poll": {
-                    "vote": "Vote",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "vote": "Voter",
+                    "time_left": "%s restantes",
+                    "closed": "Fermé"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "reply": "Répondre",
+                    "reblog": "Rebloguer",
+                    "unreblog": "Annuler le reblog",
+                    "favorite": "Favori",
+                    "unfavorite": "Retirer des favoris",
                     "menu": "Menu"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Mention",
-                    "link": "Link",
+                    "link": "Lien",
                     "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "email": "Courriel",
+                    "emoji": "Émoji"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "follow": "Suivre",
+                "following": "Suivi",
+                "request": "Requête",
+                "pending": "En attente",
+                "block": "Bloquer",
+                "block_user": "Bloquer %s",
+                "block_domain": "Bloquer %s",
+                "unblock": "Débloquer",
+                "unblock_user": "Débloquer %s",
+                "blocked": "Bloqué",
+                "mute": "Masquer",
+                "mute_user": "Ignorer %s",
+                "unmute": "Ne plus ignorer",
+                "unmute_user": "Ne plus masquer %s",
+                "muted": "Masqué",
+                "edit_info": "Éditer les infos"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtré",
                 "timestamp": {
-                    "now": "Now",
-                    "time_ago": "%s ago"
+                    "now": "Maintenant",
+                    "time_ago": "il y a %s"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Charger les messages manquants",
+                    "loading_missing_posts": "Charger les messages manquants...",
+                    "show_more_replies": "Charger plus de réponses"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Aucune publication trouvée",
+                    "blocking_warning": "Vous ne pouvez pas voir le profil de cet utilisateur\n tant que vous ne l’avez pas débloqué\nVotre profil ressemble à ça pour lui.",
+                    "user_blocking_warning": "Vous ne pouvez pas voir le profil de %s tant que vous ne l’avez pas débloqué\nVotre profil ressemble à ça pour lui.",
+                    "blocked_warning": "Vous ne pouvez pas voir le profil de cet utilisateur\n tant qu'il ne vous aura pas débloqué.",
+                    "user_blocked_warning": "Vous ne pouvez pas voir le profil de %s\n tant qu'il ne vous aura pas débloqué.",
+                    "suspended_warning": "Cet utilisateur a été suspendu.",
+                    "user_suspended_warning": "Le compte de %s à été suspendu."
                 },
                 "accessibility": {
-                    "count_replies": "%s replies",
+                    "count_replies": "%s réponses",
                     "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favorites"
+                    "count_favorites": "%s favoris"
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Le réseau social qui vous rend le contrôle."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Choisissez un serveur,\nn'importe quel serveur.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Tout",
+                    "all_accessiblity_description": "Catégorie: Toutes",
+                    "academia": "domaine universitaire",
+                    "activism": "activisme",
+                    "food": "nourriture",
                     "furry": "furry",
                     "games": "games",
                     "general": "general",
@@ -265,88 +265,88 @@
                     "username": "Username",
                     "email": "Email",
                     "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "agreement": "Accord",
+                    "locale": "Lieu",
+                    "reason": "Raison"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s contient un fournisseur courriel proscrit",
+                    "unreachable": "%s ne semble pas exister",
+                    "taken": "%s est déjà utilisé",
+                    "reserved": "%s est un mot clé réservé",
+                    "accepted": "%s doit être accepté",
+                    "blank": "%s est requis",
+                    "invalid": "%s est invalide",
+                    "too_long": "%s est trop long",
+                    "too_short": "%s est trop court",
+                    "inclusion": "%s n’est pas une valeur acceptée"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Le nom d’utilisateur ne doit que contenir des caractères alphanumériques et des traits de soulignements",
+                    "username_too_long": "Le nom d’utilisateur est trop long (ne doit pas dépasser 30 caractères)",
+                    "email_invalid": "Cette adresse courriel n’est pas valide",
+                    "password_too_short": "Le mot de passe est trop court (doit contenir au moins 8 caractères)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Règles de base.",
+            "subtitle": "Ces règles sont mis en place par les administrateurs de %s.",
+            "prompt": "En continuant, vous êtes assujettis à l’entente de service et la politique de confidentialité de %s.",
+            "terms_of_service": "entente de service",
+            "privacy_policy": "politique de confidentialité",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "J’accepte"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Une dernière chose.",
+            "subtitle": "Nous venons d’envoyer un courriel à %s,\ntapotez le lien pour confirmer votre compte.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Ouvrir l’application de courriel",
+                "dont_receive_email": "Je n’ai jamais reçu de courriel"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Vérifier vos courriels",
+                "description": "Vérifiez que votre adresse courriel est valide ainsi que votre fichier spam si ce n’est pas déjà fait.",
+                "resend_email": "Renvoyer le courriel"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Vérifier votre boîte aux lettres.",
+                "description": "Nous venons de vous envoyer un courriel. Vérifier votre fichier spam si vous ne l’avez pas déjà fait.",
+                "mail": "Courriel",
+                "open_email_client": "Ouvrir le client de messagerie"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Accueil",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Hors ligne",
+                "new_posts": "Voir les nouvelles publications",
+                "published": "Publié!",
+                "Publishing": "Publication en cours ..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Trouver des personnes à suivre",
+            "follow_explain": "Quand vous suivez quelqu'un, vous verrez leurs messages dans votre flux d’accueil."
         },
         "public_timeline": {
             "title": "Public"
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Nouvelle Publication",
+                "new_reply": "Nouvelle réponse"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Prendre une photo",
+                "photo_library": "Bibliothèque d'images",
+                "browse": "Parcourir"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Tapez ou collez ce qui est sur votre esprit",
+            "compose_action": "Publier",
+            "replying_to_user": "répondre à %s",
             "attachment": {
                 "photo": "photo",
                 "video": "video",
@@ -431,94 +431,94 @@
             }
         },
         "search": {
-            "title": "Search",
+            "title": "Rechercher",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Rechercher des hashtags et des utilisateurs",
+                "cancel": "Annuler"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Tout Voir",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Tendance sur Mastodon",
+                    "description": "Les hashtags qui reçoivent pas mal d'attention",
+                    "people_talking": "%s personnes parlent"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Comptes que vous pourriez aimer",
+                    "description": "Vous aimeriez peut-être suivre ces comptes",
+                    "follow": "Suivre"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
+                    "all": "Tout",
+                    "people": "Personnes",
                     "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "posts": "Publications"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Aucun résultat"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Recherches récentes",
+                "clear": "Effacer"
             }
         },
         "hashtag": {
-            "prompt": "%s people talking"
+            "prompt": "%s personnes parlent"
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Vos favoris"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
+                "Everything": "Tout",
                 "Mentions": "Mentions"
             },
             "action": {
-                "follow": "followed you",
-                "favourite": "favorited your post",
-                "reblog": "reblogged your post",
-                "poll": "Your poll has ended",
-                "mention": "mentioned you",
-                "follow_request": "requested to follow you"
+                "follow": "vous suit",
+                "favourite": "a ajouté votre message à ses favoris",
+                "reblog": "a reblogué votre post",
+                "poll": "Votre sondage est terminé",
+                "mention": "vous a mentionné",
+                "follow_request": "a demandé à vous suivre"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Tout Afficher",
+                "show_mentions": "Afficher les mentions"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Publication",
+            "title": "Publication de %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Paramètres",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Apparence",
+                    "automatic": "Automatique",
+                    "light": "Toujours claire",
+                    "dark": "Toujours sombre"
                 },
                 "notifications": {
                     "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "Ajoute l’une de mes publications à ses favoris",
+                    "follows": "Me suit",
+                    "boosts": "Reblogue mon message",
+                    "mentions": "Me mentionne",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "n’importe qui",
+                        "follower": "un abonné",
+                        "follow": "toute personne que je suis",
+                        "noone": "personne",
+                        "title": "Me notifier lorsque"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "title": "Préférences",
+                    "true_black_dark_mode": "Vrai mode sombre",
+                    "disable_avatar_animation": "Désactiver les avatars animés",
+                    "disable_emoji_animation": "Désactiver les émoticônes animées",
                     "using_default_browser": "Use default browser to open links"
                 },
                 "boring_zone": {
