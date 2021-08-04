@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>publication</string>
         <key>other</key>
-        <string>posts</string>
+        <string>publications</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 favoris</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favoris</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 votant</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld votants</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 personne en parle</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld personnes en parlent</string>
       </dict>
     </dict>
   </dict>
