@@ -14,7 +14,7 @@
 
 "RxSqsb" = "Publicación";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Publicar ${content} en Mastodon";
 
 "ZKJSNu" = "Publicación";
 
@@ -22,30 +22,30 @@
 
 "ZbSjzC" = "Visibilidad";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilidad de la publicación";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con 'Público'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con 'Solo seguidores'.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Público";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Solo seguidores";
 
 "dUyuGg" = "Publicación";
 
 "dYQ5NN" = "Público";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Solo seguidores";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Error al publicar. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "La publicación se envió correctamente.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Solo para confirmar, ¿querías \"Público\"?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Solo para confirmar, ¿querías \"Solo seguidores\"?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "La publicación se envió correctamente. ";
