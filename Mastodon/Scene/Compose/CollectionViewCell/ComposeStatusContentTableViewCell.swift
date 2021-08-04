@@ -43,7 +43,7 @@ final class ComposeStatusContentTableViewCell: UITableViewCell {
         metaText.paragraphStyle = {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
-            style.paragraphSpacing = 8
+            style.paragraphSpacing = 0
             return style
         }()
         metaText.textAttributes = [
