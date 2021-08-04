@@ -336,16 +336,16 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Новый пост",
+                "new_reply": "Новый ответ"
             },
             "media_selection": {
-                "camera": "Take Photo",
+                "camera": "Сделать фото",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Выбрать"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
+            "compose_action": "Опубликовать",
             "replying_to_user": "replying to %s",
             "attachment": {
                 "photo": "photo",
