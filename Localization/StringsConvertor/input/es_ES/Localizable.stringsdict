@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>publicación</string>
         <key>other</key>
         <string>posts</string>
       </dict>
@@ -29,7 +29,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 favorito</string>
         <key>other</key>
         <string>%ld favorites</string>
       </dict>
@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 voto</string>
         <key>other</key>
         <string>%ld votes</string>
       </dict>
@@ -77,7 +77,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 votante</string>
         <key>other</key>
         <string>%ld voters</string>
       </dict>
@@ -93,7 +93,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 persona hablando</string>
         <key>other</key>
         <string>%ld people talking</string>
       </dict>
