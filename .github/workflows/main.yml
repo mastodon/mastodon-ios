@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-      - name: force Xcode 12.2
-        run: sudo xcode-select -switch /Applications/Xcode_12.2.app
+      - name: force Xcode 12.4
+        run: sudo xcode-select -switch /Applications/Xcode_12.4.app
       - name: setup
         run: exec ./.github/scripts/setup.sh
       - name: build

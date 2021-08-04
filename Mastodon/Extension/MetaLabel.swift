@@ -66,7 +66,7 @@ extension MetaLabel {
 
         case .settingTableFooter:
             font = .preferredFont(forTextStyle: .body)
-            textColor = Asset.Colors.Label.primary.color
+            textColor = Asset.Colors.Label.secondary.color
             numberOfLines = 0
             textContainer.maximumNumberOfLines = 0
             paragraphStyle.alignment = .center
