@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Publier sur Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Contenu textuel";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "Publication";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Quel contenu publier?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "L'envoi a échoué";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Raison de l'échec";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Envoyer un message avec du contenu textuel";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Publication";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Publier ${content} sur Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Publication";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilité";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilité de la publication";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Il y a ${count} options correspondant à « Public ».";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Il y a ${count} options correspondant à « Abonnés uniquement ».";
 
 "ayoYEb-dYQ5NN" = "${content}, Public";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, abonnés seulement";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "Publication";
 
 "dYQ5NN" = "Public";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Abonnés seulement";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "L'envoi a échoué. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Léa publication a été envoyée avec succès.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Juste pour confirmer, vous vouliez bien diffuser en « Public » ?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Juste pour confirmer, vous vouliez bien diffuser en « abonnés uniquement » ?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "La publication a été envoyée avec succès. ";
