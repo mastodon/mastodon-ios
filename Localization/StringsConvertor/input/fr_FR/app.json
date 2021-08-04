@@ -2,78 +2,78 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Merci de réessayer.",
+                "please_try_again_later": "Merci de réessayer plus tard."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Échec de l'inscription"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Erreur du serveur"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "Le vote n’a pas pu être enregistré",
+                "poll_expired": "Le sondage a expiré"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Abandonner le brouillon",
+                "message": "Confirmez pour abandonner le contenu de votre message."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "La publication a échoué",
+                "message": "La publication a échoué.\nVeuillez vérifier votre accès à Internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Impossible de joindre une vidéo à un statut contenant déjà des images.",
+                    "more_than_one_video": "Impossible de joindre plus d’une vidéo."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Erreur lors de l'édition du profil",
+                "message": "Impossible de modifier le profil. Veuillez réessayer."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Se déconnecter",
+                "message": "Voulez-vous vraiment vous déconnecter ?",
+                "confirm": "Se déconnecter"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Voulez-vous vraiment, vraiment bloquer %s en entier ? Dans la plupart des cas, quelques blocages ou masquages ciblés sont suffisants et préférables. Vous ne verrez plus de contenu provenant de ce domaine, ni dans fils publics, ni dans vos notifications. Vos abonnés utilisant ce domaine seront retirés.",
+                "block_entire_domain": "Bloquer le domaine"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Échec de l'enregistrement de la photo",
+                "message": "Veuillez activer la permission d'accès à la photothèque pour enregistrer la photo."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "Voulez-vous vraiment supprimer ce message ?",
+                "delete": "Supprimer"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Vider le cache",
+                "message": "Cache de %s effacé avec succès."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
+                "back": "Retour",
+                "next": "Suivant",
+                "previous": "Précédent",
+                "open": "Ouvrir",
+                "add": "Ajouter",
+                "remove": "Supprimer",
+                "edit": "Éditer",
+                "save": "Enregistrer",
                 "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
+                "done": "Terminé",
+                "confirm": "Confirmer",
+                "continue": "Continuer",
+                "cancel": "Annuler",
+                "discard": "Abandonner",
+                "try_again": "Réessayer",
+                "take_photo": "Prendre une photo",
+                "save_photo": "Prendre une photo",
+                "copy_photo": "Copier la photo",
+                "sign_in": "Connexion",
                 "sign_up": "Sign Up",
                 "see_more": "See More",
                 "preview": "Preview",
