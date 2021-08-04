@@ -20,6 +20,14 @@ extension Mastodon.Entity.Account: Hashable {
 }
 
 extension Mastodon.Entity.Account {
+
+    var displayNameWithFallback: String {
+        return !displayName.isEmpty ? displayName : username
+    }
+    
+}
+
+extension Mastodon.Entity.Account {
     public func avatarImageURL() -> URL? {
         let string = UserDefaults.shared.preferredStaticAvatar ? avatarStatic ?? avatar : avatar
         return URL(string: string)
