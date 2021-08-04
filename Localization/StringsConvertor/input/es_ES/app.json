@@ -2,26 +2,26 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Por favor, vuelve a intentarlo.",
+                "please_try_again_later": "Por favor, vuelve a intentarlo más tarde."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Error al registrarse"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Error del servidor"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "Voto fallido",
+                "poll_expired": "La encuesta ha caducado"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Descartar borrador",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Error de publicación",
+                "message": "No se pudo publicar la publicación.\nPor favor, revise su conexión a internet.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
                     "more_than_one_video": "Cannot attach more than one video."
@@ -55,31 +55,31 @@
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
+                "back": "Atrás",
+                "next": "Siguiente",
+                "previous": "Anterior",
+                "open": "Abrir",
+                "add": "Añadir",
+                "remove": "Eliminar",
+                "edit": "Editar",
+                "save": "Guardar",
+                "ok": "Aceptar",
+                "done": "Hecho",
+                "confirm": "Confirmar",
+                "continue": "Continuar",
+                "cancel": "Cancelar",
+                "discard": "Descartar",
+                "try_again": "Inténtalo de nuevo",
+                "take_photo": "Tomar foto",
+                "save_photo": "Guardar foto",
+                "copy_photo": "Copiar foto",
+                "sign_in": "Iniciar sesión",
+                "sign_up": "Regístrate",
+                "see_more": "Ver más",
+                "preview": "Vista previa",
+                "share": "Compartir",
+                "share_user": "Compartir %s",
+                "share_post": "Compartir publicación",
                 "open_in_safari": "Open in Safari",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
@@ -129,58 +129,58 @@
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "vote": "Vota",
+                    "time_left": "Quedan %s",
+                    "closed": "Cerrado"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Responder",
                     "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "unreblog": "Deshacer reblog",
+                    "favorite": "Favorito",
+                    "unfavorite": "No favorito",
+                    "menu": "Menú"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "mention": "Mención",
+                    "link": "Enlace",
+                    "hashtag": "Etiqueta",
+                    "email": "E-mail",
                     "emoji": "Emoji"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "follow": "Seguir",
+                "following": "Siguiendo",
+                "request": "Solicitud",
+                "pending": "Pendiente",
+                "block": "Bloquear",
+                "block_user": "Bloquear a %s",
+                "block_domain": "Bloquear a %s",
+                "unblock": "Desbloquear",
+                "unblock_user": "Desbloquear a %s",
+                "blocked": "Bloqueado",
+                "mute": "Silenciar",
+                "mute_user": "Silenciar a %s",
+                "unmute": "Desmutear",
+                "unmute_user": "Desmutear a %s",
+                "muted": "Silenciado",
+                "edit_info": "Editar Info"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Filtrado",
                 "timestamp": {
-                    "now": "Now",
-                    "time_ago": "%s ago"
+                    "now": "Ahora",
+                    "time_ago": "Hace %s"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Cargar publicaciones faltantes",
+                    "loading_missing_posts": "Cargando publicaciones faltantes...",
+                    "show_more_replies": "Mostrar más respuestas"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "No se ha encontrado ninguna publicación",
                     "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
@@ -189,9 +189,9 @@
                     "user_suspended_warning": "%s’s account has been suspended."
                 },
                 "accessibility": {
-                    "count_replies": "%s replies",
+                    "count_replies": "%s respuestas",
                     "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favorites"
+                    "count_favorites": "%s favoritos"
                 }
             }
         }
