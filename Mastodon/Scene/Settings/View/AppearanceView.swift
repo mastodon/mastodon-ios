@@ -61,6 +61,20 @@ class AppearanceView: UIView {
         imageView.image = image
         titleLabel.text = title
     }
+    
+    override var isAccessibilityElement: Bool {
+        get { return true }
+        set { }
+        
+    }
+    override var accessibilityLabel: String? {
+        get {
+            return [titleLabel.text, checkBox.accessibilityLabel]
+                .compactMap { $0 }
+                .joined(separator: ", ")
+        }
+        set { }
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

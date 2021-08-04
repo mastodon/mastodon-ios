@@ -10,6 +10,7 @@ import UIKit
 import Combine
 import MastodonSDK
 import SafariServices
+import MetaTextKit
 
 final class MastodonServerRulesViewController: UIViewController, NeedsDependency {
     
@@ -53,15 +54,21 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
         return view
     }()
     
-    private(set) lazy var bottomPromptTextView: UITextView = {
-        let textView = UITextView()
-        textView.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
-        textView.textColor = .label
-        textView.isSelectable = true
-        textView.isEditable = false
-        textView.isScrollEnabled = false
-        textView.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
-        return textView
+    private(set) lazy var bottomPromptMetaText: MetaText = {
+        let metaText = MetaText()
+        metaText.textAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22),
+            .foregroundColor: UIColor.label,
+        ]
+        metaText.linkAttributes = [
+            .font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22),
+            .foregroundColor: Asset.Colors.brandBlue.color,
+        ]
+        metaText.textView.isEditable = false
+        metaText.textView.isSelectable = false
+        metaText.textView.isScrollEnabled = false
+        metaText.textView.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color      // needs background color to prevent server rules text overlap
+        return metaText
     }()
     
     let confirmButton: PrimaryActionButton = {
@@ -114,13 +121,13 @@ extension MastodonServerRulesViewController {
             confirmButton.heightAnchor.constraint(equalToConstant: MastodonServerRulesViewController.actionButtonHeight).priority(.defaultHigh),
         ])
         
-        bottomPromptTextView.translatesAutoresizingMaskIntoConstraints = false
-        bottomContainerView.addSubview(bottomPromptTextView)
+        bottomPromptMetaText.textView.translatesAutoresizingMaskIntoConstraints = false
+        bottomContainerView.addSubview(bottomPromptMetaText.textView)
         NSLayoutConstraint.activate([
-            bottomPromptTextView.frameLayoutGuide.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 20),
-            bottomPromptTextView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor),
-            bottomPromptTextView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.trailingAnchor),
-            confirmButton.topAnchor.constraint(equalTo: bottomPromptTextView.frameLayoutGuide.bottomAnchor, constant: 20),
+            bottomPromptMetaText.textView.frameLayoutGuide.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 20),
+            bottomPromptMetaText.textView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor),
+            bottomPromptMetaText.textView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.trailingAnchor),
+            confirmButton.topAnchor.constraint(equalTo: bottomPromptMetaText.textView.frameLayoutGuide.bottomAnchor, constant: 20),
         ])
         
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -175,31 +182,61 @@ extension MastodonServerRulesViewController {
     }
     
     func configTextView() {
-        let str = NSString(string: L10n.Scene.ServerRules.prompt(viewModel.domain))
-        let termsOfServiceRange = str.range(of: L10n.Scene.ServerRules.termsOfService)
-        let privacyRange = str.range(of: L10n.Scene.ServerRules.privacyPolicy)
-        let attributeString = NSMutableAttributedString(
-            string: L10n.Scene.ServerRules.prompt(viewModel.domain),
-            attributes: [
-                NSAttributedString.Key.font: UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22),
-                NSAttributedString.Key.foregroundColor: UIColor.label
-            ]
-        )
-        attributeString.addAttribute(.link, value: Mastodon.API.serverRulesURL(domain: viewModel.domain), range: termsOfServiceRange)
-        attributeString.addAttribute(.link, value: Mastodon.API.privacyURL(domain: viewModel.domain), range: privacyRange)
-        let linkAttributes = [NSAttributedString.Key.foregroundColor: Asset.Colors.brandBlue.color]
-        bottomPromptTextView.attributedText = attributeString
-        bottomPromptTextView.linkTextAttributes = linkAttributes
-        bottomPromptTextView.delegate = self
+        let metaContent = ServerRulesPromptMetaContent(domain: viewModel.domain)
+        bottomPromptMetaText.configure(content: metaContent)
+        bottomPromptMetaText.textView.linkDelegate = self
+    }
+    
+    struct ServerRulesPromptMetaContent: MetaContent {
+        let string: String
+        let entities: [Meta.Entity]
+        
+        init(domain: String) {
+            let _string = L10n.Scene.ServerRules.prompt(domain)
+            self.string = _string
+            
+            var _entities: [Meta.Entity] = []
+            
+            let termsOfServiceText = L10n.Scene.ServerRules.termsOfService
+            if let termsOfServiceRange = _string.range(of: termsOfServiceText) {
+                let url = Mastodon.API.serverRulesURL(domain: domain)
+                let entity = Meta.Entity(range: NSRange(termsOfServiceRange, in: _string), meta: .url(termsOfServiceText, trimmed: termsOfServiceText, url: url.absoluteString, userInfo: nil))
+                _entities.append(entity)
+            }
+            
+            let privacyPolicyText = L10n.Scene.ServerRules.privacyPolicy
+            if let privacyPolicyRange = _string.range(of: privacyPolicyText) {
+                let url = Mastodon.API.privacyURL(domain: domain)
+                let entity = Meta.Entity(range: NSRange(privacyPolicyRange, in: _string), meta: .url(privacyPolicyText, trimmed: privacyPolicyText, url: url.absoluteString, userInfo: nil))
+                _entities.append(entity)
+            }
+            
+            self.entities = _entities
+        }
+        
+        func metaAttachment(for entity: Meta.Entity) -> MetaAttachment? {
+            return nil
+        }
     }
     
 }
 
 extension MastodonServerRulesViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        let safariVC = SFSafariViewController(url: URL)
-        self.present(safariVC, animated: true, completion: nil)
         return false
+    }
+}
+
+// MARK: - MetaTextViewDelegate
+extension MastodonServerRulesViewController: MetaTextViewDelegate {
+    func metaTextView(_ metaTextView: MetaTextView, didSelectMeta meta: Meta) {
+        switch meta {
+        case .url(_, _, let url, _):
+            guard let url = URL(string: url) else { return }
+            coordinator.present(scene: .safari(url: url), from: nil, transition: .safariPresent(animated: true, completion: nil))
+        default:
+            break
+        }
     }
 }
 

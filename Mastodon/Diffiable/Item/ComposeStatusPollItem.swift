@@ -59,8 +59,7 @@ extension ComposeStatusPollItem {
     final class PollExpiresOptionAttribute: Equatable, Hashable {
         private let id = UUID()
 
-        let expiresOption = CurrentValueSubject<ExpiresOption, Never>(.thirtyMinutes)
-
+        let expiresOption = CurrentValueSubject<ExpiresOption, Never>(.oneDay)
 
         static func == (lhs: PollExpiresOptionAttribute, rhs: PollExpiresOptionAttribute) -> Bool {
             return lhs.id == rhs.id &&

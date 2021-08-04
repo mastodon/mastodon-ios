@@ -29,6 +29,10 @@ final class ProfileStatusDashboardMeterView: UIView {
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.Profile.Dashboard.posts
         label.textAlignment = .center
+        if UIView.isZoomedMode {
+            label.adjustsFontSizeToFitWidth = true
+            label.minimumScaleFactor = 0.8
+        }
         return label
     }()
     
