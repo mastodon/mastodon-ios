@@ -55,7 +55,13 @@ extension MastodonPickServerViewModel.LoadIndexedServerState {
                 } receiveValue: { [weak self] response in
                     guard let _ = self else { return }
                     stateMachine.enter(Idle.self)
-                    viewModel.indexedServers.value = response.value
+                    
+                    // ignore approval required servers
+                    var servers = response.value
+                    if viewModel.mode == .signUp {
+                        servers = servers.filter { !$0.approvalRequired }
+                    }
+                    viewModel.indexedServers.value = servers
                 }
                 .store(in: &viewModel.disposeBag)
         }
