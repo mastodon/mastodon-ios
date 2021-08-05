@@ -175,12 +175,12 @@
                     "time_ago": "%s 전"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "빈 게시물 불러오기",
+                    "loading_missing_posts": "빈 게시물 불러오는 중…",
+                    "show_more_replies": "답글 더 보기"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "게시물이 없습니다",
                     "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
