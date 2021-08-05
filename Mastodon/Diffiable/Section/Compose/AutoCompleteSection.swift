@@ -7,6 +7,7 @@
 
 import UIKit
 import MastodonSDK
+import MastodonMeta
 
 enum AutoCompleteSection: Equatable, Hashable {
     case main
@@ -48,7 +49,8 @@ extension AutoCompleteSection {
 extension AutoCompleteSection {
 
     private static func configureHashtag(cell: AutoCompleteTableViewCell, hashtag: Mastodon.Entity.Tag) {
-        cell.titleLabel.text = "#" + hashtag.name
+        let metaContent = PlaintextMetaContent(string: "#" + hashtag.name)
+        cell.titleLabel.configure(content: metaContent)
         cell.subtitleLabel.text = {
             let count = (hashtag.history ?? [])
                 .sorted(by: { $0.day > $1.day })
@@ -61,23 +63,29 @@ extension AutoCompleteSection {
     }
     
     private static func configureHashtag(cell: AutoCompleteTableViewCell, hashtagName: String) {
-        cell.titleLabel.text = "#" + hashtagName
+        let metaContent = PlaintextMetaContent(string: "#" + hashtagName)
+        cell.titleLabel.configure(content: metaContent)
         cell.subtitleLabel.text = " "
         cell.avatarImageView.isHidden = true
     }
     
     private static func configureAccount(cell: AutoCompleteTableViewCell, account: Mastodon.Entity.Account) {
-        cell.titleLabel.text = {
-            guard !account.displayName.isEmpty else { return account.username }
-            return account.displayName
-        }()
+        let mastodonContent = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojiMeta)
+        do {
+            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+            cell.titleLabel.configure(content: metaContent)
+        } catch {
+            let metaContent = PlaintextMetaContent(string: account.displayNameWithFallback)
+            cell.titleLabel.configure(content: metaContent)
+        }
         cell.subtitleLabel.text = "@" + account.acct
         cell.avatarImageView.isHidden = false
         cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: URL(string: account.avatar)))
     }
     
     private static func configureEmoji(cell: AutoCompleteTableViewCell, emoji: Mastodon.Entity.Emoji, isFirst: Bool) {
-        cell.titleLabel.text = ":" + emoji.shortcode + ":"
+        let metaContent = PlaintextMetaContent(string: ":" + emoji.shortcode + ":")
+        cell.titleLabel.configure(content: metaContent)
         // FIXME: handle spacer enter to complete emoji
         // cell.subtitleLabel.text = isFirst ? L10n.Scene.Compose.AutoComplete.spaceToAdd : " "
         cell.subtitleLabel.text = " "

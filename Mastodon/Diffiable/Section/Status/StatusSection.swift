@@ -106,21 +106,7 @@ extension StatusSection {
                 )
                 cell.delegate = statusTableViewCellDelegate
                 cell.isAccessibilityElement = true
-                // FIXME:
-                cell.accessibilityLabel = {
-                    var accessibilityViews: [UIView?] = []
-                    if !cell.statusView.headerContainerView.isHidden {
-                        accessibilityViews.append(cell.statusView.headerInfoLabel)
-                    }
-                    accessibilityViews.append(contentsOf: [
-                        cell.statusView.nameMetaLabel,
-                        cell.statusView.dateLabel,
-                        cell.statusView.contentMetaText.textView,
-                    ])
-                    return accessibilityViews
-                        .compactMap { $0?.accessibilityLabel }
-                        .joined(separator: " ")
-                }()
+                StatusSection.configureStatusAccessibilityLabel(cell: cell)
                 return cell
             case .status(let objectID, let attribute),
                  .root(let objectID, let attribute),
@@ -182,7 +168,7 @@ extension StatusSection {
                     cell.accessibilityElements = accessibilityElements
                 default:
                     cell.isAccessibilityElement = true
-                    cell.accessibilityElements = nil
+                    StatusSection.configureStatusAccessibilityLabel(cell: cell)
                 }
                 return cell
             case .leafBottomLoader:
@@ -1115,6 +1101,25 @@ extension StatusSection {
         })
         .store(in: &cell.disposeBag)
         self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+    }
+    
+    static func configureStatusAccessibilityLabel(cell: StatusTableViewCell) {
+        // FIXME:
+        cell.accessibilityLabel = {
+            var accessibilityViews: [UIView?] = []
+            if !cell.statusView.headerContainerView.isHidden {
+                accessibilityViews.append(cell.statusView.headerInfoLabel)
+            }
+            accessibilityViews.append(contentsOf: [
+                cell.statusView.nameMetaLabel,
+                cell.statusView.dateLabel,
+                cell.statusView.contentMetaText.textView,
+            ])
+            return accessibilityViews
+                .compactMap { $0?.accessibilityLabel }
+                .joined(separator: " ")
+        }()
+        cell.statusView.actionToolbarContainer.isUserInteractionEnabled = !UIAccessibility.isVoiceOverRunning
     }
 
 }

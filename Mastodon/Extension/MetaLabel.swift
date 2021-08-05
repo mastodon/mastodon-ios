@@ -19,6 +19,7 @@ extension MetaLabel {
         case recommendAccountName
         case titleView
         case settingTableFooter
+        case autoCompletion
     }
 
     convenience init(style: Style) {
@@ -65,11 +66,14 @@ extension MetaLabel {
             textColor = .white
 
         case .settingTableFooter:
-            font = .preferredFont(forTextStyle: .body)
+            font = .preferredFont(forTextStyle: .footnote)
             textColor = Asset.Colors.Label.secondary.color
             numberOfLines = 0
             textContainer.maximumNumberOfLines = 0
             paragraphStyle.alignment = .center
+        case .autoCompletion:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
+            textColor = Asset.Colors.brandBlue.color
         }
 
         self.font = font

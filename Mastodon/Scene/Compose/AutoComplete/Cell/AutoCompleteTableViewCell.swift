@@ -7,6 +7,7 @@
 
 import UIKit
 import FLAnimatedImage
+import MetaTextKit
 
 final class AutoCompleteTableViewCell: UITableViewCell {
     
@@ -30,11 +31,8 @@ final class AutoCompleteTableViewCell: UITableViewCell {
     
     let avatarImageView = FLAnimatedImageView()
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
-        label.textColor = Asset.Colors.brandBlue.color
-        label.text = "Title"
+    let titleLabel: MetaLabel = {
+        let label = MetaLabel(style: .autoCompletion)
         return label
     }()
     

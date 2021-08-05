@@ -56,6 +56,19 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
+    let dotLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
+        label.text = "·"
+        return label
+    }()
+    let timestampLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
+        return label
+    }()
     
     let nameLabel = MetaLabel(style: .notificationName)
 
@@ -170,12 +183,21 @@ extension NotificationStatusTableViewCell {
 
         actionStackView.addArrangedSubview(nameLabel)
         actionStackView.addArrangedSubview(actionLabel)
-        nameLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
+        actionStackView.addArrangedSubview(dotLabel)
+        actionStackView.addArrangedSubview(timestampLabel)
+        let timestampPaddingView = UIView()
+        actionStackView.addArrangedSubview(timestampPaddingView)
+        nameLabel.setContentHuggingPriority(.required - 3, for: .horizontal)
         nameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-        nameLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        nameLabel.setContentCompressionResistancePriority(.required - 3, for: .horizontal)
         nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         actionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-
+        dotLabel.setContentHuggingPriority(.required - 2, for: .horizontal)
+        dotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        timestampLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
+        timestampLabel.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        timestampPaddingView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        
         // follow request
         contentStackView.addArrangedSubview(buttonStackView)
         buttonStackView.addArrangedSubview(acceptButton)

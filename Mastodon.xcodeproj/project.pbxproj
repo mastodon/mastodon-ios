@@ -2561,11 +2561,19 @@
 			children = (
 				DB084B5125CBC56300F898ED /* CoreDataStack */,
 				DB6C8C0525F0921200AAA452 /* MastodonSDK */,
-				DB44384E25E8C1FA008912A2 /* CALayer.swift */,
 				2DF123A625C3B0210020F248 /* ActiveLabel.swift */,
+				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
+				0F20223826146553000C64BF /* Array.swift */,
+				DB44384E25E8C1FA008912A2 /* CALayer.swift */,
+				2D206B8525F5FB0900143C56 /* Double.swift */,
+				DB97131E2666078B00BD1E90 /* Date.swift */,
+				DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */,
 				DB0E91E926A9675100BD2ACC /* MetaLabel.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
+				DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */,
+				DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
+				2D939AB425EDD8A90076FA61 /* String.swift */,
 				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
 				DB45FAB525CA5485005A8AC7 /* UIAlertController.swift */,
 				2D42FF8E25C8228A004A627A /* UIButton.swift */,
@@ -2573,24 +2581,16 @@
 				DB4481B825EE289600BEFB67 /* UITableView.swift */,
 				DBD376B1269302A4007FEC24 /* UITableViewCell.swift */,
 				0FAA101B25E10E760017CCDE /* UIFont.swift */,
-				2D939AB425EDD8A90076FA61 /* String.swift */,
-				2D206B8525F5FB0900143C56 /* Double.swift */,
 				2D206B9125F60EA700143C56 /* UIControl.swift */,
-				5DF1056325F887CB00D6C0D4 /* AVPlayer.swift */,
-				DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */,
 				2D32EAB925CB9B0500C9ED86 /* UIView.swift */,
 				5DA732CB2629CEF500A92342 /* UIView+Remove.swift */,
-				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D24E1222626ED9D00A59D4F /* UIView+Gesture.swift */,
+				DB8AF55C25C138B7002E6C99 /* UIViewController.swift */,
 				2D3F9E0325DFA133004262D9 /* UITapGestureRecognizer.swift */,
 				2D84350425FF858100EECE90 /* UIScrollView.swift */,
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
-				0F20223826146553000C64BF /* Array.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
-				DB97131E2666078B00BD1E90 /* Date.swift */,
-				DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */,
-				DBB3BA2926A81C020004F2D4 /* FLAnimatedImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -4482,7 +4482,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4490,7 +4490,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4509,7 +4509,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4517,7 +4517,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4772,7 +4772,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4780,7 +4780,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4796,7 +4796,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4804,7 +4804,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4820,7 +4820,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4828,7 +4828,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4844,7 +4844,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4852,7 +4852,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4868,7 +4868,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4876,7 +4876,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4892,7 +4892,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4900,7 +4900,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4916,7 +4916,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4924,7 +4924,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4940,7 +4940,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4948,7 +4948,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5030,7 +5030,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5038,7 +5038,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5144,7 +5144,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5152,7 +5152,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5264,7 +5264,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5272,7 +5272,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5378,7 +5378,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5386,7 +5386,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5432,7 +5432,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5440,7 +5440,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5455,7 +5455,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5463,7 +5463,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

@@ -47,7 +47,7 @@ extension ProfileStatusDashboardView {
             containerStackView.heightAnchor.constraint(equalToConstant: 44).priority(.defaultHigh),
         ])
         
-        let spacing: CGFloat = 16
+        let spacing: CGFloat = UIView.isZoomedMode ? 4 : 16
         containerStackView.spacing = spacing
         containerStackView.axis = .horizontal
         containerStackView.distribution = .fillEqually

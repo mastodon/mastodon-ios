@@ -29,6 +29,8 @@ class SearchRecommendCollectionHeader: UIView {
         let button = HighlightDimmableButton(type: .custom)
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
         button.setTitle(L10n.Scene.Search.Recommend.buttonText, for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.8
         return button
     }()
     
