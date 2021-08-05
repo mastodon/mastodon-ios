@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "Limpiar Caché",
-                "message": "Successfully cleaned %s cache."
+                "message": "Se han limpiado con éxito %s de caché."
             }
         },
         "controls": {
@@ -80,52 +80,52 @@
                 "share": "Compartir",
                 "share_user": "Compartir %s",
                 "share_post": "Compartir publicación",
-                "open_in_safari": "Open in Safari",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "open_in_safari": "Abrir en Safari",
+                "find_people": "Encuentra gente a la que seguir",
+                "manually_search": "Mejor hacer una búsqueda manual",
+                "skip": "Omitir",
+                "reply": "Responder",
+                "report_user": "Reportar a %s",
+                "block_domain": "Bloquear %s",
+                "unblock_domain": "Desbloquear %s",
+                "settings": "Configuración",
+                "delete": "Borrar"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Inicio",
+                "search": "Buscar",
+                "notification": "Notificación",
+                "profile": "Perfil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Cambiar a %s",
+                    "compose_new_post": "Escribir Nueva Publicación",
+                    "show_favorites": "Mostrar Favoritos",
+                    "open_settings": "Abrir Configuración"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Publicación Anterior",
+                    "next_status": "Siguiente Publicación",
+                    "open_status": "Abrir Publicación",
+                    "open_author_profile": "Abrir Perfil del Autor",
+                    "open_reblogger_profile": "Abrir Perfil del Redifusor",
+                    "reply_status": "Responder Publicación",
+                    "toggle_reblog": "Alternar la Redifusión en la Publicación",
+                    "toggle_favorite": "Alternar la Marca de Favorito en la Publicación",
+                    "toggle_content_warning": "Alternar la Advertencia de Contenido",
+                    "preview_image": "Previsualizar Imagen"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Sección Anterior",
+                    "next_section": "Siguiente Sección"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
+                "user_reblogged": "%s redifundió",
+                "user_replied_to": "En respuesta a %s",
+                "show_post": "Mostrar Publicación",
+                "show_user_profile": "Mostrar perfil del usuario",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
@@ -272,67 +272,67 @@
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "taken": "%s ya está en uso",
+                    "reserved": "%s es una palabra clave reservada",
+                    "accepted": "%s debe ser aceptado",
+                    "blank": "Se requiere %s",
+                    "invalid": "%s no es válido",
+                    "too_long": "%s es demasiado largo",
+                    "too_short": "%s es demasiado corto",
+                    "inclusion": "%s no es un valor admitido"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "El nombre de usuario solo puede contener caracteres alfanuméricos y guiones bajos",
+                    "username_too_long": "El nombre de usuario es demasiado largo (no puede tener más de 30 caracteres)",
+                    "email_invalid": "Esta no es una dirección de correo electrónico válida",
+                    "password_too_short": "La contraseña es demasiado corta (debe tener al menos 8 caracteres)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Algunas reglas básicas.",
+            "subtitle": "Estas reglas están establecidas por los administradores de %s.",
+            "prompt": "Si continúas estarás sujeto a los términos de servicio y la política de privacidad de %s.",
+            "terms_of_service": "términos del servicio",
+            "privacy_policy": "política de privacidad",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Acepto"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Una última cosa.",
+            "subtitle": "Te acabamos de enviar un correo a %s,\npulsa en el enlace para confirmar tu cuenta.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Abrir Aplicación de Correo Electrónico",
+                "dont_receive_email": "No he recibido el correo electrónico"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Revisa tu correo electrónico",
+                "description": "Comprueba que tu dirección de correo electrónico sea correcta y revisa la carpeta de correo no deseado si no lo has hecho ya.",
+                "resend_email": "Volver a Enviar Correo Electrónico"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Revisa tu bandeja de entrada.",
+                "description": "Te acabamos de enviar un correo electrónico. Revisa tu carpeta de correo no deseado si no lo has hecho ya.",
+                "mail": "Correo",
+                "open_email_client": "Abrir Cliente de Correo Electrónico"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Inicio",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Sin Conexión",
+                "new_posts": "Ver nuevas publicaciones",
+                "published": "¡Publicado!",
+                "Publishing": "Publicación en curso..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Encuentra Gente a la que Seguir",
+            "follow_explain": "Cuando sigas a alguien verás sus publicaciones en tu página de inicio."
         },
         "public_timeline": {
-            "title": "Public"
+            "title": "Pública"
         },
         "compose": {
             "title": {
