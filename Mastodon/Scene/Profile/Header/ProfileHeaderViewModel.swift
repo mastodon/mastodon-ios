@@ -31,6 +31,7 @@ final class ProfileHeaderViewModel {
     // output
     let displayProfileInfo = ProfileInfo()
     let editProfileInfo = ProfileInfo()
+    let editProfileInfoDidInitialized = CurrentValueSubject<Void, Never>(Void()) // needs trigger initial event
     let isTitleViewDisplaying = CurrentValueSubject<Bool, Never>(false)
     var fieldDiffableDataSource: UICollectionViewDiffableDataSource<ProfileFieldSection, ProfileFieldItem>!
     
@@ -52,6 +53,7 @@ final class ProfileHeaderViewModel {
             self.editProfileInfo.fields.value = account?.source?.fields?.compactMap { field in
                 ProfileFieldItem.FieldValue(name: field.name, value: field.value)
             } ?? []
+            self.editProfileInfoDidInitialized.send()
         }
         .store(in: &disposeBag)
         
