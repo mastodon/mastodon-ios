@@ -161,18 +161,18 @@
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "mute": "أكتم",
+                "mute_user": "أكتم %s",
+                "unmute": "إلغاء الكتم",
+                "unmute_user": "إلغاء كتم %s",
+                "muted": "مكتوم",
+                "edit_info": "تعديل المعلومات"
             },
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
                     "now": "الأن",
-                    "time_ago": "%s ago"
+                    "time_ago": "منذ %s"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
@@ -293,14 +293,14 @@
             "title": "Some ground rules.",
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "terms_of_service": "شروط الخدمة",
+            "privacy_policy": "سياسة الخصوصية",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "انا أوافق"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "شيء واحد أخير.",
             "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
                 "open_email_app": "Open Email App",
@@ -492,10 +492,10 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "الإعدادات",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
+                    "title": "المظهر",
                     "automatic": "تلقائي",
                     "light": "Always Light",
                     "dark": "Always Dark"
