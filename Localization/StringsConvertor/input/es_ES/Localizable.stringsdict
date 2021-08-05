@@ -15,7 +15,7 @@
         <key>one</key>
         <string>publicación</string>
         <key>other</key>
-        <string>posts</string>
+        <string>publicaciones</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -31,7 +31,7 @@
         <key>one</key>
         <string>1 favorito</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favoritos</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -47,7 +47,7 @@
         <key>one</key>
         <string>1 reblog</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld redifusiones</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -63,7 +63,7 @@
         <key>one</key>
         <string>1 voto</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld votos</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -79,7 +79,7 @@
         <key>one</key>
         <string>1 votante</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld votantes</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -95,7 +95,7 @@
         <key>one</key>
         <string>1 persona hablando</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld personas están hablando de esto</string>
       </dict>
     </dict>
   </dict>
