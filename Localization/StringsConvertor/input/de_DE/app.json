@@ -151,15 +151,15 @@
                 }
             },
             "friendship": {
-                "follow": "Follow",
+                "follow": "Folgen",
                 "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
+                "request": "Anfragen",
+                "pending": "In Warteschlange",
+                "block": "Blockieren",
+                "block_user": "%s blockieren",
+                "block_domain": "%s blockieren",
+                "unblock": "Blockierung aufheben",
+                "unblock_user": "@%s entblocken",
                 "blocked": "Blocked",
                 "mute": "Mute",
                 "mute_user": "Mute %s",
@@ -171,12 +171,12 @@
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "Now",
-                    "time_ago": "%s ago"
+                    "now": "Gerade",
+                    "time_ago": "vor %s"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Fehlende Beiträge laden",
+                    "loading_missing_posts": "Lade fehlende Beiträge...",
                     "show_more_replies": "Show more replies"
                 },
                 "header": {
