@@ -130,11 +130,11 @@
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "poll": {
                     "vote": "Abstimmen",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "time_left": "%s verbleiben",
+                    "closed": "Beendet"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Antworten",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
@@ -161,15 +161,15 @@
                 "unblock": "Blockierung aufheben",
                 "unblock_user": "@%s entblocken",
                 "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
+                "mute": "Stummschalten",
+                "mute_user": "%s stummschalten",
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "muted": "Stummgeschaltet",
+                "edit_info": "Information bearbeiten"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Gefiltert",
                 "timestamp": {
                     "now": "Gerade",
                     "time_ago": "vor %s"
@@ -181,9 +181,9 @@
                 },
                 "header": {
                     "no_status_found": "Kein Beitrag gefunden",
-                    "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
+                    "blocking_warning": "Du kannst das Profil dieses Benutzers nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
+                    "user_blocking_warning": "Du kannst %s's Profil nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
+                    "blocked_warning": "Das Profil dieses Benutzers\n kann nicht angezeigt werden, bis er dich entsperrt.",
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
                     "suspended_warning": "This user has been suspended.",
                     "user_suspended_warning": "%s’s account has been suspended."
@@ -294,16 +294,16 @@
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "privacy_policy": "Datenschutzerklärung",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ich stimme zu"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Noch eine letzte Sache.",
+            "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe auf den Link, um Dein Konto zu bestätigen.",
             "button": {
-                "open_email_app": "Open Email App",
+                "open_email_app": "E-Mail-App öffnen",
                 "dont_receive_email": "I never got an email"
             },
             "dont_receive_email": {
