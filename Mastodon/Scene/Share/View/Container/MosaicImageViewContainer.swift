@@ -207,6 +207,7 @@ extension MosaicImageViewContainer {
     
     func setupImageViews(count: Int, maxSize: CGSize) -> [ConfigurableMosaic] {
         reset()
+        let count = min(4, max(0, count))
         guard count > 1 else {
             return []
         }
