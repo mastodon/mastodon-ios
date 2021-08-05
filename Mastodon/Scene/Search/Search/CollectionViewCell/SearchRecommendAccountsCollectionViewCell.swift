@@ -5,6 +5,7 @@
 //  Created by sxiaojian on 2021/4/1.
 //
 
+import os.log
 import Combine
 import CoreDataStack
 import Foundation
@@ -14,12 +15,12 @@ import MetaTextKit
 import MastodonMeta
 
 protocol SearchRecommendAccountsCollectionViewCellDelegate: NSObject {
-    func followButtonDidPressed(clickedUser: MastodonUser)
-    
-    func configFollowButton(with mastodonUser: MastodonUser, followButton: HighlightDimmableButton)
+    func searchRecommendAccountsCollectionViewCell(_ cell: SearchRecommendAccountsCollectionViewCell, followButtonDidPressed button: UIButton)
 }
 
 class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
+    
+    let logger = Logger(subsystem: "SearchRecommendAccountsCollectionViewCell", category: "UI")
     var disposeBag = Set<AnyCancellable>()
     
     weak var delegate: SearchRecommendAccountsCollectionViewCellDelegate?
@@ -72,7 +73,6 @@ class SearchRecommendAccountsCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         headerImageView.af.cancelImageRequest()
         avatarImageView.af.cancelImageRequest()
-        visualEffectView.removeFromSuperview()
         disposeBag.removeAll()
     }
     
@@ -117,6 +117,15 @@ extension SearchRecommendAccountsCollectionViewCell {
             headerImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
+        headerImageView.addSubview(visualEffectView)
+        visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            visualEffectView.topAnchor.constraint(equalTo: headerImageView.topAnchor),
+            visualEffectView.leadingAnchor.constraint(equalTo: headerImageView.leadingAnchor),
+            visualEffectView.trailingAnchor.constraint(equalTo: headerImageView.trailingAnchor),
+            visualEffectView.bottomAnchor.constraint(equalTo: headerImageView.bottomAnchor)
+        ])
+        
         let containerStackView = UIStackView()
         containerStackView.axis = .vertical
         containerStackView.distribution = .fill
@@ -156,48 +165,16 @@ extension SearchRecommendAccountsCollectionViewCell {
             followButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
         ])
         containerStackView.addArrangedSubview(followButton)
+        
+        followButton.addTarget(self, action: #selector(SearchRecommendAccountsCollectionViewCell.followButtonDidPressed(_:)), for: .touchUpInside)
     }
     
-    func config(with mastodonUser: MastodonUser) {
-        do {
-            let mastodonContent = MastodonContent(content: mastodonUser.displayNameWithFallback, emojis: mastodonUser.emojiMeta)
-            let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-            displayNameLabel.configure(content: metaContent)
-        } catch {
-            let metaContent = PlaintextMetaContent(string: mastodonUser.displayNameWithFallback)
-            displayNameLabel.configure(content: metaContent)
-        }
-        acctLabel.text = "@" + mastodonUser.acct
-        avatarImageView.af.setImage(
-            withURL: URL(string: mastodonUser.avatar)!,
-            placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)
-        )
-        headerImageView.af.setImage(
-            withURL: URL(string: mastodonUser.header)!,
-            placeholderImage: UIImage.placeholder(color: .systemFill),
-            imageTransition: .crossDissolve(0.2)
-        ) { [weak self] _ in
-            guard let self = self else { return }
-            self.headerImageView.addSubview(self.visualEffectView)
-            self.visualEffectView.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                self.visualEffectView.topAnchor.constraint(equalTo: self.headerImageView.topAnchor),
-                self.visualEffectView.leadingAnchor.constraint(equalTo: self.headerImageView.leadingAnchor),
-                self.visualEffectView.trailingAnchor.constraint(equalTo: self.headerImageView.trailingAnchor),
-                self.visualEffectView.bottomAnchor.constraint(equalTo: self.headerImageView.bottomAnchor)
-            ])
-        }
-        delegate?.configFollowButton(with: mastodonUser, followButton: followButton)
-        followButton.publisher(for: .touchUpInside)
-            .sink { [weak self] _ in
-                self?.followButtonDidPressed(mastodonUser: mastodonUser)
-            }
-            .store(in: &disposeBag)
-    }
-    
-    func followButtonDidPressed(mastodonUser: MastodonUser) {
-        delegate?.followButtonDidPressed(clickedUser: mastodonUser)
+}
+
+extension SearchRecommendAccountsCollectionViewCell {
+    @objc private func followButtonDidPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        delegate?.searchRecommendAccountsCollectionViewCell(self, followButtonDidPressed: sender)
     }
 }
 

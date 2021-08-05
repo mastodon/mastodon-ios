@@ -195,23 +195,34 @@ extension ProfileHeaderViewController {
         }
         .store(in: &disposeBag)
         
-        Publishers.CombineLatest4(
+        let profileNote = Publishers.CombineLatest3(
             viewModel.isEditing.removeDuplicates(),
             viewModel.displayProfileInfo.note.removeDuplicates(),
-            viewModel.editProfileInfo.note.removeDuplicates(),
+            viewModel.editProfileInfoDidInitialized
+        )
+        .map { isEditing, displayNote, _ -> String? in
+            if isEditing {
+                return self.viewModel.editProfileInfo.note.value
+            } else {
+                return displayNote
+            }
+        }
+        .eraseToAnyPublisher()
+
+        Publishers.CombineLatest3(
+            viewModel.isEditing.removeDuplicates(),
+            profileNote.removeDuplicates(),
             viewModel.emojiMeta.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, note, editingNote, emojiMeta in
+        .sink { [weak self] isEditing, note, emojiMeta in
             guard let self = self else { return }
-
+            
             self.profileHeaderView.bioMetaText.textView.isEditable = isEditing
             
             if isEditing {
-                if self.profileHeaderView.bioMetaText.backedString != note {
-                    let metaContent = PlaintextMetaContent(string: editingNote ?? "")
-                    self.profileHeaderView.bioMetaText.configure(content: metaContent)
-                }
+                let metaContent = PlaintextMetaContent(string: note ?? "")
+                self.profileHeaderView.bioMetaText.configure(content: metaContent)
             } else {
                 let mastodonContent = MastodonContent(content: note ?? "", emojis: emojiMeta)
                 do {
@@ -224,6 +235,7 @@ extension ProfileHeaderViewController {
             }
         }
         .store(in: &disposeBag)
+        
         profileHeaderView.bioMetaText.delegate = self
 
         NotificationCenter.default.publisher(for: UITextField.textDidChangeNotification, object: profileHeaderView.nameTextField)
@@ -461,9 +473,15 @@ extension ProfileHeaderViewController {
 extension ProfileHeaderViewController: MetaTextDelegate {
     func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, metaText.backedString)
-        assert(metaText.textView === profileHeaderView.bioMetaText.textView)
-        if metaText.textView === profileHeaderView.bioMetaText.textView {
+        
+        switch metaText {
+        case profileHeaderView.bioMetaText:
+            guard viewModel.isEditing.value else { break }
             viewModel.editProfileInfo.note.value = metaText.backedString
+            let metaContent = PlaintextMetaContent(string: metaText.backedString)
+            return metaContent
+        default:
+            assertionFailure()
         }
 
         return nil

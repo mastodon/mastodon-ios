@@ -100,6 +100,8 @@ extension ActionToolbarContainer {
             button.expandEdgeInsets = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
             button.setInsets(forContentPadding: .zero, imageTitlePadding: style.buttonTitleImagePadding)
         }
+        // add more expand for menu button
+        moreButton.expandEdgeInsets = UIEdgeInsets(top: -10, left: -20, bottom: -10, right: -20)
         
         let replyImage = UIImage(systemName: "arrowshape.turn.up.left.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .ultraLight))!.withRenderingMode(.alwaysTemplate)
         let reblogImage = UIImage(systemName: "arrow.2.squarepath", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .bold))!.withRenderingMode(.alwaysTemplate)

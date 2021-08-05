@@ -280,6 +280,7 @@
 		DB4FFC2C269EC39600D62E92 /* SearchTransitionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FFC2A269EC39600D62E92 /* SearchTransitionController.swift */; };
 		DB51D172262832380062B7A1 /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D170262832380062B7A1 /* BlurHashDecode.swift */; };
 		DB51D173262832380062B7A1 /* BlurHashEncode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB51D171262832380062B7A1 /* BlurHashEncode.swift */; };
+		DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = DB552D4E26BBD10C00E481F6 /* OrderedCollections */; };
 		DB564BD0269F2F83001E39A7 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */; };
 		DB564BD3269F3B35001E39A7 /* StatusFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */; };
 		DB59F0FE25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F0FD25EF5D96001F1DAB /* StatusProvider+UITableViewDelegate.swift */; };
@@ -1311,6 +1312,7 @@
 				DB6804862637CD4C00430867 /* AppShared.framework in Frameworks */,
 				DBF96326262EC0A6001D8D25 /* AuthenticationServices.framework in Frameworks */,
 				DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */,
+				DB552D4F26BBD10C00E481F6 /* OrderedCollections in Frameworks */,
 				2D61336925C18A4F00CAE157 /* AlamofireNetworkActivityIndicator in Frameworks */,
 				DB01E23326A98F0900C3965B /* MastodonMeta in Frameworks */,
 				DBAC64A1267E6D02007FE9FD /* Fuzi in Frameworks */,
@@ -3081,6 +3083,7 @@
 				DBC6462A26A1738900B0E31B /* MastodonUI */,
 				DB01E23226A98F0900C3965B /* MastodonMeta */,
 				DB01E23426A98F0900C3965B /* MetaTextKit */,
+				DB552D4E26BBD10C00E481F6 /* OrderedCollections */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3328,6 +3331,7 @@
 				DBF7A0FA26830C33004176A2 /* XCRemoteSwiftPackageReference "FPSIndicator" */,
 				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
 				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
+				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -5644,6 +5648,14 @@
 				minimumVersion = 4.1.0;
 			};
 		};
+		DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.5;
+			};
+		};
 		DB6804722637CC1200430867 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
@@ -5751,6 +5763,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB3D0FF125BAA61700EAA174 /* XCRemoteSwiftPackageReference "AlamofireImage" */;
 			productName = AlamofireImage;
+		};
+		DB552D4E26BBD10C00E481F6 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 		DB68050F2637D0F800430867 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;

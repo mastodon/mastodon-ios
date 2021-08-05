@@ -64,18 +64,15 @@ extension SearchRecommendCollectionHeader {
         ])
         
         let horizontalStackView = UIStackView()
+        horizontalStackView.spacing = 8
         horizontalStackView.axis = .horizontal
         horizontalStackView.alignment = .center
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
         horizontalStackView.distribution = .fill
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         horizontalStackView.addArrangedSubview(titleLabel)
-        seeAllButton.translatesAutoresizingMaskIntoConstraints = false
         horizontalStackView.addArrangedSubview(seeAllButton)
         
         containerStackView.addArrangedSubview(horizontalStackView)
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addArrangedSubview(descriptionLabel)
 
     }
