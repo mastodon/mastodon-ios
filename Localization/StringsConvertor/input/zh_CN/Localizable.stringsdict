@@ -69,7 +69,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld 人</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld 人正在讨论</string>
       </dict>
     </dict>
   </dict>
