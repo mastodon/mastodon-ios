@@ -195,32 +195,40 @@ extension ProfileHeaderViewController {
         }
         .store(in: &disposeBag)
         
-        Publishers.CombineLatest4(
+        viewModel.isEditing
+            .assign(to: \.isEditable, on: profileHeaderView.bioMetaText.textView)
+            .store(in: &disposeBag)
+        
+        viewModel.isEditing
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isEditing in
+                guard let self = self else { return }
+                guard isEditing else { return }
+                // trigger once when toggle
+                // and use delegate to update text style
+                let initialNote = self.viewModel.editProfileInfo.note.value
+                let metaContent = PlaintextMetaContent(string: initialNote ?? "")
+                self.profileHeaderView.bioMetaText.configure(content: metaContent)
+            }
+            .store(in: &disposeBag)
+        
+        Publishers.CombineLatest3(
             viewModel.isEditing.removeDuplicates(),
             viewModel.displayProfileInfo.note.removeDuplicates(),
-            viewModel.editProfileInfo.note.removeDuplicates(),
             viewModel.emojiMeta.removeDuplicates()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] isEditing, note, editingNote, emojiMeta in
+        .sink { [weak self] isEditing, note, emojiMeta in
             guard let self = self else { return }
-
-            self.profileHeaderView.bioMetaText.textView.isEditable = isEditing
-            
-            if isEditing {
-                if self.profileHeaderView.bioMetaText.backedString != note {
-                    let metaContent = PlaintextMetaContent(string: editingNote ?? "")
-                    self.profileHeaderView.bioMetaText.configure(content: metaContent)
-                }
-            } else {
-                let mastodonContent = MastodonContent(content: note ?? "", emojis: emojiMeta)
-                do {
-                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                    self.profileHeaderView.bioMetaText.configure(content: metaContent)
-                } catch {
-                    assertionFailure()
-                    self.profileHeaderView.bioMetaText.reset()
-                }
+            guard !isEditing else { return }
+            let mastodonContent = MastodonContent(content: note ?? "", emojis: emojiMeta)
+            do {
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
+                self.profileHeaderView.bioMetaText.configure(content: metaContent)
+            } catch {
+                assertionFailure()
+                self.profileHeaderView.bioMetaText.reset()
             }
         }
         .store(in: &disposeBag)
@@ -461,9 +469,15 @@ extension ProfileHeaderViewController {
 extension ProfileHeaderViewController: MetaTextDelegate {
     func metaText(_ metaText: MetaText, processEditing textStorage: MetaTextStorage) -> MetaContent? {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: text: %s", ((#file as NSString).lastPathComponent), #line, #function, metaText.backedString)
-        assert(metaText.textView === profileHeaderView.bioMetaText.textView)
-        if metaText.textView === profileHeaderView.bioMetaText.textView {
+        
+        switch metaText {
+        case profileHeaderView.bioMetaText:
+            guard viewModel.isEditing.value else { break }
             viewModel.editProfileInfo.note.value = metaText.backedString
+            let metaContent = PlaintextMetaContent(string: metaText.backedString)
+            return metaContent
+        default:
+            assertionFailure()
         }
 
         return nil
