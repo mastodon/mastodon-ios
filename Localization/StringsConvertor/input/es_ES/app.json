@@ -17,39 +17,39 @@
             },
             "discard_post_content": {
                 "title": "Descartar borrador",
-                "message": "Confirm to discard composed post content."
+                "message": "Confirma para descartar el contenido de la publicación."
             },
             "publish_post_failure": {
                 "title": "Error de publicación",
                 "message": "No se pudo publicar la publicación.\nPor favor, revise su conexión a internet.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "No puedes adjuntar un vídeo a una publicación que ya contiene imágenes.",
+                    "more_than_one_video": "No puedes adjuntar más de un vídeo."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Error en la Edición del Perfil",
+                "message": "No se ha podido editar el perfil. Por favor, inténtalo de nuevo."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Cerrar Sesión",
+                "message": "¿Estás seguro de que deseas cerrar la sesión?",
+                "confirm": "Cerrar Sesión"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "¿Estás realmente seguro, de verdad, de que quieres bloquear %s al completo? En la mayoría de los casos, unos pocos bloqueos o silenciados concretos son suficientes y preferibles. No verás contenido de ese dominio y todos tus seguidores de ese dominio serán eliminados.",
+                "block_entire_domain": "Bloquear Dominio"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Error al Guardar Foto",
+                "message": "Por favor, activa el permiso de acceso a la biblioteca de fotos para guardar la foto."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "¿Estás seguro de que deseas eliminar esta publicación?",
+                "delete": "Eliminar"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Limpiar Caché",
                 "message": "Successfully cleaned %s cache."
             }
         },
