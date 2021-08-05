@@ -2,25 +2,25 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "الرجاء المحاولة مرة أخرى.",
+                "please_try_again_later": "الرجاء المحاولة مرة أخرى لاحقاً."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "فشل التسجيل"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "خطأ في الخادم"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "فشل التصويت",
+                "poll_expired": "انتهت مدة صلاحية الاستطلاع"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "تجاهل المسودة",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
+                "title": "أخفقت عملية النشر",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
                     "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
@@ -32,93 +32,93 @@
                 "message": "Cannot edit profile. Please try again."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "تسجيل الخروج",
+                "message": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
+                "confirm": "تسجيل الخروج"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "block_entire_domain": "حظر النطاق"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "فشل حفظ الصورة",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "هل أنت متأكد من أنك تريد حذف هذا المنشور؟",
+                "delete": "احذف"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "تنظيف ذاكرة التخزين المؤقت",
+                "message": "تم تنظيف ذاكرة التخزين المؤقت %s بنجاح."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "back": "العودة",
+                "next": "التالي",
+                "previous": "السابق",
+                "open": "افتح",
+                "add": "إضافة",
+                "remove": "احذف",
+                "edit": "تعديل",
+                "save": "حفظ",
+                "ok": "حسنًا",
+                "done": "تم",
+                "confirm": "تأكيد",
+                "continue": "واصل",
+                "cancel": "إلغاء",
+                "discard": "تجاهل",
+                "try_again": "حاول مرة أخرى",
+                "take_photo": "التقط صورة",
+                "save_photo": "حفظ الصورة",
+                "copy_photo": "نسخ الصورة",
+                "sign_in": "لِج",
+                "sign_up": "انشئ حسابًا",
+                "see_more": "عرض المزيد",
+                "preview": "معاينة",
+                "share": "شارك",
+                "share_user": "شارك %s",
+                "share_post": "شارك المنشور",
+                "open_in_safari": "افتحه في سفاري",
+                "find_people": "ابحث عن أشخاص لمتابعتهم",
+                "manually_search": "البحث يدوياً بدلاً من ذلك",
+                "skip": "تخطي",
+                "reply": "رد",
+                "report_user": "ابلغ عن %s",
+                "block_domain": "حظر %s",
+                "unblock_domain": "إلغاء حظر %s",
+                "settings": "الإعدادات",
+                "delete": "احذف"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "الخيط الرئيسي",
+                "search": "بحث",
+                "notification": "الإشعارات",
+                "profile": "الملف التعريفي"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "التبديل إلى %s",
+                    "compose_new_post": "إنشاء منشور جديد",
+                    "show_favorites": "إظهار المفضلة",
+                    "open_settings": "أفتح الإعدادات"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
+                    "previous_status": "المنشور السابق",
+                    "next_status": "المنشور التالي",
+                    "open_status": "افتح المنشور",
+                    "open_author_profile": "افتح الملف التعريفي للمؤلف",
+                    "open_reblogger_profile": "افتح الملف التعريفي لمشارِك المنشور",
+                    "reply_status": "رد على المنشور",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "preview_image": "معاينة الصورة"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "القسم السابق",
+                    "next_section": "القسم التالي"
                 }
             },
             "status": {
@@ -146,7 +146,7 @@
                     "mention": "Mention",
                     "link": "Link",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "البريد الإلكتروني",
                     "emoji": "Emoji"
                 }
             },
@@ -171,16 +171,16 @@
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "Now",
+                    "now": "الأن",
                     "time_ago": "%s ago"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "loading_missing_posts": "تحميل المزيد من المنشورات...",
+                    "show_more_replies": "إظهار المزيد من الردود"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "لا توجد هناك منشورات",
                     "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
@@ -204,13 +204,13 @@
             "title": "Pick a server,\nany server.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
+                    "all": "الكل",
+                    "all_accessiblity_description": "الفئة: الكل",
                     "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
-                    "furry": "furry",
-                    "games": "games",
+                    "activism": "للنشطاء",
+                    "food": "الطعام",
+                    "furry": "فروي",
+                    "games": "ألعاب",
                     "general": "general",
                     "journalism": "journalism",
                     "lgbt": "lgbt",
@@ -223,15 +223,15 @@
                 "see_more": "See More"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "اللغة",
+                "users": "مستخدمون·ات",
+                "category": "الفئة"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "ابحث عن خادم أو انضم إلى سيرفر خاص بك..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
+                "finding_servers": "البحث عن خوادم متوفرة...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
                 "no_results": "No results"
             }
@@ -243,31 +243,31 @@
                     "delete": "Delete"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "اسم المستخدم",
+                    "duplicate_prompt": "اسم المستخدم هذا غير متوفر."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "الاسم المعروض"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "البريد الإلكتروني"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "الكلمة السرية",
+                    "hint": "يجب أن تكون كلمتك السرية متكونة من ثمانية أحرف على الأقل"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "لماذا ترغب في الانضمام؟"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "username": "اسم المستخدم",
+                    "email": "البريد الإلكتروني",
+                    "password": "الكلمة السرية",
                     "agreement": "Agreement",
                     "locale": "Locale",
-                    "reason": "Reason"
+                    "reason": "السبب"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
@@ -314,14 +314,14 @@
             "open_email_app": {
                 "title": "Check your inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
+                "mail": "البريد",
                 "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "الخيط الرئيسي",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "غير متصل",
                 "new_posts": "See new posts",
                 "published": "Published!",
                 "Publishing": "Publishing post..."
@@ -336,32 +336,32 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "منشور جديد",
+                "new_reply": "رد جديد"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "التقط صورة",
+                "photo_library": "مكتبة الصور",
+                "browse": "تصفح"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "ما الذي يجول ببالك",
+            "compose_action": "انشر",
+            "replying_to_user": "رد على %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
+                "photo": "صورة",
+                "video": "فيديو",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
                 "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "thirty_minutes": "30 دقيقة",
+                "one_hour": "ساعة واحدة",
+                "six_hours": "6 ساعات",
+                "one_day": "يوم واحد",
+                "three_days": "3 أيام",
+                "seven_days": "7 أيام",
                 "option_number": "Option %ld"
             },
             "content_warning": {
@@ -415,9 +415,9 @@
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "media": "Media"
+                "posts": "منشورات",
+                "replies": "ردود",
+                "media": "وسائط"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
@@ -431,10 +431,10 @@
             }
         },
         "search": {
-            "title": "Search",
+            "title": "بحث",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "البحث عن وسوم أو مستخدمين·ات",
+                "cancel": "إلغاء"
             },
             "recommend": {
                 "button_text": "See All",
@@ -515,7 +515,7 @@
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "التفضيلات",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
@@ -523,27 +523,27 @@
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "account_settings": "إعدادات الحساب",
+                    "terms": "شروط الخدمة",
+                    "privacy": "سياسة الخصوصية"
                 },
                 "spicy_zone": {
                     "title": "The Spicy Zone",
                     "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "signout": "تسجيل الخروج"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "ماستدون برنامج مفتوح المصدر. يمكنك المساهمة، أو الإبلاغ عن تقارير الأخطاء، على غيت هب %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "إغلاق نافذة الإعدادات"
             }
         },
         "report": {
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "title": "ابلغ عن %s",
+            "step1": "الخطوة 1 من 2",
+            "step2": "الخطوة 2 من 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "send": "Send Report",
@@ -553,8 +553,8 @@
         "preview": {
             "keyboard": {
                 "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "show_next": "إظهار التالي",
+                "show_previous": "إظهار السابق"
             }
         }
     }
