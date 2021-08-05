@@ -80,29 +80,29 @@
                 "share": "Поделиться",
                 "share_user": "Поделиться %s",
                 "share_post": "Поделиться постом",
-                "open_in_safari": "Open in Safari",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "open_in_safari": "Открыть в Safari",
+                "find_people": "Подпишитесь на людей",
+                "manually_search": "Найти вручную",
+                "skip": "Пропустить",
+                "reply": "Ответить",
+                "report_user": "Пожаловаться на %s",
+                "block_domain": "Заблокировать %s",
+                "unblock_domain": "Разблокировать %s",
+                "settings": "Настройки",
+                "delete": "Удалить"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Главная",
+                "search": "Поиск",
+                "notification": "Уведомление",
+                "profile": "Профиль"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Переключиться на %s",
+                    "compose_new_post": "Создать новый пост",
+                    "show_favorites": "Показать избранные",
+                    "open_settings": "Открыть настройки"
                 },
                 "timeline": {
                     "previous_status": "Previous Post",
