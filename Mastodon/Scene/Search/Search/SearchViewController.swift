@@ -40,7 +40,7 @@ final class SearchViewController: UIViewController, NeedsDependency {
     var searchTransitionController = SearchTransitionController()
     
     var disposeBag = Set<AnyCancellable>()
-    private(set) lazy var viewModel = SearchViewModel(context: context, coordinator: coordinator)
+    private(set) lazy var viewModel = SearchViewModel(context: context)
 
     // recommend
     let scrollView: UIScrollView = {
@@ -167,7 +167,12 @@ extension SearchViewController {
     
     private func setupDataSource() {
         viewModel.hashtagDiffableDataSource = RecommendHashTagSection.collectionViewDiffableDataSource(for: hashtagCollectionView)
-        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(for: accountsCollectionView, delegate: self, managedObjectContext: context.managedObjectContext)
+        viewModel.accountDiffableDataSource = RecommendAccountSection.collectionViewDiffableDataSource(
+            for: accountsCollectionView,
+            dependency: self,
+            delegate: self,
+            managedObjectContext: context.managedObjectContext
+        )
     }
 }
 
