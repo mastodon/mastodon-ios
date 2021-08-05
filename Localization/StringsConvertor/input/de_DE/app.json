@@ -37,12 +37,12 @@
                 "confirm": "Abmelden"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Folgenden von dieser Domain werden entfernt.",
                 "block_entire_domain": "Block Domain"
             },
             "save_photo_failure": {
                 "title": "Foto konnte nicht gespeichert werden",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "Bitte aktiviere den Zugriff auf die Fotobibliothek, um das Foto zu speichern."
             },
             "delete_post": {
                 "title": "Sind Sie sicher, dass Sie diesen Beitrag löschen möchten?",
@@ -81,13 +81,13 @@
                 "share_user": "%s teilen",
                 "share_post": "Beitrag teilen",
                 "open_in_safari": "In Safari öffnen",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
+                "find_people": "Finde Personen zum Folgen",
+                "manually_search": "Stattdessen manuell suchen",
                 "skip": "Überspringen",
                 "reply": "Antworten",
                 "report_user": "%s melden",
                 "block_domain": "%s blockieren",
-                "unblock_domain": "Unblock %s",
+                "unblock_domain": "Blockierung von %s aufheben",
                 "settings": "Einstellungen",
                 "delete": "Löschen"
             },
@@ -102,34 +102,34 @@
                     "switch_to_tab": "Zu %s wechseln",
                     "compose_new_post": "Neuen Beitrag verfassen",
                     "show_favorites": "Favoriten anzeigen",
-                    "open_settings": "Open Settings"
+                    "open_settings": "Einstellungen öffnen"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
+                    "previous_status": "Vorheriger Beitrag",
+                    "next_status": "Nächster Beitrag",
+                    "open_status": "Beitrag öffnen",
+                    "open_author_profile": "Profil des Verfassers ansehen",
                     "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
+                    "reply_status": "Auf Beitrag antworten",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "preview_image": "Bildvorschau"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Vorheriger Abschnitt",
+                    "next_section": "Nächster Abschnitt"
                 }
             },
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "show_user_profile": "Benutzerprofil anzeigen",
+                "content_warning": "Inhaltswarnung",
+                "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "Abstimmen",
                     "time_left": "%s left",
                     "closed": "Closed"
                 },
@@ -146,7 +146,7 @@
                     "mention": "Mention",
                     "link": "Link",
                     "hashtag": "Hashtag",
-                    "email": "Email",
+                    "email": "E-Mail",
                     "emoji": "Emoji"
                 }
             },
