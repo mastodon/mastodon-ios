@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>posts</string>
+        <string>게시물</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld 개의 즐겨찾기</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld 개의 리블로그</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld 개의 투표</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -69,7 +69,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld명의 투표자</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld 명이 말하고 있음</string>
       </dict>
     </dict>
   </dict>
