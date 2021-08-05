@@ -523,38 +523,38 @@
                 },
                 "boring_zone": {
                     "title": "La Zona Avorrida",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "account_settings": "Paràmetres del Compte",
+                    "terms": "Termes de Servei",
+                    "privacy": "Política de Privacitat"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "La Zona Picant",
+                    "clear": "Esborra la memòria cau de Mèdia",
+                    "signout": "Tancar Sessió"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon és un programari de codi obert. Pots informar de problemes a GitHub a %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Tancar la Finestra de Configuració"
             }
         },
         "report": {
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "title": "Informa sobre %s",
+            "step1": "Pas 1 de 2",
+            "step2": "Pas 2 de 2",
+            "content1": "Hi ha alguna altre publicació que vulguis afegir a l'informe?",
+            "content2": "Hi ha alguna cosa que els moderadors hagin de saber sobre aquest informe?",
+            "send": "Envia Informe",
+            "skip_to_send": "Envia sense comentaris",
+            "text_placeholder": "Escriu o enganxa comentaris addicionals"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Tanca la Vista Prèvia",
+                "show_next": "Mostrar Següent",
+                "show_previous": "Mostrar Anterior"
             }
         }
     }
