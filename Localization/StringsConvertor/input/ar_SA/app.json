@@ -211,16 +211,16 @@
                     "food": "الطعام",
                     "furry": "فروي",
                     "games": "ألعاب",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "general": "عام",
+                    "journalism": "صحافة",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "اقليمي",
+                    "art": "فن",
+                    "music": "موسيقى",
+                    "tech": "تكنولوجيا"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "اعرض أقل",
+                "see_more": "اعرض المزيد"
             },
             "label": {
                 "language": "اللغة",
@@ -233,14 +233,14 @@
             "empty_state": {
                 "finding_servers": "البحث عن خوادم متوفرة...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "no_results": "لا توجد نتائج"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "أخبرنا عنك.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "احذف"
                 },
                 "username": {
                     "placeholder": "اسم المستخدم",
@@ -265,8 +265,8 @@
                     "username": "اسم المستخدم",
                     "email": "البريد الإلكتروني",
                     "password": "الكلمة السرية",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
+                    "agreement": "الاتفاقية",
+                    "locale": "اللغة المحلية",
                     "reason": "السبب"
                 },
                 "reason": {
@@ -378,11 +378,11 @@
             },
             "accessibility": {
                 "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
+                "append_poll": "اضافة استطلاع رأي",
+                "remove_poll": "إزالة الاستطلاع",
+                "custom_emoji_picker": "منتقي مخصص للإيموجي",
+                "enable_content_warning": "تنشيط تحذير المحتوى",
+                "disable_content_warning": "تعطيل تحذير الحتوى",
                 "post_visibility_menu": "Post Visibility Menu",
                 "input_limit_remains_count": "Input limit remains %ld",
                 "input_limit_exceeds_count": "Input limit exceeds %ld"
@@ -398,9 +398,9 @@
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers",
+                "posts": "منشورات",
+                "following": "مُتابَع",
+                "followers": "متابِع",
                 "accessibility": {
                     "count_posts": "%ld posts",
                     "count_following": "%ld following",
@@ -408,10 +408,10 @@
                 }
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "إضافة صف",
                 "placeholder": {
                     "label": "Label",
-                    "content": "Content"
+                    "content": "المحتوى"
                 }
             },
             "segmented_control": {
@@ -421,11 +421,11 @@
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
+                    "title": "إلغاء كتم الحساب",
                     "message": "Confirm to unmute %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
+                    "title": "إلغاء حظر الحساب",
                     "message": "Confirm to unblock %s"
                 }
             }
@@ -437,24 +437,24 @@
                 "cancel": "إلغاء"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "طالع الكل",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "ذات شعبية على ماستدون",
                     "description": "Hashtags that are getting quite a bit of attention",
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
                     "title": "Accounts you might like",
                     "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "follow": "تابع"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "الكل",
+                    "people": "الأشخاص",
+                    "hashtags": "الوسوم",
+                    "posts": "المنشورات"
                 },
                 "empty_state": {
                     "no_results": "No results"
@@ -496,12 +496,12 @@
             "section": {
                 "appearance": {
                     "title": "Appearance",
-                    "automatic": "Automatic",
+                    "automatic": "تلقائي",
                     "light": "Always Light",
                     "dark": "Always Dark"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "الإشعارات",
                     "favorites": "Favorites my post",
                     "follows": "Follows me",
                     "boosts": "Reblogs my post",
@@ -552,7 +552,7 @@
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
+                "close_preview": "إغلاق المعاينة",
                 "show_next": "إظهار التالي",
                 "show_previous": "إظهار السابق"
             }
