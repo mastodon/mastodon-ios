@@ -1,6 +1,6 @@
 "16wxgf" = "Publicar en Mastodon";
 
-"751xkl" = "Contenido del texto";
+"751xkl" = "Contenido del Texto";
 
 "CsR7G2" = "Publicación";
 
@@ -12,40 +12,40 @@
 
 "RHxKOw" = "Enviar publicación con contenido de texto";
 
-"RxSqsb" = "Publicación";
+"RxSqsb" = "Publicar";
 
 "WCIR3D" = "Publicar ${content} en Mastodon";
 
-"ZKJSNu" = "Publicación";
+"ZKJSNu" = "Publicar";
 
 "ZS1XaK" = "${content}";
 
 "ZbSjzC" = "Visibilidad";
 
-"Zo4jgJ" = "Visibilidad de la publicación";
+"Zo4jgJ" = "Visibilidad de la Publicación";
 
-"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con 'Público'.";
+"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con «Público».";
 
-"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con 'Solo seguidores'.";
+"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con «Solo seguidores».";
 
 "ayoYEb-dYQ5NN" = "${content}, Público";
 
-"ayoYEb-ehFLjY" = "${content}, Solo seguidores";
+"ayoYEb-ehFLjY" = "${content}, Solo Seguidores";
 
-"dUyuGg" = "Publicación";
+"dUyuGg" = "Publicar";
 
 "dYQ5NN" = "Público";
 
-"ehFLjY" = "Solo seguidores";
+"ehFLjY" = "Solo Seguidores";
 
 "gfePDu" = "Error al publicar. ${failureReason}";
 
 "k7dbKQ" = "La publicación se envió correctamente.";
 
-"oGiqmY-dYQ5NN" = "Solo para confirmar, ¿querías \"Público\"?";
+"oGiqmY-dYQ5NN" = "Solo para confirmar, ¿querías «Público»?";
 
-"oGiqmY-ehFLjY" = "Solo para confirmar, ¿querías \"Solo seguidores\"?";
+"oGiqmY-ehFLjY" = "Solo para confirmar, ¿querías «Solo seguidores»?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "La publicación se envió correctamente. ";
+"ryJLwG" = "La publicación se envió con éxito. ";
