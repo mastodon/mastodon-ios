@@ -11,6 +11,7 @@ import Combine
 import GameplayKit
 import MastodonSDK
 import CoreDataStack
+import OrderedCollections
 
 class MastodonPickServerViewModel: NSObject {
     
@@ -167,7 +168,44 @@ extension MastodonPickServerViewModel {
             searchText.debounce(for: .milliseconds(300), scheduler: DispatchQueue.main).removeDuplicates()
         )
         .map { indexedServers, selectCategoryItem, searchText -> [Mastodon.Entity.Server] in
-            // Filter the indexed servers from joinmastodon.org
+            // ignore approval required servers when sign-up
+            var indexedServers = indexedServers
+            if self.mode == .signUp {
+                indexedServers = indexedServers.filter { !$0.approvalRequired }
+            }
+            
+            // group by language user preferred language first. Then sort by `totalUsers`
+            var languageToServersMapping = OrderedDictionary<String, [Mastodon.Entity.Server]>()
+            for language in Locale.preferredLanguages {
+                let local = Locale(identifier: language)
+                guard let languageCode = local.languageCode else { continue }
+                // skip if key duplicate
+                guard !languageToServersMapping.keys.contains(languageCode) else { continue }
+                // append to dict
+                languageToServersMapping[languageCode] = indexedServers
+                    .filter { $0.language.lowercased() == languageCode.lowercased() }
+                    .sorted(by: { $0.totalUsers > $1.totalUsers })
+            }
+            // sort remains servers by `totalUsers`
+            let remainsServers = indexedServers
+                .filter { server in
+                    return !languageToServersMapping.contains { _, servers in servers.contains(server) }
+                }
+                .sorted(by: { $0.totalUsers > $1.totalUsers })
+            
+            var _indexedServers: [Mastodon.Entity.Server] = []
+            for key in languageToServersMapping.keys {
+                _indexedServers.append(contentsOf: languageToServersMapping[key] ?? [])
+            }
+            _indexedServers.append(contentsOf: remainsServers)
+            
+            if _indexedServers.count == indexedServers.count {
+                indexedServers = _indexedServers
+            } else {
+                assertionFailure("should not change dataset size")
+            }
+            
+            // Filter the indexed servers by category or search text
             switch selectCategoryItem {
             case .all:
                 return MastodonPickServerViewModel.filterServers(servers: indexedServers, category: nil, searchText: searchText)
