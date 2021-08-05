@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>posts</string>
+        <string>帖子</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld 个喜欢</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld 条转发</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld 票</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
