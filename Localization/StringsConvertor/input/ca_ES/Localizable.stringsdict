@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>publicació</string>
         <key>other</key>
-        <string>posts</string>
+        <string>publicacions</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 favorit</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favorits</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 impuls</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld impuls</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 vot</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld vots</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 votant</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld votants</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 persona en parla</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld persones en parlen</string>
       </dict>
     </dict>
   </dict>
