@@ -296,11 +296,11 @@
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "동의합니다"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "마지막으로.",
             "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
                 "open_email_app": "Open Email App",
@@ -321,9 +321,9 @@
         "home_timeline": {
             "title": "Home",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
+                "offline": "오프라인",
+                "new_posts": "새 글 보기",
+                "published": "게시됨!",
                 "Publishing": "Publishing post..."
             }
         },
