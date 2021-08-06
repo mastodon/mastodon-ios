@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>plural.count.metric_formatted.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%@ %#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>post</string>
+        <key>other</key>
+        <string>posts</string>
+      </dict>
+    </dict>
+    <key>plural.count.favorite</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@favorite_count@</string>
+      <key>favorite_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 favorite</string>
+        <key>other</key>
+        <string>%ld favorites</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 reblog</string>
+        <key>other</key>
+        <string>%ld reblogs</string>
+      </dict>
+    </dict>
+    <key>plural.count.vote</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@vote_count@</string>
+      <key>vote_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 vote</string>
+        <key>other</key>
+        <string>%ld votes</string>
+      </dict>
+    </dict>
+    <key>plural.count.voter</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@voter_count@</string>
+      <key>voter_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 voter</string>
+        <key>other</key>
+        <string>%ld voters</string>
+      </dict>
+    </dict>
+    <key>plural.people_talking</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_people_talking@</string>
+      <key>count_people_talking</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 people talking</string>
+        <key>other</key>
+        <string>%ld people talking</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>
