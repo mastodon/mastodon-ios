@@ -220,41 +220,41 @@
                     "tech": "технологии"
                 },
                 "see_less": "Показать меньше",
-                "see_more": "See More"
+                "see_more": "Ещё"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "ЯЗЫК",
+                "users": "ПОЛЬЗОВАТЕЛИ",
+                "category": "КАТЕГОРИЯ"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Найдите сервер или присоединитесь к своему..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Ищем доступные сервера...",
+                "bad_network": "Что-то пошло не так при загрузке данных. Проверьте подключение к интернету.",
+                "no_results": "Нет результатов"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Расскажите нам о себе.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Удалить"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "имя пользователя",
+                    "duplicate_prompt": "Это имя пользователя занято."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "отображаемое имя"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-mail"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "пароль",
+                    "hint": "Пароль должен содержать не менее восьми символов"
                 },
                 "invite": {
                     "registration_user_invite_request": "Why do you want to join?"
