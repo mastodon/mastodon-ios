@@ -122,7 +122,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s 已转发",
+                "user_reblogged": "%s 转发",
                 "user_replied_to": "回复给 %s",
                 "show_post": "显示帖子",
                 "show_user_profile": "查看用户个人资料",
@@ -172,7 +172,7 @@
                 "filtered": "已过滤",
                 "timestamp": {
                     "now": "现在",
-                    "time_ago": "%s 前"
+                    "time_ago": "%s"
                 },
                 "loader": {
                     "load_missing_posts": "加载帖子",
@@ -365,7 +365,7 @@
                 "option_number": "选项 %ld"
             },
             "content_warning": {
-                "placeholder": "在这里写下确切的警告信息..."
+                "placeholder": "在这里写下内容的警告消息..."
             },
             "visibility": {
                 "public": "公开",
@@ -408,7 +408,7 @@
                 }
             },
             "fields": {
-                "add_row": "添加一行",
+                "add_row": "添加",
                 "placeholder": {
                     "label": "标签",
                     "content": "内容"
@@ -497,7 +497,7 @@
                 "appearance": {
                     "title": "外观",
                     "automatic": "自动",
-                    "light": "亮色",
+                    "light": "浅色",
                     "dark": "深色"
                 },
                 "notifications": {
