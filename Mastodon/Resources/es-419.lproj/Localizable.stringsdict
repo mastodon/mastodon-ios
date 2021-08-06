@@ -12,18 +12,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>zero</key>
-        <string>posts</string>
         <key>one</key>
-        <string>post</string>
-        <key>two</key>
-        <string>posts</string>
-        <key>few</key>
-        <string>posts</string>
-        <key>many</key>
-        <string>posts</string>
+        <string>mensaje</string>
         <key>other</key>
-        <string>posts</string>
+        <string>mensajes</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -36,18 +28,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>zero</key>
-        <string>%ld favorites</string>
         <key>one</key>
-        <string>1 favorite</string>
-        <key>two</key>
-        <string>%ld favorites</string>
-        <key>few</key>
-        <string>%ld favorites</string>
-        <key>many</key>
-        <string>%ld favorites</string>
+        <string>1 favorito</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favoritos</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -60,18 +44,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>zero</key>
-        <string>%ld reblogs</string>
         <key>one</key>
-        <string>1 reblog</string>
-        <key>two</key>
-        <string>%ld reblogs</string>
-        <key>few</key>
-        <string>%ld reblogs</string>
-        <key>many</key>
-        <string>%ld reblogs</string>
+        <string>1 adhesión</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld adhesiones</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -84,18 +60,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>zero</key>
-        <string>%ld votes</string>
         <key>one</key>
-        <string>1 vote</string>
-        <key>two</key>
-        <string>%ld votes</string>
-        <key>few</key>
-        <string>%ld votes</string>
-        <key>many</key>
-        <string>%ld votes</string>
+        <string>1 voto</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld votos</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -108,18 +76,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>zero</key>
-        <string>%ld voters</string>
         <key>one</key>
-        <string>1 voter</string>
-        <key>two</key>
-        <string>%ld voters</string>
-        <key>few</key>
-        <string>%ld voters</string>
-        <key>many</key>
-        <string>%ld voters</string>
+        <string>1 votante</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld votantes</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -132,18 +92,10 @@
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
-        <key>zero</key>
-        <string>%ld people talking</string>
         <key>one</key>
-        <string>1 people talking</string>
-        <key>two</key>
-        <string>%ld people talking</string>
-        <key>few</key>
-        <string>%ld people talking</string>
-        <key>many</key>
-        <string>%ld people talking</string>
+        <string>1 cuenta hablando</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld cuentas hablando</string>
       </dict>
     </dict>
   </dict>

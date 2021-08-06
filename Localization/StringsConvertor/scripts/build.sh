@@ -9,4 +9,11 @@ if [[ -d output ]]; then
 fi
 mkdir output
 
+cd Intents
+if [[ -d output ]]; then
+    rm -rf output
+fi
+mkdir output
+cd ..
+
 swift run
