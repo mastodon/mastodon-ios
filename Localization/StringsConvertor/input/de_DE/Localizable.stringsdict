@@ -47,7 +47,7 @@
         <key>one</key>
         <string>1 Reblog</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld Reblogs</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -61,7 +61,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 Stimme</string>
         <key>other</key>
         <string>%ld Stimmen</string>
       </dict>
@@ -77,7 +77,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 Wähler</string>
         <key>other</key>
         <string>%ld Wähler</string>
       </dict>
