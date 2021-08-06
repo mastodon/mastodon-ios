@@ -38,7 +38,7 @@
             },
             "block_domain": {
                 "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Folgenden von dieser Domain werden entfernt.",
-                "block_entire_domain": "Block Domain"
+                "block_entire_domain": "Domain blockieren"
             },
             "save_photo_failure": {
                 "title": "Foto konnte nicht gespeichert werden",
@@ -113,7 +113,7 @@
                     "reply_status": "Auf Beitrag antworten",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "Inhaltswarnung umschalten",
                     "preview_image": "Bildvorschau"
                 },
                 "segmented_control": {
@@ -124,7 +124,7 @@
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "show_post": "Beitrag anzeigen",
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
@@ -139,11 +139,11 @@
                     "unreblog": "Undo reblog",
                     "favorite": "Favorit",
                     "unfavorite": "Aus Favoriten entfernen",
-                    "menu": "Menu"
+                    "menu": "Menü"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
+                    "mention": "Erwähnung",
                     "link": "Link",
                     "hashtag": "Hashtag",
                     "email": "E-Mail",
@@ -152,7 +152,7 @@
             },
             "friendship": {
                 "follow": "Folgen",
-                "following": "Following",
+                "following": "Folge Ich",
                 "request": "Anfragen",
                 "pending": "In Warteschlange",
                 "block": "Blockieren",
@@ -160,7 +160,7 @@
                 "block_domain": "%s blockieren",
                 "unblock": "Blockierung aufheben",
                 "unblock_user": "@%s entblocken",
-                "blocked": "Blocked",
+                "blocked": "Blockiert",
                 "mute": "Stummschalten",
                 "mute_user": "%s stummschalten",
                 "unmute": "Unmute",
@@ -185,7 +185,7 @@
                     "user_blocking_warning": "Du kannst %s's Profil nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
                     "blocked_warning": "Das Profil dieses Benutzers\n kann nicht angezeigt werden, bis er dich entsperrt.",
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
+                    "suspended_warning": "Dieser Nutzer wurde gesperrt.",
                     "user_suspended_warning": "%s’s account has been suspended."
                 },
                 "accessibility": {
@@ -198,7 +198,7 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Soziale Netzwerke wieder in deinen Händen."
         },
         "server_picker": {
             "title": "Pick a server,\nany server.",
@@ -291,9 +291,9 @@
         },
         "server_rules": {
             "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
+            "subtitle": "Diese Regeln werden von den Administratoren von %s festgelegt.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
+            "terms_of_service": "Nutzungsbedingungen",
             "privacy_policy": "Datenschutzerklärung",
             "button": {
                 "confirm": "Ich stimme zu"
@@ -304,12 +304,12 @@
             "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe auf den Link, um Dein Konto zu bestätigen.",
             "button": {
                 "open_email_app": "E-Mail-App öffnen",
-                "dont_receive_email": "I never got an email"
+                "dont_receive_email": "Ich habe keine E-Mail erhalten."
             },
             "dont_receive_email": {
                 "title": "Check your email",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "E-Mail erneut versenden"
             },
             "open_email_app": {
                 "title": "Check your inbox.",
@@ -439,12 +439,12 @@
             "recommend": {
                 "button_text": "Alle anzeigen",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "Angesagt auf Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
                     "people_talking": "%s Leute reden"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
+                    "title": "Konten, die dir gefallen könnten",
                     "description": "You may like to follow these accounts",
                     "follow": "Folgen"
                 }
