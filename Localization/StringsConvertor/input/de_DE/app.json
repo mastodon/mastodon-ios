@@ -137,8 +137,8 @@
                     "reply": "Antworten",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "favorite": "Favorit",
+                    "unfavorite": "Aus Favoriten entfernen",
                     "menu": "Menu"
                 },
                 "tag": {
@@ -319,11 +319,11 @@
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Startseite",
             "navigation_bar_state": {
                 "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
+                "new_posts": "Neue Beiträge anzeigen",
+                "published": "Veröffentlicht!",
                 "Publishing": "Publishing post..."
             }
         },
@@ -421,12 +421,12 @@
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
+                    "title": "Ton einschalten",
                     "message": "Confirm to unmute %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Konto entsperren",
+                    "message": "Bestätigen zum Entsperren von %s"
                 }
             }
         },
