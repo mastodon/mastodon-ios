@@ -282,7 +282,7 @@
                     "inclusion": "%s no es un valor soportado"
                 },
                 "special": {
-                    "username_invalid": "El nombre de usuario sólo debe contener caracteres alfanuméricos sin signos diacríticos y subguiones (\"_\")",
+                    "username_invalid": "El nombre de usuario sólo debe contener caracteres alfanuméricos sin signos diacríticos y subguiones (\\\"_\\\")",
                     "username_too_long": "El nombre de usuario es demasiado largo (no puede tener más de 30 caracteres)",
                     "email_invalid": "Esta no es una dirección de correo electrónico válida",
                     "password_too_short": "La contraseña es demasiado corta (debe tener al menos 8 caracteres)"
