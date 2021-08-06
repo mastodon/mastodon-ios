@@ -13,6 +13,8 @@ class SearchRecommendCollectionHeader: UIView {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.primary.color
         label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         return label
     }()
     
@@ -71,6 +73,7 @@ extension SearchRecommendCollectionHeader {
         titleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         horizontalStackView.addArrangedSubview(titleLabel)
         horizontalStackView.addArrangedSubview(seeAllButton)
+        seeAllButton.setContentCompressionResistancePriority(.defaultHigh + 10, for: .horizontal)
         
         containerStackView.addArrangedSubview(horizontalStackView)
         containerStackView.addArrangedSubview(descriptionLabel)

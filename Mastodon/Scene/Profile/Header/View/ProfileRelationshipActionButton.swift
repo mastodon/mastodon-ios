@@ -53,6 +53,8 @@ extension ProfileRelationshipActionButton {
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .highlighted)
         setBackgroundImage(.placeholder(color: actionOptionSet.backgroundColor.withAlphaComponent(0.5)), for: .disabled)
         
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 4)
+        
         activityIndicatorView.stopAnimating()
         
         if let option = actionOptionSet.highPriorityAction(except: .editOptions), option == .blocked || option == .suspended {

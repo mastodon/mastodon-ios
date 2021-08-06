@@ -248,7 +248,7 @@ pulsá en el enlace para confirmar tu cuenta.";
 "Scene.Register.Error.Reason.Unreachable" = "%@ parece no existir";
 "Scene.Register.Error.Special.EmailInvalid" = "Esta no es una dirección de correo electrónico válida";
 "Scene.Register.Error.Special.PasswordTooShort" = "La contraseña es demasiado corta (debe tener al menos 8 caracteres)";
-"Scene.Register.Error.Special.UsernameInvalid" = "El nombre de usuario sólo debe contener caracteres alfanuméricos sin signos diacríticos y subguiones ("_")";
+"Scene.Register.Error.Special.UsernameInvalid" = "El nombre de usuario sólo debe contener caracteres alfanuméricos sin signos diacríticos y subguiones (\"_\")";
 "Scene.Register.Error.Special.UsernameTooLong" = "El nombre de usuario es demasiado largo (no puede tener más de 30 caracteres)";
 "Scene.Register.Input.Avatar.Delete" = "Eliminar";
 "Scene.Register.Input.DisplayName.Placeholder" = "nombre para mostrar";
