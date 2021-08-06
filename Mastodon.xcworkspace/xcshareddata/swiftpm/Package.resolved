@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {
           "branch": null,
-          "revision": "83e1edaa5a30c567eb129c21c6d00f2f552d2c6f",
-          "version": "10.3.1"
+          "revision": "3bd3a1765bdf62d561d4c2e10e1c4fc7a010f44e",
+          "version": "10.3.2"
         }
       },
       {
@@ -195,8 +195,8 @@
         "repositoryURL": "https://github.com/vtourraine/ThirdPartyMailer.git",
         "state": {
           "branch": null,
-          "revision": "923c60ee7588da47db8cfc4e0f5b96e5e605ef84",
-          "version": "1.7.1"
+          "revision": "779da6ce0793b461ccbbac2804755c1e29b6fa63",
+          "version": "1.8.0"
         }
       },
       {
