@@ -257,51 +257,51 @@
                     "hint": "Пароль должен содержать не менее восьми символов"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Почему вы хотите присоединиться?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Имя пользователя",
+                    "email": "E-mail",
+                    "password": "Пароль",
+                    "agreement": "Соглашение",
+                    "locale": "Язык",
+                    "reason": "Причина"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s содержит запрещённый e-mail сервис",
+                    "unreachable": "%s не существует",
+                    "taken": "%s уже используется",
+                    "reserved": "%s является зарезервированным ключевым словом",
+                    "accepted": "%s должно быть принято",
+                    "blank": "Поле «%s» обязательно",
+                    "invalid": "Недопустимое значение поля «%s»",
+                    "too_long": "%s слишком длинный",
+                    "too_short": "%s слишком короткий",
+                    "inclusion": "Неподдерживаемое значение «%s»"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Имя пользователя может содержать только латинские буквы, цифры и подчёркивания",
+                    "username_too_long": "Слишком длинное имя пользователя (не может быть длиннее 30 символов)",
+                    "email_invalid": "Недопустимый e-mail адрес",
+                    "password_too_short": "Пароль слишком короткий (должен содержать не менее 8 символов)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Несколько основных правил.",
+            "subtitle": "Эти правила установлены администраторами %s.",
+            "prompt": "Продолжая, вы соглашаетесь с условиям использования и политикой конфиденциальности %s.",
+            "terms_of_service": "условия использования",
+            "privacy_policy": "политика конфиденциальности",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Принимаю"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "И ещё кое-что.",
+            "subtitle": "Мы только что отправили письмо на\n%s.\nНажмите на ссылку в нём, чтобы\nподтвердить свою учётную запись.",
             "button": {
                 "open_email_app": "Open Email App",
                 "dont_receive_email": "I never got an email"
