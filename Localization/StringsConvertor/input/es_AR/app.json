@@ -509,7 +509,7 @@
                     "trigger": {
                         "anyone": "cualquiera",
                         "follower": "un seguidor",
-                        "follow": "cualquiera que sigo",
+                        "follow": "alguien a quien sigo",
                         "noone": "nadie",
                         "title": "Notificarme cuando"
                     }
