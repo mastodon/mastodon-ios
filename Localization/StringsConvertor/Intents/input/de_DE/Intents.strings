@@ -1,28 +1,28 @@
 "16wxgf" = "Post on Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Textinhalt";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "Beitrag";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Senden fehlgeschlagen";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Fehlerursache";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Beitrag mit Textinhalt senden";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Beitrag";
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Beitrag";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Sichtbarkeit";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Sichtbarkeit des Beitrags";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
@@ -32,13 +32,13 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "Beitrag";
 
 "dYQ5NN" = "Public";
 
 "ehFLjY" = "Followers Only";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Senden fehlgeschlagen. ${failureReason}";
 
 "k7dbKQ" = "Post was sent successfully.";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Beitrag wurde erfolgreich gesendet. ";
