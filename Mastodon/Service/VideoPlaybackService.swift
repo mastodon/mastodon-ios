@@ -40,7 +40,6 @@ extension VideoPlaybackService {
             } else {
                 if latestPlayingVideoPlayerViewModel === playerViewModel {
                     latestPlayingVideoPlayerViewModel = nil
-//                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
                 }
             }
         }

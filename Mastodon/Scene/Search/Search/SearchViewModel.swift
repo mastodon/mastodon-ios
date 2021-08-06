@@ -19,24 +19,25 @@ final class SearchViewModel: NSObject {
     
     // input
     let context: AppContext
-    weak var coordinator: SceneCoordinator!
-    
-    let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
     let viewDidAppeared = PassthroughSubject<Void, Never>()
     
     // output
+    let currentMastodonUser = CurrentValueSubject<MastodonUser?, Never>(nil)
 
-    // var recommendHashTags = [Mastodon.Entity.Tag]()
     var recommendAccounts = [NSManagedObjectID]()
     var recommendAccountsFallback = PassthroughSubject<Void, Never>()
     
     var hashtagDiffableDataSource: UICollectionViewDiffableDataSource<RecommendHashTagSection, Mastodon.Entity.Tag>?
     var accountDiffableDataSource: UICollectionViewDiffableDataSource<RecommendAccountSection, NSManagedObjectID>?
 
-    init(context: AppContext, coordinator: SceneCoordinator) {
-        self.coordinator = coordinator
+    init(context: AppContext) {
         self.context = context
         super.init()
+        
+        context.authenticationService.activeMastodonAuthentication
+            .map { $0?.user }
+            .assign(to: \.value, on: currentMastodonUser)
+            .store(in: &disposeBag)
 
         Publishers.CombineLatest(
             context.authenticationService.activeMastodonAuthenticationBox,

@@ -87,7 +87,7 @@ class PickServerCell: UITableViewCell {
     }()
     
     let expandButton: UIButton = {
-        let button = UIButton(type: .custom)
+        let button = HitTestExpandedButton(type: .custom)
         button.setImage(UIImage(systemName: "chevron.down", withConfiguration: UIImage.SymbolConfiguration(pointSize: 13)), for: .normal)
         button.setTitle(L10n.Scene.ServerPicker.Button.seeMore, for: .normal)
         button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)

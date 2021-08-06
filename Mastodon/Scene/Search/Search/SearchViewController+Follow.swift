@@ -26,16 +26,30 @@ extension SearchViewController: UserProvider {
 }
 
 extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegate {
-    func followButtonDidPressed(clickedUser: MastodonUser) {
+    func searchRecommendAccountsCollectionViewCell(_ cell: SearchRecommendAccountsCollectionViewCell, followButtonDidPressed button: UIButton) {
+        guard let diffableDataSource = viewModel.accountDiffableDataSource else { return }
+        guard let indexPath = accountsCollectionView.indexPath(for: cell),
+              let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        
+        context.managedObjectContext.performAndWait {
+            guard let user = try? context.managedObjectContext.existingObject(with: item) as? MastodonUser else { return }
+            self.toggleFriendship(for: user)
+        }
+    }
+    
+    func toggleFriendship(for mastodonUser: MastodonUser) {
         guard let currentMastodonUser = viewModel.currentMastodonUser.value else {
             return
         }
-        guard let relationshipAction = relationShipActionSet(mastodonUser: clickedUser, currentMastodonUser: currentMastodonUser).highPriorityAction(except: .editOptions) else { return }
+        guard let relationshipAction = RecommendAccountSection.relationShipActionSet(
+                mastodonUser: mastodonUser,
+                currentMastodonUser: currentMastodonUser).highPriorityAction(except: .editOptions)
+        else { return }
         switch relationshipAction {
         case .none:
             break
         case .follow, .following:
-            UserProviderFacade.toggleUserFollowRelationship(provider: self, mastodonUser: clickedUser)
+            UserProviderFacade.toggleUserFollowRelationship(provider: self, mastodonUser: mastodonUser)
                 .sink { _ in
                     // error handling
                 } receiveValue: { _ in
@@ -45,7 +59,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
         case .pending:
             break
         case .muting:
-            let name = clickedUser.displayNameWithFallback
+            let name = mastodonUser.displayNameWithFallback
             let alertController = UIAlertController(
                 title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.title,
                 message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnmuteUser.message(name),
@@ -53,7 +67,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unmuteAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unmute, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserMuteRelationship(provider: self, mastodonUser: clickedUser)
+                UserProviderFacade.toggleUserMuteRelationship(provider: self, mastodonUser: mastodonUser)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in
@@ -66,7 +80,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
         case .blocking:
-            let name = clickedUser.displayNameWithFallback
+            let name = mastodonUser.displayNameWithFallback
             let alertController = UIAlertController(
                 title: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.title,
                 message: L10n.Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.message(name),
@@ -74,7 +88,7 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
             )
             let unblockAction = UIAlertAction(title: L10n.Common.Controls.Friendship.unblock, style: .default) { [weak self] _ in
                 guard let self = self else { return }
-                UserProviderFacade.toggleUserBlockRelationship(provider: self, mastodonUser: clickedUser)
+                UserProviderFacade.toggleUserBlockRelationship(provider: self, mastodonUser: mastodonUser)
                     .sink { _ in
                         // do nothing
                     } receiveValue: { _ in
@@ -93,50 +107,4 @@ extension SearchViewController: SearchRecommendAccountsCollectionViewCellDelegat
         }
     }
 
-    func configFollowButton(with mastodonUser: MastodonUser, followButton: HighlightDimmableButton) {
-        guard let currentMastodonUser = viewModel.currentMastodonUser.value else {
-            return
-        }
-        _configFollowButton(with: mastodonUser, currentMastodonUser: currentMastodonUser, followButton: followButton)
-        ManagedObjectObserver.observe(object: currentMastodonUser)
-            .sink { _ in
-
-            } receiveValue: { change in
-                guard case .update(let object) = change.changeType,
-                      let newUser = object as? MastodonUser else { return }
-                self._configFollowButton(with: mastodonUser, currentMastodonUser: newUser, followButton: followButton)
-            }
-            .store(in: &disposeBag)
-    }
-}
-
-extension SearchViewController {
-    func _configFollowButton(with mastodonUser: MastodonUser, currentMastodonUser: MastodonUser, followButton: HighlightDimmableButton) {
-        let relationshipActionSet = relationShipActionSet(mastodonUser: mastodonUser, currentMastodonUser: currentMastodonUser)
-        followButton.setTitle(relationshipActionSet.title, for: .normal)
-    }
-
-    func relationShipActionSet(mastodonUser: MastodonUser, currentMastodonUser: MastodonUser) -> ProfileViewModel.RelationshipActionOptionSet {
-        var relationshipActionSet = ProfileViewModel.RelationshipActionOptionSet([.follow])
-        let isFollowing = mastodonUser.followingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-        if isFollowing {
-            relationshipActionSet.insert(.following)
-        }
-
-        let isPending = mastodonUser.followRequestedBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-        if isPending {
-            relationshipActionSet.insert(.pending)
-        }
-
-        let isBlocking = mastodonUser.blockingBy.flatMap { $0.contains(currentMastodonUser) } ?? false
-        if isBlocking {
-            relationshipActionSet.insert(.blocking)
-        }
-
-        let isBlockedBy = currentMastodonUser.blockingBy.flatMap { $0.contains(mastodonUser) } ?? false
-        if isBlockedBy {
-            relationshipActionSet.insert(.blocked)
-        }
-        return relationshipActionSet
-    }
 }
