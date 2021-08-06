@@ -110,7 +110,7 @@
 "Common.Controls.Status.Tag.Link" = "链接";
 "Common.Controls.Status.Tag.Mention" = "提及";
 "Common.Controls.Status.Tag.Url" = "URL";
-"Common.Controls.Status.UserReblogged" = "%@ 已转发";
+"Common.Controls.Status.UserReblogged" = "%@ 转发";
 "Common.Controls.Status.UserRepliedTo" = "回复给 %@";
 "Common.Controls.Tabs.Home" = "主页";
 "Common.Controls.Tabs.Notification" = "通知";
@@ -137,7 +137,7 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "正在加载帖子...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "显示更多回复";
 "Common.Controls.Timeline.Timestamp.Now" = "现在";
-"Common.Controls.Timeline.Timestamp.TimeAgo" = "%@ 前";
+"Common.Controls.Timeline.Timestamp.TimeAgo" = "%@";
 "Scene.Compose.Accessibility.AppendAttachment" = "添加附件";
 "Scene.Compose.Accessibility.AppendPoll" = "添加投票";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自定义表情选择器";
@@ -156,7 +156,7 @@
 "Scene.Compose.AutoComplete.SpaceToAdd" = "输入空格键入";
 "Scene.Compose.ComposeAction" = "发送";
 "Scene.Compose.ContentInputPlaceholder" = "写下你的想法";
-"Scene.Compose.ContentWarning.Placeholder" = "在这里写下确切的警告信息...";
+"Scene.Compose.ContentWarning.Placeholder" = "在这里写下内容的警告消息...";
 "Scene.Compose.Keyboard.AppendAttachmentEntry" = "添加附件 - %@";
 "Scene.Compose.Keyboard.DiscardPost" = "丢弃帖子";
 "Scene.Compose.Keyboard.PublishPost" = "发送帖子";
@@ -219,7 +219,7 @@
 "Scene.Profile.Dashboard.Followers" = "关注者";
 "Scene.Profile.Dashboard.Following" = "正在关注";
 "Scene.Profile.Dashboard.Posts" = "帖子";
-"Scene.Profile.Fields.AddRow" = "添加一行";
+"Scene.Profile.Fields.AddRow" = "添加";
 "Scene.Profile.Fields.Placeholder.Content" = "内容";
 "Scene.Profile.Fields.Placeholder.Label" = "标签";
 "Scene.Profile.RelationshipActionAlert.ConfirmUnblockUsre.Message" = "确认取消屏蔽 %@";
@@ -319,7 +319,7 @@
 "Scene.Settings.Keyboard.CloseSettingsWindow" = "关闭设置窗口";
 "Scene.Settings.Section.Appearance.Automatic" = "自动";
 "Scene.Settings.Section.Appearance.Dark" = "深色";
-"Scene.Settings.Section.Appearance.Light" = "亮色";
+"Scene.Settings.Section.Appearance.Light" = "浅色";
 "Scene.Settings.Section.Appearance.Title" = "外观";
 "Scene.Settings.Section.BoringZone.AccountSettings" = "账号设置";
 "Scene.Settings.Section.BoringZone.Privacy" = "隐私政策";

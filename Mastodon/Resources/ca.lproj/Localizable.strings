@@ -63,7 +63,7 @@ Comprova la teva connexió a Internet.";
 "Common.Controls.Friendship.BlockDomain" = "Bloqueja %@";
 "Common.Controls.Friendship.BlockUser" = "Bloqueja %@";
 "Common.Controls.Friendship.Blocked" = "Bloquejat";
-"Common.Controls.Friendship.EditInfo" = "Edita la informació";
+"Common.Controls.Friendship.EditInfo" = "Edita";
 "Common.Controls.Friendship.Follow" = "Segueix";
 "Common.Controls.Friendship.Following" = "Seguint";
 "Common.Controls.Friendship.Mute" = "Silencia";
