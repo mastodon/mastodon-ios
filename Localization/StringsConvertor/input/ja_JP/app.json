@@ -1,0 +1,561 @@
+{
+    "common": {
+        "alerts": {
+            "common": {
+                "please_try_again": "もう一度お試しください。",
+                "please_try_again_later": "後でもう一度お試しください。"
+            },
+            "sign_up_failure": {
+                "title": "サインアップに失敗しました"
+            },
+            "server_error": {
+                "title": "サーバーエラー"
+            },
+            "vote_failure": {
+                "title": "投票の失敗",
+                "poll_expired": "投票は終了しました"
+            },
+            "discard_post_content": {
+                "title": "トゥートを破棄しますか？",
+                "message": "この操作は取り消しできません。下書きは失われます。"
+            },
+            "publish_post_failure": {
+                "title": "失敗",
+                "message": "トゥートに失敗しました。\nインターネットに接続されているか確認してください。",
+                "attachments_message": {
+                    "video_attach_with_photo": "すでに画像が含まれている投稿に、動画を添付することができません。",
+                    "more_than_one_video": "複数の動画を添付することはできません。"
+                }
+            },
+            "edit_profile_failure": {
+                "title": "プロフィールを編集できませんでした",
+                "message": "プロフィールを編集できません。もう一度お試しください。"
+            },
+            "sign_out": {
+                "title": "サインアウト",
+                "message": "本当にサインアウトしますか？",
+                "confirm": "サインアウト"
+            },
+            "block_domain": {
+                "title": "本当に%s全体をブロックしたいのですか？ ほとんどの場合、いくつかのターゲットを絞ったブロックやミュートで十分ですし、それが望ましいです。そのドメインからのコンテンツが表示されなくなり、そのドメインからのフォロワーもすべて削除されます。",
+                "block_entire_domain": "ドメインをブロック"
+            },
+            "save_photo_failure": {
+                "title": "写真の保存に失敗しました",
+                "message": "写真を保存するには、フォトライブラリのアクセス許可を有効にしてください。"
+            },
+            "delete_post": {
+                "title": "このトゥートを消去しますか？",
+                "delete": "消去"
+            },
+            "clean_cache": {
+                "title": "キャッシュを消去",
+                "message": "%sのキャッシュを消去しました。"
+            }
+        },
+        "controls": {
+            "actions": {
+                "back": "戻る",
+                "next": "次",
+                "previous": "前",
+                "open": "開く",
+                "add": "追加",
+                "remove": "消去",
+                "edit": "編集",
+                "save": "保存",
+                "ok": "OK",
+                "done": "完了",
+                "confirm": "確認",
+                "continue": "続ける",
+                "cancel": "キャンセル",
+                "discard": "破棄",
+                "try_again": "再実行",
+                "take_photo": "写真を撮る",
+                "save_photo": "写真を撮る",
+                "copy_photo": "写真をコピー",
+                "sign_in": "サインイン",
+                "sign_up": "サインアップ",
+                "see_more": "もっと見る",
+                "preview": "プレビュー",
+                "share": "共有",
+                "share_user": "%sを共有",
+                "share_post": "トゥートを共有",
+                "open_in_safari": "Safariで開く",
+                "find_people": "フォローする人を見つける",
+                "manually_search": "手動で検索する",
+                "skip": "スキップ",
+                "reply": "リプライ",
+                "report_user": "%sを報告",
+                "block_domain": "%sをブロック",
+                "unblock_domain": "%sのブロックを解除",
+                "settings": "設定",
+                "delete": "消去"
+            },
+            "tabs": {
+                "home": "ホーム",
+                "search": "検索",
+                "notification": "通知",
+                "profile": "プロフィール"
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "%sに切り替え",
+                    "compose_new_post": "新しい投稿を作成",
+                    "show_favorites": "いいねを表示",
+                    "open_settings": "設定を開く"
+                },
+                "timeline": {
+                    "previous_status": "前のトゥート",
+                    "next_status": "次の投稿",
+                    "open_status": "投稿を開く",
+                    "open_author_profile": "プロフィールを見る",
+                    "open_reblogger_profile": "リブロガーのプロフィールを開く",
+                    "reply_status": "トゥートにリプライ",
+                    "toggle_reblog": "ブーストを切り替える",
+                    "toggle_favorite": "いいねを切り替える",
+                    "toggle_content_warning": "閲覧注意を切り替える",
+                    "preview_image": "画像をプレビュー"
+                },
+                "segmented_control": {
+                    "previous_section": "前のセクション",
+                    "next_section": "次のセクション"
+                }
+            },
+            "status": {
+                "user_reblogged": "%sがブースト",
+                "user_replied_to": "%sがリプライ",
+                "show_post": "トゥートを見る",
+                "show_user_profile": "プロフィールを見る",
+                "content_warning": "コンテンツ警告",
+                "media_content_warning": "どこかをタップして表示",
+                "poll": {
+                    "vote": "投票",
+                    "time_left": "残り%s",
+                    "closed": "クローズド"
+                },
+                "actions": {
+                    "reply": "リプライ",
+                    "reblog": "ブースト",
+                    "unreblog": "ブーストを戻す",
+                    "favorite": "いいね",
+                    "unfavorite": "いいねと取り消す",
+                    "menu": "メニュー"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "メンション",
+                    "link": "リンク",
+                    "hashtag": "ハッシュタグ",
+                    "email": "メール",
+                    "emoji": "絵文字"
+                }
+            },
+            "friendship": {
+                "follow": "フォロー",
+                "following": "フォロー中",
+                "request": "リクエスト",
+                "pending": "保留",
+                "block": "ブロック",
+                "block_user": "%sをブロック",
+                "block_domain": "%sをブロック",
+                "unblock": "ブロックを解除",
+                "unblock_user": "%sのブロックを解除",
+                "blocked": "ブロック済み",
+                "mute": "ミュート",
+                "mute_user": "%sをミュート",
+                "unmute": "ミュートを解除",
+                "unmute_user": "%sのミュートを解除",
+                "muted": "ミュート済み",
+                "edit_info": "Edit Info"
+            },
+            "timeline": {
+                "filtered": "フィルター済み",
+                "timestamp": {
+                    "now": "今",
+                    "time_ago": "%s前"
+                },
+                "loader": {
+                    "load_missing_posts": "不足しているトゥートを読み込む",
+                    "loading_missing_posts": "読込中...",
+                    "show_more_replies": "リプライをもっとみる"
+                },
+                "header": {
+                    "no_status_found": "トゥートが見つかりません",
+                    "blocking_warning": "ブロックを解除するまでこのユーザーをみることはできません。\nそういうことです。",
+                    "user_blocking_warning": "%sがブロックを解除しない限りプロフィールをみることはできません。\nそういうことです。",
+                    "blocked_warning": "ブロックされているようです...",
+                    "user_blocked_warning": "%sがブロックを解除しない限りプロフィールをみることはできません。",
+                    "suspended_warning": "このユーザーは停止されています。",
+                    "user_suspended_warning": "%sのアカウントは停止されました。"
+                },
+                "accessibility": {
+                    "count_replies": "%s リプライ",
+                    "count_reblogs": "%s ブースト",
+                    "count_favorites": "%s いいね"
+                }
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Social networking\nback in your hands."
+        },
+        "server_picker": {
+            "title": "サーバーを選択",
+            "button": {
+                "category": {
+                    "all": "すべて",
+                    "all_accessiblity_description": "カテゴリ: すべて",
+                    "academia": "アカデミア",
+                    "activism": "アクティビズム",
+                    "food": "食べ物",
+                    "furry": "furry",
+                    "games": "ゲーム",
+                    "general": "全般",
+                    "journalism": "言論",
+                    "lgbt": "lgbt",
+                    "regional": "地域",
+                    "art": "アート",
+                    "music": "音楽",
+                    "tech": "技術"
+                },
+                "see_less": "閉じる",
+                "see_more": "もっと見る"
+            },
+            "label": {
+                "language": "言語",
+                "users": "ユーザー",
+                "category": "カテゴリー"
+            },
+            "input": {
+                "placeholder": "サーバーを探す"
+            },
+            "empty_state": {
+                "finding_servers": "利用可能なサーバーの検索...",
+                "bad_network": "データの読み込み中に何か問題が発生しました。インターネットの接続状況を確認してください。",
+                "no_results": "なし"
+            }
+        },
+        "register": {
+            "title": "あなたのことを教えてください",
+            "input": {
+                "avatar": {
+                    "delete": "消去"
+                },
+                "username": {
+                    "placeholder": "ユーザー名",
+                    "duplicate_prompt": "このユーザー名は使用されています"
+                },
+                "display_name": {
+                    "placeholder": "表示名"
+                },
+                "email": {
+                    "placeholder": "メール"
+                },
+                "password": {
+                    "placeholder": "パスワード",
+                    "hint": "パスワードは最低でも8文字必要です。"
+                },
+                "invite": {
+                    "registration_user_invite_request": "なぜ参加したいと思ったのですか？"
+                }
+            },
+            "error": {
+                "item": {
+                    "username": "ユーザー名",
+                    "email": "メール",
+                    "password": "パスワード",
+                    "agreement": "契約",
+                    "locale": "地域",
+                    "reason": "理由"
+                },
+                "reason": {
+                    "blocked": "%s が許可されていないメールプロバイダを含んでいる",
+                    "unreachable": "%sは存在しないようだ",
+                    "taken": "%sは使われます",
+                    "reserved": "%sは予約語です",
+                    "accepted": "%sを受け入れなければならない",
+                    "blank": "%sが必要です",
+                    "invalid": "%sは無効です",
+                    "too_long": "%sは長い",
+                    "too_short": "%sは短い",
+                    "inclusion": "%s はサポートされていない値です"
+                },
+                "special": {
+                    "username_invalid": "ユーザーネームには、英数字とアンダースコアのみを使用してください。",
+                    "username_too_long": "ユーザーネームが長すぎます（30文字以内）",
+                    "email_invalid": "有効なメールアドレスではありません",
+                    "password_too_short": "パスワードが短すぎます（8文字以上）"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "いくつかのルールがあります。",
+            "subtitle": "これらのルールは、%sの管理者によって設定されています。",
+            "prompt": "同意することでお客様は以下のサービスの利用規約とプライバシーポリシーに従うことになります。 %s.",
+            "terms_of_service": "利用規約",
+            "privacy_policy": "プライバシーポリシー",
+            "button": {
+                "confirm": "同意する"
+            }
+        },
+        "confirm_email": {
+            "title": "さいごにもうひとつ。",
+            "subtitle": "先程 %s にメールを送信しました。リンクをタップしてアカウントを確認してください。",
+            "button": {
+                "open_email_app": "メールアプリを開く",
+                "dont_receive_email": "メールがこない"
+            },
+            "dont_receive_email": {
+                "title": "メールをチェックしてください",
+                "description": "メールアドレスが正しいかどうか、また、迷惑メールフォルダに入っていないかどうかも確認してください。",
+                "resend_email": "もう一度メールを送信"
+            },
+            "open_email_app": {
+                "title": "インボックスをチェック",
+                "description": "先ほどメールをお送りしました。まだの方は、迷惑メールフォルダをご確認ください。",
+                "mail": "メール",
+                "open_email_client": "メールアプリを開く"
+            }
+        },
+        "home_timeline": {
+            "title": "ホーム",
+            "navigation_bar_state": {
+                "offline": "オフライン",
+                "new_posts": "新しいトゥートを見る",
+                "published": "トゥートしました!",
+                "Publishing": "トゥートちう..."
+            }
+        },
+        "suggestion_account": {
+            "title": "フォローする人を探す",
+            "follow_explain": "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。"
+        },
+        "public_timeline": {
+            "title": "公開"
+        },
+        "compose": {
+            "title": {
+                "new_post": "新しいトゥート",
+                "new_reply": "新しいリプライ"
+            },
+            "media_selection": {
+                "camera": "写真を撮る",
+                "photo_library": "写真",
+                "browse": "ブラウズ"
+            },
+            "content_input_placeholder": "気になることを入力またはペースト",
+            "compose_action": "トゥート",
+            "replying_to_user": "%sにリプライ",
+            "attachment": {
+                "photo": "写真",
+                "video": "動画",
+                "attachment_broken": "%sは壊れていてMastodonにアップロードできません。",
+                "description_photo": "視覚障がい者のために写真を説明",
+                "description_video": "視覚障がい者のための映像の説明"
+            },
+            "poll": {
+                "duration_time": "期間: %s",
+                "thirty_minutes": "30分",
+                "one_hour": "1時間",
+                "six_hours": "6時間",
+                "one_day": "1日",
+                "three_days": "3日",
+                "seven_days": "7日",
+                "option_number": "オプション %ld"
+            },
+            "content_warning": {
+                "placeholder": "ここに正確な警告を書いてください..."
+            },
+            "visibility": {
+                "public": "パブリック",
+                "unlisted": "非表示",
+                "private": "フォロワーのみ",
+                "direct": "メンションしてる人のみ"
+            },
+            "auto_complete": {
+                "space_to_add": "スペースを追加"
+            },
+            "accessibility": {
+                "append_attachment": "アタッチメントの追加",
+                "append_poll": "投票を追加",
+                "remove_poll": "投票を消去",
+                "custom_emoji_picker": "カスタム絵文字ピッカー",
+                "enable_content_warning": "コンテンツ警告を有効にする",
+                "disable_content_warning": "コンテンツ警告を無効にする",
+                "post_visibility_menu": "投稿の表示メニュー",
+                "input_limit_remains_count": "入力制限は残り %ld",
+                "input_limit_exceeds_count": "最大文字数を超えました。 %ld"
+            },
+            "keyboard": {
+                "discard_post": "トゥートを破棄",
+                "publish_post": "トゥート",
+                "toggle_poll": "投票を切り替える",
+                "toggle_content_warning": "閲覧注意を切り替える",
+                "append_attachment_entry": "アタッチメントを追加 - %s",
+                "select_visibility_entry": "公開設定を選択 - %s"
+            }
+        },
+        "profile": {
+            "dashboard": {
+                "posts": "トゥート",
+                "following": "フォロー中",
+                "followers": "フォロワー",
+                "accessibility": {
+                    "count_posts": "%ld トゥート",
+                    "count_following": "%ld フォロー中",
+                    "count_followers": "%ld フォロワー"
+                }
+            },
+            "fields": {
+                "add_row": "行追加",
+                "placeholder": {
+                    "label": "ラベル",
+                    "content": "コンテンツ"
+                }
+            },
+            "segmented_control": {
+                "posts": "トゥート",
+                "replies": "リプライ",
+                "media": "メディア"
+            },
+            "relationship_action_alert": {
+                "confirm_unmute_user": {
+                    "title": "ミュートを解除",
+                    "message": "%sをミュートしますか？"
+                },
+                "confirm_unblock_usre": {
+                    "title": "ブロックを解除",
+                    "message": "%sのブロックを解除しますか？"
+                }
+            }
+        },
+        "search": {
+            "title": "検索",
+            "search_bar": {
+                "placeholder": "ハッシュタグとユーザーを検索",
+                "cancel": "キャンセル"
+            },
+            "recommend": {
+                "button_text": "すべて見る",
+                "hash_tag": {
+                    "title": "マストドンに関するトレンド",
+                    "description": "注目されているハッシュタグ",
+                    "people_talking": "%s人が話題について話しています"
+                },
+                "accounts": {
+                    "title": "おすすめのアカウント",
+                    "description": "以下のアカウントをフォローしてみてはいかがでしょうか？",
+                    "follow": "フォロー"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "すべて",
+                    "people": "人々",
+                    "hashtags": "ハッシュタグ",
+                    "posts": "トゥート"
+                },
+                "empty_state": {
+                    "no_results": "なし"
+                },
+                "recent_search": "最近の検索",
+                "clear": "クリア"
+            }
+        },
+        "hashtag": {
+            "prompt": "%s人がこの話題について話しています"
+        },
+        "favorite": {
+            "title": "あなたのいいね"
+        },
+        "notification": {
+            "title": {
+                "Everything": "すべて",
+                "Mentions": "メンション"
+            },
+            "action": {
+                "follow": "フォローされました",
+                "favourite": "あなたがいいねしたトゥート",
+                "reblog": "あなたの投稿をリブログしました。",
+                "poll": "投票が終了しました",
+                "mention": "メンションされました",
+                "follow_request": "フォローリクエスト"
+            },
+            "keyobard": {
+                "show_everything": "すべて見る",
+                "show_mentions": "メンションを見る"
+            }
+        },
+        "thread": {
+            "back_title": "トゥート",
+            "title": "%sのトゥート"
+        },
+        "settings": {
+            "title": "設定",
+            "section": {
+                "appearance": {
+                    "title": "外観",
+                    "automatic": "システムに合わせる",
+                    "light": "ライト",
+                    "dark": "ダーク"
+                },
+                "notifications": {
+                    "title": "通知",
+                    "favorites": "いいね",
+                    "follows": "フォロー",
+                    "boosts": "ブースト",
+                    "mentions": "メンション",
+                    "trigger": {
+                        "anyone": "誰でも",
+                        "follower": "フォロワー",
+                        "follow": "フォローしている人",
+                        "noone": "なし",
+                        "title": "通知を受け取る"
+                    }
+                },
+                "preference": {
+                    "title": "環境設定",
+                    "true_black_dark_mode": "真っ黒なダークテーマを使用する",
+                    "disable_avatar_animation": "アニメーションアバターの無効化する",
+                    "disable_emoji_animation": "絵文字のアニメーションを無効化する",
+                    "using_default_browser": "既定のブラウザでリンクを開く"
+                },
+                "boring_zone": {
+                    "title": "アプリについて",
+                    "account_settings": "アカウント設定",
+                    "terms": "利用規約",
+                    "privacy": "プライバシーポリシー"
+                },
+                "spicy_zone": {
+                    "title": "スパイシーゾーン",
+                    "clear": "メディアキャッシュをクリア",
+                    "signout": "サインアウト"
+                }
+            },
+            "footer": {
+                "mastodon_description": "Mastodonはオープンソースです。バグの報告はGithubの%s (%s)で行うことができます。"
+            },
+            "keyboard": {
+                "close_settings_window": "設定を閉じる"
+            }
+        },
+        "report": {
+            "title": "%sを報告",
+            "step1": "ステップ 1/2",
+            "step2": "ステップ 2/2",
+            "content1": "他に報告したいトゥートはありますか？",
+            "content2": "この報告についてモデレーターに言いたいことはありますか？",
+            "send": "報告を送信",
+            "skip_to_send": "コメントなしで送信",
+            "text_placeholder": "追加コメントを入力"
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "プレビューを閉じる",
+                "show_next": "次を見る",
+                "show_previous": "前を見る"
+            }
+        }
+    }
+}

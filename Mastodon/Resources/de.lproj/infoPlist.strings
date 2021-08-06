@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "Verwendet um Fotos für neue Beiträge aufzunehmen";
+"NSPhotoLibraryAddUsageDescription" = "Verwendet um Fotos zu speichern";
+"NewPostShortcutItemTitle" = "Neuer Beitrag";
+"SearchShortcutItemTitle" = "Suche";
