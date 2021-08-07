@@ -2,191 +2,191 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Feuch ris a-rithist.",
+                "please_try_again_later": "Feuch ris a-rithist an ceann greis."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Dh’fhàillig leis a’ chlàradh"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Mearachd an fhrithealaiche"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "Dh’fhàillig leis a’ bhòt",
+                "poll_expired": "Dh’fhalbh an ùine air a’ chunntas-bheachd"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Tilg air falbh an dreachd",
+                "message": "Dearbh tilgeil air falbh susbaint a’ phuist a sgrìobh thu."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Dh’fhàillig leis an fhoillseachadh",
+                "message": "Cha deach leinn am post fhoillseachadh.\nThoir sùil air a’ cheangal agad ris an eadar-lìon.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Chan urrainn dhut video a cheangal ri post sa bheil dealbh mu thràth.",
+                    "more_than_one_video": "Chan urrainn dhut barrachd air aon video a cheangal ris."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Mearachd le deasachadh na pròifil",
+                "message": "Cha b’ urrainn dhuinn a’ pròifil a dheasachadh. Feuch ris a-rithist."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Clàraich a-mach",
+                "message": "A bheil thu cinnteach gu bheil thu airson clàradh a-mach?",
+                "confirm": "Clàraich a-mach"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "A bheil thu cinnteach dha-rìribh gu bheil thu airson an àrainn %s a bhacadh uile gu lèir? Mar as trice, foghnaidh gun dèan thu bacadh no mùchadh no dhà gu sònraichte agus bhiod sin na b’ fheàrr. Chan fhaic thu susbaint on àrainn ud agus thèid an luchd-leantainn agad on àrainn ud a thoirt air falbh.",
+                "block_entire_domain": "Bac an àrainn"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Dh’fhàillig le sàbhaladh an deilbh",
+                "message": "Cuir cead inntrigidh do thasg-lann nan dealbhan an comas gus an dealbh a shàbhaladh."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "A bheil thu cinnteach gu bheil thu airson am post seo a sguabadh às?",
+                "delete": "Sguab às"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Falamhaich an tasgadan",
+                "message": "Chaidh %s a thasgadan fhalamhachadh."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "back": "Air ais",
+                "next": "Air adhart",
+                "previous": "Air ais",
+                "open": "Fosgail",
+                "add": "Cuir ris",
+                "remove": "Thoir air falbh",
+                "edit": "Deasaich",
+                "save": "Sàbhail",
+                "ok": "Ceart ma-thà",
+                "done": "Deiseil",
+                "confirm": "Dearbh",
+                "continue": "Lean air adhart",
+                "cancel": "Sguir dheth",
+                "discard": "Tilg air falbh",
+                "try_again": "Feuch ris a-rithist",
+                "take_photo": "Tog dealbh",
+                "save_photo": "Sàbhail an dealbh",
+                "copy_photo": "Dèan lethbhreac dhen dealbh",
+                "sign_in": "Clàraich a-steach",
+                "sign_up": "Clàraich leinn",
+                "see_more": "Seall a bharrachd",
+                "preview": "Ro-sheall",
+                "share": "Co-roinn",
+                "share_user": "Co-roinn %s",
+                "share_post": "Co-roinn am post",
+                "open_in_safari": "Fosgail ann an Safari",
+                "find_people": "Lorg daoine a leanas tu",
+                "manually_search": "Lorg a làimh ’na àite",
+                "skip": "Leum thairis air",
+                "reply": "Freagair",
+                "report_user": "Dèan gearan mu %s",
+                "block_domain": "Bac %s",
+                "unblock_domain": "Dì-bhac %s",
+                "settings": "Roghainnean",
+                "delete": "Sguab às"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Dachaigh",
+                "search": "Lorg",
+                "notification": "Brath",
+                "profile": "Pròifil"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Geàrr leum gu %s",
+                    "compose_new_post": "Sgrìobh post ùr",
+                    "show_favorites": "Seall na h-annsachdan",
+                    "open_settings": "Fosgail na roghainnean"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Am post roimhe",
+                    "next_status": "An ath-phost",
+                    "open_status": "Fosgail am post",
+                    "open_author_profile": "Fosgail pròifil an ùghdair",
+                    "open_reblogger_profile": "Fosgail pròifil an neach-brosnachaidh",
+                    "reply_status": "Freagair do phost",
+                    "toggle_reblog": "Toglaich brosnachadh a’ phuist",
+                    "toggle_favorite": "Toglaich annsachd a’ phuist",
+                    "toggle_content_warning": "Toglaich rabhadh susbainte a’ phuist",
+                    "preview_image": "Ro-sheall an dealbh"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "An earrann roimhpe",
+                    "next_section": "An ath earrann"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "user_reblogged": "Tha %s ’ga bhrosnachadh",
+                "user_replied_to": "Air %s fhreagairt",
+                "show_post": "Seall am post",
+                "show_user_profile": "Seall pròifil a’ chleachdaiche",
+                "content_warning": "Rabhadh susbainte",
+                "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "poll": {
-                    "vote": "Vote",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "vote": "Cuir bhòt",
+                    "time_left": "%s air fhàgail",
+                    "closed": "Dùinte"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "reply": "Freagair",
+                    "reblog": "Brosnaich",
+                    "unreblog": "Na brosnaich tuilleadh",
+                    "favorite": "Cuir ris na h-annsachdan",
+                    "unfavorite": "Thoir air falbh o na h-annsachdan",
+                    "menu": "Clàr-taice"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "mention": "Iomradh",
+                    "link": "Ceangal",
+                    "hashtag": "Taga hais",
+                    "email": "Post-d",
                     "emoji": "Emoji"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "follow": "Lean air",
+                "following": "’Ga leantainn",
+                "request": "Iarrtas",
+                "pending": "Ri dhèiligeadh",
+                "block": "Bac",
+                "block_user": "Bac %s",
+                "block_domain": "Bac %s",
+                "unblock": "Dì-bhac",
+                "unblock_user": "Dì-bhac %s",
+                "blocked": "’Ga bhacadh",
+                "mute": "Mùch",
+                "mute_user": "Mùch %s",
+                "unmute": "Dì-mhùch",
+                "unmute_user": "Dì-mhùch %s",
+                "muted": "’Ga mhùchadh",
+                "edit_info": "Deasaich"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Criathraichte",
                 "timestamp": {
-                    "now": "Now",
-                    "time_ago": "%s ago"
+                    "now": "An-dràsta",
+                    "time_ago": "%s air ais"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "load_missing_posts": "Luchdaich postaichean a dhìth",
+                    "loading_missing_posts": "A’ luchdadh nam post a tha a dhìth…",
+                    "show_more_replies": "Seall barrachd freagairtean"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "no_status_found": "Cha deach post a lorg",
+                    "blocking_warning": "Chan fhaic thu pròifil a’ chleachdaiche seo\n gus an dì-bhac thu iad.\nSeo an coltas a th’ air a’ phròifil agad dhaibh-san.",
+                    "user_blocking_warning": "Chan fhaic thu a’ phròifil aig %s\n gus an dì-bhac thu iad.\nSeo an coltas a th’ air a’ phròifil agad dhaibh-san.",
+                    "blocked_warning": "Chan fhaic thu pròifil a’ chleachdaiche seo\n mus dì-bhac iad thu.",
+                    "user_blocked_warning": "Chan fhaic thu a’ phròifil aig %s\n mus dì-bhac iad thu.",
+                    "suspended_warning": "Chaidh an cleachdaiche seo a chur à rèim.",
+                    "user_suspended_warning": "Chaidh an cunntas aig %s a chur à rèim."
                 },
                 "accessibility": {
                     "count_replies": "%s replies",
@@ -198,76 +198,76 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "A’ cur nan lìonraidhean sòisealta\n’nad làmhan fhèin."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Tagh frithealaiche sam bith.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Na h-uile",
+                    "all_accessiblity_description": "Roinn-seòrsa: Na h-uile",
+                    "academia": "saoghal nan sgoilear",
+                    "activism": "iomairteachd",
+                    "food": "biadh",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "games": "geamannan",
+                    "general": "coitcheann",
+                    "journalism": "naidheachdas",
+                    "lgbt": "LGBT",
+                    "regional": "ionadail",
+                    "art": "ealain",
+                    "music": "ceòl",
+                    "tech": "teicneolas"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Seall nas lugha",
+                "see_more": "Seall a bharrachd"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "CÀNAN",
+                "users": "CLEACHDAICHEAN",
+                "category": "ROINN-SEÒRSA"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Lorg frithealaiche no gabh pàirt san fhear agad fhèin…"
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "A’ lorg nam frithealaichean ri am faighinn…",
+                "bad_network": "Chaidh rudeigin ceàrr le luchdadh an dàta. Thoir sùil air a’ cheangal agad ris an eadar-lìon.",
+                "no_results": "Gun toradh"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Innis dhuinn mu do dhèidhinn.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Sguab às"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "ainm-cleachdaiche",
+                    "duplicate_prompt": "Tha an t-ainm-cleachdaiche seo aig cuideigin eile."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "ainm-taisbeanaidh"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "post-d"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "facal-faire",
+                    "hint": "Feumaidh ochd caractaran a bhith san fhacal-fhaire agad air a char as giorra"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Carson a bu mhiann leat ballrachd fhaighinn?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
+                    "username": "Ainm-cleachdaiche",
+                    "email": "Post-d",
+                    "password": "Facal-faire",
+                    "agreement": "Aonta",
                     "locale": "Locale",
-                    "reason": "Reason"
+                    "reason": "Adhbhar"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
