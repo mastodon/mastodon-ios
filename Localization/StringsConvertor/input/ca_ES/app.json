@@ -336,7 +336,7 @@
         },
         "compose": {
             "title": {
-                "new_post": "Nueva publicació",
+                "new_post": "Nova publicació",
                 "new_reply": "Nova Resposta"
             },
             "media_selection": {
@@ -507,16 +507,16 @@
                     "boosts": "Ha impulsat el meu estat",
                     "mentions": "M'ha mencionat",
                     "trigger": {
-                        "anyone": "ningú",
+                        "anyone": "algú",
                         "follower": "un seguidor",
                         "follow": "a qualsevol que segueixi",
-                        "noone": "ningú",
+                        "noone": "algú",
                         "title": "Notifica'm quan"
                     }
                 },
                 "preference": {
                     "title": "Preferències",
-                    "true_black_dark_mode": "Mode autèntic negre fosc",
+                    "true_black_dark_mode": "Mode negre fosc autèntic",
                     "disable_avatar_animation": "Desactiva avatars animats",
                     "disable_emoji_animation": "Desactiva emojis animats",
                     "using_default_browser": "Utilitza el navegador predeterminat per a obrir enllaços"
