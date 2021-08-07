@@ -266,141 +266,141 @@
                     "email": "Post-d",
                     "password": "Facal-faire",
                     "agreement": "Aonta",
-                    "locale": "Locale",
+                    "locale": "Sgeama ionadail",
                     "reason": "Adhbhar"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "Tha solaraiche puist-d nach eil ceadaichte am broinn %s",
+                    "unreachable": "Tha coltas nach eil %s ann",
+                    "taken": "Tha %s ’ga chleachdadh mu thràth",
+                    "reserved": "’S e facal glèidhte a th’ ann an %s",
+                    "accepted": "Feumaidh tu aontachadh ri %s",
+                    "blank": "Tha %s riatanach",
+                    "invalid": "Chan eil %s dligheach",
+                    "too_long": "Tha %s ro fhada",
+                    "too_short": "Tha %s ro ghoirid",
+                    "inclusion": "Cha chuir sinn taic ri luach %s"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Chan fhaod ach litrichean gun stràcan is fo-loidhnichean a bhith am broinn ainm-cleachdaiche",
+                    "username_too_long": "Tha an t-ainm-cleachdaiche ro fhada (chan fhaod e a bhith nas fhaide na 30 caractar)",
+                    "email_invalid": "Chan e seòladh puist-d dligheach a tha seo",
+                    "password_too_short": "Tha am facal-faire ro ghoirid (feumaidh 8 caractaran a bhith ann air a char as giorra)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Riaghailt bhunasach no dhà.",
+            "subtitle": "Shuidhich rianairean %s na riaghailtean seo.",
+            "prompt": "Ma leanas tu air adhart, bidh thu fo bhuaidh teirmichean seirbheise is poileasaidh prìobhaideachd %s.",
+            "terms_of_service": "teirmichean na seirbheise",
+            "privacy_policy": "poileasaidh prìobhaideachd",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Gabhaidh mi ris"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Aon rud eile.",
+            "subtitle": "Tha sinn air post-d a chur gu %s,\nthoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Fosgail aplacaid a’ phuist-d",
+                "dont_receive_email": "Cha d’ fhuair mi post-d a-riamh"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Thoir sùil air a’ phost-d agad",
+                "description": "Dearbh gu bheil an seòladh puist-d agad mar bu chòir agus nach eil dad ann am pasgan an truilleis.",
+                "resend_email": "Cuir am post-d a-rithist"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Thoir sùil air a’ bhogsa a-steach agad.",
+                "description": "Tha sinn air post-d a chur thugad. Thoir sùil air pasgan an truilleis agad mura d’ fhuair thu e.",
+                "mail": "Post",
+                "open_email_client": "Fosgail cliant puist-d"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Dachaigh",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Far loidhne",
+                "new_posts": "Seall na postaichean ùra",
+                "published": "Chaidh fhoillseachadh!",
+                "Publishing": "A’ foillseachadh a’ phuist…"
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Lorg daoine a leanas tu",
+            "follow_explain": "Nuair a leanas tu air cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
         },
         "public_timeline": {
-            "title": "Public"
+            "title": "Poblach"
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Post ùr",
+                "new_reply": "Freagairt ùr"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Tog dealbh",
+                "photo_library": "Leabhar-lann nan dealbhan",
+                "browse": "Rùraich"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Sgrìobh no cuir ann na tha air d’ aire",
+            "compose_action": "Foillsich",
+            "replying_to_user": "a’ freagairt gu %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "dealbh",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "Seo %s a tha briste is cha ghabh\na luchdadh suas gu Mastodon.",
+                "description_photo": "Mìnich an dealbh dhan fheadhainn air a bheil cion-lèirsinne…",
+                "description_video": "Mìnich a’ video dhan fheadhainn air a bheil cion-lèirsinne…"
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Faide: %s",
+                "thirty_minutes": "Leth-uair a thìde",
+                "one_hour": "Uair a thìde",
+                "six_hours": "6 uairean a thìde",
+                "one_day": "Latha",
+                "three_days": "3 làithean",
+                "seven_days": "Seachdain",
+                "option_number": "Roghainn %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Sgrìobh rabhadh pongail an-seo…"
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Poblach",
+                "unlisted": "Falaichte o liostaichean",
+                "private": "Luchd-leantainn a-mhàin",
+                "direct": "Daoine air an dug mi iomradh a-mhàin"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
-                "input_limit_remains_count": "Input limit remains %ld",
-                "input_limit_exceeds_count": "Input limit exceeds %ld"
+                "append_attachment": "Cuir ceanglachan ris",
+                "append_poll": "Cuir cunntas-bheachd ris",
+                "remove_poll": "Thoir air falbh an cunntas-bheachd",
+                "custom_emoji_picker": "Roghnaichear nan Emoji gnàthaichte",
+                "enable_content_warning": "Cuir rabhadh susbainte an comas",
+                "disable_content_warning": "Cuir rabhadh susbainte à comas",
+                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist",
+                "input_limit_remains_count": "Tha %ld a charactaran air fhàgail dhut",
+                "input_limit_exceeds_count": "Caractaran ion-chuir thar na crìche: %ld"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Tilg air falbh am post",
+                "publish_post": "Foillsich am post",
+                "toggle_poll": "Toglaich an cunntas-bheachd",
+                "toggle_content_warning": "Toglaich rabhadh susbainte",
+                "append_attachment_entry": "Cuir ceanglachan ris – %s",
+                "select_visibility_entry": "Tagh an fhaicsinneachd – %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers",
+                "posts": "postaichean",
+                "following": "a’ leantainn",
+                "followers": "luchd-leantainn",
                 "accessibility": {
                     "count_posts": "%ld posts",
                     "count_following": "%ld following",
@@ -408,100 +408,100 @@
                 }
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Cuir ràgh ris",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Leubail",
+                    "content": "Susbaint"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "media": "Media"
+                "posts": "Postaichean",
+                "replies": "Freagairtean",
+                "media": "Meadhanan"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Dì-mhùch an cunntas",
+                    "message": "Dearbh dì-mhùchadh %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Dì-bhac an cunntas",
+                    "message": "Dearbh dì-bhacadh %s"
                 }
             }
         },
         "search": {
-            "title": "Search",
+            "title": "Lorg",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Lorg sna tagaichean hais is cleachdaichean",
+                "cancel": "Sguir dheth"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Seall na h-uile",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "A’ treandadh air Mastodon",
+                    "description": "Tagaichean hais le aire orra an-dràsta",
+                    "people_talking": "Tha %s a’ bruidhinn"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Cunntasan a chòrdas riut ma dh’fhaoidte",
+                    "description": "Saoil am bu toigh leat leantainn air na cunntasan seo?",
+                    "follow": "Lean air"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Na h-uile",
+                    "people": "Daoine",
+                    "hashtags": "Tagaichean hais",
+                    "posts": "Postaichean"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Gun toradh"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Na lorg thu o chionn goirid",
+                "clear": "Falamhaich"
             }
         },
         "hashtag": {
-            "prompt": "%s people talking"
+            "prompt": "%s a’ bruidhinn"
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Na h-annsachdan agad"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "A h-uile rud",
+                "Mentions": "Iomraidhean"
             },
             "action": {
                 "follow": "followed you",
                 "favourite": "favorited your post",
                 "reblog": "reblogged your post",
-                "poll": "Your poll has ended",
+                "poll": "Thàinig an cunntas-bheachd agad gu crìoch",
                 "mention": "mentioned you",
                 "follow_request": "requested to follow you"
             },
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Seall a h-uile càil",
+                "show_mentions": "Seall na h-iomraidhean"
             }
         },
         "thread": {
             "back_title": "Post",
-            "title": "Post from %s"
+            "title": "Post o %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Roghainnean",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Coltas",
+                    "automatic": "Fèin-obrachail",
+                    "light": "Soilleir an-còmhnaidh",
+                    "dark": "Dorcha an-còmhnaidh"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "Brathan",
                     "favorites": "Favorites my post",
                     "follows": "Follows me",
                     "boosts": "Reblogs my post",
@@ -515,46 +515,46 @@
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "title": "Roghainnean",
+                    "true_black_dark_mode": "Modh dubh dorcha",
+                    "disable_avatar_animation": "Cuir beothachadh nan avataran à comas",
+                    "disable_emoji_animation": "Cuir beothachadh nan Emojis à comas",
+                    "using_default_browser": "Cleachd am brabhsair bunaiteach airson ceanglaichean fhosgladh"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "An earrann ràsanach",
+                    "account_settings": "Roghainnean a’ chunntais",
+                    "terms": "Teirmichean na seirbheise",
+                    "privacy": "Am poileasaidh prìobhaideachd"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Gnìomhan",
+                    "clear": "Falamhaich tasgadan nam meadhanan",
+                    "signout": "Clàraich a-mach"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "’S e bathar-bog le bun-tùs fosgailte a th’ ann am Mastodon. ’S urrainn dhut aithris a dhèanamh air duilgheadasan air GitHub fo %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Dùin uinneag nan roghainnean"
             }
         },
         "report": {
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "title": "Dèan gearan mu %s",
+            "step1": "Ceum 1 à 2",
+            "step2": "Ceum 2 à 2",
+            "content1": "A bheil post sam bith eile ann a bu mhiann leat cur ris a’ ghearan?",
+            "content2": "A bheil rud sam bith ann a bu mhiann leat innse dha na maoir mun ghearan seo?",
+            "send": "Cuir an gearan",
+            "skip_to_send": "Cuir gun bheachd ris",
+            "text_placeholder": "Sgrìobh no cuir ann beachdan a bharrachd"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Dùin an ro-shealladh",
+                "show_next": "Air adhart",
+                "show_previous": "Air ais"
             }
         }
     }
