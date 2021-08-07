@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>phost</string>
         <key>two</key>
-        <string>posts</string>
+        <string>phost</string>
         <key>few</key>
-        <string>posts</string>
+        <string>postaichean</string>
         <key>other</key>
-        <string>posts</string>
+        <string>post</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld annsachd</string>
         <key>two</key>
-        <string>%ld favorites</string>
+        <string>%ld annsachd</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld annsachdan</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld annsachd</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -53,13 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>%ld bhrosnachadh</string>
         <key>two</key>
-        <string>%ld reblogs</string>
+        <string>%ld bhrosnachadh</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld brosnachaidhean</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld brosnachadh</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld bhòt</string>
         <key>two</key>
-        <string>%ld votes</string>
+        <string>%ld bhòt</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld bhòtaichean</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld bhòt</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -93,13 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>%ld neach-bhòtaidh</string>
         <key>two</key>
-        <string>%ld voters</string>
+        <string>%ld luchd-bhòtaidh</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld luchd-bhòtaidh</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld luchd-bhòtaidh</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>%ld a’ bruidhinn</string>
         <key>two</key>
-        <string>%ld people talking</string>
+        <string>%ld a’ bruidhinn</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld a’ bruidhinn</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld a’ bruidhinn</string>
       </dict>
     </dict>
   </dict>
