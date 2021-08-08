@@ -189,9 +189,9 @@
                     "user_suspended_warning": "Chaidh an cunntas aig %s a chur à rèim."
                 },
                 "accessibility": {
-                    "count_replies": "%s replies",
-                    "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favorites"
+                    "count_replies": "Fhreagair %s dha",
+                    "count_reblogs": "Tha %s ’ga bhrosnachadh",
+                    "count_favorites": "Chuir %s ris na h-annsachdan e"
                 }
             }
         }
@@ -402,9 +402,9 @@
                 "following": "a’ leantainn",
                 "followers": "luchd-leantainn",
                 "accessibility": {
-                    "count_posts": "%ld posts",
-                    "count_following": "%ld following",
-                    "count_followers": "%ld followers"
+                    "count_posts": "Postaichean: %ld",
+                    "count_following": "A’ leantainn air %ld",
+                    "count_followers": "Luchd-leantainn: %ld"
                 }
             },
             "fields": {
