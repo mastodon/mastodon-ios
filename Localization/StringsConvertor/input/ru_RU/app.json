@@ -105,31 +105,31 @@
                     "open_settings": "Открыть настройки"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Прошлый пост",
+                    "next_status": "Следующий пост",
+                    "open_status": "Открыть пост",
+                    "open_author_profile": "Открыть профиль автора",
+                    "open_reblogger_profile": "Открыть профиль продвинувшего",
+                    "reply_status": "Ответить на пост",
+                    "toggle_reblog": "Продвинуть или убрать продвижение",
+                    "toggle_favorite": "Добавить или убрать из избранного",
+                    "toggle_content_warning": "Раскрыть или спрятать содержимое",
+                    "preview_image": "Предпросмотр изображения"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Предыдущий раздел",
+                    "next_section": "Следующий раздел"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "user_reblogged": "%s продвинул(а)",
+                "user_replied_to": "Ответил(а) %s",
+                "show_post": "Показать пост",
+                "show_user_profile": "Показать профиль пользователя",
+                "content_warning": "Предупреждение о содержании",
+                "media_content_warning": "Нажмите в любом месте, чтобы показать",
                 "poll": {
-                    "vote": "Vote",
+                    "vote": "Проголосовать",
                     "time_left": "%s left",
                     "closed": "Closed"
                 },
@@ -303,13 +303,13 @@
             "title": "И ещё кое-что.",
             "subtitle": "Мы только что отправили письмо на\n%s.\nНажмите на ссылку в нём, чтобы\nподтвердить свою учётную запись.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Открыть приложение почты",
+                "dont_receive_email": "Я не получил письма"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Проверьте свой e-mail адрес",
+                "description": "Проверьте, правильно ли указан ваш e-mail адрес, а также папку «спам», если ещё не сделали этого.",
+                "resend_email": "Отправить ещё раз"
             },
             "open_email_app": {
                 "title": "Проверьте вашу почту.",
