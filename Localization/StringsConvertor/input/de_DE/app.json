@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "Zwischenspeicher leeren",
-                "message": "Successfully cleaned %s cache."
+                "message": "%s erfolgreich aus dem Cache gelöscht."
             }
         },
         "controls": {
@@ -109,7 +109,7 @@
                     "next_status": "Nächster Beitrag",
                     "open_status": "Beitrag öffnen",
                     "open_author_profile": "Profil des Verfassers ansehen",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "open_reblogger_profile": "Profil des teilenden Nutzers öffnen",
                     "reply_status": "Auf Beitrag antworten",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
@@ -122,8 +122,8 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
+                "user_reblogged": "%s teilte",
+                "user_replied_to": "Antwortet auf %s",
                 "show_post": "Beitrag anzeigen",
                 "show_user_profile": "Benutzerprofil anzeigen",
                 "content_warning": "Inhaltswarnung",
@@ -135,8 +135,8 @@
                 },
                 "actions": {
                     "reply": "Antworten",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
+                    "reblog": "Teilen",
+                    "unreblog": "Nicht mehr teilen",
                     "favorite": "Favorit",
                     "unfavorite": "Aus Favoriten entfernen",
                     "menu": "Menü"
@@ -189,9 +189,9 @@
                     "user_suspended_warning": "%s’s account has been suspended."
                 },
                 "accessibility": {
-                    "count_replies": "%s replies",
-                    "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favorites"
+                    "count_replies": "%s Antworten",
+                    "count_reblogs": "%s Teilungen",
+                    "count_favorites": "%s Favoriten"
                 }
             }
         }
@@ -201,7 +201,7 @@
             "slogan": "Soziale Netzwerke wieder in deinen Händen."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Wähle einen Server,\nbeliebigen Server.",
             "button": {
                 "category": {
                     "all": "Alle",
@@ -232,7 +232,7 @@
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "Da ist etwas schief gelaufen. Bitte versuchen Sie es erneut oder überprüfen Sie Ihre Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             }
         },
@@ -270,20 +270,20 @@
                     "reason": "Begründung"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s verwendet einen nicht erlaubten E-Mail-Anbieter",
+                    "unreachable": "%s scheint nicht zu existieren",
+                    "taken": "%s wird bereits verwendet",
+                    "reserved": "%s ist ein reserviertes Schlüsselwort",
+                    "accepted": "%s muss akzeptiert werden",
+                    "blank": "%s ist erforderlich",
+                    "invalid": "%s ist ungültig",
+                    "too_long": "%s ist zu lang",
+                    "too_short": "%s ist zu kurz",
+                    "inclusion": "%s ist kein unterstützter Wert"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_invalid": "Benutzername kann nur alphanumerische Zeichen und Unterstriche enthalten",
+                    "username_too_long": "Benutzername ist zu lang (darf nicht länger als 30 Zeichen sein)",
                     "email_invalid": "This is not a valid email address",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
                 }
