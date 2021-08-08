@@ -130,23 +130,23 @@
                 "media_content_warning": "Нажмите в любом месте, чтобы показать",
                 "poll": {
                     "vote": "Проголосовать",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "time_left": "Осталось: %s",
+                    "closed": "Завершён"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "reply": "Ответить",
+                    "reblog": "Продвинуть",
+                    "unreblog": "Убрать продвижение",
+                    "favorite": "Добавить в избранное",
+                    "unfavorite": "Убрать из избранного",
+                    "menu": "Меню"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
+                    "url": "Ссылка",
+                    "mention": "Упоминание",
+                    "link": "Ссылка",
+                    "hashtag": "Хэштег",
+                    "email": "E-mail",
                     "emoji": "Эмодзи"
                 }
             },
@@ -341,31 +341,31 @@
             },
             "media_selection": {
                 "camera": "Сделать фото",
-                "photo_library": "Photo Library",
+                "photo_library": "Медиатека",
                 "browse": "Выбрать"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "Напишите то, о чём думаете",
             "compose_action": "Опубликовать",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "ответ %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "photo": "изображение",
+                "video": "видео",
+                "attachment_broken": "Это %s повреждено и не может\nбыть отправлено в Mastodon.",
+                "description_photo": "Опишите фото для людей с нарушениями зрения...",
+                "description_video": "Опишите видео для людей с нарушениями зрения..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Продолжительность: %s",
+                "thirty_minutes": "30 минут",
+                "one_hour": "1 час",
+                "six_hours": "6 часов",
+                "one_day": "1 день",
+                "three_days": "3 дня",
+                "seven_days": "7 дней",
+                "option_number": "Вариант %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Напишите предупреждение здесь..."
             },
             "visibility": {
                 "public": "Public",
@@ -454,29 +454,29 @@
                     "all": "All",
                     "people": "People",
                     "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "posts": "Посты"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Нет результатов"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Последние запросы",
+                "clear": "Очистить"
             }
         },
         "hashtag": {
             "prompt": "%s people talking"
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Ваше избранное"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Все",
+                "Mentions": "Упоминания"
             },
             "action": {
-                "follow": "followed you",
-                "favourite": "favorited your post",
+                "follow": "подписался (-ась) на вас",
+                "favourite": "добавил(а) ваш пост в избранное",
                 "reblog": "reblogged your post",
                 "poll": "Your poll has ended",
                 "mention": "mentioned you",
