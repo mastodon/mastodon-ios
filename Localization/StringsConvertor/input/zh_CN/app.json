@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "投票失败",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "投票已结束"
             },
             "discard_post_content": {
                 "title": "丢弃草案",
@@ -165,7 +165,7 @@
                 "unmute": "取消静音",
                 "unmute_user": "取消静音 %s",
                 "muted": "已静音",
-                "edit_info": "编辑资料"
+                "edit_info": "编辑"
             },
             "timeline": {
                 "filtered": "已过滤",
