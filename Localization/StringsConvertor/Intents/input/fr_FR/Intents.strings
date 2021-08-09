@@ -1,51 +1,51 @@
-"16wxgf" = "Publier sur Mastodon";
+"16wxgf" = "Post on Mastodon";
 
-"751xkl" = "Contenu textuel";
+"751xkl" = "Text Content";
 
-"CsR7G2" = "Publication";
+"CsR7G2" = "Post";
 
-"HZSGTr" = "Quel contenu publier?";
+"HZSGTr" = "What content to post?";
 
-"HdGikU" = "L'envoi a échoué";
+"HdGikU" = "Posting failed";
 
-"KDNTJ4" = "Raison de l'échec";
+"KDNTJ4" = "Failure Reason";
 
-"RHxKOw" = "Envoyer un message avec du contenu textuel";
+"RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Publication";
+"RxSqsb" = "Post";
 
-"WCIR3D" = "Publier ${content} sur Mastodon";
+"WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Publication";
+"ZKJSNu" = "Post";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibilité";
+"ZbSjzC" = "Visibility";
 
-"Zo4jgJ" = "Visibilité de la publication";
+"Zo4jgJ" = "Post Visibility";
 
-"apSxMG-dYQ5NN" = "Il y a ${count} options correspondant à « Public ».";
+"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
-"apSxMG-ehFLjY" = "Il y a ${count} options correspondant à « Abonnés uniquement ».";
+"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
 "ayoYEb-dYQ5NN" = "${content}, Public";
 
-"ayoYEb-ehFLjY" = "${content}, abonnés seulement";
+"ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Publication";
+"dUyuGg" = "Post";
 
 "dYQ5NN" = "Public";
 
-"ehFLjY" = "Abonnés seulement";
+"ehFLjY" = "Followers Only";
 
-"gfePDu" = "L'envoi a échoué. ${failureReason}";
+"gfePDu" = "Posting failed. ${failureReason}";
 
-"k7dbKQ" = "Léa publication a été envoyée avec succès.";
+"k7dbKQ" = "Post was sent successfully.";
 
-"oGiqmY-dYQ5NN" = "Juste pour confirmer, vous vouliez bien diffuser en « Public » ?";
+"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
-"oGiqmY-ehFLjY" = "Juste pour confirmer, vous vouliez bien diffuser en « abonnés uniquement » ?";
+"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "La publication a été envoyée avec succès. ";
+"ryJLwG" = "Post was sent successfully. ";
