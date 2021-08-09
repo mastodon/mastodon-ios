@@ -5,7 +5,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Tha d’ ion-chur %#@character_count@ ro fhada</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld charactar</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>%ld charactar</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld caractaran</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caractar</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Tha %#@character_count@ air fhàgail dhut</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld charactar</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>%ld charactar</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld caractaran</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caractar</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>%ld phost</string>
         <key>two</key>
-        <string>%ld posts</string>
+        <string>%ld phost</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld postaichean</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld post</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -193,13 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>A’ leantainn %ld</string>
         <key>two</key>
-        <string>%ld following</string>
+        <string>A’ leantainn %ld</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>A’ leantainn %ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>A’ leantainn %ld</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -213,13 +213,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>Tha %ld a’ leantainn air</string>
         <key>two</key>
-        <string>%ld followers</string>
+        <string>Tha %ld a’ leantainn air</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>Tha %ld a’ leantainn air</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>Tha %ld a’ leantainn air</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -233,13 +233,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>%ld bhliadhna air fhàgail</string>
         <key>two</key>
-        <string>%ld years left</string>
+        <string>%ld bhliadhna air fhàgail</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>%ld bliadhnaichean air fhàgail</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld bliadhna air fhàgail</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -253,13 +253,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>%ld mhìos air fhàgail</string>
         <key>two</key>
-        <string>%ld months left</string>
+        <string>%ld mhìos air fhàgail</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>%ld mìosan air fhàgail</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld mìos air fhàgail</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -273,13 +273,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>%ld latha air fhàgail</string>
         <key>two</key>
-        <string>%ld days left</string>
+        <string>%ld latha air fhàgail</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>%ld làithean air fhàgail</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld latha air fhàgail</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -293,13 +293,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>%ld uair a thìde air fhàgail</string>
         <key>two</key>
-        <string>%ld hours left</string>
+        <string>%ld uair a thìde air fhàgail</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>%ld uairean a thìde air fhàgail</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld uair a thìde air fhàgail</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -313,13 +313,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>%ld mhionaid air fhàgail</string>
         <key>two</key>
-        <string>%ld minutes left</string>
+        <string>%ld mhionaid air fhàgail</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>%ld mionaidean air fhàgail</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld mionaid air fhàgail</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -333,13 +333,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>%ld diog air fhàgail</string>
         <key>two</key>
-        <string>%ld seconds left</string>
+        <string>%ld dhiog air fhàgail</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>%ld diogan air fhàgail</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld diog air fhàgail</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -353,13 +353,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>%ld bhl. air ais</string>
         <key>two</key>
-        <string>%ldy ago</string>
+        <string>%ld bhl. air ais</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>%ld bl. air ais</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld bl. air ais</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -373,13 +373,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>%ld mhì. air ais</string>
         <key>two</key>
-        <string>%ldM ago</string>
+        <string>%ld mhì. air ais</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>%ld mì. air ais</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld mì. air ais</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -393,13 +393,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>%ld là air ais</string>
         <key>two</key>
-        <string>%ldd ago</string>
+        <string>%ld là air ais</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>%ld là. air ais</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld là air ais</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -413,13 +413,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>%ldu air ais</string>
         <key>two</key>
-        <string>%ldh ago</string>
+        <string>%ldu air ais</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>%ldu air ais</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldu air ais</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -433,13 +433,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>%ldm air ais</string>
         <key>two</key>
-        <string>%ldm ago</string>
+        <string>%ldm air ais</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>%ldm air ais</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ldm air ais</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -453,13 +453,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>%ldd air ais</string>
         <key>two</key>
-        <string>%lds ago</string>
+        <string>%ldd air ais</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>%ldd air ais</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ldd air ais</string>
       </dict>
     </dict>
   </dict>
