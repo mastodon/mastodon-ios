@@ -1,51 +1,51 @@
 "16wxgf" = "Post on Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Susbaint teacsa";
 
 "CsR7G2" = "Post";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Dh’fhàillig leis a’ phostadh";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Adhbhar an fhàilligidh";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Cuir post le susbaint teacsa";
 
 "RxSqsb" = "Post";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Postaich ${content} air Mastodon";
 
 "ZKJSNu" = "Post";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Faicsinneachd";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Faicsinneachd a’ phuist";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, poblach";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, luchd-leantainn a-mhàin";
 
 "dUyuGg" = "Post";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Poblach";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Luchd-leantainn a-mhàin";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Fhàillig leis a’ phostadh. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Chaidh am post a chur.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "A bheil “Poblach” fainear dhut le cinnt?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "A bheil “Luchd-leantainn a-mhàin” fainear dhut le cinnt?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Chaidh am post a chur. ";
