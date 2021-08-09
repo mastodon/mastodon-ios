@@ -277,7 +277,7 @@
                 "special": {
                     "username_invalid": "Benutzername kann nur alphanumerische Zeichen und Unterstriche enthalten",
                     "username_too_long": "Benutzername ist zu lang (darf nicht länger als 30 Zeichen sein)",
-                    "email_invalid": "Dies ist keine gültige E-Mail Adresse",
+                    "email_invalid": "Dies ist keine gültige E-Mail-Adresse",
                     "password_too_short": "Passwort ist zu kurz (mindestens 8 Zeichen erforderlich)"
                 }
             }
@@ -294,7 +294,7 @@
         },
         "confirm_email": {
             "title": "Noch eine letzte Sache.",
-            "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe auf den Link, um Dein Konto zu bestätigen.",
+            "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe darin auf den Link, um Dein Konto zu bestätigen.",
             "button": {
                 "open_email_app": "E-Mail-App öffnen",
                 "dont_receive_email": "Ich habe keine E-Mail erhalten."
@@ -321,8 +321,8 @@
             }
         },
         "suggestion_account": {
-            "title": "Entdecke Benutzer zum Folgen",
-            "follow_explain": "Wenn du jemandem folgst, siehst du deren Beiträge dann in deinem Home-Feed."
+            "title": "Finde Personen zum Folgen",
+            "follow_explain": "Wenn du jemandem folgst, dann siehst du deren Beiträge in deinem Home-Feed."
         },
         "compose": {
             "title": {
