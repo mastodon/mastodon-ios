@@ -5,7 +5,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>El límit d’entrada supera a %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 caràcter</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caràcters</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>El límit d’entrada continua sent %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 caràcter</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caràcters</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 publicació</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld publicacions</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 seguit</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld seguits</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 seguidor</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld seguidors</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 any restant</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld anys restants</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 mes restant</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld mesos restants</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>1 dia restant</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld dies restants</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>1 hora restant</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld hores restants</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 minut restant</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld minuts restants</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 segon restant</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld segons restants</string>
       </dict>
     </dict>
   </dict>
