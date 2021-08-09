@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>hace 1 año</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>hace %ld años</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>hace 1 mes</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>hace %ld meses</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>hace 1 día</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>hace %ld días</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>hace 1 hora</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>hace %ld horas</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>hace 1 minuto</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>hace %ld minutos</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>hace 1 segundo</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>hace %ld segundos</string>
       </dict>
     </dict>
   </dict>
