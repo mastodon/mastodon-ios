@@ -324,9 +324,6 @@
             "title": "Find People to Follow",
             "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
         },
-        "public_timeline": {
-            "title": "Public"
-        },
         "compose": {
             "title": {
                 "new_post": "New Post",
