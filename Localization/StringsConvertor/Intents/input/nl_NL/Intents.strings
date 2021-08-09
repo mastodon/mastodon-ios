@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Berichten op Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Berichtsinhoud";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "Plaatsen";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Welke inhoud om bericht te plaatsen?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Bericht plaatsen mislukt";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Reden van de Fout";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Bericht verzenden met tekstinhoud";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Bericht";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Plaats ${content} op Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Plaatsen";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Zichbaarheid";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Berichtszichtbaarheid";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Er zijn ${count} opties die overeenkomen met ‘Openbaar’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Er zijn ${count} opties die overeenkomen met ‘Alleen Volgers’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Openbaar";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Alleen Volgers";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "Plaatsen";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Openbaar";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Alleen Volgers";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Plaatsen mislukt. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Het bericht is succesvol verzonden.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Wilde u ‘Openbaar’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Wilde u ‘Alleen Volgers’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Het bericht is succesvol verzonden. ";
