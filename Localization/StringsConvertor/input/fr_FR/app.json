@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Le vote n’a pas pu être enregistré",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Le sondage est terminé"
             },
             "discard_post_content": {
                 "title": "Abandonner le brouillon",
@@ -323,9 +323,6 @@
         "suggestion_account": {
             "title": "Trouver des personnes à suivre",
             "follow_explain": "Quand vous suivez quelqu'un, vous verrez leurs messages dans votre flux d’accueil."
-        },
-        "public_timeline": {
-            "title": "Public"
         },
         "compose": {
             "title": {
