@@ -22,7 +22,7 @@
 "Common.Alerts.SignOut.Message" = "您确定要退出吗？";
 "Common.Alerts.SignOut.Title" = "退出";
 "Common.Alerts.SignUpFailure.Title" = "注册失败";
-"Common.Alerts.VoteFailure.PollExpired" = "此投票已过期";
+"Common.Alerts.VoteFailure.PollEnded" = "投票已结束";
 "Common.Alerts.VoteFailure.Title" = "投票失败";
 "Common.Controls.Actions.Add" = "添加";
 "Common.Controls.Actions.Back" = "返回";
@@ -63,7 +63,7 @@
 "Common.Controls.Friendship.BlockDomain" = "屏蔽 %@";
 "Common.Controls.Friendship.BlockUser" = "屏蔽 %@";
 "Common.Controls.Friendship.Blocked" = "已屏蔽";
-"Common.Controls.Friendship.EditInfo" = "编辑资料";
+"Common.Controls.Friendship.EditInfo" = "编辑";
 "Common.Controls.Friendship.Follow" = "关注";
 "Common.Controls.Friendship.Following" = "正在关注";
 "Common.Controls.Friendship.Mute" = "静音";
@@ -100,7 +100,6 @@
 "Common.Controls.Status.ContentWarning" = "内容警告";
 "Common.Controls.Status.MediaContentWarning" = "点击任意位置显示";
 "Common.Controls.Status.Poll.Closed" = "已关闭";
-"Common.Controls.Status.Poll.TimeLeft" = "剩余 %@";
 "Common.Controls.Status.Poll.Vote" = "投票";
 "Common.Controls.Status.ShowPost" = "显示帖子";
 "Common.Controls.Status.ShowUserProfile" = "查看用户个人资料";
@@ -116,9 +115,6 @@
 "Common.Controls.Tabs.Notification" = "通知";
 "Common.Controls.Tabs.Profile" = "个人资料";
 "Common.Controls.Tabs.Search" = "搜索";
-"Common.Controls.Timeline.Accessibility.CountFavorites" = "%@ 个喜欢";
-"Common.Controls.Timeline.Accessibility.CountReblogs" = "%@ 条转发";
-"Common.Controls.Timeline.Accessibility.CountReplies" = "%@ 条回复";
 "Common.Controls.Timeline.Filtered" = "已过滤";
 "Common.Controls.Timeline.Header.BlockedWarning" = "您不能查看此用户的个人资料
 直到他们解除屏蔽。";
@@ -137,14 +133,11 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "正在加载帖子...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "显示更多回复";
 "Common.Controls.Timeline.Timestamp.Now" = "现在";
-"Common.Controls.Timeline.Timestamp.TimeAgo" = "%@";
 "Scene.Compose.Accessibility.AppendAttachment" = "添加附件";
 "Scene.Compose.Accessibility.AppendPoll" = "添加投票";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自定义表情选择器";
 "Scene.Compose.Accessibility.DisableContentWarning" = "关闭内容警告";
 "Scene.Compose.Accessibility.EnableContentWarning" = "启用内容警告";
-"Scene.Compose.Accessibility.InputLimitExceedsCount" = "输入字符限制超出 %ld";
-"Scene.Compose.Accessibility.InputLimitRemainsCount" = "输入字符限制剩余 %ld";
 "Scene.Compose.Accessibility.PostVisibilityMenu" = "帖子可见性";
 "Scene.Compose.Accessibility.RemovePoll" = "移除投票";
 "Scene.Compose.Attachment.AttachmentBroken" = "%@已损坏
@@ -194,7 +187,6 @@
 点击链接确认你的帐户。";
 "Scene.ConfirmEmail.Title" = "最后一件事。";
 "Scene.Favorite.Title" = "你的喜欢";
-"Scene.Hashtag.Prompt" = "%@ 人正在讨论";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "查看新帖子";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "离线";
 "Scene.HomeTimeline.NavigationBarState.Published" = "已发送";
@@ -213,9 +205,6 @@
 "Scene.Preview.Keyboard.ClosePreview" = "关闭预览";
 "Scene.Preview.Keyboard.ShowNext" = "显示下一个";
 "Scene.Preview.Keyboard.ShowPrevious" = "显示前一个";
-"Scene.Profile.Dashboard.Accessibility.CountFollowers" = "%ld 个关注者";
-"Scene.Profile.Dashboard.Accessibility.CountFollowing" = "%ld 正在关注";
-"Scene.Profile.Dashboard.Accessibility.CountPosts" = "%ld 个帖子";
 "Scene.Profile.Dashboard.Followers" = "关注者";
 "Scene.Profile.Dashboard.Following" = "正在关注";
 "Scene.Profile.Dashboard.Posts" = "帖子";
@@ -229,7 +218,6 @@
 "Scene.Profile.SegmentedControl.Media" = "媒体";
 "Scene.Profile.SegmentedControl.Posts" = "帖子";
 "Scene.Profile.SegmentedControl.Replies" = "回复";
-"Scene.PublicTimeline.Title" = "公开";
 "Scene.Register.Error.Item.Agreement" = "协议";
 "Scene.Register.Error.Item.Email" = "电子邮箱";
 "Scene.Register.Error.Item.Locale" = "地区";
