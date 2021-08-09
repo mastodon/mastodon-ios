@@ -324,9 +324,6 @@
             "title": "Lorg daoine a leanas tu",
             "follow_explain": "Nuair a leanas tu air cuideigin, chì thu na puist aca air inbhir na dachaigh agad."
         },
-        "public_timeline": {
-            "title": "Poblach"
-        },
         "compose": {
             "title": {
                 "new_post": "Post ùr",
