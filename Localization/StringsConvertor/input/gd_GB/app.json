@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Dh’fhàillig leis a’ bhòt",
-                "poll_expired": "Dh’fhalbh an ùine air a’ chunntas-bheachd"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Tilg air falbh an dreachd",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Thoir gnogag àite sam bith gus a nochdadh",
                 "poll": {
                     "vote": "Cuir bhòt",
-                    "time_left": "%s air fhàgail",
                     "closed": "Dùinte"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Criathraichte",
                 "timestamp": {
-                    "now": "An-dràsta",
-                    "time_ago": "%s air ais"
+                    "now": "An-dràsta"
                 },
                 "loader": {
                     "load_missing_posts": "Luchdaich postaichean a dhìth",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "Chan fhaic thu a’ phròifil aig %s\n mus dì-bhac iad thu.",
                     "suspended_warning": "Chaidh an cleachdaiche seo a chur à rèim.",
                     "user_suspended_warning": "Chaidh an cunntas aig %s a chur à rèim."
-                },
-                "accessibility": {
-                    "count_replies": "Fhreagair %s dha",
-                    "count_reblogs": "Tha %s ’ga bhrosnachadh",
-                    "count_favorites": "Chuir %s ris na h-annsachdan e"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Roghnaichear nan Emoji gnàthaichte",
                 "enable_content_warning": "Cuir rabhadh susbainte an comas",
                 "disable_content_warning": "Cuir rabhadh susbainte à comas",
-                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist",
-                "input_limit_remains_count": "Tha %ld a charactaran air fhàgail dhut",
-                "input_limit_exceeds_count": "Caractaran ion-chuir thar na crìche: %ld"
+                "post_visibility_menu": "Clàr-taice faicsinneachd a’ phuist"
             },
             "keyboard": {
                 "discard_post": "Tilg air falbh am post",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "postaichean",
                 "following": "a’ leantainn",
-                "followers": "luchd-leantainn",
-                "accessibility": {
-                    "count_posts": "Postaichean: %ld",
-                    "count_following": "A’ leantainn air %ld",
-                    "count_followers": "Luchd-leantainn: %ld"
-                }
+                "followers": "luchd-leantainn"
             },
             "fields": {
                 "add_row": "Cuir ràgh ris",
@@ -462,9 +448,6 @@
                 "recent_search": "Na lorg thu o chionn goirid",
                 "clear": "Falamhaich"
             }
-        },
-        "hashtag": {
-            "prompt": "%s a’ bruidhinn"
         },
         "favorite": {
             "title": "Na h-annsachdan agad"
