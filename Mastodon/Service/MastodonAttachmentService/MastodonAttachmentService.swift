@@ -41,6 +41,7 @@ final class MastodonAttachmentService {
         let stateMachine = GKStateMachine(states: [
             UploadState.Initial(service: self),
             UploadState.Uploading(service: self),
+            UploadState.Processing(service: self),
             UploadState.Fail(service: self),
             UploadState.Finish(service: self),
         ])

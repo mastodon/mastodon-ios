@@ -338,6 +338,9 @@ final class ComposeViewModel: NSObject {
                     if currentState is MastodonAttachmentService.UploadState.Finish {
                         continue
                     }
+                    if currentState is MastodonAttachmentService.UploadState.Processing {
+                        continue
+                    }
                     if currentState is MastodonAttachmentService.UploadState.Uploading {
                         break
                     }

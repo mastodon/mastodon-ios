@@ -47,7 +47,10 @@ extension MastodonAttachmentService.UploadState {
         var needsFallback = false
 
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-            return stateClass == Fail.self || stateClass == Finish.self || stateClass == Uploading.self
+            return stateClass == Fail.self
+                || stateClass == Finish.self
+                || stateClass == Uploading.self
+                || stateClass == Processing.self
         }
         
         override func didEnter(from previousState: GKState?) {
@@ -96,11 +99,70 @@ extension MastodonAttachmentService.UploadState {
             } receiveValue: { response in
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: upload attachment %s success: %s", ((#file as NSString).lastPathComponent), #line, #function, response.value.id, response.value.url ?? "<nil>")
                 service.attachment.value = response.value
+                if response.statusCode == 202 {
+                    // check if still processing
+                    stateMachine.enter(Processing.self)
+                } else {
+                    stateMachine.enter(Finish.self)
+                }
+            }
+            .store(in: &service.disposeBag)
+        }
+    }
+    
+    class Processing: MastodonAttachmentService.UploadState {
+        
+        static let retryLimit = 10
+        var retryCount = 0
+        
+        override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+            return stateClass == Fail.self || stateClass == Finish.self || stateClass == Processing.self
+        }
+        
+        override func didEnter(from previousState: GKState?) {
+            super.didEnter(from: previousState)
+            
+            guard let service = service, let stateMachine = stateMachine else { return }
+            guard let authenticationBox = service.authenticationBox else { return }
+            guard let attachment = service.attachment.value else { return }
+         
+            retryCount += 1
+            guard retryCount < Processing.retryLimit else {
+                stateMachine.enter(Fail.self)
+                return
+            }
+         
+            service.context.apiService.getMedia(
+                attachmentID: attachment.id,
+                mastodonAuthenticationBox: authenticationBox
+            )
+            .retry(3)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                guard let _ = self else { return }
+                switch completion {
+                case .failure(let error):
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: get attachment fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                    service.error.send(error)
+                    stateMachine.enter(Fail.self)
+                case .finished:
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: get attachment success", ((#file as NSString).lastPathComponent), #line, #function)
+                    break
+                }
+            } receiveValue: { [weak self] response in
+                guard let self = self else { return }
+                guard let _ = response.value.url else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: processing, retry in 2s", ((#file as NSString).lastPathComponent), #line, #function)
+                        self?.stateMachine?.enter(Processing.self)
+                    }
+                    return
+                }
+                
                 stateMachine.enter(Finish.self)
             }
             .store(in: &service.disposeBag)
         }
-
     }
     
     class Fail: MastodonAttachmentService.UploadState {
