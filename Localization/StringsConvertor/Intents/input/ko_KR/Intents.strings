@@ -2,13 +2,13 @@
 
 "751xkl" = "Text Content";
 
-"CsR7G2" = "게시물";
+"CsR7G2" = "Post";
 
 "HZSGTr" = "What content to post?";
 
 "HdGikU" = "Posting failed";
 
-"KDNTJ4" = "실패 사유";
+"KDNTJ4" = "Failure Reason";
 
 "RHxKOw" = "Send Post with text content";
 
@@ -32,7 +32,7 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "게시물";
+"dUyuGg" = "Post";
 
 "dYQ5NN" = "Public";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "메시지가 성공적으로 전송되었습니다. ";
+"ryJLwG" = "Post was sent successfully. ";
