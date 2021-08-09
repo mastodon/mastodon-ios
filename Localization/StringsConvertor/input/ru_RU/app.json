@@ -408,32 +408,32 @@
                 }
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Добавить строку",
                 "placeholder": {
                     "label": "Ярлык",
                     "content": "Содержимое"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "media": "Media"
+                "posts": "Посты",
+                "replies": "Ответы",
+                "media": "Медиа"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Убрать из игнорируемых",
+                    "message": "Убрать %s из игнорируемых?"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Разблокировать",
+                    "message": "Убрать %s из списка блокировки?"
                 }
             }
         },
         "search": {
-            "title": "Search",
+            "title": "Поиск",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Поиск хэштегов и пользователей",
                 "cancel": "Cancel"
             },
             "recommend": {
