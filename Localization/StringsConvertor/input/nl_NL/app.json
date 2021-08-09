@@ -324,9 +324,6 @@
             "title": "Zoek Mensen om te Volgen",
             "follow_explain": "Wanneer u iemand volgt, ziet u hun berichten op de startpagina."
         },
-        "public_timeline": {
-            "title": "Openbaar"
-        },
         "compose": {
             "title": {
                 "new_post": "Nieuw Bericht",
