@@ -5,7 +5,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>输入字符限制超出 %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld 个字符</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>输入字符限制剩余 %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld 个字符</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>帖子</string>
+        <string>个帖子</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld 个帖子</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -139,7 +139,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld 人正在关注</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -153,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld 个关注者</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>剩余 %ld 年</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -181,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>剩余 %ld 个月</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -195,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>剩余 %ld 天</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -209,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>剩余 %ld 小时</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -223,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>剩余 %ld 分钟</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>剩余 %ld 秒</string>
       </dict>
     </dict>
   </dict>
