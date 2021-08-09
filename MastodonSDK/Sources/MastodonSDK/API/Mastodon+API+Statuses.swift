@@ -77,14 +77,18 @@ extension Mastodon.API.Statuses {
     public static func publishStatus(
         session: URLSession,
         domain: String,
+        idempotencyKey: String?,
         query: PublishStatusQuery,
         authorization: Mastodon.API.OAuth.Authorization?
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error>  {
-        let request = Mastodon.API.post(
+        var request = Mastodon.API.post(
             url: publishNewStatusEndpointURL(domain: domain),
             query: query,
             authorization: authorization
         )
+        if let idempotencyKey = idempotencyKey {
+            request.setValue(idempotencyKey, forHTTPHeaderField: "Idempotency-Key")
+        }
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response in
                 let value = try Mastodon.API.decode(type: Mastodon.Entity.Status.self, from: data, response: response)

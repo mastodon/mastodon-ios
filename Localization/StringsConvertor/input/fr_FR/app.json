@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Le vote n’a pas pu être enregistré",
-                "poll_expired": "Le sondage a expiré"
+                "poll_ended": "Le sondage est terminé"
             },
             "discard_post_content": {
                 "title": "Abandonner le brouillon",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Tapotez n’importe où pour révéler la publication",
                 "poll": {
                     "vote": "Voter",
-                    "time_left": "%s restantes",
                     "closed": "Fermé"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Filtré",
                 "timestamp": {
-                    "now": "À l’instant",
-                    "time_ago": "il y a %s"
+                    "now": "À l’instant"
                 },
                 "loader": {
                     "load_missing_posts": "Charger les messages manquants",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "Vous ne pouvez pas voir le profil de %s\n tant qu'il ne vous aura pas débloqué.",
                     "suspended_warning": "Cet utilisateur a été suspendu.",
                     "user_suspended_warning": "Le compte de %s à été suspendu."
-                },
-                "accessibility": {
-                    "count_replies": "%s réponses",
-                    "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favoris"
                 }
             }
         }
@@ -331,9 +324,6 @@
             "title": "Trouver des personnes à suivre",
             "follow_explain": "Quand vous suivez quelqu'un, vous verrez leurs messages dans votre flux d’accueil."
         },
-        "public_timeline": {
-            "title": "Public"
-        },
         "compose": {
             "title": {
                 "new_post": "Nouvelle Publication",
@@ -383,9 +373,7 @@
                 "custom_emoji_picker": "Sélecteur d’émojis personnalisé",
                 "enable_content_warning": "Basculer l’avertissement de contenu",
                 "disable_content_warning": "Désactiver l'avertissement de contenu",
-                "post_visibility_menu": "Menu de Visibilité de la publication",
-                "input_limit_remains_count": "La limite d'entrée reste %ld",
-                "input_limit_exceeds_count": "La limite d'entrée dépasse %ld"
+                "post_visibility_menu": "Menu de Visibilité de la publication"
             },
             "keyboard": {
                 "discard_post": "Rejeter la publication",
@@ -400,12 +388,7 @@
             "dashboard": {
                 "posts": "publications",
                 "following": "abonnements",
-                "followers": "abonnés",
-                "accessibility": {
-                    "count_posts": "%ld publications",
-                    "count_following": "%ld abonnés",
-                    "count_followers": "%ld abonnés"
-                }
+                "followers": "abonnés"
             },
             "fields": {
                 "add_row": "Ajouter une rangée",
@@ -462,9 +445,6 @@
                 "recent_search": "Recherches récentes",
                 "clear": "Effacer"
             }
-        },
-        "hashtag": {
-            "prompt": "%s personnes parlent"
         },
         "favorite": {
             "title": "Vos favoris"

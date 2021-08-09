@@ -97,7 +97,7 @@ extension ThreadViewController {
                 self.titleView.update(title: "", subtitle: nil)
                 return
             }
-            let mastodonContent = MastodonContent(content: title, emojis: emojiMeta ?? [:])
+            let mastodonContent = MastodonContent(content: title, emojis: emojiMeta)
             do {
                 let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
                 self.titleView.update(titleMetaContent: metaContent, subtitle: nil)

@@ -79,13 +79,13 @@ extension NotificationSection {
                 let createAt = notification.createAt
                 let actionText = notification.notificationType.actionText
                 cell.actionLabel.text = actionText
-                cell.timestampLabel.text = createAt.timeAgoSinceNow
+                cell.timestampLabel.text = createAt.localizedTimeAgoSinceNow
                 AppContext.shared.timestampUpdatePublisher
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell] _ in
                         guard let cell = cell else { return }
                         cell.actionLabel.text = actionText
-                        cell.timestampLabel.text = createAt.timeAgoSinceNow
+                        cell.timestampLabel.text = createAt.localizedTimeAgoSinceNow
                     }
                     .store(in: &cell.disposeBag)
 

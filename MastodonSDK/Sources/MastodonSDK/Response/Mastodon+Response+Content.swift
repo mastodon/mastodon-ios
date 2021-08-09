@@ -14,6 +14,7 @@ extension Mastodon.Response {
         public let value: T
         
         // standard fields
+        public let statusCode: Int?        ///< HTTP Code
         public let date: Date?
         
         // application fields
@@ -27,6 +28,8 @@ extension Mastodon.Response {
         
         public init(value: T, response: URLResponse) {
             self.value = value
+            
+            self.statusCode = (response as? HTTPURLResponse)?.statusCode
             
             self.date = {
                 guard let string = (response as? HTTPURLResponse)?.value(forHTTPHeaderField: "date") else { return nil }
@@ -47,6 +50,7 @@ extension Mastodon.Response {
         
         init<O>(value: T, old: Mastodon.Response.Content<O>) {
             self.value = value
+            self.statusCode = old.statusCode
             self.date = old.date
             self.rateLimit = old.rateLimit
             self.link = old.link

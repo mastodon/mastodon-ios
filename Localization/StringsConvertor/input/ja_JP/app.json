@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "投票の失敗",
-                "poll_expired": "投票は終了しました"
+                "poll_ended": "投票は終了しました"
             },
             "discard_post_content": {
                 "title": "トゥートを破棄しますか？",
@@ -130,7 +130,6 @@
                 "media_content_warning": "どこかをタップして表示",
                 "poll": {
                     "vote": "投票",
-                    "time_left": "残り%s",
                     "closed": "クローズド"
                 },
                 "actions": {
@@ -166,13 +165,12 @@
                 "unmute": "ミュートを解除",
                 "unmute_user": "%sのミュートを解除",
                 "muted": "ミュート済み",
-                "edit_info": "Edit Info"
+                "edit_info": "編集"
             },
             "timeline": {
                 "filtered": "フィルター済み",
                 "timestamp": {
-                    "now": "今",
-                    "time_ago": "%s前"
+                    "now": "今"
                 },
                 "loader": {
                     "load_missing_posts": "不足しているトゥートを読み込む",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "%sがブロックを解除しない限りプロフィールをみることはできません。",
                     "suspended_warning": "このユーザーは停止されています。",
                     "user_suspended_warning": "%sのアカウントは停止されました。"
-                },
-                "accessibility": {
-                    "count_replies": "%s リプライ",
-                    "count_reblogs": "%s ブースト",
-                    "count_favorites": "%s いいね"
                 }
             }
         }
@@ -331,9 +324,6 @@
             "title": "フォローする人を探す",
             "follow_explain": "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。"
         },
-        "public_timeline": {
-            "title": "公開"
-        },
         "compose": {
             "title": {
                 "new_post": "新しいトゥート",
@@ -383,9 +373,7 @@
                 "custom_emoji_picker": "カスタム絵文字ピッカー",
                 "enable_content_warning": "コンテンツ警告を有効にする",
                 "disable_content_warning": "コンテンツ警告を無効にする",
-                "post_visibility_menu": "投稿の表示メニュー",
-                "input_limit_remains_count": "入力制限は残り %ld",
-                "input_limit_exceeds_count": "最大文字数を超えました。 %ld"
+                "post_visibility_menu": "投稿の表示メニュー"
             },
             "keyboard": {
                 "discard_post": "トゥートを破棄",
@@ -400,12 +388,7 @@
             "dashboard": {
                 "posts": "トゥート",
                 "following": "フォロー中",
-                "followers": "フォロワー",
-                "accessibility": {
-                    "count_posts": "%ld トゥート",
-                    "count_following": "%ld フォロー中",
-                    "count_followers": "%ld フォロワー"
-                }
+                "followers": "フォロワー"
             },
             "fields": {
                 "add_row": "行追加",
@@ -462,9 +445,6 @@
                 "recent_search": "最近の検索",
                 "clear": "クリア"
             }
-        },
-        "hashtag": {
-            "prompt": "%s人がこの話題について話しています"
         },
         "favorite": {
             "title": "あなたのいいね"

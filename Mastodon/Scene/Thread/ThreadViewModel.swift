@@ -88,7 +88,7 @@ class ThreadViewModel {
                         }
                         self.rootNode.value = RootNode(domain: status.domain, statusID: status.id, replyToID: status.inReplyToID)
                         self.navigationBarTitle.value = L10n.Scene.Thread.title(status.author.displayNameWithFallback)
-                        self.navigationBarTitleEmojiMeta.value = status.author.emojiMeta ?? [:]
+                        self.navigationBarTitleEmojiMeta.value = status.author.emojiMeta
                     }
                 }
                 .store(in: &disposeBag)

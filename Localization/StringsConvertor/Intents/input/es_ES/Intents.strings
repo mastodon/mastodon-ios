@@ -1,51 +1,51 @@
-"16wxgf" = "Publicar en Mastodon";
+"16wxgf" = "Post on Mastodon";
 
-"751xkl" = "Contenido del Texto";
+"751xkl" = "Text Content";
 
-"CsR7G2" = "Publicación";
+"CsR7G2" = "Post";
 
-"HZSGTr" = "¿Qué contenido publicar?";
+"HZSGTr" = "What content to post?";
 
-"HdGikU" = "Publicación fallida";
+"HdGikU" = "Posting failed";
 
-"KDNTJ4" = "Motivo del fallo";
+"KDNTJ4" = "Failure Reason";
 
-"RHxKOw" = "Enviar publicación con contenido de texto";
+"RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Publicar";
+"RxSqsb" = "Post";
 
-"WCIR3D" = "Publicar ${content} en Mastodon";
+"WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Publicar";
+"ZKJSNu" = "Post";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibilidad";
+"ZbSjzC" = "Visibility";
 
-"Zo4jgJ" = "Visibilidad de la Publicación";
+"Zo4jgJ" = "Post Visibility";
 
-"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con «Público».";
+"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
-"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con «Solo seguidores».";
+"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Público";
+"ayoYEb-dYQ5NN" = "${content}, Public";
 
-"ayoYEb-ehFLjY" = "${content}, Solo Seguidores";
+"ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Publicar";
+"dUyuGg" = "Post";
 
-"dYQ5NN" = "Público";
+"dYQ5NN" = "Public";
 
-"ehFLjY" = "Solo Seguidores";
+"ehFLjY" = "Followers Only";
 
-"gfePDu" = "Error al publicar. ${failureReason}";
+"gfePDu" = "Posting failed. ${failureReason}";
 
-"k7dbKQ" = "La publicación se envió correctamente.";
+"k7dbKQ" = "Post was sent successfully.";
 
-"oGiqmY-dYQ5NN" = "Solo para confirmar, ¿querías «Público»?";
+"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
-"oGiqmY-ehFLjY" = "Solo para confirmar, ¿querías «Solo seguidores»?";
+"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "La publicación se envió con éxito. ";
+"ryJLwG" = "Post was sent successfully. ";

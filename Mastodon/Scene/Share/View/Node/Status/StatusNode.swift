@@ -101,7 +101,7 @@ final class StatusNode: ASCellNode {
             .font: UIFont.systemFont(ofSize: 13, weight: .regular)
         ])
         // set date
-        dateTextNode.attributedText = NSAttributedString(string: timestamp.slowedTimeAgoSinceNow, attributes: [
+        dateTextNode.attributedText = NSAttributedString(string: timestamp.localizedSlowedTimeAgoSinceNow, attributes: [
             .foregroundColor: Asset.Colors.Label.secondary.color,
             .font: UIFont.systemFont(ofSize: 13, weight: .regular)
         ])
@@ -131,7 +131,7 @@ final class StatusNode: ASCellNode {
         timestampSubscription = AppContext.shared.timestampUpdatePublisher
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.dateTextNode.attributedText = NSAttributedString(string: self.timestamp.slowedTimeAgoSinceNow, attributes: [
+                self.dateTextNode.attributedText = NSAttributedString(string: self.timestamp.localizedSlowedTimeAgoSinceNow, attributes: [
                     .foregroundColor: Asset.Colors.Label.secondary.color,
                     .font: UIFont.systemFont(ofSize: 13, weight: .regular)
                 ])

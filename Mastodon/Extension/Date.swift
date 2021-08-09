@@ -10,20 +10,61 @@ import DateToolsSwift
 
 extension Date {
     
-    var slowedTimeAgoSinceNow: String {
-        return self.slowedTimeAgo(since: Date())
-        
+    static let relativeTimestampFormatter: RelativeDateTimeFormatter = {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.dateTimeStyle = .numeric
+        formatter.unitsStyle = .full
+        return formatter
+    }()
+    
+    var localizedSlowedTimeAgoSinceNow: String {
+        return self.localizedTimeAgo(since: Date(), isSlowed: true, isAbbreviated: true)
     }
     
-    func slowedTimeAgo(since date: Date) -> String {
+    var localizedTimeAgoSinceNow: String {
+        return self.localizedTimeAgo(since: Date(), isSlowed: false, isAbbreviated: false)
+    }
+    
+    func localizedTimeAgo(since date: Date, isSlowed: Bool, isAbbreviated: Bool) -> String {
         let earlierDate = date < self ? date : self
-        let latest = earlierDate == date ? self : date
+        let latestDate = earlierDate == date ? self : date
         
-        if earlierDate.timeIntervalSince(latest) >= -60 {
+        if isSlowed, earlierDate.timeIntervalSince(latestDate) >= -60 {
             return L10n.Common.Controls.Timeline.Timestamp.now
         } else {
-            let interval = latest.shortTimeAgo(since: earlierDate)              // 1s
-            return L10n.Common.Controls.Timeline.Timestamp.timeAgo(interval)    // 1s ago
+            if isAbbreviated {
+                return latestDate.shortTimeAgo(since: earlierDate)
+            } else {
+                return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
+            }
+        }
+    }
+    
+}
+
+extension Date {
+    
+    func localizedTimeLeft() -> String {
+        let date = Date()
+        let earlierDate = date < self ? date : self
+        let latestDate = earlierDate == date ? self : date
+        
+        let components = Calendar.current.dateComponents([.year, .month, .day, .minute, .second], from: earlierDate, to: latestDate)
+        
+        if components.year! > 0 {
+            return L10n.Date.Year.left(components.second!)
+        } else if components.month! > 0 {
+            return L10n.Date.Month.left(components.month!)
+        } else if components.day! > 0 {
+            return L10n.Date.Day.left(components.day!)
+        } else if components.hour! > 0 {
+            return L10n.Date.Hour.left(components.hour!)
+        } else if components.minute! > 0 {
+            return L10n.Date.Minute.left(components.minute!)
+        } else if components.second! > 0 {
+            return L10n.Date.Year.left(components.second!)
+        } else {
+            return ""
         }
     }
     

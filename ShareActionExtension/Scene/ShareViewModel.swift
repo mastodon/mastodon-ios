@@ -346,6 +346,7 @@ extension ShareViewModel {
                 )
                 return APIService.shared.publishStatus(
                     domain: domain,
+                    idempotencyKey: nil,    // FIXME:
                     query: query,
                     mastodonAuthenticationBox: mastodonAuthenticationBox
                 )

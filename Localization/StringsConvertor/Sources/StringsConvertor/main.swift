@@ -46,6 +46,7 @@ private func map(language: String) -> String? {
     case "ar_SA":   return "ar"         // Arabic (Saudi Arabia)
     case "ca_ES":   return "ca"         // Catalan
     case "zh_CN":   return "zh-Hans"    // Chinese Simplified
+    case "nl_NL":   return "nl"         // Dutch
     case "en_US":   return "en"
     case "fr_FR":   return "fr"         // French
     case "de_DE":   return "de"         // German

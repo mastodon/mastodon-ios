@@ -397,11 +397,11 @@ extension ComposeViewController {
                 case _ where count < 0:
                     self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
                     self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
-                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitExceedsCount(abs(count))
+                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
                 default:
                     self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
                     self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
-                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(count)
+                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
                 }
             }
             .store(in: &disposeBag)

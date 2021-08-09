@@ -58,6 +58,25 @@ extension APIService {
 }
 
 extension APIService {
+
+    func getMedia(
+        attachmentID: Mastodon.Entity.Attachment.ID,
+        mastodonAuthenticationBox: MastodonAuthenticationBox
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error> {
+        let authorization = mastodonAuthenticationBox.userAuthorization
+
+        return Mastodon.API.Media.getMedia(
+            session: session,
+            domain: mastodonAuthenticationBox.domain,
+            attachmentID: attachmentID,
+            authorization: authorization
+        )
+        .eraseToAnyPublisher()
+    }
+    
+}
+
+extension APIService {
     
     func updateMedia(
         domain: String,

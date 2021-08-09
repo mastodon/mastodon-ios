@@ -166,7 +166,7 @@ extension HashtagTimelineViewController {
                 .prefix(2)
                 .compactMap({ Int($0.accounts) })
                 .reduce(0, +)
-            subtitle = L10n.Scene.Hashtag.prompt("\(peopleTalkingNumber)")
+            subtitle = L10n.Plural.peopleTalking(peopleTalkingNumber)
         }
     }
 

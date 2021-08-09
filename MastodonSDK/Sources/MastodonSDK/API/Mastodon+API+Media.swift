@@ -114,6 +114,49 @@ extension Mastodon.API.Media {
 }
 
 extension Mastodon.API.Media {
+    static func getMediaEndpointURL(domain: String, attachmentID: Mastodon.Entity.Attachment.ID) -> URL {
+        Mastodon.API.endpointURL(domain: domain).appendingPathComponent("media").appendingPathComponent(attachmentID)
+    }
+    
+    /// Get media attachment
+    ///
+    /// Get an Attachment, before it is attached to a status and posted, but after it is accepted for processing.
+    ///
+    /// - Since: 0.0.0
+    /// - Version: 3.4.1
+    /// # Last Update
+    ///   2021/8/9
+    /// # Reference
+    ///   [Document](https://docs.joinmastodon.org/methods/statuses/media/)
+    /// - Parameters:
+    ///   - session: `URLSession`
+    ///   - domain: Mastodon instance domain. e.g. "example.com"
+    ///   - mediaID: The ID of attachment
+    ///   - authorization: User token
+    /// - Returns: `AnyPublisher` contains `Attachment` nested in the response
+    public static func getMedia(
+        session: URLSession,
+        domain: String,
+        attachmentID: Mastodon.Entity.Attachment.ID,
+        authorization: Mastodon.API.OAuth.Authorization?
+    ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Attachment>, Error>  {
+        var request = Mastodon.API.get(
+            url: getMediaEndpointURL(domain: domain, attachmentID: attachmentID),
+            query: nil,
+            authorization: authorization
+        )
+        request.timeoutInterval = 10    // short timeout for quick retry
+        return session.dataTaskPublisher(for: request)
+            .tryMap { data, response in
+                let value = try Mastodon.API.decode(type: Mastodon.Entity.Attachment.self, from: data, response: response)
+                return Mastodon.Response.Content(value: value, response: response)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+
+extension Mastodon.API.Media {
 
     static func updateMediaEndpointURL(domain: String, attachmentID: Mastodon.Entity.Attachment.ID) -> URL {
         return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("media").appendingPathComponent(attachmentID)
