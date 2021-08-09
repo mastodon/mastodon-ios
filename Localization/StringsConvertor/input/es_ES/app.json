@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Voto fallido",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "La encuesta ha terminado"
             },
             "discard_post_content": {
                 "title": "Descartar borrador",
@@ -323,9 +323,6 @@
         "suggestion_account": {
             "title": "Encuentra Gente a la que Seguir",
             "follow_explain": "Cuando sigas a alguien verás sus publicaciones en tu página de inicio."
-        },
-        "public_timeline": {
-            "title": "Pública"
         },
         "compose": {
             "title": {
