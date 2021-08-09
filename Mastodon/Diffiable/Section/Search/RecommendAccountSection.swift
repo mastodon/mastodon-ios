@@ -88,9 +88,7 @@ extension RecommendAccountSection {
             withURL: URL(string: user.header)!,
             placeholderImage: UIImage.placeholder(color: .systemFill),
             imageTransition: .crossDissolve(0.2)
-        ) { [weak cell] _ in
-            // guard let cell = cell else { return }
-        }
+        )
     }
     
     static func configureFollowButton(

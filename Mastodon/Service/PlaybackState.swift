@@ -35,9 +35,6 @@ extension PlaybackState: CustomStringConvertible {
         case .paused: return "paused"
         case .stopped: return "stopped"
         case .failed: return "failed"
-        default:
-            assertionFailure()
-            return "<nil>"
         }
     }
 }

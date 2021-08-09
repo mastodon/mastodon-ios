@@ -65,7 +65,7 @@ extension APIService.APIError: LocalizedError {
         case .badRequest:                   return "Request invalid."
         case .badResponse:                  return "Response invalid."
         case .requestThrottle:              return "Request too frequency."
-        case .voteExpiredPoll:              return L10n.Common.Alerts.VoteFailure.pollExpired
+        case .voteExpiredPoll:              return L10n.Common.Alerts.VoteFailure.pollEnded
         case .mastodonAPIError(let error):
             guard let responseError = error.mastodonError else {
                 return nil
