@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Error del Vot",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "L'enquesta ha finalitzat"
             },
             "discard_post_content": {
                 "title": "Descarta l'esborrany",
