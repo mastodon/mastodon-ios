@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "투표 실패",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "투표가 끝났습니다"
             },
             "discard_post_content": {
                 "title": "초안 버리기",
