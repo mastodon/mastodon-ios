@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Dh’fhàillig leis a’ bhòt",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Thàinig an cunntas-bheachd gu crìoch"
             },
             "discard_post_content": {
                 "title": "Tilg air falbh an dreachd",
@@ -455,12 +455,12 @@
                 "Mentions": "Iomraidhean"
             },
             "action": {
-                "follow": "followed you",
-                "favourite": "favorited your post",
-                "reblog": "reblogged your post",
+                "follow": "– ’s iad ’gad leantainn a-nis",
+                "favourite": "– ’s iad air am post agad a chur ris na h-annsachdan aca",
+                "reblog": "– ’s iad air am post agad a bhrosnachadh",
                 "poll": "Thàinig an cunntas-bheachd agad gu crìoch",
-                "mention": "mentioned you",
-                "follow_request": "requested to follow you"
+                "mention": "– ’s iad air iomradh a thoirt ort",
+                "follow_request": "– ’s iad air leantainn iarraidh ort"
             },
             "keyobard": {
                 "show_everything": "Seall a h-uile càil",
