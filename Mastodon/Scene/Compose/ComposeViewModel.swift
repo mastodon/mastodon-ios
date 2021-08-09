@@ -58,7 +58,10 @@ final class ComposeViewModel: NSObject {
     }()
     private(set) lazy var publishStateMachinePublisher = CurrentValueSubject<PublishState?, Never>(nil)
     private(set) var publishDate = Date()   // update it when enter Publishing state
-
+    
+    // TODO: group post material into Hashable class
+    var idempotencyKey = CurrentValueSubject<String, Never>(UUID().uuidString)
+    
     // UI & UX
     let title: CurrentValueSubject<String, Never>
     let shouldDismiss = CurrentValueSubject<Bool, Never>(true)
@@ -383,6 +386,56 @@ final class ComposeViewModel: NSObject {
             self.isPollToolbarButtonEnabled.value = !shouldPollDisable
         })
         .store(in: &disposeBag)
+        
+        // calculate `Idempotency-Key`
+        let content = Publishers.CombineLatest3(
+            composeStatusAttribute.isContentWarningComposing,
+            composeStatusAttribute.contentWarningContent,
+            composeStatusAttribute.composeContent
+        )
+        .map { isContentWarningComposing, contentWarningContent, composeContent -> String in
+            if isContentWarningComposing {
+                return contentWarningContent + (composeContent ?? "")
+            } else {
+                return composeContent ?? ""
+            }
+        }
+        let attachmentIDs = attachmentServices.map { attachments -> String in
+            let attachmentIDs = attachments.compactMap { $0.attachment.value?.id }
+            return attachmentIDs.joined(separator: ",")
+        }
+        let pollOptionsAndDuration = Publishers.CombineLatest3(
+            isPollComposing,
+            pollOptionAttributes,
+            pollExpiresOptionAttribute.expiresOption
+        )
+        .map { isPollComposing, pollOptionAttributes, expiresOption -> String in
+            guard isPollComposing else {
+                return ""
+            }
+            
+            let pollOptions = pollOptionAttributes.map { $0.option.value }.joined(separator: ",")
+            return pollOptions + expiresOption.rawValue
+        }
+        
+        Publishers.CombineLatest4(
+            content,
+            attachmentIDs,
+            pollOptionsAndDuration,
+            selectedStatusVisibility
+        )
+        .map { content, attachmentIDs, pollOptionsAndDuration, selectedStatusVisibility -> String in
+            var hasher = Hasher()
+            hasher.combine(content)
+            hasher.combine(attachmentIDs)
+            hasher.combine(pollOptionsAndDuration)
+            hasher.combine(selectedStatusVisibility.visibility.rawValue)
+            let hashValue = hasher.finalize()
+            return "\(hashValue)"
+        }
+        .assign(to: \.value, on: idempotencyKey)
+        .store(in: &disposeBag)
+        
     }
     
     deinit {

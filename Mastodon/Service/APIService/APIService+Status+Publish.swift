@@ -16,6 +16,7 @@ extension APIService {
 
     func publishStatus(
         domain: String,
+        idempotencyKey: String?,
         query: Mastodon.API.Statuses.PublishStatusQuery,
         mastodonAuthenticationBox: MastodonAuthenticationBox
     ) -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> {
@@ -24,6 +25,7 @@ extension APIService {
         return Mastodon.API.Statuses.publishStatus(
             session: session,
             domain: domain,
+            idempotencyKey: idempotencyKey,
             query: query,
             authorization: authorization
         )

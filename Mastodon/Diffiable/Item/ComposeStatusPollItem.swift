@@ -70,7 +70,7 @@ extension ComposeStatusPollItem {
             hasher.combine(id)
         }
 
-        enum ExpiresOption: Equatable, Hashable, CaseIterable {
+        enum ExpiresOption: String, Equatable, Hashable, CaseIterable {
             case thirtyMinutes
             case oneHour
             case sixHours
