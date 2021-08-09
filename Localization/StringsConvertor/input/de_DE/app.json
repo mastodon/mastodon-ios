@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Fehler bei Abstimmung",
-                "poll_expired": "Diese Umfrage ist abgelaufen"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Entwurf Verwerfen",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Tippe irgendwo zum Anzeigen",
                 "poll": {
                     "vote": "Abstimmen",
-                    "time_left": "%s verbleiben",
                     "closed": "Beendet"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Gefiltert",
                 "timestamp": {
-                    "now": "Gerade",
-                    "time_ago": "vor %s"
+                    "now": "Gerade"
                 },
                 "loader": {
                     "load_missing_posts": "Fehlende Beiträge laden",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "Du kannst das Profil von %s nicht sehen\n bis der Benutzer dich entsperrt.",
                     "suspended_warning": "Dieser Nutzer wurde gesperrt.",
                     "user_suspended_warning": "Das Konto von %s wurde gesperrt."
-                },
-                "accessibility": {
-                    "count_replies": "%s Antworten",
-                    "count_reblogs": "%s Teilungen",
-                    "count_favorites": "%s Favoriten"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Benutzerdefinierter Emojiwähler",
                 "enable_content_warning": "Inhaltswarnung einschalten",
                 "disable_content_warning": "Inhaltswarnung ausschalten",
-                "post_visibility_menu": "Sichtbarkeitsmenü",
-                "input_limit_remains_count": "Eingabelimit bleibt %ld",
-                "input_limit_exceeds_count": "Eingabelimit überschreitet %ld"
+                "post_visibility_menu": "Sichtbarkeitsmenü"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "Beiträge",
                 "following": "Gefolgte",
-                "followers": "Folger",
-                "accessibility": {
-                    "count_posts": "%ld Beiträge",
-                    "count_following": "%ld Gefolgte",
-                    "count_followers": "%ld Folger"
-                }
+                "followers": "Folger"
             },
             "fields": {
                 "add_row": "Zeile hinzufügen",
@@ -462,9 +448,6 @@
                 "recent_search": "Zuletzt gesucht",
                 "clear": "Zurücksetzen"
             }
-        },
-        "hashtag": {
-            "prompt": "%s Leute reden"
         },
         "favorite": {
             "title": "Deine Favoriten"
