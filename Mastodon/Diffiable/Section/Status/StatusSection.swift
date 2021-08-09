@@ -390,14 +390,14 @@ extension StatusSection {
         StatusSection.configureStatusViewAuthor(cell: cell, status: status)
         // set timestamp
         let createdAt = (status.reblog ?? status).createdAt
-        cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
+        cell.statusView.dateLabel.text = createdAt.localizedSlowedTimeAgoSinceNow
         cell.statusView.dateLabel.accessibilityValue = createdAt.timeAgoSinceNow
         AppContext.shared.timestampUpdatePublisher
             .receive(on: RunLoop.main)      // will be paused when scrolling (on purpose)
             .sink { [weak cell] _ in
                 guard let cell = cell else { return }
-                cell.statusView.dateLabel.text = createdAt.slowedTimeAgoSinceNow
-                cell.statusView.dateLabel.accessibilityLabel = createdAt.slowedTimeAgoSinceNow
+                cell.statusView.dateLabel.text = createdAt.localizedSlowedTimeAgoSinceNow
+                cell.statusView.dateLabel.accessibilityLabel = createdAt.localizedSlowedTimeAgoSinceNow
             }
             .store(in: &cell.disposeBag)
         // set content

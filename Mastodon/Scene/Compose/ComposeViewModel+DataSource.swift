@@ -212,7 +212,7 @@ extension ComposeViewModel: UITableViewDataSource {
                     assertionFailure()
                 }
                 // set date
-                cell.statusView.dateLabel.text = status.createdAt.slowedTimeAgoSinceNow
+                cell.statusView.dateLabel.text = status.createdAt.localizedSlowedTimeAgoSinceNow
             }
             return cell
         case .status:
