@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>fa 1a</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>fa %ldy anys</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>fa 1M</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>fa %ldM mesos</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>fa 1d</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>fa %ldd dies</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>fa 1h</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>fa %ldh hores</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>fa 1m</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>fa %ldm minuts</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>fa 1s</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>fa %lds seg</string>
       </dict>
     </dict>
   </dict>
