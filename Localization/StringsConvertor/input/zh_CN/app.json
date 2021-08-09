@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "投票失败",
-                "poll_expired": "此投票已过期"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "丢弃草案",
@@ -130,7 +130,6 @@
                 "media_content_warning": "点击任意位置显示",
                 "poll": {
                     "vote": "投票",
-                    "time_left": "剩余 %s",
                     "closed": "已关闭"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "已过滤",
                 "timestamp": {
-                    "now": "现在",
-                    "time_ago": "%s"
+                    "now": "现在"
                 },
                 "loader": {
                     "load_missing_posts": "加载帖子",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "您不能查看 %s 的个人资料\n直到他们解除屏蔽。",
                     "suspended_warning": "此用户已被封禁。",
                     "user_suspended_warning": "%s 已被封禁。"
-                },
-                "accessibility": {
-                    "count_replies": "%s 条回复",
-                    "count_reblogs": "%s 条转发",
-                    "count_favorites": "%s 个喜欢"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "自定义表情选择器",
                 "enable_content_warning": "启用内容警告",
                 "disable_content_warning": "关闭内容警告",
-                "post_visibility_menu": "帖子可见性",
-                "input_limit_remains_count": "输入字符限制剩余 %ld",
-                "input_limit_exceeds_count": "输入字符限制超出 %ld"
+                "post_visibility_menu": "帖子可见性"
             },
             "keyboard": {
                 "discard_post": "丢弃帖子",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "帖子",
                 "following": "正在关注",
-                "followers": "关注者",
-                "accessibility": {
-                    "count_posts": "%ld 个帖子",
-                    "count_following": "%ld 正在关注",
-                    "count_followers": "%ld 个关注者"
-                }
+                "followers": "关注者"
             },
             "fields": {
                 "add_row": "添加",
@@ -462,9 +448,6 @@
                 "recent_search": "最近搜索",
                 "clear": "清除"
             }
-        },
-        "hashtag": {
-            "prompt": "%s 人正在讨论"
         },
         "favorite": {
             "title": "你的喜欢"
