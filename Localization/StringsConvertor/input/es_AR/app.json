@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Error al votar",
-                "poll_expired": "La encuesta finalizó"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Descartar borrador",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Toca en cualquier lugar para mostrar",
                 "poll": {
                     "vote": "Votar",
-                    "time_left": "Quedan %s",
                     "closed": "Cerrada"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Filtrado",
                 "timestamp": {
-                    "now": "Ahora",
-                    "time_ago": "hace %s"
+                    "now": "Ahora"
                 },
                 "loader": {
                     "load_missing_posts": "Cargar mensajes faltantes",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "No podés ver el perfil de %s\n hasta que dicho usuario te desbloquee.",
                     "suspended_warning": "Este usuario está suspendido.",
                     "user_suspended_warning": "La cuenta de %s está suspendida."
-                },
-                "accessibility": {
-                    "count_replies": "%s respuestas",
-                    "count_reblogs": "%s adhesiones",
-                    "count_favorites": "%s veces marcado como favorito"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Selector de emoji personalizado",
                 "enable_content_warning": "Habilitar advertencia de contenido",
                 "disable_content_warning": "Deshabilitar advertencia de contenido",
-                "post_visibility_menu": "Menú de visibilidad del mensaje",
-                "input_limit_remains_count": "El límite de entrada permite %ld caracteres",
-                "input_limit_exceeds_count": "El límite de entrada excede %ld caracteres"
+                "post_visibility_menu": "Menú de visibilidad del mensaje"
             },
             "keyboard": {
                 "discard_post": "Descartar mensaje",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "mensajes",
                 "following": "siguiendo",
-                "followers": "seguidores",
-                "accessibility": {
-                    "count_posts": "%ld mensajes",
-                    "count_following": "siguiendo a %ld",
-                    "count_followers": "%ld seguidores"
-                }
+                "followers": "seguidores"
             },
             "fields": {
                 "add_row": "Agregar fila",
@@ -462,9 +448,6 @@
                 "recent_search": "Búsquedas recientes",
                 "clear": "Limpiar"
             }
-        },
-        "hashtag": {
-            "prompt": "%s cuentas hablando"
         },
         "favorite": {
             "title": "Tus favoritos"
