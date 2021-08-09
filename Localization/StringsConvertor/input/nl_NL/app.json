@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Stemmen Mislukt",
-                "poll_expired": "De peiling is verlopen"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Concept Verwijderen",
@@ -112,38 +112,37 @@
                     "open_reblogger_profile": "Open Reblogger's Profile",
                     "reply_status": "Reageren",
                     "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "toggle_favorite": "Favoriet Omschakelen bij Bericht",
+                    "toggle_content_warning": "Inhoudswaarschuwing Omschakelen",
+                    "preview_image": "Voorvertoning Afbeelding"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Vorige Sectie",
+                    "next_section": "Volgende Sectie"
                 }
             },
             "status": {
                 "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "user_replied_to": "Reactie op %s",
+                "show_post": "Toon Bericht",
+                "show_user_profile": "Toon Gebruikersprofiel",
+                "content_warning": "Inhoudswaarschuwing",
+                "media_content_warning": "Tap hier om te tonen",
                 "poll": {
-                    "vote": "Vote",
-                    "time_left": "%s left",
-                    "closed": "Closed"
+                    "vote": "Stemmen",
+                    "closed": "Gesloten"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "Reageren",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
+                    "favorite": "Toevoegen aan Favorieten",
+                    "unfavorite": "Verwijderen uit Favorieten",
                     "menu": "Menu"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
+                    "mention": "Vermelden",
                     "link": "Link",
                     "hashtag": "Hashtag",
                     "email": "Email",
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "Now",
-                    "time_ago": "%s ago"
+                    "now": "Now"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
                     "suspended_warning": "This user has been suspended.",
                     "user_suspended_warning": "%s’s account has been suspended."
-                },
-                "accessibility": {
-                    "count_replies": "%s replies",
-                    "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favorites"
                 }
             }
         }
@@ -225,89 +218,89 @@
             "label": {
                 "language": "LANGUAGE",
                 "users": "USERS",
-                "category": "CATEGORY"
+                "category": "CATEGORIE"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Zoek uw server of sluit u bij een nieuwe server aan..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Beschikbare servers zoeken...",
+                "bad_network": "Er is een fout opgetreden bij het laden van de gegevens. Controleer uw internetverbinding.",
+                "no_results": "Geen resultaten"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Vertel ons over uzelf.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Verwijderen"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "gebruikersnaam",
+                    "duplicate_prompt": "Deze gebruikersnaam is al in gebruik."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "weergavenaam"
                 },
                 "email": {
                     "placeholder": "email"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "wachtwoord",
+                    "hint": "Uw wachtwoord moet ten minste acht tekens bevatten"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Waarom wil u zich hier registreren?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
+                    "username": "Gebruikersnaam",
                     "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "password": "Wachtwoord",
+                    "agreement": "Overeenkomst",
+                    "locale": "Taal",
+                    "reason": "Reden"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s gebruikt een niet-toegestane emailprovider",
+                    "unreachable": "%s lijkt niet te bestaan",
+                    "taken": "%s is reeds in gebruik",
+                    "reserved": "%s is een gereserveerd woord",
+                    "accepted": "%s moet geaccepteerd worden",
+                    "blank": "%s is vereist",
+                    "invalid": "%s is ongeldig",
+                    "too_long": "%s is te lang",
+                    "too_short": "%s is te kort",
+                    "inclusion": "%s is een niet-ondersteunde waarde"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Een gebruikersnaam mag alleen alfanumerieke karakters en lage streepjes bevatten",
+                    "username_too_long": "De gebruikersnaam is te lang (het kan maximaal 30 karakters bevatten)",
+                    "email_invalid": "Dit is geen geldig emailadres",
+                    "password_too_short": "Het wachtwoord is te kort (het moet ten minste 8 tekens bevatten)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Enkele basisregels.",
+            "subtitle": "Deze regels zijn ingesteld door de beheerders van %s.",
+            "prompt": "Als u verder gaat dan gaat u akkoord met de servicevoorwaarden en privacybeleid van %s.",
+            "terms_of_service": "servicevoorwaarden",
+            "privacy_policy": "privacybeleid",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ik Ga Akkoord"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Nog één ding.",
+            "subtitle": "We hebben een e-mail gestuurd naar %s,\nklik op de link om uw account te bevestigen.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Email Openen",
+                "dont_receive_email": "Ik heb geen email ontvangen"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "Controleer uw emailadres",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
-                "input_limit_remains_count": "Input limit remains %ld",
-                "input_limit_exceeds_count": "Input limit exceeds %ld"
+                "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
                 "discard_post": "Discard Post",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "posts",
                 "following": "following",
-                "followers": "followers",
-                "accessibility": {
-                    "count_posts": "%ld posts",
-                    "count_following": "%ld following",
-                    "count_followers": "%ld followers"
-                }
+                "followers": "followers"
             },
             "fields": {
                 "add_row": "Add Row",
@@ -462,9 +448,6 @@
                 "recent_search": "Recent searches",
                 "clear": "Clear"
             }
-        },
-        "hashtag": {
-            "prompt": "%s people talking"
         },
         "favorite": {
             "title": "Your Favorites"
