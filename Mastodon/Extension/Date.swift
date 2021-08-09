@@ -18,22 +18,25 @@ extension Date {
     }()
     
     var localizedSlowedTimeAgoSinceNow: String {
-        return self.localizedTimeAgo(since: Date(), isSlowed: true)
-        
+        return self.localizedTimeAgo(since: Date(), isSlowed: true, isAbbreviated: true)
     }
     
     var localizedTimeAgoSinceNow: String {
-        return self.localizedTimeAgo(since: Date(), isSlowed: false)
+        return self.localizedTimeAgo(since: Date(), isSlowed: false, isAbbreviated: false)
     }
     
-    func localizedTimeAgo(since date: Date, isSlowed: Bool) -> String {
+    func localizedTimeAgo(since date: Date, isSlowed: Bool, isAbbreviated: Bool) -> String {
         let earlierDate = date < self ? date : self
         let latestDate = earlierDate == date ? self : date
         
         if isSlowed, earlierDate.timeIntervalSince(latestDate) >= -60 {
             return L10n.Common.Controls.Timeline.Timestamp.now
         } else {
-            return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
+            if isAbbreviated {
+                return latestDate.shortTimeAgo(since: earlierDate)
+            } else {
+                return Date.relativeTimestampFormatter.localizedString(for: earlierDate, relativeTo: latestDate)
+            }
         }
     }
     
