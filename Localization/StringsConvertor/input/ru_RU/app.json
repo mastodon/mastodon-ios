@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Не удалось проголосовать",
-                "poll_expired": "Этот опрос завершён"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Удалить черновик",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Нажмите в любом месте, чтобы показать",
                 "poll": {
                     "vote": "Проголосовать",
-                    "time_left": "Осталось: %s",
                     "closed": "Завершён"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Отфильтровано",
                 "timestamp": {
-                    "now": "Только что",
-                    "time_ago": "%s назад"
+                    "now": "Только что"
                 },
                 "loader": {
                     "load_missing_posts": "Загрузить недостающие посты",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "Вы не можете просматривать\nпрофиль %s\nпока он(а) не разблокирует вас.",
                     "suspended_warning": "Этот пользователь был заморожен.",
                     "user_suspended_warning": "Учётная запись %s заморожена."
-                },
-                "accessibility": {
-                    "count_replies": "%s ответов",
-                    "count_reblogs": "%s репостов",
-                    "count_favorites": "%s добавил(и) в избранное"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Меню пользовательских эмодзи",
                 "enable_content_warning": "Добавить предупреждение о содержании",
                 "disable_content_warning": "Убрать предупреждение о содержании",
-                "post_visibility_menu": "Меню видимости поста",
-                "input_limit_remains_count": "Символов осталось: %ld",
-                "input_limit_exceeds_count": "Превышающих лимит символов: %ld"
+                "post_visibility_menu": "Меню видимости поста"
             },
             "keyboard": {
                 "discard_post": "Удалить пост",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "посты",
                 "following": "подписки",
-                "followers": "подписчики",
-                "accessibility": {
-                    "count_posts": "%ld posts",
-                    "count_following": "%ld following",
-                    "count_followers": "%ld followers"
-                }
+                "followers": "подписчики"
             },
             "fields": {
                 "add_row": "Добавить строку",
@@ -462,9 +448,6 @@
                 "recent_search": "Последние запросы",
                 "clear": "Очистить"
             }
-        },
-        "hashtag": {
-            "prompt": "%s people talking"
         },
         "favorite": {
             "title": "Ваше избранное"
