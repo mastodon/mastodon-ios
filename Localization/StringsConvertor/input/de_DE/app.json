@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Bitte versuchen Sie es erneut.",
-                "please_try_again_later": "Bitte versuchen Sie es später nochmal."
+                "please_try_again": "Bitte versuche es erneut.",
+                "please_try_again_later": "Bitte versuche es später nochmal."
             },
             "sign_up_failure": {
                 "title": "Anmeldefehler"
@@ -17,11 +17,11 @@
             },
             "discard_post_content": {
                 "title": "Entwurf Verwerfen",
-                "message": "Bestätigen Sie um den Beitrag zu verwerfen."
+                "message": "Bestätige um den Beitrag zu verwerfen."
             },
             "publish_post_failure": {
                 "title": "Fehler bei Veröffentlichung",
-                "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfen Sie Ihre Internetverbindung.",
+                "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfe deine Internetverbindung.",
                 "attachments_message": {
                     "video_attach_with_photo": "Es kann kein Video an einen Beitrag, der bereits Bilder enthält, angehängt werden.",
                     "more_than_one_video": "Es kann nicht mehr als ein Video hinzugefügt werden."
@@ -29,11 +29,11 @@
             },
             "edit_profile_failure": {
                 "title": "Fehler beim Bearbeiten des Profils",
-                "message": "Profil kann nicht bearbeitet werden. Bitte versuchen Sie es erneut."
+                "message": "Profil kann nicht bearbeitet werden. Bitte versuche es erneut."
             },
             "sign_out": {
                 "title": "Abmelden",
-                "message": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+                "message": "Bist du sicher, dass du dich abmelden möchten?",
                 "confirm": "Abmelden"
             },
             "block_domain": {
@@ -45,7 +45,7 @@
                 "message": "Bitte aktiviere den Zugriff auf die Fotobibliothek, um das Foto zu speichern."
             },
             "delete_post": {
-                "title": "Sind Sie sicher, dass Sie diesen Beitrag löschen möchten?",
+                "title": "Bist du dir sicher, dass du diesen Beitrag löschen möchtest?",
                 "delete": "Löschen"
             },
             "clean_cache": {
@@ -111,8 +111,8 @@
                     "open_author_profile": "Profil des Verfassers ansehen",
                     "open_reblogger_profile": "Profil des teilenden Nutzers öffnen",
                     "reply_status": "Auf Beitrag antworten",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
+                    "toggle_reblog": "Teilen vom Beitrag umschalten",
+                    "toggle_favorite": "Favorit vom Beitrag umschalten",
                     "toggle_content_warning": "Inhaltswarnung umschalten",
                     "preview_image": "Bildvorschau"
                 },
@@ -163,8 +163,8 @@
                 "blocked": "Blockiert",
                 "mute": "Stummschalten",
                 "mute_user": "%s stummschalten",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
+                "unmute": "Nicht mehr stummschalten",
+                "unmute_user": "%s nicht mehr stummschalten",
                 "muted": "Stummgeschaltet",
                 "edit_info": "Information bearbeiten"
             },
@@ -181,12 +181,12 @@
                 },
                 "header": {
                     "no_status_found": "Kein Beitrag gefunden",
-                    "blocking_warning": "Du kannst das Profil dieses Benutzers nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
-                    "user_blocking_warning": "Du kannst %s's Profil nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
+                    "blocking_warning": "Du kannst das Profil dieses Benutzers nicht sehen\n solange du den Benutzer nicht entsperrst.\nDein Profil sieht für diesen Benutzer auch so aus.",
+                    "user_blocking_warning": "Du kannst %ss Profil nicht sehen\n solange du diesen Benutzer nicht entsperrst.\nDein Profil sieht für diesen Benutzer auch so aus.",
                     "blocked_warning": "Das Profil dieses Benutzers\n kann nicht angezeigt werden, bis er dich entsperrt.",
-                    "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
+                    "user_blocked_warning": "Du kannst das Profil von %s nicht sehen\n bis der Benutzer dich entsperrt.",
                     "suspended_warning": "Dieser Nutzer wurde gesperrt.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_suspended_warning": "Das Konto von %s wurde gesperrt."
                 },
                 "accessibility": {
                     "count_replies": "%s Antworten",
@@ -232,7 +232,7 @@
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
-                "bad_network": "Da ist etwas schief gelaufen. Bitte versuchen Sie es erneut oder überprüfen Sie Ihre Internetverbindung.",
+                "bad_network": "Da ist etwas schief gelaufen. Bitte versuche es erneut oder überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             }
         },
@@ -284,15 +284,15 @@
                 "special": {
                     "username_invalid": "Benutzername kann nur alphanumerische Zeichen und Unterstriche enthalten",
                     "username_too_long": "Benutzername ist zu lang (darf nicht länger als 30 Zeichen sein)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "email_invalid": "Dies ist keine gültige E-Mail Adresse",
+                    "password_too_short": "Passwort ist zu kurz (mindestens 8 Zeichen erforderlich)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "Einige Grundregeln.",
             "subtitle": "Diese Regeln werden von den Administratoren von %s festgelegt.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "prompt": "Wenn du fortfährst, unterliegst du den Nutzungsbedingungen und den Datenschutzrichtlinien für %s.",
             "terms_of_service": "Nutzungsbedingungen",
             "privacy_policy": "Datenschutzerklärung",
             "button": {
@@ -307,15 +307,15 @@
                 "dont_receive_email": "Ich habe keine E-Mail erhalten."
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "title": "Bitte überprüfe deine E-Mails",
+                "description": "Überprüfe, ob deine E-Mail-Adresse korrekt ist und sieh im Spam-Ordner nach, falls du es noch nicht getan hast.",
                 "resend_email": "E-Mail erneut versenden"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "Überprüfe deinen Posteingang.",
+                "description": "Wir haben dir gerade eine E-Mail geschickt. Überprüfe deinen Spam-Ordner, falls du es noch nicht getan hast.",
                 "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "E-Mail-Client öffnen"
             }
         },
         "home_timeline": {
@@ -324,12 +324,12 @@
                 "offline": "Offline",
                 "new_posts": "Neue Beiträge anzeigen",
                 "published": "Veröffentlicht!",
-                "Publishing": "Publishing post..."
+                "Publishing": "Beitrag wird veröffentlicht..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Entdecke Benutzer zum Folgen",
+            "follow_explain": "Wenn du jemandem folgst, siehst du deren Beiträge dann in deinem Home-Feed."
         },
         "public_timeline": {
             "title": "Öffentlich"
@@ -350,7 +350,7 @@
             "attachment": {
                 "photo": "Foto",
                 "video": "Video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "attachment_broken": "Dieses %s scheint defekt zu sein und\nkann nicht auf Mastodon hochgeladen werden.",
                 "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
                 "description_video": "Für Menschen mit Sehbehinderung beschreiben..."
             },
@@ -362,7 +362,7 @@
                 "one_day": "1 Tag",
                 "three_days": "3 Tage",
                 "seven_days": "7 Tage",
-                "option_number": "Option %ld"
+                "option_number": "Auswahlmöglichkeit %ld"
             },
             "content_warning": {
                 "placeholder": "Schreibe eine Inhaltswarnung hier..."
@@ -374,26 +374,26 @@
                 "direct": "Nur für Leute, die ich erwähne"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Leerzeichen um hinzuzufügen"
             },
             "accessibility": {
                 "append_attachment": "Anhang hinzufügen",
                 "append_poll": "Umfrage hinzufügen",
                 "remove_poll": "Umfrage entfernen",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu",
-                "input_limit_remains_count": "Input limit remains %ld",
-                "input_limit_exceeds_count": "Input limit exceeds %ld"
+                "custom_emoji_picker": "Benutzerdefinierter Emojiwähler",
+                "enable_content_warning": "Inhaltswarnung einschalten",
+                "disable_content_warning": "Inhaltswarnung ausschalten",
+                "post_visibility_menu": "Sichtbarkeitsmenü",
+                "input_limit_remains_count": "Eingabelimit bleibt %ld",
+                "input_limit_exceeds_count": "Eingabelimit überschreitet %ld"
             },
             "keyboard": {
                 "discard_post": "Beitrag verwerfen",
                 "publish_post": "Beitrag veröffentlichen",
                 "toggle_poll": "Umfrage umschalten",
                 "toggle_content_warning": "Inhaltswarnung umschalten",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "append_attachment_entry": "Anhang hinzufügen - %s",
+                "select_visibility_entry": "Sichtbarkeit auswählen - %s"
             }
         },
         "profile": {
@@ -422,7 +422,7 @@
             "relationship_action_alert": {
                 "confirm_unmute_user": {
                     "title": "Ton einschalten",
-                    "message": "Confirm to unmute %s"
+                    "message": "Bestätige um %s nicht mehr stummzuschalten"
                 },
                 "confirm_unblock_usre": {
                     "title": "Konto entsperren",
@@ -440,12 +440,12 @@
                 "button_text": "Alle anzeigen",
                 "hash_tag": {
                     "title": "Angesagt auf Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "description": "Hashtags die an Aufmerksamkeit zunehmen",
                     "people_talking": "%s Leute reden"
                 },
                 "accounts": {
                     "title": "Konten, die dir gefallen könnten",
-                    "description": "You may like to follow these accounts",
+                    "description": "Vielleicht gefallen dir diese Benutzer",
                     "follow": "Folgen"
                 }
             },
