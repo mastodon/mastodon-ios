@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "投票の失敗",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "投票は終了しました"
             },
             "discard_post_content": {
                 "title": "トゥートを破棄しますか？",
@@ -323,9 +323,6 @@
         "suggestion_account": {
             "title": "フォローする人を探す",
             "follow_explain": "誰かをフォローすると、その人の投稿がタイムラインに表示されるようになります。"
-        },
-        "public_timeline": {
-            "title": "公開"
         },
         "compose": {
             "title": {
