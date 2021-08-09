@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Error del Vot",
-                "poll_expired": "L'enquesta ha finalitzat"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Descarta l'esborrany",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Toca qualsevol lloc per mostrar",
                 "poll": {
                     "vote": "Vota",
-                    "time_left": "Falten %s",
                     "closed": "Finalitzada"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Filtrat",
                 "timestamp": {
-                    "now": "Ara",
-                    "time_ago": "fa %s"
+                    "now": "Ara"
                 },
                 "loader": {
                     "load_missing_posts": "Carrega les publicacions que falten",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "No pots veure el perfil de %s\n fins que et desbloquegi.",
                     "suspended_warning": "Aquest usuari ha estat suspès.",
                     "user_suspended_warning": "El compte de %s ha estat suspès."
-                },
-                "accessibility": {
-                    "count_replies": "respostes de %s",
-                    "count_reblogs": "impulsos de %s",
-                    "count_favorites": "favorits de %s"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Selector d'Emoji Personalitzat",
                 "enable_content_warning": "Activa l'Avís de Contingut",
                 "disable_content_warning": "Desactiva l'Avís de Contingut",
-                "post_visibility_menu": "Menú de Visibilitat de Publicació",
-                "input_limit_remains_count": "El límit d’entrada continua sent %ld",
-                "input_limit_exceeds_count": "El límit d’entrada supera a %ld"
+                "post_visibility_menu": "Menú de Visibilitat de Publicació"
             },
             "keyboard": {
                 "discard_post": "Descarta la Publicació",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "publicacions",
                 "following": "seguint",
-                "followers": "seguidors",
-                "accessibility": {
-                    "count_posts": "%ld publicacions",
-                    "count_following": "seguint a %ld",
-                    "count_followers": "%ld seguidors"
-                }
+                "followers": "seguidors"
             },
             "fields": {
                 "add_row": "Afegeix fila",
@@ -462,9 +448,6 @@
                 "recent_search": "Cerques recents",
                 "clear": "Neteja"
             }
-        },
-        "hashtag": {
-            "prompt": "%s persones hi estan parlant"
         },
         "favorite": {
             "title": "Els teus Favorits"
