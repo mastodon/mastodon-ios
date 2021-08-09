@@ -274,5 +274,101 @@
         <string>%ld segundos restantes</string>
       </dict>
     </dict>
+    <key>date.year.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_year_ago_abbr@</string>
+      <key>count_year_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1y ago</string>
+        <key>other</key>
+        <string>%ldy ago</string>
+      </dict>
+    </dict>
+    <key>date.month.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_month_ago_abbr@</string>
+      <key>count_month_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1M ago</string>
+        <key>other</key>
+        <string>%ldM ago</string>
+      </dict>
+    </dict>
+    <key>date.day.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_day_ago_abbr@</string>
+      <key>count_day_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1d ago</string>
+        <key>other</key>
+        <string>%ldd ago</string>
+      </dict>
+    </dict>
+    <key>date.hour.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_hour_ago_abbr@</string>
+      <key>count_hour_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1h ago</string>
+        <key>other</key>
+        <string>%ldh ago</string>
+      </dict>
+    </dict>
+    <key>date.minute.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_minute_ago_abbr@</string>
+      <key>count_minute_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1m ago</string>
+        <key>other</key>
+        <string>%ldm ago</string>
+      </dict>
+    </dict>
+    <key>date.second.ago.abbr</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_second_ago_abbr@</string>
+      <key>count_second_ago_abbr</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1s ago</string>
+        <key>other</key>
+        <string>%lds ago</string>
+      </dict>
+    </dict>
   </dict>
 </plist>
