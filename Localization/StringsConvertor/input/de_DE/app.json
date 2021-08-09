@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Fehler bei Abstimmung",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Die Umfrage ist beendet"
             },
             "discard_post_content": {
                 "title": "Entwurf Verwerfen",
@@ -323,9 +323,6 @@
         "suggestion_account": {
             "title": "Entdecke Benutzer zum Folgen",
             "follow_explain": "Wenn du jemandem folgst, siehst du deren Beiträge dann in deinem Home-Feed."
-        },
-        "public_timeline": {
-            "title": "Öffentlich"
         },
         "compose": {
             "title": {
