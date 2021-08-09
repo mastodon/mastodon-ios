@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "فشل التصويت",
-                "poll_expired": "انتهت مدة صلاحية الاستطلاع"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "تجاهل المسودة",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
                     "vote": "Vote",
-                    "time_left": "%s left",
                     "closed": "Closed"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "الأن",
-                    "time_ago": "منذ %s"
+                    "now": "الأن"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
                     "suspended_warning": "This user has been suspended.",
                     "user_suspended_warning": "%s’s account has been suspended."
-                },
-                "accessibility": {
-                    "count_replies": "%s replies",
-                    "count_reblogs": "%s reblogs",
-                    "count_favorites": "%s favorites"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "منتقي مخصص للإيموجي",
                 "enable_content_warning": "تنشيط تحذير المحتوى",
                 "disable_content_warning": "تعطيل تحذير الحتوى",
-                "post_visibility_menu": "Post Visibility Menu",
-                "input_limit_remains_count": "Input limit remains %ld",
-                "input_limit_exceeds_count": "Input limit exceeds %ld"
+                "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
                 "discard_post": "Discard Post",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "منشورات",
                 "following": "مُتابَع",
-                "followers": "متابِع",
-                "accessibility": {
-                    "count_posts": "%ld posts",
-                    "count_following": "%ld following",
-                    "count_followers": "%ld followers"
-                }
+                "followers": "متابِع"
             },
             "fields": {
                 "add_row": "إضافة صف",
@@ -462,9 +448,6 @@
                 "recent_search": "Recent searches",
                 "clear": "Clear"
             }
-        },
-        "hashtag": {
-            "prompt": "%s people talking"
         },
         "favorite": {
             "title": "Your Favorites"
