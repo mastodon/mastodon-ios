@@ -2,84 +2,84 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Probeer het opnieuw.",
+                "please_try_again_later": "Probeer het later nog eens."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Registratiefout"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Serverfout"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_expired": "The poll has expired"
+                "title": "Stemmen Mislukt",
+                "poll_expired": "De peiling is verlopen"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
-                "message": "Confirm to discard composed post content."
+                "title": "Concept Verwijderen",
+                "message": "Bevestig het verwijderen van het concept bericht."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Publicatiefout",
+                "message": "Het publiceren van het bericht is mislukt. Controleer alstublieft uw internetverbinding.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Een video kan niet aan een bericht met afbeeldingen worden gekoppeld.",
+                    "more_than_one_video": "Slechts één video kan aan een bericht worden gekoppeld."
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "Profiel bewerken mislukt",
+                "message": "Het profiel kan niet bewerkt worden. Probeer het opnieuw."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Afmelden",
+                "message": "Weet u zeker dat u zich wilt afmelden?",
+                "confirm": "Afmelden"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Weet u zeker dat u alles van %s wilt blokkeren? In de meeste gevallen is het blokkeren of negeren van een paar specifieke personen voldoende en wenselijker. U zult geen berichten meer zien van dit domein en volgers van dit domein worden verwijderd.",
+                "block_entire_domain": "Domein blokkeren"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "Foto Opslaan Mislukt",
+                "message": "Geef toestemming om de foto op te slaan."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "title": "Weet u zeker dat u dit bericht wilt verwijderen?",
+                "delete": "Verwijderen"
             },
             "clean_cache": {
-                "title": "Clean Cache",
-                "message": "Successfully cleaned %s cache."
+                "title": "Cache-geheugen Wissen",
+                "message": "Cache-geheugen (%s) succesvol gewist."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
+                "back": "Terug",
+                "next": "Volgende",
+                "previous": "Vorige",
                 "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
+                "add": "Toevoegen",
+                "remove": "Verwijderen",
+                "edit": "Bewerken",
+                "save": "Opslaan",
+                "ok": "Oké",
+                "done": "Klaar",
+                "confirm": "Bevestigen",
+                "continue": "Doorgaan",
+                "cancel": "Annuleren",
+                "discard": "Weggooien",
+                "try_again": "Probeer Opnieuw",
+                "take_photo": "Foto Maken",
+                "save_photo": "Foto Opslaan",
+                "copy_photo": "Foto kopiëren",
+                "sign_in": "Aanmelden",
+                "sign_up": "Registreren",
+                "see_more": "Meer",
+                "preview": "Voorvertoning",
+                "share": "Delen",
+                "share_user": "Delen %s",
+                "share_post": "Bericht Delen",
                 "open_in_safari": "Open in Safari",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
@@ -151,7 +151,7 @@
                 }
             },
             "friendship": {
-                "follow": "Follow",
+                "follow": "Volgen",
                 "following": "Following",
                 "request": "Request",
                 "pending": "Pending",
