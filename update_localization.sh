@@ -1,18 +1,21 @@
 #!/bin/zsh
 
+set -ev
+
 SRCROOT=`pwd`
 PODS_ROOT='Pods'
 
 echo ${SRCROOT}
-# task1 generate strings file
+
+# task 1 generate strings file
 cd ${SRCROOT}/Localization/StringsConvertor
 sh ./scripts/build.sh
 
-# task2 copy strings file /Localization/StringsConvertor/output to /Mastodon/Resources
+# task 2 copy strings file
+cp -R ${SRCROOT}/Localization/StringsConvertor/output/ ${SRCROOT}/Mastodon/Resources
+cp -R ${SRCROOT}/Localization/StringsConvertor/Intents/output/ ${SRCROOT}/MastodonIntent
 
-cp -r ${SRCROOT}/Localization/StringsConvertor/output/  ${SRCROOT}/Mastodon/Resources/
-
-# task3 swiftgen
+# task 3 swiftgen
 cd ${SRCROOT}
 echo "${PODS_ROOT}/SwiftGen/bin/swiftgen"
 if [[ -f "${PODS_ROOT}/SwiftGen/bin/swiftgen" ]] then 
@@ -21,6 +24,6 @@ else
 	echo "Run 'pod install' or update your CocoaPods installation."
 fi
 
-#task4 clean temp file
+#task 4 clean temp file
 rm -rf ${SRCROOT}/Localization/StringsConvertor/output
-rm -rf ${SRCROOT}/Localization/StringsConvertor/input
+rm -rf ${SRCROOT}/Localization/StringsConvertor/intents/output

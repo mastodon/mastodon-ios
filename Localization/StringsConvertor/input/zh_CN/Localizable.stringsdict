@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>plural.count.metric_formatted.post</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%@ %#@post_count@</string>
+      <key>post_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>帖子</string>
+      </dict>
+    </dict>
+    <key>plural.count.favorite</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@favorite_count@</string>
+      <key>favorite_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 个喜欢</string>
+      </dict>
+    </dict>
+    <key>plural.count.reblog</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@reblog_count@</string>
+      <key>reblog_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 条转发</string>
+      </dict>
+    </dict>
+    <key>plural.count.vote</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@vote_count@</string>
+      <key>vote_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 票</string>
+      </dict>
+    </dict>
+    <key>plural.count.voter</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@voter_count@</string>
+      <key>voter_count</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 人</string>
+      </dict>
+    </dict>
+    <key>plural.people_talking</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@count_people_talking@</string>
+      <key>count_people_talking</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 人正在讨论</string>
+      </dict>
+    </dict>
+  </dict>
+</plist>

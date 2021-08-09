@@ -1,0 +1,561 @@
+{
+    "common": {
+        "alerts": {
+            "common": {
+                "please_try_again": "Bitte versuchen Sie es erneut.",
+                "please_try_again_later": "Bitte versuchen Sie es später nochmal."
+            },
+            "sign_up_failure": {
+                "title": "Anmeldefehler"
+            },
+            "server_error": {
+                "title": "Serverfehler"
+            },
+            "vote_failure": {
+                "title": "Fehler bei Abstimmung",
+                "poll_expired": "Diese Umfrage ist abgelaufen"
+            },
+            "discard_post_content": {
+                "title": "Entwurf Verwerfen",
+                "message": "Bestätigen Sie um den Beitrag zu verwerfen."
+            },
+            "publish_post_failure": {
+                "title": "Fehler bei Veröffentlichung",
+                "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfen Sie Ihre Internetverbindung.",
+                "attachments_message": {
+                    "video_attach_with_photo": "Es kann kein Video an einen Beitrag, der bereits Bilder enthält, angehängt werden.",
+                    "more_than_one_video": "Es kann nicht mehr als ein Video hinzugefügt werden."
+                }
+            },
+            "edit_profile_failure": {
+                "title": "Fehler beim Bearbeiten des Profils",
+                "message": "Profil kann nicht bearbeitet werden. Bitte versuchen Sie es erneut."
+            },
+            "sign_out": {
+                "title": "Abmelden",
+                "message": "Sind Sie sicher, dass Sie sich abmelden möchten?",
+                "confirm": "Abmelden"
+            },
+            "block_domain": {
+                "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Folgenden von dieser Domain werden entfernt.",
+                "block_entire_domain": "Block Domain"
+            },
+            "save_photo_failure": {
+                "title": "Foto konnte nicht gespeichert werden",
+                "message": "Bitte aktiviere den Zugriff auf die Fotobibliothek, um das Foto zu speichern."
+            },
+            "delete_post": {
+                "title": "Sind Sie sicher, dass Sie diesen Beitrag löschen möchten?",
+                "delete": "Löschen"
+            },
+            "clean_cache": {
+                "title": "Zwischenspeicher leeren",
+                "message": "Successfully cleaned %s cache."
+            }
+        },
+        "controls": {
+            "actions": {
+                "back": "Zurück",
+                "next": "Weiter",
+                "previous": "Zurück",
+                "open": "Öffnen",
+                "add": "Hinzufügen",
+                "remove": "Entfernen",
+                "edit": "Bearbeiten",
+                "save": "Speichern",
+                "ok": "OK",
+                "done": "Fertig",
+                "confirm": "Bestätigen",
+                "continue": "Fortfahren",
+                "cancel": "Abbrechen",
+                "discard": "Verwerfen",
+                "try_again": "Nochmals versuchen",
+                "take_photo": "Foto aufnehmen",
+                "save_photo": "Foto speichern",
+                "copy_photo": "Foto kopieren",
+                "sign_in": "Anmelden",
+                "sign_up": "Registrieren",
+                "see_more": "Mehr anzeigen",
+                "preview": "Vorschau",
+                "share": "Teilen",
+                "share_user": "%s teilen",
+                "share_post": "Beitrag teilen",
+                "open_in_safari": "In Safari öffnen",
+                "find_people": "Finde Personen zum Folgen",
+                "manually_search": "Stattdessen manuell suchen",
+                "skip": "Überspringen",
+                "reply": "Antworten",
+                "report_user": "%s melden",
+                "block_domain": "%s blockieren",
+                "unblock_domain": "Blockierung von %s aufheben",
+                "settings": "Einstellungen",
+                "delete": "Löschen"
+            },
+            "tabs": {
+                "home": "Startseite",
+                "search": "Suche",
+                "notification": "Benachrichtigungen",
+                "profile": "Profil"
+            },
+            "keyboard": {
+                "common": {
+                    "switch_to_tab": "Zu %s wechseln",
+                    "compose_new_post": "Neuen Beitrag verfassen",
+                    "show_favorites": "Favoriten anzeigen",
+                    "open_settings": "Einstellungen öffnen"
+                },
+                "timeline": {
+                    "previous_status": "Vorheriger Beitrag",
+                    "next_status": "Nächster Beitrag",
+                    "open_status": "Beitrag öffnen",
+                    "open_author_profile": "Profil des Verfassers ansehen",
+                    "open_reblogger_profile": "Open Reblogger's Profile",
+                    "reply_status": "Auf Beitrag antworten",
+                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_favorite": "Toggle Favorite on Post",
+                    "toggle_content_warning": "Toggle Content Warning",
+                    "preview_image": "Bildvorschau"
+                },
+                "segmented_control": {
+                    "previous_section": "Vorheriger Abschnitt",
+                    "next_section": "Nächster Abschnitt"
+                }
+            },
+            "status": {
+                "user_reblogged": "%s reblogged",
+                "user_replied_to": "Replied to %s",
+                "show_post": "Show Post",
+                "show_user_profile": "Benutzerprofil anzeigen",
+                "content_warning": "Inhaltswarnung",
+                "media_content_warning": "Tippe irgendwo zum Anzeigen",
+                "poll": {
+                    "vote": "Abstimmen",
+                    "time_left": "%s verbleiben",
+                    "closed": "Beendet"
+                },
+                "actions": {
+                    "reply": "Antworten",
+                    "reblog": "Reblog",
+                    "unreblog": "Undo reblog",
+                    "favorite": "Favorit",
+                    "unfavorite": "Aus Favoriten entfernen",
+                    "menu": "Menu"
+                },
+                "tag": {
+                    "url": "URL",
+                    "mention": "Mention",
+                    "link": "Link",
+                    "hashtag": "Hashtag",
+                    "email": "E-Mail",
+                    "emoji": "Emoji"
+                }
+            },
+            "friendship": {
+                "follow": "Folgen",
+                "following": "Following",
+                "request": "Anfragen",
+                "pending": "In Warteschlange",
+                "block": "Blockieren",
+                "block_user": "%s blockieren",
+                "block_domain": "%s blockieren",
+                "unblock": "Blockierung aufheben",
+                "unblock_user": "@%s entblocken",
+                "blocked": "Blocked",
+                "mute": "Stummschalten",
+                "mute_user": "%s stummschalten",
+                "unmute": "Unmute",
+                "unmute_user": "Unmute %s",
+                "muted": "Stummgeschaltet",
+                "edit_info": "Information bearbeiten"
+            },
+            "timeline": {
+                "filtered": "Gefiltert",
+                "timestamp": {
+                    "now": "Gerade",
+                    "time_ago": "vor %s"
+                },
+                "loader": {
+                    "load_missing_posts": "Fehlende Beiträge laden",
+                    "loading_missing_posts": "Lade fehlende Beiträge...",
+                    "show_more_replies": "Weitere Antworten anzeigen"
+                },
+                "header": {
+                    "no_status_found": "Kein Beitrag gefunden",
+                    "blocking_warning": "Du kannst das Profil dieses Benutzers nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
+                    "user_blocking_warning": "Du kannst %s's Profil nicht anzeigen\n solange du es nicht entsperrst.\nDein Profil sieht für diesen Benutzer so aus.",
+                    "blocked_warning": "Das Profil dieses Benutzers\n kann nicht angezeigt werden, bis er dich entsperrt.",
+                    "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
+                    "suspended_warning": "This user has been suspended.",
+                    "user_suspended_warning": "%s’s account has been suspended."
+                },
+                "accessibility": {
+                    "count_replies": "%s replies",
+                    "count_reblogs": "%s reblogs",
+                    "count_favorites": "%s favorites"
+                }
+            }
+        }
+    },
+    "scene": {
+        "welcome": {
+            "slogan": "Social networking\nback in your hands."
+        },
+        "server_picker": {
+            "title": "Pick a server,\nany server.",
+            "button": {
+                "category": {
+                    "all": "Alle",
+                    "all_accessiblity_description": "Kategorie: Alle",
+                    "academia": "Wissenschaft",
+                    "activism": "Aktivismus",
+                    "food": "Kochen",
+                    "furry": "Furry",
+                    "games": "Spiele",
+                    "general": "Allgemein",
+                    "journalism": "Journalismus",
+                    "lgbt": "LGBT",
+                    "regional": "Regional",
+                    "art": "Kunst",
+                    "music": "Musik",
+                    "tech": "Technologie"
+                },
+                "see_less": "Weniger anzeigen",
+                "see_more": "Mehr anzeigen"
+            },
+            "label": {
+                "language": "SPRACHE",
+                "users": "BENUTZER",
+                "category": "KATEGORIE"
+            },
+            "input": {
+                "placeholder": "Finde einen Server oder trete deinem eigenen bei..."
+            },
+            "empty_state": {
+                "finding_servers": "Verfügbare Server werden gesucht...",
+                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "no_results": "Keine Ergebnisse"
+            }
+        },
+        "register": {
+            "title": "Erzähle uns von dir.",
+            "input": {
+                "avatar": {
+                    "delete": "Löschen"
+                },
+                "username": {
+                    "placeholder": "Benutzername",
+                    "duplicate_prompt": "Dieser Benutzername ist vergeben."
+                },
+                "display_name": {
+                    "placeholder": "Anzeigename"
+                },
+                "email": {
+                    "placeholder": "E-Mail"
+                },
+                "password": {
+                    "placeholder": "Passwort",
+                    "hint": "Ihr Passwort muss mindestens 8 Zeichen lang sein"
+                },
+                "invite": {
+                    "registration_user_invite_request": "Warum möchtest du beitreten?"
+                }
+            },
+            "error": {
+                "item": {
+                    "username": "Benutzername",
+                    "email": "E-Mail",
+                    "password": "Passwort",
+                    "agreement": "Vereinbarung",
+                    "locale": "Sprache",
+                    "reason": "Begründung"
+                },
+                "reason": {
+                    "blocked": "%s contains a disallowed email provider",
+                    "unreachable": "%s does not seem to exist",
+                    "taken": "%s is already in use",
+                    "reserved": "%s is a reserved keyword",
+                    "accepted": "%s must be accepted",
+                    "blank": "%s is required",
+                    "invalid": "%s is invalid",
+                    "too_long": "%s is too long",
+                    "too_short": "%s is too short",
+                    "inclusion": "%s is not a supported value"
+                },
+                "special": {
+                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "email_invalid": "This is not a valid email address",
+                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                }
+            }
+        },
+        "server_rules": {
+            "title": "Some ground rules.",
+            "subtitle": "These rules are set by the admins of %s.",
+            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "terms_of_service": "terms of service",
+            "privacy_policy": "Datenschutzerklärung",
+            "button": {
+                "confirm": "Ich stimme zu"
+            }
+        },
+        "confirm_email": {
+            "title": "Noch eine letzte Sache.",
+            "subtitle": "Wir haben gerade eine E-Mail an %s gesendet,\ntippe auf den Link, um Dein Konto zu bestätigen.",
+            "button": {
+                "open_email_app": "E-Mail-App öffnen",
+                "dont_receive_email": "I never got an email"
+            },
+            "dont_receive_email": {
+                "title": "Check your email",
+                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "resend_email": "Resend Email"
+            },
+            "open_email_app": {
+                "title": "Check your inbox.",
+                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "mail": "Mail",
+                "open_email_client": "Open Email Client"
+            }
+        },
+        "home_timeline": {
+            "title": "Startseite",
+            "navigation_bar_state": {
+                "offline": "Offline",
+                "new_posts": "Neue Beiträge anzeigen",
+                "published": "Veröffentlicht!",
+                "Publishing": "Publishing post..."
+            }
+        },
+        "suggestion_account": {
+            "title": "Find People to Follow",
+            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+        },
+        "public_timeline": {
+            "title": "Öffentlich"
+        },
+        "compose": {
+            "title": {
+                "new_post": "Neuer Beitrag",
+                "new_reply": "Neue Antwort"
+            },
+            "media_selection": {
+                "camera": "Foto aufnehmen",
+                "photo_library": "Fotobibliothek",
+                "browse": "Durchsuchen"
+            },
+            "content_input_placeholder": "Tippe oder füge ein, was dir am Herzen liegt",
+            "compose_action": "Veröffentlichen",
+            "replying_to_user": "antwortet auf %s",
+            "attachment": {
+                "photo": "Foto",
+                "video": "Video",
+                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "description_photo": "Für Menschen mit Sehbehinderung beschreiben...",
+                "description_video": "Für Menschen mit Sehbehinderung beschreiben..."
+            },
+            "poll": {
+                "duration_time": "Dauer: %s",
+                "thirty_minutes": "30 Minuten",
+                "one_hour": "1 Stunde",
+                "six_hours": "6 Stunden",
+                "one_day": "1 Tag",
+                "three_days": "3 Tage",
+                "seven_days": "7 Tage",
+                "option_number": "Option %ld"
+            },
+            "content_warning": {
+                "placeholder": "Schreibe eine Inhaltswarnung hier..."
+            },
+            "visibility": {
+                "public": "Öffentlich",
+                "unlisted": "Nicht gelistet",
+                "private": "Nur für Folgende",
+                "direct": "Nur für Leute, die ich erwähne"
+            },
+            "auto_complete": {
+                "space_to_add": "Space to add"
+            },
+            "accessibility": {
+                "append_attachment": "Anhang hinzufügen",
+                "append_poll": "Umfrage hinzufügen",
+                "remove_poll": "Umfrage entfernen",
+                "custom_emoji_picker": "Custom Emoji Picker",
+                "enable_content_warning": "Enable Content Warning",
+                "disable_content_warning": "Disable Content Warning",
+                "post_visibility_menu": "Post Visibility Menu",
+                "input_limit_remains_count": "Input limit remains %ld",
+                "input_limit_exceeds_count": "Input limit exceeds %ld"
+            },
+            "keyboard": {
+                "discard_post": "Beitrag verwerfen",
+                "publish_post": "Beitrag veröffentlichen",
+                "toggle_poll": "Umfrage umschalten",
+                "toggle_content_warning": "Inhaltswarnung umschalten",
+                "append_attachment_entry": "Add Attachment - %s",
+                "select_visibility_entry": "Select Visibility - %s"
+            }
+        },
+        "profile": {
+            "dashboard": {
+                "posts": "Beiträge",
+                "following": "Gefolgte",
+                "followers": "Folger",
+                "accessibility": {
+                    "count_posts": "%ld Beiträge",
+                    "count_following": "%ld Gefolgte",
+                    "count_followers": "%ld Folger"
+                }
+            },
+            "fields": {
+                "add_row": "Zeile hinzufügen",
+                "placeholder": {
+                    "label": "Bezeichnung",
+                    "content": "Inhalt"
+                }
+            },
+            "segmented_control": {
+                "posts": "Beiträge",
+                "replies": "Antworten",
+                "media": "Medien"
+            },
+            "relationship_action_alert": {
+                "confirm_unmute_user": {
+                    "title": "Ton einschalten",
+                    "message": "Confirm to unmute %s"
+                },
+                "confirm_unblock_usre": {
+                    "title": "Konto entsperren",
+                    "message": "Bestätigen zum Entsperren von %s"
+                }
+            }
+        },
+        "search": {
+            "title": "Suche",
+            "search_bar": {
+                "placeholder": "Hashtags und Benutzer suchen",
+                "cancel": "Abbrechen"
+            },
+            "recommend": {
+                "button_text": "Alle anzeigen",
+                "hash_tag": {
+                    "title": "Trending on Mastodon",
+                    "description": "Hashtags that are getting quite a bit of attention",
+                    "people_talking": "%s Leute reden"
+                },
+                "accounts": {
+                    "title": "Accounts you might like",
+                    "description": "You may like to follow these accounts",
+                    "follow": "Folgen"
+                }
+            },
+            "searching": {
+                "segment": {
+                    "all": "Alles",
+                    "people": "Personen",
+                    "hashtags": "Hashtags",
+                    "posts": "Beiträge"
+                },
+                "empty_state": {
+                    "no_results": "Keine Ergebnisse"
+                },
+                "recent_search": "Zuletzt gesucht",
+                "clear": "Zurücksetzen"
+            }
+        },
+        "hashtag": {
+            "prompt": "%s Leute reden"
+        },
+        "favorite": {
+            "title": "Deine Favoriten"
+        },
+        "notification": {
+            "title": {
+                "Everything": "Alles",
+                "Mentions": "Erwähnungen"
+            },
+            "action": {
+                "follow": "folgt dir",
+                "favourite": "hat deinen Beitrag favorisiert",
+                "reblog": "hat deinen Beitrag geteilt",
+                "poll": "Deine Umfrage ist beendet",
+                "mention": "hat dich erwähnt",
+                "follow_request": "möchte dir folgen"
+            },
+            "keyobard": {
+                "show_everything": "Alles anzeigen",
+                "show_mentions": "Erwähnungen anzeigen"
+            }
+        },
+        "thread": {
+            "back_title": "Beitrag",
+            "title": "Beitrag von %s"
+        },
+        "settings": {
+            "title": "Einstellungen",
+            "section": {
+                "appearance": {
+                    "title": "Darstellung",
+                    "automatic": "Automatisch",
+                    "light": "Immer hell",
+                    "dark": "Immer dunkel"
+                },
+                "notifications": {
+                    "title": "Benachrichtigungen",
+                    "favorites": "Meinen Beitrag favorisiert",
+                    "follows": "Mir folgt",
+                    "boosts": "Meinen Beitrag teilt",
+                    "mentions": "Mich erwähnt",
+                    "trigger": {
+                        "anyone": "jeder",
+                        "follower": "ein Folger",
+                        "follow": "ein von mir Gefolgter",
+                        "noone": "niemand",
+                        "title": "Benachrichtige mich, wenn"
+                    }
+                },
+                "preference": {
+                    "title": "Präferenzen",
+                    "true_black_dark_mode": "Vollständig dunkler Dunkelmodus",
+                    "disable_avatar_animation": "Animierte Profilbilder deaktivieren",
+                    "disable_emoji_animation": "Animierte Emojis deaktivieren",
+                    "using_default_browser": "Standardbrowser zum Öffnen von Links verwenden"
+                },
+                "boring_zone": {
+                    "title": "Der Langweiliger Bereich",
+                    "account_settings": "Kontoeinstellungen",
+                    "terms": "Allgemeine Geschäftsbedingungen",
+                    "privacy": "Datenschutzerklärung"
+                },
+                "spicy_zone": {
+                    "title": "Der Gefährliche Bereich",
+                    "clear": "Medien-Cache leeren",
+                    "signout": "Abmelden"
+                }
+            },
+            "footer": {
+                "mastodon_description": "Mastodon ist quelloffene Software. Du kannst auf GitHub unter %s (%s) Probleme melden"
+            },
+            "keyboard": {
+                "close_settings_window": "Einstellungsfenster schließen"
+            }
+        },
+        "report": {
+            "title": "%s melden",
+            "step1": "Schritt 1 von 2",
+            "step2": "Schritt 2 von 2",
+            "content1": "Gibt es noch weitere Beiträge, die du der Meldung hinzufügen möchtest?",
+            "content2": "Gibt es etwas, was die Moderatoren über diese Meldung wissen sollten?",
+            "send": "Meldung abschicken",
+            "skip_to_send": "Ohne Kommentar abschicken",
+            "text_placeholder": "Zusätzliche Kommentare eingeben oder einfügen"
+        },
+        "preview": {
+            "keyboard": {
+                "close_preview": "Vorschau schließen",
+                "show_next": "Nächstes anzeigen",
+                "show_previous": "Vorheriges anzeigen"
+            }
+        }
+    }
+}

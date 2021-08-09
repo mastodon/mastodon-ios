@@ -63,15 +63,20 @@ class SettingsViewController: UIViewController, NeedsDependency {
     let notifyLabel = UILabel()
     private(set) lazy var notifySectionHeader: UIView = {
         let view = notifySectionHeaderStackView
+        
         notifyLabel.translatesAutoresizingMaskIntoConstraints = false
         notifyLabel.adjustsFontForContentSizeCategory = true
         notifyLabel.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: UIFont.systemFont(ofSize: 20, weight: .semibold))
         notifyLabel.textColor = Asset.Colors.Label.primary.color
         notifyLabel.text = L10n.Scene.Settings.Section.Notifications.Trigger.title
+        notifyLabel.adjustsFontSizeToFitWidth = true
+        notifyLabel.minimumScaleFactor = 0.5
+        
         view.addArrangedSubview(notifyLabel)
         view.addArrangedSubview(whoButton)
         whoButton.setContentHuggingPriority(.defaultHigh + 1, for: .horizontal)
         whoButton.setContentHuggingPriority(.defaultHigh + 1, for: .vertical)
+        
         return view
     }()
     
@@ -86,6 +91,8 @@ class SettingsViewController: UIViewController, NeedsDependency {
         whoButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         whoButton.layer.cornerRadius = 10
         whoButton.clipsToBounds = true
+        whoButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        whoButton.titleLabel?.minimumScaleFactor = 0.5
         return whoButton
     }()
     

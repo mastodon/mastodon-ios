@@ -1164,6 +1164,26 @@
 		DBA1DB7F268F84F80052DB59 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
 		DBA465922696B495002B41DB /* APIService+WebFinger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+WebFinger.swift"; sourceTree = "<group>"; };
 		DBA465942696E387002B41DB /* AppPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreference.swift; sourceTree = "<group>"; };
+		DBA4B0D326BD10AC0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Intents.strings"; sourceTree = "<group>"; };
+		DBA4B0D426BD10AD0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		DBA4B0D526BD10AD0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DBA4B0D626BD10AD0077136E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DBA4B0D726BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Intents.strings; sourceTree = "<group>"; };
+		DBA4B0D826BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ca; path = ca.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DBA4B0D926BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DBA4B0DA26BD10F40077136E /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBA4B0DB26BD11130077136E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intents.strings; sourceTree = "<group>"; };
+		DBA4B0DC26BD11130077136E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DBA4B0DD26BD11130077136E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DBA4B0DE26BD11130077136E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBA4B0DF26BD11C70077136E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Intents.strings; sourceTree = "<group>"; };
+		DBA4B0E026BD11C70077136E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DBA4B0E126BD11C80077136E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DBA4B0E226BD11C80077136E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBA4B0E326BD11D10077136E /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Intents.strings"; sourceTree = "<group>"; };
+		DBA4B0E426BD11D10077136E /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "es-419"; path = "es-419.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		DBA4B0E526BD11D10077136E /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DBA4B0E626BD11D10077136E /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
 		DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewModel.swift; sourceTree = "<group>"; };
 		DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -1288,6 +1308,10 @@
 		DBFEF07A26A6BCE8006D7ED1 /* APIService+Status+Publish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status+Publish.swift"; sourceTree = "<group>"; };
 		DDB1B139FA8EA26F510D58B6 /* Pods-AppShared.asdk - release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk - release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk - release.xcconfig"; sourceTree = "<group>"; };
 		E5C7236E58D14A0322FE00F2 /* Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; path = "Target Support Files/Pods-Mastodon-MastodonUITests/Pods-Mastodon-MastodonUITests.asdk - debug.xcconfig"; sourceTree = "<group>"; };
+		E9AABD3D26B64B8C00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Intents.strings; sourceTree = "<group>"; };
+		E9AABD3E26B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		E9AABD3F26B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E9AABD4026B64B8D00E237DA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EC6E707B68A67DB08EC288FA /* Pods-MastodonTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MastodonTests.debug.xcconfig"; path = "Target Support Files/Pods-MastodonTests/Pods-MastodonTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ECA373ABA86BE3C2D7ED878E /* Pods-AppShared.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.release.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.release.xcconfig"; sourceTree = "<group>"; };
 		EE13214BC0246BE5210CCC10 /* Pods-AppShared.asdk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppShared.asdk.xcconfig"; path = "Target Support Files/Pods-AppShared/Pods-AppShared.asdk.xcconfig"; sourceTree = "<group>"; };
@@ -3314,6 +3338,12 @@
 				en,
 				Base,
 				ar,
+				ja,
+				"zh-Hans",
+				ca,
+				fr,
+				es,
+				"es-419",
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4299,6 +4329,12 @@
 				DB0009A826AEE5DC009B9D2D /* Base */,
 				DB0009AB26AEE5E3009B9D2D /* en */,
 				DB0009AD26AEE5E4009B9D2D /* ar */,
+				E9AABD3D26B64B8C00E237DA /* ja */,
+				DBA4B0D326BD10AC0077136E /* zh-Hans */,
+				DBA4B0D726BD10F40077136E /* ca */,
+				DBA4B0DB26BD11130077136E /* fr */,
+				DBA4B0DF26BD11C70077136E /* es */,
+				DBA4B0E326BD11D10077136E /* es-419 */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4308,6 +4344,12 @@
 			children = (
 				DB2B3ABD25E37E15007045F9 /* en */,
 				DB0F814E264CFFD300F2A12B /* ar */,
+				E9AABD4026B64B8D00E237DA /* ja */,
+				DBA4B0D626BD10AD0077136E /* zh-Hans */,
+				DBA4B0DA26BD10F40077136E /* ca */,
+				DBA4B0DE26BD11130077136E /* fr */,
+				DBA4B0E226BD11C80077136E /* es */,
+				DBA4B0E626BD11D10077136E /* es-419 */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4317,6 +4359,12 @@
 			children = (
 				DB3D100E25BAA75E00EAA174 /* en */,
 				DB0F814D264CFFD300F2A12B /* ar */,
+				E9AABD3F26B64B8D00E237DA /* ja */,
+				DBA4B0D526BD10AD0077136E /* zh-Hans */,
+				DBA4B0D926BD10F40077136E /* ca */,
+				DBA4B0DD26BD11130077136E /* fr */,
+				DBA4B0E126BD11C80077136E /* es */,
+				DBA4B0E526BD11D10077136E /* es-419 */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4342,6 +4390,12 @@
 			children = (
 				DB564BCF269F2F83001E39A7 /* ar */,
 				DB564BD1269F2F8A001E39A7 /* en */,
+				E9AABD3E26B64B8D00E237DA /* ja */,
+				DBA4B0D426BD10AD0077136E /* zh-Hans */,
+				DBA4B0D826BD10F40077136E /* ca */,
+				DBA4B0DC26BD11130077136E /* fr */,
+				DBA4B0E026BD11C70077136E /* es */,
+				DBA4B0E426BD11D10077136E /* es-419 */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -4486,7 +4540,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4494,7 +4548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4513,7 +4567,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4521,7 +4575,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4776,7 +4830,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4784,7 +4838,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4800,7 +4854,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4808,7 +4862,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4824,7 +4878,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4832,7 +4886,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4848,7 +4902,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4856,7 +4910,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.MastodonIntent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4872,7 +4926,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4880,7 +4934,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4896,7 +4950,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4904,7 +4958,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4920,7 +4974,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4928,7 +4982,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4944,7 +4998,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -4952,7 +5006,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.ShareActionExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5034,7 +5088,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5042,7 +5096,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5148,7 +5202,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5156,7 +5210,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5268,7 +5322,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5276,7 +5330,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -5382,7 +5436,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5390,7 +5444,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5436,7 +5490,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5444,7 +5498,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -5459,7 +5513,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 54;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5467,7 +5521,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.joinmastodon.app.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

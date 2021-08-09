@@ -33,6 +33,9 @@ final class ProfileStatusDashboardMeterView: UIView {
             label.adjustsFontSizeToFitWidth = true
             label.minimumScaleFactor = 0.8
         }
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     

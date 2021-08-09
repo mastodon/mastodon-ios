@@ -160,6 +160,8 @@ final class ProfileHeaderView: UIView {
     let relationshipActionButton: ProfileRelationshipActionButton = {
         let button = ProfileRelationshipActionButton()
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.5
         return button
     }()
     
@@ -406,9 +408,10 @@ extension ProfileHeaderView {
             relationshipActionButton.topAnchor.constraint(equalTo: dashboardContainerView.topAnchor),
             relationshipActionButton.leadingAnchor.constraint(greaterThanOrEqualTo: statusDashboardView.trailingAnchor, constant: 8),
             relationshipActionButton.trailingAnchor.constraint(equalTo: dashboardContainerView.readableContentGuide.trailingAnchor),
-            relationshipActionButton.widthAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.defaultHigh),
+            relationshipActionButton.widthAnchor.constraint(greaterThanOrEqualToConstant: ProfileHeaderView.friendshipActionButtonSize.width).priority(.required - 1),
             relationshipActionButton.heightAnchor.constraint(equalToConstant: ProfileHeaderView.friendshipActionButtonSize.height).priority(.defaultHigh),
         ])
+        relationshipActionButton.setContentHuggingPriority(.required - 10, for: .horizontal)
         
         bioContainerView.preservesSuperviewLayoutMargins = true
         metaContainerStackView.addArrangedSubview(bioContainerView)
