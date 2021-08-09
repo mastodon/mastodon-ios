@@ -324,9 +324,6 @@
             "title": "查看推荐关注的用户",
             "follow_explain": "当你关注某个人时，你将会在主页看到他们的帖子。"
         },
-        "public_timeline": {
-            "title": "公开"
-        },
         "compose": {
             "title": {
                 "new_post": "新帖子",
