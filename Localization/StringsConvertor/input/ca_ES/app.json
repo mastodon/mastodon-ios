@@ -324,9 +324,6 @@
             "title": "Cerca Persones per Seguir",
             "follow_explain": "Quan segueixes algú, veuràs les seves publicacions a Inici."
         },
-        "public_timeline": {
-            "title": "Públic"
-        },
         "compose": {
             "title": {
                 "new_post": "Nova publicació",
