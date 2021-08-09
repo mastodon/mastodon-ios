@@ -55,9 +55,12 @@ final class SendPostIntentHandler: NSObject, SendPostIntentHandling {
                 spoilerText: nil,
                 visibility: visibility
             )
+            
+            let idempotencyKey = UUID().uuidString
 
             APIService.shared.publishStatus(
                 domain: box.domain,
+                idempotencyKey: idempotencyKey,
                 query: query,
                 mastodonAuthenticationBox: box
             )

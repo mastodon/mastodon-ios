@@ -107,6 +107,8 @@ extension ComposeViewModel.PublishState {
                 return subscriptions
             }()
             
+            let idempotencyKey = viewModel.idempotencyKey.value
+            
             publishingSubscription = Publishers.MergeMany(updateMediaQuerySubscriptions)
                 .collect()
                 .flatMap { attachments -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Status>, Error> in
@@ -122,6 +124,7 @@ extension ComposeViewModel.PublishState {
                     )
                     return viewModel.context.apiService.publishStatus(
                         domain: domain,
+                        idempotencyKey: idempotencyKey,
                         query: query,
                         mastodonAuthenticationBox: mastodonAuthenticationBox
                     )
