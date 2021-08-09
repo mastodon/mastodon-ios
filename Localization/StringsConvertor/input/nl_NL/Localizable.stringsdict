@@ -21,7 +21,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Invoerlimiet blijft %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 teken</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tekens</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>bericht</string>
         <key>other</key>
-        <string>posts</string>
+        <string>berichten</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 bericht</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld berichten</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 favoriet</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld favorieten</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 gedeeld bericht</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld gedeelde berichten</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 stem</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld stemmen</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 kiezer</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld kiezers</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 gebruiker die praat</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld gebruikers die praten</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 volgend</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld volgend</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 volger</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld volgers</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 jaar resterend</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld jaren resterend</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 maanden resterend</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld maanden resterend</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>1 dag resterend</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld dagen resterend</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>1 uur resterend</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld uur resterend</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 minuut resterend</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld minuten resterend</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 seconde resterend</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld seconden resterend</string>
       </dict>
     </dict>
   </dict>
