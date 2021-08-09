@@ -6,7 +6,7 @@
                 "please_try_again_later": "Bitte versuche es später nochmal."
             },
             "sign_up_failure": {
-                "title": "Anmeldefehler"
+                "title": "Registrierungsfehler"
             },
             "server_error": {
                 "title": "Serverfehler"
@@ -16,15 +16,15 @@
                 "poll_ended": "Die Umfrage ist beendet"
             },
             "discard_post_content": {
-                "title": "Entwurf Verwerfen",
-                "message": "Bestätige um den Beitrag zu verwerfen."
+                "title": "Entwurf verwerfen",
+                "message": "Bestätige, um den Beitrag zu verwerfen."
             },
             "publish_post_failure": {
                 "title": "Fehler bei Veröffentlichung",
                 "message": "Fehler beim Veröffentlichen des Beitrags.\nBitte überprüfe deine Internetverbindung.",
                 "attachments_message": {
                     "video_attach_with_photo": "Es kann kein Video an einen Beitrag, der bereits Bilder enthält, angehängt werden.",
-                    "more_than_one_video": "Es kann nicht mehr als ein Video hinzugefügt werden."
+                    "more_than_one_video": "Es kann nicht mehr als ein Video angehängt werden."
                 }
             },
             "edit_profile_failure": {
@@ -37,7 +37,7 @@
                 "confirm": "Abmelden"
             },
             "block_domain": {
-                "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Folgenden von dieser Domain werden entfernt.",
+                "title": "Bist du dir wirklich sicher, dass du die ganze Domain %s blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Follower von dieser Domain werden entfernt.",
                 "block_entire_domain": "Domain blockieren"
             },
             "save_photo_failure": {
@@ -57,7 +57,7 @@
             "actions": {
                 "back": "Zurück",
                 "next": "Weiter",
-                "previous": "Zurück",
+                "previous": "Vorheriges",
                 "open": "Öffnen",
                 "add": "Hinzufügen",
                 "remove": "Entfernen",
@@ -158,7 +158,7 @@
                 "block_user": "%s blockieren",
                 "block_domain": "%s blockieren",
                 "unblock": "Blockierung aufheben",
-                "unblock_user": "@%s entblocken",
+                "unblock_user": "Blockierung von %s aufheben",
                 "blocked": "Blockiert",
                 "mute": "Stummschalten",
                 "mute_user": "%s stummschalten",
@@ -180,9 +180,9 @@
                 "header": {
                     "no_status_found": "Kein Beitrag gefunden",
                     "blocking_warning": "Du kannst das Profil dieses Benutzers nicht sehen\n solange du den Benutzer nicht entsperrst.\nDein Profil sieht für diesen Benutzer auch so aus.",
-                    "user_blocking_warning": "Du kannst %ss Profil nicht sehen\n solange du diesen Benutzer nicht entsperrst.\nDein Profil sieht für diesen Benutzer auch so aus.",
-                    "blocked_warning": "Das Profil dieses Benutzers\n kann nicht angezeigt werden, bis er dich entsperrt.",
-                    "user_blocked_warning": "Du kannst das Profil von %s nicht sehen\n bis der Benutzer dich entsperrt.",
+                    "user_blocking_warning": "Du kannst %ss Profil nicht sehen\nsolange du diesen Benutzer nicht entsperrst.\nDein Profil sieht für diesen Benutzer auch so aus.",
+                    "blocked_warning": "Das Profil dieses Benutzers\nkann nicht angezeigt werden, bis er dich entsperrt.",
+                    "user_blocked_warning": "Du kannst das Profil von %s nicht sehen \nbis der Benutzer dich entsperrt.",
                     "suspended_warning": "Dieser Nutzer wurde gesperrt.",
                     "user_suspended_warning": "Das Konto von %s wurde gesperrt."
                 }
@@ -201,7 +201,7 @@
                     "all_accessiblity_description": "Kategorie: Alle",
                     "academia": "Wissenschaft",
                     "activism": "Aktivismus",
-                    "food": "Kochen",
+                    "food": "Essen",
                     "furry": "Furry",
                     "games": "Spiele",
                     "general": "Allgemein",
@@ -225,7 +225,7 @@
             },
             "empty_state": {
                 "finding_servers": "Verfügbare Server werden gesucht...",
-                "bad_network": "Da ist etwas schief gelaufen. Bitte versuche es erneut oder überprüfe deine Internetverbindung.",
+                "bad_network": "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.",
                 "no_results": "Keine Ergebnisse"
             }
         },
