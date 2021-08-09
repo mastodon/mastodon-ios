@@ -168,7 +168,7 @@ final class StatusView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 12, weight: .regular))
         label.textColor = Asset.Colors.Label.secondary.color
-        label.text = L10n.Common.Controls.Status.Poll.timeLeft("6 hours")
+        label.text = "1 day left"
         return label
     }()
     let pollVoteButton: UIButton = {

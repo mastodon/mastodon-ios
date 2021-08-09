@@ -88,8 +88,8 @@ internal enum L10n {
         internal static let title = L10n.tr("Localizable", "Common.Alerts.SignUpFailure.Title")
       }
       internal enum VoteFailure {
-        /// The poll has expired
-        internal static let pollExpired = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollExpired")
+        /// The poll has ended
+        internal static let pollEnded = L10n.tr("Localizable", "Common.Alerts.VoteFailure.PollEnded")
         /// Vote Failure
         internal static let title = L10n.tr("Localizable", "Common.Alerts.VoteFailure.Title")
       }
@@ -295,10 +295,6 @@ internal enum L10n {
         internal enum Poll {
           /// Closed
           internal static let closed = L10n.tr("Localizable", "Common.Controls.Status.Poll.Closed")
-          /// %@ left
-          internal static func timeLeft(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Status.Poll.TimeLeft", String(describing: p1))
-          }
           /// Vote
           internal static let vote = L10n.tr("Localizable", "Common.Controls.Status.Poll.Vote")
         }
@@ -330,20 +326,6 @@ internal enum L10n {
       internal enum Timeline {
         /// Filtered
         internal static let filtered = L10n.tr("Localizable", "Common.Controls.Timeline.Filtered")
-        internal enum Accessibility {
-          /// %@ favorites
-          internal static func countFavorites(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Timeline.Accessibility.CountFavorites", String(describing: p1))
-          }
-          /// %@ reblogs
-          internal static func countReblogs(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Timeline.Accessibility.CountReblogs", String(describing: p1))
-          }
-          /// %@ replies
-          internal static func countReplies(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Timeline.Accessibility.CountReplies", String(describing: p1))
-          }
-        }
         internal enum Header {
           /// You can’t view this user’s profile\n until they unblock you.
           internal static let blockedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockedWarning")
@@ -377,10 +359,6 @@ internal enum L10n {
         internal enum Timestamp {
           /// Now
           internal static let now = L10n.tr("Localizable", "Common.Controls.Timeline.Timestamp.Now")
-          /// %@ ago
-          internal static func timeAgo(_ p1: Any) -> String {
-            return L10n.tr("Localizable", "Common.Controls.Timeline.Timestamp.TimeAgo", String(describing: p1))
-          }
         }
       }
     }
@@ -407,14 +385,6 @@ internal enum L10n {
         internal static let disableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.DisableContentWarning")
         /// Enable Content Warning
         internal static let enableContentWarning = L10n.tr("Localizable", "Scene.Compose.Accessibility.EnableContentWarning")
-        /// Input limit exceeds %ld
-        internal static func inputLimitExceedsCount(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "Scene.Compose.Accessibility.InputLimitExceedsCount", p1)
-        }
-        /// Input limit remains %ld
-        internal static func inputLimitRemainsCount(_ p1: Int) -> String {
-          return L10n.tr("Localizable", "Scene.Compose.Accessibility.InputLimitRemainsCount", p1)
-        }
         /// Post Visibility Menu
         internal static let postVisibilityMenu = L10n.tr("Localizable", "Scene.Compose.Accessibility.PostVisibilityMenu")
         /// Remove Poll
@@ -543,12 +513,6 @@ internal enum L10n {
       /// Your Favorites
       internal static let title = L10n.tr("Localizable", "Scene.Favorite.Title")
     }
-    internal enum Hashtag {
-      /// %@ people talking
-      internal static func prompt(_ p1: Any) -> String {
-        return L10n.tr("Localizable", "Scene.Hashtag.Prompt", String(describing: p1))
-      }
-    }
     internal enum HomeTimeline {
       /// Home
       internal static let title = L10n.tr("Localizable", "Scene.HomeTimeline.Title")
@@ -609,20 +573,6 @@ internal enum L10n {
         internal static let following = L10n.tr("Localizable", "Scene.Profile.Dashboard.Following")
         /// posts
         internal static let posts = L10n.tr("Localizable", "Scene.Profile.Dashboard.Posts")
-        internal enum Accessibility {
-          /// %ld followers
-          internal static func countFollowers(_ p1: Int) -> String {
-            return L10n.tr("Localizable", "Scene.Profile.Dashboard.Accessibility.CountFollowers", p1)
-          }
-          /// %ld following
-          internal static func countFollowing(_ p1: Int) -> String {
-            return L10n.tr("Localizable", "Scene.Profile.Dashboard.Accessibility.CountFollowing", p1)
-          }
-          /// %ld posts
-          internal static func countPosts(_ p1: Int) -> String {
-            return L10n.tr("Localizable", "Scene.Profile.Dashboard.Accessibility.CountPosts", p1)
-          }
-        }
       }
       internal enum Fields {
         /// Add Row
@@ -660,10 +610,6 @@ internal enum L10n {
         /// Replies
         internal static let replies = L10n.tr("Localizable", "Scene.Profile.SegmentedControl.Replies")
       }
-    }
-    internal enum PublicTimeline {
-      /// Public
-      internal static let title = L10n.tr("Localizable", "Scene.PublicTimeline.Title")
     }
     internal enum Register {
       /// Tell us about you.
@@ -1019,6 +965,60 @@ internal enum L10n {
     }
   }
 
+  internal enum A11y {
+    internal enum Plural {
+      internal enum Count {
+        /// Plural format key: "Input limit exceeds %#@character_count@"
+        internal static func inputLimitExceeds(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "a11y.plural.count.input_limit_exceeds", p1)
+        }
+        /// Plural format key: "Input limit remains %#@character_count@"
+        internal static func inputLimitRemains(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "a11y.plural.count.input_limit_remains", p1)
+        }
+      }
+    }
+  }
+
+  internal enum Date {
+    internal enum Day {
+      /// Plural format key: "%#@count_day_left@"
+      internal static func `left`(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "date.day.left", p1)
+      }
+    }
+    internal enum Hour {
+      /// Plural format key: "%#@count_hour_left@"
+      internal static func `left`(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "date.hour.left", p1)
+      }
+    }
+    internal enum Minute {
+      /// Plural format key: "%#@count_minute_left@"
+      internal static func `left`(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "date.minute.left", p1)
+      }
+    }
+    internal enum Month {
+      /// Plural format key: "%#@count_month_left@"
+      internal static func `left`(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "date.month.left", p1)
+      }
+    }
+    internal enum Second {
+      /// Plural format key: "%#@count_second_left@"
+      internal static func `left`(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "date.second.left", p1)
+      }
+    }
+    internal enum Year {
+      /// Plural format key: "%#@count_year_left@"
+      internal static func `left`(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "date.year.left", p1)
+      }
+    }
+  }
+
   internal enum Plural {
     /// Plural format key: "%#@count_people_talking@"
     internal static func peopleTalking(_ p1: Int) -> String {
@@ -1028,6 +1028,18 @@ internal enum L10n {
       /// Plural format key: "%#@favorite_count@"
       internal static func favorite(_ p1: Int) -> String {
         return L10n.tr("Localizable", "plural.count.favorite", p1)
+      }
+      /// Plural format key: "%#@count_follower@"
+      internal static func follower(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.follower", p1)
+      }
+      /// Plural format key: "%#@count_following@"
+      internal static func following(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.following", p1)
+      }
+      /// Plural format key: "%#@post_count@"
+      internal static func post(_ p1: Int) -> String {
+        return L10n.tr("Localizable", "plural.count.post", p1)
       }
       /// Plural format key: "%#@reblog_count@"
       internal static func reblog(_ p1: Int) -> String {

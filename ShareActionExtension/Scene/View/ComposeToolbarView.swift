@@ -46,7 +46,7 @@ final class ComposeToolbarView: UIView {
         label.font = .systemFont(ofSize: 15, weight: .regular)
         label.text = "500"
         label.textColor = Asset.Colors.Label.secondary.color
-        label.accessibilityLabel = L10n.Scene.Compose.Accessibility.inputLimitRemainsCount(500)
+        label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
         return label
     }()
 

@@ -953,11 +953,9 @@ extension StatusSection {
             cell.statusView.pollCountdownSubscription = nil
             cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.closed
         } else if let expiresAt = poll.expiresAt {
-            cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
+            cell.statusView.pollCountdownLabel.text = expiresAt.localizedTimeLeft()
             cell.statusView.pollCountdownSubscription = AppContext.shared.timestampUpdatePublisher
-                .sink { _ in
-                    cell.statusView.pollCountdownLabel.text = L10n.Common.Controls.Status.Poll.timeLeft(expiresAt.shortTimeAgoSinceNow)
-                }
+                .sink { _ in cell.statusView.pollCountdownLabel.text = expiresAt.localizedTimeLeft() }
         } else {
             cell.statusView.pollCountdownSubscription = nil
             cell.statusView.pollCountdownLabel.text = "-"
@@ -1039,7 +1037,7 @@ extension StatusSection {
         }()
         cell.statusView.actionToolbarContainer.replyButton.setTitle(replyCountTitle, for: .normal)
         cell.statusView.actionToolbarContainer.replyButton.accessibilityValue = status.repliesCount.flatMap {
-            L10n.Common.Controls.Timeline.Accessibility.countReplies($0.intValue)
+            L10n.Plural.Count.reblog($0.intValue)
         } ?? nil
         // set reblog
         let isReblogged = status.rebloggedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
@@ -1052,7 +1050,7 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.reblogButton.accessibilityLabel = isReblogged ? L10n.Common.Controls.Status.Actions.unreblog : L10n.Common.Controls.Status.Actions.reblog
         cell.statusView.actionToolbarContainer.reblogButton.accessibilityValue = {
             guard status.reblogsCount.intValue > 0 else { return nil }
-            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.reblogsCount.intValue)
+            return L10n.Plural.Count.reblog(status.reblogsCount.intValue)
         }()
 
         // disable reblog if needs (except self)
@@ -1077,7 +1075,7 @@ extension StatusSection {
         cell.statusView.actionToolbarContainer.favoriteButton.accessibilityLabel = isLike ? L10n.Common.Controls.Status.Actions.unfavorite : L10n.Common.Controls.Status.Actions.favorite
         cell.statusView.actionToolbarContainer.favoriteButton.accessibilityValue = {
             guard status.favouritesCount.intValue > 0 else { return nil }
-            return L10n.Common.Controls.Timeline.Accessibility.countReblogs(status.favouritesCount.intValue)
+            return L10n.Plural.Count.favorite(status.favouritesCount.intValue)
         }()
         Publishers.CombineLatest(
             dependency.context.blockDomainService.blockedDomains.setFailureType(to: ManagedObjectObserver.Error.self),

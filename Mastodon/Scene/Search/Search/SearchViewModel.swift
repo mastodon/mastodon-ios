@@ -63,7 +63,7 @@ final class SearchViewModel: NSObject {
                 snapshot.appendSections([.main])
                 snapshot.appendItems(response.value, toSection: .main)
                 dataSource.apply(snapshot, animatingDifferences: false, completion: nil)
-            case .failure(let error):
+            case .failure:
                 break
             }
         }
@@ -99,7 +99,7 @@ final class SearchViewModel: NSObject {
             switch result {
             case .success(let userIDs):
                 self.receiveAccounts(ids: userIDs)
-            case .failure(let error):
+            case .failure:
                 break
             }
         }
