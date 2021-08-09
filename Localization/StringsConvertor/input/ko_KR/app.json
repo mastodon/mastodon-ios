@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "투표 실패",
-                "poll_expired": "투표가 만료되었습니다"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "초안 버리기",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
                     "vote": "투표",
-                    "time_left": "%s 남음",
                     "closed": "마감"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "필터됨",
                 "timestamp": {
-                    "now": "지금",
-                    "time_ago": "%s 전"
+                    "now": "지금"
                 },
                 "loader": {
                     "load_missing_posts": "빈 게시물 불러오기",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
                     "suspended_warning": "이 사용자는 정지된 상태입니다.",
                     "user_suspended_warning": "%s의 계정은 정지된 상태입니다."
-                },
-                "accessibility": {
-                    "count_replies": "%s개의 답장",
-                    "count_reblogs": "%s개의 리블로그",
-                    "count_favorites": "%s개의 즐겨찾기"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "커스텀 에모지 선택기",
                 "enable_content_warning": "열람 주의 설정",
                 "disable_content_warning": "열람 주의 해제",
-                "post_visibility_menu": "게시물 공개범위 메뉴",
-                "input_limit_remains_count": "Input limit remains %ld",
-                "input_limit_exceeds_count": "Input limit exceeds %ld"
+                "post_visibility_menu": "게시물 공개범위 메뉴"
             },
             "keyboard": {
                 "discard_post": "글 버리기",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "게시물",
                 "following": "팔로잉",
-                "followers": "팔로워",
-                "accessibility": {
-                    "count_posts": "%ld 게시물",
-                    "count_following": "%ld 팔로잉",
-                    "count_followers": "%ld 팔로워"
-                }
+                "followers": "팔로워"
             },
             "fields": {
                 "add_row": "행 추가",
@@ -462,9 +448,6 @@
                 "recent_search": "Recent searches",
                 "clear": "Clear"
             }
-        },
-        "hashtag": {
-            "prompt": "%s people talking"
         },
         "favorite": {
             "title": "Your Favorites"
