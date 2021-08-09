@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Voto fallido",
-                "poll_expired": "La encuesta ha caducado"
+                "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
                 "title": "Descartar borrador",
@@ -130,7 +130,6 @@
                 "media_content_warning": "Pulsa en cualquier sitio para mostrar",
                 "poll": {
                     "vote": "Vota",
-                    "time_left": "Quedan %s",
                     "closed": "Cerrado"
                 },
                 "actions": {
@@ -171,8 +170,7 @@
             "timeline": {
                 "filtered": "Filtrado",
                 "timestamp": {
-                    "now": "Ahora",
-                    "time_ago": "Hace %s"
+                    "now": "Ahora"
                 },
                 "loader": {
                     "load_missing_posts": "Cargar publicaciones faltantes",
@@ -187,11 +185,6 @@
                     "user_blocked_warning": "No puedes ver el perfil de %s\n hasta que te desbloquee.",
                     "suspended_warning": "Este usuario ha sido suspendido.",
                     "user_suspended_warning": "La cuenta de %s ha sido suspendida."
-                },
-                "accessibility": {
-                    "count_replies": "%s respuestas",
-                    "count_reblogs": "%s redifusiones",
-                    "count_favorites": "%s favoritos"
                 }
             }
         }
@@ -383,9 +376,7 @@
                 "custom_emoji_picker": "Selector de Emojis Personalizados",
                 "enable_content_warning": "Activar Advertencia de Contenido",
                 "disable_content_warning": "Desactivar Advertencia de Contenido",
-                "post_visibility_menu": "Menú de Visibilidad de la Publicación",
-                "input_limit_remains_count": "%ld restante hasta el límite de entrada",
-                "input_limit_exceeds_count": "%ld en exceso sobre el límite de entrada"
+                "post_visibility_menu": "Menú de Visibilidad de la Publicación"
             },
             "keyboard": {
                 "discard_post": "Descartar Publicación",
@@ -400,12 +391,7 @@
             "dashboard": {
                 "posts": "publicaciones",
                 "following": "siguiendo",
-                "followers": "seguidores",
-                "accessibility": {
-                    "count_posts": "%ld publicaciones",
-                    "count_following": "%ld siguiendo",
-                    "count_followers": "%ld seguidores"
-                }
+                "followers": "seguidores"
             },
             "fields": {
                 "add_row": "Añadir Fila",
@@ -462,9 +448,6 @@
                 "recent_search": "Búsquedas recientes",
                 "clear": "Borrar"
             }
-        },
-        "hashtag": {
-            "prompt": "%s personas están hablando de esto"
         },
         "favorite": {
             "title": "Tus Favoritos"
