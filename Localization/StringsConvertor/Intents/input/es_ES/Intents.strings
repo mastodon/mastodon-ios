@@ -1,54 +1,54 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Publicar en Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Contenido de texto";
 /* CsR7G2
 
 This only display in Siri */
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Publicar en Mastodon";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "¿Qué contenido publicar?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Publicación fallida";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Motivo del fallo";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Enviar publicación con contenido de texto";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Publicación";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Publicar ${content} en Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Publicación";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilidad";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilidad del post";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con 'Público'.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con 'Solo seguidores'.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Público";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, solo seguidores";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Publicar en Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Público";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Solo seguidores";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Error al publicar. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Mensaje enviado con éxito.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Solo para confirmar, ¿querías \"Público\"?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Solo para confirmar, ¿querías \"Solo seguidores\"?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Mensaje enviado con éxito. ";
