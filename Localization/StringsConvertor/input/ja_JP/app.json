@@ -387,7 +387,7 @@
         "profile": {
             "dashboard": {
                 "posts": "投稿",
-                "following": "フォロー中",
+                "following": "フォロー",
                 "followers": "フォロワー"
             },
             "fields": {
