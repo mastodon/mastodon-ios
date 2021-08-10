@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Error al votar",
-                "poll_ended": "La encuesta ha terminado"
+                "poll_ended": "La encuesta finalizó"
             },
             "discard_post_content": {
                 "title": "Descartar borrador",
