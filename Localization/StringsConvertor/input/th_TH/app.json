@@ -364,7 +364,7 @@
                 "direct": "เฉพาะผู้คนที่ฉันกล่าวถึงเท่านั้น"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "เว้นวรรคเพื่อเพิ่ม"
             },
             "accessibility": {
                 "append_attachment": "Add Attachment",
