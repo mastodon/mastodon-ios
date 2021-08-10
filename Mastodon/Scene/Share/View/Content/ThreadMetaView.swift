@@ -13,6 +13,8 @@ final class ThreadMetaView: UIView {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular))
         label.text = "Date"
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         return label
     }()
     
@@ -75,8 +77,10 @@ extension ThreadMetaView {
         actionButtonStackView.addArrangedSubview(favoriteButton)
         
         dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        reblogButton.setContentHuggingPriority(.required - 2, for: .horizontal)
-        favoriteButton.setContentHuggingPriority(.required - 1, for: .horizontal)
+        reblogButton.titleLabel?.setContentHuggingPriority(.required - 2, for: .horizontal)
+        favoriteButton.titleLabel?.setContentHuggingPriority(.required - 1, for: .horizontal)
+        reblogButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        favoriteButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         
         updateContainerLayout()
         
