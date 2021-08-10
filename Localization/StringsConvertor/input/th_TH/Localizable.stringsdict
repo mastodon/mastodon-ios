@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld ตัวอักษร</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld ตัวอักษร</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>posts</string>
+        <string>โพสต์</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld โพสต์</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
