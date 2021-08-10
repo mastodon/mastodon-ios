@@ -251,7 +251,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld 年前</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -265,7 +265,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld 月前</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -279,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld 天前</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -293,7 +293,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld 小时前</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -307,7 +307,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld 分前</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -321,7 +321,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld 秒前</string>
       </dict>
     </dict>
   </dict>
