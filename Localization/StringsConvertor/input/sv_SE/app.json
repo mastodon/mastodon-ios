@@ -332,7 +332,7 @@
             "media_selection": {
                 "camera": "Take Photo",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Bläddra"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publicera",
@@ -345,8 +345,8 @@
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
+                "duration_time": "Varaktighet: %s",
+                "thirty_minutes": "30 minuter",
                 "one_hour": "1 Hour",
                 "six_hours": "6 Hours",
                 "one_day": "1 Day",
