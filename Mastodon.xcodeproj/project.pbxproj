@@ -420,6 +420,8 @@
 		DBA1DB80268F84F80052DB59 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA1DB7F268F84F80052DB59 /* NotificationType.swift */; };
 		DBA465932696B495002B41DB /* APIService+WebFinger.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA465922696B495002B41DB /* APIService+WebFinger.swift */; };
 		DBA465952696E387002B41DB /* AppPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA465942696E387002B41DB /* AppPreference.swift */; };
+		DBA4B0F126C24EC80077136E /* Intents.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DBA4B0F026C24EC80077136E /* Intents.stringsdict */; };
+		DBA4B0F226C24EC80077136E /* Intents.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DBA4B0F026C24EC80077136E /* Intents.stringsdict */; };
 		DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */; };
 		DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */; };
 		DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */; };
@@ -1192,6 +1194,7 @@
 		DBA4B0ED26C153B10077136E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = nl; path = nl.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		DBA4B0EE26C153B20077136E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DBA4B0EF26C153B20077136E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DBA4B0F026C24EC80077136E /* Intents.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Intents.stringsdict; sourceTree = "<group>"; };
 		DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
 		DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewModel.swift; sourceTree = "<group>"; };
 		DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -2633,6 +2636,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0009A926AEE5DC009B9D2D /* Intents.intentdefinition */,
+				DBA4B0F026C24EC80077136E /* Intents.stringsdict */,
 				DB8FABD626AEC864008E5AF4 /* MastodonIntent.entitlements */,
 				DB8FABC926AEC7B2008E5AF4 /* IntentHandler.swift */,
 				DBB8AB4526AECDE200F6D281 /* SendPostIntentHandler.swift */,
@@ -3401,6 +3405,7 @@
 				DB3D100D25BAA75E00EAA174 /* Localizable.strings in Resources */,
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
+				DBA4B0F126C24EC80077136E /* Intents.stringsdict in Resources */,
 				DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */,
 				DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */,
 				DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */,
@@ -3446,6 +3451,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA4B0F226C24EC80077136E /* Intents.stringsdict in Resources */,
 				DBB8AB4F26AED13F00F6D281 /* Assets.xcassets in Resources */,
 				DBB8AB5126AED14600F6D281 /* Localizable.strings in Resources */,
 				DBB8AB5026AED14400F6D281 /* Localizable.stringsdict in Resources */,
