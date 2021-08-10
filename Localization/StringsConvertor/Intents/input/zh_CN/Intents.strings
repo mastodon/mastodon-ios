@@ -1,54 +1,51 @@
-/* 16wxgf
-
-The intent title */
 "16wxgf" = "在 Mastodon 上发布";
 
 "751xkl" = "文本内容";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "帖子";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "要发送的内容是什么？";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "发送失败";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "失败原因";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "发送带有文本内容的帖子";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "帖子";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "在 Mastodon 上发送 ${content}";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "帖子";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "可见性";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "帖子可见性";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "有 ${count} 个选项匹配 “公开”";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "有 ${count} 个选项匹配 “仅关注者”";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}，公开";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}，仅关注者";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "帖子";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "公开";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "仅关注者";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "发送失败。 ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "帖子发送成功。";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "确认要选择 “公开”？";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "确认要选择 “仅关注者”？";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "帖子发送成功。";
