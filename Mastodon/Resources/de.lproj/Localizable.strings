@@ -1,16 +1,16 @@
 "Common.Alerts.BlockDomain.BlockEntireDomain" = "Domain blockieren";
-"Common.Alerts.BlockDomain.Title" = "Bist du dir wirklich sicher, dass du die ganze Domain %@ blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Folgenden von dieser Domain werden entfernt.";
+"Common.Alerts.BlockDomain.Title" = "Bist du dir wirklich sicher, dass du die ganze Domain %@ blockieren willst? In den meisten Fällen reichen ein paar gezielte Blockierungen oder Stummschaltungen aus und werden bevorzugt. Du wirst den Inhalt von dieser Domain nicht mehr sehen. Deine Follower von dieser Domain werden entfernt.";
 "Common.Alerts.CleanCache.Message" = "%@ erfolgreich aus dem Cache gelöscht.";
 "Common.Alerts.CleanCache.Title" = "Zwischenspeicher leeren";
 "Common.Alerts.Common.PleaseTryAgain" = "Bitte versuche es erneut.";
 "Common.Alerts.Common.PleaseTryAgainLater" = "Bitte versuche es später nochmal.";
 "Common.Alerts.DeletePost.Delete" = "Löschen";
 "Common.Alerts.DeletePost.Title" = "Bist du dir sicher, dass du diesen Beitrag löschen möchtest?";
-"Common.Alerts.DiscardPostContent.Message" = "Bestätige um den Beitrag zu verwerfen.";
-"Common.Alerts.DiscardPostContent.Title" = "Entwurf Verwerfen";
+"Common.Alerts.DiscardPostContent.Message" = "Bestätige, um den Beitrag zu verwerfen.";
+"Common.Alerts.DiscardPostContent.Title" = "Entwurf verwerfen";
 "Common.Alerts.EditProfileFailure.Message" = "Profil kann nicht bearbeitet werden. Bitte versuche es erneut.";
 "Common.Alerts.EditProfileFailure.Title" = "Fehler beim Bearbeiten des Profils";
-"Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Es kann nicht mehr als ein Video hinzugefügt werden.";
+"Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Es kann nicht mehr als ein Video angehängt werden.";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "Es kann kein Video an einen Beitrag, der bereits Bilder enthält, angehängt werden.";
 "Common.Alerts.PublishPostFailure.Message" = "Fehler beim Veröffentlichen des Beitrags.
 Bitte überprüfe deine Internetverbindung.";
@@ -21,7 +21,7 @@ Bitte überprüfe deine Internetverbindung.";
 "Common.Alerts.SignOut.Confirm" = "Abmelden";
 "Common.Alerts.SignOut.Message" = "Bist du sicher, dass du dich abmelden möchten?";
 "Common.Alerts.SignOut.Title" = "Abmelden";
-"Common.Alerts.SignUpFailure.Title" = "Anmeldefehler";
+"Common.Alerts.SignUpFailure.Title" = "Registrierungsfehler";
 "Common.Alerts.VoteFailure.PollEnded" = "Die Umfrage ist beendet";
 "Common.Alerts.VoteFailure.Title" = "Fehler bei Abstimmung";
 "Common.Controls.Actions.Add" = "Hinzufügen";
@@ -42,7 +42,7 @@ Bitte überprüfe deine Internetverbindung.";
 "Common.Controls.Actions.Open" = "Öffnen";
 "Common.Controls.Actions.OpenInSafari" = "In Safari öffnen";
 "Common.Controls.Actions.Preview" = "Vorschau";
-"Common.Controls.Actions.Previous" = "Zurück";
+"Common.Controls.Actions.Previous" = "Vorheriges";
 "Common.Controls.Actions.Remove" = "Entfernen";
 "Common.Controls.Actions.Reply" = "Antworten";
 "Common.Controls.Actions.ReportUser" = "%@ melden";
@@ -72,7 +72,7 @@ Bitte überprüfe deine Internetverbindung.";
 "Common.Controls.Friendship.Pending" = "In Warteschlange";
 "Common.Controls.Friendship.Request" = "Anfragen";
 "Common.Controls.Friendship.Unblock" = "Blockierung aufheben";
-"Common.Controls.Friendship.UnblockUser" = "@%@ entblocken";
+"Common.Controls.Friendship.UnblockUser" = "Blockierung von %@ aufheben";
 "Common.Controls.Friendship.Unmute" = "Nicht mehr stummschalten";
 "Common.Controls.Friendship.UnmuteUser" = "%@ nicht mehr stummschalten";
 "Common.Controls.Keyboard.Common.ComposeNewPost" = "Neuen Beitrag verfassen";
@@ -117,16 +117,16 @@ Bitte überprüfe deine Internetverbindung.";
 "Common.Controls.Tabs.Search" = "Suche";
 "Common.Controls.Timeline.Filtered" = "Gefiltert";
 "Common.Controls.Timeline.Header.BlockedWarning" = "Das Profil dieses Benutzers
- kann nicht angezeigt werden, bis er dich entsperrt.";
+kann nicht angezeigt werden, bis er dich entsperrt.";
 "Common.Controls.Timeline.Header.BlockingWarning" = "Du kannst das Profil dieses Benutzers nicht sehen
  solange du den Benutzer nicht entsperrst.
 Dein Profil sieht für diesen Benutzer auch so aus.";
 "Common.Controls.Timeline.Header.NoStatusFound" = "Kein Beitrag gefunden";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "Dieser Nutzer wurde gesperrt.";
-"Common.Controls.Timeline.Header.UserBlockedWarning" = "Du kannst das Profil von %@ nicht sehen
- bis der Benutzer dich entsperrt.";
+"Common.Controls.Timeline.Header.UserBlockedWarning" = "Du kannst das Profil von %@ nicht sehen 
+bis der Benutzer dich entsperrt.";
 "Common.Controls.Timeline.Header.UserBlockingWarning" = "Du kannst %@s Profil nicht sehen
- solange du diesen Benutzer nicht entsperrst.
+solange du diesen Benutzer nicht entsperrst.
 Dein Profil sieht für diesen Benutzer auch so aus.";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "Das Konto von %@ wurde gesperrt.";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "Fehlende Beiträge laden";
@@ -184,7 +184,7 @@ kann nicht auf Mastodon hochgeladen werden.";
 "Scene.ConfirmEmail.OpenEmailApp.OpenEmailClient" = "E-Mail-Client öffnen";
 "Scene.ConfirmEmail.OpenEmailApp.Title" = "Überprüfe deinen Posteingang.";
 "Scene.ConfirmEmail.Subtitle" = "Wir haben gerade eine E-Mail an %@ gesendet,
-tippe auf den Link, um Dein Konto zu bestätigen.";
+tippe darin auf den Link, um Dein Konto zu bestätigen.";
 "Scene.ConfirmEmail.Title" = "Noch eine letzte Sache.";
 "Scene.Favorite.Title" = "Deine Favoriten";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Neue Beiträge anzeigen";
@@ -234,7 +234,7 @@ tippe auf den Link, um Dein Konto zu bestätigen.";
 "Scene.Register.Error.Reason.TooLong" = "%@ ist zu lang";
 "Scene.Register.Error.Reason.TooShort" = "%@ ist zu kurz";
 "Scene.Register.Error.Reason.Unreachable" = "%@ scheint nicht zu existieren";
-"Scene.Register.Error.Special.EmailInvalid" = "Dies ist keine gültige E-Mail Adresse";
+"Scene.Register.Error.Special.EmailInvalid" = "Dies ist keine gültige E-Mail-Adresse";
 "Scene.Register.Error.Special.PasswordTooShort" = "Passwort ist zu kurz (mindestens 8 Zeichen erforderlich)";
 "Scene.Register.Error.Special.UsernameInvalid" = "Benutzername kann nur alphanumerische Zeichen und Unterstriche enthalten";
 "Scene.Register.Error.Special.UsernameTooLong" = "Benutzername ist zu lang (darf nicht länger als 30 Zeichen sein)";
@@ -277,7 +277,7 @@ tippe auf den Link, um Dein Konto zu bestätigen.";
 "Scene.ServerPicker.Button.Category.All" = "Alle";
 "Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "Kategorie: Alle";
 "Scene.ServerPicker.Button.Category.Art" = "Kunst";
-"Scene.ServerPicker.Button.Category.Food" = "Kochen";
+"Scene.ServerPicker.Button.Category.Food" = "Essen";
 "Scene.ServerPicker.Button.Category.Furry" = "Furry";
 "Scene.ServerPicker.Button.Category.Games" = "Spiele";
 "Scene.ServerPicker.Button.Category.General" = "Allgemein";
@@ -288,7 +288,7 @@ tippe auf den Link, um Dein Konto zu bestätigen.";
 "Scene.ServerPicker.Button.Category.Tech" = "Technologie";
 "Scene.ServerPicker.Button.SeeLess" = "Weniger anzeigen";
 "Scene.ServerPicker.Button.SeeMore" = "Mehr anzeigen";
-"Scene.ServerPicker.EmptyState.BadNetwork" = "Da ist etwas schief gelaufen. Bitte versuche es erneut oder überprüfe deine Internetverbindung.";
+"Scene.ServerPicker.EmptyState.BadNetwork" = "Beim Laden der Daten ist etwas schief gelaufen. Überprüfe deine Internetverbindung.";
 "Scene.ServerPicker.EmptyState.FindingServers" = "Verfügbare Server werden gesucht...";
 "Scene.ServerPicker.EmptyState.NoResults" = "Keine Ergebnisse";
 "Scene.ServerPicker.Input.Placeholder" = "Finde einen Server oder trete deinem eigenen bei...";
@@ -332,8 +332,8 @@ beliebigen Server.";
 "Scene.Settings.Section.SpicyZone.Signout" = "Abmelden";
 "Scene.Settings.Section.SpicyZone.Title" = "Der Gefährliche Bereich";
 "Scene.Settings.Title" = "Einstellungen";
-"Scene.SuggestionAccount.FollowExplain" = "Wenn du jemandem folgst, siehst du deren Beiträge dann in deinem Home-Feed.";
-"Scene.SuggestionAccount.Title" = "Entdecke Benutzer zum Folgen";
+"Scene.SuggestionAccount.FollowExplain" = "Wenn du jemandem folgst, dann siehst du deren Beiträge in deinem Home-Feed.";
+"Scene.SuggestionAccount.Title" = "Finde Personen zum Folgen";
 "Scene.Thread.BackTitle" = "Beitrag";
 "Scene.Thread.Title" = "Beitrag von %@";
 "Scene.Welcome.Slogan" = "Soziale Netzwerke wieder in deinen Händen.";

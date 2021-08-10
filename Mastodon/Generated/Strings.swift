@@ -327,19 +327,19 @@ internal enum L10n {
         /// Filtered
         internal static let filtered = L10n.tr("Localizable", "Common.Controls.Timeline.Filtered")
         internal enum Header {
-          /// You can’t view this user’s profile\n until they unblock you.
+          /// You can’t view this user’s profile\nuntil they unblock you.
           internal static let blockedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockedWarning")
-          /// You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.
+          /// You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.
           internal static let blockingWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.BlockingWarning")
           /// No Post Found
           internal static let noStatusFound = L10n.tr("Localizable", "Common.Controls.Timeline.Header.NoStatusFound")
           /// This user has been suspended.
           internal static let suspendedWarning = L10n.tr("Localizable", "Common.Controls.Timeline.Header.SuspendedWarning")
-          /// You can’t view %@’s profile\n until they unblock you.
+          /// You can’t view %@’s profile\nuntil they unblock you.
           internal static func userBlockedWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserBlockedWarning", String(describing: p1))
           }
-          /// You can’t view %@’s profile\n until you unblock them.\nYour profile looks like this to them.
+          /// You can’t view %@’s profile\nuntil you unblock them.\nYour profile looks like this to them.
           internal static func userBlockingWarning(_ p1: Any) -> String {
             return L10n.tr("Localizable", "Common.Controls.Timeline.Header.UserBlockingWarning", String(describing: p1))
           }
@@ -986,11 +986,23 @@ internal enum L10n {
       internal static func `left`(_ p1: Int) -> String {
         return L10n.tr("Localizable", "date.day.left", p1)
       }
+      internal enum Ago {
+        /// Plural format key: "%#@count_day_ago_abbr@"
+        internal static func abbr(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "date.day.ago.abbr", p1)
+        }
+      }
     }
     internal enum Hour {
       /// Plural format key: "%#@count_hour_left@"
       internal static func `left`(_ p1: Int) -> String {
         return L10n.tr("Localizable", "date.hour.left", p1)
+      }
+      internal enum Ago {
+        /// Plural format key: "%#@count_hour_ago_abbr@"
+        internal static func abbr(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "date.hour.ago.abbr", p1)
+        }
       }
     }
     internal enum Minute {
@@ -998,11 +1010,23 @@ internal enum L10n {
       internal static func `left`(_ p1: Int) -> String {
         return L10n.tr("Localizable", "date.minute.left", p1)
       }
+      internal enum Ago {
+        /// Plural format key: "%#@count_minute_ago_abbr@"
+        internal static func abbr(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "date.minute.ago.abbr", p1)
+        }
+      }
     }
     internal enum Month {
       /// Plural format key: "%#@count_month_left@"
       internal static func `left`(_ p1: Int) -> String {
         return L10n.tr("Localizable", "date.month.left", p1)
+      }
+      internal enum Ago {
+        /// Plural format key: "%#@count_month_ago_abbr@"
+        internal static func abbr(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "date.month.ago.abbr", p1)
+        }
       }
     }
     internal enum Second {
@@ -1010,11 +1034,23 @@ internal enum L10n {
       internal static func `left`(_ p1: Int) -> String {
         return L10n.tr("Localizable", "date.second.left", p1)
       }
+      internal enum Ago {
+        /// Plural format key: "%#@count_second_ago_abbr@"
+        internal static func abbr(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "date.second.ago.abbr", p1)
+        }
+      }
     }
     internal enum Year {
       /// Plural format key: "%#@count_year_left@"
       internal static func `left`(_ p1: Int) -> String {
         return L10n.tr("Localizable", "date.year.left", p1)
+      }
+      internal enum Ago {
+        /// Plural format key: "%#@count_year_ago_abbr@"
+        internal static func abbr(_ p1: Int) -> String {
+          return L10n.tr("Localizable", "date.year.ago.abbr", p1)
+        }
       }
     }
   }
