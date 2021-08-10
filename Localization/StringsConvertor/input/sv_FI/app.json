@@ -332,7 +332,7 @@
             "media_selection": {
                 "camera": "Take Photo",
                 "photo_library": "Photo Library",
-                "browse": "Browse"
+                "browse": "Bläddra"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "Publicera",
@@ -345,8 +345,8 @@
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
+                "duration_time": "Varaktighet: %s",
+                "thirty_minutes": "30 minuter",
                 "one_hour": "1 Hour",
                 "six_hours": "6 Hours",
                 "one_day": "1 Day",
@@ -454,14 +454,12 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "action": {
-                "follow": "followed you",
-                "favourite": "favorited your post",
-                "reblog": "reblogged your post",
-                "poll": "Your poll has ended",
-                "mention": "mentioned you",
-                "follow_request": "requested to follow you"
-            },
+            "user_followed_you": "%s followed you",
+            "user_favorited your post": "%s favorited your post",
+            "user_reblogged_your_post": "%s reblogged your post",
+            "user_mentioned_you": "%s mentioned you",
+            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
