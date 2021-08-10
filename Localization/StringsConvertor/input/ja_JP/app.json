@@ -454,14 +454,12 @@
                 "Everything": "すべて",
                 "Mentions": "メンション"
             },
-            "action": {
-                "follow": "フォローされました",
-                "favourite": "がお気に入りに登録",
-                "reblog": "がブーストしました",
-                "poll": "投票が終了しました",
-                "mention": "メンションされました",
-                "follow_request": "フォローリクエスト"
-            },
+            "user_followed_you": "%s followed you",
+            "user_favorited your post": "%s favorited your post",
+            "user_reblogged_your_post": "%s reblogged your post",
+            "user_mentioned_you": "%s mentioned you",
+            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "すべて見る",
                 "show_mentions": "メンションを見る"
