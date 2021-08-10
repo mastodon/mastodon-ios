@@ -2,43 +2,43 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "โปรดลองอีกครั้ง",
+                "please_try_again_later": "โปรดลองอีกครั้งในภายหลัง"
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "การลงทะเบียนล้มเหลว"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "ข้อผิดพลาดเซิร์ฟเวอร์"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "การลงคะแนนล้มเหลว",
+                "poll_ended": "การสำรวจความคิดเห็นได้สิ้นสุดแล้ว"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "ละทิ้งแบบร่าง",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "การเผยแพร่ล้มเหลว",
+                "message": "ไม่สามารถเผยแพร่โพสต์\nโปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "ไม่สามารถแนบวิดีโอกับโพสต์ที่มีภาพอยู่แล้ว",
+                    "more_than_one_video": "ไม่สามารถแนบมากกว่าหนึ่งวิดีโอ"
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "title": "ข้อผิดพลาดการแก้ไขโปรไฟล์",
+                "message": "ไม่สามารถแก้ไขโปรไฟล์ โปรดลองอีกครั้ง"
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "ลงชื่อออก",
+                "message": "คุณแน่ใจหรือไม่ว่าต้องการลงชื่อออก?",
+                "confirm": "ลงชื่อออก"
             },
             "block_domain": {
                 "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "block_entire_domain": "ปิดกั้นโดเมน"
             },
             "save_photo_failure": {
                 "title": "Save Photo Failure",
@@ -46,71 +46,71 @@
             },
             "delete_post": {
                 "title": "Are you sure you want to delete this post?",
-                "delete": "Delete"
+                "delete": "ลบ"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "ล้างแคช",
                 "message": "Successfully cleaned %s cache."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Edit",
-                "save": "Save",
-                "ok": "OK",
-                "done": "Done",
-                "confirm": "Confirm",
-                "continue": "Continue",
-                "cancel": "Cancel",
-                "discard": "Discard",
-                "try_again": "Try Again",
+                "back": "ย้อนกลับ",
+                "next": "ถัดไป",
+                "previous": "ก่อนหน้า",
+                "open": "เปิด",
+                "add": "เพิ่ม",
+                "remove": "เอาออก",
+                "edit": "แก้ไข",
+                "save": "บันทึก",
+                "ok": "ตกลง",
+                "done": "เสร็จสิ้น",
+                "confirm": "ยืนยัน",
+                "continue": "ดำเนินการต่อ",
+                "cancel": "ยกเลิก",
+                "discard": "ละทิ้ง",
+                "try_again": "ลองอีกครั้ง",
                 "take_photo": "Take Photo",
                 "save_photo": "Save Photo",
                 "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
+                "sign_in": "ลงชื่อเข้า",
+                "sign_up": "ลงทะเบียน",
+                "see_more": "ดูเพิ่มเติม",
                 "preview": "Preview",
-                "share": "Share",
-                "share_user": "Share %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
+                "share": "แบ่งปัน",
+                "share_user": "แบ่งปัน %s",
+                "share_post": "แบ่งปันโพสต์",
+                "open_in_safari": "เปิดใน Safari",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "skip": "ข้าม",
+                "reply": "ตอบกลับ",
+                "report_user": "รายงาน %s",
+                "block_domain": "ปิดกั้น %s",
+                "unblock_domain": "เลิกปิดกั้น %s",
+                "settings": "การตั้งค่า",
+                "delete": "ลบ"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "หน้าแรก",
+                "search": "ค้นหา",
+                "notification": "การแจ้งเตือน",
+                "profile": "โปรไฟล์"
             },
             "keyboard": {
                 "common": {
                     "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "compose_new_post": "เขียนโพสต์ใหม่",
+                    "show_favorites": "แสดงรายการโปรด",
+                    "open_settings": "เปิดการตั้งค่า"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
+                    "previous_status": "โพสต์ก่อนหน้า",
+                    "next_status": "โพสต์ถัดไป",
+                    "open_status": "เปิดโพสต์",
+                    "open_author_profile": "เปิดโปรไฟล์ของผู้สร้าง",
                     "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
+                    "reply_status": "ตอบกลับโพสต์",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
                     "toggle_content_warning": "Toggle Content Warning",
@@ -124,61 +124,61 @@
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
+                "show_post": "แสดงโพสต์",
                 "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
+                "content_warning": "คำเตือนเนื้อหา",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "ลงคะแนน",
+                    "closed": "ปิดแล้ว"
                 },
                 "actions": {
-                    "reply": "Reply",
+                    "reply": "ตอบกลับ",
                     "reblog": "Reblog",
                     "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "favorite": "ชื่นชอบ",
+                    "unfavorite": "เลิกชื่นชอบ",
+                    "menu": "เมนู"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "mention": "กล่าวถึง",
+                    "link": "ลิงก์",
+                    "hashtag": "แฮชแท็ก",
+                    "email": "อีเมล",
+                    "emoji": "อีโมจิ"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
+                "follow": "ติดตาม",
+                "following": "กำลังติดตาม",
                 "request": "Request",
                 "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
-                "muted": "Muted",
-                "edit_info": "Edit Info"
+                "block": "ปิดกั้น",
+                "block_user": "ปิดกั้น %s",
+                "block_domain": "ปิดกั้น %s",
+                "unblock": "เลิกปิดกั้น",
+                "unblock_user": "เลิกปิดกั้น %s",
+                "blocked": "ปิดกั้นอยู่",
+                "mute": "ซ่อน",
+                "mute_user": "ซ่อน %s",
+                "unmute": "เลิกซ่อน",
+                "unmute_user": "เลิกซ่อน %s",
+                "muted": "ซ่อนอยู่",
+                "edit_info": "แก้ไขข้อมูล"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "กรองอยู่",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "ตอนนี้"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "แสดงการตอบกลับเพิ่มเติม"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "ไม่พบโพสต์",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -197,8 +197,8 @@
             "title": "Pick a server,\nany server.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
+                    "all": "ทั้งหมด",
+                    "all_accessiblity_description": "หมวดหมู่: ทั้งหมด",
                     "academia": "academia",
                     "activism": "activism",
                     "food": "food",
@@ -212,13 +212,13 @@
                     "music": "music",
                     "tech": "tech"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "ดูน้อยลง",
+                "see_more": "ดูเพิ่มเติม"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "ภาษา",
+                "users": "ผู้ใช้",
+                "category": "หมวดหมู่"
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
@@ -233,20 +233,20 @@
             "title": "Tell us about you.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "ลบ"
                 },
                 "username": {
-                    "placeholder": "username",
+                    "placeholder": "ชื่อผู้ใช้",
                     "duplicate_prompt": "This username is taken."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "ชื่อที่แสดง"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "อีเมล"
                 },
                 "password": {
-                    "placeholder": "password",
+                    "placeholder": "รหัสผ่าน",
                     "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
@@ -255,12 +255,12 @@
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "username": "ชื่อผู้ใช้",
+                    "email": "อีเมล",
+                    "password": "รหัสผ่าน",
                     "agreement": "Agreement",
                     "locale": "Locale",
-                    "reason": "Reason"
+                    "reason": "เหตุผล"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
@@ -296,25 +296,25 @@
             "title": "One last thing.",
             "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
-                "open_email_app": "Open Email App",
+                "open_email_app": "เปิดแอปอีเมล",
                 "dont_receive_email": "I never got an email"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "ตรวจสอบอีเมลของคุณ",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
             "open_email_app": {
                 "title": "Check your inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
+                "mail": "จดหมาย",
                 "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "หน้าแรก",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "ออฟไลน์",
                 "new_posts": "See new posts",
                 "published": "Published!",
                 "Publishing": "Publishing post..."
