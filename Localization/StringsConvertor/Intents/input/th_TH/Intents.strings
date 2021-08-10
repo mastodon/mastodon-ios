@@ -1,29 +1,29 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "โพสต์ใน Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "เนื้อหาข้อความ";
 /* CsR7G2
 
 This only display in Siri */
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "โพสต์ใน Mastodon";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "การโพสต์ล้มเหลว";
 
 "KDNTJ4" = "Failure Reason";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "ส่งโพสต์พร้อมเนื้อหาข้อความ";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "โพสต์";
 
 "WCIR3D" = "Post ${content} on Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "โพสต์";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "การมองเห็น";
 
 "Zo4jgJ" = "Post Visibility";
 
@@ -35,13 +35,13 @@ This only display in Siri */
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "โพสต์ใน Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "สาธารณะ";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "ผู้ติดตามเท่านั้น";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "การโพสต์ล้มเหลว ${failureReason}";
 
 "k7dbKQ" = "Post was sent successfully.";
 
