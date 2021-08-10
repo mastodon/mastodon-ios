@@ -1,11 +1,11 @@
-"16wxgf" = "Auf Mastodon schreiben";
+"16wxgf" = "Auf Mastodon posten";
 
 "751xkl" = "Textinhalt";
 /* CsR7G2
 
 This only display in Siri */
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Auf Mastodon posten";
 
 "HZSGTr" = "Welcher Inhalt soll gepostet werden?";
 
@@ -17,9 +17,9 @@ This only display in Siri */
 
 "RxSqsb" = "Beitrag";
 
-"WCIR3D" = "Schreibe ${content} auf Mastodon";
+"WCIR3D" = "Poste ${content} auf Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Beitrag";
 
 "ZS1XaK" = "Inhalt: ${content}";
 
@@ -35,13 +35,13 @@ This only display in Siri */
 
 "ayoYEb-ehFLjY" = "${content}, nur für Follower";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Auf Mastodon posten";
 
 "dYQ5NN" = "Öffentlich";
 
 "ehFLjY" = "Nur für Follower";
 
-"gfePDu" = "Senden fehlgeschlagen. ${failureReason}";
+"gfePDu" = "Posten fehlgeschlagen. ${failureReason}";
 
 "k7dbKQ" = "Beitrag wurde erfolgreich gesendet.";
 
