@@ -53,7 +53,7 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>BvMBE4</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20G71</string>
+	<string>20G80</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
 	<string>12E507</string>
 	<key>INIntentDefinitionToolsVersion</key>
@@ -85,8 +85,6 @@
 					<string>Post ${content} on Mastodon</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>WCIR3D</string>
-					<key>INIntentParameterCombinationUpdatesLinked</key>
-					<true/>
 				</dict>
 			</dict>
 			<key>INIntentName</key>
@@ -102,7 +100,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Post</string>
+					<string>Post on Mastodon</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>CsR7G2</string>
 				</dict>
@@ -117,7 +115,7 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Post</string>
+					<string>Post on Mastodon</string>
 					<key>INIntentParameterCombinationTitleID</key>
 					<string>dUyuGg</string>
 				</dict>
@@ -247,7 +245,7 @@
 						<key>INIntentResponseCodeConciseFormatStringID</key>
 						<string>k7dbKQ</string>
 						<key>INIntentResponseCodeFormatString</key>
-						<string>Post was sent successfully. </string>
+						<string>Post was sent successfully.</string>
 						<key>INIntentResponseCodeFormatStringID</key>
 						<string>ryJLwG</string>
 						<key>INIntentResponseCodeName</key>
