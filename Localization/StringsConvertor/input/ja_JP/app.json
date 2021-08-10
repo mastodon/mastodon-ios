@@ -42,7 +42,7 @@
             },
             "save_photo_failure": {
                 "title": "写真の保存に失敗しました",
-                "message": "写真を保存するには、フォトライブラリのアクセス許可を有効にしてください。"
+                "message": "写真を保存するには、フォトライブラリへのアクセス許可を有効にしてください。"
             },
             "delete_post": {
                 "title": "この投稿を消去しますか？",
@@ -263,20 +263,20 @@
                     "reason": "理由"
                 },
                 "reason": {
-                    "blocked": "%s が許可されていないメールプロバイダを含んでいる",
-                    "unreachable": "%sは存在しないようだ",
-                    "taken": "%sは使われます",
+                    "blocked": "%s は許可されていないメールプロバイダを含んでいます",
+                    "unreachable": "%sは存在しないようです",
+                    "taken": "%sは既に使われています",
                     "reserved": "%sは予約語です",
-                    "accepted": "%sを受け入れなければならない",
+                    "accepted": "%s に合意しなければなりません",
                     "blank": "%sが必要です",
                     "invalid": "%sは無効です",
-                    "too_long": "%sは長い",
-                    "too_short": "%sは短い",
+                    "too_long": "%sは長すぎます",
+                    "too_short": "%sは短すぎます",
                     "inclusion": "%s はサポートされていない値です"
                 },
                 "special": {
                     "username_invalid": "ユーザーネームには、英数字とアンダースコアのみを使用してください。",
-                    "username_too_long": "ユーザーネームが長すぎます（30文字以内）",
+                    "username_too_long": "ユーザー名が長すぎます（30文字以内）",
                     "email_invalid": "有効なメールアドレスではありません",
                     "password_too_short": "パスワードが短すぎます（8文字以上）"
                 }
@@ -305,7 +305,7 @@
                 "resend_email": "もう一度メールを送信"
             },
             "open_email_app": {
-                "title": "インボックスをチェック",
+                "title": "メールを確認",
                 "description": "先ほどメールをお送りしました。まだの方は、迷惑メールフォルダをご確認ください。",
                 "mail": "メール",
                 "open_email_client": "メールアプリを開く"
@@ -331,7 +331,7 @@
             },
             "media_selection": {
                 "camera": "写真を撮る",
-                "photo_library": "写真",
+                "photo_library": "フォトライブラリ",
                 "browse": "ブラウズ"
             },
             "content_input_placeholder": "気になることを入力またはペースト",
@@ -355,7 +355,7 @@
                 "option_number": "オプション %ld"
             },
             "content_warning": {
-                "placeholder": "ここに正確な警告を書いてください..."
+                "placeholder": "ここに警告を書いてください..."
             },
             "visibility": {
                 "public": "パブリック",
@@ -371,8 +371,8 @@
                 "append_poll": "投票を追加",
                 "remove_poll": "投票を消去",
                 "custom_emoji_picker": "カスタム絵文字ピッカー",
-                "enable_content_warning": "コンテンツ警告を有効にする",
-                "disable_content_warning": "コンテンツ警告を無効にする",
+                "enable_content_warning": "閲覧注意を有効にする",
+                "disable_content_warning": "閲覧注意を無効にする",
                 "post_visibility_menu": "投稿の表示メニュー"
             },
             "keyboard": {
