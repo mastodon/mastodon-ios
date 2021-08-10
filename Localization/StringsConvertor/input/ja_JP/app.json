@@ -101,7 +101,7 @@
                 "common": {
                     "switch_to_tab": "%sに切り替え",
                     "compose_new_post": "新しい投稿を作成",
-                    "show_favorites": "いいねを表示",
+                    "show_favorites": "お気に入りを表示",
                     "open_settings": "設定を開く"
                 },
                 "timeline": {
@@ -109,10 +109,10 @@
                     "next_status": "次の投稿",
                     "open_status": "投稿を開く",
                     "open_author_profile": "プロフィールを見る",
-                    "open_reblogger_profile": "リブロガーのプロフィールを開く",
+                    "open_reblogger_profile": "ブーストした人のプロフィールを開く",
                     "reply_status": "投稿に返信",
                     "toggle_reblog": "ブーストを切り替える",
-                    "toggle_favorite": "いいねを切り替える",
+                    "toggle_favorite": "お気に入り登録を切り替える",
                     "toggle_content_warning": "閲覧注意を切り替える",
                     "preview_image": "画像をプレビュー"
                 },
@@ -136,8 +136,8 @@
                     "reply": "リプライ",
                     "reblog": "ブースト",
                     "unreblog": "ブーストを戻す",
-                    "favorite": "いいね",
-                    "unfavorite": "いいねと取り消す",
+                    "favorite": "お気に入り",
+                    "unfavorite": "お気に入り登録を取り消す",
                     "menu": "メニュー"
                 },
                 "tag": {
@@ -315,9 +315,9 @@
             "title": "ホーム",
             "navigation_bar_state": {
                 "offline": "オフライン",
-                "new_posts": "新しいトゥートを見る",
-                "published": "トゥートしました!",
-                "Publishing": "トゥートちう..."
+                "new_posts": "新しい投稿を見る",
+                "published": "投稿しました!",
+                "Publishing": "投稿中..."
             }
         },
         "suggestion_account": {
@@ -326,7 +326,7 @@
         },
         "compose": {
             "title": {
-                "new_post": "新しいトゥート",
+                "new_post": "新しい投稿",
                 "new_reply": "新しいリプライ"
             },
             "media_selection": {
@@ -335,7 +335,7 @@
                 "browse": "ブラウズ"
             },
             "content_input_placeholder": "気になることを入力またはペースト",
-            "compose_action": "トゥート",
+            "compose_action": "投稿",
             "replying_to_user": "%sにリプライ",
             "attachment": {
                 "photo": "写真",
@@ -376,8 +376,8 @@
                 "post_visibility_menu": "投稿の表示メニュー"
             },
             "keyboard": {
-                "discard_post": "トゥートを破棄",
-                "publish_post": "トゥート",
+                "discard_post": "投稿を破棄",
+                "publish_post": "投稿する",
                 "toggle_poll": "投票を切り替える",
                 "toggle_content_warning": "閲覧注意を切り替える",
                 "append_attachment_entry": "アタッチメントを追加 - %s",
@@ -386,7 +386,7 @@
         },
         "profile": {
             "dashboard": {
-                "posts": "トゥート",
+                "posts": "投稿",
                 "following": "フォロー中",
                 "followers": "フォロワー"
             },
@@ -398,7 +398,7 @@
                 }
             },
             "segmented_control": {
-                "posts": "トゥート",
+                "posts": "投稿",
                 "replies": "リプライ",
                 "media": "メディア"
             },
@@ -437,7 +437,7 @@
                     "all": "すべて",
                     "people": "人々",
                     "hashtags": "ハッシュタグ",
-                    "posts": "トゥート"
+                    "posts": "投稿"
                 },
                 "empty_state": {
                     "no_results": "なし"
@@ -447,7 +447,7 @@
             }
         },
         "favorite": {
-            "title": "あなたのいいね"
+            "title": "お気に入り"
         },
         "notification": {
             "title": {
@@ -456,8 +456,8 @@
             },
             "action": {
                 "follow": "フォローされました",
-                "favourite": "あなたがいいねしたトゥート",
-                "reblog": "あなたの投稿をリブログしました。",
+                "favourite": "がお気に入りに登録",
+                "reblog": "がブーストしました",
                 "poll": "投票が終了しました",
                 "mention": "メンションされました",
                 "follow_request": "フォローリクエスト"
@@ -468,8 +468,8 @@
             }
         },
         "thread": {
-            "back_title": "トゥート",
-            "title": "%sのトゥート"
+            "back_title": "投稿",
+            "title": "%sの投稿"
         },
         "settings": {
             "title": "設定",
@@ -482,7 +482,7 @@
                 },
                 "notifications": {
                     "title": "通知",
-                    "favorites": "いいね",
+                    "favorites": "お気に入り登録",
                     "follows": "フォロー",
                     "boosts": "ブースト",
                     "mentions": "メンション",
@@ -524,7 +524,7 @@
             "title": "%sを報告",
             "step1": "ステップ 1/2",
             "step2": "ステップ 2/2",
-            "content1": "他に報告したいトゥートはありますか？",
+            "content1": "他に報告したい投稿はありますか？",
             "content2": "この報告についてモデレーターに言いたいことはありますか？",
             "send": "報告を送信",
             "skip_to_send": "コメントなしで送信",
