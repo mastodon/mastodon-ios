@@ -2,37 +2,37 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Harap coba lagi.",
+                "please_try_again_later": "Coba lagi nanti."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Kesalahan Server"
             },
             "vote_failure": {
                 "title": "Vote Failure",
                 "poll_ended": "The poll has ended"
             },
             "discard_post_content": {
-                "title": "Discard Draft",
+                "title": "Hapus Draf",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
                 "title": "Publish Failure",
                 "message": "Failed to publish the post.\nPlease check your internet connection.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Tidak dapat melampirkan video di postingan yang sudah mengandung gambar.",
+                    "more_than_one_video": "Tidak dapat melampirkan lebih dari satu video."
                 }
             },
             "edit_profile_failure": {
                 "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "message": "Tidak dapat menyunting profil. Harap coba lagi."
             },
             "sign_out": {
-                "title": "Sign Out",
+                "title": "Keluar",
                 "message": "Are you sure you want to sign out?",
                 "confirm": "Sign Out"
             },
