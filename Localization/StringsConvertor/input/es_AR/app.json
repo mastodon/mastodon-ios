@@ -454,12 +454,12 @@
                 "Everything": "Todo",
                 "Mentions": "Menciones"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_followed_you": "%s te sigue",
+            "user_favorited your post": "%s marcó tu msj. como favorito",
+            "user_reblogged_your_post": "%s adhirió a tu mensaje",
+            "user_mentioned_you": "%s te mencionó",
+            "user_requested_to_follow_you": "%s solicitó seguirte",
+            "user_your_poll_has_ended": "%s, tu encuesta finalizó",
             "keyobard": {
                 "show_everything": "Mostrar todo",
                 "show_mentions": "Mostrar menciones"
