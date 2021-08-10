@@ -1,8 +1,11 @@
 "16wxgf" = "在 Mastodon 上发布";
 
 "751xkl" = "文本内容";
+/* CsR7G2
 
-"CsR7G2" = "帖子";
+This only display in Siri */
+
+"CsR7G2" = "在 Mastodon 上发布";
 
 "HZSGTr" = "要发送的内容是什么？";
 
