@@ -454,12 +454,12 @@
                 "Everything": "A h-uile rud",
                 "Mentions": "Iomraidhean"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_followed_you": "Tha %s a’ leantainn ort a-nis",
+            "user_favorited your post": "Is annsa le %s am post agad",
+            "user_reblogged_your_post": "Bhrosnaich %s am post agad",
+            "user_mentioned_you": "Thug %s iomradh ort",
+            "user_requested_to_follow_you": "Dh’iarr %s leantainn ort",
+            "user_your_poll_has_ended": "Crìoch cunntais-bheachd aig %s",
             "keyobard": {
                 "show_everything": "Seall a h-uile càil",
                 "show_mentions": "Seall na h-iomraidhean"
