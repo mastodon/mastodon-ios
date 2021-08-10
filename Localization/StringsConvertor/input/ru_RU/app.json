@@ -454,14 +454,12 @@
                 "Everything": "Все",
                 "Mentions": "Упоминания"
             },
-            "action": {
-                "follow": "подписался (-ась) на вас",
-                "favourite": "добавил(а) ваш пост в избранное",
-                "reblog": "продвинул(а) ваш пост",
-                "poll": "Ваш опрос завершился",
-                "mention": "упомянул(а) вас",
-                "follow_request": "отправил(а) запрос на подписку"
-            },
+            "user_followed_you": "%s followed you",
+            "user_favorited your post": "%s favorited your post",
+            "user_reblogged_your_post": "%s reblogged your post",
+            "user_mentioned_you": "%s mentioned you",
+            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "Показать все",
                 "show_mentions": "Показать упоминания"
