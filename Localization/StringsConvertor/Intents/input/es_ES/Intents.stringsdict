@@ -5,7 +5,7 @@
     <key>There are ${count} options matching ‘${content}’. - 2</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Hay %#@count_option@ coincidencias con ‘${content}’.</string>
+      <string>Hay %#@count_option@ coincidencias con «${content}».</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -15,13 +15,13 @@
         <key>one</key>
         <string>1 opción</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld opciones</string>
       </dict>
     </dict>
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Hay %#@count_option@ coincidencias con ‘${visibility}’.</string>
+      <string>Hay %#@count_option@ coincidencias con «${visibility}».</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -31,7 +31,7 @@
         <key>one</key>
         <string>1 opción</string>
         <key>other</key>
-        <string>%ld options</string>
+        <string>%ld opciones</string>
       </dict>
     </dict>
   </dict>
