@@ -1,6 +1,6 @@
 {
-    "NSCameraUsageDescription": "Used to take photo for post status",
-    "NSPhotoLibraryAddUsageDescription": "Used to save photo into the Photo Library",
+    "NSCameraUsageDescription": "ใช้เพื่อถ่ายรูปสำหรับโพสต์สถานะ",
+    "NSPhotoLibraryAddUsageDescription": "ใช้เพื่อบันทึกรูปภาพลงในคลังรูปภาพ",
     "NewPostShortcutItemTitle": "โพสต์ใหม่",
     "SearchShortcutItemTitle": "ค้นหา"
 }
