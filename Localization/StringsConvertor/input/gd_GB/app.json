@@ -480,16 +480,16 @@
                 },
                 "notifications": {
                     "title": "Brathan",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "Nuair as annsa leotha am post agam",
+                    "follows": "Nuair a leanas iad orm",
+                    "boosts": "Nuair a bhrosnaicheas iad post uam",
+                    "mentions": "Nuair a bheir iad iomradh orm",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "Airson duine sam bith, cuir brath thugam",
+                        "follower": "Airson luchd-leantainn, cuir brath thugam",
+                        "follow": "Airson daoine air a leanas mi, cuir brath thugam",
+                        "noone": "Na cuir brath thugam idir",
+                        "title": " "
                     }
                 },
                 "preference": {
