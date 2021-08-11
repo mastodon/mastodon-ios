@@ -17,7 +17,7 @@
             },
             "discard_post_content": {
                 "title": "ละทิ้งแบบร่าง",
-                "message": "Confirm to discard composed post content."
+                "message": "ยืนยันเพื่อละทิ้งเนื้อหาโพสต์ที่เขียน"
             },
             "publish_post_failure": {
                 "title": "การเผยแพร่ล้มเหลว",
@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "ล้างแคช",
-                "message": "Successfully cleaned %s cache."
+                "message": "ล้างแคช %s สำเร็จ"
             }
         },
         "controls": {
@@ -82,7 +82,7 @@
                 "share_post": "แบ่งปันโพสต์",
                 "open_in_safari": "เปิดใน Safari",
                 "find_people": "ค้นหาผู้คนที่จะติดตาม",
-                "manually_search": "Manually search instead",
+                "manually_search": "ค้นหาด้วยตนเองแทน",
                 "skip": "ข้าม",
                 "reply": "ตอบกลับ",
                 "report_user": "รายงาน %s",
@@ -111,14 +111,14 @@
                     "open_author_profile": "เปิดโปรไฟล์ของผู้สร้าง",
                     "open_reblogger_profile": "เปิดโปรไฟล์ของผู้ดัน",
                     "reply_status": "ตอบกลับโพสต์",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "toggle_reblog": "เปิด/ปิดการดันในโพสต์",
+                    "toggle_favorite": "เปิด/ปิดรายการโปรดในโพสต์",
+                    "toggle_content_warning": "เปิด/ปิดคำเตือนเนื้อหา",
+                    "preview_image": "แสดงตัวอย่างภาพ"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "ส่วนก่อนหน้า",
+                    "next_section": "ส่วนถัดไป"
                 }
             },
             "status": {
@@ -127,7 +127,7 @@
                 "show_post": "แสดงโพสต์",
                 "show_user_profile": "Show user profile",
                 "content_warning": "คำเตือนเนื้อหา",
-                "media_content_warning": "Tap anywhere to reveal",
+                "media_content_warning": "แตะที่ใดก็ตามเพื่อเปิดเผย",
                 "poll": {
                     "vote": "ลงคะแนน",
                     "closed": "ปิดแล้ว"
@@ -224,8 +224,8 @@
                 "placeholder": "Find a server or join your own..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
+                "bad_network": "มีบางอย่างผิดพลาดขณะโหลดข้อมูล ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ",
                 "no_results": "ไม่มีผลลัพธ์"
             }
         },
@@ -250,7 +250,7 @@
                     "hint": "Your password needs at least eight characters"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "ทำไมคุณจึงต้องการเข้าร่วม?"
                 }
             },
             "error": {
@@ -308,7 +308,7 @@
                 "title": "ตรวจสอบกล่องขาเข้าของคุณ",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "จดหมาย",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "เปิดไคลเอ็นต์อีเมล"
             }
         },
         "home_timeline": {
@@ -339,7 +339,7 @@
             "replying_to_user": "กำลังตอบกลับ %s",
             "attachment": {
                 "photo": "photo",
-                "video": "video",
+                "video": "วิดีโอ",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired..."
@@ -367,21 +367,21 @@
                 "space_to_add": "เว้นวรรคเพื่อเพิ่ม"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "เพิ่มไฟล์แนบ",
                 "append_poll": "เพิ่มการสำรวจความคิดเห็น",
                 "remove_poll": "เอาการสำรวจความคิดเห็นออก",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "เปิดใช้งานคำเตือนเนื้อหา",
                 "disable_content_warning": "ปิดใช้งานคำเตือนเนื้อหา",
-                "post_visibility_menu": "Post Visibility Menu"
+                "post_visibility_menu": "เมนูการมองเห็นโพสต์"
             },
             "keyboard": {
                 "discard_post": "ละทิ้งโพสต์",
                 "publish_post": "เผยแพร่โพสต์",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "toggle_poll": "เปิด/ปิดการสำรวจความคิดเห็น",
+                "toggle_content_warning": "เปิด/ปิดคำเตือนเนื้อหา",
+                "append_attachment_entry": "เพิ่มไฟล์แนบ - %s",
+                "select_visibility_entry": "เลือกการมองเห็น - %s"
             }
         },
         "profile": {
@@ -423,12 +423,12 @@
                 "button_text": "ดูทั้งหมด",
                 "hash_tag": {
                     "title": "กำลังนิยมใน Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "description": "แฮชแท็กที่กำลังได้รับความสนใจมาก",
                     "people_talking": "%s คนกำลังพูดคุย"
                 },
                 "accounts": {
                     "title": "บัญชีที่คุณอาจชอบ",
-                    "description": "You may like to follow these accounts",
+                    "description": "คุณอาจต้องการติดตามบัญชีเหล่านี้",
                     "follow": "ติดตาม"
                 }
             },
@@ -526,7 +526,7 @@
             "content2": "Is there anything the moderators should know about this report?",
             "send": "ส่งรายงาน",
             "skip_to_send": "ส่งโดยไม่มีความคิดเห็น",
-            "text_placeholder": "Type or paste additional comments"
+            "text_placeholder": "พิมพ์หรือวางความคิดเห็นเพิ่มเติม"
         },
         "preview": {
             "keyboard": {
