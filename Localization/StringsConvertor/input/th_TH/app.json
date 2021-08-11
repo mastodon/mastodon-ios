@@ -302,7 +302,7 @@
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "ส่งอีเมลใหม่"
             },
             "open_email_app": {
                 "title": "ตรวจสอบกล่องขาเข้าของคุณ",
