@@ -37,7 +37,7 @@
                 "confirm": "ลงชื่อออก"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
+                "title": "คุณแน่ใจจริง ๆ หรือไม่ว่าต้องการปิดกั้นทั้ง %s? ในกรณีส่วนใหญ่ การปิดกั้นหรือการซ่อนแบบกำหนดเป้าหมายไม่กี่รายการนั้นเพียงพอและเป็นที่นิยม คุณจะไม่เห็นเนื้อหาจากโดเมนนั้นและจะเอาผู้ติดตามใดก็ตามของคุณจากโดเมนนั้นออก",
                 "block_entire_domain": "ปิดกั้นโดเมน"
             },
             "save_photo_failure": {
@@ -123,7 +123,7 @@
             },
             "status": {
                 "user_reblogged": "%s ได้ดัน",
-                "user_replied_to": "Replied to %s",
+                "user_replied_to": "ตอบกลับ %s",
                 "show_post": "แสดงโพสต์",
                 "show_user_profile": "Show user profile",
                 "content_warning": "คำเตือนเนื้อหา",
@@ -221,7 +221,7 @@
                 "category": "หมวดหมู่"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "ค้นหาเซิร์ฟเวอร์หรือเข้าร่วมของคุณเอง..."
             },
             "empty_state": {
                 "finding_servers": "กำลังค้นหาเซิร์ฟเวอร์ที่พร้อมใช้งาน...",
@@ -289,7 +289,7 @@
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "ฉันเห็นด้วย"
             }
         },
         "confirm_email": {
@@ -322,7 +322,7 @@
         },
         "suggestion_account": {
             "title": "ค้นหาผู้คนที่จะติดตาม",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "follow_explain": "เมื่อคุณติดตามใครสักคน คุณจะเห็นโพสต์ของเขาในฟีดหน้าแรกของคุณ"
         },
         "compose": {
             "title": {
@@ -342,7 +342,7 @@
                 "video": "วิดีโอ",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น..."
             },
             "poll": {
                 "duration_time": "ระยะเวลา: %s",
@@ -370,7 +370,7 @@
                 "append_attachment": "เพิ่มไฟล์แนบ",
                 "append_poll": "เพิ่มการสำรวจความคิดเห็น",
                 "remove_poll": "เอาการสำรวจความคิดเห็นออก",
-                "custom_emoji_picker": "Custom Emoji Picker",
+                "custom_emoji_picker": "ตัวเลือกอีโมจิที่กำหนดเอง",
                 "enable_content_warning": "เปิดใช้งานคำเตือนเนื้อหา",
                 "disable_content_warning": "ปิดใช้งานคำเตือนเนื้อหา",
                 "post_visibility_menu": "เมนูการมองเห็นโพสต์"
@@ -495,8 +495,8 @@
                 "preference": {
                     "title": "การกำหนดลักษณะ",
                     "true_black_dark_mode": "โหมดมืดดำสนิท",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
+                    "disable_avatar_animation": "ปิดใช้งานภาพประจำตัวแบบเคลื่อนไหว",
+                    "disable_emoji_animation": "ปิดใช้งานอีโมจิแบบเคลื่อนไหว",
                     "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์"
                 },
                 "boring_zone": {
@@ -520,8 +520,8 @@
         },
         "report": {
             "title": "รายงาน %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "step1": "ขั้นตอนที่ 1 จาก 2",
+            "step2": "ขั้นตอนที่ 2 จาก 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
             "send": "ส่งรายงาน",
