@@ -293,7 +293,7 @@
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "หนึ่งสิ่งสุดท้าย",
             "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
