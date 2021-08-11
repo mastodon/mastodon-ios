@@ -422,12 +422,12 @@
             "recommend": {
                 "button_text": "ดูทั้งหมด",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
+                    "title": "กำลังนิยมใน Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s คนกำลังพูดคุย"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
+                    "title": "บัญชีที่คุณอาจชอบ",
                     "description": "You may like to follow these accounts",
                     "follow": "ติดตาม"
                 }
@@ -530,7 +530,7 @@
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
+                "close_preview": "ปิดตัวอย่าง",
                 "show_next": "แสดงถัดไป",
                 "show_previous": "แสดงก่อนหน้า"
             }
