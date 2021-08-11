@@ -49,7 +49,7 @@ extension Date {
         let earlierDate = date < self ? date : self
         let latestDate = earlierDate == date ? self : date
         
-        let components = Calendar.current.dateComponents([.year, .month, .day, .minute, .second], from: earlierDate, to: latestDate)
+        let components = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: earlierDate, to: latestDate)
         
         if components.year! > 0 {
             return L10n.Date.Year.left(components.second!)
