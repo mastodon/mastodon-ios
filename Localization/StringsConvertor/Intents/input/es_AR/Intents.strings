@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Enviar a Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Contenido del texto";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "Enviar";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "¿Qué contenido enviar?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Error al enviar mensaje";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Motivo del error";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Enviar mensaje con contenido de texto";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Enviar";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Enviar ${content} a Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Enviar";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilidad";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilidad del mensaje";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Hay ${count} opciones que coinciden con \"Público\".";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Hay ${count} opciones que coinciden con \"Sólo para seguidores\".";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, público";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, sólo para seguidores";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "Enviar";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Público";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Sólo para seguidores";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Error al enviar mensaje. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "El mensaje se envió exitosamente.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Sólo para confirmar, ¿querías que este mensaje sea PÚBLICO?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Sólo para confirmar, ¿querías que este mensaje sea SÓLO PARA SEGUIDORES?";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "Dirección web";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "El mensaje se envió exitosamente. ";

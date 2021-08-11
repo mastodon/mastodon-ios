@@ -117,16 +117,16 @@ Please check your internet connection.";
 "Common.Controls.Tabs.Search" = "بحث";
 "Common.Controls.Timeline.Filtered" = "Filtered";
 "Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view this user’s profile
- until they unblock you.";
+until they unblock you.";
 "Common.Controls.Timeline.Header.BlockingWarning" = "You can’t view this user's profile
- until you unblock them.
+until you unblock them.
 Your profile looks like this to them.";
 "Common.Controls.Timeline.Header.NoStatusFound" = "لا توجد هناك منشورات";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "This user has been suspended.";
 "Common.Controls.Timeline.Header.UserBlockedWarning" = "You can’t view %@’s profile
- until they unblock you.";
+until they unblock you.";
 "Common.Controls.Timeline.Header.UserBlockingWarning" = "You can’t view %@’s profile
- until you unblock them.
+until you unblock them.
 Your profile looks like this to them.";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "%@’s account has been suspended.";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "Load missing posts";

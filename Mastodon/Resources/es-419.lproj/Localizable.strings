@@ -22,7 +22,7 @@ Por favor, revisá tu conexión a Internet.";
 "Common.Alerts.SignOut.Message" = "¿Estás seguro que querés cerrar la sesión?";
 "Common.Alerts.SignOut.Title" = "Cerrar sesión";
 "Common.Alerts.SignUpFailure.Title" = "Error al registrarse";
-"Common.Alerts.VoteFailure.PollEnded" = "La encuesta ha terminado";
+"Common.Alerts.VoteFailure.PollEnded" = "La encuesta finalizó";
 "Common.Alerts.VoteFailure.Title" = "Error al votar";
 "Common.Controls.Actions.Add" = "Agregar";
 "Common.Controls.Actions.Back" = "Volver";

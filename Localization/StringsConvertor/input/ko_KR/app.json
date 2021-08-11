@@ -179,10 +179,10 @@
                 },
                 "header": {
                     "no_status_found": "게시물이 없습니다",
-                    "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
+                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
+                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
                     "suspended_warning": "이 사용자는 정지된 상태입니다.",
                     "user_suspended_warning": "%s의 계정은 정지된 상태입니다."
                 }

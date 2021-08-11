@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Auf Mastodon schreiben";
 
-"751xkl" = "Text Content";
+"751xkl" = "Textinhalt";
 
 "CsR7G2" = "Post";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "Welcher Inhalt soll gepostet werden?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Posten fehlgeschlagen";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Fehlerursache";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Beitrag mit Textinhalt posten";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Beitrag";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Schreibe ${content} auf Mastodon";
 
 "ZKJSNu" = "Post";
 
-"ZS1XaK" = "${content}";
+"ZS1XaK" = "Inhalt: ${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Sichtbarkeit";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Sichtbarkeit des Beitrags";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Es gibt ${count} Optionen, die zu ''öffentlich\" passen.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Es gibt ${count} Optionen, die zu ''nur für Follower\" passen.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, öffentlich";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, nur für Follower";
 
 "dUyuGg" = "Post";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Öffentlich";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Nur für Follower";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Senden fehlgeschlagen. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Beitrag wurde erfolgreich gesendet.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Nur zur Bestätigung, du wolltest \"Öffentlich\"?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Nur zur Bestätigung, du wolltest \"Nur für Follower\"?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Beitrag wurde erfolgreich gesendet. ";
