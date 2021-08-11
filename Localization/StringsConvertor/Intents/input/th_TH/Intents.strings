@@ -28,9 +28,9 @@
 
 "apSxMG-ehFLjY" = "มี ${count} ตัวเลือกที่ตรงกันกับ ‘ผู้ติดตามเท่านั้น’";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, สาธารณะ";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, ผู้ติดตามเท่านั้น";
 
 "dUyuGg" = "โพสต์ใน Mastodon";
 
