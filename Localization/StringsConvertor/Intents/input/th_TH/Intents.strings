@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "การมองเห็นโพสต์";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "มี ${count} ตัวเลือกที่ตรงกันกับ ‘สาธารณะ’";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "มี ${count} ตัวเลือกที่ตรงกันกับ ‘ผู้ติดตามเท่านั้น’";
 
 "ayoYEb-dYQ5NN" = "${content}, Public";
 
