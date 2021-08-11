@@ -386,10 +386,10 @@ extension StatusView {
         contentWarningOverlayView.translatesAutoresizingMaskIntoConstraints = false
         containerStackView.addSubview(contentWarningOverlayView)
         NSLayoutConstraint.activate([
-            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor).priority(.defaultHigh + 10),
-            statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor).priority(.defaultHigh),
-            contentWarningOverlayView.rightAnchor.constraint(equalTo: statusContainerStackView.rightAnchor).priority(.defaultHigh),
-            contentWarningOverlayView.bottomAnchor.constraint(equalTo: statusContainerStackView.bottomAnchor).priority(.defaultHigh),
+            statusContainerStackView.topAnchor.constraint(equalTo: contentWarningOverlayView.topAnchor).priority(.required - 10),
+            statusContainerStackView.leftAnchor.constraint(equalTo: contentWarningOverlayView.leftAnchor).priority(.required - 1),
+            contentWarningOverlayView.rightAnchor.constraint(equalTo: statusContainerStackView.rightAnchor).priority(.required - 1),
+            contentWarningOverlayView.bottomAnchor.constraint(equalTo: statusContainerStackView.bottomAnchor).priority(.required - 1),
         ])
         // avoid overlay behind other views
         defer {

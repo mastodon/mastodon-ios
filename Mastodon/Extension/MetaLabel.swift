@@ -13,7 +13,7 @@ extension MetaLabel {
     enum Style {
         case statusHeader
         case statusName
-        case notificationName
+        case notificationTitle
         case profileFieldName
         case profileFieldValue
         case recommendAccountName
@@ -26,6 +26,7 @@ extension MetaLabel {
         self.init()
 
         layer.masksToBounds = true
+        lineBreakMode = .byTruncatingTail
         textContainer.lineBreakMode = .byTruncatingTail
         textContainer.lineFragmentPadding = 0
         
@@ -41,9 +42,9 @@ extension MetaLabel {
             font = .systemFont(ofSize: 17, weight: .semibold)
             textColor = Asset.Colors.Label.primary.color
 
-        case .notificationName:
-            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20)
-            textColor = Asset.Colors.brandBlue.color
+        case .notificationTitle:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
+            textColor = Asset.Colors.Label.secondary.color
 
         case .profileFieldName:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 20)
@@ -53,7 +54,6 @@ extension MetaLabel {
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 20)
             textColor = Asset.Colors.Label.primary.color
             textAlignment = .right
-
 
         case .titleView:
             font = .systemFont(ofSize: 17, weight: .semibold)

@@ -179,10 +179,10 @@
                 },
                 "header": {
                     "no_status_found": "No Post Found",
-                    "blocking_warning": "You can’t view this user's profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\n until you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\n until they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\n until they unblock you.",
+                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
+                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
                     "suspended_warning": "This user has been suspended.",
                     "user_suspended_warning": "%s’s account has been suspended."
                 }

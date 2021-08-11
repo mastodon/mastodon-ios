@@ -68,23 +68,37 @@ extension NotificationSection {
                     .store(in: &cell.disposeBag)
 
                 // configure author name, notification description, timestamp
+                let nameText = notification.account.displayNameWithFallback
+                let titleLabelText = "\(nameText) \(notification.notificationType.actionText)"
+                
                 do {
-                    let mastodonContent = MastodonContent(content: notification.account.displayNameWithFallback, emojis: notification.account.emojiMeta)
+                    let nameContent = MastodonContent(content: nameText, emojis: notification.account.emojiMeta)
+                    let nameMetaContent = try MastodonMetaContent.convert(document: nameContent)
+                    
+                    let mastodonContent = MastodonContent(content: titleLabelText, emojis: notification.account.emojiMeta)
                     let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-                    cell.nameLabel.configure(content: metaContent)
+                    
+                    cell.titleLabel.configure(content: metaContent)
+                    
+                    if let nameRange = metaContent.string.range(of: nameMetaContent.string) {
+                        let nsRange = NSRange(nameRange, in: metaContent.string)
+                        cell.titleLabel.textStorage.addAttributes([
+                            .font: UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold), maximumPointSize: 20),
+                            .foregroundColor: Asset.Colors.brandBlue.color,
+                        ], range: nsRange)
+                    }
+                    
                 } catch {
-                    let metaContent = PlaintextMetaContent(string: notification.account.displayNameWithFallback)
-                    cell.nameLabel.configure(content: metaContent)
+                    let metaContent = PlaintextMetaContent(string: titleLabelText)
+                    cell.titleLabel.configure(content: metaContent)
                 }
+                
                 let createAt = notification.createAt
-                let actionText = notification.notificationType.actionText
-                cell.actionLabel.text = actionText
                 cell.timestampLabel.text = createAt.localizedTimeAgoSinceNow
                 AppContext.shared.timestampUpdatePublisher
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell] _ in
                         guard let cell = cell else { return }
-                        cell.actionLabel.text = actionText
                         cell.timestampLabel.text = createAt.localizedTimeAgoSinceNow
                     }
                     .store(in: &cell.disposeBag)

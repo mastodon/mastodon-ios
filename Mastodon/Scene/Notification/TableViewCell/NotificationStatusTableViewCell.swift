@@ -49,13 +49,8 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
 
     let contentStackView = UIStackView()
 
-    let actionLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = Asset.Colors.Label.secondary.color
-        label.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
-        label.lineBreakMode = .byTruncatingTail
-        return label
-    }()
+    let titleLabel = MetaLabel(style: .notificationTitle)
+
     let dotLabel: UILabel = {
         let label = UILabel()
         label.textColor = Asset.Colors.Label.secondary.color
@@ -70,7 +65,6 @@ final class NotificationStatusTableViewCell: UITableViewCell, StatusCell {
         return label
     }()
     
-    let nameLabel = MetaLabel(style: .notificationName)
 
     let buttonStackView = UIStackView()
 
@@ -181,17 +175,15 @@ extension NotificationStatusTableViewCell {
         actionStackView.distribution = .fill
         actionStackView.spacing = 4
 
-        actionStackView.addArrangedSubview(nameLabel)
-        actionStackView.addArrangedSubview(actionLabel)
+        actionStackView.addArrangedSubview(titleLabel)
         actionStackView.addArrangedSubview(dotLabel)
         actionStackView.addArrangedSubview(timestampLabel)
         let timestampPaddingView = UIView()
         actionStackView.addArrangedSubview(timestampPaddingView)
-        nameLabel.setContentHuggingPriority(.required - 3, for: .horizontal)
-        nameLabel.setContentHuggingPriority(.required - 1, for: .vertical)
-        nameLabel.setContentCompressionResistancePriority(.required - 3, for: .horizontal)
-        nameLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        actionLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        titleLabel.setContentHuggingPriority(.required - 3, for: .horizontal)
+        titleLabel.setContentHuggingPriority(.required - 1, for: .vertical)
+        titleLabel.setContentCompressionResistancePriority(.required - 3, for: .horizontal)
+        titleLabel.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         dotLabel.setContentHuggingPriority(.required - 2, for: .horizontal)
         dotLabel.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
         timestampLabel.setContentHuggingPriority(.required - 1, for: .horizontal)
@@ -255,7 +247,7 @@ extension NotificationStatusTableViewCell {
         avatarButton.addTarget(self, action: #selector(NotificationStatusTableViewCell.avatarButtonDidPressed(_:)), for: .touchUpInside)
         let authorNameLabelTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
         authorNameLabelTapGestureRecognizer.addTarget(self, action: #selector(NotificationStatusTableViewCell.authorNameLabelTapGestureRecognizerHandler(_:)))
-        nameLabel.addGestureRecognizer(authorNameLabelTapGestureRecognizer)
+        titleLabel.addGestureRecognizer(authorNameLabelTapGestureRecognizer)
 
         resetSeparatorLineLayout()
 
@@ -303,7 +295,7 @@ extension NotificationStatusTableViewCell {
 
     @objc private func authorNameLabelTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-        delegate?.notificationStatusTableViewCell(self, authorNameLabelDidPressed: nameLabel)
+        delegate?.notificationStatusTableViewCell(self, authorNameLabelDidPressed: titleLabel)
     }
 }
 

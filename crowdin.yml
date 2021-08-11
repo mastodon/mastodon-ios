@@ -7,6 +7,7 @@ files: [
   # Source files filter
   # e.g. "/resources/en/*.json"
   #
+  # App strings template
   "source" : "/Localization/app.json",
 
   #
@@ -23,18 +24,27 @@ files: [
   #
  },
  {
+  # App info plist strings template
   "source" : "/Localization/ios-infoPlist.json",
   "translation" : "/Localization/StringsConvertor/input/%locale_with_underscore%/%original_file_name%",
   "update_option" : "update_as_unapproved",
  },
  {
+  # App strings dict
   "source" : "/Localization/Localizable.stringsdict",
   "translation" : "/Localization/StringsConvertor/input/%locale_with_underscore%/%original_file_name%",
   "update_option" : "update_as_unapproved",
  },
  {
+  # intents strings
   "source" : "/MastodonIntent/en.lproj/Intents.strings",
   "translation" : "/Localization/StringsConvertor/Intents/input/%locale_with_underscore%/%original_file_name%",
   "update_option" : "update_as_unapproved",
- }
+ },
+ {
+  # intents strings dict
+  "source" : "/MastodonIntent/en.lproj/Intents.stringsdict",
+  "translation" : "/Localization/StringsConvertor/Intents/input/%locale_with_underscore%/%original_file_name%",
+  "update_option" : "update_as_unapproved",
+ },
 ]
