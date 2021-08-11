@@ -14,7 +14,7 @@
 
 "RxSqsb" = "โพสต์";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "โพสต์ ${content} ใน Mastodon";
 
 "ZKJSNu" = "โพสต์";
 
@@ -22,7 +22,7 @@
 
 "ZbSjzC" = "การมองเห็น";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "การมองเห็นโพสต์";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
