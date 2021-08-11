@@ -41,7 +41,7 @@
                 "block_entire_domain": "ปิดกั้นโดเมน"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "การบันทึกรูปภาพล้มเหลว",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
@@ -70,9 +70,9 @@
                 "cancel": "ยกเลิก",
                 "discard": "ละทิ้ง",
                 "try_again": "ลองอีกครั้ง",
-                "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
+                "take_photo": "ถ่ายรูป",
+                "save_photo": "บันทึกรูปภาพ",
+                "copy_photo": "คัดลอกรูปภาพ",
                 "sign_in": "ลงชื่อเข้า",
                 "sign_up": "ลงทะเบียน",
                 "see_more": "ดูเพิ่มเติม",
@@ -330,18 +330,18 @@
                 "new_reply": "การตอบกลับใหม่"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
+                "camera": "ถ่ายรูป",
+                "photo_library": "คลังรูปภาพ",
                 "browse": "เรียกดู"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
             "compose_action": "เผยแพร่",
             "replying_to_user": "กำลังตอบกลับ %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "รูปภาพ",
                 "video": "วิดีโอ",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
+                "description_photo": "อธิบายรูปภาพสำหรับผู้บกพร่องทางการมองเห็น...",
                 "description_video": "อธิบายวิดีโอสำหรับผู้บกพร่องทางการมองเห็น..."
             },
             "poll": {
@@ -355,7 +355,7 @@
                 "option_number": "ตัวเลือก %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "เขียนคำเตือนที่ถูกต้องที่นี่..."
             },
             "visibility": {
                 "public": "สาธารณะ",
