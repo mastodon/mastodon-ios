@@ -454,7 +454,7 @@
                 "Everything": "Todo",
                 "Mentions": "Menciones"
             },
-            "user_followed_you": "%s followed you",
+            "user_followed_you": "%s te ha empezado a seguir",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
             "user_mentioned_you": "%s mentioned you",
