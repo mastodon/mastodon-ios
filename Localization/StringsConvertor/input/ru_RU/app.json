@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "Не удалось проголосовать",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "Опрос уже завершился"
             },
             "discard_post_content": {
                 "title": "Удалить черновик",
@@ -364,7 +364,7 @@
                 "direct": "Только для упомянутых людей"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Пробел, чтобы добавить"
             },
             "accessibility": {
                 "append_attachment": "Прикрепить файл",
@@ -378,8 +378,8 @@
             "keyboard": {
                 "discard_post": "Удалить пост",
                 "publish_post": "Опубликовать пост",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
+                "toggle_poll": "Добавить/убрать опрос",
+                "toggle_content_warning": "Добавить/убрать предупреждение о содержании",
                 "append_attachment_entry": "Прикрепить файл — %s",
                 "select_visibility_entry": "Выбрать видимость — %s"
             }
@@ -417,26 +417,26 @@
             "title": "Поиск",
             "search_bar": {
                 "placeholder": "Поиск хэштегов и пользователей",
-                "cancel": "Cancel"
+                "cancel": "Отмена"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Посмотреть все",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "title": "Популярно в Mastodon",
+                    "description": "Хэштеги, которым сейчас уделяется немного внимания",
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Вам может понравится",
+                    "description": "Возможно, вы захотите подписаться на эти профили",
+                    "follow": "Подписаться"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
+                    "all": "Всё",
+                    "people": "Люди",
+                    "hashtags": "Хэштеги",
                     "posts": "Посты"
                 },
                 "empty_state": {
@@ -454,7 +454,7 @@
                 "Everything": "Все",
                 "Mentions": "Упоминания"
             },
-            "user_followed_you": "%s followed you",
+            "user_followed_you": "%s подписался (-ась)",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
             "user_mentioned_you": "%s mentioned you",
@@ -467,7 +467,7 @@
         },
         "thread": {
             "back_title": "Пост",
-            "title": "Post from %s"
+            "title": "Пост %s"
         },
         "settings": {
             "title": "Настройки",
@@ -524,15 +524,15 @@
             "step2": "Шаг 2 из 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "send": "Пожаловаться",
+            "skip_to_send": "Отправить без комментария",
+            "text_placeholder": "Дополнительные комментарии"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Закрыть предпросмотр",
+                "show_next": "Следующее изображение",
+                "show_previous": "Предыдущее изображение"
             }
         }
     }
