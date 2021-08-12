@@ -183,15 +183,15 @@
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "ผู้ใช้นี้ถูกระงับการใช้งาน",
+                    "user_suspended_warning": "บัญชีของ %s ถูกระงับการใช้งาน"
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "ให้เครือข่ายสังคม\nกลับมาอยู่ในมือของคุณ"
         },
         "server_picker": {
             "title": "เลือกเซิร์ฟเวอร์\nอันไหนก็ได้",
@@ -237,7 +237,7 @@
                 },
                 "username": {
                     "placeholder": "ชื่อผู้ใช้",
-                    "duplicate_prompt": "This username is taken."
+                    "duplicate_prompt": "ชื่อผู้ใช้นี้ถูกใช้ไปแล้ว"
                 },
                 "display_name": {
                     "placeholder": "ชื่อที่แสดง"
@@ -284,7 +284,7 @@
         },
         "server_rules": {
             "title": "กฎพื้นฐานบางประการ",
-            "subtitle": "These rules are set by the admins of %s.",
+            "subtitle": "กฎเหล่านี้ถูกตั้งโดยผู้ดูแลของ %s",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
@@ -523,7 +523,7 @@
             "step1": "ขั้นตอนที่ 1 จาก 2",
             "step2": "ขั้นตอนที่ 2 จาก 2",
             "content1": "มีโพสต์อื่นที่คุณต้องการเพิ่มเข้าไปในรายงานหรือไม่?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content2": "มีอะไรที่ผู้ดูแลควรทราบเกี่ยวกับรายงานนี้หรือไม่?",
             "send": "ส่งรายงาน",
             "skip_to_send": "ส่งโดยไม่มีความคิดเห็น",
             "text_placeholder": "พิมพ์หรือวางความคิดเห็นเพิ่มเติม"
