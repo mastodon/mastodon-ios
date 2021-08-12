@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>%ld пост</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld поста</string>
         <key>many</key>
-        <string>%ld posts</string>
+        <string>%ld постов</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld поста</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,7 +93,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>%ld добавил(а) в избранное</string>
         <key>few</key>
         <string>%ld favorites</string>
         <key>many</key>
