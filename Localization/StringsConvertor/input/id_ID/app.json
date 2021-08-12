@@ -210,15 +210,15 @@
                     "regional": "regional",
                     "art": "seni",
                     "music": "musik",
-                    "tech": "tech"
+                    "tech": "teknologi"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Lihat Lebih Sedikit",
+                "see_more": "Lihat Lebih Banyak"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "BAHASA",
+                "users": "PENGGUNA",
+                "category": "KATEGORI"
             },
             "input": {
                 "placeholder": "Find a server or join your own..."
@@ -230,7 +230,7 @@
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Beritahu kami tentang diri Anda.",
             "input": {
                 "avatar": {
                     "delete": "Hapus"
@@ -276,48 +276,48 @@
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_too_long": "Nama pengguna terlalu panjang (tidak boleh lebih dari 30 karakter)",
+                    "email_invalid": "Ini bukan alamat surel yang valid",
+                    "password_too_short": "Kata sandi terlalu pendek (harus sekurang-kurangnya 8 karakter)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
+            "title": "Beberapa aturan dasar.",
+            "subtitle": "Peraturan ini ditetapkan oleh admin %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "terms_of_service": "kebijakan layanan",
+            "privacy_policy": "kebijakan privasi",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Saya Setuju"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Satu hal lagi.",
+            "subtitle": "Kami baru saja mengirim sebuah surel ke %s,\nketuk tautannya untuk mengkonfirmasi akun Anda.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Buka Aplikasi Surel",
+                "dont_receive_email": "Saya tidak mendapatkan surel"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Periksa surel Anda",
+                "description": "Periksa apakah surel Anda benar dan juga folder junk Anda jika belum memeriksanya.",
+                "resend_email": "Kirim Ulang Surel"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "Periksa kotak masuk Anda.",
+                "description": "Kami baru saja mengirimkan Anda sebuah surel. Periksa folder junk Anda jika Anda belum memeriksanya.",
                 "mail": "Mail",
                 "open_email_client": "Open Email Client"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Beranda",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Luring",
+                "new_posts": "Lihat postingan baru",
+                "published": "Dipublikasikan!",
+                "Publishing": "Mempublikasikan postingan..."
             }
         },
         "suggestion_account": {
@@ -326,7 +326,7 @@
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
+                "new_post": "Postingan Baru",
                 "new_reply": "New Reply"
             },
             "media_selection": {
@@ -334,45 +334,45 @@
                 "photo_library": "Photo Library",
                 "browse": "Browse"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Ketik atau tempel apa yang Anda pada pikiran Anda",
+            "compose_action": "Publikasikan",
+            "replying_to_user": "membalas %s",
             "attachment": {
-                "photo": "photo",
+                "photo": "foto",
                 "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "%s ini rusak dan tidak dapat diunggah ke Mastodon.",
+                "description_photo": "Jelaskan fotonya untuk mereka yang tidak dapat melihat dengan jelas...",
+                "description_video": "Jelaskan videonya untuk mereka yang tidak dapat melihat dengan jelas..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "duration_time": "Durasi: %s",
+                "thirty_minutes": "30 menit",
+                "one_hour": "1 Jam",
+                "six_hours": "6 Jam",
+                "one_day": "1 Hari",
+                "three_days": "3 Hari",
+                "seven_days": "7 Hari",
                 "option_number": "Option %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
+                "public": "Publik",
                 "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "private": "Pengikut saja",
+                "direct": "Hanya orang yang saya sebut"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
+                "append_attachment": "Tambahkan Lampiran",
+                "append_poll": "Tambahkan Japat",
+                "remove_poll": "Hapus Japat",
                 "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
+                "enable_content_warning": "Aktifkan Peringatan Konten",
+                "disable_content_warning": "Nonaktifkan Peringatan Konten",
                 "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
@@ -380,70 +380,70 @@
                 "publish_post": "Publish Post",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "append_attachment_entry": "Tambahkan Lampiran - %s",
+                "select_visibility_entry": "Pilih Visibilitas - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "postingan",
+                "following": "mengikuti",
+                "followers": "pengikut"
             },
             "fields": {
                 "add_row": "Add Row",
                 "placeholder": {
                     "label": "Label",
-                    "content": "Content"
+                    "content": "Isi"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
+                "posts": "Postingan",
+                "replies": "Balasan",
                 "media": "Media"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
+                    "title": "Berhenti Membisukan Akun",
                     "message": "Confirm to unmute %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
+                    "title": "Berhenti Memblokir Akun",
                     "message": "Confirm to unblock %s"
                 }
             }
         },
         "search": {
-            "title": "Search",
+            "title": "Cari",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Cari tagar dan pengguna",
+                "cancel": "Batal"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Lihat Semua",
                 "hash_tag": {
                     "title": "Trending on Mastodon",
                     "description": "Hashtags that are getting quite a bit of attention",
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Akun-akun yang mungkin Anda sukai",
+                    "description": "Anda mungkin ingin mengikuti akun-akun ini",
+                    "follow": "Ikuti"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Semua",
+                    "people": "Orang",
+                    "hashtags": "Tagar",
+                    "posts": "Postingan"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Tidak ada hasil"
                 },
                 "recent_search": "Recent searches",
-                "clear": "Clear"
+                "clear": "Hapus"
             }
         },
         "favorite": {
@@ -451,76 +451,76 @@
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Segalanya",
+                "Mentions": "Sebutan"
             },
-            "user_followed_you": "%s followed you",
+            "user_followed_you": "%s mengikuti Anda",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_mentioned_you": "%s menyebut Anda",
+            "user_requested_to_follow_you": "%s ingin mengikuti Anda",
+            "user_your_poll_has_ended": "%s Japat Anda telah berakhir",
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Tampilkan Segalanya",
+                "show_mentions": "Tampilkan Sebutan"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Postingan",
+            "title": "Postingan oleh %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Pengaturan",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Tampilan",
+                    "automatic": "Otomatis",
+                    "light": "Selalu Cerah",
+                    "dark": "Selalu Gelap"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "Notifikasi",
                     "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "follows": "Mengikuti saya",
                     "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "mentions": "Menyebut saya",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
+                        "anyone": "siapapun",
+                        "follower": "seorang pengikut",
+                        "follow": "siapapun yang saya ikuti",
                         "noone": "no one",
-                        "title": "Notify me when"
+                        "title": "Beritahu saya ketika"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Preferensi",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
                     "using_default_browser": "Use default browser to open links"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "Zona Membosankan",
+                    "account_settings": "Pengaturan Akun",
+                    "terms": "Kebijakan Layanan",
+                    "privacy": "Kebijakan Privasi"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Zona Pedas",
+                    "clear": "Hapus Cache Media",
+                    "signout": "Keluar"
                 }
             },
             "footer": {
                 "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Tutup Jendela Pengaturan"
             }
         },
         "report": {
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
+            "title": "Laporkan %s",
+            "step1": "Langkah 1 dari 2",
             "step2": "Step 2 of 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
