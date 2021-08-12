@@ -1,8 +1,8 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Buat Postingan di Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Teks Isi";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "Buat Postingan di Mastodon";
 
 "HZSGTr" = "What content to post?";
 
@@ -12,17 +12,17 @@
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Postingan";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Posting ${content} di Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Postingan";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilitas";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilitas Postingan";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
