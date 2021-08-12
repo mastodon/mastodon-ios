@@ -99,7 +99,7 @@
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
+                    "switch_to_tab": "สลับไปยัง %s",
                     "compose_new_post": "เขียนโพสต์ใหม่",
                     "show_favorites": "แสดงรายการโปรด",
                     "open_settings": "เปิดการตั้งค่า"
@@ -247,7 +247,7 @@
                 },
                 "password": {
                     "placeholder": "รหัสผ่าน",
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "รหัสผ่านของคุณต้องมีอย่างน้อยแปดตัวอักษร"
                 },
                 "invite": {
                     "registration_user_invite_request": "ทำไมคุณจึงต้องการเข้าร่วม?"
@@ -263,7 +263,7 @@
                     "reason": "เหตุผล"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
+                    "blocked": "%s มีผู้ให้บริการอีเมลที่ไม่ได้รับอนุญาต",
                     "unreachable": "%s does not seem to exist",
                     "taken": "%s is already in use",
                     "reserved": "%s is a reserved keyword",
@@ -275,7 +275,7 @@
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
+                    "username_invalid": "ชื่อผู้ใช้ต้องมีเฉพาะตัวอักษรและตัวเลขและขีดล่างเท่านั้น",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
                     "email_invalid": "This is not a valid email address",
                     "password_too_short": "Password is too short (must be at least 8 characters)"
@@ -283,7 +283,7 @@
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
+            "title": "กฎพื้นฐานบางประการ",
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "เงื่อนไขการให้บริการ",
