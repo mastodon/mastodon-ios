@@ -42,7 +42,7 @@
             },
             "save_photo_failure": {
                 "title": "การบันทึกรูปภาพล้มเหลว",
-                "message": "Please enable the photo library access permission to save the photo."
+                "message": "โปรดเปิดใช้งานสิทธิอนุญาตการเข้าถึงคลังรูปภาพเพื่อบันทึกรูปภาพ"
             },
             "delete_post": {
                 "title": "คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?",
