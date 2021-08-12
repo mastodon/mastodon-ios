@@ -269,10 +269,10 @@
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "invalid": "%s ไม่ถูกต้อง",
+                    "too_long": "%s ยาวเกินไป",
+                    "too_short": "%s สั้นเกินไป",
+                    "inclusion": "%s ไม่ใช่ค่าที่รองรับ"
                 },
                 "special": {
                     "username_invalid": "ชื่อผู้ใช้ต้องมีเฉพาะตัวอักษรและตัวเลขและขีดล่างเท่านั้น",
@@ -297,7 +297,7 @@
             "subtitle": "เราเพิ่งส่งอีเมลไปยัง %s\nแตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
-                "dont_receive_email": "ฉันยังไม่ได้รับอีเมล"
+                "dont_receive_email": "ฉันไม่เคยได้รับอีเมล"
             },
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
@@ -522,8 +522,8 @@
             "title": "รายงาน %s",
             "step1": "ขั้นตอนที่ 1 จาก 2",
             "step2": "ขั้นตอนที่ 2 จาก 2",
-            "content1": "มีโพสต์อื่นที่คุณต้องการเพิ่มเข้าไปในรายงานหรือไม่?",
-            "content2": "มีอะไรที่ผู้ดูแลควรทราบเกี่ยวกับรายงานนี้หรือไม่?",
+            "content1": "มีโพสต์อื่นใดที่คุณต้องการเพิ่มไปยังรายงานหรือไม่?",
+            "content2": "มีสิ่งใดที่ผู้ควบคุมควรทราบเกี่ยวกับรายงานนี้หรือไม่?",
             "send": "ส่งรายงาน",
             "skip_to_send": "ส่งโดยไม่มีความคิดเห็น",
             "text_placeholder": "พิมพ์หรือวางความคิดเห็นเพิ่มเติม"
