@@ -17,7 +17,7 @@
             },
             "discard_post_content": {
                 "title": "ละทิ้งแบบร่าง",
-                "message": "ยืนยันเพื่อละทิ้งเนื้อหาโพสต์ที่เขียน"
+                "message": "ยืนยันที่จะละทิ้งเนื้อหาโพสต์ที่เขียน"
             },
             "publish_post_failure": {
                 "title": "การเผยแพร่ล้มเหลว",
@@ -194,7 +194,7 @@
             "slogan": "Social networking\nback in your hands."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "เลือกเซิร์ฟเวอร์\nอันไหนก็ได้",
             "button": {
                 "category": {
                     "all": "ทั้งหมด",
@@ -297,7 +297,7 @@
             "subtitle": "เราเพิ่งส่งอีเมลไปยัง %s\nแตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
-                "dont_receive_email": "I never got an email"
+                "dont_receive_email": "ฉันยังไม่ได้รับอีเมล"
             },
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
@@ -522,7 +522,7 @@
             "title": "รายงาน %s",
             "step1": "ขั้นตอนที่ 1 จาก 2",
             "step2": "ขั้นตอนที่ 2 จาก 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
+            "content1": "มีโพสต์อื่นที่คุณต้องการเพิ่มเข้าไปในรายงานหรือไม่?",
             "content2": "Is there anything the moderators should know about this report?",
             "send": "ส่งรายงาน",
             "skip_to_send": "ส่งโดยไม่มีความคิดเห็น",
