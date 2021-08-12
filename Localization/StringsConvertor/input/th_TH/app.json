@@ -276,9 +276,9 @@
                 },
                 "special": {
                     "username_invalid": "ชื่อผู้ใช้ต้องมีเฉพาะตัวอักษรและตัวเลขและขีดล่างเท่านั้น",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_too_long": "ชื่อผู้ใช้ยาวเกินไป (ไม่สามารถยาวเกิน 30 ตัวอักษร)",
+                    "email_invalid": "นี่ไม่ใช่ที่อยู่อีเมลที่ถูกต้อง",
+                    "password_too_short": "รหัสผ่านสั้นเกินไป (ต้องมีอย่างน้อย 8 ตัวอักษร)"
                 }
             }
         },
@@ -294,7 +294,7 @@
         },
         "confirm_email": {
             "title": "หนึ่งสิ่งสุดท้าย",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "subtitle": "เราเพิ่งส่งอีเมลไปยัง %s\nแตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
                 "dont_receive_email": "I never got an email"
@@ -500,13 +500,13 @@
                     "using_default_browser": "ใช้เบราว์เซอร์เริ่มต้นเพื่อเปิดลิงก์"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
+                    "title": "โซนน่าเบื่อ",
                     "account_settings": "การตั้งค่าบัญชี",
                     "terms": "เงื่อนไขการให้บริการ",
                     "privacy": "นโยบายความเป็นส่วนตัว"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
+                    "title": "โซนเผ็ดร้อน",
                     "clear": "ล้างแคชสื่อ",
                     "signout": "ลงชื่อออก"
                 }
