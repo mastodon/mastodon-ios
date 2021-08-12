@@ -521,8 +521,8 @@
         "report": {
             "title": "Laporkan %s",
             "step1": "Langkah 1 dari 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
+            "step2": "Langkah 2 dari 2",
+            "content1": "Apakah ada postingan lain yang ingin Anda tambahkan ke laporannya?",
             "content2": "Is there anything the moderators should know about this report?",
             "send": "Send Report",
             "skip_to_send": "Send without comment",
