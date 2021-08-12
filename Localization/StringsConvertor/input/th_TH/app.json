@@ -334,7 +334,7 @@
                 "photo_library": "คลังรูปภาพ",
                 "browse": "เรียกดู"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "พิมพ์หรือวางสิ่งที่คุณกำลังคิด",
             "compose_action": "เผยแพร่",
             "replying_to_user": "กำลังตอบกลับ %s",
             "attachment": {
