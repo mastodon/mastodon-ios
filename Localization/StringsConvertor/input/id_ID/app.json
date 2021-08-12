@@ -194,22 +194,22 @@
             "slogan": "Social networking\nback in your hands."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Pilih sebuah server,\nserver manapun.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
+                    "all": "Semua",
+                    "all_accessiblity_description": "Kategori: Semua",
                     "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "activism": "aktivisme",
+                    "food": "makanan",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "permainan",
+                    "general": "umum",
+                    "journalism": "jurnalisme",
                     "lgbt": "lgbt",
                     "regional": "regional",
-                    "art": "art",
-                    "music": "music",
+                    "art": "seni",
+                    "music": "musik",
                     "tech": "tech"
                 },
                 "see_less": "See Less",
@@ -233,45 +233,45 @@
             "title": "Tell us about you.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Hapus"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "nama pengguna",
+                    "duplicate_prompt": "Nama pengguna ini sudah diambil."
                 },
                 "display_name": {
                     "placeholder": "display name"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "surel"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "kata sandi",
+                    "hint": "Kata sandi Anda harus memiliki sekurang-kurangnya delapan karakter"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Mengapa Anda ingin bergabung?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
+                    "username": "Nama pengguna",
+                    "email": "Surel",
+                    "password": "Kata sandi",
                     "agreement": "Agreement",
                     "locale": "Locale",
-                    "reason": "Reason"
+                    "reason": "Alasan"
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
                     "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
+                    "taken": "%s sudah digunakan",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
+                    "blank": "%s diperlukan",
+                    "invalid": "%s tidak valid",
+                    "too_long": "%s terlalu panjang",
+                    "too_short": "%s terlalu pendek",
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
