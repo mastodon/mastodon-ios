@@ -6,9 +6,9 @@
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Gagal memposting";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Alasan Kegagalan";
 
 "RHxKOw" = "Send Post with text content";
 
@@ -28,19 +28,19 @@
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Publik";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Hanya Pengikut";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Buat Postingan di Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Publik";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Hanya Pengikut";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Gagal memposting. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Postingan berhasil dikirim.";
 
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
