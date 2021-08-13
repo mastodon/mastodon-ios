@@ -224,9 +224,9 @@
                 "placeholder": "Find a server or join your own..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Mencari server yang tersedia...",
+                "bad_network": "Sesuatu yang salah terjadi ketika memuat data. Periksa koneksi internet Anda.",
+                "no_results": "Tak ada hasil"
             }
         },
         "register": {
@@ -258,13 +258,13 @@
                     "username": "Nama pengguna",
                     "email": "Surel",
                     "password": "Kata sandi",
-                    "agreement": "Agreement",
+                    "agreement": "Persetujuan",
                     "locale": "Locale",
                     "reason": "Alasan"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
+                    "blocked": "%s mengandung penyedia surel yang dilarang",
+                    "unreachable": "%s sepertinya tidak ada",
                     "taken": "%s sudah digunakan",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
@@ -322,7 +322,7 @@
         },
         "suggestion_account": {
             "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "follow_explain": "Ketika Anda mengikuti seseorang, Anda akan melihat postingan mereka di beranda Anda."
         },
         "compose": {
             "title": {
@@ -512,7 +512,7 @@
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon adalah perangkat lunak sumber terbuka. Anda dapat melaporkan masalah melalui GitHub di %s (%s)"
             },
             "keyboard": {
                 "close_settings_window": "Tutup Jendela Pengaturan"
