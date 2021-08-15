@@ -301,12 +301,12 @@
             },
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "หากคุณยังไม่ได้รับอีเมล ตรวจสอบว่าที่อยู่อีเมลของคุณถูกต้อง รวมถึงโฟลเดอร์อีเมลขยะของคุณ",
                 "resend_email": "ส่งอีเมลใหม่"
             },
             "open_email_app": {
                 "title": "ตรวจสอบกล่องขาเข้าของคุณ",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "description": "เราเพิ่งส่งอีเมลหาคุณ หากคุณยังไม่ได้รับอีเมล โปรดตรวจสอบโฟลเดอร์อีเมลขยะ",
                 "mail": "จดหมาย",
                 "open_email_client": "เปิดไคลเอ็นต์อีเมล"
             }
