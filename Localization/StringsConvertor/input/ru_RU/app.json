@@ -3,10 +3,10 @@
         "alerts": {
             "common": {
                 "please_try_again": "Пожалуйста, попробуйте ещё раз.",
-                "please_try_again_later": "Пожалуйста, попробуйте ещё раз позднее."
+                "please_try_again_later": "Пожалуйста, попробуйте позже."
             },
             "sign_up_failure": {
-                "title": "Не удалось зарегистрироваться"
+                "title": "Ошибка регистрации"
             },
             "server_error": {
                 "title": "Ошибка сервера"
@@ -424,7 +424,7 @@
                 "hash_tag": {
                     "title": "Популярно в Mastodon",
                     "description": "Хэштеги, которым сейчас уделяется немного внимания",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s людей разговаривают"
                 },
                 "accounts": {
                     "title": "Вам может понравится",
@@ -457,8 +457,8 @@
             "user_followed_you": "%s подписался (-ась)",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_mentioned_you": "%s упомянул вас",
+            "user_requested_to_follow_you": "%s запрашивает подписку",
             "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "Показать все",
@@ -522,8 +522,8 @@
             "title": "Пожаловаться на %s",
             "step1": "Шаг 1 из 2",
             "step2": "Шаг 2 из 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content1": "Есть ли другие сообщения, которые вы хотите добавить в отчёт?",
+            "content2": "Есть ли что-то, что модераторы должны знать об этом сообщении?",
             "send": "Пожаловаться",
             "skip_to_send": "Отправить без комментария",
             "text_placeholder": "Дополнительные комментарии"
