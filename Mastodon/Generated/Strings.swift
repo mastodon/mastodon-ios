@@ -528,19 +528,29 @@ internal enum L10n {
       }
     }
     internal enum Notification {
-      internal enum Action {
-        /// favorited your post
-        internal static let favourite = L10n.tr("Localizable", "Scene.Notification.Action.Favourite")
-        /// followed you
-        internal static let follow = L10n.tr("Localizable", "Scene.Notification.Action.Follow")
-        /// requested to follow you
-        internal static let followRequest = L10n.tr("Localizable", "Scene.Notification.Action.FollowRequest")
-        /// mentioned you
-        internal static let mention = L10n.tr("Localizable", "Scene.Notification.Action.Mention")
-        /// Your poll has ended
-        internal static let poll = L10n.tr("Localizable", "Scene.Notification.Action.Poll")
-        /// reblogged your post
-        internal static let reblog = L10n.tr("Localizable", "Scene.Notification.Action.Reblog")
+      /// %@ favorited your post
+      internal static func userFavoritedYourPost(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Notification.UserFavorited Your Post", String(describing: p1))
+      }
+      /// %@ followed you
+      internal static func userFollowedYou(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Notification.UserFollowedYou", String(describing: p1))
+      }
+      /// %@ mentioned you
+      internal static func userMentionedYou(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Notification.UserMentionedYou", String(describing: p1))
+      }
+      /// %@ reblogged your post
+      internal static func userRebloggedYourPost(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Notification.UserRebloggedYourPost", String(describing: p1))
+      }
+      /// %@ requested to follow you
+      internal static func userRequestedToFollowYou(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Notification.UserRequestedToFollowYou", String(describing: p1))
+      }
+      /// %@ Your poll has ended
+      internal static func userYourPollHasEnded(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.Notification.UserYourPollHasEnded", String(describing: p1))
       }
       internal enum Keyobard {
         /// Show Everything
