@@ -69,7 +69,17 @@ extension NotificationSection {
 
                 // configure author name, notification description, timestamp
                 let nameText = notification.account.displayNameWithFallback
-                let titleLabelText = "\(nameText) \(notification.notificationType.actionText)"
+                let titleLabelText: String = {
+                    switch notification.notificationType {
+                    case .favourite:            return L10n.Scene.Notification.userFavoritedYourPost(nameText)
+                    case .follow:               return L10n.Scene.Notification.userFollowedYou(nameText)
+                    case .followRequest:        return L10n.Scene.Notification.userRequestedToFollowYou(nameText)
+                    case .mention:              return L10n.Scene.Notification.userMentionedYou(nameText)
+                    case .poll:                 return L10n.Scene.Notification.userYourPollHasEnded(nameText)
+                    case .reblog:               return L10n.Scene.Notification.userRebloggedYourPost(nameText)
+                    default:                    return ""
+                    }
+                }()
                 
                 do {
                     let nameContent = MastodonContent(content: nameText, emojis: notification.account.emojiMeta)
@@ -94,12 +104,12 @@ extension NotificationSection {
                 }
                 
                 let createAt = notification.createAt
-                cell.timestampLabel.text = createAt.localizedTimeAgoSinceNow
+                cell.timestampLabel.text = createAt.localizedSlowedTimeAgoSinceNow
                 AppContext.shared.timestampUpdatePublisher
                     .receive(on: DispatchQueue.main)
                     .sink { [weak cell] _ in
                         guard let cell = cell else { return }
-                        cell.timestampLabel.text = createAt.localizedTimeAgoSinceNow
+                        cell.timestampLabel.text = createAt.localizedSlowedTimeAgoSinceNow
                     }
                     .store(in: &cell.disposeBag)
 
