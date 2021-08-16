@@ -33,28 +33,28 @@ extension Mastodon.Entity.Notification.NotificationType {
         }
     }
     
-    public var actionText: String {
-        get {
-            var actionText: String
-            switch self {
-            case .follow:
-                actionText = L10n.Scene.Notification.Action.follow
-            case .favourite:
-                actionText = L10n.Scene.Notification.Action.favourite
-            case .reblog:
-                actionText = L10n.Scene.Notification.Action.reblog
-            case .mention:
-                actionText = L10n.Scene.Notification.Action.mention
-            case .poll:
-                actionText = L10n.Scene.Notification.Action.poll
-            case .followRequest:
-                actionText = L10n.Scene.Notification.Action.followRequest
-            default:
-                actionText = ""
-            }
-            return actionText
-        }
-    }
+//    public var actionText: String {
+//        get {
+//            var actionText: String
+//            switch self {
+//            case .follow:
+//                actionText = L10n.Scene.Notification.Action.follow
+//            case .favourite:
+//                actionText = L10n.Scene.Notification.Action.favourite
+//            case .reblog:
+//                actionText = L10n.Scene.Notification.Action.reblog
+//            case .mention:
+//                actionText = L10n.Scene.Notification.Action.mention
+//            case .poll:
+//                actionText = L10n.Scene.Notification.Action.poll
+//            case .followRequest:
+//                actionText = L10n.Scene.Notification.Action.followRequest
+//            default:
+//                actionText = ""
+//            }
+//            return actionText
+//        }
+//    }
     
     public var actionImageName: String {
         get {

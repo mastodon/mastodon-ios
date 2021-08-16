@@ -15,6 +15,7 @@ final class ThreadMetaView: UIView {
         label.text = "Date"
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
+        label.numberOfLines = 2
         return label
     }()
     
@@ -39,7 +40,7 @@ final class ThreadMetaView: UIView {
     let containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = 20
+        stackView.spacing = 4
         return stackView
     }()
     let actionButtonStackView = UIStackView()
@@ -77,9 +78,9 @@ extension ThreadMetaView {
         actionButtonStackView.addArrangedSubview(favoriteButton)
         
         dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        reblogButton.titleLabel?.setContentHuggingPriority(.required - 2, for: .horizontal)
-        favoriteButton.titleLabel?.setContentHuggingPriority(.required - 1, for: .horizontal)
+        reblogButton.setContentHuggingPriority(.required - 2, for: .horizontal)
         reblogButton.setContentCompressionResistancePriority(.required - 2, for: .horizontal)
+        favoriteButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         favoriteButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
         
         updateContainerLayout()
@@ -98,12 +99,15 @@ extension ThreadMetaView {
     private func updateContainerLayout() {
         if traitCollection.preferredContentSizeCategory < .accessibilityMedium {
             containerStackView.axis = .horizontal
-            containerStackView.spacing = 20
-            dateLabel.numberOfLines = 1
+            
+            if bounds.size.width < 400 || UIView.isZoomedMode {
+                actionButtonStackView.spacing = 10
+            } else {
+                actionButtonStackView.spacing = 20
+            }
         } else {
             containerStackView.axis = .vertical
-            containerStackView.spacing = 4
-            dateLabel.numberOfLines = 0
+            actionButtonStackView.spacing = 20
         }
     }
     

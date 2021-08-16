@@ -603,24 +603,33 @@ extension StatusSection {
         status: Status
     ) {
         cell.selectionStyle = .none
-        cell.threadMetaView.dateLabel.text = {
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .short
-            return formatter.string(from: status.createdAt)
-        }()
-        cell.threadMetaView.dateLabel.accessibilityLabel = DateFormatter.localizedString(from: status.createdAt, dateStyle: .medium, timeStyle: .short)
+
+        // set reblog count
         let reblogCountTitle: String = {
             let count = status.reblogsCount.intValue
             return L10n.Plural.Count.reblog(count)
         }()
         cell.threadMetaView.reblogButton.setTitle(reblogCountTitle, for: .normal)
-        
+        // set favorite count
         let favoriteCountTitle: String = {
             let count = status.favouritesCount.intValue
             return L10n.Plural.Count.favorite(count)
         }()
         cell.threadMetaView.favoriteButton.setTitle(favoriteCountTitle, for: .normal)
+        // set date
+        cell.threadMetaView.dateLabel.text = {
+            let formatter = DateFormatter()
+            // make adaptive UI
+            if UIView.isZoomedMode || (reblogCountTitle.count + favoriteCountTitle.count > 20) {
+                formatter.dateStyle = .short
+                formatter.timeStyle = .short
+            } else {
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+            }
+            return formatter.string(from: status.createdAt)
+        }()
+        cell.threadMetaView.dateLabel.accessibilityLabel = DateFormatter.localizedString(from: status.createdAt, dateStyle: .medium, timeStyle: .short)
         
         cell.threadMetaView.isHidden = false
     }
