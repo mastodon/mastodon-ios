@@ -42,7 +42,7 @@ final class AudioPlaybackService: NSObject {
                     try? AVAudioSession.sharedInstance().setCategory(.playback)
                     try? AVAudioSession.sharedInstance().setActive(true)
                 case .paused, .stopped, .failed:
-                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)  // reset to default
+                    try? AVAudioSession.sharedInstance().setCategory(.ambient)  // set to ambient to allow mixed (needed for GIFV)
                     try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
                 }
             }
