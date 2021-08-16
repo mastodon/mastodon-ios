@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Option 1</string>
+        <string>Opción 1</string>
         <key>other</key>
-        <string>Option %ld %ld</string>
+        <string>Opción %ld %ld</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
