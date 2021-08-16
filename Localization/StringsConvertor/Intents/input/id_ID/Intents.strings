@@ -1,46 +1,46 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "Buat Postingan di Mastodon";
 
-"751xkl" = "Text Content";
+"751xkl" = "Teks Isi";
 
-"CsR7G2" = "Post";
+"CsR7G2" = "Buat Postingan di Mastodon";
 
 "HZSGTr" = "What content to post?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Gagal memposting";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Alasan Kegagalan";
 
 "RHxKOw" = "Send Post with text content";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "Postingan";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "Posting ${content} di Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Postingan";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "Visibilitas";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "Visibilitas Postingan";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
 "apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Publik";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Hanya Pengikut";
 
-"dUyuGg" = "Post";
+"dUyuGg" = "Buat Postingan di Mastodon";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "Publik";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "Hanya Pengikut";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Gagal memposting. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Postingan berhasil dikirim.";
 
 "oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
 
@@ -48,4 +48,4 @@
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Postingan berhasil dikirim. ";

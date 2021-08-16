@@ -454,14 +454,12 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "action": {
-                "follow": "followed you",
-                "favourite": "favorited your post",
-                "reblog": "reblogged your post",
-                "poll": "Your poll has ended",
-                "mention": "mentioned you",
-                "follow_request": "requested to follow you"
-            },
+            "user_followed_you": "%s followed you",
+            "user_favorited your post": "%s favorited your post",
+            "user_reblogged_your_post": "%s reblogged your post",
+            "user_mentioned_you": "%s mentioned you",
+            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
