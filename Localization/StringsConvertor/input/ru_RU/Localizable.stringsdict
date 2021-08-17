@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>Option 1</string>
+        <string>Опция %ld %ld</string>
         <key>few</key>
-        <string>Option %ld %ld</string>
+        <string>Опции %ld %ld</string>
         <key>many</key>
-        <string>Option %ld %ld</string>
+        <string>Опции %ld %ld</string>
         <key>other</key>
-        <string>Option %ld %ld</string>
+        <string>Опции %ld %ld</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
