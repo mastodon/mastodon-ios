@@ -5,7 +5,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Превышающих лимит символов: %#@character_count@</string>
+      <string>Лимит превышен на %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -25,7 +25,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Символов осталось: %#@character_count@</string>
+      <string>%#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld символ</string>
+        <string>%ld символ остался</string>
         <key>few</key>
-        <string>%ld символа</string>
+        <string>%ld символа осталось</string>
         <key>many</key>
-        <string>%ld символов</string>
+        <string>%ld символов осталось</string>
         <key>other</key>
-        <string>%ld символов</string>
+        <string>%ld символа осталось</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
