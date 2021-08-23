@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 caractère</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caractères</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -29,9 +29,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 caractère</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld caractères</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>Il y a 1 m</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>il y a %ld m</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>Il y a 1 s</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>il y a %ld s</string>
       </dict>
     </dict>
   </dict>
