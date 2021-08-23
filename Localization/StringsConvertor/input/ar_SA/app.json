@@ -13,7 +13,7 @@
             },
             "vote_failure": {
                 "title": "فشل التصويت",
-                "poll_ended": "The poll has ended"
+                "poll_ended": "انتهى استطلاع الرأي"
             },
             "discard_post_content": {
                 "title": "تجاهل المسودة",
@@ -129,24 +129,24 @@
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "صَوّت",
+                    "closed": "انتهى"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "reply": "رد",
+                    "reblog": "إعادة النشر",
+                    "unreblog": "تراجع عن إعادة النشر",
+                    "favorite": "إضافة إلى المفضلة",
+                    "unfavorite": "إزالة من المفضلة",
+                    "menu": "القائمة"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
+                    "url": "عنوان URL",
+                    "mention": "أشر إلى",
+                    "link": "الرابط",
+                    "hashtag": "الوسم",
                     "email": "البريد الإلكتروني",
-                    "emoji": "Emoji"
+                    "emoji": "إيموجي"
                 }
             },
             "friendship": {
