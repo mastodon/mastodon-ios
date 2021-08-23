@@ -150,8 +150,8 @@
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
+                "follow": "اتبع",
+                "following": "مُتابَع",
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
@@ -454,11 +454,11 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "user_followed_you": "%s followed you",
+            "user_followed_you": "يتابعك %s",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
             "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_requested_to_follow_you": "طلب %s متابعتك",
             "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "Show Everything",
@@ -481,12 +481,12 @@
                 "notifications": {
                     "title": "الإشعارات",
                     "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "follows": "يتابعني",
                     "boosts": "Reblogs my post",
                     "mentions": "Mentions me",
                     "trigger": {
                         "anyone": "anyone",
-                        "follower": "a follower",
+                        "follower": "مشترِك",
                         "follow": "anyone I follow",
                         "noone": "no one",
                         "title": "Notify me when"
