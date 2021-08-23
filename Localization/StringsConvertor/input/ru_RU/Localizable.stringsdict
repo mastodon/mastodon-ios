@@ -5,7 +5,7 @@
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Превышающих лимит символов: %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld символ</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld символа</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld символов</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld символа</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Символов осталось: %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld символ</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld символа</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld символов</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld символов</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -53,13 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>пост</string>
         <key>few</key>
-        <string>posts</string>
+        <string>поста</string>
         <key>many</key>
-        <string>posts</string>
+        <string>постов</string>
         <key>other</key>
-        <string>posts</string>
+        <string>поста</string>
       </dict>
     </dict>
     <key>plural.number.poll_option</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld голос</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld голоса</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld голосов</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld голоса</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
