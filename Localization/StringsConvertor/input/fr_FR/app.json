@@ -455,7 +455,7 @@
                 "Mentions": "Mentions"
             },
             "user_followed_you": "%s s’est abonné à vous",
-            "user_favorited your post": "%s favorited your post",
+            "user_favorited your post": "%s a mis votre pouet en favori",
             "user_reblogged_your_post": "%s a partagé votre publication",
             "user_mentioned_you": "%s vous a mentionné",
             "user_requested_to_follow_you": "%s a demandé à vous suivre",
