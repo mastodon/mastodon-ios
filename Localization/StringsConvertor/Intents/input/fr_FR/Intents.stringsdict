@@ -21,7 +21,7 @@
     <key>There are ${count} options matching ‘${visibility}’.</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>There are %#@count_option@ matching ‘${visibility}’.</string>
+      <string>Il y a %#@count_option@ correspondant à « ${visibility} ».</string>
       <key>count_option</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
