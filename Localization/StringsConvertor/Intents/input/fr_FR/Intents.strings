@@ -8,15 +8,15 @@
 
 "HdGikU" = "Posting failed";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "Raison de l’échec";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "Envoyer une publication avec du contenu texte";
 
 "RxSqsb" = "Post";
 
 "WCIR3D" = "Publier du ${content} sur Mastodon";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "Publication";
 
 "ZS1XaK" = "${content}";
 
@@ -30,7 +30,7 @@
 
 "ayoYEb-dYQ5NN" = "${content}, Public";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, abonné·e·s seulement";
 
 "dUyuGg" = "Publier sur Mastodon";
 
