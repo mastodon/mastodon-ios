@@ -20,9 +20,9 @@
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "مدى الظهور";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "مدى ظهور المنشور";
 
 "apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
 
@@ -32,11 +32,11 @@
 
 "ayoYEb-ehFLjY" = "${content}, Followers Only";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "النشر على ماستدون";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "للعامة";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "لمتابعيك فقط";
 
 "gfePDu" = "Posting failed. ${failureReason}";
 
