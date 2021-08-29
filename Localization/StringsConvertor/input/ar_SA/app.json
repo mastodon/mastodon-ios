@@ -285,7 +285,7 @@
         "server_rules": {
             "title": "بعض القواعد الأساسية.",
             "subtitle": "تم سنّ هذه القواعد من قبل مشرفي %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "prompt": "إن اخترت المواصلة، فإنك تخضع لشروط الخدمة وسياسة الخصوصية لـ %s.",
             "terms_of_service": "شروط الخدمة",
             "privacy_policy": "سياسة الخصوصية",
             "button": {
@@ -294,13 +294,13 @@
         },
         "confirm_email": {
             "title": "شيء واحد أخير.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "subtitle": "لقد أرسلنا للتو رسالة بريد إلكتروني إلى %s،\nاضغط على الرابط لتأكيد حسابك.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "افتح تطبيق البريد الإلكتروني",
+                "dont_receive_email": "لم أستلم أبدًا بريدا إلكترونيا"
             },
             "dont_receive_email": {
-                "title": "Check your email",
+                "title": "تحقق من بريدك الإلكتروني",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
                 "resend_email": "Resend Email"
             },
@@ -381,7 +381,7 @@
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "select_visibility_entry": "اختر مدى الظهور - %s"
             }
         },
         "profile": {
@@ -427,8 +427,8 @@
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "حسابات قد تعجبك",
+                    "description": "قد ترغب في متابعة هذه الحسابات",
                     "follow": "تابع"
                 }
             },
@@ -461,7 +461,7 @@
             "user_requested_to_follow_you": "طلب %s متابعتك",
             "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
-                "show_everything": "Show Everything",
+                "show_everything": "إظهار كل شيء",
                 "show_mentions": "Show Mentions"
             }
         },
@@ -500,14 +500,14 @@
                     "using_default_browser": "Use default browser to open links"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
+                    "title": "المنطقة المملة",
                     "account_settings": "إعدادات الحساب",
                     "terms": "شروط الخدمة",
                     "privacy": "سياسة الخصوصية"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
+                    "title": "المنطقة الحارة",
+                    "clear": "مسح ذاكرة التخزين المؤقت للوسائط",
                     "signout": "تسجيل الخروج"
                 }
             },
@@ -524,8 +524,8 @@
             "step2": "الخطوة 2 من 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
+            "send": "ارسل الشكوى",
+            "skip_to_send": "إرسال بدون تعليق",
             "text_placeholder": "Type or paste additional comments"
         },
         "preview": {
