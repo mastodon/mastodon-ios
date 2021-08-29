@@ -29,7 +29,7 @@
             },
             "edit_profile_failure": {
                 "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "message": "لا يمكن تعديل الملف الشخصي. الرجاء المحاولة مرة أخرى."
             },
             "sign_out": {
                 "title": "تسجيل الخروج",
@@ -268,23 +268,23 @@
                     "taken": "%s is already in use",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
+                    "blank": "%s مطلوب",
+                    "invalid": "%s غير صالح",
+                    "too_long": "%s طويل جداً",
+                    "too_short": "%s قصير جدا",
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "email_invalid": "هذا عنوان بريد إلكتروني غير صالح",
+                    "password_too_short": "كلمة المرور قصيرة جداً (يجب أن تكون 8 أحرف على الأقل)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
+            "title": "بعض القواعد الأساسية.",
+            "subtitle": "تم سنّ هذه القواعد من قبل مشرفي %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "شروط الخدمة",
             "privacy_policy": "سياسة الخصوصية",
