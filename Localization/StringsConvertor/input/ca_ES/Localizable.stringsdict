@@ -50,22 +50,6 @@
         <string>publicacions</string>
       </dict>
     </dict>
-    <key>plural.number.poll_option</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@number_poll_option@</string>
-      <key>number_poll_option</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>ld</string>
-        <key>one</key>
-        <string>Opció 1</string>
-        <key>other</key>
-        <string>Opció %ld %ld</string>
-      </dict>
-    </dict>
     <key>plural.count.post</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
