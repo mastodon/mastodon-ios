@@ -51,8 +51,11 @@ private func map(language: String) -> String? {
     case "fr_FR":   return "fr"         // French
     case "de_DE":   return "de"         // German
     case "ja_JP":   return "ja"         // Japanese
+    case "ru_RU":   return "ru"         // Russian
+    case "gd_GB":   return "gd-GB"      // Scottish Gaelic
     case "es_ES":   return "es"         // Spanish
     case "es_AR":   return "es-419"     // Spanish, Argentina
+    case "th_TH":   return "th"         // Thai
     default:        return nil
     }
 }
