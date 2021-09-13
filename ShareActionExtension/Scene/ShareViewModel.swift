@@ -259,16 +259,28 @@ extension ShareViewModel {
         for item in inputItems {
             itemProviders.append(contentsOf: item.attachments ?? [])
         }
+        
+        let _urlProvider = itemProviders.first { provider in
+            return provider.hasRepresentationConforming(toTypeIdentifier: UTType.url.identifier, fileOptions: [])
+        }
 
-        let _movieProvider = itemProviders.first(where: { provider in
+        let _movieProvider = itemProviders.first { provider in
             return provider.hasRepresentationConforming(toTypeIdentifier: UTType.movie.identifier, fileOptions: [])
-        })
+        }
 
         let imageProviders = itemProviders.filter { provider in
             return provider.hasRepresentationConforming(toTypeIdentifier: UTType.image.identifier, fileOptions: [])
         }
-
-        if let movieProvider = _movieProvider {
+        
+        if let urlProvider = _urlProvider {
+            urlProvider.loadItem(forTypeIdentifier: UTType.url.identifier) { [weak self] item, error in
+                guard let self = self else { return }
+                guard let url = item as? URL else { return }
+                DispatchQueue.main.async {
+                    self.composeViewModel.statusContent = "\(url.absoluteString) "
+                }
+            }
+        } else if let movieProvider = _movieProvider {
             composeViewModel.setupAttachmentViewModels([
                 StatusAttachmentViewModel(itemProvider: movieProvider)
             ])

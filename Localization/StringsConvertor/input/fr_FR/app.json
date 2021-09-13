@@ -454,14 +454,12 @@
                 "Everything": "Tout",
                 "Mentions": "Mentions"
             },
-            "action": {
-                "follow": "vous suit",
-                "favourite": "a ajouté votre message à ses favoris",
-                "reblog": "a reblogué votre post",
-                "poll": "Votre sondage est terminé",
-                "mention": "vous a mentionné",
-                "follow_request": "a demandé à vous suivre"
-            },
+            "user_followed_you": "%s followed you",
+            "user_favorited your post": "%s favorited your post",
+            "user_reblogged_your_post": "%s reblogged your post",
+            "user_mentioned_you": "%s mentioned you",
+            "user_requested_to_follow_you": "%s requested to follow you",
+            "user_your_poll_has_ended": "%s Your poll has ended",
             "keyobard": {
                 "show_everything": "Tout Afficher",
                 "show_mentions": "Afficher les mentions"

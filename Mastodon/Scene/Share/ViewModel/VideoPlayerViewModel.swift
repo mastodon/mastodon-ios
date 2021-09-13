@@ -113,6 +113,7 @@ final class VideoPlayerViewModel {
             .sink { [weak self] status in
                 os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: %s status: %s", ((#file as NSString).lastPathComponent), #line, #function, sessionName, status.description)
                 guard let self = self else { return }
+                
                 // only update audio session for video
                 guard self.videoKind == .video else { return }
                 switch status {
@@ -122,7 +123,7 @@ final class VideoPlayerViewModel {
                     try? AVAudioSession.sharedInstance().setCategory(.playback)
                     try? AVAudioSession.sharedInstance().setActive(true)
                 case .paused, .stopped, .failed:
-                    try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)  // reset to default
+                    try? AVAudioSession.sharedInstance().setCategory(.ambient)  // set to ambient to allow mixed (needed for GIFV)
                     try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
                 }
             }
@@ -149,14 +150,6 @@ extension VideoPlayerViewModel {
     }
     
     func play() {
-        switch videoKind {
-        case .gif:
-            break
-        case .video:
-            break
-//            try? AVAudioSession.sharedInstance().setCategory(.soloAmbient, mode: .default)
-        }
-
         player.play()
         updateDate = Date()
     }

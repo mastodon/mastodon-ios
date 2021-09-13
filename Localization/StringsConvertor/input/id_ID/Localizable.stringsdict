@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld karakter</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -27,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld karakter</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -41,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>posts</string>
+        <string>postingan</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld postingan</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -153,7 +153,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld pengikut</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -167,7 +167,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld tahun lagi</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -181,7 +181,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld bulan lagi</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -195,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld hari lagi</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -209,7 +209,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld jam lagi</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -223,7 +223,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld menit lagi</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -237,7 +237,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld detik lagi</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -251,7 +251,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ldt yang lalu</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -265,7 +265,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ldb yang lalu</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -279,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ldh yang lalu</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -293,7 +293,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ldj yang lalu</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -307,7 +307,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ldm yang lalu</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -321,7 +321,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ldd yang lalu</string>
       </dict>
     </dict>
   </dict>

@@ -454,14 +454,12 @@
                 "Everything": "A h-uile rud",
                 "Mentions": "Iomraidhean"
             },
-            "action": {
-                "follow": "– ’s iad ’gad leantainn a-nis",
-                "favourite": "– ’s iad air am post agad a chur ris na h-annsachdan aca",
-                "reblog": "– ’s iad air am post agad a bhrosnachadh",
-                "poll": "Thàinig an cunntas-bheachd agad gu crìoch",
-                "mention": "– ’s iad air iomradh a thoirt ort",
-                "follow_request": "– ’s iad air leantainn iarraidh ort"
-            },
+            "user_followed_you": "Tha %s a’ leantainn ort a-nis",
+            "user_favorited your post": "Is annsa le %s am post agad",
+            "user_reblogged_your_post": "Bhrosnaich %s am post agad",
+            "user_mentioned_you": "Thug %s iomradh ort",
+            "user_requested_to_follow_you": "Dh’iarr %s leantainn ort",
+            "user_your_poll_has_ended": "Crìoch cunntais-bheachd aig %s",
             "keyobard": {
                 "show_everything": "Seall a h-uile càil",
                 "show_mentions": "Seall na h-iomraidhean"
@@ -482,16 +480,16 @@
                 },
                 "notifications": {
                     "title": "Brathan",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "favorites": "Nuair as annsa leotha am post agam",
+                    "follows": "Nuair a leanas iad orm",
+                    "boosts": "Nuair a bhrosnaicheas iad post uam",
+                    "mentions": "Nuair a bheir iad iomradh orm",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "Airson duine sam bith, cuir brath thugam",
+                        "follower": "Airson luchd-leantainn, cuir brath thugam",
+                        "follow": "Airson daoine air a leanas mi, cuir brath thugam",
+                        "noone": "Na cuir brath thugam idir",
+                        "title": " "
                     }
                 },
                 "preference": {

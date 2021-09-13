@@ -454,14 +454,12 @@
                 "Everything": "Tot",
                 "Mentions": "Mencions"
             },
-            "action": {
-                "follow": "et segueix",
-                "favourite": "ha afavorit el teu estat",
-                "reblog": "ha impulsat el teu estat",
-                "poll": "La teva enquesta ha finalitzat",
-                "mention": "t'ha mencionat",
-                "follow_request": "ha sol·licitat seguir-te"
-            },
+            "user_followed_you": "%s et segueix",
+            "user_favorited your post": "%s ha afavorit el teu estat",
+            "user_reblogged_your_post": "%s ha impulsat el teu estat",
+            "user_mentioned_you": "%s t'ha esmentat",
+            "user_requested_to_follow_you": "%s ha sol·licitat seguir-te",
+            "user_your_poll_has_ended": "%s L'enquesta ha finalitzat",
             "keyobard": {
                 "show_everything": "Mostrar-ho tot",
                 "show_mentions": "Mostrar Mencions"
