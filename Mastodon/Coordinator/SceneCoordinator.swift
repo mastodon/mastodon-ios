@@ -87,6 +87,7 @@ extension SceneCoordinator {
         case activityViewController(activityViewController: UIActivityViewController, sourceView: UIView?, barButtonItem: UIBarButtonItem?)
         
         #if DEBUG
+        case accountList
         case publicTimeline
         #endif
         
@@ -321,6 +322,9 @@ private extension SceneCoordinator {
             _viewController.viewModel = viewModel
             viewController = _viewController
         #if DEBUG
+        case .accountList:
+            let _viewController = AccountListViewController()
+            viewController = _viewController
         case .publicTimeline:
             let _viewController = PublicTimelineViewController()
             _viewController.viewModel = PublicTimelineViewModel(context: appContext)

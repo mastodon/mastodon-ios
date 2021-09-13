@@ -415,6 +415,9 @@
 		DB9D6C3825E508BE0051B173 /* Attachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D6C3725E508BE0051B173 /* Attachment.swift */; };
 		DB9D7C21269824B80054B3DF /* APIService+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9D7C20269824B80054B3DF /* APIService+Filter.swift */; };
 		DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */; };
+		DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F58EB26EF435000E7BBE9 /* AccountViewController.swift */; };
+		DB9F58EF26EF491E00E7BBE9 /* AccountListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */; };
+		DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */; };
 		DBA088DF26958164003EB4B2 /* UserFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */; };
 		DBA0A11325FB3FC10079C110 /* ComposeToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */; };
 		DBA1DB80268F84F80052DB59 /* NotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA1DB7F268F84F80052DB59 /* NotificationType.swift */; };
@@ -1184,6 +1187,9 @@
 		DB9D6C3725E508BE0051B173 /* Attachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attachment.swift; sourceTree = "<group>"; };
 		DB9D7C20269824B80054B3DF /* APIService+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Filter.swift"; sourceTree = "<group>"; };
 		DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInterpolatingMotionEffect.swift; sourceTree = "<group>"; };
+		DB9F58EB26EF435000E7BBE9 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
+		DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListTableViewCell.swift; sourceTree = "<group>"; };
 		DBA088DE26958164003EB4B2 /* UserFetchedResultsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFetchedResultsController.swift; sourceTree = "<group>"; };
 		DBA0A11225FB3FC10079C110 /* ComposeToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeToolbarView.swift; sourceTree = "<group>"; };
 		DBA1DB7F268F84F80052DB59 /* NotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationType.swift; sourceTree = "<group>"; };
@@ -2601,6 +2607,7 @@
 				DB6180E426391A500018D199 /* Transition */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
 				DB01409B25C40BB600F9F3CF /* Onboarding */,
+				DB9F58ED26EF435800E7BBE9 /* Account */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
 				5B24BBD6262DB14800A9381B /* Report */,
@@ -2773,6 +2780,16 @@
 				5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DB9F58ED26EF435800E7BBE9 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				DB9F58EB26EF435000E7BBE9 /* AccountViewController.swift */,
+				DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */,
+				DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		DBA5E7A6263BD298004598BB /* ContextMenu */ = {
@@ -3960,6 +3977,7 @@
 				2D5981A125E4A593000FB903 /* MastodonConfirmEmailViewModel.swift in Sources */,
 				DB4F096C269EFA2000D62E92 /* SearchResultViewController+StatusProvider.swift in Sources */,
 				DB87D4452609BE0500D12C0D /* ComposeStatusPollOptionCollectionViewCell.swift in Sources */,
+				DB9F58EF26EF491E00E7BBE9 /* AccountListViewModel.swift in Sources */,
 				DB6D9F7D26358ED4008423CD /* SettingsSection.swift in Sources */,
 				DB0E91EA26A9675100BD2ACC /* MetaLabel.swift in Sources */,
 				DB8AF55025C13703002E6C99 /* MainTabBarController.swift in Sources */,
@@ -4017,6 +4035,7 @@
 				DB938F1526241FDF00E5B6C1 /* APIService+Thread.swift in Sources */,
 				DB482A45261335BA008AE74C /* UserTimelineViewController+Provider.swift in Sources */,
 				2D206B8625F5FB0900143C56 /* Double.swift in Sources */,
+				DB9F58F126EF512300E7BBE9 /* AccountListTableViewCell.swift in Sources */,
 				2D76319F25C1521200929FB9 /* StatusSection.swift in Sources */,
 				DB35FC252612FD7A006193C9 /* ProfileFieldView.swift in Sources */,
 				DB938F0326240EA300E5B6C1 /* CachedThreadViewModel.swift in Sources */,
@@ -4105,6 +4124,7 @@
 				2D198649261C0B8500F0B013 /* SearchResultSection.swift in Sources */,
 				DB4F097B26A039FF00D62E92 /* SearchHistorySection.swift in Sources */,
 				DBB525302611EBF3002F1F29 /* ProfilePagingViewModel.swift in Sources */,
+				DB9F58EC26EF435000E7BBE9 /* AccountViewController.swift in Sources */,
 				DBCBCC0B2680B03F000F5B51 /* AsyncHomeTimelineViewModel+LoadOldestState.swift in Sources */,
 				2D5A3D6225CFD9CB002347D6 /* HomeTimelineViewController+DebugAction.swift in Sources */,
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
