@@ -425,6 +425,9 @@
 		DBA465952696E387002B41DB /* AppPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA465942696E387002B41DB /* AppPreference.swift */; };
 		DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DBA4B0F926C269880077136E /* Intents.stringsdict */; };
 		DBA4B0F726C269880077136E /* Intents.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DBA4B0F926C269880077136E /* Intents.stringsdict */; };
+		DBA5A52F26F07ED800CACBAA /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = DBA5A52E26F07ED800CACBAA /* PanModal */; };
+		DBA5A53126F08EF000CACBAA /* DragIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5A53026F08EF000CACBAA /* DragIndicatorView.swift */; };
+		DBA5A53526F0A36A00CACBAA /* AddAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5A53426F0A36A00CACBAA /* AddAccountTableViewCell.swift */; };
 		DBA5E7A3263AD0A3004598BB /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */; };
 		DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */; };
 		DBA5E7A9263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */; };
@@ -1225,6 +1228,8 @@
 		DBA4B0EF26C153B20077136E /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DBA4B0F526C2621D0077136E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
 		DBA4B0F826C269880077136E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Intents.stringsdict; sourceTree = "<group>"; };
+		DBA5A53026F08EF000CACBAA /* DragIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicatorView.swift; sourceTree = "<group>"; };
+		DBA5A53426F0A36A00CACBAA /* AddAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountTableViewCell.swift; sourceTree = "<group>"; };
 		DBA5E7A2263AD0A3004598BB /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
 		DBA5E7A4263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewModel.swift; sourceTree = "<group>"; };
 		DBA5E7A8263BD3A4004598BB /* ContextMenuImagePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuImagePreviewViewController.swift; sourceTree = "<group>"; };
@@ -1387,6 +1392,7 @@
 				87FFDA5D898A5C42ADCB35E7 /* Pods_Mastodon.framework in Frameworks */,
 				DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */,
 				DB01E23526A98F0900C3965B /* MetaTextKit in Frameworks */,
+				DBA5A52F26F07ED800CACBAA /* PanModal in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2785,11 +2791,29 @@
 		DB9F58ED26EF435800E7BBE9 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				DBA5A53226F08EF300CACBAA /* View */,
+				DBA5A53326F0932E00CACBAA /* Cell */,
 				DB9F58EB26EF435000E7BBE9 /* AccountViewController.swift */,
 				DB9F58EE26EF491E00E7BBE9 /* AccountListViewModel.swift */,
-				DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		DBA5A53226F08EF300CACBAA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DBA5A53026F08EF000CACBAA /* DragIndicatorView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DBA5A53326F0932E00CACBAA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DB9F58F026EF512300E7BBE9 /* AccountListTableViewCell.swift */,
+				DBA5A53426F0A36A00CACBAA /* AddAccountTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		DBA5E7A6263BD298004598BB /* ContextMenu */ = {
@@ -3161,6 +3185,7 @@
 				DB01E23226A98F0900C3965B /* MastodonMeta */,
 				DB01E23426A98F0900C3965B /* MetaTextKit */,
 				DB552D4E26BBD10C00E481F6 /* OrderedCollections */,
+				DBA5A52E26F07ED800CACBAA /* PanModal */,
 			);
 			productName = Mastodon;
 			productReference = DB427DD225BAA00100D1B89D /* Mastodon.app */;
@@ -3420,6 +3445,7 @@
 				DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */,
 				DB01E23126A98F0900C3965B /* XCRemoteSwiftPackageReference "MetaTextKit" */,
 				DB552D4D26BBD10C00E481F6 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = DB427DD325BAA00100D1B89D /* Products */;
 			projectDirPath = "";
@@ -3773,6 +3799,7 @@
 				2D5A3D3825CF8D9F002347D6 /* ScrollViewContainer.swift in Sources */,
 				DB6180EF26391CA50018D199 /* MediaPreviewImageViewController.swift in Sources */,
 				DB1E347825F519300079D7DF /* PickServerItem.swift in Sources */,
+				DBA5A53126F08EF000CACBAA /* DragIndicatorView.swift in Sources */,
 				DB1FD45A25F27898004CFCFC /* CategoryPickerItem.swift in Sources */,
 				DB6180F626391D580018D199 /* MediaPreviewableViewController.swift in Sources */,
 				2D571B2F26004EC000540450 /* NavigationBarProgressView.swift in Sources */,
@@ -4042,6 +4069,7 @@
 				DB6D9F6326357848008423CD /* SettingService.swift in Sources */,
 				2D650FAB25ECDC9300851B58 /* Mastodon+Entity+Error+Detail.swift in Sources */,
 				2D24E12D2626FD2E00A59D4F /* NotificationViewModel+LoadOldestState.swift in Sources */,
+				DBA5A53526F0A36A00CACBAA /* AddAccountTableViewCell.swift in Sources */,
 				2DB72C8C262D764300CE6173 /* Mastodon+Entity+Notification+Type.swift in Sources */,
 				2D35237A26256D920031AF25 /* NotificationSection.swift in Sources */,
 				DB084B5725CBC56C00F898ED /* Status.swift in Sources */,
@@ -5845,6 +5873,14 @@
 				minimumVersion = 1.4.1;
 			};
 		};
+		DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.7;
+			};
+		};
 		DBAC6481267D0B21007FE9FD /* XCRemoteSwiftPackageReference "DifferenceKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ra1028/DifferenceKit.git";
@@ -5956,6 +5992,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DB9A487C2603456B008B817C /* XCRemoteSwiftPackageReference "UITextView-Placeholder" */;
 			productName = "UITextView+Placeholder";
+		};
+		DBA5A52E26F07ED800CACBAA /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBA5A52D26F07ED800CACBAA /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
 		};
 		DBAC6482267D0B21007FE9FD /* DifferenceKit */ = {
 			isa = XCSwiftPackageProductDependency;

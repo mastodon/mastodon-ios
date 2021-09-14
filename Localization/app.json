@@ -534,6 +534,9 @@
                 "show_next": "Show Next",
                 "show_previous": "Show Previous"
             }
+        },
+        "account_list": {
+            "add_account": "Add Account"
         }
     }
 }

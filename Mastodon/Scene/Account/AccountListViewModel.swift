@@ -5,11 +5,11 @@
 //  Created by Cirno MainasuK on 2021-9-13.
 //
 
-#if DEBUG
 import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import MastodonMeta
 
 final class AccountListViewModel {
 
@@ -43,6 +43,7 @@ final class AccountListViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
                 snapshot.appendSections([.main])
                 snapshot.appendItems(authentications, toSection: .main)
+                snapshot.appendItems([.addAccount], toSection: .main)
 
                 diffableDataSource.apply(snapshot)
             }
@@ -58,6 +59,7 @@ extension AccountListViewModel {
 
     enum Item: Hashable {
         case authentication(objectID: NSManagedObjectID)
+        case addAccount
     }
 
     func setupDiffableDataSource(
@@ -70,11 +72,37 @@ extension AccountListViewModel {
                 let authentication = managedObjectContext.object(with: objectID) as! MastodonAuthentication
                 let user = authentication.user
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
-                cell.textLabel?.text = user.acctWithDomain
+                AccountListViewModel.configure(cell: cell, user: user)
+                return cell
+            case .addAccount:
+                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as! AddAccountTableViewCell
                 return cell
             }
         }
+
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        snapshot.appendSections([.main])
+        diffableDataSource?.apply(snapshot)
+    }
+
+    static func configure(
+        cell: AccountListTableViewCell,
+        user: MastodonUser
+    ) {
+        // avatar
+        cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: user.avatarImageURL()))
+
+        // name
+        do {
+            let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
+            let metaContent = try MastodonMetaContent.convert(document: content)
+            cell.nameLabel.configure(content: metaContent)
+        } catch {
+            assertionFailure()
+            cell.nameLabel.configure(content: PlaintextMetaContent(string: user.displayNameWithFallback))
+        }
+
+        // username
+        cell.usernameLabel.configure(content: PlaintextMetaContent(string: user.acctWithDomain))
     }
 }
-
-#endif

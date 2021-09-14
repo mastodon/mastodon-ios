@@ -11,6 +11,8 @@ import Combine
 import SafariServices
 
 class MainTabBarController: UITabBarController {
+
+    let logger = Logger(subsystem: "MainTabBarController", category: "UI")
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -24,6 +26,10 @@ class MainTabBarController: UITabBarController {
         case search
         case notification
         case me
+
+        var tag: Int {
+            return rawValue
+        }
         
         var title: String {
             switch self {
@@ -121,6 +127,7 @@ extension MainTabBarController {
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)
+            viewController.tabBarItem.tag = tab.tag
             viewController.tabBarItem.title = tab.title
             viewController.tabBarItem.image = tab.image
             viewController.tabBarItem.accessibilityLabel = tab.title
@@ -204,11 +211,42 @@ extension MainTabBarController {
             }
             .store(in: &disposeBag)
 
+        let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
+        tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
+        tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
+
         #if DEBUG
 //        selectedIndex = 1
         #endif
     }
 
+}
+
+extension MainTabBarController {
+    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+
+        var _tab: Tab?
+        let location = sender.location(in: tabBar)
+        for item in tabBar.items ?? [] {
+            guard let tab = Tab(rawValue: item.tag) else { continue }
+            guard let view = item.value(forKey: "view") as? UIView else { continue }
+            guard view.frame.contains(location) else { continue}
+
+            _tab = tab
+            break
+        }
+
+        guard let tab = _tab else { return }
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
+
+        switch tab {
+        case .me:
+            coordinator.present(scene: .accountList, from: nil, transition: .panModal)
+        default:
+            break
+        }
+    }
 }
 
 extension MainTabBarController {

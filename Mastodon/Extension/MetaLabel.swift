@@ -20,6 +20,8 @@ extension MetaLabel {
         case titleView
         case settingTableFooter
         case autoCompletion
+        case accountListName
+        case accountListUsername
     }
 
     convenience init(style: Style) {
@@ -74,6 +76,12 @@ extension MetaLabel {
         case .autoCompletion:
             font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
             textColor = Asset.Colors.brandBlue.color
+        case .accountListName:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
+            textColor = Asset.Colors.Label.primary.color
+        case .accountListUsername:
+            font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .regular), maximumPointSize: 20)
+            textColor = Asset.Colors.Label.secondary.color
         }
 
         self.font = font
