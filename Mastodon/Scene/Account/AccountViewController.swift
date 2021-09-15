@@ -96,6 +96,14 @@ extension AccountListViewController {
             tableView: tableView,
             managedObjectContext: context.managedObjectContext
         )
+        
+        if UIAccessibility.isVoiceOverRunning {
+            let dragIndicatorTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
+            dragIndicatorView.addGestureRecognizer(dragIndicatorTapGestureRecognizer)
+            dragIndicatorTapGestureRecognizer.addTarget(self, action: #selector(AccountListViewController.dragIndicatorTapGestureRecognizerHandler(_:)))
+            dragIndicatorView.isAccessibilityElement = true
+            dragIndicatorView.accessibilityLabel = "Dismiss Account Switcher"
+        }
     }
 
     private func setupBackgroundColor(theme: Theme) {
@@ -109,6 +117,11 @@ extension AccountListViewController {
     @objc private func addBarButtonItem(_ sender: UIBarButtonItem) {
         logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
+    }
+    
+    @objc private func dragIndicatorTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        dismiss(animated: true, completion: nil)
     }
 
 }

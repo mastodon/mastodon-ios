@@ -32,7 +32,7 @@ open class TableNodeDiffableDataSource<SectionIdentifierType: Hashable, ItemIden
         self.cellProvider = cellProvider
         super.init()
 
-        tableNode.dataSource = self
+        tableNode.delegate = self
     }
 
     /// Applies given snapshot to perform automatic diffing update.

@@ -536,7 +536,12 @@
             }
         },
         "account_list": {
-            "add_account": "Add Account"
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Add Account",
+        },
+        "wizard": {
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button."
         }
     }
 }

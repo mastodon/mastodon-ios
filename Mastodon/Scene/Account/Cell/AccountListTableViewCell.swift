@@ -6,26 +6,24 @@
 //
 
 import UIKit
+import Combine
 import FLAnimatedImage
 import MetaTextKit
 
-final class CircleAvatarButton: AvatarButton {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        layer.masksToBounds = true
-        layer.cornerRadius = frame.width * 0.5
-        layer.borderColor = UIColor.systemFill.cgColor
-        layer.borderWidth = 1
-    }
-}
-
 final class AccountListTableViewCell: UITableViewCell {
+    
+    var disposeBag = Set<AnyCancellable>()
 
-    let avatarButton = CircleAvatarButton()
+    let avatarButton = CircleAvatarButton(frame: .zero)
     let nameLabel = MetaLabel(style: .accountListName)
     let usernameLabel = MetaLabel(style: .accountListUsername)
     let separatorLine = UIView.separatorLine
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag.removeAll()
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -79,7 +77,7 @@ extension AccountListTableViewCell {
         contentView.addSubview(separatorLine)
         NSLayoutConstraint.activate([
             separatorLine.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: trailingAnchor),   // needs align to edge
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])

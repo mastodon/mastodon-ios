@@ -28,6 +28,7 @@ class AvatarButton: UIControl {
     }
 
     func _init() {
+        avatarImageView.frame = bounds
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageView)
         NSLayoutConstraint.activate([

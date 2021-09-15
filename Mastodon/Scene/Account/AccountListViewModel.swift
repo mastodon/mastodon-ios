@@ -9,6 +9,7 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import MastodonSDK
 import MastodonMeta
 
 final class AccountListViewModel {
@@ -20,19 +21,31 @@ final class AccountListViewModel {
 
     // output
     let authentications = CurrentValueSubject<[Item], Never>([])
+    let activeUserID = CurrentValueSubject<Mastodon.Entity.Account.ID?, Never>(nil)
     var diffableDataSource: UITableViewDiffableDataSource<Section, Item>!
 
     init(context: AppContext) {
         self.context = context
 
-        context.authenticationService.mastodonAuthentications
-            .map { authentications in
-                return authentications.map {
-                    Item.authentication(objectID: $0.objectID)
+        Publishers.CombineLatest(
+            context.authenticationService.mastodonAuthentications,
+            context.authenticationService.activeMastodonAuthentication
+        )
+        .sink { [weak self] authentications, activeAuthentication in
+            guard let self = self else { return }
+            var items: [Item] = []
+            var activeUserID: Mastodon.Entity.Account.ID?
+            for authentication in authentications {
+                let item = Item.authentication(objectID: authentication.objectID)
+                items.append(item)
+                if authentication === activeAuthentication {
+                    activeUserID = authentication.userID
                 }
             }
-            .assign(to: \.value, on: authentications)
-            .store(in: &disposeBag)
+            self.authentications.value = items
+            self.activeUserID.value = activeUserID
+        }
+        .store(in: &disposeBag)
 
         authentications
             .receive(on: DispatchQueue.main)
@@ -72,7 +85,11 @@ extension AccountListViewModel {
                 let authentication = managedObjectContext.object(with: objectID) as! MastodonAuthentication
                 let user = authentication.user
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
-                AccountListViewModel.configure(cell: cell, user: user)
+                AccountListViewModel.configure(
+                    cell: cell,
+                    user: user,
+                    activeUserID: self.activeUserID.eraseToAnyPublisher()
+                )
                 return cell
             case .addAccount:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AddAccountTableViewCell.self), for: indexPath) as! AddAccountTableViewCell
@@ -87,7 +104,8 @@ extension AccountListViewModel {
 
     static func configure(
         cell: AccountListTableViewCell,
-        user: MastodonUser
+        user: MastodonUser,
+        activeUserID: AnyPublisher<Mastodon.Entity.Account.ID?, Never>
     ) {
         // avatar
         cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: user.avatarImageURL()))
@@ -103,6 +121,17 @@ extension AccountListViewModel {
         }
 
         // username
-        cell.usernameLabel.configure(content: PlaintextMetaContent(string: user.acctWithDomain))
+        let usernameMetaContent = PlaintextMetaContent(string: "@" + user.acctWithDomain)
+        cell.usernameLabel.configure(content: usernameMetaContent)
+        
+        // checkmark
+        activeUserID
+            .receive(on: DispatchQueue.main)
+            .sink { userID in
+                let isCurrentUser =  user.id == userID
+                cell.tintColor = .label
+                cell.accessoryType = isCurrentUser ? .checkmark : .none
+            }
+            .store(in: &cell.disposeBag)
     }
 }
