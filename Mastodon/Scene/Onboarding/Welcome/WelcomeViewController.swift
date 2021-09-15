@@ -7,14 +7,20 @@
 
 import os.log
 import UIKit
+import Combine
 
 final class WelcomeViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    var disposeBag = Set<AnyCancellable>()
+    private(set) lazy var viewModel = WelcomeViewModel(context: context)
+    
     let welcomeIllustrationView = WelcomeIllustrationView()
     var welcomeIllustrationViewBottomAnchorLayoutConstraint: NSLayoutConstraint?
+    
+    private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     private(set) lazy var logoImageView: UIImageView = {
         let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Scene.Welcome.mastodonLogo.image : Asset.Scene.Welcome.mastodonLogoBlackLarge.image
@@ -90,6 +96,14 @@ extension WelcomeViewController {
 
         signUpButton.addTarget(self, action: #selector(signUpButtonDidClicked(_:)), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonDidClicked(_:)), for: .touchUpInside)
+        
+        viewModel.needsShowDismissEntry
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] needsShowDismissEntry in
+                guard let self = self else { return }
+                self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewSafeAreaInsetsDidChange() {
@@ -212,6 +226,11 @@ extension WelcomeViewController {
     @objc
     private func signInButtonDidClicked(_ sender: UIButton) {
         coordinator.present(scene: .mastodonPickServer(viewMode: MastodonPickServerViewModel(context: context, mode: .signIn)), from: self, transition: .show)
+    }
+    
+    @objc
+    private func dismissBarButtonItemDidPressed(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
     }
 }
 

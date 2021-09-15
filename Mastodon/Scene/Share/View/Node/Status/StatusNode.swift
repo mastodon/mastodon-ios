@@ -121,7 +121,7 @@ final class StatusNode: ASCellNode {
 //        }
 
         for imageNode in mediaMultiplexImageNodes {
-            imageNode.dataSource = self
+            imageNode.delegate = self
         }
     }
 

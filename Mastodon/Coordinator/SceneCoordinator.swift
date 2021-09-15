@@ -7,6 +7,7 @@
 import UIKit
 import SafariServices
 import CoreDataStack
+import PanModal
 
 final public class SceneCoordinator {
     
@@ -31,6 +32,7 @@ extension SceneCoordinator {
         case show                           // push
         case showDetail                     // replace
         case modal(animated: Bool, completion: (() -> Void)? = nil)
+        case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush
         case safariPresent(animated: Bool, completion: (() -> Void)? = nil)
@@ -66,9 +68,10 @@ extension SceneCoordinator {
         case hashtagTimeline(viewModel: HashtagTimelineViewModel)
       
         // profile
+        case accountList
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
-        
+
         // setting
         case settings(viewModel: SettingsViewModel)
         
@@ -183,7 +186,14 @@ extension SceneCoordinator {
                 modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
             }
             presentingViewController.present(modalNavigationController, animated: animated, completion: completion)
-            
+
+        case .panModal:
+            guard let panModalPresentable = viewController as? PanModalPresentable & UIViewController else {
+                assertionFailure()
+                return nil
+            }
+            presentingViewController.presentPanModal(panModalPresentable)
+
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
@@ -272,6 +282,9 @@ private extension SceneCoordinator {
         case .hashtagTimeline(let viewModel):
             let _viewController = HashtagTimelineViewController()
             _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .accountList:
+            let _viewController = AccountListViewController()
             viewController = _viewController
         case .profile(let viewModel):
             let _viewController = ProfileViewController()

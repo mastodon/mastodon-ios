@@ -11,12 +11,19 @@ import Combine
 import SafariServices
 
 class MainTabBarController: UITabBarController {
+
+    let logger = Logger(subsystem: "MainTabBarController", category: "UI")
     
     var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
+    
+    static let avatarButtonSize = CGSize(width: 28, height: 28)
+    let avatarButton = CircleAvatarButton()
 
+    let wizard = Wizard()
+    
     var currentTab = Tab.home
         
     enum Tab: Int, CaseIterable {
@@ -24,6 +31,10 @@ class MainTabBarController: UITabBarController {
         case search
         case notification
         case me
+
+        var tag: Int {
+            return rawValue
+        }
         
         var title: String {
             switch self {
@@ -121,6 +132,7 @@ extension MainTabBarController {
         let tabs = Tab.allCases
         let viewControllers: [UIViewController] = tabs.map { tab in
             let viewController = tab.viewController(context: context, coordinator: coordinator)
+            viewController.tabBarItem.tag = tab.tag
             viewController.tabBarItem.title = tab.title
             viewController.tabBarItem.image = tab.image
             viewController.tabBarItem.accessibilityLabel = tab.title
@@ -203,12 +215,106 @@ extension MainTabBarController {
                 self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
             }
             .store(in: &disposeBag)
+        
+        layoutAvatarButton()
+        context.authenticationService.activeMastodonAuthentication
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] activeMastodonAuthentication in
+                guard let self = self else { return }
+                
+                let avatarImageURL = activeMastodonAuthentication?.user.avatarImageURL()
+                self.avatarButton.avatarImageView.setImage(
+                    url: avatarImageURL,
+                    placeholder: .placeholder(color: .systemFill),
+                    scaleToSize: MainTabBarController.avatarButtonSize
+                )
+                
+                // a11y
+                let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+                guard let profileTabItem = _profileTabItem else { return }
+                
+                let currentUserDisplayName = activeMastodonAuthentication?.user.displayNameWithFallback ?? "no user"
+                profileTabItem.accessibilityHint = "Current selected profile: \(currentUserDisplayName). Double tap then hold to show account switcher"
+            }
+            .store(in: &disposeBag)
+        
+        wizard.delegate = self
+        wizard.setup(in: view)
+
+        let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
+        tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
+        tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
 
         #if DEBUG
 //        selectedIndex = 1
         #endif
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        wizard.consume()
+    }
 
+}
+
+extension MainTabBarController {
+    @objc private func tabBarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+
+        var _tab: Tab?
+        let location = sender.location(in: tabBar)
+        for item in tabBar.items ?? [] {
+            guard let tab = Tab(rawValue: item.tag) else { continue }
+            guard let view = item.value(forKey: "view") as? UIView else { continue }
+            guard view.frame.contains(location) else { continue}
+
+            _tab = tab
+            break
+        }
+
+        guard let tab = _tab else { return }
+        logger.debug("\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): long press \(tab.title) tab")
+
+        switch tab {
+        case .me:
+            coordinator.present(scene: .accountList, from: nil, transition: .panModal)
+        default:
+            break
+        }
+    }
+}
+
+extension MainTabBarController {
+    private func layoutAvatarButton() {
+        guard avatarButton.superview == nil else { return }
+        
+        let _profileTabItem = self.tabBar.items?.first { item in item.tag == Tab.me.tag }
+        guard let profileTabItem = _profileTabItem else { return }
+        guard let view = profileTabItem.value(forKey: "view") as? UIView else {
+            return
+        }
+        
+        let _anchorImageView = view.subviews.first { subview in subview is UIImageView } as? UIImageView
+        guard let anchorImageView = _anchorImageView else {
+            assertionFailure()
+            return
+        }
+        anchorImageView.alpha = 0
+        
+        self.avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.avatarButton)
+        NSLayoutConstraint.activate([
+            self.avatarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
+            self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
+            self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
+        ])
+        self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
+        self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
+        self.avatarButton.isUserInteractionEnabled = false
+    }
+    
 }
 
 extension MainTabBarController {
@@ -239,6 +345,53 @@ extension MainTabBarController: UITabBarControllerDelegate {
     }
 }
 
+// MARK: - WizardDataSource
+extension MainTabBarController: WizardDelegate {
+    func spotlight(item: Wizard.Item) -> UIBezierPath {
+        switch item {
+        case .multipleAccountSwitch:
+            guard let avatarButtonFrameInView = avatarButtonFrameInView() else {
+                return UIBezierPath()
+            }
+            return UIBezierPath(ovalIn: avatarButtonFrameInView)
+            
+        }
+    }
+    
+    func layoutWizardCard(_ wizard: MainTabBarController.Wizard, item: Wizard.Item) {
+        switch item {
+        case .multipleAccountSwitch:
+            guard let avatarButtonFrameInView = avatarButtonFrameInView() else {
+                return
+            }
+            let anchorView = UIView()
+            anchorView.frame = avatarButtonFrameInView
+            wizard.backgroundView.addSubview(anchorView)
+            
+            let wizardCardView = WizardCardView()
+            wizardCardView.arrowRectCorner = view.traitCollection.layoutDirection == .leftToRight ? .bottomRight : .bottomLeft
+            wizardCardView.titleLabel.text = item.title
+            wizardCardView.descriptionLabel.text = item.description
+
+            wizardCardView.translatesAutoresizingMaskIntoConstraints = false
+            wizard.backgroundView.addSubview(wizardCardView)
+            NSLayoutConstraint.activate([
+                anchorView.topAnchor.constraint(equalTo: wizardCardView.bottomAnchor, constant: 13), // 13pt spacing
+                wizardCardView.trailingAnchor.constraint(equalTo: anchorView.centerXAnchor),
+                wizardCardView.widthAnchor.constraint(equalTo: wizard.backgroundView.widthAnchor, multiplier: 2.0/3.0).priority(.required - 1),
+            ])
+            wizardCardView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        }
+    }
+    
+    private func avatarButtonFrameInView() -> CGRect? {
+        guard let superview = avatarButton.superview else {
+            assertionFailure()
+            return nil
+        }
+        return superview.convert(avatarButton.frame, to: view)
+    }
+}
 
 // HIG: keyboard UX
 // https://developer.apple.com/design/human-interface-guidelines/macos/user-interaction/keyboard/

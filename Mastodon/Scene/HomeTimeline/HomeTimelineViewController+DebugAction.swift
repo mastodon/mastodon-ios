@@ -23,20 +23,9 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: .displayInline,
             children: [
-                UIAction(title: "Show FLEX", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.showFLEXAction(action)
-                }),
+                showMenu,
                 moveMenu,
                 dropMenu,
-                UIAction(title: "Show Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showWelcomeAction(action)
-                },
-                UIAction(title: "Show Confirm Email", image: UIImage(systemName: "envelope"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showConfirmEmail(action)
-                },
                 UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     if self.emptyView.superview != nil {
@@ -44,18 +33,6 @@ extension HomeTimelineViewController {
                     } else {
                         self.showEmptyView()
                     }
-                },
-                UIAction(title: "Show Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showPublicTimelineAction(action)
-                },
-                UIAction(title: "Show Profile", image: UIImage(systemName: "person.crop.circle"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showProfileAction(action)
-                },
-                UIAction(title: "Show Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showThreadAction(action)
                 },
                 UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
@@ -68,6 +45,45 @@ extension HomeTimelineViewController {
             ]
         )
         return menu
+    }
+
+    var showMenu: UIMenu {
+        return UIMenu(
+            title: "Show…",
+            image: UIImage(systemName: "plus.rectangle.on.rectangle"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "FLEX", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.showFLEXAction(action)
+                }),
+                UIAction(title: "Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showWelcomeAction(action)
+                },
+                UIAction(title: "Confirm Email", image: UIImage(systemName: "envelope"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showConfirmEmail(action)
+                },
+                UIAction(title: "Account List", image: UIImage(systemName: "person"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showAccountList(action)
+                },
+                UIAction(title: "Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showPublicTimelineAction(action)
+                },
+                UIAction(title: "Profile", image: UIImage(systemName: "person.crop.circle"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showProfileAction(action)
+                },
+                UIAction(title: "Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showThreadAction(action)
+                },
+            ]
+        )
     }
     
     var moveMenu: UIMenu {
@@ -320,6 +336,10 @@ extension HomeTimelineViewController {
     @objc private func showConfirmEmail(_ sender: UIAction) {
         let mastodonConfirmEmailViewModel = MastodonConfirmEmailViewModel()
         coordinator.present(scene: .mastodonConfirmEmail(viewModel: mastodonConfirmEmailViewModel), from: nil, transition: .modal(animated: true, completion: nil))
+    }
+
+    @objc private func showAccountList(_ sender: UIAction) {
+        coordinator.present(scene: .accountList, from: self, transition: .modal(animated: true, completion: nil))
     }
     
     @objc private func showPublicTimelineAction(_ sender: UIAction) {

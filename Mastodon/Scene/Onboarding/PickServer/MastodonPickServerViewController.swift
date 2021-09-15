@@ -222,7 +222,8 @@ extension MastodonPickServerViewController {
                     assertionFailure(error.localizedDescription)
                 case .success(let isActived):
                     assert(isActived)
-                    self.dismiss(animated: true, completion: nil)
+                    // self.dismiss(animated: true, completion: nil)
+                    self.coordinator.setup()
                 }
             }
             .store(in: &disposeBag)
