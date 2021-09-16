@@ -189,7 +189,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
                         if let activeSubscription = setting.activeSubscription {
                             self.whoButton.setTitle(activeSubscription.policy.title, for: .normal)
                         } else {
-                            assertionFailure()
+                            // assertionFailure()
                         }
                     }
             }
@@ -199,27 +199,6 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let footer = "Mastodon v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
         let metaContent = PlaintextMetaContent(string: footer)
         tableFooterLabel.configure(content: metaContent)
-        
-        // FIXME:
-        // needs a workaround for GitHub link
-//        viewModel.currentInstance
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] instance in
-//                guard let self = self else { return }
-//                let version = instance?.version ?? "-"
-//                let link = #"<a href="https://github.com/mastodon/mastodon">mastodon/mastodon</a>"#
-//                let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
-//                let mastodonContent = MastodonContent(content: content, emojis: [:])
-//                do {
-//                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-//                    self.tableFooterLabel.configure(content: metaContent)
-//                } catch {
-//                    let metaContent = PlaintextMetaContent(string: "")
-//                    self.tableFooterLabel.configure(content: metaContent)
-//                    assertionFailure()
-//                }
-//            }
-//            .store(in: &disposeBag)
     }
     
     private func setupView() {
@@ -276,7 +255,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.tableFooterView = tableFooterView
     }
     
-    func alertToSignout() {
+    func alertToSignOut() {
         let alertController = UIAlertController(
             title: L10n.Common.Alerts.SignOut.title,
             message: L10n.Common.Alerts.SignOut.message,
@@ -423,7 +402,7 @@ extension SettingsViewController: UITableViewDelegate {
                     .store(in: &disposeBag)
             case .signOut:
                 feedbackGenerator.impactOccurred()
-                alertToSignout()
+                alertToSignOut()
             }
         }
     }

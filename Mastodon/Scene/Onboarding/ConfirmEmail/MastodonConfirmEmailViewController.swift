@@ -131,7 +131,8 @@ extension MastodonConfirmEmailViewController {
                         }
                     } receiveValue: { response in
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
-                        self.dismiss(animated: true, completion: nil)
+                        self.coordinator.setup()
+                        // self.dismiss(animated: true, completion: nil)
                     }
                     .store(in: &self.disposeBag)
             }
