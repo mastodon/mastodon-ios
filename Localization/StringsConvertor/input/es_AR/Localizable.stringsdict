@@ -13,9 +13,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 notificación sin leer</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld notificaciones sin leer</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
