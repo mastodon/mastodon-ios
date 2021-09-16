@@ -454,12 +454,12 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "user_followed_you": "%s followed you",
+            "user_followed_you": "%s följde dig",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_mentioned_you": "%s nämnde dig",
+            "user_requested_to_follow_you": "%s har begärt att följa dig",
+            "user_your_poll_has_ended": "%s Omröstningen har avslutats",
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
