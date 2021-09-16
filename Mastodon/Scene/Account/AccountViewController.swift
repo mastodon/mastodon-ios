@@ -110,7 +110,7 @@ extension AccountListViewController {
             dragIndicatorView.addGestureRecognizer(dragIndicatorTapGestureRecognizer)
             dragIndicatorTapGestureRecognizer.addTarget(self, action: #selector(AccountListViewController.dragIndicatorTapGestureRecognizerHandler(_:)))
             dragIndicatorView.isAccessibilityElement = true
-            dragIndicatorView.accessibilityLabel = "Dismiss Account Switcher"
+            dragIndicatorView.accessibilityLabel = L10n.Scene.AccountList.dismissAccountSwitcher
         }
     }
 

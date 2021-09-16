@@ -20,7 +20,7 @@ final class AddAccountTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
         label.textColor = Asset.Colors.Label.primary.color
-        label.text = "Add Account"  // TODO: i18n
+        label.text = L10n.Scene.AccountList.addAccount
         return label
     }()
     let usernameLabel = MetaLabel(style: .accountListUsername)

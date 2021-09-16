@@ -41,6 +41,6 @@ extension BadgeButton {
         let number = min(99, max(0, number))
         setTitle("\(number)", for: .normal)
         self.isHidden = number == 0
-        accessibilityLabel = "\(number) unread notification"
+        accessibilityLabel = L10n.A11y.Plural.Count.Unread.notification(number)
     }
 }

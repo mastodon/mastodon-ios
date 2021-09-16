@@ -47,13 +47,13 @@ extension MainTabBarController.Wizard {
         case multipleAccountSwitch
         
         var title: String {
-            return "New in Mastodon"
+            return L10n.Scene.Wizard.newInMastodon
         }
         
         var description: String {
             switch self {
             case .multipleAccountSwitch:
-                return "Switch between multiple accounts by holding the profile button."
+                return L10n.Scene.Wizard.multipleAccountSwitchIntroDescription
             }
         }
         

@@ -127,7 +127,7 @@ extension WizardCardView {
     
     override var accessibilityHint: String? {
         get {
-            return "Wizard for account switcher on the Profile tab. Double tap to dismiss this wizard"
+            return L10n.Scene.Wizard.accessibilityHint
         }
         set { }
     }

@@ -242,7 +242,7 @@ extension MainTabBarController {
                 guard let profileTabItem = _profileTabItem else { return }
                 
                 let currentUserDisplayName = activeMastodonAuthentication?.user.displayNameWithFallback ?? "no user"
-                profileTabItem.accessibilityHint = "Current selected profile: \(currentUserDisplayName). Double tap then hold to show account switcher"
+                profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             }
             .store(in: &disposeBag)
         
