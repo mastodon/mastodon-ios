@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld 条未读通知</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
