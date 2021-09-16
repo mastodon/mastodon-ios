@@ -194,17 +194,25 @@ extension MainTabBarController {
             .store(in: &disposeBag)
                 
         // handle push notification. toggle entry when finish fetch latest notification
-        context.notificationService.hasUnreadPushNotification
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] hasUnreadPushNotification in
-                guard let self = self else { return }
-                guard let notificationViewController = self.notificationViewController else { return }
-                
-                let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
-                notificationViewController.tabBarItem.image = image
-                notificationViewController.navigationController?.tabBarItem.image = image
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            context.authenticationService.activeMastodonAuthentication,
+            context.notificationService.unreadNotificationCountDidUpdate
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] authentication, _ in
+            guard let self = self else { return }
+            guard let notificationViewController = self.notificationViewController else { return }
+            
+            let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
+                let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
+                return count > 0
+            } ?? false
+            
+            let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
+            notificationViewController.tabBarItem.image = image
+            notificationViewController.navigationController?.tabBarItem.image = image
+        }
+        .store(in: &disposeBag)
         
         context.notificationService.requestRevealNotificationPublisher
             .receive(on: DispatchQueue.main)

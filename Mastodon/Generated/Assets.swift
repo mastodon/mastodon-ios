@@ -70,6 +70,7 @@ internal enum Asset {
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
     internal static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
+    internal static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     internal static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
     internal static let brandBlue = ColorAsset(name: "Colors/brand.blue")
     internal static let brandBlueDarken20 = ColorAsset(name: "Colors/brand.blue.darken.20")

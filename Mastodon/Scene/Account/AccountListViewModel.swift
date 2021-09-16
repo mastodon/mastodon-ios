@@ -86,11 +86,10 @@ extension AccountListViewModel {
             switch item {
             case .authentication(let objectID):
                 let authentication = managedObjectContext.object(with: objectID) as! MastodonAuthentication
-                let user = authentication.user
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AccountListTableViewCell.self), for: indexPath) as! AccountListTableViewCell
                 AccountListViewModel.configure(
                     cell: cell,
-                    user: user,
+                    authentication: authentication,
                     activeMastodonUserObjectID: self.activeMastodonUserObjectID.eraseToAnyPublisher()
                 )
                 return cell
@@ -107,9 +106,11 @@ extension AccountListViewModel {
 
     static func configure(
         cell: AccountListTableViewCell,
-        user: MastodonUser,
+        authentication: MastodonAuthentication,
         activeMastodonUserObjectID: AnyPublisher<NSManagedObjectID?, Never>
     ) {
+        let user = authentication.user
+        
         // avatar
         cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: user.avatarImageURL()))
 
@@ -127,14 +128,32 @@ extension AccountListViewModel {
         let usernameMetaContent = PlaintextMetaContent(string: "@" + user.acctWithDomain)
         cell.usernameLabel.configure(content: usernameMetaContent)
         
+        // badge
+        let accessToken = authentication.userAccessToken
+        let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken)
+        cell.badgeButton.setBadge(number: count)
+        
         // checkmark
         activeMastodonUserObjectID
             .receive(on: DispatchQueue.main)
             .sink { objectID in
                 let isCurrentUser =  user.objectID == objectID
                 cell.tintColor = .label
-                cell.accessoryType = isCurrentUser ? .checkmark : .none
+                cell.checkmarkImageView.isHidden = !isCurrentUser
+                if isCurrentUser {
+                    cell.accessibilityTraits.insert(.selected)
+                } else {
+                    cell.accessibilityTraits.remove(.selected)
+                }
             }
             .store(in: &cell.disposeBag)
+        
+        cell.accessibilityLabel = [
+            cell.nameLabel.text,
+            cell.usernameLabel.text,
+            cell.badgeButton.accessibilityLabel
+        ]
+        .compactMap { $0 }
+        .joined(separator: " ")
     }
 }

@@ -166,6 +166,16 @@ extension NotificationViewController {
                 self.viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
             }
         }
+        
+        // reset notification count
+        context.notificationService.clearNotificationCountForActiveUser()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // reset notification count
+        context.notificationService.clearNotificationCountForActiveUser()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

@@ -24,11 +24,12 @@ final class NotificationService {
     weak var authenticationService: AuthenticationService?
     let isNotificationPermissionGranted = CurrentValueSubject<Bool, Never>(false)
     let deviceToken = CurrentValueSubject<Data?, Never>(nil)
+    let applicationIconBadgeNeedsUpdate = CurrentValueSubject<Void, Never>(Void())
         
     // output
     /// [Token: UserID]
     let notificationSubscriptionDict: [String: NotificationViewModel] = [:]
-    let hasUnreadPushNotification = CurrentValueSubject<Bool, Never>(false)
+    let unreadNotificationCountDidUpdate = CurrentValueSubject<Void, Never>(Void())
     let requestRevealNotificationPublisher = PassthroughSubject<Mastodon.Entity.Notification.ID, Never>()
     
     init(
@@ -57,6 +58,26 @@ final class NotificationService {
                 os_log(.info, log: .api, "%{public}s[%{public}ld], %{public}s: deviceToken: %s", ((#file as NSString).lastPathComponent), #line, #function, token)
             }
             .store(in: &disposeBag)
+        
+        Publishers.CombineLatest(
+            authenticationService.mastodonAuthentications,
+            applicationIconBadgeNeedsUpdate
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] mastodonAuthentications, _ in
+            guard let self = self else { return }
+            
+            var count = 0
+            for authentication in mastodonAuthentications {
+                count += UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
+            }
+            
+            UserDefaults.shared.notificationBadgeCount = count
+            UIApplication.shared.applicationIconBadgeNumber = count
+            
+            self.unreadNotificationCountDidUpdate.send()
+        }
+        .store(in: &disposeBag)
     }
     
 }
@@ -101,7 +122,9 @@ extension NotificationService {
     }
     
     func handle(mastodonPushNotification: MastodonPushNotification) {
-        hasUnreadPushNotification.value = true
+        defer {
+            unreadNotificationCountDidUpdate.send()
+        }
         
         // Subscription maybe failed to cancel when sign-out
         // Try cancel again if receive that kind push notification
@@ -152,6 +175,17 @@ extension NotificationService {
         }
     }
     
+}
+
+extension NotificationService {
+    func clearNotificationCountForActiveUser() {
+        guard let authenticationService = self.authenticationService else { return }
+        if let accessToken = authenticationService.activeMastodonAuthentication.value?.userAccessToken {
+            UserDefaults.shared.setNotificationCountWithAccessToken(accessToken: accessToken, value: 0)
+        }
+        
+        applicationIconBadgeNeedsUpdate.send()
+    }
 }
 
 // MARK: - NotificationViewModel

@@ -541,7 +541,8 @@
             "add_account": "Add Account",
         },
         "wizard": {
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button."
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

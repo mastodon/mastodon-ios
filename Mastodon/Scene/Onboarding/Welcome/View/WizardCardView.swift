@@ -107,4 +107,28 @@ extension WizardCardView {
         backgroundShapeLayer.fillColor = UIColor.white.cgColor
         backgroundShapeLayer.path = path.cgPath
     }
+    
+    override var isAccessibilityElement: Bool {
+        get { true }
+        set { }
+    }
+    
+    override var accessibilityLabel: String? {
+        get {
+            return [
+                titleLabel.text,
+                descriptionLabel.text
+            ]
+            .compactMap { $0 }
+            .joined(separator: " ")
+        }
+        set { }
+    }
+    
+    override var accessibilityHint: String? {
+        get {
+            return "Wizard for account switcher on the Profile tab. Double tap to dismiss this wizard"
+        }
+        set { }
+    }
 }
