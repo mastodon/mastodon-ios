@@ -149,7 +149,7 @@ extension HomeTimelineViewController {
                     }
                 },
                 UIAction(
-                    title: "notification badge +1",
+                    title: "Notification badge +1",
                     image: UIImage(systemName: "1.circle.fill"),
                     identifier: nil,
                     attributes: [],
@@ -160,7 +160,17 @@ extension HomeTimelineViewController {
                         UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
                         self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
                     }
-                )
+                ),
+                UIAction(
+                    title: "Enable account switcher wizard",
+                    image: UIImage(systemName: "square.stack.3d.down.forward.fill"),
+                    identifier: nil,
+                    attributes: [],
+                    state: .off,
+                    handler: { _ in 
+                        UserDefaults.shared.didShowMultipleAccountSwitchWizard = false
+                    }
+                ),
             ]
         )
     }
