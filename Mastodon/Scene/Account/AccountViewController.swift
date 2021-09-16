@@ -38,8 +38,8 @@ final class AccountListViewController: UIViewController, NeedsDependency {
         tableView.register(AccountListTableViewCell.self, forCellReuseIdentifier: String(describing: AccountListTableViewCell.self))
         tableView.register(AddAccountTableViewCell.self, forCellReuseIdentifier: String(describing: AddAccountTableViewCell.self))
         tableView.backgroundColor = .clear
-        tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
         return tableView
     }()
 
@@ -96,6 +96,14 @@ extension AccountListViewController {
             tableView: tableView,
             managedObjectContext: context.managedObjectContext
         )
+        
+        viewModel.dataSourceDidUpdate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let self = self else { return }
+                self.panModalSetNeedsLayoutUpdate()
+            }
+            .store(in: &disposeBag)
         
         if UIAccessibility.isVoiceOverRunning {
             let dragIndicatorTapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer

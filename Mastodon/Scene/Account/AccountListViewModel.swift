@@ -21,7 +21,8 @@ final class AccountListViewModel {
 
     // output
     let authentications = CurrentValueSubject<[Item], Never>([])
-    let activeUserID = CurrentValueSubject<Mastodon.Entity.Account.ID?, Never>(nil)
+    let activeMastodonUserObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
+    let dataSourceDidUpdate = PassthroughSubject<Void, Never>()
     var diffableDataSource: UITableViewDiffableDataSource<Section, Item>!
 
     init(context: AppContext) {
@@ -34,16 +35,16 @@ final class AccountListViewModel {
         .sink { [weak self] authentications, activeAuthentication in
             guard let self = self else { return }
             var items: [Item] = []
-            var activeUserID: Mastodon.Entity.Account.ID?
+            var activeMastodonUserObjectID: NSManagedObjectID?
             for authentication in authentications {
                 let item = Item.authentication(objectID: authentication.objectID)
                 items.append(item)
                 if authentication === activeAuthentication {
-                    activeUserID = authentication.userID
+                    activeMastodonUserObjectID = authentication.user.objectID
                 }
             }
             self.authentications.value = items
-            self.activeUserID.value = activeUserID
+            self.activeMastodonUserObjectID.value = activeMastodonUserObjectID
         }
         .store(in: &disposeBag)
 
@@ -58,7 +59,9 @@ final class AccountListViewModel {
                 snapshot.appendItems(authentications, toSection: .main)
                 snapshot.appendItems([.addAccount], toSection: .main)
 
-                diffableDataSource.apply(snapshot)
+                diffableDataSource.apply(snapshot) {
+                    self.dataSourceDidUpdate.send()
+                }
             }
             .store(in: &disposeBag)
     }
@@ -88,7 +91,7 @@ extension AccountListViewModel {
                 AccountListViewModel.configure(
                     cell: cell,
                     user: user,
-                    activeUserID: self.activeUserID.eraseToAnyPublisher()
+                    activeMastodonUserObjectID: self.activeMastodonUserObjectID.eraseToAnyPublisher()
                 )
                 return cell
             case .addAccount:
@@ -105,7 +108,7 @@ extension AccountListViewModel {
     static func configure(
         cell: AccountListTableViewCell,
         user: MastodonUser,
-        activeUserID: AnyPublisher<Mastodon.Entity.Account.ID?, Never>
+        activeMastodonUserObjectID: AnyPublisher<NSManagedObjectID?, Never>
     ) {
         // avatar
         cell.configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: user.avatarImageURL()))
@@ -125,10 +128,10 @@ extension AccountListViewModel {
         cell.usernameLabel.configure(content: usernameMetaContent)
         
         // checkmark
-        activeUserID
+        activeMastodonUserObjectID
             .receive(on: DispatchQueue.main)
-            .sink { userID in
-                let isCurrentUser =  user.id == userID
+            .sink { objectID in
+                let isCurrentUser =  user.objectID == objectID
                 cell.tintColor = .label
                 cell.accessoryType = isCurrentUser ? .checkmark : .none
             }
