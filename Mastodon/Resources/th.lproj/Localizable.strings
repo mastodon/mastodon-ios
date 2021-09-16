@@ -116,23 +116,26 @@
 "Common.Controls.Tabs.Profile" = "โปรไฟล์";
 "Common.Controls.Tabs.Search" = "ค้นหา";
 "Common.Controls.Timeline.Filtered" = "กรองอยู่";
-"Common.Controls.Timeline.Header.BlockedWarning" = "You can’t view this user’s profile
-until they unblock you.";
-"Common.Controls.Timeline.Header.BlockingWarning" = "You can’t view this user's profile
-until you unblock them.
-Your profile looks like this to them.";
+"Common.Controls.Timeline.Header.BlockedWarning" = "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้
+จนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ";
+"Common.Controls.Timeline.Header.BlockingWarning" = "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้
+จนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้
+ผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น";
 "Common.Controls.Timeline.Header.NoStatusFound" = "ไม่พบโพสต์";
 "Common.Controls.Timeline.Header.SuspendedWarning" = "ผู้ใช้นี้ถูกระงับการใช้งาน";
-"Common.Controls.Timeline.Header.UserBlockedWarning" = "You can’t view %@’s profile
-until they unblock you.";
-"Common.Controls.Timeline.Header.UserBlockingWarning" = "You can’t view %@’s profile
-until you unblock them.
-Your profile looks like this to them.";
+"Common.Controls.Timeline.Header.UserBlockedWarning" = "คุณไม่สามารถดูโปรไฟล์ของ %@
+จนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ";
+"Common.Controls.Timeline.Header.UserBlockingWarning" = "คุณไม่สามารถดูโปรไฟล์ของ %@
+จนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้
+ผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น";
 "Common.Controls.Timeline.Header.UserSuspendedWarning" = "บัญชีของ %@ ถูกระงับการใช้งาน";
 "Common.Controls.Timeline.Loader.LoadMissingPosts" = "โหลดโพสต์ที่ขาดหายไป";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "กำลังโหลดโพสต์ที่ขาดหายไป...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "แสดงการตอบกลับเพิ่มเติม";
 "Common.Controls.Timeline.Timestamp.Now" = "ตอนนี้";
+"Scene.AccountList.AddAccount" = "Add Account";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "เพิ่มไฟล์แนบ";
 "Scene.Compose.Accessibility.AppendPoll" = "เพิ่มการสำรวจความคิดเห็น";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "ตัวเลือกอีโมจิที่กำหนดเอง";
@@ -285,7 +288,7 @@ Your profile looks like this to them.";
 "Scene.ServerPicker.Button.Category.Lgbt" = "lgbt";
 "Scene.ServerPicker.Button.Category.Music" = "ดนตรี";
 "Scene.ServerPicker.Button.Category.Regional" = "ภูมิภาค";
-"Scene.ServerPicker.Button.Category.Tech" = "tech";
+"Scene.ServerPicker.Button.Category.Tech" = "เทคโนโลยี";
 "Scene.ServerPicker.Button.SeeLess" = "ดูน้อยลง";
 "Scene.ServerPicker.Button.SeeMore" = "ดูเพิ่มเติม";
 "Scene.ServerPicker.EmptyState.BadNetwork" = "มีบางอย่างผิดพลาดขณะโหลดข้อมูล ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ";
@@ -299,7 +302,7 @@ Your profile looks like this to them.";
 อันไหนก็ได้";
 "Scene.ServerRules.Button.Confirm" = "ฉันเห็นด้วย";
 "Scene.ServerRules.PrivacyPolicy" = "นโยบายความเป็นส่วนตัว";
-"Scene.ServerRules.Prompt" = "By continuing, you’re subject to the terms of service and privacy policy for %@.";
+"Scene.ServerRules.Prompt" = "เมื่อคุณดำเนินการต่อ คุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %@";
 "Scene.ServerRules.Subtitle" = "กฎเหล่านี้ถูกตั้งโดยผู้ดูแลของ %@";
 "Scene.ServerRules.TermsOfService" = "เงื่อนไขการให้บริการ";
 "Scene.ServerRules.Title" = "กฎพื้นฐานบางประการ";
@@ -338,3 +341,6 @@ Your profile looks like this to them.";
 "Scene.Thread.Title" = "โพสต์จาก %@";
 "Scene.Welcome.Slogan" = "ให้เครือข่ายสังคม
 กลับมาอยู่ในมือของคุณ";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
+"Scene.Wizard.NewInMastodon" = "New in Mastodon";

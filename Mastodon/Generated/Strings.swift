@@ -365,6 +365,16 @@ internal enum L10n {
   }
 
   internal enum Scene {
+    internal enum AccountList {
+      /// Add Account
+      internal static let addAccount = L10n.tr("Localizable", "Scene.AccountList.AddAccount")
+      /// Dismiss Account Switcher
+      internal static let dismissAccountSwitcher = L10n.tr("Localizable", "Scene.AccountList.DismissAccountSwitcher")
+      /// Current selected profile: %@. Double tap then hold to show account switcher
+      internal static func tabBarHint(_ p1: Any) -> String {
+        return L10n.tr("Localizable", "Scene.AccountList.TabBarHint", String(describing: p1))
+      }
+    }
     internal enum Compose {
       /// Publish
       internal static let composeAction = L10n.tr("Localizable", "Scene.Compose.ComposeAction")
@@ -973,6 +983,14 @@ internal enum L10n {
       /// Social networking\nback in your hands.
       internal static let slogan = L10n.tr("Localizable", "Scene.Welcome.Slogan")
     }
+    internal enum Wizard {
+      /// Double tap to dismiss this wizard
+      internal static let accessibilityHint = L10n.tr("Localizable", "Scene.Wizard.AccessibilityHint")
+      /// Switch between multiple accounts by holding the profile button.
+      internal static let multipleAccountSwitchIntroDescription = L10n.tr("Localizable", "Scene.Wizard.MultipleAccountSwitchIntroDescription")
+      /// New in Mastodon
+      internal static let newInMastodon = L10n.tr("Localizable", "Scene.Wizard.NewInMastodon")
+    }
   }
 
   internal enum A11y {
@@ -985,6 +1003,12 @@ internal enum L10n {
         /// Plural format key: "Input limit remains %#@character_count@"
         internal static func inputLimitRemains(_ p1: Int) -> String {
           return L10n.tr("Localizable", "a11y.plural.count.input_limit_remains", p1)
+        }
+        internal enum Unread {
+          /// Plural format key: "%#@notification_count_unread_notification@"
+          internal static func notification(_ p1: Int) -> String {
+            return L10n.tr("Localizable", "a11y.plural.count.unread.notification", p1)
+          }
         }
       }
     }

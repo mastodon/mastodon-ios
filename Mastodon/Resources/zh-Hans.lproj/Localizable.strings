@@ -133,6 +133,9 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "正在加载帖子...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "显示更多回复";
 "Common.Controls.Timeline.Timestamp.Now" = "现在";
+"Scene.AccountList.AddAccount" = "添加账户";
+"Scene.AccountList.DismissAccountSwitcher" = "关闭账户切换页面";
+"Scene.AccountList.TabBarHint" = "当前账户：%@。 双击并按住来打开账户切换页面";
 "Scene.Compose.Accessibility.AppendAttachment" = "添加附件";
 "Scene.Compose.Accessibility.AppendPoll" = "添加投票";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "自定义表情选择器";
@@ -338,3 +341,6 @@
 "Scene.Thread.Title" = "来自 %@ 的帖子";
 "Scene.Welcome.Slogan" = "社交网络
 回到你的手中。";
+"Scene.Wizard.AccessibilityHint" = "双击关闭此向导";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "按住个人资料标签按钮，即可在多个账户之间进行切换。";
+"Scene.Wizard.NewInMastodon" = "新功能";

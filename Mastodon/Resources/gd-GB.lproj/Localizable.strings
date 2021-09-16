@@ -133,6 +133,9 @@ Seo an coltas a th’ air a’ phròifil agad dhaibh-san.";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "A’ luchdadh nam post a tha a dhìth…";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Seall barrachd freagairtean";
 "Common.Controls.Timeline.Timestamp.Now" = "An-dràsta";
+"Scene.AccountList.AddAccount" = "Add Account";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "Cuir ceanglachan ris";
 "Scene.Compose.Accessibility.AppendPoll" = "Cuir cunntas-bheachd ris";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Roghnaichear nan Emoji gnàthaichte";
@@ -337,3 +340,6 @@ thoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.";
 "Scene.Thread.Title" = "Post le %@";
 "Scene.Welcome.Slogan" = "A’ cur nan lìonraidhean sòisealta
 ’nad làmhan fhèin.";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
+"Scene.Wizard.NewInMastodon" = "New in Mastodon";

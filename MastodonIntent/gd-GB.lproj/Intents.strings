@@ -24,9 +24,9 @@
 
 "Zo4jgJ" = "Faicsinneachd a’ phuist";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Tha ${count} roghainn(ean) dha “Poblach” ann.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Tha ${count} roghainn(ean) dha “Luchd-leantainn a-mhàin” ann.";
 
 "ayoYEb-dYQ5NN" = "${content}, poblach";
 

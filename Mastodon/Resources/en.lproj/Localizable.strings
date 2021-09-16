@@ -133,6 +133,9 @@ Your profile looks like this to them.";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Loading missing posts...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Show more replies";
 "Common.Controls.Timeline.Timestamp.Now" = "Now";
+"Scene.AccountList.AddAccount" = "Add Account";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "Add Attachment";
 "Scene.Compose.Accessibility.AppendPoll" = "Add Poll";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Custom Emoji Picker";
@@ -338,3 +341,6 @@ any server.";
 "Scene.Thread.Title" = "Post from %@";
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
+"Scene.Wizard.NewInMastodon" = "New in Mastodon";
