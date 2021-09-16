@@ -541,7 +541,7 @@
             "add_account": "添加账户"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
+            "new_in_mastodon": "新功能",
             "multiple_account_switch_intro_description": "按住个人资料标签按钮，即可在多个账户之间进行切换。",
             "accessibility_hint": "双击关闭此向导"
         }
