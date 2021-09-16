@@ -306,7 +306,7 @@ extension MainTabBarController {
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
             self.avatarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
+            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor, constant: 1),   // 1pt offset
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
         ])
