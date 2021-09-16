@@ -179,10 +179,10 @@
                 },
                 "header": {
                     "no_status_found": "ไม่พบโพสต์",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "blocking_warning": "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้\nจนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้\nผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น",
+                    "user_blocking_warning": "คุณไม่สามารถดูโปรไฟล์ของ %s\nจนกว่าคุณจะเลิกปิดกั้นผู้ใช้นี้\nผู้ใช้นี้เห็นโปรไฟล์ของคุณเหมือนกับที่คุณเห็น",
+                    "blocked_warning": "คุณไม่สามารถดูโปรไฟล์ของผู้ใช้นี้\nจนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ",
+                    "user_blocked_warning": "คุณไม่สามารถดูโปรไฟล์ของ %s\nจนกว่าผู้ใช้นี้จะเลิกปิดกั้นคุณ",
                     "suspended_warning": "ผู้ใช้นี้ถูกระงับการใช้งาน",
                     "user_suspended_warning": "บัญชีของ %s ถูกระงับการใช้งาน"
                 }
@@ -210,7 +210,7 @@
                     "regional": "ภูมิภาค",
                     "art": "ศิลปะ",
                     "music": "ดนตรี",
-                    "tech": "tech"
+                    "tech": "เทคโนโลยี"
                 },
                 "see_less": "ดูน้อยลง",
                 "see_more": "ดูเพิ่มเติม"
@@ -285,7 +285,7 @@
         "server_rules": {
             "title": "กฎพื้นฐานบางประการ",
             "subtitle": "กฎเหล่านี้ถูกตั้งโดยผู้ดูแลของ %s",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
+            "prompt": "เมื่อคุณดำเนินการต่อ คุณอยู่ภายใต้เงื่อนไขการให้บริการและนโยบายความเป็นส่วนตัวสำหรับ %s",
             "terms_of_service": "เงื่อนไขการให้บริการ",
             "privacy_policy": "นโยบายความเป็นส่วนตัว",
             "button": {
@@ -534,6 +534,16 @@
                 "show_next": "แสดงถัดไป",
                 "show_previous": "แสดงก่อนหน้า"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Add Account"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

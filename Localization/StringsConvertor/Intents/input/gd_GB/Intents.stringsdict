@@ -13,11 +13,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>%ld roghainn</string>
         <key>two</key>
-        <string>%ld options</string>
+        <string>%ld roghainn</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld roghainnean</string>
         <key>other</key>
         <string>%ld roghainn</string>
       </dict>
@@ -33,11 +33,11 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>%ld</string>
         <key>one</key>
-        <string>1 option</string>
+        <string>%ld roghainn</string>
         <key>two</key>
-        <string>%ld options</string>
+        <string>%ld roghainn</string>
         <key>few</key>
-        <string>%ld options</string>
+        <string>%ld roghainnean</string>
         <key>other</key>
         <string>%ld roghainn</string>
       </dict>

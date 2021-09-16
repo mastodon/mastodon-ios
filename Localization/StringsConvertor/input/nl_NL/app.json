@@ -534,6 +534,16 @@
                 "show_next": "Volgende",
                 "show_previous": "Vorige"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Add Account"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

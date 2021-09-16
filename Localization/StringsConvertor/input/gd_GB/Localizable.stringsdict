@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 unread notification</string>
+        <key>two</key>
+        <string>%ld unread notification</string>
+        <key>few</key>
+        <string>%ld unread notification</string>
+        <key>other</key>
+        <string>%ld unread notification</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
