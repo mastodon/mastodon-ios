@@ -267,7 +267,7 @@
                     "unreachable": "%s sepertinya tidak ada",
                     "taken": "%s sudah digunakan",
                     "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
+                    "accepted": "%s harus diterima",
                     "blank": "%s diperlukan",
                     "invalid": "%s tidak valid",
                     "too_long": "%s terlalu panjang",
@@ -355,7 +355,7 @@
                 "option_number": "Option %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Tulis peringatan yang akurat di sini..."
             },
             "visibility": {
                 "public": "Publik",
