@@ -33,6 +33,7 @@ final class AccountListViewController: UIViewController, NeedsDependency {
 
     let dragIndicatorView = DragIndicatorView()
 
+    var hasLoaded = false
     private(set) lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(AccountListTableViewCell.self, forCellReuseIdentifier: String(describing: AccountListTableViewCell.self))
@@ -51,11 +52,22 @@ extension AccountListViewController: PanModalPresentable {
     var showDragIndicator: Bool { false }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(300)
+        func calculateHeight(of numberOfItems: Int) -> CGFloat {
+            return CGFloat(numberOfItems * 60 + 64)
+        }
+        
+        if hasLoaded {
+            let height = calculateHeight(of: viewModel.diffableDataSource.snapshot().numberOfItems)
+            return .contentHeight(CGFloat(height))
+        }
+        
+        let count = viewModel.context.authenticationService.mastodonAuthentications.value.count + 1
+        let height = calculateHeight(of: count)
+        return .contentHeight(height)
     }
 
     var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(40)
+        return .maxHeightWithTopInset(0)
     }
 }
 
@@ -101,7 +113,9 @@ extension AccountListViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 guard let self = self else { return }
+                self.hasLoaded = true
                 self.panModalSetNeedsLayoutUpdate()
+                self.panModalTransition(to: .shortForm)
             }
             .store(in: &disposeBag)
         
