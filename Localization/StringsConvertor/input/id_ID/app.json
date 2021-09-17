@@ -355,7 +355,7 @@
                 "option_number": "Option %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Tulis peringatan yang akurat di sini..."
             },
             "visibility": {
                 "public": "Publik",
