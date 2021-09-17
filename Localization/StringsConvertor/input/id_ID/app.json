@@ -267,7 +267,7 @@
                     "unreachable": "%s sepertinya tidak ada",
                     "taken": "%s sudah digunakan",
                     "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
+                    "accepted": "%s harus diterima",
                     "blank": "%s diperlukan",
                     "invalid": "%s tidak valid",
                     "too_long": "%s terlalu panjang",
