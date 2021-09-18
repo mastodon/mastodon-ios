@@ -536,13 +536,13 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "โปรไฟล์ที่เลือกในปัจจุบัน: %s แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี",
             "dismiss_account_switcher": "ปิดตัวสลับบัญชี",
             "add_account": "เพิ่มบัญชี"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "new_in_mastodon": "มาใหม่ใน Mastodon",
+            "multiple_account_switch_intro_description": "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้",
             "accessibility_hint": "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้"
         }
     }
