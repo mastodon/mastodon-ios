@@ -95,7 +95,7 @@ extension HomeTimelineViewController {
                 self.view.backgroundColor = theme.secondarySystemBackgroundColor
             }
             .store(in: &disposeBag)
-        navigationItem.leftBarButtonItem = settingBarButtonItem
+//        navigationItem.leftBarButtonItem = settingBarButtonItem
         navigationItem.titleView = titleView
         titleView.delegate = self
         

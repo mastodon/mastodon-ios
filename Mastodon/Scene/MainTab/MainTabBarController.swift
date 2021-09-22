@@ -97,6 +97,8 @@ class MainTabBarController: UITabBarController {
         }
     }
     
+    var _viewControllers: [UIViewController] = []
+    
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.context = context
         self.coordinator = coordinator
@@ -140,6 +142,7 @@ extension MainTabBarController {
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             return viewController
         }
+        _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
 
@@ -252,7 +255,9 @@ extension MainTabBarController {
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-
+        
+        updateTabBarDisplay()
+        
         #if DEBUG
 //        selectedIndex = 1
         #endif
@@ -263,7 +268,24 @@ extension MainTabBarController {
         
         wizard.consume()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateTabBarDisplay()
+    }
 
+}
+
+extension MainTabBarController {
+    private func updateTabBarDisplay() {
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            tabBar.isHidden = false
+        default:
+            tabBar.isHidden = true
+        }
+    }
 }
 
 extension MainTabBarController {

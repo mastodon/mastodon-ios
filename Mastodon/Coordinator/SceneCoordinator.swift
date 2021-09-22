@@ -111,10 +111,15 @@ extension SceneCoordinator {
 
 extension SceneCoordinator {
     
+//    func setup() {
+//        let viewController = MainTabBarController(context: appContext, coordinator: self)
+//        sceneDelegate.window?.rootViewController = viewController
+//        tabBarController = viewController
+//    }
+    
     func setup() {
-        let viewController = MainTabBarController(context: appContext, coordinator: self)
-        sceneDelegate.window?.rootViewController = viewController
-        tabBarController = viewController
+        let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
+        sceneDelegate.window?.rootViewController = splitViewController
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
