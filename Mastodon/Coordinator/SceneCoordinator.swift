@@ -18,6 +18,8 @@ final public class SceneCoordinator {
     
     let id = UUID().uuidString
     
+    weak var splitViewController: RootSplitViewController?
+    
     init(scene: UIScene, sceneDelegate: SceneDelegate, appContext: AppContext) {
         self.scene = scene
         self.sceneDelegate = sceneDelegate
@@ -119,6 +121,7 @@ extension SceneCoordinator {
     
     func setup() {
         let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
+        self.splitViewController = splitViewController
         sceneDelegate.window?.rootViewController = splitViewController
     }
     
@@ -172,8 +175,14 @@ extension SceneCoordinator {
         
         switch transition {
         case .show:
-            presentingViewController.show(viewController, sender: sender)
-            
+            if let splitViewController = splitViewController, !splitViewController.isCollapsed,
+               let supplementaryViewController = splitViewController.viewController(for: .supplementary) as? UINavigationController,
+               (supplementaryViewController === presentingViewController || supplementaryViewController.viewControllers.contains(presentingViewController))
+            {
+                fallthrough
+            } else {
+                presentingViewController.show(viewController, sender: sender)
+            }
         case .showDetail:
             let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
             presentingViewController.showDetailViewController(navigationController, sender: sender)

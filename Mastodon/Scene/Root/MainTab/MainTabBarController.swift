@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController {
 
     let wizard = Wizard()
     
-    var currentTab = Tab.home
+    var currentTab = CurrentValueSubject<Tab, Never>(.home)
         
     enum Tab: Int, CaseIterable {
         case home
@@ -361,10 +361,10 @@ extension MainTabBarController: UITabBarControllerDelegate {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
         defer {
             if let tab = Tab(rawValue: tabBarController.selectedIndex) {
-                currentTab = tab
+                currentTab.value = tab
             }
         }
-        guard currentTab.rawValue == tabBarController.selectedIndex,
+        guard currentTab.value.rawValue == tabBarController.selectedIndex,
               let navigationController = viewController as? UINavigationController,
               navigationController.viewControllers.count == 1,
               let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer else {
@@ -535,7 +535,7 @@ extension MainTabBarController {
         let previousTab = Tab(rawValue: selectedIndex)
         selectedIndex = index
         if let tab = Tab(rawValue: index) {
-            currentTab = tab
+            currentTab.value = tab
         }
 
         if let previousTab = previousTab {

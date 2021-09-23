@@ -2536,6 +2536,8 @@
 			isa = PBXGroup;
 			children = (
 				DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */,
+				DB852D1A26FAED0100FC9D81 /* Sidebar */,
+				DB8AF54E25C13703002E6C99 /* MainTab */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -2652,8 +2654,6 @@
 				2D7631A425C1532200929FB9 /* Share */,
 				DB6180E426391A500018D199 /* Transition */,
 				DB852D1D26FB021900FC9D81 /* Root */,
-				DB852D1A26FAED0100FC9D81 /* Sidebar */,
-				DB8AF54E25C13703002E6C99 /* MainTab */,
 				DB01409B25C40BB600F9F3CF /* Onboarding */,
 				DB9F58ED26EF435800E7BBE9 /* Account */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,

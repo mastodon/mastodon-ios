@@ -7,8 +7,11 @@
 
 import os.log
 import UIKit
+import Combine
 
 final class RootSplitViewController: UISplitViewController, NeedsDependency {
+    
+    var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -21,6 +24,13 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         sidebarViewController.delegate = self
         return sidebarViewController
     }()
+        
+    var currentSupplementaryTab: MainTabBarController.Tab = .home
+    private(set) lazy var supplementaryViewControllers: [UIViewController] = {
+        return MainTabBarController.Tab.allCases.map { tab in
+            tab.viewController(context: context, coordinator: coordinator)
+        }
+    }()
     
     private(set) lazy var mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)
     
@@ -32,6 +42,7 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         primaryBackgroundStyle = .sidebar
         preferredDisplayMode = .oneBesideSecondary
         preferredSplitBehavior = .tile
+        delegate = self
         
         if #available(iOS 14.5, *) {
             displayModeButtonVisibility = .always
@@ -40,7 +51,7 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         }
         
         setViewController(sidebarViewController, for: .primary)
-        setViewController(mainTabBarController.viewControllers!.first, for: .supplementary)
+        setViewController(supplementaryViewControllers[0], for: .supplementary)
         setViewController(UIViewController(), for: .secondary)
         setViewController(mainTabBarController, for: .compact)
     }
@@ -61,6 +72,18 @@ extension RootSplitViewController {
         super.viewDidLoad()
         
         updateBehavior(size: view.frame.size)
+        
+        mainTabBarController.currentTab
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tab in
+                guard let self = self else { return }
+                guard tab != self.currentSupplementaryTab else { return }
+                guard let index = MainTabBarController.Tab.allCases.firstIndex(of: tab) else { return }
+                self.currentSupplementaryTab = tab
+                self.setViewController(self.supplementaryViewControllers[index], for: .supplementary)
+                
+            }
+            .store(in: &disposeBag)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -86,16 +109,76 @@ extension RootSplitViewController {
 extension RootSplitViewController: SidebarViewControllerDelegate {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
         
-        // FIXME: remove hard code
-        switch tab {
-        case .home:
-            setViewController(mainTabBarController._viewControllers[0], for: .supplementary)
-        case .search:
-            setViewController(mainTabBarController._viewControllers[1], for: .supplementary)
-        case .notification:
-            setViewController(mainTabBarController._viewControllers[2], for: .supplementary)
-        case .me:
-            setViewController(mainTabBarController._viewControllers[3], for: .supplementary)
+        guard let index = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
+            assertionFailure()
+            return
+        }
+        currentSupplementaryTab = tab
+        setViewController(supplementaryViewControllers[index], for: .supplementary)
+    }
+}
+
+// MARK: - UISplitViewControllerDelegate
+extension RootSplitViewController: UISplitViewControllerDelegate {
+    
+    // .regular to .compact
+    // move navigation stack from .supplementary & .secondary to .compact
+    func splitViewController(
+        _ svc: UISplitViewController,
+        topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column
+    ) -> UISplitViewController.Column {
+        switch proposedTopColumn {
+        case .compact:
+            guard let index = MainTabBarController.Tab.allCases.firstIndex(of: currentSupplementaryTab) else {
+                assertionFailure()
+                break
+            }
+            mainTabBarController.selectedIndex = index
+            mainTabBarController.currentTab.value = currentSupplementaryTab
+            
+            guard let navigationController = mainTabBarController.selectedViewController as? UINavigationController else { break }
+            navigationController.popToRootViewController(animated: false)
+            var viewControllers = navigationController.viewControllers      // init navigation stack with topMost
+
+            if let supplementaryNavigationController = viewController(for: .supplementary) as? UINavigationController {
+                // append supplementary
+                viewControllers.append(contentsOf: supplementaryNavigationController.popToRootViewController(animated: true) ?? [])
+            }
+            if let secondaryNavigationController = viewController(for: .secondary) as? UINavigationController {
+                // append secondary
+                viewControllers.append(contentsOf: secondaryNavigationController.popToRootViewController(animated: true) ?? [])
+            }
+            // set navigation stack
+            navigationController.setViewControllers(viewControllers, animated: false)
+            
+        default:
+            assertionFailure()
+        }
+
+        return proposedTopColumn
+    }
+    
+    // .compact to .regular
+    // restore navigation stack to .supplementary & .secondary
+    func splitViewController(
+        _ svc: UISplitViewController,
+        displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode
+    ) -> UISplitViewController.DisplayMode {
+        
+        return proposedDisplayMode
+    }
+    
+    func splitViewController(
+        _ splitViewController: UISplitViewController,
+        show vc: UIViewController,
+        sender: Any?
+    ) -> Bool {
+        if !splitViewController.isCollapsed {
+            // display in .secondary when expand
+            splitViewController.showDetailViewController(vc, sender: sender)
+            return true
+        } else {
+            return false
         }
     }
 }

@@ -111,10 +111,10 @@ extension StatusProviderFacade {
                     if provider.navigationController == nil {
                         let from = provider.presentingViewController ?? provider
                         provider.dismiss(animated: true) {
-                            provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .showDetail)
+                            provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
                         }
                     } else {
-                        provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: provider, transition: .showDetail)
+                        provider.coordinator.present(scene: .thread(viewModel: threadViewModel), from: provider, transition: .show)
                     }
                 }
             }
