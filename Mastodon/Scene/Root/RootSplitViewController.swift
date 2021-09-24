@@ -27,9 +27,19 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         
     var currentSupplementaryTab: MainTabBarController.Tab = .home
     private(set) lazy var supplementaryViewControllers: [UIViewController] = {
-        return MainTabBarController.Tab.allCases.map { tab in
+        let viewControllers = MainTabBarController.Tab.allCases.map { tab in
             tab.viewController(context: context, coordinator: coordinator)
         }
+        for viewController in viewControllers {
+            guard let navigationController = viewController as? UINavigationController else {
+                assertionFailure()
+                continue
+            }
+            if let homeViewController = navigationController.topViewController as? HomeTimelineViewController {
+                homeViewController.viewModel.displaySettingBarButtonItem.value = false
+            }
+        }
+        return viewControllers
     }()
     
     private(set) lazy var mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)

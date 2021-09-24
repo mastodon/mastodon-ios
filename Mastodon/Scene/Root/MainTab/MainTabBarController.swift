@@ -63,6 +63,15 @@ class MainTabBarController: UITabBarController {
             }
         }
         
+        var sidebarImage: UIImage {
+            switch self {
+            case .home:             return UIImage(systemName: "house")!
+            case .search:           return UIImage(systemName: "magnifyingglass")!
+            case .notification:     return UIImage(systemName: "bell")!
+            case .me:               return UIImage(systemName: "person.fill")!
+            }
+        }
+        
         func viewController(context: AppContext, coordinator: SceneCoordinator) -> UIViewController {
             let viewController: UIViewController
             switch self {

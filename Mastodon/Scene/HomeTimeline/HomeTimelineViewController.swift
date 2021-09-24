@@ -95,7 +95,13 @@ extension HomeTimelineViewController {
                 self.view.backgroundColor = theme.secondarySystemBackgroundColor
             }
             .store(in: &disposeBag)
-//        navigationItem.leftBarButtonItem = settingBarButtonItem
+        viewModel.displaySettingBarButtonItem
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] displaySettingBarButtonItem in
+                guard let self = self else { return }
+                self.navigationItem.leftBarButtonItem = displaySettingBarButtonItem ? self.settingBarButtonItem : nil
+            }
+            .store(in: &disposeBag)
         navigationItem.titleView = titleView
         titleView.delegate = self
         

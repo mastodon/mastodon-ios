@@ -113,16 +113,17 @@ extension SceneCoordinator {
 
 extension SceneCoordinator {
     
-//    func setup() {
-//        let viewController = MainTabBarController(context: appContext, coordinator: self)
-//        sceneDelegate.window?.rootViewController = viewController
-//        tabBarController = viewController
-//    }
-    
     func setup() {
-        let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
-        self.splitViewController = splitViewController
-        sceneDelegate.window?.rootViewController = splitViewController
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            let viewController = MainTabBarController(context: appContext, coordinator: self)
+            sceneDelegate.window?.rootViewController = viewController
+            tabBarController = viewController
+        default:
+            let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
+            self.splitViewController = splitViewController
+            sceneDelegate.window?.rootViewController = splitViewController
+        }
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
@@ -177,7 +178,8 @@ extension SceneCoordinator {
         case .show:
             if let splitViewController = splitViewController, !splitViewController.isCollapsed,
                let supplementaryViewController = splitViewController.viewController(for: .supplementary) as? UINavigationController,
-               (supplementaryViewController === presentingViewController || supplementaryViewController.viewControllers.contains(presentingViewController))
+               (supplementaryViewController === presentingViewController || supplementaryViewController.viewControllers.contains(presentingViewController)) ||
+                (presentingViewController is UserTimelineViewController && presentingViewController.view.isDescendant(of: supplementaryViewController.view))
             {
                 fallthrough
             } else {

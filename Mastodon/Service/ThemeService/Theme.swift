@@ -22,6 +22,8 @@ public protocol Theme {
     var tertiarySystemGroupedBackgroundColor: UIColor { get }
 
     var navigationBarBackgroundColor: UIColor { get }
+    
+    var sidebarBackgroundColor: UIColor { get }
 
     var tabBarBackgroundColor: UIColor { get }
     var tabBarItemSelectedIconColor: UIColor { get }

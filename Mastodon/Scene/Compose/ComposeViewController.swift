@@ -924,8 +924,12 @@ extension ComposeViewController: UICollectionViewDelegate {
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .overFullScreen
-        //return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            return .overFullScreen
+        default:
+            return .pageSheet
+        }
     }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {

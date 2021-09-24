@@ -7,12 +7,12 @@
 		<key>AppShared.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>59</integer>
+			<integer>36</integer>
 		</dict>
 		<key>CoreDataStack.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>62</integer>
+			<integer>35</integer>
 		</dict>
 		<key>Mastodon - ASDK.xcscheme_^#shared#^_</key>
 		<dict>
@@ -97,7 +97,7 @@
 		<key>MastodonIntent.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>60</integer>
+			<integer>37</integer>
 		</dict>
 		<key>MastodonIntents.xcscheme_^#shared#^_</key>
 		<dict>
@@ -117,7 +117,7 @@
 		<key>ShareActionExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>61</integer>
+			<integer>38</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

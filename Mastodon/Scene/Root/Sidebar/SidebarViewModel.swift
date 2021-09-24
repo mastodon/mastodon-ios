@@ -9,6 +9,8 @@ import UIKit
 import Combine
 import CoreData
 import CoreDataStack
+import Meta
+import MastodonMeta
 
 final class SidebarViewModel {
     
@@ -57,28 +59,61 @@ extension SidebarViewModel {
     func setupDiffableDataSource(
         collectionView: UICollectionView
     ) {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, MainTabBarController.Tab> { (cell, indexPath, item) in
-            var content = cell.defaultContentConfiguration()
-            content.text = item.title
-            content.image = item.image
-            cell.contentConfiguration = content
-            cell.accessories = []
+        let tabCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, MainTabBarController.Tab> { (cell, indexPath, item) in
+            let imageURL: URL? = {
+                switch item {
+                case .me:
+                    let authentication = self.context.authenticationService.activeMastodonAuthentication.value
+                    return authentication?.user.avatarImageURL()
+                default:
+                    return nil
+                }
+            }()
+            let headline: MetaContent = {
+                switch item {
+                case .me:
+                    return PlaintextMetaContent(string: item.title)
+                    // TODO:
+                    // return PlaintextMetaContent(string: "Myself")
+                default:
+                    return PlaintextMetaContent(string: item.title)
+                }
+            }()
+            cell.item = SidebarListContentView.Item(
+                image: item.sidebarImage,
+                imageURL: imageURL,
+                headline: headline,
+                subheadline: nil
+            )
+            cell.setNeedsUpdateConfiguration()
         }
         
         let headerRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, HeaderViewModel> { (cell, indexPath, item) in
-            var content = cell.defaultContentConfiguration()
+            var content = UIListContentConfiguration.sidebarHeader()
             content.text = item.title
             cell.contentConfiguration = content
             cell.accessories = [.outlineDisclosure()]
         }
         
-        let accountRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, AccountViewModel> { (cell, indexPath, item) in
-            var content = cell.defaultContentConfiguration()
+        let accountRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, AccountViewModel> { (cell, indexPath, item) in
             let authentication = AppContext.shared.managedObjectContext.object(with: item.authenticationObjectID) as! MastodonAuthentication
-            content.text = authentication.user.acctWithDomain
-            content.image = nil
-            cell.contentConfiguration = content
-            cell.accessories = []
+            let user = authentication.user
+            let imageURL = user.avatarImageURL()
+            let headline: MetaContent = {
+                do {
+                    let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
+                    return try MastodonMetaContent.convert(document: content)
+                } catch {
+                    return PlaintextMetaContent(string: user.displayNameWithFallback)
+                }
+            }()
+            cell.item = SidebarListContentView.Item(
+                image: .placeholder(color: .systemFill),
+                imageURL: imageURL,
+                headline: headline,
+                subheadline: PlaintextMetaContent(string: "@" + user.acctWithDomain)
+            )
+            cell.setNeedsUpdateConfiguration()
         }
         
         let addAccountRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, AddAccountViewModel> { (cell, indexPath, item) in
@@ -92,7 +127,7 @@ extension SidebarViewModel {
         diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
             case .tab(let tab):
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: tab)
+                return collectionView.dequeueConfiguredReusableCell(using: tabCellRegistration, for: indexPath, item: tab)
             case .header(let viewModel):
                 return collectionView.dequeueConfiguredReusableCell(using: headerRegistration, for: indexPath, item: viewModel)
             case .account(let viewModel):
@@ -133,16 +168,22 @@ extension SidebarViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] authentications in
                 guard let self = self else { return }
-                var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+                // tab
+                var snapshot = self.diffableDataSource.snapshot()
+                snapshot.reloadItems([.tab(.me)])
+                self.diffableDataSource.apply(snapshot)
+                
+                // account
+                var accountSectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
                 let headerItem = Item.header(HeaderViewModel(title: "Accounts"))
-                sectionSnapshot.append([headerItem], to: nil)
-                let items = authentications.map { authentication in
+                accountSectionSnapshot.append([headerItem], to: nil)
+                let accountItems = authentications.map { authentication in
                     Item.account(AccountViewModel(authenticationObjectID: authentication.objectID))
                 }
-                sectionSnapshot.append(items, to: headerItem)
-                sectionSnapshot.append([.addAccount], to: headerItem)
-                sectionSnapshot.expand([headerItem])
-                self.diffableDataSource.apply(sectionSnapshot, to: .account)
+                accountSectionSnapshot.append(accountItems, to: headerItem)
+                accountSectionSnapshot.append([.addAccount], to: headerItem)
+                accountSectionSnapshot.expand([headerItem])
+                self.diffableDataSource.apply(accountSectionSnapshot, to: .account)
             }
             .store(in: &disposeBag)
     }

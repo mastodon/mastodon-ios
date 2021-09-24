@@ -22,6 +22,8 @@ struct MastodonTheme: Theme {
     let tertiarySystemGroupedBackgroundColor = Asset.Theme.Mastodon.tertiarySystemGroupedBackground.color
 
     let navigationBarBackgroundColor = Asset.Theme.Mastodon.navigationBarBackground.color
+    
+    let sidebarBackgroundColor = Asset.Theme.Mastodon.sidebarBackground.color
 
     let tabBarBackgroundColor = Asset.Theme.Mastodon.tabBarBackground.color
     let tabBarItemSelectedIconColor = Asset.Colors.brandBlue.color

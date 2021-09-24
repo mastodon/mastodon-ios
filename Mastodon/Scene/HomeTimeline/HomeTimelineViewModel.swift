@@ -68,7 +68,7 @@ final class HomeTimelineViewModel: NSObject {
     let loadMiddleSateMachineList = CurrentValueSubject<[NSManagedObjectID: GKStateMachine], Never>([:])    // TimelineIndex.objectID : middle loading state machine
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
     var cellFrameCache = NSCache<NSNumber, NSValue>()
-
+    let displaySettingBarButtonItem = CurrentValueSubject<Bool, Never>(true)
     
     init(context: AppContext) {
         self.context  = context

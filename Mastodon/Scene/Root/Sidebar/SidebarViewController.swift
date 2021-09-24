@@ -5,6 +5,7 @@
 //  Created by Cirno MainasuK on 2021-9-22.
 //
 
+import os.log
 import UIKit
 import Combine
 import CoreDataStack
@@ -22,10 +23,17 @@ final class SidebarViewController: UIViewController, NeedsDependency {
     var viewModel: SidebarViewModel!
     
     weak var delegate: SidebarViewControllerDelegate?
+    
+    let settingBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.tintColor = Asset.Colors.brandBlue.color
+        barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
+        return barButtonItem
+    }()
 
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout() { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
-            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+            var configuration = UICollectionLayoutListConfiguration(appearance: .sidebar)
             configuration.showsSeparators = false
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             return section
@@ -46,14 +54,27 @@ extension SidebarViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Title"
+        viewModel.context.authenticationService.activeMastodonAuthenticationBox
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] activeMastodonAuthenticationBox in
+                guard let self = self else { return }
+                let domain = activeMastodonAuthenticationBox?.domain
+                self.navigationItem.title = domain
+            }
+            .store(in: &disposeBag)
+        navigationItem.rightBarButtonItem = settingBarButtonItem
+        settingBarButtonItem.target = self
+        settingBarButtonItem.action = #selector(SidebarViewController.settingBarButtonItemPressed(_:))
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
-        navigationItem.standardAppearance = barAppearance
-        navigationItem.compactAppearance = barAppearance
-        navigationItem.scrollEdgeAppearance = barAppearance
+        setupBackground(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackground(theme: theme)
+            }
+            .store(in: &disposeBag)
         
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -68,6 +89,28 @@ extension SidebarViewController {
         viewModel.setupDiffableDataSource(collectionView: collectionView)
     }
     
+    private func setupBackground(theme: Theme) {
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithOpaqueBackground()
+        barAppearance.backgroundColor = theme.sidebarBackgroundColor
+        barAppearance.shadowColor = .clear
+        barAppearance.shadowImage = UIImage()   // remove separator line
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        
+        view.backgroundColor = theme.sidebarBackgroundColor
+    }
+    
+}
+
+extension SidebarViewController {
+    @objc private func settingBarButtonItemPressed(_ sender: UIBarButtonItem) {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+        guard let setting = context.settingService.currentSetting.value else { return }
+        let settingsViewModel = SettingsViewModel(context: context, setting: setting)
+        coordinator.present(scene: .settings(viewModel: settingsViewModel), from: self, transition: .modal(animated: true, completion: nil))
+    }
 }
 
 // MARK: - UICollectionViewDelegate

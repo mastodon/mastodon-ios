@@ -199,6 +199,8 @@
 		DB0C947226A7D2D70088FB11 /* AvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947126A7D2D70088FB11 /* AvatarButton.swift */; };
 		DB0C947726A7FE840088FB11 /* NotificationAvatarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */; };
 		DB0E91EA26A9675100BD2ACC /* MetaLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E91E926A9675100BD2ACC /* MetaLabel.swift */; };
+		DB0EF72B26FDB1D200347686 /* SidebarListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */; };
+		DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */; };
 		DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */; };
 		DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */; };
 		DB1D186C25EF5BA7003F1F23 /* PollTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1D186B25EF5BA7003F1F23 /* PollTableView.swift */; };
@@ -954,6 +956,8 @@
 		DB0C947126A7D2D70088FB11 /* AvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarButton.swift; sourceTree = "<group>"; };
 		DB0C947626A7FE840088FB11 /* NotificationAvatarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationAvatarButton.swift; sourceTree = "<group>"; };
 		DB0E91E926A9675100BD2ACC /* MetaLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaLabel.swift; sourceTree = "<group>"; };
+		DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListContentView.swift; sourceTree = "<group>"; };
 		DB0F814D264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DB0F814E264CFFD300F2A12B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerLoaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -2082,6 +2086,15 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
+		DB0EF72C26FDB1D600347686 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */,
+				DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		DB1D187125EF5BBD003F1F23 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2526,6 +2539,7 @@
 		DB852D1A26FAED0100FC9D81 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				DB0EF72C26FDB1D600347686 /* View */,
 				DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */,
 				DB852D1E26FB037800FC9D81 /* SidebarViewModel.swift */,
 			);
@@ -4136,6 +4150,7 @@
 				DB9D6C0E25E4F9780051B173 /* MosaicImageViewContainer.swift in Sources */,
 				DBCBCC0D2680B908000F5B51 /* HomeTimelinePreference.swift in Sources */,
 				DB71FD3625F8A16C00512AE1 /* APIService+Persist+PersistMemo.swift in Sources */,
+				DB0EF72E26FDB24F00347686 /* SidebarListContentView.swift in Sources */,
 				DBBE1B4525F3474B0081417A /* MastodonPickServerAppearance.swift in Sources */,
 				DB98338725C945ED00AD9700 /* Strings.swift in Sources */,
 				2D7867192625B77500211898 /* NotificationItem.swift in Sources */,
@@ -4151,6 +4166,7 @@
 				2D32EADA25CBCC3300C9ED86 /* PublicTimelineViewModel+LoadMiddleState.swift in Sources */,
 				5B90C48526259BF10002E742 /* APIService+Subscriptions.swift in Sources */,
 				0F20223926146553000C64BF /* Array.swift in Sources */,
+				DB0EF72B26FDB1D200347686 /* SidebarListCollectionViewCell.swift in Sources */,
 				5B90C460262599800002E742 /* SettingsAppearanceTableViewCell.swift in Sources */,
 				DB0C946B26A700AB0088FB11 /* MastodonUser+Property.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
