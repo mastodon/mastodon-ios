@@ -8,6 +8,7 @@
 import os.log
 import UIKit
 import Combine
+import CoreDataStack
 
 final class RootSplitViewController: UISplitViewController, NeedsDependency {
     
@@ -117,6 +118,7 @@ extension RootSplitViewController {
 
 // MARK: - SidebarViewControllerDelegate
 extension RootSplitViewController: SidebarViewControllerDelegate {
+    
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
         
         guard let index = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
@@ -126,6 +128,30 @@ extension RootSplitViewController: SidebarViewControllerDelegate {
         currentSupplementaryTab = tab
         setViewController(supplementaryViewControllers[index], for: .supplementary)
     }
+    
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectSearchHistory searchHistoryViewModel: SidebarViewModel.SearchHistoryViewModel) {
+        // self.sidebarViewController(sidebarViewController, didSelectTab: .search)
+        
+        let supplementaryViewController = viewController(for: .supplementary)        
+        let managedObjectContext = context.managedObjectContext
+        managedObjectContext.perform {
+            let searchHistory = managedObjectContext.object(with: searchHistoryViewModel.searchHistoryObjectID) as! SearchHistory
+            if let account = searchHistory.account {
+                DispatchQueue.main.async {
+                    let profileViewModel = CachedProfileViewModel(context: self.context, mastodonUser: account)
+                    self.coordinator.present(scene: .profile(viewModel: profileViewModel), from: supplementaryViewController, transition: .show)
+                }
+            } else if let hashtag = searchHistory.hashtag {
+                DispatchQueue.main.async {
+                    let hashtagTimelineViewModel = HashtagTimelineViewModel(context: self.context, hashtag: hashtag.name)
+                    self.coordinator.present(scene: .hashtagTimeline(viewModel: hashtagTimelineViewModel), from: supplementaryViewController, transition: .show)
+                }
+            } else {
+                assertionFailure()
+            }
+        }
+    }
+    
 }
 
 // MARK: - UISplitViewControllerDelegate

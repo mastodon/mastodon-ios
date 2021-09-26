@@ -109,6 +109,9 @@ extension AccountListTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
+        
+        badgeButton.setBadge(number: 0)
+        checkmarkImageView.isHidden = true
     }
 
 }

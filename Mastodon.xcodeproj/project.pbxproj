@@ -1352,6 +1352,7 @@
 		DBE3CE0C261D767100430CC6 /* FavoriteViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteViewController+Provider.swift"; sourceTree = "<group>"; };
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
+		DBF156DD27006F5D00EC00B7 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
@@ -6129,9 +6130,10 @@
 		DB89BA3525C1145C008580ED /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DBF156DD27006F5D00EC00B7 /* CoreData 2.xcdatamodel */,
 				DB89BA3625C1145C008580ED /* CoreData.xcdatamodel */,
 			);
-			currentVersion = DB89BA3625C1145C008580ED /* CoreData.xcdatamodel */;
+			currentVersion = DBF156DD27006F5D00EC00B7 /* CoreData 2.xcdatamodel */;
 			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

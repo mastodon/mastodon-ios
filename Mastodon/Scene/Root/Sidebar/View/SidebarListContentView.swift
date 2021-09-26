@@ -18,6 +18,13 @@ final class SidebarListContentView: UIView, UIContentView {
     let animationImageView = FLAnimatedImageView()      // for animation image
     let headlineLabel = MetaLabel(style: .sidebarHeadline(isSelected: false))
     let subheadlineLabel = MetaLabel(style: .sidebarSubheadline(isSelected: false))
+    let badgeButton = BadgeButton()
+    let checkmarkImageView: UIImageView = {
+        let image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold))
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = .label
+        return imageView
+    }()
     
     private var currentConfiguration: ContentConfiguration!
     var configuration: UIContentConfiguration {
@@ -85,7 +92,7 @@ extension SidebarListContentView {
         NSLayoutConstraint.activate([
             textContainer.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             textContainer.leadingAnchor.constraint(equalTo: imageViewContainer.trailingAnchor, constant: 10),
-            textContainer.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+            // textContainer.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
             bottomAnchor.constraint(equalTo: textContainer.bottomAnchor, constant: 12),
         ])
         
@@ -96,10 +103,31 @@ extension SidebarListContentView {
         subheadlineLabel.setContentHuggingPriority(.required - 10, for: .vertical)
         subheadlineLabel.setContentCompressionResistancePriority(.required - 10, for: .vertical)
         
+        badgeButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(badgeButton)
+        NSLayoutConstraint.activate([
+            badgeButton.leadingAnchor.constraint(equalTo: textContainer.trailingAnchor, constant: 4),
+            badgeButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            badgeButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 16).priority(.required - 1),
+            badgeButton.widthAnchor.constraint(equalTo: badgeButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
+        ])
+        badgeButton.setContentHuggingPriority(.required - 10, for: .horizontal)
+        badgeButton.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
+        
         NSLayoutConstraint.activate([
             imageViewContainer.heightAnchor.constraint(equalTo: headlineLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
             imageViewContainer.widthAnchor.constraint(equalTo: imageViewContainer.heightAnchor, multiplier: 1.0).priority(.required - 1),
         ])
+        
+        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(checkmarkImageView)
+        NSLayoutConstraint.activate([
+            checkmarkImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            checkmarkImageView.leadingAnchor.constraint(equalTo: badgeButton.trailingAnchor, constant: 16),
+            checkmarkImageView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+        ])
+        checkmarkImageView.setContentHuggingPriority(.required - 9, for: .horizontal)
+        checkmarkImageView.setContentCompressionResistancePriority(.required - 9, for: .horizontal)
         
         animationImageView.isUserInteractionEnabled = false
         headlineLabel.isUserInteractionEnabled = false
@@ -109,6 +137,9 @@ extension SidebarListContentView {
         animationImageView.contentMode = .scaleAspectFit
         imageView.tintColor = Asset.Colors.brandBlue.color
         animationImageView.tintColor = Asset.Colors.brandBlue.color
+        
+        badgeButton.setBadge(number: 0)
+        checkmarkImageView.isHidden = true
     }
     
     private func apply(configuration: ContentConfiguration) {
@@ -159,6 +190,8 @@ extension SidebarListContentView {
         let imageURL: URL?
         let headline: MetaContent
         let subheadline: MetaContent?
+        
+        let needsOutlineDisclosure: Bool
         
         static func == (lhs: SidebarListContentView.Item, rhs: SidebarListContentView.Item) -> Bool {
             return lhs.isSelected == rhs.isSelected

@@ -545,7 +545,7 @@ extension SettingsViewController: ASWebAuthenticationPresentationContextProvidin
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension SettingsViewController: UIAdaptivePresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .formSheet
+        return .pageSheet
     }
 }
 

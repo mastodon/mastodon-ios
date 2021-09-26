@@ -16,7 +16,7 @@ public final class SearchHistory: NSManagedObject {
     @NSManaged public private(set) var createAt: Date
     @NSManaged public private(set) var updatedAt: Date
 
-    // one-to-one relationship
+    // many-to-one relationship
     @NSManaged public private(set) var account: MastodonUser?
     @NSManaged public private(set) var hashtag: Tag?
     @NSManaged public private(set) var status: Status?
@@ -31,10 +31,10 @@ extension SearchHistory {
         setPrimitiveValue(Date(), forKey: #keyPath(SearchHistory.updatedAt))
     }
     
-    public override func willSave() {
-        super.willSave()
-        setPrimitiveValue(Date(), forKey: #keyPath(SearchHistory.updatedAt))
-    }
+//    public override func willSave() {
+//        super.willSave()
+//        setPrimitiveValue(Date(), forKey: #keyPath(SearchHistory.updatedAt))
+//    }
     
     @discardableResult
     public static func insert(

@@ -85,16 +85,20 @@ final class HashtagTimelineViewModel: NSObject {
             return
         }
         let query = Mastodon.API.V2.Search.Query(q: hashtag, type: .hashtags)
-        context.apiService.search(domain: activeMastodonAuthenticationBox.domain, query: query, mastodonAuthenticationBox: activeMastodonAuthenticationBox)
-            .sink { _ in
-                
-            } receiveValue: { [weak self] response in
-                let matchedTag = response.value.hashtags.first { tag -> Bool in
-                    return tag.name == self?.hashtag
-                }
-                self?.hashtagEntity.send(matchedTag)
+        context.apiService.search(
+            domain: activeMastodonAuthenticationBox.domain,
+            query: query,
+            mastodonAuthenticationBox: activeMastodonAuthenticationBox
+        )
+        .sink { _ in
+            
+        } receiveValue: { [weak self] response in
+            let matchedTag = response.value.hashtags.first { tag -> Bool in
+                return tag.name == self?.hashtag
             }
-            .store(in: &disposeBag)
+            self?.hashtagEntity.send(matchedTag)
+        }
+        .store(in: &disposeBag)
 
     }
     

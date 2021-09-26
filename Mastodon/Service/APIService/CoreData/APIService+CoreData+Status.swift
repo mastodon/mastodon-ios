@@ -86,14 +86,8 @@ extension APIService.CoreData {
                 let object = Poll.insert(into: managedObjectContext, property: Poll.Property(id: poll.id, expiresAt: poll.expiresAt, expired: poll.expired, multiple: poll.multiple, votesCount: poll.votesCount, votersCount: poll.votersCount, networkDate: networkDate), votedBy: votedBy, options: options)
                 return object
             }
-            let metions = entity.mentions?.enumerated().compactMap { index, mention -> Mention in
+            let mentions = entity.mentions?.enumerated().compactMap { index, mention -> Mention in
                 Mention.insert(into: managedObjectContext, property: Mention.Property(id: mention.id, username: mention.username, acct: mention.acct, url: mention.url), index: index)
-            }
-            let tags = entity.tags?.compactMap { tag -> Tag in
-                let histories = tag.history?.compactMap { history -> History in
-                    History.insert(into: managedObjectContext, property: History.Property(day: history.day, uses: history.uses, accounts: history.accounts))
-                }
-                return Tag.insert(into: managedObjectContext, property: Tag.Property(name: tag.name, url: tag.url, histories: histories))
             }
             let mediaAttachments: [Attachment]? = {
                 let encoder = JSONEncoder()
@@ -117,8 +111,7 @@ extension APIService.CoreData {
                 application: application,
                 replyTo: replyTo,
                 poll: poll,
-                mentions: metions,
-                tags: tags,
+                mentions: mentions,
                 mediaAttachments: mediaAttachments,
                 favouritedBy: (entity.favourited ?? false) ? requestMastodonUser : nil,
                 rebloggedBy: (entity.reblogged ?? false) ? requestMastodonUser : nil,

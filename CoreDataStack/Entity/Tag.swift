@@ -18,13 +18,12 @@ public final class Tag: NSManagedObject {
     @NSManaged public private(set) var url: String
 
     // one-to-one relationship
-    @NSManaged public private(set) var searchHistory: SearchHistory?
 
     // many-to-many relationship
-    @NSManaged public private(set) var statuses: Set<Status>?
 
     // one-to-many relationship
     @NSManaged public private(set) var histories: Set<History>?
+    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
 }
 
 public extension Tag {
@@ -52,6 +51,15 @@ public extension Tag {
             tag.mutableSetValue(forKey: #keyPath(Tag.histories)).addObjects(from: histories)
         }
         return tag
+    }
+}
+
+extension Tag {
+    public func findSearchHistory(domain: String, userID: MastodonUser.ID) -> SearchHistory? {
+        return searchHistories.first { searchHistory in
+            return searchHistory.domain == domain
+            && searchHistory.userID == userID
+        }
     }
 }
 

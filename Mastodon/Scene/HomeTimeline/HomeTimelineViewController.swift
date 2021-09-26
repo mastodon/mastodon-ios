@@ -99,7 +99,17 @@ extension HomeTimelineViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] displaySettingBarButtonItem in
                 guard let self = self else { return }
+                #if DEBUG
+                // display debug menu
+                self.navigationItem.leftBarButtonItem = {
+                    let barButtonItem = UIBarButtonItem()
+                    barButtonItem.image = UIImage(systemName: "ellipsis.circle")
+                    barButtonItem.menu = self.debugMenu
+                    return barButtonItem
+                }()
+                #else
                 self.navigationItem.leftBarButtonItem = displaySettingBarButtonItem ? self.settingBarButtonItem : nil
+                #endif
             }
             .store(in: &disposeBag)
         navigationItem.titleView = titleView

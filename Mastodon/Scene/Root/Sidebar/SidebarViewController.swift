@@ -12,6 +12,7 @@ import CoreDataStack
 
 protocol SidebarViewControllerDelegate: AnyObject {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectSearchHistory searchHistoryViewModel: SidebarViewModel.SearchHistoryViewModel)
 }
 
 final class SidebarViewController: UIViewController, NeedsDependency {
@@ -34,6 +35,13 @@ final class SidebarViewController: UIViewController, NeedsDependency {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout() { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .sidebar)
+            if sectionIndex == SidebarViewModel.Section.tab.rawValue {
+                // with indentation
+                configuration.headerMode = .none
+            } else {
+                // remove indentation
+                configuration.headerMode = .firstItemInSection
+            }
             configuration.showsSeparators = false
             let section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
             return section
@@ -59,6 +67,11 @@ extension SidebarViewController {
             .sink { [weak self] activeMastodonAuthenticationBox in
                 guard let self = self else { return }
                 let domain = activeMastodonAuthenticationBox?.domain
+                self.navigationItem.backBarButtonItem = {
+                    let barButtonItem = UIBarButtonItem()
+                    barButtonItem.image = UIImage(systemName: "sidebar.leading")
+                    return barButtonItem
+                }()
                 self.navigationItem.title = domain
             }
             .store(in: &disposeBag)
@@ -121,6 +134,10 @@ extension SidebarViewController: UICollectionViewDelegate {
         switch item {
         case .tab(let tab):
             delegate?.sidebarViewController(self, didSelectTab: tab)
+        case .searchHistory(let viewModel):
+            delegate?.sidebarViewController(self, didSelectSearchHistory: viewModel)
+        case .header:
+            break
         case .account(let viewModel):
             assert(Thread.isMainThread)
             let authentication = context.managedObjectContext.object(with: viewModel.authenticationObjectID) as! MastodonAuthentication
@@ -133,9 +150,6 @@ extension SidebarViewController: UICollectionViewDelegate {
                 .store(in: &disposeBag)
         case .addAccount:
             coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
-        default:
-            // TODO:
-            break
         }
     }
 }
