@@ -26,6 +26,8 @@ extension SidebarAddAccountCollectionViewCell {
     private func _init() { }
     
     override func updateConfiguration(using state: UICellConfigurationState) {
+        super.updateConfiguration(using: state)
+        
         var newBackgroundConfiguration = UIBackgroundConfiguration.listSidebarCell().updated(for: state)
         
         // Customize the background color to use the tint color when the cell is highlighted or selected.

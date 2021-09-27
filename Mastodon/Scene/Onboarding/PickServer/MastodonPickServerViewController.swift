@@ -44,6 +44,11 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         tableView.backgroundColor = .clear
         tableView.keyboardDismissMode = .onDrag
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
+        } else {
+            // Fallback on earlier versions
+        }
         return tableView
     }()
     
@@ -428,7 +433,9 @@ extension MastodonPickServerViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return 0 }
+        guard let diffableDataSource = viewModel.diffableDataSource else {
+            return .leastNonzeroMagnitude
+        }
         let sections = diffableDataSource.snapshot().sectionIdentifiers
         let section = sections[section]
         switch section {
@@ -442,8 +449,18 @@ extension MastodonPickServerViewController: UITableViewDelegate {
             // Same reason as above
             return 10
         case .servers:
-            return 0
+            return .leastNonzeroMagnitude
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = .yellow
+        return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNonzeroMagnitude
     }
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
