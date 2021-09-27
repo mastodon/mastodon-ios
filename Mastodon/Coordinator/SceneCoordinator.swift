@@ -213,7 +213,7 @@ extension SceneCoordinator {
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
-            sender?.present(viewController, animated: true, completion: nil)
+            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
         case .customPush:
             // set delegate in view controller

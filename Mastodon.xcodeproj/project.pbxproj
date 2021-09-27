@@ -572,6 +572,7 @@
 		DBE3CE13261D7D4200430CC6 /* StatusTableViewControllerAspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */; };
 		DBE54AC62636C89F004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
 		DBE54ACC2636C8FD004E7C0B /* NotificationPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */; };
+		DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */; };
 		DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */; };
 		DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */; };
 		DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */; };
@@ -1353,6 +1354,7 @@
 		DBE3CE12261D7D4200430CC6 /* StatusTableViewControllerAspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTableViewControllerAspect.swift; sourceTree = "<group>"; };
 		DBE54AC52636C89F004E7C0B /* NotificationPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPreference.swift; sourceTree = "<group>"; };
 		DBF156DD27006F5D00EC00B7 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
+		DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarAddAccountCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
@@ -2090,6 +2092,7 @@
 		DB0EF72C26FDB1D600347686 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */,
 				DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */,
 				DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */,
 			);
@@ -3906,6 +3909,7 @@
 				DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */,
 				DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */,
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
+				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
 				DBBC24AE26A53DC100398BB9 /* ReplicaStatusView.swift in Sources */,

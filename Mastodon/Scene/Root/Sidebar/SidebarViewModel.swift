@@ -21,7 +21,7 @@ final class SidebarViewModel {
     let searchHistoryFetchedResultController: SearchHistoryFetchedResultController
 
     // output
-    var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>!
+    var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
 
     init(context: AppContext) {
@@ -184,7 +184,12 @@ extension SidebarViewModel {
         let accountRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, AccountViewModel> { [weak self] (cell, indexPath, item) in
             guard let self = self else { return }
             
-            let authentication = AppContext.shared.managedObjectContext.object(with: item.authenticationObjectID) as! MastodonAuthentication
+            // accounts maybe already sign-out
+            // check isDeleted before using
+            guard let authentication = try? AppContext.shared.managedObjectContext.existingObject(with: item.authenticationObjectID) as? MastodonAuthentication,
+                !authentication.isDeleted else {
+                return
+            }
             let user = authentication.user
             let imageURL = user.avatarImageURL()
             let headline: MetaContent = {
@@ -226,15 +231,16 @@ extension SidebarViewModel {
                 .store(in: &cell.disposeBag)
         }
         
-        let addAccountRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, AddAccountViewModel> { (cell, indexPath, item) in
-            var content = cell.defaultContentConfiguration()
+        let addAccountRegistration = UICollectionView.CellRegistration<SidebarAddAccountCollectionViewCell, AddAccountViewModel> { (cell, indexPath, item) in
+            var content = UIListContentConfiguration.sidebarCell()
             content.text = L10n.Scene.AccountList.addAccount
             content.image = UIImage(systemName: "plus.square.fill")!
+            
             cell.contentConfiguration = content
             cell.accessories = []
         }
         
-        diffableDataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { collectionView, indexPath, item in
+        let _diffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
             case .tab(let tab):
                 return collectionView.dequeueConfiguredReusableCell(using: tabCellRegistration, for: indexPath, item: tab)
@@ -248,10 +254,11 @@ extension SidebarViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: addAccountRegistration, for: indexPath, item: AddAccountViewModel())
             }
         }
+        diffableDataSource = _diffableDataSource
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
         snapshot.appendSections(Section.allCases)
-        diffableDataSource.apply(snapshot)
+        _diffableDataSource.apply(snapshot)
         
         for section in Section.allCases {
             switch section {
@@ -264,7 +271,7 @@ extension SidebarViewModel {
                     .tab(.me),
                 ]
                 sectionSnapshot.append(items, to: nil)
-                diffableDataSource.apply(sectionSnapshot, to: section)
+                _diffableDataSource.apply(sectionSnapshot, to: section)
             case .account:
                 var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
                 let headerItem = Item.header(HeaderViewModel(title: "Accounts"))
@@ -272,7 +279,7 @@ extension SidebarViewModel {
                 sectionSnapshot.append([], to: headerItem)
                 sectionSnapshot.append([.addAccount], to: headerItem)
                 sectionSnapshot.expand([headerItem])
-                diffableDataSource.apply(sectionSnapshot, to: section)
+                _diffableDataSource.apply(sectionSnapshot, to: section)
             }
         }
         
@@ -312,10 +319,11 @@ extension SidebarViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] authentications in
                 guard let self = self else { return }
+                guard let diffableDataSource = self.diffableDataSource else { return }
                 // tab
-                var snapshot = self.diffableDataSource.snapshot()
+                var snapshot = diffableDataSource.snapshot()
                 snapshot.reloadItems([.tab(.me)])
-                self.diffableDataSource.apply(snapshot)
+                diffableDataSource.apply(snapshot)
                 
                 // account
                 var accountSectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
@@ -327,7 +335,7 @@ extension SidebarViewModel {
                 accountSectionSnapshot.append(accountItems, to: headerItem)
                 accountSectionSnapshot.append([.addAccount], to: headerItem)
                 accountSectionSnapshot.expand([headerItem])
-                self.diffableDataSource.apply(accountSectionSnapshot, to: .account)
+                diffableDataSource.apply(accountSectionSnapshot, to: .account)
             }
             .store(in: &disposeBag)
     }
