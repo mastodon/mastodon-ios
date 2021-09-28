@@ -18,7 +18,7 @@ import MastodonUI
 final class ComposeViewController: UIViewController, NeedsDependency {
     
     static let minAutoCompleteVisibleHeight: CGFloat = 100
-    
+        
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -137,6 +137,16 @@ extension ComposeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let groups = [UIBarButtonItemGroup(barButtonItems: [
+            composeToolbarView.mediaBarButtonItem,
+            composeToolbarView.pollBarButtonItem,
+            composeToolbarView.contentWarningBarButtonItem,
+            composeToolbarView.visibilityBarButtonItem,
+        ], representativeItem: nil)]
+        
+        tableView.inputAssistantItem.trailingBarButtonGroups = groups
+        textEditorView()?.textView.inputAssistantItem.trailingBarButtonGroups = groups
+
         viewModel.title
             .receive(on: DispatchQueue.main)
             .sink { [weak self] title in
@@ -330,13 +340,21 @@ extension ComposeViewController {
         // bind media button toolbar state
         viewModel.isMediaToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: composeToolbarView.mediaButton)
+            .sink { [weak self] isMediaToolbarButtonEnabled in
+                guard let self = self else { return }
+//                self.composeToolbarView.mediaBarButtonItem.isEnabled = isMediaToolbarButtonEnabled
+                self.composeToolbarView.mediaButton.isEnabled = isMediaToolbarButtonEnabled
+            }
             .store(in: &disposeBag)
         
         // bind poll button toolbar state
         viewModel.isPollToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: composeToolbarView.pollButton)
+            .sink { [weak self] isPollToolbarButtonEnabled in
+                guard let self = self else { return }
+//                self.composeToolbarView.pollBarButtonItem.isEnabled = isPollToolbarButtonEnabled
+                self.composeToolbarView.pollButton.isEnabled = isPollToolbarButtonEnabled
+            }
             .store(in: &disposeBag)
         
         Publishers.CombineLatest(
@@ -347,10 +365,14 @@ extension ComposeViewController {
         .sink { [weak self] isPollComposing, isPollToolbarButtonEnabled in
             guard let self = self else { return }
             guard isPollToolbarButtonEnabled else {
-                self.composeToolbarView.pollButton.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+                let accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+//                self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
+                self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
                 return
             }
-            self.composeToolbarView.pollButton.accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+            let accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+//            self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
+            self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
         }
         .store(in: &disposeBag)
 

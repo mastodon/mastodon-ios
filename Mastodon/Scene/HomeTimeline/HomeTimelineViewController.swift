@@ -17,6 +17,8 @@ import AlamofireImage
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
+    let logger = Logger(subsystem: "HomeTimelineViewController", category: "UI")
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -218,6 +220,31 @@ extension HomeTimelineViewController {
                 }
             }
             .store(in: &disposeBag)
+        
+        NotificationCenter.default
+            .publisher(for: .statusBarTapped, object: nil)
+            .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)
+            .sink { [weak self] notification in
+                guard let self = self else { return }
+                guard let _ = self.view.window else { return } // displaying
+                
+                // https://developer.limneos.net/index.php?ios=13.1.3&framework=UIKitCore.framework&header=UIStatusBarTapAction.h
+                guard let action = notification.object as AnyObject?,
+                    let xPosition = action.value(forKey: "xPosition") as? Double
+                else { return }
+                
+                let viewFrameInWindow = self.view.convert(self.view.frame, to: nil)
+                guard xPosition >= viewFrameInWindow.minX && xPosition <= viewFrameInWindow.maxX else { return }
+                        
+                // works on iOS 14
+                self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): receive notification \(xPosition)")
+
+                // check if scroll to top
+                guard self.shouldRestoreScrollPosition() else { return }
+                self.restorePositionWhenScrollToTop()
+            }
+            .store(in: &disposeBag)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -234,9 +261,15 @@ extension HomeTimelineViewController {
         
         viewModel.viewDidAppear.send()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            guard let self = self else { return }
-            // always try to refresh timeline after appear
+        if let timestamp = viewModel.lastAutomaticFetchTimestamp.value {
+            let now = Date()
+            if now.timeIntervalSince(timestamp) > 60 {
+                self.viewModel.lastAutomaticFetchTimestamp.value = now
+                self.viewModel.homeTimelineNeedRefresh.send()
+            } else {
+                // do nothing
+            }
+        } else {
             self.viewModel.homeTimelineNeedRefresh.send()
         }
     }
@@ -394,9 +427,62 @@ extension HomeTimelineViewController: TableViewCellHeightCacheableContainer {
 // MARK: - UIScrollViewDelegate
 extension HomeTimelineViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        switch scrollView {
+        case tableView:
+            aspectScrollViewDidScroll(scrollView)
+            viewModel.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
+        default:
+            break
+        }
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        switch scrollView {
+        case tableView:
+            // handle scrollToTop
+            savePositionBeforeScrollToTop()
+            return true
+        default:
+            assertionFailure()
+            return true
+        }
+    }
+    
+    private func savePositionBeforeScrollToTop() {
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let anchorIndexPaths = tableView.indexPathsForVisibleRows?.sorted() else { return }
+        guard !anchorIndexPaths.isEmpty else { return }
+        let anchorIndexPath = anchorIndexPaths[anchorIndexPaths.count / 2]
+        guard let anchorItem = diffableDataSource.itemIdentifier(for: anchorIndexPath) else { return }
         
-        aspectScrollViewDidScroll(scrollView)
-        viewModel.homeTimelineNavigationBarTitleViewModel.handleScrollViewDidScroll(scrollView)
+        let offset: CGFloat = {
+            guard let anchorCell = tableView.cellForRow(at: anchorIndexPath) else { return 0 }
+            let cellFrameInView = tableView.convert(anchorCell.frame, to: view)
+            return cellFrameInView.origin.y
+        }()
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): save position record for \(anchorIndexPath) with offset: \(offset)")
+        viewModel.scrollPositionRecord.value = HomeTimelineViewModel.ScrollPositionRecord(
+            item: anchorItem,
+            offset: offset,
+            timestamp: Date()
+        )
+    }
+    
+    private func shouldRestoreScrollPosition() -> Bool {
+        // check if scroll to top
+        guard self.tableView.safeAreaInsets.top > 0 else { return false }
+        let zeroOffset = -self.tableView.safeAreaInsets.top
+        return abs(self.tableView.contentOffset.y - zeroOffset) < 2.0
+    }
+    
+    private func restorePositionWhenScrollToTop() {
+        guard let diffableDataSource = self.viewModel.diffableDataSource else { return }
+        guard let record = self.viewModel.scrollPositionRecord.value,
+              let indexPath = diffableDataSource.indexPath(for: record.item)
+        else { return }
+        
+        self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        self.viewModel.scrollPositionRecord.value = nil
     }
 }
 
@@ -544,6 +630,8 @@ extension HomeTimelineViewController: ScrollViewContainer {
         } else {
             let indexPath = IndexPath(row: 0, section: 0)
             guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else { return }
+            // save position
+            savePositionBeforeScrollToTop()
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
@@ -572,7 +660,12 @@ extension HomeTimelineViewController: StatusTableViewCellDelegate {
 // MARK: - HomeTimelineNavigationBarTitleViewDelegate
 extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate {
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, logoButtonDidPressed sender: UIButton) {
-        scrollToTop(animated: true)
+        if shouldRestoreScrollPosition() {
+            restorePositionWhenScrollToTop()
+        } else {
+            savePositionBeforeScrollToTop()
+            scrollToTop(animated: true)
+        }
     }
     
     func homeTimelineNavigationBarTitleView(_ titleView: HomeTimelineNavigationBarTitleView, buttonDidPressed sender: UIButton) {

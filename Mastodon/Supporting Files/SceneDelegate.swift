@@ -155,19 +155,3 @@ extension SceneDelegate {
         return true
     }
 }
-
-#if DEBUG
-class TestWindow: UIWindow {
-    
-    override func sendEvent(_ event: UIEvent) {
-        event.allTouches?.forEach({ (touch) in
-            let location = touch.location(in: self)
-            let view = hitTest(location, with: event)
-            print(view.debugDescription)
-        })
-        
-        super.sendEvent(event)
-    }
-}
-#endif
-

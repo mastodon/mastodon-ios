@@ -27,6 +27,41 @@ final class ComposeToolbarView: UIView {
     
     weak var delegate: ComposeToolbarViewDelegate?
     
+    // barButtonItem
+    let mediaBarButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "photo"), for: .normal)
+        return button
+    }()
+    private(set) lazy var mediaBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(customView: mediaBarButton)
+        barButtonItem.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendAttachment
+        return barButtonItem
+    }()
+
+    let pollBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.image = UIImage(systemName: "list.bullet")
+        barButtonItem.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+        return barButtonItem
+    }()
+    
+    let contentWarningBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.image = UIImage(systemName: "exclamationmark.shield")
+        barButtonItem.accessibilityLabel = L10n.Scene.Compose.Accessibility.enableContentWarning
+        return barButtonItem
+    }()
+    
+    let visibilityBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem()
+        barButtonItem.image = UIImage(systemName: "person.3")
+        barButtonItem.accessibilityLabel = L10n.Scene.Compose.Accessibility.postVisibilityMenu
+        return barButtonItem
+    }()
+    
+    // button
+    
     let mediaButton: UIButton = {
         let button = HighlightDimmableButton()
         ComposeToolbarView.configureToolbarButtonAppearance(button: button)
