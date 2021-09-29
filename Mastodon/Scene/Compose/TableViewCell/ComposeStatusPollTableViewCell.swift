@@ -7,6 +7,7 @@
 
 import os.log
 import UIKit
+import Combine
 
 protocol ComposeStatusPollTableViewCellDelegate: AnyObject {
     func composeStatusPollTableViewCell(_ cell: ComposeStatusPollTableViewCell, pollOptionAttributesDidReorder options: [ComposeStatusPollItem.PollOptionAttribute])
@@ -49,6 +50,7 @@ final class ComposeStatusPollTableViewCell: UITableViewCell {
         collectionView.dragInteractionEnabled = true
         return collectionView
     }()
+    let collectionViewHeightDidUpdate = PassthroughSubject<Void, Never>()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -82,6 +84,7 @@ extension ComposeStatusPollTableViewCell {
         collectionView.observe(\.contentSize, options: [.initial, .new]) { [weak self] collectionView, _ in
             guard let self = self else { return }
             self.collectionViewHeightLayoutConstraint.constant = collectionView.contentSize.height
+            self.collectionViewHeightDidUpdate.send()
         }
         .store(in: &observations)
 

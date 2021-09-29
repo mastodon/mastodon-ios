@@ -11,12 +11,17 @@ import Combine
 import MetaTextKit
 import UITextView_Placeholder
 
+protocol ComposeStatusContentTableViewCellDelegate: AnyObject {
+    func composeStatusContentTableViewCell(_ cell: ComposeStatusContentTableViewCell, textViewShouldBeginEditing textView: UITextView) -> Bool
+}
+
 final class ComposeStatusContentTableViewCell: UITableViewCell {
 
     let logger = Logger(subsystem: "ComposeStatusContentTableViewCell", category: "UI")
 
     var disposeBag = Set<AnyCancellable>()
-
+    weak var delegate: ComposeStatusContentTableViewCellDelegate?
+    
     let statusView = ReplicaStatusView()
 
     let statusContentWarningEditorView = StatusContentWarningEditorView()
@@ -136,6 +141,10 @@ extension ComposeStatusContentTableViewCell {
 
 // MARK: - UITextViewDelegate
 extension ComposeStatusContentTableViewCell: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return delegate?.composeStatusContentTableViewCell(self, textViewShouldBeginEditing: textView) ?? true
+    }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         switch textView {
