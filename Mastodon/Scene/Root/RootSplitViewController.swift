@@ -63,7 +63,7 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         
         setViewController(sidebarViewController, for: .primary)
         setViewController(supplementaryViewControllers[0], for: .supplementary)
-        setViewController(UIViewController(), for: .secondary)
+        setViewController(SecondaryPlaceholderViewController(), for: .secondary)
         setViewController(mainTabBarController, for: .compact)
     }
     

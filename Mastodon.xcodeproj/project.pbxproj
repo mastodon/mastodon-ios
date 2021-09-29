@@ -575,6 +575,7 @@
 		DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */; };
 		DBF156E22702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = DBF156E12702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m */; };
 		DBF156E42702DB3F00EC00B7 /* HandleTapAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF156E32702DB3F00EC00B7 /* HandleTapAction.swift */; };
+		DBF1572F27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1572E27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift */; };
 		DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */; };
 		DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */; };
 		DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */; };
@@ -1360,6 +1361,7 @@
 		DBF156E02702DA6800EC00B7 /* Mastodon-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mastodon-Bridging-Header.h"; sourceTree = "<group>"; };
 		DBF156E12702DA6900EC00B7 /* UIStatusBarManager+HandleTapAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIStatusBarManager+HandleTapAction.m"; sourceTree = "<group>"; };
 		DBF156E32702DB3F00EC00B7 /* HandleTapAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleTapAction.swift; sourceTree = "<group>"; };
+		DBF1572E27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryPlaceholderViewController.swift; sourceTree = "<group>"; };
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
@@ -2554,6 +2556,7 @@
 				DB0EF72C26FDB1D600347686 /* View */,
 				DB852D1826FAEB6B00FC9D81 /* SidebarViewController.swift */,
 				DB852D1E26FB037800FC9D81 /* SidebarViewModel.swift */,
+				DBF1572E27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -3972,6 +3975,7 @@
 				DB36679F268ABAF20027D07F /* ComposeStatusAttachmentSection.swift in Sources */,
 				2DA7D04425CA52B200804E11 /* TimelineLoaderTableViewCell.swift in Sources */,
 				DB87D44B2609C11900D12C0D /* PollOptionView.swift in Sources */,
+				DBF1572F27046F1A00EC00B7 /* SecondaryPlaceholderViewController.swift in Sources */,
 				DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */,
 				2D4AD8A826316D3500613EFC /* SelectedAccountItem.swift in Sources */,
 				DBE3CDFB261C6CA500430CC6 /* FavoriteViewModel.swift in Sources */,

@@ -35,6 +35,7 @@ final class SidebarViewController: UIViewController, NeedsDependency {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout() { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
             var configuration = UICollectionLayoutListConfiguration(appearance: .sidebar)
+            configuration.backgroundColor = .clear
             if sectionIndex == SidebarViewModel.Section.tab.rawValue {
                 // with indentation
                 configuration.headerMode = .none
@@ -103,16 +104,23 @@ extension SidebarViewController {
     }
     
     private func setupBackground(theme: Theme) {
+        let color: UIColor = theme.sidebarBackgroundColor
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithOpaqueBackground()
-        barAppearance.backgroundColor = theme.sidebarBackgroundColor
+        barAppearance.backgroundColor = color
         barAppearance.shadowColor = .clear
         barAppearance.shadowImage = UIImage()   // remove separator line
         navigationItem.standardAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
+        if #available(iOS 15.0, *) {
+            navigationItem.compactScrollEdgeAppearance = barAppearance
+        } else {
+            // Fallback on earlier versions
+        }
         
-        view.backgroundColor = theme.sidebarBackgroundColor
+        view.backgroundColor = color
+        collectionView.backgroundColor = color
     }
     
 }
