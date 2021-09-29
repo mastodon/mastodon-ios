@@ -132,7 +132,7 @@ extension RootSplitViewController: SidebarViewControllerDelegate {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectSearchHistory searchHistoryViewModel: SidebarViewModel.SearchHistoryViewModel) {
         // self.sidebarViewController(sidebarViewController, didSelectTab: .search)
         
-        let supplementaryViewController = viewController(for: .supplementary)        
+        let supplementaryViewController = viewController(for: .supplementary)
         let managedObjectContext = context.managedObjectContext
         managedObjectContext.perform {
             let searchHistory = managedObjectContext.object(with: searchHistoryViewModel.searchHistoryObjectID) as! SearchHistory
@@ -200,21 +200,26 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         _ svc: UISplitViewController,
         displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode
     ) -> UISplitViewController.DisplayMode {
+        let compactNavigationController = mainTabBarController.selectedViewController as? UINavigationController
+        let viewControllers = compactNavigationController?.popToRootViewController(animated: true) ?? []
         
+        var supplementaryViewControllers: [UIViewController] = []
+        var secondaryViewControllers: [UIViewController] = []
+        for viewController in viewControllers {
+            if coordinator.secondaryStackHashValues.contains(viewController.hashValue) {
+                secondaryViewControllers.append(viewController)
+            } else {
+                supplementaryViewControllers.append(viewController)
+            }
+            
+        }
+        if let supplementary = viewController(for: .supplementary) as? UINavigationController {
+            supplementary.setViewControllers(supplementary.viewControllers + supplementaryViewControllers, animated: false)
+        }
+        if let secondaryNavigationController = viewController(for: .secondary) as? UINavigationController {
+            secondaryNavigationController.setViewControllers(secondaryNavigationController.viewControllers + secondaryViewControllers, animated: false)
+        }
         return proposedDisplayMode
     }
-    
-    func splitViewController(
-        _ splitViewController: UISplitViewController,
-        show vc: UIViewController,
-        sender: Any?
-    ) -> Bool {
-        if !splitViewController.isCollapsed {
-            // display in .secondary when expand
-            splitViewController.showDetailViewController(vc, sender: sender)
-            return true
-        } else {
-            return false
-        }
-    }
+
 }

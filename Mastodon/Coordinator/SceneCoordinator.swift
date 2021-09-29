@@ -20,6 +20,8 @@ final public class SceneCoordinator {
     
     weak var splitViewController: RootSplitViewController?
     
+    private(set) var secondaryStackHashValues = Set<Int>()
+    
     init(scene: UIScene, sceneDelegate: SceneDelegate, appContext: AppContext) {
         self.scene = scene
         self.sceneDelegate = sceneDelegate
@@ -183,9 +185,13 @@ extension SceneCoordinator {
             {
                 fallthrough
             } else {
+                if secondaryStackHashValues.contains(presentingViewController.hashValue) {
+                    secondaryStackHashValues.insert(viewController.hashValue)
+                }
                 presentingViewController.show(viewController, sender: sender)
             }
         case .showDetail:
+            secondaryStackHashValues.insert(viewController.hashValue)
             let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
             presentingViewController.showDetailViewController(navigationController, sender: sender)
             
