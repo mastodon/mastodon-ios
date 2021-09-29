@@ -439,9 +439,16 @@ extension HomeTimelineViewController {
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         switch scrollView {
         case tableView:
-            // handle scrollToTop
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            guard viewModel.diffableDataSource?.itemIdentifier(for: indexPath) != nil else {
+                return true
+            }
+            // save position
             savePositionBeforeScrollToTop()
-            return true
+            // override by custom scrollToRow
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            return false
         default:
             assertionFailure()
             return true
@@ -449,6 +456,16 @@ extension HomeTimelineViewController {
     }
     
     private func savePositionBeforeScrollToTop() {
+        // check save action interval
+        // should not fast than 0.5s to prevent save when scrollToTop on-flying
+        if let record = viewModel.scrollPositionRecord.value {
+            let now = Date()
+            guard now.timeIntervalSince(record.timestamp) > 0.5 else {
+                // skip this save action
+                return
+            }
+        }
+        
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let anchorIndexPaths = tableView.indexPathsForVisibleRows?.sorted() else { return }
         guard !anchorIndexPaths.isEmpty else { return }
@@ -674,6 +691,8 @@ extension HomeTimelineViewController: HomeTimelineNavigationBarTitleViewDelegate
             guard let diffableDataSource = viewModel.diffableDataSource else { return }
             let indexPath = IndexPath(row: 0, section: 0)
             guard diffableDataSource.itemIdentifier(for: indexPath) != nil else { return }
+        
+            savePositionBeforeScrollToTop()
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         case .offlineButton:
             // TODO: retry
