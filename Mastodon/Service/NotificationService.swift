@@ -27,7 +27,7 @@ final class NotificationService {
     let applicationIconBadgeNeedsUpdate = CurrentValueSubject<Void, Never>(Void())
         
     // output
-    /// [Token: UserID]
+    /// [Token: NotificationViewModel]
     let notificationSubscriptionDict: [String: NotificationViewModel] = [:]
     let unreadNotificationCountDidUpdate = CurrentValueSubject<Void, Never>(Void())
     let requestRevealNotificationPublisher = PassthroughSubject<Mastodon.Entity.Notification.ID, Never>()

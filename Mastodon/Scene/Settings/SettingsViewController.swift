@@ -289,6 +289,9 @@ class SettingsViewController: UIViewController, NeedsDependency {
             return
         }
         
+        // clear badge before sign-out
+        context.notificationService.clearNotificationCountForActiveUser()
+        
         context.authenticationService.signOutMastodonUser(
             domain: activeMastodonAuthenticationBox.domain,
             userID: activeMastodonAuthenticationBox.userID

@@ -18,13 +18,9 @@ extension APIService.CoreData {
         setting: Setting,
         policy: Mastodon.API.Subscriptions.Policy
     ) -> (subscription: Subscription, isCreated: Bool) {
-        let oldSubscription: Subscription? = {
-            let request = Subscription.sortedFetchRequest
-            request.predicate = Subscription.predicate(policyRaw: policy.rawValue)
-            request.fetchLimit = 1
-            request.returnsObjectsAsFaults = false
-            return managedObjectContext.safeFetch(request).first
-        }()
+        let oldSubscription = setting.subscriptions?.first(where: { subscription in
+            subscription.policyRaw == policy.rawValue
+        })
         
         if let oldSubscription = oldSubscription {
             oldSubscription.setting = setting
