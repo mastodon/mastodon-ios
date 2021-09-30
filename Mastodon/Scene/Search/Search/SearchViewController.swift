@@ -94,6 +94,10 @@ final class SearchViewController: UIViewController, NeedsDependency {
     }()
 
     let searchBarTapPublisher = PassthroughSubject<Void, Never>()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 
 }
 

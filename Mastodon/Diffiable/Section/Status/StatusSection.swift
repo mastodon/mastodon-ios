@@ -67,7 +67,6 @@ extension StatusSection {
         timelineContext: TimelineContext,
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>,
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?,
         threadReplyLoaderTableViewCellDelegate: ThreadReplyLoaderTableViewCellDelegate?
@@ -363,7 +362,6 @@ extension StatusSection {
             }
         }()
 
-
         if status.author.id == requestUserID || status.reblog?.author.id == requestUserID {
             // do not filter myself
         } else {
@@ -473,9 +471,10 @@ extension StatusSection {
             .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { [weak cell, weak tableView] change in
+            } receiveValue: { [weak cell, weak tableView, weak dependency] change in
                 guard let cell = cell else { return }
                 guard let tableView = tableView else { return }
+                guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status, !status.isDeleted else {
                     return
@@ -1072,7 +1071,7 @@ extension StatusSection {
                 cell.statusView.actionToolbarContainer.reblogButton.isEnabled = false
             }
         }
-        
+
         // set like
         let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {
@@ -1107,7 +1106,7 @@ extension StatusSection {
             StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
         })
         .store(in: &cell.disposeBag)
-        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+        setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
     
     static func configureStatusAccessibilityLabel(cell: StatusTableViewCell) {

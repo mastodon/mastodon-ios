@@ -42,6 +42,10 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     }()
 
     let refreshControl = UIRefreshControl()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 }
 
 extension NotificationViewController {

@@ -97,7 +97,7 @@ final class ProfileViewController: UIViewController, NeedsDependency, MediaPrevi
     }
     
     deinit {
-        os_log("%{public}s[%{public}ld], %{public}s: deinit", ((#file as NSString).lastPathComponent), #line, #function)
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
 
 }

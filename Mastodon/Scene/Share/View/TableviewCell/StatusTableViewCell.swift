@@ -111,6 +111,10 @@ final class StatusTableViewCell: UITableViewCell, StatusCell {
         _init()
     }
     
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
+    
 }
 
 extension StatusTableViewCell {

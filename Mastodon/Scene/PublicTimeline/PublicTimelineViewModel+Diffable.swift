@@ -17,17 +17,11 @@ extension PublicTimelineViewModel {
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
             timelineContext: .public,
             dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
             threadReplyLoaderTableViewCellDelegate: nil
