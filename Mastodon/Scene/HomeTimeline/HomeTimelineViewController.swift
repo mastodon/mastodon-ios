@@ -336,8 +336,6 @@ extension HomeTimelineViewController {
         emptyView.addArrangedSubview(friendsAssetImageView)
         emptyView.addArrangedSubview(bottomPaddingView)
 
-        friendsAssetImageView.isHidden = traitCollection.userInterfaceIdiom != .phone
-
         topPaddingView.translatesAutoresizingMaskIntoConstraints = false
         bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
