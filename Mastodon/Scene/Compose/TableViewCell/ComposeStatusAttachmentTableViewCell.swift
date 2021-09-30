@@ -35,6 +35,7 @@ final class ComposeStatusAttachmentTableViewCell: UITableViewCell {
         collectionView.isScrollEnabled = false
         return collectionView
     }()
+    let collectionViewHeightDidUpdate = PassthroughSubject<Void, Never>()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,6 +69,7 @@ extension ComposeStatusAttachmentTableViewCell {
         collectionView.observe(\.contentSize, options: [.initial, .new]) { [weak self] collectionView, _ in
             guard let self = self else { return }
             self.collectionViewHeightLayoutConstraint.constant = collectionView.contentSize.height
+            self.collectionViewHeightDidUpdate.send()
         }
         .store(in: &observations)
 

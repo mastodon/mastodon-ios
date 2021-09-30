@@ -47,13 +47,20 @@ extension MainTabBarController.Wizard {
         case multipleAccountSwitch
         
         var title: String {
-            return "New in Mastodon"
+            return L10n.Scene.Wizard.newInMastodon
         }
         
         var description: String {
             switch self {
             case .multipleAccountSwitch:
-                return "Switch between multiple accounts by holding the profile button."
+                return L10n.Scene.Wizard.multipleAccountSwitchIntroDescription
+            }
+        }
+        
+        func markAsRead() {
+            switch self {
+            case .multipleAccountSwitch:
+                UserDefaults.shared.didShowMultipleAccountSwitchWizard = true
             }
         }
     }
@@ -89,7 +96,11 @@ extension MainTabBarController.Wizard {
             return
         }
         
+        // prepare for reuse
         prepareForReuse()
+        
+        // set wizard item read
+        item.markAsRead()
         
         // add spotlight
         let spotlight = delegate.spotlight(item: item)
@@ -118,7 +129,6 @@ extension MainTabBarController.Wizard {
     @objc private func backgroundTapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
         
-        // TODO: toggle current item preference flag
         consume()
     }
 }

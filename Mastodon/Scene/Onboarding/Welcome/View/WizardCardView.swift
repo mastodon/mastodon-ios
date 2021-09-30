@@ -107,4 +107,28 @@ extension WizardCardView {
         backgroundShapeLayer.fillColor = UIColor.white.cgColor
         backgroundShapeLayer.path = path.cgPath
     }
+    
+    override var isAccessibilityElement: Bool {
+        get { true }
+        set { }
+    }
+    
+    override var accessibilityLabel: String? {
+        get {
+            return [
+                titleLabel.text,
+                descriptionLabel.text
+            ]
+            .compactMap { $0 }
+            .joined(separator: " ")
+        }
+        set { }
+    }
+    
+    override var accessibilityHint: String? {
+        get {
+            return L10n.Scene.Wizard.accessibilityHint
+        }
+        set { }
+    }
 }

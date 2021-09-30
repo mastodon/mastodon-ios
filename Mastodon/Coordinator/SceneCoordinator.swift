@@ -18,6 +18,10 @@ final public class SceneCoordinator {
     
     let id = UUID().uuidString
     
+    weak var splitViewController: RootSplitViewController?
+    
+    private(set) var secondaryStackHashValues = Set<Int>()
+    
     init(scene: UIScene, sceneDelegate: SceneDelegate, appContext: AppContext) {
         self.scene = scene
         self.sceneDelegate = sceneDelegate
@@ -112,9 +116,16 @@ extension SceneCoordinator {
 extension SceneCoordinator {
     
     func setup() {
-        let viewController = MainTabBarController(context: appContext, coordinator: self)
-        sceneDelegate.window?.rootViewController = viewController
-        tabBarController = viewController
+        switch UIDevice.current.userInterfaceIdiom {
+        case .phone:
+            let viewController = MainTabBarController(context: appContext, coordinator: self)
+            sceneDelegate.window?.rootViewController = viewController
+            tabBarController = viewController
+        default:
+            let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
+            self.splitViewController = splitViewController
+            sceneDelegate.window?.rootViewController = splitViewController
+        }
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
@@ -167,9 +178,20 @@ extension SceneCoordinator {
         
         switch transition {
         case .show:
-            presentingViewController.show(viewController, sender: sender)
-            
+            if let splitViewController = splitViewController, !splitViewController.isCollapsed,
+               let supplementaryViewController = splitViewController.viewController(for: .supplementary) as? UINavigationController,
+               (supplementaryViewController === presentingViewController || supplementaryViewController.viewControllers.contains(presentingViewController)) ||
+                (presentingViewController is UserTimelineViewController && presentingViewController.view.isDescendant(of: supplementaryViewController.view))
+            {
+                fallthrough
+            } else {
+                if secondaryStackHashValues.contains(presentingViewController.hashValue) {
+                    secondaryStackHashValues.insert(viewController.hashValue)
+                }
+                presentingViewController.show(viewController, sender: sender)
+            }
         case .showDetail:
+            secondaryStackHashValues.insert(viewController.hashValue)
             let navigationController = AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
             presentingViewController.showDetailViewController(navigationController, sender: sender)
             
@@ -197,7 +219,7 @@ extension SceneCoordinator {
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
-            sender?.present(viewController, animated: true, completion: nil)
+            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
             
         case .customPush:
             // set delegate in view controller

@@ -129,6 +129,9 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "読込中...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "リプライをもっとみる";
 "Common.Controls.Timeline.Timestamp.Now" = "今";
+"Scene.AccountList.AddAccount" = "Add Account";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "アタッチメントの追加";
 "Scene.Compose.Accessibility.AppendPoll" = "投票を追加";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "カスタム絵文字ピッカー";
@@ -331,3 +334,6 @@
 "Scene.Thread.Title" = "%@の投稿";
 "Scene.Welcome.Slogan" = "Social networking
 back in your hands.";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
+"Scene.Wizard.NewInMastodon" = "New in Mastodon";

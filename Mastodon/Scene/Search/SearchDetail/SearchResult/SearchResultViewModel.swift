@@ -146,44 +146,57 @@ extension SearchResultViewModel {
         let domain = box.domain
 
         switch item {
-        case .account(let account):
+        case .account(let entity):
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
                 let (user, _) = APIService.CoreData.createOrMergeMastodonUser(
                     into: managedObjectContext,
                     for: nil,
                     in: domain,
-                    entity: account,
+                    entity: entity,
                     userCache: nil,
                     networkDate: Date(),
                     log: OSLog.api
                 )
-                if let searchHistory = user.searchHistory {
+                if let searchHistory = user.findSearchHistory(domain: box.domain, userID: box.userID) {
                     searchHistory.update(updatedAt: Date())
                 } else {
                     SearchHistory.insert(into: managedObjectContext, property: property, account: user)
                 }
             }
             .sink { result in
-                // do nothing
+                switch result {
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                case .success:
+                    break
+                }
             }
             .store(in: &context.disposeBag)
 
-        case .hashtag(let hashtag):
+        case .hashtag(let entity):
             let managedObjectContext = context.backgroundManagedObjectContext
+            var tag: Tag?
             managedObjectContext.performChanges {
                 let (hashtag, _) = APIService.CoreData.createOrMergeTag(
                     into: managedObjectContext,
-                    entity: hashtag
+                    entity: entity
                 )
-                if let searchHistory = hashtag.searchHistory {
+                tag = hashtag
+                if let searchHistory = hashtag.findSearchHistory(domain: box.domain, userID: box.userID) {
                     searchHistory.update(updatedAt: Date())
                 } else {
-                    SearchHistory.insert(into: managedObjectContext, property: property, hashtag: hashtag)
+                    _ = SearchHistory.insert(into: managedObjectContext, property: property, hashtag: hashtag)
                 }
             }
             .sink { result in
-                // do nothing
+                switch result {
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                case .success:
+                    print(tag?.searchHistories)
+                    break
+                }
             }
             .store(in: &context.disposeBag)
 

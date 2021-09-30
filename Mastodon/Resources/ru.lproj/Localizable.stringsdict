@@ -2,10 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 unread notification</string>
+        <key>few</key>
+        <string>%ld unread notification</string>
+        <key>many</key>
+        <string>%ld unread notification</string>
+        <key>other</key>
+        <string>%ld unread notification</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Лимит превышен на %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +33,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld символ</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld символа</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld символов</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld символа</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>%#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>%ld символ остался</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld символа осталось</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld символов осталось</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld символа осталось</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -53,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>пост</string>
         <key>few</key>
-        <string>posts</string>
+        <string>поста</string>
         <key>many</key>
-        <string>posts</string>
+        <string>постов</string>
         <key>other</key>
-        <string>posts</string>
+        <string>поста</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -133,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>%ld голос</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld голоса</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld голосов</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld голоса</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>

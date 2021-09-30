@@ -39,6 +39,24 @@ extension ComposeViewModel {
 
         // setup data source
         tableView.dataSource = self
+        
+        composeStatusAttachmentTableViewCell.collectionViewHeightDidUpdate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let _ = self else { return }
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+            .store(in: &disposeBag)
+        
+//        composeStatusPollTableViewCell.collectionViewHeightDidUpdate
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] _ in
+//                guard let _ = self else { return }
+//                tableView.beginUpdates()
+//                tableView.endUpdates()
+//            }
+//            .store(in: &disposeBag)
 
         attachmentServices
             .removeDuplicates()
@@ -55,10 +73,10 @@ extension ComposeViewModel {
                 let items = attachmentServices.map { ComposeStatusAttachmentItem.attachment(attachmentService: $0) }
                 snapshot.appendItems(items, toSection: .main)
 
-                tableView.performBatchUpdates {
-                    dataSource.apply(snapshot, animatingDifferences: true)
-                } completion: { _ in
-                    // do nothing
+                if #available(iOS 15.0, *) {
+                    dataSource.applySnapshotUsingReloadData(snapshot)
+                } else {
+                    dataSource.apply(snapshot, animatingDifferences: false)
                 }
             }
             .store(in: &disposeBag)
@@ -90,9 +108,11 @@ extension ComposeViewModel {
             snapshot.appendItems(items, toSection: .main)
 
             tableView.performBatchUpdates {
-                dataSource.apply(snapshot, animatingDifferences: true)
-            } completion: { _ in
-                // do nothing
+                if #available(iOS 15.0, *) {
+                    dataSource.apply(snapshot, animatingDifferences: false)
+                } else {
+                    dataSource.apply(snapshot, animatingDifferences: true)
+                }
             }
         }
         .store(in: &disposeBag)

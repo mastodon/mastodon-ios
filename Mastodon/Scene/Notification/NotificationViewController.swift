@@ -42,6 +42,10 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     }()
 
     let refreshControl = UIRefreshControl()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 }
 
 extension NotificationViewController {
@@ -166,6 +170,16 @@ extension NotificationViewController {
                 self.viewModel.loadLatestStateMachine.enter(NotificationViewModel.LoadLatestState.Loading.self)
             }
         }
+        
+        // reset notification count
+        context.notificationService.clearNotificationCountForActiveUser()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // reset notification count
+        context.notificationService.clearNotificationCountForActiveUser()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

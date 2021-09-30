@@ -133,6 +133,9 @@ Tu perfil se ve así para él.";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Cargando publicaciones faltantes...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Mostrar más respuestas";
 "Common.Controls.Timeline.Timestamp.Now" = "Ahora";
+"Scene.AccountList.AddAccount" = "Add Account";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "Añadir Adjunto";
 "Scene.Compose.Accessibility.AppendPoll" = "Añadir Encuesta";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Selector de Emojis Personalizados";
@@ -338,3 +341,6 @@ cualquier servidor.";
 "Scene.Thread.Title" = "Publicación de %@";
 "Scene.Welcome.Slogan" = "Las redes sociales
 de nuevo en tus manos.";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
+"Scene.Wizard.NewInMastodon" = "New in Mastodon";

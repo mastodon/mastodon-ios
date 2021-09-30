@@ -55,6 +55,7 @@ extension MediaPreviewViewController {
         overrideUserInterfaceStyle = .dark
         
         visualEffectView.frame = view.bounds
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(visualEffectView)
         
         pagingViewController.view.translatesAutoresizingMaskIntoConstraints = false

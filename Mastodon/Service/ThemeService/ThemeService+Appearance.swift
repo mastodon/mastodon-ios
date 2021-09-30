@@ -24,6 +24,9 @@ extension ThemeService {
         UINavigationBar.appearance().standardAppearance = appearance
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        if #available(iOS 15.0, *) {
+            UINavigationBar.appearance().compactScrollEdgeAppearance = appearance
+        }
 
         // set tab bar appearance
         let tabBarAppearance = UITabBarAppearance()

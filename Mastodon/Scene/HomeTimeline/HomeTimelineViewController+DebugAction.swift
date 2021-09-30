@@ -26,14 +26,7 @@ extension HomeTimelineViewController {
                 showMenu,
                 moveMenu,
                 dropMenu,
-                UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    if self.emptyView.superview != nil {
-                        self.emptyView.removeFromSuperview()
-                    } else {
-                        self.showEmptyView()
-                    }
-                },
+                miscMenu,
                 UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showSettings(action)
@@ -139,6 +132,49 @@ extension HomeTimelineViewController {
             }
         )
     }
+    
+    var miscMenu: UIMenu {
+        return UIMenu(
+            title: "Debug…",
+            image: UIImage(systemName: "switch.2"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    if self.emptyView.superview != nil {
+                        self.emptyView.removeFromSuperview()
+                    } else {
+                        self.showEmptyView()
+                    }
+                },
+                UIAction(
+                    title: "Notification badge +1",
+                    image: UIImage(systemName: "1.circle.fill"),
+                    identifier: nil,
+                    attributes: [],
+                    state: .off,
+                    handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
+                        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+                        self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
+                    }
+                ),
+                UIAction(
+                    title: "Enable account switcher wizard",
+                    image: UIImage(systemName: "square.stack.3d.down.forward.fill"),
+                    identifier: nil,
+                    attributes: [],
+                    state: .off,
+                    handler: { _ in 
+                        UserDefaults.shared.didShowMultipleAccountSwitchWizard = false
+                    }
+                ),
+            ]
+        )
+    }
+    
 }
 
 extension HomeTimelineViewController {

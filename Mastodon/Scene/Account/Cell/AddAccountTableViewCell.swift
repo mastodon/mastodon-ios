@@ -20,7 +20,7 @@ final class AddAccountTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .regular), maximumPointSize: 22)
         label.textColor = Asset.Colors.Label.primary.color
-        label.text = "Add Account"  // TODO: i18n
+        label.text = L10n.Scene.AccountList.addAccount
         return label
     }()
     let usernameLabel = MetaLabel(style: .accountListUsername)
@@ -55,9 +55,9 @@ extension AddAccountTableViewCell {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
-            contentView.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 19),
+            contentView.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
             iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0).priority(.required - 10),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])

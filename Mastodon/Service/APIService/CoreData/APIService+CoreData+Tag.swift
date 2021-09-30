@@ -15,7 +15,7 @@ extension APIService.CoreData {
         into managedObjectContext: NSManagedObjectContext,
         entity: Mastodon.Entity.Tag
     ) -> (Tag: Tag, isCreated: Bool) {
-        // fetch old mastodon user
+        // fetch old hashtag 
         let oldTag: Tag? = {
             let request = Tag.sortedFetchRequest
             request.predicate = Tag.predicate(name: entity.name)

@@ -100,6 +100,11 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         let notificationID = String(mastodonPushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+        
+        let accessToken = mastodonPushNotification.accessToken
+        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+        appContext.notificationService.applicationIconBadgeNeedsUpdate.send()
+        
         appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
         completionHandler([.sound])
     }

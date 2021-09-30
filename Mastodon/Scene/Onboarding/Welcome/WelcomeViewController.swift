@@ -240,7 +240,16 @@ extension WelcomeViewController: OnboardingViewControllerAppearance { }
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        // make underneath view controller alive to fix layout issue due to view life cycle
-        return .fullScreen
+        switch traitCollection.userInterfaceIdiom {
+        case .phone:
+            // make underneath view controller alive to fix layout issue due to view life cycle
+            return .fullScreen
+        default:
+            return .pageSheet
+        }
+    }
+    
+    func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+        return false
     }
 }

@@ -534,6 +534,16 @@
                 "show_next": "Mostrar Següent",
                 "show_previous": "Mostrar Anterior"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Perfil actual seleccionat: %s. Toca dues vegades i manté el dit per a mostrar el commutador de comptes",
+            "dismiss_account_switcher": "Descartar el commutador de comptes",
+            "add_account": "Afegir compte"
+        },
+        "wizard": {
+            "new_in_mastodon": "Nou a Mastodon",
+            "multiple_account_switch_intro_description": "Commuta entre diversos comptes mantenint premut el botó del perfil.",
+            "accessibility_hint": "Toca dues vegades per descartar l'assistent"
         }
     }
 }

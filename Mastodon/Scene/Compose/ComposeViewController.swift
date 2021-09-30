@@ -18,7 +18,7 @@ import MastodonUI
 final class ComposeViewController: UIViewController, NeedsDependency {
     
     static let minAutoCompleteVisibleHeight: CGFloat = 100
-    
+        
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -26,9 +26,20 @@ final class ComposeViewController: UIViewController, NeedsDependency {
     var viewModel: ComposeViewModel!
 
     let logger = Logger(subsystem: "ComposeViewController", category: "logic")
-
-    private var suffixedAttachmentViews: [UIView] = []
     
+    private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
+    let characterCountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.text = "500"
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(500)
+        return label
+    }()
+    private(set) lazy var characterCountBarButtonItem: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(customView: characterCountLabel)
+        return barButtonItem
+    }()
     let publishButton: UIButton = {
         let button = RoundedEdgesButton(type: .custom)
         button.setTitle(L10n.Scene.Compose.composeAction, for: .normal)
@@ -41,8 +52,6 @@ final class ComposeViewController: UIViewController, NeedsDependency {
         button.adjustsImageWhenHighlighted = false
         return button
     }()
-    
-    private(set) lazy var cancelBarButtonItem = UIBarButtonItem(title: L10n.Common.Controls.Actions.cancel, style: .plain, target: self, action: #selector(ComposeViewController.cancelBarButtonItemPressed(_:)))
     private(set) lazy var publishBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem(customView: publishButton)
         return barButtonItem
@@ -136,6 +145,15 @@ extension ComposeViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureNavigationBarTitleStyle()
+        viewModel.traitCollectionDidChangePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.configureNavigationBarTitleStyle()
+            }
+            .store(in: &disposeBag)
         
         viewModel.title
             .receive(on: DispatchQueue.main)
@@ -154,6 +172,18 @@ extension ComposeViewController {
             .store(in: &disposeBag)
         navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = publishBarButtonItem
+        viewModel.traitCollectionDidChangePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                guard self.traitCollection.userInterfaceIdiom == .pad else { return }
+                var items = [self.publishBarButtonItem]
+                if self.traitCollection.horizontalSizeClass == .regular {
+                    items.append(self.characterCountBarButtonItem)
+                }
+                self.navigationItem.rightBarButtonItems = items
+            }
+            .store(in: &disposeBag)
         publishButton.addTarget(self, action: #selector(ComposeViewController.publishBarButtonItemPressed(_:)), for: .touchUpInside)
 
 
@@ -219,8 +249,12 @@ extension ComposeViewController {
             dependency: self
         )
         
+        viewModel.composeStatusContentTableViewCell.delegate = self
+
         // update layout when keyboard show/dismiss
         view.layoutIfNeeded()
+        
+        let keyboardHasShortcutBar = CurrentValueSubject<Bool, Never>(traitCollection.userInterfaceIdiom == .pad)       // update default value later
         let keyboardEventPublishers = Publishers.CombineLatest3(
             KeyboardResponderService.shared.isShow,
             KeyboardResponderService.shared.state,
@@ -233,8 +267,16 @@ extension ComposeViewController {
         )
         .sink(receiveValue: { [weak self] keyboardEvents, isCustomEmojiComposing, autoCompleteInfo in
             guard let self = self else { return }
-
+            
             let (isShow, state, endFrame) = keyboardEvents
+            
+            switch self.traitCollection.userInterfaceIdiom {
+            case .pad:
+                keyboardHasShortcutBar.value = state != .floating
+            default:
+                keyboardHasShortcutBar.value = false
+            }
+            
             let extraMargin: CGFloat = {
                 var margin = self.composeToolbarView.frame.height
                 if autoCompleteInfo != nil {
@@ -330,13 +372,21 @@ extension ComposeViewController {
         // bind media button toolbar state
         viewModel.isMediaToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: composeToolbarView.mediaButton)
+            .sink { [weak self] isMediaToolbarButtonEnabled in
+                guard let self = self else { return }
+                self.composeToolbarView.mediaBarButtonItem.isEnabled = isMediaToolbarButtonEnabled
+                self.composeToolbarView.mediaButton.isEnabled = isMediaToolbarButtonEnabled
+            }
             .store(in: &disposeBag)
         
         // bind poll button toolbar state
         viewModel.isPollToolbarButtonEnabled
             .receive(on: DispatchQueue.main)
-            .assign(to: \.isEnabled, on: composeToolbarView.pollButton)
+            .sink { [weak self] isPollToolbarButtonEnabled in
+                guard let self = self else { return }
+                self.composeToolbarView.pollBarButtonItem.isEnabled = isPollToolbarButtonEnabled
+                self.composeToolbarView.pollButton.isEnabled = isPollToolbarButtonEnabled
+            }
             .store(in: &disposeBag)
         
         Publishers.CombineLatest(
@@ -347,10 +397,14 @@ extension ComposeViewController {
         .sink { [weak self] isPollComposing, isPollToolbarButtonEnabled in
             guard let self = self else { return }
             guard isPollToolbarButtonEnabled else {
-                self.composeToolbarView.pollButton.accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+                let accessibilityLabel = L10n.Scene.Compose.Accessibility.appendPoll
+                self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
+                self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
                 return
             }
-            self.composeToolbarView.pollButton.accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+            let accessibilityLabel = isPollComposing ? L10n.Scene.Compose.Accessibility.removePoll : L10n.Scene.Compose.Accessibility.appendPoll
+            self.composeToolbarView.pollBarButtonItem.accessibilityLabel = accessibilityLabel
+            self.composeToolbarView.pollButton.accessibilityLabel = accessibilityLabel
         }
         .store(in: &disposeBag)
 
@@ -359,7 +413,9 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] attachmentServices in
                 guard let self = self else { return }
-                self.composeToolbarView.mediaButton.isEnabled = attachmentServices.count < 4
+                let isEnabled = attachmentServices.count < 4
+                self.composeToolbarView.mediaBarButtonItem.isEnabled = isEnabled
+                self.composeToolbarView.mediaButton.isEnabled = isEnabled
                 self.resetImagePicker()
             }
             .store(in: &disposeBag)
@@ -369,7 +425,9 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isContentWarningComposing in
                 guard let self = self else { return }
-                self.composeToolbarView.contentWarningButton.accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
+                let accessibilityLabel = isContentWarningComposing ? L10n.Scene.Compose.Accessibility.disableContentWarning : L10n.Scene.Compose.Accessibility.enableContentWarning
+                self.composeToolbarView.contentWarningBarButtonItem.accessibilityLabel = accessibilityLabel
+                self.composeToolbarView.contentWarningButton.accessibilityLabel = accessibilityLabel
             }
             .store(in: &disposeBag)
         
@@ -382,6 +440,7 @@ extension ComposeViewController {
         .sink { [weak self] type, _ in
             guard let self = self else { return }
             let image = type.image(interfaceStyle: self.traitCollection.userInterfaceStyle)
+            self.composeToolbarView.visibilityBarButtonItem.image = image
             self.composeToolbarView.visibilityButton.setImage(image, for: .normal)
             self.composeToolbarView.activeVisibilityType.value = type
         }
@@ -393,16 +452,27 @@ extension ComposeViewController {
                 guard let self = self else { return }
                 let count = ComposeViewModel.composeContentLimit - characterCount
                 self.composeToolbarView.characterCountLabel.text = "\(count)"
+                self.characterCountLabel.text = "\(count)"
+                let font: UIFont
+                let textColor: UIColor
+                let accessibilityLabel: String
                 switch count {
                 case _ where count < 0:
-                    self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
-                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.danger.color
-                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
+                    font = .monospacedDigitSystemFont(ofSize: 24, weight: .bold)
+                    textColor = Asset.Colors.danger.color
+                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitExceeds(abs(count))
                 default:
-                    self.composeToolbarView.characterCountLabel.font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
-                    self.composeToolbarView.characterCountLabel.textColor = Asset.Colors.Label.secondary.color
-                    self.composeToolbarView.characterCountLabel.accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
+                    font = .monospacedDigitSystemFont(ofSize: 15, weight: .regular)
+                    textColor = Asset.Colors.Label.secondary.color
+                    accessibilityLabel = L10n.A11y.Plural.Count.inputLimitRemains(count)
                 }
+                self.composeToolbarView.characterCountLabel.font = font
+                self.composeToolbarView.characterCountLabel.textColor = textColor
+                self.composeToolbarView.characterCountLabel.accessibilityLabel = accessibilityLabel
+                self.characterCountLabel.font = font
+                self.characterCountLabel.textColor = textColor
+                self.characterCountLabel.accessibilityLabel = accessibilityLabel
+                self.characterCountLabel.sizeToFit()
             }
             .store(in: &disposeBag)
 
@@ -443,6 +513,18 @@ extension ComposeViewController {
             case .expand:
                 self.tableView.contentInset.top = 0
             }
+        }
+        .store(in: &disposeBag)
+        
+        configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar.value)
+        Publishers.CombineLatest(
+            keyboardHasShortcutBar,
+            viewModel.traitCollectionDidChangePublisher
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] keyboardHasShortcutBar, _ in
+            guard let self = self else { return }
+            self.configureToolbarDisplay(keyboardHasShortcutBar: keyboardHasShortcutBar)
         }
         .store(in: &disposeBag)
     }
@@ -556,11 +638,7 @@ extension ComposeViewController {
     }
     
     private func showDismissConfirmAlertController() {
-        let alertController = UIAlertController(
-            title: L10n.Common.Alerts.DiscardPostContent.title,
-            message: L10n.Common.Alerts.DiscardPostContent.message,
-            preferredStyle: .alert
-        )
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let discardAction = UIAlertAction(title: L10n.Common.Controls.Actions.discard, style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.dismiss(animated: true, completion: nil)
@@ -568,6 +646,7 @@ extension ComposeViewController {
         alertController.addAction(discardAction)
         let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .cancel)
         alertController.addAction(cancelAction)
+        alertController.popoverPresentationController?.barButtonItem = cancelBarButtonItem
         present(alertController, animated: true, completion: nil)
     }
     
@@ -587,6 +666,37 @@ extension ComposeViewController {
         view.backgroundColor = theme.systemElevatedBackgroundColor
         tableView.backgroundColor = theme.systemElevatedBackgroundColor
         composeToolbarBackgroundView.backgroundColor = theme.composeToolbarBackgroundColor
+    }
+    
+    private func setupInputAssistantItem(item: UITextInputAssistantItem) {
+        let groups = [UIBarButtonItemGroup(barButtonItems: [
+            composeToolbarView.mediaBarButtonItem,
+            composeToolbarView.pollBarButtonItem,
+            composeToolbarView.contentWarningBarButtonItem,
+            composeToolbarView.visibilityBarButtonItem,
+        ], representativeItem: nil)]
+        
+        item.trailingBarButtonGroups = groups
+    }
+    
+    private func configureToolbarDisplay(keyboardHasShortcutBar: Bool) {
+        switch self.traitCollection.userInterfaceIdiom {
+        case .pad:
+            let shouldHideToolbar = keyboardHasShortcutBar && self.traitCollection.horizontalSizeClass == .regular
+            self.composeToolbarView.alpha = shouldHideToolbar ? 0 : 1
+            self.composeToolbarBackgroundView.alpha = shouldHideToolbar ? 0 : 1
+        default:
+            break
+        }
+    }
+    
+    private func configureNavigationBarTitleStyle() {
+        switch traitCollection.userInterfaceIdiom {
+        case .pad:
+            navigationController?.navigationBar.prefersLargeTitles = traitCollection.horizontalSizeClass == .regular
+        default:
+            break
+        }
     }
 
 }
@@ -639,6 +749,20 @@ extension ComposeViewController: MetaTextDelegate {
 
 // MARK: - UITextViewDelegate
 extension ComposeViewController: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        setupInputAssistantItem(item: textView.inputAssistantItem)
+        return true
+    }
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        switch textView {
+//        case textEditorView()?.textView:
+//            setupInputAssistantItem(item: textView.inputAssistantItem)
+//        default:
+//            assertionFailure()
+//            break
+//        }
+//    }
 
     func textViewDidChange(_ textView: UITextView) {
         if textEditorView()?.textView === textView {
@@ -779,7 +903,7 @@ extension ComposeViewController: UITextViewDelegate {
 // MARK: - ComposeToolbarViewDelegate
 extension ComposeViewController: ComposeToolbarViewDelegate {
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: UIButton, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, cameraButtonDidPressed sender: Any, mediaSelectionType type: ComposeToolbarView.MediaSelectionType) {
         switch type {
         case .photoLibrary:
             present(photoLibraryPicker, animated: true, completion: nil)
@@ -790,7 +914,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         }
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: UIButton) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, pollButtonDidPressed sender: Any) {
         // toggle poll composing state
         viewModel.isPollComposing.value.toggle()
 
@@ -812,11 +936,11 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         }
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: UIButton) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, emojiButtonDidPressed sender: Any) {
         viewModel.isCustomEmojiComposing.value.toggle()
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: UIButton) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, contentWarningButtonDidPressed sender: Any) {
         // cancel custom picker input
         viewModel.isCustomEmojiComposing.value = false
 
@@ -836,7 +960,7 @@ extension ComposeViewController: ComposeToolbarViewDelegate {
         }
     }
     
-    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: UIButton, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
+    func composeToolbarView(_ composeToolbarView: ComposeToolbarView, visibilityButtonDidPressed sender: Any, visibilitySelectionType type: ComposeToolbarView.VisibilitySelectionType) {
         viewModel.selectedStatusVisibility.value = type
     }
     
@@ -924,8 +1048,12 @@ extension ComposeViewController: UICollectionViewDelegate {
 extension ComposeViewController: UIAdaptivePresentationControllerDelegate {
     
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .overFullScreen
-        //return traitCollection.userInterfaceIdiom == .pad ? .formSheet : .automatic
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            return .overFullScreen
+        default:
+            return .pageSheet
+        }
     }
 
     func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
@@ -1022,6 +1150,9 @@ extension ComposeViewController: ComposeStatusAttachmentCollectionViewCellDelega
 extension ComposeViewController: ComposeStatusPollOptionCollectionViewCellDelegate {
     
     func composeStatusPollOptionCollectionViewCell(_ cell: ComposeStatusPollOptionCollectionViewCell, textFieldDidBeginEditing textField: UITextField) {
+        
+        setupInputAssistantItem(item: textField.inputAssistantItem)
+        
         // FIXME: make poll section visible
         // DispatchQueue.main.async {
         //     self.collectionView.scroll(to: .bottom, animated: true)
@@ -1115,6 +1246,14 @@ extension ComposeViewController: ComposeStatusPollOptionAppendEntryCollectionVie
 extension ComposeViewController: ComposeStatusPollExpiresOptionCollectionViewCellDelegate {
     func composeStatusPollExpiresOptionCollectionViewCell(_ cell: ComposeStatusPollExpiresOptionCollectionViewCell, didSelectExpiresOption expiresOption: ComposeStatusPollItem.PollExpiresOptionAttribute.ExpiresOption) {
         viewModel.pollExpiresOptionAttribute.expiresOption.value = expiresOption
+    }
+}
+
+// MARK: - ComposeStatusContentTableViewCellDelegate
+extension ComposeViewController: ComposeStatusContentTableViewCellDelegate {
+    func composeStatusContentTableViewCell(_ cell: ComposeStatusContentTableViewCell, textViewShouldBeginEditing textView: UITextView) -> Bool {
+        setupInputAssistantItem(item: textView.inputAssistantItem)
+        return true
     }
 }
 

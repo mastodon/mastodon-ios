@@ -19,12 +19,12 @@ class MainTabBarController: UITabBarController {
     weak var context: AppContext!
     weak var coordinator: SceneCoordinator!
     
-    static let avatarButtonSize = CGSize(width: 28, height: 28)
+    static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
 
     let wizard = Wizard()
     
-    var currentTab = Tab.home
+    var currentTab = CurrentValueSubject<Tab, Never>(.home)
         
     enum Tab: Int, CaseIterable {
         case home
@@ -63,6 +63,15 @@ class MainTabBarController: UITabBarController {
             }
         }
         
+        var sidebarImage: UIImage {
+            switch self {
+            case .home:             return UIImage(systemName: "house")!
+            case .search:           return UIImage(systemName: "magnifyingglass")!
+            case .notification:     return UIImage(systemName: "bell")!
+            case .me:               return UIImage(systemName: "person.fill")!
+            }
+        }
+        
         func viewController(context: AppContext, coordinator: SceneCoordinator) -> UIViewController {
             let viewController: UIViewController
             switch self {
@@ -96,6 +105,8 @@ class MainTabBarController: UITabBarController {
             return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
         }
     }
+    
+    var _viewControllers: [UIViewController] = []
     
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.context = context
@@ -140,6 +151,7 @@ extension MainTabBarController {
             viewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             return viewController
         }
+        _viewControllers = viewControllers
         setViewControllers(viewControllers, animated: false)
         selectedIndex = 0
 
@@ -194,17 +206,25 @@ extension MainTabBarController {
             .store(in: &disposeBag)
                 
         // handle push notification. toggle entry when finish fetch latest notification
-        context.notificationService.hasUnreadPushNotification
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] hasUnreadPushNotification in
-                guard let self = self else { return }
-                guard let notificationViewController = self.notificationViewController else { return }
-                
-                let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
-                notificationViewController.tabBarItem.image = image
-                notificationViewController.navigationController?.tabBarItem.image = image
-            }
-            .store(in: &disposeBag)
+        Publishers.CombineLatest(
+            context.authenticationService.activeMastodonAuthentication,
+            context.notificationService.unreadNotificationCountDidUpdate
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] authentication, _ in
+            guard let self = self else { return }
+            guard let notificationViewController = self.notificationViewController else { return }
+            
+            let hasUnreadPushNotification: Bool = authentication.flatMap { authentication in
+                let count = UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: authentication.userAccessToken)
+                return count > 0
+            } ?? false
+            
+            let image = hasUnreadPushNotification ? UIImage(systemName: "bell.badge.fill")! : UIImage(systemName: "bell.fill")!
+            notificationViewController.tabBarItem.image = image
+            notificationViewController.navigationController?.tabBarItem.image = image
+        }
+        .store(in: &disposeBag)
         
         context.notificationService.requestRevealNotificationPublisher
             .receive(on: DispatchQueue.main)
@@ -234,7 +254,7 @@ extension MainTabBarController {
                 guard let profileTabItem = _profileTabItem else { return }
                 
                 let currentUserDisplayName = activeMastodonAuthentication?.user.displayNameWithFallback ?? "no user"
-                profileTabItem.accessibilityHint = "Current selected profile: \(currentUserDisplayName). Double tap then hold to show account switcher"
+                profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             }
             .store(in: &disposeBag)
         
@@ -244,7 +264,9 @@ extension MainTabBarController {
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
-
+        
+        updateTabBarDisplay()
+        
         #if DEBUG
 //        selectedIndex = 1
         #endif
@@ -255,7 +277,24 @@ extension MainTabBarController {
         
         wizard.consume()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateTabBarDisplay()
+    }
 
+}
+
+extension MainTabBarController {
+    private func updateTabBarDisplay() {
+        switch traitCollection.horizontalSizeClass {
+        case .compact:
+            tabBar.isHidden = false
+        default:
+            tabBar.isHidden = true
+        }
+    }
 }
 
 extension MainTabBarController {
@@ -306,7 +345,7 @@ extension MainTabBarController {
         view.addSubview(self.avatarButton)
         NSLayoutConstraint.activate([
             self.avatarButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor),
+            self.avatarButton.centerYAnchor.constraint(equalTo: anchorImageView.centerYAnchor, constant: 1.5),   // 1.5pt offset
             self.avatarButton.widthAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.width).priority(.required - 1),
             self.avatarButton.heightAnchor.constraint(equalToConstant: MainTabBarController.avatarButtonSize.height).priority(.required - 1),
         ])
@@ -331,10 +370,10 @@ extension MainTabBarController: UITabBarControllerDelegate {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: select %s", ((#file as NSString).lastPathComponent), #line, #function, viewController.debugDescription)
         defer {
             if let tab = Tab(rawValue: tabBarController.selectedIndex) {
-                currentTab = tab
+                currentTab.value = tab
             }
         }
-        guard currentTab.rawValue == tabBarController.selectedIndex,
+        guard currentTab.value.rawValue == tabBarController.selectedIndex,
               let navigationController = viewController as? UINavigationController,
               navigationController.viewControllers.count == 1,
               let scrollViewContainer = navigationController.topViewController as? ScrollViewContainer else {
@@ -505,7 +544,7 @@ extension MainTabBarController {
         let previousTab = Tab(rawValue: selectedIndex)
         selectedIndex = index
         if let tab = Tab(rawValue: index) {
-            currentTab = tab
+            currentTab.value = tab
         }
 
         if let previousTab = previousTab {

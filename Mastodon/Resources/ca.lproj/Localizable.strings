@@ -133,6 +133,9 @@ El teu perfil els sembla així.";
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Carregant les publicacions que falten...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Mostra més respostes";
 "Common.Controls.Timeline.Timestamp.Now" = "Ara";
+"Scene.AccountList.AddAccount" = "Afegir compte";
+"Scene.AccountList.DismissAccountSwitcher" = "Descartar el commutador de comptes";
+"Scene.AccountList.TabBarHint" = "Perfil actual seleccionat: %@. Toca dues vegades i manté el dit per a mostrar el commutador de comptes";
 "Scene.Compose.Accessibility.AppendAttachment" = "Afegeix Adjunt";
 "Scene.Compose.Accessibility.AppendPoll" = "Afegir enquesta";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Selector d'Emoji Personalitzat";
@@ -338,3 +341,6 @@ qualsevol servidor.";
 "Scene.Thread.Title" = "Publicació de %@";
 "Scene.Welcome.Slogan" = "Xarxa social
 de nou a les teves mans.";
+"Scene.Wizard.AccessibilityHint" = "Toca dues vegades per descartar l'assistent";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Commuta entre diversos comptes mantenint premut el botó del perfil.";
+"Scene.Wizard.NewInMastodon" = "Nou a Mastodon";

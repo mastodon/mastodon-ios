@@ -17,6 +17,13 @@ final class AccountListTableViewCell: UITableViewCell {
     let avatarButton = CircleAvatarButton(frame: .zero)
     let nameLabel = MetaLabel(style: .accountListName)
     let usernameLabel = MetaLabel(style: .accountListUsername)
+    let badgeButton = BadgeButton()
+    let checkmarkImageView: UIImageView = {
+        let image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold))
+        let imageView = UIImageView(image: image)
+        imageView.tintColor = .label
+        return imageView
+    }()
     let separatorLine = UIView.separatorLine
     
     override func prepareForReuse() {
@@ -63,15 +70,36 @@ extension AccountListTableViewCell {
             labelContainerStackView.leadingAnchor.constraint(equalTo: avatarButton.trailingAnchor, constant: 10),
             contentView.bottomAnchor.constraint(equalTo: labelContainerStackView.bottomAnchor, constant: 10),
             avatarButton.heightAnchor.constraint(equalTo: labelContainerStackView.heightAnchor, multiplier: 0.8).priority(.required - 10),
-            labelContainerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
 
         labelContainerStackView.addArrangedSubview(nameLabel)
         labelContainerStackView.addArrangedSubview(usernameLabel)
-
+        
+        badgeButton.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(badgeButton)
+        NSLayoutConstraint.activate([
+            badgeButton.leadingAnchor.constraint(equalTo: labelContainerStackView.trailingAnchor, constant: 4),
+            badgeButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            badgeButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 16).priority(.required - 1),
+            badgeButton.widthAnchor.constraint(equalTo: badgeButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
+        ])
+        badgeButton.setContentHuggingPriority(.required - 10, for: .horizontal)
+        badgeButton.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
+        
+        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(checkmarkImageView)
+        NSLayoutConstraint.activate([
+            checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkmarkImageView.leadingAnchor.constraint(equalTo: badgeButton.trailingAnchor, constant: 12),
+            checkmarkImageView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+        ])
+        checkmarkImageView.setContentHuggingPriority(.required - 9, for: .horizontal)
+        checkmarkImageView.setContentCompressionResistancePriority(.required - 9, for: .horizontal)
+        
         avatarButton.isUserInteractionEnabled = false
         nameLabel.isUserInteractionEnabled = false
         usernameLabel.isUserInteractionEnabled = false
+        badgeButton.isUserInteractionEnabled = false
 
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorLine)
@@ -81,6 +109,9 @@ extension AccountListTableViewCell {
             separatorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
+        
+        badgeButton.setBadge(number: 0)
+        checkmarkImageView.isHidden = true
     }
 
 }

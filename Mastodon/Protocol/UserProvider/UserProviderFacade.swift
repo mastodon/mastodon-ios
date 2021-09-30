@@ -212,8 +212,17 @@ extension UserProviderFacade {
         let name = mastodonUser.displayNameWithFallback
 
         if let shareUser = shareUser {
-            let shareAction = UIAction(title: L10n.Common.Controls.Actions.shareUser(name), image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+            let shareAction = UIAction(
+                title: L10n.Common.Controls.Actions.shareUser(name),
+                image: UIImage(systemName: "square.and.arrow.up"),
+                identifier: nil,
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            ) { [weak provider, weak sourceView, weak barButtonItem] _ in
                 guard let provider = provider else { return }
+                guard let sourceView = sourceView else { return }
+                guard let barButtonItem = barButtonItem else { return }
                 let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: shareUser, dependency: provider)
                 provider.coordinator.present(
                     scene: .activityViewController(
@@ -229,8 +238,17 @@ extension UserProviderFacade {
         }
 
         if let shareStatus = shareStatus {
-            let shareAction = UIAction(title: L10n.Common.Controls.Actions.sharePost, image: UIImage(systemName: "square.and.arrow.up"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+            let shareAction = UIAction(
+                title: L10n.Common.Controls.Actions.sharePost,
+                image: UIImage(systemName: "square.and.arrow.up"),
+                identifier: nil,
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            ) { [weak provider, weak sourceView, weak barButtonItem] _ in
                 guard let provider = provider else { return }
+                guard let sourceView = sourceView else { return }
+                guard let barButtonItem = barButtonItem else { return }
                 let activityViewController = createActivityViewControllerForMastodonUser(status: shareStatus, dependency: provider)
                 provider.coordinator.present(
                     scene: .activityViewController(
@@ -253,8 +271,9 @@ extension UserProviderFacade {
                 discoverabilityTitle: isMuting ? nil : L10n.Common.Controls.Friendship.muteUser(name),
                 attributes: isMuting ? [] : .destructive,
                 state: .off
-            ) { [weak provider] _ in
+            ) { [weak provider, weak cell] _ in
                 guard let provider = provider else { return }
+                guard let cell = cell else { return }
 
                 UserProviderFacade.toggleUserMuteRelationship(
                     provider: provider,
@@ -283,8 +302,9 @@ extension UserProviderFacade {
                 discoverabilityTitle: isBlocking ? nil : L10n.Common.Controls.Friendship.blockUser(name),
                 attributes: isBlocking ? [] : .destructive,
                 state: .off
-            ) { [weak provider] _ in
+            ) { [weak provider, weak cell] _ in
                 guard let provider = provider else { return }
+                guard let cell = cell else { return }
 
                 UserProviderFacade.toggleUserBlockRelationship(
                     provider: provider,
@@ -306,7 +326,14 @@ extension UserProviderFacade {
         }
         
         if !isMyself {
-            let reportAction = UIAction(title: L10n.Common.Controls.Actions.reportUser(name), image: UIImage(systemName: "flag"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+            let reportAction = UIAction(
+                title: L10n.Common.Controls.Actions.reportUser(name),
+                image: UIImage(systemName: "flag"),
+                identifier: nil,
+                discoverabilityTitle: nil,
+                attributes: [],
+                state: .off
+            ) { [weak provider] _ in
                 guard let provider = provider else { return }
                 guard let authenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else {
                     return
@@ -328,19 +355,37 @@ extension UserProviderFacade {
         
         if !isInSameDomain {
             if isDomainBlocking {
-                let unblockDomainAction = UIAction(title: L10n.Common.Controls.Actions.unblockDomain(mastodonUser.domainFromAcct), image: UIImage(systemName: "nosign"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                let unblockDomainAction = UIAction(
+                    title: L10n.Common.Controls.Actions.unblockDomain(mastodonUser.domainFromAcct),
+                    image: UIImage(systemName: "nosign"),
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { [weak provider, weak cell] _ in
                     guard let provider = provider else { return }
+                    guard let cell = cell else { return }
                     provider.context.blockDomainService.unblockDomain(userProvider: provider, cell: cell)
                 }
                 children.append(unblockDomainAction)
             } else {
-                let blockDomainAction = UIAction(title: L10n.Common.Controls.Actions.blockDomain(mastodonUser.domainFromAcct), image: UIImage(systemName: "nosign"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak provider] _ in
+                let blockDomainAction = UIAction(
+                    title: L10n.Common.Controls.Actions.blockDomain(mastodonUser.domainFromAcct),
+                    image: UIImage(systemName: "nosign"),
+                    identifier: nil,
+                    discoverabilityTitle: nil,
+                    attributes: [],
+                    state: .off
+                ) { [weak provider, weak cell] _ in
                     guard let provider = provider else { return }
+                    guard let cell = cell else { return }
+                    
                     let alertController = UIAlertController(title: L10n.Common.Alerts.BlockDomain.title(mastodonUser.domainFromAcct), message: nil, preferredStyle: .alert)
-                    let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in
-                    }
+                    let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in }
                     alertController.addAction(cancelAction)
-                    let blockDomainAction = UIAlertAction(title: L10n.Common.Alerts.BlockDomain.blockEntireDomain, style: .destructive) { _ in
+                    let blockDomainAction = UIAlertAction(title: L10n.Common.Alerts.BlockDomain.blockEntireDomain, style: .destructive) { [weak provider, weak cell] _ in
+                        guard let provider = provider else { return }
+                        guard let cell = cell else { return }
                         provider.context.blockDomainService.blockDomain(userProvider: provider, cell: cell)
                     }
                     alertController.addAction(blockDomainAction)
@@ -351,19 +396,26 @@ extension UserProviderFacade {
         }
         
         if let status = shareStatus, isMyself {
-            let deleteAction = UIAction(title: L10n.Common.Controls.Actions.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) {
-                [weak provider] _ in
+            let deleteAction = UIAction(
+                title: L10n.Common.Controls.Actions.delete,
+                image: UIImage(systemName: "delete.left"),
+                identifier: nil,
+                discoverabilityTitle: nil,
+                attributes: [.destructive],
+                state: .off
+            ) { [weak provider] _ in
                 guard let provider = provider else { return }
-                
+
                 let alertController = UIAlertController(title: L10n.Common.Alerts.DeletePost.title, message: nil, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in
-                }
+                let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in }
                 alertController.addAction(cancelAction)
-                let deleteAction = UIAlertAction(title: L10n.Common.Alerts.DeletePost.delete, style: .destructive) { _ in
+                let deleteAction = UIAlertAction(title: L10n.Common.Alerts.DeletePost.delete, style: .destructive) { [weak provider] _ in
+                    guard let provider = provider else { return }
                     guard let activeMastodonAuthenticationBox = provider.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
-                    provider.context.apiService.deleteStatus(domain: activeMastodonAuthenticationBox.domain,
-                                                             statusID: status.id,
-                                                             authorizationBox: activeMastodonAuthenticationBox
+                    provider.context.apiService.deleteStatus(
+                        domain: activeMastodonAuthenticationBox.domain,
+                        statusID: status.id,
+                        authorizationBox: activeMastodonAuthenticationBox
                     )
                     .sink { _ in
                         // do nothing
@@ -374,7 +426,6 @@ extension UserProviderFacade {
                 }
                 alertController.addAction(deleteAction)
                 provider.present(alertController, animated: true, completion: nil)
-                
             }
             children.append(deleteAction)
         }

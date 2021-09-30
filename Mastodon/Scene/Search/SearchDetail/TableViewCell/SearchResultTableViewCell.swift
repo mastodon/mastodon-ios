@@ -104,6 +104,10 @@ extension SearchResultTableViewCell {
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
         resetSeparatorLineLayout()
+        
+        _titleLabel.isUserInteractionEnabled = false
+        _subTitleLabel.isUserInteractionEnabled = false
+        _imageView.isUserInteractionEnabled = false
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

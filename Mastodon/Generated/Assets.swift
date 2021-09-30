@@ -70,6 +70,7 @@ internal enum Asset {
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
     internal static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
+    internal static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     internal static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
     internal static let brandBlue = ColorAsset(name: "Colors/brand.blue")
     internal static let brandBlueDarken20 = ColorAsset(name: "Colors/brand.blue.darken.20")
@@ -125,6 +126,7 @@ internal enum Asset {
       internal static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/Mastodon/profile.field.collection.view.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.system.background")
+      internal static let sidebarBackground = ColorAsset(name: "Theme/Mastodon/sidebar.background")
       internal static let systemBackground = ColorAsset(name: "Theme/Mastodon/system.background")
       internal static let systemElevatedBackground = ColorAsset(name: "Theme/Mastodon/system.elevated.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Theme/Mastodon/system.grouped.background")
@@ -144,6 +146,7 @@ internal enum Asset {
       internal static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/system/profile.field.collection.view.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/system/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Theme/system/secondary.system.background")
+      internal static let sidebarBackground = ColorAsset(name: "Theme/system/sidebar.background")
       internal static let systemBackground = ColorAsset(name: "Theme/system/system.background")
       internal static let systemElevatedBackground = ColorAsset(name: "Theme/system/system.elevated.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Theme/system/system.grouped.background")
