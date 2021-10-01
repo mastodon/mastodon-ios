@@ -308,7 +308,7 @@
                 "title": "Check your inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "البريد",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "فتح عميل البريد الإلكتروني"
             }
         },
         "home_timeline": {
