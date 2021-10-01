@@ -15,21 +15,21 @@
         <key>zero</key>
         <string>%ld unread notification</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>إشعار واحِد غير مقروء</string>
         <key>two</key>
-        <string>%ld unread notification</string>
+        <string>إشعاران غير مقروءان</string>
         <key>few</key>
         <string>%ld unread notification</string>
         <key>many</key>
-        <string>%ld unread notification</string>
+        <string>%ld إشعارًا غيرَ مقروء</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld إشعار غير مقروء</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>تمَّ تجاوز حدّ الإدخال %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,23 +37,23 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>لا حرف</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>حرفٌ واحِد</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>حرفان اثنان</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld حُرُوف</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld حرفًا</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld حَرف</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>يتبقَّى على حدّ الإدخال %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,17 +61,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>لا حرف</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>حرفٌ واحِد</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>حرفان اثنان</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld حُرُوف</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld حرفًا</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld حَرف</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -85,17 +85,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>posts</string>
+        <string>لا منشور</string>
         <key>one</key>
-        <string>post</string>
+        <string>منشور</string>
         <key>two</key>
-        <string>posts</string>
+        <string>منشوران</string>
         <key>few</key>
-        <string>posts</string>
+        <string>منشورات</string>
         <key>many</key>
-        <string>posts</string>
+        <string>منشورًا</string>
         <key>other</key>
-        <string>posts</string>
+        <string>منشور</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -109,17 +109,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld posts</string>
+        <string>لا منشور</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>منشورٌ واحِد</string>
         <key>two</key>
-        <string>%ld posts</string>
+        <string>منشورانِ اثنان</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld منشورات</string>
         <key>many</key>
-        <string>%ld posts</string>
+        <string>%ld منشورًا</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld منشور</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -133,17 +133,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld favorites</string>
+        <string>لا إعجاب</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>إعجابٌ واحِد</string>
         <key>two</key>
-        <string>%ld favorites</string>
+        <string>إعجابانِ اثنان</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld إعجابات</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld إعجابًا</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld إعجاب</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -157,17 +157,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld reblogs</string>
+        <string>لا إعاد تدوين</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>إعادةُ تدوينٍ واحِدة</string>
         <key>two</key>
-        <string>%ld reblogs</string>
+        <string>إعادتا تدوين</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld إعاداتِ تدوين</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld إعادةٍ للتدوين</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld إعادة تدوين</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -181,17 +181,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld votes</string>
+        <string>لا صوت</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>صوتٌ واحِد</string>
         <key>two</key>
-        <string>%ld votes</string>
+        <string>صوتانِ اثنان</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld أصوات</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld صوتًا</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld صوت</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -205,17 +205,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld voters</string>
+        <string>لا مُصوِّتون</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>مُصوِّتٌ واحِد</string>
         <key>two</key>
-        <string>%ld voters</string>
+        <string>مُصوِّتانِ اثنان</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld مُصوِّتين</string>
         <key>many</key>
-        <string>%ld voters</string>
+        <string>%ld مُصوِّتًا</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld مُصوِّت</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
