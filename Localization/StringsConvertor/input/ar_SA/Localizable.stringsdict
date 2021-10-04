@@ -229,17 +229,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld people talking</string>
+        <string>لا أحَدَ يتحدَّث</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>شخصٌ واحدٌ يتحدَّث</string>
         <key>two</key>
-        <string>%ld people talking</string>
+        <string>شخصانِ اثنان يتحدَّثا</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld أشخاصٍ يتحدَّثون</string>
         <key>many</key>
-        <string>%ld people talking</string>
+        <string>%ld شخصًا يتحدَّثون</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld شخصٍ يتحدَّثون</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -253,17 +253,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld following</string>
+        <string>لا مُتابَع</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>مُتابَعٌ واحد</string>
         <key>two</key>
-        <string>%ld following</string>
+        <string>مُتابَعانِ</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>%ld مُتابَعين</string>
         <key>many</key>
-        <string>%ld following</string>
+        <string>%ld مُتابَعًا</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld مُتابَع</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -279,15 +279,15 @@
         <key>zero</key>
         <string>%ld followers</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>مُتابِعٌ واحد</string>
         <key>two</key>
-        <string>%ld followers</string>
+        <string>مُتابِعانِ اثنان</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld مُتابِعين</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld مُتابِعًا</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld مُتابِع</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -301,17 +301,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld years left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>تتبقى سنة</string>
         <key>two</key>
-        <string>%ld years left</string>
+        <string>تتبقى سنتين</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>تتبقى %ld سنوات</string>
         <key>many</key>
-        <string>%ld years left</string>
+        <string>تتبقى %ld سنةً</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>تتبقى %ld سنة</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -325,17 +325,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld months left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>يتبقى شهر</string>
         <key>two</key>
-        <string>%ld months left</string>
+        <string>يتبقى شهرين</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>يتبقى %ld أشهر</string>
         <key>many</key>
-        <string>%ld months left</string>
+        <string>يتبقى %ld شهرًا</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>يتبقى %ld شهر</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -349,17 +349,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld days left</string>
+        <string>تتبقى لحظة</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>يتبقى يوم</string>
         <key>two</key>
-        <string>%ld days left</string>
+        <string>يتبقى يومين</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>يتبقى %ld أيام</string>
         <key>many</key>
-        <string>%ld days left</string>
+        <string>يتبقى %ld يومًا</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>يتبقى %ld يوم</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -373,17 +373,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld hours left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>تتبقى ساعة</string>
         <key>two</key>
-        <string>%ld hours left</string>
+        <string>تتبقى ساعتين</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>تتبقى %ld ساعات</string>
         <key>many</key>
-        <string>%ld hours left</string>
+        <string>تتبقى %ld ساعةً</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>تتبقى %ld ساعة</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -397,17 +397,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>تتبقى دقيقة</string>
         <key>two</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى دقيقتين</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى %ld دقائق</string>
         <key>many</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى %ld دقيقةً</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى %ld دقيقة</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -421,17 +421,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>تتبقى ثانية</string>
         <key>two</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى ثانيتين</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى %ld ثوان</string>
         <key>many</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى %ld ثانيةً</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى %ld ثانية</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -445,17 +445,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>مُنذُ سنة</string>
         <key>two</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ سنتين</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ %ld سنين</string>
         <key>many</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ %ld سنةً</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ %ld سنة</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -525,7 +525,7 @@
         <key>few</key>
         <string>مُنذُ %ld ساعات</string>
         <key>many</key>
-        <string>مُنذُ %ld ساعتًا</string>
+        <string>مُنذُ %ld ساعةًَ</string>
         <key>other</key>
         <string>مُنذُ %ld ساعة</string>
       </dict>
@@ -549,7 +549,7 @@
         <key>few</key>
         <string>مُنذُ %ld دقائق</string>
         <key>many</key>
-        <string>مُنذُ %ld دقيقتًا</string>
+        <string>مُنذُ %ld دقيقةً</string>
         <key>other</key>
         <string>مُنذُ %ld دقيقة</string>
       </dict>
@@ -573,7 +573,7 @@
         <key>few</key>
         <string>مُنذُ %ld ثوان</string>
         <key>many</key>
-        <string>مُنذُ %ld ثانيتًا</string>
+        <string>مُنذُ %ld ثانية</string>
         <key>other</key>
         <string>مُنذُ %ld ثانية</string>
       </dict>
