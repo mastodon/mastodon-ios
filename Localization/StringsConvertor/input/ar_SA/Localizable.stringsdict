@@ -469,17 +469,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>مُنذُ شهر</string>
         <key>two</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ شهرين</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ %ld أشهُر</string>
         <key>many</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ %ld شهرًا</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ %ld شهر</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -493,17 +493,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>مُنذُ يوم</string>
         <key>two</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ يومين</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ %ld أيام</string>
         <key>many</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ %ld يومًا</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ %ld يوم</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -517,17 +517,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>مُنذُ ساعة</string>
         <key>two</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ ساعتين</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ %ld ساعات</string>
         <key>many</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ %ld ساعتًا</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ %ld ساعة</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -541,17 +541,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>مُنذُ دقيقة</string>
         <key>two</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ دقيقتان</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ %ld دقائق</string>
         <key>many</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ %ld دقيقتًا</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ %ld دقيقة</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -565,17 +565,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%lds ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>مُنذُ ثانية</string>
         <key>two</key>
-        <string>%lds ago</string>
+        <string>مُنذُ ثانيتين</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>مُنذُ %ld ثوان</string>
         <key>many</key>
-        <string>%lds ago</string>
+        <string>مُنذُ %ld ثانيتًا</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>مُنذُ %ld ثانية</string>
       </dict>
     </dict>
   </dict>
