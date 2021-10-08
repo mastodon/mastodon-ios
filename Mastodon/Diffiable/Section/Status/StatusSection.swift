@@ -720,6 +720,15 @@ extension StatusSection {
         statusItemAttribute: Item.StatusAttribute
     ) {
         // set content
+        let paragraphStyle = cell.statusView.contentMetaText.paragraphStyle
+        if let language = (status.reblog ?? status).language {
+            let direction = Locale.characterDirection(forLanguage: language)
+            paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+        } else {
+            paragraphStyle.alignment = .natural
+        }
+        cell.statusView.contentMetaText.paragraphStyle = paragraphStyle
+        
         if let content = content {
             cell.statusView.contentMetaText.configure(content: content)
             cell.statusView.contentMetaText.textView.accessibilityLabel = content.trimmed
