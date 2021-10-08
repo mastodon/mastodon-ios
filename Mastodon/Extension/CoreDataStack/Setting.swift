@@ -11,9 +11,9 @@ import MastodonSDK
 
 extension Setting {
     
-    var appearance: SettingsItem.AppearanceMode {
-        return SettingsItem.AppearanceMode(rawValue: appearanceRaw) ?? .automatic
-    }
+//    var appearance: SettingsItem.AppearanceMode {
+//        return SettingsItem.AppearanceMode(rawValue: appearanceRaw) ?? .automatic
+//    }
     
     var activeSubscription: Subscription? {
         return (subscriptions ?? Set())

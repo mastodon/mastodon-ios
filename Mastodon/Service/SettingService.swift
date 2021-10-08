@@ -54,8 +54,7 @@ final class SettingService {
                             into: managedObjectContext,
                             property: Setting.Property(
                                 domain: domain,
-                                userID: userID,
-                                appearanceRaw: SettingsItem.AppearanceMode.automatic.rawValue
+                                userID: userID
                             )
                         )
                     }   // end for
@@ -190,16 +189,16 @@ extension SettingService {
 
     static func updatePreference(setting: Setting) {
         // set appearance
-        let userInterfaceStyle: UIUserInterfaceStyle = {
-            switch setting.appearance {
-            case .automatic:    return .unspecified
-            case .light:        return .light
-            case .dark:         return .dark
-            }
-        }()
-        if UserDefaults.shared.customUserInterfaceStyle != userInterfaceStyle {
-            UserDefaults.shared.customUserInterfaceStyle = userInterfaceStyle
-        }
+//        let userInterfaceStyle: UIUserInterfaceStyle = {
+//            switch setting.appearance {
+//            case .automatic:    return .unspecified
+//            case .light:        return .light
+//            case .dark:         return .dark
+//            }
+//        }()
+//        if UserDefaults.shared.customUserInterfaceStyle != userInterfaceStyle {
+//            UserDefaults.shared.customUserInterfaceStyle = userInterfaceStyle
+//        }
 
         // set theme
         let themeName: ThemeName = setting.preferredTrueBlackDarkMode ? .system : .mastodon
