@@ -317,7 +317,7 @@ extension MainTabBarController {
 
         switch tab {
         case .me:
-            coordinator.present(scene: .accountList, from: nil, transition: .panModal)
+            coordinator.present(scene: .accountList, from: self, transition: .panModal)
         default:
             break
         }
@@ -353,7 +353,6 @@ extension MainTabBarController {
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
         self.avatarButton.isUserInteractionEnabled = false
     }
-    
 }
 
 extension MainTabBarController {

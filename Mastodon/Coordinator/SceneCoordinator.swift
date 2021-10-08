@@ -214,7 +214,13 @@ extension SceneCoordinator {
                 assertionFailure()
                 return nil
             }
-            presentingViewController.presentPanModal(panModalPresentable)
+            
+            // https://github.com/slackhq/PanModal/issues/74#issuecomment-572426441
+            panModalPresentable.modalPresentationStyle = .custom
+            panModalPresentable.modalPresentationCapturesStatusBarAppearance = true
+            panModalPresentable.transitioningDelegate = PanModalPresentationDelegate.default
+            presentingViewController.present(panModalPresentable, animated: true, completion: nil)
+            //presentingViewController.presentPanModal(panModalPresentable)
 
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom

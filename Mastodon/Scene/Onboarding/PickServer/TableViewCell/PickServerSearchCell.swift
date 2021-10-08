@@ -109,6 +109,7 @@ extension PickServerSearchCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+        configureMargin()
         
         searchTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         searchTextField.delegate = self
@@ -118,9 +119,9 @@ extension PickServerSearchCell {
         contentView.addSubview(searchTextField)
         
         NSLayoutConstraint.activate([
-            bgView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            bgView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             bgView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            bgView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            bgView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             bgView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             textFieldBgView.leadingAnchor.constraint(equalTo: bgView.leadingAnchor, constant: 14),
@@ -133,6 +134,24 @@ extension PickServerSearchCell {
             textFieldBgView.trailingAnchor.constraint(equalTo: searchTextField.trailingAnchor, constant: 11),
             textFieldBgView.bottomAnchor.constraint(equalTo: searchTextField.bottomAnchor, constant: 4),
         ])
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureMargin()
+    }
+}
+
+extension PickServerSearchCell {
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonPickServerViewController.viewEdgeMargin
+            contentView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        default:
+            contentView.layoutMargins = .zero
+        }
     }
 }
 

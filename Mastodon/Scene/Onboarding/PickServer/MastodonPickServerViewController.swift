@@ -29,6 +29,8 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     private var expandServerDomainSet = Set<String>()
     
     private let emptyStateView = PickServerEmptyStateView()
+    private var emptyStateViewLeadingLayoutConstraint: NSLayoutConstraint!
+    private var emptyStateViewTrailingLayoutConstraint: NSLayoutConstraint!
     let tableViewTopPaddingView = UIView()      // fix empty state view background display when tableView bounce scrolling
     var tableViewTopPaddingViewHeightLayoutConstraint: NSLayoutConstraint!
     
@@ -52,13 +54,14 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
         return tableView
     }()
     
+    let buttonContainer = UIView()
     let nextStepButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    var nextStepButtonBottomLayoutConstraint: NSLayoutConstraint!
+    var buttonContainerBottomLayoutConstraint: NSLayoutConstraint!
     
     var mastodonAuthenticationController: MastodonAuthenticationController?
     
@@ -77,6 +80,8 @@ extension MastodonPickServerViewController {
         
         setupOnboardingAppearance()
         defer { setupNavigationBarBackgroundView() }
+        configureTitleLabel()
+        configureMargin()
 
         #if DEBUG
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"), style: .plain, target: nil, action: nil)
@@ -89,14 +94,24 @@ extension MastodonPickServerViewController {
         navigationItem.rightBarButtonItem?.menu = UIMenu(title: "Debug Tool", image: nil, identifier: nil, options: [], children: children)
         #endif
         
-        view.addSubview(nextStepButton)
-        nextStepButtonBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: 0).priority(.defaultHigh)
+        buttonContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.preservesSuperviewLayoutMargins = true
+        view.addSubview(buttonContainer)
+        buttonContainerBottomLayoutConstraint = view.bottomAnchor.constraint(equalTo: buttonContainer.bottomAnchor, constant: 0).priority(.defaultHigh)
         NSLayoutConstraint.activate([
-            nextStepButton.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor, constant: MastodonPickServerViewController.actionButtonMargin),
+            buttonContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            buttonContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: buttonContainer.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
+            buttonContainerBottomLayoutConstraint,
+        ])
+        
+        view.addSubview(nextStepButton)
+        NSLayoutConstraint.activate([
+            nextStepButton.topAnchor.constraint(equalTo: buttonContainer.topAnchor),
+            nextStepButton.leadingAnchor.constraint(equalTo: buttonContainer.layoutMarginsGuide.leadingAnchor),
+            buttonContainer.layoutMarginsGuide.trailingAnchor.constraint(equalTo: nextStepButton.trailingAnchor),
+            nextStepButton.bottomAnchor.constraint(equalTo: buttonContainer.bottomAnchor),
             nextStepButton.heightAnchor.constraint(equalToConstant: MastodonPickServerViewController.actionButtonHeight).priority(.defaultHigh),
-            view.safeAreaLayoutGuide.bottomAnchor.constraint(greaterThanOrEqualTo: nextStepButton.bottomAnchor, constant: WelcomeViewController.viewBottomPaddingHeight),
-            nextStepButtonBottomLayoutConstraint,
         ])
     
         // fix AutoLayout warning when observe before view appear
@@ -127,16 +142,18 @@ extension MastodonPickServerViewController {
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nextStepButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 7),
+            buttonContainer.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 7),
         ])
         
         emptyStateView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emptyStateView)
+        emptyStateViewLeadingLayoutConstraint = emptyStateView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor)
+        emptyStateViewTrailingLayoutConstraint = tableView.trailingAnchor.constraint(equalTo: emptyStateView.trailingAnchor)
         NSLayoutConstraint.activate([
             emptyStateView.topAnchor.constraint(equalTo: view.topAnchor),
-            emptyStateView.leadingAnchor.constraint(equalTo: tableView.readableContentGuide.leadingAnchor),
-            emptyStateView.trailingAnchor.constraint(equalTo: tableView.readableContentGuide.trailingAnchor),
-            nextStepButton.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
+            emptyStateViewLeadingLayoutConstraint,
+            emptyStateViewTrailingLayoutConstraint,
+            buttonContainer.topAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: 21),
         ])
         view.sendSubviewToBack(emptyStateView)
         
@@ -154,18 +171,18 @@ extension MastodonPickServerViewController {
                 
                 // guard external keyboard connected
                 guard isShow, state == .dock, GCKeyboard.coalesced != nil else {
-                    self.nextStepButtonBottomLayoutConstraint.constant = WelcomeViewController.viewBottomPaddingHeight
+                    self.buttonContainerBottomLayoutConstraint.constant = WelcomeViewController.viewBottomPaddingHeight
                     return
                 }
                 
                 let externalKeyboardToolbarHeight = self.view.frame.maxY - endFrame.minY
                 guard externalKeyboardToolbarHeight > 0 else {
-                    self.nextStepButtonBottomLayoutConstraint.constant = WelcomeViewController.viewBottomPaddingHeight
+                    self.buttonContainerBottomLayoutConstraint.constant = WelcomeViewController.viewBottomPaddingHeight
                     return
                 }
                 
                 UIView.animate(withDuration: 0.3) {
-                    self.nextStepButtonBottomLayoutConstraint.constant = externalKeyboardToolbarHeight + 16
+                    self.buttonContainerBottomLayoutConstraint.constant = externalKeyboardToolbarHeight + 16
                     self.view.layoutIfNeeded()
                 }
             }
@@ -274,7 +291,32 @@ extension MastodonPickServerViewController {
         viewModel.viewWillAppear.send()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupNavigationBarAppearance()
+        updateEmptyStateViewLayout()
+        configureTitleLabel()
+        configureMargin()
+    }
     
+}
+
+extension MastodonPickServerViewController {
+    private func configureTitleLabel() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+        
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            navigationItem.largeTitleDisplayMode = .always
+            navigationItem.title = L10n.Scene.ServerPicker.title.replacingOccurrences(of: "\n", with: " ")
+        default:
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.title = nil
+        }
+    }
 }
 
 extension MastodonPickServerViewController {
@@ -426,43 +468,6 @@ extension MastodonPickServerViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
-        return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let diffableDataSource = viewModel.diffableDataSource else {
-            return .leastNonzeroMagnitude
-        }
-        let sections = diffableDataSource.snapshot().sectionIdentifiers
-        let section = sections[section]
-        switch section {
-        case .header:
-            return 20
-        case .category:
-            // Since category view has a blur shadow effect, its height need to be large than the actual height,
-            // Thus we reduce the section header's height by 10, and make the category cell height 60+20(10 inset for top and bottom)
-            return 10
-        case .search:
-            // Same reason as above
-            return 10
-        case .servers:
-            return .leastNonzeroMagnitude
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView()
-        footerView.backgroundColor = .yellow
-        return footerView
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNonzeroMagnitude
-    }
-    
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         guard let diffableDataSource = viewModel.diffableDataSource else { return nil }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return nil }
@@ -521,6 +526,26 @@ extension MastodonPickServerViewController {
         let rectInTableView = tableView.rectForRow(at: indexPath)
     
         emptyStateView.topPaddingViewTopLayoutConstraint.constant = rectInTableView.maxY
+        
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            emptyStateViewLeadingLayoutConstraint.constant = MastodonPickServerViewController.viewEdgeMargin
+            emptyStateViewTrailingLayoutConstraint.constant = MastodonPickServerViewController.viewEdgeMargin
+        default:
+            let margin = tableView.layoutMarginsGuide.layoutFrame.origin.x
+            emptyStateViewLeadingLayoutConstraint.constant = margin
+            emptyStateViewTrailingLayoutConstraint.constant = margin
+        }
+    }
+    
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonPickServerViewController.viewEdgeMargin
+            buttonContainer.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        default:
+            buttonContainer.layoutMargins = .zero
+        }
     }
 }
 

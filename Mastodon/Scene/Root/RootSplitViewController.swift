@@ -201,6 +201,12 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode
     ) -> UISplitViewController.DisplayMode {
         let compactNavigationController = mainTabBarController.selectedViewController as? UINavigationController
+        
+        if let topMost = compactNavigationController?.topMost,
+           topMost is AccountListViewController {
+            topMost.dismiss(animated: false, completion: nil)
+        }
+        
         let viewControllers = compactNavigationController?.popToRootViewController(animated: true) ?? []
         
         var supplementaryViewControllers: [UIViewController] = []
@@ -219,6 +225,7 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         if let secondaryNavigationController = viewController(for: .secondary) as? UINavigationController {
             secondaryNavigationController.setViewControllers(secondaryNavigationController.viewControllers + secondaryViewControllers, animated: false)
         }
+        
         return proposedDisplayMode
     }
 
