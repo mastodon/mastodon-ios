@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "الرجاء المحاولة مرة أخرى.",
-                "please_try_again_later": "الرجاء المحاولة مرة أخرى لاحقاً."
+                "please_try_again": "يُرجى المحاولة مرة أُخرى.",
+                "please_try_again_later": "يُرجى المحاولة مرة أُخرى لاحقاً."
             },
             "sign_up_failure": {
                 "title": "فشل التسجيل"
@@ -29,7 +29,7 @@
             },
             "edit_profile_failure": {
                 "title": "Edit Profile Error",
-                "message": "لا يمكن تعديل الملف الشخصي. الرجاء المحاولة مرة أخرى."
+                "message": "لا يمكن تعديل الملف الشخصي. يُرجى المحاولة مرة أُخرى."
             },
             "sign_out": {
                 "title": "تسجيل الخروج",
@@ -49,8 +49,8 @@
                 "delete": "احذف"
             },
             "clean_cache": {
-                "title": "تنظيف ذاكرة التخزين المؤقت",
-                "message": "تم تنظيف ذاكرة التخزين المؤقت %s بنجاح."
+                "title": "مَحو ذاكرة التخزين المؤقت",
+                "message": "تمَّ مَحو ذاكرة التخزين المؤقت %s بنجاح."
             }
         },
         "controls": {
@@ -64,17 +64,17 @@
                 "edit": "تعديل",
                 "save": "حفظ",
                 "ok": "حسنًا",
-                "done": "تم",
+                "done": "تمّ",
                 "confirm": "تأكيد",
                 "continue": "واصل",
                 "cancel": "إلغاء",
                 "discard": "تجاهل",
-                "try_again": "حاول مرة أخرى",
+                "try_again": "المُحاولة مرة أُخرى",
                 "take_photo": "التقط صورة",
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
-                "sign_in": "لِج",
-                "sign_up": "انشئ حسابًا",
+                "sign_in": "تسجيل الدخول",
+                "sign_up": "إنشاء حِساب",
                 "see_more": "عرض المزيد",
                 "preview": "معاينة",
                 "share": "شارك",
@@ -122,7 +122,7 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
+                "user_reblogged": "أعادَ %s تدوينها",
                 "user_replied_to": "رد على %s",
                 "show_post": "اظهر المنشور",
                 "show_user_profile": "اظهر الملف التعريفي للمستخدم",
@@ -152,8 +152,8 @@
             "friendship": {
                 "follow": "اتبع",
                 "following": "مُتابَع",
-                "request": "Request",
-                "pending": "Pending",
+                "request": "إرسال طَلَب",
+                "pending": "قيد المُراجعة",
                 "block": "حظر",
                 "block_user": "حظر %s",
                 "block_domain": "حظر %s",
@@ -168,12 +168,12 @@
                 "edit_info": "تعديل المعلومات"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "مُصفَّى",
                 "timestamp": {
                     "now": "الأن"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
+                    "load_missing_posts": "تحميل المنشورات المَفقودة",
                     "loading_missing_posts": "تحميل المزيد من المنشورات...",
                     "show_more_replies": "إظهار المزيد من الردود"
                 },
@@ -206,7 +206,7 @@
                     "games": "ألعاب",
                     "general": "عام",
                     "journalism": "صحافة",
-                    "lgbt": "lgbt",
+                    "lgbt": "مجتمع الشواذ",
                     "regional": "اقليمي",
                     "art": "فن",
                     "music": "موسيقى",
@@ -302,20 +302,20 @@
             "dont_receive_email": {
                 "title": "تحقق من بريدك الإلكتروني",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "إعادة إرسال البريد الإلكتروني"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "تحقَّق من بريدك الوارِد.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
                 "mail": "البريد",
-                "open_email_client": "Open Email Client"
+                "open_email_client": "فتح عميل البريد الإلكتروني"
             }
         },
         "home_timeline": {
             "title": "الخيط الرئيسي",
             "navigation_bar_state": {
                 "offline": "غير متصل",
-                "new_posts": "See new posts",
+                "new_posts": "إظهار منشورات جديدة",
                 "published": "تم نشره!",
                 "Publishing": "جارٍ نشر المشاركة…"
             }
@@ -334,7 +334,7 @@
                 "photo_library": "مكتبة الصور",
                 "browse": "تصفح"
             },
-            "content_input_placeholder": "ما الذي يجول ببالك",
+            "content_input_placeholder": "أخبِرنا بِما يَجُولُ فِي ذِهنَك",
             "compose_action": "انشر",
             "replying_to_user": "رد على %s",
             "attachment": {
@@ -367,7 +367,7 @@
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "إضافة مُرفَق",
                 "append_poll": "اضافة استطلاع رأي",
                 "remove_poll": "إزالة الاستطلاع",
                 "custom_emoji_picker": "منتقي مخصص للإيموجي",
@@ -376,11 +376,11 @@
                 "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
+                "discard_post": "تجاهُل المنشور",
+                "publish_post": "نَشر المَنشُور",
+                "toggle_poll": "تبديل الاستطلاع",
+                "toggle_content_warning": "تبديل تحذير المُحتوى",
+                "append_attachment_entry": "إضافة مُرفَق - %s",
                 "select_visibility_entry": "اختر مدى الظهور - %s"
             }
         },
@@ -393,7 +393,7 @@
             "fields": {
                 "add_row": "إضافة صف",
                 "placeholder": {
-                    "label": "Label",
+                    "label": "التسمية",
                     "content": "المحتوى"
                 }
             },
@@ -424,7 +424,7 @@
                 "hash_tag": {
                     "title": "ذات شعبية على ماستدون",
                     "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "people_talking": "%s أشخاص يتحدَّثوا"
                 },
                 "accounts": {
                     "title": "حسابات قد تعجبك",
@@ -459,15 +459,15 @@
             "user_reblogged_your_post": "أعاد %s تدوين مشاركتك",
             "user_mentioned_you": "أشار إليك %s",
             "user_requested_to_follow_you": "طلب %s متابعتك",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_your_poll_has_ended": "%s اِنتهى استطلاعُكَ للرأي",
             "keyobard": {
                 "show_everything": "إظهار كل شيء",
-                "show_mentions": "Show Mentions"
+                "show_mentions": "إظهار الإشارات"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "منشور",
+            "title": "مَنشور مِن %s"
         },
         "settings": {
             "title": "الإعدادات",
@@ -475,29 +475,29 @@
                 "appearance": {
                     "title": "المظهر",
                     "automatic": "تلقائي",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "light": "مضيءٌ دائمًا",
+                    "dark": "مظلمٌ دائِمًا"
                 },
                 "notifications": {
                     "title": "الإشعارات",
-                    "favorites": "Favorites my post",
+                    "favorites": "الإعجاب بِمنشوراتي",
                     "follows": "يتابعني",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "boosts": "إعادة تدوين منشوراتي",
+                    "mentions": "الإشارة لي",
                     "trigger": {
-                        "anyone": "anyone",
+                        "anyone": "أي شخص",
                         "follower": "مشترِك",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "follow": "أي شخص أُتابِعُه",
+                        "noone": "لا أحد",
+                        "title": "إشعاري عِندَ"
                     }
                 },
                 "preference": {
                     "title": "التفضيلات",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "true_black_dark_mode": "النمط الأسود الداكِن الحقيقي",
+                    "disable_avatar_animation": "تعطيل الصور الرمزية المتحرِّكة",
+                    "disable_emoji_animation": "تعطيل الرموز التعبيرية المتحرِّكَة",
+                    "using_default_browser": "اِستخدام المتصفح الافتراضي لفتح الروابط"
                 },
                 "boring_zone": {
                     "title": "المنطقة المملة",
@@ -537,13 +537,13 @@
         },
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "dismiss_account_switcher": "تجاهُل مبدِّل الحساب",
+            "add_account": "إضافة حساب"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
+            "new_in_mastodon": "جديد في ماستودون",
             "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهل النافذة المنبثقة"
         }
     }
 }
