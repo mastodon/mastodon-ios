@@ -15,7 +15,6 @@ import MastodonSDK
 
 final class ComposeViewModel: NSObject {
     
-    static let composeContentLimit: Int = 500
     
     var disposeBag = Set<AnyCancellable>()
 
@@ -38,6 +37,24 @@ final class ComposeViewModel: NSObject {
     var isViewAppeared = false
     
     // output
+    let instanceConfiguration: Mastodon.Entity.Instance.Configuration?
+    var composeContentLimit: Int {
+        guard let maxCharacters = instanceConfiguration?.statuses?.maxCharacters else { return 500 }
+        return max(1, maxCharacters)
+    }
+    var maxMediaAttachments: Int {
+        guard let maxMediaAttachments = instanceConfiguration?.statuses?.maxMediaAttachments else {
+            return 4
+        }
+        // FIXME: update timeline media preview UI
+        return min(4, max(1, maxMediaAttachments))
+        // return max(1, maxMediaAttachments)
+    }
+    var maxPollOptions: Int {
+        guard let maxOptions = instanceConfiguration?.polls?.maxOptions else { return 4 }
+        return max(2, maxOptions)
+    }
+    
     let composeStatusContentTableViewCell = ComposeStatusContentTableViewCell()
     let composeStatusAttachmentTableViewCell = ComposeStatusAttachmentTableViewCell()
     let composeStatusPollTableViewCell = ComposeStatusPollTableViewCell()
@@ -128,8 +145,12 @@ final class ComposeViewModel: NSObject {
             }
             return CurrentValueSubject(visibility)
         }()
-        self.activeAuthentication = CurrentValueSubject(context.authenticationService.activeMastodonAuthentication.value)
+        let _activeAuthentication = context.authenticationService.activeMastodonAuthentication.value
+        self.activeAuthentication = CurrentValueSubject(_activeAuthentication)
         self.activeAuthenticationBox = CurrentValueSubject(context.authenticationService.activeMastodonAuthenticationBox.value)
+        // set limit
+        let _instanceConfiguration = _activeAuthentication?.instance?.configuration
+        self.instanceConfiguration = _instanceConfiguration
         super.init()
         // end init
         
@@ -243,8 +264,9 @@ final class ComposeViewModel: NSObject {
         let isComposeContentEmpty = composeStatusAttribute.composeContent
             .map { ($0 ?? "").isEmpty }
         let isComposeContentValid = characterCount
-            .map { characterCount -> Bool in
-                return characterCount <= ComposeViewModel.composeContentLimit
+            .compactMap { [weak self] characterCount -> Bool in
+                guard let self = self else { return characterCount <= 500 }
+                return characterCount <= self.composeContentLimit
             }
         let isMediaEmpty = attachmentServices
             .map { $0.isEmpty }
@@ -381,7 +403,7 @@ final class ComposeViewModel: NSObject {
         .receive(on: DispatchQueue.main)
         .sink(receiveValue: { [weak self] isPollComposing, attachmentServices in
             guard let self = self else { return }
-            let shouldMediaDisable = isPollComposing || attachmentServices.count >= 4
+            let shouldMediaDisable = isPollComposing || attachmentServices.count >= self.maxMediaAttachments
             let shouldPollDisable = attachmentServices.count > 0
             
             self.isMediaToolbarButtonEnabled.value = !shouldMediaDisable
@@ -455,7 +477,7 @@ extension ComposeViewModel {
 
 extension ComposeViewModel {
     func createNewPollOptionIfPossible() {
-        guard pollOptionAttributes.value.count < 4 else { return }
+        guard pollOptionAttributes.value.count < maxPollOptions else { return }
         
         let attribute = ComposeStatusPollItem.PollOptionAttribute()
         pollOptionAttributes.value = pollOptionAttributes.value + [attribute]
@@ -488,7 +510,7 @@ extension ComposeViewModel {
     
     // check exclusive limit:
     // - up to 1 video
-    // - up to 4 photos
+    // - up to N photos
     func checkAttachmentPrecondition() throws {
         let attachmentServices = self.attachmentServices.value
         guard !attachmentServices.isEmpty else { return }

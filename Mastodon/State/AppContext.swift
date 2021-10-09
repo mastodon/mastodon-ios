@@ -31,6 +31,7 @@ class AppContext: ObservableObject {
     let statusPublishService = StatusPublishService()
     let notificationService: NotificationService
     let settingService: SettingService
+    let instanceService: InstanceService
 
     let blockDomainService: BlockDomainService    
     let statusFilterService: StatusFilterService
@@ -85,6 +86,11 @@ class AppContext: ObservableObject {
             apiService: _apiService,
             authenticationService: _authenticationService,
             notificationService: _notificationService
+        )
+        
+        instanceService = InstanceService(
+            apiService: _apiService,
+            authenticationService: _authenticationService
         )
         
         blockDomainService = BlockDomainService(

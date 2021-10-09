@@ -356,6 +356,11 @@
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
+		DB73BF3B2711885500781945 /* UserDefaults+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */; };
+		DB73BF4127118B6D00781945 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4027118B6D00781945 /* Instance.swift */; };
+		DB73BF43271192BB00781945 /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF42271192BB00781945 /* InstanceService.swift */; };
+		DB73BF45271195AC00781945 /* APIService+CoreData+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF44271195AC00781945 /* APIService+CoreData+Instance.swift */; };
+		DB73BF47271199CA00781945 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF46271199CA00781945 /* Instance.swift */; };
 		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
@@ -454,7 +459,6 @@
 		DBAC6483267D0B21007FE9FD /* DifferenceKit in Frameworks */ = {isa = PBXBuildFile; productRef = DBAC6482267D0B21007FE9FD /* DifferenceKit */; };
 		DBAC6485267D0F9E007FE9FD /* StatusNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6484267D0F9E007FE9FD /* StatusNode.swift */; };
 		DBAC6488267D388B007FE9FD /* ASTableNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6487267D388B007FE9FD /* ASTableNode.swift */; };
-		DBAC648A267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */; };
 		DBAC648F267DC84D007FE9FD /* TableNodeDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */; };
 		DBAC6497267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */; };
 		DBAC6499267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */; };
@@ -1144,6 +1148,11 @@
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
+		DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Notification.swift"; sourceTree = "<group>"; };
+		DB73BF4027118B6D00781945 /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
+		DB73BF42271192BB00781945 /* InstanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
+		DB73BF44271195AC00781945 /* APIService+CoreData+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Instance.swift"; sourceTree = "<group>"; };
+		DB73BF46271199CA00781945 /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
 		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
@@ -1270,7 +1279,6 @@
 		DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeIllustrationView.swift; sourceTree = "<group>"; };
 		DBAC6484267D0F9E007FE9FD /* StatusNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusNode.swift; sourceTree = "<group>"; };
 		DBAC6487267D388B007FE9FD /* ASTableNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASTableNode.swift; sourceTree = "<group>"; };
-		DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDiffableDataSourceSnapshot.swift; sourceTree = "<group>"; };
 		DBAC648E267DC84D007FE9FD /* TableNodeDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableNodeDiffableDataSource.swift; sourceTree = "<group>"; };
 		DBAC6496267DECCB007FE9FD /* TimelineMiddleLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineMiddleLoaderNode.swift; sourceTree = "<group>"; };
 		DBAC6498267DF2C4007FE9FD /* TimelineBottomLoaderNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineBottomLoaderNode.swift; sourceTree = "<group>"; };
@@ -1771,6 +1779,7 @@
 				DB297B1A2679FAE200704C90 /* PlaceholderImageCacheService.swift */,
 				DBAEDE5B267A058D00D25FF5 /* BlurhashImageCacheService.swift */,
 				DB564BD2269F3B35001E39A7 /* StatusFilterService.swift */,
+				DB73BF42271192BB00781945 /* InstanceService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2079,6 +2088,7 @@
 				DBAFB7342645463500371D5F /* Emojis.swift */,
 				DBA94439265CC0FC00C537E1 /* Fields.swift */,
 				DBA1DB7F268F84F80052DB59 /* NotificationType.swift */,
+				DB73BF46271199CA00781945 /* Instance.swift */,
 			);
 			path = CoreDataStack;
 			sourceTree = "<group>";
@@ -2280,6 +2290,7 @@
 				2D79E700261EA5550011E398 /* APIService+CoreData+Tag.swift */,
 				DB6D9F56263577D2008423CD /* APIService+CoreData+Setting.swift */,
 				5B90C48A26259C120002E742 /* APIService+CoreData+Subscriptions.swift */,
+				DB73BF44271195AC00781945 /* APIService+CoreData+Instance.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -2454,6 +2465,7 @@
 				DB6804912637CD8700430867 /* AppName.swift */,
 				DB6804FC2637CFEC00430867 /* AppSecret.swift */,
 				DB6804D02637CE4700430867 /* UserDefaults.swift */,
+				DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */,
 			);
 			path = AppShared;
 			sourceTree = "<group>";
@@ -2636,6 +2648,7 @@
 				5B90C46D26259B2C0002E742 /* Setting.swift */,
 				5B90C46C26259B2C0002E742 /* Subscription.swift */,
 				5B90C47E26259BA90002E742 /* SubscriptionAlerts.swift */,
+				DB73BF4027118B6D00781945 /* Instance.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2716,7 +2729,6 @@
 				DB0E91E926A9675100BD2ACC /* MetaLabel.swift */,
 				DB68586325E619B700F0A850 /* NSKeyValueObservation.swift */,
 				DB47229625F9EFAD00DA7F53 /* NSManagedObjectContext.swift */,
-				DBAC6489267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift */,
 				DB0140CE25C42AEE00F9F3CF /* OSLog.swift */,
 				2D939AB425EDD8A90076FA61 /* String.swift */,
 				DB68A06225E905E000CFDF14 /* UIApplication.swift */,
@@ -3943,7 +3955,6 @@
 				DBBC24DC26A54BCB00398BB9 /* MastodonRegex.swift in Sources */,
 				2D69D00A25CAA00300C3A1B2 /* APIService+CoreData+Status.swift in Sources */,
 				DB4481C625EE2ADA00BEFB67 /* PollSection.swift in Sources */,
-				DBAC648A267DC355007FE9FD /* NSDiffableDataSourceSnapshot.swift in Sources */,
 				DBCBED1726132DB500B49291 /* UserTimelineViewModel+Diffable.swift in Sources */,
 				DB71FD4C25F8C80E00512AE1 /* StatusPrefetchingService.swift in Sources */,
 				2DE0FACE2615F7AD00CDF649 /* RecommendAccountSection.swift in Sources */,
@@ -3993,6 +4004,7 @@
 				DBAE3FAF26172FC0004B8251 /* RemoteProfileViewModel.swift in Sources */,
 				DBE3CE0D261D767100430CC6 /* FavoriteViewController+Provider.swift in Sources */,
 				2D084B9326259545003AA3AF /* NotificationViewModel+LoadLatestState.swift in Sources */,
+				DB73BF47271199CA00781945 /* Instance.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
@@ -4015,6 +4027,7 @@
 				5B90C45E262599800002E742 /* SettingsViewModel.swift in Sources */,
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
+				DB73BF43271192BB00781945 /* InstanceService.swift in Sources */,
 				DBA9443A265CC0FC00C537E1 /* Fields.swift in Sources */,
 				2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */,
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
@@ -4190,6 +4203,7 @@
 				DB0C946B26A700AB0088FB11 /* MastodonUser+Property.swift in Sources */,
 				DB8AF54425C13647002E6C99 /* SceneCoordinator.swift in Sources */,
 				5DF1058525F88AE500D6C0D4 /* NeedsDependency+AVPlayerViewControllerDelegate.swift in Sources */,
+				DB73BF45271195AC00781945 /* APIService+CoreData+Instance.swift in Sources */,
 				DB1D84382657B275000346B3 /* SegmentedControlNavigateable.swift in Sources */,
 				DB447697260B439000B66B82 /* CustomEmojiPickerHeaderCollectionReusableView.swift in Sources */,
 				DB45FAF925CA80A2005A8AC7 /* APIService+CoreData+MastodonAuthentication.swift in Sources */,
@@ -4304,6 +4318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB6804D12637CE4700430867 /* UserDefaults.swift in Sources */,
+				DB73BF3B2711885500781945 /* UserDefaults+Notification.swift in Sources */,
 				DB4932B726F30F0700EF46D4 /* Array.swift in Sources */,
 				DB6804922637CD8700430867 /* AppName.swift in Sources */,
 				DB6804FD2637CFEC00430867 /* AppSecret.swift in Sources */,
@@ -4324,6 +4339,7 @@
 				2D927F0E25C7E9C9004F19B8 /* History.swift in Sources */,
 				DBCC3B9B261584A00045B23D /* PrivateNote.swift in Sources */,
 				DB89BA3725C1145C008580ED /* CoreData.xcdatamodeld in Sources */,
+				DB73BF4127118B6D00781945 /* Instance.swift in Sources */,
 				DB8AF52525C131D1002E6C99 /* MastodonUser.swift in Sources */,
 				DB89BA1B25C1107F008580ED /* Collection.swift in Sources */,
 				DB4481AD25EE155900BEFB67 /* Poll.swift in Sources */,

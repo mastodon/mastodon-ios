@@ -48,15 +48,6 @@ extension ComposeViewModel {
                 tableView.endUpdates()
             }
             .store(in: &disposeBag)
-        
-//        composeStatusPollTableViewCell.collectionViewHeightDidUpdate
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] _ in
-//                guard let _ = self else { return }
-//                tableView.beginUpdates()
-//                tableView.endUpdates()
-//            }
-//            .store(in: &disposeBag)
 
         attachmentServices
             .removeDuplicates()
@@ -100,7 +91,7 @@ extension ComposeViewModel {
                 for attribute in pollOptionAttributes {
                     items.append(.pollOption(attribute: attribute))
                 }
-                if pollOptionAttributes.count < 4 {
+                if pollOptionAttributes.count < self.maxPollOptions {
                     items.append(.pollOptionAppendEntry)
                 }
                 items.append(.pollExpiresOption(attribute: self.pollExpiresOptionAttribute))
