@@ -133,9 +133,9 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "กำลังโหลดโพสต์ที่ขาดหายไป...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "แสดงการตอบกลับเพิ่มเติม";
 "Common.Controls.Timeline.Timestamp.Now" = "ตอนนี้";
-"Scene.AccountList.AddAccount" = "Add Account";
-"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
-"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
+"Scene.AccountList.AddAccount" = "เพิ่มบัญชี";
+"Scene.AccountList.DismissAccountSwitcher" = "ปิดตัวสลับบัญชี";
+"Scene.AccountList.TabBarHint" = "โปรไฟล์ที่เลือกในปัจจุบัน: %@ แตะสองครั้งแล้วกดค้างไว้เพื่อแสดงตัวสลับบัญชี";
 "Scene.Compose.Accessibility.AppendAttachment" = "เพิ่มไฟล์แนบ";
 "Scene.Compose.Accessibility.AppendPoll" = "เพิ่มการสำรวจความคิดเห็น";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "ตัวเลือกอีโมจิที่กำหนดเอง";
@@ -341,6 +341,6 @@
 "Scene.Thread.Title" = "โพสต์จาก %@";
 "Scene.Welcome.Slogan" = "ให้เครือข่ายสังคม
 กลับมาอยู่ในมือของคุณ";
-"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
-"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
-"Scene.Wizard.NewInMastodon" = "New in Mastodon";
+"Scene.Wizard.AccessibilityHint" = "แตะสองครั้งเพื่อปิดตัวช่วยสร้างนี้";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "สลับระหว่างหลายบัญชีโดยกดปุ่มโปรไฟล์ค้างไว้";
+"Scene.Wizard.NewInMastodon" = "มาใหม่ใน Mastodon";
