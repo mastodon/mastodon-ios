@@ -151,7 +151,9 @@ final class ComposeViewModel: NSObject {
                     .sorted(by: { $0.index.intValue < $1.index.intValue })
                     .filter { $0.id != composeAuthor?.id }
                 for mention in mentions {
-                    mentionAccts.append("@" + mention.acct)
+                    let acct = "@" + mention.acct
+                    guard !mentionAccts.contains(acct) else { continue }
+                    mentionAccts.append(acct)
                 }
                 for acct in mentionAccts {
                     UITextChecker.learnWord(acct)
