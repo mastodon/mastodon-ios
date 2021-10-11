@@ -111,6 +111,24 @@ extension MetaLabel {
 
 }
 
+extension MetaLabel {
+    func configure(attributedString: NSAttributedString) {
+        let attributedString = NSMutableAttributedString(attributedString: attributedString)
+        
+        MetaText.setAttributes(
+            for: attributedString,
+            textAttributes: textAttributes,
+            linkAttributes: linkAttributes,
+            paragraphStyle: paragraphStyle,
+            content: PlaintextMetaContent(string: "")
+        )
+        
+        textStorage.setAttributedString(attributedString)
+        self.attributedText = attributedString
+        setNeedsDisplay()
+    }
+}
+
 struct PlaintextMetaContent: MetaContent {
     let string: String
     let entities: [Meta.Entity] = []

@@ -639,7 +639,7 @@ extension StatusSection {
     ) {
         if status.reblog != nil {
             cell.statusView.headerContainerView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+            cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.reblogIconImage))
             let headerText: String = {
                 let author = status.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
@@ -657,7 +657,7 @@ extension StatusSection {
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+            cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.replyIconImage))
             let headerText: String = {
                 guard let replyTo = status.replyTo else {
                     return L10n.Common.Controls.Status.userRepliedTo("-")

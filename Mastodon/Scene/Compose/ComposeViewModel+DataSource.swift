@@ -237,7 +237,7 @@ extension ComposeViewModel: UITableViewDataSource {
                     return
                 }
                 cell.statusView.headerContainerView.isHidden = false
-                cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+                cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.replyIconImage))
                 let headerText: String = {
                     let author = replyTo.author
                     let name = author.displayName.isEmpty ? author.username : author.displayName

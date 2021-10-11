@@ -73,9 +73,10 @@ final class StatusView: UIView {
         return attributedString
     }
     
-    let headerIconLabel: UILabel = {
-        let label = UILabel()
-        label.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+    let headerIconLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusHeader)
+        let attributedString = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+        label.configure(attributedString: attributedString)
         return label
     }()
     
