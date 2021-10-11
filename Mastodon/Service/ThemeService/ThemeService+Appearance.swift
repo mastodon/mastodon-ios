@@ -48,6 +48,11 @@ extension ThemeService {
         tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
         tabBarAppearance.selectionIndicatorTintColor = Asset.Colors.brandBlue.color
         UITabBar.appearance().standardAppearance = tabBarAppearance
+        if #available(iOS 15.0, *) {
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        } else {
+            // Fallback on earlier versions
+        }
         UITabBar.appearance().barTintColor = theme.tabBarBackgroundColor
 
         // set table view cell appearance
