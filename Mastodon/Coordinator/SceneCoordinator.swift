@@ -94,9 +94,21 @@ final public class SceneCoordinator {
                     guard let self = self else { return }
                     
                     // Note:
-                    // show (push) on phone
-                    // showDetail in .secondary in UISplitViewController on pad
-                    let from = self.splitViewController?.topMost ?? self.tabBarController.topMost
+                    // show (push) on phone or pad (compact)
+                    // showDetail in .secondary in UISplitViewController on pad (expand)
+                    let from: UIViewController? = {
+                        if let splitViewController = self.splitViewController {
+                            if splitViewController.mainTabBarController.topMost?.view.window != nil {
+                                // compact
+                                return splitViewController.mainTabBarController.topMost
+                            } else {
+                                // expand
+                                return splitViewController.viewController(for: .supplementary)
+                            }
+                        } else {
+                            return self.tabBarController.topMost
+                        }
+                    }()
                     
                     // show notification related content
                     guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
