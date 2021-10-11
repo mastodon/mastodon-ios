@@ -111,8 +111,10 @@ extension AccountListViewController {
         
         viewModel.dataSourceDidUpdate
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
+            .sink { [weak self, weak presentingViewController] in
                 guard let self = self else { return }
+                // the presentingViewController may deinit 
+                guard let _ = presentingViewController else { return }
                 self.hasLoaded = true
                 self.panModalSetNeedsLayoutUpdate()
                 self.panModalTransition(to: .shortForm)

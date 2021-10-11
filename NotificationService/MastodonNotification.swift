@@ -9,7 +9,7 @@ import Foundation
 
 struct MastodonPushNotification: Codable {
     
-    private let _accessToken: String
+    let _accessToken: String
     var accessToken: String {
         return String.normalize(base64String: _accessToken)
     }
@@ -30,6 +30,24 @@ struct MastodonPushNotification: Codable {
         case icon
         case title
         case body
+    }
+    
+    public init(
+        _accessToken: String,
+        notificationID: Int,
+        notificationType: String,
+        preferredLocale: String?,
+        icon: String?,
+        title: String,
+        body: String
+    ) {
+        self._accessToken = _accessToken
+        self.notificationID = notificationID
+        self.notificationType = notificationType
+        self.preferredLocale = preferredLocale
+        self.icon = icon
+        self.title = title
+        self.body = body
     }
     
 }

@@ -14,6 +14,7 @@ import CoreDataStack
 import FLEX
 import SwiftUI
 import MastodonUI
+import MastodonSDK
 
 extension HomeTimelineViewController {
     var debugMenu: UIMenu {
@@ -27,6 +28,7 @@ extension HomeTimelineViewController {
                 moveMenu,
                 dropMenu,
                 miscMenu,
+                notificationMenu,
                 UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showSettings(action)
@@ -171,6 +173,25 @@ extension HomeTimelineViewController {
                         UserDefaults.shared.didShowMultipleAccountSwitchWizard = false
                     }
                 ),
+            ]
+        )
+    }
+    
+    var notificationMenu: UIMenu {
+        return UIMenu(
+            title: "Notification…",
+            image: UIImage(systemName: "bell.badge"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "Profile", image: UIImage(systemName: "person.badge.plus"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showNotification(action, notificationType: .follow)
+                },
+                UIAction(title: "Status", image: UIImage(systemName: "list.bullet.rectangle"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showNotification(action, notificationType: .mention)
+                },
             ]
         )
     }
@@ -410,6 +431,63 @@ extension HomeTimelineViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+    }
+    
+    private func showNotification(_ sender: UIAction, notificationType: Mastodon.Entity.Notification.NotificationType) {
+        guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        let alertController = UIAlertController(title: "Enter notification ID", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        
+        let showAction = UIAlertAction(title: "Show", style: .default) { [weak self, weak alertController] _ in
+            guard let self = self else { return }
+            guard let textField = alertController?.textFields?.first,
+                  let text = textField.text,
+                  let notificationID = Int(text)
+            else { return }
+            
+            let pushNotification = MastodonPushNotification(
+                _accessToken: authenticationBox.userAuthorization.accessToken,
+                notificationID: notificationID,
+                notificationType: notificationType.rawValue,
+                preferredLocale: nil,
+                icon: nil,
+                title: "",
+                body: ""
+            )
+            self.context.notificationService.requestRevealNotificationPublisher.send(pushNotification)
+        }
+        alertController.addAction(showAction)
+        
+        // for multiple accounts debug
+        let boxes = self.context.authenticationService.mastodonAuthenticationBoxes.value    // already sorted
+        if boxes.count >= 2 {
+            let accessToken = boxes[1].userAuthorization.accessToken
+            let showForSecondaryAction = UIAlertAction(title: "Show for Secondary", style: .default) { [weak self, weak alertController] _ in
+                guard let self = self else { return }
+                guard let textField = alertController?.textFields?.first,
+                      let text = textField.text,
+                      let notificationID = Int(text)
+                else { return }
+                
+                let pushNotification = MastodonPushNotification(
+                    _accessToken: accessToken,
+                    notificationID: notificationID,
+                    notificationType: notificationType.rawValue,
+                    preferredLocale: nil,
+                    icon: nil,
+                    title: "",
+                    body: ""
+                )
+                self.context.notificationService.requestRevealNotificationPublisher.send(pushNotification)
+            }
+            alertController.addAction(showForSecondaryAction)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
     @objc private func showSettings(_ sender: UIAction) {

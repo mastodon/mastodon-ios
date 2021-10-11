@@ -167,4 +167,8 @@ extension MastodonAuthentication {
         ])
     }
     
+    public static func predicate(userAccessToken: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.userAccessToken), userAccessToken)
+    }
+    
 }

@@ -95,8 +95,11 @@ extension AuthenticationService {
     
     func activeMastodonUser(domain: String, userID: MastodonUser.ID) -> AnyPublisher<Result<Bool, Error>, Never> {
         var isActive = false
+        var _mastodonAuthentication: MastodonAuthentication?
         
-        return backgroundManagedObjectContext.performChanges {
+        return backgroundManagedObjectContext.performChanges { [weak self] in
+            guard let self = self else { return }
+            
             let request = MastodonAuthentication.sortedFetchRequest
             request.predicate = MastodonAuthentication.predicate(domain: domain, userID: userID)
             request.fetchLimit = 1
@@ -104,9 +107,29 @@ extension AuthenticationService {
                 return
             }
             mastodonAuthentication.update(activedAt: Date())
+            _mastodonAuthentication = mastodonAuthentication
             isActive = true
+        
         }
-        .map { result in
+        .receive(on: DispatchQueue.main)
+        .map { [weak self] result in
+            switch result {
+            case .success:
+                if let self = self,
+                   let mastodonAuthentication = _mastodonAuthentication
+                {
+                    // force set to avoid delay
+                    self.activeMastodonAuthentication.value = mastodonAuthentication
+                    self.activeMastodonAuthenticationBox.value = MastodonAuthenticationBox(
+                        domain: mastodonAuthentication.domain,
+                        userID: mastodonAuthentication.userID,
+                        appAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.appAccessToken),
+                        userAuthorization: Mastodon.API.OAuth.Authorization(accessToken: mastodonAuthentication.userAccessToken)
+                    )
+                }
+            case .failure:
+                break
+            }
             return result.map { isActive }
         }
         .eraseToAnyPublisher()
