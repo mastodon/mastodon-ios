@@ -221,8 +221,6 @@ extension UserProviderFacade {
                 state: .off
             ) { [weak provider, weak sourceView, weak barButtonItem] _ in
                 guard let provider = provider else { return }
-                guard let sourceView = sourceView else { return }
-                guard let barButtonItem = barButtonItem else { return }
                 let activityViewController = createActivityViewControllerForMastodonUser(mastodonUser: shareUser, dependency: provider)
                 provider.coordinator.present(
                     scene: .activityViewController(
@@ -247,8 +245,6 @@ extension UserProviderFacade {
                 state: .off
             ) { [weak provider, weak sourceView, weak barButtonItem] _ in
                 guard let provider = provider else { return }
-                guard let sourceView = sourceView else { return }
-                guard let barButtonItem = barButtonItem else { return }
                 let activityViewController = createActivityViewControllerForMastodonUser(status: shareStatus, dependency: provider)
                 provider.coordinator.present(
                     scene: .activityViewController(
@@ -273,7 +269,6 @@ extension UserProviderFacade {
                 state: .off
             ) { [weak provider, weak cell] _ in
                 guard let provider = provider else { return }
-                guard let cell = cell else { return }
 
                 UserProviderFacade.toggleUserMuteRelationship(
                     provider: provider,
@@ -304,7 +299,6 @@ extension UserProviderFacade {
                 state: .off
             ) { [weak provider, weak cell] _ in
                 guard let provider = provider else { return }
-                guard let cell = cell else { return }
 
                 UserProviderFacade.toggleUserBlockRelationship(
                     provider: provider,
@@ -364,7 +358,6 @@ extension UserProviderFacade {
                     state: .off
                 ) { [weak provider, weak cell] _ in
                     guard let provider = provider else { return }
-                    guard let cell = cell else { return }
                     provider.context.blockDomainService.unblockDomain(userProvider: provider, cell: cell)
                 }
                 children.append(unblockDomainAction)
@@ -378,14 +371,12 @@ extension UserProviderFacade {
                     state: .off
                 ) { [weak provider, weak cell] _ in
                     guard let provider = provider else { return }
-                    guard let cell = cell else { return }
                     
                     let alertController = UIAlertController(title: L10n.Common.Alerts.BlockDomain.title(mastodonUser.domainFromAcct), message: nil, preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: L10n.Common.Controls.Actions.cancel, style: .default) { _ in }
                     alertController.addAction(cancelAction)
                     let blockDomainAction = UIAlertAction(title: L10n.Common.Alerts.BlockDomain.blockEntireDomain, style: .destructive) { [weak provider, weak cell] _ in
                         guard let provider = provider else { return }
-                        guard let cell = cell else { return }
                         provider.context.blockDomainService.blockDomain(userProvider: provider, cell: cell)
                     }
                     alertController.addAction(blockDomainAction)
