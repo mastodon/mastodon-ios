@@ -14,11 +14,11 @@ final public class SceneCoordinator {
     private weak var scene: UIScene!
     private weak var sceneDelegate: SceneDelegate!
     private weak var appContext: AppContext!
-    private(set) weak var tabBarController: MainTabBarController!
     
     let id = UUID().uuidString
     
-    weak var splitViewController: RootSplitViewController?
+    private(set) weak var tabBarController: MainTabBarController!
+    private(set) weak var splitViewController: RootSplitViewController?
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
@@ -124,6 +124,7 @@ extension SceneCoordinator {
         default:
             let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
             self.splitViewController = splitViewController
+            self.tabBarController = splitViewController.mainTabBarController
             sceneDelegate.window?.rootViewController = splitViewController
         }
     }
@@ -253,7 +254,7 @@ extension SceneCoordinator {
     }
 
     func switchToTabBar(tab: MainTabBarController.Tab) {
-        tabBarController.selectedIndex = tab.rawValue
+        tabBarController.currentTab.value = tab
     }
 }
 
