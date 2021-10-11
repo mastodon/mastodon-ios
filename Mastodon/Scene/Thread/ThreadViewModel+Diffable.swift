@@ -135,7 +135,7 @@ extension ThreadViewModel {
             // save height before cell reuse
             let oldRootCellHeight = oldRootCell?.frame.height
             
-            diffableDataSource.apply(newSnapshot, animatingDifferences: false) {
+            diffableDataSource.reloadData(snapshot: newSnapshot) {
                 guard let _ = rootItem else {
                     return
                 }

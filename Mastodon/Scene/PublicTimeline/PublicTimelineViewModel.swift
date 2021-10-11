@@ -102,7 +102,7 @@ class PublicTimelineViewModel: NSObject {
                         return
                     }
                     
-                    diffableDataSource.apply(snapshot, animatingDifferences: false) {
+                    diffableDataSource.reloadData(snapshot: snapshot) {
                         tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
                         tableView.contentOffset.y = tableView.contentOffset.y - difference.offset
                         self.isFetchingLatestTimeline.value = false

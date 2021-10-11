@@ -361,6 +361,8 @@
 		DB73BF43271192BB00781945 /* InstanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF42271192BB00781945 /* InstanceService.swift */; };
 		DB73BF45271195AC00781945 /* APIService+CoreData+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF44271195AC00781945 /* APIService+CoreData+Instance.swift */; };
 		DB73BF47271199CA00781945 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF46271199CA00781945 /* Instance.swift */; };
+		DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */; };
+		DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */; };
 		DB75BF1E263C1C1B00EDBF1F /* CustomScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */; };
 		DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */; };
 		DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */; };
@@ -1153,6 +1155,8 @@
 		DB73BF42271192BB00781945 /* InstanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceService.swift; sourceTree = "<group>"; };
 		DB73BF44271195AC00781945 /* APIService+CoreData+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+CoreData+Instance.swift"; sourceTree = "<group>"; };
 		DB73BF46271199CA00781945 /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
+		DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
+		DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		DB75BF1D263C1C1B00EDBF1F /* CustomScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScheduler.swift; sourceTree = "<group>"; };
 		DB789A0A25F9F2950071ACA0 /* ComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 		DB789A1125F9F2CC0071ACA0 /* ComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeViewModel.swift; sourceTree = "<group>"; };
@@ -2748,6 +2752,8 @@
 				DB9E0D6E25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift */,
 				DBCC3B2F261440A50045B23D /* UITabBarController.swift */,
 				DBCC3B35261440BA0045B23D /* UINavigationController.swift */,
+				DB73BF4827140BA300781945 /* UICollectionViewDiffableDataSource.swift */,
+				DB73BF4A27140C0800781945 /* UITableViewDiffableDataSource.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -4014,6 +4020,7 @@
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
 				DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */,
 				DBF9814C265E339500E4BA07 /* ProfileFieldAddEntryCollectionViewCell.swift in Sources */,
+				DB73BF4927140BA300781945 /* UICollectionViewDiffableDataSource.swift in Sources */,
 				DBA5E7AB263BD3F5004598BB /* TimelineTableViewCellContextMenuConfiguration.swift in Sources */,
 				DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */,
 				DB6D1B44263691CF00ACB481 /* Mastodon+API+Subscriptions+Policy.swift in Sources */,
@@ -4110,6 +4117,7 @@
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
 				2D61254D262547C200299647 /* APIService+Notification.swift in Sources */,
 				DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */,
+				DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */,
 				DBB525642612C988002F1F29 /* MeProfileViewModel.swift in Sources */,
 				5BB04FE9262EFC300043BFF6 /* ReportedStatusTableviewCell.swift in Sources */,
 				DBAE3F822615DDA3004B8251 /* ProfileViewController+UserProvider.swift in Sources */,
