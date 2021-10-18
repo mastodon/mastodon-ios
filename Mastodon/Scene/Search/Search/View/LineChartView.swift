@@ -66,61 +66,33 @@ extension LineChartView {
         gradientLayer.isHidden = false
         
         // Draw smooth chart
-        // use vDSP scale the data with line interpolation method
-        var data = data.map { Float($0) }
-        // duplicate first and last value to prevent interpolation at edge data
-        data.insert(data[0], at: 0)
-        if let last = data.last {
-            data.append(last)
-        }
-        
-        let n = vDSP_Length(128)
-        let stride = vDSP_Stride(1)
-        
-        // generate fine control with smoothing (simd_smoothstep(_:_:_:))
-        let denominator = Float(n) / Float(data.count - 1)
-        let control: [Float] = (0...n).map {
-            let x = Float($0) / denominator
-            return floor(x) + simd_smoothstep(0, 1, simd_fract(x))
-        }
-        
-        var points = [Float](repeating: 0, count: Int(n))
-        vDSP_vlint(data,
-                   control, stride,
-                   &points, stride,
-                   n,
-                   vDSP_Length(data.count))
-        
         guard let maxDataPoint = data.max() else {
             return
         }
-        func calculateY(for point: Float, in frame: CGRect) -> CGFloat {
+        func calculateY(for point: CGFloat, in frame: CGRect) -> CGFloat {
             guard maxDataPoint > 0 else { return .zero }
-            return (1 - CGFloat(point / maxDataPoint)) * frame.height
+            return (1 - point / maxDataPoint) * frame.height
         }
         
-        let segmentCount = points.count - 1
+        let segmentCount = data.count - 1
         let segmentWidth = bounds.width / CGFloat(segmentCount)
         
-        let linePath = UIBezierPath()
+        let points: [CGPoint] = {
+            var points: [CGPoint] = []
+            var x: CGFloat = 0
+            for value in data {
+                let point = CGPoint(x: x, y: calculateY(for: value, in: bounds))
+                points.append(point)
+                x += segmentWidth
+            }
+            return points
+        }()
+        
+        guard let linePath = CurveAlgorithm.shared.createCurvedPath(points) else { return }
         let dotPath = UIBezierPath()
         
-        // move to first data point
-        var x: CGFloat = 0
-        let y = calculateY(for: points[0], in: bounds)
-        linePath.move(to: CGPoint(x: x, y: y))
-        for point in points.dropFirst() {
-            x += segmentWidth
-            linePath.addLine(to: CGPoint(
-                x: x,
-                y: calculateY(for: point, in: bounds)
-            ))
-        }
-        
         if let last = points.last {
-            let y = calculateY(for: last, in: bounds)
-            let center = CGPoint(x: bounds.maxX, y: y)
-            dotPath.addArc(withCenter: center, radius: 3, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
+            dotPath.addArc(withCenter: last, radius: 3, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
         }
         
         // this not works
