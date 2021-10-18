@@ -94,14 +94,11 @@ extension LineChartView {
         if let last = points.last {
             dotPath.addArc(withCenter: last, radius: 3, startAngle: 0, endAngle: 2 * .pi, clockwise: true)
         }
-        
-        // this not works
-        // linePath.lineJoinStyle = .round
-        // lineShapeLayer.lineJoin = .round
-        
+
         lineShapeLayer.lineWidth = 3
         lineShapeLayer.strokeColor = Asset.Colors.brandBlue.color.cgColor
         lineShapeLayer.fillColor = UIColor.clear.cgColor
+        lineShapeLayer.lineJoin = .round
         lineShapeLayer.lineCap = .round
         lineShapeLayer.path = linePath.cgPath
         

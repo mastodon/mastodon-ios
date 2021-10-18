@@ -16,7 +16,7 @@ class CurveAlgorithm {
     private func controlPointsFrom(points: [CGPoint]) -> [CurvedSegment] {
         var result: [CurvedSegment] = []
         
-        let delta: CGFloat = 0.4
+        let delta: CGFloat = 0.2
         
         // only use horizontal control point
         for i in 1..<points.count {
