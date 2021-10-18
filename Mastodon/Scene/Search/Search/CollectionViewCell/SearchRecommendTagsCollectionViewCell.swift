@@ -17,7 +17,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
      
     let hashtagTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .label
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -25,18 +25,12 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
     
     let peopleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .white
+        label.textColor = .label
         label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
     
-    let flameIconView: UIImageView = {
-        let imageView = UIImageView()
-        let image = UIImage(systemName: "flame.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))!.withRenderingMode(.alwaysTemplate)
-        imageView.image = image
-        imageView.tintColor = .white
-        return imageView
-    }()
+    let lineChartView = LineChartView()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -54,7 +48,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? Asset.Colors.brandBlueDarken20.color : Asset.Colors.brandBlue.color
+            backgroundColor = isHighlighted ? .systemBackground.withAlphaComponent(0.8) : .systemBackground
         }
     }
 }
@@ -68,7 +62,7 @@ extension SearchRecommendTagsCollectionViewCell {
     }
     
     private func configure() {
-        backgroundColor = Asset.Colors.brandBlue.color
+        backgroundColor = .systemBackground
         layer.cornerRadius = 10
         layer.cornerCurve = .continuous
         clipsToBounds = false
@@ -98,41 +92,40 @@ extension SearchRecommendTagsCollectionViewCell {
             containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        
-        
-        let horizontalStackView = UIStackView()
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.distribution = .fill
 
-        hashtagTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        hashtagTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-        horizontalStackView.addArrangedSubview(hashtagTitleLabel)
-        horizontalStackView.setContentHuggingPriority(.required - 1, for: .vertical)
-        
-        flameIconView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.addArrangedSubview(flameIconView)
-        flameIconView.setContentHuggingPriority(.required - 1, for: .horizontal)
-
-        containerStackView.addArrangedSubview(horizontalStackView)
-        peopleLabel.translatesAutoresizingMaskIntoConstraints = false
-        peopleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
+        containerStackView.addArrangedSubview(hashtagTitleLabel)
         containerStackView.addArrangedSubview(peopleLabel)
-        containerStackView.setCustomSpacing(SearchViewController.hashtagPeopleTalkingLabelTop, after: horizontalStackView)
+        
+        lineChartView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(lineChartView)
+        NSLayoutConstraint.activate([
+            lineChartView.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 8),
+            lineChartView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            contentView.trailingAnchor.constraint(equalTo: lineChartView.trailingAnchor, constant: 16),
+            contentView.bottomAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 16),
+        ])
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
         hashtagTitleLabel.text = "# " + tag.name
-        guard let historys = tag.history else {
+        guard let history = tag.history else {
             peopleLabel.text = ""
             return
         }
         
-        let recentHistory = historys.prefix(2)
+        let recentHistory = history.prefix(2)
         let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         peopleLabel.text = string
-
+        
+        lineChartView.data = history
+            .sorted(by: { $0.day < $1.day })        // latest last
+            .map { entry in
+            guard let point = Int(entry.accounts) else {
+                return .zero
+            }
+            return CGFloat(point)
+        }
     }
 }
 
