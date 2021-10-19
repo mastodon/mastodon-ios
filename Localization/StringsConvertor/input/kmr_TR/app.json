@@ -127,31 +127,31 @@
                 "show_post": "Şandiyê nîşan bide",
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
                 "content_warning": "Hişyariya naverokê",
-                "media_content_warning": "Tap anywhere to reveal",
+                "media_content_warning": "Ji bo aşkerakirinê derekî bitikîne",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Deng",
+                    "closed": "Girtî"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "reply": "Bersivê bide",
+                    "reblog": "Ji nû ve blog",
+                    "unreblog": "Ji nû ve blogkirin betal bikin",
+                    "favorite": "Bijartî",
+                    "unfavorite": "Nebijare",
+                    "menu": "Menû"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
-                    "email": "Email",
-                    "emoji": "Emoji"
+                    "mention": "Behs",
+                    "link": "Girêdan",
+                    "hashtag": "Etîket",
+                    "email": "E-name",
+                    "emoji": "E-name"
                 }
             },
             "friendship": {
-                "follow": "Follow",
-                "following": "Following",
+                "follow": "Bişopîne",
+                "following": "Dişopîne",
                 "request": "Daxwazên şopandinê",
                 "pending": "Tê nirxandin",
                 "block": "Asteng bike",
@@ -164,37 +164,37 @@
                 "mute_user": "%s bêdeng bike",
                 "unmute": "Bêdeng neke",
                 "unmute_user": "%s bêdeng neke",
-                "muted": "Muted",
+                "muted": "Bêdengkirî",
                 "edit_info": "Zanyariyan serrast bike"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Parzûnkirî",
                 "timestamp": {
                     "now": "Niha"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Barkirina posteyên kêm",
+                    "loading_missing_posts": "Barkirina posteyên kêm...",
                     "show_more_replies": "Bêtir bersivan nîşan bide"
                 },
                 "header": {
                     "no_status_found": "Şandî nehate dîtin",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "blocking_warning": "Tu nikarî profîla vî bikarhênerî bibînî\nHeta ku tu wan asteng bikî.\nProfîla te ji wan ra wiha xuya dike.",
+                    "user_blocking_warning": "Tu nikarî profîla %s bibînî\nHeta ku tu wan asteng bikî.\nProfîla te ji wan ra wiha xuya dike.",
+                    "blocked_warning": "Tu nikarî profîla vî bikarhênerî bibînî\nheta ku astengîya te rakin.",
+                    "user_blocked_warning": "Tu nikarî profîla %s bibînî\nHeta ku astengîya te rakin.",
+                    "suspended_warning": "Ev bikarhêner hat sekinandin.",
+                    "user_suspended_warning": "Hesaba %s hat sekinandin."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Tevna civakî\nvegerrîna di destê te da."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Pêşkêşkarekê hilbijêre,\nher pêşkêşvanek.",
             "button": {
                 "category": {
                     "all": "Hemû",
