@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tîp</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tîp</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>Sînorê têketinê %#@character_count@ maye</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -45,9 +45,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>1 tîp</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld tîp</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>1 mirov diaxive</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld mirov diaxive</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>1 dişopîne</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld dişopîne</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>1 şopîner</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld şopîner</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 sal berê</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld sal berê</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>1 meh berê</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ld meh berê</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>1 roj berê</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>%ld roj berê</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>1 demjimêr berê</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>%ld demjimêr berê</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>1 xulek berê</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>%ld xulek berê</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>1 çirke berê</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>%ld çirke berê</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
