@@ -2,50 +2,50 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Please try again.",
-                "please_try_again_later": "Please try again later."
+                "please_try_again": "Ji kerema xwe dîsa biceribîne.",
+                "please_try_again_later": "Ji kerema xwe paşê dîsa biceribîne."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Tomarkirin têkçû"
             },
             "server_error": {
-                "title": "Server Error"
+                "title": "Çewtiya rajekar"
             },
             "vote_failure": {
-                "title": "Vote Failure",
-                "poll_ended": "The poll has ended"
+                "title": "Dengdayîn têkçû",
+                "poll_ended": "Rapirsîya qediya"
             },
             "discard_post_content": {
                 "title": "Discard Draft",
                 "message": "Confirm to discard composed post content."
             },
             "publish_post_failure": {
-                "title": "Publish Failure",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "Weşandin têkçû",
+                "message": "Weşandina şandiyê têkçû.\nJkx girêdana înternetê xwe kontrol bike.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "Nikare vîdyoyekê tevlî şandiyê ku berê wêne tê de heye bike.",
+                    "more_than_one_video": "Nikare ji bêtirî yek vîdyoyekê tevlî şandiyê bike."
                 }
             },
             "edit_profile_failure": {
                 "title": "Edit Profile Error",
-                "message": "Cannot edit profile. Please try again."
+                "message": "Nikare profîlê serrast bike. Jkx dîsa biceribîne."
             },
             "sign_out": {
-                "title": "Sign Out",
-                "message": "Are you sure you want to sign out?",
-                "confirm": "Sign Out"
+                "title": "Derkeve",
+                "message": "Ma tu dixwazî ku derkevî?",
+                "confirm": "Derkeve"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "Block Domain"
+                "title": "Tu ji xwe bawerî, bi rastî tu dixwazî hemû %s asteng bikî? Di gelek rewşan de asteng kirin an jî bêdeng kirin têrê dike û tê tercîh kirin. Tu nikarî naveroka vê navperê di demnameyê an jî agahdariyên xwe de bibînî. Şopînerên te yê di vê navperê were jêbirin.",
+                "block_entire_domain": "Navperê asteng bike"
             },
             "save_photo_failure": {
-                "title": "Save Photo Failure",
+                "title": "Tomarkirina wêneyê têkçû",
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
+                "title": "Ma tu dixwazî vê şandiyê jê bibî?",
                 "delete": "Jê bibe"
             },
             "clean_cache": {
@@ -80,35 +80,35 @@
                 "share": "Parve bike",
                 "share_user": "%s parve bike",
                 "share_post": "Şandiyê parve bike",
-                "open_in_safari": "Open in Safari",
+                "open_in_safari": "Di Safariyê de veke",
                 "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "manually_search": "Ji devlê i destan lêgerînê bike",
+                "skip": "Derbas bike",
+                "reply": "Bersivê bide",
+                "report_user": "%s ragihîne",
+                "block_domain": "%s asteng bike",
+                "unblock_domain": "%s asteng neke",
+                "settings": "Sazkarî",
+                "delete": "Jê bibe"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Serrûpel",
+                "search": "Bigere",
+                "notification": "Agahdarî",
+                "profile": "Profîl"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Biguherîne bo %s",
+                    "compose_new_post": "Şandiyeke nû binivsîne",
+                    "show_favorites": "Bijarteyan nîşan bide",
+                    "open_settings": "Sazkariyan Veke"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
+                    "previous_status": "Şandeya paş",
+                    "next_status": "Şandiya pêş",
+                    "open_status": "Şandiyê veke",
+                    "open_author_profile": "Profîla nivîskaran veke",
                     "open_reblogger_profile": "Open Reblogger's Profile",
                     "reply_status": "Bersivê bide şandiyê",
                     "toggle_reblog": "Toggle Reblog on Post",
@@ -124,8 +124,8 @@
             "status": {
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
+                "show_post": "Şandiyê nîşan bide",
+                "show_user_profile": "Profîla bikarhêner nîşan bide",
                 "content_warning": "Content Warning",
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
@@ -152,33 +152,33 @@
             "friendship": {
                 "follow": "Follow",
                 "following": "Following",
-                "request": "Request",
-                "pending": "Pending",
-                "block": "Block",
-                "block_user": "Block %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
-                "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
-                "mute": "Mute",
-                "mute_user": "Mute %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
+                "request": "Daxwazên şopandinê",
+                "pending": "Tê nirxandin",
+                "block": "Asteng bike",
+                "block_user": "%s asteng bike",
+                "block_domain": "%s asteng bike",
+                "unblock": "Astengiyê rake",
+                "unblock_user": "%s asteng neke",
+                "blocked": "Astengkirî",
+                "mute": "Bêdeng bike",
+                "mute_user": "%s bêdeng bike",
+                "unmute": "Bêdeng neke",
+                "unmute_user": "%s bêdeng neke",
                 "muted": "Muted",
-                "edit_info": "Edit Info"
+                "edit_info": "Zanyariyan serrast bike"
             },
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Niha"
                 },
                 "loader": {
                     "load_missing_posts": "Load missing posts",
                     "loading_missing_posts": "Loading missing posts...",
-                    "show_more_replies": "Show more replies"
+                    "show_more_replies": "Bêtir bersivan nîşan bide"
                 },
                 "header": {
-                    "no_status_found": "No Post Found",
+                    "no_status_found": "Şandî nehate dîtin",
                     "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
@@ -197,15 +197,15 @@
             "title": "Pick a server,\nany server.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Hemû",
+                    "all_accessiblity_description": "Beş: Hemû",
+                    "academia": "akademî",
+                    "activism": "çalakî",
+                    "food": "xwarin",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
+                    "games": "lîsk",
+                    "general": "giştî",
+                    "journalism": "rojnamevanî",
                     "lgbt": "lgbt",
                     "regional": "regional",
                     "art": "art",
