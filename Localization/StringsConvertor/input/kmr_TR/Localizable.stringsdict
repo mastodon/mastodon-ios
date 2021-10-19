@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>1 agahdariya nexwendî</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld agahdariyên nexwendî</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>Sînorê têketinê derbas kir %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -61,9 +61,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>post</string>
+        <string>şandî</string>
         <key>other</key>
-        <string>posts</string>
+        <string>şandî</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 şandî</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld şandî</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 hezkirin</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld hezkirin</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>1 deng</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld deng</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -141,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>1 hilbijêr</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld hilbijêr</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>1 sal berê</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>%ld sal berê</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -317,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>1 xulek berê</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld xulek berê</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>1 roj berê</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>%ld roj berê</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -349,9 +349,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>1 demjimêr berê</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>%ld demjimêr berê</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -365,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>1 xulek berê</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>%ld xulek berê</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -381,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>1 çirke berê</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>%ld çirke berê</string>
       </dict>
     </dict>
   </dict>
