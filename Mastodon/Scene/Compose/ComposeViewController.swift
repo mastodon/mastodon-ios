@@ -1275,7 +1275,6 @@ extension ComposeViewController: AutoCompleteViewControllerDelegate {
             case .bottomLoader:
                 return nil
             }
-            text.append(" ")
             return text
         }()
         guard let replacedText = _replacedText else { return }
@@ -1286,6 +1285,9 @@ extension ComposeViewController: AutoCompleteViewControllerDelegate {
 
         let range = NSRange(info.toHighlightEndRange, in: text)
         textEditorView.textStorage.replaceCharacters(in: range, with: replacedText)
+        DispatchQueue.main.async {
+            textEditorView.textView.insertText(" ") // trigger textView delegate update
+        }
         viewModel.autoCompleteInfo.value = nil
 
         switch item {
