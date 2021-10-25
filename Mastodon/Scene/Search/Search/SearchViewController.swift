@@ -23,6 +23,9 @@ final class SearchViewController: UIViewController, NeedsDependency {
     
     public static var hashtagCardHeight: CGFloat {
         get {
+            if UIScreen.main.bounds.size.height > 736 {
+                return 186
+            }
             return 130
         }
     }

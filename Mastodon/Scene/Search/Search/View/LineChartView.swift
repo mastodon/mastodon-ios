@@ -19,7 +19,7 @@ final class LineChartView: UIView {
     
     let lineShapeLayer = CAShapeLayer()
     let gradientLayer = CAGradientLayer()
-    let dotShapeLayer = CAShapeLayer()
+//    let dotShapeLayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,14 +37,14 @@ extension LineChartView {
     private func _init() {
         lineShapeLayer.frame = bounds
         gradientLayer.frame = bounds
-        dotShapeLayer.frame = bounds
+//        dotShapeLayer.frame = bounds
         layer.addSublayer(lineShapeLayer)
         layer.addSublayer(gradientLayer)
-        layer.addSublayer(dotShapeLayer)
+//        layer.addSublayer(dotShapeLayer)
         
         gradientLayer.colors = [
-            Asset.Colors.brandBlue.color.withAlphaComponent(0.5).cgColor,
-            Asset.Colors.brandBlue.color.withAlphaComponent(0).cgColor,
+            UIColor.white.withAlphaComponent(0.5).cgColor,
+            UIColor.white.withAlphaComponent(0).cgColor,
         ]
         gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)
         gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
@@ -55,11 +55,11 @@ extension LineChartView {
         
         lineShapeLayer.frame = bounds
         gradientLayer.frame = bounds
-        dotShapeLayer.frame = bounds
+//        dotShapeLayer.frame = bounds
         
         guard data.count > 1 else {
             lineShapeLayer.path = nil
-            dotShapeLayer.path = nil
+//            dotShapeLayer.path = nil
             gradientLayer.isHidden = true
             return
         }
@@ -96,7 +96,7 @@ extension LineChartView {
         }
 
         lineShapeLayer.lineWidth = 3
-        lineShapeLayer.strokeColor = Asset.Colors.brandBlue.color.cgColor
+        lineShapeLayer.strokeColor = UIColor.white.cgColor
         lineShapeLayer.fillColor = UIColor.clear.cgColor
         lineShapeLayer.lineJoin = .round
         lineShapeLayer.lineCap = .round
@@ -113,8 +113,8 @@ extension LineChartView {
         maskLayer.lineWidth = 0.0
         gradientLayer.mask = maskLayer
         
-        dotShapeLayer.lineWidth = 3
-        dotShapeLayer.fillColor = Asset.Colors.brandBlue.color.cgColor
-        dotShapeLayer.path = dotPath.cgPath
+//        dotShapeLayer.lineWidth = 3
+//        dotShapeLayer.fillColor = Asset.Colors.brandBlue.color.cgColor
+//        dotShapeLayer.path = dotPath.cgPath
     }
 }

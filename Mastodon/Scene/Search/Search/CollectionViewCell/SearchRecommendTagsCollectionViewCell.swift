@@ -17,7 +17,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
      
     let hashtagTitleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         label.lineBreakMode = .byTruncatingTail
         return label
@@ -25,7 +25,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
     
     let peopleLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
         return label
     }()
@@ -48,7 +48,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
 
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? .systemBackground.withAlphaComponent(0.8) : .systemBackground
+            backgroundColor = isHighlighted ? Asset.Colors.brandBlueDarken20.color : Asset.Colors.brandBlue.color
         }
     }
 }
@@ -62,7 +62,7 @@ extension SearchRecommendTagsCollectionViewCell {
     }
     
     private func configure() {
-        backgroundColor = .systemBackground
+        backgroundColor = Asset.Colors.brandBlue.color
         layer.cornerRadius = 10
         layer.cornerCurve = .continuous
         clipsToBounds = false
@@ -96,14 +96,26 @@ extension SearchRecommendTagsCollectionViewCell {
         containerStackView.addArrangedSubview(hashtagTitleLabel)
         containerStackView.addArrangedSubview(peopleLabel)
         
-        lineChartView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(lineChartView)
+        let lineChartContainer = UIView()
+        lineChartContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(lineChartContainer)
         NSLayoutConstraint.activate([
-            lineChartView.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 8),
-            lineChartView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            contentView.trailingAnchor.constraint(equalTo: lineChartView.trailingAnchor, constant: 16),
-            contentView.bottomAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 16),
+            lineChartContainer.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
+            lineChartContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: lineChartContainer.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: lineChartContainer.bottomAnchor, constant: 12),
         ])
+        lineChartContainer.layer.masksToBounds = true
+        
+        lineChartView.translatesAutoresizingMaskIntoConstraints = false
+        lineChartContainer.addSubview(lineChartView)
+        NSLayoutConstraint.activate([
+            lineChartView.topAnchor.constraint(equalTo: lineChartContainer.topAnchor, constant: 4),
+            lineChartView.leadingAnchor.constraint(equalTo: lineChartContainer.leadingAnchor),
+            lineChartView.trailingAnchor.constraint(equalTo: lineChartContainer.trailingAnchor),
+            lineChartContainer.bottomAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 4),
+        ])
+        
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
