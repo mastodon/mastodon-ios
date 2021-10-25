@@ -32,24 +32,8 @@ extension SearchHistorySection {
                 }
                 return cell
             case .status:
+                // Should not show status in the history list
                 return UITableViewCell()
-//                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: StatusTableViewCell.self), for: indexPath) as! StatusTableViewCell
-//                if let status = try? dependency.context.managedObjectContext.existingObject(with: statusObjectID) as? Status {
-//                    let activeMastodonAuthenticationBox = dependency.context.authenticationService.activeMastodonAuthenticationBox.value
-//                    let requestUserID = activeMastodonAuthenticationBox?.userID ?? ""
-//                    StatusSection.configure(
-//                        cell: cell,
-//                        tableView: tableView,
-//                        timelineContext: .search,
-//                        dependency: dependency,
-//                        readableLayoutFrame: tableView.readableContentGuide.layoutFrame,
-//                        status: status,
-//                        requestUserID: requestUserID,
-//                        statusItemAttribute: attribute
-//                    )
-//                }
-//                cell.delegate = statusTableViewCellDelegate
-//                return cell
             }   // end switch
         }   // end UITableViewDiffableDataSource
     }   // end func
