@@ -207,72 +207,72 @@
                     "general": "giştî",
                     "journalism": "rojnamevanî",
                     "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "regional": "herêmî",
+                    "art": "huner",
+                    "music": "muzîk",
+                    "tech": "teknolojî"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Kêmtir bibîne",
+                "see_more": "Bêtir bibîne"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
-                "category": "CATEGORY"
+                "language": "ZIMAN",
+                "users": "BIKARHÊNER",
+                "category": "KATEGORÎ"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Serverek bibînin an jî beşdarî ya xwe bibin..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Dîtina serverên berdest...",
+                "bad_network": "Di dema barkirina daneyan da tiştek xelet derket. Girêdana xwe ya înternetê kontrol bike.",
+                "no_results": "Encam nade"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Ji me re hinekî qala xwe bike.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Jê bibe"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "navê bikarhêner",
+                    "duplicate_prompt": "Navê vê bikarhêner tê girtin."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "navê nîşanê"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "e-name"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "şîfre",
+                    "hint": "Şîfreya we herî kêm heşt tîpan hewce dike"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Tu çima dixwazî beşdar bibî?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Navê bikarhêner",
+                    "email": "E-name",
+                    "password": "Şîfre",
+                    "agreement": "Lihevhatin",
+                    "locale": "Herêm",
+                    "reason": "Sedem"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s peydekerê e-nameya bêdestûr dihewîne",
+                    "unreachable": "%s xuya nake",
+                    "taken": "%s jixwe tê bikaranîn",
+                    "reserved": "%s peyveke mifteya veqetandî ye",
+                    "accepted": "%s divê were qebûlkirin",
+                    "blank": "%s pêwist e",
+                    "invalid": "%s ne derbasdar e",
+                    "too_long": "%s gelekî dirêj e",
+                    "too_short": "%s pir kurt e",
+                    "inclusion": "%s nirxeke ku tê destekirin nîn e"
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
