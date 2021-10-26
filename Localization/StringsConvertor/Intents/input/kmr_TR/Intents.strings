@@ -24,28 +24,28 @@
 
 "Zo4jgJ" = "Xuyaniya şandiyê";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "Vebijarkên ${count} hene ku li gorî 'Giştî' ne.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "Vebijarkên ${count} hene ku li gorî 'Tenê Şopandin' hene.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, Giştî";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, Tenê şopînêr";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "Li ser Mastodon bişînin";
 
 "dYQ5NN" = "Gelemperî";
 
 "ehFLjY" = "Tenê şopîneran";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Weşandin bi ser neket. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Şandî bi serkeftî hate şandin.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Tenê ji bo pejirandinê, we 'Giştî' dixwest?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Tenê ji bo piştrastkirinê, we 'Tenê Şopdarên' dixwest?";
 
 "rM6dvp" = "Girêdan";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Bi serkeftî hat şandin. ";
