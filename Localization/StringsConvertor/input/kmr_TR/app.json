@@ -275,25 +275,25 @@
                     "inclusion": "%s nirxeke ku tê destekirin nîn e"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Navê bikarhêner divê tenê tîpên alfanumerîk û binxet hebe",
+                    "username_too_long": "Navê bikarhêner pir dirêj e (ji 30 tîpan dirêjtir nabe)",
+                    "email_invalid": "Ev ne navnîşana e-nameyek derbasdar e",
+                    "password_too_short": "Şîfre pir kurt e (divê herî kêm 8 tîpan be)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Hin qaîdeyên bingehîn.",
+            "subtitle": "Ev rêzik ji aliyê rêvebirên %s ve tên sazkirin.",
+            "prompt": "Bi berdewamî, hûn ji bo %s di bin şertên polîtîkaya xizmet û nepenîtiyê da ne.",
+            "terms_of_service": "şert û mercên xizmetê",
+            "privacy_policy": "polîtîkaya nepenîtiyê",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ez tev dibim"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
+            "title": "Tiştekî dawî.",
             "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
                 "open_email_app": "Open Email App",
@@ -372,101 +372,101 @@
                 "remove_poll": "Remove Poll",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "disable_content_warning": "Hişyariya naverokê neçalak bike",
+                "post_visibility_menu": "Menuya Xuyabûna Şandiyê"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Şandî bihelîne",
+                "publish_post": "Şandiye bide weşan",
+                "toggle_poll": "Anketê veke/bigire",
+                "toggle_content_warning": "Hişyariya naverokê veke/bigire",
+                "append_attachment_entry": "Pêvek lê zêde bike - %s",
+                "select_visibility_entry": "Xuyanîbûn hilbijêre - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
-                "followers": "followers"
+                "posts": "şandîyan",
+                "following": "dişopîne",
+                "followers": "şopîneran"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Rêzê lê zêde bike",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Nîşan",
+                    "content": "Naverok"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "media": "Media"
+                "posts": "Şandîyan",
+                "replies": "Bersivan",
+                "media": "Medya"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Hesabê ji bê deng rake",
+                    "message": "Ji bo vekirina bê dengkirinê bipejirin %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Hesabê ji bloke rake",
+                    "message": "Ji bo rakirina blokê bipejirin %s"
                 }
             }
         },
         "search": {
-            "title": "Search",
+            "title": "Bigere",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Li etîketan û bikarhêneran bigerin",
+                "cancel": "Betal kirin"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Hemûyé bibîne",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Trend li ser Mastodon",
+                    "description": "Etîketên ku pir balê dikişînin",
+                    "people_talking": "%s kes diaxivin"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Hesabên ku hûn dikarin hez bikin",
+                    "description": "Dibe ku tu bixwazî van hesaban bişopînî",
+                    "follow": "Bişopîne"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Hemû",
+                    "people": "Mirov",
+                    "hashtags": "Etîketan",
+                    "posts": "Şandîyan"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Encam tune"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Lêgerînên dawî",
+                "clear": "Paqij bike"
             }
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Bijareyên te"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Her tişt",
+                "Mentions": "Behs"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_followed_you": "%s te şopand",
+            "user_favorited your post": "%s posta we bijarte",
+            "user_reblogged_your_post": "%s posta we ji nû ve tomar kir",
+            "user_mentioned_you": "%s behsa te kir",
+            "user_requested_to_follow_you": "%s daxwaza şopandina te kir",
+            "user_your_poll_has_ended": "%s Anketa te qediya",
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Her tiştî nîşan bide",
+                "show_mentions": "Behskirîya nîşan bike"
             }
         },
         "thread": {
-            "back_title": "Post",
+            "back_title": "Şandî",
             "title": "Post from %s"
         },
         "settings": {
