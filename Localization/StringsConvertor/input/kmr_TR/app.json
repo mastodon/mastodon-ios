@@ -470,30 +470,30 @@
             "title": "Post from %s"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Sazkarî",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Xuyang",
+                    "automatic": "Xweber",
+                    "light": "Her dem ronî",
+                    "dark": "Her dem tarî"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "title": "Agahdarî",
+                    "favorites": "Şandiyên min hez kir",
+                    "follows": "Min şopand",
                     "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "mentions": "Qale min kir",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "her kes",
+                        "follower": "şopînerek",
+                        "follow": "her kesê ku dişopînim",
+                        "noone": "ne yek",
+                        "title": "Min agahdar bike gava"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Hilbijarte",
                     "true_black_dark_mode": "True black dark mode",
                     "disable_avatar_animation": "Disable animated avatars",
                     "disable_emoji_animation": "Disable animated emojis",
