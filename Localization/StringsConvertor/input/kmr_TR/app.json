@@ -307,69 +307,69 @@
             "open_email_app": {
                 "title": "Check your inbox.",
                 "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "mail": "E-name",
+                "open_email_client": "Rajegirê e-nameyê veke"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Serrûpel",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Derhêl",
+                "new_posts": "Şandiyên nû bibîne",
+                "published": "Hate weşandin!",
+                "Publishing": "Şandî tê weşandin..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Kesên bo ku bişopînî bibîne",
+            "follow_explain": "Gava tu kesekî dişopînî, tu yê şandiyê wan di serrûpelê de bibîne."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Şandiya nû",
+                "new_reply": "Bersiva nû"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Wêne bikişîne",
+                "photo_library": "Wênegeh",
+                "browse": "Bigere"
             },
             "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "compose_action": "Biweşîne",
+            "replying_to_user": "bersiv bide %s",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
+                "photo": "wêne",
+                "video": "vîdyo",
+                "attachment_broken": "Ev %s naxebite û nayê barkirin\n li ser Mastodon.",
                 "description_photo": "Describe the photo for the visually-impaired...",
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Dirêjî: %s",
+                "thirty_minutes": "30 xulek",
+                "one_hour": "1 Demjimêr",
+                "six_hours": "6 Demjimêr",
+                "one_day": "1 Roj",
+                "three_days": "3 Roj",
+                "seven_days": "7 Roj",
+                "option_number": "Vebijêrk %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Gelemperî",
+                "unlisted": "Nerêzokkirî",
+                "private": "Tenê şopîneran",
+                "direct": "Tenê mirovên ku min qalkirî"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
+                "append_attachment": "Pêvek tevlî bike",
+                "append_poll": "Rapirsî tevlî bike",
+                "remove_poll": "Rapirsî rake",
                 "custom_emoji_picker": "Custom Emoji Picker",
                 "enable_content_warning": "Enable Content Warning",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
