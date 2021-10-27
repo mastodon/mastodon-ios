@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 unread notification</string>
+        <string>%ld bhrath nach deach a leughadh</string>
         <key>two</key>
-        <string>%ld unread notification</string>
+        <string>%ld bhrath nach deach a leughadh</string>
         <key>few</key>
-        <string>%ld unread notification</string>
+        <string>%ld brathan nach deach a leughadh</string>
         <key>other</key>
-        <string>%ld unread notification</string>
+        <string>%ld brath nach deach a leughadh</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
