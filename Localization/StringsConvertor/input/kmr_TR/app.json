@@ -519,30 +519,30 @@
             }
         },
         "report": {
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
+            "title": "%s ragihîne",
+            "step1": "Gav 1 ji 2",
+            "step2": "Gav 2 ji 2",
             "content1": "Are there any other posts you’d like to add to the report?",
             "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
+            "send": "Ragihandinê bişîne",
+            "skip_to_send": "Bêyî şirove bişîne",
             "text_placeholder": "Type or paste additional comments"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Pêşdîtin bigire",
+                "show_next": "A pêş nîşan bide",
+                "show_previous": "A paş nîşan bide"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Profîla hilbijartî ya niha: %s. Du caran bitikîne û paşê dest bide ser da ku guhêrbara ajimêr were nîşandan",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "Ajimêr tevlî bike"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "new_in_mastodon": "Nû di Mastodon de",
+            "multiple_account_switch_intro_description": "Dest bide ser bişkoja profîlê da ku di navbera gelek ajimêrann de biguherînî.",
             "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
