@@ -296,13 +296,13 @@
             "title": "Tiştekî dawî.",
             "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Sepana e-nameyê veke",
+                "dont_receive_email": "Min hîç e-nameyeke nesitand"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "E-nameyê xwe kontrol bike",
+                "description": "Kontrol bike ka navnîşana e-nameya te rast e û her wiha peldanka xwe ya spam.",
+                "resend_email": "E-namyê yê dîsa bişîne"
             },
             "open_email_app": {
                 "title": "Check your inbox.",
