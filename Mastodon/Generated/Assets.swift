@@ -96,6 +96,9 @@ internal enum Asset {
         internal static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
       }
     }
+    internal enum Sidebar {
+      internal static let logo = ImageAsset(name: "Scene/Sidebar/logo")
+    }
     internal enum Welcome {
       internal enum Illustration {
         internal static let backgroundCyan = ColorAsset(name: "Scene/Welcome/illustration/background.cyan")
@@ -158,23 +161,6 @@ internal enum Asset {
       internal static let notificationStatusBorderColor = ColorAsset(name: "Theme/system/notification.status.border.color")
       internal static let separator = ColorAsset(name: "Theme/system/separator")
       internal static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/system/tab.bar.item.inactive.icon.color")
-    }
-  }
-  internal enum Deprecated {
-    internal enum Background {
-      internal static let danger = ColorAsset(name: "_Deprecated/Background/danger")
-      internal static let onboardingBackground = ColorAsset(name: "_Deprecated/Background/onboarding.background")
-      internal static let secondaryGroupedSystemBackground = ColorAsset(name: "_Deprecated/Background/secondary.grouped.system.background")
-      internal static let secondarySystemBackground = ColorAsset(name: "_Deprecated/Background/secondary.system.background")
-      internal static let systemBackground = ColorAsset(name: "_Deprecated/Background/system.background")
-      internal static let systemElevatedBackground = ColorAsset(name: "_Deprecated/Background/system.elevated.background")
-      internal static let systemGroupedBackground = ColorAsset(name: "_Deprecated/Background/system.grouped.background")
-      internal static let tertiarySystemBackground = ColorAsset(name: "_Deprecated/Background/tertiary.system.background")
-      internal static let tertiarySystemGroupedBackground = ColorAsset(name: "_Deprecated/Background/tertiary.system.grouped.background")
-    }
-    internal enum Compose {
-      internal static let background = ColorAsset(name: "_Deprecated/Compose/background")
-      internal static let toolbarBackground = ColorAsset(name: "_Deprecated/Compose/toolbar.background")
     }
   }
 }

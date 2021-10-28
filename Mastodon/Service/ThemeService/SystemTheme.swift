@@ -23,7 +23,7 @@ struct SystemTheme: Theme {
 
     let navigationBarBackgroundColor = Asset.Theme.System.navigationBarBackground.color
 
-    let sidebarBackgroundColor = Asset.Theme.Mastodon.sidebarBackground.color
+    let sidebarBackgroundColor = Asset.Theme.System.sidebarBackground.color
     
     let tabBarBackgroundColor = Asset.Theme.System.tabBarBackground.color
     let tabBarItemSelectedIconColor = Asset.Colors.brandBlue.color

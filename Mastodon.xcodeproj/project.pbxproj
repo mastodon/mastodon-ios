@@ -187,6 +187,8 @@
 		DB029E95266A20430062874E /* MastodonAuthenticationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB029E94266A20430062874E /* MastodonAuthenticationController.swift */; };
 		DB02CDAB26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */; };
 		DB02CDBF2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */; };
+		DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03A792272A7E5700EE37C5 /* SidebarListHeaderView.swift */; };
+		DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03A794272A981400EE37C5 /* ContentSplitViewController.swift */; };
 		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
 		DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F42689B782007B274C /* ComposeTableView.swift */; };
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
@@ -958,6 +960,8 @@
 		DB029E94266A20430062874E /* MastodonAuthenticationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonAuthenticationController.swift; sourceTree = "<group>"; };
 		DB02CDAA26256A9500D0A2AF /* ThreadReplyLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadReplyLoaderTableViewCell.swift; sourceTree = "<group>"; };
 		DB02CDBE2625AE5000D0A2AF /* AdaptiveUserInterfaceStyleBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveUserInterfaceStyleBarButtonItem.swift; sourceTree = "<group>"; };
+		DB03A792272A7E5700EE37C5 /* SidebarListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarListHeaderView.swift; sourceTree = "<group>"; };
+		DB03A794272A981400EE37C5 /* ContentSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSplitViewController.swift; sourceTree = "<group>"; };
 		DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeRepliedToStatusContentTableViewCell.swift; sourceTree = "<group>"; };
 		DB03F7F42689B782007B274C /* ComposeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTableView.swift; sourceTree = "<group>"; };
 		DB040ED026538E3C00BEE9D8 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
@@ -2125,6 +2129,7 @@
 				DBF156DE2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift */,
 				DB0EF72A26FDB1D200347686 /* SidebarListCollectionViewCell.swift */,
 				DB0EF72D26FDB24F00347686 /* SidebarListContentView.swift */,
+				DB03A792272A7E5700EE37C5 /* SidebarListHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2587,6 +2592,7 @@
 			isa = PBXGroup;
 			children = (
 				DB852D1B26FB021500FC9D81 /* RootSplitViewController.swift */,
+				DB03A794272A981400EE37C5 /* ContentSplitViewController.swift */,
 				DB852D1A26FAED0100FC9D81 /* Sidebar */,
 				DB8AF54E25C13703002E6C99 /* MainTab */,
 			);
@@ -3873,6 +3879,7 @@
 				DBA94440265D137600C537E1 /* Mastodon+Entity+Field.swift in Sources */,
 				DB49A61425FF2C5600B98345 /* EmojiService.swift in Sources */,
 				DBBF1DC7265251D400E5B703 /* AutoCompleteViewModel+State.swift in Sources */,
+				DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */,
 				DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */,
 				DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
@@ -3935,6 +3942,7 @@
 				DB71FD4625F8C6D200512AE1 /* StatusProvider+UITableViewDataSourcePrefetching.swift in Sources */,
 				DB297B1B2679FAE200704C90 /* PlaceholderImageCacheService.swift in Sources */,
 				2D8FCA082637EABB00137F46 /* APIService+FollowRequest.swift in Sources */,
+				DB03A795272A981400EE37C5 /* ContentSplitViewController.swift in Sources */,
 				2D152A8C25C295CC009AA50C /* StatusView.swift in Sources */,
 				DBBC24DE26A54BCB00398BB9 /* MastodonMetricFormatter.swift in Sources */,
 				DBB3BA2A26A81C020004F2D4 /* FLAnimatedImageView.swift in Sources */,

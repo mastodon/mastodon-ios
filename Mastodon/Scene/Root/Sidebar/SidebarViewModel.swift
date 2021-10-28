@@ -22,6 +22,8 @@ final class SidebarViewModel {
 
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+
     let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
 
     init(context: AppContext) {
@@ -47,38 +49,22 @@ final class SidebarViewModel {
 
 extension SidebarViewModel {
     enum Section: Int, Hashable, CaseIterable {
-        case tab
-        case account
+        case main
+        case secondary
     }
     
     enum Item: Hashable {
         case tab(MainTabBarController.Tab)
-        case searchHistory(SearchHistoryViewModel)
-        case header(HeaderViewModel)
-        case account(AccountViewModel)
-        case addAccount
+        case setting
+        case compose
     }
     
-    struct SearchHistoryViewModel: Hashable {
-        let searchHistoryObjectID: NSManagedObjectID
-    }
-    
-    struct HeaderViewModel: Hashable {
-        let title: String
-    }
-    
-    struct AccountViewModel: Hashable {
-        let authenticationObjectID: NSManagedObjectID
-    }
-    
-    struct AddAccountViewModel: Hashable {
-        let id = UUID()
-    }
 }
 
 extension SidebarViewModel {
     func setupDiffableDataSource(
-        collectionView: UICollectionView
+        collectionView: UICollectionView,
+        secondaryCollectionView: UICollectionView
     ) {
         let tabCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, MainTabBarController.Tab> { [weak self] cell, indexPath, item in
             guard let self = self else { return }
@@ -92,23 +78,10 @@ extension SidebarViewModel {
                     return nil
                 }
             }()
-            let headline: MetaContent = {
-                switch item {
-                case .me:
-                    return PlaintextMetaContent(string: item.title)
-                    // TODO:
-                    // return PlaintextMetaContent(string: "Myself")
-                default:
-                    return PlaintextMetaContent(string: item.title)
-                }
-            }()
-            let needsOutlineDisclosure = item == .search
             cell.item = SidebarListContentView.Item(
+                title: item.title,
                 image: item.sidebarImage,
-                imageURL: imageURL,
-                headline: headline,
-                subheadline: nil,
-                needsOutlineDisclosure: needsOutlineDisclosure
+                imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
             
@@ -135,209 +108,91 @@ extension SidebarViewModel {
             }
         }
         
-        let searchHistoryCellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, SearchHistoryViewModel> { [weak self] cell, indexPath, item in
+        let cellRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, SidebarListContentView.Item> { [weak self] cell, indexPath, item in
             guard let self = self else { return }
-            let managedObjectContext = self.searchHistoryFetchedResultController.fetchedResultsController.managedObjectContext
-            
-            guard let searchHistory = try? managedObjectContext.existingObject(with: item.searchHistoryObjectID) as? SearchHistory else { return }
-
-            if let account = searchHistory.account {
-                let headline: MetaContent = {
-                    do {
-                        let content = MastodonContent(content: account.displayNameWithFallback, emojis: account.emojiMeta)
-                        return try MastodonMetaContent.convert(document: content)
-                    } catch {
-                        return PlaintextMetaContent(string: account.displayNameWithFallback)
-                    }
-                }()
-                cell.item = SidebarListContentView.Item(
-                    image: .placeholder(color: .systemFill),
-                    imageURL: account.avatarImageURL(),
-                    headline: headline,
-                    subheadline: PlaintextMetaContent(string: "@" + account.acctWithDomain),
-                    needsOutlineDisclosure: false
-                )
-            } else if let hashtag = searchHistory.hashtag {
-                let image = UIImage(systemName: "number.square.fill")!.withRenderingMode(.alwaysTemplate)
-                let headline = PlaintextMetaContent(string: "#" + hashtag.name)
-                cell.item = SidebarListContentView.Item(
-                    image: image,
-                    imageURL: nil,
-                    headline: headline,
-                    subheadline: nil,
-                    needsOutlineDisclosure: false
-                )
-            } else {
-                assertionFailure()
-            }
-            
+            cell.item = item
             cell.setNeedsUpdateConfiguration()
         }
         
-        let headerRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, HeaderViewModel> { (cell, indexPath, item) in
-            var content = UIListContentConfiguration.sidebarHeader()
-            content.text = item.title
-            cell.contentConfiguration = content
-            cell.accessories = [.outlineDisclosure()]
-        }
-        
-        let accountRegistration = UICollectionView.CellRegistration<SidebarListCollectionViewCell, AccountViewModel> { [weak self] (cell, indexPath, item) in
-            guard let self = self else { return }
-            
-            // accounts maybe already sign-out
-            // check isDeleted before using
-            guard let authentication = try? AppContext.shared.managedObjectContext.existingObject(with: item.authenticationObjectID) as? MastodonAuthentication,
-                !authentication.isDeleted else {
-                return
-            }
-            let user = authentication.user
-            let imageURL = user.avatarImageURL()
-            let headline: MetaContent = {
-                do {
-                    let content = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
-                    return try MastodonMetaContent.convert(document: content)
-                } catch {
-                    return PlaintextMetaContent(string: user.displayNameWithFallback)
-                }
-            }()
-            cell.item = SidebarListContentView.Item(
-                image: .placeholder(color: .systemFill),
-                imageURL: imageURL,
-                headline: headline,
-                subheadline: PlaintextMetaContent(string: "@" + user.acctWithDomain),
-                needsOutlineDisclosure: false
-            )
-            cell.setNeedsUpdateConfiguration()
-            
-            // FIXME: use notification, not timer
-            let accessToken = authentication.userAccessToken
-            AppContext.shared.timestampUpdatePublisher
-                .map { _ in UserDefaults.shared.getNotificationCountWithAccessToken(accessToken: accessToken) }
-                .removeDuplicates()
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] count in
-                    guard let cell = cell else { return }
-                    cell._contentView?.badgeButton.setBadge(number: count)
-                }
-                .store(in: &cell.disposeBag)
-            
-            let authenticationObjectID = item.authenticationObjectID
-            self.activeMastodonAuthenticationObjectID
-                .receive(on: DispatchQueue.main)
-                .sink { [weak cell] objectID in
-                    guard let cell = cell else { return }
-                    cell._contentView?.checkmarkImageView.isHidden = authenticationObjectID != objectID
-                }
-                .store(in: &cell.disposeBag)
-        }
-        
-        let addAccountRegistration = UICollectionView.CellRegistration<SidebarAddAccountCollectionViewCell, AddAccountViewModel> { (cell, indexPath, item) in
-            var content = UIListContentConfiguration.sidebarCell()
-            content.text = L10n.Scene.AccountList.addAccount
-            content.image = UIImage(systemName: "plus.square.fill")!
-            
-            cell.contentConfiguration = content
-            cell.accessories = []
+        // header
+        let headerRegistration = UICollectionView.SupplementaryRegistration<SidebarListHeaderView>(elementKind: UICollectionView.elementKindSectionHeader) { supplementaryView, elementKind, indexPath in
+            // do nothing
         }
         
         let _diffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: collectionView) { collectionView, indexPath, item in
             switch item {
             case .tab(let tab):
                 return collectionView.dequeueConfiguredReusableCell(using: tabCellRegistration, for: indexPath, item: tab)
-            case .searchHistory(let viewModel):
-                return collectionView.dequeueConfiguredReusableCell(using: searchHistoryCellRegistration, for: indexPath, item: viewModel)
-            case .header(let viewModel):
-                return collectionView.dequeueConfiguredReusableCell(using: headerRegistration, for: indexPath, item: viewModel)
-            case .account(let viewModel):
-                return collectionView.dequeueConfiguredReusableCell(using: accountRegistration, for: indexPath, item: viewModel)
-            case .addAccount:
-                return collectionView.dequeueConfiguredReusableCell(using: addAccountRegistration, for: indexPath, item: AddAccountViewModel())
+            case .setting:
+                let item = SidebarListContentView.Item(
+                    title: L10n.Common.Controls.Actions.settings,
+                    image: UIImage(systemName: "gear")!,
+                    imageURL: nil
+                )
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+            case .compose:
+                let item = SidebarListContentView.Item(
+                    title: "Compose",   // FIXME:
+                    image: UIImage(systemName: "square.and.pencil")!,
+                    imageURL: nil
+                )
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+            }
+        }
+        _diffableDataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+            switch elementKind {
+            case UICollectionView.elementKindSectionHeader:
+                return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
+            default:
+                assertionFailure()
+                return UICollectionReusableView()
             }
         }
         diffableDataSource = _diffableDataSource
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
-        snapshot.appendSections(Section.allCases)
-        _diffableDataSource.apply(snapshot)
+        snapshot.appendSections([.main])
         
-        for section in Section.allCases {
-            switch section {
-            case .tab:
-                var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-                let items: [Item] = [
-                    .tab(.home),
-                    .tab(.search),
-                    .tab(.notification),
-                    .tab(.me),
-                ]
-                sectionSnapshot.append(items, to: nil)
-                _diffableDataSource.apply(sectionSnapshot, to: section)
-            case .account:
-                var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-                let headerItem = Item.header(HeaderViewModel(title: "Accounts"))
-                sectionSnapshot.append([headerItem], to: nil)
-                sectionSnapshot.append([], to: headerItem)
-                sectionSnapshot.append([.addAccount], to: headerItem)
-                sectionSnapshot.expand([headerItem])
-                _diffableDataSource.apply(sectionSnapshot, to: section)
+        var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+        let items: [Item] = [
+            .tab(.home),
+            .tab(.search),
+            .tab(.notification),
+            .tab(.me),
+            .setting,
+        ]
+        sectionSnapshot.append(items, to: nil)
+        _diffableDataSource.apply(sectionSnapshot, to: .main)
+        
+    
+        // secondary
+        let _secondaryDiffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: secondaryCollectionView) { collectionView, indexPath, item in
+            guard case .compose = item else {
+                assertionFailure()
+                return UICollectionViewCell()
             }
+            
+            let item = SidebarListContentView.Item(
+                title: "Compose",   // FIXME:
+                image: UIImage(systemName: "square.and.pencil")!,
+                imageURL: nil
+            )
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
         }
+//        _secondaryDiffableDataSource.supplementaryViewProvider = { collectionView, elementKind, indexPath in
+//            return nil
+//        }
+        secondaryDiffableDataSource = _secondaryDiffableDataSource
         
-        // update .search tab
-        searchHistoryFetchedResultController.objectIDs
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] objectIDs in
-                guard let self = self else { return }
-                guard let diffableDataSource = self.diffableDataSource else { return }
+        var secondarySnapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        secondarySnapshot.appendSections([.secondary])
 
-                // update .search tab
-                var sectionSnapshot = diffableDataSource.snapshot(for: .tab)
-                
-                // remove children
-                let searchHistorySnapshot = sectionSnapshot.snapshot(of: .tab(.search))
-                sectionSnapshot.delete(searchHistorySnapshot.items)
-                
-                // append children
-                let managedObjectContext = self.searchHistoryFetchedResultController.fetchedResultsController.managedObjectContext
-                let items: [Item] = objectIDs.compactMap { objectID -> Item? in
-                    guard let searchHistory = try? managedObjectContext.existingObject(with: objectID) as? SearchHistory else { return nil }
-                    guard searchHistory.account != nil || searchHistory.hashtag != nil else { return nil }
-                    let viewModel = SearchHistoryViewModel(searchHistoryObjectID: objectID)
-                    return Item.searchHistory(viewModel)
-                }
-                sectionSnapshot.append(Array(items.prefix(5)), to: .tab(.search))
-                sectionSnapshot.expand([.tab(.search)])
-                
-                // apply snapshot
-                diffableDataSource.apply(sectionSnapshot, to: .tab, animatingDifferences: false)
-            }
-            .store(in: &disposeBag)
-        
-        // update .me tab and .account section
-        context.authenticationService.mastodonAuthentications
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] authentications in
-                guard let self = self else { return }
-                guard let diffableDataSource = self.diffableDataSource else { return }
-                // tab
-                var snapshot = diffableDataSource.snapshot()
-                snapshot.reloadItems([.tab(.me)])
-                diffableDataSource.apply(snapshot)
-                
-                // account
-                var accountSectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-                let headerItem = Item.header(HeaderViewModel(title: "Accounts"))
-                accountSectionSnapshot.append([headerItem], to: nil)
-                let accountItems = authentications.map { authentication in
-                    Item.account(AccountViewModel(authenticationObjectID: authentication.objectID))
-                }
-                accountSectionSnapshot.append(accountItems, to: headerItem)
-                accountSectionSnapshot.append([.addAccount], to: headerItem)
-                accountSectionSnapshot.expand([headerItem])
-                diffableDataSource.apply(accountSectionSnapshot, to: .account)
-            }
-            .store(in: &disposeBag)
+        var secondarySectionSnapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+        let secondarySectionItems: [Item] = [
+            .compose,
+        ]
+        secondarySectionSnapshot.append(secondarySectionItems, to: nil)
+        _secondaryDiffableDataSource.apply(secondarySectionSnapshot, to: .secondary)
     }
 
 }

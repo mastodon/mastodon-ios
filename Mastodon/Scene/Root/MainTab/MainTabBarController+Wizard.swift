@@ -70,6 +70,9 @@ extension MainTabBarController.Wizard {
     
     func setup(in view: UIView) {
         assert(delegate != nil, "need set delegate before use")
+        
+        guard !items.isEmpty else { return }
+        
         backgroundView.frame = view.bounds
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(backgroundView)

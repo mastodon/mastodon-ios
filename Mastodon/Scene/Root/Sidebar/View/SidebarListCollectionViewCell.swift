@@ -60,21 +60,6 @@ extension SidebarListCollectionViewCell {
             newBackgroundConfiguration.backgroundColorTransformer = .init { $0.withAlphaComponent(0.8) }
         }
         
-        
         backgroundConfiguration = newBackgroundConfiguration
-        
-        let needsOutlineDisclosure = item?.needsOutlineDisclosure ?? false
-        if !needsOutlineDisclosure {
-            accessories = []
-        } else {
-            let tintColor: UIColor = state.isHighlighted || state.isSelected ? .white : Asset.Colors.brandBlue.color
-            accessories = [
-                UICellAccessory.outlineDisclosure(
-                    displayed: .always,
-                    options: UICellAccessory.OutlineDisclosureOptions(tintColor: tintColor),
-                    actionHandler: nil
-                )
-            ]
-        }
     }
 }

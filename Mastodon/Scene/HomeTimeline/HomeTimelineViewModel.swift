@@ -30,6 +30,8 @@ final class HomeTimelineViewModel: NSObject {
     let homeTimelineNavigationBarTitleViewModel: HomeTimelineNavigationBarTitleViewModel
     let lastAutomaticFetchTimestamp = CurrentValueSubject<Date?, Never>(nil)
     let scrollPositionRecord = CurrentValueSubject<ScrollPositionRecord?, Never>(nil)
+    let displaySettingBarButtonItem = CurrentValueSubject<Bool, Never>(true)
+    let displayComposeBarButtonItem = CurrentValueSubject<Bool, Never>(true)
     
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     weak var tableView: UITableView?
@@ -70,7 +72,6 @@ final class HomeTimelineViewModel: NSObject {
     let loadMiddleSateMachineList = CurrentValueSubject<[NSManagedObjectID: GKStateMachine], Never>([:])    // TimelineIndex.objectID : middle loading state machine
     var diffableDataSource: UITableViewDiffableDataSource<StatusSection, Item>?
     var cellFrameCache = NSCache<NSNumber, NSValue>()
-    let displaySettingBarButtonItem = CurrentValueSubject<Bool, Never>(true)
     
     init(context: AppContext) {
         self.context  = context

@@ -15,15 +15,10 @@ final class SidebarListContentView: UIView, UIContentView {
     let logger = Logger(subsystem: "SidebarListContentView", category: "UI")
     
     let imageView = UIImageView()
-    let animationImageView = FLAnimatedImageView()      // for animation image
-    let headlineLabel = MetaLabel(style: .sidebarHeadline(isSelected: false))
-    let subheadlineLabel = MetaLabel(style: .sidebarSubheadline(isSelected: false))
-    let badgeButton = BadgeButton()
-    let checkmarkImageView: UIImageView = {
-        let image = UIImage(systemName: "checkmark", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .semibold))
-        let imageView = UIImageView(image: image)
-        imageView.tintColor = .label
-        return imageView
+    let avatarButton: CircleAvatarButton = {
+        let button = CircleAvatarButton()
+        button.borderWidth = 2
+        return button
     }()
     
     private var currentConfiguration: ContentConfiguration!
@@ -53,93 +48,31 @@ final class SidebarListContentView: UIView, UIContentView {
 
 extension SidebarListContentView {
     private func _init() {
-        let imageViewContainer = UIView()
-        imageViewContainer.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(imageViewContainer)
-        NSLayoutConstraint.activate([
-            imageViewContainer.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-            imageViewContainer.centerYAnchor.constraint(equalTo: centerYAnchor),
-        ])
-        imageViewContainer.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        imageViewContainer.setContentHuggingPriority(.defaultLow, for: .vertical)
-                
-        animationImageView.translatesAutoresizingMaskIntoConstraints = false
-        imageViewContainer.addSubview(animationImageView)
-        NSLayoutConstraint.activate([
-            animationImageView.centerXAnchor.constraint(equalTo: imageViewContainer.centerXAnchor),
-            animationImageView.centerYAnchor.constraint(equalTo: imageViewContainer.centerYAnchor),
-            animationImageView.widthAnchor.constraint(equalTo: imageViewContainer.widthAnchor, multiplier: 1.0).priority(.required - 1),
-            animationImageView.heightAnchor.constraint(equalTo: imageViewContainer.heightAnchor, multiplier: 1.0).priority(.required - 1),
-        ])
-        animationImageView.setContentHuggingPriority(.defaultLow - 10, for: .vertical)
-        animationImageView.setContentHuggingPriority(.defaultLow - 10, for: .horizontal)
-
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageViewContainer.addSubview(imageView)
+        addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: imageViewContainer.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: imageViewContainer.centerYAnchor),
-            imageView.widthAnchor.constraint(equalTo: imageViewContainer.widthAnchor, multiplier: 1.0).priority(.required - 1),
-            imageView.heightAnchor.constraint(equalTo: imageViewContainer.heightAnchor, multiplier: 1.0).priority(.required - 1),
+            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
+            imageView.widthAnchor.constraint(equalToConstant: 40).priority(.required - 1),
+            imageView.heightAnchor.constraint(equalToConstant: 40).priority(.required - 1),
         ])
-        imageView.setContentHuggingPriority(.defaultLow - 10, for: .vertical)
-        imageView.setContentHuggingPriority(.defaultLow - 10, for: .horizontal)
-        
-        let textContainer = UIStackView()
-        textContainer.axis = .vertical
-        textContainer.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(textContainer)
+
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(avatarButton)
         NSLayoutConstraint.activate([
-            textContainer.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            textContainer.leadingAnchor.constraint(equalTo: imageViewContainer.trailingAnchor, constant: 10),
-            // textContainer.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-            bottomAnchor.constraint(equalTo: textContainer.bottomAnchor, constant: 12),
+            avatarButton.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
+            avatarButton.centerYAnchor.constraint(equalTo: imageView.centerYAnchor),
+            avatarButton.widthAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0).priority(.required - 2),
+            avatarButton.heightAnchor.constraint(equalTo: imageView.heightAnchor, multiplier: 1.0).priority(.required - 2),
         ])
-        
-        textContainer.addArrangedSubview(headlineLabel)
-        textContainer.addArrangedSubview(subheadlineLabel)
-        headlineLabel.setContentHuggingPriority(.required - 9, for: .vertical)
-        headlineLabel.setContentCompressionResistancePriority(.required - 9, for: .vertical)
-        subheadlineLabel.setContentHuggingPriority(.required - 10, for: .vertical)
-        subheadlineLabel.setContentCompressionResistancePriority(.required - 10, for: .vertical)
-        
-        badgeButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(badgeButton)
-        NSLayoutConstraint.activate([
-            badgeButton.leadingAnchor.constraint(equalTo: textContainer.trailingAnchor, constant: 4),
-            badgeButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            badgeButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 16).priority(.required - 1),
-            badgeButton.widthAnchor.constraint(equalTo: badgeButton.heightAnchor, multiplier: 1.0).priority(.required - 1),
-        ])
-        badgeButton.setContentHuggingPriority(.required - 10, for: .horizontal)
-        badgeButton.setContentCompressionResistancePriority(.required - 10, for: .horizontal)
-        
-        NSLayoutConstraint.activate([
-            imageViewContainer.heightAnchor.constraint(equalTo: headlineLabel.heightAnchor, multiplier: 1.0).priority(.required - 1),
-            imageViewContainer.widthAnchor.constraint(equalTo: imageViewContainer.heightAnchor, multiplier: 1.0).priority(.required - 1),
-        ])
-        
-        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(checkmarkImageView)
-        NSLayoutConstraint.activate([
-            checkmarkImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            checkmarkImageView.leadingAnchor.constraint(equalTo: badgeButton.trailingAnchor, constant: 16),
-            checkmarkImageView.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-        ])
-        checkmarkImageView.setContentHuggingPriority(.required - 9, for: .horizontal)
-        checkmarkImageView.setContentCompressionResistancePriority(.required - 9, for: .horizontal)
-        
-        animationImageView.isUserInteractionEnabled = false
-        headlineLabel.isUserInteractionEnabled = false
-        subheadlineLabel.isUserInteractionEnabled = false
-        
+        avatarButton.setContentHuggingPriority(.defaultLow - 10, for: .vertical)
+        avatarButton.setContentHuggingPriority(.defaultLow - 10, for: .horizontal)
+
         imageView.contentMode = .scaleAspectFit
-        animationImageView.contentMode = .scaleAspectFit
+        avatarButton.contentMode = .scaleAspectFit
         imageView.tintColor = Asset.Colors.brandBlue.color
-        animationImageView.tintColor = Asset.Colors.brandBlue.color
-        
-        badgeButton.setBadge(number: 0)
-        checkmarkImageView.isHidden = true
+        avatarButton.tintColor = Asset.Colors.brandBlue.color
     }
     
     private func apply(configuration: ContentConfiguration) {
@@ -152,31 +85,20 @@ extension SidebarListContentView {
         
         // configure state
         imageView.tintColor = item.isSelected ? .white : Asset.Colors.brandBlue.color
-        animationImageView.tintColor = item.isSelected ? .white : Asset.Colors.brandBlue.color
-        headlineLabel.setup(style: .sidebarHeadline(isSelected: item.isSelected))
-        subheadlineLabel.setup(style: .sidebarSubheadline(isSelected: item.isSelected))
+        avatarButton.tintColor = item.isSelected ? .white : Asset.Colors.brandBlue.color
         
         // configure model
         imageView.isHidden = item.imageURL != nil
-        animationImageView.isHidden = item.imageURL == nil
+        avatarButton.isHidden = item.imageURL == nil
         imageView.image = item.image.withRenderingMode(.alwaysTemplate)
-        animationImageView.setImage(
+        avatarButton.avatarImageView.setImage(
             url: item.imageURL,
-            placeholder: animationImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
+            placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
             scaleToSize: nil
         )
-        animationImageView.layer.masksToBounds = true
-        animationImageView.layer.cornerCurve = .continuous
-        animationImageView.layer.cornerRadius = 4
-        
-        headlineLabel.configure(content: item.headline)
-        
-        if let subheadline = item.subheadline {
-            subheadlineLabel.configure(content: subheadline)
-            subheadlineLabel.isHidden = false
-        } else {
-            subheadlineLabel.isHidden = true
-        }
+        avatarButton.layer.masksToBounds = true
+        avatarButton.layer.cornerCurve = .continuous
+        avatarButton.layer.cornerRadius = 4
     }
 }
 
@@ -186,27 +108,22 @@ extension SidebarListContentView {
         var isSelected: Bool = false
         
         // model
+        let title: String
         let image: UIImage
         let imageURL: URL?
-        let headline: MetaContent
-        let subheadline: MetaContent?
-        
-        let needsOutlineDisclosure: Bool
-        
+                
         static func == (lhs: SidebarListContentView.Item, rhs: SidebarListContentView.Item) -> Bool {
             return lhs.isSelected == rhs.isSelected
+                && lhs.title == rhs.title
                 && lhs.image == rhs.image
                 && lhs.imageURL == rhs.imageURL
-                && lhs.headline.string == rhs.headline.string
-                && lhs.subheadline?.string == rhs.subheadline?.string
         }
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(isSelected)
+            hasher.combine(title)
             hasher.combine(image)
             imageURL.flatMap { hasher.combine($0) }
-            hasher.combine(headline.string)
-            subheadline.flatMap { hasher.combine($0.string) }
         }
     }
     
