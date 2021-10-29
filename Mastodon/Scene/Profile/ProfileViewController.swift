@@ -517,6 +517,7 @@ extension ProfileViewController {
             .assign(to: \.value, on: profileHeaderViewController.viewModel.displayProfileInfo.note)
             .store(in: &disposeBag)
         viewModel.statusesCount
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] count in
                 guard let self = self else { return }
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"
@@ -526,6 +527,7 @@ extension ProfileViewController {
             }
             .store(in: &disposeBag)
         viewModel.followingCount
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] count in
                 guard let self = self else { return }
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"
@@ -535,6 +537,7 @@ extension ProfileViewController {
             }
             .store(in: &disposeBag)
         viewModel.followersCount
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] count in
                 guard let self = self else { return }
                 let text = count.flatMap { MastodonMetricFormatter().string(from: $0) } ?? "-"

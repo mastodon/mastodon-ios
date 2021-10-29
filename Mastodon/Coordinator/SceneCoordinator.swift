@@ -90,45 +90,44 @@ final public class SceneCoordinator {
                 
 
                 // Delay in next run loop
-//                DispatchQueue.main.async { [weak self] in
-//                    guard let self = self else { return }
-//
-//                    // Note:
-//                    // show (push) on phone or pad (compact)
-//                    // showDetail in .secondary in UISplitViewController on pad (expand)
-//                    let from: UIViewController? = {
-//                        if let splitViewController = self.splitViewController {
-//                            if splitViewController.mainTabBarController.topMost?.view.window != nil {
-//                                // compact
-//                                return splitViewController.mainTabBarController.topMost
-//                            } else {
-//                                // expand
-//                                return splitViewController.viewController(for: .supplementary)
-//                            }
-//                        } else {
-//                            return self.tabBarController.topMost
-//                        }
-//                    }()
-//
-//                    // show notification related content
-//                    guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
-//                    let notificationID = String(pushNotification.notificationID)
-//
-//                    switch type {
-//                    case .follow:
-//                        let profileViewModel = RemoteProfileViewModel(context: appContext, notificationID: notificationID)
-//                        self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
-//                    case .followRequest:
-//                        // do nothing
-//                        break
-//                    case .mention, .reblog, .favourite, .poll, .status:
-//                        let threadViewModel = RemoteThreadViewModel(context: appContext, notificationID: notificationID)
-//                        self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
-//                    case ._other:
-//                        assertionFailure()
-//                        break
-//                    }
-//                }   // end DispatchQueue.main.async
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+
+                    // Note:
+                    // show (push) on phone and pad
+                    let from: UIViewController? = {
+                        if let splitViewController = self.splitViewController {
+                            if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
+                                // compact
+                                return splitViewController.compactMainTabBarViewController.topMost
+                            } else {
+                                // expand
+                                return splitViewController.contentSplitViewController.mainTabBarController.topMost
+                            }
+                        } else {
+                            return self.tabBarController.topMost
+                        }
+                    }()
+
+                    // show notification related content
+                    guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
+                    let notificationID = String(pushNotification.notificationID)
+
+                    switch type {
+                    case .follow:
+                        let profileViewModel = RemoteProfileViewModel(context: appContext, notificationID: notificationID)
+                        self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
+                    case .followRequest:
+                        // do nothing
+                        break
+                    case .mention, .reblog, .favourite, .poll, .status:
+                        let threadViewModel = RemoteThreadViewModel(context: appContext, notificationID: notificationID)
+                        self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
+                    case ._other:
+                        assertionFailure()
+                        break
+                    }
+                }   // end DispatchQueue.main.async
             }
             .store(in: &disposeBag)
     }
@@ -283,18 +282,6 @@ extension SceneCoordinator {
         
         switch transition {
         case .show:
-//            if let splitViewController = splitViewController, !splitViewController.isCollapsed,
-//               let supplementaryViewController = splitViewController.viewController(for: .supplementary) as? UINavigationController,
-//               (supplementaryViewController === presentingViewController || supplementaryViewController.viewControllers.contains(presentingViewController)) ||
-//                (presentingViewController is UserTimelineViewController && presentingViewController.view.isDescendant(of: supplementaryViewController.view))
-//            {
-//                fallthrough
-//            } else {
-//                if secondaryStackHashValues.contains(presentingViewController.hashValue) {
-//                    secondaryStackHashValues.insert(viewController.hashValue)
-//                }
-//                presentingViewController.show(viewController, sender: sender)
-//            }
             presentingViewController.show(viewController, sender: sender)
         case .showDetail:
             secondaryStackHashValues.insert(viewController.hashValue)
@@ -362,6 +349,11 @@ extension SceneCoordinator {
     }
 
     func switchToTabBar(tab: MainTabBarController.Tab) {
+        splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
+        
+        splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
+        splitViewController?.compactMainTabBarViewController.currentTab.value = tab
+        
         tabBarController.selectedIndex = tab.rawValue
         tabBarController.currentTab.value = tab
     }
