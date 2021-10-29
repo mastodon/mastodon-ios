@@ -84,6 +84,8 @@ extension SidebarViewModel {
                 imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = item.title
             
             switch item {
             case .notification:
@@ -103,6 +105,10 @@ extension SidebarViewModel {
                     cell._contentView?.imageView.image = image
                 }
                 .store(in: &cell.disposeBag)
+            case .me:
+                guard let authentication = self.context.authenticationService.activeMastodonAuthentication.value else { break }
+                let currentUserDisplayName = authentication.user.displayNameWithFallback ?? "no user"
+                cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             default:
                 break
             }
@@ -112,6 +118,8 @@ extension SidebarViewModel {
             guard let self = self else { return }
             cell.item = item
             cell.setNeedsUpdateConfiguration()
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = item.title
         }
         
         // header
@@ -132,7 +140,7 @@ extension SidebarViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             case .compose:
                 let item = SidebarListContentView.Item(
-                    title: "Compose",   // FIXME:
+                    title: "Compose",   // TODO: update i18n
                     image: UIImage(systemName: "square.and.pencil")!,
                     imageURL: nil
                 )
