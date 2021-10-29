@@ -9,7 +9,7 @@
 "Common.Alerts.DiscardPostContent.Message" = "Confirm to discard composed post content.";
 "Common.Alerts.DiscardPostContent.Title" = "تجاهل المسودة";
 "Common.Alerts.EditProfileFailure.Message" = "لا يمكن تعديل الملف الشخصي. يُرجى المحاولة مرة أُخرى.";
-"Common.Alerts.EditProfileFailure.Title" = "Edit Profile Error";
+"Common.Alerts.EditProfileFailure.Title" = "خطأ في تَحرير الملف الشخصي";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.MoreThanOneVideo" = "Cannot attach more than one video.";
 "Common.Alerts.PublishPostFailure.AttachmentsMessage.VideoAttachWithPhoto" = "Cannot attach a video to a post that already contains images.";
 "Common.Alerts.PublishPostFailure.Message" = "Failed to publish the post.
@@ -275,7 +275,7 @@ uploaded to Mastodon.";
 "Scene.Search.Searching.Segment.People" = "الأشخاص";
 "Scene.Search.Searching.Segment.Posts" = "المنشورات";
 "Scene.Search.Title" = "بحث";
-"Scene.ServerPicker.Button.Category.Academia" = "academia";
+"Scene.ServerPicker.Button.Category.Academia" = "أكاديمي";
 "Scene.ServerPicker.Button.Category.Activism" = "للنشطاء";
 "Scene.ServerPicker.Button.Category.All" = "الكل";
 "Scene.ServerPicker.Button.Category.AllAccessiblityDescription" = "الفئة: الكل";
@@ -298,8 +298,8 @@ uploaded to Mastodon.";
 "Scene.ServerPicker.Label.Category" = "الفئة";
 "Scene.ServerPicker.Label.Language" = "اللغة";
 "Scene.ServerPicker.Label.Users" = "مستخدمون·ات";
-"Scene.ServerPicker.Title" = "Pick a server,
-any server.";
+"Scene.ServerPicker.Title" = "اِختر خادِم،
+أي خادِم.";
 "Scene.ServerRules.Button.Confirm" = "انا أوافق";
 "Scene.ServerRules.PrivacyPolicy" = "سياسة الخصوصية";
 "Scene.ServerRules.Prompt" = "إن اخترت المواصلة، فإنك تخضع لشروط الخدمة وسياسة الخصوصية لـ %@.";
