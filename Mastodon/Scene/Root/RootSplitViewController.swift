@@ -26,6 +26,8 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         return contentSplitViewController
     }()
     
+    lazy var compactMainTabBarViewController = MainTabBarController(context: context, coordinator: coordinator)
+    
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.context = context
         self.coordinator = coordinator
@@ -48,6 +50,7 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         
         setViewController(UIViewController(), for: .primary)
         setViewController(contentSplitViewController, for: .secondary)
+        setViewController(compactMainTabBarViewController, for: .compact)
         
         contentSplitViewController.sidebarViewController.view.layer.zPosition = 100
         contentSplitViewController.mainTabBarController.view.layer.zPosition = 90
@@ -108,85 +111,55 @@ extension RootSplitViewController {
 // MARK: - UISplitViewControllerDelegate
 extension RootSplitViewController: UISplitViewControllerDelegate {
     
-//    // .regular to .compact
-//    // move navigation stack from .supplementary & .secondary to .compact
-//    func splitViewController(
-//        _ svc: UISplitViewController,
-//        topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column
-//    ) -> UISplitViewController.Column {
-//        switch proposedTopColumn {
-//        case .compact:
-//            guard let index = MainTabBarController.Tab.allCases.firstIndex(of: currentSupplementaryTab) else {
-//                assertionFailure()
-//                break
-//            }
-//            mainTabBarController.selectedIndex = index
-//            mainTabBarController.currentTab.value = currentSupplementaryTab
-//
-//            guard let navigationController = mainTabBarController.selectedViewController as? UINavigationController else { break }
-//            navigationController.popToRootViewController(animated: false)
-//            var viewControllers = navigationController.viewControllers      // init navigation stack with topMost
-//
-//            if let supplementaryNavigationController = viewController(for: .supplementary) as? UINavigationController {
-//                // append supplementary
-//                viewControllers.append(contentsOf: supplementaryNavigationController.popToRootViewController(animated: true) ?? [])
-//            }
-//            if let secondaryNavigationController = viewController(for: .secondary) as? UINavigationController {
-//                // append secondary
-//                viewControllers.append(contentsOf: secondaryNavigationController.popToRootViewController(animated: true) ?? [])
-//            }
-//            // set navigation stack
-//            navigationController.setViewControllers(viewControllers, animated: false)
-//
-//        default:
-//            assertionFailure()
-//        }
-//
-//        return proposedTopColumn
-//    }
-//
-//    // .compact to .regular
-//    // restore navigation stack to .supplementary & .secondary
-//    func splitViewController(
-//        _ svc: UISplitViewController,
-//        displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode
-//    ) -> UISplitViewController.DisplayMode {
-//        let compactNavigationController = mainTabBarController.selectedViewController as? UINavigationController
-//
-//        if let topMost = compactNavigationController?.topMost,
-//           topMost is AccountListViewController {
-//            topMost.dismiss(animated: false, completion: nil)
-//        }
-//
-//        let viewControllers = compactNavigationController?.popToRootViewController(animated: true) ?? []
-//
-//        var supplementaryViewControllers: [UIViewController] = []
-//        var secondaryViewControllers: [UIViewController] = []
-//        for viewController in viewControllers {
-//            if coordinator.secondaryStackHashValues.contains(viewController.hashValue) {
-//                secondaryViewControllers.append(viewController)
-//            } else {
-//                supplementaryViewControllers.append(viewController)
-//            }
-//
-//        }
-//        if let supplementary = viewController(for: .supplementary) as? UINavigationController {
-//            supplementary.setViewControllers(supplementary.viewControllers + supplementaryViewControllers, animated: false)
-//        }
-//        if let secondaryNavigationController = viewController(for: .secondary) as? UINavigationController {
-//            secondaryNavigationController.setViewControllers(secondaryNavigationController.viewControllers + secondaryViewControllers, animated: false)
-//        }
-//
-//        return proposedDisplayMode
-//    }
+    private static  func transform(from: UITabBarController, to: UITabBarController) {
+        let sourceNavigationControllers = from.viewControllers ?? []
+        let targetNavigationControllers = to.viewControllers ?? []
+        
+        for (source, target) in zip(sourceNavigationControllers, targetNavigationControllers) {
+            guard let source = source as? UINavigationController,
+                  let target = target as? UINavigationController
+            else { continue }
+            let viewControllers = source.popToRootViewController(animated: false) ?? []
+            _ = target.popToRootViewController(animated: false)
+            target.viewControllers.append(contentsOf: viewControllers)
+        }
+        
+        to.selectedIndex = from.selectedIndex
+    }
+    
+    // .regular to .compact
+    func splitViewController(
+        _ svc: UISplitViewController,
+        topColumnForCollapsingToProposedTopColumn proposedTopColumn: UISplitViewController.Column
+    ) -> UISplitViewController.Column {
+        switch proposedTopColumn {
+        case .compact:
+            RootSplitViewController.transform(from: contentSplitViewController.mainTabBarController, to: compactMainTabBarViewController)
+            compactMainTabBarViewController.currentTab.value = contentSplitViewController.currentSupplementaryTab
+
+        default:
+            assertionFailure()
+        }
+
+        return proposedTopColumn
+    }
+    
+    // .compact to .regular
+    func splitViewController(
+        _ svc: UISplitViewController,
+        displayModeForExpandingToProposedDisplayMode proposedDisplayMode: UISplitViewController.DisplayMode
+    ) -> UISplitViewController.DisplayMode {
+        let compactNavigationController = compactMainTabBarViewController.selectedViewController as? UINavigationController
+
+        if let topMost = compactNavigationController?.topMost,
+           topMost is AccountListViewController {
+            topMost.dismiss(animated: false, completion: nil)
+        }
+
+        RootSplitViewController.transform(from: compactMainTabBarViewController, to: contentSplitViewController.mainTabBarController)
+        contentSplitViewController.currentSupplementaryTab = compactMainTabBarViewController.currentTab.value
+
+        return proposedDisplayMode
+    }
 
 }
-
-//extension UIView {
-//    func setNeedsLayoutForSubviews() {
-//        self.subviews.forEach({
-//            $0.setNeedsLayout()
-//            $0.setNeedsLayoutForSubviews()
-//        })
-//    }
-//}

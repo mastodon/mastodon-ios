@@ -47,7 +47,7 @@ extension ContentSplitViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         addChild(sidebarViewController)
-         sidebarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        sidebarViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sidebarViewController.view)
         sidebarViewController.didMove(toParent: self)
         NSLayoutConstraint.activate([
