@@ -126,7 +126,7 @@ final class StatusView: UIView {
     let revealContentWarningButton: UIButton = {
         let button = HighlightDimmableButton()
         button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
-        button.tintColor = Asset.Colors.brandBlue.color
+        // button.tintColor = Asset.Colors.brandBlue.color
         return button
     }()
     

@@ -46,14 +46,14 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.brandBlue.color
+        barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
     
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.brandBlue.color
+        barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()

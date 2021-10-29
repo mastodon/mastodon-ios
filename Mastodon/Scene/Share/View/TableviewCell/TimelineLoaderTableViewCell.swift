@@ -24,7 +24,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     let loadMoreButton: UIButton = {
         let button = HighlightDimmableButton()
         button.titleLabel?.font = TimelineLoaderTableViewCell.labelFont
-        button.setTitleColor(Asset.Colors.brandBlue.color, for: .normal)
+        button.setTitleColor(ThemeService.tintColor, for: .normal)
         button.setTitle(L10n.Common.Controls.Timeline.Loader.loadMissingPosts, for: .normal)
         button.setTitle("", for: .disabled)
         return button
@@ -68,7 +68,7 @@ class TimelineLoaderTableViewCell: UITableViewCell {
     func stopAnimating() {
         activityIndicatorView.stopAnimating()
         self.loadMoreButton.isEnabled = true
-        self.loadMoreLabel.textColor = Asset.Colors.brandBlue.color
+        self.loadMoreLabel.textColor = ThemeService.tintColor
         self.loadMoreLabel.text = ""
     }
     

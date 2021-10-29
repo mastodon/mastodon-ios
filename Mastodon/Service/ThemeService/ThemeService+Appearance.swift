@@ -46,7 +46,7 @@ extension ThemeService {
         tabBarAppearance.compactInlineLayoutAppearance = tabBarItemAppearance
 
         tabBarAppearance.backgroundColor = theme.tabBarBackgroundColor
-        tabBarAppearance.selectionIndicatorTintColor = Asset.Colors.brandBlue.color
+        tabBarAppearance.selectionIndicatorTintColor = ThemeService.tintColor
         UITabBar.appearance().standardAppearance = tabBarAppearance
         if #available(iOS 15.0, *) {
             UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
@@ -61,9 +61,9 @@ extension ThemeService {
         UITableViewCell.appearance().selectionColor = theme.tableViewCellSelectionBackgroundColor
 
         // set search bar appearance
-        UISearchBar.appearance().tintColor = Asset.Colors.brandBlue.color
+        UISearchBar.appearance().tintColor = ThemeService.tintColor
         UISearchBar.appearance().barTintColor = theme.navigationBarBackgroundColor
-        let cancelButtonAttributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: Asset.Colors.brandBlue.color]
+        let cancelButtonAttributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.foregroundColor: ThemeService.tintColor]
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).setTitleTextAttributes(cancelButtonAttributes, for: .normal)
     }
 }

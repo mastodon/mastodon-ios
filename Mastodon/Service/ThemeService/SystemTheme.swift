@@ -26,7 +26,7 @@ struct SystemTheme: Theme {
     let sidebarBackgroundColor = Asset.Theme.System.sidebarBackground.color
     
     let tabBarBackgroundColor = Asset.Theme.System.tabBarBackground.color
-    let tabBarItemSelectedIconColor = Asset.Colors.brandBlue.color
+    let tabBarItemSelectedIconColor = ThemeService.tintColor
     let tabBarItemFocusedIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
     let tabBarItemNormalIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color
     let tabBarItemDisabledIconColor = Asset.Theme.System.tabBarItemInactiveIconColor.color

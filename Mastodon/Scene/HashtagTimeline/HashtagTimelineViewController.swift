@@ -24,7 +24,7 @@ class HashtagTimelineViewController: UIViewController, NeedsDependency, MediaPre
     
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.brandBlue.color
+        // barButtonItem.tintColor = Asset.Colors.brandBlue.color
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
