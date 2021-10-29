@@ -536,13 +536,13 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "Aktuell ausgewähltes Profil: %s. Doppeltippen dann gedrückt halten, um den Kontoschalter anzuzeigen",
             "dismiss_account_switcher": "Dismiss Account Switcher",
             "add_account": "Konto hinzufügen"
         },
         "wizard": {
             "new_in_mastodon": "Neu in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "multiple_account_switch_intro_description": "Wechsel zwischen mehreren Konten durch drücken der Profil-Schaltfläche.",
             "accessibility_hint": "Doppeltippen, um diesen Assistenten zu schließen"
         }
     }
