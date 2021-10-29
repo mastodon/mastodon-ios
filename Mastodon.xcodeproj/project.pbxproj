@@ -1365,6 +1365,11 @@
 		DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePreference.swift; sourceTree = "<group>"; };
 		DBD376B1269302A4007FEC24 /* UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewCell.swift; sourceTree = "<group>"; };
 		DBD9148F25DF6D8D00903DFD /* APIService+Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Onboarding.swift"; sourceTree = "<group>"; };
+		DBDC1CF9272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/Intents.strings"; sourceTree = "<group>"; };
+		DBDC1CFA272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "ku-TR"; path = "ku-TR.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		DBDC1CFB272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		DBDC1CFC272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ku-TR"; path = "ku-TR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DBDC1CFD272C0FD600055C3D /* ku-TR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "ku-TR"; path = "ku-TR.lproj/Intents.stringsdict"; sourceTree = "<group>"; };
 		DBE0821425CD382600FD6BBD /* MastodonRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewController.swift; sourceTree = "<group>"; };
 		DBE0822325CD3F1E00FD6BBD /* MastodonRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonRegisterViewModel.swift; sourceTree = "<group>"; };
 		DBE3CDBA261C427900430CC6 /* TimelineHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -3530,6 +3535,7 @@
 				ru,
 				"gd-GB",
 				th,
+				"ku-TR",
 			);
 			mainGroup = DB427DC925BAA00100D1B89D;
 			packageReferences = (
@@ -4560,6 +4566,7 @@
 				DB4B777F26CA4EFA00B087B3 /* ru */,
 				DB4B778426CA500E00B087B3 /* gd-GB */,
 				DB4B779226CA50BA00B087B3 /* th */,
+				DBDC1CF9272C0FD600055C3D /* ku-TR */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -4580,6 +4587,7 @@
 				DB4B778226CA4EFA00B087B3 /* ru */,
 				DB4B778726CA500E00B087B3 /* gd-GB */,
 				DB4B779526CA50BA00B087B3 /* th */,
+				DBDC1CFC272C0FD600055C3D /* ku-TR */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4600,6 +4608,7 @@
 				DB4B778126CA4EFA00B087B3 /* ru */,
 				DB4B778626CA500E00B087B3 /* gd-GB */,
 				DB4B779426CA50BA00B087B3 /* th */,
+				DBDC1CFB272C0FD600055C3D /* ku-TR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -4636,6 +4645,7 @@
 				DB4B778026CA4EFA00B087B3 /* ru */,
 				DB4B778526CA500E00B087B3 /* gd-GB */,
 				DB4B779326CA50BA00B087B3 /* th */,
+				DBDC1CFA272C0FD600055C3D /* ku-TR */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -4656,6 +4666,7 @@
 				DB4B779026CA504900B087B3 /* fr */,
 				DB4B779126CA504A00B087B3 /* ja */,
 				DB4B779626CA50BA00B087B3 /* th */,
+				DBDC1CFD272C0FD600055C3D /* ku-TR */,
 			);
 			name = Intents.stringsdict;
 			sourceTree = "<group>";
