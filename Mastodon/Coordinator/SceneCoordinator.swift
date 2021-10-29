@@ -139,6 +139,7 @@ extension SceneCoordinator {
         case show                           // push
         case showDetail                     // replace
         case modal(animated: Bool, completion: (() -> Void)? = nil)
+        case popover(sourceView: UIView)
         case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush
@@ -326,7 +327,10 @@ extension SceneCoordinator {
             panModalPresentable.transitioningDelegate = PanModalPresentationDelegate.default
             presentingViewController.present(panModalPresentable, animated: true, completion: nil)
             //presentingViewController.presentPanModal(panModalPresentable)
-
+        case .popover(let sourceView):
+            viewController.modalPresentationStyle = .popover
+            viewController.popoverPresentationController?.sourceView = sourceView
+            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate

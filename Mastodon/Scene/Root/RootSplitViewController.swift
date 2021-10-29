@@ -26,7 +26,16 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         return contentSplitViewController
     }()
     
+    private(set) lazy var searchViewController: SearchViewController = {
+        let searchViewController = SearchViewController()
+        searchViewController.context = context
+        searchViewController.coordinator = coordinator
+        return searchViewController
+    }()
+    
     lazy var compactMainTabBarViewController = MainTabBarController(context: context, coordinator: coordinator)
+    
+    let separatorLine = UIView.separatorLine
     
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.context = context
@@ -48,13 +57,9 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
             // Fallback on earlier versions
         }
         
-        setViewController(UIViewController(), for: .primary)
+        setViewController(searchViewController, for: .primary)
         setViewController(contentSplitViewController, for: .secondary)
         setViewController(compactMainTabBarViewController, for: .compact)
-        
-        contentSplitViewController.sidebarViewController.view.layer.zPosition = 100
-        contentSplitViewController.mainTabBarController.view.layer.zPosition = 90
-        view.layer.zPosition = 80
     }
     
     required init?(coder: NSCoder) {
@@ -78,6 +83,15 @@ extension RootSplitViewController {
             .sink { [weak self] _ in
                 guard let self = self else { return }
                 self.updateBehavior(size: self.view.frame.size)
+            }
+            .store(in: &disposeBag)
+        
+        setupBackground(theme: ThemeService.shared.currentTheme.value)
+        ThemeService.shared.currentTheme
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.setupBackground(theme: theme)
             }
             .store(in: &disposeBag)
     }
@@ -106,6 +120,15 @@ extension RootSplitViewController {
         }
     }
 
+}
+
+extension RootSplitViewController {
+
+    private func setupBackground(theme: Theme) {
+        // this set column separator line color
+        view.backgroundColor = theme.separator
+    }
+    
 }
 
 // MARK: - UISplitViewControllerDelegate

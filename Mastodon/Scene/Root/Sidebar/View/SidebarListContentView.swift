@@ -18,6 +18,7 @@ final class SidebarListContentView: UIView, UIContentView {
     let avatarButton: CircleAvatarButton = {
         let button = CircleAvatarButton()
         button.borderWidth = 2
+        button.borderColor = UIColor.label.cgColor
         return button
     }()
     
@@ -71,6 +72,9 @@ extension SidebarListContentView {
 
         imageView.contentMode = .scaleAspectFit
         avatarButton.contentMode = .scaleAspectFit
+        
+        imageView.isUserInteractionEnabled = false
+        avatarButton.isUserInteractionEnabled = false
     }
     
     private func apply(configuration: ContentConfiguration) {

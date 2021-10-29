@@ -63,7 +63,7 @@ extension ContentSplitViewController {
         sidebarViewController.didMove(toParent: self)
         NSLayoutConstraint.activate([
             mainTabBarController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            mainTabBarController.view.leadingAnchor.constraint(equalTo: sidebarViewController.view.trailingAnchor),
+            mainTabBarController.view.leadingAnchor.constraint(equalTo: sidebarViewController.view.trailingAnchor, constant: UIView.separatorLineHeight(of: view)),
             mainTabBarController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainTabBarController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
@@ -87,6 +87,22 @@ extension ContentSplitViewController: SidebarViewControllerDelegate {
             assertionFailure()
             return
         }
+        let previousTab = currentSupplementaryTab
         currentSupplementaryTab = tab
+        
+        if previousTab == tab,
+           let navigationController = mainTabBarController.selectedViewController as? UINavigationController
+        {
+            navigationController.popToRootViewController(animated: true)
+        }
     }
+    
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView) {
+        guard case let .tab(tab) = item, tab == .me else { return }
+        
+        let accountListViewController = coordinator.present(scene: .accountList, from: nil, transition: .popover(sourceView: sourceView)) as! AccountListViewController
+        accountListViewController.dragIndicatorView.barView.isHidden = true
+        accountListViewController.preferredContentSize = CGSize(width: 300, height: 320)
+    }
+    
 }
