@@ -67,6 +67,7 @@
                 "done": "완료",
                 "confirm": "확인",
                 "continue": "계속",
+                "compose": "Compose",
                 "cancel": "취소",
                 "discard": "버리기",
                 "try_again": "다시 시도",
@@ -412,6 +413,12 @@
                     "message": "%s 차단 해제 확인"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "검색",
