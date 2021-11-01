@@ -67,6 +67,7 @@
                 "done": "Fet",
                 "confirm": "Confirma",
                 "continue": "Continua",
+                "compose": "Compose",
                 "cancel": "Cancel·la",
                 "discard": "Descarta",
                 "try_again": "Torna a provar",
@@ -412,6 +413,12 @@
                     "message": "Confirma desbloquejar a %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Cerca",
