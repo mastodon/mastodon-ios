@@ -9,9 +9,7 @@ import os.log
 import UIKit
 
 protocol ProfileStatusDashboardViewDelegate: AnyObject {
-    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
-    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
-    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
+    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter)
 }
 
 final class ProfileStatusDashboardView: UIView {
@@ -32,6 +30,14 @@ final class ProfileStatusDashboardView: UIView {
         _init()
     }
     
+}
+
+extension ProfileStatusDashboardView {
+    enum Meter: Hashable {
+        case post
+        case following
+        case follower
+    }
 }
 
 extension ProfileStatusDashboardView {
@@ -67,7 +73,6 @@ extension ProfileStatusDashboardView {
             tapGestureRecognizer.addTarget(self, action: #selector(ProfileStatusDashboardView.tapGestureRecognizerHandler(_:)))
             meterView.addGestureRecognizer(tapGestureRecognizer)
         }
-
     }
 }
 
@@ -78,12 +83,15 @@ extension ProfileStatusDashboardView {
             assertionFailure()
             return
         }
-        if sourceView === postDashboardMeterView {
-            delegate?.profileStatusDashboardView(self, postDashboardMeterViewDidPressed: sourceView)
-        } else if sourceView === followingDashboardMeterView {
-            delegate?.profileStatusDashboardView(self, followingDashboardMeterViewDidPressed: sourceView)
-        } else if sourceView === followersDashboardMeterView {
-            delegate?.profileStatusDashboardView(self, followersDashboardMeterViewDidPressed: sourceView)
+        switch sourceView {
+        case postDashboardMeterView:
+            delegate?.profileStatusDashboardView(self, dashboardMeterViewDidPressed: sourceView, meter: .post)
+        case followingDashboardMeterView:
+            delegate?.profileStatusDashboardView(self, dashboardMeterViewDidPressed: sourceView, meter: .following)
+        case followersDashboardMeterView:
+            delegate?.profileStatusDashboardView(self, dashboardMeterViewDidPressed: sourceView, meter: .follower)
+        default:
+            assertionFailure()
         }
     }
 }

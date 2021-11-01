@@ -769,7 +769,6 @@ extension ProfileViewController: ProfilePagingViewControllerDelegate {
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileViewController: ProfileHeaderViewDelegate {
-
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, avatarImageViewDidPressed imageView: UIImageView) {
         guard let mastodonUser = viewModel.mastodonUser.value else { return }
         guard let avatar = imageView.image else { return }
@@ -982,15 +981,29 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
         }
     }
 
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-        
-    }
-    
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed followingDashboardMeterView: ProfileStatusDashboardMeterView) {
-        
-    }
-    
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed followersDashboardMeterView: ProfileStatusDashboardMeterView) {
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter) {
+        switch meter {
+        case .post:
+            // do nothing
+            break
+        case .follower:
+            guard let domain = viewModel.domain.value,
+                  let userID = viewModel.userID.value
+            else { return }
+            let followerListViewModel = FollowerListViewModel(
+                context: context,
+                domain: domain,
+                userID: userID
+            )
+            coordinator.present(
+                scene: .follower(viewModel: followerListViewModel),
+                from: self,
+                transition: .show
+            )
+        case .following:
+            // TODO:
+            break
+        }
     }
 
 }
