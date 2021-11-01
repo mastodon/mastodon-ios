@@ -67,6 +67,7 @@
                 "done": "เสร็จสิ้น",
                 "confirm": "ยืนยัน",
                 "continue": "ดำเนินการต่อ",
+                "compose": "Compose",
                 "cancel": "ยกเลิก",
                 "discard": "ละทิ้ง",
                 "try_again": "ลองอีกครั้ง",
@@ -412,6 +413,12 @@
                     "message": "ยืนยันเพื่อเลิกปิดกั้น %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "ค้นหา",
