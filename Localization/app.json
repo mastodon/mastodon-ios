@@ -414,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
+        },
         "search": {
             "title": "Search",
             "search_bar": {
