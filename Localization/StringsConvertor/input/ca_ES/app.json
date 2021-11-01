@@ -67,7 +67,7 @@
                 "done": "Fet",
                 "confirm": "Confirma",
                 "continue": "Continua",
-                "compose": "Compose",
+                "compose": "Composa",
                 "cancel": "Cancel·la",
                 "discard": "Descarta",
                 "try_again": "Torna a provar",
@@ -415,10 +415,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Els seguidors d'altres servidors no son mostrats."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Els seguits d'altres servidors no son mostrats."
         },
         "search": {
             "title": "Cerca",
