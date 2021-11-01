@@ -67,6 +67,7 @@
                 "done": "完成",
                 "confirm": "确认",
                 "continue": "继续",
+                "compose": "Compose",
                 "cancel": "取消",
                 "discard": "放弃",
                 "try_again": "再试一次",
@@ -412,6 +413,12 @@
                     "message": "确认取消屏蔽 %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "搜索",
