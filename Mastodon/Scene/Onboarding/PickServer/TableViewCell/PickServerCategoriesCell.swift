@@ -56,12 +56,13 @@ extension PickServerCategoriesCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+        configureMargin()
         
         metricView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(metricView)
         NSLayoutConstraint.activate([
-            metricView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            metricView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            metricView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            metricView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
             metricView.topAnchor.constraint(equalTo: contentView.topAnchor),
             metricView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             metricView.heightAnchor.constraint(equalToConstant: 80).priority(.defaultHigh),
@@ -71,12 +72,18 @@ extension PickServerCategoriesCell {
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 20),
             collectionView.heightAnchor.constraint(equalToConstant: 80).priority(.defaultHigh),
         ])
         
         collectionView.delegate = self
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureMargin()
     }
     
     override func layoutSubviews() {
@@ -85,6 +92,18 @@ extension PickServerCategoriesCell {
         collectionView.collectionViewLayout.invalidateLayout()
     }
 
+}
+
+extension PickServerCategoriesCell {
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonPickServerViewController.viewEdgeMargin
+            contentView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        default:
+            contentView.layoutMargins = .zero
+        }
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout

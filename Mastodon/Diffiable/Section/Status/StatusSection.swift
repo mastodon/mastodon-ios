@@ -639,7 +639,7 @@ extension StatusSection {
     ) {
         if status.reblog != nil {
             cell.statusView.headerContainerView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+            cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.reblogIconImage))
             let headerText: String = {
                 let author = status.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
@@ -657,7 +657,7 @@ extension StatusSection {
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+            cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.replyIconImage))
             let headerText: String = {
                 guard let replyTo = status.replyTo else {
                     return L10n.Common.Controls.Status.userRepliedTo("-")
@@ -720,6 +720,15 @@ extension StatusSection {
         statusItemAttribute: Item.StatusAttribute
     ) {
         // set content
+        let paragraphStyle = cell.statusView.contentMetaText.paragraphStyle
+        if let language = (status.reblog ?? status).language {
+            let direction = Locale.characterDirection(forLanguage: language)
+            paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+        } else {
+            paragraphStyle.alignment = .natural
+        }
+        cell.statusView.contentMetaText.paragraphStyle = paragraphStyle
+        
         if let content = content {
             cell.statusView.contentMetaText.configure(content: content)
             cell.statusView.contentMetaText.textView.accessibilityLabel = content.trimmed

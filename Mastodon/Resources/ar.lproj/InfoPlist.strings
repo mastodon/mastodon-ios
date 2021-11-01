@@ -1,4 +1,4 @@
-"NSCameraUsageDescription" = "Used to take photo for post status";
-"NSPhotoLibraryAddUsageDescription" = "Used to save photo into the Photo Library";
+"NSCameraUsageDescription" = "يُستخدم لالتقاط الصورة عِندَ نشر الحالات";
+"NSPhotoLibraryAddUsageDescription" = "يُستخدم لحِفظ الصورة في مكتبة الصور";
 "NewPostShortcutItemTitle" = "منشور جديد";
 "SearchShortcutItemTitle" = "البحث";

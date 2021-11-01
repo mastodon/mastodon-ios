@@ -37,14 +37,16 @@ final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
     override func _init() {
         super._init()
         
+        configureMargin()
+        
         contentView.addSubview(containerView)
         contentView.addSubview(seperator)
 
         NSLayoutConstraint.activate([
             // Set background view
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 1),
             
             // Set bottom separator
@@ -66,6 +68,24 @@ final class PickServerLoaderTableViewCell: TimelineLoaderTableViewCell {
         contentView.bringSubviewToFront(stackView)
         activityIndicatorView.isHidden = false
         startAnimating()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureMargin()
+    }
+}
+
+extension PickServerLoaderTableViewCell {
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonPickServerViewController.viewEdgeMargin
+            contentView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        default:
+            contentView.layoutMargins = .zero
+        }
     }
 }
 

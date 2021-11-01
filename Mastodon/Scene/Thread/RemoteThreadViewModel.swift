@@ -48,7 +48,6 @@ final class RemoteThreadViewModel: ThreadViewModel {
         .store(in: &disposeBag)
     }
     
-    // FIXME: multiple account supports
     init(context: AppContext, notificationID: Mastodon.Entity.Notification.ID) {
         super.init(context: context, optionalStatus: nil)
         

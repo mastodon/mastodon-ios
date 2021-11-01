@@ -439,7 +439,7 @@ extension SettingsViewController {
         .sink { _ in
             // do nothing
         } receiveValue: { _ in
-            // do nohting
+            // do nothing
         }
         .store(in: &disposeBag)
     }
@@ -451,16 +451,19 @@ extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
         guard let dataSource = viewModel.dataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let item = dataSource.itemIdentifier(for: indexPath)
-        guard case let .appearance(settingObjectID) = item else { return }
+        guard case .appearance = item else { return }
 
-        context.managedObjectContext.performChanges {
-            let setting = self.context.managedObjectContext.object(with: settingObjectID) as! Setting
-            setting.update(appearanceRaw: appearanceMode.rawValue)
+        switch appearanceMode {
+        case .automatic:
+            UserDefaults.shared.customUserInterfaceStyle = .unspecified
+        case .light:
+            UserDefaults.shared.customUserInterfaceStyle = .light
+        case .dark:
+            UserDefaults.shared.customUserInterfaceStyle = .dark
         }
-        .sink { _ in
-            let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-            feedbackGenerator.impactOccurred()
-        }.store(in: &disposeBag)
+        
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        feedbackGenerator.impactOccurred()
     }
 }
 

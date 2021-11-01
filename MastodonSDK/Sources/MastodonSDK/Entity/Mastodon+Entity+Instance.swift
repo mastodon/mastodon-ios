@@ -34,6 +34,9 @@ extension Mastodon.Entity {
         public let thumbnail: String?
         public let contactAccount: Account?
         public let rules: [Rule]?
+        
+        // https://github.com/mastodon/mastodon/pull/16485
+        public let configuration: Configuration?
 
         enum CodingKeys: String, CodingKey {
             case uri
@@ -52,6 +55,8 @@ extension Mastodon.Entity {
             case thumbnail
             case contactAccount = "contact_account"
             case rules
+            
+            case configuration
         }
     }
 }
@@ -84,5 +89,65 @@ extension Mastodon.Entity.Instance {
     public struct Rule: Codable {
         public let id: String
         public let text: String
+    }
+}
+
+extension Mastodon.Entity.Instance {
+    public struct Configuration: Codable {
+        public let statuses: Statuses?
+        public let mediaAttachments: MediaAttachments?
+        public let polls: Polls?
+        
+        enum CodingKeys: String, CodingKey {
+            case statuses
+            case mediaAttachments = "media_attachments"
+            case polls
+        }
+    }
+}
+
+extension Mastodon.Entity.Instance.Configuration {
+    public struct Statuses: Codable {
+        public let maxCharacters: Int
+        public let maxMediaAttachments: Int
+        public let charactersReservedPerURL: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case maxCharacters = "max_characters"
+            case maxMediaAttachments = "max_media_attachments"
+            case charactersReservedPerURL = "characters_reserved_per_url"
+        }
+    }
+    
+    public struct MediaAttachments: Codable {
+        public let supportedMIMETypes: [String]
+        public let imageSizeLimit: Int
+        public let imageMatrixLimit: Int
+        public let videoSizeLimit: Int
+        public let videoFrameRateLimit: Int
+        public let videoMatrixLimit: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case supportedMIMETypes = "supported_mime_types"
+            case imageSizeLimit = "image_size_limit"
+            case imageMatrixLimit = "image_matrix_limit"
+            case videoSizeLimit = "video_size_limit"
+            case videoFrameRateLimit = "video_frame_rate_limit"
+            case videoMatrixLimit = "video_matrix_limit"
+        }
+    }
+    
+    public struct Polls: Codable {
+        public let maxOptions: Int
+        public let maxCharactersPerOption: Int
+        public let minExpiration: Int
+        public let maxExpiration: Int
+        
+        enum CodingKeys: String, CodingKey {
+            case maxOptions = "max_options"
+            case maxCharactersPerOption = "max_characters_per_option"
+            case minExpiration = "min_expiration"
+            case maxExpiration = "max_expiration"
+        }
     }
 }

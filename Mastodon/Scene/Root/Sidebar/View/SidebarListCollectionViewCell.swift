@@ -51,30 +51,9 @@ extension SidebarListCollectionViewCell {
         newConfiguration.item = item
         contentConfiguration = newConfiguration
         
+        // remove background
         var newBackgroundConfiguration = UIBackgroundConfiguration.listSidebarCell().updated(for: state)
-        // Customize the background color to use the tint color when the cell is highlighted or selected.
-        if state.isSelected || state.isHighlighted {
-            newBackgroundConfiguration.backgroundColor = Asset.Colors.brandBlue.color
-        }
-        if state.isHighlighted {
-            newBackgroundConfiguration.backgroundColorTransformer = .init { $0.withAlphaComponent(0.8) }
-        }
-        
-        
+        newBackgroundConfiguration.backgroundColor = .clear        
         backgroundConfiguration = newBackgroundConfiguration
-        
-        let needsOutlineDisclosure = item?.needsOutlineDisclosure ?? false
-        if !needsOutlineDisclosure {
-            accessories = []
-        } else {
-            let tintColor: UIColor = state.isHighlighted || state.isSelected ? .white : Asset.Colors.brandBlue.color
-            accessories = [
-                UICellAccessory.outlineDisclosure(
-                    displayed: .always,
-                    options: UICellAccessory.OutlineDisclosureOptions(tintColor: tintColor),
-                    actionHandler: nil
-                )
-            ]
-        }
     }
 }

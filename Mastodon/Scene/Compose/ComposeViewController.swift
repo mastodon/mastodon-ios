@@ -413,7 +413,7 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] attachmentServices in
                 guard let self = self else { return }
-                let isEnabled = attachmentServices.count < 4
+                let isEnabled = attachmentServices.count < self.viewModel.maxMediaAttachments
                 self.composeToolbarView.mediaBarButtonItem.isEnabled = isEnabled
                 self.composeToolbarView.mediaButton.isEnabled = isEnabled
                 self.resetImagePicker()
@@ -450,7 +450,7 @@ extension ComposeViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] characterCount in
                 guard let self = self else { return }
-                let count = ComposeViewModel.composeContentLimit - characterCount
+                let count = self.viewModel.composeContentLimit - characterCount
                 self.composeToolbarView.characterCountLabel.text = "\(count)"
                 self.characterCountLabel.text = "\(count)"
                 let font: UIFont
@@ -651,7 +651,7 @@ extension ComposeViewController {
     }
     
     private func resetImagePicker() {
-        let selectionLimit = max(1, 4 - viewModel.attachmentServices.value.count)
+        let selectionLimit = max(1, viewModel.maxMediaAttachments - viewModel.attachmentServices.value.count)
         let configuration = ComposeViewController.createPhotoLibraryPickerConfiguration(selectionLimit: selectionLimit)
         photoLibraryPicker = createImagePicker(configuration: configuration)
     }
@@ -1275,7 +1275,6 @@ extension ComposeViewController: AutoCompleteViewControllerDelegate {
             case .bottomLoader:
                 return nil
             }
-            text.append(" ")
             return text
         }()
         guard let replacedText = _replacedText else { return }
@@ -1286,6 +1285,9 @@ extension ComposeViewController: AutoCompleteViewControllerDelegate {
 
         let range = NSRange(info.toHighlightEndRange, in: text)
         textEditorView.textStorage.replaceCharacters(in: range, with: replacedText)
+        DispatchQueue.main.async {
+            textEditorView.textView.insertText(" ") // trigger textView delegate update
+        }
         viewModel.autoCompleteInfo.value = nil
 
         switch item {

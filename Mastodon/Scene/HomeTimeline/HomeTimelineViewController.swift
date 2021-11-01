@@ -46,14 +46,14 @@ final class HomeTimelineViewController: UIViewController, NeedsDependency, Media
     
     let settingBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.brandBlue.color
+        barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "gear")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
     
     let composeBarButtonItem: UIBarButtonItem = {
         let barButtonItem = UIBarButtonItem()
-        barButtonItem.tintColor = Asset.Colors.brandBlue.color
+        barButtonItem.tintColor = ThemeService.tintColor
         barButtonItem.image = UIImage(systemName: "square.and.pencil")?.withRenderingMode(.alwaysTemplate)
         return barButtonItem
     }()
@@ -114,6 +114,24 @@ extension HomeTimelineViewController {
                 #endif
             }
             .store(in: &disposeBag)
+        #if DEBUG
+        // long press to trigger debug menu
+        settingBarButtonItem.menu = debugMenu
+        #else
+        settingBarButtonItem.target = self
+        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
+        #endif
+        
+        viewModel.displayComposeBarButtonItem
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] displayComposeBarButtonItem in
+                guard let self = self else { return }
+                self.navigationItem.rightBarButtonItem = displayComposeBarButtonItem ? self.composeBarButtonItem : nil
+            }
+            .store(in: &disposeBag)
+        composeBarButtonItem.target = self
+        composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
+        
         navigationItem.titleView = titleView
         titleView.delegate = self
         
@@ -125,18 +143,6 @@ extension HomeTimelineViewController {
                 self.titleView.configure(state: state)
             }
             .store(in: &disposeBag)
-        
-        #if DEBUG
-        // long press to trigger debug menu
-        settingBarButtonItem.menu = debugMenu
-        #else
-        settingBarButtonItem.target = self
-        settingBarButtonItem.action = #selector(HomeTimelineViewController.settingBarButtonItemPressed(_:))
-        #endif
-        
-        navigationItem.rightBarButtonItem = composeBarButtonItem
-        composeBarButtonItem.target = self
-        composeBarButtonItem.action = #selector(HomeTimelineViewController.composeBarButtonItemPressed(_:))
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(HomeTimelineViewController.refreshControlValueChanged(_:)), for: .valueChanged)

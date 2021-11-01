@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
 
         // set tint color
-        window.tintColor = Asset.Colors.brandBlue.color
+        window.tintColor = UIColor.label
 
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)

@@ -17,9 +17,7 @@ protocol ProfileHeaderViewDelegate: AnyObject {
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, relationshipButtonDidPressed button: ProfileRelationshipActionButton)
     func profileHeaderView(_ profileHeaderView: ProfileHeaderView, metaTextView: MetaTextView, metaDidPressed meta: Meta)
 
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView)
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed followingDashboardMeterView: ProfileStatusDashboardMeterView)
-    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed followersDashboardMeterView: ProfileStatusDashboardMeterView)
+    func profileHeaderView(_ profileHeaderView: ProfileHeaderView, profileStatusDashboardView dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter)
 }
 
 final class ProfileHeaderView: UIView {
@@ -443,6 +441,7 @@ extension ProfileHeaderView {
         bringSubviewToFront(bannerContainerView)
         bringSubviewToFront(nameContainerStackView)
         
+        statusDashboardView.delegate = self
         bioMetaText.textView.delegate = self
         bioMetaText.textView.linkDelegate = self
         
@@ -549,19 +548,9 @@ extension ProfileHeaderView: MetaTextViewDelegate {
 
 // MARK: - ProfileStatusDashboardViewDelegate
 extension ProfileHeaderView: ProfileStatusDashboardViewDelegate {
-    
-    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, postDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-        delegate?.profileHeaderView(self, profileStatusDashboardView: dashboardView, postDashboardMeterViewDidPressed: dashboardMeterView)
+    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, dashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView, meter: ProfileStatusDashboardView.Meter) {
+        delegate?.profileHeaderView(self, profileStatusDashboardView: dashboardView, dashboardMeterViewDidPressed: dashboardMeterView, meter: meter)
     }
-    
-    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, followingDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-        delegate?.profileHeaderView(self, profileStatusDashboardView: dashboardView, followingDashboardMeterViewDidPressed: dashboardMeterView)
-    }
-    
-    func profileStatusDashboardView(_ dashboardView: ProfileStatusDashboardView, followersDashboardMeterViewDidPressed dashboardMeterView: ProfileStatusDashboardMeterView) {
-        delegate?.profileHeaderView(self, profileStatusDashboardView: dashboardView, followersDashboardMeterViewDidPressed: dashboardMeterView)
-    }
- 
 }
 
 // MARK: - AvatarConfigurableView

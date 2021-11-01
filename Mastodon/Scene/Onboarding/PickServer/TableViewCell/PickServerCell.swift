@@ -198,6 +198,7 @@ extension PickServerCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = .clear
+        configureMargin()
         
         contentView.addSubview(containerView)
         containerView.addSubview(domainLabel)
@@ -229,8 +230,8 @@ extension PickServerCell {
         NSLayoutConstraint.activate([
             // Set background view
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            containerView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            contentView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             
             // Set bottom separator
@@ -291,6 +292,12 @@ extension PickServerCell {
         expandButton.addTarget(self, action: #selector(expandButtonDidPressed(_:)), for: .touchUpInside)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureMargin()
+    }
+    
     private func makeVerticalInfoStackView(arrangedView: UIView...) -> UIStackView {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -315,6 +322,18 @@ extension PickServerCell {
     private func expandButtonDidPressed(_ sender: UIButton) {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
         delegate?.pickServerCell(self, expandButtonPressed: sender)
+    }
+}
+
+extension PickServerCell {
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonPickServerViewController.viewEdgeMargin
+            contentView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        default:
+            contentView.layoutMargins = .zero
+        }
     }
 }
 

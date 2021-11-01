@@ -33,6 +33,7 @@ final class AutoCompleteTableViewCell: UITableViewCell {
     
     let titleLabel: MetaLabel = {
         let label = MetaLabel(style: .autoCompletion)
+        label.isUserInteractionEnabled = false
         return label
     }()
     

@@ -30,6 +30,9 @@ final public class MastodonAuthentication: NSManagedObject {
     // one-to-one relationship
     @NSManaged public private(set) var user: MastodonUser
     
+    // many-to-one relationship
+    @NSManaged public private(set) var instance: Instance?
+    
 }
 
 extension MastodonAuthentication {
@@ -97,6 +100,12 @@ extension MastodonAuthentication {
         }
     }
     
+    public func update(instance: Instance) {
+        if self.instance != instance {
+            self.instance = instance
+        }
+    }
+    
     public func didUpdate(at networkDate: Date) {
         self.updatedAt = networkDate
     }
@@ -143,7 +152,7 @@ extension MastodonAuthentication: Managed {
 
 extension MastodonAuthentication {
     
-    static func predicate(domain: String) -> NSPredicate {
+    public static func predicate(domain: String) -> NSPredicate {
         return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.domain), domain)
     }
     
@@ -156,6 +165,10 @@ extension MastodonAuthentication {
             MastodonAuthentication.predicate(domain: domain),
             MastodonAuthentication.predicate(userID: userID)
         ])
+    }
+    
+    public static func predicate(userAccessToken: String) -> NSPredicate {
+        return NSPredicate(format: "%K == %@", #keyPath(MastodonAuthentication.userAccessToken), userAccessToken)
     }
     
 }

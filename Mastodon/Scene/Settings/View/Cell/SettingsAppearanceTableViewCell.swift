@@ -15,6 +15,7 @@ protocol SettingsAppearanceTableViewCellDelegate: AnyObject {
 class SettingsAppearanceTableViewCell: UITableViewCell {
     
     var disposeBag = Set<AnyCancellable>()
+    var observations = Set<NSKeyValueObservation>()
 
     static let spacing: CGFloat = 18
     
@@ -59,6 +60,7 @@ class SettingsAppearanceTableViewCell: UITableViewCell {
         super.prepareForReuse()
         
         disposeBag.removeAll()
+        observations.removeAll()
     }
         
     // MARK: - Methods

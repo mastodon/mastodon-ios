@@ -41,21 +41,17 @@ extension SettingsSection {
             switch item {
             case .appearance(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SettingsAppearanceTableViewCell.self), for: indexPath) as! SettingsAppearanceTableViewCell
-                managedObjectContext.performAndWait {
-                    let setting = managedObjectContext.object(with: objectID) as! Setting
-                    cell.update(with: setting.appearance)
-                    ManagedObjectObserver.observe(object: setting)
-                        .receive(on: DispatchQueue.main)
-                        .sink(receiveCompletion: { _ in
-                            // do nothing
-                        }, receiveValue: { [weak cell] change in
-                            guard let cell = cell else { return }
-                            guard case .update(let object) = change.changeType,
-                                  let setting = object as? Setting else { return }
-                            cell.update(with: setting.appearance)
-                        })
-                        .store(in: &cell.disposeBag)
+                UserDefaults.shared.observe(\.customUserInterfaceStyle, options: [.initial, .new]) { [weak cell] defaults, _ in
+                    guard let cell = cell else { return }
+                    switch defaults.customUserInterfaceStyle {
+                    case .unspecified:          cell.update(with: .automatic)
+                    case .dark:                 cell.update(with: .dark)
+                    case .light:                cell.update(with: .light)
+                    @unknown default:
+                        assertionFailure()
+                    }
                 }
+                .store(in: &cell.observations)
                 cell.delegate = settingsAppearanceTableViewCellDelegate
                 return cell
             case .notification(let objectID, let switchMode):

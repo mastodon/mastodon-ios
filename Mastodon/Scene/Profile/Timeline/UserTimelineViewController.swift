@@ -12,7 +12,6 @@ import Combine
 import CoreDataStack
 import GameplayKit
 
-// TODO: adopt MediaPreviewableViewController
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
         
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }

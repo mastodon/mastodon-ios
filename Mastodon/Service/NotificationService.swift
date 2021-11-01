@@ -30,7 +30,7 @@ final class NotificationService {
     /// [Token: NotificationViewModel]
     let notificationSubscriptionDict: [String: NotificationViewModel] = [:]
     let unreadNotificationCountDidUpdate = CurrentValueSubject<Void, Never>(Void())
-    let requestRevealNotificationPublisher = PassthroughSubject<Mastodon.Entity.Notification.ID, Never>()
+    let requestRevealNotificationPublisher = PassthroughSubject<MastodonPushNotification, Never>()
     
     init(
         apiService: APIService,

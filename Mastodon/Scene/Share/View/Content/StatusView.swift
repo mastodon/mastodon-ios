@@ -73,9 +73,10 @@ final class StatusView: UIView {
         return attributedString
     }
     
-    let headerIconLabel: UILabel = {
-        let label = UILabel()
-        label.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+    let headerIconLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusHeader)
+        let attributedString = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+        label.configure(attributedString: attributedString)
         return label
     }()
     
@@ -125,7 +126,7 @@ final class StatusView: UIView {
     let revealContentWarningButton: UIButton = {
         let button = HighlightDimmableButton()
         button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
-        button.tintColor = Asset.Colors.brandBlue.color
+        // button.tintColor = Asset.Colors.brandBlue.color
         return button
     }()
     
@@ -217,6 +218,7 @@ final class StatusView: UIView {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
             style.paragraphSpacing = 8
+            style.alignment = .natural
             return style
         }()
         metaText.textAttributes = [

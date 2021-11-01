@@ -226,16 +226,6 @@ extension MainTabBarController {
         }
         .store(in: &disposeBag)
         
-        context.notificationService.requestRevealNotificationPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] notificationID in
-                guard let self = self else { return }
-                self.coordinator.switchToTabBar(tab: .notification)
-                let threadViewModel = RemoteThreadViewModel(context: self.context, notificationID: notificationID)
-                self.coordinator.present(scene: .thread(viewModel: threadViewModel), from: nil, transition: .show)
-            }
-            .store(in: &disposeBag)
-        
         layoutAvatarButton()
         context.authenticationService.activeMastodonAuthentication
             .receive(on: DispatchQueue.main)
@@ -317,7 +307,7 @@ extension MainTabBarController {
 
         switch tab {
         case .me:
-            coordinator.present(scene: .accountList, from: nil, transition: .panModal)
+            coordinator.present(scene: .accountList, from: self, transition: .panModal)
         default:
             break
         }
@@ -353,7 +343,6 @@ extension MainTabBarController {
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
         self.avatarButton.isUserInteractionEnabled = false
     }
-    
 }
 
 extension MainTabBarController {

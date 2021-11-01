@@ -190,7 +190,7 @@ extension ComposeToolbarView {
 extension ComposeToolbarView {
 
     private static func configureToolbarButtonAppearance(button: UIButton) {
-        button.tintColor = Asset.Colors.brandBlue.color
+        button.tintColor = ThemeService.tintColor
         button.setBackgroundImage(.placeholder(size: ComposeToolbarView.toolbarButtonSize, color: .systemFill), for: .highlighted)
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 5

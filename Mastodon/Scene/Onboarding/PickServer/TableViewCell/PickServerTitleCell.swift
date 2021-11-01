@@ -20,6 +20,8 @@ final class PickServerTitleCell: UITableViewCell {
         return label
     }()
     
+    var containerHeightLayoutConstraint: NSLayoutConstraint!
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()
@@ -36,13 +38,45 @@ extension PickServerTitleCell {
     private func _init() {
         selectionStyle = .none
         backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
-
-        contentView.addSubview(titleLabel)
+        
+        let container = UIStackView()
+        container.axis = .vertical
+        container.translatesAutoresizingMaskIntoConstraints = false
+        containerHeightLayoutConstraint = container.heightAnchor.constraint(equalToConstant: .leastNonzeroMagnitude)
+        contentView.addSubview(container)
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            container.topAnchor.constraint(equalTo: contentView.topAnchor),
+            container.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
+        
+        container.addArrangedSubview(titleLabel)
+        
+        configureTitleLabelDisplay()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureTitleLabelDisplay()
+    }
+}
+
+extension PickServerTitleCell {
+    private func configureTitleLabelDisplay() {
+        guard traitCollection.userInterfaceIdiom == .pad else {
+            titleLabel.isHidden = false
+            return
+        }
+        
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            titleLabel.isHidden = true
+            containerHeightLayoutConstraint.isActive = true
+        default:
+            titleLabel.isHidden = false
+            containerHeightLayoutConstraint.isActive = false
+        }
     }
 }

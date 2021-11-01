@@ -12,13 +12,15 @@ import Combine
 extension Mastodon.API.Account {
     
     static func acceptFollowRequestEndpointURL(domain: String, userID: Mastodon.Entity.Account.ID) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("follow_requests")
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("follow_requests")
             .appendingPathComponent(userID)
             .appendingPathComponent("authorize")
     }
     
     static func rejectFollowRequestEndpointURL(domain: String, userID: Mastodon.Entity.Account.ID) -> URL {
-        return Mastodon.API.endpointURL(domain: domain).appendingPathComponent("follow_requests")
+        return Mastodon.API.endpointURL(domain: domain)
+            .appendingPathComponent("follow_requests")
             .appendingPathComponent(userID)
             .appendingPathComponent("reject")
     }

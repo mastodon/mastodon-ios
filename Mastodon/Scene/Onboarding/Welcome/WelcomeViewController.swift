@@ -75,6 +75,8 @@ extension WelcomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
         view.overrideUserInterfaceStyle = .light
         
         setupOnboardingAppearance()
@@ -235,7 +237,21 @@ extension WelcomeViewController {
 }
 
 // MARK: - OnboardingViewControllerAppearance
-extension WelcomeViewController: OnboardingViewControllerAppearance { }
+extension WelcomeViewController: OnboardingViewControllerAppearance {
+    func setupNavigationBarAppearance() {
+        // always transparent
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        if #available(iOS 15.0, *) {
+            navigationItem.compactScrollEdgeAppearance = barAppearance
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}
 
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
@@ -245,7 +261,12 @@ extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
             // make underneath view controller alive to fix layout issue due to view life cycle
             return .fullScreen
         default:
-            return .pageSheet
+            switch traitCollection.horizontalSizeClass {
+            case .regular:
+                return .pageSheet
+            default:
+                return .fullScreen
+            }
         }
     }
     
