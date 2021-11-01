@@ -67,6 +67,7 @@
                 "done": "Qediya",
                 "confirm": "Bipejirîne",
                 "continue": "Bidomîne",
+                "compose": "Compose",
                 "cancel": "Dev jê berde",
                 "discard": "Biavêje",
                 "try_again": "Dîsa biceribîne",
@@ -412,6 +413,12 @@
                     "message": "Ji bo rakirina blokê bipejirin %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Bigere",
