@@ -67,6 +67,7 @@
                 "done": "Deiseil",
                 "confirm": "Dearbh",
                 "continue": "Lean air adhart",
+                "compose": "Compose",
                 "cancel": "Sguir dheth",
                 "discard": "Tilg air falbh",
                 "try_again": "Feuch ris a-rithist",
@@ -412,6 +413,12 @@
                     "message": "Dearbh dì-bhacadh %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Lorg",
