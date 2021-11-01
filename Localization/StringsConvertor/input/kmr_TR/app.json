@@ -67,7 +67,7 @@
                 "done": "Qediya",
                 "confirm": "Bipejirîne",
                 "continue": "Bidomîne",
-                "compose": "Compose",
+                "compose": "Binivîsîne",
                 "cancel": "Dev jê berde",
                 "discard": "Biavêje",
                 "try_again": "Dîsa biceribîne",
@@ -415,10 +415,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Şopîner ji rajekerên din nayê dîtin."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Şopandin ji rajekerên din nayê dîtin."
         },
         "search": {
             "title": "Bigere",
