@@ -23,6 +23,7 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
         let contentSplitViewController = ContentSplitViewController()
         contentSplitViewController.context = context
         contentSplitViewController.coordinator = coordinator
+        contentSplitViewController.delegate = self
         return contentSplitViewController
     }()
     
@@ -131,6 +132,36 @@ extension RootSplitViewController {
     
 }
 
+// MARK: - ContentSplitViewControllerDelegate
+extension RootSplitViewController: ContentSplitViewControllerDelegate {
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
+        guard let _ = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
+            assertionFailure()
+            return
+        }
+        switch tab {
+        case .search:            
+            guard let navigationController = searchViewController.navigationController else { return }
+            if navigationController.viewControllers.count == 1 {
+                searchViewController.searchBarTapPublisher.send()
+            } else {
+                navigationController.popToRootViewController(animated: true)
+            }
+        
+        default:
+            let previousTab = contentSplitViewController.currentSupplementaryTab
+            contentSplitViewController.currentSupplementaryTab = tab
+            
+            if previousTab == tab,
+               let navigationController = contentSplitViewController.mainTabBarController.selectedViewController as? UINavigationController
+            {
+                navigationController.popToRootViewController(animated: true)
+            }
+            
+        }
+    }
+}
+
 // MARK: - UISplitViewControllerDelegate
 extension RootSplitViewController: UISplitViewControllerDelegate {
     
@@ -180,7 +211,13 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         }
 
         RootSplitViewController.transform(from: compactMainTabBarViewController, to: contentSplitViewController.mainTabBarController)
-        contentSplitViewController.currentSupplementaryTab = compactMainTabBarViewController.currentTab.value
+        
+        let tab = compactMainTabBarViewController.currentTab.value
+        if tab == .search {
+            contentSplitViewController.currentSupplementaryTab = .home
+        } else {
+            contentSplitViewController.currentSupplementaryTab = compactMainTabBarViewController.currentTab.value
+        }
 
         return proposedDisplayMode
     }

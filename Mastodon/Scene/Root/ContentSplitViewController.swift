@@ -10,6 +10,10 @@ import UIKit
 import Combine
 import CoreDataStack
 
+protocol ContentSplitViewControllerDelegate: AnyObject {
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
+}
+
 final class ContentSplitViewController: UIViewController, NeedsDependency {
 
     var disposeBag = Set<AnyCancellable>()
@@ -18,6 +22,8 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
+    
+    weak var delegate: ContentSplitViewControllerDelegate?
     
     private(set) lazy var sidebarViewController: SidebarViewController = {
         let sidebarViewController = SidebarViewController()
@@ -87,18 +93,7 @@ extension ContentSplitViewController {
 extension ContentSplitViewController: SidebarViewControllerDelegate {
     
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
-        guard let _ = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
-            assertionFailure()
-            return
-        }
-        let previousTab = currentSupplementaryTab
-        currentSupplementaryTab = tab
-        
-        if previousTab == tab,
-           let navigationController = mainTabBarController.selectedViewController as? UINavigationController
-        {
-            navigationController.popToRootViewController(animated: true)
-        }
+        delegate?.contentSplitViewController(self, sidebarViewController: sidebarViewController, didSelectTab: tab)
     }
     
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView) {
