@@ -67,7 +67,7 @@
                 "done": "Deiseil",
                 "confirm": "Dearbh",
                 "continue": "Lean air adhart",
-                "compose": "Compose",
+                "compose": "Sgrìobh",
                 "cancel": "Sguir dheth",
                 "discard": "Tilg air falbh",
                 "try_again": "Feuch ris a-rithist",
@@ -415,10 +415,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
         },
         "search": {
             "title": "Lorg",
