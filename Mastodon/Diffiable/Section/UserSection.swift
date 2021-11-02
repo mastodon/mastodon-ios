@@ -30,7 +30,8 @@ extension UserSection {
         ] tableView, indexPath, item -> UITableViewCell? in
             guard let dependency = dependency else { return UITableViewCell() }
             switch item {
-            case .follower(let objectID):
+            case .follower(let objectID),
+                 .following(let objectID):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: UserTableViewCell.self), for: indexPath) as! UserTableViewCell
                 managedObjectContext.performAndWait {
                     let user = managedObjectContext.object(with: objectID) as! MastodonUser

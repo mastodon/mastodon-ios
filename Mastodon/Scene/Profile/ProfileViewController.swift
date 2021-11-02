@@ -1001,8 +1001,19 @@ extension ProfileViewController: ProfileHeaderViewDelegate {
                 transition: .show
             )
         case .following:
-            // TODO:
-            break
+            guard let domain = viewModel.domain.value,
+                  let userID = viewModel.userID.value
+            else { return }
+            let followingListViewModel = FollowingListViewModel(
+                context: context,
+                domain: domain,
+                userID: userID
+            )
+            coordinator.present(
+                scene: .following(viewModel: followingListViewModel),
+                from: self,
+                transition: .show
+            )
         }
     }
 

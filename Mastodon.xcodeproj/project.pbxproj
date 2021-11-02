@@ -296,6 +296,11 @@
 		DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */; };
 		DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */; };
 		DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F11725EFA35B001F1DAB /* StripProgressView.swift */; };
+		DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B7294273112B100081888 /* FollowingListViewController.swift */; };
+		DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B7297273112C800081888 /* FollowingListViewModel.swift */; };
+		DB5B729A2731137900081888 /* FollowingListViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B72992731137900081888 /* FollowingListViewController+Provider.swift */; };
+		DB5B729C273113C200081888 /* FollowingListViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */; };
+		DB5B729E273113F300081888 /* FollowingListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */; };
 		DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */; };
 		DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */; };
 		DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */; };
@@ -1110,6 +1115,11 @@
 		DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeightCacheableContainer.swift; sourceTree = "<group>"; };
 		DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Poll.swift"; sourceTree = "<group>"; };
 		DB59F11725EFA35B001F1DAB /* StripProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripProgressView.swift; sourceTree = "<group>"; };
+		DB5B7294273112B100081888 /* FollowingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingListViewController.swift; sourceTree = "<group>"; };
+		DB5B7297273112C800081888 /* FollowingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingListViewModel.swift; sourceTree = "<group>"; };
+		DB5B72992731137900081888 /* FollowingListViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewController+Provider.swift"; sourceTree = "<group>"; };
+		DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewModel+State.swift"; sourceTree = "<group>"; };
 		DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewController.swift; sourceTree = "<group>"; };
 		DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewPagingViewController.swift; sourceTree = "<group>"; };
 		DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
@@ -2453,6 +2463,18 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		DB5B7296273112B400081888 /* Following */ = {
+			isa = PBXGroup;
+			children = (
+				DB5B7294273112B100081888 /* FollowingListViewController.swift */,
+				DB5B72992731137900081888 /* FollowingListViewController+Provider.swift */,
+				DB5B7297273112C800081888 /* FollowingListViewModel.swift */,
+				DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */,
+				DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */,
+			);
+			path = Following;
+			sourceTree = "<group>";
+		};
 		DB6180DE263919350018D199 /* MediaPreview */ = {
 			isa = PBXGroup;
 			children = (
@@ -2902,6 +2924,7 @@
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
 				DBE3CDF1261C6B3100430CC6 /* Favorite */,
 				DB6B74F0272FB55400C70B6E /* Follower */,
+				DB5B7296273112B400081888 /* Following */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
@@ -3918,6 +3941,7 @@
 				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
 				5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */,
 				DB1D843426579931000346B3 /* TableViewControllerNavigateable.swift in Sources */,
+				DB5B729A2731137900081888 /* FollowingListViewController+Provider.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
@@ -3929,6 +3953,7 @@
 				DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */,
 				DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */,
 				DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */,
+				DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				5DF1054125F886D400D6C0D4 /* VideoPlaybackService.swift in Sources */,
 				DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */,
@@ -4065,6 +4090,7 @@
 				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
+				DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,
 				DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */,
@@ -4075,8 +4101,10 @@
 				DB73BF47271199CA00781945 /* Instance.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
+				DB5B729C273113C200081888 /* FollowingListViewModel+Diffable.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */,
+				DB5B729E273113F300081888 /* FollowingListViewModel+State.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
 				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,

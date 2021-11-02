@@ -1,8 +1,8 @@
 //
-//  FollowerListViewModel+State.swift
+//  FollowingListViewModel+State.swift
 //  Mastodon
 //
-//  Created by Cirno MainasuK on 2021-11-1.
+//  Created by Cirno MainasuK on 2021-11-2.
 //
 
 import os.log
@@ -10,11 +10,11 @@ import Foundation
 import GameplayKit
 import MastodonSDK
 
-extension FollowerListViewModel {
+extension FollowingListViewModel {
     class State: GKState {
-        weak var viewModel: FollowerListViewModel?
+        weak var viewModel: FollowingListViewModel?
         
-        init(viewModel: FollowerListViewModel) {
+        init(viewModel: FollowingListViewModel) {
             self.viewModel = viewModel
         }
         
@@ -24,8 +24,8 @@ extension FollowerListViewModel {
     }
 }
 
-extension FollowerListViewModel.State {
-    class Initial: FollowerListViewModel.State {
+extension FollowingListViewModel.State {
+    class Initial: FollowingListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             guard let viewModel = viewModel else { return false }
             switch stateClass {
@@ -37,7 +37,7 @@ extension FollowerListViewModel.State {
         }
     }
     
-    class Reloading: FollowerListViewModel.State {
+    class Reloading: FollowingListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Loading.Type:
@@ -58,7 +58,7 @@ extension FollowerListViewModel.State {
         }
     }
     
-    class Fail: FollowerListViewModel.State {
+    class Fail: FollowingListViewModel.State {
         
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
@@ -81,7 +81,7 @@ extension FollowerListViewModel.State {
         }
     }
     
-    class Idle: FollowerListViewModel.State {
+    class Idle: FollowingListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type, is Loading.Type:
@@ -92,7 +92,7 @@ extension FollowerListViewModel.State {
         }
     }
     
-    class Loading: FollowerListViewModel.State {
+    class Loading: FollowingListViewModel.State {
         
         var maxID: String?
         
@@ -117,57 +117,57 @@ extension FollowerListViewModel.State {
             }
             
             guard let viewModel = viewModel, let stateMachine = stateMachine else { return }
-
+            
             guard let userID = viewModel.userID.value, !userID.isEmpty else {
                 stateMachine.enter(Fail.self)
                 return
             }
-
+            
             guard let activeMastodonAuthenticationBox = viewModel.context.authenticationService.activeMastodonAuthenticationBox.value else {
                 stateMachine.enter(Fail.self)
                 return
             }
-
+            
             viewModel.context.apiService.followers(
                 userID: userID,
                 maxID: maxID,
                 authorizationBox: activeMastodonAuthenticationBox
             )
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch user timeline fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
-                    stateMachine.enter(Fail.self)
-                case .finished:
-                    break
+                .receive(on: DispatchQueue.main)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch user timeline fail: %s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
+                        stateMachine.enter(Fail.self)
+                    case .finished:
+                        break
+                    }
+                } receiveValue: { response in
+                    os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+                    
+                    var hasNewAppend = false
+                    var userIDs = viewModel.userFetchedResultsController.userIDs.value
+                    for user in response.value {
+                        guard !userIDs.contains(user.id) else { continue }
+                        userIDs.append(user.id)
+                        hasNewAppend = true
+                    }
+                    
+                    let maxID = response.link?.maxID
+                    
+                    if hasNewAppend, maxID != nil {
+                        stateMachine.enter(Idle.self)
+                    } else {
+                        stateMachine.enter(NoMore.self)
+                    }
+                    self.maxID = maxID
+                    viewModel.userFetchedResultsController.userIDs.value = userIDs
                 }
-            } receiveValue: { response in
-                os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
-
-                var hasNewAppend = false
-                var userIDs = viewModel.userFetchedResultsController.userIDs.value
-                for user in response.value {
-                    guard !userIDs.contains(user.id) else { continue }
-                    userIDs.append(user.id)
-                    hasNewAppend = true
-                }
-                
-                let maxID = response.link?.maxID
-                
-                if hasNewAppend, maxID != nil {
-                    stateMachine.enter(Idle.self)
-                } else {
-                    stateMachine.enter(NoMore.self)
-                }
-                self.maxID = maxID
-                viewModel.userFetchedResultsController.userIDs.value = userIDs
-            }
-            .store(in: &viewModel.disposeBag)
+                .store(in: &viewModel.disposeBag)
         }   // end func didEnter
     }
     
-    class NoMore: FollowerListViewModel.State {
+    class NoMore: FollowingListViewModel.State {
         override func isValidNextState(_ stateClass: AnyClass) -> Bool {
             switch stateClass {
             case is Reloading.Type:
@@ -179,6 +179,18 @@ extension FollowerListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
+            guard let viewModel = viewModel, let _ = stateMachine else { return }
+            guard let diffableDataSource = viewModel.diffableDataSource else {
+                assertionFailure()
+                return
+            }
+            DispatchQueue.main.async {
+                var snapshot = diffableDataSource.snapshot()
+                snapshot.deleteItems([.bottomLoader])
+                let header = UserItem.bottomHeader(text: "Followers from other servers are not displayed")
+                snapshot.appendItems([header], toSection: .main)
+                diffableDataSource.apply(snapshot, animatingDifferences: false)
+            }
         }
     }
 }

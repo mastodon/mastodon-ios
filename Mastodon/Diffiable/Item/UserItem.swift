@@ -10,6 +10,7 @@ import CoreData
 
 enum UserItem: Hashable {
     case follower(objectID: NSManagedObjectID)
+    case following(objectID: NSManagedObjectID)
     case bottomLoader
     case bottomHeader(text: String)
 }

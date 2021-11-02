@@ -1,8 +1,8 @@
 //
-//  FollowerListViewController+Provider.swift
+//  FollowingListViewController+Provider.swift
 //  Mastodon
 //
-//  Created by Cirno MainasuK on 2021-11-1.
+//  Created by Cirno MainasuK on 2021-11-2.
 //
 
 import os.log
@@ -11,7 +11,7 @@ import Combine
 import CoreData
 import CoreDataStack
 
-extension FollowerListViewController: UserProvider {
+extension FollowingListViewController: UserProvider {
     
     func mastodonUser() -> Future<MastodonUser?, Never> {
         Future { promise in
@@ -30,9 +30,9 @@ extension FollowerListViewController: UserProvider {
             guard let cell = cell,
                   let indexPath = self.tableView.indexPath(for: cell),
                   let item = diffableDataSource.itemIdentifier(for: indexPath) else {
-                promise(.success(nil))
-                return
-            }
+                      promise(.success(nil))
+                      return
+                  }
             
             let managedObjectContext = self.viewModel.userFetchedResultsController.fetchedResultsController.managedObjectContext
             

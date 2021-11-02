@@ -179,6 +179,7 @@ extension SceneCoordinator {
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
         case follower(viewModel: FollowerListViewModel)
+        case following(viewModel: FollowingListViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
@@ -427,6 +428,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .follower(let viewModel):
             let _viewController = FollowerListViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .following(let viewModel):
+            let _viewController = FollowingListViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .suggestionAccount(let viewModel):

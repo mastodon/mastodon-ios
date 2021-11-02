@@ -1,8 +1,8 @@
 //
-//  FollowerListViewController.swift
+//  FollowingListViewController.swift
 //  Mastodon
 //
-//  Created by Cirno MainasuK on 2021-11-1.
+//  Created by Cirno MainasuK on 2021-11-2.
 //
 
 import os.log
@@ -10,15 +10,15 @@ import UIKit
 import GameplayKit
 import Combine
 
-final class FollowerListViewController: UIViewController, NeedsDependency {
+final class FollowingListViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
-    var viewModel: FollowerListViewModel!
-        
+    var viewModel: FollowingListViewModel!
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))
@@ -29,14 +29,14 @@ final class FollowerListViewController: UIViewController, NeedsDependency {
         tableView.backgroundColor = .clear
         return tableView
     }()
- 
+    
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
     }
     
 }
 
-extension FollowerListViewController {
+extension FollowingListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,7 @@ extension FollowerListViewController {
             for: tableView,
             dependency: self
         )
-        // TODO: add UserTableViewCellDelegate        
+        // TODO: add UserTableViewCellDelegate
         
         // trigger user timeline loading
         Publishers.CombineLatest(
@@ -74,7 +74,7 @@ extension FollowerListViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 guard let self = self else { return }
-                self.viewModel.stateMachine.enter(FollowerListViewModel.State.Reloading.self)
+                self.viewModel.stateMachine.enter(FollowingListViewModel.State.Reloading.self)
             }
             .store(in: &disposeBag)
     }
@@ -82,15 +82,15 @@ extension FollowerListViewController {
 }
 
 // MARK: - LoadMoreConfigurableTableViewContainer
-extension FollowerListViewController: LoadMoreConfigurableTableViewContainer {
+extension FollowingListViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = FollowerListViewModel.State.Loading
+    typealias LoadingState = FollowingListViewModel.State.Loading
     var loadMoreConfigurableTableView: UITableView { tableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.stateMachine }
 }
 
 // MARK: - UIScrollViewDelegate
-extension FollowerListViewController {
+extension FollowingListViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleScrollViewDidScroll(scrollView)
     }
@@ -98,11 +98,11 @@ extension FollowerListViewController {
 
 
 // MARK: - UITableViewDelegate
-extension FollowerListViewController: UITableViewDelegate {
+extension FollowingListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         handleTableView(tableView, didSelectRowAt: indexPath)
     }
 }
 
 // MARK: - UserTableViewCellDelegate
-extension FollowerListViewController: UserTableViewCellDelegate { }
+extension FollowingListViewController: UserTableViewCellDelegate { }

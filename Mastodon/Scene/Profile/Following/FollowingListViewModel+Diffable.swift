@@ -1,13 +1,13 @@
 //
-//  FollowerListViewModel+Diffable.swift
+//  FollowingListViewModel+Diffable.swift
 //  Mastodon
 //
-//  Created by Cirno MainasuK on 2021-11-1.
+//  Created by Cirno MainasuK on 2021-11-2.
 //
 
 import UIKit
 
-extension FollowerListViewModel {
+extension FollowingListViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency
@@ -39,7 +39,7 @@ extension FollowerListViewModel {
                 var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
                 snapshot.appendSections([.main])
                 let items: [UserItem] = objectIDs.map {
-                    UserItem.follower(objectID: $0)
+                    UserItem.following(objectID: $0)
                 }
                 snapshot.appendItems(items, toSection: .main)
                 
@@ -48,8 +48,7 @@ extension FollowerListViewModel {
                     case is State.Idle, is State.Loading, is State.Fail:
                         snapshot.appendItems([.bottomLoader], toSection: .main)
                     case is State.NoMore:
-                        let text = "Followers from other servers are not displayed."
-                        snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
+                        break
                     default:
                         break
                     }
