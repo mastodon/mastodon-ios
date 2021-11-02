@@ -203,6 +203,9 @@ final class StatusView: UIView {
         return actionToolbarContainer
     }()
     
+    // set display when needs bottom padding
+    let actionToolbarPlaceholderPaddingView = UIView()
+    
     let contentMetaText: MetaText = {
         let metaText = MetaText()
         metaText.textView.backgroundColor = .clear
@@ -451,6 +454,13 @@ extension StatusView {
         containerStackView.sendSubviewToBack(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         actionToolbarContainer.setContentHuggingPriority(.required - 1, for: .vertical)
+        
+        actionToolbarPlaceholderPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(actionToolbarPlaceholderPaddingView)
+        NSLayoutConstraint.activate([
+            actionToolbarPlaceholderPaddingView.heightAnchor.constraint(equalToConstant: 12).priority(.required - 1),
+        ])
+        actionToolbarPlaceholderPaddingView.isHidden = true
 
         headerContainerView.isHidden = true
         statusMosaicImageViewContainer.isHidden = true
