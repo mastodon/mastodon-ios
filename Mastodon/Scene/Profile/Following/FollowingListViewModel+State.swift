@@ -128,7 +128,7 @@ extension FollowingListViewModel.State {
                 return
             }
             
-            viewModel.context.apiService.followers(
+            viewModel.context.apiService.following(
                 userID: userID,
                 maxID: maxID,
                 authorizationBox: activeMastodonAuthenticationBox

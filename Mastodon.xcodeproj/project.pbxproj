@@ -320,6 +320,7 @@
 		DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */; };
 		DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729525F9F91600D60309 /* ComposeStatusSection.swift */; };
 		DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */; };
+		DB67D08427312970006A36CF /* APIService+Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08327312970006A36CF /* APIService+Following.swift */; };
 		DB68045B2636DC6A00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
 		DB6804662636DC9000430867 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
@@ -1139,6 +1140,7 @@
 		DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+DataSource.swift"; sourceTree = "<group>"; };
 		DB66729525F9F91600D60309 /* ComposeStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusSection.swift; sourceTree = "<group>"; };
 		DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusItem.swift; sourceTree = "<group>"; };
+		DB67D08327312970006A36CF /* APIService+Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Following.swift"; sourceTree = "<group>"; };
 		DB68045A2636DC6A00430867 /* MastodonNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonNotification.swift; sourceTree = "<group>"; };
 		DB68047F2637CD4C00430867 /* AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6804812637CD4C00430867 /* AppShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppShared.h; sourceTree = "<group>"; };
@@ -2326,6 +2328,7 @@
 				2D34D9DA261494120081BFC0 /* APIService+Search.swift */,
 				0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */,
 				DB6B74F9272FC2B500C70B6E /* APIService+Follower.swift */,
+				DB67D08327312970006A36CF /* APIService+Following.swift */,
 				DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */,
 				5B24BBE1262DB19100A9381B /* APIService+Report.swift */,
 				DBAE3F932616E28B004B8251 /* APIService+Follow.swift */,
@@ -4125,6 +4128,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				DB73BF43271192BB00781945 /* InstanceService.swift in Sources */,
+				DB67D08427312970006A36CF /* APIService+Following.swift in Sources */,
 				DBA9443A265CC0FC00C537E1 /* Fields.swift in Sources */,
 				2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */,
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
