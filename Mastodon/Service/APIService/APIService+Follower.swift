@@ -23,10 +23,15 @@ extension APIService {
         let authorization = authorizationBox.userAuthorization
         let requestMastodonUserID = authorizationBox.userID
         
+        let query = Mastodon.API.Account.FollowerQuery(
+            maxID: maxID,
+            limit: nil
+        )
         return Mastodon.API.Account.followers(
             session: session,
             domain: domain,
             userID: userID,
+            query: query,
             authorization: authorization
         )
         .flatMap { response -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> in
