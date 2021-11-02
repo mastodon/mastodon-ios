@@ -351,6 +351,10 @@ extension MainTabBarController {
         return viewController(of: NotificationViewController.self)
     }
     
+    var searchViewController: SearchViewController? {
+        return viewController(of: SearchViewController.self)
+    }
+    
 }
 
 // MARK: - UITabBarControllerDelegate

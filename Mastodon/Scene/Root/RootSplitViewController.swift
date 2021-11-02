@@ -19,6 +19,8 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    private var isPrimaryDisplay = false
+    
     private(set) lazy var contentSplitViewController: ContentSplitViewController = {
         let contentSplitViewController = ContentSplitViewController()
         contentSplitViewController.context = context
@@ -79,13 +81,6 @@ extension RootSplitViewController {
         super.viewDidLoad()
         
         updateBehavior(size: view.frame.size)
-        contentSplitViewController.$currentSupplementaryTab
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.updateBehavior(size: self.view.frame.size)
-            }
-            .store(in: &disposeBag)
         
         setupBackground(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
@@ -95,6 +90,12 @@ extension RootSplitViewController {
                 self.setupBackground(theme: theme)
             }
             .store(in: &disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateBehavior(size: view.frame.size)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -109,15 +110,23 @@ extension RootSplitViewController {
     }
     
     private func updateBehavior(size: CGSize) {
-        switch contentSplitViewController.currentSupplementaryTab {
-        case .search:
+        if size.width > 960 {
+            show(.primary)
+            isPrimaryDisplay = true
+            
+        } else {
             hide(.primary)
+            isPrimaryDisplay = false
+        }
+        
+        switch (contentSplitViewController.currentSupplementaryTab, isPrimaryDisplay) {
+        case (.search, true):
+            // needs switch to other tab when primary display
+            // use FIFO queue save tab history
+            contentSplitViewController.currentSupplementaryTab = .home
         default:
-            if size.width > 960 {
-                show(.primary)
-            } else {
-                hide(.primary)
-            }
+            // do nothing
+            break
         }
     }
 
@@ -140,7 +149,11 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
             return
         }
         switch tab {
-        case .search:            
+        case .search:
+            guard isPrimaryDisplay else {
+                // only control search tab behavior when primary display
+                fallthrough
+            }
             guard let navigationController = searchViewController.navigationController else { return }
             if navigationController.viewControllers.count == 1 {
                 searchViewController.searchBarTapPublisher.send()
@@ -165,7 +178,7 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
 // MARK: - UISplitViewControllerDelegate
 extension RootSplitViewController: UISplitViewControllerDelegate {
     
-    private static  func transform(from: UITabBarController, to: UITabBarController) {
+    private static func transform(from: UITabBarController, to: UITabBarController) {
         let sourceNavigationControllers = from.viewControllers ?? []
         let targetNavigationControllers = to.viewControllers ?? []
         
@@ -179,6 +192,11 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         }
         
         to.selectedIndex = from.selectedIndex
+    }
+    
+    private static func transform(from: UINavigationController, to: UINavigationController) {
+        let viewControllers = from.popToRootViewController(animated: false) ?? []
+        to.viewControllers.append(contentsOf: viewControllers)
     }
     
     // .regular to .compact
