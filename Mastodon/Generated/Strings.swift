@@ -106,6 +106,8 @@ internal enum L10n {
         }
         /// Cancel
         internal static let cancel = L10n.tr("Localizable", "Common.Controls.Actions.Cancel")
+        /// Compose
+        internal static let compose = L10n.tr("Localizable", "Common.Controls.Actions.Compose")
         /// Confirm
         internal static let confirm = L10n.tr("Localizable", "Common.Controls.Actions.Confirm")
         /// Continue
@@ -522,6 +524,14 @@ internal enum L10n {
     internal enum Favorite {
       /// Your Favorites
       internal static let title = L10n.tr("Localizable", "Scene.Favorite.Title")
+    }
+    internal enum Follower {
+      /// Followers from other servers are not displayed.
+      internal static let footer = L10n.tr("Localizable", "Scene.Follower.Footer")
+    }
+    internal enum Following {
+      /// Follows from other servers are not displayed.
+      internal static let footer = L10n.tr("Localizable", "Scene.Following.Footer")
     }
     internal enum HomeTimeline {
       /// Home

@@ -28,6 +28,7 @@
 "Common.Controls.Actions.Back" = "戻る";
 "Common.Controls.Actions.BlockDomain" = "%@をブロック";
 "Common.Controls.Actions.Cancel" = "キャンセル";
+"Common.Controls.Actions.Compose" = "Compose";
 "Common.Controls.Actions.Confirm" = "確認";
 "Common.Controls.Actions.Continue" = "続ける";
 "Common.Controls.Actions.CopyPhoto" = "写真をコピー";
@@ -184,6 +185,8 @@
 "Scene.ConfirmEmail.Subtitle" = "先程 %@ にメールを送信しました。リンクをタップしてアカウントを確認してください。";
 "Scene.ConfirmEmail.Title" = "さいごにもうひとつ。";
 "Scene.Favorite.Title" = "お気に入り";
+"Scene.Follower.Footer" = "Followers from other servers are not displayed.";
+"Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "新しい投稿を見る";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "オフライン";
 "Scene.HomeTimeline.NavigationBarState.Published" = "投稿しました!";
