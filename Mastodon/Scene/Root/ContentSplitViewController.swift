@@ -101,7 +101,8 @@ extension ContentSplitViewController: SidebarViewControllerDelegate {
         
         let accountListViewController = coordinator.present(scene: .accountList, from: nil, transition: .popover(sourceView: sourceView)) as! AccountListViewController
         accountListViewController.dragIndicatorView.barView.isHidden = true
-        accountListViewController.preferredContentSize = CGSize(width: 300, height: 320)
+        // content width needs > 300 to make checkmark display
+        accountListViewController.preferredContentSize = CGSize(width: 375, height: 400)
     }
     
 }
