@@ -155,7 +155,7 @@ extension FollowerListViewModel.State {
                 
                 let maxID = response.link?.maxID
                 
-                if hasNewAppend, maxID != nil {
+                if maxID != nil {
                     stateMachine.enter(Idle.self)
                 } else {
                     stateMachine.enter(NoMore.self)

@@ -48,7 +48,12 @@ extension FollowingListViewModel {
                     case is State.Idle, is State.Loading, is State.Fail:
                         snapshot.appendItems([.bottomLoader], toSection: .main)
                     case is State.NoMore:
-                        break
+                        guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value,
+                              let userID = self.userID.value,
+                              userID != activeMastodonAuthenticationBox.userID
+                        else { break }
+                        let text = L10n.Scene.Following.footer
+                        snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
                     default:
                         break
                     }
