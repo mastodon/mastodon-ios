@@ -23,6 +23,7 @@ final class SidebarViewModel {
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    private(set) var isReadyForWizardAvatarButton = false
 
     let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
 
@@ -170,8 +171,12 @@ extension SidebarViewModel {
             .setting,
         ]
         sectionSnapshot.append(items, to: nil)
-        _diffableDataSource.apply(sectionSnapshot, to: .main)
-        
+        // animatingDifferences must to be `true`
+        // otherwise the UI layout will infinity loop
+        _diffableDataSource.apply(sectionSnapshot, to: .main, animatingDifferences: true) { [weak self] in
+            guard let self = self else { return }
+            self.isReadyForWizardAvatarButton = true
+        }
     
         // secondary
         let _secondaryDiffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: secondaryCollectionView) { collectionView, indexPath, item in

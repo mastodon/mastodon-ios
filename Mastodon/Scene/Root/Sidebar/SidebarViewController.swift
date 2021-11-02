@@ -125,6 +125,7 @@ extension SidebarViewController {
         
         secondaryCollectionView.observe(\.contentSize, options: [.initial, .new]) { [weak self] secondaryCollectionView, _ in
             guard let self = self else { return }
+            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): secondaryCollectionView contentSize: \(secondaryCollectionView.contentSize.debugDescription)")
             let height = secondaryCollectionView.contentSize.height
             self.secondaryCollectionViewHeightLayoutConstraint.constant = height
             self.collectionView.contentInset.bottom = height

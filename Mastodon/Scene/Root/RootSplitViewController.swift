@@ -241,3 +241,90 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
     }
 
 }
+
+// MARK: - WizardViewControllerDelegate
+extension RootSplitViewController: WizardViewControllerDelegate {
+    
+    func readyToLayoutItem(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> Bool {
+        guard traitCollection.horizontalSizeClass != .compact else {
+            return compactMainTabBarViewController.readyToLayoutItem(wizardViewController, item: item)
+        }
+        
+        switch item {
+        case .multipleAccountSwitch:
+            return contentSplitViewController.sidebarViewController.viewModel.isReadyForWizardAvatarButton
+        }
+    }
+    
+    
+    func layoutSpotlight(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> UIBezierPath {
+        guard traitCollection.horizontalSizeClass != .compact else {
+            return compactMainTabBarViewController.layoutSpotlight(wizardViewController, item: item)
+        }
+        
+        switch item {
+        case .multipleAccountSwitch:
+            guard let frame = avatarButtonFrameInWizardView(wizardView: wizardViewController.view)
+            else {
+                assertionFailure()
+                return UIBezierPath()
+            }
+            return UIBezierPath(ovalIn: frame)
+        }
+    }
+    
+    func layoutWizardCard(_ wizardViewController: WizardViewController, item: WizardViewController.Item) {
+        guard traitCollection.horizontalSizeClass != .compact else {
+            return compactMainTabBarViewController.layoutWizardCard(wizardViewController, item: item)
+        }
+        
+        guard let frame = avatarButtonFrameInWizardView(wizardView: wizardViewController.view) else {
+            return
+        }
+        
+        let anchorView = UIView()
+        anchorView.frame = frame
+        wizardViewController.backgroundView.addSubview(anchorView)
+        
+        let wizardCardView = WizardCardView()
+        wizardCardView.arrowRectCorner = .allCorners    // no arrow
+        wizardCardView.titleLabel.text = item.title
+        wizardCardView.descriptionLabel.text = item.description
+        
+        wizardCardView.translatesAutoresizingMaskIntoConstraints = false
+        wizardViewController.backgroundView.addSubview(wizardCardView)
+        NSLayoutConstraint.activate([
+            wizardCardView.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor),
+            wizardCardView.leadingAnchor.constraint(equalTo: anchorView.trailingAnchor, constant: 20), // 20pt spacing
+            wizardCardView.widthAnchor.constraint(equalToConstant: 320),
+        ])
+        wizardCardView.setContentHuggingPriority(.defaultLow, for: .vertical)
+    }
+
+    private func avatarButtonFrameInWizardView(wizardView: UIView) -> CGRect? {
+       guard let diffableDataSource = contentSplitViewController.sidebarViewController.viewModel.diffableDataSource,
+             let indexPath = diffableDataSource.indexPath(for: .tab(.me)),
+             let cell = contentSplitViewController.sidebarViewController.collectionView.cellForItem(at: indexPath) as? SidebarListCollectionViewCell,
+             let contentView = cell._contentView,
+             let frame = sourceViewFrameInTargetView(
+                    sourceView: contentView.avatarButton,
+                    targetView: wizardView
+             )
+        else {
+            assertionFailure()
+            return nil
+        }
+        return frame
+    }
+
+    private func sourceViewFrameInTargetView(
+        sourceView: UIView,
+        targetView: UIView
+    ) -> CGRect? {
+        guard let superview = sourceView.superview else {
+            assertionFailure()
+            return nil
+        }
+        return superview.convert(sourceView.frame, to: targetView)
+    }
+}
