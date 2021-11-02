@@ -67,6 +67,7 @@
                 "done": "Qediya",
                 "confirm": "Bipejirîne",
                 "continue": "Bidomîne",
+                "compose": "Binivîsîne",
                 "cancel": "Dev jê berde",
                 "discard": "Biavêje",
                 "try_again": "Dîsa biceribîne",
@@ -111,7 +112,7 @@
                     "open_author_profile": "Profîla nivîskaran veke",
                     "open_reblogger_profile": "Profîla nivîskaran veke",
                     "reply_status": "Bersivê bide şandiyê",
-                    "toggle_reblog": "Toggle Reblog on Post",
+                    "toggle_reblog": "Ji vû nivîsandin di şandiyê de biguherîne",
                     "toggle_favorite": "Di postê da Bijartin veke/bigire",
                     "toggle_content_warning": "Hişyariya naverokê veke/bigire",
                     "preview_image": "Wêneya pêşdîtinê"
@@ -294,7 +295,7 @@
         },
         "confirm_email": {
             "title": "Tiştekî dawî.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "subtitle": "Me tenê e-nameyek ji %s re şand,\ngirêdanê bitikne da ku ajimêra xwe bidî piştrastkirin.",
             "button": {
                 "open_email_app": "Sepana e-nameyê veke",
                 "dont_receive_email": "Min hîç e-nameyeke nesitand"
@@ -305,8 +306,8 @@
                 "resend_email": "E-namyê yê dîsa bişîne"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "title": "Nameyên xwe yên wergirtî kontrol bike.",
+                "description": "Me tenê ji te re e-nameyek şand. Heke nehatiye peldanka xwe ya spamê kontrol bike.",
                 "mail": "E-name",
                 "open_email_client": "Rajegirê e-nameyê veke"
             }
@@ -334,15 +335,15 @@
                 "photo_library": "Wênegeh",
                 "browse": "Bigere"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "Tiştê ku di hişê te de ye binivîsin an jî pêve bike",
             "compose_action": "Biweşîne",
             "replying_to_user": "bersiv bide %s",
             "attachment": {
                 "photo": "wêne",
                 "video": "vîdyo",
                 "attachment_broken": "Ev %s naxebite û nayê barkirin\n li ser Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_photo": "Wêneyê ji bo kêmbînên dîtbar bide nasîn...",
+                "description_video": "Vîdyoyê ji bo kêmbînên dîtbar bide nasîn..."
             },
             "poll": {
                 "duration_time": "Dirêjî: %s",
@@ -355,7 +356,7 @@
                 "option_number": "Vebijêrk %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Li vir hişyariyek hûrgilî binivîsine..."
             },
             "visibility": {
                 "public": "Gelemperî",
@@ -364,14 +365,14 @@
                 "direct": "Tenê mirovên ku min qalkirî"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Bicîhkirinê tevlî bike"
             },
             "accessibility": {
                 "append_attachment": "Pêvek tevlî bike",
                 "append_poll": "Rapirsî tevlî bike",
                 "remove_poll": "Rapirsî rake",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
+                "custom_emoji_picker": "Hilbijêrê emojî yên kesanekirî",
+                "enable_content_warning": "Hişyariya naverokê neçalak bike",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
                 "post_visibility_menu": "Menuya Xuyabûna Şandiyê"
             },
@@ -412,6 +413,12 @@
                     "message": "Ji bo rakirina blokê bipejirin %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Şopîner ji rajekerên din nayê dîtin."
+        },
+        "following": {
+            "footer": "Şopandin ji rajekerên din nayê dîtin."
         },
         "search": {
             "title": "Bigere",
@@ -467,7 +474,7 @@
         },
         "thread": {
             "back_title": "Şandî",
-            "title": "Post from %s"
+            "title": "Şandî ji %s"
         },
         "settings": {
             "title": "Sazkarî",
@@ -482,7 +489,7 @@
                     "title": "Agahdarî",
                     "favorites": "Şandiyên min hez kir",
                     "follows": "Min şopand",
-                    "boosts": "Reblogs my post",
+                    "boosts": "Şandiya min ji nû ve binivîsine",
                     "mentions": "Qale min kir",
                     "trigger": {
                         "anyone": "her kes",
@@ -494,39 +501,39 @@
                 },
                 "preference": {
                     "title": "Hilbijarte",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "true_black_dark_mode": "Moda tarî ya reş a rastîn",
+                    "disable_avatar_animation": "Avatarên anîmasyonî neçalak bike",
+                    "disable_emoji_animation": "Emojiyên anîmasyonî neçalak bike",
+                    "using_default_browser": "Ji bo vekirina girêdanan geroka berdest bi kar bîne"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "Devera acizker",
+                    "account_settings": "Sazkariyên ajimêr",
+                    "terms": "Mercên bikaranînê",
+                    "privacy": "Polîtikaya nihêniyê"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Devera germ",
+                    "clear": "Pêşbîra medyayê pak bike",
+                    "signout": "Derkeve"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon nermalava çavkaniya vekirî ye. Tu dikarî pirsgirêkan li ser GitHub-ê ragihînî di %s (%s) de"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Sazkariyên çarçoveyê bigire"
             }
         },
         "report": {
             "title": "%s ragihîne",
             "step1": "Gav 1 ji 2",
             "step2": "Gav 2 ji 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content1": "Şandiyên din hene ku tu dixwazî tevlî ragihandinê bikî?",
+            "content2": "Derbarê vê ragihandinê de tiştek heye ku divê çavdêr bizanin?",
             "send": "Ragihandinê bişîne",
             "skip_to_send": "Bêyî şirove bişîne",
-            "text_placeholder": "Type or paste additional comments"
+            "text_placeholder": "Şiroveyên daxwazkirê binivîsine an jî pê ve bike"
         },
         "preview": {
             "keyboard": {
@@ -537,13 +544,13 @@
         },
         "account_list": {
             "tab_bar_hint": "Profîla hilbijartî ya niha: %s. Du caran bitikîne û paşê dest bide ser da ku guhêrbara ajimêr were nîşandan",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "dismiss_account_switcher": "Guherkera ajimêrê paş guh bike",
             "add_account": "Ajimêr tevlî bike"
         },
         "wizard": {
             "new_in_mastodon": "Nû di Mastodon de",
             "multiple_account_switch_intro_description": "Dest bide ser bişkoja profîlê da ku di navbera gelek ajimêrann de biguherînî.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "accessibility_hint": "Du caran bitikîne da ku çarçoveyahilpekok ji holê rakî"
         }
     }
 }

@@ -67,6 +67,7 @@
                 "done": "完成",
                 "confirm": "确认",
                 "continue": "继续",
+                "compose": "撰写",
                 "cancel": "取消",
                 "discard": "放弃",
                 "try_again": "再试一次",
@@ -412,6 +413,12 @@
                     "message": "确认取消屏蔽 %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "不会显示来自其它服务器的关注者"
+        },
+        "following": {
+            "footer": "不会显示来自其它服务器的关注"
         },
         "search": {
             "title": "搜索",

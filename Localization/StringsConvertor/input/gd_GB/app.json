@@ -67,6 +67,7 @@
                 "done": "Deiseil",
                 "confirm": "Dearbh",
                 "continue": "Lean air adhart",
+                "compose": "Sgrìobh",
                 "cancel": "Sguir dheth",
                 "discard": "Tilg air falbh",
                 "try_again": "Feuch ris a-rithist",
@@ -412,6 +413,12 @@
                     "message": "Dearbh dì-bhacadh %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn."
+        },
+        "following": {
+            "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
         },
         "search": {
             "title": "Lorg",

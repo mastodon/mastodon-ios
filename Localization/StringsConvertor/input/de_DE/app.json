@@ -67,6 +67,7 @@
                 "done": "Fertig",
                 "confirm": "Bestätigen",
                 "continue": "Fortfahren",
+                "compose": "Compose",
                 "cancel": "Abbrechen",
                 "discard": "Verwerfen",
                 "try_again": "Nochmals versuchen",
@@ -412,6 +413,12 @@
                     "message": "Bestätigen zum Entsperren von %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Suche",
