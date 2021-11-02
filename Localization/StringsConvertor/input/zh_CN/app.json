@@ -67,7 +67,7 @@
                 "done": "完成",
                 "confirm": "确认",
                 "continue": "继续",
-                "compose": "Compose",
+                "compose": "撰写",
                 "cancel": "取消",
                 "discard": "放弃",
                 "try_again": "再试一次",
@@ -415,10 +415,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "不会显示来自其它服务器的关注者"
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "不会显示来自其它服务器的关注"
         },
         "search": {
             "title": "搜索",
