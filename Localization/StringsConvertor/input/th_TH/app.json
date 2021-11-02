@@ -67,7 +67,7 @@
                 "done": "เสร็จสิ้น",
                 "confirm": "ยืนยัน",
                 "continue": "ดำเนินการต่อ",
-                "compose": "Compose",
+                "compose": "เขียน",
                 "cancel": "ยกเลิก",
                 "discard": "ละทิ้ง",
                 "try_again": "ลองอีกครั้ง",
@@ -415,10 +415,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ"
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ"
         },
         "search": {
             "title": "ค้นหา",
