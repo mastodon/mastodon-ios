@@ -307,8 +307,8 @@ extension RootSplitViewController: WizardViewControllerDelegate {
              let cell = contentSplitViewController.sidebarViewController.collectionView.cellForItem(at: indexPath) as? SidebarListCollectionViewCell,
              let contentView = cell._contentView,
              let frame = sourceViewFrameInTargetView(
-                    sourceView: contentView.avatarButton,
-                    targetView: wizardView
+                sourceView: contentView.avatarButton,
+                targetView: wizardView
              )
         else {
             assertionFailure()
