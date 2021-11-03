@@ -12,6 +12,7 @@ import Combine
 import CoreData
 import CoreDataStack
 import MastodonSDK
+import UIKit
 
 final class StatusPublishService {
     
@@ -72,7 +73,6 @@ extension StatusPublishService {
             self.viewModels.value = viewModels
             
             os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: composeViewModel removed", ((#file as NSString).lastPathComponent), #line, #function)
-
         }
     }
     

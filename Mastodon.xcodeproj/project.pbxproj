@@ -321,6 +321,7 @@
 		DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */; };
 		DB67D08427312970006A36CF /* APIService+Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08327312970006A36CF /* APIService+Following.swift */; };
 		DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08527312E67006A36CF /* WizardViewController.swift */; };
+		DB67D089273256D7006A36CF /* StoreReviewPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D088273256D7006A36CF /* StoreReviewPreference.swift */; };
 		DB68045B2636DC6A00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
 		DB6804662636DC9000430867 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
@@ -1141,6 +1142,7 @@
 		DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusItem.swift; sourceTree = "<group>"; };
 		DB67D08327312970006A36CF /* APIService+Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Following.swift"; sourceTree = "<group>"; };
 		DB67D08527312E67006A36CF /* WizardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardViewController.swift; sourceTree = "<group>"; };
+		DB67D088273256D7006A36CF /* StoreReviewPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewPreference.swift; sourceTree = "<group>"; };
 		DB68045A2636DC6A00430867 /* MastodonNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonNotification.swift; sourceTree = "<group>"; };
 		DB68047F2637CD4C00430867 /* AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6804812637CD4C00430867 /* AppShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppShared.h; sourceTree = "<group>"; };
@@ -2447,6 +2449,7 @@
 				DB1D842F26566512000346B3 /* KeyboardPreference.swift */,
 				DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */,
 				DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */,
+				DB67D088273256D7006A36CF /* StoreReviewPreference.swift */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -4101,6 +4104,7 @@
 				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
+				DB67D089273256D7006A36CF /* StoreReviewPreference.swift in Sources */,
 				DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,

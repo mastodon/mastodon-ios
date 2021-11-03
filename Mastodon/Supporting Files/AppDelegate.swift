@@ -36,6 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
         
+        // increase app process count
+        var count = UserDefaults.shared.processCompletedCount
+        count += 1      // Int64. could ignore overflow here
+        UserDefaults.shared.processCompletedCount = count
+        
         #if ASDK && DEBUG
         // PerformanceMonitor.shared().start()
         // ASDisplayNode.shouldShowRangeDebugOverlay = true

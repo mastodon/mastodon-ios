@@ -14,6 +14,7 @@ import CoreDataStack
 import GameplayKit
 import MastodonSDK
 import AlamofireImage
+import StoreKit
 
 final class HomeTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
     
@@ -141,6 +142,21 @@ extension HomeTimelineViewController {
             .sink { [weak self] state in
                 guard let self = self else { return }
                 self.titleView.configure(state: state)
+            }
+            .store(in: &disposeBag)
+        
+        viewModel.homeTimelineNavigationBarTitleViewModel.state
+            .removeDuplicates()
+            .filter { $0 == .publishedButton }
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                guard UserDefaults.shared.lastVersionPromptedForReview == nil else { return }
+                guard UserDefaults.shared.processCompletedCount > 3 else { return }
+                guard let windowScene = self.view.window?.windowScene else { return }
+                let version = UIApplication.appVersion()
+                UserDefaults.shared.lastVersionPromptedForReview = version
+                SKStoreReviewController.requestReview(in: windowScene)
             }
             .store(in: &disposeBag)
         
