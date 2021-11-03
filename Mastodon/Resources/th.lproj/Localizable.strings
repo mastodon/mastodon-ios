@@ -28,7 +28,7 @@
 "Common.Controls.Actions.Back" = "ย้อนกลับ";
 "Common.Controls.Actions.BlockDomain" = "ปิดกั้น %@";
 "Common.Controls.Actions.Cancel" = "ยกเลิก";
-"Common.Controls.Actions.Compose" = "Compose";
+"Common.Controls.Actions.Compose" = "เขียน";
 "Common.Controls.Actions.Confirm" = "ยืนยัน";
 "Common.Controls.Actions.Continue" = "ดำเนินการต่อ";
 "Common.Controls.Actions.CopyPhoto" = "คัดลอกรูปภาพ";
@@ -191,8 +191,8 @@
 แตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ";
 "Scene.ConfirmEmail.Title" = "หนึ่งสิ่งสุดท้าย";
 "Scene.Favorite.Title" = "รายการโปรดของคุณ";
-"Scene.Follower.Footer" = "Followers from other servers are not displayed.";
-"Scene.Following.Footer" = "Follows from other servers are not displayed.";
+"Scene.Follower.Footer" = "ไม่ได้แสดงผู้ติดตามจากเซิร์ฟเวอร์อื่น ๆ";
+"Scene.Following.Footer" = "ไม่ได้แสดงการติดตามจากเซิร์ฟเวอร์อื่น ๆ";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "ดูโพสต์ใหม่";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "ออฟไลน์";
 "Scene.HomeTimeline.NavigationBarState.Published" = "เผยแพร่แล้ว!";
