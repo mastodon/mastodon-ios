@@ -14,14 +14,16 @@ import MastodonSDK
 extension NotificationViewModel {
     func setupDiffableDataSource(
         for tableView: UITableView,
+        dependency: NeedsDependency,
         delegate: NotificationTableViewCellDelegate,
-        dependency: NeedsDependency
+        statusTableViewCellDelegate: StatusTableViewCellDelegate
     ) {
         diffableDataSource = NotificationSection.tableViewDiffableDataSource(
             for: tableView,
+            dependency: dependency,
             managedObjectContext: fetchedResultsController.managedObjectContext,
             delegate: delegate,
-            dependency: dependency
+            statusTableViewCellDelegate: statusTableViewCellDelegate
         )
 
         var snapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
@@ -81,11 +83,23 @@ extension NotificationViewModel: NSFetchedResultsControllerDelegate {
                 }
                 var newSnapshot = NSDiffableDataSourceSnapshot<NotificationSection, NotificationItem>()
                 newSnapshot.appendSections([.main])
-                let items: [NotificationItem] = notifications.map { notification in
-                    let attribute: Item.StatusAttribute = oldSnapshotAttributeDict[notification.objectID] ?? Item.StatusAttribute()
-                    return NotificationItem.notification(objectID: notification.objectID, attribute: attribute)
+                
+                let segment = self.selectedIndex.value
+                switch segment {
+                case .everyThing:
+                    let items: [NotificationItem] = notifications.map { notification in
+                        let attribute: Item.StatusAttribute = oldSnapshotAttributeDict[notification.objectID] ?? Item.StatusAttribute()
+                        return NotificationItem.notification(objectID: notification.objectID, attribute: attribute)
+                    }
+                    newSnapshot.appendItems(items, toSection: .main)
+                case .mentions:
+                    let items: [NotificationItem] = notifications.map { notification in
+                        let attribute: Item.StatusAttribute = oldSnapshotAttributeDict[notification.objectID] ?? Item.StatusAttribute()
+                        return NotificationItem.notificationStatus(objectID: notification.objectID, attribute: attribute)
+                    }
+                    newSnapshot.appendItems(items, toSection: .main)
                 }
-                newSnapshot.appendItems(items, toSection: .main)
+
                 if !notifications.isEmpty, self.noMoreNotification.value == false {
                     newSnapshot.appendItems([.bottomLoader], toSection: .main)
                 }

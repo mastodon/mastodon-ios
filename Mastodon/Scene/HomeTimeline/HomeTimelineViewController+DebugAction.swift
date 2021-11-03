@@ -15,6 +15,7 @@ import FLEX
 import SwiftUI
 import MastodonUI
 import MastodonSDK
+import StoreKit
 
 extension HomeTimelineViewController {
     var debugMenu: UIMenu {
@@ -76,6 +77,11 @@ extension HomeTimelineViewController {
                 UIAction(title: "Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showThreadAction(action)
+                },
+                UIAction(title: "Store Rating", image: UIImage(systemName: "star.fill"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    guard let windowScene = self.view.window?.windowScene else { return }
+                    SKStoreReviewController.requestReview(in: windowScene)
                 },
             ]
         )

@@ -67,6 +67,7 @@
                 "done": "Готово",
                 "confirm": "Подтвердить",
                 "continue": "Продолжить",
+                "compose": "Compose",
                 "cancel": "Отмена",
                 "discard": "Отмена",
                 "try_again": "Попробовать снова",
@@ -412,6 +413,12 @@
                     "message": "Убрать %s из списка блокировки?"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Поиск",

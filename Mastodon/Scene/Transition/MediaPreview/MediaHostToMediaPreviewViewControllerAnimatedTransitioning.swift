@@ -184,9 +184,13 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
         let maskLayerToPath = maskLayerToRect.flatMap { UIBezierPath(rect: $0) }?.cgPath
         let maskLayerToFinalRect: CGRect? = {
             guard case .mosaic = transitionItem.source else { return nil }
-            guard let tabBarController = toVC.tabBarController, let tabBarSuperView = tabBarController.tabBar.superview else { return nil }
-            let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
             var rect = maskLayerToRect ?? transitionMaskView.frame
+            // clip tabBar when bar visible
+            guard let tabBarController = toVC.tabBarController,
+                  !tabBarController.tabBar.isHidden,
+                  let tabBarSuperView = tabBarController.tabBar.superview
+            else { return rect }
+            let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
             let offset = rect.maxY - tabBarFrameInWindow.minY
             guard offset > 0 else { return rect }
             rect.size.height -= offset
@@ -473,9 +477,13 @@ extension MediaHostToMediaPreviewViewControllerAnimatedTransitioning {
             
             let maskLayerToFinalRect: CGRect? = {
                 guard case .mosaic = transitionItem.source else { return nil }
-                guard let tabBarController = toVC.tabBarController, let tabBarSuperView = tabBarController.tabBar.superview else { return nil }
-                let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
                 var rect = maskLayerToRect ?? transitionMaskView.frame
+                // clip rect bottom when tabBar visible
+                guard let tabBarController = toVC.tabBarController,
+                      !tabBarController.tabBar.isHidden,
+                      let tabBarSuperView = tabBarController.tabBar.superview
+                else { return rect }
+                let tabBarFrameInWindow = tabBarSuperView.convert(tabBarController.tabBar.frame, to: nil)
                 let offset = rect.maxY - tabBarFrameInWindow.minY
                 guard offset > 0 else { return rect }
                 rect.size.height -= offset

@@ -23,13 +23,13 @@ final class NotificationViewModel: NSObject {
     weak var contentOffsetAdjustableTimelineViewControllerDelegate: ContentOffsetAdjustableTimelineViewControllerDelegate?
     
     let viewDidLoad = PassthroughSubject<Void, Never>()
-    let selectedIndex = CurrentValueSubject<NotificationSegment, Never>(.EveryThing)
+    let selectedIndex = CurrentValueSubject<NotificationSegment, Never>(.everyThing)
     let noMoreNotification = CurrentValueSubject<Bool, Never>(false)
     
     let activeMastodonAuthenticationBox: CurrentValueSubject<MastodonAuthenticationBox?, Never>
     let fetchedResultsController: NSFetchedResultsController<MastodonNotification>!
     let notificationPredicate = CurrentValueSubject<NSPredicate?, Never>(nil)
-    let cellFrameCache = NSCache<NSString, NSValue>()
+    let cellFrameCache = NSCache<NSNumber, NSValue>()
     
     var needsScrollToTopAfterDataSourceUpdate = false
     let dataSourceDidUpdated = PassthroughSubject<Void, Never>()
@@ -161,7 +161,7 @@ final class NotificationViewModel: NSObject {
 
 extension NotificationViewModel {
     enum NotificationSegment: Int {
-        case EveryThing
-        case Mentions
+        case everyThing
+        case mentions
     }
 }

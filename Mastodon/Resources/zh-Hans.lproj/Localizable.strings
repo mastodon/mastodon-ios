@@ -28,6 +28,7 @@
 "Common.Controls.Actions.Back" = "返回";
 "Common.Controls.Actions.BlockDomain" = "屏蔽 %@";
 "Common.Controls.Actions.Cancel" = "取消";
+"Common.Controls.Actions.Compose" = "撰写";
 "Common.Controls.Actions.Confirm" = "确认";
 "Common.Controls.Actions.Continue" = "继续";
 "Common.Controls.Actions.CopyPhoto" = "拷贝照片";
@@ -190,6 +191,8 @@
 点击链接确认你的帐户。";
 "Scene.ConfirmEmail.Title" = "最后一件事。";
 "Scene.Favorite.Title" = "你的喜欢";
+"Scene.Follower.Footer" = "不会显示来自其它服务器的关注者";
+"Scene.Following.Footer" = "不会显示来自其它服务器的关注";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "查看新帖子";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "离线";
 "Scene.HomeTimeline.NavigationBarState.Published" = "已发送";

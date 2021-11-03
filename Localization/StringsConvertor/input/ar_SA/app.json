@@ -28,7 +28,7 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Edit Profile Error",
+                "title": "خطأ في تَحرير الملف الشخصي",
                 "message": "لا يمكن تعديل الملف الشخصي. يُرجى المحاولة مرة أُخرى."
             },
             "sign_out": {
@@ -67,6 +67,7 @@
                 "done": "تمّ",
                 "confirm": "تأكيد",
                 "continue": "واصل",
+                "compose": "Compose",
                 "cancel": "إلغاء",
                 "discard": "تجاهل",
                 "try_again": "المُحاولة مرة أُخرى",
@@ -194,12 +195,12 @@
             "slogan": "Social networking\nback in your hands."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "اِختر خادِم،\nأي خادِم.",
             "button": {
                 "category": {
                     "all": "الكل",
                     "all_accessiblity_description": "الفئة: الكل",
-                    "academia": "academia",
+                    "academia": "أكاديمي",
                     "activism": "للنشطاء",
                     "food": "الطعام",
                     "furry": "فروي",
@@ -412,6 +413,12 @@
                     "message": "Confirm to unblock %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "بحث",

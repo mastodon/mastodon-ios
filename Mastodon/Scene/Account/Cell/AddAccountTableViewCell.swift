@@ -9,7 +9,7 @@ import UIKit
 import MetaTextKit
 
 final class AddAccountTableViewCell: UITableViewCell {
-
+    
     let iconImageView: UIImageView = {
         let image = UIImage(systemName: "plus.circle.fill")!
         let imageView = UIImageView(image: image)
@@ -51,6 +51,28 @@ extension AddAccountTableViewCell {
         ])
         iconImageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         iconImageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        
+        // layout the same placeholder UI from `AccountListTableViewCell`
+        let placeholderLabelContainerStackView = UIStackView()
+        placeholderLabelContainerStackView.axis = .vertical
+        placeholderLabelContainerStackView.distribution = .equalCentering
+        placeholderLabelContainerStackView.spacing = 2
+        placeholderLabelContainerStackView.distribution = .fillProportionally
+        placeholderLabelContainerStackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(placeholderLabelContainerStackView)
+        NSLayoutConstraint.activate([
+            placeholderLabelContainerStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            placeholderLabelContainerStackView.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
+            contentView.bottomAnchor.constraint(equalTo: placeholderLabelContainerStackView.bottomAnchor, constant: 10),
+            iconImageView.heightAnchor.constraint(equalTo: placeholderLabelContainerStackView.heightAnchor, multiplier: 0.8).priority(.required - 10),
+        ])
+        let _nameLabel = MetaLabel(style: .accountListName)
+        _nameLabel.configure(content: PlaintextMetaContent(string: " "))
+        let _usernameLabel = MetaLabel(style: .accountListUsername)
+        _usernameLabel.configure(content: PlaintextMetaContent(string: " "))
+        placeholderLabelContainerStackView.addArrangedSubview(_nameLabel)
+        placeholderLabelContainerStackView.addArrangedSubview(_usernameLabel)
+        placeholderLabelContainerStackView.isHidden = true
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(titleLabel)
@@ -58,7 +80,7 @@ extension AddAccountTableViewCell {
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
             contentView.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 15),
-            iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0).priority(.required - 10),
+            // iconImageView.heightAnchor.constraint(equalTo: titleLabel.heightAnchor, multiplier: 1.0).priority(.required - 10),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
 

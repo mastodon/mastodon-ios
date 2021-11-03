@@ -23,6 +23,7 @@ final class SidebarViewModel {
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    private(set) var isReadyForWizardAvatarButton = false
 
     let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
 
@@ -84,6 +85,8 @@ extension SidebarViewModel {
                 imageURL: imageURL
             )
             cell.setNeedsUpdateConfiguration()
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = item.title
             
             switch item {
             case .notification:
@@ -103,6 +106,10 @@ extension SidebarViewModel {
                     cell._contentView?.imageView.image = image
                 }
                 .store(in: &cell.disposeBag)
+            case .me:
+                guard let authentication = self.context.authenticationService.activeMastodonAuthentication.value else { break }
+                let currentUserDisplayName = authentication.user.displayNameWithFallback ?? "no user"
+                cell.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             default:
                 break
             }
@@ -112,6 +119,8 @@ extension SidebarViewModel {
             guard let self = self else { return }
             cell.item = item
             cell.setNeedsUpdateConfiguration()
+            cell.isAccessibilityElement = true
+            cell.accessibilityLabel = item.title
         }
         
         // header
@@ -132,7 +141,7 @@ extension SidebarViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             case .compose:
                 let item = SidebarListContentView.Item(
-                    title: "Compose",   // FIXME:
+                    title: "Compose",   // TODO: update i18n
                     image: UIImage(systemName: "square.and.pencil")!,
                     imageURL: nil
                 )
@@ -162,8 +171,12 @@ extension SidebarViewModel {
             .setting,
         ]
         sectionSnapshot.append(items, to: nil)
-        _diffableDataSource.apply(sectionSnapshot, to: .main)
-        
+        // animatingDifferences must to be `true`
+        // otherwise the UI layout will infinity loop
+        _diffableDataSource.apply(sectionSnapshot, to: .main, animatingDifferences: true) { [weak self] in
+            guard let self = self else { return }
+            self.isReadyForWizardAvatarButton = true
+        }
     
         // secondary
         let _secondaryDiffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: secondaryCollectionView) { collectionView, indexPath, item in

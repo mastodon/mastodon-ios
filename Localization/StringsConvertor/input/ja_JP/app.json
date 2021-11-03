@@ -67,6 +67,7 @@
                 "done": "完了",
                 "confirm": "確認",
                 "continue": "続ける",
+                "compose": "Compose",
                 "cancel": "キャンセル",
                 "discard": "破棄",
                 "try_again": "再実行",
@@ -191,7 +192,7 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "ソーシャルネットワーキングを、あなたの手の中に."
         },
         "server_picker": {
             "title": "サーバーを選択",
@@ -413,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
+        },
         "search": {
             "title": "検索",
             "search_bar": {
@@ -538,11 +545,11 @@
         "account_list": {
             "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
             "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "add_account": "アカウントを追加"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "new_in_mastodon": "Mastodon の新機能",
+            "multiple_account_switch_intro_description": "プロフィールボタンを押して複数のアカウントを切り替えます。",
             "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }

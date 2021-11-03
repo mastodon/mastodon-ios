@@ -12,9 +12,12 @@ import CoreDataStack
 
 protocol SidebarViewControllerDelegate: AnyObject {
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView)
 }
 
 final class SidebarViewController: UIViewController, NeedsDependency {
+    
+    let logger = Logger(subsystem: "SidebarViewController", category: "ViewController")
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
@@ -122,11 +125,22 @@ extension SidebarViewController {
         
         secondaryCollectionView.observe(\.contentSize, options: [.initial, .new]) { [weak self] secondaryCollectionView, _ in
             guard let self = self else { return }
-            let height = secondaryCollectionView.contentSize.height
-            self.secondaryCollectionViewHeightLayoutConstraint.constant = height
-            self.collectionView.contentInset.bottom = height
+            
+            let contentHeight = secondaryCollectionView.contentSize.height
+            guard contentHeight > 0 else { return }
+            self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): secondaryCollectionView contentSize: \(secondaryCollectionView.contentSize.debugDescription)")
+            
+            let currentFrameHeight = secondaryCollectionView.frame.height
+            guard currentFrameHeight < contentHeight else { return }
+            
+            self.secondaryCollectionViewHeightLayoutConstraint.constant = contentHeight
+            self.collectionView.contentInset.bottom = contentHeight
         }
         .store(in: &observations)
+        
+        let sidebarLongPressGestureRecognizer = UILongPressGestureRecognizer()
+        sidebarLongPressGestureRecognizer.addTarget(self, action: #selector(SidebarViewController.sidebarLongPressGestureRecognizerHandler(_:)))
+        collectionView.addGestureRecognizer(sidebarLongPressGestureRecognizer)
     }
     
     private func setupBackground(theme: Theme) {
@@ -139,13 +153,29 @@ extension SidebarViewController {
         
         coordinator.animate { context in
             self.collectionView.collectionViewLayout.invalidateLayout()
-//            // do nothing
         } completion: { [weak self] context in
 //            guard let self = self else { return }
         }
 
     }
     
+}
+
+extension SidebarViewController {
+    @objc private func sidebarLongPressGestureRecognizerHandler(_ sender: UILongPressGestureRecognizer) {
+        guard sender.state == .began else { return }
+        
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        assert(sender.view === collectionView)
+        
+        let position = sender.location(in: collectionView)
+        guard let indexPath = collectionView.indexPathForItem(at: position) else { return }
+        guard let diffableDataSource = viewModel.diffableDataSource else { return }
+        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        delegate?.sidebarViewController(self, didLongPressItem: item, sourceView: cell)
+    }
+
 }
 
 // MARK: - UICollectionViewDelegate
@@ -179,25 +209,5 @@ extension SidebarViewController: UICollectionViewDelegate {
         default:
             assertionFailure()
         }
-//        switch item {
-//        case .tab(let tab):
-//            delegate?.sidebarViewController(self, didSelectTab: tab)
-//        case .searchHistory(let viewModel):
-//            delegate?.sidebarViewController(self, didSelectSearchHistory: viewModel)
-//        case .header:
-//            break
-//        case .account(let viewModel):
-//            assert(Thread.isMainThread)
-//            let authentication = context.managedObjectContext.object(with: viewModel.authenticationObjectID) as! MastodonAuthentication
-//            context.authenticationService.activeMastodonUser(domain: authentication.domain, userID: authentication.userID)
-//                .receive(on: DispatchQueue.main)
-//                .sink { [weak self] result in
-//                    guard let self = self else { return }
-//                    self.coordinator.setup()
-//                }
-//                .store(in: &disposeBag)
-//        case .addAccount:
-//            coordinator.present(scene: .welcome, from: self, transition: .modal(animated: true, completion: nil))
-//        }
     }
 }

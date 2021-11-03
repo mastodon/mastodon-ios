@@ -67,6 +67,7 @@
                 "done": "Done",
                 "confirm": "Confirm",
                 "continue": "Continue",
+                "compose": "Compose",
                 "cancel": "Cancel",
                 "discard": "Discard",
                 "try_again": "Try Again",
@@ -412,6 +413,12 @@
                     "message": "Confirm to unblock %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Search",

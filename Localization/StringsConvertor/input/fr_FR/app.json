@@ -67,6 +67,7 @@
                 "done": "Terminé",
                 "confirm": "Confirmer",
                 "continue": "Continuer",
+                "compose": "Compose",
                 "cancel": "Annuler",
                 "discard": "Abandonner",
                 "try_again": "Réessayer",
@@ -412,6 +413,12 @@
                     "message": "Confirmer le déblocage de %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Rechercher",

@@ -440,3 +440,25 @@ extension UserProviderFacade {
         return activityViewController
     }
 }
+
+extension UserProviderFacade {
+    static func coordinatorToUserProfileScene(provider: UserProvider, user: Future<MastodonUser?, Never>) {
+        user
+            .sink { [weak provider] mastodonUser in
+                guard let provider = provider else { return }
+                guard let mastodonUser = mastodonUser else { return }
+                let profileViewModel = CachedProfileViewModel(context: provider.context, mastodonUser: mastodonUser)
+                DispatchQueue.main.async {
+                    if provider.navigationController == nil {
+                        let from = provider.presentingViewController ?? provider
+                        provider.dismiss(animated: true) {
+                            provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
+                        }
+                    } else {
+                        provider.coordinator.present(scene: .profile(viewModel: profileViewModel), from: provider, transition: .show)
+                    }
+                }
+            }
+            .store(in: &provider.disposeBag)
+    }
+}

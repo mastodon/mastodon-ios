@@ -10,6 +10,10 @@ import UIKit
 import Combine
 import CoreDataStack
 
+protocol ContentSplitViewControllerDelegate: AnyObject {
+    func contentSplitViewController(_ contentSplitViewController: ContentSplitViewController, sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab)
+}
+
 final class ContentSplitViewController: UIViewController, NeedsDependency {
 
     var disposeBag = Set<AnyCancellable>()
@@ -18,6 +22,8 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
+    
+    weak var delegate: ContentSplitViewControllerDelegate?
     
     private(set) lazy var sidebarViewController: SidebarViewController = {
         let sidebarViewController = SidebarViewController()
@@ -31,6 +37,10 @@ final class ContentSplitViewController: UIViewController, NeedsDependency {
     @Published var currentSupplementaryTab: MainTabBarController.Tab = .home
     private(set) lazy var mainTabBarController: MainTabBarController = {
         let mainTabBarController = MainTabBarController(context: context, coordinator: coordinator)
+        if let homeTimelineViewController = mainTabBarController.viewController(of: HomeTimelineViewController.self) {
+            homeTimelineViewController.viewModel.displayComposeBarButtonItem.value = false
+            homeTimelineViewController.viewModel.displaySettingBarButtonItem.value = false
+        }
         return mainTabBarController
     }()
 
@@ -47,7 +57,7 @@ extension ContentSplitViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         addChild(sidebarViewController)
-         sidebarViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        sidebarViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(sidebarViewController.view)
         sidebarViewController.didMove(toParent: self)
         NSLayoutConstraint.activate([
@@ -63,7 +73,7 @@ extension ContentSplitViewController {
         sidebarViewController.didMove(toParent: self)
         NSLayoutConstraint.activate([
             mainTabBarController.view.topAnchor.constraint(equalTo: view.topAnchor),
-            mainTabBarController.view.leadingAnchor.constraint(equalTo: sidebarViewController.view.trailingAnchor),
+            mainTabBarController.view.leadingAnchor.constraint(equalTo: sidebarViewController.view.trailingAnchor, constant: UIView.separatorLineHeight(of: view)),
             mainTabBarController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mainTabBarController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
@@ -83,10 +93,16 @@ extension ContentSplitViewController {
 extension ContentSplitViewController: SidebarViewControllerDelegate {
     
     func sidebarViewController(_ sidebarViewController: SidebarViewController, didSelectTab tab: MainTabBarController.Tab) {
-        guard let _ = MainTabBarController.Tab.allCases.firstIndex(of: tab) else {
-            assertionFailure()
-            return
-        }
-        currentSupplementaryTab = tab
+        delegate?.contentSplitViewController(self, sidebarViewController: sidebarViewController, didSelectTab: tab)
     }
+    
+    func sidebarViewController(_ sidebarViewController: SidebarViewController, didLongPressItem item: SidebarViewModel.Item, sourceView: UIView) {
+        guard case let .tab(tab) = item, tab == .me else { return }
+        
+        let accountListViewController = coordinator.present(scene: .accountList, from: nil, transition: .popover(sourceView: sourceView)) as! AccountListViewController
+        accountListViewController.dragIndicatorView.barView.isHidden = true
+        // content width needs > 300 to make checkmark display
+        accountListViewController.preferredContentSize = CGSize(width: 375, height: 400)
+    }
+    
 }

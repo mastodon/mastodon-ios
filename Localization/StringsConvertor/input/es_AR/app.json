@@ -67,6 +67,7 @@
                 "done": "Listo",
                 "confirm": "Confirmar",
                 "continue": "Continuar",
+                "compose": "Compose",
                 "cancel": "Cancelar",
                 "discard": "Descartar",
                 "try_again": "Intentá de nuevo",
@@ -412,6 +413,12 @@
                     "message": "Confirmá para desbloquear a %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Buscar",

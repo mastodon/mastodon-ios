@@ -126,7 +126,7 @@ final class StatusView: UIView {
     let revealContentWarningButton: UIButton = {
         let button = HighlightDimmableButton()
         button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
-        button.tintColor = Asset.Colors.brandBlue.color
+        // button.tintColor = Asset.Colors.brandBlue.color
         return button
     }()
     
@@ -202,6 +202,9 @@ final class StatusView: UIView {
         actionToolbarContainer.configure(for: .inline)
         return actionToolbarContainer
     }()
+    
+    // set display when needs bottom padding
+    let actionToolbarPlaceholderPaddingView = UIView()
     
     let contentMetaText: MetaText = {
         let metaText = MetaText()
@@ -451,6 +454,13 @@ extension StatusView {
         containerStackView.sendSubviewToBack(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         actionToolbarContainer.setContentHuggingPriority(.required - 1, for: .vertical)
+        
+        actionToolbarPlaceholderPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(actionToolbarPlaceholderPaddingView)
+        NSLayoutConstraint.activate([
+            actionToolbarPlaceholderPaddingView.heightAnchor.constraint(equalToConstant: 12).priority(.required - 1),
+        ])
+        actionToolbarPlaceholderPaddingView.isHidden = true
 
         headerContainerView.isHidden = true
         statusMosaicImageViewContainer.isHidden = true

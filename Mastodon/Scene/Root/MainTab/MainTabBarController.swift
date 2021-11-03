@@ -21,8 +21,6 @@ class MainTabBarController: UITabBarController {
     
     static let avatarButtonSize = CGSize(width: 25, height: 25)
     let avatarButton = CircleAvatarButton()
-
-    let wizard = Wizard()
     
     var currentTab = CurrentValueSubject<Tab, Never>(.home)
         
@@ -108,6 +106,8 @@ class MainTabBarController: UITabBarController {
     
     var _viewControllers: [UIViewController] = []
     
+    private(set) var isReadyForWizardAvatarButton = false
+
     init(context: AppContext, coordinator: SceneCoordinator) {
         self.context = context
         self.coordinator = coordinator
@@ -247,9 +247,6 @@ extension MainTabBarController {
                 profileTabItem.accessibilityHint = L10n.Scene.AccountList.tabBarHint(currentUserDisplayName)
             }
             .store(in: &disposeBag)
-        
-        wizard.delegate = self
-        wizard.setup(in: view)
 
         let tabBarLongPressGestureRecognizer = UILongPressGestureRecognizer()
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
@@ -265,7 +262,7 @@ extension MainTabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        wizard.consume()
+        isReadyForWizardAvatarButton = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -351,6 +348,10 @@ extension MainTabBarController {
         return viewController(of: NotificationViewController.self)
     }
     
+    var searchViewController: SearchViewController? {
+        return viewController(of: SearchViewController.self)
+    }
+    
 }
 
 // MARK: - UITabBarControllerDelegate
@@ -373,51 +374,57 @@ extension MainTabBarController: UITabBarControllerDelegate {
     }
 }
 
-// MARK: - WizardDataSource
-extension MainTabBarController: WizardDelegate {
-    func spotlight(item: Wizard.Item) -> UIBezierPath {
+// MARK: - WizardViewControllerDelegate
+extension MainTabBarController: WizardViewControllerDelegate {
+    func readyToLayoutItem(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> Bool {
         switch item {
         case .multipleAccountSwitch:
-            guard let avatarButtonFrameInView = avatarButtonFrameInView() else {
-                return UIBezierPath()
-            }
-            return UIBezierPath(ovalIn: avatarButtonFrameInView)
-            
+            return isReadyForWizardAvatarButton
         }
     }
     
-    func layoutWizardCard(_ wizard: MainTabBarController.Wizard, item: Wizard.Item) {
+    func layoutSpotlight(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> UIBezierPath {
         switch item {
         case .multipleAccountSwitch:
-            guard let avatarButtonFrameInView = avatarButtonFrameInView() else {
+            guard let avatarButtonFrameInView = avatarButtonFrameInWizardView(wizardView: wizardViewController.view) else {
+                return UIBezierPath()
+            }
+            return UIBezierPath(ovalIn: avatarButtonFrameInView)
+        }
+    }
+    
+    func layoutWizardCard(_ wizardViewController: WizardViewController, item: WizardViewController.Item) {
+        switch item {
+        case .multipleAccountSwitch:
+            guard let avatarButtonFrameInView = avatarButtonFrameInWizardView(wizardView: wizardViewController.view) else {
                 return
             }
             let anchorView = UIView()
             anchorView.frame = avatarButtonFrameInView
-            wizard.backgroundView.addSubview(anchorView)
+            wizardViewController.backgroundView.addSubview(anchorView)
             
             let wizardCardView = WizardCardView()
             wizardCardView.arrowRectCorner = view.traitCollection.layoutDirection == .leftToRight ? .bottomRight : .bottomLeft
             wizardCardView.titleLabel.text = item.title
             wizardCardView.descriptionLabel.text = item.description
-
+            
             wizardCardView.translatesAutoresizingMaskIntoConstraints = false
-            wizard.backgroundView.addSubview(wizardCardView)
+            wizardViewController.backgroundView.addSubview(wizardCardView)
             NSLayoutConstraint.activate([
                 anchorView.topAnchor.constraint(equalTo: wizardCardView.bottomAnchor, constant: 13), // 13pt spacing
                 wizardCardView.trailingAnchor.constraint(equalTo: anchorView.centerXAnchor),
-                wizardCardView.widthAnchor.constraint(equalTo: wizard.backgroundView.widthAnchor, multiplier: 2.0/3.0).priority(.required - 1),
+                wizardCardView.widthAnchor.constraint(equalTo: wizardViewController.view.widthAnchor, multiplier: 2.0/3.0).priority(.required - 1),
             ])
             wizardCardView.setContentHuggingPriority(.defaultLow, for: .vertical)
         }
     }
     
-    private func avatarButtonFrameInView() -> CGRect? {
+    private func avatarButtonFrameInWizardView(wizardView: UIView) -> CGRect? {
         guard let superview = avatarButton.superview else {
             assertionFailure()
             return nil
         }
-        return superview.convert(avatarButton.frame, to: view)
+        return superview.convert(avatarButton.frame, to: wizardView)
     }
 }
 

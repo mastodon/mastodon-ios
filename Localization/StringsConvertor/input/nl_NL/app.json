@@ -67,6 +67,7 @@
                 "done": "Klaar",
                 "confirm": "Bevestigen",
                 "continue": "Doorgaan",
+                "compose": "Compose",
                 "cancel": "Annuleren",
                 "discard": "Weggooien",
                 "try_again": "Probeer Opnieuw",
@@ -412,6 +413,12 @@
                     "message": "Bevestig om %s te deblokkeren"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Zoeken",

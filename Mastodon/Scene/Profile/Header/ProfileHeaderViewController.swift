@@ -44,10 +44,11 @@ final class ProfileHeaderViewController: UIViewController {
     
     let profileHeaderView = ProfileHeaderView()
     let pageSegmentedControl: UISegmentedControl = {
-        let segmenetedControl = UISegmentedControl(items: ["A", "B"])
-        segmenetedControl.selectedSegmentIndex = 0
-        return segmenetedControl
+        let segmentedControl = UISegmentedControl(items: ["A", "B"])
+        segmentedControl.selectedSegmentIndex = 0
+        return segmentedControl
     }()
+    var pageSegmentedControlLeadingLayoutConstraint: NSLayoutConstraint!
 
     private var isBannerPinned = false
     private var bottomShadowAlpha: CGFloat = 0.0
@@ -118,9 +119,10 @@ extension ProfileHeaderViewController {
         
         pageSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pageSegmentedControl)
+        pageSegmentedControlLeadingLayoutConstraint = pageSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         NSLayoutConstraint.activate([
             pageSegmentedControl.topAnchor.constraint(equalTo: profileHeaderView.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
-            pageSegmentedControl.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            pageSegmentedControlLeadingLayoutConstraint,    // Fix iPad layout issue
             pageSegmentedControl.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
             view.bottomAnchor.constraint(equalTo: pageSegmentedControl.bottomAnchor, constant: ProfileHeaderViewController.segmentedControlMarginHeight),
             pageSegmentedControl.heightAnchor.constraint(equalToConstant: ProfileHeaderViewController.segmentedControlHeight).priority(.defaultHigh),
@@ -133,10 +135,10 @@ extension ProfileHeaderViewController {
             viewModel.isTitleViewContentOffsetSet.eraseToAnyPublisher()
         )
         .receive(on: DispatchQueue.main)
-        .sink { [weak self] viewDidAppear, isTitleViewContentOffsetDidSetted in
+        .sink { [weak self] viewDidAppear, isTitleViewContentOffsetDidSet in
             guard let self = self else { return }
-            self.titleView.titleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSetted ? 1 : 0
-            self.titleView.subtitleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSetted ? 1 : 0
+            self.titleView.titleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSet ? 1 : 0
+            self.titleView.subtitleLabel.alpha = viewDidAppear && isTitleViewContentOffsetDidSet ? 1 : 0
         }
         .store(in: &disposeBag)
         
@@ -281,6 +283,13 @@ extension ProfileHeaderViewController {
         
         delegate?.profileHeaderViewController(self, viewLayoutDidUpdate: view)
         setupBottomShadow()
+    }
+    
+    override func viewLayoutMarginsDidChange() {
+        super.viewLayoutMarginsDidChange()
+        
+        let margin = view.frame.maxX - view.readableContentGuide.layoutFrame.maxX
+        pageSegmentedControlLeadingLayoutConstraint.constant = margin
     }
     
 }

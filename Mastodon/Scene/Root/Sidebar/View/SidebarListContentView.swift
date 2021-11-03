@@ -18,6 +18,7 @@ final class SidebarListContentView: UIView, UIContentView {
     let avatarButton: CircleAvatarButton = {
         let button = CircleAvatarButton()
         button.borderWidth = 2
+        button.borderColor = UIColor.label.cgColor
         return button
     }()
     
@@ -71,8 +72,9 @@ extension SidebarListContentView {
 
         imageView.contentMode = .scaleAspectFit
         avatarButton.contentMode = .scaleAspectFit
-        imageView.tintColor = Asset.Colors.brandBlue.color
-        avatarButton.tintColor = Asset.Colors.brandBlue.color
+        
+        imageView.isUserInteractionEnabled = false
+        avatarButton.isUserInteractionEnabled = false
     }
     
     private func apply(configuration: ContentConfiguration) {
@@ -84,8 +86,9 @@ extension SidebarListContentView {
         guard let item = configuration.item else { return }
         
         // configure state
-        imageView.tintColor = item.isSelected ? .white : Asset.Colors.brandBlue.color
-        avatarButton.tintColor = item.isSelected ? .white : Asset.Colors.brandBlue.color
+        let tintColor = item.isHighlighted ? ThemeService.tintColor.withAlphaComponent(0.5) : ThemeService.tintColor
+        imageView.tintColor = tintColor
+        avatarButton.tintColor = tintColor
         
         // configure model
         imageView.isHidden = item.imageURL != nil
@@ -96,9 +99,6 @@ extension SidebarListContentView {
             placeholder: avatarButton.avatarImageView.image ?? .placeholder(color: .systemFill),  // reuse to avoid blink
             scaleToSize: nil
         )
-        avatarButton.layer.masksToBounds = true
-        avatarButton.layer.cornerCurve = .continuous
-        avatarButton.layer.cornerRadius = 4
     }
 }
 
@@ -106,6 +106,7 @@ extension SidebarListContentView {
     struct Item: Hashable {
         // state
         var isSelected: Bool = false
+        var isHighlighted: Bool = false
         
         // model
         let title: String
@@ -114,6 +115,7 @@ extension SidebarListContentView {
                 
         static func == (lhs: SidebarListContentView.Item, rhs: SidebarListContentView.Item) -> Bool {
             return lhs.isSelected == rhs.isSelected
+                && lhs.isHighlighted == rhs.isHighlighted
                 && lhs.title == rhs.title
                 && lhs.image == rhs.image
                 && lhs.imageURL == rhs.imageURL
@@ -121,6 +123,7 @@ extension SidebarListContentView {
         
         func hash(into hasher: inout Hasher) {
             hasher.combine(isSelected)
+            hasher.combine(isHighlighted)
             hasher.combine(title)
             hasher.combine(image)
             imageURL.flatMap { hasher.combine($0) }
@@ -143,9 +146,11 @@ extension SidebarListContentView {
             
             if let state = state as? UICellConfigurationState {
                 updatedConfiguration.item?.isSelected = state.isHighlighted || state.isSelected
+                updatedConfiguration.item?.isHighlighted = state.isHighlighted
             } else {
                 assertionFailure()
                 updatedConfiguration.item?.isSelected = false
+                updatedConfiguration.item?.isHighlighted = false
             }
             
             return updatedConfiguration

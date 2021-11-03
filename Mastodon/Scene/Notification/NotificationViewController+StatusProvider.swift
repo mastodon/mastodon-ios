@@ -19,21 +19,25 @@ extension NotificationViewController: StatusProvider {
 
     func status(for cell: UITableViewCell?, indexPath: IndexPath?) -> Future<Status?, Never> {
         return Future<Status?, Never> { promise in
-            guard let cell = cell,
-                  let diffableDataSource = self.viewModel.diffableDataSource,
-                  let indexPath = self.tableView.indexPath(for: cell),
+            guard let diffableDataSource = self.viewModel.diffableDataSource else {
+                assertionFailure()
+                promise(.success(nil))
+                return
+            }
+            guard let indexPath = indexPath ?? cell.flatMap({ self.tableView.indexPath(for: $0) }),
                   let item = diffableDataSource.itemIdentifier(for: indexPath) else {
                 promise(.success(nil))
                 return
             }
 
             switch item {
-            case .notification(let objectID, _):
+            case .notification(let objectID, _),
+                 .notificationStatus(let objectID, _):
                 self.viewModel.fetchedResultsController.managedObjectContext.perform { 
                     let notification = self.viewModel.fetchedResultsController.managedObjectContext.object(with: objectID) as! MastodonNotification
                     promise(.success(notification.status))
                 }
-            default:
+            case .bottomLoader:
                 promise(.success(nil))
             }
         }
@@ -68,3 +72,6 @@ extension NotificationViewController: StatusProvider {
     }
 
 }
+
+// MARK: - UserProvider
+extension NotificationViewController: UserProvider { }

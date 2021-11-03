@@ -23,6 +23,7 @@ final public class SceneCoordinator {
     
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
+    private(set) var wizardViewController: WizardViewController?
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
@@ -90,45 +91,44 @@ final public class SceneCoordinator {
                 
 
                 // Delay in next run loop
-//                DispatchQueue.main.async { [weak self] in
-//                    guard let self = self else { return }
-//
-//                    // Note:
-//                    // show (push) on phone or pad (compact)
-//                    // showDetail in .secondary in UISplitViewController on pad (expand)
-//                    let from: UIViewController? = {
-//                        if let splitViewController = self.splitViewController {
-//                            if splitViewController.mainTabBarController.topMost?.view.window != nil {
-//                                // compact
-//                                return splitViewController.mainTabBarController.topMost
-//                            } else {
-//                                // expand
-//                                return splitViewController.viewController(for: .supplementary)
-//                            }
-//                        } else {
-//                            return self.tabBarController.topMost
-//                        }
-//                    }()
-//
-//                    // show notification related content
-//                    guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
-//                    let notificationID = String(pushNotification.notificationID)
-//
-//                    switch type {
-//                    case .follow:
-//                        let profileViewModel = RemoteProfileViewModel(context: appContext, notificationID: notificationID)
-//                        self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
-//                    case .followRequest:
-//                        // do nothing
-//                        break
-//                    case .mention, .reblog, .favourite, .poll, .status:
-//                        let threadViewModel = RemoteThreadViewModel(context: appContext, notificationID: notificationID)
-//                        self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
-//                    case ._other:
-//                        assertionFailure()
-//                        break
-//                    }
-//                }   // end DispatchQueue.main.async
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+
+                    // Note:
+                    // show (push) on phone and pad
+                    let from: UIViewController? = {
+                        if let splitViewController = self.splitViewController {
+                            if splitViewController.compactMainTabBarViewController.topMost?.view.window != nil {
+                                // compact
+                                return splitViewController.compactMainTabBarViewController.topMost
+                            } else {
+                                // expand
+                                return splitViewController.contentSplitViewController.mainTabBarController.topMost
+                            }
+                        } else {
+                            return self.tabBarController.topMost
+                        }
+                    }()
+
+                    // show notification related content
+                    guard let type = Mastodon.Entity.Notification.NotificationType(rawValue: pushNotification.notificationType) else { return }
+                    let notificationID = String(pushNotification.notificationID)
+
+                    switch type {
+                    case .follow:
+                        let profileViewModel = RemoteProfileViewModel(context: appContext, notificationID: notificationID)
+                        self.present(scene: .profile(viewModel: profileViewModel), from: from, transition: .show)
+                    case .followRequest:
+                        // do nothing
+                        break
+                    case .mention, .reblog, .favourite, .poll, .status:
+                        let threadViewModel = RemoteThreadViewModel(context: appContext, notificationID: notificationID)
+                        self.present(scene: .thread(viewModel: threadViewModel), from: from, transition: .show)
+                    case ._other:
+                        assertionFailure()
+                        break
+                    }
+                }   // end DispatchQueue.main.async
             }
             .store(in: &disposeBag)
     }
@@ -139,6 +139,7 @@ extension SceneCoordinator {
         case show                           // push
         case showDetail                     // replace
         case modal(animated: Bool, completion: (() -> Void)? = nil)
+        case popover(sourceView: UIView)
         case panModal
         case custom(transitioningDelegate: UIViewControllerTransitioningDelegate)
         case customPush
@@ -178,6 +179,8 @@ extension SceneCoordinator {
         case accountList
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
+        case follower(viewModel: FollowerListViewModel)
+        case following(viewModel: FollowingListViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
@@ -219,17 +222,34 @@ extension SceneCoordinator {
 extension SceneCoordinator {
     
     func setup() {
+        let rootViewController: UIViewController
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
             let viewController = MainTabBarController(context: appContext, coordinator: self)
-            sceneDelegate.window?.rootViewController = viewController
-            tabBarController = viewController
+            self.splitViewController = nil
+            self.tabBarController = viewController
+            rootViewController = viewController
         default:
             let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
             self.splitViewController = splitViewController
             self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-            sceneDelegate.window?.rootViewController = splitViewController
+            rootViewController = splitViewController
         }
+        
+        let wizardViewController = WizardViewController()
+        if !wizardViewController.items.isEmpty,
+           let delegate = rootViewController as? WizardViewControllerDelegate
+        {
+            // do not add as child view controller.
+            // otherwise, the tab bar controller will add as a new tab
+            wizardViewController.delegate = delegate
+            wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            wizardViewController.view.frame = rootViewController.view.bounds
+            rootViewController.view.addSubview(wizardViewController.view)
+            self.wizardViewController = wizardViewController
+        }
+                
+        sceneDelegate.window?.rootViewController = rootViewController
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
@@ -282,18 +302,6 @@ extension SceneCoordinator {
         
         switch transition {
         case .show:
-//            if let splitViewController = splitViewController, !splitViewController.isCollapsed,
-//               let supplementaryViewController = splitViewController.viewController(for: .supplementary) as? UINavigationController,
-//               (supplementaryViewController === presentingViewController || supplementaryViewController.viewControllers.contains(presentingViewController)) ||
-//                (presentingViewController is UserTimelineViewController && presentingViewController.view.isDescendant(of: supplementaryViewController.view))
-//            {
-//                fallthrough
-//            } else {
-//                if secondaryStackHashValues.contains(presentingViewController.hashValue) {
-//                    secondaryStackHashValues.insert(viewController.hashValue)
-//                }
-//                presentingViewController.show(viewController, sender: sender)
-//            }
             presentingViewController.show(viewController, sender: sender)
         case .showDetail:
             secondaryStackHashValues.insert(viewController.hashValue)
@@ -326,7 +334,10 @@ extension SceneCoordinator {
             panModalPresentable.transitioningDelegate = PanModalPresentationDelegate.default
             presentingViewController.present(panModalPresentable, animated: true, completion: nil)
             //presentingViewController.presentPanModal(panModalPresentable)
-
+        case .popover(let sourceView):
+            viewController.modalPresentationStyle = .popover
+            viewController.popoverPresentationController?.sourceView = sourceView
+            (splitViewController ?? presentingViewController)?.present(viewController, animated: true, completion: nil)
         case .custom(let transitioningDelegate):
             viewController.modalPresentationStyle = .custom
             viewController.transitioningDelegate = transitioningDelegate
@@ -358,6 +369,11 @@ extension SceneCoordinator {
     }
 
     func switchToTabBar(tab: MainTabBarController.Tab) {
+        splitViewController?.contentSplitViewController.currentSupplementaryTab = tab
+        
+        splitViewController?.compactMainTabBarViewController.selectedIndex = tab.rawValue
+        splitViewController?.compactMainTabBarViewController.currentTab.value = tab
+        
         tabBarController.selectedIndex = tab.rawValue
         tabBarController.currentTab.value = tab
     }
@@ -426,6 +442,14 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .favorite(let viewModel):
             let _viewController = FavoriteViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .follower(let viewModel):
+            let _viewController = FollowerListViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .following(let viewModel):
+            let _viewController = FollowingListViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .suggestionAccount(let viewModel):

@@ -245,7 +245,9 @@ extension SearchDetailViewController {
             searchBar.becomeFirstResponder()
         } else {
             searchController.isActive = true
-            searchController.searchBar.becomeFirstResponder()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
+                self.searchController.searchBar.becomeFirstResponder()                
+            }
         }
     }
 
