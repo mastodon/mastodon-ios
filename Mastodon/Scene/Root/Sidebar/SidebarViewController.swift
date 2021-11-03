@@ -125,10 +125,16 @@ extension SidebarViewController {
         
         secondaryCollectionView.observe(\.contentSize, options: [.initial, .new]) { [weak self] secondaryCollectionView, _ in
             guard let self = self else { return }
+            
+            let contentHeight = secondaryCollectionView.contentSize.height
+            guard contentHeight > 0 else { return }
             self.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): secondaryCollectionView contentSize: \(secondaryCollectionView.contentSize.debugDescription)")
-            let height = secondaryCollectionView.contentSize.height
-            self.secondaryCollectionViewHeightLayoutConstraint.constant = height
-            self.collectionView.contentInset.bottom = height
+            
+            let currentFrameHeight = secondaryCollectionView.frame.height
+            guard currentFrameHeight < contentHeight else { return }
+            
+            self.secondaryCollectionViewHeightLayoutConstraint.constant = contentHeight
+            self.collectionView.contentInset.bottom = contentHeight
         }
         .store(in: &observations)
         
@@ -147,7 +153,6 @@ extension SidebarViewController {
         
         coordinator.animate { context in
             self.collectionView.collectionViewLayout.invalidateLayout()
-//            // do nothing
         } completion: { [weak self] context in
 //            guard let self = self else { return }
         }
