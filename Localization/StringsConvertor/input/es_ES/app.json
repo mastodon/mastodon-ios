@@ -67,7 +67,7 @@
                 "done": "Hecho",
                 "confirm": "Confirmar",
                 "continue": "Continuar",
-                "compose": "Compose",
+                "compose": "Redactar",
                 "cancel": "Cancelar",
                 "discard": "Descartar",
                 "try_again": "Inténtalo de nuevo",
@@ -415,10 +415,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "No se muestran los seguidores de otros servidores."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "No se muestran los seguidos de otros servidores."
         },
         "search": {
             "title": "Buscar",
