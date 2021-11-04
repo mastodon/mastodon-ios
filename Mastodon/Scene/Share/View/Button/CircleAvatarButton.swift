@@ -9,15 +9,18 @@ import UIKit
 
 final class CircleAvatarButton: AvatarButton {
     
-    var borderColor: CGColor = UIColor.systemFill.cgColor
+    @Published var needsHighlighted = false
+    
+    var borderColor: UIColor = UIColor.systemFill
     var borderWidth: CGFloat = 1.0
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    override func updateAppearance() {
+        super.updateAppearance()
         
         layer.masksToBounds = true
         layer.cornerRadius = frame.width * 0.5
-        layer.borderColor = borderColor
+        layer.borderColor = borderColor.cgColor
         layer.borderWidth = borderWidth
     }
+    
 }
