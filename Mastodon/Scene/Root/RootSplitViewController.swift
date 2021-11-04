@@ -109,6 +109,12 @@ extension RootSplitViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupBackground(theme: ThemeService.shared.currentTheme.value)
+    }
+    
     private func updateBehavior(size: CGSize) {
         if size.width > 960 {
             show(.primary)
@@ -136,7 +142,7 @@ extension RootSplitViewController {
 
     private func setupBackground(theme: Theme) {
         // this set column separator line color
-        view.backgroundColor = theme.separator
+        view.backgroundColor = .opaqueSeparator
     }
     
 }
