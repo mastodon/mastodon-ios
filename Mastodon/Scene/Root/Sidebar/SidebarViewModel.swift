@@ -18,32 +18,36 @@ final class SidebarViewModel {
     
     // input
     let context: AppContext
-    let searchHistoryFetchedResultController: SearchHistoryFetchedResultController
-
+    @Published private var isSidebarDataSourceReady = false
+    @Published private var isAvatarButtonDataReady = false
+    
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
-    private(set) var isReadyForWizardAvatarButton = false
+    @Published private(set) var isReadyForWizardAvatarButton = false
 
     let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
 
     init(context: AppContext) {
         self.context = context
-        self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
+        
+        Publishers.CombineLatest(
+            $isSidebarDataSourceReady,
+            $isAvatarButtonDataReady
+        )
+        .map { $0 && $1 }
+        .assign(to: &$isReadyForWizardAvatarButton)
         
         context.authenticationService.activeMastodonAuthentication
             .sink { [weak self] authentication in
                 guard let self = self else { return }
-                // bind search history
-                self.searchHistoryFetchedResultController.domain.value = authentication?.domain
-                self.searchHistoryFetchedResultController.userID.value = authentication?.userID
                 
                 // bind objectID
                 self.activeMastodonAuthenticationObjectID.value = authentication?.objectID
+                
+                self.isAvatarButtonDataReady = authentication != nil
             }
             .store(in: &disposeBag)
-        
-        try? searchHistoryFetchedResultController.fetchedResultsController.performFetch()
     }
     
 }
@@ -175,7 +179,7 @@ extension SidebarViewModel {
         // otherwise the UI layout will infinity loop
         _diffableDataSource.apply(sectionSnapshot, to: .main, animatingDifferences: true) { [weak self] in
             guard let self = self else { return }
-            self.isReadyForWizardAvatarButton = true
+            self.isSidebarDataSourceReady = true
         }
     
         // secondary

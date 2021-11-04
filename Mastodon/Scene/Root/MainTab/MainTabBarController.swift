@@ -252,6 +252,14 @@ extension MainTabBarController {
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
         
+        context.authenticationService.activeMastodonAuthenticationBox
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] authenticationBox in
+                guard let self = self else { return }
+                self.isReadyForWizardAvatarButton = authenticationBox != nil
+            }
+            .store(in: &disposeBag)
+        
         currentTab
             .receive(on: DispatchQueue.main)
             .sink { [weak self] tab in
@@ -265,12 +273,6 @@ extension MainTabBarController {
         #if DEBUG
 //        selectedIndex = 1
         #endif
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        isReadyForWizardAvatarButton = true
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
