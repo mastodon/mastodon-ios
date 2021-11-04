@@ -607,6 +607,8 @@
 		DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */; };
 		DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */; };
 		DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */; };
+		DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = DBF3B73E2733EAED00E21627 /* local-codes.json */; };
+		DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */; };
 		DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DBF7A0FB26830C33004176A2 /* FPSIndicator */; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
 		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -1426,6 +1428,8 @@
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
+		DBF3B73E2733EAED00E21627 /* local-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "local-codes.json"; sourceTree = "<group>"; };
+		DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLocalCode.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2212,6 +2216,7 @@
 			isa = PBXGroup;
 			children = (
 				164F0EBB267D4FE400249499 /* BoopSound.caf */,
+				DBF3B73E2733EAED00E21627 /* local-codes.json */,
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
 				DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */,
@@ -3146,6 +3151,7 @@
 				DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */,
 				DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */,
 				DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */,
+				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3663,6 +3669,7 @@
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */,
+				DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */,
 				DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */,
 				DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */,
 				DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */,
@@ -4400,6 +4407,7 @@
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
+				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
