@@ -312,7 +312,7 @@ extension MastodonRegisterViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
         
-        // stackview
+        // stackView
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 40
@@ -370,7 +370,7 @@ extension MastodonRegisterViewController {
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
         ])
 
-        // stackview
+        // stackView
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

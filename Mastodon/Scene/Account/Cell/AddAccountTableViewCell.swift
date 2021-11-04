@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import Combine
 import MetaTextKit
 
 final class AddAccountTableViewCell: UITableViewCell {
+    
+    private var _disposeBag = Set<AnyCancellable>()
     
     let iconImageView: UIImageView = {
         let image = UIImage(systemName: "plus.circle.fill")!
@@ -41,6 +44,15 @@ final class AddAccountTableViewCell: UITableViewCell {
 extension AddAccountTableViewCell {
 
     private func _init() {
+        backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+            }
+            .store(in: &_disposeBag)
+        
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(iconImageView)
         NSLayoutConstraint.activate([

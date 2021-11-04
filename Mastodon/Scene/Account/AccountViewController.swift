@@ -75,7 +75,7 @@ extension AccountListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = ThemeService.shared.currentTheme.value.systemBackgroundColor.withAlphaComponent(0.9)
+        setupBackgroundColor(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
             .receive(on: DispatchQueue.main)
             .sink { [weak self] theme in
@@ -131,7 +131,15 @@ extension AccountListViewController {
     }
 
     private func setupBackgroundColor(theme: Theme) {
-        view.backgroundColor = theme.systemBackgroundColor.withAlphaComponent(0.9)
+        let backgroundColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceLevel {
+            case .elevated where traitCollection.userInterfaceStyle == .dark:
+                return theme.systemElevatedBackgroundColor
+            default:
+                return theme.systemBackgroundColor.withAlphaComponent(0.9)
+            }
+        }
+        view.backgroundColor = backgroundColor
     }
 
 }

@@ -12,6 +12,7 @@ import MetaTextKit
 
 final class AccountListTableViewCell: UITableViewCell {
     
+    private var _disposeBag = Set<AnyCancellable>()
     var disposeBag = Set<AnyCancellable>()
 
     let avatarButton = CircleAvatarButton(frame: .zero)
@@ -47,6 +48,15 @@ final class AccountListTableViewCell: UITableViewCell {
 extension AccountListTableViewCell {
 
     private func _init() {
+        backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+        ThemeService.shared.currentTheme
+            .receive(on: RunLoop.main)
+            .sink { [weak self] theme in
+                guard let self = self else { return }
+                self.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
+            }
+            .store(in: &_disposeBag)
+        
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(avatarButton)
         NSLayoutConstraint.activate([
