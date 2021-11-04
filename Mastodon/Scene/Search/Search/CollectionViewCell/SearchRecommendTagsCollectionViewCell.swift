@@ -27,6 +27,7 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
+        label.numberOfLines = 2
         return label
     }()
     
