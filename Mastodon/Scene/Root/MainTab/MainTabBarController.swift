@@ -252,6 +252,14 @@ extension MainTabBarController {
         tabBarLongPressGestureRecognizer.addTarget(self, action: #selector(MainTabBarController.tabBarLongPressGestureRecognizerHandler(_:)))
         tabBar.addGestureRecognizer(tabBarLongPressGestureRecognizer)
         
+        currentTab
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] tab in
+                guard let self = self else { return }
+                self.updateAvatarButtonAppearance()
+            }
+            .store(in: &disposeBag)
+        
         updateTabBarDisplay()
         
         #if DEBUG
@@ -269,6 +277,7 @@ extension MainTabBarController {
         super.traitCollectionDidChange(previousTraitCollection)
         
         updateTabBarDisplay()
+        updateAvatarButtonAppearance()
     }
 
 }
@@ -339,6 +348,11 @@ extension MainTabBarController {
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .horizontal)
         self.avatarButton.setContentHuggingPriority(.required - 1, for: .vertical)
         self.avatarButton.isUserInteractionEnabled = false
+    }
+    
+    private func updateAvatarButtonAppearance() {
+        avatarButton.borderColor = currentTab.value == .me ? .label : .systemFill
+        avatarButton.setNeedsLayout()
     }
 }
 
