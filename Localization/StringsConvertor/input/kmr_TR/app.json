@@ -226,7 +226,7 @@
             },
             "empty_state": {
                 "finding_servers": "Peydakirina rajekarên berdest...",
-                "bad_network": "Di dema barkirina daneyan da tiştek xelet derket. Girêdana xwe ya înternetê kontrol bike.",
+                "bad_network": "Di dema barkirina daneyan da çewtî derket. Girêdana xwe ya înternetê kontrol bike.",
                 "no_results": "Encam tune"
             }
         },
@@ -259,38 +259,38 @@
                     "username": "Navê bikarhêner",
                     "email": "E-name",
                     "password": "Pêborîn",
-                    "agreement": "Lihevhatin",
-                    "locale": "Herêm",
+                    "agreement": "Peyman",
+                    "locale": "Zimanê navrûyê",
                     "reason": "Sedem"
                 },
                 "reason": {
-                    "blocked": "%s peydekerê e-nameya bêdestûr dihewîne",
-                    "unreachable": "%s xuya nake",
+                    "blocked": "%s peydekerê e-peyamê yê qedexekirî dihewîne",
+                    "unreachable": "%s xuya ye ku tune ye",
                     "taken": "%s jixwe tê bikaranîn",
-                    "reserved": "%s peyveke mifteya veqetandî ye",
-                    "accepted": "%s divê were qebûlkirin",
+                    "reserved": "%s peyveke parastî ye",
+                    "accepted": "%s divê were pejirandin",
                     "blank": "%s pêwist e",
                     "invalid": "%s ne derbasdar e",
-                    "too_long": "%s gelekî dirêj e",
+                    "too_long": "%s pir dirêj e",
                     "too_short": "%s pir kurt e",
-                    "inclusion": "%s nirxeke ku tê destekirin nîn e"
+                    "inclusion": "%s ne nirxek piştgirî ye"
                 },
                 "special": {
-                    "username_invalid": "Navê bikarhêner divê tenê tîpên alfanumerîk û binxet hebe",
+                    "username_invalid": "Navê bikarhêner divê tenê ji tîpên alfajimarî û binxêz pêk be",
                     "username_too_long": "Navê bikarhêner pir dirêj e (ji 30 tîpan dirêjtir nabe)",
-                    "email_invalid": "Ev ne navnîşana e-nameyek derbasdar e",
+                    "email_invalid": "Ev navnîşaneke e-nameyê ne derbasdar e",
                     "password_too_short": "Pêborîn pir kurt e (divê herî kêm 8 tîp be)"
                 }
             }
         },
         "server_rules": {
-            "title": "Hin qaîdeyên bingehîn.",
+            "title": "Hinek rêzikên bingehîn.",
             "subtitle": "Ev rêzik ji aliyê rêvebirên %s ve tên sazkirin.",
-            "prompt": "Bi berdewamî, hûn ji bo %s di bin şertên polîtîkaya xizmet û nepenîtiyê da ne.",
-            "terms_of_service": "şert û mercên xizmetê",
-            "privacy_policy": "polîtîkaya nepenîtiyê",
+            "prompt": "Bi domandinê, tu ji bo %s di bin mercên bikaranînê û polîtîkaya nepenîtiyê dipejirînî.",
+            "terms_of_service": "mercên bikaranînê",
+            "privacy_policy": "polîtikaya nihêniyê",
             "button": {
-                "confirm": "Ez tev dibim"
+                "confirm": "Ez dipejirînim"
             }
         },
         "confirm_email": {
@@ -374,15 +374,15 @@
                 "custom_emoji_picker": "Hilbijêrê emojî yên kesanekirî",
                 "enable_content_warning": "Hişyariya naverokê çalak bike",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
-                "post_visibility_menu": "Menuya Xuyabûna Şandiyê"
+                "post_visibility_menu": "Kulîna xuyabûna şandiyê"
             },
             "keyboard": {
-                "discard_post": "Şandî bihelîne",
-                "publish_post": "Şandiye bide weşan",
-                "toggle_poll": "Anketê veke/bigire",
-                "toggle_content_warning": "Hişyariya naverokê veke/bigire",
-                "append_attachment_entry": "Pêvek lê zêde bike - %s",
-                "select_visibility_entry": "Xuyanîbûn hilbijêre - %s"
+                "discard_post": "Şandî paşguh bike",
+                "publish_post": "Şandiyê biweşîne",
+                "toggle_poll": "Rapirsiyê biguherîne",
+                "toggle_content_warning": "Hişyariya naverokê biguherîne",
+                "append_attachment_entry": "Pêvek tevlî bike - %s",
+                "select_visibility_entry": "Xuyabûnê hilbijêre - %s"
             }
         },
         "profile": {
@@ -400,17 +400,17 @@
             },
             "segmented_control": {
                 "posts": "Şandî",
-                "replies": "Bersivan",
+                "replies": "Bersiv",
                 "media": "Medya"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Hesabê ji bê deng rake",
-                    "message": "Ji bo vekirina bê dengkirinê bipejirin %s"
+                    "title": "Ajimêrê bêdeng neke",
+                    "message": "Ji bo vekirina bêdengkirinê bipejirîne %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Hesabê ji bloke rake",
-                    "message": "Ji bo rakirina blokê bipejirin %s"
+                    "title": "Astengiyê li ser ajimêr rake",
+                    "message": "Ji bo rakirina astengkirinê bipejirîne %s"
                 }
             }
         },
@@ -429,12 +429,12 @@
             "recommend": {
                 "button_text": "Hemûyan bibîne",
                 "hash_tag": {
-                    "title": "Trend li ser Mastodon",
-                    "description": "Etîketên ku pir balê dikişînin",
+                    "title": "Rojev li ser Mastodon",
+                    "description": "Hashtag ên ku pir balê dikişînin",
                     "people_talking": "%s kes diaxivin"
                 },
                 "accounts": {
-                    "title": "Hesabên ku hûn dikarin hez bikin",
+                    "title": "Ajimêrên ku belkî tu jê hez bikî",
                     "description": "Dibe ku tu bixwazî van ajimêran bişopînî",
                     "follow": "Bişopîne"
                 }
@@ -465,11 +465,11 @@
             "user_favorited your post": "%s şandiya te hez kir",
             "user_reblogged_your_post": "%s posta we ji nû ve tomar kir",
             "user_mentioned_you": "%s qale te kir",
-            "user_requested_to_follow_you": "%s daxwaza şopandina te kir",
-            "user_your_poll_has_ended": "%s Anketa te qediya",
+            "user_requested_to_follow_you": "%s dixwazê te bişopîne",
+            "user_your_poll_has_ended": "Rapirsîya te qediya",
             "keyobard": {
                 "show_everything": "Her tiştî nîşan bide",
-                "show_mentions": "Behskirîya nîşan bike"
+                "show_mentions": "Qalkirinan nîşan bike"
             }
         },
         "thread": {
@@ -488,8 +488,8 @@
                 "notifications": {
                     "title": "Agahdarî",
                     "favorites": "Şandiyên min hez kir",
-                    "follows": "Min şopand",
-                    "boosts": "Şandiya min ji nû ve binivîsine",
+                    "follows": "Min dişopîne",
+                    "boosts": "Şandiya min ji nû ve nivîsand",
                     "mentions": "Qale min kir",
                     "trigger": {
                         "anyone": "her kes",
