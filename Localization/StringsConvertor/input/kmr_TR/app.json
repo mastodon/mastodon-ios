@@ -16,8 +16,8 @@
                 "poll_ended": "Rapirsîya qediya"
             },
             "discard_post_content": {
-                "title": "Reşnivîs jêbibe",
-                "message": "Piştrast bikin ku naveroka posteyê ya hatîye nivîsandin jê bibin."
+                "title": "Reşnivîsê paşguh bike",
+                "message": "Bipejrîne ku naveroka şandiyê ya hatiye nivîsandin paşguh bikî."
             },
             "publish_post_failure": {
                 "title": "Weşandin têkçû",
@@ -28,7 +28,7 @@
                 }
             },
             "edit_profile_failure": {
-                "title": "Çewtiya profîlê biguherîne",
+                "title": "Di serrastkirina profîlê çewtî",
                 "message": "Nikare profîlê serrast bike. Jkx dîsa biceribîne."
             },
             "sign_out": {
@@ -42,15 +42,15 @@
             },
             "save_photo_failure": {
                 "title": "Tomarkirina wêneyê têkçû",
-                "message": "Ji kerema xwe destûra gihîştina pirtûkxaneya wêneyê çalak bikin da ku wêneyê hilînin."
+                "message": "Ji kerema xwe mafê bide gihîştina wênegehê çalak bike da ku wêne werin tomarkirin."
             },
             "delete_post": {
                 "title": "Ma tu dixwazî vê şandiyê jê bibî?",
                 "delete": "Jê bibe"
             },
             "clean_cache": {
-                "title": "Pêşbîrê paqij bike",
-                "message": "Pêşbîra %s biserketî hate paqijkirin."
+                "title": "Pêşbîrê pak bike",
+                "message": "Pêşbîra %s biserketî hate pakkirin."
             }
         },
         "controls": {
@@ -72,8 +72,8 @@
                 "discard": "Biavêje",
                 "try_again": "Dîsa biceribîne",
                 "take_photo": "Wêne bikişîne",
-                "save_photo": "Wêneyê hilîne",
-                "copy_photo": "Wêne kopî bikin",
+                "save_photo": "Wêneyê tomar bike",
+                "copy_photo": "Wêneyê jê bigire",
                 "sign_in": "Têkeve",
                 "sign_up": "Tomar bibe",
                 "see_more": "Bêtir bibîne",
@@ -82,8 +82,8 @@
                 "share_user": "%s parve bike",
                 "share_post": "Şandiyê parve bike",
                 "open_in_safari": "Di Safariyê de veke",
-                "find_people": "Kesên ku bişopînin bibînin",
-                "manually_search": "Ji devlê i destan lêgerînê bike",
+                "find_people": "Mirovan bo şopandinê bibîne",
+                "manually_search": "Ji devlê bi destan lêgerînê bike",
                 "skip": "Derbas bike",
                 "reply": "Bersivê bide",
                 "report_user": "%s ragihîne",
@@ -113,47 +113,47 @@
                     "open_reblogger_profile": "Profîla nivîskaran veke",
                     "reply_status": "Bersivê bide şandiyê",
                     "toggle_reblog": "Ji vû nivîsandin di şandiyê de biguherîne",
-                    "toggle_favorite": "Di postê da Bijartin veke/bigire",
-                    "toggle_content_warning": "Hişyariya naverokê veke/bigire",
-                    "preview_image": "Wêneya pêşdîtinê"
+                    "toggle_favorite": "Li ser şandiyê bijarte biguherîne",
+                    "toggle_content_warning": "Hişyariya naverokê biguherîne",
+                    "preview_image": "Pêşdîtina wêneyê"
                 },
                 "segmented_control": {
-                    "previous_section": "Beşa berê",
-                    "next_section": "Beşa paşê"
+                    "previous_section": "Beşa paş",
+                    "next_section": "Beşa pêş"
                 }
             },
             "status": {
-                "user_reblogged": "%s ji nû ve hat blogkirin",
+                "user_reblogged": "%s ji nû ve hate nivîsandin",
                 "user_replied_to": "Bersiv da %s",
                 "show_post": "Şandiyê nîşan bide",
                 "show_user_profile": "Profîla bikarhêner nîşan bide",
                 "content_warning": "Hişyariya naverokê",
-                "media_content_warning": "Ji bo aşkerakirinê derekî bitikîne",
+                "media_content_warning": "Ji bo eşkerekirinê li derekî bitikîne",
                 "poll": {
-                    "vote": "Deng",
+                    "vote": "Deng bide",
                     "closed": "Girtî"
                 },
                 "actions": {
                     "reply": "Bersivê bide",
-                    "reblog": "Ji nû ve blog",
-                    "unreblog": "Ji nû ve blogkirin betal bikin",
-                    "favorite": "Bijartî",
-                    "unfavorite": "Nebijare",
-                    "menu": "Menû"
+                    "reblog": "Ji nû ve nivîsandin",
+                    "unreblog": "Ji nû ve nivîsandinê vegere",
+                    "favorite": "Bijarte",
+                    "unfavorite": "Nebijarte",
+                    "menu": "Kulîn"
                 },
                 "tag": {
                     "url": "URL",
-                    "mention": "Behs",
+                    "mention": "Qalkirin",
                     "link": "Girêdan",
-                    "hashtag": "Etîket",
+                    "hashtag": "Hashtag",
                     "email": "E-name",
-                    "emoji": "E-name"
+                    "emoji": "Emojî"
                 }
             },
             "friendship": {
                 "follow": "Bişopîne",
                 "following": "Dişopîne",
-                "request": "Daxwazên şopandinê",
+                "request": "Daxwaz bike",
                 "pending": "Tê nirxandin",
                 "block": "Asteng bike",
                 "block_user": "%s asteng bike",
@@ -174,18 +174,18 @@
                     "now": "Niha"
                 },
                 "loader": {
-                    "load_missing_posts": "Barkirina posteyên kêm",
-                    "loading_missing_posts": "Barkirina posteyên kêm...",
+                    "load_missing_posts": "Şandiyên wendayî bar bike",
+                    "loading_missing_posts": "Şandiyên wendayî tên barkirin...",
                     "show_more_replies": "Bêtir bersivan nîşan bide"
                 },
                 "header": {
-                    "no_status_found": "Şandî nehate dîtin",
-                    "blocking_warning": "Tu nikarî profîla vî bikarhênerî bibînî\nHeta ku tu wan asteng bikî.\nProfîla te ji wan ra wiha xuya dike.",
-                    "user_blocking_warning": "Tu nikarî profîla %s bibînî\nHeta ku tu wan asteng bikî.\nProfîla te ji wan ra wiha xuya dike.",
-                    "blocked_warning": "Tu nikarî profîla vî bikarhênerî bibînî\nheta ku astengîya te rakin.",
+                    "no_status_found": "Tu şandî nehate dîtin",
+                    "blocking_warning": "Tu nikarî profîla vî/ê bikarhênerî bibînî\nHeya ku tu astengiyê li ser wî/ê ranekî.\nProfîla te ji wan ra wiha xuya dike.",
+                    "user_blocking_warning": "Tu nikarî profîla %s bibînî\nHeya ku tu astengiyê li ser wî/ê ranekî.\nProfîla te ji wan ra wiha xuya dike.",
+                    "blocked_warning": "Tu nikarî profîla vî/ê bikarhênerî bibînî\nheya ku ew astengiyê li ser te rakin.",
                     "user_blocked_warning": "Tu nikarî profîla %s bibînî\nHeta ku astengîya te rakin.",
-                    "suspended_warning": "Ev bikarhêner hat sekinandin.",
-                    "user_suspended_warning": "Hesaba %s hat sekinandin."
+                    "suspended_warning": "Ev bikarhêner hatiye rawestandin.",
+                    "user_suspended_warning": "Ajimêra %s hatiye rawestandin."
                 }
             }
         }
@@ -219,15 +219,15 @@
             "label": {
                 "language": "ZIMAN",
                 "users": "BIKARHÊNER",
-                "category": "KATEGORÎ"
+                "category": "BEŞ"
             },
             "input": {
-                "placeholder": "Serverek bibînin an jî beşdarî ya xwe bibin..."
+                "placeholder": "Rajekarekî bibîne an jî beşdarî ya xwe bibe..."
             },
             "empty_state": {
-                "finding_servers": "Dîtina serverên berdest...",
+                "finding_servers": "Peydakirina rajekarên berdest...",
                 "bad_network": "Di dema barkirina daneyan da tiştek xelet derket. Girêdana xwe ya înternetê kontrol bike.",
-                "no_results": "Encam nade"
+                "no_results": "Encam tune"
             }
         },
         "register": {
@@ -247,8 +247,8 @@
                     "placeholder": "e-name"
                 },
                 "password": {
-                    "placeholder": "şîfre",
-                    "hint": "Şîfreya we herî kêm heşt tîpan hewce dike"
+                    "placeholder": "pêborîn",
+                    "hint": "Pêborîna te herî kêm divê ji 8 tîpan pêk bê"
                 },
                 "invite": {
                     "registration_user_invite_request": "Tu çima dixwazî beşdar bibî?"
@@ -258,7 +258,7 @@
                 "item": {
                     "username": "Navê bikarhêner",
                     "email": "E-name",
-                    "password": "Şîfre",
+                    "password": "Pêborîn",
                     "agreement": "Lihevhatin",
                     "locale": "Herêm",
                     "reason": "Sedem"
@@ -279,7 +279,7 @@
                     "username_invalid": "Navê bikarhêner divê tenê tîpên alfanumerîk û binxet hebe",
                     "username_too_long": "Navê bikarhêner pir dirêj e (ji 30 tîpan dirêjtir nabe)",
                     "email_invalid": "Ev ne navnîşana e-nameyek derbasdar e",
-                    "password_too_short": "Şîfre pir kurt e (divê herî kêm 8 tîpan be)"
+                    "password_too_short": "Pêborîn pir kurt e (divê herî kêm 8 tîp be)"
                 }
             }
         },
@@ -372,7 +372,7 @@
                 "append_poll": "Rapirsî tevlî bike",
                 "remove_poll": "Rapirsî rake",
                 "custom_emoji_picker": "Hilbijêrê emojî yên kesanekirî",
-                "enable_content_warning": "Hişyariya naverokê neçalak bike",
+                "enable_content_warning": "Hişyariya naverokê çalak bike",
                 "disable_content_warning": "Hişyariya naverokê neçalak bike",
                 "post_visibility_menu": "Menuya Xuyabûna Şandiyê"
             },
@@ -387,12 +387,12 @@
         },
         "profile": {
             "dashboard": {
-                "posts": "şandîyan",
+                "posts": "şandî",
                 "following": "dişopîne",
-                "followers": "şopîneran"
+                "followers": "şopîner"
             },
             "fields": {
-                "add_row": "Rêzê lê zêde bike",
+                "add_row": "Rêzê tevlî bike",
                 "placeholder": {
                     "label": "Nîşan",
                     "content": "Naverok"
