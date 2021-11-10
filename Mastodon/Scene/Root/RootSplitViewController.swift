@@ -142,7 +142,7 @@ extension RootSplitViewController {
 
     private func setupBackground(theme: Theme) {
         // this set column separator line color
-        view.backgroundColor = .opaqueSeparator
+        view.backgroundColor = theme.separator
     }
     
 }
