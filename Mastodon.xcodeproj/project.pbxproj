@@ -377,6 +377,7 @@
 		DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
+		DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
 		DB73BF3B2711885500781945 /* UserDefaults+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */; };
 		DB73BF4127118B6D00781945 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4027118B6D00781945 /* Instance.swift */; };
@@ -1195,6 +1196,7 @@
 		DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
+		DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBatchFetchViewModel.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Notification.swift"; sourceTree = "<group>"; };
 		DB73BF4027118B6D00781945 /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
@@ -2972,6 +2974,7 @@
 				DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */,
 				2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */,
 				5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */,
+				DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4233,6 +4236,7 @@
 				2D24E11D2626D8B100A59D4F /* NotificationStatusTableViewCell.swift in Sources */,
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
+				DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */,
 				2D61254D262547C200299647 /* APIService+Notification.swift in Sources */,
 				DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */,
 				DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */,

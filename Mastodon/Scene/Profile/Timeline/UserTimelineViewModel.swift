@@ -23,6 +23,7 @@ final class UserTimelineViewModel {
     let userID: CurrentValueSubject<String?, Never>
     let queryFilter: CurrentValueSubject<QueryFilter, Never>
     let statusFetchedResultsController: StatusFetchedResultsController
+    let listBatchFetchViewModel = ListBatchFetchViewModel()
     var cellFrameCache = NSCache<NSNumber, NSValue>()
 
     let isBlocking = CurrentValueSubject<Bool, Never>(false)
