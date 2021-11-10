@@ -7,12 +7,12 @@
 		<key>AppShared.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>43</integer>
+			<integer>51</integer>
 		</dict>
 		<key>CoreDataStack.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>44</integer>
+			<integer>50</integer>
 		</dict>
 		<key>Mastodon - ASDK.xcscheme_^#shared#^_</key>
 		<dict>
@@ -22,7 +22,7 @@
 		<key>Mastodon - RTL.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>17</integer>
 		</dict>
 		<key>Mastodon - Release.xcscheme_^#shared#^_</key>
 		<dict>
@@ -37,12 +37,12 @@
 		<key>Mastodon - ca.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>23</integer>
 		</dict>
 		<key>Mastodon - de.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>13</integer>
 		</dict>
 		<key>Mastodon - double length.xcscheme_^#shared#^_</key>
 		<dict>
@@ -72,12 +72,12 @@
 		<key>Mastodon - jp.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>19</integer>
 		</dict>
 		<key>Mastodon - nl.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>15</integer>
 		</dict>
 		<key>Mastodon - ru.xcscheme_^#shared#^_</key>
 		<dict>
@@ -92,7 +92,7 @@
 		<key>Mastodon - zh_Hans.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>21</integer>
 		</dict>
 		<key>Mastodon.xcscheme_^#shared#^_</key>
 		<dict>
@@ -102,7 +102,7 @@
 		<key>MastodonIntent.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>42</integer>
+			<integer>53</integer>
 		</dict>
 		<key>MastodonIntents.xcscheme_^#shared#^_</key>
 		<dict>
@@ -122,7 +122,7 @@
 		<key>ShareActionExtension.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>45</integer>
+			<integer>52</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
