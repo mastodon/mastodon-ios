@@ -145,7 +145,7 @@ extension SidebarViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             case .compose:
                 let item = SidebarListContentView.Item(
-                    title: L10n.Common.Controls.Actions.compose
+                    title: L10n.Common.Controls.Actions.compose,
                     image: UIImage(systemName: "square.and.pencil")!,
                     imageURL: nil
                 )
