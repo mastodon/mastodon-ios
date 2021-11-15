@@ -67,7 +67,7 @@
                 "done": "تمّ",
                 "confirm": "تأكيد",
                 "continue": "واصل",
-                "compose": "Compose",
+                "compose": "كِتابة",
                 "cancel": "إلغاء",
                 "discard": "تجاهل",
                 "try_again": "المُحاولة مرة أُخرى",
@@ -112,9 +112,9 @@
                     "open_author_profile": "افتح الملف التعريفي للمؤلف",
                     "open_reblogger_profile": "افتح الملف التعريفي لمشارِك المنشور",
                     "reply_status": "رد على المنشور",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_reblog": "تبديل إعادة تدوين منشور",
+                    "toggle_favorite": "تبديل المفضلة لِمنشور",
+                    "toggle_content_warning": "تبديل تحذير المُحتَوى",
                     "preview_image": "معاينة الصورة"
                 },
                 "segmented_control": {
@@ -128,7 +128,7 @@
                 "show_post": "اظهر المنشور",
                 "show_user_profile": "اظهر الملف التعريفي للمستخدم",
                 "content_warning": "تحذير عن المحتوى",
-                "media_content_warning": "Tap anywhere to reveal",
+                "media_content_warning": "انقر على أي مكان للكشف",
                 "poll": {
                     "vote": "صَوّت",
                     "closed": "انتهى"
@@ -180,12 +180,12 @@
                 },
                 "header": {
                     "no_status_found": "لا توجد هناك منشورات",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
+                    "blocking_warning": "لا يُمكنك الاطلاع على الملف الشخصي لهذا المُستخدِم\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
                     "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
                     "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
                     "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "suspended_warning": "تمَّ إيقاف هذا المُستخدِم.",
+                    "user_suspended_warning": "لقد أوقِفَ حِساب %s."
                 }
             }
         }
