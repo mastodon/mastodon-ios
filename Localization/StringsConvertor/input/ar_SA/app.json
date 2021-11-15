@@ -6,21 +6,21 @@
                 "please_try_again_later": "يُرجى المحاولة مرة أُخرى لاحقاً."
             },
             "sign_up_failure": {
-                "title": "فشل التسجيل"
+                "title": "إخفاق في التسجيل"
             },
             "server_error": {
                 "title": "خطأ في الخادم"
             },
             "vote_failure": {
-                "title": "فشل التصويت",
+                "title": "إخفاق في التصويت",
                 "poll_ended": "انتهى استطلاع الرأي"
             },
             "discard_post_content": {
-                "title": "تجاهل المسودة",
+                "title": "التخلص من المسودة",
                 "message": "أكِّد للتخلص مِن مُحتوى مَنشور مؤلَّف."
             },
             "publish_post_failure": {
-                "title": "أخفقت عملية النشر",
+                "title": "إخفاق في عمليَّة النشر",
                 "message": "فَشَلَ نَشر المَنشور.\nيُرجى التحقق من اتصالك بالإنترنت.",
                 "attachments_message": {
                     "video_attach_with_photo": "لا يُمكن إرفاق مقطع مرئي إلى مَنشور يحتوي بالفعل على صُوَر.",
@@ -33,19 +33,19 @@
             },
             "sign_out": {
                 "title": "تسجيل الخروج",
-                "message": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
+                "message": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
                 "confirm": "تسجيل الخروج"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "حظر النطاق"
+                "title": "هل أنتَ مُتأكِّدٌ حقًا مِن رغبتك في حظر %s بالكامل؟ في معظم الحالات، يكون مِنَ الكافي والمُفَضَّل استهداف عدد محدود للحظر أو الكتم. لن ترى محتوى من هذا النطاق وسوف يتم إزالة جميع متابعيك المتواجدين فيه.",
+                "block_entire_domain": "حظر النِطاق"
             },
             "save_photo_failure": {
-                "title": "فشل حفظ الصورة",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "إخفاق في حفظ الصورة",
+                "message": "يُرجى إتاحة إذن الوصول إلى مكتبة الصور لحفظ الصورة."
             },
             "delete_post": {
-                "title": "هل أنت متأكد من أنك تريد حذف هذا المنشور؟",
+                "title": "هل أنت متأكد من رغبتك في حذف هذا المنشور؟",
                 "delete": "احذف"
             },
             "clean_cache": {
@@ -61,7 +61,7 @@
                 "open": "افتح",
                 "add": "إضافة",
                 "remove": "احذف",
-                "edit": "تعديل",
+                "edit": "تحرير",
                 "save": "حفظ",
                 "ok": "حسنًا",
                 "done": "تمّ",
@@ -71,21 +71,21 @@
                 "cancel": "إلغاء",
                 "discard": "تجاهل",
                 "try_again": "المُحاولة مرة أُخرى",
-                "take_photo": "التقط صورة",
+                "take_photo": "التقاط صورة",
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيل الدخول",
                 "sign_up": "إنشاء حِساب",
                 "see_more": "عرض المزيد",
-                "preview": "معاينة",
-                "share": "شارك",
-                "share_user": "شارك %s",
-                "share_post": "شارك المنشور",
-                "open_in_safari": "افتحه في سفاري",
+                "preview": "مُعاينة",
+                "share": "المُشارك",
+                "share_user": "مُشاركة %s",
+                "share_post": "مشارك المنشور",
+                "open_in_safari": "الفتح في Safari",
                 "find_people": "ابحث عن أشخاص لمتابعتهم",
                 "manually_search": "البحث يدوياً بدلاً من ذلك",
                 "skip": "تخطي",
-                "reply": "رد",
+                "reply": "الرَد",
                 "report_user": "ابلغ عن %s",
                 "block_domain": "حظر %s",
                 "unblock_domain": "إلغاء حظر %s",
@@ -130,7 +130,7 @@
                 "content_warning": "تحذير عن المحتوى",
                 "media_content_warning": "انقر على أي مكان للكشف",
                 "poll": {
-                    "vote": "صَوّت",
+                    "vote": "صَوِّت",
                     "closed": "انتهى"
                 },
                 "actions": {
@@ -181,9 +181,9 @@
                 "header": {
                     "no_status_found": "لا توجد هناك منشورات",
                     "blocking_warning": "لا يُمكنك الاطلاع على الملف الشخصي لهذا المُستخدِم\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
+                    "user_blocking_warning": "لا يُمكنك الاطلاع على ملف %s الشخصي\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
+                    "blocked_warning": "لا يُمكِنُكَ عَرض الملف الشخصي لهذا المُستخدِم\nحتَّى يَرفَعَ الحَظر عَنك.",
+                    "user_blocked_warning": "لا يُمكِنُكَ عَرض ملف %s الشخصي\nحتَّى يَرفَعَ الحَظر عَنك.",
                     "suspended_warning": "تمَّ إيقاف هذا المُستخدِم.",
                     "user_suspended_warning": "لقد أوقِفَ حِساب %s."
                 }
@@ -450,7 +450,7 @@
                     "no_results": "ليس هناك أية نتيجة"
                 },
                 "recent_search": "عمليات البحث الأخيرة",
-                "clear": "امسح"
+                "clear": "مَحو"
             }
         },
         "favorite": {
@@ -519,7 +519,7 @@
                 }
             },
             "footer": {
-                "mastodon_description": "ماستدون برنامج مفتوح المصدر. يمكنك المساهمة، أو الإبلاغ عن تقارير الأخطاء، على غيت هب %s (%s)"
+                "mastodon_description": "ماستدون برنامج مفتوح المصدر. يمكنك المساهمة، أو الإبلاغ عن تقارير الأخطاء على GitHub في %s (%s)"
             },
             "keyboard": {
                 "close_settings_window": "إغلاق نافذة الإعدادات"
@@ -529,15 +529,15 @@
             "title": "ابلغ عن %s",
             "step1": "الخطوة 1 من 2",
             "step2": "الخطوة 2 من 2",
-            "content1": "هل ترغب في إضافة أي مشاركات أُخرى إلى التقرير؟",
-            "content2": "هل هناك أي شيء يجب أن يعرفه المُراقبين حول هذا التقرير؟",
-            "send": "ارسل الشكوى",
+            "content1": "هل ترغب في إضافة أي مشاركات أُخرى إلى الشكوى؟",
+            "content2": "هل هناك أي شيء يجب أن يعرفه المُراقبين حول هذه الشكوى؟",
+            "send": "إرسال الشكوى",
             "skip_to_send": "إرسال بدون تعليق",
             "text_placeholder": "اكتب أو الصق تعليقات إضافيَّة"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "إغلاق المعاينة",
+                "close_preview": "إغلاق المُعايَنَة",
                 "show_next": "إظهار التالي",
                 "show_previous": "إظهار السابق"
             }
