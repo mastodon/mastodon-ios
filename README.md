@@ -84,4 +84,5 @@ The app is compatible with [toot-relay](https://github.com/DagAgren/toot-relay) 
 - [UITextView-Placeholder](https://github.com/devxoul/UITextView-Placeholder)
 
 ## License
-This project is released under the [GPL-3 License](./LICENSE).
+
+This project is released under the [GPL-3 License](./LICENSE). It is also dual-licensed to Apple for the purposes of publishing the app on the App Store. For this reason, any contributors are required to sign a Contributor License Agreement.
