@@ -45,6 +45,8 @@ extension NotificationSection {
                     attribute: attribute
                 )
                 cell.delegate = delegate
+                cell.isAccessibilityElement = true
+                NotificationSection.configureStatusAccessibilityLabel(cell: cell)
                 return cell
                 
             case .notificationStatus(objectID: let objectID, attribute: let attribute):
@@ -215,4 +217,30 @@ extension NotificationSection {
             cell.containerStackViewBottomLayoutConstraint.constant = 5  // 5pt margin when no status view
         }
     }
+    
+    static func configureStatusAccessibilityLabel(cell: NotificationStatusTableViewCell) {
+        // FIXME:
+        cell.accessibilityLabel = {
+            var accessibilityViews: [UIView?] = []
+            accessibilityViews.append(contentsOf: [
+                cell.titleLabel,
+                cell.timestampLabel,
+                cell.statusView
+            ])
+            if !cell.statusContainerView.isHidden {
+                if !cell.statusView.headerContainerView.isHidden {
+                    accessibilityViews.append(cell.statusView.headerInfoLabel)
+                }
+                accessibilityViews.append(contentsOf: [
+                    cell.statusView.nameMetaLabel,
+                    cell.statusView.dateLabel,
+                    cell.statusView.contentMetaText.textView,
+                ])
+            }
+            return accessibilityViews
+                .compactMap { $0?.accessibilityLabel }
+                .joined(separator: " ")
+        }()
+    }
 }
+

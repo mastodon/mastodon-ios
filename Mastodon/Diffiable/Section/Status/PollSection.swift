@@ -37,6 +37,15 @@ extension PollSection {
                 managedObjectContext.performAndWait {
                     let option = managedObjectContext.object(with: objectID) as! PollOption
                     PollSection.configure(cell: cell, pollOption: option, pollItemAttribute: attribute)
+                    
+                    cell.isAccessibilityElement = true
+                    cell.accessibilityLabel = {
+                        var labels: [String] = [option.title]
+                        if let percentage = cell.pollOptionView.optionPercentageLabel.text {
+                            labels.append(percentage)
+                        }
+                        return labels.joined(separator: ",")
+                    }()
                 }
                 return cell
             }
