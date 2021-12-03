@@ -13,13 +13,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld unread notification</string>
+        <string>لا إشعار غير مقروء</string>
         <key>one</key>
         <string>إشعار واحِد غير مقروء</string>
         <key>two</key>
         <string>إشعاران غير مقروءان</string>
         <key>few</key>
-        <string>%ld unread notification</string>
+        <string>%ld إشعارات غير مقروءة</string>
         <key>many</key>
         <string>%ld إشعارًا غيرَ مقروء</string>
         <key>other</key>
@@ -277,7 +277,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld followers</string>
+        <string>لا مُتابِع</string>
         <key>one</key>
         <string>مُتابِعٌ واحد</string>
         <key>two</key>
