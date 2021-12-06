@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "مَحو ذاكرة التخزين المؤقت",
-                "message": "تمَّ مَحو ذاكرة التخزين المؤقت %s بنجاح."
+                "message": "تمَّ مَحو %s مِن ذاكرة التخزين المؤقت بنجاح."
             }
         },
         "controls": {
@@ -58,9 +58,9 @@
                 "back": "العودة",
                 "next": "التالي",
                 "previous": "السابق",
-                "open": "افتح",
+                "open": "فتح",
                 "add": "إضافة",
-                "remove": "احذف",
+                "remove": "حذف",
                 "edit": "تحرير",
                 "save": "حفظ",
                 "ok": "حسنًا",
@@ -69,7 +69,7 @@
                 "continue": "واصل",
                 "compose": "تأليف",
                 "cancel": "إلغاء",
-                "discard": "تجاهل",
+                "discard": "تجاهُل",
                 "try_again": "المُحاولة مرة أُخرى",
                 "take_photo": "التقاط صورة",
                 "save_photo": "حفظ الصورة",
@@ -82,19 +82,19 @@
                 "share_user": "مُشاركة %s",
                 "share_post": "مشارك المنشور",
                 "open_in_safari": "الفتح في Safari",
-                "find_people": "ابحث عن أشخاص لمتابعتهم",
-                "manually_search": "البحث يدوياً بدلاً من ذلك",
+                "find_people": "ابحث عن أشخاص لِمُتابعتهم",
+                "manually_search": "البحث يدويًا بدلًا من ذلك",
                 "skip": "تخطي",
-                "reply": "الرَد",
-                "report_user": "ابلغ عن %s",
+                "reply": "الرَّد",
+                "report_user": "الإبلاغ عن %s",
                 "block_domain": "حظر %s",
-                "unblock_domain": "إلغاء حظر %s",
+                "unblock_domain": "رفع الحظر عن %s",
                 "settings": "الإعدادات",
-                "delete": "احذف"
+                "delete": "حذف"
             },
             "tabs": {
-                "home": "الخيط الرئيسي",
-                "search": "بحث",
+                "home": "الرَّئِيسَة",
+                "search": "البَحث",
                 "notification": "الإشعارات",
                 "profile": "الملف التعريفي"
             },
@@ -102,17 +102,17 @@
                 "common": {
                     "switch_to_tab": "التبديل إلى %s",
                     "compose_new_post": "تأليف منشور جديد",
-                    "show_favorites": "إظهار المفضلة",
-                    "open_settings": "أفتح الإعدادات"
+                    "show_favorites": "إظهار المُفضَّلة",
+                    "open_settings": "فتح الإعدادات"
                 },
                 "timeline": {
                     "previous_status": "المنشور السابق",
                     "next_status": "المنشور التالي",
-                    "open_status": "افتح المنشور",
-                    "open_author_profile": "افتح الملف التعريفي للمؤلف",
-                    "open_reblogger_profile": "افتح الملف التعريفي لمشارِك المنشور",
-                    "reply_status": "رد على المنشور",
-                    "toggle_reblog": "تبديل إعادة تدوين منشور",
+                    "open_status": "فتح المنشور",
+                    "open_author_profile": "فتح الملف التعريفي للمؤلف",
+                    "open_reblogger_profile": "فتح الملف التعريفي لمُعيد تدوين المنشور",
+                    "reply_status": "الرَّد على مَنشور",
+                    "toggle_reblog": "تبديل إعادة تدوين مَنشور",
                     "toggle_favorite": "تبديل المفضلة لِمنشور",
                     "toggle_content_warning": "تبديل تحذير المُحتَوى",
                     "preview_image": "معاينة الصورة"
@@ -124,64 +124,64 @@
             },
             "status": {
                 "user_reblogged": "أعادَ %s تدوينها",
-                "user_replied_to": "رد على %s",
-                "show_post": "اظهر المنشور",
-                "show_user_profile": "اظهر الملف التعريفي للمستخدم",
-                "content_warning": "تحذير عن المحتوى",
-                "media_content_warning": "انقر على أي مكان للكشف",
+                "user_replied_to": "رَدًا على %s",
+                "show_post": "إظهار منشور",
+                "show_user_profile": "إظهار الملف التعريفي للمُستخدِم",
+                "content_warning": "تحذير المُحتوى",
+                "media_content_warning": "انقر للكشف",
                 "poll": {
                     "vote": "صَوِّت",
                     "closed": "انتهى"
                 },
                 "actions": {
-                    "reply": "رد",
+                    "reply": "الرَّد",
                     "reblog": "إعادة النشر",
-                    "unreblog": "تراجع عن إعادة النشر",
-                    "favorite": "إضافة إلى المفضلة",
-                    "unfavorite": "إزالة من المفضلة",
+                    "unreblog": "التراجُع عن إعادة النشر",
+                    "favorite": "التفضيل",
+                    "unfavorite": "إزالة التفضيل",
                     "menu": "القائمة"
                 },
                 "tag": {
                     "url": "عنوان URL",
-                    "mention": "أشر إلى",
-                    "link": "الرابط",
-                    "hashtag": "الوسم",
-                    "email": "البريد الإلكتروني",
-                    "emoji": "إيموجي"
+                    "mention": "إشارة",
+                    "link": "رابط",
+                    "hashtag": "وسم",
+                    "email": "بريد إلكتروني",
+                    "emoji": "رمز تعبيري"
                 }
             },
             "friendship": {
-                "follow": "اتبع",
+                "follow": "المُتابعة",
                 "following": "مُتابَع",
                 "request": "إرسال طَلَب",
                 "pending": "قيد المُراجعة",
                 "block": "حظر",
                 "block_user": "حظر %s",
                 "block_domain": "حظر %s",
-                "unblock": "إلغاء الحَظر",
-                "unblock_user": "إلغاء حظر %s",
+                "unblock": "رفع الحَظر",
+                "unblock_user": "رفع الحَظر عن %s",
                 "blocked": "محظور",
-                "mute": "أكتم",
-                "mute_user": "أكتم %s",
-                "unmute": "إلغاء الكتم",
-                "unmute_user": "إلغاء كتم %s",
+                "mute": "كَتم",
+                "mute_user": "كَتم %s",
+                "unmute": "رفع الكتم",
+                "unmute_user": "رفع الكتم عن %s",
                 "muted": "مكتوم",
                 "edit_info": "تعديل المعلومات"
             },
             "timeline": {
                 "filtered": "مُصفَّى",
                 "timestamp": {
-                    "now": "الأن"
+                    "now": "الآن"
                 },
                 "loader": {
-                    "load_missing_posts": "تحميل المنشورات المَفقودة",
-                    "loading_missing_posts": "تحميل المزيد من المنشورات...",
-                    "show_more_replies": "إظهار المزيد من الردود"
+                    "load_missing_posts": "تحميل المَنشورات المَفقودَة",
+                    "loading_missing_posts": "يَجري تحميل المَنشورات المَفقودَة...",
+                    "show_more_replies": "إظهار مَزيد مِنَ الرُّدود"
                 },
                 "header": {
-                    "no_status_found": "لا توجد هناك منشورات",
-                    "blocking_warning": "لا يُمكنك الاطلاع على الملف الشخصي لهذا المُستخدِم\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
-                    "user_blocking_warning": "لا يُمكنك الاطلاع على ملف %s الشخصي\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
+                    "no_status_found": "لَم يُعْثَر على مَنشورات",
+                    "blocking_warning": "لا يُمكِنُكَ الاِطلاع على الملف التَعريفي لهذا المُستخدِم\nحتَّى تَرفعَ الحَظر عنه.\nملفُّكَ التَعريفي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
+                    "user_blocking_warning": "لا يُمكنك الاطلاع على ملف %s التَعريفي\nحتَّى تَرفعَ الحَظر عنه.\nملفُّكَ التَعريفي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
                     "blocked_warning": "لا يُمكِنُكَ عَرض الملف الشخصي لهذا المُستخدِم\nحتَّى يَرفَعَ الحَظر عَنك.",
                     "user_blocked_warning": "لا يُمكِنُكَ عَرض ملف %s الشخصي\nحتَّى يَرفَعَ الحَظر عَنك.",
                     "suspended_warning": "تمَّ إيقاف هذا المُستخدِم.",
