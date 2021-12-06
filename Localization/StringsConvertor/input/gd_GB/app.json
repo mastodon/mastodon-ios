@@ -67,6 +67,7 @@
                 "done": "Deiseil",
                 "confirm": "Dearbh",
                 "continue": "Lean air adhart",
+                "compose": "Sgrìobh",
                 "cancel": "Sguir dheth",
                 "discard": "Tilg air falbh",
                 "try_again": "Feuch ris a-rithist",
@@ -413,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "Cha dèid luchd-leantainn o fhrithealaichean eile a shealltainn."
+        },
+        "following": {
+            "footer": "Cha dèid cò air a leanas tu air frithealaichean eile a shealltainn."
+        },
         "search": {
             "title": "Lorg",
             "search_bar": {
@@ -534,6 +541,16 @@
                 "show_next": "Air adhart",
                 "show_previous": "Air ais"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "A’ phròifil air a taghadh: %s. Thoir gnogag dhùbailte is cùm sìos a ghearradh leum gu cunntas eile",
+            "dismiss_account_switcher": "Leig seachad taghadh a’ chunntais",
+            "add_account": "Cuir cunntas ris"
+        },
+        "wizard": {
+            "new_in_mastodon": "Na tha ùr ann am Mastodon",
+            "multiple_account_switch_intro_description": "Geàrr leum eadar iomadh cunntas le cumail sìos putan na pròifil.",
+            "accessibility_hint": "Thoir gnogag dhùbailte a’ leigeil seachad an draoidh seo"
         }
     }
 }

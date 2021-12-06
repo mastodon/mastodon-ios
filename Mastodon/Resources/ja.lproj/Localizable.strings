@@ -28,6 +28,7 @@
 "Common.Controls.Actions.Back" = "戻る";
 "Common.Controls.Actions.BlockDomain" = "%@をブロック";
 "Common.Controls.Actions.Cancel" = "キャンセル";
+"Common.Controls.Actions.Compose" = "Compose";
 "Common.Controls.Actions.Confirm" = "確認";
 "Common.Controls.Actions.Continue" = "続ける";
 "Common.Controls.Actions.CopyPhoto" = "写真をコピー";
@@ -129,6 +130,9 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "読込中...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "リプライをもっとみる";
 "Common.Controls.Timeline.Timestamp.Now" = "今";
+"Scene.AccountList.AddAccount" = "アカウントを追加";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "アタッチメントの追加";
 "Scene.Compose.Accessibility.AppendPoll" = "投票を追加";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "カスタム絵文字ピッカー";
@@ -181,6 +185,8 @@
 "Scene.ConfirmEmail.Subtitle" = "先程 %@ にメールを送信しました。リンクをタップしてアカウントを確認してください。";
 "Scene.ConfirmEmail.Title" = "さいごにもうひとつ。";
 "Scene.Favorite.Title" = "お気に入り";
+"Scene.Follower.Footer" = "Followers from other servers are not displayed.";
+"Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "新しい投稿を見る";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "オフライン";
 "Scene.HomeTimeline.NavigationBarState.Published" = "投稿しました!";
@@ -329,5 +335,7 @@
 "Scene.SuggestionAccount.Title" = "フォローする人を探す";
 "Scene.Thread.BackTitle" = "投稿";
 "Scene.Thread.Title" = "%@の投稿";
-"Scene.Welcome.Slogan" = "Social networking
-back in your hands.";
+"Scene.Welcome.Slogan" = "ソーシャルネットワーキングを、あなたの手の中に.";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "プロフィールボタンを押して複数のアカウントを切り替えます。";
+"Scene.Wizard.NewInMastodon" = "Mastodon の新機能";

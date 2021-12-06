@@ -52,17 +52,17 @@ public final class Status: NSManagedObject {
     // one-to-one relationship
     @NSManaged public private(set) var pinnedBy: MastodonUser?
     @NSManaged public private(set) var poll: Poll?
-    @NSManaged public private(set) var searchHistory: SearchHistory?
         
     // one-to-many relationship
     @NSManaged public private(set) var reblogFrom: Set<Status>?
     @NSManaged public private(set) var mentions: Set<Mention>?
-    @NSManaged public private(set) var tags: Set<Tag>?
     @NSManaged public private(set) var homeTimelineIndexes: Set<HomeTimelineIndex>?
     @NSManaged public private(set) var mediaAttachments: Set<Attachment>?
     @NSManaged public private(set) var replyFrom: Set<Status>?
     
     @NSManaged public private(set) var inNotifications: Set<MastodonNotification>?
+    
+    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
     
     @NSManaged public private(set) var updatedAt: Date
     @NSManaged public private(set) var deletedAt: Date?
@@ -81,7 +81,6 @@ extension Status {
         replyTo: Status?,
         poll: Poll?,
         mentions: [Mention]?,
-        tags: [Tag]?,
         mediaAttachments: [Attachment]?,
         favouritedBy: MastodonUser?,
         rebloggedBy: MastodonUser?,
@@ -125,9 +124,6 @@ extension Status {
         
         if let mentions = mentions {
             status.mutableSetValue(forKey: #keyPath(Status.mentions)).addObjects(from: mentions)
-        }
-        if let tags = tags {
-            status.mutableSetValue(forKey: #keyPath(Status.tags)).addObjects(from: tags)
         }
         if let mediaAttachments = mediaAttachments {
             status.mutableSetValue(forKey: #keyPath(Status.mediaAttachments)).addObjects(from: mediaAttachments)

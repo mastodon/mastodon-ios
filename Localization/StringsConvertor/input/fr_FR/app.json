@@ -67,6 +67,7 @@
                 "done": "Terminé",
                 "confirm": "Confirmer",
                 "continue": "Continuer",
+                "compose": "Compose",
                 "cancel": "Annuler",
                 "discard": "Abandonner",
                 "try_again": "Réessayer",
@@ -105,10 +106,10 @@
                     "open_settings": "Ouvrir les paramètres"
                 },
                 "timeline": {
-                    "previous_status": "Article précédent",
-                    "next_status": "Article suivant",
+                    "previous_status": "Publication précédente",
+                    "next_status": "Publication suivante",
                     "open_status": "Ouvrir la publication",
-                    "open_author_profile": "Ouvrir le profil de l'auteur",
+                    "open_author_profile": "Ouvrir le profil de l’auteur·rice",
                     "open_reblogger_profile": "Ouvrir le profil du rebloggeur",
                     "reply_status": "Répondre à la publication",
                     "toggle_reblog": "Basculer le reblogue lors de la publication",
@@ -122,10 +123,10 @@
                 }
             },
             "status": {
-                "user_reblogged": "%s à reblogué",
+                "user_reblogged": "%s a reblogué",
                 "user_replied_to": "À répondu à %s",
                 "show_post": "Montrer la publication",
-                "show_user_profile": "Montrer le profil de l’utilisateur",
+                "show_user_profile": "Montrer le profil de l’utilisateur·rice",
                 "content_warning": "Avertissement de contenu",
                 "media_content_warning": "Tapotez n’importe où pour révéler la publication",
                 "poll": {
@@ -180,9 +181,9 @@
                 "header": {
                     "no_status_found": "Aucune publication trouvée",
                     "blocking_warning": "Vous ne pouvez pas voir le profil de cet utilisateur\n tant que vous ne l’avez pas débloqué\nVotre profil ressemble à ça pour lui.",
-                    "user_blocking_warning": "Vous ne pouvez pas voir le profil de %s tant que vous ne l’avez pas débloqué\nVotre profil ressemble à ça pour lui.",
+                    "user_blocking_warning": "Vous ne pouvez pas voir le profil de %s\ntant que vous ne l’avez pas débloqué\nVotre profil ressemble à ça pour lui.",
                     "blocked_warning": "Vous ne pouvez pas voir le profil de cet utilisateur\n tant qu'il ne vous aura pas débloqué.",
-                    "user_blocked_warning": "Vous ne pouvez pas voir le profil de %s\n tant qu'il ne vous aura pas débloqué.",
+                    "user_blocked_warning": "Vous ne pouvez pas voir le profil de %s\ntant qu’il ne vous aura pas débloqué.",
                     "suspended_warning": "Cet utilisateur a été suspendu.",
                     "user_suspended_warning": "Le compte de %s à été suspendu."
                 }
@@ -217,7 +218,7 @@
             },
             "label": {
                 "language": "LANGUE",
-                "users": "UTILISATEURS",
+                "users": "UTILISATEUR·RICE·S",
                 "category": "CATÉGORIE"
             },
             "input": {
@@ -255,7 +256,7 @@
             },
             "error": {
                 "item": {
-                    "username": "Nom d'utilisateur",
+                    "username": "Nom d’utilisateur",
                     "email": "Courriel",
                     "password": "Mot de passe",
                     "agreement": "Accord",
@@ -370,7 +371,7 @@
                 "append_attachment": "Joindre un document",
                 "append_poll": "Ajouter un Sondage",
                 "remove_poll": "Retirer le sondage",
-                "custom_emoji_picker": "Sélecteur d’émojis personnalisé",
+                "custom_emoji_picker": "Sélecteur d’émojis personnalisés",
                 "enable_content_warning": "Basculer l’avertissement de contenu",
                 "disable_content_warning": "Désactiver l'avertissement de contenu",
                 "post_visibility_menu": "Menu de Visibilité de la publication"
@@ -405,13 +406,19 @@
             "relationship_action_alert": {
                 "confirm_unmute_user": {
                     "title": "Ne plus mettre en sourdine ce compte",
-                    "message": "Êtes-vous sûr de vouloir mettre en sourdine %s"
+                    "message": "Êtes-vous sûr de vouloir désactiver la sourdine de %s"
                 },
                 "confirm_unblock_usre": {
                     "title": "Débloquer le compte",
                     "message": "Confirmer le déblocage de %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Les abonné·e·s issus des autres serveurs ne sont pas affiché·e·s."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Rechercher",
@@ -454,12 +461,12 @@
                 "Everything": "Tout",
                 "Mentions": "Mentions"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_followed_you": "%s s’est abonné à vous",
+            "user_favorited your post": "%s a mis votre pouet en favori",
+            "user_reblogged_your_post": "%s a partagé votre publication",
+            "user_mentioned_you": "%s vous a mentionné",
+            "user_requested_to_follow_you": "%s a demandé à vous suivre",
+            "user_your_poll_has_ended": "%s votre sondage est terminé",
             "keyobard": {
                 "show_everything": "Tout Afficher",
                 "show_mentions": "Afficher les mentions"
@@ -496,7 +503,7 @@
                     "title": "Préférences",
                     "true_black_dark_mode": "Vrai mode sombre",
                     "disable_avatar_animation": "Désactiver les avatars animés",
-                    "disable_emoji_animation": "Désactiver les émoticônes animées",
+                    "disable_emoji_animation": "Désactiver les émojis animées",
                     "using_default_browser": "Utiliser le navigateur par défaut pour ouvrir les liens"
                 },
                 "boring_zone": {
@@ -534,6 +541,16 @@
                 "show_next": "Afficher le suivant",
                 "show_previous": "Afficher le précédent"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Ajouter un compte"
+        },
+        "wizard": {
+            "new_in_mastodon": "Nouveau dans Mastodon",
+            "multiple_account_switch_intro_description": "Basculez entre plusieurs comptes en appuyant de maniere prolongée sur le bouton profil.",
+            "accessibility_hint": "Tapotez deux fois pour fermer cet assistant"
         }
     }
 }

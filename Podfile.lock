@@ -1,7 +1,7 @@
 PODS:
   - DateToolsSwift (5.0.0)
   - FLEX (4.4.1)
-  - Kanna (5.2.4)
+  - Kanna (5.2.7)
   - Keys (1.0.1)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
@@ -69,7 +69,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   DateToolsSwift: 4207ada6ad615d8dc076323d27037c94916dbfa6
   FLEX: 7ca2c8cd3a435ff501ff6d2f2141e9bdc934eaab
-  Kanna: b9d00d7c11428308c7f95e1f1f84b8205f567a8f
+  Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   Keys: a576f4c9c1c641ca913a959a9c62ed3f215a8de9
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
@@ -80,4 +80,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 4db0bdf969729c5758bd923e33d9e097cb892086
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2

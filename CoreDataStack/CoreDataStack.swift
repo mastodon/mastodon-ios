@@ -13,6 +13,8 @@ import AppShared
 
 public final class CoreDataStack {
     
+    static let logger = Logger(subsystem: "CoreDataStack", category: "DB")
+    
     private(set) var storeDescriptions: [NSPersistentStoreDescription]
     public let didFinishLoad = CurrentValueSubject<Bool, Never>(false)
     
@@ -90,8 +92,22 @@ public final class CoreDataStack {
             container.viewContext.automaticallyMergesChangesFromParent = true
             
             os_log("%{public}s[%{public}ld], %{public}s: %s", ((#file as NSString).lastPathComponent), #line, #function, storeDescription.debugDescription)
-
+            
             callback()
+            
+            #if DEBUG
+            do {
+                let storeURL = URL.storeURL(for: AppName.groupID, databaseName: "shared")
+                let data = try Data(contentsOf: storeURL)
+                let formatter = ByteCountFormatter()
+                formatter.allowedUnits = [.useMB]
+                formatter.countStyle = .file
+                let size = formatter.string(fromByteCount: Int64(data.count))
+                CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Database size: \(size)")
+            } catch {
+                CoreDataStack.logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): Cannot get database size")
+            }
+            #endif
         })
     }
     

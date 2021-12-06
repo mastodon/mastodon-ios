@@ -67,6 +67,7 @@
                 "done": "Hecho",
                 "confirm": "Confirmar",
                 "continue": "Continuar",
+                "compose": "Redactar",
                 "cancel": "Cancelar",
                 "discard": "Descartar",
                 "try_again": "Inténtalo de nuevo",
@@ -413,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "No se muestran los seguidores de otros servidores."
+        },
+        "following": {
+            "footer": "No se muestran los seguidos de otros servidores."
+        },
         "search": {
             "title": "Buscar",
             "search_bar": {
@@ -534,6 +541,16 @@
                 "show_next": "Mostrar Siguiente",
                 "show_previous": "Mostrar Anterior"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Add Account"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

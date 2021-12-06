@@ -61,6 +61,8 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
         return scrollview
     }()
     
+    let stackView = UIStackView()
+    
     let largeTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
@@ -287,7 +289,11 @@ extension MastodonRegisterViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
-        defer { setupNavigationBarBackgroundView() }
+        configureTitleLabel()
+        defer {
+            setupNavigationBarBackgroundView()
+            configureFormLayout()
+        }
         
         avatarButton.menu = createMediaContextMenu()
         avatarButton.showsMenuAsPrimaryAction = true
@@ -306,8 +312,7 @@ extension MastodonRegisterViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
         
-        // stackview
-        let stackView = UIStackView()
+        // stackView
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 40
@@ -315,17 +320,24 @@ extension MastodonRegisterViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(avatarView)
-        stackView.addArrangedSubview(usernameTextField)
-        stackView.addArrangedSubview(displayNameTextField)
-        stackView.addArrangedSubview(emailTextField)
-        stackView.addArrangedSubview(passwordTextField)
-        stackView.addArrangedSubview(passwordCheckLabel)
+
+        let formTableStackView = UIStackView()
+        stackView.addArrangedSubview(formTableStackView)
+        formTableStackView.axis = .vertical
+        formTableStackView.distribution = .fill
+        formTableStackView.spacing = 40
+        
+        formTableStackView.addArrangedSubview(usernameTextField)
+        formTableStackView.addArrangedSubview(displayNameTextField)
+        formTableStackView.addArrangedSubview(emailTextField)
+        formTableStackView.addArrangedSubview(passwordTextField)
+        formTableStackView.addArrangedSubview(passwordCheckLabel)
         if viewModel.approvalRequired {
-            stackView.addArrangedSubview(reasonTextField)
+            formTableStackView.addArrangedSubview(reasonTextField)
         }
         
         usernameErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addSubview(usernameErrorPromptLabel)
+        formTableStackView.addSubview(usernameErrorPromptLabel)
         NSLayoutConstraint.activate([
             usernameErrorPromptLabel.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 6),
             usernameErrorPromptLabel.leadingAnchor.constraint(equalTo: usernameTextField.leadingAnchor),
@@ -333,7 +345,7 @@ extension MastodonRegisterViewController {
         ])
         
         emailErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addSubview(emailErrorPromptLabel)
+        formTableStackView.addSubview(emailErrorPromptLabel)
         NSLayoutConstraint.activate([
             emailErrorPromptLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 6),
             emailErrorPromptLabel.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
@@ -341,7 +353,7 @@ extension MastodonRegisterViewController {
         ])
         
         passwordErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addSubview(passwordErrorPromptLabel)
+        formTableStackView.addSubview(passwordErrorPromptLabel)
         NSLayoutConstraint.activate([
             passwordErrorPromptLabel.topAnchor.constraint(equalTo: passwordCheckLabel.bottomAnchor, constant: 2),
             passwordErrorPromptLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
@@ -358,7 +370,7 @@ extension MastodonRegisterViewController {
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
         ])
 
-        // stackview
+        // stackView
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -373,12 +385,14 @@ extension MastodonRegisterViewController {
         avatarView.translatesAutoresizingMaskIntoConstraints = false
         avatarView.addSubview(avatarButton)
         NSLayoutConstraint.activate([
-            avatarView.heightAnchor.constraint(equalToConstant: 90).priority(.defaultHigh),
+            avatarView.heightAnchor.constraint(equalToConstant: 92).priority(.required - 1),
         ])
         avatarButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            avatarButton.heightAnchor.constraint(equalToConstant: 92).priority(.defaultHigh),
-            avatarButton.widthAnchor.constraint(equalToConstant: 92).priority(.defaultHigh),
+            avatarButton.heightAnchor.constraint(equalToConstant: 92).priority(.required - 1),
+            avatarButton.widthAnchor.constraint(equalToConstant: 92).priority(.required - 1),
+            avatarButton.leadingAnchor.constraint(greaterThanOrEqualTo: avatarView.leadingAnchor).priority(.required - 1),
+            avatarView.trailingAnchor.constraint(greaterThanOrEqualTo: avatarButton.trailingAnchor).priority(.required - 1),
             avatarButton.centerXAnchor.constraint(equalTo: avatarView.centerXAnchor),
             avatarButton.centerYAnchor.constraint(equalTo: avatarView.centerYAnchor),
         ])
@@ -392,15 +406,15 @@ extension MastodonRegisterViewController {
 
         // textfield
         NSLayoutConstraint.activate([
-            usernameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
-            displayNameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
-            emailTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
+            usernameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
+            displayNameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
+            emailTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
         ])
 
         // password
-        stackView.setCustomSpacing(6, after: passwordTextField)
-        stackView.setCustomSpacing(32, after: passwordCheckLabel)
+        formTableStackView.setCustomSpacing(6, after: passwordTextField)
+        formTableStackView.setCustomSpacing(32, after: passwordCheckLabel)
         
         // return
         if viewModel.approvalRequired {
@@ -410,16 +424,22 @@ extension MastodonRegisterViewController {
         }
         
         // button
-        stackView.addArrangedSubview(buttonContainer)
+        formTableStackView.addArrangedSubview(buttonContainer)
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         buttonContainer.addSubview(signUpButton)
         NSLayoutConstraint.activate([
             signUpButton.topAnchor.constraint(equalTo: buttonContainer.topAnchor),
-            signUpButton.leadingAnchor.constraint(equalTo: buttonContainer.leadingAnchor, constant: MastodonRegisterViewController.actionButtonMargin),
-            buttonContainer.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor, constant: MastodonRegisterViewController.actionButtonMargin),
+            signUpButton.leadingAnchor.constraint(equalTo: buttonContainer.leadingAnchor),
+            buttonContainer.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
             buttonContainer.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
-            signUpButton.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.defaultHigh),
+            signUpButton.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.required - 1),
+            buttonContainer.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.required - 1),
         ])
+        signUpButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        signUpButton.setContentHuggingPriority(.defaultLow, for: .vertical)
+        signUpButton.setContentCompressionResistancePriority(.required - 1, for: .vertical)
+        signUpButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
+        buttonContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
         
         Publishers.CombineLatest(
             KeyboardResponderService.shared.state.eraseToAnyPublisher(),
@@ -645,6 +665,12 @@ extension MastodonRegisterViewController {
         plusIconImageView.layer.masksToBounds = true
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureTitleLabel()
+        configureFormLayout()
+    }
 }
 
 extension MastodonRegisterViewController: UITextFieldDelegate {
@@ -714,7 +740,7 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         textField.layer.shadowRadius = 2.0
         textField.layer.shadowOffset = CGSize.zero
         textField.layer.shadowColor = color.cgColor
-        textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
+        // textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
     }
 
     private func setTextFieldValidAppearance(_ textField: UITextField, validateState: MastodonRegisterViewModel.ValidateState) {
@@ -726,6 +752,36 @@ extension MastodonRegisterViewController: UITextFieldDelegate {
         case .invalid:
             showShadowWithColor(color: Asset.Colors.TextField.invalid.color, textField: textField)
         }
+    }
+}
+
+extension MastodonRegisterViewController {
+    private func configureTitleLabel() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            navigationItem.largeTitleDisplayMode = .always
+            navigationItem.title = L10n.Scene.ServerPicker.title.replacingOccurrences(of: "\n", with: " ")
+            largeTitleLabel.isHidden = true
+        default:
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.title = nil
+            largeTitleLabel.isHidden = false
+        }
+    }
+    
+    private func configureFormLayout() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            stackView.axis = .horizontal
+            stackView.distribution = .fillProportionally
+        default:
+            stackView.axis = .vertical
+            stackView.distribution = .fill
+        }
+    }
+    
+    private func configureMargin() {
+        
     }
 }
 
@@ -746,23 +802,48 @@ extension MastodonRegisterViewController {
         let password = viewModel.password.value
         
         let locale: String = {
-            let fallbackLanguageCode = Locale.current.languageCode ?? "en"
+            guard let url = Bundle.main.url(forResource: "local-codes", withExtension: "json"),
+                let data = try? Data(contentsOf: url),
+                let localCode = try? JSONDecoder().decode(MastodonLocalCode.self, from: data)
+            else {
+                assertionFailure()
+                return "en"
+            }
+            let fallbackLanguageCode: String = {
+                let code = Locale.current.languageCode ?? "en"
+                guard localCode[code] != nil else { return "en" }
+                return code
+            }()
+            
+            // pick device preferred language
             guard let identifier = Locale.preferredLanguages.first else {
                 return fallbackLanguageCode
             }
+            // prepare languageCode and validate then return fallback if needs
             let local = Locale(identifier: identifier)
-            guard let languageCode = local.languageCode else {
+            guard let languageCode = local.languageCode,
+                  localCode[languageCode] != nil
+            else {
                 return fallbackLanguageCode
             }
-            switch languageCode {
-            case "zh":
-                // Check Simplified Chinese / Traditional Chinese
-                // https://github.com/gunchleoc/mastodon/blob/ed6153b8f24d3a8f5a124cc95683bd1f20aec882/app/helpers/settings_helper.rb
-                guard let regionCode = local.regionCode else { return languageCode }
-                return "zh" + "-" + regionCode
-            default:
+            // prepare extendCode and validate then return fallback if needs
+            let extendCodes: [String] = {
+                let locales = Locale.preferredLanguages.map { Locale(identifier: $0) }
+                return locales.compactMap { locale in
+                    guard let languageCode = locale.languageCode,
+                          let regionCode = locale.regionCode
+                    else { return nil }
+                    return languageCode + "-" + regionCode
+                }
+            }()
+            let _firstMatchExtendCode = extendCodes.first { code in
+                localCode[code] != nil
+            }
+            guard let firstMatchExtendCode = _firstMatchExtendCode else {
                 return languageCode
             }
+            return firstMatchExtendCode
+            
         }()
         let query = Mastodon.API.Account.RegisterQuery(
             reason: viewModel.reason.value,
@@ -772,6 +853,8 @@ extension MastodonRegisterViewController {
             agreement: true, // user confirmed in the server rules scene
             locale: locale
         )
+        
+        var retryCount = 0
  
         // register without show server rules
         context.apiService.accountRegister(
@@ -779,6 +862,32 @@ extension MastodonRegisterViewController {
             query: query,
             authorization: viewModel.applicationAuthorization
         )
+        .tryCatch { [weak self] error -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> in
+            guard let self = self else { throw error }
+            guard let error = self.viewModel.error.value as? Mastodon.API.Error,
+                  case let .generic(errorEntity) = error.mastodonError,
+                  errorEntity.error == "Validation failed: Locale is not included in the list"
+            else {
+                throw error
+            }
+            guard retryCount == 0 else {
+                throw error
+            }
+            let retryQuery = Mastodon.API.Account.RegisterQuery(
+                reason: query.reason,
+                username: query.username,
+                email: query.email,
+                password: query.password,
+                agreement: query.agreement,
+                locale: self.viewModel.instance.languages?.first ?? "en"
+            )
+            retryCount += 1
+            return self.context.apiService.accountRegister(
+                domain: self.viewModel.domain,
+                query: retryQuery,
+                authorization: self.viewModel.applicationAuthorization
+            )
+        }
         .receive(on: DispatchQueue.main)
         .sink { [weak self] completion in
             guard let self = self else { return }

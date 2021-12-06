@@ -98,7 +98,15 @@ class SettingsViewController: UIViewController, NeedsDependency {
     
     private(set) lazy var tableView: UITableView = {
         // init with a frame to fix a conflict ('UIView-Encapsulated-Layout-Width' UIStackView:0x7f8c2b6c0590.width == 0)
-        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: .grouped)
+        let style: UITableView.Style = {
+            switch UIDevice.current.userInterfaceIdiom {
+            case .phone:
+                return .grouped
+            default:
+                return .insetGrouped
+            }
+        }()
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 320, height: 320), style: style)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -189,7 +197,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
                         if let activeSubscription = setting.activeSubscription {
                             self.whoButton.setTitle(activeSubscription.policy.title, for: .normal)
                         } else {
-                            assertionFailure()
+                            // assertionFailure()
                         }
                     }
             }
@@ -199,27 +207,6 @@ class SettingsViewController: UIViewController, NeedsDependency {
         let footer = "Mastodon v\(UIApplication.appVersion()) (\(UIApplication.appBuild()))"
         let metaContent = PlaintextMetaContent(string: footer)
         tableFooterLabel.configure(content: metaContent)
-        
-        // FIXME:
-        // needs a workaround for GitHub link
-//        viewModel.currentInstance
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] instance in
-//                guard let self = self else { return }
-//                let version = instance?.version ?? "-"
-//                let link = #"<a href="https://github.com/mastodon/mastodon">mastodon/mastodon</a>"#
-//                let content = L10n.Scene.Settings.Footer.mastodonDescription(link, version)
-//                let mastodonContent = MastodonContent(content: content, emojis: [:])
-//                do {
-//                    let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
-//                    self.tableFooterLabel.configure(content: metaContent)
-//                } catch {
-//                    let metaContent = PlaintextMetaContent(string: "")
-//                    self.tableFooterLabel.configure(content: metaContent)
-//                    assertionFailure()
-//                }
-//            }
-//            .store(in: &disposeBag)
     }
     
     private func setupView() {
@@ -276,7 +263,7 @@ class SettingsViewController: UIViewController, NeedsDependency {
         tableView.tableFooterView = tableFooterView
     }
     
-    func alertToSignout() {
+    func alertToSignOut() {
         let alertController = UIAlertController(
             title: L10n.Common.Alerts.SignOut.title,
             message: L10n.Common.Alerts.SignOut.message,
@@ -301,6 +288,9 @@ class SettingsViewController: UIViewController, NeedsDependency {
         guard let activeMastodonAuthenticationBox = context.authenticationService.activeMastodonAuthenticationBox.value else {
             return
         }
+        
+        // clear badge before sign-out
+        context.notificationService.clearNotificationCountForActiveUser()
         
         context.authenticationService.signOutMastodonUser(
             domain: activeMastodonAuthenticationBox.domain,
@@ -423,7 +413,7 @@ extension SettingsViewController: UITableViewDelegate {
                     .store(in: &disposeBag)
             case .signOut:
                 feedbackGenerator.impactOccurred()
-                alertToSignout()
+                alertToSignOut()
             }
         }
     }
@@ -449,7 +439,7 @@ extension SettingsViewController {
         .sink { _ in
             // do nothing
         } receiveValue: { _ in
-            // do nohting
+            // do nothing
         }
         .store(in: &disposeBag)
     }
@@ -461,16 +451,19 @@ extension SettingsViewController: SettingsAppearanceTableViewCellDelegate {
         guard let dataSource = viewModel.dataSource else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let item = dataSource.itemIdentifier(for: indexPath)
-        guard case let .appearance(settingObjectID) = item else { return }
+        guard case .appearance = item else { return }
 
-        context.managedObjectContext.performChanges {
-            let setting = self.context.managedObjectContext.object(with: settingObjectID) as! Setting
-            setting.update(appearanceRaw: appearanceMode.rawValue)
+        switch appearanceMode {
+        case .automatic:
+            UserDefaults.shared.customUserInterfaceStyle = .unspecified
+        case .light:
+            UserDefaults.shared.customUserInterfaceStyle = .light
+        case .dark:
+            UserDefaults.shared.customUserInterfaceStyle = .dark
         }
-        .sink { _ in
-            let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
-            feedbackGenerator.impactOccurred()
-        }.store(in: &disposeBag)
+        
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: .light)
+        feedbackGenerator.impactOccurred()
     }
 }
 
@@ -566,7 +559,7 @@ extension SettingsViewController: ASWebAuthenticationPresentationContextProvidin
 // MARK: - UIAdaptivePresentationControllerDelegate
 extension SettingsViewController: UIAdaptivePresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        return .formSheet
+        return .pageSheet
     }
 }
 

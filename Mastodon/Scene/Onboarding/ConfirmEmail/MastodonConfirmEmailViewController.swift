@@ -20,6 +20,8 @@ final class MastodonConfirmEmailViewController: UIViewController, NeedsDependenc
 
     var viewModel: MastodonConfirmEmailViewModel!
 
+    let stackView = UIStackView()
+
     let largeTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: UIFont.systemFont(ofSize: 34, weight: .bold))
@@ -72,9 +74,10 @@ extension MastodonConfirmEmailViewController {
     override func viewDidLoad() {
 
         setupOnboardingAppearance()
+        configureTitleLabel()
+        configureMargin()
 
         // stackView
-        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 10
@@ -92,8 +95,8 @@ extension MastodonConfirmEmailViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.readableContentGuide.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: view.readableContentGuide.bottomAnchor),
         ])
         NSLayoutConstraint.activate([
@@ -131,13 +134,46 @@ extension MastodonConfirmEmailViewController {
                         }
                     } receiveValue: { response in
                         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: user %s's email confirmed", ((#file as NSString).lastPathComponent), #line, #function, response.value.username)
-                        self.dismiss(animated: true, completion: nil)
+                        self.coordinator.setup()
+                        // self.dismiss(animated: true, completion: nil)
                     }
                     .store(in: &self.disposeBag)
             }
             .store(in: &self.disposeBag)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        configureTitleLabel()
+        configureMargin()
+    }
+    
+}
+
+extension MastodonConfirmEmailViewController {
+    private func configureTitleLabel() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            navigationItem.largeTitleDisplayMode = .always
+            navigationItem.title = L10n.Scene.ConfirmEmail.title.replacingOccurrences(of: "\n", with: " ")
+            largeTitleLabel.isHidden = true
+        default:
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.title = nil
+            largeTitleLabel.isHidden = false
+        }
+    }
+    
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonConfirmEmailViewController.viewEdgeMargin
+            stackView.layoutMargins = UIEdgeInsets(top: 18, left: margin, bottom: 23, right: margin)
+        default:
+            stackView.layoutMargins = UIEdgeInsets(top: 10, left: 0, bottom: 23, right: 0)
+        }
+    }
 }
 
 extension MastodonConfirmEmailViewController {

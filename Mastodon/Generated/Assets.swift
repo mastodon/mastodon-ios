@@ -70,6 +70,7 @@ internal enum Asset {
       internal static let valid = ColorAsset(name: "Colors/TextField/valid")
     }
     internal static let alertYellow = ColorAsset(name: "Colors/alert.yellow")
+    internal static let badgeBackground = ColorAsset(name: "Colors/badge.background")
     internal static let battleshipGrey = ColorAsset(name: "Colors/battleshipGrey")
     internal static let brandBlue = ColorAsset(name: "Colors/brand.blue")
     internal static let brandBlueDarken20 = ColorAsset(name: "Colors/brand.blue.darken.20")
@@ -94,6 +95,9 @@ internal enum Asset {
         internal static let nameEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/name.edit.background.gray")
         internal static let usernameGray = ColorAsset(name: "Scene/Profile/Banner/username.gray")
       }
+    }
+    internal enum Sidebar {
+      internal static let logo = ImageAsset(name: "Scene/Sidebar/logo")
     }
     internal enum Welcome {
       internal enum Illustration {
@@ -125,6 +129,7 @@ internal enum Asset {
       internal static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/Mastodon/profile.field.collection.view.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Theme/Mastodon/secondary.system.background")
+      internal static let sidebarBackground = ColorAsset(name: "Theme/Mastodon/sidebar.background")
       internal static let systemBackground = ColorAsset(name: "Theme/Mastodon/system.background")
       internal static let systemElevatedBackground = ColorAsset(name: "Theme/Mastodon/system.elevated.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Theme/Mastodon/system.grouped.background")
@@ -144,6 +149,7 @@ internal enum Asset {
       internal static let profileFieldCollectionViewBackground = ColorAsset(name: "Theme/system/profile.field.collection.view.background")
       internal static let secondaryGroupedSystemBackground = ColorAsset(name: "Theme/system/secondary.grouped.system.background")
       internal static let secondarySystemBackground = ColorAsset(name: "Theme/system/secondary.system.background")
+      internal static let sidebarBackground = ColorAsset(name: "Theme/system/sidebar.background")
       internal static let systemBackground = ColorAsset(name: "Theme/system/system.background")
       internal static let systemElevatedBackground = ColorAsset(name: "Theme/system/system.elevated.background")
       internal static let systemGroupedBackground = ColorAsset(name: "Theme/system/system.grouped.background")
@@ -155,23 +161,6 @@ internal enum Asset {
       internal static let notificationStatusBorderColor = ColorAsset(name: "Theme/system/notification.status.border.color")
       internal static let separator = ColorAsset(name: "Theme/system/separator")
       internal static let tabBarItemInactiveIconColor = ColorAsset(name: "Theme/system/tab.bar.item.inactive.icon.color")
-    }
-  }
-  internal enum Deprecated {
-    internal enum Background {
-      internal static let danger = ColorAsset(name: "_Deprecated/Background/danger")
-      internal static let onboardingBackground = ColorAsset(name: "_Deprecated/Background/onboarding.background")
-      internal static let secondaryGroupedSystemBackground = ColorAsset(name: "_Deprecated/Background/secondary.grouped.system.background")
-      internal static let secondarySystemBackground = ColorAsset(name: "_Deprecated/Background/secondary.system.background")
-      internal static let systemBackground = ColorAsset(name: "_Deprecated/Background/system.background")
-      internal static let systemElevatedBackground = ColorAsset(name: "_Deprecated/Background/system.elevated.background")
-      internal static let systemGroupedBackground = ColorAsset(name: "_Deprecated/Background/system.grouped.background")
-      internal static let tertiarySystemBackground = ColorAsset(name: "_Deprecated/Background/tertiary.system.background")
-      internal static let tertiarySystemGroupedBackground = ColorAsset(name: "_Deprecated/Background/tertiary.system.grouped.background")
-    }
-    internal enum Compose {
-      internal static let background = ColorAsset(name: "_Deprecated/Compose/background")
-      internal static let toolbarBackground = ColorAsset(name: "_Deprecated/Compose/toolbar.background")
     }
   }
 }

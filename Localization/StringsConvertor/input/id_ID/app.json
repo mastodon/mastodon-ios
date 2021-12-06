@@ -67,6 +67,7 @@
                 "done": "Selesai",
                 "confirm": "Konfirmasi",
                 "continue": "Lanjut",
+                "compose": "Compose",
                 "cancel": "Batal",
                 "discard": "Discard",
                 "try_again": "Coba Lagi",
@@ -267,7 +268,7 @@
                     "unreachable": "%s sepertinya tidak ada",
                     "taken": "%s sudah digunakan",
                     "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
+                    "accepted": "%s harus diterima",
                     "blank": "%s diperlukan",
                     "invalid": "%s tidak valid",
                     "too_long": "%s terlalu panjang",
@@ -355,7 +356,7 @@
                 "option_number": "Option %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Tulis peringatan yang akurat di sini..."
             },
             "visibility": {
                 "public": "Publik",
@@ -412,6 +413,12 @@
                     "message": "Confirm to unblock %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Cari",
@@ -534,6 +541,16 @@
                 "show_next": "Show Next",
                 "show_previous": "Show Previous"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Add Account"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

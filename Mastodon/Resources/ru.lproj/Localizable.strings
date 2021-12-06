@@ -28,6 +28,7 @@
 "Common.Controls.Actions.Back" = "Назад";
 "Common.Controls.Actions.BlockDomain" = "Заблокировать %@";
 "Common.Controls.Actions.Cancel" = "Отмена";
+"Common.Controls.Actions.Compose" = "Compose";
 "Common.Controls.Actions.Confirm" = "Подтвердить";
 "Common.Controls.Actions.Continue" = "Продолжить";
 "Common.Controls.Actions.CopyPhoto" = "Скопировать изображение";
@@ -141,6 +142,9 @@
 "Common.Controls.Timeline.Loader.LoadingMissingPosts" = "Загрузка недостающих постов...";
 "Common.Controls.Timeline.Loader.ShowMoreReplies" = "Показать больше ответов";
 "Common.Controls.Timeline.Timestamp.Now" = "Только что";
+"Scene.AccountList.AddAccount" = "Add Account";
+"Scene.AccountList.DismissAccountSwitcher" = "Dismiss Account Switcher";
+"Scene.AccountList.TabBarHint" = "Current selected profile: %@. Double tap then hold to show account switcher";
 "Scene.Compose.Accessibility.AppendAttachment" = "Прикрепить файл";
 "Scene.Compose.Accessibility.AppendPoll" = "Добавить опрос";
 "Scene.Compose.Accessibility.CustomEmojiPicker" = "Меню пользовательских эмодзи";
@@ -197,6 +201,8 @@
 подтвердить свою учётную запись.";
 "Scene.ConfirmEmail.Title" = "И ещё кое-что.";
 "Scene.Favorite.Title" = "Ваше избранное";
+"Scene.Follower.Footer" = "Followers from other servers are not displayed.";
+"Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Показать новые";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Не в сети";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Опубликовано!";
@@ -348,3 +354,6 @@
 "Scene.Thread.Title" = "Пост %@";
 "Scene.Welcome.Slogan" = "Социальная сеть
 под вашим контролем.";
+"Scene.Wizard.AccessibilityHint" = "Double tap to dismiss this wizard";
+"Scene.Wizard.MultipleAccountSwitchIntroDescription" = "Switch between multiple accounts by holding the profile button.";
+"Scene.Wizard.NewInMastodon" = "New in Mastodon";

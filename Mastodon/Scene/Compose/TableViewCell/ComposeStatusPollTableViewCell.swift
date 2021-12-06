@@ -5,13 +5,17 @@
 //  Created by MainasuK Cirno on 2021-6-29.
 //
 
+import os.log
 import UIKit
+import Combine
 
 protocol ComposeStatusPollTableViewCellDelegate: AnyObject {
     func composeStatusPollTableViewCell(_ cell: ComposeStatusPollTableViewCell, pollOptionAttributesDidReorder options: [ComposeStatusPollItem.PollOptionAttribute])
 }
 
 final class ComposeStatusPollTableViewCell: UITableViewCell {
+    
+    let logger = Logger(subsystem: "ComposeStatusPollTableViewCell", category: "UI")
 
     private(set) var dataSource: UICollectionViewDiffableDataSource<ComposeStatusPollSection, ComposeStatusPollItem>!
     var observations = Set<NSKeyValueObservation>()
@@ -43,8 +47,10 @@ final class ComposeStatusPollTableViewCell: UITableViewCell {
         collectionView.backgroundColor = .clear
         collectionView.alwaysBounceVertical = true
         collectionView.isScrollEnabled = false
+        collectionView.dragInteractionEnabled = true
         return collectionView
     }()
+    let collectionViewHeightDidUpdate = PassthroughSubject<Void, Never>()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,13 +81,10 @@ extension ComposeStatusPollTableViewCell {
             collectionViewHeightLayoutConstraint,
         ])
 
-        let longPressReorderGesture = UILongPressGestureRecognizer(target: self, action: #selector(ComposeStatusPollTableViewCell.longPressReorderGestureHandler(_:)))
-        collectionView.addGestureRecognizer(longPressReorderGesture)
-
         collectionView.observe(\.contentSize, options: [.initial, .new]) { [weak self] collectionView, _ in
             guard let self = self else { return }
-            print(collectionView.contentSize)
             self.collectionViewHeightLayoutConstraint.constant = collectionView.contentSize.height
+            self.collectionViewHeightDidUpdate.send()
         }
         .store(in: &observations)
 
@@ -122,66 +125,84 @@ extension ComposeStatusPollTableViewCell {
                 return cell
             }
         }
-
-        dataSource.reorderingHandlers.canReorderItem = { item in
-            switch item {
-            case .pollOption:       return true
-            default:                return false
-            }
-        }
-
-        // update reordered data source
-        dataSource.reorderingHandlers.didReorder = { [weak self] transaction in
-            guard let self = self else { return }
-
-            let items = transaction.finalSnapshot.itemIdentifiers
-            var pollOptionAttributes: [ComposeStatusPollItem.PollOptionAttribute] = []
-            for item in items {
-                guard case let .pollOption(attribute) = item else { continue }
-                pollOptionAttributes.append(attribute)
-            }
-            self.delegate?.composeStatusPollTableViewCell(self, pollOptionAttributesDidReorder: pollOptionAttributes)
-        }
+        
+        collectionView.dragDelegate = self
+        collectionView.dropDelegate = self
     }
 
 }
 
-extension ComposeStatusPollTableViewCell {
-
-    @objc private func longPressReorderGestureHandler(_ sender: UILongPressGestureRecognizer) {
-        switch(sender.state) {
-        case .began:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
-                  let cell = collectionView.cellForItem(at: selectedIndexPath) as? ComposeStatusPollOptionCollectionViewCell else {
-                break
-            }
-            // check if pressing reorder bar no not
-            let locationInCell = sender.location(in: cell)
-            guard cell.reorderBarImageView.frame.contains(locationInCell) else {
-                return
-            }
-
-            collectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
-        case .changed:
-            guard let selectedIndexPath = collectionView.indexPathForItem(at: sender.location(in: collectionView)),
-                  let dataSource = self.dataSource else {
-                break
-            }
-            guard let item = dataSource.itemIdentifier(for: selectedIndexPath),
-                  case .pollOption = item else {
-                collectionView.cancelInteractiveMovement()
-                return
-            }
-
-            var position = sender.location(in: collectionView)
-            position.x = collectionView.frame.width * 0.5
-            collectionView.updateInteractiveMovementTargetPosition(position)
-        case .ended:
-            collectionView.endInteractiveMovement()
-            collectionView.reloadData()
+// MARK: - UICollectionViewDragDelegate
+extension ComposeStatusPollTableViewCell: UICollectionViewDragDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let item = dataSource.itemIdentifier(for: indexPath) else { return [] }
+        switch item {
+        case .pollOption:
+            let itemProvider = NSItemProvider(object: String(item.hashValue) as NSString)
+            let dragItem = UIDragItem(itemProvider: itemProvider)
+            dragItem.localObject = item
+            return [dragItem]
         default:
-            collectionView.cancelInteractiveMovement()
+            return []
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, dragSessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
+        // drag to app should be the same app
+        return true
+    }
+}
 
+// MARK: - UICollectionViewDropDelegate
+extension ComposeStatusPollTableViewCell: UICollectionViewDropDelegate {
+    // didUpdate
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        guard collectionView.hasActiveDrag,
+              let destinationIndexPath = destinationIndexPath,
+              let item = dataSource.itemIdentifier(for: destinationIndexPath)
+        else {
+            return UICollectionViewDropProposal(operation: .forbidden)
+        }
+        
+        switch item {
+        case .pollOption:
+            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        default:
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
+    }
+    
+    // performDrop
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        guard let dropItem = coordinator.items.first,
+              let item = dropItem.dragItem.localObject as? ComposeStatusPollItem,
+              case .pollOption = item
+        else { return }
+
+        guard coordinator.proposal.operation == .move else { return }
+        guard let destinationIndexPath = coordinator.destinationIndexPath,
+              let _ = collectionView.cellForItem(at: destinationIndexPath) as? ComposeStatusPollOptionCollectionViewCell
+        else { return }
+        
+        var snapshot = dataSource.snapshot()
+        guard destinationIndexPath.row < snapshot.itemIdentifiers.count else { return }
+        let anchorItem = snapshot.itemIdentifiers[destinationIndexPath.row]
+        snapshot.moveItem(item, afterItem: anchorItem)
+        dataSource.apply(snapshot)
+        
+        coordinator.drop(dropItem.dragItem, toItemAt: destinationIndexPath)
+    }
+}
+
+extension ComposeStatusPollTableViewCell: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public): \(originalIndexPath.debugDescription) -> \(proposedIndexPath.debugDescription)")
+        
+        guard let _ = collectionView.cellForItem(at: proposedIndexPath) as? ComposeStatusPollOptionCollectionViewCell else {
+            return originalIndexPath
+        }
+        
+        return proposedIndexPath
+    }
 }

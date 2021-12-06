@@ -10,3 +10,4 @@ import UIKit
 extension UserDefaults {
     public static let shared = UserDefaults(suiteName: AppName.groupID)!
 }
+

@@ -10,6 +10,8 @@ import UIKit
 import Combine
 import Pageboy
 
+// Fake search bar not works on iPad with UISplitViewController
+// check device and fallback to standard UISearchController
 final class SearchDetailViewController: PageboyViewController, NeedsDependency {
 
     let logger = Logger(subsystem: "SearchDetail", category: "UI")
@@ -19,6 +21,10 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
 
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
+    
+    let isPhoneDevice: Bool = {
+        return UIDevice.current.userInterfaceIdiom == .phone
+    }()
 
     var viewModel: SearchDetailViewModel!
     var viewControllers: [SearchResultViewController]!
@@ -39,8 +45,22 @@ final class SearchDetailViewController: PageboyViewController, NeedsDependency {
         navigationBar.setItems([navigationItem], animated: false)
         return navigationBar
     }()
-    let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
+    
+    let searchController: UISearchController = {
+        let searchController = UISearchController()
+        searchController.automaticallyShowsScopeBar = false
+        searchController.dimsBackgroundDuringPresentation = false
+        return searchController
+    }()
+    private(set) lazy var searchBar: UISearchBar = {
+        let searchBar: UISearchBar
+        if isPhoneDevice {
+            searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        } else {
+            searchBar = searchController.searchBar
+            searchController.automaticallyShowsScopeBar = false
+            searchController.searchBar.setShowsScope(true, animated: false)
+        }
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.scopeButtonTitles = SearchDetailViewModel.SearchScope.allCases.map { $0.segmentedControlTitle }
         searchBar.sizeToFit()
@@ -71,48 +91,27 @@ extension SearchDetailViewController {
             }
             .store(in: &disposeBag)
 
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(navigationBar)
-        NSLayoutConstraint.activate([
-            navigationBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
         setupSearchBar()
-        navigationBar.layer.observe(\.bounds, options: [.new]) { [weak self] navigationBar, _ in
-            guard let self = self else { return }
-            self.viewModel.navigationBarFrame.value = navigationBar.frame
-        }
-        .store(in: &observations)
-
-        navigationBarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(navigationBarBackgroundView, belowSubview: navigationBar)
-        NSLayoutConstraint.activate([
-            navigationBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            navigationBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            navigationBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            navigationBarBackgroundView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
-        ])
-
-        navigationBarVisualEffectBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(navigationBarVisualEffectBackgroundView, belowSubview: navigationBarBackgroundView)
-        NSLayoutConstraint.activate([
-            navigationBarVisualEffectBackgroundView.topAnchor.constraint(equalTo: navigationBarBackgroundView.topAnchor),
-            navigationBarVisualEffectBackgroundView.leadingAnchor.constraint(equalTo: navigationBarBackgroundView.leadingAnchor),
-            navigationBarVisualEffectBackgroundView.trailingAnchor.constraint(equalTo: navigationBarBackgroundView.trailingAnchor),
-            navigationBarVisualEffectBackgroundView.bottomAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
-        ])
-
+        
         addChild(searchHistoryViewController)
         searchHistoryViewController.view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchHistoryViewController.view)
         searchHistoryViewController.didMove(toParent: self)
-        NSLayoutConstraint.activate([
-            searchHistoryViewController.view.topAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
-            searchHistoryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchHistoryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            searchHistoryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        if isPhoneDevice {
+            NSLayoutConstraint.activate([
+                searchHistoryViewController.view.topAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
+                searchHistoryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                searchHistoryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                searchHistoryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                searchHistoryViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+                searchHistoryViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                searchHistoryViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                searchHistoryViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            ])
+        }
 
         transition = Transition(style: .fade, duration: 0.1)
         isScrollEnabled = false
@@ -215,33 +214,85 @@ extension SearchDetailViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        searchBar.setShowsScope(true, animated: false)
-        searchBar.setNeedsLayout()
-        searchBar.layoutIfNeeded()
+        if isPhoneDevice {
+            navigationController?.setNavigationBarHidden(true, animated: animated)
+            searchBar.setShowsScope(true, animated: false)
+            searchBar.setNeedsLayout()
+            searchBar.layoutIfNeeded()
+        } else {
+            // do nothing
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if !isModal {
-            // prevent bar restore conflict with modal style issue
-            navigationController?.setNavigationBarHidden(false, animated: animated)
+        if isPhoneDevice {
+            if !isModal {
+                // prevent bar restore conflict with modal style issue
+                navigationController?.setNavigationBarHidden(false, animated: animated)
+            }
+        } else {
+            // do nothing
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        searchBar.setShowsCancelButton(true, animated: animated)
-        searchBar.becomeFirstResponder()
+        if isPhoneDevice {
+            searchBar.setShowsCancelButton(true, animated: animated)
+            searchBar.becomeFirstResponder()
+        } else {
+            searchController.isActive = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.33) {
+                self.searchController.searchBar.becomeFirstResponder()                
+            }
+        }
     }
 
 }
 
 extension SearchDetailViewController {
     private func setupSearchBar() {
-        navigationBar.topItem?.titleView = searchBar
+        if isPhoneDevice {
+            navigationBar.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(navigationBar)
+            NSLayoutConstraint.activate([
+                navigationBar.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+                navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ])
+            navigationBar.topItem?.titleView = searchBar
+            navigationBar.layer.observe(\.bounds, options: [.new]) { [weak self] navigationBar, _ in
+                guard let self = self else { return }
+                self.viewModel.navigationBarFrame.value = navigationBar.frame
+            }
+            .store(in: &observations)
+            
+            navigationBarBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(navigationBarBackgroundView, belowSubview: navigationBar)
+            NSLayoutConstraint.activate([
+                navigationBarBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+                navigationBarBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                navigationBarBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                navigationBarBackgroundView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor),
+            ])
+            
+            navigationBarVisualEffectBackgroundView.translatesAutoresizingMaskIntoConstraints = false
+            view.insertSubview(navigationBarVisualEffectBackgroundView, belowSubview: navigationBarBackgroundView)
+            NSLayoutConstraint.activate([
+                navigationBarVisualEffectBackgroundView.topAnchor.constraint(equalTo: navigationBarBackgroundView.topAnchor),
+                navigationBarVisualEffectBackgroundView.leadingAnchor.constraint(equalTo: navigationBarBackgroundView.leadingAnchor),
+                navigationBarVisualEffectBackgroundView.trailingAnchor.constraint(equalTo: navigationBarBackgroundView.trailingAnchor),
+                navigationBarVisualEffectBackgroundView.bottomAnchor.constraint(equalTo: navigationBarBackgroundView.bottomAnchor),
+            ])
+        } else {
+            navigationItem.setHidesBackButton(true, animated: false)
+            navigationItem.titleView = nil
+            navigationItem.searchController = searchController
+            searchController.searchBar.sizeToFit()
+        }
 
         searchBar.delegate = self
     }

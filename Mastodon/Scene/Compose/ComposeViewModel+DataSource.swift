@@ -39,6 +39,15 @@ extension ComposeViewModel {
 
         // setup data source
         tableView.dataSource = self
+        
+        composeStatusAttachmentTableViewCell.collectionViewHeightDidUpdate
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let _ = self else { return }
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
+            .store(in: &disposeBag)
 
         attachmentServices
             .removeDuplicates()
@@ -55,10 +64,10 @@ extension ComposeViewModel {
                 let items = attachmentServices.map { ComposeStatusAttachmentItem.attachment(attachmentService: $0) }
                 snapshot.appendItems(items, toSection: .main)
 
-                tableView.performBatchUpdates {
-                    dataSource.apply(snapshot, animatingDifferences: true)
-                } completion: { _ in
-                    // do nothing
+                if #available(iOS 15.0, *) {
+                    dataSource.applySnapshotUsingReloadData(snapshot)
+                } else {
+                    dataSource.apply(snapshot, animatingDifferences: false)
                 }
             }
             .store(in: &disposeBag)
@@ -82,7 +91,7 @@ extension ComposeViewModel {
                 for attribute in pollOptionAttributes {
                     items.append(.pollOption(attribute: attribute))
                 }
-                if pollOptionAttributes.count < 4 {
+                if pollOptionAttributes.count < self.maxPollOptions {
                     items.append(.pollOptionAppendEntry)
                 }
                 items.append(.pollExpiresOption(attribute: self.pollExpiresOptionAttribute))
@@ -90,9 +99,11 @@ extension ComposeViewModel {
             snapshot.appendItems(items, toSection: .main)
 
             tableView.performBatchUpdates {
-                dataSource.apply(snapshot, animatingDifferences: true)
-            } completion: { _ in
-                // do nothing
+                if #available(iOS 15.0, *) {
+                    dataSource.apply(snapshot, animatingDifferences: false)
+                } else {
+                    dataSource.apply(snapshot, animatingDifferences: true)
+                }
             }
         }
         .store(in: &disposeBag)
@@ -226,7 +237,7 @@ extension ComposeViewModel: UITableViewDataSource {
                     return
                 }
                 cell.statusView.headerContainerView.isHidden = false
-                cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+                cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.replyIconImage))
                 let headerText: String = {
                     let author = replyTo.author
                     let name = author.displayName.isEmpty ? author.username : author.displayName

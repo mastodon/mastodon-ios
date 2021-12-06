@@ -58,6 +58,7 @@ Packages/
 .swiftpm
 
 .build/
+!**/swiftpm/Package.resolved
 
 # CocoaPods
 # We recommend against adding the Pods directory to your .gitignore. However
@@ -122,4 +123,3 @@ xcuserdata
 Localization/StringsConvertor/input
 Localization/StringsConvertor/output
 .DS_Store
-/Mastodon.xcworkspace/xcshareddata/swiftpm

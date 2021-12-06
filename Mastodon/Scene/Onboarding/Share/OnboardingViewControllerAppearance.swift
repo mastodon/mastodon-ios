@@ -24,19 +24,38 @@ extension OnboardingViewControllerAppearance {
 
         setupNavigationBarAppearance()
         
-        let backItem = UIBarButtonItem()
-        backItem.title = L10n.Common.Controls.Actions.back
+        let backItem = UIBarButtonItem(
+            title: L10n.Common.Controls.Actions.back,
+            style: .plain,
+            target: nil,
+            action: nil
+        )
         navigationItem.backBarButtonItem = backItem
     }
     
     func setupNavigationBarAppearance() {
         // use TransparentBackground so view push / dismiss will be more visual nature
         // please add opaque background for status bar manually if needs
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
-        navigationController?.navigationBar.standardAppearance = barAppearance
-        navigationController?.navigationBar.compactAppearance = barAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+        
+        switch traitCollection.userInterfaceIdiom {
+        case .pad:
+            if traitCollection.horizontalSizeClass == .regular {
+                // do nothing
+            } else {
+                fallthrough
+            }
+        default:
+            let barAppearance = UINavigationBarAppearance()
+            barAppearance.configureWithTransparentBackground()
+            navigationItem.standardAppearance = barAppearance
+            navigationItem.compactAppearance = barAppearance
+            navigationItem.scrollEdgeAppearance = barAppearance
+            if #available(iOS 15.0, *) {
+                navigationItem.compactScrollEdgeAppearance = barAppearance
+            } else {
+                // Fallback on earlier versions
+            }
+        }
     }
     
     func setupNavigationBarBackgroundView() {
@@ -56,4 +75,13 @@ extension OnboardingViewControllerAppearance {
         ])
     }
     
+}
+
+extension OnboardingViewControllerAppearance {
+    static var viewEdgeMargin: CGFloat {
+        guard UIDevice.current.userInterfaceIdiom == .pad else { return .zero }
+        return 20
+//        let shortEdgeWidth = min(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
+//        return shortEdgeWidth * 0.17 // magic
+    }
 }

@@ -67,6 +67,7 @@
                 "done": "Done",
                 "confirm": "Confirm",
                 "continue": "Fortsätt",
+                "compose": "Compose",
                 "cancel": "Avbryt",
                 "discard": "Discard",
                 "try_again": "Försök igen",
@@ -413,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
+        },
         "search": {
             "title": "Search",
             "search_bar": {
@@ -454,12 +461,12 @@
                 "Everything": "Everything",
                 "Mentions": "Mentions"
             },
-            "user_followed_you": "%s followed you",
+            "user_followed_you": "%s följde dig",
             "user_favorited your post": "%s favorited your post",
             "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_mentioned_you": "%s nämnde dig",
+            "user_requested_to_follow_you": "%s har begärt att följa dig",
+            "user_your_poll_has_ended": "%s Omröstningen har avslutats",
             "keyobard": {
                 "show_everything": "Show Everything",
                 "show_mentions": "Show Mentions"
@@ -534,6 +541,16 @@
                 "show_next": "Show Next",
                 "show_previous": "Show Previous"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Lägg till konto"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

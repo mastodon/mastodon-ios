@@ -51,7 +51,7 @@ class ReportViewController: UIViewController, NeedsDependency {
         return view
     }()
     
-    lazy var stackview: UIStackView = {
+    lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.alignment = .fill
@@ -122,19 +122,19 @@ class ReportViewController: UIViewController, NeedsDependency {
 
         setupNavigation()
 
-        stackview.addArrangedSubview(header)
-        stackview.addArrangedSubview(contentView)
-        stackview.addArrangedSubview(footer)
-        stackview.addArrangedSubview(bottomSpacing)
+        stackView.addArrangedSubview(header)
+        stackView.addArrangedSubview(contentView)
+        stackView.addArrangedSubview(footer)
+        stackView.addArrangedSubview(bottomSpacing)
         
         contentView.addSubview(tableView)
         
-        view.addSubview(stackview)
+        view.addSubview(stackView)
         NSLayoutConstraint.activate([
-            stackview.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackview.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackview.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            stackview.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: contentView.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
@@ -251,7 +251,7 @@ class ReportViewController: UIViewController, NeedsDependency {
             = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel,
                               target: self,
                               action: #selector(doneButtonDidClick))
-        navigationItem.rightBarButtonItem?.tintColor = Asset.Colors.brandBlue.color
+        navigationItem.rightBarButtonItem?.tintColor = ThemeService.tintColor
         
         // fetch old mastodon user
         let beReportedUser: MastodonUser? = {
@@ -273,8 +273,8 @@ class ReportViewController: UIViewController, NeedsDependency {
         navigationItem.titleView = titleView
         if let user = beReportedUser {
             do {
-                let mastodonConent = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
-                let metaContent = try MastodonMetaContent.convert(document: mastodonConent)
+                let mastodonContent = MastodonContent(content: user.displayNameWithFallback, emojis: user.emojiMeta)
+                let metaContent = try MastodonMetaContent.convert(document: mastodonContent)
                 titleView.update(titleMetaContent: metaContent, subtitle: nil)
             } catch {
                 let metaContent = PlaintextMetaContent(string: user.displayNameWithFallback)

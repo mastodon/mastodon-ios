@@ -1,51 +1,51 @@
-"16wxgf" = "Post on Mastodon";
+"16wxgf" = "النَشر على ماستودون";
 
-"751xkl" = "Text Content";
+"751xkl" = "محتوى نصي";
 
-"CsR7G2" = "Post on Mastodon";
+"CsR7G2" = "انشر على ماستدون";
 
-"HZSGTr" = "What content to post?";
+"HZSGTr" = "ما المُحتوى المُراد نشره؟";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "فَشَلَ النشر";
 
-"KDNTJ4" = "Failure Reason";
+"KDNTJ4" = "سبب الإخفاق";
 
-"RHxKOw" = "Send Post with text content";
+"RHxKOw" = "إرسال مَنشور يَحوي نص";
 
-"RxSqsb" = "Post";
+"RxSqsb" = "مَنشور";
 
-"WCIR3D" = "Post ${content} on Mastodon";
+"WCIR3D" = "نَشر ${content} على ماستودون";
 
-"ZKJSNu" = "Post";
+"ZKJSNu" = "مَنشور";
 
 "ZS1XaK" = "${content}";
 
-"ZbSjzC" = "Visibility";
+"ZbSjzC" = "مدى الظهور";
 
-"Zo4jgJ" = "Post Visibility";
+"Zo4jgJ" = "مدى ظهور المنشور";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "هُناك عدد ${count} خِيار مُطابق لِـ\"عام\".";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "هُناك عدد ${count} خِيار مُطابق لِـ\"المُتابِعُون فقط\".";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}، عام";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}، المُتابِعُون فقط";
 
-"dUyuGg" = "Post on Mastodon";
+"dUyuGg" = "النشر على ماستدون";
 
-"dYQ5NN" = "Public";
+"dYQ5NN" = "للعامة";
 
-"ehFLjY" = "Followers Only";
+"ehFLjY" = "لمتابعيك فقط";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "فَشَلَ النشر، ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "تمَّ إرسال المنشور بِنجاح.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "للتأكيد، هل تَريد \"عام\"؟";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "للتأكيد، هل تُريد \"للمُتابِعين فقط\"؟";
 
-"rM6dvp" = "URL";
+"rM6dvp" = "عنوان URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "تم إرسال المنشور بنجاح. ";

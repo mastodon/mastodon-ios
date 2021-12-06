@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
         "state": {
           "branch": null,
-          "revision": "f96b619bcb2383b43d898402283924b80e2c4bae",
-          "version": "5.4.3"
+          "revision": "d120af1e8638c7da36c8481fd61a66c0c08dc4fc",
+          "version": "5.4.4"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/MainasuK/FPSIndicator.git",
         "state": {
           "branch": null,
-          "revision": "b2a002d689c400485f2ba41f9e71e15f7b99764a",
-          "version": "1.0.1"
+          "revision": "e4a5067ccd5293b024c767f09e51056afd4a4796",
+          "version": "1.1.0"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/TwidereProject/MetaTextKit.git",
         "state": {
           "branch": null,
-          "revision": "a5f412b72fc08cd1348e2388fc7ec326365e1823",
-          "version": "2.1.1"
+          "revision": "7af4182f64329440a4656f2cba307cb5848e496a",
+          "version": "2.1.2"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/kean/Nuke.git",
         "state": {
           "branch": null,
-          "revision": "3bd3a1765bdf62d561d4c2e10e1c4fc7a010f44e",
-          "version": "10.3.2"
+          "revision": "0db18dd34998cca18e9a28bcee136f84518007a0",
+          "version": "10.4.1"
         }
       },
       {
@@ -128,12 +128,21 @@
         }
       },
       {
+        "package": "PanModal",
+        "repositoryURL": "https://github.com/slackhq/PanModal.git",
+        "state": {
+          "branch": null,
+          "revision": "b012aecb6b67a8e46369227f893c12544846613f",
+          "version": "1.2.7"
+        }
+      },
+      {
         "package": "SDWebImage",
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "76dd4b49110b8624317fc128e7fa0d8a252018bc",
-          "version": "5.11.1"
+          "revision": "a72df4849408da7e5d3c1b586797b7c601c41d1b",
+          "version": "5.12.1"
         }
       },
       {
@@ -141,8 +150,8 @@
         "repositoryURL": "https://github.com/apple/swift-collections.git",
         "state": {
           "branch": null,
-          "revision": "0959ba76a1d4a98fd11163aa83fd49c25b93bfae",
-          "version": "0.0.5"
+          "revision": "9d8719c8bebdc79740b6969c912ac706eb721d7a",
+          "version": "0.0.7"
         }
       },
       {
@@ -150,8 +159,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "8da5c5a4e6c5084c296b9f39dc54f00be146e0fa",
-          "version": "1.14.2"
+          "revision": "546610d52b19be3e19935e0880bb06b9c03f5cef",
+          "version": "1.14.4"
         }
       },
       {
@@ -206,15 +215,6 @@
           "branch": null,
           "revision": "dad97167bf1be16aeecd109130900995dd01c515",
           "version": "2.6.0"
-        }
-      },
-      {
-        "package": "UITextView+Placeholder",
-        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
-        "state": {
-          "branch": null,
-          "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
-          "version": "1.4.1"
         }
       }
     ]

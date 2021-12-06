@@ -43,11 +43,11 @@ final public class MastodonUser: NSManagedObject {
     // one-to-one relationship
     @NSManaged public private(set) var pinnedStatus: Status?
     @NSManaged public private(set) var mastodonAuthentication: MastodonAuthentication?
-    @NSManaged public private(set) var searchHistory: SearchHistory?
     
     // one-to-many relationship
     @NSManaged public private(set) var statuses: Set<Status>?
     @NSManaged public private(set) var notifications: Set<MastodonNotification>?
+    @NSManaged public private(set) var searchHistories: Set<SearchHistory>
     
     // many-to-many relationship
     @NSManaged public private(set) var favourite: Set<Status>?
@@ -272,6 +272,15 @@ extension MastodonUser {
         self.updatedAt = networkDate
     }
     
+}
+
+extension MastodonUser {
+    public func findSearchHistory(domain: String, userID: MastodonUser.ID) -> SearchHistory? {
+        return searchHistories.first { searchHistory in
+            return searchHistory.domain == domain
+                && searchHistory.userID == userID
+        }
+    }
 }
 
 extension MastodonUser {

@@ -27,16 +27,11 @@ class SearchRecommendTagsCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .white
         label.font = .preferredFont(forTextStyle: .body)
+        label.numberOfLines = 2
         return label
     }()
     
-    let flameIconView: UIImageView = {
-        let imageView = UIImageView()
-        let image = UIImage(systemName: "flame.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold))!.withRenderingMode(.alwaysTemplate)
-        imageView.image = image
-        imageView.tintColor = .white
-        return imageView
-    }()
+    let lineChartView = LineChartView()
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -98,41 +93,52 @@ extension SearchRecommendTagsCollectionViewCell {
             containerStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             containerStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
-        
-        
-        let horizontalStackView = UIStackView()
-        horizontalStackView.axis = .horizontal
-        horizontalStackView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.distribution = .fill
 
-        hashtagTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        hashtagTitleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
-        horizontalStackView.addArrangedSubview(hashtagTitleLabel)
-        horizontalStackView.setContentHuggingPriority(.required - 1, for: .vertical)
-        
-        flameIconView.translatesAutoresizingMaskIntoConstraints = false
-        horizontalStackView.addArrangedSubview(flameIconView)
-        flameIconView.setContentHuggingPriority(.required - 1, for: .horizontal)
-
-        containerStackView.addArrangedSubview(horizontalStackView)
-        peopleLabel.translatesAutoresizingMaskIntoConstraints = false
-        peopleLabel.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
+        containerStackView.addArrangedSubview(hashtagTitleLabel)
         containerStackView.addArrangedSubview(peopleLabel)
-        containerStackView.setCustomSpacing(SearchViewController.hashtagPeopleTalkingLabelTop, after: horizontalStackView)
+        
+        let lineChartContainer = UIView()
+        lineChartContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(lineChartContainer)
+        NSLayoutConstraint.activate([
+            lineChartContainer.topAnchor.constraint(equalTo: containerStackView.bottomAnchor, constant: 12),
+            lineChartContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: lineChartContainer.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: lineChartContainer.bottomAnchor, constant: 12),
+        ])
+        lineChartContainer.layer.masksToBounds = true
+        
+        lineChartView.translatesAutoresizingMaskIntoConstraints = false
+        lineChartContainer.addSubview(lineChartView)
+        NSLayoutConstraint.activate([
+            lineChartView.topAnchor.constraint(equalTo: lineChartContainer.topAnchor, constant: 4),
+            lineChartView.leadingAnchor.constraint(equalTo: lineChartContainer.leadingAnchor),
+            lineChartView.trailingAnchor.constraint(equalTo: lineChartContainer.trailingAnchor),
+            lineChartContainer.bottomAnchor.constraint(equalTo: lineChartView.bottomAnchor, constant: 4),
+        ])
+        
     }
     
     func config(with tag: Mastodon.Entity.Tag) {
         hashtagTitleLabel.text = "# " + tag.name
-        guard let historys = tag.history else {
+        guard let history = tag.history else {
             peopleLabel.text = ""
             return
         }
         
-        let recentHistory = historys.prefix(2)
+        let recentHistory = history.prefix(2)
         let peopleAreTalking = recentHistory.compactMap({ Int($0.accounts) }).reduce(0, +)
         let string = L10n.Scene.Search.Recommend.HashTag.peopleTalking(String(peopleAreTalking))
         peopleLabel.text = string
-
+        
+        lineChartView.data = history
+            .sorted(by: { $0.day < $1.day })        // latest last
+            .map { entry in
+            guard let point = Int(entry.accounts) else {
+                return .zero
+            }
+            return CGFloat(point)
+        }
     }
 }
 

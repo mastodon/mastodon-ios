@@ -85,6 +85,7 @@ public struct ComposeView: View {
                     .frame(height: viewModel.toolbarHeight + 20)
                     .listRow(backgroundColor: Color(viewModel.backgroundColor))
             }   // end List
+            .listStyle(.plain)
             .introspectTableView(customize: { tableView in
                 // tableView.keyboardDismissMode = .onDrag
                 tableView.verticalScrollIndicatorInsets.bottom = viewModel.toolbarHeight
@@ -101,7 +102,7 @@ public struct ComposeView: View {
             .introspectTableView(customize: { tableView in
                 tableView.backgroundColor = .clear
             })
-            .background(Color(viewModel.backgroundColor).ignoresSafeArea())
+            .overrideBackground(color: Color(viewModel.backgroundColor))
         }   // end GeometryReader
     }   // end body
 }
@@ -112,10 +113,26 @@ struct ComposeListViewFramePreferenceKey: PreferenceKey {
 }
 
 extension View {
+    // hack for separator line
+    @ViewBuilder
     func listRow(backgroundColor: Color) -> some View {
-        self.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .listRowInsets(EdgeInsets(top: -1, leading: -1, bottom: -1, trailing: -1))
-            .background(backgroundColor)
+        // expand list row to edge (set inset)
+        // then hide the separator
+        if #available(iOS 15, *) {
+            frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .listRowInsets(EdgeInsets(top: -1, leading: -1, bottom: -1, trailing: -1))
+                .background(backgroundColor)
+                .listRowSeparator(.hidden)      // new API
+        } else {
+            frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                .listRowInsets(EdgeInsets(top: -1, leading: -1, bottom: -1, trailing: -1))  // separator line hidden magic
+                .background(backgroundColor)
+        }
+    }
+    
+    @ViewBuilder
+    func overrideBackground(color: Color) -> some View {
+        background(color.ignoresSafeArea())
     }
 }
 

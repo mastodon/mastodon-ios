@@ -12,7 +12,6 @@ import Combine
 import CoreDataStack
 import GameplayKit
 
-// TODO: adopt MediaPreviewableViewController
 final class UserTimelineViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
         
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
@@ -73,6 +72,16 @@ extension UserTimelineViewController {
             statusTableViewCellDelegate: self
         )
         
+        // setup batch fetch
+        viewModel.listBatchFetchViewModel.setup(scrollView: tableView)
+        viewModel.listBatchFetchViewModel.shouldFetch
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self = self else { return }
+                self.viewModel.stateMachine.enter(UserTimelineViewModel.State.Loading.self)
+            }
+            .store(in: &disposeBag)
+        
         // trigger user timeline loading
         Publishers.CombineLatest(
             viewModel.domain.removeDuplicates().eraseToAnyPublisher(),
@@ -105,11 +114,11 @@ extension UserTimelineViewController {
 extension UserTimelineViewController: StatusTableViewControllerAspect { }
 
 // MARK: - UIScrollViewDelegate
-extension UserTimelineViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        aspectScrollViewDidScroll(scrollView)
-    }
-}
+//extension UserTimelineViewController {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        aspectScrollViewDidScroll(scrollView)
+//    }
+//}
 
 // MARK: - TableViewCellHeightCacheableContainer
 extension UserTimelineViewController: TableViewCellHeightCacheableContainer {
@@ -187,13 +196,13 @@ extension UserTimelineViewController: ScrollViewContainer {
 }
 
 // MARK: - LoadMoreConfigurableTableViewContainer
-extension UserTimelineViewController: LoadMoreConfigurableTableViewContainer {
-    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
-    typealias LoadingState = UserTimelineViewModel.State.Loading
-    
-    var loadMoreConfigurableTableView: UITableView { return tableView }
-    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
-}
+//extension UserTimelineViewController: LoadMoreConfigurableTableViewContainer {
+//    typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
+//    typealias LoadingState = UserTimelineViewModel.State.Loading
+//
+//    var loadMoreConfigurableTableView: UITable``````View { return tableView }
+//    var loadMoreConfigurableStateMachine: GKStateMachine { return viewModel.stateMachine }
+//}
 
 extension UserTimelineViewController {
     override var keyCommands: [UIKeyCommand]? {

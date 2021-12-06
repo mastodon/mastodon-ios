@@ -67,6 +67,7 @@
                 "done": "完成",
                 "confirm": "确认",
                 "continue": "继续",
+                "compose": "撰写",
                 "cancel": "取消",
                 "discard": "放弃",
                 "try_again": "再试一次",
@@ -413,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "不会显示来自其它服务器的关注者"
+        },
+        "following": {
+            "footer": "不会显示来自其它服务器的关注"
+        },
         "search": {
             "title": "搜索",
             "search_bar": {
@@ -534,6 +541,16 @@
                 "show_next": "显示下一个",
                 "show_previous": "显示前一个"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "当前账户：%s。 双击并按住来打开账户切换页面",
+            "dismiss_account_switcher": "关闭账户切换页面",
+            "add_account": "添加账户"
+        },
+        "wizard": {
+            "new_in_mastodon": "新功能",
+            "multiple_account_switch_intro_description": "按住个人资料标签按钮，即可在多个账户之间进行切换。",
+            "accessibility_hint": "双击关闭此向导"
         }
     }
 }

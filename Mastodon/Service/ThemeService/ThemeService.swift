@@ -10,6 +10,8 @@ import Combine
 
 // ref: https://zamzam.io/protocol-oriented-themes-for-ios-apps/
 final class ThemeService {
+    
+    static let tintColor: UIColor = .label
 
     // MARK: - Singleton
     public static let shared = ThemeService()

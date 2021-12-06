@@ -2,10 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>one</key>
+        <string>1 notificació per llegir</string>
+        <key>other</key>
+        <string>%ld notificacions per llegir</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>El límit d’entrada supera a %#@character_count@</string>
+      <string>El límit de la entrada supera a %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +37,7 @@
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>El límit d’entrada continua sent %#@character_count@</string>
+      <string>El límit de la entrada continua sent %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -95,7 +111,7 @@
         <key>one</key>
         <string>1 impuls</string>
         <key>other</key>
-        <string>%ld impuls</string>
+        <string>%ld impulsos</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -285,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1a</string>
+        <string>fa 1 any</string>
         <key>other</key>
-        <string>fa %ldy anys</string>
+        <string>fa %ld anys</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -301,9 +317,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1M</string>
+        <string>fa 1 mes</string>
         <key>other</key>
-        <string>fa %ldM mesos</string>
+        <string>fa %ld mesos</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -317,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1d</string>
+        <string>fa 1 día</string>
         <key>other</key>
-        <string>fa %ldd dies</string>
+        <string>fa %ld dies</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -335,7 +351,7 @@
         <key>one</key>
         <string>fa 1h</string>
         <key>other</key>
-        <string>fa %ldh hores</string>
+        <string>fa %ld hores</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -349,9 +365,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1m</string>
+        <string>fa 1 minut</string>
         <key>other</key>
-        <string>fa %ldm minuts</string>
+        <string>fa %ld minuts</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -365,9 +381,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>fa 1s</string>
+        <string>fa 1 segon</string>
         <key>other</key>
-        <string>fa %lds seg</string>
+        <string>fa %ld segons</string>
       </dict>
     </dict>
   </dict>

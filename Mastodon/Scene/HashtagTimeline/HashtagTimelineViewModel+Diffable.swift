@@ -17,17 +17,11 @@ extension HashtagTimelineViewModel {
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
             timelineContext: .hashtag,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: timelineMiddleLoaderTableViewCellDelegate,
             threadReplyLoaderTableViewCellDelegate: nil
@@ -95,7 +89,7 @@ extension HashtagTimelineViewModel {
         }
         
         DispatchQueue.main.async {
-            diffableDataSource.apply(newSnapshot, animatingDifferences: false) {
+            diffableDataSource.reloadData(snapshot: newSnapshot) {
                 tableView.scrollToRow(at: difference.targetIndexPath, at: .top, animated: false)
                 tableView.contentOffset.y = tableView.contentOffset.y - difference.offset
                 self.isFetchingLatestTimeline.value = false

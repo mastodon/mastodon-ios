@@ -2,10 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>zero</key>
+        <string>لا إشعار غير مقروء</string>
+        <key>one</key>
+        <string>إشعار واحِد غير مقروء</string>
+        <key>two</key>
+        <string>إشعاران غير مقروءان</string>
+        <key>few</key>
+        <string>%ld إشعارات غير مقروءة</string>
+        <key>many</key>
+        <string>%ld إشعارًا غيرَ مقروء</string>
+        <key>other</key>
+        <string>%ld إشعار غير مقروء</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit exceeds %#@character_count@</string>
+      <string>تمَّ تجاوز حدّ الإدخال %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,23 +37,23 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>لا حرف</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>حرفٌ واحِد</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>حرفان اثنان</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld حُرُوف</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld حرفًا</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld حَرف</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Input limit remains %#@character_count@</string>
+      <string>يتبقَّى على حدّ الإدخال %#@character_count@</string>
       <key>character_count</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -37,17 +61,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld characters</string>
+        <string>لا حرف</string>
         <key>one</key>
-        <string>1 character</string>
+        <string>حرفٌ واحِد</string>
         <key>two</key>
-        <string>%ld characters</string>
+        <string>حرفان اثنان</string>
         <key>few</key>
-        <string>%ld characters</string>
+        <string>%ld حُرُوف</string>
         <key>many</key>
-        <string>%ld characters</string>
+        <string>%ld حرفًا</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld حَرف</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -61,17 +85,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>posts</string>
+        <string>لا منشور</string>
         <key>one</key>
-        <string>post</string>
+        <string>منشور</string>
         <key>two</key>
-        <string>posts</string>
+        <string>منشوران</string>
         <key>few</key>
-        <string>posts</string>
+        <string>منشورات</string>
         <key>many</key>
-        <string>posts</string>
+        <string>منشورًا</string>
         <key>other</key>
-        <string>posts</string>
+        <string>منشور</string>
       </dict>
     </dict>
     <key>plural.count.post</key>
@@ -85,17 +109,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld posts</string>
+        <string>لا منشور</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>منشورٌ واحِد</string>
         <key>two</key>
-        <string>%ld posts</string>
+        <string>منشورانِ اثنان</string>
         <key>few</key>
-        <string>%ld posts</string>
+        <string>%ld منشورات</string>
         <key>many</key>
-        <string>%ld posts</string>
+        <string>%ld منشورًا</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld منشور</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -109,17 +133,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld favorites</string>
+        <string>لا إعجاب</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>إعجابٌ واحِد</string>
         <key>two</key>
-        <string>%ld favorites</string>
+        <string>إعجابانِ اثنان</string>
         <key>few</key>
-        <string>%ld favorites</string>
+        <string>%ld إعجابات</string>
         <key>many</key>
-        <string>%ld favorites</string>
+        <string>%ld إعجابًا</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld إعجاب</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -133,17 +157,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld reblogs</string>
+        <string>لا إعاد تدوين</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>إعادةُ تدوينٍ واحِدة</string>
         <key>two</key>
-        <string>%ld reblogs</string>
+        <string>إعادتا تدوين</string>
         <key>few</key>
-        <string>%ld reblogs</string>
+        <string>%ld إعاداتِ تدوين</string>
         <key>many</key>
-        <string>%ld reblogs</string>
+        <string>%ld إعادةٍ للتدوين</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld إعادة تدوين</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>
@@ -157,17 +181,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld votes</string>
+        <string>لا صوت</string>
         <key>one</key>
-        <string>1 vote</string>
+        <string>صوتٌ واحِد</string>
         <key>two</key>
-        <string>%ld votes</string>
+        <string>صوتانِ اثنان</string>
         <key>few</key>
-        <string>%ld votes</string>
+        <string>%ld أصوات</string>
         <key>many</key>
-        <string>%ld votes</string>
+        <string>%ld صوتًا</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld صوت</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -181,17 +205,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld voters</string>
+        <string>لا مُصوِّتون</string>
         <key>one</key>
-        <string>1 voter</string>
+        <string>مُصوِّتٌ واحِد</string>
         <key>two</key>
-        <string>%ld voters</string>
+        <string>مُصوِّتانِ اثنان</string>
         <key>few</key>
-        <string>%ld voters</string>
+        <string>%ld مُصوِّتين</string>
         <key>many</key>
-        <string>%ld voters</string>
+        <string>%ld مُصوِّتًا</string>
         <key>other</key>
-        <string>%ld voters</string>
+        <string>%ld مُصوِّت</string>
       </dict>
     </dict>
     <key>plural.people_talking</key>
@@ -205,17 +229,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld people talking</string>
+        <string>لا أحَدَ يتحدَّث</string>
         <key>one</key>
-        <string>1 people talking</string>
+        <string>شخصٌ واحدٌ يتحدَّث</string>
         <key>two</key>
-        <string>%ld people talking</string>
+        <string>شخصانِ اثنان يتحدَّثا</string>
         <key>few</key>
-        <string>%ld people talking</string>
+        <string>%ld أشخاصٍ يتحدَّثون</string>
         <key>many</key>
-        <string>%ld people talking</string>
+        <string>%ld شخصًا يتحدَّثون</string>
         <key>other</key>
-        <string>%ld people talking</string>
+        <string>%ld شخصٍ يتحدَّثون</string>
       </dict>
     </dict>
     <key>plural.count.following</key>
@@ -229,17 +253,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld following</string>
+        <string>لا مُتابَع</string>
         <key>one</key>
-        <string>1 following</string>
+        <string>مُتابَعٌ واحد</string>
         <key>two</key>
-        <string>%ld following</string>
+        <string>مُتابَعانِ</string>
         <key>few</key>
-        <string>%ld following</string>
+        <string>%ld مُتابَعين</string>
         <key>many</key>
-        <string>%ld following</string>
+        <string>%ld مُتابَعًا</string>
         <key>other</key>
-        <string>%ld following</string>
+        <string>%ld مُتابَع</string>
       </dict>
     </dict>
     <key>plural.count.follower</key>
@@ -253,17 +277,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld followers</string>
+        <string>لا مُتابِع</string>
         <key>one</key>
-        <string>1 follower</string>
+        <string>مُتابِعٌ واحد</string>
         <key>two</key>
-        <string>%ld followers</string>
+        <string>مُتابِعانِ اثنان</string>
         <key>few</key>
-        <string>%ld followers</string>
+        <string>%ld مُتابِعين</string>
         <key>many</key>
-        <string>%ld followers</string>
+        <string>%ld مُتابِعًا</string>
         <key>other</key>
-        <string>%ld followers</string>
+        <string>%ld مُتابِع</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -277,17 +301,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld years left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>تتبقى سنة</string>
         <key>two</key>
-        <string>%ld years left</string>
+        <string>تتبقى سنتين</string>
         <key>few</key>
-        <string>%ld years left</string>
+        <string>تتبقى %ld سنوات</string>
         <key>many</key>
-        <string>%ld years left</string>
+        <string>تتبقى %ld سنةً</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>تتبقى %ld سنة</string>
       </dict>
     </dict>
     <key>date.month.left</key>
@@ -301,17 +325,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld months left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 months left</string>
+        <string>يتبقى شهر</string>
         <key>two</key>
-        <string>%ld months left</string>
+        <string>يتبقى شهرين</string>
         <key>few</key>
-        <string>%ld months left</string>
+        <string>يتبقى %ld أشهر</string>
         <key>many</key>
-        <string>%ld months left</string>
+        <string>يتبقى %ld شهرًا</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>يتبقى %ld شهر</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -325,17 +349,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld days left</string>
+        <string>تتبقى لحظة</string>
         <key>one</key>
-        <string>1 day left</string>
+        <string>يتبقى يوم</string>
         <key>two</key>
-        <string>%ld days left</string>
+        <string>يتبقى يومين</string>
         <key>few</key>
-        <string>%ld days left</string>
+        <string>يتبقى %ld أيام</string>
         <key>many</key>
-        <string>%ld days left</string>
+        <string>يتبقى %ld يومًا</string>
         <key>other</key>
-        <string>%ld days left</string>
+        <string>يتبقى %ld يوم</string>
       </dict>
     </dict>
     <key>date.hour.left</key>
@@ -349,17 +373,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld hours left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 hour left</string>
+        <string>تتبقى ساعة</string>
         <key>two</key>
-        <string>%ld hours left</string>
+        <string>تتبقى ساعتين</string>
         <key>few</key>
-        <string>%ld hours left</string>
+        <string>تتبقى %ld ساعات</string>
         <key>many</key>
-        <string>%ld hours left</string>
+        <string>تتبقى %ld ساعةً</string>
         <key>other</key>
-        <string>%ld hours left</string>
+        <string>تتبقى %ld ساعة</string>
       </dict>
     </dict>
     <key>date.minute.left</key>
@@ -373,17 +397,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 minute left</string>
+        <string>تتبقى دقيقة</string>
         <key>two</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى دقيقتين</string>
         <key>few</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى %ld دقائق</string>
         <key>many</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى %ld دقيقةً</string>
         <key>other</key>
-        <string>%ld minutes left</string>
+        <string>تتبقى %ld دقيقة</string>
       </dict>
     </dict>
     <key>date.second.left</key>
@@ -397,17 +421,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى لَحظة</string>
         <key>one</key>
-        <string>1 second left</string>
+        <string>تتبقى ثانية</string>
         <key>two</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى ثانيتين</string>
         <key>few</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى %ld ثوان</string>
         <key>many</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى %ld ثانيةً</string>
         <key>other</key>
-        <string>%ld seconds left</string>
+        <string>تتبقى %ld ثانية</string>
       </dict>
     </dict>
     <key>date.year.ago.abbr</key>
@@ -421,17 +445,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1y ago</string>
+        <string>مُنذُ سنة</string>
         <key>two</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ سنتين</string>
         <key>few</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ %ld سنين</string>
         <key>many</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ %ld سنةً</string>
         <key>other</key>
-        <string>%ldy ago</string>
+        <string>مُنذُ %ld سنة</string>
       </dict>
     </dict>
     <key>date.month.ago.abbr</key>
@@ -445,17 +469,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1M ago</string>
+        <string>مُنذُ شهر</string>
         <key>two</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ شهرين</string>
         <key>few</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ %ld أشهُر</string>
         <key>many</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ %ld شهرًا</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>مُنذُ %ld شهر</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>
@@ -469,17 +493,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1d ago</string>
+        <string>مُنذُ يوم</string>
         <key>two</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ يومين</string>
         <key>few</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ %ld أيام</string>
         <key>many</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ %ld يومًا</string>
         <key>other</key>
-        <string>%ldd ago</string>
+        <string>مُنذُ %ld يوم</string>
       </dict>
     </dict>
     <key>date.hour.ago.abbr</key>
@@ -493,17 +517,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1h ago</string>
+        <string>مُنذُ ساعة</string>
         <key>two</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ ساعتين</string>
         <key>few</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ %ld ساعات</string>
         <key>many</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ %ld ساعةًَ</string>
         <key>other</key>
-        <string>%ldh ago</string>
+        <string>مُنذُ %ld ساعة</string>
       </dict>
     </dict>
     <key>date.minute.ago.abbr</key>
@@ -517,17 +541,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1m ago</string>
+        <string>مُنذُ دقيقة</string>
         <key>two</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ دقيقتان</string>
         <key>few</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ %ld دقائق</string>
         <key>many</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ %ld دقيقةً</string>
         <key>other</key>
-        <string>%ldm ago</string>
+        <string>مُنذُ %ld دقيقة</string>
       </dict>
     </dict>
     <key>date.second.ago.abbr</key>
@@ -541,17 +565,17 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>zero</key>
-        <string>%lds ago</string>
+        <string>مُنذُ لَحظة</string>
         <key>one</key>
-        <string>1s ago</string>
+        <string>مُنذُ ثانية</string>
         <key>two</key>
-        <string>%lds ago</string>
+        <string>مُنذُ ثانيتين</string>
         <key>few</key>
-        <string>%lds ago</string>
+        <string>مُنذُ %ld ثوان</string>
         <key>many</key>
-        <string>%lds ago</string>
+        <string>مُنذُ %ld ثانية</string>
         <key>other</key>
-        <string>%lds ago</string>
+        <string>مُنذُ %ld ثانية</string>
       </dict>
     </dict>
   </dict>

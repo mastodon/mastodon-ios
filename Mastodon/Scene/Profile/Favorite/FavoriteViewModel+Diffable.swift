@@ -13,18 +13,12 @@ extension FavoriteViewModel {
         for tableView: UITableView,
         dependency: NeedsDependency,
         statusTableViewCellDelegate: StatusTableViewCellDelegate
-    ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
+    ) {        
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
             timelineContext: .favorite,
             dependency: dependency,
             managedObjectContext: statusFetchedResultsController.fetchedResultsController.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: nil,
             threadReplyLoaderTableViewCellDelegate: nil

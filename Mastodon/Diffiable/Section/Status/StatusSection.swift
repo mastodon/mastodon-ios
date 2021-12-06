@@ -67,7 +67,6 @@ extension StatusSection {
         timelineContext: TimelineContext,
         dependency: NeedsDependency,
         managedObjectContext: NSManagedObjectContext,
-        timestampUpdatePublisher: AnyPublisher<Date, Never>,
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
         timelineMiddleLoaderTableViewCellDelegate: TimelineMiddleLoaderTableViewCellDelegate?,
         threadReplyLoaderTableViewCellDelegate: ThreadReplyLoaderTableViewCellDelegate?
@@ -159,6 +158,11 @@ extension StatusSection {
                     accessibilityElements.append(cell.statusView.avatarView)
                     accessibilityElements.append(cell.statusView.nameMetaLabel)
                     accessibilityElements.append(cell.statusView.dateLabel)
+                    // poll
+                    accessibilityElements.append(cell.statusView.pollTableView)
+                    accessibilityElements.append(cell.statusView.pollVoteCountLabel)
+                    accessibilityElements.append(cell.statusView.pollCountdownLabel)
+                    accessibilityElements.append(cell.statusView.pollVoteButton)
                     // TODO: a11y
                     accessibilityElements.append(cell.statusView.contentMetaText.textView)
                     accessibilityElements.append(contentsOf: cell.statusView.statusMosaicImageViewContainer.imageViews)
@@ -363,7 +367,6 @@ extension StatusSection {
             }
         }()
 
-
         if status.author.id == requestUserID || status.reblog?.author.id == requestUserID {
             // do not filter myself
         } else {
@@ -391,7 +394,7 @@ extension StatusSection {
         // set timestamp
         let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.localizedSlowedTimeAgoSinceNow
-        cell.statusView.dateLabel.accessibilityValue = createdAt.timeAgoSinceNow
+        cell.statusView.dateLabel.accessibilityLabel = createdAt.timeAgoSinceNow
         AppContext.shared.timestampUpdatePublisher
             .receive(on: RunLoop.main)      // will be paused when scrolling (on purpose)
             .sink { [weak cell] _ in
@@ -473,9 +476,10 @@ extension StatusSection {
             .receive(on: RunLoop.main)
             .sink { _ in
                 // do nothing
-            } receiveValue: { [weak cell, weak tableView] change in
+            } receiveValue: { [weak cell, weak tableView, weak dependency] change in
                 guard let cell = cell else { return }
                 guard let tableView = tableView else { return }
+                guard let dependency = dependency else { return }
                 guard case .update(let object) = change.changeType,
                       let status = object as? Status, !status.isDeleted else {
                     return
@@ -640,7 +644,7 @@ extension StatusSection {
     ) {
         if status.reblog != nil {
             cell.statusView.headerContainerView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+            cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.reblogIconImage))
             let headerText: String = {
                 let author = status.author
                 let name = author.displayName.isEmpty ? author.username : author.displayName
@@ -658,7 +662,7 @@ extension StatusSection {
             cell.statusView.headerInfoLabel.isAccessibilityElement = true
         } else if status.inReplyToID != nil {
             cell.statusView.headerContainerView.isHidden = false
-            cell.statusView.headerIconLabel.attributedText = StatusView.iconAttributedString(image: StatusView.replyIconImage)
+            cell.statusView.headerIconLabel.configure(attributedString: StatusView.iconAttributedString(image: StatusView.replyIconImage))
             let headerText: String = {
                 guard let replyTo = status.replyTo else {
                     return L10n.Common.Controls.Status.userRepliedTo("-")
@@ -721,6 +725,15 @@ extension StatusSection {
         statusItemAttribute: Item.StatusAttribute
     ) {
         // set content
+        let paragraphStyle = cell.statusView.contentMetaText.paragraphStyle
+        if let language = (status.reblog ?? status).language {
+            let direction = Locale.characterDirection(forLanguage: language)
+            paragraphStyle.alignment = direction == .rightToLeft ? .right : .left
+        } else {
+            paragraphStyle.alignment = .natural
+        }
+        cell.statusView.contentMetaText.paragraphStyle = paragraphStyle
+        
         if let content = content {
             cell.statusView.contentMetaText.configure(content: content)
             cell.statusView.contentMetaText.textView.accessibilityLabel = content.trimmed
@@ -970,6 +983,7 @@ extension StatusSection {
             cell.statusView.pollCountdownLabel.text = "-"
         }
         
+        cell.statusView.isUserInteractionEnabled = !poll.expired        // make voice over touch passthroughable
         cell.statusView.pollTableView.allowsSelection = !poll.expired
         
         let votedOptions = poll.options.filter { option in
@@ -1072,7 +1086,7 @@ extension StatusSection {
                 cell.statusView.actionToolbarContainer.reblogButton.isEnabled = false
             }
         }
-        
+
         // set like
         let isLike = status.favouritedBy.flatMap { $0.contains(where: { $0.id == requestUserID }) } ?? false
         let favoriteCountTitle: String = {
@@ -1107,7 +1121,7 @@ extension StatusSection {
             StatusSection.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
         })
         .store(in: &cell.disposeBag)
-        self.setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
+        setupStatusMoreButtonMenu(cell: cell, dependency: dependency, status: status)
     }
     
     static func configureStatusAccessibilityLabel(cell: StatusTableViewCell) {

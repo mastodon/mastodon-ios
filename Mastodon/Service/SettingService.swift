@@ -44,19 +44,20 @@ final class SettingService {
             .compactMap { [weak self] mastodonAuthenticationBoxes -> AnyPublisher<[MastodonAuthenticationBox], Never>? in
                 guard let self = self else { return nil }
                 guard let authenticationService = self.authenticationService else { return nil }
-                guard let activeMastodonAuthenticationBox = mastodonAuthenticationBoxes.first else { return nil }
                 
-                let domain = activeMastodonAuthenticationBox.domain
-                let userID = activeMastodonAuthenticationBox.userID
-                return authenticationService.backgroundManagedObjectContext.performChanges {
-                    _ = APIService.CoreData.createOrMergeSetting(
-                        into: authenticationService.backgroundManagedObjectContext,
-                        property: Setting.Property(
-                            domain: domain,
-                            userID: userID,
-                            appearanceRaw: SettingsItem.AppearanceMode.automatic.rawValue
+                let managedObjectContext = authenticationService.backgroundManagedObjectContext
+                return managedObjectContext.performChanges {
+                    for authenticationBox in mastodonAuthenticationBoxes {
+                        let domain = authenticationBox.domain
+                        let userID = authenticationBox.userID
+                        _ = APIService.CoreData.createOrMergeSetting(
+                            into: managedObjectContext,
+                            property: Setting.Property(
+                                domain: domain,
+                                userID: userID
+                            )
                         )
-                    )
+                    }   // end for
                 }
                 .map { _ in mastodonAuthenticationBoxes }
                 .eraseToAnyPublisher()
@@ -188,16 +189,16 @@ extension SettingService {
 
     static func updatePreference(setting: Setting) {
         // set appearance
-        let userInterfaceStyle: UIUserInterfaceStyle = {
-            switch setting.appearance {
-            case .automatic:    return .unspecified
-            case .light:        return .light
-            case .dark:         return .dark
-            }
-        }()
-        if UserDefaults.shared.customUserInterfaceStyle != userInterfaceStyle {
-            UserDefaults.shared.customUserInterfaceStyle = userInterfaceStyle
-        }
+//        let userInterfaceStyle: UIUserInterfaceStyle = {
+//            switch setting.appearance {
+//            case .automatic:    return .unspecified
+//            case .light:        return .light
+//            case .dark:         return .dark
+//            }
+//        }()
+//        if UserDefaults.shared.customUserInterfaceStyle != userInterfaceStyle {
+//            UserDefaults.shared.customUserInterfaceStyle = userInterfaceStyle
+//        }
 
         // set theme
         let themeName: ThemeName = setting.preferredTrueBlackDarkMode ? .system : .mastodon

@@ -259,8 +259,8 @@ extension StatusProviderFacade {
         guard let context = provider.context else { return }
         
         // haptic feedback generator
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        let responseFeedbackGenerator = UINotificationFeedbackGenerator()
+        let generator = UISelectionFeedbackGenerator()
+        // let responseFeedbackGenerator = UINotificationFeedbackGenerator()
         
         status
             .compactMap { status -> (NSManagedObjectID, Mastodon.API.Favorites.FavoriteKind)? in
@@ -287,10 +287,10 @@ extension StatusProviderFacade {
             .handleEvents(receiveSubscription: { _ in
                 generator.prepare()
             }, receiveOutput: { _, favoriteKind in
-                generator.impactOccurred()
+                generator.selectionChanged()
                 os_log("%{public}s[%{public}ld], %{public}s: [Like] update local status like status to: %s", ((#file as NSString).lastPathComponent), #line, #function, favoriteKind == .create ? "like" : "unlike")
             }, receiveCompletion: { completion in
-                responseFeedbackGenerator.prepare()
+                // responseFeedbackGenerator.prepare()
                 switch completion {
                 case .failure:
                     // TODO: handle error
@@ -312,10 +312,10 @@ extension StatusProviderFacade {
                 guard let _ = provider else { return }
                 switch completion {
                 case .failure(let error):
-                    responseFeedbackGenerator.notificationOccurred(.error)
+                    // responseFeedbackGenerator.notificationOccurred(.error)
                     os_log("%{public}s[%{public}ld], %{public}s: [Like] remote like request fail: %{public}s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                 case .finished:
-                    responseFeedbackGenerator.notificationOccurred(.success)
+                    // responseFeedbackGenerator.notificationOccurred(.success)
                     os_log("%{public}s[%{public}ld], %{public}s: [Like] remote like request success", ((#file as NSString).lastPathComponent), #line, #function)
                 }
             } receiveValue: { response in
@@ -368,8 +368,8 @@ extension StatusProviderFacade {
         guard let context = provider.context else { return }
         
         // haptic feedback generator
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        let responseFeedbackGenerator = UINotificationFeedbackGenerator()
+        let generator = UISelectionFeedbackGenerator()
+        // let responseFeedbackGenerator = UINotificationFeedbackGenerator()
         
         status
             .compactMap { status -> (NSManagedObjectID, Mastodon.API.Reblog.ReblogKind)? in
@@ -396,7 +396,7 @@ extension StatusProviderFacade {
             .handleEvents(receiveSubscription: { _ in
                 generator.prepare()
             }, receiveOutput: { _, reblogKind in
-                generator.impactOccurred()
+                generator.selectionChanged()
                 switch reblogKind {
                 case .reblog:
                     os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local status reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "reblog")
@@ -404,7 +404,7 @@ extension StatusProviderFacade {
                     os_log("%{public}s[%{public}ld], %{public}s: [Reblog] update local status reblog status to: %s", ((#file as NSString).lastPathComponent), #line, #function, "unreblog")
                 }
             }, receiveCompletion: { completion in
-                responseFeedbackGenerator.prepare()
+                // responseFeedbackGenerator.prepare()
                 switch completion {
                 case .failure:
                     // TODO: handle error
@@ -426,10 +426,10 @@ extension StatusProviderFacade {
                 guard let _ = provider else { return }
                 switch completion {
                 case .failure(let error):
-                    responseFeedbackGenerator.notificationOccurred(.error)
+                    // responseFeedbackGenerator.notificationOccurred(.error)
                     os_log("%{public}s[%{public}ld], %{public}s: [Reblog] remote reblog request fail: %{public}s", ((#file as NSString).lastPathComponent), #line, #function, error.localizedDescription)
                 case .finished:
-                    responseFeedbackGenerator.notificationOccurred(.success)
+                    // responseFeedbackGenerator.notificationOccurred(.success)
                     os_log("%{public}s[%{public}ld], %{public}s: [Reblog] remote reblog request success", ((#file as NSString).lastPathComponent), #line, #function)
                 }
             } receiveValue: { response in
@@ -469,8 +469,8 @@ extension StatusProviderFacade {
                 guard let provider = provider else { return }
                 guard let status = status?.reblog ?? status else { return }
 
-                let generator = UIImpactFeedbackGenerator(style: .light)
-                generator.impactOccurred()
+                let generator = UISelectionFeedbackGenerator()
+                generator.selectionChanged()
 
                 let composeViewModel = ComposeViewModel(context: provider.context, composeKind: .reply(repliedToStatusObjectID: status.objectID))
                 provider.coordinator.present(scene: .compose(viewModel: composeViewModel), from: provider, transition: .modal(animated: true, completion: nil))

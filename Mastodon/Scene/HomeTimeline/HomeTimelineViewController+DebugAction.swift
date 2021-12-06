@@ -14,6 +14,8 @@ import CoreDataStack
 import FLEX
 import SwiftUI
 import MastodonUI
+import MastodonSDK
+import StoreKit
 
 extension HomeTimelineViewController {
     var debugMenu: UIMenu {
@@ -23,40 +25,11 @@ extension HomeTimelineViewController {
             identifier: nil,
             options: .displayInline,
             children: [
-                UIAction(title: "Show FLEX", image: nil, attributes: [], handler: { [weak self] action in
-                    guard let self = self else { return }
-                    self.showFLEXAction(action)
-                }),
+                showMenu,
                 moveMenu,
                 dropMenu,
-                UIAction(title: "Show Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showWelcomeAction(action)
-                },
-                UIAction(title: "Show Confirm Email", image: UIImage(systemName: "envelope"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showConfirmEmail(action)
-                },
-                UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    if self.emptyView.superview != nil {
-                        self.emptyView.removeFromSuperview()
-                    } else {
-                        self.showEmptyView()
-                    }
-                },
-                UIAction(title: "Show Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showPublicTimelineAction(action)
-                },
-                UIAction(title: "Show Profile", image: UIImage(systemName: "person.crop.circle"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showProfileAction(action)
-                },
-                UIAction(title: "Show Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
-                    guard let self = self else { return }
-                    self.showThreadAction(action)
-                },
+                miscMenu,
+                notificationMenu,
                 UIAction(title: "Settings", image: UIImage(systemName: "gear"), attributes: []) { [weak self] action in
                     guard let self = self else { return }
                     self.showSettings(action)
@@ -68,6 +41,50 @@ extension HomeTimelineViewController {
             ]
         )
         return menu
+    }
+
+    var showMenu: UIMenu {
+        return UIMenu(
+            title: "Show…",
+            image: UIImage(systemName: "plus.rectangle.on.rectangle"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "FLEX", image: nil, attributes: [], handler: { [weak self] action in
+                    guard let self = self else { return }
+                    self.showFLEXAction(action)
+                }),
+                UIAction(title: "Welcome", image: UIImage(systemName: "figure.walk"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showWelcomeAction(action)
+                },
+                UIAction(title: "Confirm Email", image: UIImage(systemName: "envelope"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showConfirmEmail(action)
+                },
+                UIAction(title: "Account List", image: UIImage(systemName: "person"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showAccountList(action)
+                },
+                UIAction(title: "Public Timeline", image: UIImage(systemName: "list.dash"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showPublicTimelineAction(action)
+                },
+                UIAction(title: "Profile", image: UIImage(systemName: "person.crop.circle"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showProfileAction(action)
+                },
+                UIAction(title: "Thread", image: UIImage(systemName: "bubble.left.and.bubble.right"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showThreadAction(action)
+                },
+                UIAction(title: "Store Rating", image: UIImage(systemName: "star.fill"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    guard let windowScene = self.view.window?.windowScene else { return }
+                    SKStoreReviewController.requestReview(in: windowScene)
+                },
+            ]
+        )
     }
     
     var moveMenu: UIMenu {
@@ -123,6 +140,68 @@ extension HomeTimelineViewController {
             }
         )
     }
+    
+    var miscMenu: UIMenu {
+        return UIMenu(
+            title: "Debug…",
+            image: UIImage(systemName: "switch.2"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "Toggle EmptyView", image: UIImage(systemName: "clear"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    if self.emptyView.superview != nil {
+                        self.emptyView.removeFromSuperview()
+                    } else {
+                        self.showEmptyView()
+                    }
+                },
+                UIAction(
+                    title: "Notification badge +1",
+                    image: UIImage(systemName: "1.circle.fill"),
+                    identifier: nil,
+                    attributes: [],
+                    state: .off,
+                    handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        guard let accessToken = self.context.authenticationService.activeMastodonAuthentication.value?.userAccessToken else { return }
+                        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+                        self.context.notificationService.applicationIconBadgeNeedsUpdate.send()
+                    }
+                ),
+                UIAction(
+                    title: "Enable account switcher wizard",
+                    image: UIImage(systemName: "square.stack.3d.down.forward.fill"),
+                    identifier: nil,
+                    attributes: [],
+                    state: .off,
+                    handler: { _ in 
+                        UserDefaults.shared.didShowMultipleAccountSwitchWizard = false
+                    }
+                ),
+            ]
+        )
+    }
+    
+    var notificationMenu: UIMenu {
+        return UIMenu(
+            title: "Notification…",
+            image: UIImage(systemName: "bell.badge"),
+            identifier: nil,
+            options: [],
+            children: [
+                UIAction(title: "Profile", image: UIImage(systemName: "person.badge.plus"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showNotification(action, notificationType: .follow)
+                },
+                UIAction(title: "Status", image: UIImage(systemName: "list.bullet.rectangle"), attributes: []) { [weak self] action in
+                    guard let self = self else { return }
+                    self.showNotification(action, notificationType: .mention)
+                },
+            ]
+        )
+    }
+    
 }
 
 extension HomeTimelineViewController {
@@ -321,6 +400,10 @@ extension HomeTimelineViewController {
         let mastodonConfirmEmailViewModel = MastodonConfirmEmailViewModel()
         coordinator.present(scene: .mastodonConfirmEmail(viewModel: mastodonConfirmEmailViewModel), from: nil, transition: .modal(animated: true, completion: nil))
     }
+
+    @objc private func showAccountList(_ sender: UIAction) {
+        coordinator.present(scene: .accountList, from: self, transition: .modal(animated: true, completion: nil))
+    }
     
     @objc private func showPublicTimelineAction(_ sender: UIAction) {
         coordinator.present(scene: .publicTimeline, from: self, transition: .show)
@@ -354,6 +437,63 @@ extension HomeTimelineViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
         coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
+    }
+    
+    private func showNotification(_ sender: UIAction, notificationType: Mastodon.Entity.Notification.NotificationType) {
+        guard let authenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value else { return }
+        
+        let alertController = UIAlertController(title: "Enter notification ID", message: nil, preferredStyle: .alert)
+        alertController.addTextField()
+        
+        let showAction = UIAlertAction(title: "Show", style: .default) { [weak self, weak alertController] _ in
+            guard let self = self else { return }
+            guard let textField = alertController?.textFields?.first,
+                  let text = textField.text,
+                  let notificationID = Int(text)
+            else { return }
+            
+            let pushNotification = MastodonPushNotification(
+                _accessToken: authenticationBox.userAuthorization.accessToken,
+                notificationID: notificationID,
+                notificationType: notificationType.rawValue,
+                preferredLocale: nil,
+                icon: nil,
+                title: "",
+                body: ""
+            )
+            self.context.notificationService.requestRevealNotificationPublisher.send(pushNotification)
+        }
+        alertController.addAction(showAction)
+        
+        // for multiple accounts debug
+        let boxes = self.context.authenticationService.mastodonAuthenticationBoxes.value    // already sorted
+        if boxes.count >= 2 {
+            let accessToken = boxes[1].userAuthorization.accessToken
+            let showForSecondaryAction = UIAlertAction(title: "Show for Secondary", style: .default) { [weak self, weak alertController] _ in
+                guard let self = self else { return }
+                guard let textField = alertController?.textFields?.first,
+                      let text = textField.text,
+                      let notificationID = Int(text)
+                else { return }
+                
+                let pushNotification = MastodonPushNotification(
+                    _accessToken: accessToken,
+                    notificationID: notificationID,
+                    notificationType: notificationType.rawValue,
+                    preferredLocale: nil,
+                    icon: nil,
+                    title: "",
+                    body: ""
+                )
+                self.context.notificationService.requestRevealNotificationPublisher.send(pushNotification)
+            }
+            alertController.addAction(showForSecondaryAction)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        self.coordinator.present(scene: .alertController(alertController: alertController), from: self, transition: .alertController(animated: true, completion: nil))
     }
     
     @objc private func showSettings(_ sender: UIAction) {

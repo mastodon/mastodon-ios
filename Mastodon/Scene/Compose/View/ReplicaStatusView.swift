@@ -45,9 +45,10 @@ final class ReplicaStatusView: UIView {
         return attributedString
     }
 
-    let headerIconLabel: UILabel = {
-        let label = UILabel()
-        label.attributedText = ReplicaStatusView.iconAttributedString(image: ReplicaStatusView.reblogIconImage)
+    let headerIconLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusHeader)
+        let attributedString = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+        label.configure(attributedString: attributedString)
         return label
     }()
 

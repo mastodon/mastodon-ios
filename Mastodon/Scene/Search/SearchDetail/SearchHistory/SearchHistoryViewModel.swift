@@ -98,14 +98,19 @@ extension SearchHistoryViewModel {
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
                 guard let user = try? managedObjectContext.existingObject(with: objectID) as? MastodonUser else { return }
-                if let searchHistory = user.searchHistory {
+                if let searchHistory = user.findSearchHistory(domain: box.domain, userID: box.userID) {
                     searchHistory.update(updatedAt: Date())
                 } else {
                     SearchHistory.insert(into: managedObjectContext, property: property, account: user)
                 }
             }
             .sink { result in
-                // do nothing
+                switch result {
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                case .success:
+                    break
+                }
             }
             .store(in: &context.disposeBag)
 
@@ -113,14 +118,19 @@ extension SearchHistoryViewModel {
             let managedObjectContext = context.backgroundManagedObjectContext
             managedObjectContext.performChanges {
                 guard let hashtag = try? managedObjectContext.existingObject(with: objectID) as? Tag else { return }
-                if let searchHistory = hashtag.searchHistory {
+                if let searchHistory = hashtag.findSearchHistory(domain: box.domain, userID: box.userID) {
                     searchHistory.update(updatedAt: Date())
                 } else {
-                    SearchHistory.insert(into: managedObjectContext, property: property, hashtag: hashtag)
+                    _ = SearchHistory.insert(into: managedObjectContext, property: property, hashtag: hashtag)
                 }
             }
             .sink { result in
-                // do nothing
+                switch result {
+                case .failure(let error):
+                    assertionFailure(error.localizedDescription)
+                case .success:
+                    break
+                }
             }
             .store(in: &context.disposeBag)
 

@@ -11,6 +11,12 @@ import GameplayKit
 import MastodonSDK
 import UIKit
 
+final class HeightFixedSearchBar: UISearchBar {
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: CGFloat.greatestFiniteMagnitude, height: 44)
+    }
+}
+
 final class SearchViewController: UIViewController, NeedsDependency {
 
     let logger = Logger(subsystem: "Search", category: "UI")
@@ -41,6 +47,11 @@ final class SearchViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     private(set) lazy var viewModel = SearchViewModel(context: context)
+    
+    // use AutoLayout could set search bar margin automatically to
+    // layout alongside with split mode button (on iPad)
+    let titleViewContainer = UIView()
+    let searchBar = HeightFixedSearchBar()
 
     // recommend
     let scrollView: UIScrollView = {
@@ -83,6 +94,10 @@ final class SearchViewController: UIViewController, NeedsDependency {
     }()
 
     let searchBarTapPublisher = PassthroughSubject<Void, Never>()
+    
+    deinit {
+        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
+    }
 
 }
 
@@ -112,6 +127,10 @@ extension SearchViewController {
         super.viewDidAppear(animated)
 
         viewModel.viewDidAppeared.send()
+        
+        // note:
+        // need set alpha because (maybe) SDK forget set alpha back
+        titleViewContainer.alpha = 1
     }
 }
 
@@ -121,10 +140,17 @@ extension SearchViewController {
     }
 
     private func setupSearchBar() {
-        let searchBar = UISearchBar()
         searchBar.placeholder = L10n.Scene.Search.SearchBar.placeholder
         searchBar.delegate = self
-        navigationItem.titleView = searchBar
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        titleViewContainer.addSubview(searchBar)
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: titleViewContainer.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: titleViewContainer.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: titleViewContainer.trailingAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: titleViewContainer.bottomAnchor),
+        ])
+        navigationItem.titleView = titleViewContainer
 
         searchBarTapPublisher
             .throttle(for: 0.5, scheduler: DispatchQueue.main, latest: false)

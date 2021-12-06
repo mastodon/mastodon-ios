@@ -60,6 +60,9 @@ class NotificationService: UNNotificationServiceExtension {
             bestAttemptContent.sound = UNNotificationSound.init(named: UNNotificationSoundName(rawValue: "BoopSound.caf"))
             bestAttemptContent.userInfo["plaintext"] = plaintextData
             
+            let accessToken = notification.accessToken
+            UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+            
             UserDefaults.shared.notificationBadgeCount += 1
             bestAttemptContent.badge = NSNumber(integerLiteral: UserDefaults.shared.notificationBadgeCount)
             

@@ -67,8 +67,6 @@ extension NotificationViewModel.LoadLatestState {
                     viewModel.isFetchingLatestNotification.value = false
                     os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: fetch notification failed. %s", (#file as NSString).lastPathComponent, #line, #function, error.localizedDescription)
                 case .finished:
-                    // toggle unread state 
-                    viewModel.context.notificationService.hasUnreadPushNotification.value = false
                     // handle isFetchingLatestTimeline in fetch controller delegate
                     break
                 }

@@ -28,6 +28,7 @@ class AvatarButton: UIControl {
     }
 
     func _init() {
+        avatarImageView.frame = bounds
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(avatarImageView)
         NSLayoutConstraint.activate([
@@ -36,6 +37,18 @@ class AvatarButton: UIControl {
             avatarImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             avatarImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateAppearance()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateAppearance()
     }
 
     func updateAppearance() {

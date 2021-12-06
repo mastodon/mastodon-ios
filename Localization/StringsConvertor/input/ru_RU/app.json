@@ -67,6 +67,7 @@
                 "done": "Готово",
                 "confirm": "Подтвердить",
                 "continue": "Продолжить",
+                "compose": "Compose",
                 "cancel": "Отмена",
                 "discard": "Отмена",
                 "try_again": "Попробовать снова",
@@ -413,6 +414,12 @@
                 }
             }
         },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
+        },
         "search": {
             "title": "Поиск",
             "search_bar": {
@@ -534,6 +541,16 @@
                 "show_next": "Следующее изображение",
                 "show_previous": "Предыдущее изображение"
             }
+        },
+        "account_list": {
+            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "add_account": "Add Account"
+        },
+        "wizard": {
+            "new_in_mastodon": "New in Mastodon",
+            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
 }

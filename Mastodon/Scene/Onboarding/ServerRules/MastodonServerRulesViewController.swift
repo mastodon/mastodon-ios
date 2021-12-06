@@ -21,6 +21,8 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     var viewModel: MastodonServerRulesViewModel!
     
+    let stackView = UIStackView()
+    
     let largeTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
@@ -96,6 +98,8 @@ extension MastodonServerRulesViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
+        configureTitleLabel()
+        configureMargin()
         configTextView()
         
         defer { setupNavigationBarBackgroundView() }
@@ -116,8 +120,8 @@ extension MastodonServerRulesViewController {
         bottomContainerView.addSubview(confirmButton)
         NSLayoutConstraint.activate([
             bottomContainerView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: MastodonServerRulesViewController.viewBottomPaddingHeight),
-            confirmButton.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
-            bottomContainerView.readableContentGuide.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor, constant: MastodonServerRulesViewController.actionButtonMargin),
+            confirmButton.leadingAnchor.constraint(equalTo: bottomContainerView.layoutMarginsGuide.leadingAnchor),
+            bottomContainerView.layoutMarginsGuide.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor),
             confirmButton.heightAnchor.constraint(equalToConstant: MastodonServerRulesViewController.actionButtonHeight).priority(.defaultHigh),
         ])
         
@@ -125,8 +129,8 @@ extension MastodonServerRulesViewController {
         bottomContainerView.addSubview(bottomPromptMetaText.textView)
         NSLayoutConstraint.activate([
             bottomPromptMetaText.textView.frameLayoutGuide.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 20),
-            bottomPromptMetaText.textView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.leadingAnchor),
-            bottomPromptMetaText.textView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.readableContentGuide.trailingAnchor),
+            bottomPromptMetaText.textView.frameLayoutGuide.leadingAnchor.constraint(equalTo: bottomContainerView.layoutMarginsGuide.leadingAnchor),
+            bottomPromptMetaText.textView.frameLayoutGuide.trailingAnchor.constraint(equalTo: bottomContainerView.layoutMarginsGuide.trailingAnchor),
             confirmButton.topAnchor.constraint(equalTo: bottomPromptMetaText.textView.frameLayoutGuide.bottomAnchor, constant: 20),
         ])
         
@@ -140,10 +144,10 @@ extension MastodonServerRulesViewController {
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
         ])
                 
-        let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 10
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         stackView.addArrangedSubview(largeTitleLabel)
         stackView.addArrangedSubview(subtitleLabel)
@@ -162,6 +166,12 @@ extension MastodonServerRulesViewController {
         confirmButton.addTarget(self, action: #selector(MastodonServerRulesViewController.confirmButtonPressed(_:)), for: .touchUpInside)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        scrollView.flashScrollIndicators()
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         updateScrollViewContentInset()
@@ -172,6 +182,46 @@ extension MastodonServerRulesViewController {
         updateScrollViewContentInset()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupNavigationBarAppearance()
+        configureTitleLabel()
+        configureMargin()
+    }
+    
+}
+
+extension MastodonServerRulesViewController {
+    private func configureTitleLabel() {
+        guard UIDevice.current.userInterfaceIdiom == .pad else {
+            return
+        }
+        
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            navigationItem.largeTitleDisplayMode = .always
+            navigationItem.title = L10n.Scene.ServerRules.title.replacingOccurrences(of: "\n", with: " ")
+            largeTitleLabel.isHidden = true
+        default:
+            navigationItem.leftBarButtonItem = nil
+            navigationItem.largeTitleDisplayMode = .never
+            navigationItem.title = nil
+            largeTitleLabel.isHidden = false
+        }
+    }
+    
+    private func configureMargin() {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            let margin = MastodonPickServerViewController.viewEdgeMargin
+            stackView.layoutMargins = UIEdgeInsets(top: 32, left: margin, bottom: 20, right: margin)
+            bottomContainerView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+        default:
+            stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
+            bottomContainerView.layoutMargins = .zero
+        }
+    }
 }
 
 extension MastodonServerRulesViewController {

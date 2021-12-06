@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>a11y.plural.count.unread.notification</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@notification_count_unread_notification@</string>
+      <key>notification_count_unread_notification</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>ld</string>
+        <key>other</key>
+        <string>%ld 件の未読通知</string>
+      </dict>
+    </dict>
     <key>a11y.plural.count.input_limit_exceeds</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -13,7 +27,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld 文字</string>
       </dict>
     </dict>
     <key>a11y.plural.count.input_limit_remains</key>
@@ -27,7 +41,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld characters</string>
+        <string>%ld 文字</string>
       </dict>
     </dict>
     <key>plural.count.metric_formatted.post</key>
@@ -97,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld votes</string>
+        <string>%ld票</string>
       </dict>
     </dict>
     <key>plural.count.voter</key>
@@ -181,7 +195,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ld months left</string>
+        <string>%ldか月前</string>
       </dict>
     </dict>
     <key>date.day.left</key>
@@ -265,7 +279,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>other</key>
-        <string>%ldM ago</string>
+        <string>%ld分前</string>
       </dict>
     </dict>
     <key>date.day.ago.abbr</key>

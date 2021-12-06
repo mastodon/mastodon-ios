@@ -73,9 +73,10 @@ final class StatusView: UIView {
         return attributedString
     }
     
-    let headerIconLabel: UILabel = {
-        let label = UILabel()
-        label.attributedText = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+    let headerIconLabel: MetaLabel = {
+        let label = MetaLabel(style: .statusHeader)
+        let attributedString = StatusView.iconAttributedString(image: StatusView.reblogIconImage)
+        label.configure(attributedString: attributedString)
         return label
     }()
     
@@ -125,7 +126,7 @@ final class StatusView: UIView {
     let revealContentWarningButton: UIButton = {
         let button = HighlightDimmableButton()
         button.setImage(UIImage(systemName: "eye", withConfiguration: UIImage.SymbolConfiguration(pointSize: 17, weight: .medium)), for: .normal)
-        button.tintColor = Asset.Colors.brandBlue.color
+        // button.tintColor = Asset.Colors.brandBlue.color
         return button
     }()
     
@@ -202,6 +203,9 @@ final class StatusView: UIView {
         return actionToolbarContainer
     }()
     
+    // set display when needs bottom padding
+    let actionToolbarPlaceholderPaddingView = UIView()
+    
     let contentMetaText: MetaText = {
         let metaText = MetaText()
         metaText.textView.backgroundColor = .clear
@@ -217,6 +221,7 @@ final class StatusView: UIView {
             let style = NSMutableParagraphStyle()
             style.lineSpacing = 5
             style.paragraphSpacing = 8
+            style.alignment = .natural
             return style
         }()
         metaText.textAttributes = [
@@ -449,6 +454,13 @@ extension StatusView {
         containerStackView.sendSubviewToBack(actionToolbarContainer)
         actionToolbarContainer.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         actionToolbarContainer.setContentHuggingPriority(.required - 1, for: .vertical)
+        
+        actionToolbarPlaceholderPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(actionToolbarPlaceholderPaddingView)
+        NSLayoutConstraint.activate([
+            actionToolbarPlaceholderPaddingView.heightAnchor.constraint(equalToConstant: 12).priority(.required - 1),
+        ])
+        actionToolbarPlaceholderPaddingView.isHidden = true
 
         headerContainerView.isHidden = true
         statusMosaicImageViewContainer.isHidden = true

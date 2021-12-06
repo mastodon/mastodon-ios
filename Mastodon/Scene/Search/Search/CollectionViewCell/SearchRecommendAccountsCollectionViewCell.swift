@@ -167,6 +167,8 @@ extension SearchRecommendAccountsCollectionViewCell {
         containerStackView.addArrangedSubview(followButton)
         
         followButton.addTarget(self, action: #selector(SearchRecommendAccountsCollectionViewCell.followButtonDidPressed(_:)), for: .touchUpInside)
+        
+        displayNameLabel.isUserInteractionEnabled = false
     }
     
 }

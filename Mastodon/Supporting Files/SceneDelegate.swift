@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
 
         // set tint color
-        window.tintColor = Asset.Colors.brandBlue.color
+        window.tintColor = UIColor.label
 
         ThemeService.shared.currentTheme
             .receive(on: RunLoop.main)
@@ -87,9 +87,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
 
-        // reset notification badge
-        UserDefaults.shared.notificationBadgeCount = 0
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        // update application badge
+        AppContext.shared.notificationService.applicationIconBadgeNeedsUpdate.send()
 
         // trigger status filter update
         AppContext.shared.statusFilterService.filterUpdatePublisher.send()
@@ -156,19 +155,3 @@ extension SceneDelegate {
         return true
     }
 }
-
-#if DEBUG
-class TestWindow: UIWindow {
-    
-    override func sendEvent(_ event: UIEvent) {
-        event.allTouches?.forEach({ (touch) in
-            let location = touch.location(in: self)
-            let view = hitTest(location, with: event)
-            print(view.debugDescription)
-        })
-        
-        super.sendEvent(event)
-    }
-}
-#endif
-

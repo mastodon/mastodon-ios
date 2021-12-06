@@ -36,6 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         application.registerForRemoteNotifications()
         
+        // increase app process count
+        var count = UserDefaults.shared.processCompletedCount
+        count += 1      // Int64. could ignore overflow here
+        UserDefaults.shared.processCompletedCount = count
+        
         #if ASDK && DEBUG
         // PerformanceMonitor.shared().start()
         // ASDisplayNode.shouldShowRangeDebugOverlay = true
@@ -100,11 +105,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         
         let notificationID = String(mastodonPushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
+        
+        let accessToken = mastodonPushNotification.accessToken
+        UserDefaults.shared.increaseNotificationCount(accessToken: accessToken)
+        appContext.notificationService.applicationIconBadgeNeedsUpdate.send()
+        
         appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
         completionHandler([.sound])
     }
     
-    // response to user action for notification
+    // response to user action for notification (e.g. redirect to post)
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         didReceive response: UNNotificationResponse,
@@ -120,7 +130,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let notificationID = String(mastodonPushNotification.notificationID)
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s: [Push Notification] notification %s", ((#file as NSString).lastPathComponent), #line, #function, notificationID)
         appContext.notificationService.handle(mastodonPushNotification: mastodonPushNotification)
-        appContext.notificationService.requestRevealNotificationPublisher.send(notificationID)
+        appContext.notificationService.requestRevealNotificationPublisher.send(mastodonPushNotification)
         completionHandler()
     }
     

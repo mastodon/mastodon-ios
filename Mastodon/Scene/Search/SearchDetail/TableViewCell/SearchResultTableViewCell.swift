@@ -16,11 +16,18 @@ import MastodonMeta
 
 final class SearchResultTableViewCell: UITableViewCell {
 
-    let _imageView: AvatarImageView = {
+    let avatarImageView: AvatarImageView = {
         let imageView = AvatarImageView()
         imageView.tintColor = Asset.Colors.Label.primary.color
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    let hashtagImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Asset.Colors.Label.primary.color
         return imageView
     }()
     
@@ -43,7 +50,8 @@ final class SearchResultTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        _imageView.af.cancelImageRequest()
+        avatarImageView.af.cancelImageRequest()
+        setDisplayAvatarImage()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -74,11 +82,20 @@ extension SearchResultTableViewCell {
             containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
-        _imageView.translatesAutoresizingMaskIntoConstraints = false
-        containerStackView.addArrangedSubview(_imageView)
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addArrangedSubview(avatarImageView)
         NSLayoutConstraint.activate([
-            _imageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
-            _imageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+        ])
+        
+        hashtagImageView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.addSubview(hashtagImageView)
+        NSLayoutConstraint.activate([
+            hashtagImageView.centerXAnchor.constraint(equalTo: avatarImageView.centerXAnchor),
+            hashtagImageView.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
+            hashtagImageView.widthAnchor.constraint(equalToConstant: 42).priority(.required - 1),
+            hashtagImageView.heightAnchor.constraint(equalToConstant: 42).priority(.required - 1),
         ])
         
         let textStackView = UIStackView()
@@ -104,6 +121,12 @@ extension SearchResultTableViewCell {
             separatorLine.heightAnchor.constraint(equalToConstant: UIView.separatorLineHeight(of: contentView)),
         ])
         resetSeparatorLineLayout()
+        
+        _titleLabel.isUserInteractionEnabled = false
+        _subTitleLabel.isUserInteractionEnabled = false
+        avatarImageView.isUserInteractionEnabled = false
+        
+        setDisplayAvatarImage()
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -178,8 +201,7 @@ extension SearchResultTableViewCell {
     
     func config(with tag: Mastodon.Entity.Tag) {
         configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
-        let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-        _imageView.image = image
+        setDisplayHashtagImage()
         let metaContent = PlaintextMetaContent(string: "#" + tag.name)
         _titleLabel.configure(content: metaContent)
         guard let histories = tag.history else {
@@ -194,8 +216,7 @@ extension SearchResultTableViewCell {
 
     func config(with tag: Tag) {
         configure(with: AvatarConfigurableViewConfiguration(avatarImageURL: nil))
-        let image = UIImage(systemName: "number.circle.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 34, weight: .regular))!.withRenderingMode(.alwaysTemplate)
-        _imageView.image = image
+        setDisplayHashtagImage()
         let metaContent = PlaintextMetaContent(string: "#" + tag.name)
         _titleLabel.configure(content: metaContent)
         guard let histories = tag.histories?.sorted(by: {
@@ -211,11 +232,23 @@ extension SearchResultTableViewCell {
     }
 }
 
+extension SearchResultTableViewCell {
+    func setDisplayAvatarImage() {
+        avatarImageView.alpha = 1
+        hashtagImageView.alpha = 0
+    }
+    
+    func setDisplayHashtagImage() {
+        avatarImageView.alpha = 0
+        hashtagImageView.alpha = 1
+    }
+}
+
 // MARK: - AvatarStackedImageView
 extension SearchResultTableViewCell: AvatarConfigurableView {
     static var configurableAvatarImageSize: CGSize { CGSize(width: 42, height: 42) }
     static var configurableAvatarImageCornerRadius: CGFloat { 4 }
-    var configurableAvatarImageView: FLAnimatedImageView? { _imageView }
+    var configurableAvatarImageView: FLAnimatedImageView? { avatarImageView }
 }
 
 #if canImport(SwiftUI) && DEBUG
@@ -227,7 +260,7 @@ struct SearchResultTableViewCell_Previews: PreviewProvider {
             UIViewPreview {
                 let cell = SearchResultTableViewCell()
                 cell.backgroundColor = .white
-                cell._imageView.image = UIImage(systemName: "number.circle.fill")
+                cell.setDisplayHashtagImage()
                 cell._titleLabel.text = "Electronic Frontier Foundation"
                 cell._subTitleLabel.text = "@eff@mastodon.social"
                 return cell

@@ -19,17 +19,11 @@ extension ThreadViewModel {
         statusTableViewCellDelegate: StatusTableViewCellDelegate,
         threadReplyLoaderTableViewCellDelegate: ThreadReplyLoaderTableViewCellDelegate
     ) {
-        let timestampUpdatePublisher = Timer.publish(every: 1.0, on: .main, in: .common)
-            .autoconnect()
-            .share()
-            .eraseToAnyPublisher()
-        
         diffableDataSource = StatusSection.tableViewDiffableDataSource(
             for: tableView,
             timelineContext: .thread,
             dependency: dependency,
             managedObjectContext: context.managedObjectContext,
-            timestampUpdatePublisher: timestampUpdatePublisher,
             statusTableViewCellDelegate: statusTableViewCellDelegate,
             timelineMiddleLoaderTableViewCellDelegate: nil,
             threadReplyLoaderTableViewCellDelegate: threadReplyLoaderTableViewCellDelegate
@@ -141,7 +135,7 @@ extension ThreadViewModel {
             // save height before cell reuse
             let oldRootCellHeight = oldRootCell?.frame.height
             
-            diffableDataSource.apply(newSnapshot, animatingDifferences: false) {
+            diffableDataSource.reloadData(snapshot: newSnapshot) {
                 guard let _ = rootItem else {
                     return
                 }
