@@ -151,7 +151,7 @@
                 }
             },
             "friendship": {
-                "follow": "المُتابعة",
+                "follow": "مُتابَعَة",
                 "following": "مُتابَع",
                 "request": "إرسال طَلَب",
                 "pending": "قيد المُراجعة",
@@ -297,12 +297,12 @@
             "title": "شيءٌ أخير.",
             "subtitle": "لقد أرسلنا للتو بريد إلكتروني إلى %s،\nانقر على الرابط لتأكيد حسابك.",
             "button": {
-                "open_email_app": "افتح تطبيق البريد الإلكتروني",
-                "dont_receive_email": "لم أستلم أبدًا بريدا إلكترونيا"
+                "open_email_app": "فتح تطبيق البريد الإلكتروني",
+                "dont_receive_email": "لم أستلم بريدًا إلكترونيًا أبدًا"
             },
             "dont_receive_email": {
                 "title": "تحقق من بريدك الإلكتروني",
-                "description": "تحقق ممَّ إذا كان عنوان بريدك الإلكتروني صحيحًا وكذلك تأكد مِن مجلد البريد غير الهام إذا لم تكن قد فعلت ذلك.",
+                "description": "تحقق ممَّ إذا كان عنوان بريدك الإلكتروني صحيحًا، وكذلك تأكد مِن مجلد البريد غير الهام إذا لم تكن قد فعلت ذلك.",
                 "resend_email": "إعادة إرسال البريد الإلكتروني"
             },
             "open_email_app": {
@@ -313,12 +313,12 @@
             }
         },
         "home_timeline": {
-            "title": "الخيط الرئيسي",
+            "title": "الرَّئِيسَة",
             "navigation_bar_state": {
-                "offline": "غير متصل",
+                "offline": "غَير مُتَّصِل",
                 "new_posts": "إظهار منشورات جديدة",
-                "published": "تم نشره!",
-                "Publishing": "جارٍ نشر المشاركة…"
+                "published": "تمَّ النَّشر!",
+                "Publishing": "يَجري نَشر المُشارَكَة..."
             }
         },
         "suggestion_account": {
@@ -328,31 +328,31 @@
         "compose": {
             "title": {
                 "new_post": "منشور جديد",
-                "new_reply": "رد جديد"
+                "new_reply": "رَدٌّ جديد"
             },
             "media_selection": {
-                "camera": "التقط صورة",
+                "camera": "إلتقاط صورة",
                 "photo_library": "مكتبة الصور",
                 "browse": "تصفح"
             },
             "content_input_placeholder": "أخبِرنا بِما يَجُولُ فِي ذِهنَك",
-            "compose_action": "انشر",
-            "replying_to_user": "رد على %s",
+            "compose_action": "نَشر",
+            "replying_to_user": "رَدًا على %s",
             "attachment": {
                 "photo": "صورة",
-                "video": "فيديو",
-                "attachment_broken": "هذا ال%s مُعطَّل ويتعذَّر رفعه إلى ماستودون.",
-                "description_photo": "صِف الصورة للمكفوفين...",
-                "description_video": "صِف المقطع المرئي للمكفوفين..."
+                "video": "مقطع مرئي",
+                "attachment_broken": "هذا ال%s مُعطَّل\nويتعذَّرُ رفعُه إلى ماستودون.",
+                "description_photo": "صِف الصورة للمَكفوفين...",
+                "description_video": "صِف المقطع المرئي للمَكفوفين..."
             },
             "poll": {
-                "duration_time": "المدة: %s",
-                "thirty_minutes": "30 دقيقة",
-                "one_hour": "ساعة واحدة",
-                "six_hours": "6 ساعات",
-                "one_day": "يوم واحد",
-                "three_days": "3 أيام",
-                "seven_days": "7 أيام",
+                "duration_time": "المُدَّة: %s",
+                "thirty_minutes": "ثلاثون دقيقة",
+                "one_hour": "ساعةٌ واحدة",
+                "six_hours": "سِتُّ ساعات",
+                "one_day": "يومٌ واحِد",
+                "three_days": "ثلاثةُ أيام",
+                "seven_days": "سبعةُ أيام",
                 "option_number": "الخيار %ld"
             },
             "content_warning": {
@@ -361,33 +361,33 @@
             "visibility": {
                 "public": "للعامة",
                 "unlisted": "غير مُدرَج",
-                "private": "لمتابعيك فقط",
-                "direct": "ففط للأشخاص المشار إليهم"
+                "private": "للمُتابِعينَ فقط",
+                "direct": "للأشخاص المُشار إليهم"
             },
             "auto_complete": {
-                "space_to_add": "انقر مساحة لإضافتِها"
+                "space_to_add": "انقر على مساحة لإضافتِها"
             },
             "accessibility": {
                 "append_attachment": "إضافة مُرفَق",
                 "append_poll": "اضافة استطلاع رأي",
                 "remove_poll": "إزالة الاستطلاع",
-                "custom_emoji_picker": "منتقي مخصص للإيموجي",
-                "enable_content_warning": "تنشيط تحذير المحتوى",
-                "disable_content_warning": "تعطيل تحذير الحتوى",
+                "custom_emoji_picker": "منتقي الرموز التعبيرية المُخصَّص",
+                "enable_content_warning": "تفعيل تحذير المُحتَوى",
+                "disable_content_warning": "تعطيل تحذير المُحتَوى",
                 "post_visibility_menu": "قائمة ظهور المنشور"
             },
             "keyboard": {
                 "discard_post": "تجاهُل المنشور",
                 "publish_post": "نَشر المَنشُور",
                 "toggle_poll": "تبديل الاستطلاع",
-                "toggle_content_warning": "تبديل تحذير المُحتوى",
+                "toggle_content_warning": "تبديل تحذير المُحتَوى",
                 "append_attachment_entry": "إضافة مُرفَق - %s",
                 "select_visibility_entry": "اختر مدى الظهور - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "منشورات",
+                "posts": "مَنشورات",
                 "following": "مُتابَع",
                 "followers": "متابِع"
             },
@@ -395,22 +395,22 @@
                 "add_row": "إضافة صف",
                 "placeholder": {
                     "label": "التسمية",
-                    "content": "المحتوى"
+                    "content": "المُحتَوى"
                 }
             },
             "segmented_control": {
-                "posts": "منشورات",
-                "replies": "ردود",
-                "media": "وسائط"
+                "posts": "مَنشورات",
+                "replies": "رُدُود",
+                "media": "وَسائِط"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "إلغاء كتم الحساب",
-                    "message": "أكِّد لرفع كتمْ %s"
+                    "title": "رفع الكتم عن الحساب",
+                    "message": "أكِّد لرفع الكتمْ عن %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "إلغاء حظر الحساب",
-                    "message": "أكِّد لرفع حظر %s"
+                    "title": "رفع الحظر عن الحساب",
+                    "message": "أكِّد لرفع الحظر عن %s"
                 }
             }
         },
@@ -421,52 +421,52 @@
             "footer": "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى."
         },
         "search": {
-            "title": "بحث",
+            "title": "البحث",
             "search_bar": {
-                "placeholder": "البحث عن وسوم أو مستخدمين·ات",
+                "placeholder": "البحث عن وسوم أو مستخدمين",
                 "cancel": "إلغاء"
             },
             "recommend": {
-                "button_text": "طالع الكل",
+                "button_text": "إظهار الكُل",
                 "hash_tag": {
-                    "title": "ذات شعبية على ماستدون",
-                    "description": "الوسوم التي تحظى بقدر كبير من الاهتمام",
+                    "title": "ذُو شعبيَّة على ماستودون",
+                    "description": "الوُسُومُ الَّتي تَحظى بقدرٍ كبيرٍ مِنَ الاِهتمام",
                     "people_talking": "%s أشخاص يتحدَّثوا"
                 },
                 "accounts": {
-                    "title": "حسابات قد تعجبك",
-                    "description": "قد ترغب في متابعة هذه الحسابات",
-                    "follow": "تابع"
+                    "title": "حِساباتٍ قَد تُعجِبُك",
+                    "description": "قَد تَرغَب في مُتابَعَةِ هَذِهِ الحِسابات",
+                    "follow": "مُتابَعَة"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "الكل",
+                    "all": "الكُل",
                     "people": "الأشخاص",
-                    "hashtags": "الوسوم",
-                    "posts": "المنشورات"
+                    "hashtags": "الوُسُوم",
+                    "posts": "المَنشورات"
                 },
                 "empty_state": {
-                    "no_results": "ليس هناك أية نتيجة"
+                    "no_results": "لا تُوجَدُ نتائِج"
                 },
-                "recent_search": "عمليات البحث الأخيرة",
+                "recent_search": "عَمَليَّاُت البَحثِ الأخيرَة",
                 "clear": "مَحو"
             }
         },
         "favorite": {
-            "title": "مفضلتك"
+            "title": "مُفضَّلَتُك"
         },
         "notification": {
             "title": {
-                "Everything": "الكل",
+                "Everything": "كُلُّ شيء",
                 "Mentions": "الإشارات"
             },
-            "user_followed_you": "يتابعك %s",
-            "user_favorited your post": "أضاف %s منشورك إلى مفضلته",
-            "user_reblogged_your_post": "أعاد %s تدوين مشاركتك",
-            "user_mentioned_you": "أشار إليك %s",
-            "user_requested_to_follow_you": "طلب %s متابعتك",
-            "user_your_poll_has_ended": "%s اِنتهى استطلاعُكَ للرأي",
+            "user_followed_you": "%s بَدَأ بِمُتابَعَتِك",
+            "user_favorited your post": "%s فَضَّلَ مَنشُورك",
+            "user_reblogged_your_post": "أعاد %s تدوين مَنشُورك",
+            "user_mentioned_you": "%s أشارَ إليك",
+            "user_requested_to_follow_you": "طَلَبَ %s مُتابَعتك",
+            "user_your_poll_has_ended": "%s اِنتهى اِستطلاعُكَ للرأي",
             "keyobard": {
                 "show_everything": "إظهار كل شيء",
                 "show_mentions": "إظهار الإشارات"
@@ -480,17 +480,17 @@
             "title": "الإعدادات",
             "section": {
                 "appearance": {
-                    "title": "المظهر",
+                    "title": "المَظهر",
                     "automatic": "تلقائي",
                     "light": "مضيءٌ دائمًا",
                     "dark": "مظلمٌ دائِمًا"
                 },
                 "notifications": {
                     "title": "الإشعارات",
-                    "favorites": "الإعجاب بِمنشوراتي",
-                    "follows": "يتابعني",
-                    "boosts": "إعادة تدوين منشوراتي",
-                    "mentions": "الإشارة لي",
+                    "favorites": "أُعْجِبَ بِمَنشوري",
+                    "follows": "تابَعَني",
+                    "boosts": "أعادَ تدوينَ مَنشوري",
+                    "mentions": "أشارَ إليّ",
                     "trigger": {
                         "anyone": "أي شخص",
                         "follower": "مشترِك",
