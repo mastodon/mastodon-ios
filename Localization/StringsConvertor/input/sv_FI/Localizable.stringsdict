@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 post</string>
+        <string>1 julkaisu</string>
         <key>other</key>
-        <string>%ld posts</string>
+        <string>%ld julkaisua</string>
       </dict>
     </dict>
     <key>plural.count.favorite</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 favorite</string>
+        <string>1 suosikki</string>
         <key>other</key>
-        <string>%ld favorites</string>
+        <string>%ld suosikkia</string>
       </dict>
     </dict>
     <key>plural.count.reblog</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 följare</string>
+        <string>1 seuraaja</string>
         <key>other</key>
-        <string>%ld följare</string>
+        <string>%ld seuraajaa</string>
       </dict>
     </dict>
     <key>date.year.left</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 year left</string>
+        <string>1 vuosi jäljellä</string>
         <key>other</key>
-        <string>%ld years left</string>
+        <string>%ld vuotta jäljellä</string>
       </dict>
     </dict>
     <key>date.month.left</key>
