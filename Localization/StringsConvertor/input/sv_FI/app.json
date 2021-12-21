@@ -458,8 +458,8 @@
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Kaikki",
+                "Mentions": "Maininnat"
             },
             "user_followed_you": "%s seurasi sinua",
             "user_favorited your post": "%s favorited your post",
