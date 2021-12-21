@@ -6,10 +6,10 @@
                 "please_try_again_later": "Yritä uudelleen myöhemmin."
             },
             "sign_up_failure": {
-                "title": "Sign Up Failure"
+                "title": "Rekisteröinti epäonnistui"
             },
             "server_error": {
-                "title": "Serverfel"
+                "title": "Palvelinvirhe"
             },
             "vote_failure": {
                 "title": "Vote Failure",
@@ -68,7 +68,7 @@
                 "confirm": "Vahvista",
                 "continue": "Jatka",
                 "compose": "Compose",
-                "cancel": "Avbryt",
+                "cancel": "Kumoa",
                 "discard": "Discard",
                 "try_again": "Yritä uudelleen",
                 "take_photo": "Ota kuva",
@@ -102,7 +102,7 @@
                 "common": {
                     "switch_to_tab": "Switch to %s",
                     "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
+                    "show_favorites": "Näytä suosikit",
                     "open_settings": "Avaa asetukset"
                 },
                 "timeline": {
@@ -131,7 +131,7 @@
                 "media_content_warning": "Tap anywhere to reveal",
                 "poll": {
                     "vote": "Vote",
-                    "closed": "Closed"
+                    "closed": "Suljettu"
                 },
                 "actions": {
                     "reply": "Vastaa",
@@ -139,12 +139,12 @@
                     "unreblog": "Undo reblog",
                     "favorite": "Favorite",
                     "unfavorite": "Unfavorite",
-                    "menu": "Meny"
+                    "menu": "Valikko"
                 },
                 "tag": {
                     "url": "URL",
                     "mention": "Mention",
-                    "link": "Link",
+                    "link": "Linkki",
                     "hashtag": "Hashtag",
                     "email": "Sähköposti",
                     "emoji": "Emoji"
@@ -271,15 +271,15 @@
                     "accepted": "%s must be accepted",
                     "blank": "%s is required",
                     "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
+                    "too_long": "%s on liian pitkä",
+                    "too_short": "%s on liian lyhyt",
                     "inclusion": "%s is not a supported value"
                 },
                 "special": {
                     "username_invalid": "Username must only contain alphanumeric characters and underscores",
                     "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "email_invalid": "Tämä ei ole kelvollinen sähköpostiosoite",
+                    "password_too_short": "Salasana on liian lyhyt (täytyy olla vähintään 8 merkkiä)"
                 }
             }
         },
@@ -287,8 +287,8 @@
             "title": "Some ground rules.",
             "subtitle": "These rules are set by the admins of %s.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "integritetspolicy",
+            "terms_of_service": "käyttöehdot",
+            "privacy_policy": "tietosuojakäytäntö",
             "button": {
                 "confirm": "I Agree"
             }
@@ -297,13 +297,13 @@
             "title": "One last thing.",
             "subtitle": "Lähetimme juuri sähköpostin osoitteeseen %s, napauta siinä olevaa linkkiä vahvistaaksesi tilisi.",
             "button": {
-                "open_email_app": "Open Email App",
+                "open_email_app": "Avaa sähköpostisovellus",
                 "dont_receive_email": "I never got an email"
             },
             "dont_receive_email": {
                 "title": "Tarkista sähköpostisi",
                 "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "resend_email": "Lähetä sähköposti uudelleen"
             },
             "open_email_app": {
                 "title": "Check your inbox.",
@@ -347,12 +347,12 @@
             },
             "poll": {
                 "duration_time": "Varaktighet: %s",
-                "thirty_minutes": "30 minuter",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
+                "thirty_minutes": "30 minuuttia",
+                "one_hour": "1 tunti",
+                "six_hours": "6 tuntia",
+                "one_day": "1 päivä",
+                "three_days": "3 päivää",
+                "seven_days": "7 päivää",
                 "option_number": "Option %ld"
             },
             "content_warning": {
@@ -424,7 +424,7 @@
             "title": "Haku",
             "search_bar": {
                 "placeholder": "Search hashtags and users",
-                "cancel": "Avbryt"
+                "cancel": "Kumoa"
             },
             "recommend": {
                 "button_text": "Katso kaikki",
@@ -434,8 +434,8 @@
                     "people_talking": "%s people are talking"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
+                    "title": "Saatat pitää näistä tileistä",
+                    "description": "Haluta ehkä seurata näitä tilejä",
                     "follow": "Seuraa"
                 }
             },
@@ -454,7 +454,7 @@
             }
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Omat suosikit"
         },
         "notification": {
             "title": {
