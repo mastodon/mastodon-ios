@@ -2,8 +2,8 @@
     "common": {
         "alerts": {
             "common": {
-                "please_try_again": "Var god försök igen.",
-                "please_try_again_later": "Var god försök igen senare."
+                "please_try_again": "Yritä uudelleen.",
+                "please_try_again_later": "Yritä uudelleen myöhemmin."
             },
             "sign_up_failure": {
                 "title": "Sign Up Failure"
@@ -46,23 +46,23 @@
             },
             "delete_post": {
                 "title": "Are you sure you want to delete this post?",
-                "delete": "Radera"
+                "delete": "Poista"
             },
             "clean_cache": {
-                "title": "Clean Cache",
+                "title": "Puhdista välimuisti",
                 "message": "Successfully cleaned %s cache."
             }
         },
         "controls": {
             "actions": {
-                "back": "Back",
-                "next": "Next",
-                "previous": "Previous",
-                "open": "Open",
-                "add": "Add",
-                "remove": "Remove",
-                "edit": "Redigera",
-                "save": "Spara",
+                "back": "Takaisin",
+                "next": "Seuraava",
+                "previous": "Edellinen",
+                "open": "Avaa",
+                "add": "Lisää",
+                "remove": "Poista",
+                "edit": "Muokkaa",
+                "save": "Tallenna",
                 "ok": "OK",
                 "done": "Done",
                 "confirm": "Confirm",
@@ -72,31 +72,31 @@
                 "discard": "Discard",
                 "try_again": "Försök igen",
                 "take_photo": "Take Photo",
-                "save_photo": "Save Photo",
-                "copy_photo": "Copy Photo",
-                "sign_in": "Sign In",
-                "sign_up": "Sign Up",
-                "see_more": "See More",
-                "preview": "Preview",
-                "share": "Dela",
+                "save_photo": "Tallenna kuva",
+                "copy_photo": "Kopioi kuva",
+                "sign_in": "Kirjaudu sisään",
+                "sign_up": "Rekisteröidy",
+                "see_more": "Katso lisää",
+                "preview": "Esikatselu",
+                "share": "Jaa",
                 "share_user": "Dela %s",
                 "share_post": "Share Post",
-                "open_in_safari": "Öppna i Safari",
+                "open_in_safari": "Avaa Safarissa",
                 "find_people": "Find people to follow",
                 "manually_search": "Manually search instead",
                 "skip": "Skip",
-                "reply": "Reply",
+                "reply": "Vastaa",
                 "report_user": "Rapportera %s",
                 "block_domain": "Block %s",
                 "unblock_domain": "Unblock %s",
-                "settings": "Inställningar",
-                "delete": "Radera"
+                "settings": "Asetukset",
+                "delete": "Poista"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
+                "home": "Koti",
+                "search": "Haku",
                 "notification": "Notification",
-                "profile": "Profil"
+                "profile": "Profiili"
             },
             "keyboard": {
                 "common": {
