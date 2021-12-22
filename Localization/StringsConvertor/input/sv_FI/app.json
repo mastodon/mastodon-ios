@@ -76,7 +76,7 @@
                 "copy_photo": "Kopioi kuva",
                 "sign_in": "Kirjaudu sisään",
                 "sign_up": "Rekisteröidy",
-                "see_more": "Katso lisää",
+                "see_more": "Näytä lisää",
                 "preview": "Esikatselu",
                 "share": "Jaa",
                 "share_user": "Jaa %s",
@@ -126,7 +126,7 @@
                 "user_reblogged": "%s reblogged",
                 "user_replied_to": "Replied to %s",
                 "show_post": "Näytä julkaisu",
-                "show_user_profile": "Show user profile",
+                "show_user_profile": "Näytä tili",
                 "content_warning": "Sisältövaroitus",
                 "media_content_warning": "Napauta mistä tahansa paljastaaksesi",
                 "poll": {
@@ -153,29 +153,29 @@
             "friendship": {
                 "follow": "Seuraa",
                 "following": "Seurataan",
-                "request": "Request",
-                "pending": "Pending",
+                "request": "Pyydä",
+                "pending": "Pyydetty",
                 "block": "Estä",
                 "block_user": "Estä %s",
                 "block_domain": "Estä %s",
                 "unblock": "Poista esto",
                 "unblock_user": "Unblock %s",
-                "blocked": "Blocked",
+                "blocked": "Estetty",
                 "mute": "Mykistä",
                 "mute_user": "Mykistä %s",
-                "unmute": "Unmute",
-                "unmute_user": "Unmute %s",
+                "unmute": "Poista mykistys",
+                "unmute_user": "Poista mykistys tililtä %s",
                 "muted": "Mykistetty",
                 "edit_info": "Muokkaa profiilia"
             },
             "timeline": {
                 "filtered": "Filtered",
                 "timestamp": {
-                    "now": "Now"
+                    "now": "Nyt"
                 },
                 "loader": {
-                    "load_missing_posts": "Load missing posts",
-                    "loading_missing_posts": "Loading missing posts...",
+                    "load_missing_posts": "Lataa puuttuvat julkaisut",
+                    "loading_missing_posts": "Ladataan puuttuvia julkaisuja...",
                     "show_more_replies": "Visa fler svar"
                 },
                 "header": {
@@ -195,7 +195,7 @@
             "slogan": "Social networking\nback in your hands."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Valitse palvelin,\nmikä tahansa palvelin.",
             "button": {
                 "category": {
                     "all": "Kaikki",
@@ -203,31 +203,31 @@
                     "academia": "academia",
                     "activism": "aktivismi",
                     "food": "ruoka",
-                    "furry": "furry",
+                    "furry": "turri",
                     "games": "pelit",
-                    "general": "general",
+                    "general": "yleinen",
                     "journalism": "journalismi",
                     "lgbt": "hlbt",
-                    "regional": "regional",
+                    "regional": "alueellinen",
                     "art": "taide",
                     "music": "musiikki",
                     "tech": "tekniikka"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Näytä vähemmän",
+                "see_more": "Näytä lisää"
             },
             "label": {
                 "language": "KIELI",
-                "users": "ANVÄNDARE",
+                "users": "TILIÄ",
                 "category": "KATEGORIA"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Etsi palvelin tai liity omaan..."
             },
             "empty_state": {
                 "finding_servers": "Finding available servers...",
                 "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "Inga resultat"
+                "no_results": "Ei hakutuloksia"
             }
         },
         "register": {
@@ -269,7 +269,7 @@
                     "taken": "%s is already in use",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s must be accepted",
-                    "blank": "%s is required",
+                    "blank": "%s vaaditaan",
                     "invalid": "%s is invalid",
                     "too_long": "%s on liian pitkä",
                     "too_short": "%s on liian lyhyt",
@@ -315,7 +315,7 @@
         "home_timeline": {
             "title": "Koti",
             "navigation_bar_state": {
-                "offline": "Offline",
+                "offline": "Yhteydetön",
                 "new_posts": "Uusia julkaisuja",
                 "published": "Julkaistu!",
                 "Publishing": "Julkaistaan julkaisua..."
@@ -328,7 +328,7 @@
         "compose": {
             "title": {
                 "new_post": "Uusi julkaisu",
-                "new_reply": "New Reply"
+                "new_reply": "Uusi vastaus"
             },
             "media_selection": {
                 "camera": "Ota kuva",
@@ -377,8 +377,8 @@
                 "post_visibility_menu": "Post Visibility Menu"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
+                "discard_post": "Hylkää julkaisu",
+                "publish_post": "Julkaise julkaisu",
                 "toggle_poll": "Toggle Poll",
                 "toggle_content_warning": "Toggle Content Warning",
                 "append_attachment_entry": "Add Attachment - %s",
@@ -405,12 +405,12 @@
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Poista tilin mykistys",
+                    "message": "Vahvista, että haluat poistaa mykistyksen tililtä %s"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Poista tilin esto",
+                    "message": "Vahvista, että haluat poistaa eston tililtä %s"
                 }
             }
         },
@@ -468,8 +468,8 @@
             "user_requested_to_follow_you": "%s har begärt att följa dig",
             "user_your_poll_has_ended": "%s Omröstningen har avslutats",
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Näytä kaikki",
+                "show_mentions": "Näytä maininnat"
             }
         },
         "thread": {
@@ -500,7 +500,7 @@
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
+                    "title": "Lisäasetukset",
                     "true_black_dark_mode": "Todellinen mustan tumma tila",
                     "disable_avatar_animation": "Poista käytöstä animoidut avatarit",
                     "disable_emoji_animation": "Poista käytöstä animoidut emojit",
@@ -509,7 +509,7 @@
                 "boring_zone": {
                     "title": "Tylsä alue",
                     "account_settings": "Tiliasetukset",
-                    "terms": "Lisäasetukset",
+                    "terms": "Terms of Service",
                     "privacy": "Integritetspolicy"
                 },
                 "spicy_zone": {
@@ -527,9 +527,9 @@
         },
         "report": {
             "title": "Ilmianna %s",
-            "step1": "Steg 1 av 2",
-            "step2": "Steg 2 av 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
+            "step1": "Vaihe 1/2",
+            "step2": "Vaihe 2/2",
+            "content1": "Onko julkaisuja, joita haluaisit lisätä ilmiantoon?",
             "content2": "Is there anything the moderators should know about this report?",
             "send": "Send Report",
             "skip_to_send": "Send without comment",
@@ -548,8 +548,8 @@
             "add_account": "Lisää tili"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "new_in_mastodon": "Uutta Mastodonissa",
+            "multiple_account_switch_intro_description": "Vaihda useiden tilien välillä pitämällä profiilipainiketta painettuna.",
             "accessibility_hint": "Double tap to dismiss this wizard"
         }
     }
