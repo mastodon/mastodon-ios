@@ -87,7 +87,7 @@
                 "skip": "Ohita",
                 "reply": "Vastaa",
                 "report_user": "Ilmianna %s",
-                "block_domain": "Block %s",
+                "block_domain": "Estä %s",
                 "unblock_domain": "Unblock %s",
                 "settings": "Asetukset",
                 "delete": "Poista"
@@ -156,7 +156,7 @@
                 "request": "Request",
                 "pending": "Pending",
                 "block": "Block",
-                "block_user": "Block %s",
+                "block_user": "Estä %s",
                 "block_domain": "Block %s",
                 "unblock": "Unblock",
                 "unblock_user": "Unblock %s",
@@ -166,7 +166,7 @@
                 "unmute": "Unmute",
                 "unmute_user": "Unmute %s",
                 "muted": "Mykistetty",
-                "edit_info": "Edit Info"
+                "edit_info": "Muokkaa profiilia"
             },
             "timeline": {
                 "filtered": "Filtered",
@@ -388,7 +388,7 @@
         "profile": {
             "dashboard": {
                 "posts": "julkaisut",
-                "following": "seuraa",
+                "following": "seurataan",
                 "followers": "seuraajat"
             },
             "fields": {
@@ -400,7 +400,7 @@
             },
             "segmented_control": {
                 "posts": "Julkaisut",
-                "replies": "Replies",
+                "replies": "Vastaukset",
                 "media": "Media"
             },
             "relationship_action_alert": {
@@ -480,31 +480,31 @@
             "title": "Asetukset",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Ulkoasu",
+                    "automatic": "Seuraa järjestelmää",
+                    "light": "Vaalea",
+                    "dark": "Tumma"
                 },
                 "notifications": {
-                    "title": "Notifications",
+                    "title": "Ilmoitukset",
                     "favorites": "Favorites my post",
-                    "follows": "Follows me",
+                    "follows": "Seuraa minua",
                     "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "mentions": "Mainitsee minut",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "kuka tahansa",
+                        "follower": "seuraaja",
+                        "follow": "kuka tahansa, jota seuraan",
+                        "noone": "ei kukaan",
+                        "title": "Ilmoita minulle, kun"
                     }
                 },
                 "preference": {
                     "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "true_black_dark_mode": "Todellinen mustan tumma tila",
+                    "disable_avatar_animation": "Poista käytöstä animoidut avatarit",
+                    "disable_emoji_animation": "Poista käytöstä animoidut emojit",
+                    "using_default_browser": "Käytä oletusselainta linkkien avaamiseen"
                 },
                 "boring_zone": {
                     "title": "The Boring Zone",
