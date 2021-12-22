@@ -45,7 +45,7 @@
                 "message": "Please enable the photo library access permission to save the photo."
             },
             "delete_post": {
-                "title": "Are you sure you want to delete this post?",
+                "title": "Haluatko varmasti poistaa tämän julkaisun?",
                 "delete": "Poista"
             },
             "clean_cache": {
@@ -128,7 +128,7 @@
                 "show_post": "Näytä julkaisu",
                 "show_user_profile": "Show user profile",
                 "content_warning": "Sisältövaroitus",
-                "media_content_warning": "Tap anywhere to reveal",
+                "media_content_warning": "Napauta mistä tahansa paljastaaksesi",
                 "poll": {
                     "vote": "Vote",
                     "closed": "Suljettu"
@@ -145,7 +145,7 @@
                     "url": "URL",
                     "mention": "Mention",
                     "link": "Linkki",
-                    "hashtag": "Hashtag",
+                    "hashtag": "Hashtagi",
                     "email": "Sähköposti",
                     "emoji": "Emoji"
                 }
@@ -155,10 +155,10 @@
                 "following": "Seurataan",
                 "request": "Request",
                 "pending": "Pending",
-                "block": "Block",
+                "block": "Estä",
                 "block_user": "Estä %s",
-                "block_domain": "Block %s",
-                "unblock": "Unblock",
+                "block_domain": "Estä %s",
+                "unblock": "Poista esto",
                 "unblock_user": "Unblock %s",
                 "blocked": "Blocked",
                 "mute": "Mykistä",
@@ -323,7 +323,7 @@
         },
         "suggestion_account": {
             "title": "Löydä tilejä seurattavaksi",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "follow_explain": "Kun seuraat jotakuta, näet hänen julkaisunsa kotisyötteessäsi."
         },
         "compose": {
             "title": {
@@ -333,11 +333,11 @@
             "media_selection": {
                 "camera": "Ota kuva",
                 "photo_library": "Kuvakirjasto",
-                "browse": "Bläddra"
+                "browse": "Selaa"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
+            "content_input_placeholder": "Kirjoita tai liitä, siitä mitä ajattelet",
             "compose_action": "Julkaise",
-            "replying_to_user": "replying to %s",
+            "replying_to_user": "vastaamassa tilille %s",
             "attachment": {
                 "photo": "kuva",
                 "video": "video",
@@ -346,23 +346,23 @@
                 "description_video": "Describe the video for the visually-impaired..."
             },
             "poll": {
-                "duration_time": "Varaktighet: %s",
+                "duration_time": "Kesto: %s",
                 "thirty_minutes": "30 minuuttia",
                 "one_hour": "1 tunti",
                 "six_hours": "6 tuntia",
                 "one_day": "1 päivä",
                 "three_days": "3 päivää",
                 "seven_days": "7 päivää",
-                "option_number": "Option %ld"
+                "option_number": "Vaihtoehto %ld"
             },
             "content_warning": {
                 "placeholder": "Write an accurate warning here..."
             },
             "visibility": {
-                "public": "Public",
+                "public": "Julkinen",
                 "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "private": "Vain seuraajat",
+                "direct": "Vain mainitsemani tilit"
             },
             "auto_complete": {
                 "space_to_add": "Space to add"
@@ -392,7 +392,7 @@
                 "followers": "seuraajat"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Lisää rivi",
                 "placeholder": {
                     "label": "Label",
                     "content": "Sisältö"
@@ -423,15 +423,15 @@
         "search": {
             "title": "Haku",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
+                "placeholder": "Haku",
                 "cancel": "Kumoa"
             },
             "recommend": {
                 "button_text": "Katso kaikki",
                 "hash_tag": {
                     "title": "Trendaavat Mastodonissa",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "description": "Hashtagit, jotka saavat melkoisesti huomiota",
+                    "people_talking": "%s ihmistä puhuu"
                 },
                 "accounts": {
                     "title": "Saatat pitää näistä tileistä",
@@ -443,14 +443,14 @@
                 "segment": {
                     "all": "Kaikki",
                     "people": "Tilit",
-                    "hashtags": "Hashtags",
+                    "hashtags": "Hashtagit",
                     "posts": "Julkaisut"
                 },
                 "empty_state": {
                     "no_results": "Inga resultat"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Viimeaikaiset",
+                "clear": "Tyhjennä"
             }
         },
         "favorite": {
@@ -507,13 +507,13 @@
                     "using_default_browser": "Käytä oletusselainta linkkien avaamiseen"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
+                    "title": "Tylsä alue",
+                    "account_settings": "Tiliasetukset",
+                    "terms": "Lisäasetukset",
                     "privacy": "Integritetspolicy"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
+                    "title": "Varovainen alue",
                     "clear": "Clear Media Cache",
                     "signout": "Kirjaudu ulos"
                 }
