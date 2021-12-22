@@ -50,7 +50,7 @@
             },
             "clean_cache": {
                 "title": "Puhdista välimuisti",
-                "message": "Successfully cleaned %s cache."
+                "message": "%s välimuisti tyhjennetty onnistuneesti."
             }
         },
         "controls": {
@@ -109,12 +109,12 @@
                     "previous_status": "Edellinen julkaisu",
                     "next_status": "Seuraava julkaisu",
                     "open_status": "Avaa julkaisu",
-                    "open_author_profile": "Open Author's Profile",
+                    "open_author_profile": "Avaa tekijän profiili",
                     "open_reblogger_profile": "Avaa edelleen jakajan profiili",
                     "reply_status": "Vastaa julkaisuun",
                     "toggle_reblog": "Toggle Reblog on Post",
                     "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_content_warning": "Vaihda sisältövaroitus",
                     "preview_image": "Preview Image"
                 },
                 "segmented_control": {
@@ -180,11 +180,11 @@
                 },
                 "header": {
                     "no_status_found": "Julkaisua ei löytynyt",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
+                    "blocking_warning": "Et voi tarkastella tämän tilin profiilia\nennen kuin poistat sen esto.\nProfiilisi näyttää tältä hänelle.",
+                    "user_blocking_warning": "Et voi tarkastella tilin %s profiilia\nennen kuin poistat sen esto.\nProfiilisi näyttää tältä hänelle.",
+                    "blocked_warning": "Et voi tarkastella tämän tilin profiilia\nennen kuin hän poistaa eston.",
+                    "user_blocked_warning": "Et voi tarkastella tilin %s profiilia\nennen kuin hän poistaa eston.",
+                    "suspended_warning": "Tämä tili on lakkautettu.",
                     "user_suspended_warning": "%s’s account has been suspended."
                 }
             }
@@ -248,7 +248,7 @@
                 },
                 "password": {
                     "placeholder": "salasana",
-                    "hint": "Your password needs at least eight characters"
+                    "hint": "Salasanassasi on oltava vähintään kahdeksan merkkiä"
                 },
                 "invite": {
                     "registration_user_invite_request": "Miksi haluat liittyä?"
@@ -265,7 +265,7 @@
                 },
                 "reason": {
                     "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
+                    "unreachable": "%s ei näytä olevan olemassa",
                     "taken": "%s on jo käytössä",
                     "reserved": "%s is a reserved keyword",
                     "accepted": "%s täytyy hyväksyä",
@@ -276,16 +276,16 @@
                     "inclusion": "%s ei ole tuettu arvo"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_invalid": "Käyttäjänimi voi sisältää ainoastaan aakkosnumerrisia merkkejä ja alaviivoja",
+                    "username_too_long": "Käyttäjänimi on liian pitkä (ei voi olla pidempi kuin 30 merkkiä)",
                     "email_invalid": "Tämä ei ole kelvollinen sähköpostiosoite",
                     "password_too_short": "Salasana on liian lyhyt (täytyy olla vähintään 8 merkkiä)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
+            "title": "Joitakin perussääntöjä.",
+            "subtitle": "Nämä säännöt ovat %s -palvelun asettamia.",
             "prompt": "Jatkamalla, hyväksyt palvelun %s palveluehdot ja tietosuojakäytönnön.",
             "terms_of_service": "käyttöehdot",
             "privacy_policy": "tietosuojakäytäntö",
@@ -302,13 +302,13 @@
             },
             "dont_receive_email": {
                 "title": "Tarkista sähköpostisi",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "Tarkista, että sähköpostiosoitteesi on oikea, sekä roskapostikansiosi, jos et vielä ole.",
                 "resend_email": "Lähetä sähköposti uudelleen"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
+                "title": "Tarkasta postilaatikkosi.",
                 "description": "Lähetimme sinulle juuri sähköpostin. Tarkista myös roskapostikansiosi, jos et vielä ole.",
-                "mail": "Mail",
+                "mail": "Sähköposti",
                 "open_email_client": "Avaa sähköpostisovellus"
             }
         },
@@ -342,8 +342,8 @@
                 "photo": "kuva",
                 "video": "video",
                 "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "description_photo": "Kuvaile kuva näkövammaisille...",
+                "description_video": "Kuvaile video näkövammaisille..."
             },
             "poll": {
                 "duration_time": "Kesto: %s",
@@ -356,7 +356,7 @@
                 "option_number": "Vaihtoehto %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Kirjoita tarkka varoitus tähän..."
             },
             "visibility": {
                 "public": "Julkinen",
@@ -371,18 +371,18 @@
                 "append_attachment": "Add Attachment",
                 "append_poll": "Lisää kysely",
                 "remove_poll": "Poista kysely",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "custom_emoji_picker": "Mukautettu emojivalitsin",
+                "enable_content_warning": "Ota sisältövaroitus käyttöön",
+                "disable_content_warning": "Poista sisältövaroitus käytöstä",
+                "post_visibility_menu": "Julkaisun näkyvyysvalikko"
             },
             "keyboard": {
                 "discard_post": "Hylkää julkaisu",
                 "publish_post": "Julkaise julkaisu",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "toggle_poll": "Vaihda kysely",
+                "toggle_content_warning": "Vaihda sisältövaroitus",
+                "append_attachment_entry": "Lisää liite - %s",
+                "select_visibility_entry": "Valitse näkyvyys - %s"
             }
         },
         "profile": {
@@ -519,7 +519,7 @@
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon on avoimen lähdekoodin ohjelmisto. Voit raportoida ongelmasta GitHubissa osoitteessa %s (%s)"
             },
             "keyboard": {
                 "close_settings_window": "Sulje asetukset"
@@ -530,10 +530,10 @@
             "step1": "Vaihe 1/2",
             "step2": "Vaihe 2/2",
             "content1": "Onko julkaisuja, joita haluaisit lisätä ilmiantoon?",
-            "content2": "Is there anything the moderators should know about this report?",
+            "content2": "Onko valvojien syytä tietää tästä ilmiannosta?",
             "send": "Lähetä ilmianto",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "skip_to_send": "Lähetä ilman kommentteja",
+            "text_placeholder": "Kirjoita tai liitä lisäkommentteja"
         },
         "preview": {
             "keyboard": {
@@ -543,8 +543,8 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "Nykyinen valittu profiili: %s. Kaksoisnapauta ja pidä sitten painettuna näytääksesi tilin vaihtajan",
+            "dismiss_account_switcher": "Sulje tilin vaihtaja",
             "add_account": "Lisää tili"
         },
         "wizard": {
