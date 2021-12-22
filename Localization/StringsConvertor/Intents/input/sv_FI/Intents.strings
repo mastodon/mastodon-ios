@@ -24,13 +24,13 @@
 
 "Zo4jgJ" = "Julkaisun näkyvyys";
 
-"apSxMG-dYQ5NN" = "There are ${count} options matching ‘Public’.";
+"apSxMG-dYQ5NN" = "On ${count} vaihtoehtoa, jotka vastaavat ‘Julkinen’.";
 
-"apSxMG-ehFLjY" = "There are ${count} options matching ‘Followers Only’.";
+"apSxMG-ehFLjY" = "On ${count} vaihtoehtoa, jotka vastaavat ‘Vain seuraajat’.";
 
-"ayoYEb-dYQ5NN" = "${content}, Public";
+"ayoYEb-dYQ5NN" = "${content}, julkinen";
 
-"ayoYEb-ehFLjY" = "${content}, Followers Only";
+"ayoYEb-ehFLjY" = "${content}, vain seuraajat";
 
 "dUyuGg" = "Julkaise Mastodonissa";
 
@@ -38,14 +38,14 @@
 
 "ehFLjY" = "Vain seuraajat";
 
-"gfePDu" = "Posting failed. ${failureReason}";
+"gfePDu" = "Julkaiseminen epäonnistui. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Julkaisu lähetettiin onnistuneesti.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Vahvitukseksi, halusit ‘Julkinen’?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Vahvitstukseksi, halusit ‘Vain seuraajat’?";
 
 "rM6dvp" = "URL";
 
-"ryJLwG" = "Post was sent successfully. ";
+"ryJLwG" = "Julkaisu lähetettiin onnistuneesti. ";
