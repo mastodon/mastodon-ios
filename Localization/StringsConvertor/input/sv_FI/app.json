@@ -69,7 +69,7 @@
                 "continue": "Jatka",
                 "compose": "Compose",
                 "cancel": "Kumoa",
-                "discard": "Discard",
+                "discard": "Hylkää",
                 "try_again": "Yritä uudelleen",
                 "take_photo": "Ota kuva",
                 "save_photo": "Tallenna kuva",
@@ -88,7 +88,7 @@
                 "reply": "Vastaa",
                 "report_user": "Ilmianna %s",
                 "block_domain": "Estä %s",
-                "unblock_domain": "Unblock %s",
+                "unblock_domain": "Poista esto %s",
                 "settings": "Asetukset",
                 "delete": "Poista"
             },
