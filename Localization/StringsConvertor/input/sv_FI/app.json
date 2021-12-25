@@ -169,7 +169,7 @@
                 "edit_info": "Muokkaa profiilia"
             },
             "timeline": {
-                "filtered": "Filtered",
+                "filtered": "Suodatettu",
                 "timestamp": {
                     "now": "Nyt"
                 },
@@ -185,7 +185,7 @@
                     "blocked_warning": "Et voi tarkastella tämän tilin profiilia\nennen kuin hän poistaa eston.",
                     "user_blocked_warning": "Et voi tarkastella tilin %s profiilia\nennen kuin hän poistaa eston.",
                     "suspended_warning": "Tämä tili on lakkautettu.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "user_suspended_warning": "Tili %s on lakkautettu."
                 }
             }
         }
@@ -226,7 +226,7 @@
             },
             "empty_state": {
                 "finding_servers": "Etsistään saatavilla olevia palvelimia...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "Jokin meni pieleen dataa ladatessa. Tarkista internet-yhteytesi.",
                 "no_results": "Ei hakutuloksia"
             }
         },
@@ -259,12 +259,12 @@
                     "username": "Käyttäjänimi",
                     "email": "Sähköposti",
                     "password": "Salasana",
-                    "agreement": "Agreement",
+                    "agreement": "Hyväksy",
                     "locale": "Locale",
                     "reason": "Syy"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
+                    "blocked": "%s sisältää estetyn sähköpostipalveluntarjoajan",
                     "unreachable": "%s ei näytä olevan olemassa",
                     "taken": "%s on jo käytössä",
                     "reserved": "%s is a reserved keyword",
@@ -368,7 +368,7 @@
                 "space_to_add": "Space to add"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
+                "append_attachment": "Lisää liite",
                 "append_poll": "Lisää kysely",
                 "remove_poll": "Poista kysely",
                 "custom_emoji_picker": "Mukautettu emojivalitsin",
