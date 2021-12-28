@@ -18,10 +18,6 @@ import NaturalLanguage
 
 // import LinkPresentation
 
-#if ASDK
-import AsyncDisplayKit
-#endif
-
 protocol StatusCell: DisposeBagCollectable {
     var statusView: StatusView { get }
     var isFiltered: Bool { get set }
@@ -32,33 +28,6 @@ enum StatusSection: Equatable, Hashable {
 }
 
 extension StatusSection {
-    #if ASDK
-    static func tableNodeDiffableDataSource(
-        tableNode: ASTableNode,
-        managedObjectContext: NSManagedObjectContext
-    ) -> TableNodeDiffableDataSource<StatusSection, Item> {
-        TableNodeDiffableDataSource(tableNode: tableNode) { tableNode, indexPath, item in
-            switch item {
-            case .homeTimelineIndex(let objectID, let attribute):
-                guard let homeTimelineIndex = try? managedObjectContext.existingObject(with: objectID) as? HomeTimelineIndex else {
-                    return { ASCellNode() }
-                }
-                let status = homeTimelineIndex.status
-
-                return { () -> ASCellNode in
-                    let cellNode = StatusNode(status: status)
-                    return cellNode
-                }
-            case .homeMiddleLoader:
-                return { TimelineMiddleLoaderNode() }
-            case .bottomLoader:
-                return { TimelineBottomLoaderNode() }
-            default:
-                return { ASCellNode() }
-            }
-        }
-    }
-    #endif
 
     static let logger = Logger(subsystem: "StatusSection", category: "logic")
 
