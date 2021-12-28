@@ -155,7 +155,7 @@ extension FollowerListViewModel.State {
                 
                 let maxID = response.link?.maxID
                 
-                if hasNewAppend, maxID != nil {
+                if hasNewAppend && maxID != nil {
                     stateMachine.enter(Idle.self)
                 } else {
                     stateMachine.enter(NoMore.self)
@@ -179,18 +179,6 @@ extension FollowerListViewModel.State {
         
         override func didEnter(from previousState: GKState?) {
             super.didEnter(from: previousState)
-            guard let viewModel = viewModel, let _ = stateMachine else { return }
-            guard let diffableDataSource = viewModel.diffableDataSource else {
-                assertionFailure()
-                return
-            }
-            DispatchQueue.main.async {
-                var snapshot = diffableDataSource.snapshot()
-                snapshot.deleteItems([.bottomLoader])
-                let header = UserItem.bottomHeader(text: "Followers from other servers are not displayed")
-                snapshot.appendItems([header], toSection: .main)
-                diffableDataSource.apply(snapshot, animatingDifferences: false)
-            }
         }
     }
 }

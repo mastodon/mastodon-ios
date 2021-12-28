@@ -27,6 +27,7 @@
 "Common.Controls.Actions.Back" = "Terug";
 "Common.Controls.Actions.BlockDomain" = "Blokkeer %@";
 "Common.Controls.Actions.Cancel" = "Annuleren";
+"Common.Controls.Actions.Compose" = "Compose";
 "Common.Controls.Actions.Confirm" = "Bevestigen";
 "Common.Controls.Actions.Continue" = "Doorgaan";
 "Common.Controls.Actions.CopyPhoto" = "Foto kopiëren";
@@ -184,6 +185,8 @@ Uw profiel ziet er zo uit voor hen.";
 klik op de link om uw account te bevestigen.";
 "Scene.ConfirmEmail.Title" = "Nog één ding.";
 "Scene.Favorite.Title" = "Uw favorieten";
+"Scene.Follower.Footer" = "Followers from other servers are not displayed.";
+"Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Bekijk nieuwe berichten";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Offline";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Gepubliceerd!";

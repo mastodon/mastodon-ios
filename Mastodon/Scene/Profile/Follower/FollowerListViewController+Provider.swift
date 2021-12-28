@@ -37,7 +37,8 @@ extension FollowerListViewController: UserProvider {
             let managedObjectContext = self.viewModel.userFetchedResultsController.fetchedResultsController.managedObjectContext
             
             switch item {
-            case .follower(let objectID):
+            case .follower(let objectID),
+                 .following(let objectID):
                 managedObjectContext.perform {
                     let user = managedObjectContext.object(with: objectID) as? MastodonUser
                     promise(.success(user))

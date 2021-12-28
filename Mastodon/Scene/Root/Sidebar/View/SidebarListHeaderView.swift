@@ -11,7 +11,8 @@ final class SidebarListHeaderView: UICollectionReusableView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = Asset.Scene.Sidebar.logo.image
+        imageView.image = Asset.Scene.Sidebar.logo.image.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = .label
         return imageView
     }()
     

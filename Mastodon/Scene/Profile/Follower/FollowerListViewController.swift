@@ -7,11 +7,10 @@
 
 import os.log
 import UIKit
-import AVKit
 import GameplayKit
 import Combine
 
-final class FollowerListViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+final class FollowerListViewController: UIViewController, NeedsDependency {
     
     var disposeBag = Set<AnyCancellable>()
     
@@ -19,9 +18,7 @@ final class FollowerListViewController: UIViewController, NeedsDependency, Media
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var viewModel: FollowerListViewModel!
-    
-    let mediaPreviewTransitionController = MediaPreviewTransitionController()
-    
+        
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: String(describing: UserTableViewCell.self))

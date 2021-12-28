@@ -80,8 +80,8 @@ extension OnboardingViewControllerAppearance {
 extension OnboardingViewControllerAppearance {
     static var viewEdgeMargin: CGFloat {
         guard UIDevice.current.userInterfaceIdiom == .pad else { return .zero }
-        
-        let shortEdgeWidth = min(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
-        return shortEdgeWidth * 0.17 // magic
+        return 20
+//        let shortEdgeWidth = min(UIScreen.main.bounds.height, UIScreen.main.bounds.width)
+//        return shortEdgeWidth * 0.17 // magic
     }
 }

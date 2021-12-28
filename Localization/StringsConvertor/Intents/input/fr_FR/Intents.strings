@@ -6,7 +6,7 @@
 
 "HZSGTr" = "Quel contenu à publier ?";
 
-"HdGikU" = "Posting failed";
+"HdGikU" = "Échec lors de la publication";
 
 "KDNTJ4" = "Raison de l’échec";
 
@@ -40,11 +40,11 @@
 
 "gfePDu" = "Échec lors de la publication. ${failureReason}";
 
-"k7dbKQ" = "Post was sent successfully.";
+"k7dbKQ" = "Message publié avec succès.";
 
-"oGiqmY-dYQ5NN" = "Just to confirm, you wanted ‘Public’?";
+"oGiqmY-dYQ5NN" = "Juste pour confirmer, vous vouliez « Public » ?";
 
-"oGiqmY-ehFLjY" = "Just to confirm, you wanted ‘Followers Only’?";
+"oGiqmY-ehFLjY" = "Juste pour confirmer, vous vouliez bien diffuser vers « abonné·e·s uniquement » ?";
 
 "rM6dvp" = "URL";
 

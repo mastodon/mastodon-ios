@@ -109,9 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>1 reblog</string>
+        <string>1 ji nû ve nivîsandin</string>
         <key>other</key>
-        <string>%ld reblogs</string>
+        <string>%ld ji nû ve nivîsandin</string>
       </dict>
     </dict>
     <key>plural.count.vote</key>

@@ -312,7 +312,7 @@ extension MastodonRegisterViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
         
-        // stackview
+        // stackView
         stackView.axis = .vertical
         stackView.distribution = .fill
         stackView.spacing = 40
@@ -370,7 +370,7 @@ extension MastodonRegisterViewController {
             scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
         ])
 
-        // stackview
+        // stackView
         scrollView.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -802,23 +802,48 @@ extension MastodonRegisterViewController {
         let password = viewModel.password.value
         
         let locale: String = {
-            let fallbackLanguageCode = Locale.current.languageCode ?? "en"
+            guard let url = Bundle.main.url(forResource: "local-codes", withExtension: "json"),
+                let data = try? Data(contentsOf: url),
+                let localCode = try? JSONDecoder().decode(MastodonLocalCode.self, from: data)
+            else {
+                assertionFailure()
+                return "en"
+            }
+            let fallbackLanguageCode: String = {
+                let code = Locale.current.languageCode ?? "en"
+                guard localCode[code] != nil else { return "en" }
+                return code
+            }()
+            
+            // pick device preferred language
             guard let identifier = Locale.preferredLanguages.first else {
                 return fallbackLanguageCode
             }
+            // prepare languageCode and validate then return fallback if needs
             let local = Locale(identifier: identifier)
-            guard let languageCode = local.languageCode else {
+            guard let languageCode = local.languageCode,
+                  localCode[languageCode] != nil
+            else {
                 return fallbackLanguageCode
             }
-            switch languageCode {
-            case "zh":
-                // Check Simplified Chinese / Traditional Chinese
-                // https://github.com/gunchleoc/mastodon/blob/ed6153b8f24d3a8f5a124cc95683bd1f20aec882/app/helpers/settings_helper.rb
-                guard let regionCode = local.regionCode else { return languageCode }
-                return "zh" + "-" + regionCode
-            default:
+            // prepare extendCode and validate then return fallback if needs
+            let extendCodes: [String] = {
+                let locales = Locale.preferredLanguages.map { Locale(identifier: $0) }
+                return locales.compactMap { locale in
+                    guard let languageCode = locale.languageCode,
+                          let regionCode = locale.regionCode
+                    else { return nil }
+                    return languageCode + "-" + regionCode
+                }
+            }()
+            let _firstMatchExtendCode = extendCodes.first { code in
+                localCode[code] != nil
+            }
+            guard let firstMatchExtendCode = _firstMatchExtendCode else {
                 return languageCode
             }
+            return firstMatchExtendCode
+            
         }()
         let query = Mastodon.API.Account.RegisterQuery(
             reason: viewModel.reason.value,
@@ -828,6 +853,8 @@ extension MastodonRegisterViewController {
             agreement: true, // user confirmed in the server rules scene
             locale: locale
         )
+        
+        var retryCount = 0
  
         // register without show server rules
         context.apiService.accountRegister(
@@ -835,6 +862,32 @@ extension MastodonRegisterViewController {
             query: query,
             authorization: viewModel.applicationAuthorization
         )
+        .tryCatch { [weak self] error -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> in
+            guard let self = self else { throw error }
+            guard let error = self.viewModel.error.value as? Mastodon.API.Error,
+                  case let .generic(errorEntity) = error.mastodonError,
+                  errorEntity.error == "Validation failed: Locale is not included in the list"
+            else {
+                throw error
+            }
+            guard retryCount == 0 else {
+                throw error
+            }
+            let retryQuery = Mastodon.API.Account.RegisterQuery(
+                reason: query.reason,
+                username: query.username,
+                email: query.email,
+                password: query.password,
+                agreement: query.agreement,
+                locale: self.viewModel.instance.languages?.first ?? "en"
+            )
+            retryCount += 1
+            return self.context.apiService.accountRegister(
+                domain: self.viewModel.domain,
+                query: retryQuery,
+                authorization: self.viewModel.applicationAuthorization
+            )
+        }
         .receive(on: DispatchQueue.main)
         .sink { [weak self] completion in
             guard let self = self else { return }

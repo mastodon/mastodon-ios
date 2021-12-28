@@ -18,7 +18,7 @@ final class SidebarListContentView: UIView, UIContentView {
     let avatarButton: CircleAvatarButton = {
         let button = CircleAvatarButton()
         button.borderWidth = 2
-        button.borderColor = UIColor.label.cgColor
+        button.borderColor = UIColor.label
         return button
     }()
     

@@ -18,31 +18,36 @@ final class SidebarViewModel {
     
     // input
     let context: AppContext
-    let searchHistoryFetchedResultController: SearchHistoryFetchedResultController
-
+    @Published private var isSidebarDataSourceReady = false
+    @Published private var isAvatarButtonDataReady = false
+    
     // output
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
     var secondaryDiffableDataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    @Published private(set) var isReadyForWizardAvatarButton = false
 
     let activeMastodonAuthenticationObjectID = CurrentValueSubject<NSManagedObjectID?, Never>(nil)
 
     init(context: AppContext) {
         self.context = context
-        self.searchHistoryFetchedResultController = SearchHistoryFetchedResultController(managedObjectContext: context.managedObjectContext)
+        
+        Publishers.CombineLatest(
+            $isSidebarDataSourceReady,
+            $isAvatarButtonDataReady
+        )
+        .map { $0 && $1 }
+        .assign(to: &$isReadyForWizardAvatarButton)
         
         context.authenticationService.activeMastodonAuthentication
             .sink { [weak self] authentication in
                 guard let self = self else { return }
-                // bind search history
-                self.searchHistoryFetchedResultController.domain.value = authentication?.domain
-                self.searchHistoryFetchedResultController.userID.value = authentication?.userID
                 
                 // bind objectID
                 self.activeMastodonAuthenticationObjectID.value = authentication?.objectID
+                
+                self.isAvatarButtonDataReady = authentication != nil
             }
             .store(in: &disposeBag)
-        
-        try? searchHistoryFetchedResultController.fetchedResultsController.performFetch()
     }
     
 }
@@ -140,7 +145,7 @@ extension SidebarViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             case .compose:
                 let item = SidebarListContentView.Item(
-                    title: "Compose",   // TODO: update i18n
+                    title: L10n.Common.Controls.Actions.compose,
                     image: UIImage(systemName: "square.and.pencil")!,
                     imageURL: nil
                 )
@@ -170,8 +175,12 @@ extension SidebarViewModel {
             .setting,
         ]
         sectionSnapshot.append(items, to: nil)
-        _diffableDataSource.apply(sectionSnapshot, to: .main)
-        
+        // animatingDifferences must to be `true`
+        // otherwise the UI layout will infinity loop
+        _diffableDataSource.apply(sectionSnapshot, to: .main, animatingDifferences: true) { [weak self] in
+            guard let self = self else { return }
+            self.isSidebarDataSourceReady = true
+        }
     
         // secondary
         let _secondaryDiffableDataSource = UICollectionViewDiffableDataSource<Section, Item>(collectionView: secondaryCollectionView) { collectionView, indexPath, item in
@@ -181,7 +190,7 @@ extension SidebarViewModel {
             }
             
             let item = SidebarListContentView.Item(
-                title: "Compose",   // FIXME:
+                title: L10n.Common.Controls.Actions.compose,
                 image: UIImage(systemName: "square.and.pencil")!,
                 imageURL: nil
             )

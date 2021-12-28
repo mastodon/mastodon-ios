@@ -96,6 +96,13 @@ extension WizardCardView {
             path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius, startAngle: -.pi / 2, endAngle: -.pi, clockwise: false)
             path.addLine(to: CGPoint(x: rect.minX - radius, y: rect.maxY + radius + WizardCardView.bubbleArrowHeight))
             path.close()
+        case .allCorners:   // no arrow
+            path.move(to: CGPoint(x: rect.maxX, y: rect.maxY + radius))
+            path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.maxY), radius: radius, startAngle: .pi / 2, endAngle: .pi, clockwise: true)
+            path.addArc(withCenter: CGPoint(x: rect.minX, y: rect.minY), radius: radius, startAngle: .pi, endAngle: .pi / 2 * 3, clockwise: true)
+            path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.minY), radius: radius, startAngle: .pi / 2 * 3, endAngle: .pi * 2, clockwise: true)
+            path.addArc(withCenter: CGPoint(x: rect.maxX, y: rect.maxY), radius: radius, startAngle: .pi * 2, endAngle: .pi / 2 * 5, clockwise: true)
+            path.close()
         default:
             assertionFailure("FIXME")
         }

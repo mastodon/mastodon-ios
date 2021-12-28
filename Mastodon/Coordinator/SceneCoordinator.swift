@@ -23,6 +23,7 @@ final public class SceneCoordinator {
     
     private(set) weak var tabBarController: MainTabBarController!
     private(set) weak var splitViewController: RootSplitViewController?
+    private(set) var wizardViewController: WizardViewController?
     
     private(set) var secondaryStackHashValues = Set<Int>()
     
@@ -179,6 +180,7 @@ extension SceneCoordinator {
         case profile(viewModel: ProfileViewModel)
         case favorite(viewModel: FavoriteViewModel)
         case follower(viewModel: FollowerListViewModel)
+        case following(viewModel: FollowingListViewModel)
 
         // setting
         case settings(viewModel: SettingsViewModel)
@@ -220,17 +222,34 @@ extension SceneCoordinator {
 extension SceneCoordinator {
     
     func setup() {
+        let rootViewController: UIViewController
         switch UIDevice.current.userInterfaceIdiom {
         case .phone:
             let viewController = MainTabBarController(context: appContext, coordinator: self)
-            sceneDelegate.window?.rootViewController = viewController
-            tabBarController = viewController
+            self.splitViewController = nil
+            self.tabBarController = viewController
+            rootViewController = viewController
         default:
             let splitViewController = RootSplitViewController(context: appContext, coordinator: self)
             self.splitViewController = splitViewController
             self.tabBarController = splitViewController.contentSplitViewController.mainTabBarController
-            sceneDelegate.window?.rootViewController = splitViewController
+            rootViewController = splitViewController
         }
+        
+        let wizardViewController = WizardViewController()
+        if !wizardViewController.items.isEmpty,
+           let delegate = rootViewController as? WizardViewControllerDelegate
+        {
+            // do not add as child view controller.
+            // otherwise, the tab bar controller will add as a new tab
+            wizardViewController.delegate = delegate
+            wizardViewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            wizardViewController.view.frame = rootViewController.view.bounds
+            rootViewController.view.addSubview(wizardViewController.view)
+            self.wizardViewController = wizardViewController
+        }
+                
+        sceneDelegate.window?.rootViewController = rootViewController
     }
     
     func setupOnboardingIfNeeds(animated: Bool) {
@@ -427,6 +446,10 @@ private extension SceneCoordinator {
             viewController = _viewController
         case .follower(let viewModel):
             let _viewController = FollowerListViewController()
+            _viewController.viewModel = viewModel
+            viewController = _viewController
+        case .following(let viewModel):
+            let _viewController = FollowingListViewController()
             _viewController.viewModel = viewModel
             viewController = _viewController
         case .suggestionAccount(let viewModel):

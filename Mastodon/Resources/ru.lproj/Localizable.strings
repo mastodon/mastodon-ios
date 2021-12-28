@@ -28,6 +28,7 @@
 "Common.Controls.Actions.Back" = "Назад";
 "Common.Controls.Actions.BlockDomain" = "Заблокировать %@";
 "Common.Controls.Actions.Cancel" = "Отмена";
+"Common.Controls.Actions.Compose" = "Compose";
 "Common.Controls.Actions.Confirm" = "Подтвердить";
 "Common.Controls.Actions.Continue" = "Продолжить";
 "Common.Controls.Actions.CopyPhoto" = "Скопировать изображение";
@@ -200,6 +201,8 @@
 подтвердить свою учётную запись.";
 "Scene.ConfirmEmail.Title" = "И ещё кое-что.";
 "Scene.Favorite.Title" = "Ваше избранное";
+"Scene.Follower.Footer" = "Followers from other servers are not displayed.";
+"Scene.Following.Footer" = "Follows from other servers are not displayed.";
 "Scene.HomeTimeline.NavigationBarState.NewPosts" = "Показать новые";
 "Scene.HomeTimeline.NavigationBarState.Offline" = "Не в сети";
 "Scene.HomeTimeline.NavigationBarState.Published" = "Опубликовано!";

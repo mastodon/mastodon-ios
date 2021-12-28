@@ -35,11 +35,12 @@ extension Mastodon.API.Account {
         session: URLSession,
         domain: String,
         userID: Mastodon.Entity.Account.ID,
+        query: FollowerQuery,
         authorization: Mastodon.API.OAuth.Authorization
     ) -> AnyPublisher<Mastodon.Response.Content<[Mastodon.Entity.Account]>, Error> {
         let request = Mastodon.API.get(
             url: followersEndpointURL(domain: domain, userID: userID),
-            query: nil,
+            query: query,
             authorization: authorization
         )
         return session.dataTaskPublisher(for: request)

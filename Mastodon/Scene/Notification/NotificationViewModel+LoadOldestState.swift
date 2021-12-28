@@ -92,13 +92,13 @@ extension NotificationViewModel.LoadOldestState {
             } receiveValue: { [weak viewModel] response in
                 guard let viewModel = viewModel else { return }
                 switch viewModel.selectedIndex.value {
-                case .EveryThing:
+                case .everyThing:
                     if response.value.isEmpty {
                         stateMachine.enter(NoMore.self)
                     } else {
                         stateMachine.enter(Idle.self)
                     }
-                case .Mentions:
+                case .mentions:
                     viewModel.noMoreNotification.value = response.value.isEmpty
                     let list = response.value.filter { $0.type == Mastodon.Entity.Notification.NotificationType.mention }
                     if list.isEmpty {

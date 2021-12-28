@@ -67,6 +67,7 @@
                 "done": "Selesai",
                 "confirm": "Konfirmasi",
                 "continue": "Lanjut",
+                "compose": "Compose",
                 "cancel": "Batal",
                 "discard": "Discard",
                 "try_again": "Coba Lagi",
@@ -412,6 +413,12 @@
                     "message": "Confirm to unblock %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "Cari",

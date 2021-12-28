@@ -19,6 +19,7 @@ final class ReportedStatusTableViewCell: UITableViewCell, StatusCell {
     static let bottomPaddingHeight: CGFloat = 10
     
     weak var dependency: ReportViewController?
+    private var _disposeBag = Set<AnyCancellable>()
     var disposeBag = Set<AnyCancellable>()
     var observations = Set<NSKeyValueObservation>()
     
@@ -98,7 +99,7 @@ extension ReportedStatusTableViewCell {
                 guard let self = self else { return }
                 self.backgroundColor = ThemeService.shared.currentTheme.value.secondarySystemGroupedBackgroundColor
             }
-            .store(in: &disposeBag)
+            .store(in: &_disposeBag)
         
         checkbox.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(checkbox)

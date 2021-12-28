@@ -67,6 +67,7 @@
                 "done": "完了",
                 "confirm": "確認",
                 "continue": "続ける",
+                "compose": "Compose",
                 "cancel": "キャンセル",
                 "discard": "破棄",
                 "try_again": "再実行",
@@ -412,6 +413,12 @@
                     "message": "%sのブロックを解除しますか？"
                 }
             }
+        },
+        "follower": {
+            "footer": "Followers from other servers are not displayed."
+        },
+        "following": {
+            "footer": "Follows from other servers are not displayed."
         },
         "search": {
             "title": "検索",

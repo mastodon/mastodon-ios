@@ -18,16 +18,19 @@ extension FollowerListViewModel {
             managedObjectContext: userFetchedResultsController.fetchedResultsController.managedObjectContext
         )
         
+        // workaround to append loader wrong animation issue
         // set empty section to make update animation top-to-bottom style
         var snapshot = NSDiffableDataSourceSnapshot<UserSection, UserItem>()
         snapshot.appendSections([.main])
-        diffableDataSource?.apply(snapshot)
-        
-        // workaround to append loader wrong animation issue
         snapshot.appendItems([.bottomLoader], toSection: .main)
-        diffableDataSource?.apply(snapshot)
+        if #available(iOS 15.0, *) {
+            diffableDataSource?.applySnapshotUsingReloadData(snapshot, completion: nil)
+        } else {
+            // Fallback on earlier versions
+            diffableDataSource?.apply(snapshot, animatingDifferences: false)
+        }
         
-        userFetchedResultsController.objectIDs.removeDuplicates()
+        userFetchedResultsController.objectIDs
             .receive(on: DispatchQueue.main)
             .sink { [weak self] objectIDs in
                 guard let self = self else { return }
@@ -45,7 +48,12 @@ extension FollowerListViewModel {
                     case is State.Idle, is State.Loading, is State.Fail:
                         snapshot.appendItems([.bottomLoader], toSection: .main)
                     case is State.NoMore:
-                        break
+                        guard let activeMastodonAuthenticationBox = self.context.authenticationService.activeMastodonAuthenticationBox.value,
+                              let userID = self.userID.value,
+                              userID != activeMastodonAuthenticationBox.userID
+                        else { break }
+                        let text = L10n.Scene.Follower.footer
+                        snapshot.appendItems([.bottomHeader(text: text)], toSection: .main)
                     default:
                         break
                     }

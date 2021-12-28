@@ -296,6 +296,11 @@
 		DB59F10425EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */; };
 		DB59F10E25EF724F001F1DAB /* APIService+Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */; };
 		DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB59F11725EFA35B001F1DAB /* StripProgressView.swift */; };
+		DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B7294273112B100081888 /* FollowingListViewController.swift */; };
+		DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B7297273112C800081888 /* FollowingListViewModel.swift */; };
+		DB5B729A2731137900081888 /* FollowingListViewController+Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B72992731137900081888 /* FollowingListViewController+Provider.swift */; };
+		DB5B729C273113C200081888 /* FollowingListViewModel+Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */; };
+		DB5B729E273113F300081888 /* FollowingListViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */; };
 		DB6180DD263918E30018D199 /* MediaPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */; };
 		DB6180E02639194B0018D199 /* MediaPreviewPagingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */; };
 		DB6180E326391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */; };
@@ -310,11 +315,13 @@
 		DB6180F826391D660018D199 /* MediaPreviewingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */; };
 		DB6180FA26391F2E0018D199 /* MediaPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */; };
 		DB63BE7F268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63BE7E268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift */; };
-		DB647C5726F1E97300F7F82C /* MainTabBarController+Wizard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB647C5626F1E97300F7F82C /* MainTabBarController+Wizard.swift */; };
 		DB647C5926F1EA2700F7F82C /* WizardPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB647C5826F1EA2700F7F82C /* WizardPreference.swift */; };
 		DB66728C25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */; };
 		DB66729625F9F91600D60309 /* ComposeStatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729525F9F91600D60309 /* ComposeStatusSection.swift */; };
 		DB66729C25F9F91F00D60309 /* ComposeStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */; };
+		DB67D08427312970006A36CF /* APIService+Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08327312970006A36CF /* APIService+Following.swift */; };
+		DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D08527312E67006A36CF /* WizardViewController.swift */; };
+		DB67D089273256D7006A36CF /* StoreReviewPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB67D088273256D7006A36CF /* StoreReviewPreference.swift */; };
 		DB68045B2636DC6A00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
 		DB6804662636DC9000430867 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D939AB425EDD8A90076FA61 /* String.swift */; };
 		DB68046C2636DC9E00430867 /* MastodonNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB68045A2636DC6A00430867 /* MastodonNotification.swift */; };
@@ -370,6 +377,7 @@
 		DB71FD5225F8CCAA00512AE1 /* APIService+Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */; };
 		DB72601C25E36A2100235243 /* MastodonServerRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */; };
 		DB72602725E36A6F00235243 /* MastodonServerRulesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */; };
+		DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */; };
 		DB73B490261F030A002E9E9F /* SafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73B48F261F030A002E9E9F /* SafariActivity.swift */; };
 		DB73BF3B2711885500781945 /* UserDefaults+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */; };
 		DB73BF4127118B6D00781945 /* Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB73BF4027118B6D00781945 /* Instance.swift */; };
@@ -600,6 +608,8 @@
 		DBF1D24E269DAF5D00C1C08A /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */; };
 		DBF1D251269DB01200C1C08A /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */; };
 		DBF1D257269DBAC600C1C08A /* SearchDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */; };
+		DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */ = {isa = PBXBuildFile; fileRef = DBF3B73E2733EAED00E21627 /* local-codes.json */; };
+		DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */; };
 		DBF7A0FC26830C33004176A2 /* FPSIndicator in Frameworks */ = {isa = PBXBuildFile; productRef = DBF7A0FB26830C33004176A2 /* FPSIndicator */; };
 		DBF8AE16263293E400C9C23C /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF8AE15263293E400C9C23C /* NotificationService.swift */; };
 		DBF8AE1A263293E400C9C23C /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DBF8AE13263293E400C9C23C /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -1110,6 +1120,11 @@
 		DB59F10325EF5EBC001F1DAB /* TableViewCellHeightCacheableContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellHeightCacheableContainer.swift; sourceTree = "<group>"; };
 		DB59F10D25EF724F001F1DAB /* APIService+Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Poll.swift"; sourceTree = "<group>"; };
 		DB59F11725EFA35B001F1DAB /* StripProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripProgressView.swift; sourceTree = "<group>"; };
+		DB5B7294273112B100081888 /* FollowingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingListViewController.swift; sourceTree = "<group>"; };
+		DB5B7297273112C800081888 /* FollowingListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingListViewModel.swift; sourceTree = "<group>"; };
+		DB5B72992731137900081888 /* FollowingListViewController+Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewController+Provider.swift"; sourceTree = "<group>"; };
+		DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewModel+Diffable.swift"; sourceTree = "<group>"; };
+		DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FollowingListViewModel+State.swift"; sourceTree = "<group>"; };
 		DB6180DC263918E30018D199 /* MediaPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewController.swift; sourceTree = "<group>"; };
 		DB6180DF2639194B0018D199 /* MediaPreviewPagingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewPagingViewController.swift; sourceTree = "<group>"; };
 		DB6180E226391A4C0018D199 /* ViewControllerAnimatedTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerAnimatedTransitioning.swift; sourceTree = "<group>"; };
@@ -1124,11 +1139,13 @@
 		DB6180F726391D660018D199 /* MediaPreviewingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewingViewController.swift; sourceTree = "<group>"; };
 		DB6180F926391F2E0018D199 /* MediaPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewViewModel.swift; sourceTree = "<group>"; };
 		DB63BE7E268DD1070011D3F9 /* NotificationViewController+StatusProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationViewController+StatusProvider.swift"; sourceTree = "<group>"; };
-		DB647C5626F1E97300F7F82C /* MainTabBarController+Wizard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabBarController+Wizard.swift"; sourceTree = "<group>"; };
 		DB647C5826F1EA2700F7F82C /* WizardPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardPreference.swift; sourceTree = "<group>"; };
 		DB66728B25F9F8DC00D60309 /* ComposeViewModel+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComposeViewModel+DataSource.swift"; sourceTree = "<group>"; };
 		DB66729525F9F91600D60309 /* ComposeStatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusSection.swift; sourceTree = "<group>"; };
 		DB66729B25F9F91F00D60309 /* ComposeStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeStatusItem.swift; sourceTree = "<group>"; };
+		DB67D08327312970006A36CF /* APIService+Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Following.swift"; sourceTree = "<group>"; };
+		DB67D08527312E67006A36CF /* WizardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WizardViewController.swift; sourceTree = "<group>"; };
+		DB67D088273256D7006A36CF /* StoreReviewPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewPreference.swift; sourceTree = "<group>"; };
 		DB68045A2636DC6A00430867 /* MastodonNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonNotification.swift; sourceTree = "<group>"; };
 		DB68047F2637CD4C00430867 /* AppShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB6804812637CD4C00430867 /* AppShared.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppShared.h; sourceTree = "<group>"; };
@@ -1179,6 +1196,7 @@
 		DB71FD5125F8CCAA00512AE1 /* APIService+Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Status.swift"; sourceTree = "<group>"; };
 		DB72601B25E36A2100235243 /* MastodonServerRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewController.swift; sourceTree = "<group>"; };
 		DB72602625E36A6F00235243 /* MastodonServerRulesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonServerRulesViewModel.swift; sourceTree = "<group>"; };
+		DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBatchFetchViewModel.swift; sourceTree = "<group>"; };
 		DB73B48F261F030A002E9E9F /* SafariActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariActivity.swift; sourceTree = "<group>"; };
 		DB73BF3A2711885500781945 /* UserDefaults+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Notification.swift"; sourceTree = "<group>"; };
 		DB73BF4027118B6D00781945 /* Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instance.swift; sourceTree = "<group>"; };
@@ -1412,6 +1430,8 @@
 		DBF1D24D269DAF5D00C1C08A /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		DBF1D250269DB01200C1C08A /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		DBF1D256269DBAC600C1C08A /* SearchDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewModel.swift; sourceTree = "<group>"; };
+		DBF3B73E2733EAED00E21627 /* local-codes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "local-codes.json"; sourceTree = "<group>"; };
+		DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MastodonLocalCode.swift; sourceTree = "<group>"; };
 		DBF53F5F25C14E88008AAC7B /* Mastodon.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Mastodon.xctestplan; path = Mastodon/Mastodon.xctestplan; sourceTree = "<group>"; };
 		DBF53F6025C14E9D008AAC7B /* MastodonSDK.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MastodonSDK.xctestplan; sourceTree = "<group>"; };
 		DBF8AE13263293E400C9C23C /* NotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2198,6 +2218,7 @@
 			isa = PBXGroup;
 			children = (
 				164F0EBB267D4FE400249499 /* BoopSound.caf */,
+				DBF3B73E2733EAED00E21627 /* local-codes.json */,
 				DB427DDE25BAA00100D1B89D /* Assets.xcassets */,
 				DB118A8125E4B6E600FAB162 /* Preview Assets.xcassets */,
 				DB564BCE269F2F83001E39A7 /* Localizable.stringsdict */,
@@ -2316,6 +2337,7 @@
 				2D34D9DA261494120081BFC0 /* APIService+Search.swift */,
 				0F202212261351F5000C64BF /* APIService+HashtagTimeline.swift */,
 				DB6B74F9272FC2B500C70B6E /* APIService+Follower.swift */,
+				DB67D08327312970006A36CF /* APIService+Following.swift */,
 				DBCC3B9426157E6E0045B23D /* APIService+Relationship.swift */,
 				5B24BBE1262DB19100A9381B /* APIService+Report.swift */,
 				DBAE3F932616E28B004B8251 /* APIService+Follow.swift */,
@@ -2434,6 +2456,7 @@
 				DB1D842F26566512000346B3 /* KeyboardPreference.swift */,
 				DBCBCC0C2680B908000F5B51 /* HomeTimelinePreference.swift */,
 				DBD376AB2692ECDB007FEC24 /* ThemePreference.swift */,
+				DB67D088273256D7006A36CF /* StoreReviewPreference.swift */,
 			);
 			path = Preference;
 			sourceTree = "<group>";
@@ -2451,6 +2474,18 @@
 				DBC7A671260C897100E57475 /* StatusContentWarningEditorView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DB5B7296273112B400081888 /* Following */ = {
+			isa = PBXGroup;
+			children = (
+				DB5B7294273112B100081888 /* FollowingListViewController.swift */,
+				DB5B72992731137900081888 /* FollowingListViewController+Provider.swift */,
+				DB5B7297273112C800081888 /* FollowingListViewModel.swift */,
+				DB5B729B273113C200081888 /* FollowingListViewModel+Diffable.swift */,
+				DB5B729D273113F300081888 /* FollowingListViewModel+State.swift */,
+			);
+			path = Following;
 			sourceTree = "<group>";
 		};
 		DB6180DE263919350018D199 /* MediaPreview */ = {
@@ -2502,6 +2537,14 @@
 				DB6180F326391D110018D199 /* MediaPreviewImageView.swift */,
 			);
 			path = Image;
+			sourceTree = "<group>";
+		};
+		DB67D08727312E6A006A36CF /* Wizard */ = {
+			isa = PBXGroup;
+			children = (
+				DB67D08527312E67006A36CF /* WizardViewController.swift */,
+			);
+			path = Wizard;
 			sourceTree = "<group>";
 		};
 		DB6804802637CD4C00430867 /* AppShared */ = {
@@ -2745,7 +2788,6 @@
 			isa = PBXGroup;
 			children = (
 				DB8AF54F25C13703002E6C99 /* MainTabBarController.swift */,
-				DB647C5626F1E97300F7F82C /* MainTabBarController+Wizard.swift */,
 			);
 			path = MainTab;
 			sourceTree = "<group>";
@@ -2757,6 +2799,7 @@
 				DB6180E426391A500018D199 /* Transition */,
 				DB852D1D26FB021900FC9D81 /* Root */,
 				DB01409B25C40BB600F9F3CF /* Onboarding */,
+				DB67D08727312E6A006A36CF /* Wizard */,
 				DB9F58ED26EF435800E7BBE9 /* Account */,
 				2D38F1D325CD463600561493 /* HomeTimeline */,
 				2D76316325C14BAC00929FB9 /* PublicTimeline */,
@@ -2902,6 +2945,7 @@
 				DBB5253B2611ECF5002F1F29 /* Timeline */,
 				DBE3CDF1261C6B3100430CC6 /* Favorite */,
 				DB6B74F0272FB55400C70B6E /* Follower */,
+				DB5B7296273112B400081888 /* Following */,
 				DB9D6BFE25E4F5940051B173 /* ProfileViewController.swift */,
 				DBAE3F812615DDA3004B8251 /* ProfileViewController+UserProvider.swift */,
 				DBB5255D2611F07A002F1F29 /* ProfileViewModel.swift */,
@@ -2930,6 +2974,7 @@
 				DB9D6C2225E502C60051B173 /* MosaicImageViewModel.swift */,
 				2DA6055025F74407006356F9 /* AudioContainerViewModel.swift */,
 				5DF1054625F8870E00D6C0D4 /* VideoPlayerViewModel.swift */,
+				DB7274F3273BB9B200577D95 /* ListBatchFetchViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3109,6 +3154,7 @@
 				DBBC24D626A54BCB00398BB9 /* MastodonRegex.swift */,
 				DBBC24D826A54BCB00398BB9 /* MastodonMetricFormatter.swift */,
 				DBFEF07626A691FB006D7ED1 /* MastodonAuthenticationBox.swift */,
+				DBF3B7402733EB9400E21627 /* MastodonLocalCode.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -3626,6 +3672,7 @@
 				DB427DDF25BAA00100D1B89D /* Assets.xcassets in Resources */,
 				DB427DDD25BAA00100D1B89D /* Main.storyboard in Resources */,
 				DBA4B0F626C269880077136E /* Intents.stringsdict in Resources */,
+				DBF3B73F2733EAED00E21627 /* local-codes.json in Resources */,
 				DB118A8225E4B6E600FAB162 /* Preview Assets.xcassets in Resources */,
 				DB2B3ABC25E37E15007045F9 /* InfoPlist.strings in Resources */,
 				DB68A05D25E9055900CFDF14 /* Settings.bundle in Resources */,
@@ -3918,6 +3965,7 @@
 				DBAE3F8E2616E0B1004B8251 /* APIService+Block.swift in Sources */,
 				5DF1057F25F88A4100D6C0D4 /* TouchBlockingView.swift in Sources */,
 				DB1D843426579931000346B3 /* TableViewControllerNavigateable.swift in Sources */,
+				DB5B729A2731137900081888 /* FollowingListViewController+Provider.swift in Sources */,
 				0FAA0FDF25E0B57E0017CCDE /* WelcomeViewController.swift in Sources */,
 				2D206B8C25F6015000143C56 /* AudioPlaybackService.swift in Sources */,
 				2D59819B25E4A581000FB903 /* MastodonConfirmEmailViewController.swift in Sources */,
@@ -3929,6 +3977,7 @@
 				DB03A793272A7E5700EE37C5 /* SidebarListHeaderView.swift in Sources */,
 				DB4FFC2B269EC39600D62E92 /* SearchToSearchDetailViewControllerAnimatedTransitioning.swift in Sources */,
 				DBCC3B9526157E6E0045B23D /* APIService+Relationship.swift in Sources */,
+				DB5B7298273112C800081888 /* FollowingListViewModel.swift in Sources */,
 				2D7631B325C159F700929FB9 /* Item.swift in Sources */,
 				5DF1054125F886D400D6C0D4 /* VideoPlaybackService.swift in Sources */,
 				DB6B35182601FA3400DC1E11 /* MastodonAttachmentService.swift in Sources */,
@@ -4065,6 +4114,8 @@
 				DBE3CE01261D623D00430CC6 /* FavoriteViewModel+State.swift in Sources */,
 				2D82BA0525E7897700E36F0F /* MastodonResendEmailViewModelNavigationDelegateShim.swift in Sources */,
 				2D38F1EB25CD477000561493 /* HomeTimelineViewModel+LoadLatestState.swift in Sources */,
+				DB67D089273256D7006A36CF /* StoreReviewPreference.swift in Sources */,
+				DB5B7295273112B100081888 /* FollowingListViewController.swift in Sources */,
 				0F202201261326E6000C64BF /* HashtagTimelineViewModel.swift in Sources */,
 				DB6D9F9726367249008423CD /* SettingsViewController.swift in Sources */,
 				DB4F097F26A03DA600D62E92 /* SearchHistoryFetchedResultController.swift in Sources */,
@@ -4075,8 +4126,10 @@
 				DB73BF47271199CA00781945 /* Instance.swift in Sources */,
 				DB0F8150264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift in Sources */,
 				DB98337F25C9452D00AD9700 /* APIService+APIError.swift in Sources */,
+				DB5B729C273113C200081888 /* FollowingListViewModel+Diffable.swift in Sources */,
 				DB9E0D6F25EE008500CFDD76 /* UIInterpolatingMotionEffect.swift in Sources */,
 				DBB9759C262462E1004620BD /* ThreadMetaView.swift in Sources */,
+				DB5B729E273113F300081888 /* FollowingListViewModel+State.swift in Sources */,
 				2DF123A725C3B0210020F248 /* ActiveLabel.swift in Sources */,
 				5DDDF1A92617489F00311060 /* Mastodon+Entity+History.swift in Sources */,
 				DB59F11825EFA35B001F1DAB /* StripProgressView.swift in Sources */,
@@ -4097,6 +4150,7 @@
 				2D82B9FF25E7863200E36F0F /* OnboardingViewControllerAppearance.swift in Sources */,
 				5DF1054725F8870E00D6C0D4 /* VideoPlayerViewModel.swift in Sources */,
 				DB73BF43271192BB00781945 /* InstanceService.swift in Sources */,
+				DB67D08427312970006A36CF /* APIService+Following.swift in Sources */,
 				DBA9443A265CC0FC00C537E1 /* Fields.swift in Sources */,
 				2DE0FAC12615F04D00CDF649 /* RecommendHashTagSection.swift in Sources */,
 				DBA5E7A5263BD28C004598BB /* ContextMenuImagePreviewViewModel.swift in Sources */,
@@ -4182,6 +4236,7 @@
 				2D24E11D2626D8B100A59D4F /* NotificationStatusTableViewCell.swift in Sources */,
 				DB6C8C0F25F0A6AE00AAA452 /* Mastodon+Entity+Error.swift in Sources */,
 				DB1E346825F518E20079D7DF /* CategoryPickerSection.swift in Sources */,
+				DB7274F4273BB9B200577D95 /* ListBatchFetchViewModel.swift in Sources */,
 				2D61254D262547C200299647 /* APIService+Notification.swift in Sources */,
 				DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */,
 				DB73BF4B27140C0800781945 /* UITableViewDiffableDataSource.swift in Sources */,
@@ -4326,6 +4381,7 @@
 				DB71FD2C25F86A5100512AE1 /* AvatarStackContainerButton.swift in Sources */,
 				DB87D4512609CF1E00D12C0D /* ComposeStatusPollOptionAppendEntryCollectionViewCell.swift in Sources */,
 				DBBC24C026A5443100398BB9 /* MastodonTheme.swift in Sources */,
+				DB67D08627312E67006A36CF /* WizardViewController.swift in Sources */,
 				DBBC24B526A540AE00398BB9 /* AvatarConfigurableView.swift in Sources */,
 				DB9A489026035963008B817C /* APIService+Media.swift in Sources */,
 				DBFEF07726A691FB006D7ED1 /* MastodonAuthenticationBox.swift in Sources */,
@@ -4339,7 +4395,6 @@
 				DB49A62525FF334C00B98345 /* EmojiService+CustomEmojiViewModel+LoadState.swift in Sources */,
 				DB4924E226312AB200E9DB22 /* NotificationService.swift in Sources */,
 				DB6D9F6F2635807F008423CD /* Setting.swift in Sources */,
-				DB647C5726F1E97300F7F82C /* MainTabBarController+Wizard.swift in Sources */,
 				DB6F5E38264E994A009108F4 /* AutoCompleteTopChevronView.swift in Sources */,
 				DBB525412611ED54002F1F29 /* ProfileHeaderViewController.swift in Sources */,
 				DB6B74F8272FBFB100C70B6E /* FollowerListViewController+Provider.swift in Sources */,
@@ -4356,6 +4411,7 @@
 				2D38F1FE25CD481700561493 /* StatusProvider.swift in Sources */,
 				DB1EE7B2267F9525000CC337 /* StatusProvider+StatusNodeDelegate.swift in Sources */,
 				5B24BBE2262DB19100A9381B /* APIService+Report.swift in Sources */,
+				DBF3B7412733EB9400E21627 /* MastodonLocalCode.swift in Sources */,
 				DB4F096A269EDAD200D62E92 /* SearchResultViewModel+State.swift in Sources */,
 				5BB04FF5262F0E6D0043BFF6 /* ReportSection.swift in Sources */,
 				DBA94436265CBB7400C537E1 /* ProfileFieldItem.swift in Sources */,
@@ -4863,7 +4919,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4878,7 +4934,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -4892,7 +4948,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -4906,7 +4962,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5000,11 +5056,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5031,11 +5087,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5060,11 +5116,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreDataStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5090,11 +5146,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreDataStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5157,7 +5213,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5171,7 +5227,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5182,7 +5238,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5196,7 +5252,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Debug";
@@ -5207,7 +5263,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5221,7 +5277,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Release";
@@ -5232,7 +5288,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = MastodonIntent/MastodonIntent.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = MastodonIntent/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5246,7 +5302,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5257,7 +5313,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5271,7 +5327,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5282,7 +5338,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5296,7 +5352,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Debug";
@@ -5307,7 +5363,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5321,7 +5377,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Release";
@@ -5332,7 +5388,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = ShareActionExtension/ShareActionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = ShareActionExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5346,7 +5402,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5423,7 +5479,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5438,7 +5494,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Release";
@@ -5490,11 +5546,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreDataStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5539,7 +5595,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5552,7 +5608,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Release";
@@ -5564,11 +5620,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5660,7 +5716,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Mastodon/Mastodon.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_ASSET_PATHS = "Mastodon/Resources/Preview\\ Assets.xcassets";
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = Mastodon/Info.plist;
@@ -5675,7 +5731,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Debug";
@@ -5727,11 +5783,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CoreDataStack/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5776,7 +5832,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5789,7 +5845,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = "ASDK - Debug";
@@ -5801,11 +5857,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 82;
+				DYLIB_CURRENT_VERSION = 88;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AppShared/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -5831,7 +5887,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5844,7 +5900,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5855,7 +5911,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = NotificationService/NotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 82;
+				CURRENT_PROJECT_VERSION = 88;
 				DEVELOPMENT_TEAM = 5Z4GVSS33P;
 				INFOPLIST_FILE = NotificationService/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5868,7 +5924,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -6026,7 +6082,7 @@
 			repositoryURL = "https://github.com/TwidereProject/MetaTextKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.1.1;
+				version = 2.1.2;
 			};
 		};
 		DB0E2D2C26833FF600865C3C /* XCRemoteSwiftPackageReference "Nuke-FLAnimatedImage-Plugin" */ = {

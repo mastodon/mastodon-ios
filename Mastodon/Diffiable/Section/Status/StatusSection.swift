@@ -158,6 +158,11 @@ extension StatusSection {
                     accessibilityElements.append(cell.statusView.avatarView)
                     accessibilityElements.append(cell.statusView.nameMetaLabel)
                     accessibilityElements.append(cell.statusView.dateLabel)
+                    // poll
+                    accessibilityElements.append(cell.statusView.pollTableView)
+                    accessibilityElements.append(cell.statusView.pollVoteCountLabel)
+                    accessibilityElements.append(cell.statusView.pollCountdownLabel)
+                    accessibilityElements.append(cell.statusView.pollVoteButton)
                     // TODO: a11y
                     accessibilityElements.append(cell.statusView.contentMetaText.textView)
                     accessibilityElements.append(contentsOf: cell.statusView.statusMosaicImageViewContainer.imageViews)
@@ -389,7 +394,7 @@ extension StatusSection {
         // set timestamp
         let createdAt = (status.reblog ?? status).createdAt
         cell.statusView.dateLabel.text = createdAt.localizedSlowedTimeAgoSinceNow
-        cell.statusView.dateLabel.accessibilityValue = createdAt.timeAgoSinceNow
+        cell.statusView.dateLabel.accessibilityLabel = createdAt.timeAgoSinceNow
         AppContext.shared.timestampUpdatePublisher
             .receive(on: RunLoop.main)      // will be paused when scrolling (on purpose)
             .sink { [weak cell] _ in
@@ -978,6 +983,7 @@ extension StatusSection {
             cell.statusView.pollCountdownLabel.text = "-"
         }
         
+        cell.statusView.isUserInteractionEnabled = !poll.expired        // make voice over touch passthroughable
         cell.statusView.pollTableView.allowsSelection = !poll.expired
         
         let votedOptions = poll.options.filter { option in

@@ -15,6 +15,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
     var disposeBag = Set<AnyCancellable>()
+    var observations = Set<NSKeyValueObservation>()
     private(set) lazy var viewModel = WelcomeViewModel(context: context)
     
     let welcomeIllustrationView = WelcomeIllustrationView()
@@ -23,7 +24,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
     private(set) lazy var dismissBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(WelcomeViewController.dismissBarButtonItemDidPressed(_:)))
     
     private(set) lazy var logoImageView: UIImageView = {
-        let image = view.traitCollection.userInterfaceIdiom == .phone ? Asset.Scene.Welcome.mastodonLogo.image : Asset.Scene.Welcome.mastodonLogoBlackLarge.image
+        let image = Asset.Scene.Welcome.mastodonLogo.image
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -40,15 +41,15 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return label
     }()
     
-    private(set) lazy var  signUpButton: PrimaryActionButton = {
+    private(set) lazy var signUpButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.adjustsBackgroundImageWhenUserInterfaceStyleChanges = false
         button.setTitle(L10n.Common.Controls.Actions.signUp, for: .normal)
-        let backgroundImageColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? .white : Asset.Colors.brandBlue.color
-        let backgroundImageHighlightedColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor(white: 0.8, alpha: 1.0) : Asset.Colors.brandBlueDarken20.color
+        let backgroundImageColor: UIColor = .white
+        let backgroundImageHighlightedColor: UIColor = UIColor(white: 0.8, alpha: 1.0)
         button.setBackgroundImage(.placeholder(color: backgroundImageColor), for: .normal)
         button.setBackgroundImage(.placeholder(color: backgroundImageHighlightedColor), for: .highlighted)
-        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? Asset.Colors.brandBlue.color : UIColor.white
+        let titleColor: UIColor = Asset.Colors.brandBlue.color
         button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -58,7 +59,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 15, weight: .semibold))
         button.setTitle(L10n.Common.Controls.Actions.signIn, for: .normal)
-        let titleColor: UIColor = traitCollection.userInterfaceIdiom == .phone ? UIColor.white.withAlphaComponent(0.8) : Asset.Colors.brandBlue.color
+        let titleColor: UIColor = UIColor.white.withAlphaComponent(0.8)
         button.setTitleColor(titleColor, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -74,6 +75,8 @@ extension WelcomeViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // preferredContentSize = CGSize(width: 547, height: 678)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .never
@@ -106,15 +109,30 @@ extension WelcomeViewController {
                 self.navigationItem.leftBarButtonItem = needsShowDismissEntry ? self.dismissBarButtonItem : nil
             }
             .store(in: &disposeBag)
+        
+        view.observe(\.frame, options: [.initial, .new]) { [weak self] view, _ in
+            guard let self = self else { return }
+            switch view.traitCollection.userInterfaceIdiom {
+            case .phone:
+                break
+            default:
+                self.welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.isHidden = view.frame.height < 800
+            }
+        }
+        .store(in: &observations)
     }
     
     override func viewSafeAreaInsetsDidChange() {
         super.viewSafeAreaInsetsDidChange()
         
-        // shift illustration down for non-notch phone
         var overlap: CGFloat = 5
+        // shift illustration down for non-notch phone
         if view.safeAreaInsets.bottom == 0 {
             overlap += 56
+        }
+        // shift illustration down for iPad modal
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            overlap += 20
         }
         welcomeIllustrationViewBottomAnchorLayoutConstraint?.constant = overlap
     }
@@ -137,85 +155,80 @@ extension WelcomeViewController {
         }
         
         // set illustration for phone
-        if traitCollection.userInterfaceIdiom == .phone {
-            guard welcomeIllustrationView.superview == nil else {
-                return
-            }
-            
-            welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
-            welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
-
-            view.addSubview(welcomeIllustrationView)
-            NSLayoutConstraint.activate([
-                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
-                welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
-                welcomeIllustrationViewBottomAnchorLayoutConstraint!
-            ])
-            
-            welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
-                UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
-            )
-            welcomeIllustrationView.rightHillImageView.addMotionEffect(
-                UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
-            )
-            welcomeIllustrationView.leftHillImageView.addMotionEffect(
-                UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
-            )
-            welcomeIllustrationView.centerHillImageView.addMotionEffect(
-                UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
-            )
-
-            let topPaddingView = UIView()
-            topPaddingView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(topPaddingView)
-            NSLayoutConstraint.activate([
-                topPaddingView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
-                topPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
-                topPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
-            ])
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
-            NSLayoutConstraint.activate([
-                view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
-                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
-                // make a little bit large
-                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
-                welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
-            ])
-            let bottomPaddingView = UIView()
-            bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(bottomPaddingView)
-            NSLayoutConstraint.activate([
-                bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
-                bottomPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
-                bottomPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
-                bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
-                bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
-            ])
-
-            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
-                UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
-            )
-
-            view.bringSubviewToFront(logoImageView)
-            view.bringSubviewToFront(sloganLabel)
-        }
-
-        // set slogan for non-phone
-        if traitCollection.userInterfaceIdiom != .phone {
-            guard sloganLabel.superview == nil else {
-                return
-            }
-            view.addSubview(sloganLabel)
-            NSLayoutConstraint.activate([
-                sloganLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 16),
-                view.readableContentGuide.trailingAnchor.constraint(equalTo: sloganLabel.trailingAnchor, constant: 16),
-                sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
-            ])
+        guard welcomeIllustrationView.superview == nil else {
+            return
         }
         
-        view.bringSubviewToFront(sloganLabel)
+        welcomeIllustrationView.translatesAutoresizingMaskIntoConstraints = false
+        welcomeIllustrationViewBottomAnchorLayoutConstraint = welcomeIllustrationView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 5)
+        
+        view.addSubview(welcomeIllustrationView)
+        NSLayoutConstraint.activate([
+            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.leftAnchor, constant: 15),
+            welcomeIllustrationView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 15),
+            welcomeIllustrationViewBottomAnchorLayoutConstraint!
+        ])
+        
+        welcomeIllustrationView.cloudBaseImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -5, maxX: 5, minY: -5, maxY: 5)
+        )
+        welcomeIllustrationView.rightHillImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -15, maxX: 25, minY: -10, maxY: 10)
+        )
+        welcomeIllustrationView.leftHillImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -25, maxX: 15, minY: -15, maxY: 15)
+        )
+        welcomeIllustrationView.centerHillImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -14, maxX: 14, minY: -5, maxY: 25)
+        )
+        
+        let topPaddingView = UIView()
+        topPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(topPaddingView)
+        NSLayoutConstraint.activate([
+            topPaddingView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor),
+            topPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
+            topPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
+        ])
+        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(welcomeIllustrationView.elephantOnAirplaneWithContrailImageView)
+        NSLayoutConstraint.activate([
+            view.leftAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.leftAnchor, constant: 12),  // add 12pt bleeding
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.topAnchor.constraint(equalTo: topPaddingView.bottomAnchor),
+            // make a little bit large
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.84),
+            welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.heightAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.widthAnchor, multiplier: 105.0/318.0),
+        ])
+        let bottomPaddingView = UIView()
+        bottomPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bottomPaddingView)
+        NSLayoutConstraint.activate([
+            bottomPaddingView.topAnchor.constraint(equalTo: welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.bottomAnchor),
+            bottomPaddingView.leadingAnchor.constraint(equalTo: logoImageView.leadingAnchor),
+            bottomPaddingView.trailingAnchor.constraint(equalTo: logoImageView.trailingAnchor),
+            bottomPaddingView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 4),
+        ])
+        
+        welcomeIllustrationView.elephantOnAirplaneWithContrailImageView.addMotionEffect(
+            UIInterpolatingMotionEffect.motionEffect(minX: -20, maxX: 12, minY: -20, maxY: 12)  // maxX should not larger then the bleeding (12pt)
+        )
+        
         view.bringSubviewToFront(logoImageView)
+        view.bringSubviewToFront(sloganLabel)
+
+        // set slogan for non-phone
+//        if traitCollection.userInterfaceIdiom != .phone {
+//            guard sloganLabel.superview == nil else {
+//                return
+//            }
+//            view.addSubview(sloganLabel)
+//            NSLayoutConstraint.activate([
+//                sloganLabel.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor, constant: 16),
+//                view.readableContentGuide.trailingAnchor.constraint(equalTo: sloganLabel.trailingAnchor, constant: 16),
+//                sloganLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 168),
+//            ])
+//        }
     }
 }
 
@@ -261,12 +274,12 @@ extension WelcomeViewController: UIAdaptivePresentationControllerDelegate {
             // make underneath view controller alive to fix layout issue due to view life cycle
             return .fullScreen
         default:
-            switch traitCollection.horizontalSizeClass {
-            case .regular:
-                return .pageSheet
-            default:
-                return .fullScreen
-            }
+            return .formSheet
+//            switch traitCollection.horizontalSizeClass {
+//            case .regular:
+//            default:
+//                return .fullScreen
+//            }
         }
     }
     

@@ -14,8 +14,10 @@ import OSLog
 import UIKit
 import Meta
 import MetaTextKit
+import AVKit
 
-final class NotificationViewController: UIViewController, NeedsDependency {
+final class NotificationViewController: UIViewController, NeedsDependency, MediaPreviewableViewController {
+    
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
 
@@ -23,15 +25,18 @@ final class NotificationViewController: UIViewController, NeedsDependency {
     var observations = Set<NSKeyValueObservation>()
 
     private(set) lazy var viewModel = NotificationViewModel(context: context)
+    
+    let mediaPreviewTransitionController = MediaPreviewTransitionController()
 
     let segmentControl: UISegmentedControl = {
         let control = UISegmentedControl(items: [L10n.Scene.Notification.Title.everything, L10n.Scene.Notification.Title.mentions])
-        control.selectedSegmentIndex = NotificationViewModel.NotificationSegment.EveryThing.rawValue
+        control.selectedSegmentIndex = NotificationViewModel.NotificationSegment.everyThing.rawValue
         return control
     }()
 
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
+        tableView.register(StatusTableViewCell.self, forCellReuseIdentifier: String(describing: StatusTableViewCell.self))
         tableView.register(NotificationStatusTableViewCell.self, forCellReuseIdentifier: String(describing: NotificationStatusTableViewCell.self))
         tableView.register(TimelineBottomLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: TimelineBottomLoaderTableViewCell.self))
         tableView.estimatedRowHeight = UITableView.automaticDimension
@@ -82,7 +87,12 @@ extension NotificationViewController {
         tableView.delegate = self
         viewModel.tableView = tableView
         viewModel.contentOffsetAdjustableTimelineViewControllerDelegate = self
-        viewModel.setupDiffableDataSource(for: tableView, delegate: self, dependency: self)
+        viewModel.setupDiffableDataSource(
+            for: tableView,
+            dependency: self,
+            delegate: self,
+            statusTableViewCellDelegate: self
+        )
         viewModel.viewDidLoad.send()
         
         // bind refresh control
@@ -128,9 +138,9 @@ extension NotificationViewController {
                 self.viewModel.needsScrollToTopAfterDataSourceUpdate = true
 
                 switch segment {
-                case .EveryThing:
+                case .everyThing:
                     self.viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID)
-                case .Mentions:
+                case .mentions:
                     self.viewModel.notificationPredicate.value = MastodonNotification.predicate(domain: domain, userID: userID, typeRaw: Mastodon.Entity.Notification.NotificationType.mention.rawValue)
                 }
             }
@@ -148,8 +158,8 @@ extension NotificationViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        tableView.deselectRow(with: transitionCoordinator, animated: animated)
+        
+        aspectViewWillAppear(animated)
         
         // fetch latest notification when scroll position is within half screen height to prevent list reload
         if tableView.contentOffset.y < view.frame.height * 0.5 {
@@ -181,6 +191,12 @@ extension NotificationViewController {
         // reset notification count
         context.notificationService.clearNotificationCountForActiveUser()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        aspectViewDidDisappear(animated)
+    }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -208,33 +224,34 @@ extension NotificationViewController {
     }
 }
 
-// MARK: - StatusTableViewControllerAspect
-extension NotificationViewController: StatusTableViewControllerAspect { }
-
-extension NotificationViewController {
-
+// MARK: - TableViewCellHeightCacheableContainer
+extension NotificationViewController: TableViewCellHeightCacheableContainer {
+    var cellFrameCache: NSCache<NSNumber, NSValue> { return viewModel.cellFrameCache }
+    
     func cacheTableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
-        case .notification(let objectID, _):
+        case .notification(let objectID, _),
+            .notificationStatus(let objectID, _):
             guard let object = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return }
-            let key = object.id as NSString
+            let key = object.objectID.hashValue
             let frame = cell.frame
-            viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: key)
+            viewModel.cellFrameCache.setObject(NSValue(cgRect: frame), forKey: NSNumber(value: key))
         case .bottomLoader:
             break
         }
     }
-
+    
     func handleTableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let diffableDataSource = viewModel.diffableDataSource else { return UITableView.automaticDimension }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return UITableView.automaticDimension }
         switch item {
-        case .notification(let objectID, _):
+        case .notification(let objectID, _),
+             .notificationStatus(let objectID, _):
             guard let object = try? viewModel.fetchedResultsController.managedObjectContext.existingObject(with: objectID) as? MastodonNotification else { return UITableView.automaticDimension }
-            let key = object.id as NSString
-            guard let frame = viewModel.cellFrameCache.object(forKey: key)?.cgRectValue else { return UITableView.automaticDimension }
+            let key = object.objectID.hashValue
+            guard let frame = viewModel.cellFrameCache.object(forKey: NSNumber(value: key))?.cgRectValue else { return UITableView.automaticDimension }
             return frame.height
         case .bottomLoader:
             return TimelineLoaderTableViewCell.cellHeight
@@ -242,22 +259,55 @@ extension NotificationViewController {
     }
 }
 
+
+// MARK: - StatusTableViewControllerAspect
+extension NotificationViewController: StatusTableViewControllerAspect { }
+
 // MARK: - UITableViewDelegate
 
 extension NotificationViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        aspectTableView(tableView, estimatedHeightForRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let diffableDataSource = viewModel.diffableDataSource else { return }
         guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        open(item: item)
+        switch item {
+        case .notificationStatus:
+            aspectTableView(tableView, willDisplay: cell, forRowAt: indexPath)
+        case .bottomLoader:
+            if !tableView.isDragging, !tableView.isDecelerating {
+                viewModel.loadOldestStateMachine.enter(NotificationViewModel.LoadOldestState.Loading.self)
+            }
+        default:
+            break
+        }
     }
 
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cacheTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+        aspectTableView(tableView, didEndDisplaying: cell, forRowAt: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        aspectTableView(tableView, didSelectRowAt: indexPath)
     }
 
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return handleTableView(tableView, estimatedHeightForRowAt: indexPath)
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        return aspectTableView(tableView, contextMenuConfigurationForRowAt: indexPath, point: point)
+    }
+    
+    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+    
+    func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        return aspectTableView(tableView, previewForDismissingContextMenuWithConfiguration: configuration)
+    }
+    
+    func tableView(_ tableView: UITableView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
+        aspectTableView(tableView, willPerformPreviewActionForMenuWith: configuration, animator: animator)
     }
 
 }
@@ -273,19 +323,6 @@ extension NotificationViewController {
             } else {
                 let viewModel = ProfileViewModel(context: context, optionalMastodonUser: notification.account)
                 coordinator.present(scene: .profile(viewModel: viewModel), from: self, transition: .show)
-            }
-        default:
-            break
-        }
-    }
-
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let diffableDataSource = viewModel.diffableDataSource else { return }
-        guard let item = diffableDataSource.itemIdentifier(for: indexPath) else { return }
-        switch item {
-        case .bottomLoader:
-            if !tableView.isDragging, !tableView.isDecelerating {
-                viewModel.loadOldestStateMachine.enter(NotificationViewModel.LoadOldestState.Loading.self)
             }
         default:
             break
@@ -388,11 +425,30 @@ extension NotificationViewController: ScrollViewContainer {
     }
 }
 
+// MARK: - LoadMoreConfigurableTableViewContainer
 extension NotificationViewController: LoadMoreConfigurableTableViewContainer {
     typealias BottomLoaderTableViewCell = TimelineBottomLoaderTableViewCell
     typealias LoadingState = NotificationViewModel.LoadOldestState.Loading
     var loadMoreConfigurableTableView: UITableView { tableView }
     var loadMoreConfigurableStateMachine: GKStateMachine { viewModel.loadOldestStateMachine }
+}
+
+// MARK: - AVPlayerViewControllerDelegate
+extension NotificationViewController: AVPlayerViewControllerDelegate {
+    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willBeginFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        handlePlayerViewController(playerViewController, willEndFullScreenPresentationWithAnimationCoordinator: coordinator)
+    }
+}
+
+// MARK: - statusTableViewCellDelegate
+extension NotificationViewController: StatusTableViewCellDelegate {
+    var playerViewControllerDelegate: AVPlayerViewControllerDelegate? {
+        return self
+    }
 }
 
 extension NotificationViewController {
@@ -452,9 +508,9 @@ extension NotificationViewController {
         
         switch category {
         case .showEverything:
-            viewModel.selectedIndex.value = .EveryThing
+            viewModel.selectedIndex.value = .everyThing
         case .showMentions:
-            viewModel.selectedIndex.value = .Mentions
+            viewModel.selectedIndex.value = .mentions
         }
     }
     

@@ -38,6 +38,18 @@ class AvatarButton: UIControl {
             avatarImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        updateAppearance()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        updateAppearance()
+    }
 
     func updateAppearance() {
         avatarImageView.alpha = primaryActionState.contains(.highlighted)  ? 0.6 : 1.0

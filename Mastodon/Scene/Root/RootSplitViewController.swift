@@ -19,6 +19,8 @@ final class RootSplitViewController: UISplitViewController, NeedsDependency {
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
+    private var isPrimaryDisplay = false
+    
     private(set) lazy var contentSplitViewController: ContentSplitViewController = {
         let contentSplitViewController = ContentSplitViewController()
         contentSplitViewController.context = context
@@ -79,13 +81,6 @@ extension RootSplitViewController {
         super.viewDidLoad()
         
         updateBehavior(size: view.frame.size)
-        contentSplitViewController.$currentSupplementaryTab
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.updateBehavior(size: self.view.frame.size)
-            }
-            .store(in: &disposeBag)
         
         setupBackground(theme: ThemeService.shared.currentTheme.value)
         ThemeService.shared.currentTheme
@@ -95,6 +90,12 @@ extension RootSplitViewController {
                 self.setupBackground(theme: theme)
             }
             .store(in: &disposeBag)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateBehavior(size: view.frame.size)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -108,16 +109,30 @@ extension RootSplitViewController {
         }
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        setupBackground(theme: ThemeService.shared.currentTheme.value)
+    }
+    
     private func updateBehavior(size: CGSize) {
-        switch contentSplitViewController.currentSupplementaryTab {
-        case .search:
+        if size.width > 960 {
+            show(.primary)
+            isPrimaryDisplay = true
+            
+        } else {
             hide(.primary)
+            isPrimaryDisplay = false
+        }
+        
+        switch (contentSplitViewController.currentSupplementaryTab, isPrimaryDisplay) {
+        case (.search, true):
+            // needs switch to other tab when primary display
+            // use FIFO queue save tab history
+            contentSplitViewController.currentSupplementaryTab = .home
         default:
-            if size.width > 960 {
-                show(.primary)
-            } else {
-                hide(.primary)
-            }
+            // do nothing
+            break
         }
     }
 
@@ -140,7 +155,11 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
             return
         }
         switch tab {
-        case .search:            
+        case .search:
+            guard isPrimaryDisplay else {
+                // only control search tab behavior when primary display
+                fallthrough
+            }
             guard let navigationController = searchViewController.navigationController else { return }
             if navigationController.viewControllers.count == 1 {
                 searchViewController.searchBarTapPublisher.send()
@@ -165,7 +184,7 @@ extension RootSplitViewController: ContentSplitViewControllerDelegate {
 // MARK: - UISplitViewControllerDelegate
 extension RootSplitViewController: UISplitViewControllerDelegate {
     
-    private static  func transform(from: UITabBarController, to: UITabBarController) {
+    private static func transform(from: UITabBarController, to: UITabBarController) {
         let sourceNavigationControllers = from.viewControllers ?? []
         let targetNavigationControllers = to.viewControllers ?? []
         
@@ -179,6 +198,11 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         }
         
         to.selectedIndex = from.selectedIndex
+    }
+    
+    private static func transform(from: UINavigationController, to: UINavigationController) {
+        let viewControllers = from.popToRootViewController(animated: false) ?? []
+        to.viewControllers.append(contentsOf: viewControllers)
     }
     
     // .regular to .compact
@@ -222,4 +246,91 @@ extension RootSplitViewController: UISplitViewControllerDelegate {
         return proposedDisplayMode
     }
 
+}
+
+// MARK: - WizardViewControllerDelegate
+extension RootSplitViewController: WizardViewControllerDelegate {
+    
+    func readyToLayoutItem(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> Bool {
+        guard traitCollection.horizontalSizeClass != .compact else {
+            return compactMainTabBarViewController.readyToLayoutItem(wizardViewController, item: item)
+        }
+        
+        switch item {
+        case .multipleAccountSwitch:
+            return contentSplitViewController.sidebarViewController.viewModel.isReadyForWizardAvatarButton
+        }
+    }
+    
+    
+    func layoutSpotlight(_ wizardViewController: WizardViewController, item: WizardViewController.Item) -> UIBezierPath {
+        guard traitCollection.horizontalSizeClass != .compact else {
+            return compactMainTabBarViewController.layoutSpotlight(wizardViewController, item: item)
+        }
+        
+        switch item {
+        case .multipleAccountSwitch:
+            guard let frame = avatarButtonFrameInWizardView(wizardView: wizardViewController.view)
+            else {
+                assertionFailure()
+                return UIBezierPath()
+            }
+            return UIBezierPath(ovalIn: frame)
+        }
+    }
+    
+    func layoutWizardCard(_ wizardViewController: WizardViewController, item: WizardViewController.Item) {
+        guard traitCollection.horizontalSizeClass != .compact else {
+            return compactMainTabBarViewController.layoutWizardCard(wizardViewController, item: item)
+        }
+        
+        guard let frame = avatarButtonFrameInWizardView(wizardView: wizardViewController.view) else {
+            return
+        }
+        
+        let anchorView = UIView()
+        anchorView.frame = frame
+        wizardViewController.backgroundView.addSubview(anchorView)
+        
+        let wizardCardView = WizardCardView()
+        wizardCardView.arrowRectCorner = .allCorners    // no arrow
+        wizardCardView.titleLabel.text = item.title
+        wizardCardView.descriptionLabel.text = item.description
+        
+        wizardCardView.translatesAutoresizingMaskIntoConstraints = false
+        wizardViewController.backgroundView.addSubview(wizardCardView)
+        NSLayoutConstraint.activate([
+            wizardCardView.centerYAnchor.constraint(equalTo: anchorView.centerYAnchor),
+            wizardCardView.leadingAnchor.constraint(equalTo: anchorView.trailingAnchor, constant: 20), // 20pt spacing
+            wizardCardView.widthAnchor.constraint(equalToConstant: 320),
+        ])
+        wizardCardView.setContentHuggingPriority(.defaultLow, for: .vertical)
+    }
+
+    private func avatarButtonFrameInWizardView(wizardView: UIView) -> CGRect? {
+       guard let diffableDataSource = contentSplitViewController.sidebarViewController.viewModel.diffableDataSource,
+             let indexPath = diffableDataSource.indexPath(for: .tab(.me)),
+             let cell = contentSplitViewController.sidebarViewController.collectionView.cellForItem(at: indexPath) as? SidebarListCollectionViewCell,
+             let contentView = cell._contentView,
+             let frame = sourceViewFrameInTargetView(
+                sourceView: contentView.avatarButton,
+                targetView: wizardView
+             )
+        else {
+            assertionFailure()
+            return nil
+        }
+        return frame
+    }
+
+    private func sourceViewFrameInTargetView(
+        sourceView: UIView,
+        targetView: UIView
+    ) -> CGRect? {
+        guard let superview = sourceView.superview else {
+            assertionFailure()
+            return nil
+        }
+        return superview.convert(sourceView.frame, to: targetView)
+    }
 }

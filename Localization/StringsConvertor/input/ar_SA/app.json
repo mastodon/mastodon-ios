@@ -6,25 +6,25 @@
                 "please_try_again_later": "يُرجى المحاولة مرة أُخرى لاحقاً."
             },
             "sign_up_failure": {
-                "title": "فشل التسجيل"
+                "title": "إخفاق في التسجيل"
             },
             "server_error": {
                 "title": "خطأ في الخادم"
             },
             "vote_failure": {
-                "title": "فشل التصويت",
+                "title": "إخفاق في التصويت",
                 "poll_ended": "انتهى استطلاع الرأي"
             },
             "discard_post_content": {
-                "title": "تجاهل المسودة",
-                "message": "Confirm to discard composed post content."
+                "title": "التخلص من المسودة",
+                "message": "أكِّد للتخلص مِن مُحتوى مَنشور مؤلَّف."
             },
             "publish_post_failure": {
-                "title": "أخفقت عملية النشر",
-                "message": "Failed to publish the post.\nPlease check your internet connection.",
+                "title": "إخفاق في عمليَّة النشر",
+                "message": "فَشَلَ نَشر المَنشور.\nيُرجى التحقق من اتصالك بالإنترنت.",
                 "attachments_message": {
-                    "video_attach_with_photo": "Cannot attach a video to a post that already contains images.",
-                    "more_than_one_video": "Cannot attach more than one video."
+                    "video_attach_with_photo": "لا يُمكن إرفاق مقطع مرئي إلى مَنشور يحتوي بالفعل على صُوَر.",
+                    "more_than_one_video": "لا يُمكِنُ إرفاق أكثر مِن مَقطع مرئي واحِد."
                 }
             },
             "edit_profile_failure": {
@@ -33,19 +33,19 @@
             },
             "sign_out": {
                 "title": "تسجيل الخروج",
-                "message": "هل أنت متأكد من أنك تريد تسجيل الخروج؟",
+                "message": "هل أنت متأكد من رغبتك في تسجيل الخروج؟",
                 "confirm": "تسجيل الخروج"
             },
             "block_domain": {
-                "title": "Are you really, really sure you want to block the entire %s? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain and any of your followers from that domain will be removed.",
-                "block_entire_domain": "حظر النطاق"
+                "title": "هل أنتَ مُتأكِّدٌ حقًا مِن رغبتك في حظر %s بالكامل؟ في معظم الحالات، يكون مِنَ الكافي والمُفَضَّل استهداف عدد محدود للحظر أو الكتم. لن ترى محتوى من هذا النطاق وسوف يتم إزالة جميع متابعيك المتواجدين فيه.",
+                "block_entire_domain": "حظر النِطاق"
             },
             "save_photo_failure": {
-                "title": "فشل حفظ الصورة",
-                "message": "Please enable the photo library access permission to save the photo."
+                "title": "إخفاق في حفظ الصورة",
+                "message": "يُرجى إتاحة إذن الوصول إلى مكتبة الصور لحفظ الصورة."
             },
             "delete_post": {
-                "title": "هل أنت متأكد من أنك تريد حذف هذا المنشور؟",
+                "title": "هل أنت متأكد من رغبتك في حذف هذا المنشور؟",
                 "delete": "احذف"
             },
             "clean_cache": {
@@ -61,30 +61,31 @@
                 "open": "افتح",
                 "add": "إضافة",
                 "remove": "احذف",
-                "edit": "تعديل",
+                "edit": "تحرير",
                 "save": "حفظ",
                 "ok": "حسنًا",
                 "done": "تمّ",
                 "confirm": "تأكيد",
                 "continue": "واصل",
+                "compose": "تأليف",
                 "cancel": "إلغاء",
                 "discard": "تجاهل",
                 "try_again": "المُحاولة مرة أُخرى",
-                "take_photo": "التقط صورة",
+                "take_photo": "التقاط صورة",
                 "save_photo": "حفظ الصورة",
                 "copy_photo": "نسخ الصورة",
                 "sign_in": "تسجيل الدخول",
                 "sign_up": "إنشاء حِساب",
                 "see_more": "عرض المزيد",
-                "preview": "معاينة",
-                "share": "شارك",
-                "share_user": "شارك %s",
-                "share_post": "شارك المنشور",
-                "open_in_safari": "افتحه في سفاري",
+                "preview": "مُعاينة",
+                "share": "المُشارك",
+                "share_user": "مُشاركة %s",
+                "share_post": "مشارك المنشور",
+                "open_in_safari": "الفتح في Safari",
                 "find_people": "ابحث عن أشخاص لمتابعتهم",
                 "manually_search": "البحث يدوياً بدلاً من ذلك",
                 "skip": "تخطي",
-                "reply": "رد",
+                "reply": "الرَد",
                 "report_user": "ابلغ عن %s",
                 "block_domain": "حظر %s",
                 "unblock_domain": "إلغاء حظر %s",
@@ -100,7 +101,7 @@
             "keyboard": {
                 "common": {
                     "switch_to_tab": "التبديل إلى %s",
-                    "compose_new_post": "إنشاء منشور جديد",
+                    "compose_new_post": "تأليف منشور جديد",
                     "show_favorites": "إظهار المفضلة",
                     "open_settings": "أفتح الإعدادات"
                 },
@@ -111,9 +112,9 @@
                     "open_author_profile": "افتح الملف التعريفي للمؤلف",
                     "open_reblogger_profile": "افتح الملف التعريفي لمشارِك المنشور",
                     "reply_status": "رد على المنشور",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
+                    "toggle_reblog": "تبديل إعادة تدوين منشور",
+                    "toggle_favorite": "تبديل المفضلة لِمنشور",
+                    "toggle_content_warning": "تبديل تحذير المُحتَوى",
                     "preview_image": "معاينة الصورة"
                 },
                 "segmented_control": {
@@ -127,9 +128,9 @@
                 "show_post": "اظهر المنشور",
                 "show_user_profile": "اظهر الملف التعريفي للمستخدم",
                 "content_warning": "تحذير عن المحتوى",
-                "media_content_warning": "Tap anywhere to reveal",
+                "media_content_warning": "انقر على أي مكان للكشف",
                 "poll": {
-                    "vote": "صَوّت",
+                    "vote": "صَوِّت",
                     "closed": "انتهى"
                 },
                 "actions": {
@@ -179,19 +180,19 @@
                 },
                 "header": {
                     "no_status_found": "لا توجد هناك منشورات",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "blocking_warning": "لا يُمكنك الاطلاع على الملف الشخصي لهذا المُستخدِم\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
+                    "user_blocking_warning": "لا يُمكنك الاطلاع على ملف %s الشخصي\nحتَّى تَرفعَ الحَظر عنه.\nملفًّكَ الشخصي يَظهَرُ بِمثل هذِهِ الحالة بالنسبةِ لَهُ أيضًا.",
+                    "blocked_warning": "لا يُمكِنُكَ عَرض الملف الشخصي لهذا المُستخدِم\nحتَّى يَرفَعَ الحَظر عَنك.",
+                    "user_blocked_warning": "لا يُمكِنُكَ عَرض ملف %s الشخصي\nحتَّى يَرفَعَ الحَظر عَنك.",
+                    "suspended_warning": "تمَّ إيقاف هذا المُستخدِم.",
+                    "user_suspended_warning": "لقد أوقِفَ حِساب %s."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "شبكات التواصل الاجتماعي\nمرة أُخرى بين يديك."
         },
         "server_picker": {
             "title": "اِختر خادِم،\nأي خادِم.",
@@ -225,7 +226,7 @@
             },
             "empty_state": {
                 "finding_servers": "البحث عن خوادم متوفرة...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
+                "bad_network": "حدث خطأٌ ما أثناء تحميل البيانات. تحقَّق من اتصالك بالإنترنت.",
                 "no_results": "لا توجد نتائج"
             }
         },
@@ -263,20 +264,20 @@
                     "reason": "السبب"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
+                    "blocked": "يحتوي %s على موفِّر خدمة بريد إلكتروني غير مسموح به",
+                    "unreachable": "يبدوا أنَّ %s غير موجود",
+                    "taken": "إنَّ %s مُستخدَمٌ بالفعل",
+                    "reserved": "إنَّ %s عبارة عن كلمة مفتاحيَّة محجوزة",
+                    "accepted": "يجب أن يُقبل %s",
                     "blank": "%s مطلوب",
                     "invalid": "%s غير صالح",
                     "too_long": "%s طويل جداً",
                     "too_short": "%s قصير جدا",
-                    "inclusion": "%s is not a supported value"
+                    "inclusion": "إنَّ %s قيمة غير مدعومة"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
+                    "username_invalid": "يُمكِن أن يحتوي اسم المستخدم على أحرف أبجدية، أرقام وشرطات سفلية فقط",
+                    "username_too_long": "اسم المستخدم طويل جداً (يجب ألّا يكون أطول من 30 رمز)",
                     "email_invalid": "هذا عنوان بريد إلكتروني غير صالح",
                     "password_too_short": "كلمة المرور قصيرة جداً (يجب أن تكون 8 أحرف على الأقل)"
                 }
@@ -301,12 +302,12 @@
             },
             "dont_receive_email": {
                 "title": "تحقق من بريدك الإلكتروني",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
+                "description": "تحقق ممَّ إذا كان عنوان بريدك الإلكتروني صحيحًا وكذلك تأكد مِن مجلد البريد غير الهام إذا لم تكن قد فعلت ذلك.",
                 "resend_email": "إعادة إرسال البريد الإلكتروني"
             },
             "open_email_app": {
                 "title": "تحقَّق من بريدك الوارِد.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
+                "description": "لقد أرسلنا لك بريدًا إلكترونيًا للتو. تحقق من مجلد البريد غير الهام الخاص بك إذا لم تكن قد فعلت ذلك.",
                 "mail": "البريد",
                 "open_email_client": "فتح عميل البريد الإلكتروني"
             }
@@ -322,7 +323,7 @@
         },
         "suggestion_account": {
             "title": "ابحث عن أشخاص لمتابعتهم",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "follow_explain": "عِندَ مُتابَعَتِكَ لأحدِهِم، سَوف تَرى مَنشوراته في تغذيَتِكَ الرئيسة."
         },
         "compose": {
             "title": {
@@ -340,9 +341,9 @@
             "attachment": {
                 "photo": "صورة",
                 "video": "فيديو",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "attachment_broken": "هذا ال%s مُعطَّل ويتعذَّر رفعه إلى ماستودون.",
+                "description_photo": "صِف الصورة للمكفوفين...",
+                "description_video": "صِف المقطع المرئي للمكفوفين..."
             },
             "poll": {
                 "duration_time": "المدة: %s",
@@ -355,7 +356,7 @@
                 "option_number": "الخيار %ld"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "اكتب تَحذيرًا دَقيقًا هُنا..."
             },
             "visibility": {
                 "public": "للعامة",
@@ -364,7 +365,7 @@
                 "direct": "ففط للأشخاص المشار إليهم"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "انقر مساحة لإضافتِها"
             },
             "accessibility": {
                 "append_attachment": "إضافة مُرفَق",
@@ -373,7 +374,7 @@
                 "custom_emoji_picker": "منتقي مخصص للإيموجي",
                 "enable_content_warning": "تنشيط تحذير المحتوى",
                 "disable_content_warning": "تعطيل تحذير الحتوى",
-                "post_visibility_menu": "Post Visibility Menu"
+                "post_visibility_menu": "قائمة ظهور المنشور"
             },
             "keyboard": {
                 "discard_post": "تجاهُل المنشور",
@@ -405,13 +406,19 @@
             "relationship_action_alert": {
                 "confirm_unmute_user": {
                     "title": "إلغاء كتم الحساب",
-                    "message": "Confirm to unmute %s"
+                    "message": "أكِّد لرفع كتمْ %s"
                 },
                 "confirm_unblock_usre": {
                     "title": "إلغاء حظر الحساب",
-                    "message": "Confirm to unblock %s"
+                    "message": "أكِّد لرفع حظر %s"
                 }
             }
+        },
+        "follower": {
+            "footer": "لا يُمكِن عَرض المُتابِعين مِنَ الخوادم الأُخرى."
+        },
+        "following": {
+            "footer": "لا يُمكِن عَرض المُتابَعات مِنَ الخوادم الأُخرى."
         },
         "search": {
             "title": "بحث",
@@ -423,7 +430,7 @@
                 "button_text": "طالع الكل",
                 "hash_tag": {
                     "title": "ذات شعبية على ماستدون",
-                    "description": "Hashtags that are getting quite a bit of attention",
+                    "description": "الوسوم التي تحظى بقدر كبير من الاهتمام",
                     "people_talking": "%s أشخاص يتحدَّثوا"
                 },
                 "accounts": {
@@ -443,7 +450,7 @@
                     "no_results": "ليس هناك أية نتيجة"
                 },
                 "recent_search": "عمليات البحث الأخيرة",
-                "clear": "امسح"
+                "clear": "مَحو"
             }
         },
         "favorite": {
@@ -512,7 +519,7 @@
                 }
             },
             "footer": {
-                "mastodon_description": "ماستدون برنامج مفتوح المصدر. يمكنك المساهمة، أو الإبلاغ عن تقارير الأخطاء، على غيت هب %s (%s)"
+                "mastodon_description": "ماستدون برنامج مفتوح المصدر. يمكنك المساهمة، أو الإبلاغ عن تقارير الأخطاء على GitHub في %s (%s)"
             },
             "keyboard": {
                 "close_settings_window": "إغلاق نافذة الإعدادات"
@@ -522,27 +529,27 @@
             "title": "ابلغ عن %s",
             "step1": "الخطوة 1 من 2",
             "step2": "الخطوة 2 من 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "send": "ارسل الشكوى",
+            "content1": "هل ترغب في إضافة أي مشاركات أُخرى إلى الشكوى؟",
+            "content2": "هل هناك أي شيء يجب أن يعرفه المُراقبين حول هذه الشكوى؟",
+            "send": "إرسال الشكوى",
             "skip_to_send": "إرسال بدون تعليق",
-            "text_placeholder": "Type or paste additional comments"
+            "text_placeholder": "اكتب أو الصق تعليقات إضافيَّة"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "إغلاق المعاينة",
+                "close_preview": "إغلاق المُعايَنَة",
                 "show_next": "إظهار التالي",
                 "show_previous": "إظهار السابق"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
+            "tab_bar_hint": "المِلف المُحدَّد حاليًا: %s. انقر نقرًا مزدوجًا ثم اضغط مع الاستمرار لإظهار مُبدِّل الحِساب",
             "dismiss_account_switcher": "تجاهُل مبدِّل الحساب",
             "add_account": "إضافة حساب"
         },
         "wizard": {
             "new_in_mastodon": "جديد في ماستودون",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
+            "multiple_account_switch_intro_description": "بدِّل بين حسابات متعددة عبر الاستمرار بالضغط على زر الملف الشخصي.",
             "accessibility_hint": "انقر نقرًا مزدوجًا لتجاهل النافذة المنبثقة"
         }
     }
