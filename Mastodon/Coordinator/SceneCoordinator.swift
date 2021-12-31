@@ -304,20 +304,14 @@ extension SceneCoordinator {
             presentingViewController.showDetailViewController(navigationController, sender: sender)
             
         case .modal(let animated, let completion):
-//            let modalNavigationController: UINavigationController = {
-//                if scene.isOnboarding {
-//                    return AdaptiveStatusBarStyleNavigationController(rootViewController: viewController)
-//                } else {
-//                    return UINavigationController(rootViewController: viewController)
-//                }
-//            }()
-//            modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
-//            if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
-//                modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
-//            }
-//            presentingViewController.present(modalNavigationController, animated: animated, completion: completion)
-            
-            let modalNavigationController = UINavigationController(rootViewController: viewController)
+            let modalNavigationController: UINavigationController = {
+                if scene.isOnboarding {
+                    return OnboardingNavigationController(rootViewController: viewController)
+                } else {
+                    return UINavigationController(rootViewController: viewController)
+                }
+            }()
+            modalNavigationController.modalPresentationCapturesStatusBarAppearance = true
             if let adaptivePresentationControllerDelegate = viewController as? UIAdaptivePresentationControllerDelegate {
                 modalNavigationController.presentationController?.delegate = adaptivePresentationControllerDelegate
             }

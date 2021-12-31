@@ -55,7 +55,7 @@ extension WelcomeIllustrationView {
         var artworkImageSize: CGSize {
             switch self {
             case .compact:      return CGSize(width: 375, height: 1500)
-            case .regular:      return CGSize(width: 547, height: 1500)
+            case .regular:      return CGSize(width: 547, height: 3000)
             }
         }
     }
