@@ -35,7 +35,7 @@ class WizardViewController: UIViewController {
     
     let backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         return view
     }()
     

@@ -193,7 +193,9 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Social networking\nback in your hands.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Pick a server,\nany server.",

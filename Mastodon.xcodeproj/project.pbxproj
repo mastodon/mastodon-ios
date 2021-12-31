@@ -191,6 +191,7 @@
 		DB03F7F32689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */; };
 		DB03F7F52689B782007B274C /* ComposeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03F7F42689B782007B274C /* ComposeTableView.swift */; };
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
+		DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EA277EF3820030EE79 /* GradientBorderView.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
 		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
@@ -969,6 +970,7 @@
 		DB03F7F22689AEA3007B274C /* ComposeRepliedToStatusContentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeRepliedToStatusContentTableViewCell.swift; sourceTree = "<group>"; };
 		DB03F7F42689B782007B274C /* ComposeTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComposeTableView.swift; sourceTree = "<group>"; };
 		DB040ED026538E3C00BEE9D8 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
+		DB0617EA277EF3820030EE79 /* GradientBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBorderView.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0C946A26A700AB0088FB11 /* MastodonUser+Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonUser+Property.swift"; sourceTree = "<group>"; };
@@ -2993,6 +2995,7 @@
 			children = (
 				DBABE3EB25ECAC4B00879EE5 /* WelcomeIllustrationView.swift */,
 				DB4932B026F1FB5300EF46D4 /* WizardCardView.swift */,
+				DB0617EA277EF3820030EE79 /* GradientBorderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4307,6 +4310,7 @@
 				DB4932B326F2054200EF46D4 /* CircleAvatarButton.swift in Sources */,
 				0FB3D30825E524C600AAD544 /* PickServerCategoriesCell.swift in Sources */,
 				2D4AD8A226316CD200613EFC /* SelectedAccountSection.swift in Sources */,
+				DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */,
 				DB789A1225F9F2CC0071ACA0 /* ComposeViewModel.swift in Sources */,
 				DBB525362611ECEB002F1F29 /* UserTimelineViewController.swift in Sources */,
 				DB6D1B3D2636857500ACB481 /* AppearancePreference.swift in Sources */,
@@ -4838,7 +4842,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -4866,7 +4870,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Mastodon/Vender/Mastodon-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5131,7 +5135,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5156,7 +5160,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5181,7 +5185,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5206,7 +5210,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "APP_EXTENSION $(inherited)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -5230,7 +5234,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -5254,7 +5258,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
