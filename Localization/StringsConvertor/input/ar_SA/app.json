@@ -81,8 +81,8 @@
                 "share": "المُشارك",
                 "share_user": "مُشاركة %s",
                 "share_post": "مشارك المنشور",
-                "open_in_safari": "الفتح في Safari",
-                "open_in_browser": "Open in Browser",
+                "open_in_safari": "الفَتحُ في Safari",
+                "open_in_browser": "الفَتحُ في المُتَصَفِّح",
                 "find_people": "ابحث عن أشخاص لِمُتابعتهم",
                 "manually_search": "البحث يدويًا بدلًا من ذلك",
                 "skip": "تخطي",
@@ -104,7 +104,7 @@
                     "switch_to_tab": "التبديل إلى %s",
                     "compose_new_post": "تأليف منشور جديد",
                     "show_favorites": "إظهار المُفضَّلة",
-                    "open_settings": "فتح الإعدادات"
+                    "open_settings": "فَتحُ الإعدادات"
                 },
                 "timeline": {
                     "previous_status": "المنشور السابق",
