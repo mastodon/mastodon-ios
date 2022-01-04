@@ -110,7 +110,6 @@ extension MastodonPickServerViewController {
             .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
                 guard let self = self else { return }
                 let inset = navigationActionView.frame.height
-                print("*** \(inset) ***")
                 self.tableView.contentInset.bottom = inset
             }
             .store(in: &observations)

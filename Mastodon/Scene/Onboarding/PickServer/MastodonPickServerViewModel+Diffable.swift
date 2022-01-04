@@ -25,7 +25,11 @@ extension MastodonPickServerViewModel {
         sectionHeaderSnapshot.appendSections([.main])
         sectionHeaderSnapshot.appendItems(categoryPickerItems, toSection: .main)
         serverSectionHeaderView.delegate = pickServerServerSectionTableHeaderViewDelegate
-        serverSectionHeaderView.diffableDataSource?.applySnapshot(sectionHeaderSnapshot, animated: false)
+        serverSectionHeaderView.diffableDataSource?.applySnapshot(sectionHeaderSnapshot, animated: false) { [weak self] in
+            guard let self = self else { return }
+            guard let indexPath = self.serverSectionHeaderView.diffableDataSource?.indexPath(for: .all) else { return }
+            self.serverSectionHeaderView.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredHorizontally)
+        }
         
         // set tableView
         diffableDataSource = PickServerSection.tableViewDiffableDataSource(
