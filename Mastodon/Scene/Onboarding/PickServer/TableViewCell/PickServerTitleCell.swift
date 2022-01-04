@@ -11,17 +11,24 @@ final class PickServerTitleCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
         label.textColor = Asset.Colors.Label.primary.color
         label.text = L10n.Scene.ServerPicker.title
         label.adjustsFontForContentSizeCategory = true
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         return label
     }()
     
-    var containerHeightLayoutConstraint: NSLayoutConstraint!
-    
+    let subTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+        label.textColor = Asset.Colors.Label.secondary.color
+        label.text = "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual."
+        label.adjustsFontForContentSizeCategory = true
+        label.numberOfLines = 0
+        return label
+    }()
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         _init()
@@ -37,46 +44,22 @@ extension PickServerTitleCell {
     
     private func _init() {
         selectionStyle = .none
-        backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+        backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
         
         let container = UIStackView()
         container.axis = .vertical
+        container.spacing = 16
         container.translatesAutoresizingMaskIntoConstraints = false
-        containerHeightLayoutConstraint = container.heightAnchor.constraint(equalToConstant: .leastNonzeroMagnitude)
         contentView.addSubview(container)
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: contentView.topAnchor),
             container.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 11),
         ])
         
         container.addArrangedSubview(titleLabel)
-        
-        configureTitleLabelDisplay()
+        container.addArrangedSubview(subTitleLabel)
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        
-        configureTitleLabelDisplay()
-    }
-}
 
-extension PickServerTitleCell {
-    private func configureTitleLabelDisplay() {
-        guard traitCollection.userInterfaceIdiom == .pad else {
-            titleLabel.isHidden = false
-            return
-        }
-        
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            titleLabel.isHidden = true
-            containerHeightLayoutConstraint.isActive = true
-        default:
-            titleLabel.isHidden = false
-            containerHeightLayoutConstraint.isActive = false
-        }
-    }
 }

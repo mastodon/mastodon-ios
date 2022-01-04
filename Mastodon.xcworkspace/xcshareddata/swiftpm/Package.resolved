@@ -216,6 +216,15 @@
           "revision": "dad97167bf1be16aeecd109130900995dd01c515",
           "version": "2.6.0"
         }
+      },
+      {
+        "package": "UITextView+Placeholder",
+        "repositoryURL": "https://github.com/MainasuK/UITextView-Placeholder",
+        "state": {
+          "branch": null,
+          "revision": "20f513ded04a040cdf5467f0891849b1763ede3b",
+          "version": "1.4.1"
+        }
       }
     ]
   },

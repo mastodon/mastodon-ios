@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TouchBlockingView: UIView {
+class TouchBlockingView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

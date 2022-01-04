@@ -34,7 +34,7 @@ extension OnboardingNavigationController {
         super.traitCollectionDidChange(previousTraitCollection)
 
     }
-    
+
 }
 
 extension OnboardingNavigationController {
@@ -47,4 +47,5 @@ extension OnboardingNavigationController {
             gradientBorderView.isHidden = false
         }
     }
+    
 }

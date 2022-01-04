@@ -44,13 +44,7 @@ final class PickServerEmptyStateView: UIView {
 extension PickServerEmptyStateView {
     
     private func _init() {
-        backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        layer.maskedCorners = [
-            .layerMinXMaxYCorner,
-            .layerMaxXMaxYCorner
-        ]
-        layer.cornerCurve = .continuous
-        layer.cornerRadius = MastodonPickServerAppearance.tableViewCornerRadius
+        backgroundColor = .clear
         
         let topPaddingView = UIView()
         topPaddingView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,7 +95,7 @@ extension PickServerEmptyStateView {
         ])
         
         NSLayoutConstraint.activate([
-            bottomPaddingView.heightAnchor.constraint(equalTo: topPaddingView.heightAnchor, multiplier: 1.0).priority(.defaultHigh),
+            topPaddingView.heightAnchor.constraint(equalTo: bottomPaddingView.heightAnchor, multiplier: 2.5).priority(.defaultHigh),    // magic scale
         ])
         
         activityIndicatorView.hidesWhenStopped = true

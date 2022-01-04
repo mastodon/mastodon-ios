@@ -47,6 +47,7 @@ internal enum Asset {
     }
     internal enum Label {
       internal static let primary = ColorAsset(name: "Colors/Label/primary")
+      internal static let primaryReverse = ColorAsset(name: "Colors/Label/primary.reverse")
       internal static let secondary = ColorAsset(name: "Colors/Label/secondary")
       internal static let tertiary = ColorAsset(name: "Colors/Label/tertiary")
     }
@@ -89,6 +90,14 @@ internal enum Asset {
     internal static let faceSmilingAdaptive = ImageAsset(name: "Human/face.smiling.adaptive")
   }
   internal enum Scene {
+    internal enum Onboarding {
+      internal static let navigationBackButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background")
+      internal static let navigationBackButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background.highlighted")
+      internal static let navigationNextButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background")
+      internal static let navigationNextButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background.highlighted")
+      internal static let onboardingBackground = ColorAsset(name: "Scene/Onboarding/onboarding.background")
+      internal static let searchBarBackground = ColorAsset(name: "Scene/Onboarding/search.bar.background")
+    }
     internal enum Profile {
       internal enum Banner {
         internal static let bioEditBackgroundGray = ColorAsset(name: "Scene/Profile/Banner/bio.edit.background.gray")

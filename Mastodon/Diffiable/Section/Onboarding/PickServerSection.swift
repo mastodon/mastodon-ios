@@ -12,8 +12,6 @@ import AlamofireImage
 
 enum PickServerSection: Equatable, Hashable {
     case header
-    case category
-    case search
     case servers
 }
 
@@ -21,36 +19,16 @@ extension PickServerSection {
     static func tableViewDiffableDataSource(
         for tableView: UITableView,
         dependency: NeedsDependency,
-        pickServerCategoriesCellDelegate: PickServerCategoriesCellDelegate,
-        pickServerSearchCellDelegate: PickServerSearchCellDelegate,
         pickServerCellDelegate: PickServerCellDelegate
     ) -> UITableViewDiffableDataSource<PickServerSection, PickServerItem> {
         UITableViewDiffableDataSource(tableView: tableView) { [
             weak dependency,
-            weak pickServerCategoriesCellDelegate,
-            weak pickServerSearchCellDelegate,
             weak pickServerCellDelegate
         ] tableView, indexPath, item -> UITableViewCell? in
             guard let dependency = dependency else { return nil }
             switch item {
             case .header:
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerTitleCell.self), for: indexPath) as! PickServerTitleCell
-                return cell
-            case .categoryPicker(let items):
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCategoriesCell.self), for: indexPath) as! PickServerCategoriesCell
-                cell.delegate = pickServerCategoriesCellDelegate
-                cell.diffableDataSource = CategoryPickerSection.collectionViewDiffableDataSource(
-                    for: cell.collectionView,
-                    dependency: dependency
-                )
-                var snapshot = NSDiffableDataSourceSnapshot<CategoryPickerSection, CategoryPickerItem>()
-                snapshot.appendSections([.main])
-                snapshot.appendItems(items, toSection: .main)
-                cell.diffableDataSource?.apply(snapshot, animatingDifferences: false, completion: nil)
-                return cell
-            case .search:
-                let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerSearchCell.self), for: indexPath) as! PickServerSearchCell
-                cell.delegate = pickServerSearchCellDelegate
                 return cell
             case .server(let server, let attribute):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PickServerCell.self), for: indexPath) as! PickServerCell
@@ -70,19 +48,63 @@ extension PickServerSection {
     
     static func configure(cell: PickServerCell, server: Mastodon.Entity.Server, attribute: PickServerItem.ServerItemAttribute) {
         cell.domainLabel.text = server.domain
-        cell.descriptionLabel.text = {
-            guard let html = try? HTML(html: server.description, encoding: .utf8) else {
-                return server.description
-            }
+        cell.descriptionLabel.attributedText = {
+            let content: String = {
+                guard let html = try? HTML(html: server.description, encoding: .utf8) else {
+                    return server.description
+                }
+                return html.text ?? server.description
+            }()
             
-            return html.text ?? server.description
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.16
+            
+            return NSAttributedString(
+                string: content,
+                attributes: [
+                    .paragraphStyle: paragraphStyle
+                ]
+            )
         }()
-        cell.langValueLabel.text = server.language.uppercased()
-        cell.usersValueLabel.text = parseUsersCount(server.totalUsers)
-        cell.categoryValueLabel.text = server.category.uppercased()
-        
-        cell.updateExpandMode(mode: attribute.isExpand ? .expand : .collapse)
-        
+        cell.usersValueLabel.attributedText = {
+            let attributedString = NSMutableAttributedString()
+            let attachment = NSTextAttachment(image: UIImage(systemName: "person.2.fill")!)
+            let attachmentAttributedString = NSAttributedString(attachment: attachment)
+            attributedString.append(attachmentAttributedString)
+            attributedString.append(NSAttributedString(string: " "))
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.12
+            let valueAttributedString = NSAttributedString(
+                string: parseUsersCount(server.totalUsers),
+                attributes: [
+                    .paragraphStyle: paragraphStyle
+                ]
+            )
+            attributedString.append(valueAttributedString)
+            
+            return attributedString
+        }()
+        cell.langValueLabel.attributedText = {
+            let attributedString = NSMutableAttributedString()
+            let attachment = NSTextAttachment(image: UIImage(systemName: "text.bubble.fill")!)
+            let attachmentAttributedString = NSAttributedString(attachment: attachment)
+            attributedString.append(attachmentAttributedString)
+            attributedString.append(NSAttributedString(string: " "))
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.12
+            let valueAttributedString = NSAttributedString(
+                string: server.language.uppercased(),
+                attributes: [
+                    .paragraphStyle: paragraphStyle
+                ]
+            )
+            attributedString.append(valueAttributedString)
+
+            return attributedString
+        }()
+      
         attribute.isLast
             .receive(on: DispatchQueue.main)
             .sink { [weak cell] isLast in
@@ -98,41 +120,6 @@ extension PickServerSection {
                 } else {
                     cell.containerView.layer.cornerRadius = 0
                     cell.containerView.layer.masksToBounds = false
-                }
-            }
-            .store(in: &cell.disposeBag)
-        
-        cell.expandMode
-            .receive(on: DispatchQueue.main)
-            .sink { mode in
-                switch mode {
-                case .collapse:
-                    // do nothing
-                    break
-                case .expand:
-                    let placeholderImage = UIImage.placeholder(size: cell.thumbnailImageView.frame.size, color: .systemFill)
-                        .af.imageRounded(withCornerRadius: 3.0, divideRadiusByImageScale: false)
-                    guard let proxiedThumbnail = server.proxiedThumbnail,
-                          let url = URL(string: proxiedThumbnail) else {
-                        cell.thumbnailImageView.image = placeholderImage
-                        cell.thumbnailActivityIndicator.stopAnimating()
-                        return
-                    }
-                    cell.thumbnailImageView.isHidden = false
-                    cell.thumbnailActivityIndicator.startAnimating()
-            
-                    cell.thumbnailImageView.af.setImage(
-                        withURL: url,
-                        placeholderImage: placeholderImage,
-                        filter: AspectScaledToFillSizeWithRoundedCornersFilter(size: cell.thumbnailImageView.frame.size, radius: 3),
-                        imageTransition: .crossDissolve(0.33),
-                        completion: { [weak cell] response in
-                            switch response.result {
-                            case .success, .failure:
-                                cell?.thumbnailActivityIndicator.stopAnimating()
-                            }
-                        }
-                    )
                 }
             }
             .store(in: &cell.disposeBag)

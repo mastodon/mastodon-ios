@@ -193,6 +193,8 @@
 		DB040ED126538E3D00BEE9D8 /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB040ED026538E3C00BEE9D8 /* Trie.swift */; };
 		DB0617EB277EF3820030EE79 /* GradientBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EA277EF3820030EE79 /* GradientBorderView.swift */; };
 		DB0617ED277F02C50030EE79 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */; };
+		DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617EE277F12720030EE79 /* NavigationActionView.swift */; };
+		DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */; };
 		DB084B5725CBC56C00F898ED /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB084B5625CBC56C00F898ED /* Status.swift */; };
 		DB0AC6FC25CD02E600D75117 /* APIService+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */; };
 		DB0C946526A6FD4D0088FB11 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB0C946426A6FD4D0088FB11 /* AlamofireImage */; };
@@ -973,6 +975,8 @@
 		DB040ED026538E3C00BEE9D8 /* Trie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 		DB0617EA277EF3820030EE79 /* GradientBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBorderView.swift; sourceTree = "<group>"; };
 		DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
+		DB0617EE277F12720030EE79 /* NavigationActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationActionView.swift; sourceTree = "<group>"; };
+		DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickServerServerSectionTableHeaderView.swift; sourceTree = "<group>"; };
 		DB084B5625CBC56C00F898ED /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		DB0AC6FB25CD02E600D75117 /* APIService+Instance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIService+Instance.swift"; sourceTree = "<group>"; };
 		DB0C946A26A700AB0088FB11 /* MastodonUser+Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MastodonUser+Property.swift"; sourceTree = "<group>"; };
@@ -1595,8 +1599,6 @@
 			isa = PBXGroup;
 			children = (
 				0FB3D2FD25E4CB6400AAD544 /* PickServerTitleCell.swift */,
-				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
-				0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */,
 				0FB3D33725E6401400AAD544 /* PickServerCell.swift */,
 				DB0F814F264D1E2500F2A12B /* PickServerLoaderTableViewCell.swift */,
 			);
@@ -1608,6 +1610,7 @@
 			children = (
 				0FB3D30E25E525CD00AAD544 /* PickServerCategoryView.swift */,
 				DB9282B125F3222800823B15 /* PickServerEmptyStateView.swift */,
+				DB0617F0278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2097,6 +2100,15 @@
 			path = TableViewCell;
 			sourceTree = "<group>";
 		};
+		DB0617F3278436360030EE79 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				0FB3D33125E5F50E00AAD544 /* PickServerSearchCell.swift */,
+				0FB3D30725E524C600AAD544 /* PickServerCategoriesCell.swift */,
+			);
+			path = Deprecated;
+			sourceTree = "<group>";
+		};
 		DB084B5125CBC56300F898ED /* CoreDataStack */ = {
 			isa = PBXGroup;
 			children = (
@@ -2228,6 +2240,7 @@
 			children = (
 				DB427DE325BAA00100D1B89D /* Info.plist */,
 				DB89BA1025C10FF5008580ED /* Mastodon.entitlements */,
+				DB0617F3278436360030EE79 /* Deprecated */,
 				2D76319C25C151DE00929FB9 /* Diffiable */,
 				DB8AF52A25C13561002E6C99 /* State */,
 				2D61335525C1886800CAE157 /* Service */,
@@ -2524,6 +2537,7 @@
 				DB2F073325E8ECF000957B2D /* AuthenticationViewModel.swift */,
 				DB029E94266A20430062874E /* MastodonAuthenticationController.swift */,
 				DB0617EC277F02C50030EE79 /* OnboardingNavigationController.swift */,
+				DB0617EE277F12720030EE79 /* NavigationActionView.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -3972,6 +3986,7 @@
 				DBB5250E2611EBAF002F1F29 /* ProfileSegmentedViewController.swift in Sources */,
 				2D42FF8F25C8228A004A627A /* UIButton.swift in Sources */,
 				DBF156DF2701B17600EC00B7 /* SidebarAddAccountCollectionViewCell.swift in Sources */,
+				DB0617F1278413D00030EE79 /* PickServerServerSectionTableHeaderView.swift in Sources */,
 				DB789A0B25F9F2950071ACA0 /* ComposeViewController.swift in Sources */,
 				DB938F0926240F3C00E5B6C1 /* RemoteThreadViewModel.swift in Sources */,
 				DB0617ED277F02C50030EE79 /* OnboardingNavigationController.swift in Sources */,
@@ -4132,6 +4147,7 @@
 				DBB525562611EDCA002F1F29 /* UserTimelineViewModel.swift in Sources */,
 				2D42FF7E25C82218004A627A /* ActionToolBarContainer.swift in Sources */,
 				DB221B16260C395900AEFE46 /* CustomEmojiPickerInputViewModel.swift in Sources */,
+				DB0617EF277F12720030EE79 /* NavigationActionView.swift in Sources */,
 				DB1FD43625F26899004CFCFC /* MastodonPickServerViewModel+LoadIndexedServerState.swift in Sources */,
 				2D939AE825EE1CF80076FA61 /* MastodonRegisterViewController+Avatar.swift in Sources */,
 				2D084B8D26258EA3003AA3AF /* NotificationViewModel+Diffable.swift in Sources */,

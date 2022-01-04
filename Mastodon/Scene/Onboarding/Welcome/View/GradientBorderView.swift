@@ -12,6 +12,10 @@ final class GradientBorderView: UIView {
     let gradientLayer = CAGradientLayer()
     let maskLayer = CAShapeLayer()
     
+    var cornerRadius: CGFloat = 9 {
+        didSet { setNeedsLayout() }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         _init()
@@ -48,7 +52,7 @@ extension GradientBorderView {
         super.layoutSubviews()
         
         let bezierPath = UIBezierPath(rect: bounds)
-        bezierPath.append(UIBezierPath(roundedRect: bounds.insetBy(dx: 3, dy: 3), cornerRadius: 10))
+        bezierPath.append(UIBezierPath(roundedRect: bounds.insetBy(dx: 3, dy: 3), cornerRadius: cornerRadius))
         
         maskLayer.fillRule = .evenOdd
         maskLayer.path = bezierPath.cgPath

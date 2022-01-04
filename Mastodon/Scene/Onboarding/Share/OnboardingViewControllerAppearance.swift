@@ -22,7 +22,7 @@ extension OnboardingViewControllerAppearance {
     static var viewBottomPaddingHeightExtend: CGFloat { return 22 }
     
     func setupOnboardingAppearance() {
-        view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+        view.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
 
         setupNavigationBarAppearance()
         
@@ -39,31 +39,22 @@ extension OnboardingViewControllerAppearance {
         // use TransparentBackground so view push / dismiss will be more visual nature
         // please add opaque background for status bar manually if needs
         
-        switch traitCollection.userInterfaceIdiom {
-        case .pad:
-            if traitCollection.horizontalSizeClass == .regular {
-                // do nothing
-            } else {
-                fallthrough
-            }
-        default:
-            let barAppearance = UINavigationBarAppearance()
-            barAppearance.configureWithTransparentBackground()
-            navigationItem.standardAppearance = barAppearance
-            navigationItem.compactAppearance = barAppearance
-            navigationItem.scrollEdgeAppearance = barAppearance
-            if #available(iOS 15.0, *) {
-                navigationItem.compactScrollEdgeAppearance = barAppearance
-            } else {
-                // Fallback on earlier versions
-            }
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        if #available(iOS 15.0, *) {
+            navigationItem.compactScrollEdgeAppearance = barAppearance
+        } else {
+            // Fallback on earlier versions
         }
     }
     
     func setupNavigationBarBackgroundView() {
         let navigationBarBackgroundView: UIView = {
             let view = UIView()
-            view.backgroundColor = Asset.Theme.Mastodon.systemGroupedBackground.color
+            view.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
             return view
         }()
         
