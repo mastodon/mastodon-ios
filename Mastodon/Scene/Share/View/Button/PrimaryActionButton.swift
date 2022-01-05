@@ -9,8 +9,8 @@ import UIKit
 
 class PrimaryActionButton: UIButton {
     
-    var isLoading: Bool = false
-    
+    private var originalButtonTitle: String?
+
     lazy var activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .white
@@ -18,16 +18,13 @@ class PrimaryActionButton: UIButton {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         return indicator
     }()
-    
-    private var originalButtonTitle: String?
-
+    var adjustsBackgroundImageWhenUserInterfaceStyleChanges = true
     var action: Action = .next {
         didSet {
             setupAppearance(action: action)
         }
     }
-    
-    var adjustsBackgroundImageWhenUserInterfaceStyleChanges = true
+    var isLoading: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)

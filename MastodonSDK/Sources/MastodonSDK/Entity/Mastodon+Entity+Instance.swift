@@ -86,7 +86,7 @@ extension Mastodon.Entity.Instance {
 }
 
 extension Mastodon.Entity.Instance {
-    public struct Rule: Codable {
+    public struct Rule: Codable, Hashable {
         public let id: String
         public let text: String
     }

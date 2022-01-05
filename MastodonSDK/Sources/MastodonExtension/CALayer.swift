@@ -9,7 +9,7 @@ import UIKit
 
 extension CALayer {
     
-    func setupShadow(
+    public func setupShadow(
         color: UIColor = .black,
         alpha: Float = 0.5,
         x: CGFloat = 0,
@@ -43,9 +43,8 @@ extension CALayer {
         }
     }
     
-    func removeShadow() {
+    public func removeShadow() {
         shadowRadius = 0
     }
-
-    
+   
 }

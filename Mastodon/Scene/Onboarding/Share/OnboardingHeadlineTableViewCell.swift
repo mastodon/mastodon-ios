@@ -1,5 +1,5 @@
 //
-//  PickServerTitleCell.swift
+//  OnboardingHeadlineTableViewCell.swift
 //  Mastodon
 //
 //  Created by BradGao on 2021/2/23.
@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class PickServerTitleCell: UITableViewCell {
+final class OnboardingHeadlineTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
-        label.textColor = Asset.Colors.Label.primary.color
+        label.font = MastodonPickServerViewController.largeTitleFont
+        label.textColor = MastodonPickServerViewController.largeTitleTextColor
         label.text = L10n.Scene.ServerPicker.title
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
@@ -21,8 +21,8 @@ final class PickServerTitleCell: UITableViewCell {
     
     let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
-        label.textColor = Asset.Colors.Label.secondary.color
+        label.font = MastodonPickServerViewController.subTitleFont
+        label.textColor = MastodonPickServerViewController.subTitleTextColor
         label.text = "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual."
         label.adjustsFontForContentSizeCategory = true
         label.numberOfLines = 0
@@ -40,7 +40,7 @@ final class PickServerTitleCell: UITableViewCell {
     }
 }
 
-extension PickServerTitleCell {
+extension OnboardingHeadlineTableViewCell {
     
     private func _init() {
         selectionStyle = .none

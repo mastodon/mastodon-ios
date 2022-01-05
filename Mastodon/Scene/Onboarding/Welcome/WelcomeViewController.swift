@@ -56,6 +56,7 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         button.setTitleColor(.black, for: .normal)
         return button
     }()
+    let signUpButtonShadowView = UIView()
     
     private(set) lazy var signInButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
@@ -71,7 +72,6 @@ final class WelcomeViewController: UIViewController, NeedsDependency {
         return button
     }()
     let signInButtonShadowView = UIView()
-    
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", ((#file as NSString).lastPathComponent), #line, #function)
@@ -115,6 +115,16 @@ extension WelcomeViewController {
         buttonContainer.addArrangedSubview(signInButton)
         NSLayoutConstraint.activate([
             signInButton.heightAnchor.constraint(equalToConstant: WelcomeViewController.actionButtonHeight).priority(.required - 1),
+        ])
+        
+        signUpButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addSubview(signUpButtonShadowView)
+        buttonContainer.sendSubviewToBack(signUpButtonShadowView)
+        NSLayoutConstraint.activate([
+            signUpButtonShadowView.topAnchor.constraint(equalTo: signUpButton.topAnchor),
+            signUpButtonShadowView.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
+            signUpButtonShadowView.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
+            signUpButtonShadowView.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
         ])
         
         signInButtonShadowView.translatesAutoresizingMaskIntoConstraints = false
@@ -168,6 +178,17 @@ extension WelcomeViewController {
 extension WelcomeViewController {
     
     private func setupButtonShadowView() {
+        signUpButtonShadowView.layer.setupShadow(
+            color: .black,
+            alpha: 0.25,
+            x: 0,
+            y: 1,
+            blur: 2,
+            spread: 0,
+            roundedRect: signInButtonShadowView.bounds,
+            byRoundingCorners: .allCorners,
+            cornerRadii: CGSize(width: 10, height: 10)
+        )
         signInButtonShadowView.layer.setupShadow(
             color: .black,
             alpha: 0.25,

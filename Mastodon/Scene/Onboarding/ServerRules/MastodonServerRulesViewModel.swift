@@ -18,6 +18,9 @@ final class MastodonServerRulesViewModel {
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
     
+    // output
+    var diffableDataSource: UITableViewDiffableDataSource<ServerRuleSection, ServerRuleItem>?
+    
     init(
         domain: String,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,

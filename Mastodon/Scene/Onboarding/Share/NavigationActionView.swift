@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import MastodonUI
 
 final class NavigationActionView: UIView {
     
     static let buttonHeight: CGFloat = 50
+    
+    private var observations = Set<NSKeyValueObservation>()
     
     let buttonContainer: UIStackView = {
         let stackView = UIStackView()
@@ -18,6 +21,7 @@ final class NavigationActionView: UIView {
         return stackView
     }()
     
+    let backButtonShadowContainer = ShadowBackgroundContainer()
     let backButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.action = .back
@@ -25,6 +29,7 @@ final class NavigationActionView: UIView {
         return button
     }()
     
+    let nextButtonShadowContainer = ShadowBackgroundContainer()
     let nextButton: PrimaryActionButton = {
         let button = PrimaryActionButton()
         button.action = .next
@@ -56,14 +61,33 @@ extension NavigationActionView {
             safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: buttonContainer.bottomAnchor, constant: 8),
         ])
         
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addArrangedSubview(backButton)
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addArrangedSubview(nextButton)
+        backButtonShadowContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addArrangedSubview(backButtonShadowContainer)
+        nextButtonShadowContainer.translatesAutoresizingMaskIntoConstraints = false
+        buttonContainer.addArrangedSubview(nextButtonShadowContainer)
         NSLayoutConstraint.activate([
-            backButton.heightAnchor.constraint(equalToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
-            nextButton.heightAnchor.constraint(equalToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
-            nextButton.widthAnchor.constraint(equalTo: backButton.widthAnchor, multiplier: 2).priority(.required - 1),
+            backButtonShadowContainer.heightAnchor.constraint(equalToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
+            nextButtonShadowContainer.heightAnchor.constraint(equalToConstant: NavigationActionView.buttonHeight).priority(.required - 1),
+            nextButtonShadowContainer.widthAnchor.constraint(equalTo: backButtonShadowContainer.widthAnchor, multiplier: 2).priority(.required - 1),
+        ])
+        
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButtonShadowContainer.addSubview(backButton)
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: backButtonShadowContainer.topAnchor),
+            backButton.leadingAnchor.constraint(equalTo: backButtonShadowContainer.leadingAnchor),
+            backButton.trailingAnchor.constraint(equalTo: backButtonShadowContainer.trailingAnchor),
+            backButton.bottomAnchor.constraint(equalTo: backButtonShadowContainer.bottomAnchor),
+        ])
+        
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButtonShadowContainer.addSubview(nextButton)
+        NSLayoutConstraint.activate([
+            nextButton.topAnchor.constraint(equalTo: nextButtonShadowContainer.topAnchor),
+            nextButton.leadingAnchor.constraint(equalTo: nextButtonShadowContainer.leadingAnchor),
+            nextButton.trailingAnchor.constraint(equalTo: nextButtonShadowContainer.trailingAnchor),
+            nextButton.bottomAnchor.constraint(equalTo: nextButtonShadowContainer.bottomAnchor),
         ])
     }
+    
 }

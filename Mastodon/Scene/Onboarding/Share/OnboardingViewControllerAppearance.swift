@@ -21,6 +21,22 @@ extension OnboardingViewControllerAppearance {
     static var viewBottomPaddingHeight: CGFloat { return 11 }
     static var viewBottomPaddingHeightExtend: CGFloat { return 22 }
     
+    static var largeTitleFont: UIFont {
+        return UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 28, weight: .bold))
+    }
+    
+    static var largeTitleTextColor: UIColor {
+        return Asset.Colors.Label.primary.color
+    }
+    
+    static var subTitleFont: UIFont {
+        return UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 17, weight: .regular))
+    }
+    
+    static var subTitleTextColor: UIColor {
+        return Asset.Colors.Label.secondary.color
+    }
+    
     func setupOnboardingAppearance() {
         view.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
 

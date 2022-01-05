@@ -35,7 +35,7 @@ final class MastodonPickServerViewController: UIViewController, NeedsDependency 
     
     let tableView: UITableView = {
         let tableView = ControlContainableTableView()
-        tableView.register(PickServerTitleCell.self, forCellReuseIdentifier: String(describing: PickServerTitleCell.self))
+        tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
         tableView.register(PickServerCell.self, forCellReuseIdentifier: String(describing: PickServerCell.self))
         tableView.register(PickServerLoaderTableViewCell.self, forCellReuseIdentifier: String(describing: PickServerLoaderTableViewCell.self))
         tableView.rowHeight = UITableView.automaticDimension
@@ -234,6 +234,12 @@ extension MastodonPickServerViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear.send()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tableView.flashScrollIndicators()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
