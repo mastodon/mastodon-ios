@@ -67,7 +67,7 @@
                 "done": "完了",
                 "confirm": "確認",
                 "continue": "続ける",
-                "compose": "Compose",
+                "compose": "新規作成",
                 "cancel": "キャンセル",
                 "discard": "破棄",
                 "try_again": "再実行",
@@ -82,7 +82,7 @@
                 "share_user": "%sを共有",
                 "share_post": "投稿を共有",
                 "open_in_safari": "Safariで開く",
-                "open_in_browser": "Open in Browser",
+                "open_in_browser": "ブラウザで開く",
                 "find_people": "フォローする人を見つける",
                 "manually_search": "手動で検索する",
                 "skip": "スキップ",
@@ -204,7 +204,7 @@
                     "academia": "アカデミア",
                     "activism": "アクティビズム",
                     "food": "食べ物",
-                    "furry": "furry",
+                    "furry": "ケモノ",
                     "games": "ゲーム",
                     "general": "全般",
                     "journalism": "言論",
@@ -416,10 +416,10 @@
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "他のサーバーからのフォロワーは表示されません。"
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "他のサーバーにいるフォローは表示されません。"
         },
         "search": {
             "title": "検索",
@@ -544,14 +544,14 @@
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
+            "tab_bar_hint": "現在のアカウント: %s. ダブルタップしてアカウント切替画面を表示します",
+            "dismiss_account_switcher": "アカウント切替画面を閉じます",
             "add_account": "アカウントを追加"
         },
         "wizard": {
             "new_in_mastodon": "Mastodon の新機能",
             "multiple_account_switch_intro_description": "プロフィールボタンを押して複数のアカウントを切り替えます。",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "accessibility_hint": "チュートリアルを閉じるには、ダブルタップしてください"
         }
     }
 }
