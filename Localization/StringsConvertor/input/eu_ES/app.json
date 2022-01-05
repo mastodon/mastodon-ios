@@ -181,45 +181,45 @@
                 },
                 "header": {
                     "no_status_found": "Ez da bidalketa aurkitu",
-                    "blocking_warning": "You can’t view this user's profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "user_blocking_warning": "You can’t view %s’s profile\nuntil you unblock them.\nYour profile looks like this to them.",
-                    "blocked_warning": "You can’t view this user’s profile\nuntil they unblock you.",
-                    "user_blocked_warning": "You can’t view %s’s profile\nuntil they unblock you.",
-                    "suspended_warning": "This user has been suspended.",
-                    "user_suspended_warning": "%s’s account has been suspended."
+                    "blocking_warning": "Ezin duzu erabiltzaile honen profila ikusi\ndesblokeatzen duzun arte.\nZure profilak itxura hau du berarentzat.",
+                    "user_blocking_warning": "Ezin duzu %s erabiltzailearen\nprofila ikusi desblokeatzen duzun arte.\nZure profilak itxura hau du berarentzat.",
+                    "blocked_warning": "Ezin duzu erabiltzaile honen profila ikusi\ndesblokeatzen zaituen arte.",
+                    "user_blocked_warning": "Ezin duzu %s erabiltzailearen\nprofila ikusi desblokeatzen zaituen arte.",
+                    "suspended_warning": "Erabiltzaile hau kanporatua izan da.",
+                    "user_suspended_warning": "%s kontua kanporatua izan da."
                 }
             }
         }
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Sare sozialak\nberriz zure eskuetan."
         },
         "server_picker": {
-            "title": "Pick a server,\nany server.",
+            "title": "Aukeratu zerbitzari bat,\nedozein zerbitzari.",
             "button": {
                 "category": {
-                    "all": "All",
-                    "all_accessiblity_description": "Category: All",
-                    "academia": "academia",
-                    "activism": "activism",
-                    "food": "food",
+                    "all": "Guztiak",
+                    "all_accessiblity_description": "Kategoria: Guztiak",
+                    "academia": "akademia",
+                    "activism": "aktibismoa",
+                    "food": "janaria",
                     "furry": "furry",
-                    "games": "games",
-                    "general": "general",
-                    "journalism": "journalism",
-                    "lgbt": "lgbt",
-                    "regional": "regional",
-                    "art": "art",
-                    "music": "music",
-                    "tech": "tech"
+                    "games": "jokoak",
+                    "general": "orokorra",
+                    "journalism": "kazetaritza",
+                    "lgbt": "LGBTQ+",
+                    "regional": "herrialdekoa",
+                    "art": "artea",
+                    "music": "musika",
+                    "tech": "teknologia"
                 },
-                "see_less": "See Less",
-                "see_more": "See More"
+                "see_less": "Ikusi gutxiago",
+                "see_more": "Ikusi gehiago"
             },
             "label": {
-                "language": "LANGUAGE",
-                "users": "USERS",
+                "language": "HIZKUNTZA",
+                "users": "ERABILTZAILEAK",
                 "category": "CATEGORY"
             },
             "input": {
