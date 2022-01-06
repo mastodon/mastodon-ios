@@ -139,14 +139,14 @@
                     "reblog": "Bultzada",
                     "unreblog": "Desegin bultzada",
                     "favorite": "Gogokoa",
-                    "unfavorite": "Unfavorite",
-                    "menu": "Menu"
+                    "unfavorite": "Kendu gogokoa",
+                    "menu": "Menua"
                 },
                 "tag": {
-                    "url": "URL",
-                    "mention": "Mention",
-                    "link": "Link",
-                    "hashtag": "Hashtag",
+                    "url": "URLa",
+                    "mention": "Aipatu",
+                    "link": "Esteka",
+                    "hashtag": "Traola",
                     "email": "Eposta",
                     "emoji": "Emojia"
                 }
@@ -220,176 +220,176 @@
             "label": {
                 "language": "HIZKUNTZA",
                 "users": "ERABILTZAILEAK",
-                "category": "CATEGORY"
+                "category": "KATEGORIA"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Bilatu zerbitzari bat edo sortu zurea..."
             },
             "empty_state": {
-                "finding_servers": "Finding available servers...",
-                "bad_network": "Something went wrong while loading the data. Check your internet connection.",
-                "no_results": "No results"
+                "finding_servers": "Erabilgarri dauden zerbitzariak bilatzen...",
+                "bad_network": "Arazoren bat egon da datuak kargatzean. Egiaztatu zure Interneteko konexioa.",
+                "no_results": "Emaitzarik ez"
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Hitz egin iezaguzu zuri buruz.",
             "input": {
                 "avatar": {
-                    "delete": "Delete"
+                    "delete": "Ezabatu"
                 },
                 "username": {
-                    "placeholder": "username",
-                    "duplicate_prompt": "This username is taken."
+                    "placeholder": "erabiltzaile-izena",
+                    "duplicate_prompt": "Erabiltzaile-izen hau hartuta dago."
                 },
                 "display_name": {
-                    "placeholder": "display name"
+                    "placeholder": "pantaila-izena"
                 },
                 "email": {
-                    "placeholder": "email"
+                    "placeholder": "eposta"
                 },
                 "password": {
-                    "placeholder": "password",
-                    "hint": "Your password needs at least eight characters"
+                    "placeholder": "pasahitza",
+                    "hint": "Pasahitzak zortzi karaktere izan behar ditu gutxienez"
                 },
                 "invite": {
-                    "registration_user_invite_request": "Why do you want to join?"
+                    "registration_user_invite_request": "Zergatik elkartu nahi duzu?"
                 }
             },
             "error": {
                 "item": {
-                    "username": "Username",
-                    "email": "Email",
-                    "password": "Password",
-                    "agreement": "Agreement",
-                    "locale": "Locale",
-                    "reason": "Reason"
+                    "username": "Erabiltzaile-izena",
+                    "email": "Eposta",
+                    "password": "Pasahitza",
+                    "agreement": "Adostasuna",
+                    "locale": "Eskualdeko ezarpenak",
+                    "reason": "Arrazoia"
                 },
                 "reason": {
-                    "blocked": "%s contains a disallowed email provider",
-                    "unreachable": "%s does not seem to exist",
-                    "taken": "%s is already in use",
-                    "reserved": "%s is a reserved keyword",
-                    "accepted": "%s must be accepted",
-                    "blank": "%s is required",
-                    "invalid": "%s is invalid",
-                    "too_long": "%s is too long",
-                    "too_short": "%s is too short",
-                    "inclusion": "%s is not a supported value"
+                    "blocked": "%s(e)k onartu gabeko eposta hornitzaile bat erabiltzen du",
+                    "unreachable": "dirudienez %s ez da existitzen",
+                    "taken": "%s dagoeneko erabiltzen da",
+                    "reserved": "%s gako-hitz erreserbatu bat da",
+                    "accepted": "%s onartu behar da",
+                    "blank": "%s beharrezkoa da",
+                    "invalid": "%s baliogabea da",
+                    "too_long": "%s luzeegia da",
+                    "too_short": "%s laburregia da",
+                    "inclusion": "%s ez da onartutako balio bat"
                 },
                 "special": {
-                    "username_invalid": "Username must only contain alphanumeric characters and underscores",
-                    "username_too_long": "Username is too long (can’t be longer than 30 characters)",
-                    "email_invalid": "This is not a valid email address",
-                    "password_too_short": "Password is too short (must be at least 8 characters)"
+                    "username_invalid": "Erabiltzaile-izenak karaktere alfanumerikoak eta azpimarrak soilik eduki ditzake",
+                    "username_too_long": "Erabiltzaile-izena luzeegia da (ezin ditu 30 karaktere baino gehiago izan)",
+                    "email_invalid": "Hau ez da baliozko eposta helbidea",
+                    "password_too_short": "Pasahitza laburregia da (gutxienez 8 karaktere izan behar ditu)"
                 }
             }
         },
         "server_rules": {
-            "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
-            "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
-            "terms_of_service": "terms of service",
-            "privacy_policy": "privacy policy",
+            "title": "Oinarrizko arau batzuk.",
+            "subtitle": "Arau hauek %s instantziako administratzaileek ezarri dituzte.",
+            "prompt": "Jarraituz gero, %s instantziaren zerbitzu-baldintzak eta pribatutasun-gidalerroak onartzen dituzu.",
+            "terms_of_service": "zerbitzu-baldintzak",
+            "privacy_policy": "pribatutasun-gidalerroak",
             "button": {
-                "confirm": "I Agree"
+                "confirm": "Ados nago"
             }
         },
         "confirm_email": {
-            "title": "One last thing.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "title": "Eta azkenik...",
+            "subtitle": "Eposta bat bidali dizugu %s helbidera,\nsakatu kontua berresteko esteka.",
             "button": {
-                "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "open_email_app": "Ireki eposta aplikazioa",
+                "dont_receive_email": "Ez dut epostarik jaso"
             },
             "dont_receive_email": {
-                "title": "Check your email",
-                "description": "Check if your email address is correct as well as your junk folder if you haven’t.",
-                "resend_email": "Resend Email"
+                "title": "Begiratu zure eposta",
+                "description": "Egiaztatu zure eposta helbidea zuzena den eta begiratu zaborraren karpeta.",
+                "resend_email": "Birbidali eposta"
             },
             "open_email_app": {
-                "title": "Check your inbox.",
-                "description": "We just sent you an email. Check your junk folder if you haven’t.",
-                "mail": "Mail",
-                "open_email_client": "Open Email Client"
+                "title": "Egiaztatu zure sarrerako ontzia.",
+                "description": "Eposta bat bidali dizugu. Egiaztatu zure zaborraren karpeta.",
+                "mail": "Posta",
+                "open_email_client": "Ireki eposta bezeroa"
             }
         },
         "home_timeline": {
-            "title": "Home",
+            "title": "Hasiera",
             "navigation_bar_state": {
-                "offline": "Offline",
-                "new_posts": "See new posts",
-                "published": "Published!",
-                "Publishing": "Publishing post..."
+                "offline": "Konexio gabe",
+                "new_posts": "Ikusi bidal. berriak",
+                "published": "Argitaratua!",
+                "Publishing": "Bidalketa argitaratzen..."
             }
         },
         "suggestion_account": {
-            "title": "Find People to Follow",
-            "follow_explain": "When you follow someone, you’ll see their posts in your home feed."
+            "title": "Bilatu jarraitzeko jendea",
+            "follow_explain": "Norbait jarraitzen duzunean, bere bidalketak zure hasierako denbora-lerroan agertuko zaizkizu."
         },
         "compose": {
             "title": {
-                "new_post": "New Post",
-                "new_reply": "New Reply"
+                "new_post": "Bidalketa berria",
+                "new_reply": "Erantzun berria"
             },
             "media_selection": {
-                "camera": "Take Photo",
-                "photo_library": "Photo Library",
-                "browse": "Browse"
+                "camera": "Atera argazkia",
+                "photo_library": "Argazki-liburutegia",
+                "browse": "Arakatu"
             },
-            "content_input_placeholder": "Type or paste what’s on your mind",
-            "compose_action": "Publish",
-            "replying_to_user": "replying to %s",
+            "content_input_placeholder": "Idatzi edo itsatsi buruan duzuna",
+            "compose_action": "Argitaratu",
+            "replying_to_user": "%s(r)i erantzuten",
             "attachment": {
-                "photo": "photo",
-                "video": "video",
-                "attachment_broken": "This %s is broken and can’t be\nuploaded to Mastodon.",
-                "description_photo": "Describe the photo for the visually-impaired...",
-                "description_video": "Describe the video for the visually-impaired..."
+                "photo": "argazkia",
+                "video": "bideoa",
+                "attachment_broken": "%s hondatuta dago eta ezin da\nMastodonera igo.",
+                "description_photo": "Deskribatu argazkia ikusmen arazoak dituztenentzat...",
+                "description_video": "Deskribatu bideoa ikusmen arazoak dituztenentzat..."
             },
             "poll": {
-                "duration_time": "Duration: %s",
-                "thirty_minutes": "30 minutes",
-                "one_hour": "1 Hour",
-                "six_hours": "6 Hours",
-                "one_day": "1 Day",
-                "three_days": "3 Days",
-                "seven_days": "7 Days",
-                "option_number": "Option %ld"
+                "duration_time": "Iraupena: %s",
+                "thirty_minutes": "30 minutu",
+                "one_hour": "Ordu 1",
+                "six_hours": "6 ordu",
+                "one_day": "Egun 1",
+                "three_days": "3 egun",
+                "seven_days": "7 egun",
+                "option_number": "%ld aukera"
             },
             "content_warning": {
-                "placeholder": "Write an accurate warning here..."
+                "placeholder": "Idatzi abisu zehatz bat hemen..."
             },
             "visibility": {
-                "public": "Public",
-                "unlisted": "Unlisted",
-                "private": "Followers only",
-                "direct": "Only people I mention"
+                "public": "Publikoa",
+                "unlisted": "Zerrendatu gabea",
+                "private": "Jarraitzaileak soilik",
+                "direct": "Aipatzen dudan jendea soilik"
             },
             "auto_complete": {
-                "space_to_add": "Space to add"
+                "space_to_add": "Sakatu zuriunea gehitzeko"
             },
             "accessibility": {
-                "append_attachment": "Add Attachment",
-                "append_poll": "Add Poll",
-                "remove_poll": "Remove Poll",
-                "custom_emoji_picker": "Custom Emoji Picker",
-                "enable_content_warning": "Enable Content Warning",
-                "disable_content_warning": "Disable Content Warning",
-                "post_visibility_menu": "Post Visibility Menu"
+                "append_attachment": "Gehitu eranskina",
+                "append_poll": "Gehitu inkesta",
+                "remove_poll": "Kendu inkesta",
+                "custom_emoji_picker": "Emoji pertsonalizatuen hautatzailea",
+                "enable_content_warning": "Gaitu edukiaren abisua",
+                "disable_content_warning": "Desgaitu edukiaren abisua",
+                "post_visibility_menu": "Bidalketaren ikusgaitasunaren menua"
             },
             "keyboard": {
-                "discard_post": "Discard Post",
-                "publish_post": "Publish Post",
-                "toggle_poll": "Toggle Poll",
-                "toggle_content_warning": "Toggle Content Warning",
-                "append_attachment_entry": "Add Attachment - %s",
-                "select_visibility_entry": "Select Visibility - %s"
+                "discard_post": "Baztertu bidalketa",
+                "publish_post": "Argitaratu bidalketa",
+                "toggle_poll": "Txandakatu inkesta",
+                "toggle_content_warning": "Txandakatu edukiaren abisua",
+                "append_attachment_entry": "Gehitu eranskina - %s",
+                "select_visibility_entry": "Hautatu ikusgaitasuna - %s"
             }
         },
         "profile": {
             "dashboard": {
-                "posts": "posts",
-                "following": "following",
+                "posts": "bidalketa",
+                "following": "jarraitzen",
                 "followers": "followers"
             },
             "fields": {
@@ -489,69 +489,69 @@
                 "notifications": {
                     "title": "Notifications",
                     "favorites": "Favorites my post",
-                    "follows": "Follows me",
-                    "boosts": "Reblogs my post",
-                    "mentions": "Mentions me",
+                    "follows": "Jarraitzen nau",
+                    "boosts": "Nire bidalketa bultzatu du",
+                    "mentions": "Aipatu nau",
                     "trigger": {
-                        "anyone": "anyone",
-                        "follower": "a follower",
-                        "follow": "anyone I follow",
-                        "noone": "no one",
-                        "title": "Notify me when"
+                        "anyone": "edozein",
+                        "follower": "jarraitzaile bat",
+                        "follow": "jarraitzen dudan edonor",
+                        "noone": "inor ez",
+                        "title": "Noiz jakinarazi:"
                     }
                 },
                 "preference": {
-                    "title": "Preferences",
-                    "true_black_dark_mode": "True black dark mode",
-                    "disable_avatar_animation": "Disable animated avatars",
-                    "disable_emoji_animation": "Disable animated emojis",
-                    "using_default_browser": "Use default browser to open links"
+                    "title": "Hobespenak",
+                    "true_black_dark_mode": "Benetako modu beltz iluna",
+                    "disable_avatar_animation": "Desgaitu abatar animatuak",
+                    "disable_emoji_animation": "Desgaitu emoji animatuak",
+                    "using_default_browser": "Erabili nabigatzaile lehenetsia estekak irekitzeko"
                 },
                 "boring_zone": {
-                    "title": "The Boring Zone",
-                    "account_settings": "Account Settings",
-                    "terms": "Terms of Service",
-                    "privacy": "Privacy Policy"
+                    "title": "Eremu aspergarria",
+                    "account_settings": "Kontuaren ezarpenak",
+                    "terms": "Zerbitzu-baldintzak",
+                    "privacy": "Pribatutasun-gidalerroak"
                 },
                 "spicy_zone": {
-                    "title": "The Spicy Zone",
-                    "clear": "Clear Media Cache",
-                    "signout": "Sign Out"
+                    "title": "Eremu beroa",
+                    "clear": "Garbitu multimediaren cachea",
+                    "signout": "Amaitu saioa"
                 }
             },
             "footer": {
-                "mastodon_description": "Mastodon is open source software. You can report issues on GitHub at %s (%s)"
+                "mastodon_description": "Mastodon software librea da. Arazoen berri eman dezakezu GitHub bidez: %s (%s)"
             },
             "keyboard": {
-                "close_settings_window": "Close Settings Window"
+                "close_settings_window": "Itxi ezarpenen leihoa"
             }
         },
         "report": {
-            "title": "Report %s",
-            "step1": "Step 1 of 2",
-            "step2": "Step 2 of 2",
-            "content1": "Are there any other posts you’d like to add to the report?",
-            "content2": "Is there anything the moderators should know about this report?",
-            "send": "Send Report",
-            "skip_to_send": "Send without comment",
-            "text_placeholder": "Type or paste additional comments"
+            "title": "Salatu %s",
+            "step1": "1. urratsa 2tik",
+            "step2": "2. urratsa 2tik",
+            "content1": "Salaketan beste bidalketarik gehitu nahi duzu?",
+            "content2": "Moderatzaileek besterik jakin behar dute salaketa honi buruz?",
+            "send": "Bidali salaketa",
+            "skip_to_send": "Bidali iruzkinik gabe",
+            "text_placeholder": "Idatzi edo itsatsi iruzkin gehigarriak"
         },
         "preview": {
             "keyboard": {
-                "close_preview": "Close Preview",
-                "show_next": "Show Next",
-                "show_previous": "Show Previous"
+                "close_preview": "Itxi aurrebista",
+                "show_next": "Erakutsi hurrengoa",
+                "show_previous": "Erakutsi aurrekoa"
             }
         },
         "account_list": {
-            "tab_bar_hint": "Current selected profile: %s. Double tap then hold to show account switcher",
-            "dismiss_account_switcher": "Dismiss Account Switcher",
-            "add_account": "Add Account"
+            "tab_bar_hint": "Unean hautatutako profila: %s. Ukitu birritan, ondoren eduki sakatuta kontu-aldatzailea erakusteko",
+            "dismiss_account_switcher": "Baztertu kontu-aldatzailea",
+            "add_account": "Gehitu kontua"
         },
         "wizard": {
-            "new_in_mastodon": "New in Mastodon",
-            "multiple_account_switch_intro_description": "Switch between multiple accounts by holding the profile button.",
-            "accessibility_hint": "Double tap to dismiss this wizard"
+            "new_in_mastodon": "Berria Mastodonen",
+            "multiple_account_switch_intro_description": "Aldatu hainbat konturen artean profilaren botoia sakatuta edukiz.",
+            "accessibility_hint": "Ukitu birritan morroi hau baztertzeko"
         }
     }
 }
