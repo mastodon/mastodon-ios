@@ -80,65 +80,65 @@
                 "preview": "Aurrebista",
                 "share": "Partekatu",
                 "share_user": "Partekatu %s",
-                "share_post": "Share Post",
-                "open_in_safari": "Open in Safari",
-                "open_in_browser": "Open in Browser",
-                "find_people": "Find people to follow",
-                "manually_search": "Manually search instead",
-                "skip": "Skip",
-                "reply": "Reply",
-                "report_user": "Report %s",
-                "block_domain": "Block %s",
-                "unblock_domain": "Unblock %s",
-                "settings": "Settings",
-                "delete": "Delete"
+                "share_post": "Partekatu bidalketa",
+                "open_in_safari": "Ireki Safarin",
+                "open_in_browser": "Ireki nabigatzailean",
+                "find_people": "Bilatu jarraitzeko jendea",
+                "manually_search": "Eskuz bilatu",
+                "skip": "Saltatu",
+                "reply": "Erantzun",
+                "report_user": "Salatu %s",
+                "block_domain": "Blokeatu %s",
+                "unblock_domain": "Desblokeatu %s",
+                "settings": "Ezarpenak",
+                "delete": "Ezabatu"
             },
             "tabs": {
-                "home": "Home",
-                "search": "Search",
-                "notification": "Notification",
-                "profile": "Profile"
+                "home": "Hasiera",
+                "search": "Bilatu",
+                "notification": "Jakinarazpena",
+                "profile": "Profila"
             },
             "keyboard": {
                 "common": {
-                    "switch_to_tab": "Switch to %s",
-                    "compose_new_post": "Compose New Post",
-                    "show_favorites": "Show Favorites",
-                    "open_settings": "Open Settings"
+                    "switch_to_tab": "Aldatu %s(e)ra",
+                    "compose_new_post": "Idatzi bidalketa berria",
+                    "show_favorites": "Erakutsi gogokoak",
+                    "open_settings": "Ireki ezarpenak"
                 },
                 "timeline": {
-                    "previous_status": "Previous Post",
-                    "next_status": "Next Post",
-                    "open_status": "Open Post",
-                    "open_author_profile": "Open Author's Profile",
-                    "open_reblogger_profile": "Open Reblogger's Profile",
-                    "reply_status": "Reply to Post",
-                    "toggle_reblog": "Toggle Reblog on Post",
-                    "toggle_favorite": "Toggle Favorite on Post",
-                    "toggle_content_warning": "Toggle Content Warning",
-                    "preview_image": "Preview Image"
+                    "previous_status": "Aurreko bidalketa",
+                    "next_status": "Hurrengo bidalketa",
+                    "open_status": "Ireki bidalketa",
+                    "open_author_profile": "Ireki egilearen profila",
+                    "open_reblogger_profile": "Ireki bultzada eman duenaren profila",
+                    "reply_status": "Erantzun bidalketari",
+                    "toggle_reblog": "Txandakatu bidalketaren bultzada",
+                    "toggle_favorite": "Txandakatu bidalketa gogoko egitea",
+                    "toggle_content_warning": "Txandakatu edukiaren abisua",
+                    "preview_image": "Aurreikusi irudia"
                 },
                 "segmented_control": {
-                    "previous_section": "Previous Section",
-                    "next_section": "Next Section"
+                    "previous_section": "Aurreko sekzioa",
+                    "next_section": "Hurrengo sekzioa"
                 }
             },
             "status": {
-                "user_reblogged": "%s reblogged",
-                "user_replied_to": "Replied to %s",
-                "show_post": "Show Post",
-                "show_user_profile": "Show user profile",
-                "content_warning": "Content Warning",
-                "media_content_warning": "Tap anywhere to reveal",
+                "user_reblogged": "%s erabiltzaileak bultzada eman dio",
+                "user_replied_to": "%s(r)i erantzuten",
+                "show_post": "Erakutsi bidalketa",
+                "show_user_profile": "Erakutsi erabiltzailearen profila",
+                "content_warning": "Edukiaren abisua",
+                "media_content_warning": "Ukitu edonon bistaratzeko",
                 "poll": {
-                    "vote": "Vote",
-                    "closed": "Closed"
+                    "vote": "Bozkatu",
+                    "closed": "Itxita"
                 },
                 "actions": {
-                    "reply": "Reply",
-                    "reblog": "Reblog",
-                    "unreblog": "Undo reblog",
-                    "favorite": "Favorite",
+                    "reply": "Erantzun",
+                    "reblog": "Bultzada",
+                    "unreblog": "Desegin bultzada",
+                    "favorite": "Gogokoa",
                     "unfavorite": "Unfavorite",
                     "menu": "Menu"
                 },
