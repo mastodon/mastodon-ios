@@ -395,100 +395,100 @@
             "fields": {
                 "add_row": "Gehitu errenkada",
                 "placeholder": {
-                    "label": "Label",
-                    "content": "Content"
+                    "label": "Etiketa",
+                    "content": "Edukia"
                 }
             },
             "segmented_control": {
-                "posts": "Posts",
-                "replies": "Replies",
-                "media": "Media"
+                "posts": "Bidalketak",
+                "replies": "Erantzunak",
+                "media": "Multimedia"
             },
             "relationship_action_alert": {
                 "confirm_unmute_user": {
-                    "title": "Unmute Account",
-                    "message": "Confirm to unmute %s"
+                    "title": "Desmututu kontua",
+                    "message": "Berretsi %s desmututzea"
                 },
                 "confirm_unblock_usre": {
-                    "title": "Unblock Account",
-                    "message": "Confirm to unblock %s"
+                    "title": "Desblokeatu kontua",
+                    "message": "Berretsi %s desblokeatzea"
                 }
             }
         },
         "follower": {
-            "footer": "Followers from other servers are not displayed."
+            "footer": "Beste zerbitzarietako jarraitzaileak ez dira bistaratzen."
         },
         "following": {
-            "footer": "Follows from other servers are not displayed."
+            "footer": "Beste zerbitzarietan jarraitutakoak ez dira bistaratzen."
         },
         "search": {
-            "title": "Search",
+            "title": "Bilatu",
             "search_bar": {
-                "placeholder": "Search hashtags and users",
-                "cancel": "Cancel"
+                "placeholder": "Bilatu traolak eta erabiltzaileak",
+                "cancel": "Utzi"
             },
             "recommend": {
-                "button_text": "See All",
+                "button_text": "Ikusi guztiak",
                 "hash_tag": {
-                    "title": "Trending on Mastodon",
-                    "description": "Hashtags that are getting quite a bit of attention",
-                    "people_talking": "%s people are talking"
+                    "title": "Mastodoneko joerak",
+                    "description": "Deigarri gertatzen ari diren traolak",
+                    "people_talking": "%s pertsona hizketan"
                 },
                 "accounts": {
-                    "title": "Accounts you might like",
-                    "description": "You may like to follow these accounts",
-                    "follow": "Follow"
+                    "title": "Gustuko izan ditzakezun kontuak",
+                    "description": "Kontu hauek jarraitu nahiko dituzu behar bada",
+                    "follow": "Jarraitu"
                 }
             },
             "searching": {
                 "segment": {
-                    "all": "All",
-                    "people": "People",
-                    "hashtags": "Hashtags",
-                    "posts": "Posts"
+                    "all": "Guztiak",
+                    "people": "Jendea",
+                    "hashtags": "Traolak",
+                    "posts": "Bidalketak"
                 },
                 "empty_state": {
-                    "no_results": "No results"
+                    "no_results": "Emaitzarik ez"
                 },
-                "recent_search": "Recent searches",
-                "clear": "Clear"
+                "recent_search": "Azken bilaketak",
+                "clear": "Garbitu"
             }
         },
         "favorite": {
-            "title": "Your Favorites"
+            "title": "Zure gogokoak"
         },
         "notification": {
             "title": {
-                "Everything": "Everything",
-                "Mentions": "Mentions"
+                "Everything": "Dena",
+                "Mentions": "Aipamenak"
             },
-            "user_followed_you": "%s followed you",
-            "user_favorited your post": "%s favorited your post",
-            "user_reblogged_your_post": "%s reblogged your post",
-            "user_mentioned_you": "%s mentioned you",
-            "user_requested_to_follow_you": "%s requested to follow you",
-            "user_your_poll_has_ended": "%s Your poll has ended",
+            "user_followed_you": "%s(e)k jarraitu zaitu",
+            "user_favorited your post": "%s(e)k zure bidalk. gogoko du",
+            "user_reblogged_your_post": "%s(e)k zure bidalk. bultza du",
+            "user_mentioned_you": "%s(e)k aipatu zaitu",
+            "user_requested_to_follow_you": "%s(e)k jarraitu nahi zaitu",
+            "user_your_poll_has_ended": "%s Zure inkesta amaitu da",
             "keyobard": {
-                "show_everything": "Show Everything",
-                "show_mentions": "Show Mentions"
+                "show_everything": "Erakutsi guztia",
+                "show_mentions": "Erakutsi aipamenak"
             }
         },
         "thread": {
-            "back_title": "Post",
-            "title": "Post from %s"
+            "back_title": "Bidalketa",
+            "title": "%s(e)n bidalketa"
         },
         "settings": {
-            "title": "Settings",
+            "title": "Ezarpenak",
             "section": {
                 "appearance": {
-                    "title": "Appearance",
-                    "automatic": "Automatic",
-                    "light": "Always Light",
-                    "dark": "Always Dark"
+                    "title": "Itxura",
+                    "automatic": "Automatikoa",
+                    "light": "Beti argia",
+                    "dark": "Beti iluna"
                 },
                 "notifications": {
-                    "title": "Notifications",
-                    "favorites": "Favorites my post",
+                    "title": "Jakinarazpenak",
+                    "favorites": "Nire bidalketa gogoko egitean",
                     "follows": "Jarraitzen nau",
                     "boosts": "Nire bidalketa bultzatu du",
                     "mentions": "Aipatu nau",
