@@ -13,7 +13,7 @@ final class MastodonRegisterPasswordHintTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .footnote)
         label.textColor = Asset.Colors.Label.secondary.color
-        label.text = "Your password needs at least:"
+        label.text = L10n.Scene.Register.Input.Password.hint
         return label
     }()
     

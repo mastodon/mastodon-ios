@@ -82,6 +82,8 @@ extension MastodonRegisterViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
+        
         setupOnboardingAppearance()
         defer {
             setupNavigationBarBackgroundView()
@@ -128,12 +130,12 @@ extension MastodonRegisterViewController {
         
         viewModel.setupDiffableDataSource(tableView: tableView)
         
-        KeyboardResponderService
-            .configure(
-                scrollView: tableView,
-                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
-            )
-            .store(in: &disposeBag)
+//        KeyboardResponderService
+//            .configure(
+//                scrollView: tableView,
+//                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
+//            )
+//            .store(in: &disposeBag)
 
         // gesture
         view.addGestureRecognizer(tapGestureRecognizer)

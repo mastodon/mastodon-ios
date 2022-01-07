@@ -30,6 +30,34 @@ final class MastodonRegisterAvatarTableViewCell: UITableViewCell {
         return button
     }()
     
+    let editBannerView: UIView = {
+        let bannerView = UIView()
+        bannerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        bannerView.isUserInteractionEnabled = false
+        
+        let label: UILabel = {
+            let label = UILabel()
+            label.textColor = .white
+            label.text = L10n.Common.Controls.Actions.edit
+            label.font = .systemFont(ofSize: 13, weight: .semibold)
+            label.textAlignment = .center
+            label.minimumScaleFactor = 0.5
+            label.adjustsFontSizeToFitWidth = true
+            return label
+        }()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        bannerView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: bannerView.topAnchor),
+            label.leadingAnchor.constraint(equalTo: bannerView.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: bannerView.trailingAnchor),
+            label.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor),
+        ])
+        
+        return bannerView
+    }()
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -71,6 +99,15 @@ extension MastodonRegisterAvatarTableViewCell {
             avatarButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             avatarButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             avatarButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+        ])
+        
+        editBannerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(editBannerView)
+        NSLayoutConstraint.activate([
+            editBannerView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            editBannerView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            editBannerView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            editBannerView.heightAnchor.constraint(equalToConstant: 22),
         ])
     }
     

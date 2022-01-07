@@ -303,7 +303,7 @@
             "subtitle": "Tap the link we emailed to you to verify your account.",
             "button": {
                 "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Check your email",
