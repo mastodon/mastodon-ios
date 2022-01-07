@@ -390,10 +390,10 @@
             "dashboard": {
                 "posts": "bidalketa",
                 "following": "jarraitzen",
-                "followers": "followers"
+                "followers": "jarraitzaile"
             },
             "fields": {
-                "add_row": "Add Row",
+                "add_row": "Gehitu errenkada",
                 "placeholder": {
                     "label": "Label",
                     "content": "Content"
