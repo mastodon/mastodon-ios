@@ -14,18 +14,19 @@ final class MastodonRegisterViewModel {
     var disposeBag = Set<AnyCancellable>()
     
     // input
+    let context: AppContext
     let domain: String
     let authenticateInfo: AuthenticationViewModel.AuthenticateInfo
     let instance: Mastodon.Entity.Instance
     let applicationToken: Mastodon.Entity.Token
-    let context: AppContext
-    
-    let username = CurrentValueSubject<String, Never>("")
-    let displayName = CurrentValueSubject<String, Never>("")
-    let email = CurrentValueSubject<String, Never>("")
-    let password = CurrentValueSubject<String, Never>("")
-    let reason = CurrentValueSubject<String, Never>("")
-    let avatarImage = CurrentValueSubject<UIImage?, Never>(nil)
+    let viewDidAppear = CurrentValueSubject<Void, Never>(Void())
+
+    @Published var avatarImage: UIImage? = nil
+    @Published var name = ""
+    @Published var username = ""
+    @Published var email = ""
+    @Published var password = ""
+    @Published var reason = ""
     
     let usernameErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
     let emailErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
@@ -33,21 +34,25 @@ final class MastodonRegisterViewModel {
     let reasonErrorPrompt = CurrentValueSubject<NSAttributedString?, Never>(nil)
     
     // output
+    var diffableDataSource: UITableViewDiffableDataSource<RegisterSection, RegisterItem>?
     let approvalRequired: Bool
     let applicationAuthorization: Mastodon.API.OAuth.Authorization
-    let usernameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
-    let displayNameValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
-    let emailValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
-    let passwordValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
-    let reasonValidateState = CurrentValueSubject<ValidateState, Never>(.empty)
+    
+    @Published var usernameValidateState: ValidateState = .empty
+    @Published var displayNameValidateState: ValidateState = .empty
+    @Published var emailValidateState: ValidateState = .empty
+    @Published var passwordValidateState: ValidateState = .empty
+    @Published var reasonValidateState: ValidateState = .empty
         
-    let isRegistering = CurrentValueSubject<Bool, Never>(false)
-    let isAllValid = CurrentValueSubject<Bool, Never>(false)
-    let error = CurrentValueSubject<Error?, Never>(nil)
+    @Published var isRegistering = false
+    @Published var isAllValid = false
+    @Published var error: Error? = nil
+    
+    let avatarMediaMenuActionPublisher = PassthroughSubject<AvatarMediaMenuAction, Never>()
 
     init(
-        domain: String,
         context: AppContext,
+        domain: String,
         authenticateInfo: AuthenticationViewModel.AuthenticateInfo,
         instance: Mastodon.Entity.Instance,
         applicationToken: Mastodon.Entity.Token
@@ -60,7 +65,15 @@ final class MastodonRegisterViewModel {
         self.approvalRequired = instance.approvalRequired ?? false
         self.applicationAuthorization = Mastodon.API.OAuth.Authorization(accessToken: applicationToken.accessToken)
         
-        username
+        $name
+            .map { name in
+                guard !name.isEmpty else { return .empty }
+                return .valid
+            }
+            .assign(to: \.displayNameValidateState, on: self)
+            .store(in: &disposeBag)
+        
+        $username
             .map { username in
                 guard !username.isEmpty else { return .empty }
                 var isValid = true
@@ -79,114 +92,120 @@ final class MastodonRegisterViewModel {
                 }
                 return isValid ? .valid : .invalid
             }
-            .assign(to: \.value, on: usernameValidateState)
+            .assign(to: \.usernameValidateState, on: self)
             .store(in: &disposeBag)
         
-        username
-            .filter { !$0.isEmpty }
-            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
-            .removeDuplicates()
-            .compactMap { [weak self] text -> AnyPublisher<Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>, Never>? in
-                guard let self = self else { return nil }
-                let query = Mastodon.API.Account.AccountLookupQuery(acct: text)
-                return context.apiService.accountLookup(domain: domain, query: query, authorization: self.applicationAuthorization)
-                    .map {
-                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
-                        Result.success(response)
-                    }
-                    .catch { error in
-                        Just(Result.failure(error))
-                    }
-                    .eraseToAnyPublisher()
-            }
-            .switchToLatest()
-            .sink { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success:
-                    let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
-                    self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
-                    self.usernameValidateState.value = .invalid
-                case .failure:
-                    break
-                }
-            }
-            .store(in: &disposeBag)
-        
-        usernameValidateState
-            .sink { [weak self] validateState in
-                if validateState == .valid {
-                    self?.usernameErrorPrompt.value = nil
-                }
-            }
-            .store(in: &disposeBag)
+        // TODO: check username available
+//        username
+//            .filter { !$0.isEmpty }
+//            .debounce(for: .milliseconds(300), scheduler: DispatchQueue.main)
+//            .removeDuplicates()
+//            .compactMap { [weak self] text -> AnyPublisher<Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error>, Never>? in
+//                guard let self = self else { return nil }
+//                let query = Mastodon.API.Account.AccountLookupQuery(acct: text)
+//                return context.apiService.accountLookup(domain: domain, query: query, authorization: self.applicationAuthorization)
+//                    .map {
+//                        response -> Result<Mastodon.Response.Content<Mastodon.Entity.Account>, Error> in
+//                        Result.success(response)
+//                    }
+//                    .catch { error in
+//                        Just(Result.failure(error))
+//                    }
+//                    .eraseToAnyPublisher()
+//            }
+//            .switchToLatest()
+//            .sink { [weak self] result in
+//                guard let self = self else { return }
+//                switch result {
+//                case .success:
+//                    let text = L10n.Scene.Register.Error.Reason.taken(L10n.Scene.Register.Error.Item.username)
+//                    self.usernameErrorPrompt.value = MastodonRegisterViewModel.errorPromptAttributedString(for: text)
+//                    self.usernameValidateState.value = .invalid
+//                case .failure:
+//                    break
+//                }
+//            }
+//            .store(in: &disposeBag)
+//        
+//        usernameValidateState
+//            .sink { [weak self] validateState in
+//                if validateState == .valid {
+//                    self?.usernameErrorPrompt.value = nil
+//                }
+//            }
+//            .store(in: &disposeBag)
 
-        displayName
-            .map { displayname in
-                guard !displayname.isEmpty else { return .empty }
-                return .valid
-            }
-            .assign(to: \.value, on: displayNameValidateState)
-            .store(in: &disposeBag)
-        email
+        $email
             .map { email in
                 guard !email.isEmpty else { return .empty }
                 return MastodonRegisterViewModel.isValidEmail(email) ? .valid : .invalid
             }
-            .assign(to: \.value, on: emailValidateState)
+            .assign(to: \.emailValidateState, on: self)
             .store(in: &disposeBag)
-        password
+        
+        $password
             .map { password in
                 guard !password.isEmpty else { return .empty }
                 return password.count >= 8 ? .valid : .invalid
             }
-            .assign(to: \.value, on: passwordValidateState)
+            .assign(to: \.passwordValidateState, on: self)
             .store(in: &disposeBag)
+        
         if approvalRequired {
-            reason
+            $reason
                 .map { invite in
                     guard !invite.isEmpty else { return .empty }
                     return .valid
                 }
-                .assign(to: \.value, on: reasonValidateState)
+                .assign(to: \.reasonValidateState, on: self)
                 .store(in: &disposeBag)
         }
         
-        error
-            .sink { [weak self] error in
-                guard let self = self else { return }
-                let error = error as? Mastodon.API.Error
-                let mastodonError = error?.mastodonError
-                if case let .generic(genericMastodonError) = mastodonError,
-                   let details = genericMastodonError.details
-                {
-                    self.usernameErrorPrompt.value = details.usernameErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-                    self.emailErrorPrompt.value = details.emailErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-                    self.passwordErrorPrompt.value = details.passwordErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-                    self.reasonErrorPrompt.value = details.reasonErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
-                } else {
-                    self.usernameErrorPrompt.value = nil
-                    self.emailErrorPrompt.value = nil
-                    self.passwordErrorPrompt.value = nil
-                    self.reasonErrorPrompt.value = nil
-                }
-            }
-            .store(in: &disposeBag)
-        
+//        error
+//            .sink { [weak self] error in
+//                guard let self = self else { return }
+//                let error = error as? Mastodon.API.Error
+//                let mastodonError = error?.mastodonError
+//                if case let .generic(genericMastodonError) = mastodonError,
+//                   let details = genericMastodonError.details
+//                {
+//                    self.usernameErrorPrompt.value = details.usernameErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+//                    self.emailErrorPrompt.value = details.emailErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+//                    self.passwordErrorPrompt.value = details.passwordErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+//                    self.reasonErrorPrompt.value = details.reasonErrorDescriptions.first.flatMap { MastodonRegisterViewModel.errorPromptAttributedString(for: $0) }
+//                } else {
+//                    self.usernameErrorPrompt.value = nil
+//                    self.emailErrorPrompt.value = nil
+//                    self.passwordErrorPrompt.value = nil
+//                    self.reasonErrorPrompt.value = nil
+//                }
+//            }
+//            .store(in: &disposeBag)
+//        
         let publisherOne = Publishers.CombineLatest4(
-            usernameValidateState.eraseToAnyPublisher(),
-            displayNameValidateState.eraseToAnyPublisher(),
-            emailValidateState.eraseToAnyPublisher(),
-            passwordValidateState.eraseToAnyPublisher()
+            $usernameValidateState,
+            $displayNameValidateState,
+            $emailValidateState,
+            $passwordValidateState
         )
-        .map { $0.0 == .valid && $0.1 == .valid && $0.2 == .valid && $0.3 == .valid }
+        .map {
+            $0.0 == .valid &&
+            $0.1 == .valid &&
+            $0.2 == .valid &&
+            $0.3 == .valid
+        }
+        
+        let publisherTwo = $reasonValidateState.map { reasonValidateState -> Bool in
+            guard self.approvalRequired else { return true }
+            return reasonValidateState == .valid
+        }
         
         Publishers.CombineLatest(
             publisherOne,
-            approvalRequired ? reasonValidateState.map { $0 == .valid }.eraseToAnyPublisher() : Just(true).eraseToAnyPublisher()
+            publisherTwo
         )
         .map { $0 && $1 }
-        .assign(to: \.value, on: isAllValid)
+        .assign(to: \.isAllValid, on: self)
         .store(in: &disposeBag)
     }
 }

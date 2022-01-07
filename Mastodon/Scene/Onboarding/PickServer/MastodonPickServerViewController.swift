@@ -375,8 +375,8 @@ extension MastodonPickServerViewController {
                     self.coordinator.present(scene: .mastodonServerRules(viewModel: mastodonServerRulesViewModel), from: self, transition: .show)
                 } else {
                     let mastodonRegisterViewModel = MastodonRegisterViewModel(
-                        domain: server.domain,
                         context: self.context,
+                        domain: server.domain,
                         authenticateInfo: response.authenticateInfo,
                         instance: response.instance.value,
                         applicationToken: response.applicationToken.value

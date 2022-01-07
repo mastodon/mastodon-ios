@@ -12,36 +12,6 @@ import PhotosUI
 import UIKit
 
 extension MastodonRegisterViewController {
-    func createMediaContextMenu() -> UIMenu {
-        var children: [UIMenuElement] = []
-        let photoLibraryAction = UIAction(title: L10n.Scene.Compose.MediaSelection.photoLibrary, image: UIImage(systemName: "rectangle.on.rectangle"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            self.present(self.imagePicker, animated: true, completion: nil)
-        }
-        children.append(photoLibraryAction)
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraAction = UIAction(title: L10n.Scene.Compose.MediaSelection.camera, image: UIImage(systemName: "camera"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off, handler: { [weak self] _ in
-                guard let self = self else { return }
-                self.present(self.imagePickerController, animated: true, completion: nil)
-            })
-            children.append(cameraAction)
-        }
-        let browseAction = UIAction(title: L10n.Scene.Compose.MediaSelection.browse, image: UIImage(systemName: "ellipsis"), identifier: nil, discoverabilityTitle: nil, attributes: [], state: .off) { [weak self] _ in
-            guard let self = self else { return }
-            self.present(self.documentPickerController, animated: true, completion: nil)
-        }
-        children.append(browseAction)
-        if self.viewModel.avatarImage.value != nil {
-            let deleteAction = UIAction(title: L10n.Scene.Register.Input.Avatar.delete, image: UIImage(systemName: "delete.left"), identifier: nil, discoverabilityTitle: nil, attributes: [.destructive], state: .off) { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.avatarImage.value = nil
-            }
-            children.append(deleteAction)
-        }
-
-        return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: children)
-    }
-    
     private func cropImage(image: UIImage, pickerViewController: UIViewController) {
         DispatchQueue.main.async {
             let cropController = CropViewController(croppingStyle: .default, image: image)
@@ -49,6 +19,12 @@ extension MastodonRegisterViewController {
             cropController.setAspectRatioPreset(.presetSquare, animated: true)
             cropController.aspectRatioPickerButtonHidden = true
             cropController.aspectRatioLockEnabled = true
+            
+            // fix iPad compatibility issue
+            // ref: https://github.com/TimOliver/TOCropViewController/issues/365#issuecomment-550239604
+            cropController.modalTransitionStyle = .crossDissolve
+            cropController.transitioningDelegate = nil
+            
             pickerViewController.dismiss(animated: true, completion: {
                 self.present(cropController, animated: true, completion: nil)
             })
@@ -57,7 +33,6 @@ extension MastodonRegisterViewController {
 }
 
 // MARK: - PHPickerViewControllerDelegate
-
 extension MastodonRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         guard let itemProvider = results.first?.itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) else {
@@ -86,7 +61,6 @@ extension MastodonRegisterViewController: PHPickerViewControllerDelegate {
 }
 
 // MARK: - UIImagePickerControllerDelegate
-
 extension MastodonRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
@@ -103,7 +77,6 @@ extension MastodonRegisterViewController: UIImagePickerControllerDelegate & UINa
 }
 
 // MARK: - UIDocumentPickerDelegate
-
 extension MastodonRegisterViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else { return }
@@ -121,10 +94,9 @@ extension MastodonRegisterViewController: UIDocumentPickerDelegate {
 }
 
 // MARK: - CropViewControllerDelegate
-
 extension MastodonRegisterViewController: CropViewControllerDelegate {
     public func cropViewController(_ cropViewController: CropViewController, didCropToImage image: UIImage, withRect cropRect: CGRect, angle: Int) {
-        self.viewModel.avatarImage.value = image
+        self.viewModel.avatarImage = image
         cropViewController.dismiss(animated: true, completion: nil)
     }
 }

@@ -10,6 +10,18 @@ import MastodonExtension
 
 public final class ShadowBackgroundContainer: UIView {
     
+    public var shadowAlpha: CGFloat = 0.25 {
+        didSet { setNeedsLayout() }
+    }
+    
+    public var shadowColor: UIColor = .black {
+        didSet { setNeedsLayout() }
+    }
+    
+    public var cornerRadius: CGFloat = 10 {
+        didSet { setNeedsLayout() }
+    }
+    
     public let shadowLayer = CALayer()
     
     override init(frame: CGRect) {
@@ -34,15 +46,15 @@ extension ShadowBackgroundContainer {
         
         shadowLayer.frame = bounds
         shadowLayer.setupShadow(
-            color: .black,
-            alpha: 0.25,
+            color: shadowColor,
+            alpha: Float(shadowAlpha),
             x: 0,
             y: 1,
             blur: 2,
             spread: 0,
             roundedRect: bounds,
             byRoundingCorners: .allCorners,
-            cornerRadii: CGSize(width: 10, height: 10)
+            cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)
         )
     }
 }

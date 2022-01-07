@@ -91,12 +91,14 @@ internal enum Asset {
   }
   internal enum Scene {
     internal enum Onboarding {
+      internal static let avatarPlaceholder = ImageAsset(name: "Scene/Onboarding/avatar.placeholder")
       internal static let navigationBackButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background")
       internal static let navigationBackButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.back.button.background.highlighted")
       internal static let navigationNextButtonBackground = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background")
       internal static let navigationNextButtonBackgroundHighlighted = ColorAsset(name: "Scene/Onboarding/navigation.next.button.background.highlighted")
       internal static let onboardingBackground = ColorAsset(name: "Scene/Onboarding/onboarding.background")
       internal static let searchBarBackground = ColorAsset(name: "Scene/Onboarding/search.bar.background")
+      internal static let textFieldBackground = ColorAsset(name: "Scene/Onboarding/textField.background")
     }
     internal enum Profile {
       internal enum Banner {

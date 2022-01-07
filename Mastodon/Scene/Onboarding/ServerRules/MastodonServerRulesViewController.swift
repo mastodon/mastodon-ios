@@ -26,24 +26,6 @@ final class MastodonServerRulesViewController: UIViewController, NeedsDependency
     
     let stackView = UIStackView()
     
-    let largeTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = MastodonServerRulesViewController.largeTitleFont
-        label.textColor = MastodonServerRulesViewController.largeTitleTextColor
-        label.text = L10n.Scene.ServerRules.title
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private(set) lazy var subtitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = MastodonServerRulesViewController.subTitleFont
-        label.textColor = MastodonServerRulesViewController.subTitleTextColor
-        label.text = L10n.Scene.ServerRules.subtitle(viewModel.domain)
-        label.numberOfLines = 0
-        return label
-    }()
-    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(OnboardingHeadlineTableViewCell.self, forCellReuseIdentifier: String(describing: OnboardingHeadlineTableViewCell.self))
@@ -135,7 +117,13 @@ extension MastodonServerRulesViewController {
     @objc private func nextButtonPressed(_ sender: UIButton) {
         logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
 
-        let viewModel = MastodonRegisterViewModel(domain: viewModel.domain, context: context, authenticateInfo: viewModel.authenticateInfo, instance: viewModel.instance, applicationToken: viewModel.applicationToken)
+        let viewModel = MastodonRegisterViewModel(
+            context: context,
+            domain: viewModel.domain,
+            authenticateInfo: viewModel.authenticateInfo,
+            instance: viewModel.instance,
+            applicationToken: viewModel.applicationToken
+        )
         coordinator.present(scene: .mastodonRegister(viewModel: viewModel), from: self, transition: .show)
     }
     

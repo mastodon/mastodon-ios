@@ -14,6 +14,7 @@ import MastodonMeta
 
 final class ProfileHeaderViewModel {
     
+    static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
     static let maxProfileFieldCount = 4
     
     var disposeBag = Set<AnyCancellable>()
@@ -190,8 +191,8 @@ extension ProfileHeaderViewModel {
         let image: UIImage? = {
             guard case let .image(_image) = editProfileInfo.avatarImageResource.value else { return nil }
             guard let image = _image else { return nil }
-            guard image.size.width <= MastodonRegisterViewController.avatarImageMaxSizeInPixel.width else {
-                return image.af.imageScaled(to: MastodonRegisterViewController.avatarImageMaxSizeInPixel)
+            guard image.size.width <= ProfileHeaderViewModel.avatarImageMaxSizeInPixel.width else {
+                return image.af.imageScaled(to: ProfileHeaderViewModel.avatarImageMaxSizeInPixel)
             }
             return image
         }()

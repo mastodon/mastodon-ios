@@ -25,7 +25,7 @@ extension ServerRuleSection {
                 return cell
             case .rule(let ruleContext):
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ServerRulesTableViewCell.self), for: indexPath) as! ServerRulesTableViewCell
-                cell.indexImageView.image = UIImage(systemName: "\(ruleContext.index).circle.fill") ?? UIImage(systemName: "questionmark.circle.fill")
+                cell.indexImageView.image = UIImage(systemName: "\(ruleContext.index + 1).circle.fill") ?? UIImage(systemName: "questionmark.circle.fill")
                 cell.ruleLabel.text = ruleContext.rule.text
                 return cell
             }

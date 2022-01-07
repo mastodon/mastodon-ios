@@ -16,11 +16,11 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     static let avatarImageMaxSizeInPixel = CGSize(width: 400, height: 400)
     
-    static let textFieldLabelFont = UIFontMetrics(forTextStyle: .headline).scaledFont(for: .systemFont(ofSize: 17, weight: .semibold), maximumPointSize: 22)
-    static let errorPromptLabelFont = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: .systemFont(ofSize: 13, weight: .semibold), maximumPointSize: 18)
+    let logger = Logger(subsystem: "MastodonRegisterViewController", category: "ViewController")
     
     var disposeBag = Set<AnyCancellable>()
-    
+    private var observations = Set<NSKeyValueObservation>()
+
     weak var context: AppContext! { willSet { precondition(!isViewLoaded) } }
     weak var coordinator: SceneCoordinator! { willSet { precondition(!isViewLoaded) } }
     
@@ -51,236 +51,30 @@ final class MastodonRegisterViewController: UIViewController, NeedsDependency, O
     
     let tapGestureRecognizer = UITapGestureRecognizer.singleTapGestureRecognizer
     
-    let scrollView: UIScrollView = {
-        let scrollview = UIScrollView()
-        scrollview.showsVerticalScrollIndicator = false
-        scrollview.keyboardDismissMode = .interactive
-        scrollview.alwaysBounceVertical = true
-        scrollview.clipsToBounds = false // make content could display over bleeding
-        scrollview.translatesAutoresizingMaskIntoConstraints = false
-        return scrollview
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
+        tableView.keyboardDismissMode = .onDrag
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = .leastNonzeroMagnitude
+        } else {
+            // Fallback on earlier versions
+        }
+        return tableView
     }()
     
-    let stackView = UIStackView()
-    
-    let largeTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFontMetrics(forTextStyle: .largeTitle).scaledFont(for: .systemFont(ofSize: 34, weight: .bold))
-        label.textColor = Asset.Colors.Label.primary.color
-        label.text = L10n.Scene.Register.title
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    let avatarView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .clear
-        return view
-    }()
-    
-    let avatarButton: UIButton = {
-        let button = HighlightDimmableButton()
-        let boldFont = UIFont.systemFont(ofSize: 42)
-        let configuration = UIImage.SymbolConfiguration(font: boldFont)
-        let image = UIImage(systemName: "person.fill.viewfinder", withConfiguration: configuration)
-
-        button.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: UIControl.State.normal)
-        button.imageView?.tintColor = Asset.Colors.Label.secondary.color
-        button.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        button.layer.cornerRadius = 10
-        button.clipsToBounds = true
-        
-        return button
-    }()
-    
-    let plusIconImageView: UIImageView = {
-        let icon = UIImageView()
-        let image = Asset.Circles.plusCircleFill.image.withRenderingMode(.alwaysTemplate)
-        icon.image = image
-        icon.tintColor = Asset.Colors.Icon.plus.color
-        icon.backgroundColor = UIColor(dynamicProvider: { collection in
-            switch collection.userInterfaceStyle {
-            case .dark:
-                return Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-            default:
-                return .white
-            }
-        })
-        return icon
-    }()
-    
-    let domainLabel: UILabel = {
-        let label = UILabel()
-        label.font = MastodonRegisterViewController.textFieldLabelFont
-        label.textColor = Asset.Colors.Label.primary.color
-        return label
-    }()
-    
-    let usernameTextField: UITextField = {
-        let textField = UITextField()
-        textField.returnKeyType = .next
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Username.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        textField.font = MastodonRegisterViewController.textFieldLabelFont
-        textField.leftView = {
-            let containerView = UIView()
-            
-            let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-            paddingView.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(paddingView)
-            NSLayoutConstraint.activate([
-                paddingView.topAnchor.constraint(equalTo: containerView.topAnchor),
-                paddingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-                paddingView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-                paddingView.widthAnchor.constraint(equalToConstant: 5).priority(.defaultHigh),
-            ])
-
-            let label = UILabel()
-            label.font = MastodonRegisterViewController.textFieldLabelFont
-            label.textColor = Asset.Colors.Label.primary.color
-            label.text = " @"
-            
-            label.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(label)
-            NSLayoutConstraint.activate([
-                label.topAnchor.constraint(equalTo: containerView.topAnchor),
-                label.leadingAnchor.constraint(equalTo: paddingView.trailingAnchor),
-                label.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-                label.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            ])
-            return containerView
-        }()
-        textField.leftViewMode = .always
-        return textField
-    }()
-    
-    let usernameErrorPromptLabel: UILabel = {
-        let label = UILabel()
-        let color = Asset.Colors.danger.color
-        let font = MastodonRegisterViewController.errorPromptLabelFont
-        return label
-    }()
-    
-    let displayNameTextField: UITextField = {
-        let textField = UITextField()
-        textField.returnKeyType = .next
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.DisplayName.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-        textField.font = MastodonRegisterViewController.textFieldLabelFont
-        return textField
-    }()
-    
-    let emailTextField: UITextField = {
-        let textField = UITextField()
-        textField.returnKeyType = .next
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.keyboardType = .emailAddress
-        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Email.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-        textField.font = MastodonRegisterViewController.textFieldLabelFont
-        return textField
-    }()
-    
-    let emailErrorPromptLabel: UILabel = {
-        let label = UILabel()
-        let color = Asset.Colors.danger.color
-        let font = MastodonRegisterViewController.errorPromptLabelFont
-        return label
-    }()
-    
-    let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.keyboardType = .asciiCapable
-        textField.isSecureTextEntry = true
-        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Password.placeholder,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-        textField.font = MastodonRegisterViewController.textFieldLabelFont
-        return textField
-    }()
-    
-    let passwordCheckLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    let passwordErrorPromptLabel: UILabel = {
-        let label = UILabel()
-        let color = Asset.Colors.danger.color
-        let font = MastodonRegisterViewController.errorPromptLabelFont
-        return label
-    }()
-    
-    
-    lazy var reasonTextField: UITextField = {
-        let textField = UITextField()
-        textField.returnKeyType = .next // set to "Return" depends on if the last input field or not
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        textField.backgroundColor = Asset.Theme.Mastodon.secondaryGroupedSystemBackground.color
-        textField.textColor = Asset.Colors.Label.primary.color
-        textField.attributedPlaceholder = NSAttributedString(string: L10n.Scene.Register.Input.Invite.registrationUserInviteRequest,
-                                                             attributes: [NSAttributedString.Key.foregroundColor: Asset.Colors.Label.secondary.color,
-                                                                          NSAttributedString.Key.font: MastodonRegisterViewController.textFieldLabelFont])
-        textField.borderStyle = UITextField.BorderStyle.roundedRect
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-        textField.font = MastodonRegisterViewController.textFieldLabelFont
-        return textField
-    }()
-    
-    let reasonErrorPromptLabel: UILabel = {
-        let label = UILabel()
-        let color = Asset.Colors.danger.color
-        let font = MastodonRegisterViewController.errorPromptLabelFont
-        return label
-    }()
-    
-    let buttonContainer = UIView()
-    let signUpButton: PrimaryActionButton = {
-        let button = PrimaryActionButton()
-        button.isEnabled = false
-        button.setTitle(L10n.Common.Controls.Actions.continue, for: .normal)
-        return button
+    let navigationActionView: NavigationActionView = {
+        let navigationActionView = NavigationActionView()
+        navigationActionView.backgroundColor = Asset.Scene.Onboarding.onboardingBackground.color
+        return navigationActionView
     }()
     
     deinit {
         os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
     }
+    
 }
 
 extension MastodonRegisterViewController {
@@ -289,517 +83,200 @@ extension MastodonRegisterViewController {
         super.viewDidLoad()
         
         setupOnboardingAppearance()
-        configureTitleLabel()
         defer {
             setupNavigationBarBackgroundView()
-            configureFormLayout()
         }
         
-        avatarButton.menu = createMediaContextMenu()
-        avatarButton.showsMenuAsPrimaryAction = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
         
-        domainLabel.text = "@" + viewModel.domain + "  "
-        domainLabel.sizeToFit()
-        passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: .empty)
-        usernameTextField.rightView = domainLabel
-        usernameTextField.rightViewMode = .always
-        usernameTextField.delegate = self
-        displayNameTextField.delegate = self
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-        
-        // gesture
-        view.addGestureRecognizer(tapGestureRecognizer)
-        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
-        
-        // stackView
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.spacing = 40
-        stackView.layoutMargins = UIEdgeInsets(top: 20, left: 0, bottom: 26, right: 0)
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.addArrangedSubview(largeTitleLabel)
-        stackView.addArrangedSubview(avatarView)
-
-        let formTableStackView = UIStackView()
-        stackView.addArrangedSubview(formTableStackView)
-        formTableStackView.axis = .vertical
-        formTableStackView.distribution = .fill
-        formTableStackView.spacing = 40
-        
-        formTableStackView.addArrangedSubview(usernameTextField)
-        formTableStackView.addArrangedSubview(displayNameTextField)
-        formTableStackView.addArrangedSubview(emailTextField)
-        formTableStackView.addArrangedSubview(passwordTextField)
-        formTableStackView.addArrangedSubview(passwordCheckLabel)
-        if viewModel.approvalRequired {
-            formTableStackView.addArrangedSubview(reasonTextField)
+        navigationActionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navigationActionView)
+        defer {
+            view.bringSubviewToFront(navigationActionView)
         }
-        
-        usernameErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        formTableStackView.addSubview(usernameErrorPromptLabel)
         NSLayoutConstraint.activate([
-            usernameErrorPromptLabel.topAnchor.constraint(equalTo: usernameTextField.bottomAnchor, constant: 6),
-            usernameErrorPromptLabel.leadingAnchor.constraint(equalTo: usernameTextField.leadingAnchor),
-            usernameErrorPromptLabel.trailingAnchor.constraint(equalTo: usernameTextField.trailingAnchor),
+            navigationActionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationActionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: navigationActionView.bottomAnchor),
         ])
         
-        emailErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        formTableStackView.addSubview(emailErrorPromptLabel)
-        NSLayoutConstraint.activate([
-            emailErrorPromptLabel.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 6),
-            emailErrorPromptLabel.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
-            emailErrorPromptLabel.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
-        ])
+        navigationActionView
+            .observe(\.bounds, options: [.initial, .new]) { [weak self] navigationActionView, _ in
+                guard let self = self else { return }
+                let inset = navigationActionView.frame.height
+                self.tableView.contentInset.bottom = inset
+            }
+            .store(in: &observations)
         
-        passwordErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-        formTableStackView.addSubview(passwordErrorPromptLabel)
-        NSLayoutConstraint.activate([
-            passwordErrorPromptLabel.topAnchor.constraint(equalTo: passwordCheckLabel.bottomAnchor, constant: 2),
-            passwordErrorPromptLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
-            passwordErrorPromptLabel.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
-        ])
-
-        // scrollView
-        view.addSubview(scrollView)
-        NSLayoutConstraint.activate([
-            scrollView.frameLayoutGuide.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
-            scrollView.frameLayoutGuide.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
-            view.readableContentGuide.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor),
-            scrollView.frameLayoutGuide.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            scrollView.frameLayoutGuide.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
-        ])
-
-        // stackView
-        scrollView.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.contentLayoutGuide.widthAnchor),
-            scrollView.contentLayoutGuide.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-        ])
-
-        // photoview
-        avatarView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.addSubview(avatarButton)
-        NSLayoutConstraint.activate([
-            avatarView.heightAnchor.constraint(equalToConstant: 92).priority(.required - 1),
-        ])
-        avatarButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            avatarButton.heightAnchor.constraint(equalToConstant: 92).priority(.required - 1),
-            avatarButton.widthAnchor.constraint(equalToConstant: 92).priority(.required - 1),
-            avatarButton.leadingAnchor.constraint(greaterThanOrEqualTo: avatarView.leadingAnchor).priority(.required - 1),
-            avatarView.trailingAnchor.constraint(greaterThanOrEqualTo: avatarButton.trailingAnchor).priority(.required - 1),
-            avatarButton.centerXAnchor.constraint(equalTo: avatarView.centerXAnchor),
-            avatarButton.centerYAnchor.constraint(equalTo: avatarView.centerYAnchor),
-        ])
-
-        plusIconImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarView.addSubview(plusIconImageView)
-        NSLayoutConstraint.activate([
-            plusIconImageView.centerXAnchor.constraint(equalTo: avatarButton.trailingAnchor),
-            plusIconImageView.centerYAnchor.constraint(equalTo: avatarButton.bottomAnchor),
-        ])
-
-        // textfield
-        NSLayoutConstraint.activate([
-            usernameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
-            displayNameTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
-            emailTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50).priority(.required - 1),
-        ])
-
-        // password
-        formTableStackView.setCustomSpacing(6, after: passwordTextField)
-        formTableStackView.setCustomSpacing(32, after: passwordCheckLabel)
+        navigationActionView.backButton.addTarget(self, action: #selector(MastodonRegisterViewController.backButtonPressed(_:)), for: .touchUpInside)
+        navigationActionView.nextButton.addTarget(self, action: #selector(MastodonRegisterViewController.nextButtonPressed(_:)), for: .touchUpInside)
         
-        // return
-        if viewModel.approvalRequired {
-            reasonTextField.returnKeyType = .done
-        } else {
-            passwordTextField.returnKeyType = .done
-        }
-        
-        // button
-        formTableStackView.addArrangedSubview(buttonContainer)
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        buttonContainer.addSubview(signUpButton)
-        NSLayoutConstraint.activate([
-            signUpButton.topAnchor.constraint(equalTo: buttonContainer.topAnchor),
-            signUpButton.leadingAnchor.constraint(equalTo: buttonContainer.leadingAnchor),
-            buttonContainer.trailingAnchor.constraint(equalTo: signUpButton.trailingAnchor),
-            buttonContainer.bottomAnchor.constraint(equalTo: signUpButton.bottomAnchor),
-            signUpButton.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.required - 1),
-            buttonContainer.heightAnchor.constraint(equalToConstant: MastodonRegisterViewController.actionButtonHeight).priority(.required - 1),
-        ])
-        signUpButton.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        signUpButton.setContentHuggingPriority(.defaultLow, for: .vertical)
-        signUpButton.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        signUpButton.setContentCompressionResistancePriority(.required - 1, for: .horizontal)
-        buttonContainer.setContentCompressionResistancePriority(.required - 1, for: .vertical)
-        
-        Publishers.CombineLatest(
-            KeyboardResponderService.shared.state.eraseToAnyPublisher(),
-            KeyboardResponderService.shared.endFrame.eraseToAnyPublisher()
-        )
-        .sink(receiveValue: { [weak self] state, endFrame in
-            guard let self = self else { return }
-            
-            guard state == .dock else {
-                self.scrollView.contentInset.bottom = 0.0
-                self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
-                return
-            }
-
-            let contentFrame = self.view.convert(self.scrollView.frame, to: nil)
-            let padding = contentFrame.maxY - endFrame.minY
-            guard padding > 0 else {
-                self.scrollView.contentInset.bottom = 0.0
-                self.scrollView.verticalScrollIndicatorInsets.bottom = 0.0
-                return
-            }
-            
-            self.scrollView.contentInset.bottom = padding + 16
-            self.scrollView.verticalScrollIndicatorInsets.bottom = padding + 16
-            
-            if self.passwordTextField.isFirstResponder {
-                let contentFrame = self.buttonContainer.convert(self.signUpButton.frame, to: nil)
-                let labelPadding = contentFrame.maxY - endFrame.minY
-                let contentOffsetY = self.scrollView.contentOffset.y
-                DispatchQueue.main.async {
-                    self.scrollView.setContentOffset(CGPoint(x: 0, y: contentOffsetY + labelPadding + 16.0), animated: true)
-                }
-            }
-        })
-        .store(in: &disposeBag)
-        
-        avatarButton.publisher(for: \.isHighlighted, options: .new)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isHighlighted in
-                guard let self = self else { return }
-                let alpha: CGFloat = isHighlighted ? 0.6 : 1
-                self.plusIconImageView.alpha = alpha
-            }
-            .store(in: &disposeBag)
-
-        viewModel.isRegistering
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] isRegistering in
-                guard let self = self else { return }
-                isRegistering ? self.signUpButton.showLoading() : self.signUpButton.stopLoading()
-            }
-            .store(in: &disposeBag)
-
-        viewModel.usernameValidateState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
-                guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.usernameTextField, validateState: validateState)
-            }
-            .store(in: &disposeBag)
-        viewModel.usernameErrorPrompt
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] prompt in
-                guard let self = self else { return }
-                self.usernameErrorPromptLabel.attributedText = prompt
-            }
-            .store(in: &disposeBag)
-        viewModel.displayNameValidateState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
-                guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.displayNameTextField, validateState: validateState)
-            }
-            .store(in: &disposeBag)
-        viewModel.emailValidateState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
-                guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.emailTextField, validateState: validateState)
-            }
-            .store(in: &disposeBag)
-        viewModel.emailErrorPrompt
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] prompt in
-                guard let self = self else { return }
-                self.emailErrorPromptLabel.attributedText = prompt
-            }
-            .store(in: &disposeBag)
-        viewModel.passwordValidateState
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] validateState in
-                guard let self = self else { return }
-                self.setTextFieldValidAppearance(self.passwordTextField, validateState: validateState)
-                self.passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: validateState)
-            }
-            .store(in: &disposeBag)
-        viewModel.passwordErrorPrompt
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] prompt in
-                guard let self = self else { return }
-                self.passwordErrorPromptLabel.attributedText = prompt
-            }
-            .store(in: &disposeBag)
-        viewModel.reasonErrorPrompt
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] prompt in
-                guard let self = self else { return }
-                self.reasonErrorPromptLabel.attributedText = prompt
-            }
-            .store(in: &disposeBag)
-        
-        viewModel.isAllValid
+        viewModel.$isAllValid
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isAllValid in
                 guard let self = self else { return }
-                self.signUpButton.isEnabled = isAllValid
+                self.navigationActionView.nextButton.isEnabled = isAllValid
             }
             .store(in: &disposeBag)
-
-        viewModel.error
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] error in
-                guard let self = self else { return }
-                guard let error = error as? Mastodon.API.Error else { return }
-                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
-                alertController.addAction(okAction)
-                self.coordinator.present(
-                    scene: .alertController(alertController: alertController),
-                    from: nil,
-                    transition: .alertController(animated: true, completion: nil)
-                )
-            }
+        
+        viewModel.setupDiffableDataSource(tableView: tableView)
+        
+        KeyboardResponderService
+            .configure(
+                scrollView: tableView,
+                layoutNeedsUpdate: viewModel.viewDidAppear.eraseToAnyPublisher()
+            )
             .store(in: &disposeBag)
 
-        viewModel.avatarImage
+        // gesture
+        view.addGestureRecognizer(tapGestureRecognizer)
+        tapGestureRecognizer.addTarget(self, action: #selector(tapGestureRecognizerHandler))
+
+//        // return
+//        if viewModel.approvalRequired {
+//            reasonTextField.returnKeyType = .done
+//        } else {
+//            passwordTextField.returnKeyType = .done
+//        }
+//
+//        viewModel.usernameValidateState
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] validateState in
+//                guard let self = self else { return }
+//                self.setTextFieldValidAppearance(self.usernameTextField, validateState: validateState)
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.usernameErrorPrompt
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] prompt in
+//                guard let self = self else { return }
+//                self.usernameErrorPromptLabel.attributedText = prompt
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.displayNameValidateState
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] validateState in
+//                guard let self = self else { return }
+//                self.setTextFieldValidAppearance(self.displayNameTextField, validateState: validateState)
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.emailValidateState
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] validateState in
+//                guard let self = self else { return }
+//                self.setTextFieldValidAppearance(self.emailTextField, validateState: validateState)
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.emailErrorPrompt
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] prompt in
+//                guard let self = self else { return }
+//                self.emailErrorPromptLabel.attributedText = prompt
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.passwordValidateState
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] validateState in
+//                guard let self = self else { return }
+//                self.setTextFieldValidAppearance(self.passwordTextField, validateState: validateState)
+//                self.passwordCheckLabel.attributedText = MastodonRegisterViewModel.attributeStringForPassword(validateState: validateState)
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.passwordErrorPrompt
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] prompt in
+//                guard let self = self else { return }
+//                self.passwordErrorPromptLabel.attributedText = prompt
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.reasonErrorPrompt
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] prompt in
+//                guard let self = self else { return }
+//                self.reasonErrorPromptLabel.attributedText = prompt
+//            }
+//            .store(in: &disposeBag)
+//        viewModel.error
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] error in
+//                guard let self = self else { return }
+//                guard let error = error as? Mastodon.API.Error else { return }
+//                let alertController = UIAlertController(for: error, title: "Sign Up Failure", preferredStyle: .alert)
+//                let okAction = UIAlertAction(title: L10n.Common.Controls.Actions.ok, style: .default, handler: nil)
+//                alertController.addAction(okAction)
+//                self.coordinator.present(
+//                    scene: .alertController(alertController: alertController),
+//                    from: nil,
+//                    transition: .alertController(animated: true, completion: nil)
+//                )
+//            }
+//            .store(in: &disposeBag)
+//
+
+        viewModel.avatarMediaMenuActionPublisher
             .receive(on: DispatchQueue.main)
-            .sink{ [weak self] image in
+            .sink { [weak self] action in
                 guard let self = self else { return }
-                self.avatarButton.menu = self.createMediaContextMenu()
-                if let avatar = image {
-                    self.avatarButton.setImage(avatar, for: .normal)
-                } else {
-                    let boldFont = UIFont.systemFont(ofSize: 42)
-                    let configuration = UIImage.SymbolConfiguration(font: boldFont)
-                    let image = UIImage(systemName: "person.fill.viewfinder", withConfiguration: configuration)
-                    self.avatarButton.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: UIControl.State.normal)
+                switch action {
+                case .photoLibrary:
+                    self.present(self.imagePicker, animated: true, completion: nil)
+                case .camera:
+                    self.present(self.imagePickerController, animated: true, completion: nil)
+                case .browse:
+                    self.present(self.documentPickerController, animated: true, completion: nil)
+                case .delete:
+                    self.viewModel.avatarImage = nil
                 }
             }
             .store(in: &disposeBag)
-        NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: usernameTextField)
+        
+        viewModel.$isRegistering
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] isRegistering in
                 guard let self = self else { return }
-                self.viewModel.username.value = self.usernameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+                isRegistering ? self.navigationActionView.nextButton.showLoading() : self.navigationActionView.nextButton.stopLoading()
             }
             .store(in: &disposeBag)
-        
-        NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: displayNameTextField)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.displayName.value = self.displayNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-            .store(in: &disposeBag)
-        
-        NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: emailTextField)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.email.value = self.emailTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-            .store(in: &disposeBag)
-        
-        NotificationCenter.default
-            .publisher(for: UITextField.textDidChangeNotification, object: passwordTextField)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                guard let self = self else { return }
-                self.viewModel.password.value = self.passwordTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            }
-            .store(in: &disposeBag)
-
-        if viewModel.approvalRequired {
-            reasonTextField.delegate = self
-            NSLayoutConstraint.activate([
-                reasonTextField.heightAnchor.constraint(equalToConstant: 50).priority(.defaultHigh),
-            ])
-            reasonErrorPromptLabel.translatesAutoresizingMaskIntoConstraints = false
-            stackView.addSubview(reasonErrorPromptLabel)
-            NSLayoutConstraint.activate([
-                reasonErrorPromptLabel.topAnchor.constraint(equalTo: reasonTextField.bottomAnchor, constant: 6),
-                reasonErrorPromptLabel.leadingAnchor.constraint(equalTo: reasonTextField.leadingAnchor),
-                reasonErrorPromptLabel.trailingAnchor.constraint(equalTo: reasonTextField.trailingAnchor),
-            ])
-            
-            viewModel.reasonValidateState
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] validateState in
-                    guard let self = self else { return }
-                    self.setTextFieldValidAppearance(self.reasonTextField, validateState: validateState)
-                }
-                .store(in: &disposeBag)
-            NotificationCenter.default
-                .publisher(for: UITextField.textDidChangeNotification, object: reasonTextField)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] _ in
-                    guard let self = self else { return }
-                    self.viewModel.reason.value = self.reasonTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                }
-                .store(in: &disposeBag)
-        }
-        
-        signUpButton.addTarget(self, action: #selector(MastodonRegisterViewController.signUpButtonPressed(_:)), for: .touchUpInside)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        plusIconImageView.layer.cornerRadius = plusIconImageView.frame.width / 2
-        plusIconImageView.layer.masksToBounds = true
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        configureTitleLabel()
-        configureFormLayout()
-    }
-}
-
-extension MastodonRegisterViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        
-        switch textField {
-        case usernameTextField:
-            viewModel.username.value = text
-        case displayNameTextField:
-            viewModel.displayName.value = text
-        case emailTextField:
-            viewModel.email.value = text
-        case passwordTextField:
-            viewModel.password.value = text
-        case reasonTextField:
-            viewModel.reason.value = text
-        default:
-            break
-        }
+        viewModel.viewDidAppear.send()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-
-        switch textField {
-        case usernameTextField:
-            viewModel.username.value = text
-        case displayNameTextField:
-            viewModel.displayName.value = text
-        case emailTextField:
-            viewModel.email.value = text
-        case passwordTextField:
-            viewModel.password.value = text
-        case reasonTextField:
-            viewModel.reason.value = text
-        default:
-            break
-        }
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case usernameTextField:
-            displayNameTextField.becomeFirstResponder()
-        case displayNameTextField:
-            emailTextField.becomeFirstResponder()
-        case emailTextField:
-            passwordTextField.becomeFirstResponder()
-        case passwordTextField:
-            if viewModel.approvalRequired {
-                reasonTextField.becomeFirstResponder()
-            } else {
-                passwordTextField.resignFirstResponder()
-            }
-        case reasonTextField:
-            reasonTextField.resignFirstResponder()
-        default:
-            break
-        }
-        return true
-    }
-    
-    func showShadowWithColor(color: UIColor, textField: UITextField) {
-        // To apply Shadow
-        textField.layer.shadowOpacity = 1
-        textField.layer.shadowRadius = 2.0
-        textField.layer.shadowOffset = CGSize.zero
-        textField.layer.shadowColor = color.cgColor
-        // textField.layer.shadowPath = UIBezierPath(roundedRect: textField.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 2.0, height: 2.0)).cgPath
-    }
-
-    private func setTextFieldValidAppearance(_ textField: UITextField, validateState: MastodonRegisterViewModel.ValidateState) {
-        switch validateState {
-        case .empty:
-            showShadowWithColor(color: textField.isFirstResponder ? Asset.Colors.brandBlue.color : .clear, textField: textField)
-        case .valid:
-            showShadowWithColor(color: Asset.Colors.TextField.valid.color, textField: textField)
-        case .invalid:
-            showShadowWithColor(color: Asset.Colors.TextField.invalid.color, textField: textField)
-        }
-    }
 }
 
 extension MastodonRegisterViewController {
-    private func configureTitleLabel() {
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            navigationItem.largeTitleDisplayMode = .always
-            navigationItem.title = L10n.Scene.ServerPicker.title.replacingOccurrences(of: "\n", with: " ")
-            largeTitleLabel.isHidden = true
-        default:
-            navigationItem.largeTitleDisplayMode = .never
-            navigationItem.title = nil
-            largeTitleLabel.isHidden = false
-        }
-    }
     
-    private func configureFormLayout() {
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            stackView.axis = .horizontal
-            stackView.distribution = .fillProportionally
-        default:
-            stackView.axis = .vertical
-            stackView.distribution = .fill
-        }
-    }
-    
-    private func configureMargin() {
-        
-    }
-}
-
-extension MastodonRegisterViewController {
     @objc private func tapGestureRecognizerHandler(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     
-    @objc private func signUpButtonPressed(_ sender: UIButton) {
-        os_log(.info, log: .debug, "%{public}s[%{public}ld], %{public}s", (#file as NSString).lastPathComponent, #line, #function)
-        guard viewModel.isAllValid.value else { return }
-        
-        guard !viewModel.isRegistering.value else { return }
-        viewModel.isRegistering.value = true
+    @objc private func backButtonPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+        navigationController?.popViewController(animated: true)
+    }
     
-        let username = viewModel.username.value
-        let email = viewModel.email.value
-        let password = viewModel.password.value
+    @objc private func nextButtonPressed(_ sender: UIButton) {
+        logger.log(level: .debug, "\((#file as NSString).lastPathComponent, privacy: .public)[\(#line, privacy: .public)], \(#function, privacy: .public)")
+
+        guard viewModel.isAllValid else { return }
+
+        guard !viewModel.isRegistering else { return }
+        viewModel.isRegistering = true
+
+        let username = viewModel.username
+        let email = viewModel.email
+        let password = viewModel.password
+        let reason = viewModel.reason
         
         let locale: String = {
             guard let url = Bundle.main.url(forResource: "local-codes", withExtension: "json"),
@@ -814,7 +291,7 @@ extension MastodonRegisterViewController {
                 guard localCode[code] != nil else { return "en" }
                 return code
             }()
-            
+
             // pick device preferred language
             guard let identifier = Locale.preferredLanguages.first else {
                 return fallbackLanguageCode
@@ -843,19 +320,19 @@ extension MastodonRegisterViewController {
                 return languageCode
             }
             return firstMatchExtendCode
-            
+
         }()
         let query = Mastodon.API.Account.RegisterQuery(
-            reason: viewModel.reason.value,
+            reason: reason,
             username: username,
             email: email,
             password: password,
             agreement: true, // user confirmed in the server rules scene
             locale: locale
         )
-        
+
         var retryCount = 0
- 
+
         // register without show server rules
         context.apiService.accountRegister(
             domain: viewModel.domain,
@@ -864,7 +341,7 @@ extension MastodonRegisterViewController {
         )
         .tryCatch { [weak self] error -> AnyPublisher<Mastodon.Response.Content<Mastodon.Entity.Token>, Error> in
             guard let self = self else { throw error }
-            guard let error = self.viewModel.error.value as? Mastodon.API.Error,
+            guard let error = self.viewModel.error as? Mastodon.API.Error,
                   case let .generic(errorEntity) = error.mastodonError,
                   errorEntity.error == "Validation failed: Locale is not included in the list"
             else {
@@ -891,10 +368,10 @@ extension MastodonRegisterViewController {
         .receive(on: DispatchQueue.main)
         .sink { [weak self] completion in
             guard let self = self else { return }
-            self.viewModel.isRegistering.value = false
+            self.viewModel.isRegistering = false
             switch completion {
             case .failure(let error):
-                self.viewModel.error.send(error)
+                self.viewModel.error = error
             case .finished:
                 break
             }
@@ -902,9 +379,9 @@ extension MastodonRegisterViewController {
             guard let self = self else { return }
             let userToken = response.value
             let updateCredentialQuery: Mastodon.API.Account.UpdateCredentialQuery = {
-                let displayName: String? = self.viewModel.displayName.value.isEmpty ? nil : self.viewModel.displayName.value
+                let displayName: String? = self.viewModel.name.isEmpty ? nil : self.viewModel.name
                 let avatar: Mastodon.Query.MediaAttachment? = {
-                    guard let avatarImage = self.viewModel.avatarImage.value else { return nil }
+                    guard let avatarImage = self.viewModel.avatarImage else { return nil }
                     guard avatarImage.size.width <= MastodonRegisterViewController.avatarImageMaxSizeInPixel.width else {
                         return .png(avatarImage.af.imageScaled(to: MastodonRegisterViewController.avatarImageMaxSizeInPixel).pngData())
                     }
@@ -920,4 +397,67 @@ extension MastodonRegisterViewController {
         }
         .store(in: &disposeBag)
     }
+    
+}
+
+extension MastodonRegisterViewController: UITextFieldDelegate {
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+//
+//        switch textField {
+//        case usernameTextField:
+//            viewModel.username.value = text
+//        case displayNameTextField:
+//            viewModel.displayName.value = text
+//        case emailTextField:
+//            viewModel.email.value = text
+//        case passwordTextField:
+//            viewModel.password.value = text
+//        case reasonTextField:
+//            viewModel.reason.value = text
+//        default:
+//            break
+//        }
+//    }
+//
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        let text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+//
+//        switch textField {
+//        case usernameTextField:
+//            viewModel.username.value = text
+//        case displayNameTextField:
+//            viewModel.displayName.value = text
+//        case emailTextField:
+//            viewModel.email.value = text
+//        case passwordTextField:
+//            viewModel.password.value = text
+//        case reasonTextField:
+//            viewModel.reason.value = text
+//        default:
+//            break
+//        }
+//    }
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        switch textField {
+//        case usernameTextField:
+//            displayNameTextField.becomeFirstResponder()
+//        case displayNameTextField:
+//            emailTextField.becomeFirstResponder()
+//        case emailTextField:
+//            passwordTextField.becomeFirstResponder()
+//        case passwordTextField:
+//            if viewModel.approvalRequired {
+//                reasonTextField.becomeFirstResponder()
+//            } else {
+//                passwordTextField.resignFirstResponder()
+//            }
+//        case reasonTextField:
+//            reasonTextField.resignFirstResponder()
+//        default:
+//            break
+//        }
+//        return true
+//    }
 }
