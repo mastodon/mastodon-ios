@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "A’ cur nan lìonraidhean sòisealta\n’nad làmhan fhèin."
+            "slogan": "A’ cur nan lìonraidhean sòisealta\n’nad làmhan fhèin.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Tagh frithealaiche sam bith.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Na h-uile",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "facal-faire",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Feumaidh ochd caractaran a bhith san fhacal-fhaire agad air a char as giorra"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "Tha sinn air post-d a chur gu %s,\nthoir gnogag air a’ chunntas a dhearbhadh a’ chunntais agad.",
             "button": {
                 "open_email_app": "Fosgail aplacaid a’ phuist-d",
-                "dont_receive_email": "Cha d’ fhuair mi post-d a-riamh"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Thoir sùil air a’ phost-d agad",
