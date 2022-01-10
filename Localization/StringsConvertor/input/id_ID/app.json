@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Social networking\nback in your hands."
+            "slogan": "Social networking\nback in your hands.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Pilih sebuah server,\nserver manapun.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Semua",
@@ -223,7 +227,7 @@
                 "category": "KATEGORI"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Search communities"
             },
             "empty_state": {
                 "finding_servers": "Mencari server yang tersedia...",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "kata sandi",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Kata sandi Anda harus memiliki sekurang-kurangnya delapan karakter"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "Kami baru saja mengirim sebuah surel ke %s,\nketuk tautannya untuk mengkonfirmasi akun Anda.",
             "button": {
                 "open_email_app": "Buka Aplikasi Surel",
-                "dont_receive_email": "Saya tidak mendapatkan surel"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Periksa surel Anda",
