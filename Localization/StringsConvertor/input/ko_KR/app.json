@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "소셜 네트워킹을\n여러분의 손에 돌려드립니다."
+            "slogan": "소셜 네트워킹을\n여러분의 손에 돌려드립니다.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "서버를 고르세요,\n아무 서버나 좋습니다.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "모두",
@@ -223,7 +227,7 @@
                 "category": "분류"
             },
             "input": {
-                "placeholder": "Find a server or join your own..."
+                "placeholder": "Search communities"
             },
             "empty_state": {
                 "finding_servers": "Finding available servers...",
@@ -232,7 +236,7 @@
             }
         },
         "register": {
-            "title": "Tell us about you.",
+            "title": "Let’s get you set up on %s",
             "input": {
                 "avatar": {
                     "delete": "삭제"
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "암호",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "암호는 최소 8글자 이상이어야 합니다"
                 },
                 "invite": {
@@ -286,7 +296,7 @@
         },
         "server_rules": {
             "title": "Some ground rules.",
-            "subtitle": "These rules are set by the admins of %s.",
+            "subtitle": "These are set and enforced by the %s moderators.",
             "prompt": "By continuing, you’re subject to the terms of service and privacy policy for %s.",
             "terms_of_service": "terms of service",
             "privacy_policy": "privacy policy",
@@ -296,10 +306,10 @@
         },
         "confirm_email": {
             "title": "마지막으로.",
-            "subtitle": "We just sent an email to %s,\ntap the link to confirm your account.",
+            "subtitle": "Tap the link we emailed to you to verify your account.",
             "button": {
                 "open_email_app": "Open Email App",
-                "dont_receive_email": "I never got an email"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Check your email",
