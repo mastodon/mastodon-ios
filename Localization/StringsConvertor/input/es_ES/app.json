@@ -194,13 +194,13 @@
     "scene": {
         "welcome": {
             "slogan": "Las redes sociales\nde nuevo en tus manos.",
-            "get_started": "Get Started",
-            "log_in": "Log In"
+            "get_started": "Empezar",
+            "log_in": "Iniciar sesión"
         },
         "server_picker": {
             "title": "Elige un servidor,\ncualquier servidor.",
-            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
-            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
+            "subtitle": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica.",
+            "subtitle_extend": "Elige una comunidad relacionada con tus intereses, con tu región o una más genérica. Cada comunidad está operada por una organización o individuo completamente independiente.",
             "button": {
                 "category": {
                     "all": "Todas",
@@ -253,11 +253,11 @@
                 },
                 "password": {
                     "placeholder": "contraseña",
-                    "require": "Your password needs at least:",
-                    "character_limit": "8 characters",
+                    "require": "Tu contraseña debe contener como mínimo:",
+                    "character_limit": "8 caracteres",
                     "accessibility": {
-                        "checked": "checked",
-                        "unchecked": "unchecked"
+                        "checked": "marcado",
+                        "unchecked": "sin marcar"
                     },
                     "hint": "Tu contraseña necesita tener al menos ocho caracteres"
                 },
@@ -309,7 +309,7 @@
             "subtitle": "Te acabamos de enviar un correo a %s,\npulsa en el enlace para confirmar tu cuenta.",
             "button": {
                 "open_email_app": "Abrir Aplicación de Correo Electrónico",
-                "resend": "Resend"
+                "resend": "Reenviar"
             },
             "dont_receive_email": {
                 "title": "Revisa tu correo electrónico",
