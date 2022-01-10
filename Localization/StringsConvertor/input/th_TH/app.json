@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "ให้เครือข่ายสังคม\nกลับมาอยู่ในมือของคุณ"
+            "slogan": "ให้เครือข่ายสังคม\nกลับมาอยู่ในมือของคุณ",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "เลือกเซิร์ฟเวอร์\nอันไหนก็ได้",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "ทั้งหมด",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "รหัสผ่าน",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "รหัสผ่านของคุณต้องมีอย่างน้อยแปดตัวอักษร"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "เราเพิ่งส่งอีเมลไปยัง %s\nแตะที่ลิงก์เพื่อยืนยันบัญชีของคุณ",
             "button": {
                 "open_email_app": "เปิดแอปอีเมล",
-                "dont_receive_email": "ฉันไม่เคยได้รับอีเมล"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "ตรวจสอบอีเมลของคุณ",
