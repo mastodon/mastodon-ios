@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "شبكات التواصل الاجتماعي\nمرة أُخرى بين يديك."
+            "slogan": "شبكات التواصل الاجتماعي\nمرة أُخرى بين يديك.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "اِختر خادِم،\nأيًّا مِنهُم.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "الكل",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "رمز سري",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "يجب أن يكون رمزك السري مكوَّن من ثمان خانات على الأقل"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "لقد أرسلنا للتو بريد إلكتروني إلى %s،\nانقر على الرابط لتأكيد حسابك.",
             "button": {
                 "open_email_app": "فتح تطبيق البريد الإلكتروني",
-                "dont_receive_email": "لم أستلم بريدًا إلكترونيًا أبدًا"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "تحقق من بريدك الإلكتروني",
