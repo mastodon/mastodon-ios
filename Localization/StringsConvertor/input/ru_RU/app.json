@@ -193,10 +193,14 @@
     },
     "scene": {
         "welcome": {
-            "slogan": "Социальная сеть\nпод вашим контролем."
+            "slogan": "Социальная сеть\nпод вашим контролем.",
+            "get_started": "Get Started",
+            "log_in": "Log In"
         },
         "server_picker": {
             "title": "Выберите сервер,\nлюбой сервер.",
+            "subtitle": "Pick a community based on your interests, region, or a general purpose one.",
+            "subtitle_extend": "Pick a community based on your interests, region, or a general purpose one. Each community is operated by an entirely independent organization or individual.",
             "button": {
                 "category": {
                     "all": "Все",
@@ -249,6 +253,12 @@
                 },
                 "password": {
                     "placeholder": "пароль",
+                    "require": "Your password needs at least:",
+                    "character_limit": "8 characters",
+                    "accessibility": {
+                        "checked": "checked",
+                        "unchecked": "unchecked"
+                    },
                     "hint": "Пароль должен содержать не менее восьми символов"
                 },
                 "invite": {
@@ -299,7 +309,7 @@
             "subtitle": "Мы только что отправили письмо на\n%s.\nНажмите на ссылку в нём, чтобы\nподтвердить свою учётную запись.",
             "button": {
                 "open_email_app": "Открыть приложение почты",
-                "dont_receive_email": "Я не получил письма"
+                "resend": "Resend"
             },
             "dont_receive_email": {
                 "title": "Проверьте свой e-mail адрес",
